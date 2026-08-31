@@ -1,0 +1,35 @@
+{
+  "id": "/",
+  "name": "União Farma — Drogaria e Perfumaria",
+  "short_name": "União Farma",
+  "description": "Consulte preço e disponibilidade. Três unidades em Sabará/MG.",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f7fbfa",
+  "theme_color": "#176f62",
+  "orientation": "any",
+  "categories": ["medical", "shopping", "lifestyle"],
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
