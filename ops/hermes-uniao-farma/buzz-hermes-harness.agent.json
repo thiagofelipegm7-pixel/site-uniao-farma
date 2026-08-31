@@ -1,0 +1,8 @@
+{
+  "id": "hermes_uniao_farma",
+  "label": "Hermes — União Farma",
+  "command": "C:\\Users\\thiag\\AppData\\Local\\hermes\\hermes-agent\\venv\\Scripts\\hermes-acp.exe",
+  "args": [],
+  "installInstructionsUrl": "https://github.com/NousResearch/hermes-agent/blob/main/website/docs/user-guide/features/acp.md",
+  "installHint": "Hermes ACP já está instalado neste computador e usa a configuração padrão do Hermes."
+}
