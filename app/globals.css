@@ -7373,7 +7373,27 @@ body { background: var(--health-paper); }
 
 .footer,
 .offers-footer,
-.content-footer { background: var(--health-navy); }
+.content-footer {
+  background: #ffffff;
+  color: #111111;
+}
+
+.footer-brand strong,
+.footer-brand p,
+.footer nav a,
+.footer-bottom-bar .anvisa-section > p,
+.offers-footer,
+.content-footer,
+.content-footer .brand,
+.content-footer .brand strong,
+.content-footer nav a {
+  color: #111111;
+}
+
+.footer nav a:hover,
+.content-footer nav a:hover {
+  color: var(--coral);
+}
 
 @media (max-width: 700px) {
   .hero,
@@ -7630,6 +7650,27 @@ body { background: var(--health-paper); }
 .footer,
 .offers-footer,
 .content-footer { background: var(--health-navy); }
+
+/* Light footer treatment requested for stronger readability. */
+.footer,
+.offers-footer,
+.content-footer {
+  background: #ffffff;
+  color: #111111;
+}
+
+.footer-brand strong,
+.footer-brand p,
+.footer nav a,
+.footer-bottom-bar .anvisa-section > p,
+.offers-footer .brand,
+.offers-footer .brand strong,
+.offers-footer nav a,
+.content-footer .brand,
+.content-footer .brand strong,
+.content-footer nav a {
+  color: #111111;
+}
 
 @media (max-width: 700px) {
   .hero,
