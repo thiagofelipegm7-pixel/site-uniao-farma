@@ -4,6 +4,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import UnitStatusBadge from "./UnitStatusBadge";
+import DirectUnitLinks from "./DirectUnitLinks";
 import { trackEvent } from "./analytics";
 import {
   buildWhatsAppUrl,
@@ -527,10 +528,10 @@ export default function Home() {
             <a href="#avaliacoes" onClick={() => setMenuOpen(false)}>
               Avaliações
             </a>
-            <button type="button" className="header-cta" onClick={() => openSelector(generalIntent)}>
+            <a className="header-cta" href="#unidades-rapidas" onClick={() => setMenuOpen(false)}>
               <WhatsAppIcon />
-              Consultar no WhatsApp
-            </button>
+              Escolher unidade
+            </a>
           </div>
           {menuOpen && (
             <button
@@ -558,10 +559,13 @@ export default function Home() {
                 Consulte produtos, preço e disponibilidade pelo WhatsApp da unidade mais próxima.
               </p>
               <div className="hero-actions" ref={consultationRef}>
-                <button type="button" className="button-hero-cta" onClick={() => openSelector(generalIntent)}>
-                  <WhatsAppIcon />
-                  Pedir pelo WhatsApp
-                </button>
+                <DirectUnitLinks
+                  message={generalIntent.message}
+                  intent={generalIntent.eventName}
+                  source="home_hero"
+                  heading="Escolha sua unidade e fale direto com a equipe"
+                  description="Consulte preço, estoque ou faça seu pedido pelo WhatsApp."
+                />
                 <a className="hero-secondary-link" href="/ofertas">
                   Ver ofertas disponíveis
                 </a>
@@ -697,17 +701,14 @@ export default function Home() {
                 <li>Confirme taxa, prazo e disponibilidade no momento do pedido.</li>
                 <li>Escolha a forma de pagamento oferecida pela loja.</li>
               </ul>
-              <button
-                type="button"
-                className="button button-light"
-                onClick={() => {
-                  trackEvent("delivery_inquiry", { source: "home_delivery_section" });
-                  openSelector(deliveryIntent);
-                }}
-              >
-                <WhatsAppIcon />
-                Consultar entrega
-              </button>
+              <DirectUnitLinks
+                message={deliveryIntent.message}
+                intent={deliveryIntent.eventName}
+                source="home_delivery_section"
+                heading="Informe seu bairro pelo WhatsApp"
+                description="Escolha a unidade e confirme região, taxa e prazo de entrega."
+                compact
+              />
             </div>
             <div className="delivery-visual" aria-hidden="true">
               <LineIcon name="delivery" size={92} />
@@ -1021,14 +1022,14 @@ export default function Home() {
               ))}
             </div>
             <div className="faq-cta">
-              <button
-                type="button"
-                className="button button-whatsapp compact-button"
-                onClick={() => openSelector(generalIntent)}
-              >
-                <WhatsAppIcon />
-                Falar com uma unidade
-              </button>
+              <DirectUnitLinks
+                message={generalIntent.message}
+                intent={generalIntent.eventName}
+                source="home_faq"
+                heading="Fale diretamente com uma unidade"
+                description="Escolha a loja mais conveniente para você."
+                compact
+              />
             </div>
           </div>
         </section>
@@ -1119,10 +1120,10 @@ export default function Home() {
           <LineIcon name="map" size={20} />
           Unidades
         </a>
-        <button type="button" className="floating-btn floating-whatsapp" onClick={() => openSelector(generalIntent)}>
+        <a className="floating-btn floating-whatsapp" href="#unidades-rapidas">
           <WhatsAppIcon />
-          Consultar
-        </button>
+          Escolher unidade
+        </a>
       </div>
 
       <UnitSelectorModal intent={selectorIntent} onClose={() => setSelectorIntent(null)} />

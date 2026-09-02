@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
 import { buildWhatsAppUrl, SITE_URL, UNITS, type Unit } from "./site-config";
+import DirectUnitLinks from "./DirectUnitLinks";
 import type { FaqItem } from "./seo-content";
 import { getPageStructuredData } from "./structured-data";
 import { SiteDirectoryLinks } from "./SiteDirectoryLinks";
@@ -97,24 +98,13 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
               <p className="section-kicker light">{config.eyebrow}</p>
               <h1>{config.heading}</h1>
               <p className="unit-page-address">{config.lead}</p>
-              <div className="unit-page-actions">
-                <a
-                  className="button button-light"
-                  href="#unidades-landing"
-                  data-track-event="unit_selector_view"
-                  data-track-source={config.slug}
-                >
-                  {config.primaryLabel}
-                </a>
-                <a
-                  className="button button-outline-light"
-                  href="#unidades-landing"
-                  data-track-event="unit_selector_view"
-                  data-track-source={`${config.slug}_hero_secondary_cta`}
-                >
-                  Consultar pelo WhatsApp
-                </a>
-              </div>
+              <DirectUnitLinks
+                message={config.primaryMessage}
+                intent={config.slug}
+                source={`${config.slug}_hero`}
+                heading="Escolha uma unidade e fale direto pelo WhatsApp"
+                description="Consulte preço, estoque, entrega ou atendimento sem preencher formulários."
+              />
               <p className="unit-page-note">
                 Preços, estoque, disponibilidade de entrega e horários especiais devem ser confirmados diretamente com a unidade.
               </p>

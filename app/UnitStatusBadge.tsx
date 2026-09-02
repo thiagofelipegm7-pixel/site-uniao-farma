@@ -93,14 +93,19 @@ export function getUnitOpenStatus(unit: Unit, date = new Date()): {
 }
 
 export default function UnitStatusBadge({ unit }: { unit: Unit }) {
-  const [now, setNow] = useState(() => new Date());
+  // Keep the server render and the first browser render identical so the live
+  // status does not trigger a hydration mismatch.
+  const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
     const timer = window.setInterval(() => setNow(new Date()), 60_000);
     return () => window.clearInterval(timer);
   }, []);
 
-  const status = useMemo(() => getUnitOpenStatus(unit, now), [unit, now]);
+  const status = useMemo(
+    () => (now ? getUnitOpenStatus(unit, now) : { isOpen: false, label: "Verificando horário…" }),
+    [unit, now],
+  );
 
   return (
     <span className={`open-status ${status.isOpen ? "is-open" : "is-closed"}`}>
