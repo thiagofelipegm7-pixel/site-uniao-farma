@@ -60,11 +60,17 @@ test("expires an offer automatically after validUntil without extending it", () 
 test("keeps site publication separate from Google Ads eligibility", () => {
   assert.equal(canUseInAds(baseOffer).eligible, false);
   assert.equal(
-    canUseInAds({ ...baseOffer, validityConfirmed: true, validityType: "date", validUntil: "2026-08-30", adsEligible: true }).eligible,
+    canUseInAds(
+      { ...baseOffer, validityConfirmed: true, validityType: "date", validUntil: "2026-08-30", adsEligible: true },
+      new Date("2026-08-16T12:00:00-03:00"),
+    ).eligible,
     true,
   );
   assert.equal(
-    canUseInAds({ ...baseOffer, validityConfirmed: true, validityType: "while_stock_lasts", validUntil: undefined, adsEligible: true }).eligible,
+    canUseInAds(
+      { ...baseOffer, validityConfirmed: true, validityType: "while_stock_lasts", validUntil: undefined, adsEligible: true },
+      new Date("2026-08-16T12:00:00-03:00"),
+    ).eligible,
     true,
   );
 });
