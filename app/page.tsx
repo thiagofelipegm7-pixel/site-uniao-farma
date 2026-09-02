@@ -674,14 +674,6 @@ export default function Home() {
             <div className="delivery-copy">
               <p className="section-kicker light">Comodidade para sua rotina</p>
               <h2 id="delivery-title">Consulte entrega no seu bairro</h2>
-              <p>
-                {SITE_OPTIONS.delivery.coverageText} {SITE_OPTIONS.delivery.paymentText}
-              </p>
-              <ul className="check-list light-list">
-                <li>Informe seu bairro ou endereço para a unidade.</li>
-                <li>Confirme taxa, prazo e disponibilidade no momento do pedido.</li>
-                <li>Escolha a forma de pagamento oferecida pela loja.</li>
-              </ul>
               <DirectUnitLinks
                 message={deliveryIntent.message}
                 intent={deliveryIntent.eventName}
