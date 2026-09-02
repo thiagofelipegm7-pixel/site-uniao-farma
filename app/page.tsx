@@ -500,11 +500,11 @@ export default function Home() {
             <a href="/receita" onClick={() => setMenuOpen(false)}>
               Receita
             </a>
-            <button className="header-cta" type="button" onClick={() => openSelector(generalIntent)}>
-              <WhatsAppIcon />
-              Pedir no WhatsApp
-            </button>
           </div>
+          <button className="header-cta" type="button" onClick={() => openSelector(generalIntent)}>
+            <WhatsAppIcon />
+            Pedir no WhatsApp
+          </button>
           {menuOpen && (
             <button
               type="button"

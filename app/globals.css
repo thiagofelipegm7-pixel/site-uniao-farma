@@ -4205,6 +4205,81 @@ h3 {
   }
 }
 
+/* Surgical UX fixes: non-blocking consent, per-unit CTA visibility and calm compliance footer. */
+:root {
+  --uf-ink: #16382f;
+  --uf-ink-soft: #3e5a52;
+  --uf-teal: #0e9a8a;
+  --uf-wa: #128c7e;
+  --uf-offer: #c4453a;
+  --uf-mint: #f6fbf8;
+  --uf-cream: #f8f3ea;
+  --uf-card: #ffffff;
+  --uf-line: #d5e6de;
+  --uf-footer-bg: #f3f7f5;
+}
+
+.nav > .header-cta {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--uf-wa, #128c7e);
+  color: #ffffff;
+  padding: 0 18px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.nav > .header-cta:hover { background: #0e7a6e; }
+.hero-lead, .direct-unit-links-copy span { color: var(--uf-ink-soft, #3e5a52); }
+.direct-unit-actions a { min-height: 44px; }
+
+.cookie-banner {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  max-width: none;
+  border-width: 1px 0 0;
+  border-radius: 0;
+  background: #ffffff;
+  color: #16382f;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
+  box-shadow: 0 -4px 18px rgba(22, 56, 47, 0.08);
+}
+
+.cookie-banner p { color: #3e5a52; }
+.cookie-banner a { color: #0e9a8a; }
+.cookie-actions { flex-shrink: 0; }
+.cookie-accept { background: #128c7e; border-color: #128c7e; }
+
+.footer, .offers-footer, .content-footer { background: #f3f7f5; color: #16382f; }
+.footer-brand strong, .footer-brand p, .footer nav a,
+.offers-footer .brand, .offers-footer .brand strong, .offers-footer nav a,
+.content-footer .brand, .content-footer .brand strong, .content-footer nav a { color: #0e9a8a; }
+.footer-bottom-bar .anvisa-section {
+  justify-self: center;
+  border: 1px solid #d5e6de;
+  border-radius: 18px;
+  background: #ffffff;
+  padding: 10px 18px 12px;
+}
+
+@media (max-width: 700px) {
+  .nav > .header-cta { min-width: 44px; width: 44px; padding: 0; border-radius: 12px; }
+  .nav > .header-cta img { width: 22px; height: 22px; }
+  .nav > .header-cta { font-size: 0; }
+  .cookie-banner { max-height: 88px; overflow: hidden; }
+  .cookie-banner strong { font-size: 13px; }
+  .cookie-banner p { margin-top: 2px; font-size: 10px; line-height: 1.25; }
+  .cookie-actions { display: block; }
+  .cookie-actions button { width: auto; min-height: 40px; padding: 7px 14px; }
+}
+
 /* Final mobile priority overrides (kept last to win over legacy responsive rules). */
 @media (max-width: 700px) {
   .hero,

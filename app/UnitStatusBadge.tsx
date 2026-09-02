@@ -67,6 +67,13 @@ function getNextOpening(unit: Unit, currentWeekday: Weekday, currentMinutes: num
   return "horário indisponível";
 }
 
+function getFallbackLabel(unit: Unit): string {
+  const weekday = unit.schedule.mon;
+  const saturday = unit.schedule.sat;
+  const sunday = unit.schedule.sun;
+  return `Horário: Seg–sex ${weekday?.open.slice(0, 5)}–${weekday?.close.slice(0, 5)} · Sáb ${saturday?.open.slice(0, 5)}–${saturday?.close.slice(0, 5)} · Dom ${sunday?.open.slice(0, 5)}–${sunday?.close.slice(0, 5)}`;
+}
+
 export function getUnitOpenStatus(unit: Unit, date = new Date()): {
   isOpen: boolean;
   label: string;
@@ -103,7 +110,7 @@ export default function UnitStatusBadge({ unit }: { unit: Unit }) {
   }, []);
 
   const status = useMemo(
-    () => (now ? getUnitOpenStatus(unit, now) : { isOpen: false, label: "Verificando horário…" }),
+    () => now ? getUnitOpenStatus(unit, now) : { isOpen: false, label: getFallbackLabel(unit) },
     [unit, now],
   );
 

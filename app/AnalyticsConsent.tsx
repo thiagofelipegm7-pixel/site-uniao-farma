@@ -187,9 +187,6 @@ export default function AnalyticsConsent() {
             </p>
           </div>
           <div className="cookie-actions">
-            <button type="button" className="cookie-reject" onClick={() => saveConsent("rejected")}>
-              Rejeitar opcionais
-            </button>
             <button type="button" className="cookie-accept" onClick={() => saveConsent("accepted")}>
               Aceitar
             </button>
