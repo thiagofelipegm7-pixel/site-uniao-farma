@@ -45,8 +45,14 @@ function buildOfferMessage(unit: Unit, context: SelectorContext): string {
   return `Olá! Vi uma oferta no site da União Farma e gostaria de consultar disponibilidade na unidade ${unit.shortName}. Produto: ${context.offer.name}.`;
 }
 
-function buildWhatsAppUrl(unit: Unit, message: string): string {
-  const params = new URLSearchParams({ text: message });
+function buildWhatsAppUrl(unit: Unit, message: string, content = "offers_page"): string {
+  const params = new URLSearchParams({
+    text: message,
+    utm_source: "site",
+    utm_medium: "whatsapp",
+    utm_campaign: "ofertas",
+    utm_content: content,
+  });
   return `https://wa.me/${unit.whatsappDigits}?${params.toString()}`;
 }
 
@@ -95,7 +101,7 @@ function UnitSelector({ context, onClose }: { context: SelectorContext | null; o
             <a
               key={unit.id}
               className="offers-unit-option"
-              href={buildWhatsAppUrl(unit, buildOfferMessage(unit, context))}
+              href={buildWhatsAppUrl(unit, buildOfferMessage(unit, context), `offers_${context.offer?.id ?? "general"}_${unit.id}`)}
               target="_blank"
               rel="noreferrer"
               onClick={() => {
@@ -143,10 +149,8 @@ function formatOfferValidity(value: string): string {
 
 function OfferCard({
   offer,
-  onSelect,
 }: {
   offer: Offer;
-  onSelect: (context: SelectorContext) => void;
 }) {
   return (
     <article
@@ -176,15 +180,37 @@ function OfferCard({
         ) : (
           <p className="offer-validity">Consulte a validade da oferta com a unidade.</p>
         )}
-        <button
-          type="button"
-          className="offer-primary-cta"
-          onClick={() => {
-            onSelect({ action: "availability", offer });
-          }}
-        >
-          <WhatsAppIcon /> Consultar disponibilidade
-        </button>
+        <div className="offer-direct-unit-links" aria-label={`Consultar ${offer.name} por unidade`}>
+          <span>Consultar direto na unidade:</span>
+          <div>
+            {UNITS.map((unit) => (
+              <a
+                key={unit.id}
+                href={buildWhatsAppUrl(unit, buildOfferMessage(unit, { action: "availability", offer }), `offer_${offer.id}_${unit.id}`)}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => {
+                  trackEvent("offer_unit_select", {
+                    offer_id: offer.id,
+                    category: offer.category,
+                    unit: unit.id,
+                    source: "offers_page",
+                    placement: "offer_card_direct",
+                  });
+                  trackEvent("whatsapp_click", {
+                    offer_id: offer.id,
+                    category: offer.category,
+                    unit: unit.id,
+                    source: "offers_page",
+                    placement: "offer_card_direct",
+                  });
+                }}
+              >
+                <WhatsAppIcon /> {unit.shortName}
+              </a>
+            ))}
+          </div>
+        </div>
       </div>
     </article>
   );
@@ -260,19 +286,6 @@ export default function OffersPageClient({ faqs, showReviewPanel }: { faqs: FAQ[
     return () => observer.disconnect();
   }, [filteredOffers]);
 
-  const selectOffer = (context: SelectorContext) => {
-    if (context.offer) {
-      trackEvent("offer_select", {
-        offer_id: context.offer.id,
-        category: context.offer.category,
-        source: "offers_page",
-        placement: "offer_card",
-        action: context.action,
-      });
-    }
-    setSelectorContext(context);
-  };
-
   return (
     <>
       <a className="skip-link" href="#conteudo-ofertas">Pular para o conteúdo</a>
@@ -345,7 +358,7 @@ export default function OffersPageClient({ faqs, showReviewPanel }: { faqs: FAQ[
                 <div ref={carouselRef} className="offer-carousel" role="region" aria-label="Promoções em destaque">
                   {filteredOffers.map((offer) => (
                     <div key={offer.id} className="offer-carousel-item" data-offer-card>
-                      <OfferCard offer={offer} onSelect={selectOffer} />
+                      <OfferCard offer={offer} />
                     </div>
                   ))}
                 </div>
