@@ -7062,3 +7062,259 @@ body { background: var(--health-paper); }
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Health-forward visual polish: calmer surfaces, clearer hierarchy and safer contrast. */
+:root {
+  --health-navy: #0c2d2a;
+  --health-teal: #176f62;
+  --health-mint: #eaf7f3;
+  --health-paper: #f8fbfa;
+  --health-line: #cfe5df;
+  --health-shadow: 0 12px 30px rgba(12, 45, 42, 0.08);
+}
+
+body { background: var(--health-paper); }
+
+.site-header,
+.simple-header,
+.offers-header,
+.content-header {
+  border-bottom-color: var(--health-line);
+  box-shadow: 0 4px 18px rgba(12, 45, 42, 0.06);
+}
+
+.brand strong { color: var(--health-navy); }
+
+.button,
+.menu-links .header-cta,
+.offers-primary-button,
+.offers-secondary-button,
+.offers-light-button,
+.instagram-button,
+.instagram-secondary-button,
+.offer-primary-cta { border-radius: 14px; }
+
+.button:focus-visible,
+.menu-button:focus-visible,
+.content-menu-button:focus-visible,
+.offers-primary-button:focus-visible,
+.offers-secondary-button:focus-visible,
+.offers-light-button:focus-visible,
+.offer-primary-cta:focus-visible,
+.text-link:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: 3px;
+}
+
+.hero {
+  min-height: 720px;
+  padding-top: 126px;
+  padding-bottom: 54px;
+  background: var(--health-paper);
+}
+
+.hero::before {
+  inset: -10% 58% -18% -14%;
+  border-radius: 0 34% 34% 0;
+  background: linear-gradient(160deg, #2a9b83, var(--aqua));
+  opacity: 0.96;
+}
+
+.hero-inner { gap: 44px; }
+
+#hero-title {
+  max-width: 650px;
+  font-size: clamp(46px, 5.6vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
+.hero-lead { max-width: 540px; font-size: 17px; }
+
+.button-hero-cta {
+  min-height: 56px;
+  border: 0;
+  border-radius: 14px;
+  box-shadow: 0 10px 20px rgba(117, 12, 24, 0.16);
+}
+
+.hero-offer-showcase {
+  border: 1px solid rgba(12, 45, 42, 0.08);
+  border-radius: 22px;
+  box-shadow: var(--health-shadow);
+}
+
+.hero-heart,
+.home-offers-panel::before,
+.offers-hero::after { display: none; }
+
+.quick-units-section,
+.story-section,
+.reviews-section,
+.delivery-section { background: var(--health-paper); }
+
+.quick-unit-card,
+.unit-card,
+.review-card,
+.category-card,
+.offer-card,
+.unit-detail-card,
+.landing-unit-card,
+.news-card {
+  border: 1px solid var(--health-line);
+  border-radius: 16px;
+  background: var(--white);
+  box-shadow: var(--health-shadow);
+}
+
+.quick-unit-card { padding: 28px; }
+.quick-unit-card::after { height: 5px; background: var(--health-teal); }
+.quick-unit-card:nth-child(2)::after,
+.quick-unit-card:nth-child(3)::after { background: var(--health-teal); }
+
+.button-whatsapp,
+.offer-primary-cta { background: var(--health-teal); color: var(--white); }
+.button-whatsapp:hover,
+.offer-primary-cta:hover { background: var(--health-navy); }
+
+.trust-strip { background: var(--health-navy); }
+.trust-strip-grid { border-radius: 16px; background: rgba(255, 255, 255, 0.08); }
+.trust-strip-grid > div { background: transparent; }
+
+.home-offers-panel,
+.delivery-panel,
+.offers-delivery-panel,
+.instagram-panel {
+  border-radius: 20px;
+  background: var(--health-teal);
+  box-shadow: var(--health-shadow);
+}
+
+.home-offers-panel { padding: 48px 54px; }
+.home-offers-panel h2,
+.delivery-copy h2 {
+  font-size: clamp(34px, 4.5vw, 56px);
+  letter-spacing: -0.045em;
+}
+
+.categories-section,
+.units-section,
+.offers-list-section { background: #f1f8f6; }
+
+.category-card {
+  min-height: 280px;
+  padding: 28px;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.category-card:hover {
+  transform: translateY(-3px);
+  border-color: #a8d5ca;
+  box-shadow: 0 16px 34px rgba(12, 45, 42, 0.1);
+}
+
+.category-icon {
+  width: 60px;
+  height: 60px;
+  background: var(--health-mint);
+  color: var(--health-teal);
+}
+
+.category-card:nth-child(2n) .category-icon {
+  background: var(--health-mint);
+  color: var(--health-teal);
+}
+
+.photo-main,
+.photo-main img,
+.photo-side img { border-radius: 16px; }
+.photo-main figcaption,
+.offer-card-badge { border-radius: 8px; }
+
+.unit-card { box-shadow: var(--health-shadow); }
+.unit-card-top::before {
+  width: 100px;
+  height: 100px;
+  right: -58px;
+  top: -58px;
+  background: var(--health-mint);
+}
+
+.contact-details a { border-radius: 10px; background: var(--health-mint); }
+.review-card { padding: 28px; }
+
+.faq-item,
+.offers-faq-item { border-color: var(--health-line); border-radius: 14px; }
+
+.offers-hero,
+.news-hero,
+.unit-page-hero,
+.landing-hero { background: var(--health-teal); }
+
+.offers-hero h1 {
+  max-width: 720px;
+  font-size: clamp(44px, 5.6vw, 72px);
+  line-height: 1;
+}
+
+.offers-hero-card { border-radius: 18px; box-shadow: var(--health-shadow); }
+.offers-hero-card::before { background: var(--coral-dark); }
+.offers-intro { background: var(--health-navy); }
+.offer-card { box-shadow: var(--health-shadow); }
+
+.offer-card-badge {
+  background: var(--health-mint);
+  color: var(--health-teal);
+  letter-spacing: 0.04em;
+}
+
+.offer-card h3 { font-size: 22px; }
+.offers-steps li {
+  border: 1px solid var(--health-line);
+  border-radius: 16px;
+  box-shadow: var(--health-shadow);
+}
+.offers-steps span { background: var(--health-teal); }
+
+.unit-detail-card,
+.landing-unit-card,
+.news-visual-card,
+.news-card { box-shadow: var(--health-shadow); }
+
+.footer,
+.offers-footer,
+.content-footer { background: var(--health-navy); }
+
+@media (max-width: 700px) {
+  .hero,
+  .site-header:not(.has-promo) + main .hero { padding-top: 98px; padding-bottom: 28px; }
+  .hero::before { inset: -3% -18% 48% -28%; border-radius: 0 0 30% 24%; }
+  #hero-title { font-size: clamp(40px, 11.5vw, 54px); }
+  .quick-unit-card,
+  .category-card,
+  .unit-card,
+  .review-card,
+  .offer-card,
+  .offers-hero-card,
+  .unit-detail-card,
+  .landing-unit-card,
+  .news-card { border-radius: 14px; }
+  .home-offers-panel,
+  .delivery-panel,
+  .offers-delivery-panel,
+  .instagram-panel { border-radius: 16px; }
+  .home-offers-panel { padding: 32px 24px; }
+  .home-offers-panel h2 { max-width: 100%; font-size: 36px; }
+  .offer-carousel { gap: 16px; padding-inline: 2px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
