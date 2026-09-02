@@ -111,10 +111,9 @@ function startAnalytics(): void {
 }
 
 export default function AnalyticsConsent() {
-  const [consent, setConsent] = useState<ConsentValue | null>(() => {
-    if (typeof window === "undefined") return null;
-    return window.localStorage.getItem(CONSENT_KEY) as ConsentValue | null;
-  });
+  // Read browser-only consent after hydration so the server and first client
+  // render stay identical.
+  const [consent, setConsent] = useState<ConsentValue | null>(null);
   const [showPreferences, setShowPreferences] = useState(false);
   const hydrated = useSyncExternalStore(
     () => () => {},
@@ -123,6 +122,8 @@ export default function AnalyticsConsent() {
   );
 
   useEffect(() => {
+    const storedConsent = window.localStorage.getItem(CONSENT_KEY) as ConsentValue | null;
+    setConsent(storedConsent);
     captureCampaignAttribution();
   }, []);
 
