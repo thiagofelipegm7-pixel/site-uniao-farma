@@ -4273,12 +4273,34 @@ h3 {
   .nav > .header-cta { min-width: 44px; width: 44px; padding: 0; border-radius: 12px; }
   .nav > .header-cta img { width: 22px; height: 22px; }
   .nav > .header-cta { font-size: 0; }
-  .cookie-banner { max-height: 88px; overflow: hidden; }
+  .cookie-banner {
+    max-height: 88px;
+    overflow: hidden;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
   .cookie-banner strong { font-size: 13px; }
   .cookie-banner p { margin-top: 2px; font-size: 10px; line-height: 1.25; }
-  .cookie-actions { display: block; }
+  .cookie-actions { display: flex; flex-direction: row; }
   .cookie-actions button { width: auto; min-height: 40px; padding: 7px 14px; }
 }
+
+/* Final requested refinements. */
+.open-status,
+.open-status.is-open,
+.open-status.is-closed {
+  background: #e8f4ee;
+  color: #16382f;
+}
+
+.open-status > span,
+.open-status.is-open > span,
+.open-status.is-closed > span {
+  display: none;
+}
+
+.hero .direct-unit-links-copy strong { display: none; }
 
 /* Final mobile priority overrides (kept last to win over legacy responsive rules). */
 @media (max-width: 700px) {
