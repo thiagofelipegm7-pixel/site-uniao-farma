@@ -369,25 +369,6 @@ function UnitSelectorModal({
   );
 }
 
-function PaymentIconsSection() {
-  return (
-    <div className="payment-section">
-      <p>Formas de pagamento</p>
-      <div className="payment-icons" aria-label="Bandeiras e formas de pagamento">
-        <span className="pay-badge visa">VISA</span>
-        <span className="pay-badge mastercard" aria-label="Mastercard">
-          <span className="mc-left" />
-          <span className="mc-right" />
-        </span>
-        <span className="pay-badge elo">elo</span>
-        <span className="pay-badge amex">AMEX</span>
-        <span className="pay-badge hipercard">HIPERCARD</span>
-        <span className="pay-badge pix">Pix</span>
-      </div>
-    </div>
-  );
-}
-
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectorIntent, setSelectorIntent] = useState<SelectorIntent | null>(null);
@@ -1090,18 +1071,15 @@ export default function Home() {
           </div>
 
           <div className="footer-bottom-bar">
-            <PaymentIconsSection />
             <div className="anvisa-section">
-              <strong className="compliance-badge" aria-label="Anvisa — Agência Nacional de Vigilância Sanitária">
-                ANVISA
-              </strong>
+              <img
+                className="anvisa-logo"
+                src="/anvisa-logo.png"
+                alt="Anvisa — Agência Nacional de Vigilância Sanitária"
+                width="120"
+                height="112"
+              />
               <p>A União Farma segue as determinações sanitárias aplicáveis.</p>
-            </div>
-            <div className="convenio-section">
-              <p>Convênio de descontos</p>
-              <strong className="compliance-badge convenio-badge" aria-label="ECX Card — convênio de descontos">
-                ECX Card
-              </strong>
             </div>
           </div>
 

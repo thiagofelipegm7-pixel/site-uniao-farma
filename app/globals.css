@@ -1886,9 +1886,24 @@ h3 {
   padding-top: 38px;
   border-top: 1px solid var(--line);
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   align-items: start;
   gap: 32px;
+  text-align: center;
+}
+
+.footer-bottom-bar .anvisa-section {
+  justify-self: center;
+}
+
+.footer-bottom-bar .anvisa-logo {
+  width: 132px;
+  height: 112px;
+  margin: -12px 0 0;
+}
+
+.footer-bottom-bar .anvisa-section > p {
+  max-width: 300px;
   text-align: center;
 }
 
@@ -1972,6 +1987,15 @@ h3 {
   color: #1a1f71;
   font-style: italic;
   font-size: 12px;
+  min-width: 90px;
+  padding-inline: 8px;
+}
+
+.pay-badge.visa img {
+  display: block;
+  width: 72px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .pay-badge.mastercard {
@@ -2002,24 +2026,75 @@ h3 {
 .pay-badge.elo {
   color: #333;
   font-size: 12px;
+  min-width: 72px;
+  padding-inline: 8px;
+}
+
+.pay-badge.elo img {
+  display: block;
+  width: 54px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .pay-badge.amex {
   background: #016fd0;
   color: white;
   border-color: #016fd0;
+  min-width: 92px;
+  padding-inline: 8px;
+}
+
+.pay-badge.amex img {
+  display: block;
+  width: 74px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .pay-badge.hipercard {
   background: #b82025;
   color: white;
   border-color: #b82025;
+  min-width: 92px;
+  padding-inline: 8px;
+}
+
+.pay-badge.hipercard img {
+  display: block;
+  width: 74px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .pay-badge.pix {
   color: #259d91;
   border-color: #32bcad;
   background: #effaf7;
+  min-width: 76px;
+  padding-inline: 9px;
+}
+
+.pay-badge.pix img {
+  display: block;
+  width: 58px;
+  height: 22px;
+  object-fit: contain;
+}
+
+.pay-badge.ecx-card {
+  min-width: 96px;
+  padding-inline: 8px;
+  overflow: hidden;
+  background: #fff;
+  border-color: #e6d900;
+}
+
+.pay-badge.ecx-card img {
+  display: block;
+  width: 78px;
+  height: 28px;
+  object-fit: contain;
 }
 
 /* Unit selector modal */
@@ -2324,6 +2399,15 @@ h3 {
   margin: 24px 0 18px;
   color: rgba(255, 255, 255, 0.82);
   font-size: 18px;
+}
+
+.anvisa-logo {
+  display: block;
+  width: 120px;
+  height: 82px;
+  object-fit: contain;
+  object-position: center;
+  margin: -10px 0 2px;
 }
 
 .unit-page-lead {
