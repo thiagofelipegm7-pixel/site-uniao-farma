@@ -182,8 +182,7 @@ export default function AnalyticsConsent() {
           <div>
             <strong>Privacidade e cookies</strong>
             <p>
-              Usamos cookies opcionais do Google Analytics e Meta Pixel para entender o uso do
-              site e melhorar nossas campanhas. Eles só são ativados com sua autorização. Leia a{" "}
+              Cookies opcionais nos ajudam a melhorar o site e só são ativados com sua autorização. Leia a{" "}
               <a href="/privacidade">Política de Privacidade</a>.
             </p>
           </div>

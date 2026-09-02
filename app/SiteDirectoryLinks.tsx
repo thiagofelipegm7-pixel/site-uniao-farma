@@ -1,6 +1,7 @@
 const SITE_DIRECTORY_LINKS = [
   { href: "/", label: "Início" },
   { href: "/ofertas", label: "Ofertas" },
+  { href: "/receita", label: "Enviar receita" },
   { href: "/novidades", label: "Novidades" },
   { href: "/farmacia-em-sabara", label: "Farmácia em Sabará" },
   { href: "/entrega-de-medicamentos-em-sabara", label: "Entrega em Sabará" },

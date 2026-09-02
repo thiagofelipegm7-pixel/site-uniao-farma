@@ -4121,6 +4121,268 @@ h3 {
   }
 }
 
+/* Final mobile priority overrides (kept last to win over legacy responsive rules). */
+@media (max-width: 700px) {
+  .hero,
+  .site-header:not(.has-promo) + main .hero {
+    min-height: auto;
+    padding-top: 88px;
+  }
+
+  #hero-title {
+    max-width: 12ch;
+    font-size: clamp(38px, 10.8vw, 48px);
+  }
+}
+
+/* Moodboard implementation — mobile-first conversion path. */
+.menu-links .header-cta {
+  border: 0;
+  cursor: pointer;
+}
+
+.direct-unit-link {
+  min-height: 170px;
+  justify-content: flex-start;
+}
+
+.direct-unit-link .unit-status {
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+.direct-unit-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 7px;
+  margin-top: auto;
+}
+
+.direct-unit-actions a {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 10px;
+  background: var(--health-teal);
+  color: var(--white);
+  padding: 8px 10px;
+  font-size: 11px;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+}
+
+.direct-unit-actions .direct-unit-recipe {
+  border: 1px solid var(--health-line);
+  background: var(--white);
+  color: var(--health-teal);
+}
+
+.quick-recipe-link {
+  color: var(--health-teal);
+}
+
+.units-section,
+.categories-section,
+.story-section {
+  display: none;
+}
+
+.recipe-page {
+  min-height: 72vh;
+  background: var(--health-paper);
+}
+
+.recipe-hero {
+  padding: 138px 0 76px;
+}
+
+.recipe-inner {
+  max-width: 980px;
+}
+
+.recipe-inner > h1 {
+  max-width: 760px;
+  margin: 8px 0 16px;
+  color: var(--health-navy);
+  font-size: clamp(42px, 6vw, 68px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.recipe-inner > p {
+  max-width: 720px;
+  color: var(--muted);
+}
+
+.recipe-inner .direct-unit-links {
+  margin-top: 30px;
+}
+
+.recipe-inner .direct-unit-links-copy strong {
+  color: var(--health-navy);
+}
+
+.recipe-note {
+  margin-top: 18px;
+  font-size: 12px;
+}
+
+@media (max-width: 700px) {
+  body {
+    padding-bottom: calc(74px + env(safe-area-inset-bottom));
+  }
+
+  .site-header .nav,
+  .content-nav {
+    min-height: 66px;
+  }
+
+  .brand img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .brand small {
+    display: none;
+  }
+
+  .hero,
+  .site-header:not(.has-promo) + main .hero {
+    min-height: auto;
+    padding-top: 88px;
+  }
+
+  #hero-title {
+    max-width: 12ch;
+    font-size: clamp(38px, 10.8vw, 48px);
+  }
+
+  .hero-lead {
+    font-size: 15px;
+  }
+
+  .direct-unit-links-copy {
+    margin-bottom: 10px;
+  }
+
+  .direct-unit-links-grid {
+    gap: 10px;
+  }
+
+  .direct-unit-link {
+    min-height: 0;
+    display: flex;
+    padding: 15px;
+  }
+
+  .direct-unit-name {
+    font-size: 16px;
+  }
+
+  .direct-unit-neighborhood {
+    font-size: 12px;
+  }
+
+  .direct-unit-actions {
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 5px;
+  }
+
+  .direct-unit-actions a {
+    min-height: 46px;
+    font-size: 12px;
+  }
+
+  .hero-secondary-link,
+  .response-time {
+    margin-left: 2px;
+  }
+
+  .hero-offer-showcase {
+    margin-top: 8px;
+  }
+
+  .quick-unit-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .quick-unit-card {
+    min-height: 0;
+    padding: 20px 18px;
+  }
+
+  .quick-unit-actions {
+    gap: 10px;
+  }
+
+  .quick-recipe-link {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--health-line);
+    border-radius: 10px;
+  }
+
+  .floating-bar {
+    left: 8px;
+    right: 8px;
+    bottom: calc(8px + env(safe-area-inset-bottom));
+    grid-template-columns: auto 1fr;
+  }
+
+  .floating-whatsapp {
+    border: 0;
+    cursor: pointer;
+  }
+
+  .cookie-banner {
+    left: 8px;
+    right: 8px;
+    bottom: calc(76px + env(safe-area-inset-bottom));
+    width: auto;
+    max-height: min(240px, calc(100dvh - 160px));
+    overflow: auto;
+    gap: 10px;
+    border-radius: 12px;
+    padding: 12px;
+  }
+
+  .cookie-banner strong {
+    font-size: 14px;
+  }
+
+  .cookie-banner p {
+    margin-top: 3px;
+    font-size: 10px;
+    line-height: 1.4;
+  }
+
+  .cookie-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .cookie-actions button {
+    min-height: 42px;
+    padding: 7px 10px;
+  }
+
+  .recipe-hero {
+    padding: 94px 0 44px;
+  }
+
+  .recipe-inner > h1 {
+    font-size: clamp(38px, 11vw, 50px);
+  }
+}
+
 /* The site uses a light visual theme on every route and viewport. */
 html[data-theme="light"] .skip-link {
   border: 1px solid var(--line);

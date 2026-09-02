@@ -334,7 +334,7 @@ function UnitSelectorModal({
             <a
               className="modal-unit-option"
               key={unit.id}
-              href={buildWhatsAppUrl(unit, intent.message)}
+              href={buildWhatsAppUrl(unit, intent.message.replaceAll("{unidade}", unit.shortName))}
               target="_blank"
               rel="noreferrer"
               onClick={() => {
@@ -434,7 +434,7 @@ export default function Home() {
     title: "Escolha sua unidade",
     description: "Selecione a loja em que deseja consultar preço, estoque ou fazer seu pedido.",
     message:
-      "Olá! Vim pelo site da União Farma e gostaria de consultar preço e disponibilidade. Posso enviar o nome ou uma foto do produto?",
+      "Olá, União Farma {unidade}! Quero pedir um produto. Nome: ___  dosagem: ___  bairro: ___",
     eventName: "consulta_geral",
   };
 
@@ -513,25 +513,16 @@ export default function Home() {
             <a href="/ofertas" onClick={() => setMenuOpen(false)}>
               Ofertas
             </a>
-            <a href="/novidades" onClick={() => setMenuOpen(false)}>
-              Novidades
-            </a>
             <a href="#unidades-rapidas" onClick={() => setMenuOpen(false)}>
               Unidades
             </a>
-            <a href="#categorias" onClick={() => setMenuOpen(false)}>
-              Produtos
+            <a href="/receita" onClick={() => setMenuOpen(false)}>
+              Receita
             </a>
-            <a href="#entrega" onClick={() => setMenuOpen(false)}>
-              Entrega
-            </a>
-            <a href="#avaliacoes" onClick={() => setMenuOpen(false)}>
-              Avaliações
-            </a>
-            <a className="header-cta" href="#unidades-rapidas" onClick={() => setMenuOpen(false)}>
+            <button className="header-cta" type="button" onClick={() => openSelector(generalIntent)}>
               <WhatsAppIcon />
-              Escolher unidade
-            </a>
+              Pedir no WhatsApp
+            </button>
           </div>
           {menuOpen && (
             <button
@@ -564,7 +555,7 @@ export default function Home() {
                   intent={generalIntent.eventName}
                   source="home_hero"
                   heading="Escolha sua unidade e fale direto com a equipe"
-                  description="Consulte preço, estoque ou faça seu pedido pelo WhatsApp."
+                  description="Rua, horário e atendimento direto em cada loja."
                 />
                 <a className="hero-secondary-link" href="/ofertas">
                   Ver ofertas disponíveis
@@ -629,7 +620,7 @@ export default function Home() {
                   <div className="quick-unit-actions">
                     <a
                       className="button button-whatsapp"
-                      href={buildWhatsAppUrl(unit, generalIntent.message)}
+                      href={buildWhatsAppUrl(unit, generalIntent.message.replaceAll("{unidade}", unit.shortName))}
                       target="_blank"
                       rel="noreferrer"
                       onClick={() =>
@@ -645,6 +636,15 @@ export default function Home() {
                     <a className="text-link" href={`/unidades/${unit.slug}`}>
                       <span className="desktop-label">Conhecer esta unidade</span>
                       <span className="mobile-label">Ver detalhes</span>
+                    </a>
+                    <a
+                      className="text-link quick-recipe-link"
+                      href={buildWhatsAppUrl(unit, `Olá, União Farma ${unit.shortName}! Vou enviar a foto da receita (ou Memed). Pode o farmacêutico conferir?`)}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() => trackEvent("whatsapp_click", { unit: unit.id, intent: "enviar_receita", source: "quick_units", placement: "recipe" })}
+                    >
+                      Enviar receita
                     </a>
                   </div>
                 </article>
@@ -893,7 +893,7 @@ export default function Home() {
                       </span>
                     </a>
                     <a
-                      href={buildWhatsAppUrl(unit, generalIntent.message)}
+                      href={buildWhatsAppUrl(unit, generalIntent.message.replaceAll("{unidade}", unit.shortName))}
                       target="_blank"
                       rel="noreferrer"
                       onClick={() => trackEvent("whatsapp_click", { unit: unit.id, source: "unit_card" })}
@@ -930,7 +930,7 @@ export default function Home() {
                   <div className="card-actions">
                     <a
                       className="button button-whatsapp"
-                      href={buildWhatsAppUrl(unit, generalIntent.message)}
+                      href={buildWhatsAppUrl(unit, generalIntent.message.replaceAll("{unidade}", unit.shortName))}
                       target="_blank"
                       rel="noreferrer"
                       onClick={() => trackEvent("whatsapp_click", { unit: unit.id, source: "unit_actions" })}
@@ -1120,10 +1120,10 @@ export default function Home() {
           <LineIcon name="map" size={20} />
           Unidades
         </a>
-        <a className="floating-btn floating-whatsapp" href="#unidades-rapidas">
+        <button className="floating-btn floating-whatsapp" type="button" onClick={() => openSelector(generalIntent)}>
           <WhatsAppIcon />
-          Escolher unidade
-        </a>
+          Pedir no WhatsApp
+        </button>
       </div>
 
       <UnitSelectorModal intent={selectorIntent} onClose={() => setSelectorIntent(null)} />

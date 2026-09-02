@@ -5,16 +5,12 @@
 import { useEffect, useRef, useState } from "react";
 import { SiteDirectoryLinks } from "./SiteDirectoryLinks";
 
-type ContentPath = "/ofertas" | "/novidades";
+type ContentPath = "/ofertas" | "/novidades" | "/receita";
 
 const NAV_LINKS: Array<{ href: string; label: string; activePath?: ContentPath }> = [
-  { href: "/", label: "Início" },
   { href: "/ofertas", label: "Ofertas", activePath: "/ofertas" },
-  { href: "/novidades", label: "Novidades", activePath: "/novidades" },
   { href: "/#unidades-rapidas", label: "Unidades" },
-  { href: "/farmacia-em-sabara", label: "Farmácia" },
-  { href: "/entrega-de-medicamentos-em-sabara", label: "Entrega" },
-  { href: "/perfumaria-em-sabara", label: "Perfumaria" },
+  { href: "/receita", label: "Receita", activePath: "/receita" },
 ];
 
 export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
@@ -111,7 +107,7 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
   );
 }
 
-export function ContentSiteFooter({ notice }: { notice: string }) {
+export function ContentSiteFooter({ notice = "Preço, estoque e condições devem ser confirmados com a unidade escolhida." }: { notice?: string }) {
   return (
     <footer className="content-footer">
       <div className="section-inner">

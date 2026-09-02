@@ -2,6 +2,7 @@
 
 import { trackEvent } from "./analytics";
 import { buildWhatsAppUrl, UNITS } from "./site-config";
+import UnitStatusBadge from "./UnitStatusBadge";
 
 type DirectUnitLinksProps = {
   message: string;
@@ -21,6 +22,9 @@ function WhatsAppIcon() {
   return <img src="/whatsapp-icon.svg" alt="" width="20" height="20" aria-hidden="true" />;
 }
 
+const recipeMessage =
+  "Olá, União Farma {unidade}! Vou enviar a foto da receita (ou Memed). Pode o farmacêutico conferir?";
+
 export default function DirectUnitLinks({
   message,
   intent,
@@ -38,27 +42,45 @@ export default function DirectUnitLinks({
       </div>
       <div className="direct-unit-links-grid">
         {UNITS.map((unit) => (
-          <a
-            key={unit.id}
-            className="direct-unit-link"
-            href={buildWhatsAppUrl(unit, resolveMessage(message, unit.shortName), {
-              campaign: source,
-              content: `${source}_${unit.id}`,
-            })}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => {
-              if (intent === "delivery_inquiry") {
-                trackEvent("delivery_inquiry", { unit: unit.id, source, placement: "direct_links" });
-              }
-              trackEvent("unit_selection", { unit: unit.id, intent, source, placement: "direct_links" });
-              trackEvent("whatsapp_click", { unit: unit.id, intent, source, placement: "direct_links" });
-            }}
-          >
+          <article key={unit.id} className="direct-unit-link">
             <span className="direct-unit-name">{unit.shortName}</span>
-            <span className="direct-unit-neighborhood">{unit.neighborhood}</span>
-            <span className="direct-unit-action"><WhatsAppIcon /> Abrir WhatsApp</span>
-          </a>
+            <span className="direct-unit-neighborhood">{unit.address}</span>
+            <UnitStatusBadge unit={unit} />
+            <div className="direct-unit-actions">
+              <a
+                href={buildWhatsAppUrl(unit, resolveMessage(message, unit.shortName), {
+                  campaign: source,
+                  content: `${source}_${unit.id}_pedido`,
+                })}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => {
+                  if (intent === "delivery_inquiry") {
+                    trackEvent("delivery_inquiry", { unit: unit.id, source, placement: "direct_links" });
+                  }
+                  trackEvent("unit_selection", { unit: unit.id, intent, source, placement: "direct_links" });
+                  trackEvent("whatsapp_click", { unit: unit.id, intent, source, placement: "direct_links" });
+                }}
+              >
+                <WhatsAppIcon /> Pedir produto
+              </a>
+              <a
+                className="direct-unit-recipe"
+                href={buildWhatsAppUrl(unit, resolveMessage(recipeMessage, unit.shortName), {
+                  campaign: source,
+                  content: `${source}_${unit.id}_receita`,
+                })}
+                target="_blank"
+                rel="noreferrer"
+                onClick={() => {
+                  trackEvent("unit_selection", { unit: unit.id, intent: "enviar_receita", source, placement: "direct_links" });
+                  trackEvent("whatsapp_click", { unit: unit.id, intent: "enviar_receita", source, placement: "direct_links_recipe" });
+                }}
+              >
+                Enviar receita
+              </a>
+            </div>
+          </article>
         ))}
       </div>
     </div>
