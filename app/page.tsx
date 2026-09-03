@@ -541,10 +541,6 @@ export default function Home() {
                 <a className="hero-secondary-link" href="/ofertas">
                   Ver ofertas disponíveis
                 </a>
-                <p className="response-time">
-                  <span aria-hidden="true" />
-                  {SITE_OPTIONS.responseMessage}
-                </p>
               </div>
               <div className="hero-mobile-facts" aria-label="Informações da União Farma">
                 <span><strong>3</strong> unidades</span>
