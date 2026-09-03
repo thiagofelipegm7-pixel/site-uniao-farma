@@ -538,9 +538,6 @@ export default function Home() {
                   heading="Escolha sua unidade e fale direto com a equipe"
                   description="Rua, horário e atendimento direto em cada loja."
                 />
-                <a className="hero-secondary-link" href="/ofertas">
-                  Ver ofertas disponíveis
-                </a>
               </div>
               <div className="hero-mobile-facts" aria-label="Informações da União Farma">
                 <span><strong>3</strong> unidades</span>
