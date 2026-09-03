@@ -4302,6 +4302,31 @@ h3 {
 
 .hero .direct-unit-links-copy strong { display: none; }
 
+/* Use the complete WhatsApp mark with a larger, consistent touch target. */
+.button-whatsapp img,
+.direct-unit-actions img,
+.floating-whatsapp img,
+.header-cta img {
+  width: 26px;
+  height: 26px;
+  flex: 0 0 26px;
+  object-fit: contain;
+}
+
+.button-whatsapp,
+.direct-unit-actions a,
+.header-cta,
+.floating-whatsapp {
+  min-height: 48px;
+}
+
+@media (max-width: 700px) {
+  .nav > .header-cta img { width: 26px; height: 26px; }
+  .button-whatsapp img,
+  .direct-unit-actions img,
+  .floating-whatsapp img { width: 28px; height: 28px; flex-basis: 28px; }
+}
+
 /* Final mobile priority overrides (kept last to win over legacy responsive rules). */
 @media (max-width: 700px) {
   .hero,
