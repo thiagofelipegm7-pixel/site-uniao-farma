@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import AnalyticsConsent from "./AnalyticsConsent";
+import SiteFooter from "./SiteFooter";
 import "./globals.css";
 import "./mobile-fixes.css";
+import "./site-footer.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 
 const GOOGLE_SITE_VERIFICATION =
@@ -112,6 +114,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           }}
         />
         {children}
+        <SiteFooter />
       </body>
     </html>
   );
