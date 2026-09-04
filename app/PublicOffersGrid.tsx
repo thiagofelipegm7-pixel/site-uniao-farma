@@ -1,6 +1,7 @@
 "use client";
 
 import { trackEvent } from "./analytics";
+import { recordMetric } from "./metrics";
 import { getPublicOffers, type Offer } from "./offers";
 import { buildWhatsAppUrl, UNITS } from "./site-config";
 
@@ -41,6 +42,7 @@ function OfferConsultCard({ offer }: { offer: Offer }) {
               target="_blank"
               rel="noreferrer"
               onClick={() => {
+                recordMetric({ unit: unit.id, intent: "offer", source: "offers_grid" });
                 trackEvent("offer_unit_select", {
                   offer_id: offer.id,
                   unit: unit.id,
