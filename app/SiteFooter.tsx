@@ -47,7 +47,7 @@ export default function SiteFooter() {
         <div className="uf-footer-grid">
           <div className="uf-footer-brand">
             <a className="uf-footer-logo" href="/">
-              <img src="/uniao-farma-logo.webp" alt="" width="52" height="52" />
+              <img src="/icon-192.png" alt="" width="52" height="52" decoding="async" />
               <span>
                 <strong>União Farma</strong>
                 <small>Drogaria e Perfumaria</small>
