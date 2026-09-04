@@ -60,21 +60,19 @@
 .uf-footer-social {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 10px;
   margin-top: 18px;
 }
 
 .uf-footer-social a {
-  min-height: 36px;
+  width: 40px;
+  height: 40px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 999px;
   color: #ffffff;
-  padding: 0 12px;
-  font-size: 11px;
-  font-weight: 800;
   text-decoration: none;
 }
 
