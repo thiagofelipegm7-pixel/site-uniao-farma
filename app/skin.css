@@ -39,10 +39,14 @@ body {
   color: var(--uf-ink);
 }
 
-.open-now-strip,
+.open-now-strip {
+  background: var(--uf-open-live);
+  color: #083528;
+}
+
 .preferred-store-banner {
-  background: var(--uf-green-dark);
-  color: #ffffff;
+  background: var(--uf-stone);
+  color: var(--uf-ink);
 }
 
 .direct-unit-photo {
@@ -125,6 +129,15 @@ body {
   font-weight: 800;
 }
 
+.direct-unit-actions a:first-child:hover,
+.locate-unit-whatsapp:hover,
+.header-cta:hover,
+.button-whatsapp:hover,
+.offer-consult-units a:hover {
+  background: #1ebe5d;
+  color: #083528;
+}
+
 .header-cta {
   border-radius: 999px;
 }
@@ -132,6 +145,11 @@ body {
 .open-status.is-open {
   background: var(--uf-open-live);
   color: #083528;
+}
+
+.open-status.is-closed {
+  background: #f3d4cc;
+  color: var(--uf-closed);
 }
 
 .reviews,
@@ -154,5 +172,5 @@ body {
 }
 
 .uf-footer {
-  background: linear-gradient(180deg, #0f7a55 0%, #083528 100%);
+  background: linear-gradient(180deg, #1b4a38 0%, #0c241c 100%);
 }
