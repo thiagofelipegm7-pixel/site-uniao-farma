@@ -1,0 +1,108 @@
+body {
+  background:
+    radial-gradient(70rem 28rem at 50% -12rem, rgba(23, 111, 98, 0.07), transparent 58%),
+    var(--uf-paper);
+}
+
+.site-header,
+.nav {
+  background: rgba(251, 250, 249, 0.92);
+  backdrop-filter: blur(10px);
+}
+
+.hero {
+  background: transparent;
+}
+
+.hero-copy .eyebrow {
+  color: var(--uf-green);
+}
+
+.hero-copy h1 {
+  max-width: 16ch;
+}
+
+.direct-unit-photo {
+  order: 0;
+  width: calc(100% + 2em);
+  margin: -1em -1em 0.65em;
+  height: 7.5rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 0.75em;
+  background:
+    linear-gradient(180deg, rgba(28, 46, 41, 0.04), rgba(28, 46, 41, 0.18)),
+    var(--uf-fog);
+}
+
+.direct-unit-link[data-unit="fatima"] .direct-unit-photo {
+  background:
+    linear-gradient(160deg, #1b4a42 0%, #176f62 55%, #c4a574 120%);
+}
+
+.direct-unit-link[data-unit="nacoes"] .direct-unit-photo {
+  background:
+    linear-gradient(160deg, #14332c 0%, #1d6a5c 58%, #e4ddd4 130%);
+}
+
+.direct-unit-link[data-unit="itacolomi"] .direct-unit-photo {
+  background:
+    linear-gradient(160deg, #2a4033 0%, #4d6b4e 52%, #c4a574 115%);
+}
+
+.direct-unit-mono {
+  font-size: 2.4em;
+  font-weight: 800;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  color: #ffffff;
+}
+
+.direct-unit-link.is-nearest .direct-unit-photo {
+  box-shadow: inset 0 -0.2em 0 var(--uf-gold);
+}
+
+.reviews,
+.review-grid {
+  background: var(--uf-stone);
+}
+
+.review-card,
+.reviews article {
+  background: var(--uf-card);
+  box-shadow: inset 0 0 0 1px var(--uf-line);
+  border-radius: var(--r-lg);
+  padding: 1.1em 1.15em 1.2em;
+}
+
+.review-card p,
+.reviews article p {
+  font-size: 1.05em;
+  letter-spacing: -0.02em;
+  color: var(--uf-ink);
+}
+
+.review-card strong,
+.reviews article strong,
+.reviews article cite {
+  display: block;
+  margin-top: 0.7em;
+  font-size: 0.75em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--uf-muted);
+}
+
+.category-card,
+.categories article {
+  background: var(--uf-stone);
+  box-shadow: none;
+  border-radius: var(--r-lg);
+}
+
+.header-cta {
+  border-radius: 999px;
+  background: var(--uf-green);
+  color: #ffffff;
+}
