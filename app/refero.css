@@ -21,6 +21,53 @@ h1,
   box-shadow: var(--shadow-card);
 }
 
+.direct-unit-link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35em;
+}
+
+.direct-unit-name {
+  order: 1;
+  font-size: 1.28em;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--uf-ink);
+}
+
+.direct-unit-link .open-status {
+  order: 2;
+}
+
+.direct-unit-neighborhood {
+  order: 3;
+  font-size: 0.88em;
+  color: var(--uf-muted);
+}
+
+.direct-unit-distance,
+.nearest-unit-badge,
+.preferred-unit-badge {
+  order: 4;
+  font-size: 0.75em;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--uf-muted);
+}
+
+.nearest-unit-badge {
+  color: #8a6a3a;
+}
+
+.direct-unit-actions {
+  order: 5;
+  width: 100%;
+  margin-top: 0.55em;
+}
+
 .direct-unit-link:hover,
 .offer-consult-card:hover,
 .question-card:hover {
@@ -35,6 +82,28 @@ h1,
   width: 72%;
   height: 72%;
   object-fit: contain;
+}
+
+.offer-consult-brand {
+  font-size: 0.72em;
+  color: var(--uf-muted);
+}
+
+.offer-consult-body h3 {
+  font-size: 0.98em;
+  font-weight: 700;
+  color: var(--uf-ink);
+  min-height: 0;
+}
+
+.offer-consult-price strong {
+  font-size: 1.85em;
+  font-weight: 800;
+  color: var(--uf-green);
+}
+
+.offer-consult-units a {
+  font-weight: 700;
 }
 
 .whatsapp-intent-chips button {
