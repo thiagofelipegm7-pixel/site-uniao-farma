@@ -1,0 +1,56 @@
+html {
+  font-kerning: normal;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+body,
+p,
+.direct-unit-neighborhood,
+.locate-unit-status,
+.unit-map-details p {
+  letter-spacing: -0.012em;
+}
+
+.eyebrow,
+.section-kicker,
+.offer-consult-brand,
+.offer-consult-cat,
+.offer-consult-stamp,
+.nearest-unit-badge,
+.preferred-unit-badge,
+.offer-consult-units a small {
+  letter-spacing: 0.12em;
+}
+
+h1,
+.hero-copy h1,
+.neighborhood-hero h1,
+.questions-page h1,
+.encarte-page h1 {
+  letter-spacing: -0.045em;
+}
+
+h2,
+.direct-unit-name,
+.unit-map-details h2,
+.neighborhood-grid h2,
+.direct-unit-links-copy strong {
+  letter-spacing: -0.03em;
+}
+
+h3,
+.offer-consult-body h3 {
+  letter-spacing: -0.02em;
+}
+
+.offer-consult-price strong {
+  letter-spacing: -0.055em;
+}
+
+.whatsapp-intent-chips button,
+.direct-unit-actions a,
+.locate-unit-whatsapp,
+.mobile-quick-nav a,
+.button {
+  letter-spacing: -0.01em;
+}
