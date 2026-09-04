@@ -1,8 +1,9 @@
 "use client";
 
 import { trackEvent } from "./analytics";
+import "./encarte.css";
 import { recordMetric } from "./metrics";
-import { getPublicOffers, type Offer } from "./offers";
+import { formatOfferPrice, getPublicOffers, type Offer } from "./offers";
 import { buildWhatsAppUrl, UNITS } from "./site-config";
 
 const UNIT_SHORT: Record<string, string> = {
@@ -12,7 +13,9 @@ const UNIT_SHORT: Record<string, string> = {
 };
 
 function offerMessage(unitName: string, offer: Offer): string {
-  return `Oi, União Farma ${unitName}! Vi a oferta de ${offer.name} no site. Tem hoje?`;
+  const price =
+    offer.currentPrice !== null ? ` por ${formatOfferPrice(offer.currentPrice)}` : "";
+  return `Oi, União Farma ${unitName}! Vi a oferta de ${offer.name}${price} no encarte. Tem hoje?`;
 }
 
 function OfferConsultCard({ offer }: { offer: Offer }) {
@@ -26,32 +29,43 @@ function OfferConsultCard({ offer }: { offer: Offer }) {
         ) : (
           <span>{offer.placeholderLabel ?? "Oferta"}</span>
         )}
+        <span className="offer-consult-stamp">Consulte</span>
       </div>
       <div className="offer-consult-body">
         <h3>{offer.name}</h3>
-        {offer.brand ? <p>{offer.brand}</p> : null}
-        <p className="offer-consult-note">Consulte disponibilidade na loja.</p>
+        {offer.brand ? <p className="offer-consult-brand">{offer.brand}</p> : null}
+        {offer.currentPrice !== null ? (
+          <p className="offer-consult-price">
+            <strong>{formatOfferPrice(offer.currentPrice)}</strong>
+            {offer.previousPrice ? <s>{formatOfferPrice(offer.previousPrice)}</s> : null}
+          </p>
+        ) : null}
+        <p className="offer-consult-note">
+          {offer.validityType === "while_stock_lasts"
+            ? "Preço sujeito a estoque. Confirme na loja."
+            : "Consulte disponibilidade na loja."}
+        </p>
         <div className="offer-consult-units" aria-label={`Consultar ${offer.name} por unidade`}>
           {units.map((unit) => (
             <a
               key={unit.id}
               href={buildWhatsAppUrl(unit, offerMessage(unit.shortName, offer), {
-                campaign: "ofertas",
+                campaign: "encarte",
                 content: `offer_${offer.id}_${unit.id}`,
               })}
               target="_blank"
               rel="noreferrer"
               onClick={() => {
-                recordMetric({ unit: unit.id, intent: "offer", source: "offers_grid" });
+                recordMetric({ unit: unit.id, intent: "offer", source: "encarte_grid" });
                 trackEvent("offer_unit_select", {
                   offer_id: offer.id,
                   unit: unit.id,
-                  source: "offers_grid",
+                  source: "encarte_grid",
                 });
                 trackEvent("whatsapp_click", {
                   offer_id: offer.id,
                   unit: unit.id,
-                  source: "offers_grid",
+                  source: "encarte_grid",
                   placement: "offer_card_direct",
                 });
               }}
