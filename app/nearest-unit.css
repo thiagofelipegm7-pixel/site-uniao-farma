@@ -64,16 +64,29 @@
   box-shadow: 0 0 0 2px rgba(23, 111, 98, 0.18);
 }
 
-.nearest-unit-badge {
+.direct-unit-link.is-preferred {
+  border-color: #9aa7a2;
+}
+
+.nearest-unit-badge,
+.preferred-unit-badge {
   display: inline-flex;
   width: fit-content;
   margin-top: 4px;
   border-radius: 999px;
-  background: #176f62;
-  color: #ffffff;
   padding: 3px 8px;
   font-size: 11px;
   font-weight: 800;
+}
+
+.nearest-unit-badge {
+  background: #176f62;
+  color: #ffffff;
+}
+
+.preferred-unit-badge {
+  background: #e7eeea;
+  color: #16382f;
 }
 
 .direct-unit-distance {

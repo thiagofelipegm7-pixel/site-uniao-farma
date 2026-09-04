@@ -1,5 +1,9 @@
+"use client";
+
 /* eslint-disable @next/next/no-html-link-for-pages */
-import { INSTAGRAM_URL, UNITS, buildWhatsAppUrl } from "./site-config";
+import { useEffect, useState } from "react";
+import { readPreferredUnitId, sortUnitsByPreference, writePreferredUnitId } from "./preferred-unit";
+import { INSTAGRAM_URL, UNITS, buildWhatsAppUrl, type Unit } from "./site-config";
 
 const NAV = [
   { href: "/", label: "Início" },
@@ -41,6 +45,19 @@ function WhatsAppIcon() {
 }
 
 export default function SiteFooter() {
+  const [preferredId, setPreferredId] = useState<Unit["id"] | null>(null);
+  const units = sortUnitsByPreference(UNITS, preferredId);
+
+  useEffect(() => {
+    setPreferredId(readPreferredUnitId());
+    const onChange = (event: Event) => {
+      const detail = (event as CustomEvent<Unit["id"]>).detail;
+      if (detail) setPreferredId(detail);
+    };
+    window.addEventListener("uf-preferred-unit", onChange);
+    return () => window.removeEventListener("uf-preferred-unit", onChange);
+  }, []);
+
   return (
     <footer className="uf-footer">
       <div className="uf-footer-inner">
@@ -81,7 +98,7 @@ export default function SiteFooter() {
 
           <div className="uf-footer-col">
             <h2>Contato</h2>
-            {UNITS.map((unit) => (
+            {units.map((unit) => (
               <a
                 key={unit.id}
                 href={buildWhatsAppUrl(unit, defaultMessage.replaceAll("{unidade}", unit.shortName), {
@@ -90,8 +107,10 @@ export default function SiteFooter() {
                 })}
                 target="_blank"
                 rel="noreferrer"
+                onClick={() => writePreferredUnitId(unit.id)}
               >
                 {unit.shortName}: {unit.whatsapp}
+                {preferredId === unit.id ? " · sua loja" : ""}
               </a>
             ))}
             <a href={UNITS[0].phoneLink}>Fixo Fátima: {UNITS[0].phone}</a>

@@ -11,6 +11,7 @@ import {
   writeCachedOrigin,
   type RankedUnit,
 } from "./geo";
+import { readPreferredUnitId, sortUnitsByPreference, writePreferredUnitId } from "./preferred-unit";
 import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
 import UnitStatusBadge from "./UnitStatusBadge";
 
@@ -52,16 +53,22 @@ export default function DirectUnitLinks({
   className = "",
 }: DirectUnitLinksProps) {
   const [locate, setLocate] = useState<LocateState>({ status: "idle" });
+  const [preferredId, setPreferredId] = useState<Unit["id"] | null>(null);
 
   const units = useMemo(() => {
     if (locate.status === "ready") return locate.ranked.map((item) => item.unit);
-    return UNITS;
-  }, [locate]);
+    return sortUnitsByPreference(UNITS, preferredId);
+  }, [locate, preferredId]);
 
   const nearest = locate.status === "ready" ? locate.ranked[0] : null;
   const distances = locate.status === "ready"
     ? Object.fromEntries(locate.ranked.map((item) => [item.unit.id, item.distanceKm]))
     : {};
+
+  function rememberUnit(id: Unit["id"]) {
+    writePreferredUnitId(id);
+    setPreferredId(id);
+  }
 
   function applyOrigin(origin: { latitude: number; longitude: number }, fromCache: boolean) {
     const ranked = rankUnitsByDistance(origin);
@@ -128,11 +135,11 @@ export default function DirectUnitLinks({
   }
 
   useEffect(() => {
+    setPreferredId(readPreferredUnitId());
     const cached = readCachedOrigin();
     if (!cached) return;
     applyOrigin(cached, true);
     if (!isFreshCache(cached.savedAt)) requestLocation(true);
-    // Restore once on mount; later clicks refresh on demand.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -168,6 +175,7 @@ export default function DirectUnitLinks({
               target="_blank"
               rel="noreferrer"
               onClick={() => {
+                rememberUnit(nearest.unit.id);
                 trackEvent("whatsapp_click", {
                   unit: nearest.unit.id,
                   intent,
@@ -189,7 +197,9 @@ export default function DirectUnitLinks({
                 ? `Você parece estar longe de Sabará. A unidade mais próxima no mapa é ${nearest.unit.shortName}. Confirme o bairro no WhatsApp.`
                 : nearest
                   ? `Unidade mais próxima: ${nearest.unit.shortName} · ${formatDistance(nearest.distanceKm)}${locate.status === "ready" && locate.fromCache ? " (salvo neste aparelho)" : ""}`
-                  : "Nada é enviado automaticamente. Só pedimos GPS quando você toca no botão."}
+                  : preferredId
+                    ? "Sua última loja já aparece primeiro. Toque em localização se quiser a mais próxima agora."
+                    : "Nada é enviado automaticamente. Só pedimos GPS quando você toca no botão."}
         </p>
       </div>
 
@@ -197,13 +207,15 @@ export default function DirectUnitLinks({
         {units.map((unit: Unit) => {
           const km = distances[unit.id];
           const isNearest = nearest?.unit.id === unit.id;
+          const isPreferred = preferredId === unit.id;
 
           return (
-            <article key={unit.id} className={`direct-unit-link${isNearest ? " is-nearest" : ""}`}>
+            <article key={unit.id} className={`direct-unit-link${isNearest ? " is-nearest" : ""}${isPreferred && !isNearest ? " is-preferred" : ""}`}>
               <span className="direct-unit-name">{unit.shortName}</span>
               <span className="direct-unit-neighborhood">{unit.shortAddress}</span>
               {typeof km === "number" ? <span className="direct-unit-distance">{formatDistance(km)}</span> : null}
               {isNearest ? <span className="nearest-unit-badge">Mais próxima</span> : null}
+              {isPreferred && !isNearest ? <span className="preferred-unit-badge">Sua loja</span> : null}
               <UnitStatusBadge unit={unit} />
               <div className="direct-unit-actions">
                 <a
@@ -214,6 +226,7 @@ export default function DirectUnitLinks({
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => {
+                    rememberUnit(unit.id);
                     if (intent === "delivery_inquiry") {
                       trackEvent("delivery_inquiry", { unit: unit.id, source, placement: "direct_links" });
                     }
@@ -232,6 +245,7 @@ export default function DirectUnitLinks({
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => {
+                    rememberUnit(unit.id);
                     trackEvent("unit_selection", { unit: unit.id, intent: "enviar_receita", source, placement: "direct_links" });
                     trackEvent("whatsapp_click", { unit: unit.id, intent: "enviar_receita", source, placement: "direct_links_recipe" });
                   }}
