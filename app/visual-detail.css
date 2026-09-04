@@ -75,12 +75,29 @@ body {
 }
 
 .whatsapp-intent-chips button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   border: 1px solid var(--uf-line);
   font-weight: 700;
 }
 
+.whatsapp-intent-chips button svg,
+.direct-unit-recipe svg,
+.direct-unit-actions a svg {
+  flex: 0 0 18px;
+}
+
 .locate-unit-bar {
   background: linear-gradient(180deg, #ffffff 0%, #f3f8f6 100%);
+}
+
+.direct-unit-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .direct-unit-actions a:first-child {
