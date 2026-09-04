@@ -1,18 +1,23 @@
 :root {
   --uf-green: #176f62;
+  --uf-green-hover: #125a50;
   --uf-green-dark: #102822;
+  --uf-open: #0f7a4a;
+  --uf-open-live: #14a34a;
+  --uf-whatsapp: #25d366;
+
   --uf-ink: #1c2e29;
   --uf-muted: #4a5c56;
-  --uf-line: #e4ddd4;
+  --uf-closed: #6b4a3a;
+  --uf-gold: #c4a574;
+  --uf-gold-ink: #8a6a3a;
+
   --uf-paper: #fbfaf9;
   --uf-stone: #f2f0ed;
   --uf-fog: #f3f6f6;
   --uf-card: #ffffff;
-  --uf-gold: #c4a574;
-  --uf-open: #0f7a4a;
-  --uf-open-live: #14a34a;
-  --uf-closed: #6b4a3a;
-  --uf-whatsapp: #25d366;
+  --uf-line: #e4ddd4;
+  --uf-line-strong: #d4ccc2;
 
   --t-xs: clamp(0.6875rem, 0.665rem + 0.11vw, 0.75rem);
   --t-sm: clamp(0.8125rem, 0.767rem + 0.23vw, 0.9375rem);
