@@ -9,6 +9,7 @@ import {
   rankUnitsByDistance,
   type RankedUnit,
 } from "./geo";
+import { IntentIcon } from "./IntentIcons";
 import { rankUnitsInWorker } from "./inp-worker-client";
 import { recordMetric } from "./metrics";
 import { readPreferredUnitId, sortUnitsByPreference, writePreferredUnitId } from "./preferred-unit";
@@ -136,6 +137,7 @@ export default function DirectUnitLinks({
                 trackEvent("whatsapp_intent_select", { intent: key, source });
               }}
             >
+              <IntentIcon intent={key} />
               {label}
             </button>
           ))}
@@ -210,7 +212,7 @@ export default function DirectUnitLinks({
                     logWhatsApp(unit.id, activeIntent, "direct_links");
                   }}
                 >
-                  <WhatsAppIcon /> {actionLabel}
+                  <IntentIcon intent={activeIntent} /> {actionLabel}
                 </a>
                 {activeIntent !== "recipe" ? (
                   <a
@@ -226,7 +228,7 @@ export default function DirectUnitLinks({
                       logWhatsApp(unit.id, "recipe", "direct_links_recipe");
                     }}
                   >
-                    Receita
+                    <IntentIcon intent="recipe" /> Receita
                   </a>
                 ) : (
                   <a
@@ -242,7 +244,7 @@ export default function DirectUnitLinks({
                       logWhatsApp(unit.id, "product", "direct_links");
                     }}
                   >
-                    Produto
+                    <IntentIcon intent="product" /> Produto
                   </a>
                 )}
               </div>
