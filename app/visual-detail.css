@@ -1,6 +1,7 @@
 :root {
   --uf-gold: #c4a574;
   --uf-open: #0f7a4a;
+  --uf-open-live: #14a34a;
   --uf-closed: #6b4a3a;
 }
 
@@ -59,14 +60,57 @@ body {
   font-weight: 800;
 }
 
+.open-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.4em 0.75em;
+  border-radius: 999px;
+  font-size: 0.78em;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.open-status::before {
+  content: "";
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  flex: 0 0 0.55em;
+  background: currentColor;
+}
+
+.open-status.is-hours {
+  background: #e8f4ee;
+  color: var(--uf-ink);
+}
+
 .open-status.is-open {
-  background: #e4f6ec;
-  color: var(--uf-open);
+  background: var(--uf-open-live);
+  color: #ffffff;
+}
+
+.open-status.is-open::before {
+  background: #d8ffe6;
+  box-shadow: 0 0 0 0.18em rgba(216, 255, 230, 0.45);
 }
 
 .open-status.is-closed {
-  background: #f6ece4;
+  background: #f3e7df;
   color: var(--uf-closed);
+}
+
+.open-status.is-closed::before {
+  background: var(--uf-closed);
+}
+
+.open-status strong,
+.open-status small {
+  color: inherit;
+  font-size: inherit;
+  font-weight: 800;
 }
 
 .whatsapp-intent-chips {
