@@ -1099,10 +1099,6 @@ export default function Home() {
           <LineIcon name="map" size={20} />
           Unidades
         </a>
-        <button className="floating-btn floating-whatsapp" type="button" onClick={() => openSelector(generalIntent)}>
-          <WhatsAppIcon />
-          Pedir no WhatsApp
-        </button>
       </div>
 
       <UnitSelectorModal intent={selectorIntent} onClose={() => setSelectorIntent(null)} />
