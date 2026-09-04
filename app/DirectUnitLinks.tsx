@@ -11,6 +11,7 @@ import {
   writeCachedOrigin,
   type RankedUnit,
 } from "./geo";
+import { rankUnitsInWorker } from "./inp-worker-client";
 import { recordMetric } from "./metrics";
 import { readPreferredUnitId, sortUnitsByPreference, writePreferredUnitId } from "./preferred-unit";
 import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
@@ -85,8 +86,14 @@ export default function DirectUnitLinks({
     trackEvent("whatsapp_click", { unit: unitId, intent: clickIntent, source, placement });
   }
 
-  function applyOrigin(origin: { latitude: number; longitude: number }, fromCache: boolean) {
-    const ranked = rankUnitsByDistance(origin);
+  async function applyOrigin(origin: { latitude: number; longitude: number }, fromCache: boolean) {
+    const offThread = await rankUnitsInWorker(origin, UNITS);
+    const ranked: RankedUnit[] = offThread.length
+      ? offThread.flatMap((item) => {
+          const unit = UNITS.find((entry) => entry.id === item.id);
+          return unit ? [{ unit, distanceKm: item.distanceKm }] : [];
+        })
+      : rankUnitsByDistance(origin);
     setLocate({ status: "ready", ranked, fromCache });
     return ranked;
   }
@@ -95,7 +102,7 @@ export default function DirectUnitLinks({
     if (!force) {
       const cached = readCachedOrigin();
       if (cached && isFreshCache(cached.savedAt)) {
-        applyOrigin(cached, true);
+        void applyOrigin(cached, true);
         return;
       }
     }
@@ -103,7 +110,7 @@ export default function DirectUnitLinks({
     if (!navigator.geolocation) {
       const cached = readCachedOrigin();
       if (cached) {
-        applyOrigin(cached, true);
+        void applyOrigin(cached, true);
         return;
       }
       setLocate({ status: "unavailable" });
@@ -122,22 +129,24 @@ export default function DirectUnitLinks({
           },
           position.coords.accuracy,
         );
-        const ranked = applyOrigin(origin, false);
-        trackEvent("location_success", {
-          source,
-          nearest: ranked[0]?.unit.id,
-          km: ranked[0] ? Number(ranked[0].distanceKm.toFixed(2)) : undefined,
-          cached: false,
+        void applyOrigin(origin, false).then((ranked) => {
+          trackEvent("location_success", {
+            source,
+            nearest: ranked[0]?.unit.id,
+            km: ranked[0] ? Number(ranked[0].distanceKm.toFixed(2)) : undefined,
+            cached: false,
+          });
         });
       },
       (error) => {
         const cached = readCachedOrigin();
         if (cached) {
-          const ranked = applyOrigin(cached, true);
-          trackEvent("location_cache_fallback", {
-            source,
-            nearest: ranked[0]?.unit.id,
-            code: error.code,
+          void applyOrigin(cached, true).then((ranked) => {
+            trackEvent("location_cache_fallback", {
+              source,
+              nearest: ranked[0]?.unit.id,
+              code: error.code,
+            });
           });
           return;
         }
@@ -153,7 +162,7 @@ export default function DirectUnitLinks({
     setPreferredId(readPreferredUnitId());
     const cached = readCachedOrigin();
     if (!cached) return;
-    applyOrigin(cached, true);
+    void applyOrigin(cached, true);
     if (!isFreshCache(cached.savedAt)) requestLocation(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
