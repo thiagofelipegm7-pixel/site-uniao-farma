@@ -153,27 +153,85 @@ body {
 
   .mobile-quick-nav {
     z-index: 2200;
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
+    gap: 6px;
+  }
+
+  .mobile-quick-nav a {
+    min-height: 40px;
+    font-size: 13px;
   }
 
   body.cookie-banner-visible .mobile-quick-nav {
-    bottom: 58px;
+    bottom: 54px;
   }
 
   body.cookie-banner-visible {
-    padding-bottom: calc(148px + env(safe-area-inset-bottom)) !important;
+    padding-bottom: calc(136px + env(safe-area-inset-bottom)) !important;
   }
 }
 
 @media (max-width: 700px) {
   .hero {
     background: transparent;
+    padding-top: 10px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .hero-copy h1 {
+    font-size: 22px !important;
+    line-height: 1.15 !important;
+    margin: 0 0 10px !important;
+  }
+
+  .whatsapp-intent-chips {
+    margin-bottom: 8px;
+    gap: 6px;
+  }
+
+  .whatsapp-intent-chips button {
+    min-height: 40px;
+    font-size: 12px;
+  }
+
+  .locate-unit-bar {
+    padding: 8px !important;
+    margin-bottom: 8px;
+  }
+
+  .locate-unit-status {
+    margin: 6px 0 0;
+    font-size: 12px;
+  }
+
+  .direct-unit-links-grid {
+    gap: 8px !important;
   }
 
   .direct-unit-link {
-    padding: 14px !important;
+    padding: 12px !important;
+    gap: 6px !important;
   }
 
   .direct-unit-name {
-    font-size: 17px !important;
+    font-size: 16px !important;
+    line-height: 1.2 !important;
+  }
+
+  .direct-unit-neighborhood {
+    font-size: 12px !important;
+  }
+
+  .direct-unit-actions a {
+    min-height: 42px !important;
+  }
+
+  .brand small {
+    display: none;
+  }
+
+  .quick-units-section,
+  .trust-strip {
+    display: none !important;
   }
 }
