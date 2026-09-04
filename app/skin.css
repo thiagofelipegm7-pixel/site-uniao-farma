@@ -16,8 +16,13 @@ body {
 .brand strong,
 .brand small,
 .menu-label,
-.menu-links a {
+.menu-links a,
+.menu-button {
   color: #ffffff;
+}
+
+.menu-icon span {
+  background: #ffffff;
 }
 
 .hero {
