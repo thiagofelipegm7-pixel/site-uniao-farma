@@ -11,6 +11,7 @@ import {
   writeCachedOrigin,
   type RankedUnit,
 } from "./geo";
+import { recordMetric } from "./metrics";
 import { readPreferredUnitId, sortUnitsByPreference, writePreferredUnitId } from "./preferred-unit";
 import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
 import UnitStatusBadge from "./UnitStatusBadge";
@@ -51,8 +52,8 @@ export default function DirectUnitLinks({
   message,
   intent,
   source,
-  heading = "Escolha a loja e pe\u00e7a",
-  description = "A conversa j\u00e1 abre pronta no WhatsApp.",
+  heading = "Escolha a loja e peça",
+  description = "A conversa já abre pronta no WhatsApp.",
   compact = false,
   className = "",
 }: DirectUnitLinksProps) {
@@ -77,6 +78,11 @@ export default function DirectUnitLinks({
   function rememberUnit(id: Unit["id"]) {
     writePreferredUnitId(id);
     setPreferredId(id);
+  }
+
+  function logWhatsApp(unitId: Unit["id"], clickIntent: string, placement: string) {
+    recordMetric({ unit: unitId, intent: clickIntent, source: `${source}_${placement}` });
+    trackEvent("whatsapp_click", { unit: unitId, intent: clickIntent, source, placement });
   }
 
   function applyOrigin(origin: { latitude: number; longitude: number }, fromCache: boolean) {
@@ -165,7 +171,7 @@ export default function DirectUnitLinks({
       ) : null}
 
       {!compact ? (
-        <div className="whatsapp-intent-chips" role="tablist" aria-label="O que voc\u00ea precisa">
+        <div className="whatsapp-intent-chips" role="tablist" aria-label="O que você precisa">
           {(
             [
               ["product", "Produto"],
@@ -199,10 +205,10 @@ export default function DirectUnitLinks({
             disabled={locate.status === "loading"}
           >
             {locate.status === "loading"
-              ? "Localizando\u2026"
+              ? "Localizando…"
               : locate.status === "ready"
                 ? "Atualizar"
-                : "Mais pr\u00f3xima"}
+                : "Mais próxima"}
           </button>
           {nearest ? (
             <a
@@ -215,12 +221,7 @@ export default function DirectUnitLinks({
               rel="noreferrer"
               onClick={() => {
                 rememberUnit(nearest.unit.id);
-                trackEvent("whatsapp_click", {
-                  unit: nearest.unit.id,
-                  intent: activeIntent,
-                  source,
-                  placement: "nearest_unit",
-                });
+                logWhatsApp(nearest.unit.id, activeIntent, "nearest_unit");
               }}
             >
               <WhatsAppIcon /> {actionLabel} agora
@@ -233,12 +234,12 @@ export default function DirectUnitLinks({
             : locate.status === "unavailable"
               ? "Escolha a unidade manualmente."
               : nearest && isFarFromCoverage(nearest.distanceKm)
-                ? `Mais pr\u00f3xima no mapa: ${nearest.unit.shortName}.`
+                ? `Mais próxima no mapa: ${nearest.unit.shortName}.`
                 : nearest
-                  ? `${nearest.unit.shortName} \u00b7 ${formatDistance(nearest.distanceKm)}`
+                  ? `${nearest.unit.shortName} · ${formatDistance(nearest.distanceKm)}`
                   : preferredId
-                    ? "Sua loja j\u00e1 aparece primeiro."
-                    : "Escolha a loja ou use a localiza\u00e7\u00e3o."}
+                    ? "Sua loja já aparece primeiro."
+                    : "Escolha a loja ou use a localização."}
         </p>
       </div>
 
@@ -253,7 +254,7 @@ export default function DirectUnitLinks({
               <span className="direct-unit-name">{unit.shortName}</span>
               <span className="direct-unit-neighborhood">{unit.shortAddress}</span>
               {typeof km === "number" ? <span className="direct-unit-distance">{formatDistance(km)}</span> : null}
-              {isNearest ? <span className="nearest-unit-badge">Mais pr\u00f3xima</span> : null}
+              {isNearest ? <span className="nearest-unit-badge">Mais próxima</span> : null}
               {isPreferred && !isNearest ? <span className="preferred-unit-badge">Sua loja</span> : null}
               <UnitStatusBadge unit={unit} />
               <div className="direct-unit-actions">
@@ -270,7 +271,7 @@ export default function DirectUnitLinks({
                       trackEvent("delivery_inquiry", { unit: unit.id, source, placement: "direct_links" });
                     }
                     trackEvent("unit_selection", { unit: unit.id, intent: activeIntent, source, placement: "direct_links" });
-                    trackEvent("whatsapp_click", { unit: unit.id, intent: activeIntent, source, placement: "direct_links" });
+                    logWhatsApp(unit.id, activeIntent, "direct_links");
                   }}
                 >
                   <WhatsAppIcon /> {actionLabel}
@@ -286,8 +287,7 @@ export default function DirectUnitLinks({
                     rel="noreferrer"
                     onClick={() => {
                       rememberUnit(unit.id);
-                      trackEvent("unit_selection", { unit: unit.id, intent: "recipe", source, placement: "direct_links" });
-                      trackEvent("whatsapp_click", { unit: unit.id, intent: "recipe", source, placement: "direct_links_recipe" });
+                      logWhatsApp(unit.id, "recipe", "direct_links_recipe");
                     }}
                   >
                     Receita
@@ -303,7 +303,7 @@ export default function DirectUnitLinks({
                     rel="noreferrer"
                     onClick={() => {
                       rememberUnit(unit.id);
-                      trackEvent("whatsapp_click", { unit: unit.id, intent: "product", source, placement: "direct_links" });
+                      logWhatsApp(unit.id, "product", "direct_links");
                     }}
                   >
                     Produto
