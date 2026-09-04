@@ -30,6 +30,30 @@
   text-overflow: ellipsis;
 }
 
+.whatsapp-intent-chips {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.whatsapp-intent-chips button {
+  min-height: 42px;
+  border: 1px solid #d7e4de;
+  border-radius: 12px;
+  background: #ffffff;
+  color: #16382f;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.whatsapp-intent-chips button.is-active {
+  background: #176f62;
+  border-color: #176f62;
+  color: #ffffff;
+}
+
 .cookie-actions {
   display: flex;
   gap: 8px;
@@ -166,6 +190,25 @@
     margin: 0 !important;
   }
 
+  .hero {
+    padding-top: 16px !important;
+    padding-bottom: 12px !important;
+  }
+
+  .hero-copy .eyebrow,
+  .hero-lead,
+  .hero-offer-showcase,
+  .hero-mobile-facts,
+  .direct-unit-links-copy {
+    display: none !important;
+  }
+
+  .hero-copy h1 {
+    font-size: 28px !important;
+    line-height: 1.1 !important;
+    margin: 0 0 14px !important;
+  }
+
   .cookie-manage-button {
     display: none !important;
   }
@@ -281,83 +324,7 @@
     padding: 8px;
   }
 
-  .hero-offer-showcase {
-    min-height: 0 !important;
-    overflow: hidden;
-    margin-top: 8px;
-    border-radius: 24px !important;
-    padding: 16px 14px 18px !important;
-  }
-
-  .hero-showcase-heading {
-    position: relative;
-    z-index: 2;
-    transform: none;
-    margin-bottom: 10px;
-  }
-
-  .hero-showcase-heading span {
-    font-size: 13px;
-    letter-spacing: 0.08em;
-  }
-
-  .hero-showcase-heading strong {
-    font-size: 28px !important;
-    line-height: 0.95;
-  }
-
-  .hero-product-stack {
-    position: relative !important;
-    inset: auto !important;
-    display: block;
-  }
-
-  .hero-product {
-    position: relative !important;
-    inset: auto !important;
-    width: 100% !important;
-    height: auto !important;
-    transform: none !important;
-    border-radius: 18px;
-  }
-
-  .hero-product img {
-    width: 100%;
-    height: auto;
-    max-height: 320px;
-    object-fit: contain;
-    background: #f3f7f5;
-  }
-
-  .hero-product-2,
-  .hero-product-3,
-  .hero-heart {
-    display: none !important;
-  }
-
-  .hero-price-tag {
-    left: 12px;
-    bottom: 12px;
-  }
-
-  .hero-offer-showcase > p {
-    position: static;
-    max-width: none;
-    margin: 10px 0 0;
-    font-size: 11px;
-    line-height: 1.4;
-  }
-
-  .hero-offer-cta {
-    width: 100%;
-    margin-top: 12px;
-  }
-
   .locate-unit-bar {
-    padding: 12px 14px;
-  }
-
-  .locate-unit-bar > p:first-child {
-    font-size: 13px;
+    padding: 10px 12px;
   }
 }
