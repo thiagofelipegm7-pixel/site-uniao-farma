@@ -88,6 +88,85 @@
   transform: none !important;
 }
 
+@media (max-width: 860px) {
+  .menu-backdrop,
+  .content-menu-backdrop {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 2400 !important;
+    margin: 0 !important;
+    border: 0 !important;
+    background: rgba(16, 32, 28, 0.48) !important;
+  }
+
+  .menu-links.is-open,
+  .content-menu-drawer {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: auto !important;
+    width: min(88vw, 360px) !important;
+    height: 100dvh !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 18px 16px calc(24px + env(safe-area-inset-bottom)) !important;
+    overflow-y: auto !important;
+    background: #ffffff !important;
+    box-shadow: -18px 0 40px rgba(16, 32, 28, 0.2) !important;
+    z-index: 2500 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: 8px !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  .content-menu-drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    color: #16382f;
+    font-size: 18px;
+    font-weight: 800;
+  }
+
+  .content-menu-drawer-header button {
+    width: 44px;
+    height: 44px;
+    border: 1px solid #d7e4de;
+    border-radius: 14px;
+    background: #fff;
+    color: #16382f;
+    font-size: 24px;
+    line-height: 1;
+  }
+
+  .menu-links.is-open a,
+  .content-side-nav a {
+    display: flex !important;
+    align-items: center !important;
+    min-height: 52px !important;
+    padding: 12px 14px !important;
+    border: 1px solid #d7e4de !important;
+    border-radius: 14px !important;
+    background: #f3f7f5 !important;
+    color: #16382f !important;
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+  }
+
+  .content-side-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
 @media (max-width: 700px) {
   .header-cta {
     width: 48px;
