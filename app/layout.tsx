@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins } from "next/font/google";
+import { Fraunces, Poppins } from "next/font/google";
 import dynamic from "next/dynamic";
 import MobileQuickNav from "./MobileQuickNav";
 import OpenNowStrip from "./OpenNowStrip";
@@ -33,6 +33,15 @@ const poppins = Poppins({
   display: "swap",
   preload: true,
   fallback: ["Arial", "sans-serif"],
+  adjustFontFallback: true,
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  display: "swap",
+  variable: "--font-display",
+  fallback: ["Georgia", "serif"],
   adjustFontFallback: true,
 });
 
@@ -134,7 +143,7 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" data-theme="light" className={poppins.className}>
+    <html lang="pt-BR" data-theme="light" className={`${poppins.className} ${fraunces.variable}`}>
       <head>
         <link rel="preload" href="/icon-192.png" as="image" type="image/png" fetchPriority="high" />
       </head>
