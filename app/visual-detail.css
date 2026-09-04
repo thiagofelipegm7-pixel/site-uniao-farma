@@ -1,0 +1,141 @@
+:root {
+  --uf-gold: #c4a574;
+  --uf-open: #0f7a4a;
+  --uf-closed: #6b4a3a;
+}
+
+body {
+  background:
+    radial-gradient(1200px 420px at 50% -80px, rgba(23, 111, 98, 0.08), transparent 60%),
+    var(--uf-paper);
+}
+
+.eyebrow,
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--uf-green);
+}
+
+.direct-unit-link,
+.quick-unit-card,
+.offer-consult-card,
+.question-card,
+.neighborhood-card {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.direct-unit-link::before,
+.quick-unit-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--uf-green);
+}
+
+.direct-unit-link.is-nearest::before {
+  background: var(--uf-gold);
+}
+
+.direct-unit-link:hover,
+.quick-unit-card:hover,
+.offer-consult-card:hover,
+.question-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px rgba(16, 40, 34, 0.12);
+}
+
+.direct-unit-name {
+  font-weight: 800;
+}
+
+.open-status.is-open {
+  background: #e4f6ec;
+  color: var(--uf-open);
+}
+
+.open-status.is-closed {
+  background: #f6ece4;
+  color: var(--uf-closed);
+}
+
+.whatsapp-intent-chips {
+  display: flex;
+  gap: 8px;
+}
+
+.whatsapp-intent-chips button {
+  border: 1px solid var(--uf-line);
+  font-weight: 700;
+}
+
+.locate-unit-bar {
+  background: linear-gradient(180deg, #ffffff 0%, #f3f8f6 100%);
+}
+
+.direct-unit-actions a:first-child {
+  background: var(--uf-green);
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.direct-unit-recipe {
+  background: #ffffff;
+  color: var(--uf-ink);
+  border: 1px solid var(--uf-line);
+}
+
+.uf-footer {
+  background:
+    linear-gradient(180deg, #16382f 0%, #102822 100%);
+}
+
+@media (min-width: 901px) {
+  .hero,
+  .direct-unit-links,
+  .neighborhood-hero,
+  .questions-page,
+  .encarte-page {
+    width: min(1120px, calc(100% - 48px));
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero {
+    padding-top: 28px;
+    padding-bottom: 20px;
+  }
+
+  .hero-copy h1 {
+    font-size: 44px;
+    line-height: 1.12;
+    max-width: 16ch;
+  }
+
+  .direct-unit-links-grid {
+    gap: 16px;
+  }
+
+  .direct-unit-link {
+    padding: 18px;
+  }
+}
+
+@media (max-width: 700px) {
+  .direct-unit-link:hover,
+  .quick-unit-card:hover,
+  .offer-consult-card:hover,
+  .question-card:hover {
+    transform: none;
+  }
+}
