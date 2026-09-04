@@ -1,0 +1,39 @@
+h1,
+.hero-copy h1,
+.neighborhood-hero h1,
+.questions-page h1,
+.encarte-page h1 {
+  font-optical-sizing: auto;
+  text-wrap: balance;
+  hyphens: none;
+  overflow-wrap: normal;
+  hanging-punctuation: first;
+}
+
+h2,
+.direct-unit-name,
+.offer-consult-body h3 {
+  text-wrap: pretty;
+  hyphens: none;
+}
+
+p,
+.hero-lead,
+.direct-unit-neighborhood,
+.direct-unit-links-copy span,
+.locate-unit-status {
+  text-wrap: pretty;
+  hanging-punctuation: first;
+}
+
+.direct-unit-neighborhood,
+.offer-consult-body h3 {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 43.75rem) {
+  .hero-copy h1 {
+    text-wrap: pretty;
+    max-width: 16ch;
+  }
+}
