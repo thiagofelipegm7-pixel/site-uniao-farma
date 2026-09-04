@@ -151,7 +151,7 @@ export default function DirectUnitLinks({
       </div>
 
       <div className="locate-unit-bar">
-        <p>Use sua localização para destacar a unidade mais próxima. O cálculo acontece no seu celular e não enviamos o GPS para o servidor.</p>
+        <p>Toque para ver a unidade mais perto de você.</p>
         <div className="locate-unit-actions">
           <button
             className="locate-unit-button"
@@ -196,10 +196,10 @@ export default function DirectUnitLinks({
               : nearest && isFarFromCoverage(nearest.distanceKm)
                 ? `Você parece estar longe de Sabará. A unidade mais próxima no mapa é ${nearest.unit.shortName}. Confirme o bairro no WhatsApp.`
                 : nearest
-                  ? `Unidade mais próxima: ${nearest.unit.shortName} · ${formatDistance(nearest.distanceKm)}${locate.status === "ready" && locate.fromCache ? " (salvo neste aparelho)" : ""}`
+                  ? `Mais próxima: ${nearest.unit.shortName} · ${formatDistance(nearest.distanceKm)}`
                   : preferredId
-                    ? "Sua última loja já aparece primeiro. Toque em localização se quiser a mais próxima agora."
-                    : "Nada é enviado automaticamente. Só pedimos GPS quando você toca no botão."}
+                    ? "Sua loja já aparece primeiro."
+                    : "O GPS fica só no seu celular."}
         </p>
       </div>
 
