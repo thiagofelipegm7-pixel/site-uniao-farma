@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import AnalyticsConsent from "./AnalyticsConsent";
 import MobileQuickNav from "./MobileQuickNav";
+import OpenNowStrip from "./OpenNowStrip";
 import PwaRegister from "./PwaRegister";
 import SiteFooter from "./SiteFooter";
 import "./globals.css";
@@ -111,6 +112,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <AnalyticsConsent />
         <PwaRegister />
+        <OpenNowStrip />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
