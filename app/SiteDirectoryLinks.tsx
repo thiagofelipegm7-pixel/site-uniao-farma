@@ -1,6 +1,7 @@
 const SITE_DIRECTORY_LINKS = [
   { href: "/", label: "Início" },
   { href: "/ofertas", label: "Ofertas" },
+  { href: "/encarte", label: "Encarte" },
   { href: "/perguntas", label: "Perguntas" },
   { href: "/receita", label: "Enviar receita" },
   { href: "/novidades", label: "Novidades" },
