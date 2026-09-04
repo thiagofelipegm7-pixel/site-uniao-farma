@@ -14,6 +14,7 @@ import {
 import { readPreferredUnitId, sortUnitsByPreference, writePreferredUnitId } from "./preferred-unit";
 import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
 import UnitStatusBadge from "./UnitStatusBadge";
+import { WHATSAPP_MESSAGES, type WhatsAppIntentKey } from "./whatsapp-messages";
 
 type DirectUnitLinksProps = {
   message: string;
@@ -40,20 +41,28 @@ function WhatsAppIcon() {
   return <img src="/whatsapp-icon.svg" alt="" width="20" height="20" aria-hidden="true" />;
 }
 
-const recipeMessage =
-  "Olá, União Farma {unidade}! Vou enviar a foto da receita (ou Memed). Pode o farmacêutico conferir?";
+function defaultIntent(intent: string): WhatsAppIntentKey {
+  if (intent === "delivery_inquiry") return "delivery";
+  if (intent === "enviar_receita") return "recipe";
+  return "product";
+}
 
 export default function DirectUnitLinks({
   message,
   intent,
   source,
-  heading = "Escolha sua unidade e fale direto com a equipe",
-  description = "Uma mensagem já pronta será aberta no WhatsApp da loja escolhida.",
+  heading = "Escolha a loja e pe\u00e7a",
+  description = "A conversa j\u00e1 abre pronta no WhatsApp.",
   compact = false,
   className = "",
 }: DirectUnitLinksProps) {
   const [locate, setLocate] = useState<LocateState>({ status: "idle" });
   const [preferredId, setPreferredId] = useState<Unit["id"] | null>(null);
+  const [activeIntent, setActiveIntent] = useState<WhatsAppIntentKey>(defaultIntent(intent));
+
+  const selectedMessage =
+    WHATSAPP_MESSAGES[activeIntent] ||
+    (message.includes("___") ? WHATSAPP_MESSAGES.product : message);
 
   const units = useMemo(() => {
     if (locate.status === "ready") return locate.ranked.map((item) => item.unit);
@@ -143,15 +152,45 @@ export default function DirectUnitLinks({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const actionLabel =
+    activeIntent === "recipe" ? "Receita" : activeIntent === "delivery" ? "Entrega" : "Pedir";
+
   return (
     <div className={`direct-unit-links ${compact ? "direct-unit-links-compact" : ""} ${className}`.trim()}>
-      <div className="direct-unit-links-copy">
-        <strong>{heading}</strong>
-        <span>{description}</span>
-      </div>
+      {!compact ? (
+        <div className="direct-unit-links-copy">
+          <strong>{heading}</strong>
+          <span>{description}</span>
+        </div>
+      ) : null}
+
+      {!compact ? (
+        <div className="whatsapp-intent-chips" role="tablist" aria-label="O que voc\u00ea precisa">
+          {(
+            [
+              ["product", "Produto"],
+              ["recipe", "Receita"],
+              ["delivery", "Entrega"],
+            ] as Array<[WhatsAppIntentKey, string]>
+          ).map(([key, label]) => (
+            <button
+              key={key}
+              type="button"
+              role="tab"
+              aria-selected={activeIntent === key}
+              className={activeIntent === key ? "is-active" : ""}
+              onClick={() => {
+                setActiveIntent(key);
+                trackEvent("whatsapp_intent_select", { intent: key, source });
+              }}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+      ) : null}
 
       <div className="locate-unit-bar">
-        <p>Toque para ver a unidade mais perto de você.</p>
         <div className="locate-unit-actions">
           <button
             className="locate-unit-button"
@@ -160,17 +199,17 @@ export default function DirectUnitLinks({
             disabled={locate.status === "loading"}
           >
             {locate.status === "loading"
-              ? "Localizando…"
+              ? "Localizando\u2026"
               : locate.status === "ready"
-                ? "Atualizar localização"
-                : "Usar minha localização"}
+                ? "Atualizar"
+                : "Mais pr\u00f3xima"}
           </button>
           {nearest ? (
             <a
               className="locate-unit-whatsapp"
-              href={buildWhatsAppUrl(nearest.unit, resolveMessage(message, nearest.unit.shortName), {
+              href={buildWhatsAppUrl(nearest.unit, resolveMessage(selectedMessage, nearest.unit.shortName), {
                 campaign: source,
-                content: `${source}_${nearest.unit.id}_nearest`,
+                content: `${source}_${nearest.unit.id}_nearest_${activeIntent}`,
               })}
               target="_blank"
               rel="noreferrer"
@@ -178,28 +217,28 @@ export default function DirectUnitLinks({
                 rememberUnit(nearest.unit.id);
                 trackEvent("whatsapp_click", {
                   unit: nearest.unit.id,
-                  intent,
+                  intent: activeIntent,
                   source,
                   placement: "nearest_unit",
                 });
               }}
             >
-              <WhatsAppIcon /> Pedir na mais próxima
+              <WhatsAppIcon /> {actionLabel} agora
             </a>
           ) : null}
         </div>
         <p className="locate-unit-status">
           {locate.status === "denied"
-            ? "Permissão de localização negada. Escolha a loja pelo bairro."
+            ? "Escolha a loja pelo bairro."
             : locate.status === "unavailable"
-              ? "Não foi possível obter a localização. Escolha a unidade manualmente."
+              ? "Escolha a unidade manualmente."
               : nearest && isFarFromCoverage(nearest.distanceKm)
-                ? `Você parece estar longe de Sabará. A unidade mais próxima no mapa é ${nearest.unit.shortName}. Confirme o bairro no WhatsApp.`
+                ? `Mais pr\u00f3xima no mapa: ${nearest.unit.shortName}.`
                 : nearest
-                  ? `Mais próxima: ${nearest.unit.shortName} · ${formatDistance(nearest.distanceKm)}`
+                  ? `${nearest.unit.shortName} \u00b7 ${formatDistance(nearest.distanceKm)}`
                   : preferredId
-                    ? "Sua loja já aparece primeiro."
-                    : "O GPS fica só no seu celular."}
+                    ? "Sua loja j\u00e1 aparece primeiro."
+                    : "Escolha a loja ou use a localiza\u00e7\u00e3o."}
         </p>
       </div>
 
@@ -214,44 +253,62 @@ export default function DirectUnitLinks({
               <span className="direct-unit-name">{unit.shortName}</span>
               <span className="direct-unit-neighborhood">{unit.shortAddress}</span>
               {typeof km === "number" ? <span className="direct-unit-distance">{formatDistance(km)}</span> : null}
-              {isNearest ? <span className="nearest-unit-badge">Mais próxima</span> : null}
+              {isNearest ? <span className="nearest-unit-badge">Mais pr\u00f3xima</span> : null}
               {isPreferred && !isNearest ? <span className="preferred-unit-badge">Sua loja</span> : null}
               <UnitStatusBadge unit={unit} />
               <div className="direct-unit-actions">
                 <a
-                  href={buildWhatsAppUrl(unit, resolveMessage(message, unit.shortName), {
+                  href={buildWhatsAppUrl(unit, resolveMessage(selectedMessage, unit.shortName), {
                     campaign: source,
-                    content: `${source}_${unit.id}_pedido`,
+                    content: `${source}_${unit.id}_${activeIntent}`,
                   })}
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => {
                     rememberUnit(unit.id);
-                    if (intent === "delivery_inquiry") {
+                    if (activeIntent === "delivery") {
                       trackEvent("delivery_inquiry", { unit: unit.id, source, placement: "direct_links" });
                     }
-                    trackEvent("unit_selection", { unit: unit.id, intent, source, placement: "direct_links" });
-                    trackEvent("whatsapp_click", { unit: unit.id, intent, source, placement: "direct_links" });
+                    trackEvent("unit_selection", { unit: unit.id, intent: activeIntent, source, placement: "direct_links" });
+                    trackEvent("whatsapp_click", { unit: unit.id, intent: activeIntent, source, placement: "direct_links" });
                   }}
                 >
-                  <WhatsAppIcon /> Pedir
+                  <WhatsAppIcon /> {actionLabel}
                 </a>
-                <a
-                  className="direct-unit-recipe"
-                  href={buildWhatsAppUrl(unit, resolveMessage(recipeMessage, unit.shortName), {
-                    campaign: source,
-                    content: `${source}_${unit.id}_receita`,
-                  })}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => {
-                    rememberUnit(unit.id);
-                    trackEvent("unit_selection", { unit: unit.id, intent: "enviar_receita", source, placement: "direct_links" });
-                    trackEvent("whatsapp_click", { unit: unit.id, intent: "enviar_receita", source, placement: "direct_links_recipe" });
-                  }}
-                >
-                  Receita
-                </a>
+                {activeIntent !== "recipe" ? (
+                  <a
+                    className="direct-unit-recipe"
+                    href={buildWhatsAppUrl(unit, resolveMessage(WHATSAPP_MESSAGES.recipe, unit.shortName), {
+                      campaign: source,
+                      content: `${source}_${unit.id}_receita`,
+                    })}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => {
+                      rememberUnit(unit.id);
+                      trackEvent("unit_selection", { unit: unit.id, intent: "recipe", source, placement: "direct_links" });
+                      trackEvent("whatsapp_click", { unit: unit.id, intent: "recipe", source, placement: "direct_links_recipe" });
+                    }}
+                  >
+                    Receita
+                  </a>
+                ) : (
+                  <a
+                    className="direct-unit-recipe"
+                    href={buildWhatsAppUrl(unit, resolveMessage(WHATSAPP_MESSAGES.product, unit.shortName), {
+                      campaign: source,
+                      content: `${source}_${unit.id}_produto`,
+                    })}
+                    target="_blank"
+                    rel="noreferrer"
+                    onClick={() => {
+                      rememberUnit(unit.id);
+                      trackEvent("whatsapp_click", { unit: unit.id, intent: "product", source, placement: "direct_links" });
+                    }}
+                  >
+                    Produto
+                  </a>
+                )}
               </div>
             </article>
           );
