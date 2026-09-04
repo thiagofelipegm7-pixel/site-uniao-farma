@@ -14,6 +14,7 @@ import "./visual-polish.css";
 import "./lcp.css";
 import "./inp.css";
 import "./visual-detail.css";
+import "./type.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 
 const AnalyticsConsent = dynamic(() => import("./AnalyticsConsent"), { ssr: false });
