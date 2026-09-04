@@ -59,8 +59,6 @@ function startAnalytics(): void {
 
   trackingWindow.dataLayer = trackingWindow.dataLayer || [];
 
-  // Use GTM as the single Google loader when a container is configured. If it
-  // is not configured, keep the existing direct GA4 integration as fallback.
   if (GTM_CONTAINER_ID) {
     startGoogleTagManager();
   } else {
@@ -111,8 +109,6 @@ function startAnalytics(): void {
 }
 
 export default function AnalyticsConsent() {
-  // Read browser-only consent after hydration so the server and first client
-  // render stay identical.
   const [consent, setConsent] = useState<ConsentValue | null>(null);
   const [showPreferences, setShowPreferences] = useState(false);
   const hydrated = useSyncExternalStore(
@@ -132,6 +128,11 @@ export default function AnalyticsConsent() {
   }, [consent]);
 
   const showBanner = hydrated && (consent === null || showPreferences);
+
+  useEffect(() => {
+    document.body.classList.toggle("cookie-banner-visible", showBanner);
+    return () => document.body.classList.remove("cookie-banner-visible");
+  }, [showBanner]);
 
   useEffect(() => {
     if (consent !== "accepted") return;
@@ -180,13 +181,16 @@ export default function AnalyticsConsent() {
       {showBanner && (
         <section className="cookie-banner" aria-label="Preferências de cookies">
           <div>
-            <strong>Privacidade e cookies</strong>
+            <strong>Cookies opcionais</strong>
             <p>
-              Cookies opcionais nos ajudam a melhorar o site e só são ativados com sua autorização. Leia a{" "}
-              <a href="/privacidade">Política de Privacidade</a>.
+              Só ativamos analytics com sua autorização.{" "}
+              <a href="/privacidade">Privacidade</a>
             </p>
           </div>
           <div className="cookie-actions">
+            <button type="button" className="cookie-reject" onClick={() => saveConsent("rejected")}>
+              Recusar
+            </button>
             <button type="button" className="cookie-accept" onClick={() => saveConsent("accepted")}>
               Aceitar
             </button>
