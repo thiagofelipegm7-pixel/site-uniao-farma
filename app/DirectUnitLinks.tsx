@@ -44,7 +44,7 @@ export default function DirectUnitLinks({
         {UNITS.map((unit) => (
           <article key={unit.id} className="direct-unit-link">
             <span className="direct-unit-name">{unit.shortName}</span>
-            <span className="direct-unit-neighborhood">{unit.address}</span>
+            <span className="direct-unit-neighborhood">{unit.shortAddress}</span>
             <UnitStatusBadge unit={unit} />
             <div className="direct-unit-actions">
               <a
@@ -62,7 +62,7 @@ export default function DirectUnitLinks({
                   trackEvent("whatsapp_click", { unit: unit.id, intent, source, placement: "direct_links" });
                 }}
               >
-                <WhatsAppIcon /> Pedir produto
+                <WhatsAppIcon /> Pedir
               </a>
               <a
                 className="direct-unit-recipe"
@@ -77,7 +77,7 @@ export default function DirectUnitLinks({
                   trackEvent("whatsapp_click", { unit: unit.id, intent: "enviar_receita", source, placement: "direct_links_recipe" });
                 }}
               >
-                Enviar receita
+                Receita
               </a>
             </div>
           </article>

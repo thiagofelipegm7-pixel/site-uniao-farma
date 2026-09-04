@@ -67,11 +67,11 @@ function getNextOpening(unit: Unit, currentWeekday: Weekday, currentMinutes: num
   return "horário indisponível";
 }
 
-function getFallbackLabel(unit: Unit): string {
+export function getFallbackLabel(unit: Unit): string {
   const weekday = unit.schedule.mon;
   const saturday = unit.schedule.sat;
   const sunday = unit.schedule.sun;
-  return `Horário: Seg–sex ${weekday?.open.slice(0, 5)}–${weekday?.close.slice(0, 5)} · Sáb ${saturday?.open.slice(0, 5)}–${saturday?.close.slice(0, 5)} · Dom ${sunday?.open.slice(0, 5)}–${sunday?.close.slice(0, 5)}`;
+  return `Seg–sex ${weekday?.open.slice(0, 5)}–${weekday?.close.slice(0, 5)} · Sáb ${saturday?.open.slice(0, 5)}–${saturday?.close.slice(0, 5)} · Dom ${sunday?.open.slice(0, 5)}–${sunday?.close.slice(0, 5)}`;
 }
 
 export function getUnitOpenStatus(unit: Unit, date = new Date()): {
@@ -105,20 +105,19 @@ export default function UnitStatusBadge({ unit }: { unit: Unit }) {
   const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
+    setNow(new Date());
     const timer = window.setInterval(() => setNow(new Date()), 60_000);
     return () => window.clearInterval(timer);
   }, []);
 
   const status = useMemo(
-    () => now ? getUnitOpenStatus(unit, now) : { isOpen: false, label: getFallbackLabel(unit) },
+    () => (now ? getUnitOpenStatus(unit, now) : { isOpen: false, label: getFallbackLabel(unit) }),
     [unit, now],
   );
 
   return (
-    <span className={`open-status ${status.isOpen ? "is-open" : "is-closed"}`}>
-      <span aria-hidden="true" />
+    <span className={`open-status ${now ? (status.isOpen ? "is-open" : "is-closed") : "is-hours"}`}>
       <strong>{status.label}</strong>
-      <small>{getFallbackLabel(unit).replace("Horário: ", "")}</small>
     </span>
   );
 }
