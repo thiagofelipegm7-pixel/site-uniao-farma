@@ -41,8 +41,6 @@ function WhatsAppIcon() {
 }
 
 export default function SiteFooter() {
-  const primaryUnit = UNITS[0];
-
   return (
     <footer className="uf-footer">
       <div className="uf-footer-inner">
@@ -66,16 +64,7 @@ export default function SiteFooter() {
               <a href="/#unidades-rapidas" aria-label="Ver unidades" title="Unidades">
                 <PinIcon />
               </a>
-              <a
-                href={buildWhatsAppUrl(primaryUnit, defaultMessage.replaceAll("{unidade}", primaryUnit.shortName), {
-                  campaign: "footer",
-                  content: "footer_whatsapp",
-                })}
-                target="_blank"
-                rel="noreferrer"
-                aria-label="WhatsApp"
-                title="WhatsApp"
-              >
+              <a href="/#unidades-rapidas" aria-label="Escolher unidade no WhatsApp" title="Escolher unidade no WhatsApp">
                 <WhatsAppIcon />
               </a>
             </div>
