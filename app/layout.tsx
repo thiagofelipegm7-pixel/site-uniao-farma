@@ -20,6 +20,7 @@ import "./viewport.css";
 import "./motion.css";
 import "./refero.css";
 import "./kerning.css";
+import "./type-mobile.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 
 const AnalyticsConsent = dynamic(() => import("./AnalyticsConsent"), { ssr: false });
