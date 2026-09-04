@@ -97,7 +97,7 @@ const organizationSchema = {
   name: "União Farma",
   alternateName: "Drogaria e Perfumaria União Farma",
   url: SITE_URL,
-  logo: `${SITE_URL}/uniao-farma-logo.webp`,
+  logo: `${SITE_URL}/icon-192.png`,
   sameAs: [INSTAGRAM_URL],
   contactPoint: UNITS.map((unit) => ({
     "@type": "ContactPoint",
@@ -125,7 +125,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pt-BR" data-theme="light" className={poppins.className}>
       <head>
-        <link rel="preload" href="/uniao-farma-logo.webp" as="image" type="image/webp" />
+        <link rel="preload" href="/icon-192.png" as="image" type="image/png" fetchPriority="high" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body>
         <AnalyticsConsent />
