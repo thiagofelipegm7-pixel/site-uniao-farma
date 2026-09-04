@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import AnalyticsConsent from "./AnalyticsConsent";
+import PwaRegister from "./PwaRegister";
 import SiteFooter from "./SiteFooter";
 import "./globals.css";
 import "./mobile-fixes.css";
@@ -108,6 +109,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="pt-BR" data-theme="light">
       <body>
         <AnalyticsConsent />
+        <PwaRegister />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
