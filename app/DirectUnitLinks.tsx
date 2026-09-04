@@ -2,13 +2,11 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { trackEvent } from "./analytics";
+import { scheduleAutoLocation } from "./auto-location";
 import {
   formatDistance,
   isFarFromCoverage,
-  isFreshCache,
   rankUnitsByDistance,
-  readCachedOrigin,
-  writeCachedOrigin,
   type RankedUnit,
 } from "./geo";
 import { rankUnitsInWorker } from "./inp-worker-client";
@@ -98,72 +96,11 @@ export default function DirectUnitLinks({
     return ranked;
   }
 
-  function requestLocation(force = false) {
-    if (!force) {
-      const cached = readCachedOrigin();
-      if (cached && isFreshCache(cached.savedAt)) {
-        void applyOrigin(cached, true);
-        return;
-      }
-    }
-
-    if (!navigator.geolocation) {
-      const cached = readCachedOrigin();
-      if (cached) {
-        void applyOrigin(cached, true);
-        return;
-      }
-      setLocate({ status: "unavailable" });
-      return;
-    }
-
-    setLocate({ status: "loading" });
-    trackEvent("location_request", { source, placement: "direct_links", force });
-
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        const origin = writeCachedOrigin(
-          {
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          },
-          position.coords.accuracy,
-        );
-        void applyOrigin(origin, false).then((ranked) => {
-          trackEvent("location_success", {
-            source,
-            nearest: ranked[0]?.unit.id,
-            km: ranked[0] ? Number(ranked[0].distanceKm.toFixed(2)) : undefined,
-            cached: false,
-          });
-        });
-      },
-      (error) => {
-        const cached = readCachedOrigin();
-        if (cached) {
-          void applyOrigin(cached, true).then((ranked) => {
-            trackEvent("location_cache_fallback", {
-              source,
-              nearest: ranked[0]?.unit.id,
-              code: error.code,
-            });
-          });
-          return;
-        }
-
-        setLocate({ status: error.code === error.PERMISSION_DENIED ? "denied" : "unavailable" });
-        trackEvent("location_error", { source, code: error.code });
-      },
-      { enableHighAccuracy: false, timeout: 8000, maximumAge: force ? 0 : 45 * 60 * 1000 },
-    );
-  }
-
   useEffect(() => {
     setPreferredId(readPreferredUnitId());
-    const cached = readCachedOrigin();
-    if (!cached) return;
-    void applyOrigin(cached, true);
-    if (!isFreshCache(cached.savedAt)) requestLocation(true);
+    return scheduleAutoLocation((origin) => {
+      void applyOrigin(origin, true);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -207,18 +144,6 @@ export default function DirectUnitLinks({
 
       <div className="locate-unit-bar">
         <div className="locate-unit-actions">
-          <button
-            className="locate-unit-button"
-            type="button"
-            onClick={() => requestLocation(locate.status === "ready")}
-            disabled={locate.status === "loading"}
-          >
-            {locate.status === "loading"
-              ? "Localizando…"
-              : locate.status === "ready"
-                ? "Atualizar"
-                : "Mais próxima"}
-          </button>
           {nearest ? (
             <a
               className="locate-unit-whatsapp"
@@ -235,7 +160,9 @@ export default function DirectUnitLinks({
             >
               <WhatsAppIcon /> {actionLabel} agora
             </a>
-          ) : null}
+          ) : (
+            <p className="locate-unit-status">Localizando a loja mais próxima…</p>
+          )}
         </div>
         <p className="locate-unit-status">
           {locate.status === "denied"
@@ -248,7 +175,7 @@ export default function DirectUnitLinks({
                   ? `${nearest.unit.shortName} · ${formatDistance(nearest.distanceKm)}`
                   : preferredId
                     ? "Sua loja já aparece primeiro."
-                    : "Escolha a loja ou use a localização."}
+                    : "Permita a localização para ordenar as lojas."}
         </p>
       </div>
 
