@@ -7555,6 +7555,158 @@ body { background: var(--health-paper); }
   }
 }
 
+/* Receita page: keep the same confident, welcoming visual language as the home page. */
+.content-nav .brand { order: 1; }
+.content-nav-links { order: 2; margin-left: auto; }
+.content-header-cta {
+  order: 3;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 14px;
+  background: var(--teal);
+  color: var(--white);
+  padding: 0 16px;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 10px 22px rgba(27, 94, 75, 0.18);
+  transition: background 160ms ease, transform 160ms ease, box-shadow 160ms ease;
+}
+
+.content-header-cta:hover,
+.content-header-cta:focus-visible {
+  background: var(--teal-deep);
+  color: var(--white);
+  transform: translateY(-1px);
+  box-shadow: 0 14px 26px rgba(27, 94, 75, 0.22);
+}
+
+.content-header-cta img { width: 24px; height: 24px; object-fit: contain; }
+.content-menu-button { order: 4; }
+
+.recipe-page {
+  position: relative;
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.recipe-hero {
+  position: relative;
+  isolation: isolate;
+  padding: 148px 0 84px;
+}
+
+.recipe-hero::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 92px;
+  left: -13vw;
+  width: min(560px, 52vw);
+  height: 420px;
+  border-radius: 0 42% 42% 0;
+  background: linear-gradient(145deg, rgba(14, 154, 138, 0.2), rgba(213, 230, 222, 0.16));
+  pointer-events: none;
+}
+
+.recipe-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 1040px;
+}
+
+.recipe-inner > h1 {
+  max-width: 780px;
+  margin: 10px 0 18px;
+  color: var(--teal-deep);
+  font-size: clamp(46px, 6vw, 72px);
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 1.02;
+}
+
+.recipe-inner > p:not(.recipe-note) {
+  max-width: 700px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.recipe-inner .direct-unit-links {
+  margin-top: 34px;
+  padding: 28px;
+  border: 1px solid var(--aqua-light);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 16px 38px rgba(18, 63, 58, 0.09);
+}
+
+.recipe-inner .direct-unit-links-copy { gap: 5px; margin-bottom: 16px; }
+.recipe-inner .direct-unit-links-copy strong { color: var(--teal-deep); font-size: 18px; }
+.recipe-inner .direct-unit-links-copy span { color: var(--muted); font-size: 14px; }
+.recipe-inner .direct-unit-link {
+  border-color: rgba(14, 154, 138, 0.22);
+  border-radius: 18px;
+  background: var(--white);
+  padding: 18px;
+  box-shadow: 0 10px 24px rgba(18, 63, 58, 0.08);
+}
+.recipe-inner .direct-unit-link:hover {
+  border-color: var(--aqua);
+  box-shadow: 0 16px 30px rgba(18, 63, 58, 0.14);
+}
+
+.recipe-note {
+  max-width: 760px;
+  margin-top: 22px;
+  border-left: 4px solid var(--coral-dark);
+  border-radius: 0 12px 12px 0;
+  background: var(--aqua-pale);
+  color: var(--muted);
+  padding: 12px 16px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+@media (max-width: 900px) {
+  .content-header-cta { order: 2; margin-left: auto; }
+  .content-menu-button { order: 3; }
+  .content-nav-links { order: 4; }
+}
+
+@media (max-width: 700px) {
+  .content-header-cta {
+    width: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    margin-left: 0;
+    border-radius: 14px;
+    padding: 0;
+  }
+
+  .content-header-cta span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .recipe-hero { padding: 104px 0 48px; }
+  .recipe-hero::before { top: 74px; left: -38vw; width: 108vw; height: 300px; border-radius: 0 0 44% 30%; }
+  .recipe-inner > h1 { font-size: clamp(40px, 11vw, 54px); line-height: 1.02; }
+  .recipe-inner > p:not(.recipe-note) { font-size: 16px; line-height: 1.6; }
+  .recipe-inner .direct-unit-links { margin-top: 28px; padding: 18px; border-radius: 18px; }
+  .recipe-inner .direct-unit-links-copy strong { font-size: 16px; }
+  .recipe-inner .direct-unit-links-copy span { font-size: 13px; }
+  .recipe-inner .direct-unit-link { border-radius: 14px; padding: 15px; }
+  .recipe-note { font-size: 12px; }
+}
+
 /* Health-forward visual polish: calmer surfaces, clearer hierarchy and safer contrast. */
 :root {
   --health-navy: #0c2d2a;
