@@ -13,6 +13,14 @@
   gap: 12px;
 }
 
+.neighborhood-photo {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 18px;
+  background: #eef6f2;
+}
+
 .neighborhood-hero h1,
 .questions-page h1,
 .encarte-page h1,
@@ -46,6 +54,27 @@
   border: 1px solid #d7e4de;
   border-radius: 16px;
   background: #fff;
+}
+
+.hours-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.hours-grid li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid #e6eeea;
+  font-size: 14px;
+}
+
+.hours-grid li:last-child {
+  border-bottom: 0;
 }
 
 .neighborhood-grid h2,
@@ -105,6 +134,10 @@
 }
 
 @media (max-width: 700px) {
+  .neighborhood-photo {
+    height: 160px;
+  }
+
   .neighborhood-actions .button,
   .neighborhood-actions .text-link {
     min-height: 48px;

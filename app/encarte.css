@@ -91,7 +91,7 @@
 }
 
 .offer-consult-note {
-  margin: 0;
+  margin: 0 0 12px;
   color: #2f4b44;
   font-size: 12px;
 }
@@ -104,7 +104,10 @@
 }
 
 .offer-consult-units a {
-  min-height: 40px;
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 44px;
   padding: 8px 10px;
   border-radius: 12px;
   background: #176f62;
@@ -112,6 +115,35 @@
   font-size: 13px;
   font-weight: 700;
   text-decoration: none;
+}
+
+.offer-consult-units a small {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.86;
+}
+
+.offer-consult-units a[data-stock="available"] {
+  background: #0f7a4a;
+}
+
+.offer-consult-units a[data-stock="unavailable"] {
+  background: #6b4a3a;
+}
+
+.offer-consult-units a[data-stock="consult"] {
+  background: #176f62;
+}
+
+.direct-unit-photo {
+  width: calc(100% + 24px);
+  max-width: none;
+  margin: -12px -12px 8px;
+  height: 92px;
+  object-fit: cover;
+  border-radius: 14px 14px 0 0;
 }
 
 @media (max-width: 700px) {

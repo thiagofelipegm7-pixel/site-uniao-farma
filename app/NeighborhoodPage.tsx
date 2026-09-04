@@ -1,5 +1,6 @@
 import UnitStatusBadge from "./UnitStatusBadge";
 import { buildWhatsAppUrl, type Unit } from "./site-config";
+import { UNIT_PHOTOS } from "./unit-photos";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
 
 const SHORT_LABEL: Record<Unit["id"], string> = {
@@ -17,6 +18,7 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
   return (
     <main className="neighborhood-page">
       <section className="section-inner neighborhood-hero">
+        <img className="neighborhood-photo" src={UNIT_PHOTOS[unit.id]} alt={`União Farma ${label}`} width="1200" height="720" />
         <p className="eyebrow">Farmácia em {unit.neighborhood}</p>
         <h1>União Farma {label}</h1>
         <p>{unit.address}</p>
@@ -31,9 +33,11 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
       <section className="section-inner neighborhood-grid">
         <article>
           <h2>Horário</h2>
-          <p>Seg–sex 07:00–21:00</p>
-          <p>Sábado {unit.schedule.sat?.open}–{unit.schedule.sat?.close}</p>
-          <p>Domingo 07:00–12:00</p>
+          <ul className="hours-grid">
+            <li><span>Seg a sex</span><strong>07:00–21:00</strong></li>
+            <li><span>Sábado</span><strong>{unit.schedule.sat?.open}–{unit.schedule.sat?.close}</strong></li>
+            <li><span>Domingo</span><strong>07:00–12:00</strong></li>
+          </ul>
         </article>
         <article>
           <h2>Entrega</h2>
