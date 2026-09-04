@@ -5,6 +5,8 @@ import "./encarte.css";
 import { recordMetric } from "./metrics";
 import { formatOfferPrice, getPublicOffers, type Offer } from "./offers";
 import { buildWhatsAppUrl, UNITS } from "./site-config";
+import { stockLabel, type StockRow } from "./stock";
+import { useStock } from "./useStock";
 
 const UNIT_SHORT: Record<string, string> = {
   fatima: "Fátima",
@@ -18,7 +20,11 @@ function offerMessage(unitName: string, offer: Offer): string {
   return `Oi, União Farma ${unitName}! Vi a oferta de ${offer.name}${price} no encarte. Tem hoje?`;
 }
 
-function OfferConsultCard({ offer }: { offer: Offer }) {
+function unitStatus(rows: StockRow[], offerId: string, unitId: string) {
+  return rows.find((row) => row.offerId === offerId && row.unit === unitId)?.status || "consult";
+}
+
+function OfferConsultCard({ offer, rows }: { offer: Offer; rows: StockRow[] }) {
   const units = UNITS.filter((unit) => offer.units.includes(unit.id));
 
   return (
@@ -40,39 +46,41 @@ function OfferConsultCard({ offer }: { offer: Offer }) {
             {offer.previousPrice ? <s>{formatOfferPrice(offer.previousPrice)}</s> : null}
           </p>
         ) : null}
-        <p className="offer-consult-note">
-          {offer.validityType === "while_stock_lasts"
-            ? "Preço sujeito a estoque. Confirme na loja."
-            : "Consulte disponibilidade na loja."}
-        </p>
+        <p className="offer-consult-note">Estoque por loja. Confirme no WhatsApp antes de sair.</p>
         <div className="offer-consult-units" aria-label={`Consultar ${offer.name} por unidade`}>
-          {units.map((unit) => (
-            <a
-              key={unit.id}
-              href={buildWhatsAppUrl(unit, offerMessage(unit.shortName, offer), {
-                campaign: "encarte",
-                content: `offer_${offer.id}_${unit.id}`,
-              })}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => {
-                recordMetric({ unit: unit.id, intent: "offer", source: "encarte_grid" });
-                trackEvent("offer_unit_select", {
-                  offer_id: offer.id,
-                  unit: unit.id,
-                  source: "encarte_grid",
-                });
-                trackEvent("whatsapp_click", {
-                  offer_id: offer.id,
-                  unit: unit.id,
-                  source: "encarte_grid",
-                  placement: "offer_card_direct",
-                });
-              }}
-            >
-              {UNIT_SHORT[unit.id]}
-            </a>
-          ))}
+          {units.map((unit) => {
+            const status = unitStatus(rows, offer.id, unit.id);
+            return (
+              <a
+                key={unit.id}
+                href={buildWhatsAppUrl(unit, offerMessage(unit.shortName, offer), {
+                  campaign: "encarte",
+                  content: `offer_${offer.id}_${unit.id}`,
+                })}
+                target="_blank"
+                rel="noreferrer"
+                data-stock={status}
+                onClick={() => {
+                  recordMetric({ unit: unit.id, intent: "offer", source: "encarte_grid" });
+                  trackEvent("offer_unit_select", {
+                    offer_id: offer.id,
+                    unit: unit.id,
+                    stock: status,
+                    source: "encarte_grid",
+                  });
+                  trackEvent("whatsapp_click", {
+                    offer_id: offer.id,
+                    unit: unit.id,
+                    source: "encarte_grid",
+                    placement: "offer_card_direct",
+                  });
+                }}
+              >
+                {UNIT_SHORT[unit.id]}
+                <small> {stockLabel(status)}</small>
+              </a>
+            );
+          })}
         </div>
       </div>
     </article>
@@ -81,6 +89,7 @@ function OfferConsultCard({ offer }: { offer: Offer }) {
 
 export default function PublicOffersGrid() {
   const offers = getPublicOffers();
+  const { rows, live } = useStock();
 
   if (offers.length === 0) {
     return (
@@ -89,10 +98,13 @@ export default function PublicOffersGrid() {
   }
 
   return (
-    <div className="offer-consult-grid">
-      {offers.map((offer) => (
-        <OfferConsultCard key={offer.id} offer={offer} />
-      ))}
-    </div>
+    <>
+      <p className="offer-consult-note">{live ? "Estoque ao vivo por loja." : "Estoque sob consulta até ligar o sistema da loja."}</p>
+      <div className="offer-consult-grid">
+        {offers.map((offer) => (
+          <OfferConsultCard key={offer.id} offer={offer} rows={rows} />
+        ))}
+      </div>
+    </>
   );
 }
