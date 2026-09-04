@@ -13,6 +13,9 @@ import "./nearest-unit.css";
 import "./visual-polish.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 
+const SITE_DESCRIPTION =
+  "Farmácia e drogaria em Sabará com três unidades: Fátima, Nações Unidas e Itacolomi. Medicamentos, perfumaria e pedido pelo WhatsApp.";
+
 const GOOGLE_SITE_VERIFICATION =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim() ||
   "chgP6OWdJAiM-yv_oPbit7Rf91vAsI7xDUWEuNQG1xk";
@@ -23,8 +26,7 @@ export const metadata: Metadata = {
     default: "Farmácia em Sabará | União Farma",
     template: "%s | União Farma",
   },
-  description:
-    "Farmácia e drogaria em Sabará com medicamentos, perfumaria e entrega sob consulta. Fale pelo WhatsApp com uma das três unidades.",
+  description: SITE_DESCRIPTION,
   manifest: "/manifest.json",
   alternates: {
     canonical: "/",
@@ -39,8 +41,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Farmácia em Sabará | União Farma",
-    description:
-      "Drogaria em Sabará com três unidades, perfumaria e consulta de entrega pelo WhatsApp.",
+    description: SITE_DESCRIPTION,
     type: "website",
     locale: "pt_BR",
     url: SITE_URL,
@@ -57,8 +58,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Farmácia em Sabará | União Farma",
-    description:
-      "Consulte preço, disponibilidade e entrega com a unidade da União Farma mais próxima.",
+    description: SITE_DESCRIPTION,
     images: ["/og-instagram.png"],
   },
   robots: {
@@ -102,7 +102,7 @@ const websiteSchema = {
   "@id": `${SITE_URL}/#website`,
   url: SITE_URL,
   name: "União Farma",
-  description: "Drogaria e Perfumaria em Sabará — atendimento em três unidades.",
+  description: SITE_DESCRIPTION,
   inLanguage: "pt-BR",
   publisher: {
     "@id": `${SITE_URL}/#organization`,
@@ -123,7 +123,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             __html: JSON.stringify([organizationSchema, websiteSchema]),
           }}
         />
-        {children}
+        <main id="conteudo">{children}</main>
         <MobileQuickNav />
         <SiteFooter />
       </body>
