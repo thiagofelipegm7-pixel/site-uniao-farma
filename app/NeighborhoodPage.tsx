@@ -1,3 +1,4 @@
+import InteractiveUnitMap from "./InteractiveUnitMap";
 import UnitStatusBadge from "./UnitStatusBadge";
 import { buildWhatsAppUrl, type Unit } from "./site-config";
 import { UNIT_PHOTOS } from "./unit-photos";
@@ -51,9 +52,9 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
         </article>
       </section>
 
-      <section className="section-inner neighborhood-map">
-        <h2>Mapa</h2>
-        <iframe src={unit.mapEmbed} title={`Mapa da União Farma ${label}`} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+      <section className="section-inner">
+        <h2>Mapa interativo</h2>
+        <InteractiveUnitMap initialUnitId={unit.id} />
       </section>
     </main>
   );
