@@ -1,4 +1,112 @@
-/* Mobile bugfix pass: no overlay, no truncated CTAs, one hours line, full flyer. */
+.open-now-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 14px;
+  padding: 8px 16px;
+  background: #16382f;
+  color: #f3f7f5;
+}
+
+.open-now-strip > strong {
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.open-now-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.open-now-list a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: inherit;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.open-now-list a.is-open {
+  background: #25d366;
+  color: #083226;
+}
+
+.open-now-list a small {
+  font-size: 11px;
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.offer-consult-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.offer-consult-card {
+  overflow: hidden;
+  border: 1px solid #d7e4de;
+  border-radius: 18px;
+  background: #ffffff;
+}
+
+.offer-consult-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 180px;
+  background: #f3f7f5;
+}
+
+.offer-consult-image img {
+  width: 100%;
+  height: 180px;
+  object-fit: contain;
+}
+
+.offer-consult-body {
+  padding: 14px;
+}
+
+.offer-consult-body h3 {
+  margin: 0 0 4px;
+  font-size: 17px;
+  line-height: 1.25;
+  color: #16382f;
+}
+
+.offer-consult-body p {
+  margin: 0 0 8px;
+  color: #4d635c;
+  font-size: 13px;
+}
+
+.offer-consult-units {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+
+.offer-consult-units a {
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #176f62;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
 .open-status {
   display: inline-flex;
   flex-wrap: wrap;
@@ -207,6 +315,14 @@
     font-size: 28px !important;
     line-height: 1.1 !important;
     margin: 0 0 14px !important;
+  }
+
+  .open-now-strip {
+    padding: 8px 12px;
+  }
+
+  .open-now-list a small {
+    display: none;
   }
 
   .cookie-manage-button {
