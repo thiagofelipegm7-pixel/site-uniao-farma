@@ -1,23 +1,25 @@
 :root {
-  --uf-green: #176f62;
-  --uf-green-hover: #125a50;
-  --uf-green-dark: #102822;
-  --uf-open: #0f7a4a;
-  --uf-open-live: #14a34a;
+  --uf-green: #0f7a55;
+  --uf-green-hover: #0b6244;
+  --uf-green-dark: #083528;
+  --uf-green-bright: #17a36a;
+  --uf-open: #0c8a4a;
+  --uf-open-live: #12c25a;
   --uf-whatsapp: #25d366;
 
-  --uf-ink: #1c2e29;
-  --uf-muted: #4a5c56;
-  --uf-closed: #6b4a3a;
-  --uf-gold: #c4a574;
-  --uf-gold-ink: #8a6a3a;
+  --uf-ink: #10231c;
+  --uf-muted: #3a534a;
+  --uf-closed: #9a3f2a;
+  --uf-gold: #e2b03a;
+  --uf-gold-ink: #8a5a00;
+  --uf-offer: #e23b2e;
 
-  --uf-paper: #fbfaf9;
-  --uf-stone: #f2f0ed;
-  --uf-fog: #f3f6f6;
+  --uf-paper: #f3faf6;
+  --uf-stone: #dcefe6;
+  --uf-fog: #e7f6ee;
   --uf-card: #ffffff;
-  --uf-line: #e4ddd4;
-  --uf-line-strong: #d4ccc2;
+  --uf-line: #b7d7c8;
+  --uf-line-strong: #7fb89a;
 
   --t-xs: clamp(0.6875rem, 0.665rem + 0.11vw, 0.75rem);
   --t-sm: clamp(0.8125rem, 0.767rem + 0.23vw, 0.9375rem);
