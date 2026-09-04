@@ -110,7 +110,10 @@ export const UNITS: Unit[] = [
     map: "https://www.google.com/maps/search/?api=1&query=Rua+Joaquim+Ferreira+Moreira+489+Itacolomi+Sabara+MG",
     mapEmbed:
       "https://maps.google.com/maps?q=Rua+Joaquim+Ferreira+Moreira+489+Sabará+MG&t=&z=16&ie=UTF8&iwloc=&output=embed",
-    // DECISÃO PENDENTE: confirmar latitude e longitude antes de adicionar ao Schema.org.
+    coordinates: {
+      latitude: -19.87913,
+      longitude: -43.84989,
+    },
     schedule: {
       sun: { open: "07:00", close: "12:00" },
       mon: mondayToFriday,
@@ -130,23 +133,19 @@ export const SITE_OPTIONS = {
   responseMessage:
     "Atendimento durante o horário de funcionamento. O tempo de resposta pode variar conforme a fila.",
   promoToast: {
-    // Faixa demonstrativa. Troque o texto quando houver uma campanha oficial com regras definidas.
     enabled: false,
     text: "Consulte a disponibilidade de entrega diretamente com a unidade escolhida.",
   },
   delivery: {
-    // Informações seguras enquanto bairros, taxas e horários não forem confirmados.
     coverageText:
       "A disponibilidade, a área atendida, a taxa e o prazo são confirmados diretamente pela unidade escolhida.",
     paymentText:
       "Consulte as formas de pagamento disponíveis para a entrega no momento do pedido.",
   },
   offers: {
-    // DECISÃO PENDENTE: mantenha false até ter produtos, preços, validade e unidades participantes.
     enabled: false,
   },
   team: {
-    // DECISÃO PENDENTE: habilite após receber fotos, nomes e cargos autorizados.
     enabled: false,
   },
 } as const;
