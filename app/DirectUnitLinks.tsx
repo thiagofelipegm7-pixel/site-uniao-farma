@@ -1,8 +1,16 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { trackEvent } from "./analytics";
-import { formatDistance, isFarFromCoverage, rankUnitsByDistance, type RankedUnit } from "./geo";
+import {
+  formatDistance,
+  isFarFromCoverage,
+  isFreshCache,
+  rankUnitsByDistance,
+  readCachedOrigin,
+  writeCachedOrigin,
+  type RankedUnit,
+} from "./geo";
 import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
 import UnitStatusBadge from "./UnitStatusBadge";
 
@@ -21,7 +29,7 @@ type LocateState =
   | { status: "loading" }
   | { status: "denied" }
   | { status: "unavailable" }
-  | { status: "ready"; ranked: RankedUnit[] };
+  | { status: "ready"; ranked: RankedUnit[]; fromCache: boolean };
 
 function resolveMessage(message: string, unitName: string): string {
   return message.replaceAll("{unidade}", unitName);
@@ -55,35 +63,78 @@ export default function DirectUnitLinks({
     ? Object.fromEntries(locate.ranked.map((item) => [item.unit.id, item.distanceKm]))
     : {};
 
-  function requestLocation() {
+  function applyOrigin(origin: { latitude: number; longitude: number }, fromCache: boolean) {
+    const ranked = rankUnitsByDistance(origin);
+    setLocate({ status: "ready", ranked, fromCache });
+    return ranked;
+  }
+
+  function requestLocation(force = false) {
+    if (!force) {
+      const cached = readCachedOrigin();
+      if (cached && isFreshCache(cached.savedAt)) {
+        applyOrigin(cached, true);
+        return;
+      }
+    }
+
     if (!navigator.geolocation) {
+      const cached = readCachedOrigin();
+      if (cached) {
+        applyOrigin(cached, true);
+        return;
+      }
       setLocate({ status: "unavailable" });
       return;
     }
 
     setLocate({ status: "loading" });
-    trackEvent("location_request", { source, placement: "direct_links" });
+    trackEvent("location_request", { source, placement: "direct_links", force });
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        const ranked = rankUnitsByDistance({
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        });
-        setLocate({ status: "ready", ranked });
+        const origin = writeCachedOrigin(
+          {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          },
+          position.coords.accuracy,
+        );
+        const ranked = applyOrigin(origin, false);
         trackEvent("location_success", {
           source,
           nearest: ranked[0]?.unit.id,
           km: ranked[0] ? Number(ranked[0].distanceKm.toFixed(2)) : undefined,
+          cached: false,
         });
       },
       (error) => {
+        const cached = readCachedOrigin();
+        if (cached) {
+          const ranked = applyOrigin(cached, true);
+          trackEvent("location_cache_fallback", {
+            source,
+            nearest: ranked[0]?.unit.id,
+            code: error.code,
+          });
+          return;
+        }
+
         setLocate({ status: error.code === error.PERMISSION_DENIED ? "denied" : "unavailable" });
         trackEvent("location_error", { source, code: error.code });
       },
-      { enableHighAccuracy: false, timeout: 10000, maximumAge: 120000 },
+      { enableHighAccuracy: false, timeout: 8000, maximumAge: force ? 0 : 45 * 60 * 1000 },
     );
   }
+
+  useEffect(() => {
+    const cached = readCachedOrigin();
+    if (!cached) return;
+    applyOrigin(cached, true);
+    if (!isFreshCache(cached.savedAt)) requestLocation(true);
+    // Restore once on mount; later clicks refresh on demand.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={`direct-unit-links ${compact ? "direct-unit-links-compact" : ""} ${className}`.trim()}>
@@ -95,8 +146,17 @@ export default function DirectUnitLinks({
       <div className="locate-unit-bar">
         <p>Use sua localização para destacar a unidade mais próxima. O cálculo acontece no seu celular e não enviamos o GPS para o servidor.</p>
         <div className="locate-unit-actions">
-          <button className="locate-unit-button" type="button" onClick={requestLocation} disabled={locate.status === "loading"}>
-            {locate.status === "loading" ? "Localizando…" : "Usar minha localização"}
+          <button
+            className="locate-unit-button"
+            type="button"
+            onClick={() => requestLocation(locate.status === "ready")}
+            disabled={locate.status === "loading"}
+          >
+            {locate.status === "loading"
+              ? "Localizando…"
+              : locate.status === "ready"
+                ? "Atualizar localização"
+                : "Usar minha localização"}
           </button>
           {nearest ? (
             <a
@@ -128,7 +188,7 @@ export default function DirectUnitLinks({
               : nearest && isFarFromCoverage(nearest.distanceKm)
                 ? `Você parece estar longe de Sabará. A unidade mais próxima no mapa é ${nearest.unit.shortName}. Confirme o bairro no WhatsApp.`
                 : nearest
-                  ? `Unidade mais próxima: ${nearest.unit.shortName} · ${formatDistance(nearest.distanceKm)}`
+                  ? `Unidade mais próxima: ${nearest.unit.shortName} · ${formatDistance(nearest.distanceKm)}${locate.status === "ready" && locate.fromCache ? " (salvo neste aparelho)" : ""}`
                   : "Nada é enviado automaticamente. Só pedimos GPS quando você toca no botão."}
         </p>
       </div>
