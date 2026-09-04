@@ -1,3 +1,7 @@
+main main {
+  display: contents;
+}
+
 :root {
   --uf-ink: #14332c;
   --uf-green: #176f62;
@@ -28,6 +32,16 @@ body {
   color: #ffffff;
 }
 
+.eyebrow,
+.section-kicker,
+.hero-lead,
+.direct-unit-neighborhood,
+.offer-consult-body p,
+.locate-unit-status {
+  color: #2f4b44;
+  font-size: 14px;
+}
+
 .site-header,
 .content-header {
   background: rgba(255, 255, 255, 0.96) !important;
@@ -44,12 +58,14 @@ body {
   background: var(--uf-green-deep);
   color: #f3f7f5;
   padding: 7px 12px;
+  font-size: 14px;
 }
 
 .open-now-list a {
   border-radius: 999px;
   padding: 6px 10px;
   min-height: 32px;
+  color: #f3f7f5;
 }
 
 .preferred-store-banner {
@@ -116,12 +132,6 @@ body {
   letter-spacing: -0.02em;
 }
 
-.direct-unit-neighborhood,
-.offer-consult-body p,
-.locate-unit-status {
-  color: #2f4b44;
-}
-
 .open-status {
   width: fit-content;
   max-width: 100%;
@@ -129,7 +139,7 @@ body {
   color: var(--uf-ink);
   border-radius: 999px;
   padding: 6px 10px;
-  font-size: 13px;
+  font-size: 14px !important;
 }
 
 .direct-unit-actions a,
@@ -155,11 +165,13 @@ body {
 .cookie-banner {
   border: 1px solid var(--uf-line);
   background: #ffffff;
+  color: var(--uf-ink);
   box-shadow: 0 -16px 32px rgba(16, 40, 34, 0.14);
 }
 
 .button-whatsapp,
-.header-cta {
+.header-cta,
+.button-light {
   background: var(--uf-green) !important;
   border-color: var(--uf-green) !important;
   color: #ffffff !important;
@@ -231,11 +243,6 @@ body {
     margin-bottom: 8px;
   }
 
-  .locate-unit-status {
-    margin: 6px 0 0;
-    font-size: 13px;
-  }
-
   .direct-unit-links-grid {
     gap: 8px !important;
   }
@@ -248,10 +255,6 @@ body {
   .direct-unit-name {
     font-size: 17px !important;
     line-height: 1.25 !important;
-  }
-
-  .direct-unit-neighborhood {
-    font-size: 13px !important;
   }
 
   .direct-unit-actions a {
