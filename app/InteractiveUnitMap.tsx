@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
+import "./unit-map.css";
 
 const LABEL: Record<Unit["id"], string> = {
   fatima: "Fátima",
