@@ -14,12 +14,25 @@ body {
   color: var(--uf-ink);
 }
 
+:focus-visible {
+  outline: 3px solid #176f62;
+  outline-offset: 3px;
+}
+
+.skip-link:focus {
+  position: static;
+  display: inline-block;
+  margin: 8px;
+  padding: 8px 12px;
+  background: #176f62;
+  color: #ffffff;
+}
+
 .site-header,
 .content-header {
-  background: rgba(255, 255, 255, 0.92) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
   border-bottom: 1px solid var(--uf-line) !important;
   box-shadow: none !important;
-  backdrop-filter: blur(12px);
 }
 
 .header-cta,
@@ -29,17 +42,20 @@ body {
 
 .open-now-strip {
   background: var(--uf-green-deep);
+  color: #f3f7f5;
   padding: 7px 12px;
 }
 
 .open-now-list a {
   border-radius: 999px;
-  padding: 5px 10px;
+  padding: 6px 10px;
+  min-height: 32px;
 }
 
 .preferred-store-banner {
   background: var(--uf-green);
-  padding: 9px 16px;
+  color: #ffffff;
+  padding: 10px 16px;
   letter-spacing: 0.01em;
 }
 
@@ -56,11 +72,14 @@ body {
   border-radius: 14px;
   border-color: var(--uf-line);
   background: #ffffff;
+  color: var(--uf-ink);
+  font-size: 14px;
 }
 
 .whatsapp-intent-chips button.is-active {
   background: var(--uf-green);
   border-color: var(--uf-green);
+  color: #ffffff;
   box-shadow: 0 6px 14px rgba(23, 111, 98, 0.2);
 }
 
@@ -73,7 +92,10 @@ body {
 }
 
 .locate-unit-button,
-.locate-unit-whatsapp {
+.locate-unit-whatsapp,
+.cookie-reject,
+.cookie-accept {
+  min-height: 44px;
   border-radius: 14px !important;
 }
 
@@ -94,6 +116,12 @@ body {
   letter-spacing: -0.02em;
 }
 
+.direct-unit-neighborhood,
+.offer-consult-body p,
+.locate-unit-status {
+  color: #2f4b44;
+}
+
 .open-status {
   width: fit-content;
   max-width: 100%;
@@ -101,15 +129,17 @@ body {
   color: var(--uf-ink);
   border-radius: 999px;
   padding: 6px 10px;
+  font-size: 13px;
 }
 
 .direct-unit-actions a,
 .offer-consult-units a {
   border-radius: 14px;
+  min-height: 44px;
 }
 
 .mobile-quick-nav {
-  background: rgba(255, 255, 255, 0.94);
+  background: rgba(255, 255, 255, 0.96);
   border-top: 1px solid var(--uf-line);
   box-shadow: 0 -10px 24px rgba(16, 40, 34, 0.08);
 }
@@ -118,6 +148,8 @@ body {
   background: var(--uf-mint);
   color: var(--uf-ink);
   border-radius: 14px;
+  min-height: 44px;
+  font-size: 14px;
 }
 
 .cookie-banner {
@@ -130,6 +162,7 @@ body {
 .header-cta {
   background: var(--uf-green) !important;
   border-color: var(--uf-green) !important;
+  color: #ffffff !important;
 }
 
 @media (max-width: 860px) {
@@ -144,11 +177,15 @@ body {
   }
 
   .cookie-banner p {
-    display: none;
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
   }
 
   .cookie-banner strong {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .mobile-quick-nav {
@@ -157,17 +194,12 @@ body {
     gap: 6px;
   }
 
-  .mobile-quick-nav a {
-    min-height: 40px;
-    font-size: 13px;
-  }
-
   body.cookie-banner-visible .mobile-quick-nav {
-    bottom: 54px;
+    bottom: 58px;
   }
 
   body.cookie-banner-visible {
-    padding-bottom: calc(136px + env(safe-area-inset-bottom)) !important;
+    padding-bottom: calc(148px + env(safe-area-inset-bottom)) !important;
   }
 }
 
@@ -179,8 +211,8 @@ body {
   }
 
   .hero-copy h1 {
-    font-size: 22px !important;
-    line-height: 1.15 !important;
+    font-size: 24px !important;
+    line-height: 1.2 !important;
     margin: 0 0 10px !important;
   }
 
@@ -190,8 +222,8 @@ body {
   }
 
   .whatsapp-intent-chips button {
-    min-height: 40px;
-    font-size: 12px;
+    min-height: 44px;
+    font-size: 14px;
   }
 
   .locate-unit-bar {
@@ -201,7 +233,7 @@ body {
 
   .locate-unit-status {
     margin: 6px 0 0;
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .direct-unit-links-grid {
@@ -214,16 +246,17 @@ body {
   }
 
   .direct-unit-name {
-    font-size: 16px !important;
-    line-height: 1.2 !important;
+    font-size: 17px !important;
+    line-height: 1.25 !important;
   }
 
   .direct-unit-neighborhood {
-    font-size: 12px !important;
+    font-size: 13px !important;
   }
 
   .direct-unit-actions a {
-    min-height: 42px !important;
+    min-height: 44px !important;
+    font-size: 14px !important;
   }
 
   .brand small {
@@ -233,5 +266,15 @@ body {
   .quick-units-section,
   .trust-strip {
     display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
   }
 }
