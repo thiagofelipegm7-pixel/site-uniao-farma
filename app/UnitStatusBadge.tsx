@@ -117,7 +117,8 @@ export default function UnitStatusBadge({ unit }: { unit: Unit }) {
   return (
     <span className={`open-status ${status.isOpen ? "is-open" : "is-closed"}`}>
       <span aria-hidden="true" />
-      {status.label}
+      <strong>{status.label}</strong>
+      <small>{getFallbackLabel(unit).replace("Horário: ", "")}</small>
     </span>
   );
 }

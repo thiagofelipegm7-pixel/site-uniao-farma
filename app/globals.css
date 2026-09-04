@@ -4300,6 +4300,10 @@ h3 {
   display: none;
 }
 
+.open-status { display: flex; flex-wrap: wrap; gap: 2px 8px; }
+.open-status strong, .open-status small { color: #16382f; }
+.open-status small { flex-basis: 100%; font-size: 10px; font-weight: 600; }
+
 .hero .direct-unit-links-copy strong { display: none; }
 
 /* Use the complete WhatsApp mark with a larger, consistent touch target. */

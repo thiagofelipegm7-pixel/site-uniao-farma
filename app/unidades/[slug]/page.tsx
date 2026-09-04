@@ -17,7 +17,7 @@ type UnitPageProps = {
 };
 
 export function generateStaticParams() {
-  return UNITS.map((unit) => ({ slug: unit.slug }));
+  return [...UNITS.map((unit) => ({ slug: unit.slug })), { slug: "fatima" }];
 }
 
 export async function generateMetadata({ params }: UnitPageProps): Promise<Metadata> {

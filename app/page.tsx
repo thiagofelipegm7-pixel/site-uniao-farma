@@ -33,6 +33,12 @@ const deliveryIntent: SelectorIntent = {
   eventName: "delivery_inquiry",
 };
 
+const SHORT_UNIT_ADDRESSES = {
+  fatima: "Rua Cláudio, 902 · Fátima",
+  nacoes: "Rua Inglaterra, 162 · Nações Unidas",
+  itacolomi: "Rua Joaquim F. Moreira, 489 · Itacolomi",
+} as const;
+
 const categories = [
   {
     icon: "medicine",
@@ -419,6 +425,13 @@ export default function Home() {
     eventName: "consulta_geral",
   };
 
+  const featuredOfferIntent: SelectorIntent = {
+    title: "Consultar oferta",
+    description: "Escolha a unidade para confirmar a disponibilidade do Creme Seda.",
+    message: "Oi, União Farma {unidade}! Vi a oferta do Creme Seda 300 ml a R$ 13,90. Tem hoje?",
+    eventName: "oferta_creme_seda",
+  };
+
   useEffect(() => {
     const target = consultationRef.current;
     const buttonObserver = new IntersectionObserver(
@@ -568,6 +581,9 @@ export default function Home() {
               </div>
               <span className="hero-heart" aria-hidden="true">♥</span>
               <p>*Ofertas enquanto durarem os estoques. Consulte a unidade.</p>
+              <button className="button button-whatsapp hero-offer-cta" type="button" onClick={() => openSelector(featuredOfferIntent)}>
+                Pedir esta oferta
+              </button>
             </aside>
           </div>
         </section>
@@ -589,7 +605,7 @@ export default function Home() {
                     {String(UNITS.indexOf(unit) + 1).padStart(2, "0")}
                   </span>
                   <h3>{unit.shortName}</h3>
-                  <p>{unit.address}</p>
+                  <p>{SHORT_UNIT_ADDRESSES[unit.id]}</p>
                   <UnitStatusBadge unit={unit} />
                   <div className="quick-unit-actions">
                     <a

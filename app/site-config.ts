@@ -169,5 +169,6 @@ export function buildWhatsAppUrl(
 }
 
 export function getUnitBySlug(slug: string): Unit | undefined {
+  if (slug === "fatima") return UNITS.find((unit) => unit.id === "fatima");
   return UNITS.find((unit) => unit.slug === slug);
 }
