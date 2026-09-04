@@ -3,7 +3,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Vinext's current Link runtime breaks production navigation. */
 
 import { useEffect, useRef, useState } from "react";
-import { SiteDirectoryLinks } from "./SiteDirectoryLinks";
 
 type ContentPath = "/ofertas" | "/novidades" | "/receita";
 
@@ -43,7 +42,7 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
     <header className="content-header">
       <nav className="content-nav" aria-label="Menu principal">
         <a className="brand" href="/" onClick={() => setMenuOpen(false)}>
-          <img src="/uniao-farma-logo.webp" alt="Logo da União Farma" width="52" height="52" />
+          <img src="/uniao-farma-logo.webp" alt="" width="52" height="52" />
           <span><strong>União Farma</strong><small>Drogaria e Perfumaria</small></span>
         </a>
         <a className="content-header-cta" href="/#unidades-rapidas" aria-label="Pedir no WhatsApp">
@@ -95,7 +94,7 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
             <nav className="content-side-nav" aria-label="Navegação móvel">
               {NAV_LINKS.map((link) => (
                 <a
-                  key={link.href}
+                  key={`drawer-${link.href}`}
                   href={link.href}
                   aria-current={link.activePath === activePath ? "page" : undefined}
                   onClick={() => setMenuOpen(false)}
@@ -111,19 +110,6 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
   );
 }
 
-export function ContentSiteFooter({ notice = "Preço, estoque e condições devem ser confirmados com a unidade escolhida." }: { notice?: string }) {
-  return (
-    <footer className="content-footer">
-      <div className="section-inner">
-        <a className="brand" href="/">
-          <img src="/uniao-farma-logo.webp" alt="Logo da União Farma" width="52" height="52" />
-          <span><strong>União Farma</strong><small>Três unidades em Sabará/MG</small></span>
-        </a>
-        <p>{notice}</p>
-        <nav aria-label="Links do rodapé">
-          <SiteDirectoryLinks />
-        </nav>
-      </div>
-    </footer>
-  );
+export function ContentSiteFooter(_props: { notice?: string }) {
+  return null;
 }
