@@ -3,7 +3,7 @@
 import { trackEvent } from "./analytics";
 import "./encarte.css";
 import { recordMetric } from "./metrics";
-import { formatOfferPrice, getPublicOffers, type Offer } from "./offers";
+import { formatOfferPrice, getPublicOffers, OFFER_CATEGORY_LABELS, type Offer } from "./offers";
 import { buildWhatsAppUrl, UNITS } from "./site-config";
 import { stockLabel, type StockRow } from "./stock";
 import { useStock } from "./useStock";
@@ -31,22 +31,22 @@ function OfferConsultCard({ offer, rows }: { offer: Offer; rows: StockRow[] }) {
     <article className="offer-consult-card">
       <div className="offer-consult-image">
         {offer.image ? (
-          <img src={offer.image} alt={offer.name} width="640" height="480" loading="lazy" />
+          <img src={offer.image} alt={offer.name} width="640" height="640" loading="lazy" />
         ) : (
           <span>{offer.placeholderLabel ?? "Oferta"}</span>
         )}
         <span className="offer-consult-stamp">Consulte</span>
+        <span className="offer-consult-cat">{OFFER_CATEGORY_LABELS[offer.category]}</span>
       </div>
       <div className="offer-consult-body">
-        <h3>{offer.name}</h3>
         {offer.brand ? <p className="offer-consult-brand">{offer.brand}</p> : null}
+        <h3>{offer.name}</h3>
         {offer.currentPrice !== null ? (
           <p className="offer-consult-price">
             <strong>{formatOfferPrice(offer.currentPrice)}</strong>
             {offer.previousPrice ? <s>{formatOfferPrice(offer.previousPrice)}</s> : null}
           </p>
         ) : null}
-        <p className="offer-consult-note">Estoque por loja. Confirme no WhatsApp antes de sair.</p>
         <div className="offer-consult-units" aria-label={`Consultar ${offer.name} por unidade`}>
           {units.map((unit) => {
             const status = unitStatus(rows, offer.id, unit.id);
@@ -77,7 +77,7 @@ function OfferConsultCard({ offer, rows }: { offer: Offer; rows: StockRow[] }) {
                 }}
               >
                 {UNIT_SHORT[unit.id]}
-                <small> {stockLabel(status)}</small>
+                <small>{stockLabel(status)}</small>
               </a>
             );
           })}
@@ -89,7 +89,8 @@ function OfferConsultCard({ offer, rows }: { offer: Offer; rows: StockRow[] }) {
 
 export default function PublicOffersGrid() {
   const offers = getPublicOffers();
-  const { rows, live } = useStock();
+  const { live } = useStock();
+  const { rows } = useStock();
 
   if (offers.length === 0) {
     return (
@@ -99,7 +100,7 @@ export default function PublicOffersGrid() {
 
   return (
     <>
-      <p className="offer-consult-note">{live ? "Estoque ao vivo por loja." : "Estoque sob consulta até ligar o sistema da loja."}</p>
+      <p className="offer-consult-note">{live ? "Estoque ao vivo por loja." : "Preço de encarte. Confirme na loja."}</p>
       <div className="offer-consult-grid">
         {offers.map((offer) => (
           <OfferConsultCard key={offer.id} offer={offer} rows={rows} />

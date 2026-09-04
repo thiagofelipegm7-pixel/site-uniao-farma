@@ -11,118 +11,142 @@
 
 .offer-consult-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
 }
 
 .offer-consult-card {
   display: flex;
   flex-direction: column;
   background: #ffffff;
-  border: 1px solid var(--uf-line, #d7e4de);
-  border-radius: 18px;
+  border: 1px solid #d7e4de;
+  border-radius: 20px;
   overflow: hidden;
+  box-shadow: 0 10px 28px rgba(16, 40, 34, 0.06);
 }
 
 .offer-consult-image {
   position: relative;
-  aspect-ratio: 4 / 3;
-  background: #eef6f2;
+  aspect-ratio: 1 / 1;
+  background:
+    radial-gradient(circle at 50% 20%, #ffffff 0%, #eef6f2 70%);
   display: grid;
   place-items: center;
 }
 
 .offer-consult-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 78%;
+  height: 78%;
+  object-fit: contain;
 }
 
 .offer-consult-stamp {
   position: absolute;
   top: 10px;
-  right: 10px;
-  padding: 6px 10px;
+  left: 10px;
+  padding: 5px 9px;
   border-radius: 999px;
   background: #102822;
   color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.offer-consult-cat {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+  color: #176f62;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.offer-consult-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px;
+}
+
+.offer-consult-brand {
+  margin: 0;
+  color: #176f62;
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
-.offer-consult-body {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  padding: 14px;
-}
-
 .offer-consult-body h3 {
   margin: 0;
+  color: #14332c;
   font-size: 16px;
   line-height: 1.25;
-}
-
-.offer-consult-brand {
-  margin: 0;
-  color: #2f4b44;
-  font-size: 13px;
+  min-height: 2.5em;
 }
 
 .offer-consult-price {
   display: flex;
   align-items: baseline;
   gap: 8px;
-  margin: 4px 0 0;
+  margin: 8px 0 4px;
 }
 
 .offer-consult-price strong {
   color: #176f62;
-  font-size: 28px;
+  font-size: 30px;
   line-height: 1;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.05em;
 }
 
 .offer-consult-price s {
-  color: #6b7f78;
-  font-size: 14px;
+  color: #7a8c86;
+  font-size: 13px;
 }
 
 .offer-consult-note {
-  margin: 0 0 12px;
+  margin: 0 0 10px;
   color: #2f4b44;
   font-size: 12px;
 }
 
 .offer-consult-units {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 6px;
-  margin-top: 6px;
+  margin-top: auto;
 }
 
 .offer-consult-units a {
   display: inline-flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
-  min-height: 44px;
-  padding: 8px 10px;
-  border-radius: 12px;
+  min-height: 48px;
+  padding: 6px 4px;
+  border-radius: 14px;
   background: #176f62;
   color: #ffffff;
-  font-size: 13px;
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: 800;
   text-decoration: none;
+  text-align: center;
 }
 
 .offer-consult-units a small {
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  opacity: 0.86;
+  opacity: 0.88;
 }
 
 .offer-consult-units a[data-stock="available"] {
@@ -137,17 +161,30 @@
   background: #176f62;
 }
 
-.direct-unit-photo {
-  width: calc(100% + 24px);
-  max-width: none;
-  margin: -12px -12px 8px;
-  height: 92px;
-  object-fit: cover;
-  border-radius: 14px 14px 0 0;
-}
-
 @media (max-width: 700px) {
+  .offer-consult-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .offer-consult-body {
+    padding: 10px;
+  }
+
+  .offer-consult-body h3 {
+    font-size: 14px;
+    min-height: 2.6em;
+  }
+
   .offer-consult-price strong {
-    font-size: 24px;
+    font-size: 22px;
+  }
+
+  .offer-consult-note {
+    display: none;
+  }
+
+  .offer-consult-units {
+    grid-template-columns: 1fr;
   }
 }
