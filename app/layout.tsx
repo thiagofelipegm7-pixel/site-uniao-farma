@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import AnalyticsConsent from "./AnalyticsConsent";
+import MobileQuickNav from "./MobileQuickNav";
 import PwaRegister from "./PwaRegister";
 import SiteFooter from "./SiteFooter";
 import "./globals.css";
@@ -117,6 +118,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           }}
         />
         {children}
+        <MobileQuickNav />
         <SiteFooter />
       </body>
     </html>
