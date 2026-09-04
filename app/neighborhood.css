@@ -1,16 +1,22 @@
 .neighborhood-page,
-.questions-page {
+.questions-page,
+.encarte-page,
+.metrics-page {
   padding: 24px 0 48px;
 }
 
 .neighborhood-hero,
-.questions-page .section-inner {
+.questions-page .section-inner,
+.encarte-page .section-inner,
+.metrics-page .section-inner {
   display: grid;
   gap: 12px;
 }
 
 .neighborhood-hero h1,
-.questions-page h1 {
+.questions-page h1,
+.encarte-page h1,
+.metrics-page h1 {
   margin: 0;
   color: #16382f;
   font-size: clamp(28px, 6vw, 42px);
@@ -18,9 +24,14 @@
 }
 
 .neighborhood-actions,
-.neighborhood-grid {
+.neighborhood-grid,
+.encarte-unit-row {
   display: grid;
   gap: 12px;
+}
+
+.encarte-unit-row {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
 }
 
 .neighborhood-grid {
@@ -29,7 +40,8 @@
 }
 
 .neighborhood-grid article,
-.question-card {
+.question-card,
+.metrics-grid article {
   padding: 16px;
   border: 1px solid #d7e4de;
   border-radius: 16px;
@@ -37,7 +49,8 @@
 }
 
 .neighborhood-grid h2,
-.question-card h2 {
+.question-card h2,
+.metrics-page h2 {
   margin: 0 0 8px;
   color: #16382f;
   font-size: 18px;
@@ -60,10 +73,45 @@
   margin: 20px 0 28px;
 }
 
+.preferred-store-banner {
+  display: block;
+  padding: 10px 16px;
+  background: #176f62;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+}
+
+.metrics-total {
+  font-size: 28px;
+  font-weight: 800;
+  color: #16382f;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.metrics-grid span {
+  display: block;
+  margin-top: 6px;
+  font-size: 28px;
+  font-weight: 800;
+  color: #176f62;
+}
+
 @media (max-width: 700px) {
   .neighborhood-actions .button,
   .neighborhood-actions .text-link {
     min-height: 48px;
     justify-content: center;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
   }
 }
