@@ -1,0 +1,89 @@
+.unit-map {
+  display: grid;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.unit-map-pins {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.unit-map-pins button {
+  min-height: 64px;
+  padding: 10px 12px;
+  border: 1px solid #d7e4de;
+  border-radius: 14px;
+  background: #ffffff;
+  color: #14332c;
+  text-align: left;
+}
+
+.unit-map-pins button strong,
+.unit-map-pins button span {
+  display: block;
+}
+
+.unit-map-pins button span {
+  margin-top: 4px;
+  color: #2f4b44;
+  font-size: 12px;
+}
+
+.unit-map-pins button.is-active {
+  background: #176f62;
+  border-color: #176f62;
+  color: #ffffff;
+}
+
+.unit-map-pins button.is-active span {
+  color: #e6efeb;
+}
+
+.unit-map-frame iframe {
+  width: 100%;
+  min-height: 280px;
+  border: 0;
+  border-radius: 18px;
+  background: #eef6f2;
+}
+
+.unit-map-details {
+  padding: 16px;
+  border: 1px solid #d7e4de;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.unit-map-details h2 {
+  margin: 4px 0 8px;
+  color: #16382f;
+}
+
+.unit-map-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+@media (min-width: 901px) {
+  .unit-map {
+    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-areas:
+      "pins pins"
+      "frame details";
+    align-items: start;
+  }
+
+  .unit-map-pins { grid-area: pins; }
+  .unit-map-frame { grid-area: frame; }
+  .unit-map-details { grid-area: details; margin: 0; }
+}
+
+@media (max-width: 700px) {
+  .unit-map-pins {
+    grid-template-columns: 1fr;
+  }
+}
