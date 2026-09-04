@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import AnalyticsConsent from "./AnalyticsConsent";
 import "./globals.css";
+import "./mobile-fixes.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 
 const GOOGLE_SITE_VERIFICATION =

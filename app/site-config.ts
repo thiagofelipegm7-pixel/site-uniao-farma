@@ -17,6 +17,7 @@ export type Unit = {
   title: string;
   neighborhood: string;
   address: string;
+  shortAddress: string;
   phone: string;
   phoneLink: string;
   whatsapp: string;
@@ -43,6 +44,7 @@ export const UNITS: Unit[] = [
     title: "União Farma — Nossa Senhora de Fátima",
     neighborhood: "Nossa Senhora de Fátima",
     address: "Rua Cláudio, 902 — Nossa Senhora de Fátima, Sabará/MG",
+    shortAddress: "Rua Cláudio, 902 · Fátima",
     phone: "(31) 3673-2122",
     phoneLink: "tel:+553136732122",
     whatsapp: "(31) 98738-1786",
@@ -71,6 +73,7 @@ export const UNITS: Unit[] = [
     title: "União Farma — Nações Unidas",
     neighborhood: "Nações Unidas",
     address: "Rua Inglaterra, 162 — Nações Unidas, Sabará/MG",
+    shortAddress: "Rua Inglaterra, 162 · Nações Unidas",
     phone: "(31) 3671-8506",
     phoneLink: "tel:+553136718506",
     whatsapp: "(31) 98762-9909",
@@ -99,6 +102,7 @@ export const UNITS: Unit[] = [
     title: "União Farma — Itacolomi",
     neighborhood: "Itacolomi",
     address: "Rua Joaquim Ferreira Moreira, 489 — Itacolomi, Sabará/MG",
+    shortAddress: "Rua Joaquim F. Moreira, 489 · Itacolomi",
     phone: "(31) 3673-3155",
     phoneLink: "tel:+553136733155",
     whatsapp: "(31) 99493-6960",
