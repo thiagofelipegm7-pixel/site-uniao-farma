@@ -11,6 +11,7 @@ import "./mobile-fixes.css";
 import "./neighborhood.css";
 import "./site-footer.css";
 import "./nearest-unit.css";
+import "./visual-polish.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 
 const GOOGLE_SITE_VERIFICATION =
