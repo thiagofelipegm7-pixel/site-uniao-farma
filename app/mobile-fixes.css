@@ -30,24 +30,83 @@
   text-overflow: ellipsis;
 }
 
+.cookie-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.cookie-reject {
+  min-height: 40px;
+  border: 1px solid #c5d4ce;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #16382f;
+  padding: 0 12px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.offers-primary-button {
+  background: #176f62 !important;
+  border-color: #176f62 !important;
+  color: #ffffff !important;
+}
+
+.content-whatsapp-button {
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  border-radius: 999px;
+  background: #128c7e;
+  color: #ffffff;
+}
+
 @media (max-width: 700px) {
   .cookie-manage-button {
     display: none !important;
   }
 
   .cookie-banner {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
     left: 0 !important;
     right: 0 !important;
     bottom: 0 !important;
     width: 100% !important;
     max-height: none;
     border-radius: 16px 16px 0 0;
-    padding: 12px 14px calc(12px + env(safe-area-inset-bottom));
+    padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
     z-index: 2300;
+  }
+
+  .cookie-banner strong {
+    display: block;
+    font-size: 13px;
+  }
+
+  .cookie-banner p {
+    margin: 2px 0 0;
+    font-size: 11px;
+    line-height: 1.35;
+  }
+
+  .cookie-actions {
+    flex-shrink: 0;
   }
 
   body {
     padding-bottom: calc(84px + env(safe-area-inset-bottom));
+  }
+
+  body.cookie-banner-visible {
+    padding-bottom: calc(168px + env(safe-area-inset-bottom));
   }
 
   .quick-units-section {
@@ -193,5 +252,13 @@
   .hero-offer-cta {
     width: 100%;
     margin-top: 12px;
+  }
+
+  .locate-unit-bar {
+    padding: 12px 14px;
+  }
+
+  .locate-unit-bar > p:first-child {
+    font-size: 13px;
   }
 }
