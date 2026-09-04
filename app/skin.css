@@ -1,14 +1,14 @@
 body {
   background:
-    radial-gradient(56rem 26rem at 50% -8rem, rgba(18, 194, 90, 0.22), transparent 62%),
+    radial-gradient(56rem 26rem at 50% -8rem, rgba(15, 122, 85, 0.14), transparent 62%),
     var(--uf-paper);
   color: var(--uf-ink);
 }
 
 .site-header,
 .nav {
-  background: var(--uf-green);
-  color: #ffffff;
+  background: var(--uf-paper);
+  color: var(--uf-ink);
 }
 
 .site-header a,
@@ -18,16 +18,16 @@ body {
 .menu-label,
 .menu-links a,
 .menu-button {
-  color: #ffffff;
+  color: var(--uf-ink);
 }
 
 .menu-icon span {
-  background: #ffffff;
+  background: var(--uf-ink);
 }
 
 .hero {
   background:
-    linear-gradient(180deg, rgba(15, 122, 85, 0.16) 0%, transparent 58%);
+    linear-gradient(180deg, rgba(15, 122, 85, 0.1) 0%, transparent 58%);
 }
 
 .hero-copy .eyebrow {
@@ -81,10 +81,24 @@ body {
   box-shadow: inset 0 -0.28em 0 var(--uf-gold);
 }
 
+.offer-consult-price {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35em;
+  margin: 0.4em 0 0.3em;
+  padding: 0.35em 0.55em;
+  background: var(--uf-gold);
+  color: #5a3b00;
+  border-radius: 0.45em;
+}
+
 .offer-consult-price strong,
 .encarte-price,
 .price-large {
-  color: var(--uf-green);
+  color: #5a3b00;
+  background: var(--uf-gold);
+  padding: 0.12em 0.28em;
+  border-radius: 0.35em;
 }
 
 .offer-consult-stamp,
@@ -94,13 +108,21 @@ body {
   color: #ffffff;
 }
 
-.whatsapp-intent-chips button.is-active,
-.direct-unit-actions a:first-child,
-.locate-unit-whatsapp,
-.header-cta {
+.whatsapp-intent-chips button.is-active {
   background: var(--uf-green);
   color: #ffffff;
   border-color: transparent;
+}
+
+.direct-unit-actions a:first-child,
+.locate-unit-whatsapp,
+.header-cta,
+.button-whatsapp,
+.offer-consult-units a {
+  background: var(--uf-whatsapp);
+  color: #083528;
+  border-color: transparent;
+  font-weight: 800;
 }
 
 .header-cta {
