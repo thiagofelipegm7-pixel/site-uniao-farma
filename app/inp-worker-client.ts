@@ -2,6 +2,7 @@ import type { GeoPoint } from "./geo";
 import type { Unit } from "./site-config";
 
 let worker: Worker | null = null;
+let warming = false;
 
 function getWorker(): Worker | null {
   if (typeof window === "undefined" || typeof Worker === "undefined") return null;
@@ -13,6 +14,23 @@ function getWorker(): Worker | null {
     worker = null;
     return null;
   }
+}
+
+export function warmInpWorker() {
+  if (warming || worker) return;
+  warming = true;
+  const start = () => {
+    getWorker();
+  };
+  if ("requestIdleCallback" in window) {
+    window.requestIdleCallback(start, { timeout: 2500 });
+    return;
+  }
+  window.setTimeout(start, 1000);
+}
+
+if (typeof window !== "undefined") {
+  warmInpWorker();
 }
 
 export function rankUnitsInWorker(
