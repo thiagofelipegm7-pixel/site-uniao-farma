@@ -1,18 +1,19 @@
 :root {
-  --t-xs: 12px;
-  --t-sm: 14px;
-  --t-md: 16px;
-  --t-lg: 20px;
-  --t-xl: clamp(24px, 4vw, 40px);
-  --lh-tight: 1.15;
+  --t-xs: clamp(11px, 0.3vw + 10.4px, 12px);
+  --t-sm: clamp(13px, 0.35vw + 12.2px, 15px);
+  --t-md: clamp(15px, 0.4vw + 14px, 17px);
+  --t-lg: clamp(17px, 0.7vw + 15px, 22px);
+  --t-xl: clamp(24px, 2.4vw + 16px, 42px);
+  --t-price: clamp(22px, 1.6vw + 16px, 32px);
+  --lh-tight: 1.12;
   --lh-body: 1.5;
   --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 24px;
-  --space-6: 32px;
-  --space-7: 48px;
+  --space-2: clamp(6px, 0.4vw + 5px, 8px);
+  --space-3: clamp(10px, 0.6vw + 8px, 14px);
+  --space-4: clamp(14px, 0.8vw + 10px, 18px);
+  --space-5: clamp(20px, 1.2vw + 14px, 28px);
+  --space-6: clamp(28px, 2vw + 16px, 40px);
+  --space-7: clamp(36px, 3vw + 20px, 56px);
 }
 
 body {
@@ -34,7 +35,9 @@ h1,
 h2,
 .direct-unit-name,
 .offer-consult-body h3,
-.unit-map-details h2 {
+.unit-map-details h2,
+.neighborhood-grid h2 {
+  font-size: var(--t-lg);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.2;
@@ -43,14 +46,17 @@ h2,
 p,
 .direct-unit-neighborhood,
 .offer-consult-note,
-.locate-unit-status {
+.locate-unit-status,
+.unit-map-details p {
+  font-size: var(--t-sm);
   line-height: var(--lh-body);
 }
 
 .eyebrow,
 .section-kicker,
 .offer-consult-brand,
-.offer-consult-cat {
+.offer-consult-cat,
+.offer-consult-stamp {
   font-size: var(--t-xs);
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -58,7 +64,14 @@ p,
 }
 
 .offer-consult-price strong {
+  font-size: var(--t-price);
   letter-spacing: -0.05em;
+}
+
+.whatsapp-intent-chips button,
+.direct-unit-actions a,
+.mobile-quick-nav a {
+  font-size: var(--t-sm);
 }
 
 .section-inner,
@@ -77,34 +90,14 @@ p,
   margin-top: var(--space-5);
 }
 
-@media (min-width: 901px) {
-  body {
-    font-size: var(--t-md);
-  }
-
-  .section-inner,
-  .direct-unit-links {
-    padding-left: var(--space-6);
-    padding-right: var(--space-6);
-  }
-
-  .hero {
-    padding-top: var(--space-6);
-    padding-bottom: var(--space-5);
-  }
-}
-
 @media (max-width: 700px) {
   .hero-copy h1 {
-    font-size: 24px;
+    font-size: clamp(22px, 7vw, 28px);
     margin-bottom: var(--space-3);
   }
 
-  .direct-unit-name {
-    font-size: 17px;
-  }
-
-  .offer-consult-body h3 {
-    font-size: var(--t-sm);
+  .whatsapp-intent-chips button,
+  .mobile-quick-nav a {
+    font-size: var(--t-xs);
   }
 }
