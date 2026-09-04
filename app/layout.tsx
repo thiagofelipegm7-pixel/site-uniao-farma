@@ -11,6 +11,7 @@ import "./neighborhood.css";
 import "./site-footer.css";
 import "./nearest-unit.css";
 import "./visual-polish.css";
+import "./lcp.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 
 const AnalyticsConsent = dynamic(() => import("./AnalyticsConsent"), { ssr: false });
@@ -126,7 +127,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="pt-BR" data-theme="light" className={poppins.className}>
       <head>
         <link rel="preload" href="/icon-192.png" as="image" type="image/png" fetchPriority="high" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body>
         <AnalyticsConsent />
