@@ -1,3 +1,5 @@
+import { postMetricInWorker } from "./inp-worker-client";
+
 export type MetricHit = {
   unit?: string;
   intent?: string;
@@ -12,6 +14,8 @@ export function recordMetric(hit: MetricHit) {
     path: window.location.pathname,
     at: new Date().toISOString(),
   };
+
+  if (postMetricInWorker(payload)) return;
 
   try {
     navigator.sendBeacon?.("/api/metricas", new Blob([JSON.stringify(payload)], { type: "application/json" }));
