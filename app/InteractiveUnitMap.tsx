@@ -1,6 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { scheduleAutoLocation } from "./auto-location";
+import { rankUnitsByDistance } from "./geo";
 import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
 import "./unit-map.css";
@@ -13,8 +15,17 @@ const LABEL: Record<Unit["id"], string> = {
 
 export default function InteractiveUnitMap({ initialUnitId }: { initialUnitId?: Unit["id"] }) {
   const [activeId, setActiveId] = useState<Unit["id"]>(initialUnitId ?? "fatima");
+  const [locked] = useState(Boolean(initialUnitId));
   const unit = useMemo(() => UNITS.find((item) => item.id === activeId) ?? UNITS[0], [activeId]);
   const message = WHATSAPP_MESSAGES.product.replaceAll("{unidade}", unit.shortName);
+
+  useEffect(() => {
+    if (locked) return;
+    return scheduleAutoLocation((origin) => {
+      const nearest = rankUnitsByDistance(origin)[0];
+      if (nearest) setActiveId(nearest.unit.id);
+    });
+  }, [locked]);
 
   return (
     <section className="unit-map" aria-label="Mapa das unidades">
