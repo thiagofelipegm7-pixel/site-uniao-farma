@@ -6,6 +6,7 @@ import PwaRegister from "./PwaRegister";
 import SiteFooter from "./SiteFooter";
 import "./globals.css";
 import "./mobile-fixes.css";
+import "./neighborhood.css";
 import "./site-footer.css";
 import "./nearest-unit.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
