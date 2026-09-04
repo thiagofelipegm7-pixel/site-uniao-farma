@@ -89,8 +89,7 @@ function OfferConsultCard({ offer, rows }: { offer: Offer; rows: StockRow[] }) {
 
 export default function PublicOffersGrid() {
   const offers = getPublicOffers();
-  const { live } = useStock();
-  const { rows } = useStock();
+  const { live, rows } = useStock();
 
   if (offers.length === 0) {
     return (
