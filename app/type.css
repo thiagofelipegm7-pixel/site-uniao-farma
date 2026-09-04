@@ -2,30 +2,21 @@ html {
   font-size: 100%;
 }
 
-:root {
-  --t-xs: clamp(0.6875rem, 0.665rem + 0.11vw, 0.75rem);
-  --t-sm: clamp(0.8125rem, 0.767rem + 0.23vw, 0.9375rem);
-  --t-md: clamp(0.9375rem, 0.892rem + 0.23vw, 1.0625rem);
-  --t-lg: clamp(1.0625rem, 0.948rem + 0.57vw, 1.375rem);
-  --t-xl: clamp(1.5rem, 1.091rem + 2.05vw, 2.625rem);
-  --lh-tight: 1.12;
-  --lh-body: 1.5;
-  --space-1: 0.25rem;
-  --space-2: clamp(0.375rem, 0.33rem + 0.23vw, 0.5rem);
-  --space-3: clamp(0.625rem, 0.534rem + 0.45vw, 0.875rem);
-  --space-4: clamp(0.875rem, 0.784rem + 0.45vw, 1.125rem);
-  --space-5: clamp(1.25rem, 1.068rem + 0.91vw, 1.75rem);
-  --space-6: clamp(1.75rem, 1.477rem + 1.36vw, 2.5rem);
-  --space-7: clamp(2.25rem, 1.795rem + 2.27vw, 3.5rem);
-  --r-sm: clamp(0.625rem, 0.534rem + 0.45vw, 0.875rem);
-  --r-md: clamp(0.875rem, 0.784rem + 0.45vw, 1.125rem);
-  --r-lg: clamp(1rem, 0.864rem + 0.68vw, 1.375rem);
-  --tap: clamp(2.75rem, 2.568rem + 0.91vw, 3.25rem);
-}
-
 body {
   font-size: var(--t-sm);
   line-height: var(--lh-body);
+  color: var(--uf-ink);
+}
+
+.eyebrow,
+.section-kicker {
+  display: inline-block;
+  margin: 0 0 0.5em;
+  font-size: 0.72em;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--uf-green);
 }
 
 h1,
@@ -33,39 +24,43 @@ h1,
 .neighborhood-hero h1,
 .questions-page h1,
 .encarte-page h1 {
+  margin: 0 0 0.35em;
   font-size: var(--t-xl);
   font-weight: 800;
   line-height: var(--lh-tight);
-  letter-spacing: -0.035em;
-  margin-bottom: 0.4em;
+  letter-spacing: -0.04em;
 }
 
 h2,
 .direct-unit-name,
 .unit-map-details h2,
 .neighborhood-grid h2 {
-  font-size: 1.2em;
+  margin: 0 0 0.3em;
+  font-size: 1.22em;
   font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+h3,
+.offer-consult-body h3 {
+  margin: 0.15em 0 0;
+  font-size: 1em;
+  font-weight: 700;
   letter-spacing: -0.02em;
-  line-height: 1.2;
-  margin-bottom: 0.35em;
+  line-height: 1.25;
 }
 
 p,
 .direct-unit-neighborhood,
 .offer-consult-note,
 .locate-unit-status,
-.unit-map-details p {
+.unit-map-details p,
+.neighborhood-hero p {
+  margin: 0 0 0.6em;
   font-size: 1em;
   line-height: var(--lh-body);
-}
-
-.eyebrow,
-.section-kicker {
-  font-size: 0.75em;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  color: var(--uf-muted);
 }
 
 .direct-unit-link,
@@ -74,7 +69,7 @@ p,
 .neighborhood-grid article,
 .unit-map-details {
   font-size: var(--t-sm);
-  padding: var(--space-4);
+  padding: 1em;
   border-radius: var(--r-lg);
 }
 
@@ -83,45 +78,39 @@ p,
 }
 
 .offer-consult-body {
-  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+  padding: 1em;
 }
 
 .offer-consult-brand,
 .offer-consult-cat,
 .offer-consult-stamp {
-  font-size: 0.75em;
+  margin: 0;
+  font-size: 0.72em;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
-.offer-consult-body h3 {
-  font-size: 1.1em;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  line-height: 1.25;
-  margin: 0.2em 0 0;
-}
-
 .offer-consult-price {
-  margin: 0.45em 0;
+  margin: 0.35em 0 0.2em;
 }
 
 .offer-consult-price strong {
-  font-size: 1.7em;
+  font-size: 1.85em;
   letter-spacing: -0.05em;
+  line-height: 1;
 }
 
 .offer-consult-price s {
-  font-size: 0.85em;
+  font-size: 0.8em;
 }
 
-.offer-consult-units a {
-  font-size: 0.85em;
-}
-
-.offer-consult-units a small {
-  font-size: 0.75em;
+.whatsapp-intent-chips {
+  margin: 0 0 0.85em;
+  gap: 0.5em;
 }
 
 .whatsapp-intent-chips button,
@@ -132,7 +121,7 @@ p,
 .neighborhood-actions .button {
   min-height: var(--tap);
   border-radius: var(--r-md);
-  font-size: 1em;
+  font-size: 0.95em;
 }
 
 .section-inner,
@@ -140,26 +129,44 @@ p,
 .neighborhood-page,
 .encarte-page,
 .questions-page {
-  padding-left: var(--space-4);
-  padding-right: var(--space-4);
+  padding-left: var(--vw-gutter, var(--space-4));
+  padding-right: var(--vw-gutter, var(--space-4));
+}
+
+.direct-unit-links-copy {
+  margin-bottom: 0.85em;
+}
+
+.direct-unit-links-copy strong {
+  display: block;
+  font-size: 1.15em;
+  letter-spacing: -0.02em;
+}
+
+.direct-unit-links-copy span {
+  color: var(--uf-muted);
 }
 
 .direct-unit-links,
 .neighborhood-grid,
 .offer-consult-grid,
 .unit-map {
-  margin-top: var(--space-5);
-  gap: var(--space-3);
+  margin-top: 1.25em;
+  gap: 0.75em;
+}
+
+.locate-unit-bar {
+  margin-bottom: 0.85em;
 }
 
 @media (max-width: 43.75rem) {
   .hero-copy h1 {
     font-size: clamp(1.375rem, 1.05rem + 4.5vw, 1.75rem);
-    margin-bottom: 0.35em;
+    margin-bottom: 0.4em;
   }
 
   .whatsapp-intent-chips button,
   .mobile-quick-nav a {
-    font-size: 0.75em;
+    font-size: 0.72em;
   }
 }
