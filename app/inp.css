@@ -1,0 +1,9 @@
+.scroll-indicator {
+  display: none !important;
+}
+
+.reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+}

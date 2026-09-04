@@ -8,9 +8,27 @@ export default function OpenNowStrip() {
   const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
-    setNow(new Date());
-    const timer = window.setInterval(() => setNow(new Date()), 60_000);
-    return () => window.clearInterval(timer);
+    const start = () => {
+      setNow(new Date());
+      const timer = window.setInterval(() => setNow(new Date()), 60_000);
+      return timer;
+    };
+
+    let timer = 0;
+    const idle =
+      "requestIdleCallback" in window
+        ? window.requestIdleCallback(() => {
+            timer = start();
+          }, { timeout: 2000 })
+        : window.setTimeout(() => {
+            timer = start();
+          }, 800);
+
+    return () => {
+      if ("cancelIdleCallback" in window) window.cancelIdleCallback(idle as number);
+      window.clearTimeout(idle);
+      window.clearInterval(timer);
+    };
   }, []);
 
   const rows = useMemo(
@@ -28,12 +46,12 @@ export default function OpenNowStrip() {
 
   return (
     <div className="open-now-strip" role="status">
-      <strong>{openCount > 0 ? "Aberto agora" : "Unidades fechadas"}</strong>
+      <strong>{openCount > 0 ? "Aberto agora" : "Unidades"}</strong>
       <div className="open-now-list">
         {rows.map((row) => (
-          <a key={row.unit.id} href={`/#unidades-rapidas`} className={row.isOpen ? "is-open" : "is-closed"}>
+          <a key={row.unit.id} href="/#unidades-rapidas" className={row.isOpen ? "is-open" : "is-closed"}>
             <span>{row.unit.id === "fatima" ? "Fátima" : row.unit.id === "nacoes" ? "Nações" : "Itacolomi"}</span>
-            <small>{row.isOpen ? "aberta" : row.label.replace("Fechado · ", "")}</small>
+            <small>{now ? (row.isOpen ? "aberta" : "ver horário") : ""}</small>
           </a>
         ))}
       </div>
