@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import AnalyticsConsent from "./AnalyticsConsent";
-import FloatingWhatsApp from "./FloatingWhatsApp";
 import MobileQuickNav from "./MobileQuickNav";
 import OpenNowStrip from "./OpenNowStrip";
 import PreferredStoreBanner from "./PreferredStoreBanner";
@@ -125,7 +124,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           }}
         />
         {children}
-        <FloatingWhatsApp />
         <MobileQuickNav />
         <SiteFooter />
       </body>
