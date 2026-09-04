@@ -34,6 +34,12 @@ type LocateState =
   | { status: "unavailable" }
   | { status: "ready"; ranked: RankedUnit[]; fromCache: boolean };
 
+const UNIT_MONO: Record<Unit["id"], string> = {
+  fatima: "F",
+  nacoes: "N",
+  itacolomi: "I",
+};
+
 function resolveMessage(message: string, unitName: string): string {
   return message.replaceAll("{unidade}", unitName);
 }
@@ -188,7 +194,14 @@ export default function DirectUnitLinks({
           const isPreferred = preferredId === unit.id;
 
           return (
-            <article key={unit.id} className={`direct-unit-link${isNearest ? " is-nearest" : ""}${isPreferred && !isNearest ? " is-preferred" : ""}`}>
+            <article
+              key={unit.id}
+              data-unit={unit.id}
+              className={`direct-unit-link${isNearest ? " is-nearest" : ""}${isPreferred && !isNearest ? " is-preferred" : ""}`}
+            >
+              <div className="direct-unit-photo" aria-hidden="true">
+                <span className="direct-unit-mono">{UNIT_MONO[unit.id]}</span>
+              </div>
               <span className="direct-unit-name">{unit.shortName}</span>
               <span className="direct-unit-neighborhood">{unit.shortAddress}</span>
               {typeof km === "number" ? <span className="direct-unit-distance">{formatDistance(km)}</span> : null}
