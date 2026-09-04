@@ -1,0 +1,58 @@
+@media (max-width: 700px) {
+  .whatsapp-intent-chips {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 6px;
+  }
+
+  .whatsapp-intent-chips button {
+    min-height: 52px;
+    flex-direction: column;
+    gap: 4px;
+    padding: 8px 4px;
+    border-radius: 16px;
+    font-size: 12px;
+  }
+
+  .direct-unit-actions {
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 8px;
+  }
+
+  .direct-unit-actions a,
+  .locate-unit-whatsapp,
+  .neighborhood-actions .button,
+  .unit-map-actions .button {
+    min-height: 48px;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  .locate-unit-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .locate-unit-whatsapp {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .mobile-quick-nav a {
+    flex-direction: column;
+    gap: 4px;
+    min-height: 56px;
+    border-radius: 16px;
+    font-size: 11px;
+    letter-spacing: 0.02em;
+  }
+
+  .mobile-quick-nav a.is-primary {
+    background: #176f62;
+    color: #ffffff;
+  }
+
+  .neighborhood-actions {
+    grid-template-columns: 1fr;
+  }
+}
