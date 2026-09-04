@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import AnalyticsConsent from "./AnalyticsConsent";
+import { Poppins } from "next/font/google";
+import dynamic from "next/dynamic";
 import MobileQuickNav from "./MobileQuickNav";
 import OpenNowStrip from "./OpenNowStrip";
 import PreferredStoreBanner from "./PreferredStoreBanner";
-import PwaRegister from "./PwaRegister";
 import SiteFooter from "./SiteFooter";
 import "./globals.css";
 import "./mobile-fixes.css";
@@ -12,6 +12,18 @@ import "./site-footer.css";
 import "./nearest-unit.css";
 import "./visual-polish.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
+
+const AnalyticsConsent = dynamic(() => import("./AnalyticsConsent"), { ssr: false });
+const PwaRegister = dynamic(() => import("./PwaRegister"), { ssr: false });
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "700", "800"],
+  display: "swap",
+  preload: true,
+  fallback: ["Arial", "sans-serif"],
+  adjustFontFallback: true,
+});
 
 const SITE_DESCRIPTION =
   "Farmácia e drogaria em Sabará com três unidades: Fátima, Nações Unidas e Itacolomi. Medicamentos, perfumaria e pedido pelo WhatsApp.";
@@ -111,7 +123,10 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" data-theme="light">
+    <html lang="pt-BR" data-theme="light" className={poppins.className}>
+      <head>
+        <link rel="preload" href="/uniao-farma-logo.webp" as="image" type="image/webp" />
+      </head>
       <body>
         <AnalyticsConsent />
         <PwaRegister />
