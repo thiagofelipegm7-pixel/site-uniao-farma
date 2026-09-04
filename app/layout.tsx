@@ -4,6 +4,7 @@ import SiteFooter from "./SiteFooter";
 import "./globals.css";
 import "./mobile-fixes.css";
 import "./site-footer.css";
+import "./nearest-unit.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 
 const GOOGLE_SITE_VERIFICATION =

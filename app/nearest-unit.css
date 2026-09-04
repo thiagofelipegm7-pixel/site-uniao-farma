@@ -1,0 +1,82 @@
+.locate-unit-bar {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 16px;
+  padding: 14px 16px;
+  border: 1px solid #d7e4de;
+  border-radius: 16px;
+  background: #f3f7f5;
+}
+
+.locate-unit-bar p {
+  margin: 0;
+  color: #3d534c;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.locate-unit-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.locate-unit-button,
+.locate-unit-whatsapp {
+  min-height: 42px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 999px;
+  padding: 0 14px;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.locate-unit-button {
+  border: 1px solid #176f62;
+  background: #176f62;
+  color: #ffffff;
+}
+
+.locate-unit-button:disabled {
+  opacity: 0.7;
+  cursor: progress;
+}
+
+.locate-unit-whatsapp {
+  border: 1px solid #128c7e;
+  background: #128c7e;
+  color: #ffffff;
+}
+
+.locate-unit-status {
+  color: #5b6f68;
+  font-size: 12px;
+}
+
+.direct-unit-link.is-nearest {
+  border-color: #176f62;
+  box-shadow: 0 0 0 2px rgba(23, 111, 98, 0.18);
+}
+
+.nearest-unit-badge {
+  display: inline-flex;
+  width: fit-content;
+  margin-top: 4px;
+  border-radius: 999px;
+  background: #176f62;
+  color: #ffffff;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.direct-unit-distance {
+  color: #5b6f68;
+  font-size: 12px;
+}
