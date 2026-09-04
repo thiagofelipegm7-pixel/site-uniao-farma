@@ -5,34 +5,38 @@ export type FaqItem = {
   a: string;
 };
 
+export const CUSTOMER_QUESTIONS: FaqItem[] = [
+  {
+    q: "Tem genérico?",
+    a: "Sim. Informe o nome do remédio no WhatsApp da loja. A equipe confirma se há genérico, similar ou referência no estoque daquele dia.",
+  },
+  {
+    q: "Aceita receita digital?",
+    a: "Sim. Envie a foto da receita ou o link do Memed no WhatsApp. O farmacêutico confere antes de separar o pedido.",
+  },
+  {
+    q: "Entrega no meu bairro?",
+    a: "Depende do endereço e da unidade. Toque em Entrega, escolha a loja mais perto e informe o bairro. A taxa e o prazo saem na hora.",
+  },
+  {
+    q: "Preciso de receita para tudo?",
+    a: "Não. Só medicamentos de controle e alguns de tarja exigem receita. Na dúvida, pergunte antes de sair de casa.",
+  },
+  {
+    q: "Está aberto agora?",
+    a: "A faixa no topo do site mostra Fátima, Nações e Itacolomi em tempo real. Domingo as três fecham até 12:00.",
+  },
+];
+
 export const HOME_FAQS: FaqItem[] = [
+  ...CUSTOMER_QUESTIONS,
   {
     q: "Como consulto o preço de um produto?",
-    a: "Clique em um botão de consulta e escolha a unidade. Consulte a equipe sobre disponibilidade e requisitos de atendimento. Produtos sujeitos a prescrição seguem os requisitos aplicáveis.",
+    a: "Toque em Produto, escolha a unidade e mande o nome no WhatsApp. A equipe confirma preço e estoque na hora.",
   },
   {
-    q: "Vocês fazem entrega em toda Sabará?",
-    a: "Cada unidade atende uma área específica. A disponibilidade, a taxa e o prazo são confirmados pelo WhatsApp da unidade escolhida.",
-  },
-  {
-    q: "Preciso de receita para todos os medicamentos?",
-    a: "Não. A necessidade de receita depende do medicamento. Antibióticos, medicamentos controlados e outros produtos sujeitos a prescrição exigem a documentação correspondente.",
-  },
-  {
-    q: "Vocês aplicam injetáveis?",
-    a: "A aplicação é oferecida mediante confirmação prévia da unidade, presença do profissional e apresentação da receita quando exigida. Consulte o horário antes de se deslocar.",
-  },
-  {
-    q: "Vocês fazem aferição de pressão e teste de glicemia?",
-    a: "Sim. Consulte pelo WhatsApp a disponibilidade, o horário e as orientações do serviço na unidade escolhida antes de se deslocar.",
-  },
-  {
-    q: "Aceitam o convênio ECX Card?",
-    a: "Sim. Apresente o cartão na loja e confirme com a unidade os produtos e as condições de desconto disponíveis.",
-  },
-  {
-    q: "Quais formas de pagamento são aceitas?",
-    a: "As unidades aceitam Pix, dinheiro, débito e crédito. As condições de parcelamento podem variar e devem ser confirmadas diretamente com a loja.",
+    q: "Aceitam Pix, cartão e ECX Card?",
+    a: "Sim. Pix, dinheiro, débito e crédito. ECX Card é aceito na loja; confirme o desconto com a unidade.",
   },
 ];
 
@@ -43,17 +47,21 @@ export function getUnitFaqs(unit: Unit): FaqItem[] {
       a: `A unidade fica em ${unit.address}. Consulte a rota no Google Maps antes de sair.`,
     },
     {
-      q: `Qual é o telefone e o WhatsApp da unidade ${unit.shortName}?`,
-      a: `O telefone é ${unit.phone} e o WhatsApp é ${unit.whatsapp}. Use o botão de atendimento desta página para falar diretamente com a equipe.`,
+      q: `A unidade ${unit.shortName} tem genérico?`,
+      a: "Sim. Envie o nome do medicamento no WhatsApp desta loja para confirmar o estoque do dia.",
+    },
+    {
+      q: `A unidade ${unit.shortName} aceita receita digital?`,
+      a: "Sim. Envie a foto da receita ou o Memed no WhatsApp desta unidade.",
+    },
+    {
+      q: `A unidade ${unit.shortName} entrega no meu bairro?`,
+      a: `A loja fica em ${unit.neighborhood}. Informe o endereço no WhatsApp para confirmar área, taxa e prazo.`,
     },
     {
       q: `Qual é o horário da farmácia ${unit.shortName}?`,
-      a: "O horário regular é de segunda a sexta, das 07:00 às 21:00; aos sábados, das " +
-        `${unit.schedule.sat?.open} às ${unit.schedule.sat?.close}; e aos domingos, das 07:00 às 12:00. Em feriados, confirme pelo WhatsApp.`,
-    },
-    {
-      q: `Quais bairros a unidade ${unit.shortName} atende com entrega?`,
-      a: `A unidade fica no bairro ${unit.neighborhood}. A lista de bairros atendidos, a taxa e o prazo de entrega dependem do endereço informado e devem ser confirmados diretamente pelo WhatsApp.`,
+      a: "Segunda a sexta, das 07:00 às 21:00; sábado, das " +
+        `${unit.schedule.sat?.open} às ${unit.schedule.sat?.close}; domingo, das 07:00 às 12:00. Feriado: confirme no WhatsApp.`,
     },
   ];
 }
