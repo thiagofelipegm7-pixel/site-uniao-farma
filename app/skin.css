@@ -1,17 +1,28 @@
 body {
   background:
-    radial-gradient(70rem 28rem at 50% -12rem, rgba(23, 111, 98, 0.07), transparent 58%),
+    radial-gradient(56rem 26rem at 50% -8rem, rgba(18, 194, 90, 0.22), transparent 62%),
     var(--uf-paper);
+  color: var(--uf-ink);
 }
 
 .site-header,
 .nav {
-  background: rgba(251, 250, 249, 0.92);
-  backdrop-filter: blur(10px);
+  background: var(--uf-green);
+  color: #ffffff;
+}
+
+.site-header a,
+.nav a,
+.brand strong,
+.brand small,
+.menu-label,
+.menu-links a {
+  color: #ffffff;
 }
 
 .hero {
-  background: transparent;
+  background:
+    linear-gradient(180deg, rgba(15, 122, 85, 0.16) 0%, transparent 58%);
 }
 
 .hero-copy .eyebrow {
@@ -20,6 +31,13 @@ body {
 
 .hero-copy h1 {
   max-width: 16ch;
+  color: var(--uf-ink);
+}
+
+.open-now-strip,
+.preferred-store-banner {
+  background: var(--uf-green-dark);
+  color: #ffffff;
 }
 
 .direct-unit-photo {
@@ -31,24 +49,18 @@ body {
   align-items: flex-end;
   justify-content: flex-start;
   padding: 0.75em;
-  background:
-    linear-gradient(180deg, rgba(28, 46, 41, 0.04), rgba(28, 46, 41, 0.18)),
-    var(--uf-fog);
 }
 
 .direct-unit-link[data-unit="fatima"] .direct-unit-photo {
-  background:
-    linear-gradient(160deg, #1b4a42 0%, #176f62 55%, #c4a574 120%);
+  background: linear-gradient(155deg, #075c40 0%, #12c25a 70%, #e2b03a 120%);
 }
 
 .direct-unit-link[data-unit="nacoes"] .direct-unit-photo {
-  background:
-    linear-gradient(160deg, #14332c 0%, #1d6a5c 58%, #e4ddd4 130%);
+  background: linear-gradient(155deg, #083528 0%, #0f7a55 62%, #25d366 125%);
 }
 
 .direct-unit-link[data-unit="itacolomi"] .direct-unit-photo {
-  background:
-    linear-gradient(160deg, #2a4033 0%, #4d6b4e 52%, #c4a574 115%);
+  background: linear-gradient(155deg, #3d6a20 0%, #17a36a 55%, #e2b03a 118%);
 }
 
 .direct-unit-mono {
@@ -57,10 +69,42 @@ body {
   letter-spacing: -0.06em;
   line-height: 1;
   color: #ffffff;
+  text-shadow: 0 0.08em 0.2em rgba(8, 53, 40, 0.35);
 }
 
 .direct-unit-link.is-nearest .direct-unit-photo {
-  box-shadow: inset 0 -0.2em 0 var(--uf-gold);
+  box-shadow: inset 0 -0.28em 0 var(--uf-gold);
+}
+
+.offer-consult-price strong,
+.encarte-price,
+.price-large {
+  color: var(--uf-green);
+}
+
+.offer-consult-stamp,
+.selo-consulte,
+.offer-badge {
+  background: var(--uf-offer);
+  color: #ffffff;
+}
+
+.whatsapp-intent-chips button.is-active,
+.direct-unit-actions a:first-child,
+.locate-unit-whatsapp,
+.header-cta {
+  background: var(--uf-green);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.header-cta {
+  border-radius: 999px;
+}
+
+.open-status.is-open {
+  background: var(--uf-open-live);
+  color: #083528;
 }
 
 .reviews,
@@ -76,33 +120,12 @@ body {
   padding: 1.1em 1.15em 1.2em;
 }
 
-.review-card p,
-.reviews article p {
-  font-size: 1.05em;
-  letter-spacing: -0.02em;
-  color: var(--uf-ink);
-}
-
-.review-card strong,
-.reviews article strong,
-.reviews article cite {
-  display: block;
-  margin-top: 0.7em;
-  font-size: 0.75em;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--uf-muted);
-}
-
 .category-card,
 .categories article {
   background: var(--uf-stone);
-  box-shadow: none;
   border-radius: var(--r-lg);
 }
 
-.header-cta {
-  border-radius: 999px;
-  background: var(--uf-green);
-  color: #ffffff;
+.uf-footer {
+  background: linear-gradient(180deg, #0f7a55 0%, #083528 100%);
 }
