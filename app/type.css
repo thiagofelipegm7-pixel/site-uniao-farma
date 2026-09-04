@@ -8,7 +8,6 @@ html {
   --t-md: clamp(0.9375rem, 0.892rem + 0.23vw, 1.0625rem);
   --t-lg: clamp(1.0625rem, 0.948rem + 0.57vw, 1.375rem);
   --t-xl: clamp(1.5rem, 1.091rem + 2.05vw, 2.625rem);
-  --t-price: clamp(1.375rem, 1.148rem + 1.14vw, 2rem);
   --lh-tight: 1.12;
   --lh-body: 1.5;
   --space-1: 0.25rem;
@@ -38,17 +37,18 @@ h1,
   font-weight: 800;
   line-height: var(--lh-tight);
   letter-spacing: -0.035em;
+  margin-bottom: 0.4em;
 }
 
 h2,
 .direct-unit-name,
-.offer-consult-body h3,
 .unit-map-details h2,
 .neighborhood-grid h2 {
-  font-size: var(--t-lg);
+  font-size: 1.2em;
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.2;
+  margin-bottom: 0.35em;
 }
 
 p,
@@ -56,35 +56,16 @@ p,
 .offer-consult-note,
 .locate-unit-status,
 .unit-map-details p {
-  font-size: var(--t-sm);
+  font-size: 1em;
   line-height: var(--lh-body);
 }
 
 .eyebrow,
-.section-kicker,
-.offer-consult-brand,
-.offer-consult-cat,
-.offer-consult-stamp {
-  font-size: var(--t-xs);
+.section-kicker {
+  font-size: 0.75em;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-}
-
-.offer-consult-price strong {
-  font-size: var(--t-price);
-  letter-spacing: -0.05em;
-}
-
-.whatsapp-intent-chips button,
-.direct-unit-actions a,
-.mobile-quick-nav a,
-.offer-consult-units a,
-.locate-unit-whatsapp,
-.neighborhood-actions .button {
-  min-height: var(--tap);
-  border-radius: var(--r-md);
-  font-size: var(--t-sm);
 }
 
 .direct-unit-link,
@@ -92,6 +73,7 @@ p,
 .question-card,
 .neighborhood-grid article,
 .unit-map-details {
+  font-size: var(--t-sm);
   padding: var(--space-4);
   border-radius: var(--r-lg);
 }
@@ -102,6 +84,55 @@ p,
 
 .offer-consult-body {
   padding: var(--space-4);
+}
+
+.offer-consult-brand,
+.offer-consult-cat,
+.offer-consult-stamp {
+  font-size: 0.75em;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.offer-consult-body h3 {
+  font-size: 1.1em;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  margin: 0.2em 0 0;
+}
+
+.offer-consult-price {
+  margin: 0.45em 0;
+}
+
+.offer-consult-price strong {
+  font-size: 1.7em;
+  letter-spacing: -0.05em;
+}
+
+.offer-consult-price s {
+  font-size: 0.85em;
+}
+
+.offer-consult-units a {
+  font-size: 0.85em;
+}
+
+.offer-consult-units a small {
+  font-size: 0.75em;
+}
+
+.whatsapp-intent-chips button,
+.direct-unit-actions a,
+.mobile-quick-nav a,
+.offer-consult-units a,
+.locate-unit-whatsapp,
+.neighborhood-actions .button {
+  min-height: var(--tap);
+  border-radius: var(--r-md);
+  font-size: 1em;
 }
 
 .section-inner,
@@ -124,11 +155,11 @@ p,
 @media (max-width: 43.75rem) {
   .hero-copy h1 {
     font-size: clamp(1.375rem, 1.05rem + 4.5vw, 1.75rem);
-    margin-bottom: var(--space-3);
+    margin-bottom: 0.35em;
   }
 
   .whatsapp-intent-chips button,
   .mobile-quick-nav a {
-    font-size: var(--t-xs);
+    font-size: 0.75em;
   }
 }
