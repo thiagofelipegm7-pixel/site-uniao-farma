@@ -1,13 +1,13 @@
 :root {
-  --uf-gold: #c4a574;
-  --uf-open: #0f7a4a;
-  --uf-open-live: #14a34a;
-  --uf-closed: #6b4a3a;
+  --uf-gold: #0f7a55;
+  --uf-open: #0c8a4a;
+  --uf-open-live: #0c8a4a;
+  --uf-closed: #6b2a1c;
 }
 
 body {
   background:
-    radial-gradient(1200px 420px at 50% -80px, rgba(23, 111, 98, 0.08), transparent 60%),
+    radial-gradient(1200px 420px at 50% -80px, rgba(15, 122, 85, 0.1), transparent 60%),
     var(--uf-paper);
 }
 
@@ -45,7 +45,7 @@ body {
 }
 
 .direct-unit-link.is-nearest::before {
-  background: var(--uf-gold);
+  background: var(--uf-green);
 }
 
 .direct-unit-link:hover,
@@ -89,16 +89,16 @@ body {
 
 .open-status.is-open {
   background: var(--uf-open-live);
-  color: #ffffff;
+  color: #062016;
 }
 
 .open-status.is-open::before {
-  background: #d8ffe6;
-  box-shadow: 0 0 0 0.18em rgba(216, 255, 230, 0.45);
+  background: #062016;
+  box-shadow: 0 0 0 0.18em rgba(6, 32, 22, 0.18);
 }
 
 .open-status.is-closed {
-  background: #f3e7df;
+  background: #f3d4cc;
   color: var(--uf-closed);
 }
 
@@ -144,12 +144,6 @@ body {
   gap: 6px;
 }
 
-.direct-unit-actions a:first-child {
-  background: var(--uf-green);
-  color: #ffffff;
-  font-weight: 800;
-}
-
 .direct-unit-recipe {
   background: #ffffff;
   color: var(--uf-ink);
@@ -158,7 +152,7 @@ body {
 
 .uf-footer {
   background:
-    linear-gradient(180deg, #16382f 0%, #102822 100%);
+    linear-gradient(180deg, #1b4a38 0%, #0c241c 100%);
 }
 
 @media (min-width: 901px) {
