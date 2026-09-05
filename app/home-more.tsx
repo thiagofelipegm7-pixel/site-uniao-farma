@@ -1,23 +1,13 @@
 "use client";
 
 /* eslint-disable @next/next/no-html-link-for-pages */
-import UnitStatusBadge from "./UnitStatusBadge";
 import DirectUnitLinks from "./DirectUnitLinks";
 import { trackEvent } from "./analytics";
-import {
-  buildWhatsAppUrl,
-  GOOGLE_REVIEWS_URL,
-  INSTAGRAM_URL,
-  UNITS,
-} from "./site-config";
+import { GOOGLE_REVIEWS_URL, INSTAGRAM_URL } from "./site-config";
 import { HOME_FAQS } from "./seo-content";
 import {
   reviews,
-  WhatsAppIcon,
-  PhoneIcon,
-  GoogleMapIcon,
   InstagramIcon,
-  LineIcon,
   FAQItem,
   type SelectorIntent,
 } from "./home-chrome";
@@ -42,42 +32,6 @@ export function HomeMore({
             <a className="text-link" href={INSTAGRAM_URL} target="_blank" rel="noreferrer" onClick={() => trackEvent("instagram_click", { source: "story" })}>
               <InstagramIcon /> Ver ofertas e novidades no Instagram
             </a>
-          </div>
-        </div>
-      </section>
-
-      <section className="section units-section reveal" id="unidades" aria-labelledby="unidades-title">
-        <div className="section-inner">
-          <h2 id="unidades-title">Conheça nossas unidades</h2>
-          <div className="unit-grid">
-            {UNITS.map((unit) => (
-              <article className="unit-card" key={unit.id}>
-                <h3>{unit.shortName}</h3>
-                <p>{unit.address}</p>
-                <UnitStatusBadge unit={unit} />
-                <a href={unit.map} target="_blank" rel="noreferrer" onClick={() => trackEvent("maps_click", { unit: unit.id, source: "unit_card" })}>
-                  <GoogleMapIcon size={16} /> Abrir no Google Maps
-                </a>
-                <a href={unit.phoneLink} onClick={() => trackEvent("phone_click", { unit: unit.id, source: "unit_card" })}>
-                  <PhoneIcon size={20} /> {unit.phone}
-                </a>
-                <a
-                  href={buildWhatsAppUrl(unit, generalIntent.message.replaceAll("{unidade}", unit.shortName))}
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => trackEvent("whatsapp_click", { unit: unit.id, source: "unit_card" })}
-                >
-                  <WhatsAppIcon /> {unit.whatsapp}
-                </a>
-                <a className="button button-whatsapp" href={buildWhatsAppUrl(unit, generalIntent.message.replaceAll("{unidade}", unit.shortName))} target="_blank" rel="noreferrer" onClick={() => trackEvent("whatsapp_click", { unit: unit.id, source: "unit_actions" })}>
-                  <WhatsAppIcon /> Consultar pelo WhatsApp
-                </a>
-                <a className="button button-call" href={unit.phoneLink} onClick={() => trackEvent("phone_click", { unit: unit.id, source: "unit_actions" })}>
-                  Ligar para a unidade
-                </a>
-                <a className="map-link" href={`/unidades/${unit.slug}`}>Ver página completa da unidade</a>
-              </article>
-            ))}
           </div>
         </div>
       </section>
