@@ -1,0 +1,109 @@
+html {
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  color: #10231c;
+  background: #f3faf6;
+}
+
+a {
+  color: #0b6244;
+}
+
+.hero-copy p,
+.hero-lead,
+.direct-unit-neighborhood,
+.locate-unit-status,
+.direct-unit-links-copy span,
+.unit-map-details p,
+.neighborhood-hero p {
+  color: #2a4038;
+}
+
+.offer-consult-price,
+.offer-consult-price strong,
+.encarte-price,
+.price-large {
+  color: #0b6244;
+}
+
+.direct-unit-actions a:first-child,
+.locate-unit-whatsapp,
+.header-cta,
+.button-whatsapp,
+.offer-consult-units a {
+  background: #1f9e4b;
+  color: #042016;
+}
+
+.direct-unit-actions a:first-child:hover,
+.direct-unit-actions a:first-child:active,
+.locate-unit-whatsapp:hover,
+.locate-unit-whatsapp:active,
+.header-cta:hover,
+.header-cta:active,
+.button-whatsapp:hover,
+.button-whatsapp:active,
+.offer-consult-units a:hover,
+.offer-consult-units a:active {
+  background: #178a40;
+  color: #042016;
+}
+
+.whatsapp-intent-chips button.is-active {
+  background: #0b6244;
+  color: #ffffff;
+}
+
+.open-now-strip,
+.open-status.is-open {
+  background: #0c8a4a;
+  color: #062016;
+}
+
+.open-status.is-closed {
+  background: #f3d4cc;
+  color: #6b2a1c;
+}
+
+.offer-consult-stamp,
+.selo-consulte,
+.offer-badge {
+  background: #c01f16;
+  color: #ffffff;
+}
+
+.uf-footer,
+.uf-footer a,
+.uf-footer p,
+.uf-footer small {
+  color: #f3faf6;
+}
+
+.direct-unit-recipe,
+.mobile-quick-nav a:not(.is-primary) {
+  background: #dcefe6;
+  color: #10231c;
+}
+
+.mobile-quick-nav a.is-primary {
+  background: #1f9e4b;
+  color: #042016;
+}
+
+:focus-visible {
+  outline: 0.2rem solid #0b6244;
+  outline-offset: 0.15rem;
+}
+
+@media (hover: none) {
+  .direct-unit-actions a:first-child:active,
+  .header-cta:active,
+  .locate-unit-whatsapp:active,
+  .offer-consult-units a:active {
+    background: #178a40;
+  }
+}
