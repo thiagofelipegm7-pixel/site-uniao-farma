@@ -49,7 +49,8 @@
   color: #0b6244;
 }
 
-.offer-consult-units a[data-stock="available"] {
+.offer-consult-units a[data-stock="available"],
+.offer-consult-units a[data-stock="consult"] {
   background: #1f9e4b;
   color: #042016;
 }
@@ -57,11 +58,6 @@
 .offer-consult-units a[data-stock="unavailable"] {
   background: #fde8e4;
   color: #9a2f22;
-}
-
-.offer-consult-units a[data-stock="consult"] {
-  background: #1f9e4b;
-  color: #042016;
 }
 
 .button-call {
@@ -81,6 +77,44 @@
   width: 2.75rem;
   height: 2.75rem;
   color: #ffffff;
+}
+
+/* Desktop: titles must stay in the content column */
+#unidades-rapidas > h2,
+#entrega > h2,
+#categorias > h2,
+#unidades > h2,
+#avaliacoes > h2,
+#faq > h2 {
+  max-width: 72rem;
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--vw-gutter, 1.25rem);
+  position: static;
+  left: auto;
+  transform: none;
+}
+
+/* Desktop hero: 3 unit cards were crushing inside the copy column */
+@media (min-width: 861px) {
+  .hero-actions .direct-unit-links-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-actions .direct-unit-link {
+    min-width: 0;
+  }
+}
+
+/* Mobile / Android / iPhone: keep last unit card above the bottom nav */
+@media (max-width: 860px) {
+  main#conteudo {
+    padding-bottom: 6rem;
+  }
+
+  .direct-unit-links-grid {
+    padding-bottom: 0.75rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
