@@ -24,6 +24,7 @@ import "./type-mobile.css";
 import "./type-format.css";
 import "./skin.css";
 import "./contrast.css";
+import "./pending.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 
 const AnalyticsConsent = dynamic(() => import("./AnalyticsConsent"), { ssr: false });
