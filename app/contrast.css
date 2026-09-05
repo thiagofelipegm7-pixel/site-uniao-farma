@@ -9,8 +9,17 @@ body {
   background: #f3faf6;
 }
 
-a {
+a,
+.menu-links a,
+.content-nav a,
+.brand strong {
   color: #0b6244;
+}
+
+.brand small,
+.menu-label,
+.menu-button {
+  color: #2a4038;
 }
 
 .hero-copy p,
@@ -34,9 +43,13 @@ a {
 .locate-unit-whatsapp,
 .header-cta,
 .button-whatsapp,
-.offer-consult-units a {
+.offer-consult-units a,
+.content-whatsapp-button,
+.offers-primary-button,
+.mobile-quick-nav a.is-primary {
   background: #1f9e4b;
   color: #042016;
+  border-color: #1f9e4b;
 }
 
 .direct-unit-actions a:first-child:hover,
@@ -48,7 +61,10 @@ a {
 .button-whatsapp:hover,
 .button-whatsapp:active,
 .offer-consult-units a:hover,
-.offer-consult-units a:active {
+.offer-consult-units a:active,
+.content-whatsapp-button:hover,
+.content-whatsapp-button:active,
+.mobile-quick-nav a.is-primary:active {
   background: #178a40;
   color: #042016;
 }
@@ -56,9 +72,24 @@ a {
 .whatsapp-intent-chips button.is-active {
   background: #0b6244;
   color: #ffffff;
+  border-color: #0b6244;
 }
 
-.open-now-strip,
+.open-now-strip {
+  background: #0c8a4a;
+  color: #062016;
+}
+
+.open-now-list a {
+  background: rgba(6, 32, 22, 0.12);
+  color: #062016;
+}
+
+.open-now-list a.is-open {
+  background: #1f9e4b;
+  color: #042016;
+}
+
 .open-status.is-open {
   background: #0c8a4a;
   color: #062016;
@@ -84,14 +115,20 @@ a {
 }
 
 .direct-unit-recipe,
-.mobile-quick-nav a:not(.is-primary) {
+.mobile-quick-nav a:not(.is-primary),
+.whatsapp-intent-chips button {
   background: #dcefe6;
   color: #10231c;
 }
 
-.mobile-quick-nav a.is-primary {
-  background: #1f9e4b;
-  color: #042016;
+.mobile-quick-nav {
+  background: #f3faf6;
+  border-top-color: #b7d7c8;
+}
+
+.unit-map-frame,
+.leaflet-container {
+  filter: saturate(1.15);
 }
 
 :focus-visible {
