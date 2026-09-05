@@ -28,7 +28,6 @@ type TrackingWindow = Window & {
 
 function appendScript(id: string, src: string): void {
   if (document.getElementById(id)) return;
-
   const script = document.createElement("script");
   script.id = id;
   script.async = true;
@@ -38,13 +37,9 @@ function appendScript(id: string, src: string): void {
 
 function startGoogleTagManager(): void {
   if (!GTM_CONTAINER_ID || document.getElementById("uniao-farma-gtm")) return;
-
   const trackingWindow = window as TrackingWindow;
   trackingWindow.dataLayer = trackingWindow.dataLayer || [];
-  trackingWindow.dataLayer.push({
-    "gtm.start": Date.now(),
-    event: "gtm.js",
-  });
+  trackingWindow.dataLayer.push({ "gtm.start": Date.now(), event: "gtm.js" });
   appendScript(
     "uniao-farma-gtm",
     `https://www.googletagmanager.com/gtm.js?id=${encodeURIComponent(GTM_CONTAINER_ID)}`,
@@ -53,12 +48,9 @@ function startGoogleTagManager(): void {
 
 function startAnalytics(): void {
   const trackingWindow = window as TrackingWindow;
-
   if (trackingWindow.__uniaoFarmaAnalyticsLoaded) return;
   trackingWindow.__uniaoFarmaAnalyticsLoaded = true;
-
   trackingWindow.dataLayer = trackingWindow.dataLayer || [];
-
   if (GTM_CONTAINER_ID) {
     startGoogleTagManager();
   } else {
@@ -66,35 +58,22 @@ function startAnalytics(): void {
       trackingWindow.dataLayer?.push(args);
     };
     trackingWindow.gtag("js", new Date());
-    trackingWindow.gtag("config", GA_MEASUREMENT_ID, {
-      anonymize_ip: true,
-    });
+    trackingWindow.gtag("config", GA_MEASUREMENT_ID, { anonymize_ip: true });
     if (GOOGLE_ADS_ID) trackingWindow.gtag("config", GOOGLE_ADS_ID);
-    appendScript(
-      "uniao-farma-ga4",
-      `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`,
-    );
+    appendScript("uniao-farma-ga4", `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`);
   }
-
   if (!trackingWindow.fbq) {
     const fbq = function (...args: unknown[]) {
-      if (fbq.callMethod) {
-        fbq.callMethod(...args);
-      } else {
-        fbq.queue?.push(args);
-      }
+      if (fbq.callMethod) fbq.callMethod(...args);
+      else fbq.queue?.push(args);
     } as NonNullable<TrackingWindow["fbq"]>;
-
-    if (fbq) {
-      fbq.queue = [];
-      fbq.loaded = true;
-      fbq.version = "2.0";
-      fbq.push = fbq;
-      trackingWindow.fbq = fbq;
-      trackingWindow._fbq = fbq;
-    }
+    fbq.queue = [];
+    fbq.loaded = true;
+    fbq.version = "2.0";
+    fbq.push = fbq;
+    trackingWindow.fbq = fbq;
+    trackingWindow._fbq = fbq;
   }
-
   appendScript("uniao-farma-meta-pixel", "https://connect.facebook.net/pt_BR/fbevents.js");
   trackingWindow.fbq?.("init", META_PIXEL_ID);
   trackingWindow.fbq?.("track", "PageView");
@@ -132,52 +111,47 @@ export default function AnalyticsConsent() {
   }, [consent]);
 
   const showBanner = hydrated && (consent === null || showPreferences);
+  const showManage = Boolean(!showBanner && consent);
 
   useEffect(() => {
     document.body.classList.toggle("cookie-banner-visible", showBanner);
-    return () => document.body.classList.remove("cookie-banner-visible");
-  }, [showBanner]);
+    document.body.classList.toggle("cookie-manage-visible", showManage);
+    return () => {
+      document.body.classList.remove("cookie-banner-visible");
+      document.body.classList.remove("cookie-manage-visible");
+    };
+  }, [showBanner, showManage]);
 
   useEffect(() => {
     if (consent !== "accepted") return;
-
     const onTrackedClick = (event: MouseEvent) => {
       const target = event.target as Element | null;
       const element = target?.closest<HTMLElement>("[data-track-event]");
       const eventName = element?.dataset.trackEvent;
       if (!eventName) return;
-
       const params: Record<string, unknown> = {};
       for (const [key, value] of Object.entries(element.dataset)) {
         if (key.startsWith("track") && key !== "trackEvent") {
-          const paramName = key
-            .slice("track".length)
-            .replace(/^[A-Z]/, (letter) => letter.toLowerCase());
+          const paramName = key.slice("track".length).replace(/^[A-Z]/, (letter) => letter.toLowerCase());
           if (paramName) params[paramName] = value;
         }
       }
       trackEvent(eventName, params);
     };
-
     document.addEventListener("click", onTrackedClick);
     return () => document.removeEventListener("click", onTrackedClick);
   }, [consent]);
 
   const saveConsent = (value: ConsentValue) => {
     const hadAccepted = consent === "accepted";
-
     window.localStorage.setItem(CONSENT_KEY, value);
     setConsent(value);
     setShowPreferences(false);
-
     if (value === "accepted") {
       startAnalytics();
       return;
     }
-
-    if (hadAccepted) {
-      window.location.reload();
-    }
+    if (hadAccepted) window.location.reload();
   };
 
   return (
@@ -198,8 +172,7 @@ export default function AnalyticsConsent() {
           </div>
         </section>
       )}
-
-      {!showBanner && consent && (
+      {showManage && (
         <button
           type="button"
           className="cookie-manage-button"
