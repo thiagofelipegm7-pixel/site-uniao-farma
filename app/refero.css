@@ -59,7 +59,8 @@ h1,
 }
 
 .nearest-unit-badge {
-  color: #8a6a3a;
+  color: #ffffff;
+  background: var(--uf-green);
 }
 
 .direct-unit-actions {
@@ -71,7 +72,7 @@ h1,
 .direct-unit-link:hover,
 .offer-consult-card:hover,
 .question-card:hover {
-  box-shadow: inset 0 0 0 1px #d4ccc2, 0 0.75rem 1.5rem rgba(28, 46, 41, 0.06);
+  box-shadow: inset 0 0 0 1px var(--uf-line), 0 0.75rem 1.5rem rgba(28, 46, 41, 0.06);
 }
 
 .offer-consult-image {
