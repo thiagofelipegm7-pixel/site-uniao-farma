@@ -102,6 +102,12 @@
   .hero-actions .direct-unit-link {
     min-width: 0;
   }
+
+  body.cookie-manage-visible footer,
+  body.cookie-manage-visible .uf-footer,
+  body.cookie-manage-visible .footer {
+    padding-bottom: 4rem;
+  }
 }
 
 @media (max-width: 860px) {
@@ -187,7 +193,6 @@
   border-color: #b7d7c8;
 }
 
-/* After accept: discreet, never on header CTA or unit Pedir buttons */
 .cookie-manage-button {
   position: fixed;
   left: 12px;
