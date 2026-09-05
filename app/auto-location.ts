@@ -40,7 +40,7 @@ export function requestBrowserOrigin(force = false): Promise<GeoPoint | null> {
       },
       {
         enableHighAccuracy: false,
-        timeout: 8000,
+        timeout: 800,
         maximumAge: force ? 0 : 45 * 60 * 1000,
       },
     );
@@ -64,7 +64,7 @@ export function scheduleAutoLocation(onOrigin: (origin: GeoPoint) => void) {
   const idle =
     "requestIdleCallback" in window
       ? window.requestIdleCallback(start, { timeout: 2500 })
-      : window.setTimeout(start, 1200);
+      : globalThis.setTimeout(start, 1200);
 
   const onEvent = (event: Event) => {
     const origin = (event as CustomEvent<GeoPoint>).detail;

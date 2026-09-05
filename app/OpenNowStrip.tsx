@@ -20,7 +20,7 @@ export default function OpenNowStrip() {
         ? window.requestIdleCallback(() => {
             timer = start();
           }, { timeout: 2000 })
-        : window.setTimeout(() => {
+        : globalThis.setTimeout(() => {
             timer = start();
           }, 800);
 

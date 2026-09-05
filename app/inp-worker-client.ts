@@ -26,7 +26,7 @@ export function warmInpWorker() {
     window.requestIdleCallback(start, { timeout: 2500 });
     return;
   }
-  window.setTimeout(start, 1000);
+  globalThis.setTimeout(start, 1000);
 }
 
 if (typeof window !== "undefined") {
