@@ -34,6 +34,9 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeStructuredData) }}
       />
+      <a className="skip-link" href="#conteudo">
+        Pular para o conteúdo
+      </a>
       <header className="site-header">
         <nav className="nav" aria-label="Menu principal">
           <a className="brand" href="#inicio" onClick={() => setMenuOpen(false)}>
@@ -113,6 +116,12 @@ export default function Home() {
               onClick={() => trackEvent("whatsapp_click", { unit: unit.id, source: "unit_card" })}
             >
               WhatsApp {unit.whatsapp}
+            </a>
+            <a href={unit.phoneLink} onClick={() => trackEvent("phone_click", { unit: unit.id, source: "unit_card" })}>
+              {unit.phone}
+            </a>
+            <a href={unit.map} target="_blank" rel="noreferrer" onClick={() => trackEvent("maps_click", { unit: unit.id, source: "unit_card" })}>
+              Como chegar
             </a>
             <a href={`/unidades/${unit.slug}`}>Ver página da unidade</a>
           </article>
