@@ -156,7 +156,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pt-BR" data-theme="light" className={`${poppins.className} ${fraunces.variable}`}>
       <head>
-        <link rel="preload" href="/icon-192.png" as="image" type="image/png" fetchPriority="high" />
+        <link rel="preload" href="/uniao-farma-logo.webp" as="image" type="image/webp" fetchPriority="high" />
       </head>
       <body>
         <a className="skip-link" href="#conteudo">
