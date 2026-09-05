@@ -4,6 +4,11 @@ html {
   text-size-adjust: 100%;
 }
 
+::selection {
+  background: #0b6244;
+  color: #ffffff;
+}
+
 body {
   color: #10231c;
   background: #f3faf6;
@@ -175,6 +180,21 @@ a:visited,
   background: #dcefe6;
   color: #10231c;
   border-color: #b7d7c8;
+}
+
+.faq-item.is-open,
+.faq-item.is-open .faq-answer {
+  background: #e7f6ee;
+}
+
+.faq-question {
+  color: #10231c;
+}
+
+.category-card,
+.categories article {
+  background: #cfe8dc;
+  color: #10231c;
 }
 
 .unit-map-frame,
