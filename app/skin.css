@@ -55,23 +55,19 @@ body {
 }
 
 .offer-consult-price {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.35em;
+  display: block;
   margin: 0.4em 0 0.3em;
-  padding: 0.35em 0.55em;
-  background: var(--uf-gold);
-  color: #5a3b00;
-  border-radius: 0.45em;
+  padding: 0;
+  background: transparent;
+  color: var(--uf-green);
 }
 
 .offer-consult-price strong,
 .encarte-price,
 .price-large {
-  color: #5a3b00;
-  background: var(--uf-gold);
-  padding: 0.12em 0.28em;
-  border-radius: 0.35em;
+  color: var(--uf-green);
+  background: transparent;
+  padding: 0;
 }
 
 .offer-consult-stamp,
@@ -119,6 +115,10 @@ body {
 .open-status.is-closed {
   background: #f3d4cc;
   color: var(--uf-closed);
+}
+
+.nearest-unit-badge {
+  color: var(--uf-green);
 }
 
 .reviews,
