@@ -114,7 +114,6 @@
   }
 }
 
-/* Cookie: fixed footer bar, no modal, max 72px on phones */
 .cookie-banner {
   position: fixed;
   left: 0;
@@ -182,11 +181,37 @@
   border-color: #1f9e4b;
 }
 
-.cookie-reject,
-.cookie-manage-button {
+.cookie-reject {
   background: #dcefe6;
   color: #10231c;
   border-color: #b7d7c8;
+}
+
+/* After accept: discreet, never on header CTA or unit Pedir buttons */
+.cookie-manage-button {
+  position: fixed;
+  left: 12px;
+  right: auto;
+  top: auto;
+  bottom: 16px;
+  z-index: 70;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.4rem 0.7rem;
+  border-radius: 999px;
+  border: 1px solid #b7d7c8;
+  background: #f3faf6;
+  color: #2a4038;
+  font-size: 0.68rem;
+  font-weight: 700;
+  opacity: 0.82;
+  box-shadow: none;
+}
+
+.cookie-manage-button:hover,
+.cookie-manage-button:focus-visible {
+  opacity: 1;
+  color: #10231c;
 }
 
 @media (max-width: 860px) {
@@ -209,6 +234,12 @@
 
   body.cookie-banner-visible main#conteudo {
     padding-bottom: 9.5rem;
+  }
+
+  .cookie-manage-button {
+    left: auto;
+    right: 10px;
+    bottom: calc(5.15rem + env(safe-area-inset-bottom));
   }
 }
 
