@@ -18,6 +18,11 @@ body {
   background: #0b6244;
 }
 
+.skip-link {
+  background: #0b6244;
+  color: #ffffff;
+}
+
 a,
 .menu-links a,
 .content-nav a,
@@ -123,8 +128,8 @@ a:visited,
 }
 
 .open-status.is-closed {
-  background: #f3d4cc;
-  color: #6b2a1c;
+  background: #fde8e4;
+  color: #9a2f22;
 }
 
 .offer-consult-stamp,
@@ -199,6 +204,13 @@ a:visited,
 .categories article {
   background: #cfe8dc;
   color: #10231c;
+}
+
+.category-card .line-icon,
+.categories article .line-icon,
+.categories svg {
+  color: #0b6244;
+  stroke: #0b6244;
 }
 
 .direct-unit-link:hover,
