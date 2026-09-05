@@ -48,6 +48,14 @@ a:visited,
   color: #25d366;
 }
 
+.uf-footer a[href*="instagram"],
+.instagram-link,
+.instagram-icon {
+  background: linear-gradient(135deg, #f9ce34 0%, #ee2a7b 50%, #6228d7 100%);
+  color: #ffffff;
+  border-radius: 0.55em;
+}
+
 .brand small,
 .menu-label,
 .menu-button {
@@ -263,9 +271,15 @@ select,
   border-color: #0b6244;
 }
 
+input::placeholder,
+textarea::placeholder {
+  color: #3a534a;
+  opacity: 1;
+}
+
 .unit-map-frame,
 .leaflet-container {
-  filter: saturate(1.15);
+  filter: saturate(1.05);
 }
 
 :focus-visible {
