@@ -58,7 +58,7 @@ export default function SiteFooter() {
               três unidades de Sabará/MG, com pedido pelo WhatsApp.
             </p>
             <div className="uf-footer-social">
-              <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" aria-label="Instagram da União Farma">
+              <a className="instagram-link" href={INSTAGRAM_URL} target="_blank" rel="noreferrer" aria-label="Instagram da União Farma">
                 <InstagramIcon />
               </a>
             </div>
