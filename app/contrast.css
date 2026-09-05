@@ -331,6 +331,28 @@ select:focus {
   filter: hue-rotate(95deg) saturate(1.4);
 }
 
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large,
+.marker-cluster div {
+  background: #0b6244;
+  color: #ffffff;
+}
+
+.leaflet-bar a,
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  background: #e7f6ee;
+  color: #0b6244;
+  border-color: #b7d7c8;
+}
+
+.leaflet-control-attribution,
+.leaflet-control-attribution a {
+  background: transparent;
+  color: #3a534a;
+}
+
 .leaflet-popup-content-wrapper,
 .leaflet-tooltip {
   background: #f3faf6;
