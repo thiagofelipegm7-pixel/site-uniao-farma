@@ -108,6 +108,11 @@ function startAnalytics(): void {
   });
 }
 
+function readStoredConsent(): ConsentValue | null {
+  const stored = window.localStorage.getItem(CONSENT_KEY);
+  return stored === "accepted" || stored === "rejected" ? stored : null;
+}
+
 export default function AnalyticsConsent() {
   const [consent, setConsent] = useState<ConsentValue | null>(null);
   const [showPreferences, setShowPreferences] = useState(false);
@@ -118,8 +123,7 @@ export default function AnalyticsConsent() {
   );
 
   useEffect(() => {
-    const storedConsent = window.localStorage.getItem(CONSENT_KEY) as ConsentValue | null;
-    setConsent(storedConsent);
+    setConsent(readStoredConsent());
     captureCampaignAttribution();
   }, []);
 
@@ -179,14 +183,11 @@ export default function AnalyticsConsent() {
   return (
     <>
       {showBanner && (
-        <section className="cookie-banner" aria-label="Preferências de cookies">
-          <div>
-            <strong>Cookies opcionais</strong>
-            <p>
-              Só ativamos analytics com sua autorização.{" "}
-              <a href="/privacidade">Privacidade</a>
-            </p>
-          </div>
+        <section className="cookie-banner" aria-label="Preferências de cookies" role="region">
+          <p className="cookie-copy">
+            <strong>Cookies opcionais.</strong> Analytics só com autorização.{" "}
+            <a href="/privacidade">Privacidade</a>
+          </p>
           <div className="cookie-actions">
             <button type="button" className="cookie-reject" onClick={() => saveConsent("rejected")}>
               Recusar
