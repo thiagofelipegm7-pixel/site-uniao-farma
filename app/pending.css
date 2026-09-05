@@ -1,0 +1,70 @@
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: -4rem;
+  z-index: 4000;
+  padding: 0.65rem 0.9rem;
+  border-radius: 0.6rem;
+  background: #0b6244;
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.skip-link:focus {
+  top: 0.75rem;
+}
+
+.not-found-page {
+  background: #f3faf6;
+  color: #10231c;
+  min-height: 70svh;
+  padding: 2rem var(--vw-gutter, 1rem);
+}
+
+.not-found-content h1 {
+  color: #10231c;
+}
+
+.not-found-actions .button-whatsapp {
+  background: #1f9e4b;
+  color: #042016;
+}
+
+.not-found-actions .button-call {
+  background: #dcefe6;
+  color: #10231c;
+  border: 1px solid #0b6244;
+}
+
+.skeleton,
+.loading-card,
+.locate-unit-bar.is-loading,
+.offer-consult-image:empty {
+  background: linear-gradient(90deg, #dcefe6 25%, #e7f6ee 50%, #dcefe6 75%);
+  background-size: 200% 100%;
+}
+
+.offer-consult-cat,
+.offer-consult-brand {
+  color: #0b6244;
+}
+
+.offer-consult-units a[data-stock="available"] {
+  background: #1f9e4b;
+  color: #042016;
+}
+
+.offer-consult-units a[data-stock="unavailable"] {
+  background: #fde8e4;
+  color: #9a2f22;
+}
+
+.offer-consult-units a[data-stock="consult"] {
+  background: #1f9e4b;
+  color: #042016;
+}
+
+.button-call {
+  background: #dcefe6;
+  color: #10231c;
+}
