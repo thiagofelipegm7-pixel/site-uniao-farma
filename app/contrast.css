@@ -191,6 +191,15 @@ a:visited,
   border: 1px solid #0b6244;
 }
 
+.maps-link,
+.directions-link,
+a[href*="google.com/maps"],
+a[href*="maps.apple"] {
+  background: #dcefe6;
+  color: #10231c;
+  border: 1px solid #b7d7c8;
+}
+
 .mobile-quick-nav {
   background: #f3faf6;
   border-top-color: #b7d7c8;
@@ -309,6 +318,17 @@ select:focus {
 .unit-map-frame,
 .leaflet-container {
   filter: saturate(1.05);
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-tooltip {
+  background: #f3faf6;
+  color: #10231c;
+  border-color: #b7d7c8;
+}
+
+.leaflet-popup-tip {
+  background: #f3faf6;
 }
 
 :focus-visible {
