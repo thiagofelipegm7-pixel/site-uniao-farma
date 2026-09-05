@@ -73,3 +73,25 @@
   background: #0b6244;
   color: #ffffff;
 }
+
+.instagram-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  color: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .direct-unit-link,
+  .offer-consult-card,
+  .question-card {
+    transition: none;
+  }
+
+  .direct-unit-link:hover,
+  .offer-consult-card:hover {
+    transform: none;
+  }
+}
