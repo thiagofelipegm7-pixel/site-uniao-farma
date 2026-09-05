@@ -68,3 +68,8 @@
   background: #dcefe6;
   color: #10231c;
 }
+
+.mobile-quick-nav a.is-primary {
+  background: #0b6244;
+  color: #ffffff;
+}
