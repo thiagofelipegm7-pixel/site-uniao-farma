@@ -5,18 +5,11 @@
 import { useEffect, useRef, useState } from "react";
 import DirectUnitLinks from "./DirectUnitLinks";
 import { trackEvent } from "./analytics";
-import {
-  SITE_OPTIONS,
-  SITE_URL,
-} from "./site-config";
+import { SITE_OPTIONS, SITE_URL } from "./site-config";
 import { HOME_FAQS } from "./seo-content";
 import { getPageStructuredData } from "./structured-data";
 import { formatOfferPrice, getPublicOffers } from "./offers";
-import {
-  WhatsAppIcon,
-  UnitSelectorModal,
-  type SelectorIntent,
-} from "./home-chrome";
+import { WhatsAppIcon, UnitSelectorModal, type SelectorIntent } from "./home-chrome";
 import { HomeSections } from "./home-sections";
 
 export default function Home() {
@@ -59,8 +52,7 @@ export default function Home() {
   const generalIntent: SelectorIntent = {
     title: "Escolha sua unidade",
     description: "Selecione a loja em que deseja consultar preço, estoque ou fazer seu pedido.",
-    message:
-      "Olá, União Farma {unidade}! Quero pedir um produto. Nome: ___  dosagem: ___  bairro: ___",
+    message: "Olá, União Farma {unidade}! Quero pedir um produto. Nome: ___  dosagem: ___  bairro: ___",
     eventName: "consulta_geral",
   };
 
@@ -73,42 +65,18 @@ export default function Home() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeStructuredData) }}
-      />
-      <a className="skip-link" href="#conteudo">
-        Pular para o conteúdo
-      </a>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeStructuredData) }} />
+      <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
       <header className={SITE_OPTIONS.promoToast.enabled ? "site-header has-promo" : "site-header"}>
         <nav className="nav" aria-label="Menu principal">
           <a className="brand" href="#inicio" onClick={() => setMenuOpen(false)}>
-            <img
-              src="/uniao-farma-logo.webp"
-              alt="Logo da União Farma"
-              width="52"
-              height="52"
-              fetchPriority="high"
-              decoding="async"
-            />
+            <img src="/uniao-farma-logo.webp" alt="Logo da União Farma" width="52" height="52" fetchPriority="high" decoding="async" />
             <span>
               <strong>União Farma</strong>
               <small>Drogaria e Perfumaria</small>
             </span>
           </a>
-          <button
-            className="menu-button"
-            type="button"
-            aria-expanded={menuOpen}
-            aria-controls="menu-links"
-            aria-label={menuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
-            onClick={() => setMenuOpen((value) => !value)}
-          >
-            <span className="menu-icon" aria-hidden="true">
-              <span />
-              <span />
-              <span />
-            </span>
+          <button className="menu-button" type="button" aria-expanded={menuOpen} aria-controls="menu-links" aria-label={menuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"} onClick={() => setMenuOpen((value) => !value)}>
             <span className="menu-label">{menuOpen ? "Fechar" : "Menu"}</span>
           </button>
           <div className={menuOpen ? "menu-links is-open" : "menu-links"} id="menu-links">
@@ -117,12 +85,8 @@ export default function Home() {
             <a href="/receita" onClick={() => setMenuOpen(false)}>Receita</a>
           </div>
           <button className="header-cta" type="button" onClick={() => openSelector(generalIntent)}>
-            <WhatsAppIcon />
-            Pedir no WhatsApp
+            <WhatsAppIcon /> Pedir no WhatsApp
           </button>
-          {menuOpen && (
-            <button type="button" className="menu-backdrop" aria-label="Fechar menu" onClick={() => setMenuOpen(false)} />
-          )}
         </nav>
       </header>
       <main id="conteudo">
@@ -131,17 +95,9 @@ export default function Home() {
             <div className="hero-copy">
               <p className="eyebrow">Drogaria e Perfumaria em Sabará</p>
               <h1 id="hero-title">Cuidado, ofertas e entrega pertinho de você.</h1>
-              <p className="hero-lead">
-                Consulte produtos, preço e disponibilidade pelo WhatsApp da unidade mais próxima.
-              </p>
+              <p className="hero-lead">Consulte produtos, preço e disponibilidade pelo WhatsApp da unidade mais próxima.</p>
               <div className="hero-actions" ref={consultationRef}>
-                <DirectUnitLinks
-                  message={generalIntent.message}
-                  intent={generalIntent.eventName}
-                  source="home_hero"
-                  heading="Escolha sua unidade e fale direto com a equipe"
-                  description="Rua, horário e atendimento direto em cada loja."
-                />
+                <DirectUnitLinks message={generalIntent.message} intent={generalIntent.eventName} source="home_hero" heading="Escolha sua unidade e fale direto com a equipe" description="Rua, horário e atendimento direto em cada loja." />
               </div>
             </div>
             <aside className="hero-offer-showcase" aria-label="Ofertas em destaque">
@@ -152,17 +108,12 @@ export default function Home() {
                       <img src={offer.image} alt={offer.name} width="360" height="360" fetchPriority={index === 0 ? "high" : "low"} loading={index === 0 ? "eager" : "lazy"} decoding="async" />
                     )}
                     {index === 0 && offer.currentPrice !== null && (
-                      <span className="hero-price-tag">
-                        <small>A partir de</small>
-                        <strong>{formatOfferPrice(offer.currentPrice)}</strong>
-                      </span>
+                      <span className="hero-price-tag"><small>A partir de</small><strong>{formatOfferPrice(offer.currentPrice)}</strong></span>
                     )}
                   </article>
                 ))}
               </div>
-              <button className="button button-whatsapp hero-offer-cta" type="button" onClick={() => openSelector(featuredOfferIntent)}>
-                Pedir esta oferta
-              </button>
+              <button className="button button-whatsapp hero-offer-cta" type="button" onClick={() => openSelector(featuredOfferIntent)}>Pedir esta oferta</button>
             </aside>
           </div>
         </section>
