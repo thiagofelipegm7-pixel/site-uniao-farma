@@ -24,7 +24,7 @@ body {
 }
 
 .brand img,
-.nav img[alt*="União"],
+.nav img[alt*="Uni\u00e3o"],
 .nav img[alt*="logo" i] {
   filter: none;
 }
@@ -81,6 +81,7 @@ a:visited,
 
 .direct-unit-actions a:first-child,
 .locate-unit-whatsapp,
+.locate-unit-button,
 .header-cta,
 .button-whatsapp,
 .offer-consult-units a,
@@ -99,6 +100,8 @@ a:visited,
 .direct-unit-actions a:first-child:active,
 .locate-unit-whatsapp:hover,
 .locate-unit-whatsapp:active,
+.locate-unit-button:hover,
+.locate-unit-button:active,
 .header-cta:hover,
 .header-cta:active,
 .button-whatsapp:hover,
@@ -156,11 +159,18 @@ a:visited,
   color: #9a2f22;
 }
 
-.offer-consult-stamp,
-.selo-consulte,
-.offer-badge {
+.offer-consult-card .offer-consult-stamp,
+.offer-consult-card .selo-consulte,
+.offer-consult-card .offer-badge,
+.encarte-page .selo-consulte {
   background: #c01f16;
   color: #ffffff;
+}
+
+.direct-unit-link .offer-badge,
+.direct-unit-link .selo-consulte {
+  background: #e7f6ee;
+  color: #0b6244;
 }
 
 .offer-consult-image {
@@ -310,6 +320,7 @@ select:focus {
   .direct-unit-actions a:first-child:active,
   .header-cta:active,
   .locate-unit-whatsapp:active,
+  .locate-unit-button:active,
   .offer-consult-units a:active,
   .cookie-accept:active {
     background: #178a40;
