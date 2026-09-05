@@ -23,6 +23,12 @@ body {
   color: #ffffff;
 }
 
+.brand img,
+.nav img[alt*="União"],
+.nav img[alt*="logo" i] {
+  filter: none;
+}
+
 a,
 .menu-links a,
 .content-nav a,
@@ -35,6 +41,11 @@ a:visited,
 .content-nav a:visited,
 .uf-footer a:visited {
   color: #083528;
+}
+
+.uf-footer a:hover,
+.uf-footer a:active {
+  color: #25d366;
 }
 
 .brand small,
@@ -122,7 +133,6 @@ a:visited,
   color: #042016;
 }
 
-.open-status.is-open,
 .open-status.is-hours {
   background: #e7f6ee;
   color: #0b6244;
@@ -160,6 +170,7 @@ a:visited,
 .mobile-quick-nav a:not(.is-primary) {
   background: #dcefe6;
   color: #10231c;
+  border: 1px solid #0b6244;
 }
 
 .mobile-quick-nav {
