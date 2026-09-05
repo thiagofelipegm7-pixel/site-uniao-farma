@@ -122,6 +122,12 @@ a:visited,
   color: #042016;
 }
 
+.open-status.is-open,
+.open-status.is-hours {
+  background: #e7f6ee;
+  color: #0b6244;
+}
+
 .open-status.is-open {
   background: #0c8a4a;
   color: #062016;
@@ -168,7 +174,9 @@ a:visited,
   color: #10231c;
 }
 
-.modal-backdrop {
+.modal-backdrop,
+.menu-backdrop,
+.content-menu-backdrop {
   background: rgba(8, 53, 40, 0.45);
 }
 
@@ -211,6 +219,16 @@ a:visited,
 .categories svg {
   color: #0b6244;
   stroke: #0b6244;
+}
+
+.review-card p::before,
+.reviews article p::before {
+  color: #0b6244;
+}
+
+.review-card,
+.reviews article {
+  border-top: 0.2rem solid #0b6244;
 }
 
 .direct-unit-link:hover,
