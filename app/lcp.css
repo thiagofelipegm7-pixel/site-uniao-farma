@@ -2,16 +2,32 @@
 .uf-footer-logo img {
   width: 52px;
   height: 52px;
+  aspect-ratio: 1 / 1;
   object-fit: contain;
+}
+
+.hero {
+  contain: layout;
+  min-height: 12rem;
+}
+
+.offer-consult-image img,
+.neighborhood-photo {
+  aspect-ratio: 1 / 1;
+  height: auto;
 }
 
 .uf-footer,
 .site-footer,
 .reviews-section,
+.reviews,
 .faq-section,
 .instagram-section,
 .categories-section,
-.unit-faq-section {
+.categories,
+.unit-faq-section,
+.unit-map,
+.directory-section {
   content-visibility: auto;
-  contain-intrinsic-size: 1px 720px;
+  contain-intrinsic-size: 1px 640px;
 }
