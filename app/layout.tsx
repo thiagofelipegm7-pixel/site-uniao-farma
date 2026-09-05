@@ -62,6 +62,14 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    title: "União Farma",
+    statusBarStyle: "default",
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
+  },
   alternates: {
     canonical: "/",
   },
@@ -150,6 +158,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="preload" href="/icon-192.png" as="image" type="image/png" fetchPriority="high" />
       </head>
       <body>
+        <a className="skip-link" href="#conteudo">
+          Ir para o conteúdo
+        </a>
         <AnalyticsConsent />
         <PwaRegister />
         <OpenNowStrip />
