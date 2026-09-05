@@ -14,6 +14,10 @@ body {
   background: #f3faf6;
 }
 
+.scroll-indicator {
+  background: #0b6244;
+}
+
 a,
 .menu-links a,
 .content-nav a,
@@ -195,6 +199,27 @@ a:visited,
 .categories article {
   background: #cfe8dc;
   color: #10231c;
+}
+
+.direct-unit-link:hover,
+.direct-unit-link:active,
+.offer-consult-card:hover,
+.offer-consult-card:active,
+.question-card:hover,
+.question-card:active,
+.neighborhood-grid article:hover {
+  box-shadow: inset 0 0 0 2px #7fb89a;
+}
+
+input,
+textarea,
+select,
+.search-input,
+[type="search"],
+[type="text"] {
+  background: #e7f6ee;
+  color: #10231c;
+  border-color: #0b6244;
 }
 
 .unit-map-frame,
