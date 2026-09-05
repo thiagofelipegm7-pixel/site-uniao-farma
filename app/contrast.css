@@ -200,6 +200,13 @@ a[href*="maps.apple"] {
   border: 1px solid #b7d7c8;
 }
 
+.unit-map-details a:not([href*="whatsapp"]),
+.map-view-link {
+  background: transparent;
+  color: #0b6244;
+  border: 0;
+}
+
 .mobile-quick-nav {
   background: #f3faf6;
   border-top-color: #b7d7c8;
@@ -320,11 +327,16 @@ select:focus {
   filter: saturate(1.05);
 }
 
+.leaflet-marker-icon {
+  filter: hue-rotate(95deg) saturate(1.4);
+}
+
 .leaflet-popup-content-wrapper,
 .leaflet-tooltip {
   background: #f3faf6;
   color: #10231c;
-  border-color: #b7d7c8;
+  border: 0;
+  box-shadow: 0 0.6rem 1.4rem rgba(8, 53, 40, 0.18);
 }
 
 .leaflet-popup-tip {
