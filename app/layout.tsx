@@ -23,6 +23,7 @@ import "./kerning.css";
 import "./type-mobile.css";
 import "./type-format.css";
 import "./skin.css";
+import "./contrast.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 
 const AnalyticsConsent = dynamic(() => import("./AnalyticsConsent"), { ssr: false });
@@ -107,7 +108,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
-  themeColor: "#176f62",
+  themeColor: "#0b6244",
   colorScheme: "light",
 };
 
