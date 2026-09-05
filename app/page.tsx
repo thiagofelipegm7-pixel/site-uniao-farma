@@ -1,32 +1,75 @@
 "use client";
 
-/* eslint-disable @next/next/no-html-link-for-pages */
-import { useState } from "react";
+/* eslint-disable @next/next/no-html-link-for-pages -- Native links keep the Novidades route working in Vinext production. */
+
+import { useEffect, useRef, useState } from "react";
 import DirectUnitLinks from "./DirectUnitLinks";
 import { trackEvent } from "./analytics";
 import {
-  buildWhatsAppUrl,
-  INSTAGRAM_URL,
+  SITE_OPTIONS,
   SITE_URL,
-  UNITS,
 } from "./site-config";
 import { HOME_FAQS } from "./seo-content";
 import { getPageStructuredData } from "./structured-data";
-
-const PRODUCT_MESSAGE =
-  "Olá, União Farma {unidade}! Quero pedir um produto. Nome: ___  dosagem: ___  bairro: ___";
-
-const DELIVERY_MESSAGE =
-  "Olá! Vim pelo site da União Farma e gostaria de saber se vocês entregam no meu bairro. Posso informar meu endereço?";
+import { formatOfferPrice, getPublicOffers } from "./offers";
+import {
+  WhatsAppIcon,
+  UnitSelectorModal,
+  type SelectorIntent,
+} from "./home-chrome";
+import { HomeSections } from "./home-sections";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [selectorIntent, setSelectorIntent] = useState<SelectorIntent | null>(null);
+  const consultationRef = useRef<HTMLDivElement | null>(null);
+  const heroOffers = getPublicOffers().slice(0, 3);
   const homeStructuredData = getPageStructuredData({
     name: "Farmácia em Sabará | União Farma",
     url: `${SITE_URL}/`,
     faqs: HOME_FAQS,
     breadcrumbs: [{ name: "Início", url: `${SITE_URL}/` }],
   });
+
+  const openSelector = (intent: SelectorIntent) => {
+    trackEvent("unit_selector_open", { intent: intent.eventName });
+    setSelectorIntent(intent);
+    setMenuOpen(false);
+  };
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const previousOverflow = document.body.style.overflow;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setMenuOpen(false);
+    };
+    const closeOnDesktop = () => {
+      if (window.innerWidth > 860) setMenuOpen(false);
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", closeOnEscape);
+    window.addEventListener("resize", closeOnDesktop);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+      window.removeEventListener("resize", closeOnDesktop);
+    };
+  }, [menuOpen]);
+
+  const generalIntent: SelectorIntent = {
+    title: "Escolha sua unidade",
+    description: "Selecione a loja em que deseja consultar preço, estoque ou fazer seu pedido.",
+    message:
+      "Olá, União Farma {unidade}! Quero pedir um produto. Nome: ___  dosagem: ___  bairro: ___",
+    eventName: "consulta_geral",
+  };
+
+  const featuredOfferIntent: SelectorIntent = {
+    title: "Consultar oferta",
+    description: "Escolha a unidade para confirmar a disponibilidade do Creme Seda.",
+    message: "Oi, União Farma {unidade}! Vi a oferta do Creme Seda 300 ml a R$ 13,90. Tem hoje?",
+    eventName: "oferta_creme_seda",
+  };
 
   return (
     <>
@@ -37,7 +80,7 @@ export default function Home() {
       <a className="skip-link" href="#conteudo">
         Pular para o conteúdo
       </a>
-      <header className="site-header">
+      <header className={SITE_OPTIONS.promoToast.enabled ? "site-header has-promo" : "site-header"}>
         <nav className="nav" aria-label="Menu principal">
           <a className="brand" href="#inicio" onClick={() => setMenuOpen(false)}>
             <img
@@ -61,6 +104,11 @@ export default function Home() {
             aria-label={menuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"}
             onClick={() => setMenuOpen((value) => !value)}
           >
+            <span className="menu-icon" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </span>
             <span className="menu-label">{menuOpen ? "Fechar" : "Menu"}</span>
           </button>
           <div className={menuOpen ? "menu-links is-open" : "menu-links"} id="menu-links">
@@ -68,73 +116,59 @@ export default function Home() {
             <a href="#unidades-rapidas" onClick={() => setMenuOpen(false)}>Unidades</a>
             <a href="/receita" onClick={() => setMenuOpen(false)}>Receita</a>
           </div>
+          <button className="header-cta" type="button" onClick={() => openSelector(generalIntent)}>
+            <WhatsAppIcon />
+            Pedir no WhatsApp
+          </button>
+          {menuOpen && (
+            <button type="button" className="menu-backdrop" aria-label="Fechar menu" onClick={() => setMenuOpen(false)} />
+          )}
         </nav>
       </header>
-
-      <section className="hero" id="inicio" aria-labelledby="hero-title">
-        <div className="hero-copy">
-          <p className="eyebrow">Drogaria e Perfumaria em Sabará</p>
-          <h1 id="hero-title">Cuidado, ofertas e entrega pertinho de você.</h1>
-          <p className="hero-lead">
-            Consulte produtos, preço e disponibilidade pelo WhatsApp da unidade mais próxima.
-          </p>
-        </div>
-      </section>
-
-      <section id="unidades-rapidas" aria-labelledby="quick-units-title">
-        <h2 id="quick-units-title">Escolha sua unidade</h2>
-        <DirectUnitLinks
-          message={PRODUCT_MESSAGE}
-          intent="consulta_geral"
-          source="home_hero"
-          heading="Escolha sua unidade e fale direto com a equipe"
-          description="Rua, horário e atendimento direto em cada loja."
-        />
-      </section>
-
-      <section id="entrega" aria-labelledby="delivery-title">
-        <h2 id="delivery-title">Consulte entrega no seu bairro</h2>
-        <DirectUnitLinks
-          message={DELIVERY_MESSAGE}
-          intent="delivery_inquiry"
-          source="home_delivery_section"
-          heading="Informe seu bairro pelo WhatsApp"
-          description="Escolha a unidade e confirme região, taxa e prazo de entrega."
-          compact
-        />
-      </section>
-
-      <section aria-label="Unidades">
-        {UNITS.map((unit) => (
-          <article key={unit.id}>
-            <h3>{unit.shortName}</h3>
-            <p>{unit.address}</p>
-            <a
-              href={buildWhatsAppUrl(unit, PRODUCT_MESSAGE.replaceAll("{unidade}", unit.shortName))}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => trackEvent("whatsapp_click", { unit: unit.id, source: "unit_card" })}
-            >
-              WhatsApp {unit.whatsapp}
-            </a>
-            <a href={unit.phoneLink} onClick={() => trackEvent("phone_click", { unit: unit.id, source: "unit_card" })}>
-              {unit.phone}
-            </a>
-            <a href={unit.map} target="_blank" rel="noreferrer" onClick={() => trackEvent("maps_click", { unit: unit.id, source: "unit_card" })}>
-              Como chegar
-            </a>
-            <a href={`/unidades/${unit.slug}`}>Ver página da unidade</a>
-          </article>
-        ))}
-      </section>
-
-      <p>
-        <a href="/ofertas">Ver ofertas</a>
-        {" · "}
-        <a href="/novidades">Ver todas as novidades</a>
-        {" · "}
-        <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">Instagram</a>
-      </p>
+      <main id="conteudo">
+        <section className="hero reveal is-visible" id="inicio" aria-labelledby="hero-title">
+          <div className="hero-inner">
+            <div className="hero-copy">
+              <p className="eyebrow">Drogaria e Perfumaria em Sabará</p>
+              <h1 id="hero-title">Cuidado, ofertas e entrega pertinho de você.</h1>
+              <p className="hero-lead">
+                Consulte produtos, preço e disponibilidade pelo WhatsApp da unidade mais próxima.
+              </p>
+              <div className="hero-actions" ref={consultationRef}>
+                <DirectUnitLinks
+                  message={generalIntent.message}
+                  intent={generalIntent.eventName}
+                  source="home_hero"
+                  heading="Escolha sua unidade e fale direto com a equipe"
+                  description="Rua, horário e atendimento direto em cada loja."
+                />
+              </div>
+            </div>
+            <aside className="hero-offer-showcase" aria-label="Ofertas em destaque">
+              <div className="hero-product-stack">
+                {heroOffers.map((offer, index) => (
+                  <article className={`hero-product hero-product-${index + 1}`} key={offer.id}>
+                    {offer.image && (
+                      <img src={offer.image} alt={offer.name} width="360" height="360" fetchPriority={index === 0 ? "high" : "low"} loading={index === 0 ? "eager" : "lazy"} decoding="async" />
+                    )}
+                    {index === 0 && offer.currentPrice !== null && (
+                      <span className="hero-price-tag">
+                        <small>A partir de</small>
+                        <strong>{formatOfferPrice(offer.currentPrice)}</strong>
+                      </span>
+                    )}
+                  </article>
+                ))}
+              </div>
+              <button className="button button-whatsapp hero-offer-cta" type="button" onClick={() => openSelector(featuredOfferIntent)}>
+                Pedir esta oferta
+              </button>
+            </aside>
+          </div>
+        </section>
+        <HomeSections generalIntent={generalIntent} openSelector={openSelector} />
+      </main>
+      <UnitSelectorModal intent={selectorIntent} onClose={() => setSelectorIntent(null)} />
     </>
   );
 }
