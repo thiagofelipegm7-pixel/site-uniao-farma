@@ -11,6 +11,12 @@ const NAV = [
   { href: "/#unidades-rapidas", label: "Unidades" },
   { href: "/receita", label: "Receita" },
   { href: "/novidades", label: "Novidades" },
+  { href: "/farmacia-em-sabara", label: "Farmácia em Sabará" },
+  { href: "/entrega-de-medicamentos-em-sabara", label: "Entrega em Sabará" },
+  { href: "/perfumaria-em-sabara", label: "Perfumaria em Sabará" },
+  { href: "/unidades/nossa-senhora-de-fatima", label: "Unidade Nossa Senhora de Fátima" },
+  { href: "/unidades/nacoes-unidas", label: "Unidade Nações Unidas" },
+  { href: "/unidades/itacolomi", label: "Unidade Itacolomi" },
   { href: "/privacidade", label: "Privacidade" },
 ];
 

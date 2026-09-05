@@ -3,12 +3,13 @@ main main {
 }
 
 :root {
-  --uf-ink: #14332c;
-  --uf-green: #176f62;
-  --uf-green-deep: #102822;
-  --uf-mint: #eef6f2;
-  --uf-line: #d7e4de;
-  --uf-paper: #f7faf8;
+  --uf-ink: #0b6244;
+  --uf-green: #0b6244;
+  --uf-green-deep: #083528;
+  --uf-wa: #1f9e4b;
+  --uf-mint: #e7f6ee;
+  --uf-line: #d5e6de;
+  --uf-paper: #f3faf6;
   --uf-radius: 16px;
   --uf-shadow: 0 10px 28px rgba(16, 40, 34, 0.08);
 }
@@ -170,7 +171,12 @@ body {
 }
 
 .button-whatsapp,
-.header-cta,
+.header-cta {
+  background: var(--uf-wa) !important;
+  border-color: var(--uf-wa) !important;
+  color: #ffffff !important;
+}
+
 .button-light {
   background: var(--uf-green) !important;
   border-color: var(--uf-green) !important;
@@ -186,14 +192,14 @@ body {
   .cookie-banner {
     gap: 8px;
     padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+    max-height: 88px;
   }
 
   .cookie-banner p {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
+    display: block;
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.25;
   }
 
   .cookie-banner strong {
@@ -211,7 +217,7 @@ body {
   }
 
   body.cookie-banner-visible {
-    padding-bottom: calc(148px + env(safe-area-inset-bottom)) !important;
+    padding-bottom: calc(88px + env(safe-area-inset-bottom)) !important;
   }
 }
 

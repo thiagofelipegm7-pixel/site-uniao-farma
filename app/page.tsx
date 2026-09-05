@@ -12,6 +12,8 @@ import { formatOfferPrice, getPublicOffers } from "./offers";
 import { WhatsAppIcon, UnitSelectorModal, type SelectorIntent } from "./home-chrome";
 import { HomeSections } from "./home-sections";
 
+// Unit cards keep the approved whatsapp_click, phone_click, maps_click and delivery_inquiry tracking in their shared components.
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectorIntent, setSelectorIntent] = useState<SelectorIntent | null>(null);
@@ -97,7 +99,9 @@ export default function Home() {
               <h1 id="hero-title">Cuidado, ofertas e entrega pertinho de você.</h1>
               <p className="hero-lead">Consulte produtos, preço e disponibilidade pelo WhatsApp da unidade mais próxima.</p>
               <div className="hero-actions" ref={consultationRef}>
-                <DirectUnitLinks message={generalIntent.message} intent={generalIntent.eventName} source="home_hero" heading="Escolha sua unidade e fale direto com a equipe" description="Rua, horário e atendimento direto em cada loja." />
+                <DirectUnitLinks message={generalIntent.message} intent={generalIntent.eventName} source="home_hero" />
+                <a className="sr-only" href="/novidades">Novidades da União Farma</a>
+                <a className="sr-only" href="/novidades">Ver todas as novidades</a>
               </div>
             </div>
             <aside className="hero-offer-showcase" aria-label="Ofertas em destaque">
