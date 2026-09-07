@@ -105,10 +105,10 @@ export default function Home() {
             <aside className="hero-offer-showcase hero-illustration" aria-label="Atendimento na União Farma">
               <img
                 className="hero-illustration-img"
-                src="/illustrations/atendimento.svg?v=3"
+                src="/illustrations/atendimento.svg?v=4"
                 alt="Farmacêutica orientando uma cliente no balcão da União Farma"
-                width="900"
-                height="604"
+                width="1200"
+                height="900"
                 fetchPriority="high"
                 decoding="async"
               />

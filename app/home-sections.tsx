@@ -111,10 +111,10 @@ export function HomeSections({
           </div>
           <div className="delivery-visual">
             <img
-              src="/illustrations/entrega.svg?v=3"
+              src="/illustrations/entrega.svg?v=4"
               alt="Entregador levando uma sacola da farmácia até uma casa do bairro"
-              width="900"
-              height="604"
+              width="1200"
+              height="900"
               loading="lazy"
               decoding="async"
             />
@@ -149,16 +149,28 @@ export function HomeSections({
               </article>
             ))}
           </div>
-          <figure className="family-illustration">
-            <img
-              src="/illustrations/familia.svg?v=3"
-              alt="Farmacêutica atendendo uma família com adulto, pessoa idosa e crianças"
-              width="900"
-              height="604"
-              loading="lazy"
-              decoding="async"
-            />
-          </figure>
+          <div className="family-illustration-row">
+            <figure className="family-illustration">
+              <img
+                src="/illustrations/familia.svg?v=4"
+                alt="Cliente acompanhando uma senhora na saída da farmácia, com a farmacêutica acenando na porta"
+                width="1200"
+                height="900"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+            <figure className="family-illustration">
+              <img
+                src="/illustrations/perfumaria.svg?v=4"
+                alt="Farmacêutica indicando produtos de higiene e beleza para uma cliente"
+                width="1200"
+                height="900"
+                loading="lazy"
+                decoding="async"
+              />
+            </figure>
+          </div>
           <div className="seo-intent-grid">
             <a href="/farmacia-em-sabara">Farmácia em Sabará</a>
             <a href="/entrega-de-medicamentos-em-sabara">Entrega de medicamentos em Sabará</a>
