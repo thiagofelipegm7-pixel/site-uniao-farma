@@ -2,11 +2,9 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages */
 import UnitStatusBadge from "./UnitStatusBadge";
-import DirectUnitLinks from "./DirectUnitLinks";
 import { trackEvent } from "./analytics";
 import { buildWhatsAppUrl, UNITS } from "./site-config";
 import {
-  deliveryIntent,
   SHORT_UNIT_ADDRESSES,
   categories,
   WhatsAppIcon,
@@ -91,35 +89,6 @@ export function HomeSections({
                 </div>
               </article>
             ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section delivery-section reveal" id="entrega" aria-labelledby="delivery-title">
-        <div className="section-inner delivery-panel">
-          <div className="delivery-copy">
-            <p className="section-kicker light">Quando não dá para ir à loja</p>
-            <h2 id="delivery-title">Pergunta se entrega no seu bairro</h2>
-            <DirectUnitLinks
-              message={deliveryIntent.message}
-              intent={deliveryIntent.eventName}
-              source="home_delivery_section"
-              heading="Manda o bairro no WhatsApp"
-              description="A loja confirma se atende, a taxa e se dá para levar hoje."
-              compact
-            />
-          </div>
-          <div className="delivery-visual">
-            <img
-              src="/illustrations/entrega.svg?v=7"
-              alt="Entregador levando uma sacola da farmácia até uma casa do bairro"
-              width="720"
-              height="540"
-              sizes="(max-width: 860px) 92vw, 420px"
-              loading="lazy"
-              decoding="async"
-            />
-            <strong>Pedido pelo WhatsApp da unidade</strong>
           </div>
         </div>
       </section>
