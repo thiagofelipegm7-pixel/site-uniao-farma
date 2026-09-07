@@ -7,12 +7,12 @@
 }
 
 .open-now-strip {
-  min-height: 44px;
+  min-height: 0;
 }
 
 .hero {
   contain: layout;
-  min-height: 12rem;
+  min-height: 0;
 }
 
 .hero-offer-showcase.hero-illustration {
@@ -20,7 +20,7 @@
 }
 
 .hero-illustration-img {
-  aspect-ratio: 4 / 3;
+  aspect-ratio: auto;
   width: 100%;
   height: auto;
   object-fit: contain;
@@ -38,12 +38,11 @@
 .reviews-section,
 .reviews,
 .faq-section,
-.instagram-section,
 .categories-section,
 .categories,
 .unit-faq-section,
 .unit-map,
 .directory-section {
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 640px;
+  content-visibility: visible;
+  contain-intrinsic-size: none;
 }
