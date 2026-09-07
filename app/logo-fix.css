@@ -9,7 +9,6 @@ a.brand img {
   object-fit: contain !important;
 }
 
-.quick-units-section,
-.direct-unit-links {
+.quick-units-section {
   display: none !important;
 }
