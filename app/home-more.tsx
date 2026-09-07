@@ -1,7 +1,6 @@
 "use client";
 
 /* eslint-disable @next/next/no-html-link-for-pages */
-import DirectUnitLinks from "./DirectUnitLinks";
 import { trackEvent } from "./analytics";
 import { GOOGLE_REVIEWS_URL, INSTAGRAM_URL } from "./site-config";
 import { HOME_FAQS } from "./seo-content";
@@ -63,9 +62,8 @@ function Stars() {
 }
 
 export function HomeMore({
-  generalIntent,
 }: {
-  generalIntent: SelectorIntent;
+  generalIntent?: SelectorIntent;
   openSelector?: (intent: SelectorIntent) => void;
 }) {
   return (
@@ -129,7 +127,6 @@ export function HomeMore({
         {HOME_FAQS.map((faq) => (
           <FAQItem key={faq.q} q={faq.q} a={faq.a} />
         ))}
-        <DirectUnitLinks message={generalIntent.message} intent={generalIntent.eventName} source="home_faq" heading="Ainda com dúvida?" description="Fale no WhatsApp da loja do seu bairro." compact />
       </section>
     </>
   );
