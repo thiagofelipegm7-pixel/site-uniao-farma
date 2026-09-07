@@ -6,10 +6,11 @@ export default function NotFound() {
     <main className="not-found-page">
       <div className="not-found-content">
         <img
-          src="/uniao-farma-logo.webp"
+          src="/uniao-farma-logo.svg"
           alt="Logo da União Farma"
           width="88"
           height="88"
+          decoding="async"
         />
         <p className="section-kicker">Erro 404</p>
         <h1>Página não encontrada</h1>
