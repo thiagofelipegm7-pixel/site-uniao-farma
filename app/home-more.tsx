@@ -15,30 +15,30 @@ import { STORE_PHOTOS } from "./store-photos";
 const GOOGLE_REVIEWS = [
   {
     author: "Jaderson Almeida",
-    meta: "Avalia\u00e7\u00e3o no Google \u00b7 Sabar\u00e1",
-    time: "5 anos atr\u00e1s",
-    text: "Quer encontrar medicamentos baratos entre outras coisas. Confira os melhores pre\u00e7os e compare.",
+    meta: "Avaliação no Google · Sabará",
+    time: "5 anos atrás",
+    text: "Quer encontrar medicamentos baratos entre outras coisas. Confira os melhores preços e compare.",
     color: "#5f6368",
   },
   {
     author: "Beatriz Cristina",
-    meta: "Avalia\u00e7\u00e3o no Google \u00b7 Sabar\u00e1",
-    time: "1 ano atr\u00e1s",
-    text: "Atendimento excelente, todos s\u00e3o muito gentis e as entregas chegam rapidamente.",
+    meta: "Avaliação no Google · Sabará",
+    time: "1 ano atrás",
+    text: "Atendimento excelente, todos são muito gentis e as entregas chegam rapidamente.",
     color: "#1a73e8",
   },
   {
     author: "Thais Juliane",
-    meta: "Avalia\u00e7\u00e3o no Google \u00b7 Sabar\u00e1",
-    time: "8 meses atr\u00e1s",
-    text: "Sempre que preciso compro l\u00e1. Pre\u00e7o \u00f3timo e atendimento maravilhoso!",
+    meta: "Avaliação no Google · Sabará",
+    time: "8 meses atrás",
+    text: "Sempre que preciso compro lá. Preço ótimo e atendimento maravilhoso!",
     color: "#188038",
   },
   {
     author: "Kenner Alcino",
-    meta: "Avalia\u00e7\u00e3o no Google \u00b7 Sabar\u00e1",
-    time: "2 anos atr\u00e1s",
-    text: "A melhor farm\u00e1cia da regi\u00e3o.",
+    meta: "Avaliação no Google · Sabará",
+    time: "2 anos atrás",
+    text: "A melhor farmácia da região.",
     color: "#c5221f",
   },
 ];
@@ -96,13 +96,12 @@ export function HomeMore({
           </div>
           <div className="story-copy">
             <p className="section-kicker">Fotos da loja</p>
-            <h2 id="story-title">A farm\u00e1cia de verdade, em Sabar\u00e1</h2>
+            <h2 id="story-title">{"A farmácia de verdade, em Sabará"}</h2>
             <p>
-              Fachada da Na\u00e7\u00f5es Unidas e interior organizado em F\u00e1tima e Itacolomi.
-              Tr\u00eas lojas de rua \u2014 voc\u00ea reconhece o endere\u00e7o e se imagina no balc\u00e3o.
+              {"Fachada da Nações Unidas e interior organizado em Fátima e Itacolomi. Três lojas de rua — você reconhece o endereço e se imagina no balcão."}
             </p>
             <p className="story-note">
-              Fotos da equipe entram aqui s\u00f3 com autoriza\u00e7\u00e3o de quem aparece. At\u00e9 l\u00e1, a loja se apresenta pela fachada, pela g\u00f4ndola e pelo atendimento no WhatsApp.
+              {"Fotos da equipe entram aqui só com autorização de quem aparece. Até lá, a loja se apresenta pela fachada, pela gôndola e pelo atendimento no WhatsApp."}
             </p>
             <a className="text-link" href={INSTAGRAM_URL} target="_blank" rel="noreferrer" onClick={() => trackEvent("instagram_click", { source: "story" })}>
               <InstagramIcon /> Mais fotos no Instagram
@@ -118,9 +117,9 @@ export function HomeMore({
               <GoogleMark />
             </span>
             <div className="reviews-brand-copy">
-              <h2 id="reviews-title">Avalia\u00e7\u00f5es no Google</h2>
+              <h2 id="reviews-title">{"Avaliações no Google"}</h2>
               <p className="reviews-score">
-                <span className="reviews-score-meta">Cada loja tem o pr\u00f3prio perfil. A nota s\u00f3 aparece depois da confer\u00eancia.</span>
+                <span className="reviews-score-meta">{"Cada loja tem o próprio perfil. A nota só aparece depois da conferência."}</span>
               </p>
             </div>
           </div>
@@ -140,7 +139,7 @@ export function HomeMore({
               {profile.rating !== null ? (
                 <span className="reviews-unit-score">{profile.rating.toFixed(1).replace(".", ",")} no Google</span>
               ) : (
-                <span className="reviews-unit-score">Ver avalia\u00e7\u00f5es no Google</span>
+                <span className="reviews-unit-score">{"Ver avaliações no Google"}</span>
               )}
               <small>{profile.sourceNote}</small>
             </a>

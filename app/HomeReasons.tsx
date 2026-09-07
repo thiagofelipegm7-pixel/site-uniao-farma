@@ -48,7 +48,7 @@ export default function HomeReasons({
         <header className="home-reasons-head">
           <p className="section-kicker">Por que chamar agora</p>
           <h2 id="home-reasons-title">Oferta confirmada, conversa pronta</h2>
-          <p>Foto e pre\u00e7o de encarte. A loja confirma se ainda tem hoje.</p>
+          <p>{"Foto e preço de encarte. A loja confirma se ainda tem hoje."}</p>
         </header>
 
         {offers.length > 0 ? (
@@ -80,8 +80,8 @@ export default function HomeReasons({
                         });
                         openSelector({
                           title: `Consultar ${offer.name}`,
-                          description: "Escolha a loja. A conversa j\u00e1 leva o nome e o pre\u00e7o da oferta.",
-                          message: `Oi, Uni\u00e3o Farma {unidade}! Vi a oferta de ${offer.name}${offer.currentPrice !== null ? ` por ${price}` : ""} no site. Tem hoje?`,
+                          description: "Escolha a loja. A conversa já leva o nome e o preço da oferta.",
+                          message: `Oi, União Farma {unidade}! Vi a oferta de ${offer.name}${offer.currentPrice !== null ? ` por ${price}` : ""} no site. Tem hoje?`,
                           eventName: `home_offer_${offer.id}`,
                         });
                       }}
@@ -94,22 +94,22 @@ export default function HomeReasons({
             })}
           </div>
         ) : (
-          <p className="home-reasons-empty">As ofertas da semana entram aqui depois da confirma\u00e7\u00e3o com as lojas.</p>
+          <p className="home-reasons-empty">{"As ofertas da semana entram aqui depois da confirmação com as lojas."}</p>
         )}
 
-        <nav className="home-reasons-actions" aria-label="O que voc\u00ea precisa agora">
+        <nav className="home-reasons-actions" aria-label="O que você precisa agora">
           <button
             type="button"
             onClick={() =>
               openSelector({
-                title: "Consultar pre\u00e7o e disponibilidade",
+                title: "Consultar preço e disponibilidade",
                 description: "Manda o nome do produto. A loja responde se tem e quanto custa hoje.",
-                message: "Oi, Uni\u00e3o Farma {unidade}! Quero consultar pre\u00e7o e se tem o produto. Posso mandar o nome?",
+                message: "Oi, União Farma {unidade}! Quero consultar preço e se tem o produto. Posso mandar o nome?",
                 eventName: "home_consult_price",
               })
             }
           >
-            Consultar pre\u00e7o e disponibilidade
+            {"Consultar preço e disponibilidade"}
           </button>
           <a href="/entrega-de-medicamentos-em-sabara">Ver se entrega no meu bairro</a>
           <a href="/receita">Enviar minha receita</a>

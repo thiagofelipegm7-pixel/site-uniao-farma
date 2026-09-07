@@ -61,8 +61,8 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
     <header className="content-header">
       <nav className="content-nav" aria-label="Menu principal">
         <a className="brand" href="/" onClick={() => setMenuOpen(false)}>
-          <img src="/icon-192.png" alt="Logo da Uni\u00e3o Farma" width="52" height="52" decoding="async" />
-          <span><strong>Uni\u00e3o Farma</strong><small>Drogaria e Perfumaria</small></span>
+          <img src="/icon-192.png" alt="Logo da União Farma" width="52" height="52" decoding="async" />
+          <span><strong>{"União Farma"}</strong><small>Drogaria e Perfumaria</small></span>
         </a>
         <a className="content-header-cta" href={cta.href} aria-label={cta.ariaLabel}>
           <img src="/whatsapp-icon.svg" alt="" width="24" height="24" aria-hidden="true" />
@@ -107,10 +107,10 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
             <div className="content-menu-drawer-header">
               <span>Menu</span>
               <button type="button" onClick={() => setMenuOpen(false)} aria-label="Fechar menu lateral">
-                \u00d7
+                {"×"}
               </button>
             </div>
-            <nav className="content-side-nav" aria-label="Navega\u00e7\u00e3o m\u00f3vel">
+            <nav className="content-side-nav" aria-label="Navegação móvel">
               {NAV_LINKS.map((link) => (
                 <a
                   key={`drawer-${link.href}`}

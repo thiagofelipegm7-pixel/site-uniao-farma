@@ -40,7 +40,7 @@ export default function UnitSelectorModal({
         onMouseDown={(event: React.MouseEvent<HTMLElement>) => event.stopPropagation()}
       >
         <button type="button" className="modal-close" onClick={onClose} aria-label="Fechar">
-          ×
+          {"×"}
         </button>
         <p className="section-kicker">Atendimento pelo WhatsApp</p>
         <h2 id="unit-selector-title">{intent.title}</h2>
@@ -78,7 +78,7 @@ export default function UnitSelectorModal({
           ))}
         </div>
         <p className="modal-note">
-          Voc\u00ea vai ao WhatsApp da unidade. Pre\u00e7o, estoque e entrega a equipe confirma no hor\u00e1rio da loja.
+          {"Você vai ao WhatsApp da unidade. Preço, estoque e entrega a equipe confirma no horário da loja."}
         </p>
       </section>
     </div>

@@ -14,8 +14,8 @@ const PAGE_HREF: Record<Unit["id"], string> = {
 };
 
 const SHORT_LABEL: Record<Unit["id"], string> = {
-  fatima: "F\u00e1tima",
-  nacoes: "Na\u00e7\u00f5es Unidas",
+  fatima: "Fátima",
+  nacoes: "Nações Unidas",
   itacolomi: "Itacolomi",
 };
 
@@ -24,10 +24,10 @@ export default function UnitsShowcase() {
     <section className="units-showcase" id="unidades-rapidas" aria-labelledby="units-showcase-title">
       <div className="units-showcase-inner">
         <header className="units-showcase-head">
-          <p className="section-kicker">Tr\u00eas lojas em Sabar\u00e1</p>
+          <p className="section-kicker">{"Três lojas em Sabará"}</p>
           <h2 id="units-showcase-title">Escolha a unidade do seu bairro</h2>
           <p className="units-showcase-lead">
-            Foto identificada, endere\u00e7o, hor\u00e1rio e rota. O WhatsApp abre na loja certa.
+            {"Foto identificada, endereço, horário e rota. O WhatsApp abre na loja certa."}
           </p>
         </header>
 
@@ -47,7 +47,7 @@ export default function UnitsShowcase() {
                   <img
                     className="unit-store-photo"
                     src={UNIT_PHOTOS[unit.id]}
-                    alt={`${kind} da Uni\u00e3o Farma ${label} \u2014 ${unit.shortAddress}`}
+                    alt={`${kind} da União Farma ${label} — ${unit.shortAddress}`}
                     width="800"
                     height="520"
                     loading="lazy"
@@ -91,7 +91,7 @@ export default function UnitsShowcase() {
                     </a>
                   </div>
                   <a className="unit-store-more" href={PAGE_HREF[unit.id]}>
-                    Ver p\u00e1gina da unidade
+                    {"Ver página da unidade"}
                   </a>
                 </div>
               </article>

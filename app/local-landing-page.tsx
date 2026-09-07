@@ -25,8 +25,8 @@ function UnitContactCard({ unit, campaign, message }: { unit: Unit; campaign: st
 
   return (
     <article className="landing-unit-card">
-      <p className="section-kicker">Unidade Uni\u00e3o Farma</p>
-      <h3>Farm\u00e1cia {unit.shortName}</h3>
+      <p className="section-kicker">{"Unidade União Farma"}</p>
+      <h3>{"Farmácia "}{unit.shortName}</h3>
       <p>{unit.address}</p>
       <p>
         Telefone: <a href={unit.phoneLink} data-track-event="phone_click" data-track-unit={unit.id} data-track-source={`${campaign}_unit_card`} data-track-placement="unit_card">{unit.phone}</a>
@@ -42,7 +42,7 @@ function UnitContactCard({ unit, campaign, message }: { unit: Unit; campaign: st
           data-track-source={`${campaign}_unit_card`}
           data-track-placement="unit_card"
         >
-          Falar no WhatsApp \u2014 {unit.shortName}
+          {"Falar no WhatsApp — "}{unit.shortName}
         </a>
         <a
           className="button button-call"
@@ -69,7 +69,7 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
     url: pageUrl,
     faqs: config.faqs,
     breadcrumbs: [
-      { name: "In\u00edcio", url: `${SITE_URL}/` },
+      { name: "Início", url: `${SITE_URL}/` },
       { name: config.heading, url: pageUrl },
     ],
   });
@@ -80,9 +80,9 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
       <header className="simple-header">
         <div className="section-inner simple-header-inner">
           <a className="brand" href="/">
-            <img src="/uniao-farma-logo.webp" alt="Logo da Uni\u00e3o Farma" width="52" height="52" />
+            <img src="/uniao-farma-logo.webp" alt="Logo da União Farma" width="52" height="52" />
             <span>
-              <strong>Uni\u00e3o Farma</strong>
+              <strong>{"União Farma"}</strong>
               <small>Drogaria e Perfumaria</small>
             </span>
           </a>
@@ -92,7 +92,7 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
 
       <main className="unit-page landing-page">
         <nav className="breadcrumb section-inner" aria-label="Breadcrumb">
-          <a href="/">In\u00edcio</a>
+          <a href="/">{"Início"}</a>
           <span aria-hidden="true">/</span>
           <span>{config.heading}</span>
         </nav>
@@ -108,15 +108,15 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
                 intent={pageIntent}
                 source={`${config.slug}_hero`}
                 heading="Escolha uma unidade e fale direto pelo WhatsApp"
-                description="A conversa abre no assunto desta p\u00e1gina, sem voltar ao in\u00edcio."
+                description="A conversa abre no assunto desta página, sem voltar ao início."
               />
               <p className="unit-page-note">
-                Pre\u00e7os, estoque, disponibilidade de entrega e hor\u00e1rios especiais devem ser confirmados diretamente com a unidade.
+                {"Preços, estoque, disponibilidade de entrega e horários especiais devem ser confirmados diretamente com a unidade."}
               </p>
             </div>
             <div className="unit-page-logo-card">
-              <img src="/uniao-farma-logo.webp" alt="Logo da Uni\u00e3o Farma" width="150" height="150" />
-              <strong>Tr\u00eas unidades em Sabar\u00e1</strong>
+              <img src="/uniao-farma-logo.webp" alt="Logo da União Farma" width="150" height="150" />
+              <strong>{"Três unidades em Sabará"}</strong>
             </div>
           </div>
         </section>
@@ -126,7 +126,7 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
             <div className="section-heading compact-heading">
               <div>
                 <p className="section-kicker">Atendimento local</p>
-                <h2 id="landing-benefits-title">Como a Uni\u00e3o Farma pode ajudar</h2>
+                <h2 id="landing-benefits-title">{"Como a União Farma pode ajudar"}</h2>
               </div>
               <p>{config.description}</p>
             </div>
@@ -141,9 +141,9 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
             <div className="section-heading compact-heading">
               <div>
                 <p className="section-kicker">Fale com a loja certa</p>
-                <h2 id="landing-units-title">Escolha uma unidade em Sabar\u00e1</h2>
+                <h2 id="landing-units-title">{"Escolha uma unidade em Sabará"}</h2>
               </div>
-              <p>O bot\u00e3o identifica a unidade e abre o WhatsApp correspondente.</p>
+              <p>{"O botão identifica a unidade e abre o WhatsApp correspondente."}</p>
             </div>
             <div className="landing-unit-grid">
               {UNITS.map((unit) => (
@@ -157,8 +157,8 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
           <div className="section-inner">
             <div className="section-heading compact-heading">
               <div>
-                <p className="section-kicker">D\u00favidas frequentes</p>
-                <h2 id="landing-faq-title">Perguntas sobre {config.heading.toLowerCase()}</h2>
+                <p className="section-kicker">{"Dúvidas frequentes"}</p>
+                <h2 id="landing-faq-title">{"Perguntas sobre "}{config.heading.toLowerCase()}</h2>
               </div>
             </div>
             <div className="unit-faq-list">
@@ -174,8 +174,8 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
 
         <section className="unit-final-cta">
           <div className="section-inner">
-            <h2>Fale com uma unidade da Uni\u00e3o Farma</h2>
-            <p>Envie sua d\u00favida, o nome do produto ou seu bairro para a equipe confirmar o atendimento.</p>
+            <h2>{"Fale com uma unidade da União Farma"}</h2>
+            <p>{"Envie sua dúvida, o nome do produto ou seu bairro para a equipe confirmar o atendimento."}</p>
             <a className="button button-light compact-button" href="#unidades-landing" data-track-event="unit_selector_view" data-track-source={`${config.slug}_final_cta`}>
               Escolher unidade e abrir WhatsApp
             </a>
@@ -184,7 +184,7 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
       </main>
 
       <footer className="simple-footer">
-        <nav className="section-inner" aria-label="Navega\u00e7\u00e3o do site">
+        <nav className="section-inner" aria-label="Navegação do site">
           <SiteDirectoryLinks />
         </nav>
       </footer>
