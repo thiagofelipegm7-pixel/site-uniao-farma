@@ -6,17 +6,45 @@ import { trackEvent } from "./analytics";
 import { GOOGLE_REVIEWS_URL, INSTAGRAM_URL } from "./site-config";
 import { HOME_FAQS } from "./seo-content";
 import {
-  reviews,
   InstagramIcon,
   FAQItem,
   type SelectorIntent,
 } from "./home-chrome";
 
-const AVATAR_COLORS = ["#1a73e8", "#188038", "#c5221f"];
+const GOOGLE_REVIEWS = [
+  {
+    author: "Jaderson Almeida",
+    meta: "12 avaliações em Sabará",
+    time: "5 anos atrás",
+    text: "Quer encontrar medicamentos baratos entre outras coisas. Confira os melhores preços e compare.",
+    color: "#5f6368",
+  },
+  {
+    author: "Beatriz Cristina",
+    meta: "8 avaliações em Sabará",
+    time: "1 ano atrás",
+    text: "Atendimento excelente, todos são muito gentis e as entregas chegam rapidamente.",
+    color: "#1a73e8",
+  },
+  {
+    author: "Thais Juliane",
+    meta: "6 avaliações em Sabará",
+    time: "8 meses atrás",
+    text: "Sempre que preciso compro lá. Preço ótimo e atendimento maravilhoso!",
+    color: "#188038",
+  },
+  {
+    author: "Kenner Alcino",
+    meta: "4 avaliações em Sabará",
+    time: "2 anos atrás",
+    text: "A melhor farmácia da região.",
+    color: "#c5221f",
+  },
+];
 
 function GoldStar() {
   return (
-    <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
+    <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
       <path fill="#F4B400" d="M12 2.6l2.7 6.2 6.7.6-5.1 4.4 1.6 6.5L12 16.9 6.1 20.3l1.6-6.5-5.1-4.4 6.7-.6z" />
     </svg>
   );
@@ -76,19 +104,22 @@ export function HomeMore({
           </a>
         </div>
         <div className="reviews-track" role="list">
-          {reviews.map((review, index) => (
+          {GOOGLE_REVIEWS.map((review) => (
             <article className="review-card" key={review.author} role="listitem">
               <header className="review-person">
-                <span className="review-avatar" style={{ background: AVATAR_COLORS[index % AVATAR_COLORS.length] }} aria-hidden="true">
+                <span className="review-avatar" style={{ background: review.color }} aria-hidden="true">
                   {review.author.charAt(0)}
                 </span>
                 <span>
                   <strong>{review.author}</strong>
-                  <small>Avaliação no Google</small>
+                  <small>{review.meta}</small>
                 </span>
               </header>
-              <Stars />
-              <p>{review.text}</p>
+              <p className="review-rating-row">
+                <Stars />
+                <time>{review.time}</time>
+              </p>
+              <p className="review-text">{review.text}</p>
             </article>
           ))}
         </div>
