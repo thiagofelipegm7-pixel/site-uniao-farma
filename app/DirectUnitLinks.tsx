@@ -57,7 +57,7 @@ export default function DirectUnitLinks({
   compact = false,
   className = "",
 }: DirectUnitLinksProps) {
-  const [locate, setLocate] = useState<LocateState>({ status: "idle" });
+  const [locate, setLocate] = useState<LocateState>({ status: "loading" });
   const [preferredId, setPreferredId] = useState<Unit["id"] | null>(null);
   const [activeIntent, setActiveIntent] = useState<WhatsAppIntentKey>(defaultIntent(intent));
 
@@ -99,14 +99,36 @@ export default function DirectUnitLinks({
 
   useEffect(() => {
     setPreferredId(readPreferredUnitId());
-    return scheduleAutoLocation((origin) => {
+    const fallback = window.setTimeout(() => {
+      setLocate((current) => (current.status === "ready" ? current : { status: "denied" }));
+    }, 2500);
+    const stop = scheduleAutoLocation((origin) => {
       void applyOrigin(origin, true);
     });
+    return () => {
+      window.clearTimeout(fallback);
+      stop();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const actionLabel =
     activeIntent === "recipe" ? "Receita" : activeIntent === "delivery" ? "Entrega" : "Pedir";
+
+  const locateHint =
+    locate.status === "denied"
+      ? "Escolha a loja pelo bairro."
+      : locate.status === "unavailable"
+        ? "Escolha a unidade manualmente."
+        : nearest && isFarFromCoverage(nearest.distanceKm)
+          ? `Mais próxima no mapa: ${nearest.unit.shortName}.`
+          : nearest
+            ? `${nearest.unit.shortName} · ${formatDistance(nearest.distanceKm)}`
+            : preferredId
+              ? "Sua loja já aparece primeiro."
+              : locate.status === "loading"
+                ? "Permita a localização para ordenar as lojas."
+                : "Escolha a loja pelo bairro.";
 
   return (
     <div className={`direct-unit-links ${compact ? "direct-unit-links-compact" : ""} ${className}`.trim()}>
@@ -144,7 +166,7 @@ export default function DirectUnitLinks({
         </div>
       ) : null}
 
-      <div className="locate-unit-bar">
+      <div className={`locate-unit-bar${locate.status === "loading" ? " is-loading" : ""}`}>
         <div className="locate-unit-actions">
           {nearest ? (
             <a
@@ -163,22 +185,12 @@ export default function DirectUnitLinks({
               <WhatsAppIcon /> {actionLabel} agora
             </a>
           ) : (
-            <p className="locate-unit-status">Localizando a loja mais próxima…</p>
+            <p className="locate-unit-status">
+              {locate.status === "loading" ? "Localizando a loja mais próxima…" : "Escolha a loja pelo bairro."}
+            </p>
           )}
         </div>
-        <p className="locate-unit-status">
-          {locate.status === "denied"
-            ? "Escolha a loja pelo bairro."
-            : locate.status === "unavailable"
-              ? "Escolha a unidade manualmente."
-              : nearest && isFarFromCoverage(nearest.distanceKm)
-                ? `Mais próxima no mapa: ${nearest.unit.shortName}.`
-                : nearest
-                  ? `${nearest.unit.shortName} · ${formatDistance(nearest.distanceKm)}`
-                  : preferredId
-                    ? "Sua loja já aparece primeiro."
-                    : "Permita a localização para ordenar as lojas."}
-        </p>
+        <p className="locate-unit-status">{locateHint}</p>
       </div>
 
       <div className="direct-unit-links-grid">
