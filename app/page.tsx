@@ -11,7 +11,7 @@ import { getPageStructuredData } from "./structured-data";
 import { WhatsAppIcon, type SelectorIntent } from "./home-chrome";
 import UnitSelectorModal from "./UnitSelectorModal";
 import { HomeSections } from "./home-sections";
-import { STORE_PHOTOS } from "./store-photos";
+import StorePhotosStrip from "./StorePhotosStrip";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -127,25 +127,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div className="store-photos hero-store-photos" role="list" aria-label="Fotos reais da loja, identificadas por unidade">
-            {STORE_PHOTOS.map((photo, index) => (
-              <figure className="store-photo" key={photo.src} role="listitem">
-                <img
-                  src={photo.src}
-                  alt={photo.alt}
-                  width="800"
-                  height="600"
-                  sizes="84vw"
-                  decoding="async"
-                  loading={index === 0 ? "eager" : "lazy"}
-                />
-                <figcaption>
-                  <strong>{photo.kind}</strong>
-                  <span>{photo.unit}</span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+          <StorePhotosStrip className="store-photos hero-store-photos" label="Fotos reais da loja, identificadas por unidade" />
           <p className="store-photos-hint">Arraste para ver fachada e interior de cada loja</p>
           <a className="sr-only" href="/novidades">{"Novidades da União Farma"}</a>
         </div>
