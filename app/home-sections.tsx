@@ -10,7 +10,6 @@ import {
   SHORT_UNIT_ADDRESSES,
   categories,
   WhatsAppIcon,
-  LineIcon,
   type SelectorIntent,
 } from "./home-chrome";
 import { HomeMore } from "./home-more";
