@@ -37,42 +37,66 @@ a.brand img {
 
 .photo-gallery,
 .store-photos,
-.hero-store-photos {
+.hero-store-photos,
+.reviews-track {
   display: flex !important;
   visibility: visible !important;
   opacity: 1 !important;
   height: auto !important;
   max-height: none !important;
-  gap: 0.65rem;
+  gap: 0.7rem;
   overflow-x: auto;
+  overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
-  padding: 0.15rem 0 0.35rem;
+  scroll-padding-inline: 1rem;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x pan-y;
   scrollbar-width: none;
 }
 
 .store-photos::-webkit-scrollbar,
-.hero-store-photos::-webkit-scrollbar {
+.hero-store-photos::-webkit-scrollbar,
+.reviews-track::-webkit-scrollbar {
   display: none;
 }
 
-.store-photo {
-  flex: 0 0 min(78vw, 280px);
+.store-photos-hint {
+  margin: 0.35rem 0 0;
+  color: #5b6f67;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.store-photo,
+.review-card {
+  flex: 0 0 min(82vw, 300px);
   margin: 0;
   scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 
 .store-photo img {
   display: block !important;
   width: 100% !important;
-  height: 210px !important;
+  height: auto !important;
+  aspect-ratio: 4 / 3;
   object-fit: cover !important;
   border-radius: 0.9rem;
   background: #eef7f2;
+  content-visibility: auto;
 }
 
 @media (max-width: 860px) {
   .hero-store-photos,
-  .store-photos {
+  .store-photos,
+  .reviews-track {
     display: flex !important;
+    margin-inline: -0.15rem;
+    padding-inline: 0.15rem 1.1rem;
+  }
+
+  .store-photo,
+  .review-card {
+    flex-basis: min(84vw, 320px);
   }
 }
