@@ -1,6 +1,6 @@
 body {
   background:
-    radial-gradient(56rem 26rem at 50% -8rem, rgba(15, 122, 85, 0.14), transparent 62%),
+    radial-gradient(56rem 26rem at 50% -8rem, rgba(20, 143, 138, 0.14), transparent 62%),
     var(--uf-paper);
   color: var(--uf-ink);
 }
@@ -27,7 +27,7 @@ body {
 
 .hero {
   background:
-    linear-gradient(180deg, rgba(15, 122, 85, 0.1) 0%, transparent 58%);
+    linear-gradient(180deg, rgba(20, 143, 138, 0.1) 0%, transparent 58%);
 }
 
 .hero-copy .eyebrow {
@@ -41,7 +41,7 @@ body {
 
 .open-now-strip {
   background: var(--uf-open-live);
-  color: #083528;
+  color: #083a3b;
 }
 
 .preferred-store-banner {
@@ -89,7 +89,7 @@ body {
 .button-whatsapp,
 .offer-consult-units a {
   background: var(--uf-whatsapp);
-  color: #083528;
+  color: #083a3b;
   border-color: transparent;
   font-weight: 800;
 }
@@ -100,7 +100,7 @@ body {
 .button-whatsapp:hover,
 .offer-consult-units a:hover {
   background: #1ebe5d;
-  color: #083528;
+  color: #083a3b;
 }
 
 .header-cta {
@@ -109,7 +109,7 @@ body {
 
 .open-status.is-open {
   background: var(--uf-open-live);
-  color: #083528;
+  color: #083a3b;
 }
 
 .open-status.is-closed {
@@ -141,5 +141,5 @@ body {
 }
 
 .uf-footer {
-  background: linear-gradient(180deg, #1b4a38 0%, #0c241c 100%);
+  background: linear-gradient(180deg, #145a58 0%, #083032 100%);
 }
