@@ -1,5 +1,5 @@
-const CACHE_NAME = "uf-static-v8";
-const PRECACHE = ["/", "/offline.html", "/manifest.json", "/uniao-farma-logo.svg", "/favicon.png"];
+const CACHE_NAME = "uf-static-v9";
+const PRECACHE = ["/offline.html", "/manifest.json", "/favicon.png"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -10,7 +10,7 @@ self.addEventListener("install", (event) => {
 self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then((keys) =>
-      Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))),
+      Promise.all(keys.map((key) => caches.delete(key))),
     ).then(() => self.clients.claim()),
   );
 });
@@ -23,20 +23,14 @@ self.addEventListener("fetch", (event) => {
   if (url.origin !== self.location.origin) return;
   if (url.pathname === "/sw.js") return;
 
-  if (request.mode === "navigate") {
+  if (request.mode === "navigate" || url.pathname === "/" || url.pathname.endsWith(".html")) {
     event.respondWith(
-      fetch(request)
-        .then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put(request, copy)).catch(() => {});
-          return response;
-        })
-        .catch(async () => (await caches.match(request)) || caches.match("/offline.html")),
+      fetch(request, { cache: "no-store" }).catch(async () => (await caches.match("/offline.html")) || Response.error()),
     );
     return;
   }
 
-  if (/\.(webp|png|jpg|jpeg|svg|ico|woff2|css|js)$/i.test(url.pathname) || url.pathname.startsWith("/_next/static/")) {
+  if (/\.(webp|png|jpg|jpeg|svg|ico|woff2)$/i.test(url.pathname)) {
     event.respondWith(
       fetch(request)
         .then((response) => {
