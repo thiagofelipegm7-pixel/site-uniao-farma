@@ -8,26 +8,27 @@ export default function OpenNowStrip() {
   const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
+    let interval = 0;
+    let idleHandle = 0;
+    let timeoutHandle = 0;
+
     const start = () => {
       setNow(new Date());
-      const timer = window.setInterval(() => setNow(new Date()), 60_000);
-      return timer;
+      interval = window.setInterval(() => setNow(new Date()), 60_000);
     };
 
-    let timer = 0;
-    const idle =
-      "requestIdleCallback" in window
-        ? window.requestIdleCallback(() => {
-            timer = start();
-          }, { timeout: 2000 })
-        : globalThis.setTimeout(() => {
-            timer = start();
-          }, 800);
+    if ("requestIdleCallback" in window) {
+      idleHandle = window.requestIdleCallback(start, { timeout: 2000 });
+    } else {
+      timeoutHandle = window.setTimeout(start, 800);
+    }
 
     return () => {
-      if ("cancelIdleCallback" in window) window.cancelIdleCallback(idle as number);
-      window.clearTimeout(idle);
-      window.clearInterval(timer);
+      if (idleHandle && "cancelIdleCallback" in window) {
+        window.cancelIdleCallback(idleHandle);
+      }
+      if (timeoutHandle) window.clearTimeout(timeoutHandle);
+      if (interval) window.clearInterval(interval);
     };
   }, []);
 
