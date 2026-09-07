@@ -1,0 +1,106 @@
+:root {
+  --uf-ink: #0e7370;
+  --uf-green: #0e7370;
+  --uf-green-hover: #0e7370;
+  --uf-green-dark: #083a3b;
+  --uf-green-deep: #083a3b;
+  --uf-green-bright: #2bbbad;
+  --uf-open: #129a90;
+  --uf-open-live: #2dd4c0;
+  --uf-paper: #f1fbfa;
+  --uf-stone: #d4efeb;
+  --uf-fog: #e4f6f3;
+  --uf-mint: #e4f6f3;
+  --uf-line: #a9d8d3;
+  --uf-line-strong: #6dbbb4;
+  --uf-muted: #3a5554;
+}
+
+html,
+body {
+  background: #f1fbfa;
+}
+
+::selection {
+  background: #0e7370 !important;
+  color: #ffffff !important;
+}
+
+.skip-link,
+.scroll-indicator {
+  background: #0e7370 !important;
+}
+
+a,
+.menu-links a,
+.content-nav a,
+.brand strong,
+.offer-consult-price,
+.offer-consult-price strong,
+.encarte-price,
+.price-large,
+.unit-map-details a:not([href*="whatsapp"]),
+.map-view-link {
+  color: #0e7370;
+}
+
+.whatsapp-intent-chips button.is-active {
+  background: #0e7370 !important;
+  border-color: #0e7370 !important;
+  color: #ffffff !important;
+}
+
+.open-status.is-hours,
+.faq-item.is-open,
+.faq-item.is-open .faq-answer,
+input,
+textarea,
+select {
+  background: #e4f6f3;
+}
+
+.open-status.is-open,
+.open-now-strip {
+  background: #129a90;
+  color: #083a3b;
+}
+
+.category-card .line-icon,
+.categories article .line-icon,
+.categories svg {
+  color: #0e7370;
+  stroke: #0e7370;
+}
+
+.review-card,
+.reviews article {
+  border-top-color: #0e7370;
+}
+
+.direct-unit-link.is-preferred {
+  box-shadow: inset 0.25rem 0 0 #0e7370;
+  border-color: #0e7370;
+}
+
+input,
+textarea,
+select {
+  border-color: #0e7370;
+  color: #102e2f;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+:focus-visible {
+  outline-color: #2dd4c0;
+  border-color: #0e7370;
+}
+
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large,
+.marker-cluster div {
+  background: #0e7370;
+  color: #ffffff;
+}
