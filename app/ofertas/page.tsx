@@ -4,32 +4,32 @@ import { SITE_URL } from "../site-config";
 
 const OFFERS_FAQS = [
   {
-    q: "Os preços são iguais em todas as unidades?",
-    a: "Consulte a unidade escolhida para confirmar preço e disponibilidade da oferta.",
+    q: "O preço é o mesmo nas três lojas?",
+    a: "Nem sempre. Promoção vale enquanto tiver naquela unidade. Confirma no WhatsApp da loja que você vai usar.",
   },
   {
-    q: "Todas as ofertas estão disponíveis?",
-    a: "A disponibilidade pode variar. Consulte a equipe pelo WhatsApp.",
+    q: "A oferta que eu vi ainda tem?",
+    a: "Estoque muda no dia. Manda o nome do produto para a loja — ela diz se ainda tem e o preço de agora.",
   },
   {
-    q: "Vocês fazem entrega?",
-    a: "A entrega depende do endereço, da unidade responsável e das condições informadas no atendimento.",
+    q: "Dá para entregar a promoção?",
+    a: "Se a unidade atender o seu bairro, sim. Taxa e prazo entram na mesma conversa.",
   },
   {
-    q: "Como saber se uma promoção ainda está válida?",
-    a: "A validade deve constar na oferta quando informada. Em caso de dúvida, confirme com a unidade.",
+    q: "Até quando vale?",
+    a: "Quando a oferta tiver data, ela aparece no card. Se não tiver, pergunta na loja antes de sair de casa.",
   },
 ];
 
 export const metadata: Metadata = {
-  title: { absolute: "Ofertas de Farmácia e Perfumaria em Sabará | União Farma" },
+  title: { absolute: "Ofertas da farmácia em Sabará | União Farma" },
   description:
-    "Confira ofertas selecionadas da União Farma em Sabará. Consulte preços, disponibilidade, validade e atendimento diretamente com uma unidade.",
+    "Promoções da União Farma em Sabará. Confirme preço e estoque no WhatsApp da loja — Fátima, Nações Unidas ou Itacolomi.",
   alternates: { canonical: "/ofertas" },
   openGraph: {
-    title: "Ofertas de Farmácia e Perfumaria em Sabará | União Farma",
+    title: "Ofertas da farmácia em Sabará | União Farma",
     description:
-      "Confira ofertas selecionadas e consulte preço, disponibilidade e atendimento com a unidade escolhida.",
+      "Veja as ofertas e confirme na loja do seu bairro se ainda tem e quanto custa hoje.",
     url: `${SITE_URL}/ofertas`,
     type: "website",
     images: [
@@ -37,14 +37,14 @@ export const metadata: Metadata = {
         url: `${SITE_URL}/ofertas-og.png`,
         width: 1733,
         height: 907,
-        alt: "Ofertas da União Farma — consulte preço e disponibilidade com a unidade escolhida",
+        alt: "Ofertas da União Farma — confirme preço e estoque na unidade",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ofertas de Farmácia e Perfumaria em Sabará | União Farma",
-    description: "Consulte preço e disponibilidade com a unidade escolhida.",
+    title: "Ofertas da farmácia em Sabará | União Farma",
+    description: "Confirme preço e estoque no WhatsApp da loja.",
     images: [`${SITE_URL}/ofertas-og.png`],
   },
 };
@@ -56,9 +56,9 @@ const structuredData = {
       "@type": "WebPage",
       "@id": `${SITE_URL}/ofertas#webpage`,
       url: `${SITE_URL}/ofertas`,
-      name: "Ofertas de Farmácia e Perfumaria em Sabará | União Farma",
+      name: "Ofertas da farmácia em Sabará | União Farma",
       description:
-        "Confira ofertas selecionadas da União Farma em Sabará. Consulte preços, disponibilidade, validade e atendimento diretamente com uma unidade.",
+        "Promoções da União Farma em Sabará. Confirme preço e estoque no WhatsApp da loja.",
       isPartOf: { "@id": `${SITE_URL}/#website` },
       inLanguage: "pt-BR",
     },
