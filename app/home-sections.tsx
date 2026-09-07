@@ -33,12 +33,12 @@ export function HomeSections({
       <section className="trust-strip" aria-label="Por que a União Farma">
         <div className="section-inner trust-strip-grid">
           <div>
-            <strong>3 lojas</strong>
+            <strong>3 unidades</strong>
             <span>Fátima, Nações e Itacolomi</span>
           </div>
           <div>
             <strong>Entrega</strong>
-            <span>Pergunta no WhatsApp do bairro</span>
+            <span>Confirme no WhatsApp da loja</span>
           </div>
           <div>
             <strong>Farmacêutico</strong>
@@ -55,10 +55,10 @@ export function HomeSections({
         <div className="section-inner">
           <div className="section-heading compact-heading">
             <div>
-              <p className="section-kicker">A loja do seu bairro</p>
-              <h2 id="quick-units-title">Escolha a unidade e fale agora</h2>
+              <p className="section-kicker">Unidades em Sabará</p>
+              <h2 id="quick-units-title">Endereço, horário e WhatsApp</h2>
             </div>
-            <p>Cada botão abre o WhatsApp daquela loja, já com a mensagem pronta.</p>
+            <p>Escolha a loja do seu bairro. A conversa abre pronta no WhatsApp.</p>
           </div>
           <div className="quick-unit-grid">
             {UNITS.map((unit) => (
@@ -74,9 +74,9 @@ export function HomeSections({
                     rel="noreferrer"
                     onClick={() => trackEvent("whatsapp_click", { unit: unit.id, source: "quick_units" })}
                   >
-                    <WhatsAppIcon /> Falar no WhatsApp
+                    <WhatsAppIcon /> WhatsApp
                   </a>
-                  <a className="text-link" href={`/unidades/${unit.slug}`}>Ver endereço e horário</a>
+                  <a className="text-link" href={`/unidades/${unit.slug}`}>Endereço e horário</a>
                   <a
                     className="text-link quick-recipe-link"
                     href={buildWhatsAppUrl(unit, `Olá, União Farma ${unit.shortName}! Vou enviar a foto da receita (ou Memed). Pode o farmacêutico conferir?`)}
@@ -95,7 +95,12 @@ export function HomeSections({
 
       <section className="section categories-section reveal" id="categorias" aria-labelledby="categories-title">
         <div className="section-inner">
-          <h2 id="categories-title">O que a gente costuma ter na loja</h2>
+          <div className="section-heading compact-heading">
+            <div>
+              <p className="section-kicker">No balcão</p>
+              <h2 id="categories-title">O que consultar na loja</h2>
+            </div>
+          </div>
           <div className="category-grid">
             {categories.map((category) => (
               <article className="category-card" key={category.title}>
@@ -114,34 +119,10 @@ export function HomeSections({
                     })
                   }
                 >
-                  Perguntar na loja
+                  Consultar na loja
                 </button>
               </article>
             ))}
-          </div>
-          <div className="family-illustration-row">
-            <figure className="family-illustration">
-              <img
-                src="/illustrations/familia.svg?v=7"
-                alt="Cliente acompanhando uma senhora na saída da farmácia, com a farmacêutica acenando na porta"
-                width="720"
-                height="540"
-                sizes="(max-width: 860px) 92vw, 360px"
-                loading="lazy"
-                decoding="async"
-              />
-            </figure>
-            <figure className="family-illustration">
-              <img
-                src="/illustrations/perfumaria.svg?v=7"
-                alt="Farmacêutica indicando produtos de higiene e beleza para uma cliente"
-                width="720"
-                height="540"
-                sizes="(max-width: 860px) 92vw, 360px"
-                loading="lazy"
-                decoding="async"
-              />
-            </figure>
           </div>
           <div className="seo-intent-grid">
             <a href="/farmacia-em-sabara">Farmácia em Sabará</a>
