@@ -24,27 +24,27 @@ const STORE_PHOTOS = [
     alt: "Prateleira de medicamentos na União Farma",
   },
   {
-    src: "/fotos/bio-extratus",
+    src: "/loja-bio-extratus.svg?v=11",
     alt: "Linha Bio Extratus Mel e Pós-Química na União Farma",
   },
   {
-    src: "/fotos/salon-line-cremes",
+    src: "/loja-salon-line-cremes.svg?v=11",
     alt: "Cremes para pentear Salon Line na prateleira da União Farma",
   },
   {
-    src: "/fotos/rexona-clinical",
+    src: "/loja-rexona-clinical.svg?v=11",
     alt: "Desodorante Rexona Clinical em creme na União Farma",
   },
   {
-    src: "/fotos/dove-oleo-serum",
+    src: "/loja-dove-oleo-serum.svg?v=11",
     alt: "Óleo sérum corporal Dove na União Farma",
   },
   {
-    src: "/fotos/salon-line-matizadora",
+    src: "/loja-salon-line-matizadora.svg?v=11",
     alt: "Máscaras matizadoras Salon Line na União Farma",
   },
   {
-    src: "/fotos/dove-banho",
+    src: "/loja-dove-banho.svg?v=11",
     alt: "Linha Dove banho e hidratação corporal na União Farma",
   },
 ];
