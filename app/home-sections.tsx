@@ -2,6 +2,7 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages */
 import { categories, type SelectorIntent } from "./home-chrome";
+import HomeReasons from "./HomeReasons";
 import { HomeMore } from "./home-more";
 import UnitsShowcase from "./UnitsShowcase";
 
@@ -24,24 +25,25 @@ export function HomeSections({
   return (
     <>
       <UnitsShowcase />
+      <HomeReasons openSelector={openSelector} />
 
-      <section className="trust-strip" aria-label="Por que a União Farma">
+      <section className="trust-strip" aria-label="Por que a Uni\u00e3o Farma">
         <div className="section-inner trust-strip-grid">
           <div>
             <strong>3 unidades</strong>
-            <span>Fátima, Nações e Itacolomi</span>
+            <span>F\u00e1tima, Na\u00e7\u00f5es e Itacolomi</span>
           </div>
           <div>
             <strong>Entrega</strong>
             <span>Confirme no WhatsApp da loja</span>
           </div>
           <div>
-            <strong>Farmacêutico</strong>
-            <span>Orientação no horário da loja</span>
+            <strong>Farmac\u00eautico</strong>
+            <span>Orienta\u00e7\u00e3o no hor\u00e1rio da loja</span>
           </div>
           <div>
-            <strong>Família</strong>
-            <span>Remédio, higiene e cuidado</span>
+            <strong>Fam\u00edlia</strong>
+            <span>Rem\u00e9dio, higiene e cuidado</span>
           </div>
         </div>
       </section>
@@ -50,7 +52,7 @@ export function HomeSections({
         <div className="section-inner">
           <div className="section-heading compact-heading">
             <div>
-              <p className="section-kicker">No balcão</p>
+              <p className="section-kicker">No balc\u00e3o</p>
               <h2 id="categories-title">O que consultar na loja</h2>
             </div>
           </div>
@@ -66,8 +68,8 @@ export function HomeSections({
                   onClick={() =>
                     openSelector({
                       title: `Consultar ${category.title.toLowerCase()}`,
-                      description: "Escolha a loja para ver se tem hoje, o preço e as marcas.",
-                      message: `Oi, União Farma {unidade}! Quero consultar um produto de ${category.title}. Posso mandar o nome?`,
+                      description: "Escolha a loja para ver se tem hoje, o pre\u00e7o e as marcas.",
+                      message: `Oi, Uni\u00e3o Farma {unidade}! Quero consultar um produto de ${category.title}. Posso mandar o nome?`,
                       eventName: `categoria_${category.title}`,
                     })
                   }
@@ -78,9 +80,9 @@ export function HomeSections({
             ))}
           </div>
           <div className="seo-intent-grid">
-            <a href="/farmacia-em-sabara">Farmácia em Sabará</a>
-            <a href="/entrega-de-medicamentos-em-sabara">Entrega de medicamentos em Sabará</a>
-            <a href="/perfumaria-em-sabara">Perfumaria em Sabará</a>
+            <a href="/farmacia-em-sabara">Farm\u00e1cia em Sabar\u00e1</a>
+            <a href="/entrega-de-medicamentos-em-sabara">Entrega de medicamentos em Sabar\u00e1</a>
+            <a href="/perfumaria-em-sabara">Perfumaria em Sabar\u00e1</a>
           </div>
         </div>
       </section>
