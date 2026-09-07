@@ -132,14 +132,6 @@ export function HomeMore({
         ))}
         <DirectUnitLinks message={generalIntent.message} intent={generalIntent.eventName} source="home_faq" heading="Ainda com dúvida?" description="Manda no WhatsApp da loja do seu bairro. A resposta vem de quem está no balcão." compact />
       </section>
-
-      <section className="instagram-section reveal">
-        <h2>O que acabou de chegar e o que está em oferta</h2>
-        <a href="/novidades">Ver novidades da loja</a>
-        <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer" onClick={() => trackEvent("instagram_click", { source: "instagram_section" })}>
-          <InstagramIcon /> Abrir o Instagram
-        </a>
-      </section>
     </>
   );
 }
