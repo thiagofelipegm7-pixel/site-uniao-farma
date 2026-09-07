@@ -111,7 +111,7 @@ export function HomeSections({
           </div>
           <div className="delivery-visual">
             <img
-              src="/illustrations/entrega.webp"
+              src="/illustrations/entrega.svg?v=3"
               alt="Entregador levando uma sacola da farmácia até uma casa do bairro"
               width="900"
               height="604"
@@ -151,7 +151,7 @@ export function HomeSections({
           </div>
           <figure className="family-illustration">
             <img
-              src="/illustrations/familia.webp"
+              src="/illustrations/familia.svg?v=3"
               alt="Farmacêutica atendendo uma família com adulto, pessoa idosa e crianças"
               width="900"
               height="604"
