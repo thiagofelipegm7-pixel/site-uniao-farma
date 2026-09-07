@@ -10,9 +10,9 @@
     z-index: 2200;
     margin: 0;
     padding: 0.45rem 0.7rem calc(0.45rem + env(safe-area-inset-bottom));
-    background: rgba(247, 252, 249, 0.94);
-    border-top: 1px solid #d5e6de;
-    box-shadow: 0 -10px 24px rgba(16, 40, 34, 0.08);
+    background: rgba(241, 251, 250, 0.94);
+    border-top: 1px solid #c5e4e0;
+    box-shadow: 0 -10px 24px rgba(8, 58, 59, 0.08);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
   }
@@ -24,10 +24,10 @@
     max-width: 28rem;
     margin: 0 auto;
     padding: 0.28rem;
-    border: 1px solid #d5e6de;
+    border: 1px solid #c5e4e0;
     border-radius: 22px;
     background: #ffffff;
-    box-shadow: 0 8px 20px rgba(16, 40, 34, 0.05);
+    box-shadow: 0 8px 20px rgba(8, 58, 59, 0.05);
   }
 
   .mobile-quick-nav a {
@@ -41,7 +41,7 @@
     border: 0 !important;
     border-radius: 16px !important;
     background: transparent !important;
-    color: #3d524a !important;
+    color: #3a5554 !important;
     font-size: 0.68rem !important;
     font-weight: 800 !important;
     letter-spacing: 0.01em;
@@ -56,8 +56,8 @@
     width: 28px;
     height: 28px;
     border-radius: 10px;
-    background: #eef7f2;
-    color: #0b6244;
+    background: #e8f6f4;
+    color: #0e7370;
   }
 
   .mobile-quick-nav .mqn-icon svg {
@@ -75,9 +75,9 @@
   }
 
   .mobile-quick-nav a.is-primary {
-    background: #0b6244 !important;
+    background: #0e7370 !important;
     color: #ffffff !important;
-    box-shadow: 0 8px 16px rgba(11, 98, 68, 0.18) !important;
+    box-shadow: 0 8px 16px rgba(14, 115, 112, 0.18) !important;
   }
 
   .mobile-quick-nav a.is-primary .mqn-icon {
@@ -86,7 +86,7 @@
   }
 
   .mobile-quick-nav a:focus-visible {
-    outline: 2px solid #12c25a;
+    outline: 2px solid #2dd4c0;
     outline-offset: 2px;
   }
 
