@@ -44,6 +44,33 @@ a,
   color: #0e7370;
 }
 
+.content-header-cta,
+.content-nav a.content-header-cta,
+a.content-header-cta {
+  background: #0b5f5c !important;
+  color: #ffffff !important;
+  border: 0 !important;
+}
+
+.content-header-cta span,
+.content-nav a.content-header-cta span {
+  color: #ffffff !important;
+}
+
+.content-header-cta:hover,
+.content-header-cta:active,
+.content-nav a.content-header-cta:hover,
+.content-nav a.content-header-cta:active {
+  background: #083a3b !important;
+  color: #ffffff !important;
+}
+
+#ofertas-whatsapp,
+#receita-whatsapp,
+#unidades-landing {
+  scroll-margin-top: 5.5rem;
+}
+
 .whatsapp-intent-chips button.is-active {
   background: #0e7370 !important;
   border-color: #0e7370 !important;
