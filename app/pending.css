@@ -1,7 +1,7 @@
 .skip-link {
-  position: absolute;
+  position: fixed;
   left: 0.75rem;
-  top: -4rem;
+  top: -5rem;
   z-index: 4000;
   padding: 0.65rem 0.9rem;
   border-radius: 0.6rem;
@@ -10,8 +10,54 @@
   font-weight: 800;
 }
 
-.skip-link:focus {
-  top: 0.75rem;
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 5.15rem;
+  outline: 2px solid #12c25a;
+  outline-offset: 3px;
+}
+
+.trust-strip {
+  background: #f3faf6;
+  color: #10231c;
+  border-top: 1px solid #b7d7c8;
+  border-bottom: 1px solid #b7d7c8;
+  padding: 1.1rem 0;
+}
+
+.trust-strip-grid {
+  background: transparent;
+  gap: 0.75rem;
+}
+
+.trust-strip-grid > div {
+  min-height: 0;
+  background: #ffffff;
+  border: 1px solid #b7d7c8;
+  border-radius: 1rem;
+  padding: 0.85rem 0.7rem;
+}
+
+.trust-strip-grid strong {
+  color: #0b6244;
+  font-size: 1.05rem;
+}
+
+.trust-strip-grid span {
+  color: #2a4038;
+  font-size: 0.78rem;
+}
+
+.reviews-score {
+  margin: 0 0 1rem;
+  color: #0b6244;
+  font-weight: 800;
+}
+
+.uf-footer-anvisa {
+  max-width: 40rem;
+  color: #2a4038;
+  font-size: 0.8rem;
 }
 
 .not-found-page {
@@ -286,6 +332,10 @@
 
   .direct-unit-link:last-child {
     margin-bottom: 0.75rem;
+  }
+
+  .trust-strip-grid {
+    grid-template-columns: 1fr 1fr;
   }
 
   .offer-consult-body h3,
