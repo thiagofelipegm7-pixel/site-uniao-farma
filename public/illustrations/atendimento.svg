@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 604" width="900" height="604" role="img" aria-labelledby="t">
+  <title id="t">Farmacêutica orientando uma cliente no balcão</title>
+  <rect width="900" height="604" fill="#f3faf6"/>
+  <rect x="470" y="368" width="390" height="172" rx="16" fill="#f7f1e6" stroke="#0b6244" stroke-width="2.2"/>
+  <rect x="470" y="528" width="390" height="16" fill="#0b6244"/>
+  <rect x="520" y="200" width="280" height="170" fill="#e7f6ee" stroke="#b7d7c8"/>
+  <rect x="540" y="220" width="50" height="36" rx="4" fill="#ffffff"/>
+  <rect x="610" y="220" width="50" height="36" rx="4" fill="#ffffff"/>
+  <rect x="680" y="220" width="50" height="36" rx="4" fill="#ffffff"/>
+  <circle cx="720" cy="250" r="26" fill="#3d2418"/>
+  <rect x="678" y="276" width="84" height="110" rx="14" fill="#ffffff" stroke="#0b6244" stroke-width="2"/>
+  <rect x="690" y="298" width="60" height="78" fill="#0f7a55"/>
+  <circle cx="360" cy="268" r="28" fill="#c4a07a"/>
+  <path d="M332 250c16-20 44-16 54 6" fill="#2a1c14"/>
+  <rect x="328" y="296" width="70" height="92" rx="12" fill="#f3faf6" stroke="#0b6244"/>
+  <rect x="336" y="388" width="24" height="86" rx="8" fill="#0b6244"/>
+  <rect x="362" y="388" width="24" height="86" rx="8" fill="#0b6244"/>
+  <rect x="400" y="350" width="40" height="52" rx="6" fill="#e8c9a8" stroke="#0b6244"/>
+</svg>

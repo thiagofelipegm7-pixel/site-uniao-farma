@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 604" width="900" height="604" role="img" aria-labelledby="t">
+  <title id="t">Entregador levando uma sacola até uma casa do bairro</title>
+  <rect width="900" height="604" fill="#f3faf6"/>
+  <rect x="0" y="430" width="900" height="174" fill="#e7f6ee"/>
+  <polygon points="520,210 820,210 870,280 470,280" fill="#0b6244"/>
+  <rect x="500" y="280" width="350" height="200" fill="#f7f1e6" stroke="#0b6244"/>
+  <rect x="640" y="340" width="70" height="140" fill="#0b6244"/>
+  <rect x="560" y="340" width="56" height="56" fill="#dcefe6" stroke="#0b6244"/>
+  <circle cx="280" cy="250" r="26" fill="#5a3a28"/>
+  <rect x="248" y="278" width="66" height="90" rx="12" fill="#1f9e4b"/>
+  <rect x="252" y="368" width="26" height="90" rx="8" fill="#c9b48a"/>
+  <rect x="282" y="368" width="26" height="90" rx="8" fill="#c9b48a"/>
+  <rect x="300" y="310" width="46" height="58" rx="6" fill="#e8c9a8" stroke="#0b6244"/>
+  <circle cx="160" cy="200" r="70" fill="#0f7a55"/>
+  <rect x="150" y="200" width="18" height="230" fill="#5a3a28"/>
+</svg>

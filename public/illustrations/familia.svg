@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 604" width="900" height="604" role="img" aria-labelledby="t">
+  <title id="t">Farmacêutica atendendo uma família</title>
+  <rect width="900" height="604" fill="#f3faf6"/>
+  <rect x="80" y="80" width="160" height="220" fill="#e7f6ee" stroke="#b7d7c8"/>
+  <rect x="660" y="80" width="160" height="220" fill="#e7f6ee" stroke="#b7d7c8"/>
+  <rect x="520" y="360" width="280" height="150" rx="12" fill="#f7f1e6" stroke="#0b6244"/>
+  <circle cx="680" cy="250" r="26" fill="#3d2418"/>
+  <rect x="640" y="276" width="80" height="110" rx="14" fill="#ffffff" stroke="#0b6244"/>
+  <rect x="652" y="298" width="56" height="78" fill="#0f7a55"/>
+  <circle cx="250" cy="250" r="24" fill="#c4a07a"/>
+  <rect x="226" y="276" width="52" height="90" rx="12" fill="#f3faf6" stroke="#0b6244"/>
+  <rect x="230" y="366" width="20" height="80" rx="7" fill="#0b6244"/>
+  <rect x="250" y="366" width="20" height="80" rx="7" fill="#0b6244"/>
+  <circle cx="340" cy="230" r="22" fill="#d8d4cf"/>
+  <rect x="318" y="254" width="48" height="88" rx="10" fill="#0f7a55"/>
+  <circle cx="300" cy="330" r="16" fill="#5a3a28"/>
+  <rect x="286" y="346" width="30" height="50" rx="8" fill="#12c25a"/>
+</svg>
