@@ -21,23 +21,23 @@ type WebhookStatus = {
 };
 
 const UNIT_LABEL: Record<string, string> = {
-  fatima: "F\u00e1tima",
-  nacoes: "Na\u00e7\u00f5es",
+  fatima: "Fátima",
+  nacoes: "Nações",
   itacolomi: "Itacolomi",
 };
 
 const STAGE_COPY: Record<MetricStage, { title: string; hint: string }> = {
   whatsapp_click: {
     title: "Cliques no WhatsApp",
-    hint: "O visitante tocou e o app abriu. Ainda n\u00e3o \u00e9 conversa nem venda.",
+    hint: "O visitante tocou e o app abriu. Ainda não é conversa nem venda.",
   },
   conversation_received: {
     title: "Conversas recebidas",
     hint: "Mensagem que chegou na loja pelo webhook da Meta, ou registro manual.",
   },
   order_completed: {
-    title: "Pedidos conclu\u00eddos",
-    hint: "Venda fechada depois da conversa. S\u00f3 a loja confirma.",
+    title: "Pedidos concluídos",
+    hint: "Venda fechada depois da conversa. Só a loja confirma.",
   },
 };
 
@@ -57,7 +57,7 @@ export default function MetricsPage() {
         setDays(payload.days || {});
         setWebhook(payload.webhook || {});
       })
-      .catch(() => setError("N\u00e3o deu para ler as m\u00e9tricas agora."));
+      .catch(() => setError("Não deu para ler as métricas agora."));
   }
 
   useEffect(() => {
@@ -93,7 +93,7 @@ export default function MetricsPage() {
       });
       load();
     } catch {
-      setError("N\u00e3o deu para registrar agora.");
+      setError("Não deu para registrar agora.");
     } finally {
       setBusy(false);
     }
@@ -107,8 +107,7 @@ export default function MetricsPage() {
         <p className="eyebrow">Uso interno</p>
         <h1>Contatos e vendas</h1>
         <p>
-          Dia {today || "\u2014"}. Clique no site n\u00e3o \u00e9 pedido. Conversa s\u00f3 conta quando a Meta
-          avisa que a loja recebeu a mensagem.
+          {"Dia "}{today || "—"}{". Clique no site não é pedido. Conversa só conta quando a Meta avisa que a loja recebeu a mensagem."}
         </p>
         {error ? <p>{error}</p> : null}
 
@@ -129,20 +128,20 @@ export default function MetricsPage() {
         <ul>
           <li>Verify token: {webhook.verifyTokenReady ? "configurado" : "faltando WHATSAPP_VERIFY_TOKEN"}</li>
           <li>App secret: {webhook.appSecretReady ? "configurado" : "faltando WHATSAPP_APP_SECRET"}</li>
-          <li>Phone ID F\u00e1tima: {webhook.phoneIds?.fatima ? "ok" : "opcional"}</li>
-          <li>Phone ID Na\u00e7\u00f5es: {webhook.phoneIds?.nacoes ? "ok" : "opcional"}</li>
+          <li>{"Phone ID Fátima: "}{webhook.phoneIds?.fatima ? "ok" : "opcional"}</li>
+          <li>{"Phone ID Nações: "}{webhook.phoneIds?.nacoes ? "ok" : "opcional"}</li>
           <li>Phone ID Itacolomi: {webhook.phoneIds?.itacolomi ? "ok" : "opcional"}</li>
         </ul>
-        <p>{ready ? "Webhook pronto para a Meta verificar." : "Coloque as vari\u00e1veis no ambiente de produ\u00e7\u00e3o e volte aqui."}</p>
+        <p>{ready ? "Webhook pronto para a Meta verificar." : "Coloque as variáveis no ambiente de produção e volte aqui."}</p>
 
-        <h3>\u00daltimos eventos do webhook</h3>
+        <h3>{"Últimos eventos do webhook"}</h3>
         <ul>
           {(webhook.recent || []).length === 0 ? (
-            <li>Nenhuma mensagem inbound ainda. O texto da conversa n\u00e3o \u00e9 gravado.</li>
+            <li>{"Nenhuma mensagem inbound ainda. O texto da conversa não é gravado."}</li>
           ) : (
             (webhook.recent || []).map((event, index) => (
               <li key={`${event.at}-${index}`}>
-                {event.at} \u00b7 {UNIT_LABEL[event.unit] || event.unit} \u00b7 {event.type}
+                {event.at}{" · "}{UNIT_LABEL[event.unit] || event.unit}{" · "}{event.type}
               </li>
             ))
           )}
@@ -159,7 +158,7 @@ export default function MetricsPage() {
         </div>
 
         <h2>Registrar conversa ou venda</h2>
-        <p>Use se o webhook ainda n\u00e3o estiver no ar, ou para marcar a venda fechada.</p>
+        <p>{"Use se o webhook ainda não estiver no ar, ou para marcar a venda fechada."}</p>
         <label>
           Loja{" "}
           <select value={unit} onChange={(event) => setUnit(event.target.value)} disabled={busy}>
@@ -175,7 +174,7 @@ export default function MetricsPage() {
             Marcar conversa recebida
           </button>{" "}
           <button type="button" disabled={busy} onClick={() => register("order_completed")}>
-            Marcar pedido conclu\u00eddo
+            {"Marcar pedido concluído"}
           </button>
         </p>
       </section>
