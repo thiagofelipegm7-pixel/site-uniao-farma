@@ -10,7 +10,7 @@ import {
 } from "./geo";
 import { IntentIcon } from "./IntentIcons";
 import { rankUnitsInWorker } from "./inp-worker-client";
-import { recordMetric } from "./metrics";
+import { trackWhatsAppClick } from "./metrics";
 import { readPreferredUnitId, sortUnitsByPreference, writePreferredUnitId } from "./preferred-unit";
 import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
 import UnitStatusBadge from "./UnitStatusBadge";
@@ -47,7 +47,7 @@ const ACTION_LABEL: Record<WhatsAppIntentKey, string> = {
 
 function pickMessage(message: string, intent: WhatsAppIntentKey): string {
   const trimmed = message.trim();
-  if (trimmed && !trimmed.includes("___")) return trimmed;
+  if (trimmed && !trimmed.includes("___") ) return trimmed;
   return WHATSAPP_MESSAGES[intent];
 }
 
@@ -81,8 +81,7 @@ export default function DirectUnitLinks({
   }
 
   function logWhatsApp(unitId: Unit["id"], clickIntent: string, placement: string) {
-    recordMetric({ unit: unitId, intent: clickIntent, source: `${source}_${placement}` });
-    trackEvent("whatsapp_click", { unit: unitId, intent: clickIntent, source, placement });
+    trackWhatsAppClick({ unit: unitId, intent: clickIntent, source: `${source}_${placement}`, placement });
   }
 
   async function applyOrigin(origin: { latitude: number; longitude: number }, fromCache: boolean) {
