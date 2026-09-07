@@ -20,7 +20,6 @@
 }
 
 .hero-illustration-img {
-  aspect-ratio: auto;
   width: 100%;
   height: auto;
   object-fit: contain;
@@ -36,13 +35,7 @@
 .uf-footer,
 .site-footer,
 .reviews-section,
-.reviews,
 .faq-section,
-.categories-section,
-.categories,
-.unit-faq-section,
-.unit-map,
-.directory-section {
+.categories-section {
   content-visibility: visible;
-  contain-intrinsic-size: none;
 }
