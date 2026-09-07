@@ -112,6 +112,7 @@ export default function SiteFooter() {
         <div className="uf-footer-bottom">
           <p>© {new Date().getFullYear()} União Farma. Todos os direitos reservados.</p>
           <p>Farmacêutico(a) Responsável Técnico presente durante o horário de funcionamento.</p>
+          <p className="uf-footer-anvisa">Medicamentos sujeitos à vigilância sanitária (Anvisa). Consulte o farmacêutico. Imagens ilustrativas.</p>
           <p>
             <a href="/privacidade">Privacidade</a>
             <span aria-hidden="true"> · </span>
