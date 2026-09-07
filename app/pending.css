@@ -60,109 +60,35 @@
   font-size: 0.8rem;
 }
 
-.not-found-page {
+.hero-illustration {
   background: #f3faf6;
-  color: #10231c;
-  min-height: 70svh;
-  padding: 2rem var(--vw-gutter, 1rem);
+  overflow: hidden;
 }
 
-.not-found-content h1 {
-  color: #10231c;
-}
-
-.not-found-actions .button-whatsapp {
-  background: #1f9e4b;
-  color: #042016;
-}
-
-.not-found-actions .button-call {
-  background: #dcefe6;
-  color: #10231c;
-  border: 1px solid #0b6244;
-}
-
-.skeleton,
-.loading-card,
-.locate-unit-bar.is-loading,
-.offer-consult-image:empty {
-  background: linear-gradient(90deg, #dcefe6 25%, #e7f6ee 50%, #dcefe6 75%);
-  background-size: 200% 100%;
-}
-
-.offer-consult-cat,
-.offer-consult-brand {
-  color: #0b6244;
-}
-
-.offer-consult-units a[data-stock="available"],
-.offer-consult-units a[data-stock="consult"] {
-  background: #1f9e4b;
-  color: #042016;
-}
-
-.offer-consult-units a[data-stock="unavailable"] {
-  background: #fde8e4;
-  color: #9a2f22;
-}
-
-.button-call {
-  background: #dcefe6;
-  color: #10231c;
-}
-
-.mobile-quick-nav a.is-primary {
-  background: #0b6244;
-  color: #ffffff;
-}
-
-.instagram-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.75rem;
-  height: 2.75rem;
-  color: #ffffff;
-}
-
-#unidades-rapidas > h2,
-#entrega > h2,
-#categorias > h2,
-#unidades > h2,
-#avaliacoes > h2,
-#faq > h2 {
-  max-width: 72rem;
+.hero-illustration-img,
+.delivery-visual img,
+.family-illustration img,
+.recipe-illustration {
+  display: block;
   width: 100%;
-  margin-inline: auto;
-  padding-inline: var(--vw-gutter, 1.25rem);
-  position: static;
-  left: auto;
-  transform: none;
+  height: auto;
+  object-fit: contain;
 }
 
-.hero .direct-unit-links-copy {
-  display: none !important;
+.category-icon-img {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 0.7rem;
 }
 
-.hero-offer-showcase {
-  padding-bottom: 4.35rem !important;
+.family-illustration {
+  margin: 1.5rem 0 0;
+  padding: 0;
 }
 
-.hero-offer-cta {
-  position: absolute !important;
-  top: auto !important;
-  left: 50% !important;
-  right: auto !important;
-  bottom: 0.9rem !important;
-  z-index: 7;
-  width: auto !important;
-  max-width: 15.5rem;
-  min-height: 44px;
-  padding: 0.5rem 1.1rem !important;
-  transform: translateX(-50%);
-  background: #1f9e4b !important;
-  color: #042016 !important;
-  border-color: #1f9e4b !important;
+.recipe-with-art {
+  display: grid;
+  gap: 1.25rem;
 }
 
 @media (min-width: 861px) {
@@ -196,11 +122,46 @@
     padding: 1rem 1.1rem;
   }
 
+  .recipe-with-art {
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.8fr);
+    align-items: start;
+  }
+
+  .recipe-with-art .direct-unit-links,
+  .recipe-with-art .recipe-note {
+    grid-column: 1 / -1;
+  }
+
   body.cookie-manage-visible footer,
   body.cookie-manage-visible .uf-footer,
   body.cookie-manage-visible .footer {
     padding-bottom: 4rem;
   }
+}
+
+.hero .direct-unit-links-copy {
+  display: none !important;
+}
+
+.hero-offer-showcase {
+  padding-bottom: 4.35rem !important;
+}
+
+.hero-offer-cta {
+  position: absolute !important;
+  top: auto !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: 0.9rem !important;
+  z-index: 7;
+  width: auto !important;
+  max-width: 15.5rem;
+  min-height: 44px;
+  padding: 0.5rem 1.1rem !important;
+  transform: translateX(-50%);
+  background: #1f9e4b !important;
+  color: #042016 !important;
+  border-color: #1f9e4b !important;
 }
 
 .cookie-banner {
@@ -296,12 +257,6 @@
   box-shadow: none;
 }
 
-.cookie-manage-button:hover,
-.cookie-manage-button:focus-visible {
-  opacity: 1;
-  color: #10231c;
-}
-
 .locate-unit-bar {
   background: #f3faf6;
   border: 1px solid #b7d7c8;
@@ -321,6 +276,12 @@
     padding-top: 0.1rem;
   }
 
+  .hero-offer-showcase.hero-illustration {
+    display: block !important;
+    min-height: 0;
+    margin-top: 1rem;
+  }
+
   main#conteudo {
     padding-bottom: 8.75rem;
   }
@@ -330,39 +291,8 @@
     padding-bottom: 5.25rem;
   }
 
-  .direct-unit-link:last-child {
-    margin-bottom: 0.75rem;
-  }
-
   .trust-strip-grid {
     grid-template-columns: 1fr 1fr;
-  }
-
-  .offer-consult-body h3,
-  .offer-card h3 {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-    font-size: 1rem;
-    line-height: 1.25;
-    color: #10231c;
-  }
-
-  .offer-consult-price,
-  .offer-consult-units,
-  .offer-card-body .button,
-  .offer-card-body a {
-    position: relative;
-    z-index: 1;
-  }
-
-  .offer-consult-grid,
-  .offers-grid,
-  .encarte-grid,
-  .offers-page main,
-  section#ofertas {
-    padding-bottom: 6.25rem;
   }
 
   .cookie-banner {
@@ -370,20 +300,6 @@
     max-height: 72px;
     padding: 0.4rem 0.7rem;
     gap: 0.5rem;
-  }
-
-  .cookie-copy,
-  .cookie-copy strong {
-    font-size: 0.72rem;
-  }
-
-  .cookie-actions button {
-    min-height: 40px;
-    padding: 0.35rem 0.7rem;
-  }
-
-  body.cookie-banner-visible main#conteudo {
-    padding-bottom: 4.5rem;
   }
 
   .cookie-manage-button {
