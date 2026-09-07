@@ -66,11 +66,10 @@ export default function Home() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeStructuredData) }} />
-      <a className="skip-link" href="#conteudo">Pular para o conteúdo</a>
       <header className={SITE_OPTIONS.promoToast.enabled ? "site-header has-promo" : "site-header"}>
         <nav className="nav" aria-label="Menu principal">
           <a className="brand" href="#inicio" onClick={() => setMenuOpen(false)}>
-            <img src="/uniao-farma-logo.svg" alt="Logo da União Farma" width="52" height="52" fetchPriority="high" decoding="async" />
+            <img src="/uniao-farma-logo.svg" alt="Logo da União Farma" width="52" height="52" decoding="async" />
             <span>
               <strong>União Farma</strong>
               <small>Drogaria e Perfumaria</small>
@@ -89,36 +88,34 @@ export default function Home() {
           </button>
         </nav>
       </header>
-      <main id="conteudo">
-        <section className="hero reveal is-visible" id="inicio" aria-labelledby="hero-title">
-          <div className="hero-inner">
-            <div className="hero-copy">
-              <p className="eyebrow">Drogaria e Perfumaria em Sabará</p>
-              <h1 id="hero-title">Cuidado, ofertas e entrega pertinho de você.</h1>
-              <p className="hero-lead">Consulte produtos, preço e disponibilidade pelo WhatsApp da unidade mais próxima.</p>
-            </div>
-            <aside className="hero-offer-showcase hero-illustration" aria-label="Atendimento na União Farma">
-              <img
-                className="hero-illustration-img"
-                src="/illustrations/atendimento.svg?v=8"
-                alt="Farmacêutica orientando uma cliente no balcão da União Farma"
-                width="720"
-                height="540"
-                sizes="(max-width: 860px) 92vw, 380px"
-                fetchPriority="high"
-                decoding="async"
-              />
-              <button className="button button-whatsapp hero-offer-cta" type="button" onClick={() => openSelector(featuredOfferIntent)}>Pedir esta oferta</button>
-            </aside>
-            <div className="hero-actions" ref={consultationRef}>
-              <DirectUnitLinks message={generalIntent.message} intent={generalIntent.eventName} source="home_hero" />
-              <a className="sr-only" href="/novidades">Novidades da União Farma</a>
-              <a className="sr-only" href="/novidades">Ver todas as novidades</a>
-            </div>
+      <section className="hero reveal is-visible" id="inicio" aria-labelledby="hero-title">
+        <div className="hero-inner">
+          <div className="hero-copy">
+            <p className="eyebrow">Drogaria e Perfumaria em Sabará</p>
+            <h1 id="hero-title">Cuidado, ofertas e entrega pertinho de você.</h1>
+            <p className="hero-lead">Consulte produtos, preço e disponibilidade pelo WhatsApp da unidade mais próxima.</p>
           </div>
-        </section>
-        <HomeSections generalIntent={generalIntent} openSelector={openSelector} />
-      </main>
+          <aside className="hero-offer-showcase hero-illustration" aria-label="Atendimento na União Farma">
+            <img
+              className="hero-illustration-img"
+              src="/illustrations/atendimento.svg?v=8"
+              alt="Farmacêutica orientando uma cliente no balcão da União Farma"
+              width="720"
+              height="540"
+              sizes="(max-width: 860px) 92vw, 380px"
+              fetchPriority="high"
+              decoding="async"
+            />
+            <button className="button button-whatsapp hero-offer-cta" type="button" onClick={() => openSelector(featuredOfferIntent)}>Pedir esta oferta</button>
+          </aside>
+          <div className="hero-actions" ref={consultationRef}>
+            <DirectUnitLinks message={generalIntent.message} intent={generalIntent.eventName} source="home_hero" />
+            <a className="sr-only" href="/novidades">Novidades da União Farma</a>
+            <a className="sr-only" href="/novidades">Ver todas as novidades</a>
+          </div>
+        </div>
+      </section>
+      <HomeSections generalIntent={generalIntent} openSelector={openSelector} />
       <UnitSelectorModal intent={selectorIntent} onClose={() => setSelectorIntent(null)} />
     </>
   );
