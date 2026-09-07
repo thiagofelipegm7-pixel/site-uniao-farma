@@ -30,6 +30,7 @@ import "./reviews-section.css";
 import "./mobile-quick-nav.css";
 import "./aqua-override.css";
 import "./units-showcase.css";
+import "./store-presence.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 
 const AnalyticsConsent = dynamic(() => import("./AnalyticsConsent"), { ssr: false });
@@ -55,7 +56,7 @@ const fraunces = Fraunces({
 });
 
 const SITE_DESCRIPTION =
-  "Farmácia e drogaria em Sabará com três unidades: Fátima, Nações Unidas e Itacolomi. Medicamentos, perfumaria e pedido pelo WhatsApp.";
+  "Farm\u00e1cia e drogaria em Sabar\u00e1 com tr\u00eas unidades: F\u00e1tima, Na\u00e7\u00f5es Unidas e Itacolomi. Medicamentos, perfumaria e pedido pelo WhatsApp.";
 
 const GOOGLE_SITE_VERIFICATION =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim() ||
@@ -64,14 +65,14 @@ const GOOGLE_SITE_VERIFICATION =
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Farmácia em Sabará | União Farma",
-    template: "%s | União Farma",
+    default: "Farm\u00e1cia em Sabar\u00e1 | Uni\u00e3o Farma",
+    template: "%s | Uni\u00e3o Farma",
   },
   description: SITE_DESCRIPTION,
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
-    title: "União Farma",
+    title: "Uni\u00e3o Farma",
     statusBarStyle: "default",
   },
   other: {
@@ -89,24 +90,24 @@ export const metadata: Metadata = {
     apple: "/favicon.png",
   },
   openGraph: {
-    title: "Farmácia em Sabará | União Farma",
+    title: "Farm\u00e1cia em Sabar\u00e1 | Uni\u00e3o Farma",
     description: SITE_DESCRIPTION,
     type: "website",
     locale: "pt_BR",
     url: SITE_URL,
-    siteName: "União Farma",
+    siteName: "Uni\u00e3o Farma",
     images: [
       {
         url: "/og-instagram.png",
         width: 1792,
         height: 909,
-        alt: "União Farma — cuidado e ofertas pertinho de você em três unidades de Sabará",
+        alt: "Uni\u00e3o Farma \u2014 cuidado e ofertas pertinho de voc\u00ea em tr\u00eas unidades de Sabar\u00e1",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Farmácia em Sabará | União Farma",
+    title: "Farm\u00e1cia em Sabar\u00e1 | Uni\u00e3o Farma",
     description: SITE_DESCRIPTION,
     images: ["/og-instagram.png"],
   },
@@ -131,8 +132,8 @@ const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": `${SITE_URL}/#organization`,
-  name: "União Farma",
-  alternateName: "Drogaria e Perfumaria União Farma",
+  name: "Uni\u00e3o Farma",
+  alternateName: "Drogaria e Perfumaria Uni\u00e3o Farma",
   url: SITE_URL,
   logo: `${SITE_URL}/icon-192.png`,
   sameAs: [INSTAGRAM_URL],
@@ -150,7 +151,7 @@ const websiteSchema = {
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
   url: SITE_URL,
-  name: "União Farma",
+  name: "Uni\u00e3o Farma",
   description: SITE_DESCRIPTION,
   inLanguage: "pt-BR",
   publisher: {
@@ -166,7 +167,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         <a className="skip-link" href="#conteudo">
-          Ir para o conteúdo
+          Ir para o conte\u00fado
         </a>
         <AnalyticsConsent />
         <PwaRegister />
