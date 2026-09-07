@@ -1,4 +1,4 @@
-const CACHE_NAME = "uf-static-v1";
+const CACHE_NAME = "uf-static-v3";
 const PRECACHE = ["/", "/offline.html", "/manifest.json", "/uniao-farma-logo.webp", "/favicon.png", "/icon-512.png"];
 
 self.addEventListener("install", (event) => {
@@ -38,16 +38,15 @@ self.addEventListener("fetch", (event) => {
 
   if (/\.(webp|png|jpg|jpeg|svg|ico|woff2|css|js)$/i.test(url.pathname) || url.pathname.startsWith("/_next/static/")) {
     event.respondWith(
-      caches.match(request).then((cached) => {
-        const networked = fetch(request)
-          .then((response) => {
+      fetch(request)
+        .then((response) => {
+          if (response.ok) {
             const copy = response.clone();
             caches.open(CACHE_NAME).then((cache) => cache.put(request, copy)).catch(() => {});
-            return response;
-          })
-          .catch(() => cached);
-        return cached || networked;
-      }),
+          }
+          return response;
+        })
+        .catch(async () => (await caches.match(request)) || Response.error()),
     );
   }
 });

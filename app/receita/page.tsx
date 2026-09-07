@@ -28,8 +28,8 @@ export default function ReceitaPage() {
             </div>
             <img
               className="recipe-illustration"
-              src="/illustrations/receita-whatsapp.svg"
-              alt=""
+              src="/illustrations/receita-whatsapp.svg?v=3"
+              alt="Cliente mostrando a receita no celular para a farmacêutica"
               width="900"
               height="604"
               decoding="async"
