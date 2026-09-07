@@ -5,22 +5,22 @@ import { SITE_URL } from "../site-config";
 const config: LocalLandingPageConfig = {
   slug: "perfumaria-em-sabara",
   title: "Perfumaria em Sabará | União Farma",
-  description: "Encontre perfumaria, beleza, higiene pessoal e cuidados para cabelos em três unidades da União Farma em Sabará/MG.",
-  eyebrow: "Beleza e perfumaria em Sabará",
-  heading: "Perfumaria em Sabará para seus cuidados",
-  lead: "Consulte marcas, apresentações e disponibilidade de produtos de beleza, higiene, cabelos e cuidados pessoais pelo WhatsApp.",
+  description: "Shampoo, creme, higiene e cuidado de pele nas três União Farma de Sabará. Manda o nome ou uma foto no WhatsApp da loja.",
+  eyebrow: "Beleza e higiene no bairro",
+  heading: "Perfumaria em Sabará, sem fila de aplicativo",
+  lead: "Manda o nome da marca ou uma foto da embalagem. A loja diz se tem, o preço de hoje e se dá para separar ou entregar.",
   bullets: [
-    "Perfumaria, cuidados para pele, rosto e corpo.",
-    "Produtos para cabelos, higiene pessoal, mamãe e bebê.",
-    "Confirmação de marcas e estoque diretamente com a unidade.",
+    "Pele, cabelo, higiene e rotina do bebê.",
+    "Ofertas da semana no Instagram e confirmação na loja.",
+    "Estoque muda no dia — por isso a resposta vem do WhatsApp.",
   ],
   faqs: [
-    { q: "Onde encontrar perfumaria em Sabará?", a: "A União Farma oferece atendimento de perfumaria nas unidades de Nossa Senhora de Fátima, Nações Unidas e Itacolomi. Consulte a unidade mais conveniente." },
-    { q: "Posso consultar um produto de beleza pelo WhatsApp?", a: "Sim. Envie o nome ou uma foto do produto para a unidade escolhida e confirme marcas, apresentações, preço e disponibilidade." },
-    { q: "A perfumaria também tem entrega?", a: "A disponibilidade de entrega depende do bairro, endereço, taxa e prazo. Confirme as condições diretamente com a unidade." },
+    { q: "Onde tem perfumaria da União Farma?", a: "Nas três lojas: Fátima, Nações Unidas e Itacolomi. Escolhe a mais perto." },
+    { q: "Posso mandar foto do produto?", a: "Pode. Foto ou nome no WhatsApp. A equipe confere marca, tamanho, preço e se tem hoje." },
+    { q: "Perfumaria também entrega?", a: "Se a loja atender o seu bairro, sim. Confirma taxa e prazo na mesma conversa." },
   ],
   primaryLabel: "Consultar perfumaria",
-  primaryMessage: "Olá! Vim pela página de perfumaria em Sabará e gostaria de consultar um produto de beleza ou cuidado pessoal.",
+  primaryMessage: "Oi, União Farma {unidade}! Quero consultar um produto de perfumaria ou higiene. Posso mandar o nome?",
 };
 
 export const metadata: Metadata = {
