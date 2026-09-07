@@ -5,9 +5,9 @@
   aspect-ratio: 1 / 1;
   object-fit: contain;
   object-position: center;
-  background: #f3f6f4;
-  border-radius: 0.5rem;
-  overflow: visible;
+  background: transparent !important;
+  border-radius: 0.45rem;
+  box-shadow: none;
 }
 
 .open-now-strip {
