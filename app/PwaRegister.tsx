@@ -6,16 +6,26 @@ export default function PwaRegister() {
   useEffect(() => {
     if (!("serviceWorker" in navigator)) return;
 
-    const register = () => {
-      navigator.serviceWorker.register("/sw.js", { scope: "/" }).catch(() => {});
+    const register = async () => {
+      try {
+        const regs = await navigator.serviceWorker.getRegistrations();
+        await Promise.all(regs.map((reg) => reg.update()));
+        await navigator.serviceWorker.register("/sw.js", { scope: "/" });
+      } catch {
+        /* ignore */
+      }
     };
 
     const start = () => {
       if ("requestIdleCallback" in window) {
-        window.requestIdleCallback(register, { timeout: 4000 });
+        window.requestIdleCallback(() => {
+          void register();
+        }, { timeout: 2000 });
         return;
       }
-      window.setTimeout(register, 1800);
+      window.setTimeout(() => {
+        void register();
+      }, 400);
     };
 
     if (document.readyState === "complete") start();
