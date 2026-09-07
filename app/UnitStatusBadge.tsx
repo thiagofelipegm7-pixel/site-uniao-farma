@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { getHolidayName } from "./hours-exceptions";
 import type { Unit, Weekday } from "./site-config";
 
 const weekdayOrder: Weekday[] = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
@@ -8,11 +9,11 @@ const weekdayOrder: Weekday[] = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"
 const weekdayLabels: Record<Weekday, string> = {
   sun: "domingo",
   mon: "segunda-feira",
-  tue: "terça-feira",
+  tue: "ter\u00e7a-feira",
   wed: "quarta-feira",
   thu: "quinta-feira",
   fri: "sexta-feira",
-  sat: "sábado",
+  sat: "s\u00e1bado",
 };
 
 function timeToMinutes(value: string): number {
@@ -48,7 +49,7 @@ function getNextOpening(unit: Unit, currentWeekday: Weekday, currentMinutes: num
   const today = unit.schedule[currentWeekday];
 
   if (today && currentMinutes < timeToMinutes(today.open)) {
-    return `abre hoje às ${today.open}`;
+    return `abre hoje \u00e0s ${today.open}`;
   }
 
   for (let offset = 1; offset <= 7; offset += 1) {
@@ -57,27 +58,37 @@ function getNextOpening(unit: Unit, currentWeekday: Weekday, currentMinutes: num
 
     if (hours) {
       if (offset === 1) {
-        return `abre amanhã às ${hours.open}`;
+        return `abre amanh\u00e3 \u00e0s ${hours.open}`;
       }
 
-      return `abre ${weekdayLabels[day]} às ${hours.open}`;
+      return `abre ${weekdayLabels[day]} \u00e0s ${hours.open}`;
     }
   }
 
-  return "horário indisponível";
+  return "hor\u00e1rio indispon\u00edvel";
 }
 
 export function getFallbackLabel(unit: Unit): string {
   const weekday = unit.schedule.mon;
   const saturday = unit.schedule.sat;
   const sunday = unit.schedule.sun;
-  return `Seg–sex ${weekday?.open.slice(0, 5)}–${weekday?.close.slice(0, 5)} · Sáb ${saturday?.open.slice(0, 5)}–${saturday?.close.slice(0, 5)} · Dom ${sunday?.open.slice(0, 5)}–${sunday?.close.slice(0, 5)}`;
+  return `Seg\u2013sex ${weekday?.open.slice(0, 5)}\u2013${weekday?.close.slice(0, 5)} \u00b7 S\u00e1b ${saturday?.open.slice(0, 5)}\u2013${saturday?.close.slice(0, 5)} \u00b7 Dom ${sunday?.open.slice(0, 5)}\u2013${sunday?.close.slice(0, 5)}`;
 }
 
 export function getUnitOpenStatus(unit: Unit, date = new Date()): {
   isOpen: boolean;
   label: string;
+  holiday: string | null;
 } {
+  const holiday = getHolidayName(date);
+  if (holiday) {
+    return {
+      isOpen: false,
+      holiday,
+      label: `Feriado (${holiday}) \u00b7 confirme o hor\u00e1rio no WhatsApp`,
+    };
+  }
+
   const { weekday, minutes } = getSaoPauloDateParts(date);
   const hours = unit.schedule[weekday];
 
@@ -88,20 +99,20 @@ export function getUnitOpenStatus(unit: Unit, date = new Date()): {
     if (minutes >= opening && minutes < closing) {
       return {
         isOpen: true,
-        label: `Aberto agora · fecha às ${hours.close}`,
+        holiday: null,
+        label: `Aberto agora \u00b7 fecha \u00e0s ${hours.close}`,
       };
     }
   }
 
   return {
     isOpen: false,
-    label: `Fechado · ${getNextOpening(unit, weekday, minutes)}`,
+    holiday: null,
+    label: `Fechado \u00b7 ${getNextOpening(unit, weekday, minutes)}`,
   };
 }
 
 export default function UnitStatusBadge({ unit }: { unit: Unit }) {
-  // Keep the server render and the first browser render identical so the live
-  // status does not trigger a hydration mismatch.
   const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
@@ -111,12 +122,12 @@ export default function UnitStatusBadge({ unit }: { unit: Unit }) {
   }, []);
 
   const status = useMemo(
-    () => (now ? getUnitOpenStatus(unit, now) : { isOpen: false, label: getFallbackLabel(unit) }),
+    () => (now ? getUnitOpenStatus(unit, now) : { isOpen: false, holiday: null, label: getFallbackLabel(unit) }),
     [unit, now],
   );
 
   return (
-    <span className={`open-status ${now ? (status.isOpen ? "is-open" : "is-closed") : "is-hours"}`}>
+    <span className={`open-status ${now ? (status.holiday ? "is-hours" : status.isOpen ? "is-open" : "is-closed") : "is-hours"}`}>
       <strong>{status.label}</strong>
     </span>
   );

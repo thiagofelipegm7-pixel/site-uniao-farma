@@ -37,22 +37,23 @@ export default function OpenNowStrip() {
       UNITS.map((unit) => {
         const status = now
           ? getUnitOpenStatus(unit, now)
-          : { isOpen: false, label: "Confira o horário" };
+          : { isOpen: false, holiday: null, label: "Confira o hor\u00e1rio" };
         return { unit, ...status };
       }),
     [now],
   );
 
+  const holiday = rows.find((row) => row.holiday)?.holiday ?? null;
   const openCount = rows.filter((row) => row.isOpen).length;
 
   return (
     <div className="open-now-strip" role="status">
-      <strong>{openCount > 0 ? "Aberto agora" : "Unidades"}</strong>
+      <strong>{holiday ? "Feriado" : openCount > 0 ? "Aberto agora" : "Unidades"}</strong>
       <div className="open-now-list">
         {rows.map((row) => (
           <a key={row.unit.id} href="/#unidades-rapidas" className={row.isOpen ? "is-open" : "is-closed"}>
-            <span>{row.unit.id === "fatima" ? "Fátima" : row.unit.id === "nacoes" ? "Nações" : "Itacolomi"}</span>
-            <small>{now ? (row.isOpen ? "aberta" : "ver horário") : ""}</small>
+            <span>{row.unit.id === "fatima" ? "F\u00e1tima" : row.unit.id === "nacoes" ? "Na\u00e7\u00f5es" : "Itacolomi"}</span>
+            <small>{holiday ? "confirme" : now ? (row.isOpen ? "aberta" : "ver hor\u00e1rio") : ""}</small>
           </a>
         ))}
       </div>
