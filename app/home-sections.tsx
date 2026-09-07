@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import { categories, type SelectorIntent } from "./home-chrome";
 import { HomeMore } from "./home-more";
+import UnitsShowcase from "./UnitsShowcase";
 
 const CATEGORY_ICON_SRC: Record<string, string> = {
   medicine: "/icons/medicamentos.svg",
@@ -22,6 +23,8 @@ export function HomeSections({
 }) {
   return (
     <>
+      <UnitsShowcase />
+
       <section className="trust-strip" aria-label="Por que a União Farma">
         <div className="section-inner trust-strip-grid">
           <div>
