@@ -17,26 +17,34 @@
   outline-offset: 3px;
 }
 
+.section,
+.reviews-section,
+.faq-section,
+.categories-section,
+.story-section,
+.quick-units-section,
+.instagram-section {
+  content-visibility: visible !important;
+  contain-intrinsic-size: auto !important;
+  min-height: 0 !important;
+}
+
+.instagram-section {
+  display: none !important;
+}
+
 .section {
-  padding-top: 1.35rem !important;
-  padding-bottom: 1.35rem !important;
+  padding-top: 1.1rem !important;
+  padding-bottom: 1.1rem !important;
 }
 
 .section-heading {
-  margin-bottom: 0.85rem !important;
-}
-
-.section-heading p {
-  margin-top: 0.35rem !important;
+  margin-bottom: 0.7rem !important;
 }
 
 .brand img {
   border-radius: 0.7rem;
   background: #04140e;
-}
-
-.site-header {
-  backdrop-filter: blur(10px);
 }
 
 .hero-copy .eyebrow {
@@ -58,7 +66,7 @@
 .hero-lead {
   display: block !important;
   max-width: 34rem;
-  margin: 0.45rem 0 0;
+  margin: 0.4rem 0 0;
   color: #3d524a;
   font-size: 0.92rem;
   line-height: 1.4;
@@ -69,13 +77,13 @@
   color: #10231c;
   border-top: 1px solid #b7d7c8;
   border-bottom: 1px solid #b7d7c8;
-  padding: 0.75rem 0;
+  padding: 0.65rem 0;
   overflow: hidden;
 }
 
 .trust-strip-grid {
   background: transparent !important;
-  gap: 0.55rem;
+  gap: 0.5rem;
 }
 
 .trust-strip-grid > div {
@@ -83,7 +91,7 @@
   background: #ffffff;
   border: 1px solid #cfe3d8;
   border-radius: 0.9rem;
-  padding: 0.65rem 0.55rem;
+  padding: 0.6rem 0.5rem;
 }
 
 .trust-strip-grid strong {
@@ -97,8 +105,8 @@
 }
 
 .reviews-section {
-  padding-top: 0.9rem !important;
-  padding-bottom: 0.9rem !important;
+  padding-top: 0.75rem !important;
+  padding-bottom: 0.75rem !important;
 }
 
 .reviews-head {
@@ -106,7 +114,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 0.75rem;
-  margin: 0 1rem 0.55rem;
+  margin: 0 1rem 0.45rem;
 }
 
 .reviews-section h2 {
@@ -142,9 +150,7 @@
   display: flex;
   gap: 0.7rem;
   overflow-x: auto;
-  overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
   padding: 0 1rem 0.2rem;
   scrollbar-width: none;
 }
@@ -157,9 +163,8 @@
   flex: 0 0 min(86vw, 320px);
   min-height: 0 !important;
   margin: 0 !important;
-  padding: 0.7rem 0.85rem !important;
+  padding: 0.65rem 0.8rem !important;
   border: 0 !important;
-  border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
   scroll-snap-align: start;
@@ -173,7 +178,7 @@
   display: flex;
   align-items: center;
   gap: 0.65rem;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.35rem;
 }
 
 .review-avatar {
@@ -183,22 +188,17 @@
   height: 36px;
   border-radius: 50%;
   color: #fff;
-  font-size: 1rem;
   font-weight: 600;
-  flex-shrink: 0;
 }
 
 .review-person strong {
   display: block;
   font-size: 0.95rem;
   color: #202124;
-  font-weight: 600;
-  line-height: 1.2;
 }
 
 .review-person small {
   display: block;
-  margin-top: 0.1rem;
   font-size: 0.74rem;
   color: #80868b;
 }
@@ -207,7 +207,7 @@
   display: flex !important;
   align-items: center;
   gap: 0.45rem;
-  margin: 0 0 0.35rem !important;
+  margin: 0 0 0.3rem !important;
 }
 
 .review-rating-row time {
@@ -218,27 +218,13 @@
 .review-text {
   margin: 0 !important;
   font-size: 0.92rem !important;
-  line-height: 1.4 !important;
   color: #202124 !important;
 }
 
 .reviews-google-link {
-  margin: 0;
   color: #1967d2;
   font-weight: 600;
   font-size: 0.82rem;
-  text-decoration: none;
-}
-
-.uf-footer-anvisa {
-  max-width: 40rem;
-  color: #2a4038;
-  font-size: 0.8rem;
-}
-
-.hero-illustration {
-  background: #f3faf6;
-  overflow: hidden;
 }
 
 .hero-illustration-img,
@@ -251,13 +237,9 @@
   object-fit: contain;
 }
 
-.hero-offer-showcase {
-  padding-bottom: 0.25rem !important;
-}
-
 .hero-whatsapp {
   display: grid;
-  gap: 0.4rem;
+  gap: 0.35rem;
 }
 
 .hero-whatsapp-label {
@@ -269,8 +251,7 @@
 
 .hero-whatsapp-row {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.42rem;
+  gap: 0.4rem;
 }
 
 .hero-whatsapp-btn {
@@ -285,85 +266,24 @@
   color: #ffffff;
   font-weight: 800;
   text-decoration: none;
-  box-shadow: 0 0.3rem 0.7rem rgba(18, 140, 58, 0.2);
-}
-
-.hero-whatsapp-btn img,
-.hero-whatsapp-btn svg {
-  width: 18px;
-  height: 18px;
-  flex-shrink: 0;
-}
-
-.hero-whatsapp-btn:focus-visible {
-  outline: 3px solid #0b6244;
-  outline-offset: 3px;
 }
 
 .header-cta {
   color: #ffffff !important;
 }
 
-.quick-units-section {
-  padding-top: 1.1rem !important;
-  padding-bottom: 1.1rem !important;
-}
-
-.quick-unit-grid {
-  gap: 0.7rem !important;
-}
-
-.quick-unit-card {
-  border-radius: 1rem !important;
-  padding: 0.85rem !important;
-}
-
+.quick-unit-grid,
 .category-grid {
-  gap: 0.7rem !important;
-}
-
-.category-card {
-  border-radius: 1rem;
-  padding: 0.85rem !important;
-}
-
-.category-icon-img {
-  width: 22px;
-  height: 22px;
-  margin-bottom: 0.45rem;
+  gap: 0.65rem !important;
 }
 
 .family-illustration-row {
   display: grid;
-  grid-template-columns: 1fr;
   gap: 0.75rem;
-  margin-top: 0.9rem;
-}
-
-.family-illustration {
-  margin: 0;
-  padding: 0.5rem;
-  background: #f3faf6;
-  border: 1px solid #b7d7c8;
-  border-radius: 1rem;
-  overflow: hidden;
-}
-
-.recipe-with-art {
-  display: grid;
-  gap: 1rem;
-}
-
-.faq-section h2 {
-  margin-bottom: 0.7rem;
+  margin-top: 0.75rem;
 }
 
 @media (min-width: 861px) {
-  .section {
-    padding-top: 1.75rem !important;
-    padding-bottom: 1.75rem !important;
-  }
-
   .hero-inner {
     display: grid !important;
     grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr) !important;
@@ -374,49 +294,11 @@
     gap: 1.15rem 2.5rem !important;
   }
 
-  .hero-copy {
-    grid-area: copy;
-    max-width: none;
-  }
-
+  .hero-copy { grid-area: copy; }
   .hero-offer-showcase,
-  .hero-illustration {
-    grid-area: art;
-  }
-
-  .hero-whatsapp {
-    grid-area: whatsapp;
-    max-width: 28.5rem;
-  }
-
-  .review-card {
-    flex-basis: 320px;
-  }
-
-  .family-illustration-row {
-    grid-template-columns: 1fr 1fr;
-    gap: 0.9rem;
-  }
-
-  .recipe-with-art {
-    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.8fr);
-    align-items: start;
-  }
-
-  .recipe-with-art .direct-unit-links,
-  .recipe-with-art .recipe-note {
-    grid-column: 1 / -1;
-  }
-
-  .quick-units-section .section-heading {
-    text-align: left;
-  }
-
-  body.cookie-manage-visible footer,
-  body.cookie-manage-visible .uf-footer,
-  body.cookie-manage-visible .footer {
-    padding-bottom: 4rem;
-  }
+  .hero-illustration { grid-area: art; }
+  .hero-whatsapp { grid-area: whatsapp; max-width: 28.5rem; }
+  .family-illustration-row { grid-template-columns: 1fr 1fr; }
 }
 
 .cookie-banner {
@@ -425,169 +307,100 @@
   right: 0;
   bottom: 0;
   z-index: 2300;
-  width: 100%;
-  max-width: none;
-  margin: 0;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
   min-height: 56px;
   max-height: 72px;
   padding: 0.5rem 1rem;
-  border: 0;
   border-top: 1px solid #b7d7c8;
-  border-radius: 0;
   background: #f3faf6;
-  color: #10231c;
-  box-shadow: 0 -0.4rem 1rem rgba(8, 53, 40, 0.1);
-  overflow: hidden;
 }
 
 .cookie-copy {
-  min-width: 0;
   margin: 0;
-  flex: 1 1 auto;
   font-size: 0.8rem;
-  line-height: 1.25;
   color: #2a4038;
-}
-
-.cookie-copy strong {
-  display: inline;
-  margin: 0 0.25rem 0 0;
-  font-size: 0.8rem;
-  color: #10231c;
-}
-
-.cookie-copy a {
-  color: #0b6244;
-  font-weight: 700;
 }
 
 .cookie-actions {
   display: flex;
-  flex-direction: row;
-  flex-shrink: 0;
-  align-items: center;
   gap: 0.4rem;
-}
-
-.cookie-actions button {
-  width: auto;
-  min-height: 40px;
-  padding: 0.4rem 0.9rem;
-}
-
-.cookie-accept {
-  background: #1f9e4b;
-  color: #042016;
-  border-color: #1f9e4b;
-}
-
-.cookie-reject {
-  background: #dcefe6;
-  color: #10231c;
-  border-color: #b7d7c8;
 }
 
 .cookie-manage-button {
   position: fixed;
   left: 12px;
-  right: auto;
-  top: auto;
   bottom: 16px;
   z-index: 70;
-  min-width: 44px;
   min-height: 44px;
   padding: 0.4rem 0.7rem;
   border-radius: 999px;
   border: 1px solid #b7d7c8;
   background: #f3faf6;
-  color: #2a4038;
   font-size: 0.68rem;
-  font-weight: 700;
-  opacity: 0.82;
-  box-shadow: none;
 }
 
 @media (max-width: 860px) {
   .hero {
-    padding-top: 4.85rem !important;
-    padding-bottom: 0.75rem !important;
+    padding-top: 4.35rem !important;
+    padding-bottom: 0.5rem !important;
   }
 
   .hero-inner {
     display: grid !important;
     grid-template-columns: 1fr !important;
-    gap: 0.55rem !important;
+    gap: 0.45rem !important;
   }
 
   .hero-copy h1 {
-    font-size: 1.62rem;
+    font-size: 1.55rem;
   }
 
   .hero-offer-showcase,
   .hero-offer-showcase.hero-illustration {
-    display: block !important;
-    visibility: visible !important;
-    width: 100% !important;
     min-height: 0 !important;
     margin: 0 !important;
-    padding: 0.2rem !important;
-    border-radius: 1.1rem !important;
-    overflow: hidden;
+    padding: 0 !important;
   }
 
-  .hero-whatsapp-btn {
-    min-height: 50px;
-    font-size: 0.95rem;
+  .section,
+  .quick-units-section,
+  .categories-section,
+  .story-section,
+  .faq-section,
+  .reviews-section {
+    padding-top: 0.7rem !important;
+    padding-bottom: 0.7rem !important;
   }
 
-  .family-illustration-row {
-    display: none;
-  }
-
-  .delivery-visual {
+  .photo-gallery,
+  .family-illustration-row,
+  .delivery-visual,
+  .instagram-section {
     display: none !important;
   }
 
   main#conteudo {
-    padding-bottom: 7.5rem;
+    padding-bottom: 6.5rem !important;
+  }
+
+  .uf-footer,
+  .site-footer,
+  footer {
+    padding-top: 1rem !important;
+    padding-bottom: 6.25rem !important;
+    min-height: 0 !important;
   }
 
   .trust-strip-grid {
     grid-template-columns: 1fr 1fr;
   }
 
-  .seo-intent-grid {
-    margin-top: 0.7rem !important;
-  }
-
-  .cookie-banner {
-    bottom: 0;
-    max-height: 72px;
-    padding: 0.4rem 0.7rem;
-    gap: 0.5rem;
-  }
-
   .cookie-manage-button {
     left: auto;
     right: 10px;
     bottom: calc(4.5rem + env(safe-area-inset-bottom));
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .direct-unit-link,
-  .offer-consult-card,
-  .question-card {
-    transition: none;
-  }
-
-  .direct-unit-link:hover,
-  .offer-consult-card:hover {
-    transform: none;
   }
 }
