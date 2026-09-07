@@ -158,7 +158,7 @@ export default function MetricsPage() {
           ))}
         </div>
 
-        <h2>Registrar conversa ou venda</h2>
+        <h2>Marcação manual de conversa ou venda</h2>
         <p>Use se o webhook ainda n\u00e3o estiver no ar, ou para marcar a venda fechada.</p>
         <label>
           Loja{" "}

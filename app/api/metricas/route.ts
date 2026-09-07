@@ -3,16 +3,19 @@ import { getMetricsSnapshot, recordMetricHit } from "../../metrics-store";
 import { webhookConfigStatus } from "../../whatsapp-cloud";
 
 export async function GET() {
-  const data = getMetricsSnapshot();
-  return NextResponse.json({
-    today: data.today,
-    days: data.days,
-    webhook: {
-      ...webhookConfigStatus(),
-      callbackPath: "/api/whatsapp/webhook",
-      recent: data.webhookEvents,
+  const data = await getMetricsSnapshot();
+  return NextResponse.json(
+    {
+      today: data.today,
+      days: data.days,
+      webhook: {
+        ...webhookConfigStatus(),
+        callbackPath: "/api/whatsapp/webhook",
+        recent: data.webhookEvents,
+      },
     },
-  });
+    { headers: { "Cache-Control": "no-store" } },
+  );
 }
 
 export async function POST(request: Request) {
@@ -23,6 +26,6 @@ export async function POST(request: Request) {
     stage?: string;
   };
 
-  const today = recordMetricHit(body);
-  return NextResponse.json({ ok: true, today });
+  const today = await recordMetricHit(body);
+  return NextResponse.json({ ok: true, today }, { headers: { "Cache-Control": "no-store" } });
 }

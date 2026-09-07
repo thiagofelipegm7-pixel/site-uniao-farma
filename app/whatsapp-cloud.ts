@@ -40,7 +40,7 @@ export function resolveUnitFromWhatsApp(meta: {
   if (incoming) {
     const byDigits = UNITS.find((unit) => {
       const stored = digitsOnly(unit.whatsappDigits);
-      return stored === incoming || stored.endsWith(incoming) || incoming.endsWith(stored);
+      return stored === incoming;
     });
     if (byDigits) return byDigits.id;
   }
