@@ -1,0 +1,96 @@
+.mobile-quick-nav {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .mobile-quick-nav {
+    display: block !important;
+    position: sticky;
+    bottom: 0;
+    z-index: 2200;
+    margin: 0;
+    padding: 0.45rem 0.7rem calc(0.45rem + env(safe-area-inset-bottom));
+    background: rgba(247, 252, 249, 0.94);
+    border-top: 1px solid #d5e6de;
+    box-shadow: 0 -10px 24px rgba(16, 40, 34, 0.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .mobile-quick-nav-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.35rem;
+    max-width: 28rem;
+    margin: 0 auto;
+    padding: 0.28rem;
+    border: 1px solid #d5e6de;
+    border-radius: 22px;
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(16, 40, 34, 0.05);
+  }
+
+  .mobile-quick-nav a {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: center;
+    gap: 0.18rem !important;
+    min-height: 54px !important;
+    padding: 0.35rem 0.25rem !important;
+    border: 0 !important;
+    border-radius: 16px !important;
+    background: transparent !important;
+    color: #3d524a !important;
+    font-size: 0.68rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.01em;
+    line-height: 1;
+    text-decoration: none !important;
+    box-shadow: none !important;
+  }
+
+  .mobile-quick-nav .mqn-icon {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 10px;
+    background: #eef7f2;
+    color: #0b6244;
+  }
+
+  .mobile-quick-nav .mqn-icon svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+  }
+
+  .mobile-quick-nav .mqn-label {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mobile-quick-nav a.is-primary {
+    background: #0b6244 !important;
+    color: #ffffff !important;
+    box-shadow: 0 8px 16px rgba(11, 98, 68, 0.18) !important;
+  }
+
+  .mobile-quick-nav a.is-primary .mqn-icon {
+    background: rgba(255, 255, 255, 0.16);
+    color: #ffffff;
+  }
+
+  .mobile-quick-nav a:focus-visible {
+    outline: 2px solid #12c25a;
+    outline-offset: 2px;
+  }
+
+  body.cookie-banner-visible .mobile-quick-nav {
+    bottom: 58px;
+  }
+}
