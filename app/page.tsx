@@ -8,7 +8,8 @@ import { trackWhatsAppClick } from "./metrics";
 import { buildWhatsAppUrl, SITE_OPTIONS, SITE_URL, UNITS } from "./site-config";
 import { HOME_FAQS } from "./seo-content";
 import { getPageStructuredData } from "./structured-data";
-import { WhatsAppIcon, UnitSelectorModal, type SelectorIntent } from "./home-chrome";
+import { WhatsAppIcon, type SelectorIntent } from "./home-chrome";
+import UnitSelectorModal from "./UnitSelectorModal";
 import { HomeSections } from "./home-sections";
 import { STORE_PHOTOS } from "./store-photos";
 
