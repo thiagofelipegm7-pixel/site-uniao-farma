@@ -54,9 +54,14 @@
   letter-spacing: -0.02em;
 }
 
-.brand img {
-  border-radius: 0.65rem;
-  background: #04140e;
+.brand img,
+.uf-footer-logo img {
+  width: 48px !important;
+  height: 48px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  background: #f3f6f4 !important;
+  border-radius: 0.5rem !important;
 }
 
 .site-header {
