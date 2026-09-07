@@ -111,7 +111,7 @@ export function HomeSections({
           </div>
           <div className="delivery-visual">
             <img
-              src="/illustrations/entrega.svg?v=4"
+              src="/illustrations/entrega.svg?v=5"
               alt="Entregador levando uma sacola da farmácia até uma casa do bairro"
               width="1200"
               height="900"
@@ -152,7 +152,7 @@ export function HomeSections({
           <div className="family-illustration-row">
             <figure className="family-illustration">
               <img
-                src="/illustrations/familia.svg?v=4"
+                src="/illustrations/familia.svg?v=5"
                 alt="Cliente acompanhando uma senhora na saída da farmácia, com a farmacêutica acenando na porta"
                 width="1200"
                 height="900"
@@ -162,7 +162,7 @@ export function HomeSections({
             </figure>
             <figure className="family-illustration">
               <img
-                src="/illustrations/perfumaria.svg?v=4"
+                src="/illustrations/perfumaria.svg?v=5"
                 alt="Farmacêutica indicando produtos de higiene e beleza para uma cliente"
                 width="1200"
                 height="900"
