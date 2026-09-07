@@ -40,15 +40,15 @@ export function HomeSections({
           </div>
           <div>
             <strong>Entrega</strong>
-            <span>Consulte no WhatsApp do bairro</span>
+            <span>Pergunta no WhatsApp do bairro</span>
           </div>
           <div>
             <strong>Farmacêutico</strong>
-            <span>Orientação durante o horário</span>
+            <span>Orientação no horário da loja</span>
           </div>
           <div>
             <strong>Família</strong>
-            <span>Saúde, higiene e bem-estar</span>
+            <span>Remédio, higiene e cuidado</span>
           </div>
         </div>
       </section>
@@ -57,10 +57,10 @@ export function HomeSections({
         <div className="section-inner">
           <div className="section-heading compact-heading">
             <div>
-              <p className="section-kicker">Atendimento direto</p>
-              <h2 id="quick-units-title">Escolha sua unidade</h2>
+              <p className="section-kicker">A loja do seu bairro</p>
+              <h2 id="quick-units-title">Escolha a unidade e fale agora</h2>
             </div>
-            <p>Vá direto ao WhatsApp da loja mais conveniente para você.</p>
+            <p>Cada botão abre o WhatsApp daquela loja, já com a mensagem pronta.</p>
           </div>
           <div className="quick-unit-grid">
             {UNITS.map((unit) => (
@@ -78,7 +78,7 @@ export function HomeSections({
                   >
                     <WhatsAppIcon /> Falar no WhatsApp
                   </a>
-                  <a className="text-link" href={`/unidades/${unit.slug}`}>Ver detalhes</a>
+                  <a className="text-link" href={`/unidades/${unit.slug}`}>Ver endereço e horário</a>
                   <a
                     className="text-link quick-recipe-link"
                     href={buildWhatsAppUrl(unit, `Olá, União Farma ${unit.shortName}! Vou enviar a foto da receita (ou Memed). Pode o farmacêutico conferir?`)}
@@ -98,14 +98,14 @@ export function HomeSections({
       <section className="section delivery-section reveal" id="entrega" aria-labelledby="delivery-title">
         <div className="section-inner delivery-panel">
           <div className="delivery-copy">
-            <p className="section-kicker light">Comodidade para sua rotina</p>
-            <h2 id="delivery-title">Consulte entrega no seu bairro</h2>
+            <p className="section-kicker light">Quando não dá para ir à loja</p>
+            <h2 id="delivery-title">Pergunta se entrega no seu bairro</h2>
             <DirectUnitLinks
               message={deliveryIntent.message}
               intent={deliveryIntent.eventName}
               source="home_delivery_section"
-              heading="Informe seu bairro pelo WhatsApp"
-              description="Escolha a unidade e confirme região, taxa e prazo de entrega."
+              heading="Manda o bairro no WhatsApp"
+              description="A loja confirma se atende, a taxa e se dá para levar hoje."
               compact
             />
           </div>
@@ -119,14 +119,14 @@ export function HomeSections({
               loading="lazy"
               decoding="async"
             />
-            <strong>Pedido pelo WhatsApp</strong>
+            <strong>Pedido pelo WhatsApp da unidade</strong>
           </div>
         </div>
       </section>
 
       <section className="section categories-section reveal" id="categorias" aria-labelledby="categories-title">
         <div className="section-inner">
-          <h2 id="categories-title">Principais categorias</h2>
+          <h2 id="categories-title">O que a gente costuma ter na loja</h2>
           <div className="category-grid">
             {categories.map((category) => (
               <article className="category-card" key={category.title}>
@@ -139,13 +139,13 @@ export function HomeSections({
                   onClick={() =>
                     openSelector({
                       title: `Consultar ${category.title.toLowerCase()}`,
-                      description: "Escolha a unidade para verificar marcas, opções e disponibilidade.",
-                      message: `Olá! Vim pelo site da União Farma e gostaria de consultar produtos da categoria ${category.title}.`,
+                      description: "Escolha a loja para ver se tem hoje, o preço e as marcas.",
+                      message: `Oi, União Farma {unidade}! Quero consultar um produto de ${category.title}. Posso mandar o nome?`,
                       eventName: `categoria_${category.title}`,
                     })
                   }
                 >
-                  Consultar categoria
+                  Perguntar na loja
                 </button>
               </article>
             ))}
