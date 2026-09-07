@@ -10,6 +10,21 @@ import {
   type SelectorIntent,
 } from "./home-chrome";
 
+const STORE_PHOTOS = [
+  {
+    src: "/uniao-farma-nacoes-loja.webp",
+    alt: "Fachada da União Farma Nações Unidas, em Sabará",
+  },
+  {
+    src: "/uniao-farma-perfumaria.webp",
+    alt: "Prateleira de shampoos e cuidados para cabelo na União Farma",
+  },
+  {
+    src: "/uniao-farma-medicamentos.webp",
+    alt: "Prateleira de medicamentos na União Farma",
+  },
+];
+
 const GOOGLE_REVIEWS = [
   {
     author: "Jaderson Almeida",
@@ -70,18 +85,22 @@ export function HomeMore({
     <>
       <section className="section story-section reveal" aria-labelledby="story-title">
         <div className="section-inner story-grid">
-          <div className="photo-gallery">
-            <img src="/uniao-farma-nacoes-loja.webp" alt="Unidade União Farma Nações Unidas" width="900" height="1100" loading="lazy" decoding="async" />
+          <div className="store-photos" role="list">
+            {STORE_PHOTOS.map((photo) => (
+              <figure className="store-photo" key={photo.src} role="listitem">
+                <img src={photo.src} alt={photo.alt} width="900" height="720" loading="lazy" decoding="async" />
+              </figure>
+            ))}
           </div>
           <div className="story-copy">
-            <p className="section-kicker">Drogaria em Sabará</p>
-            <h2 id="story-title">Atendimento de loja, com farmacêutico no horário</h2>
+            <p className="section-kicker">Fotos da loja</p>
+            <h2 id="story-title">A farmácia de verdade, em Sabará</h2>
             <p>
-              Três unidades de rua — Fátima, Nações Unidas e Itacolomi. Preço e estoque valem para o dia
-              e se confirmam no WhatsApp da loja, não em um carrinho virtual.
+              Fachada, gôndola e prateleira das unidades. Três lojas de rua — Fátima, Nações Unidas e Itacolomi.
+              Preço e estoque se confirmam no WhatsApp da loja.
             </p>
             <a className="text-link" href={INSTAGRAM_URL} target="_blank" rel="noreferrer" onClick={() => trackEvent("instagram_click", { source: "story" })}>
-              <InstagramIcon /> Instagram da União Farma
+              <InstagramIcon /> Mais fotos no Instagram
             </a>
           </div>
         </div>
