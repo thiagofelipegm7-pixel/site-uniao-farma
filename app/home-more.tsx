@@ -66,7 +66,7 @@ export function HomeMore({
   generalIntent,
 }: {
   generalIntent: SelectorIntent;
-  openSelector: (intent: SelectorIntent) => void;
+  openSelector?: (intent: SelectorIntent) => void;
 }) {
   return (
     <>
@@ -79,7 +79,7 @@ export function HomeMore({
             <p className="section-kicker">Farmácia de bairro em Sabará</p>
             <h2 id="story-title">Quem atende é gente da loja, não um carrinho virtual</h2>
             <p>
-              São três drogaria de rua — Fátima, Nações Unidas e Itacolomi — com farmacêutico no horário
+              São três drogarias de rua — Fátima, Nações Unidas e Itacolomi — com farmacêutico no horário
               e conversa no WhatsApp da unidade. Preço e estoque valem para o dia. Por isso a confirmação
               é com a loja, não com uma prateleira infinita no site.
             </p>
