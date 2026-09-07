@@ -12,6 +12,16 @@ import {
   type SelectorIntent,
 } from "./home-chrome";
 
+const AVATAR_COLORS = ["#1a73e8", "#188038", "#c5221f"];
+
+function Stars() {
+  return (
+    <span className="review-stars" aria-label="5 de 5 estrelas">
+      {"★★★★★"}
+    </span>
+  );
+}
+
 export function HomeMore({
   generalIntent,
 }: {
@@ -42,20 +52,34 @@ export function HomeMore({
 
       <section className="section reviews-section reveal" id="avaliacoes" aria-labelledby="reviews-title">
         <div className="reviews-head">
-          <h2 id="reviews-title">Quem passa aqui, volta</h2>
-          <p className="reviews-score">4,7 no Google</p>
+          <div>
+            <h2 id="reviews-title">Avaliações no Google</h2>
+            <p className="reviews-score">
+              <span className="reviews-score-number">4,7</span>
+              <Stars />
+            </p>
+          </div>
+          <a className="reviews-google-link" href={GOOGLE_REVIEWS_URL} target="_blank" rel="noreferrer" onClick={() => trackEvent("google_reviews_click")}>
+            Ver todas
+          </a>
         </div>
         <div className="reviews-track" role="list">
-          {reviews.map((review) => (
-            <blockquote className="review-card" key={review.author} role="listitem">
-              <p>“{review.text}”</p>
-              <footer>{review.author}</footer>
-            </blockquote>
+          {reviews.map((review, index) => (
+            <article className="review-card" key={review.author} role="listitem">
+              <header className="review-person">
+                <span className="review-avatar" style={{ background: AVATAR_COLORS[index % AVATAR_COLORS.length] }} aria-hidden="true">
+                  {review.author.charAt(0)}
+                </span>
+                <span>
+                  <strong>{review.author}</strong>
+                  <small>Avaliação no Google</small>
+                </span>
+              </header>
+              <Stars />
+              <p>{review.text}</p>
+            </article>
           ))}
         </div>
-        <a className="reviews-google-link" href={GOOGLE_REVIEWS_URL} target="_blank" rel="noreferrer" onClick={() => trackEvent("google_reviews_click")}>
-          Ver no Google
-        </a>
       </section>
 
       <section className="section faq-section reveal" id="faq">
