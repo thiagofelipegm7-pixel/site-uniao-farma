@@ -10,6 +10,21 @@ import { getPageStructuredData } from "./structured-data";
 import { WhatsAppIcon, UnitSelectorModal, type SelectorIntent } from "./home-chrome";
 import { HomeSections } from "./home-sections";
 
+const STORE_PHOTOS = [
+  {
+    src: "/uniao-farma-nacoes-loja.jpg",
+    alt: "Fachada da União Farma Nações Unidas, em Sabará",
+  },
+  {
+    src: "/uniao-farma-perfumaria.jpg",
+    alt: "Prateleira de shampoos e cuidados para cabelo na União Farma",
+  },
+  {
+    src: "/uniao-farma-medicamentos.jpg",
+    alt: "Prateleira de medicamentos na União Farma",
+  },
+];
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectorIntent, setSelectorIntent] = useState<SelectorIntent | null>(null);
@@ -117,6 +132,13 @@ export default function Home() {
                 </a>
               ))}
             </div>
+          </div>
+          <div className="store-photos hero-store-photos" role="list" aria-label="Fotos reais da loja">
+            {STORE_PHOTOS.map((photo) => (
+              <figure className="store-photo" key={photo.src} role="listitem">
+                <img src={photo.src} alt={photo.alt} width="900" height="720" decoding="async" />
+              </figure>
+            ))}
           </div>
           <a className="sr-only" href="/novidades">Novidades da União Farma</a>
         </div>
