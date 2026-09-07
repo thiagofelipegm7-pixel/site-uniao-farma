@@ -14,7 +14,12 @@ import { recordMetric } from "./metrics";
 import { readPreferredUnitId, sortUnitsByPreference, writePreferredUnitId } from "./preferred-unit";
 import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
 import UnitStatusBadge from "./UnitStatusBadge";
-import { WHATSAPP_MESSAGES, type WhatsAppIntentKey } from "./whatsapp-messages";
+import {
+  fillUnitPlaceholder,
+  resolveWhatsAppIntent,
+  WHATSAPP_MESSAGES,
+  type WhatsAppIntentKey,
+} from "./whatsapp-messages";
 
 type DirectUnitLinksProps = {
   message: string;
@@ -33,32 +38,32 @@ type LocateState =
   | { status: "unavailable" }
   | { status: "ready"; ranked: RankedUnit[]; fromCache: boolean };
 
-function resolveMessage(message: string, unitName: string): string {
-  return message.replaceAll("{unidade}", unitName);
-}
+const ACTION_LABEL: Record<WhatsAppIntentKey, string> = {
+  product: "WhatsApp",
+  recipe: "Receita",
+  delivery: "Entrega",
+  offer: "Oferta",
+};
 
-function defaultIntent(intent: string): WhatsAppIntentKey {
-  if (intent === "delivery_inquiry") return "delivery";
-  if (intent === "enviar_receita") return "recipe";
-  return "product";
+function pickMessage(message: string, intent: WhatsAppIntentKey): string {
+  const trimmed = message.trim();
+  if (trimmed && !trimmed.includes("___")) return trimmed;
+  return WHATSAPP_MESSAGES[intent];
 }
 
 export default function DirectUnitLinks({
   message,
   intent,
   source,
-  heading = "Escolha a loja e peça",
-  description = "A conversa já abre pronta no WhatsApp.",
+  heading = "Escolha a loja e pe\u00e7a",
+  description = "A conversa j\u00e1 abre pronta no WhatsApp.",
   compact = false,
   className = "",
 }: DirectUnitLinksProps) {
   const [locate, setLocate] = useState<LocateState>({ status: "idle" });
   const [preferredId, setPreferredId] = useState<Unit["id"] | null>(null);
-  const activeIntent = defaultIntent(intent);
-
-  const selectedMessage =
-    WHATSAPP_MESSAGES[activeIntent] ||
-    (message.includes("___") ? WHATSAPP_MESSAGES.product : message);
+  const activeIntent = resolveWhatsAppIntent(intent);
+  const selectedMessage = pickMessage(message, activeIntent);
 
   const units = useMemo(() => {
     if (locate.status === "ready") return locate.ranked.map((item) => item.unit);
@@ -103,9 +108,6 @@ export default function DirectUnitLinks({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const actionLabel =
-    activeIntent === "recipe" ? "Receita" : activeIntent === "delivery" ? "Entrega" : "WhatsApp";
-
   return (
     <div className={`direct-unit-links ${compact ? "direct-unit-links-compact" : ""} ${className}`.trim()}>
       {!compact ? (
@@ -130,12 +132,12 @@ export default function DirectUnitLinks({
               <span className="direct-unit-name">{unit.shortName}</span>
               <span className="direct-unit-neighborhood">{unit.shortAddress}</span>
               {typeof km === "number" ? <span className="direct-unit-distance">{formatDistance(km)}</span> : null}
-              {isNearest ? <span className="nearest-unit-badge">Mais próxima</span> : null}
+              {isNearest ? <span className="nearest-unit-badge">Mais pr\u00f3xima</span> : null}
               {isPreferred && !isNearest ? <span className="preferred-unit-badge">Sua loja</span> : null}
               <UnitStatusBadge unit={unit} />
               <div className="direct-unit-actions">
                 <a
-                  href={buildWhatsAppUrl(unit, resolveMessage(selectedMessage, unit.shortName), {
+                  href={buildWhatsAppUrl(unit, fillUnitPlaceholder(selectedMessage, unit.shortName), {
                     campaign: source,
                     content: `${source}_${unit.id}_${activeIntent}`,
                   })}
@@ -150,7 +152,7 @@ export default function DirectUnitLinks({
                     logWhatsApp(unit.id, activeIntent, "direct_links");
                   }}
                 >
-                  <IntentIcon intent={activeIntent} /> {actionLabel}
+                  <IntentIcon intent={activeIntent} /> {ACTION_LABEL[activeIntent]}
                 </a>
               </div>
             </article>
