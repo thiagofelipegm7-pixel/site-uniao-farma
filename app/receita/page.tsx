@@ -28,7 +28,7 @@ export default function ReceitaPage() {
             </div>
             <img
               className="recipe-illustration"
-              src="/illustrations/atendimento.svg?v=4"
+              src="/illustrations/atendimento.svg?v=5"
               alt="Farmacêutica orientando uma cliente no balcão da União Farma"
               width="1200"
               height="900"
