@@ -42,7 +42,7 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
     <header className="content-header">
       <nav className="content-nav" aria-label="Menu principal">
         <a className="brand" href="/" onClick={() => setMenuOpen(false)}>
-          <img src="/uniao-farma-logo.svg" alt="" width="52" height="52" decoding="async" />
+          <img src="/icon-192.png" alt="Logo da União Farma" width="52" height="52" decoding="async" />
           <span><strong>União Farma</strong><small>Drogaria e Perfumaria</small></span>
         </a>
         <a className="content-header-cta" href="/#unidades-rapidas" aria-label="Pedir no WhatsApp">
