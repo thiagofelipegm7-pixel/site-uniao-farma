@@ -70,7 +70,7 @@ export default function Home() {
       <header className={SITE_OPTIONS.promoToast.enabled ? "site-header has-promo" : "site-header"}>
         <nav className="nav" aria-label="Menu principal">
           <a className="brand" href="#inicio" onClick={() => setMenuOpen(false)}>
-            <img src="/uniao-farma-logo.webp" alt="Logo da União Farma" width="52" height="52" fetchPriority="high" decoding="async" />
+            <img src="/uniao-farma-logo.svg" alt="Logo da União Farma" width="52" height="52" fetchPriority="high" decoding="async" />
             <span>
               <strong>União Farma</strong>
               <small>Drogaria e Perfumaria</small>
@@ -102,8 +102,9 @@ export default function Home() {
                 className="hero-illustration-img"
                 src="/illustrations/atendimento.svg?v=8"
                 alt="Farmacêutica orientando uma cliente no balcão da União Farma"
-                width="1200"
-                height="900"
+                width="720"
+                height="540"
+                sizes="(max-width: 860px) 92vw, 380px"
                 fetchPriority="high"
                 decoding="async"
               />
