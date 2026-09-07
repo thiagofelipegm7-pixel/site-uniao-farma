@@ -98,6 +98,27 @@
   display: none !important;
 }
 
+.hero-offer-showcase {
+  padding-bottom: 4.35rem !important;
+}
+
+.hero-offer-cta {
+  position: absolute !important;
+  top: auto !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: 0.9rem !important;
+  z-index: 7;
+  width: auto !important;
+  max-width: 15.5rem;
+  min-height: 44px;
+  padding: 0.5rem 1.1rem !important;
+  transform: translateX(-50%);
+  background: #1f9e4b !important;
+  color: #042016 !important;
+  border-color: #1f9e4b !important;
+}
+
 @media (min-width: 861px) {
   .hero-inner {
     grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr) !important;
@@ -265,6 +286,33 @@
 
   .direct-unit-link:last-child {
     margin-bottom: 0.75rem;
+  }
+
+  .offer-consult-body h3,
+  .offer-card h3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    font-size: 1rem;
+    line-height: 1.25;
+    color: #10231c;
+  }
+
+  .offer-consult-price,
+  .offer-consult-units,
+  .offer-card-body .button,
+  .offer-card-body a {
+    position: relative;
+    z-index: 1;
+  }
+
+  .offer-consult-grid,
+  .offers-grid,
+  .encarte-grid,
+  .offers-page main,
+  section#ofertas {
+    padding-bottom: 6.25rem;
   }
 
   .cookie-banner {
