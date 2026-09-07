@@ -10,7 +10,7 @@ import {
   FAQItem,
   type SelectorIntent,
 } from "./home-chrome";
-import { STORE_PHOTOS } from "./store-photos";
+import StorePhotosStrip from "./StorePhotosStrip";
 
 const GOOGLE_REVIEWS = [
   {
@@ -83,17 +83,7 @@ export function HomeMore({
     <>
       <section className="section story-section reveal" aria-labelledby="story-title">
         <div className="section-inner story-grid">
-          <div className="store-photos" role="list">
-            {STORE_PHOTOS.map((photo) => (
-              <figure className="store-photo" key={photo.src} role="listitem">
-                <img src={photo.src} alt={photo.alt} width="900" height="720" loading="lazy" decoding="async" />
-                <figcaption>
-                  <strong>{photo.kind}</strong>
-                  <span>{photo.unit}</span>
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+          <StorePhotosStrip />
           <div className="story-copy">
             <p className="section-kicker">Fotos da loja</p>
             <h2 id="story-title">{"A farmácia de verdade, em Sabará"}</h2>
