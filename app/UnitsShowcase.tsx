@@ -2,7 +2,7 @@
 
 import { trackEvent } from "./analytics";
 import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
-import { UNIT_PHOTOS } from "./unit-photos";
+import { UNIT_PHOTOS, UNIT_PHOTO_KIND } from "./unit-photos";
 import UnitStatusBadge, { getFallbackLabel } from "./UnitStatusBadge";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
 
@@ -13,8 +13,8 @@ const PAGE_HREF: Record<Unit["id"], string> = {
 };
 
 const SHORT_LABEL: Record<Unit["id"], string> = {
-  fatima: "Fátima",
-  nacoes: "Nações Unidas",
+  fatima: "F\u00e1tima",
+  nacoes: "Na\u00e7\u00f5es Unidas",
   itacolomi: "Itacolomi",
 };
 
@@ -23,16 +23,17 @@ export default function UnitsShowcase() {
     <section className="units-showcase" id="unidades-rapidas" aria-labelledby="units-showcase-title">
       <div className="units-showcase-inner">
         <header className="units-showcase-head">
-          <p className="section-kicker">Três lojas em Sabará</p>
+          <p className="section-kicker">Tr\u00eas lojas em Sabar\u00e1</p>
           <h2 id="units-showcase-title">Escolha a unidade do seu bairro</h2>
           <p className="units-showcase-lead">
-            Foto, endereço, horário e rota. O WhatsApp abre na loja certa, com a conversa pronta.
+            Foto identificada, endere\u00e7o, hor\u00e1rio e rota. O WhatsApp abre na loja certa.
           </p>
         </header>
 
         <div className="units-showcase-grid">
           {UNITS.map((unit) => {
             const label = SHORT_LABEL[unit.id];
+            const kind = UNIT_PHOTO_KIND[unit.id];
             const message = WHATSAPP_MESSAGES.product.replaceAll("{unidade}", unit.shortName);
             const waHref = buildWhatsAppUrl(unit, message, {
               campaign: "home_units",
@@ -45,12 +46,16 @@ export default function UnitsShowcase() {
                   <img
                     className="unit-store-photo"
                     src={UNIT_PHOTOS[unit.id]}
-                    alt={`União Farma ${label} — ${unit.shortAddress}`}
+                    alt={`${kind} da Uni\u00e3o Farma ${label} \u2014 ${unit.shortAddress}`}
                     width="800"
                     height="520"
                     loading="lazy"
                     decoding="async"
                   />
+                  <span className="unit-store-photo-tag">
+                    <strong>{kind}</strong>
+                    <span>{label}</span>
+                  </span>
                 </a>
                 <div className="unit-store-body">
                   <p className="unit-store-hood">{unit.neighborhood}</p>
@@ -84,7 +89,7 @@ export default function UnitsShowcase() {
                     </a>
                   </div>
                   <a className="unit-store-more" href={PAGE_HREF[unit.id]}>
-                    Ver página da unidade
+                    Ver p\u00e1gina da unidade
                   </a>
                 </div>
               </article>
