@@ -8,7 +8,6 @@ import { trackEvent } from "./analytics";
 import { SITE_OPTIONS, SITE_URL } from "./site-config";
 import { HOME_FAQS } from "./seo-content";
 import { getPageStructuredData } from "./structured-data";
-import { formatOfferPrice, getPublicOffers } from "./offers";
 import { WhatsAppIcon, UnitSelectorModal, type SelectorIntent } from "./home-chrome";
 import { HomeSections } from "./home-sections";
 
@@ -18,7 +17,6 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectorIntent, setSelectorIntent] = useState<SelectorIntent | null>(null);
   const consultationRef = useRef<HTMLDivElement | null>(null);
-  const heroOffers = getPublicOffers().slice(0, 3);
   const homeStructuredData = getPageStructuredData({
     name: "Farmácia em Sabará | União Farma",
     url: `${SITE_URL}/`,
@@ -104,19 +102,16 @@ export default function Home() {
                 <a className="sr-only" href="/novidades">Ver todas as novidades</a>
               </div>
             </div>
-            <aside className="hero-offer-showcase" aria-label="Ofertas em destaque">
-              <div className="hero-product-stack">
-                {heroOffers.map((offer, index) => (
-                  <article className={`hero-product hero-product-${index + 1}`} key={offer.id}>
-                    {offer.image && (
-                      <img src={offer.image} alt={offer.name} width="360" height="360" fetchPriority={index === 0 ? "high" : "low"} loading={index === 0 ? "eager" : "lazy"} decoding="async" />
-                    )}
-                    {index === 0 && offer.currentPrice !== null && (
-                      <span className="hero-price-tag"><small>A partir de</small><strong>{formatOfferPrice(offer.currentPrice)}</strong></span>
-                    )}
-                  </article>
-                ))}
-              </div>
+            <aside className="hero-offer-showcase hero-illustration" aria-label="Atendimento na União Farma">
+              <img
+                className="hero-illustration-img"
+                src="/illustrations/atendimento.webp"
+                alt="Farmacêutica orientando uma cliente no balcão da União Farma"
+                width="900"
+                height="604"
+                fetchPriority="high"
+                decoding="async"
+              />
               <button className="button button-whatsapp hero-offer-cta" type="button" onClick={() => openSelector(featuredOfferIntent)}>Pedir esta oferta</button>
             </aside>
           </div>
