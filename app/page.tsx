@@ -11,8 +11,6 @@ import { getPageStructuredData } from "./structured-data";
 import { WhatsAppIcon, UnitSelectorModal, type SelectorIntent } from "./home-chrome";
 import { HomeSections } from "./home-sections";
 
-// Unit cards keep the approved whatsapp_click, phone_click, maps_click and delivery_inquiry tracking in their shared components.
-
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectorIntent, setSelectorIntent] = useState<SelectorIntent | null>(null);
@@ -50,15 +48,15 @@ export default function Home() {
   }, [menuOpen]);
 
   const generalIntent: SelectorIntent = {
-    title: "Escolha sua unidade",
-    description: "Selecione a loja em que deseja consultar preço, estoque ou fazer seu pedido.",
-    message: "Olá, União Farma {unidade}! Quero pedir um produto. Nome: ___  dosagem: ___  bairro: ___",
+    title: "Qual loja fica melhor para você?",
+    description: "Fátima, Nações ou Itacolomi. A conversa abre no WhatsApp da unidade certa.",
+    message: "Oi, União Farma {unidade}! Quero consultar um produto. Posso mandar o nome?",
     eventName: "consulta_geral",
   };
 
   const featuredOfferIntent: SelectorIntent = {
-    title: "Consultar oferta",
-    description: "Escolha a unidade para confirmar a disponibilidade do Creme Seda.",
+    title: "Ver se a oferta tem na loja",
+    description: "A promoção vale enquanto durar o estoque da unidade.",
     message: "Oi, União Farma {unidade}! Vi a oferta do Creme Seda 300 ml a R$ 13,90. Tem hoje?",
     eventName: "oferta_creme_seda",
   };
@@ -91,9 +89,9 @@ export default function Home() {
       <section className="hero reveal is-visible" id="inicio" aria-labelledby="hero-title">
         <div className="hero-inner">
           <div className="hero-copy">
-            <p className="eyebrow">Drogaria e Perfumaria em Sabará</p>
+            <p className="eyebrow">Três farmácias em Sabará</p>
             <h1 id="hero-title">Cuidado, ofertas e entrega pertinho de você.</h1>
-            <p className="hero-lead">Consulte produtos, preço e disponibilidade pelo WhatsApp da unidade mais próxima.</p>
+            <p className="hero-lead">Manda o nome no WhatsApp da loja do seu bairro. A equipe diz se tem, quanto custa e se dá para entregar hoje.</p>
           </div>
           <aside className="hero-offer-showcase hero-illustration" aria-label="Atendimento na União Farma">
             <img
@@ -106,10 +104,10 @@ export default function Home() {
               fetchPriority="high"
               decoding="async"
             />
-            <button className="button button-whatsapp hero-offer-cta" type="button" onClick={() => openSelector(featuredOfferIntent)}>Pedir esta oferta</button>
+            <button className="button button-whatsapp hero-offer-cta" type="button" onClick={() => openSelector(featuredOfferIntent)}>Ver se tem na loja</button>
           </aside>
           <div className="hero-actions" ref={consultationRef}>
-            <DirectUnitLinks message={generalIntent.message} intent={generalIntent.eventName} source="home_hero" />
+            <DirectUnitLinks message={generalIntent.message} intent={generalIntent.eventName} source="home_hero" heading="Escolhe a loja e fala com a gente" description="O WhatsApp já abre com a mensagem pronta." />
             <a className="sr-only" href="/novidades">Novidades da União Farma</a>
             <a className="sr-only" href="/novidades">Ver todas as novidades</a>
           </div>
