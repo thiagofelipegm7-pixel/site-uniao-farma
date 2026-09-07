@@ -271,11 +271,6 @@ body {
   .brand small {
     display: none;
   }
-
-  .quick-units-section,
-  .trust-strip {
-    display: none !important;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
