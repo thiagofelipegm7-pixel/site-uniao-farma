@@ -7,36 +7,44 @@ export type FaqItem = {
 
 export const CUSTOMER_QUESTIONS: FaqItem[] = [
   {
-    q: "Tem genérico?",
-    a: "Na maioria das vezes, sim. Manda o nome e a dosagem no WhatsApp da loja. A equipe olha o estoque daquele dia e fala se tem genérico, similar ou referência — e o preço de cada um.",
+    q: "Como peço pelo WhatsApp?",
+    a: "Toque na loja do seu bairro no topo do site. A conversa abre pronta. Mande o nome do produto, a dosagem e o bairro. A equipe da unidade responde com estoque e preço do dia.",
   },
   {
-    q: "Aceita receita digital?",
-    a: "Aceita. Envia a foto nítida da receita ou o link do Memed no WhatsApp da unidade. O farmacêutico confere antes de separar. Controlado e antibiótico pedem retirada na loja.",
+    q: "Qual loja eu escolho?",
+    a: "A mais perto de você: Fátima (Rua Cláudio, 902), Nações Unidas (Rua Inglaterra, 162) ou Itacolomi (Rua Joaquim F. Moreira, 489). Estoque e entrega são da loja que você chamar.",
   },
   {
-    q: "Entrega no meu bairro?",
-    a: "Depende da loja e do endereço. Escolhe a unidade mais perto, manda o bairro e pergunta taxa, horário e forma de pagamento. A gente só confirma entrega depois dessa conversa.",
+    q: "Vocês entregam no meu bairro?",
+    a: "Muitas vezes sim, mas área, taxa e prazo mudam por loja e por endereço. Mande o bairro no WhatsApp da unidade mais perto. Só confirme o pedido depois dessa resposta.",
   },
   {
-    q: "Preciso de receita para tudo?",
-    a: "Não. Só controlados e alguns de tarja pedem receita. Se tiver dúvida, pergunta no WhatsApp antes de sair de casa — evita viagem à toa.",
+    q: "Tem o remédio e o preço no site?",
+    a: "Não. Não tem carrinho virtual. Preço e estoque valem para o dia e são confirmados na loja, pelo WhatsApp.",
   },
   {
-    q: "Está aberto agora?",
-    a: "A faixa no topo mostra Fátima, Nações e Itacolomi. De segunda a sábado as lojas abrem cedo; no domingo as três fecham às 12h. Feriado é melhor confirmar na loja.",
+    q: "Aceita receita digital ou foto?",
+    a: "Sim. Envie foto nítida da receita ou o link do Memed no WhatsApp da unidade. O farmacêutico confere antes de separar.",
   },
 ];
 
 export const HOME_FAQS: FaqItem[] = [
   ...CUSTOMER_QUESTIONS,
   {
-    q: "Como consulto o preço?",
-    a: "Toque na loja do seu bairro e mande o nome do produto. Quem responde é a equipe da unidade — com o preço de hoje e se tem na prateleira.",
+    q: "Controlado e antibiótico saem na entrega?",
+    a: "Em regra, não. Controlado e antibiótico pedem receita e retirada na loja, com o farmacêutico. Tire a dúvida no WhatsApp antes de ir.",
   },
   {
-    q: "Aceitam Pix, cartão e ECX Card?",
-    a: "Pix, dinheiro, débito e crédito. ECX Card vale na loja; o desconto do cartão a equipe confirma na hora.",
+    q: "Tem genérico mais barato?",
+    a: "Na maioria das vezes, sim. Mande o nome e a dosagem. A loja diz se tem genérico, similar ou referência — e o preço de cada um hoje.",
+  },
+  {
+    q: "Qual o horário das lojas?",
+    a: "Segunda a sexta, das 7h às 21h. Sábado: Fátima e Itacolomi até 20h, Nações Unidas até 21h. Domingo as três abrem das 7h ao meio-dia. Feriado é melhor confirmar no WhatsApp.",
+  },
+  {
+    q: "Quais formas de pagamento?",
+    a: "Pix, dinheiro, débito e crédito. ECX Card vale na loja. Na entrega, confirme o pagamento com a unidade no WhatsApp.",
   },
 ];
 
