@@ -76,15 +76,14 @@ export function HomeMore({
             <img src="/uniao-farma-nacoes-loja.webp" alt="Unidade União Farma Nações Unidas" width="900" height="1100" loading="lazy" decoding="async" />
           </div>
           <div className="story-copy">
-            <p className="section-kicker">Farmácia de bairro em Sabará</p>
-            <h2 id="story-title">Quem atende é gente da loja, não um carrinho virtual</h2>
+            <p className="section-kicker">Drogaria em Sabará</p>
+            <h2 id="story-title">Atendimento de loja, com farmacêutico no horário</h2>
             <p>
-              São três drogarias de rua — Fátima, Nações Unidas e Itacolomi — com farmacêutico no horário
-              e conversa no WhatsApp da unidade. Preço e estoque valem para o dia. Por isso a confirmação
-              é com a loja, não com uma prateleira infinita no site.
+              Três unidades de rua — Fátima, Nações Unidas e Itacolomi. Preço e estoque valem para o dia
+              e se confirmam no WhatsApp da loja, não em um carrinho virtual.
             </p>
             <a className="text-link" href={INSTAGRAM_URL} target="_blank" rel="noreferrer" onClick={() => trackEvent("instagram_click", { source: "story" })}>
-              <InstagramIcon /> Ver o que chegou esta semana
+              <InstagramIcon /> Instagram da União Farma
             </a>
           </div>
         </div>
@@ -126,11 +125,11 @@ export function HomeMore({
       </section>
 
       <section className="section faq-section reveal" id="faq">
-        <h2>Perguntas que a gente responde todo dia</h2>
+        <h2>Perguntas frequentes</h2>
         {HOME_FAQS.map((faq) => (
           <FAQItem key={faq.q} q={faq.q} a={faq.a} />
         ))}
-        <DirectUnitLinks message={generalIntent.message} intent={generalIntent.eventName} source="home_faq" heading="Ainda com dúvida?" description="Manda no WhatsApp da loja do seu bairro. A resposta vem de quem está no balcão." compact />
+        <DirectUnitLinks message={generalIntent.message} intent={generalIntent.eventName} source="home_faq" heading="Ainda com dúvida?" description="Fale no WhatsApp da loja do seu bairro." compact />
       </section>
     </>
   );
