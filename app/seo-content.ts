@@ -8,60 +8,60 @@ export type FaqItem = {
 export const CUSTOMER_QUESTIONS: FaqItem[] = [
   {
     q: "Tem genérico?",
-    a: "Sim. Informe o nome do remédio no WhatsApp da loja. A equipe confirma se há genérico, similar ou referência no estoque daquele dia.",
+    a: "Quase sempre. Manda o nome do remédio no WhatsApp da loja. A equipe olha o estoque daquele dia e fala se tem genérico, similar ou referência.",
   },
   {
     q: "Aceita receita digital?",
-    a: "Sim. Envie a foto da receita ou o link do Memed no WhatsApp. O farmacêutico confere antes de separar o pedido.",
+    a: "Aceita. Envia a foto da receita ou o link do Memed no WhatsApp. O farmacêutico confere antes de separar.",
   },
   {
     q: "Entrega no meu bairro?",
-    a: "Depende do endereço e da unidade. Toque em Entrega, escolha a loja mais perto e informe o bairro. A taxa e o prazo saem na hora.",
+    a: "Depende da loja e do endereço. Escolhe a unidade mais perto, manda o bairro e pergunta taxa e horário. Não prometemos entrega sem essa confirmação.",
   },
   {
     q: "Preciso de receita para tudo?",
-    a: "Não. Só medicamentos de controle e alguns de tarja exigem receita. Na dúvida, pergunte antes de sair de casa.",
+    a: "Não. Só controlados e alguns de tarja pedem receita. Se tiver dúvida, pergunta no Zap antes de sair de casa.",
   },
   {
     q: "Está aberto agora?",
-    a: "A faixa no topo do site mostra Fátima, Nações e Itacolomi em tempo real. Domingo as três fecham até 12:00.",
+    a: "A faixa no topo mostra Fátima, Nações e Itacolomi. No domingo as três fecham às 12h. Feriado é melhor confirmar na loja.",
   },
 ];
 
 export const HOME_FAQS: FaqItem[] = [
   ...CUSTOMER_QUESTIONS,
   {
-    q: "Como consulto o preço de um produto?",
-    a: "Toque em Produto, escolha a unidade e mande o nome no WhatsApp. A equipe confirma preço e estoque na hora.",
+    q: "Como consulto o preço?",
+    a: "Toque em Produto, escolha a unidade e mande o nome. Quem responde é a loja — com o preço e se tem na prateleira.",
   },
   {
     q: "Aceitam Pix, cartão e ECX Card?",
-    a: "Sim. Pix, dinheiro, débito e crédito. ECX Card é aceito na loja; confirme o desconto com a unidade.",
+    a: "Pix, dinheiro, débito e crédito. ECX Card vale na loja; o desconto do cartão a equipe confirma na hora.",
   },
 ];
 
 export function getUnitFaqs(unit: Unit): FaqItem[] {
   return [
     {
-      q: `Qual é o endereço da farmácia ${unit.shortName} em Sabará?`,
-      a: `A unidade fica em ${unit.address}. Consulte a rota no Google Maps antes de sair.`,
+      q: `Onde fica a farmácia ${unit.shortName}?`,
+      a: `Na ${unit.address}. Se for de carro ou a pé, abre a rota no Google Maps pelo site.`,
     },
     {
       q: `A unidade ${unit.shortName} tem genérico?`,
-      a: "Sim. Envie o nome do medicamento no WhatsApp desta loja para confirmar o estoque do dia.",
+      a: "Manda o nome do medicamento no WhatsApp desta loja. O estoque muda no dia — a resposta vale para hoje.",
     },
     {
       q: `A unidade ${unit.shortName} aceita receita digital?`,
-      a: "Sim. Envie a foto da receita ou o Memed no WhatsApp desta unidade.",
+      a: "Sim. Foto da receita ou Memed no WhatsApp desta unidade. O farmacêutico confere antes de separar.",
     },
     {
       q: `A unidade ${unit.shortName} entrega no meu bairro?`,
-      a: `A loja fica em ${unit.neighborhood}. Informe o endereço no WhatsApp para confirmar área, taxa e prazo.`,
+      a: `A loja fica em ${unit.neighborhood}. Manda o endereço no WhatsApp para saber se atende, a taxa e o prazo.`,
     },
     {
-      q: `Qual é o horário da farmácia ${unit.shortName}?`,
+      q: `Qual o horário da farmácia ${unit.shortName}?`,
       a: "Segunda a sexta, das 07:00 às 21:00; sábado, das " +
-        `${unit.schedule.sat?.open} às ${unit.schedule.sat?.close}; domingo, das 07:00 às 12:00. Feriado: confirme no WhatsApp.`,
+        `${unit.schedule.sat?.open} às ${unit.schedule.sat?.close}; domingo, das 07:00 às 12:00. Feriado: confirma no WhatsApp.`,
     },
   ];
 }
