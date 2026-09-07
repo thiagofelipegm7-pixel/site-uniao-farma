@@ -5,7 +5,7 @@ import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 export const metadata: Metadata = {
   title: "Enviar receita pelo WhatsApp | União Farma",
   description:
-    "Escolha uma unidade da União Farma em Sabará e envie sua receita pelo WhatsApp para conferência da equipe.",
+    "Manda a foto da receita ou o Memed no WhatsApp da União Farma em Sabará. O farmacêutico confere antes de separar.",
 };
 
 const message =
@@ -19,16 +19,16 @@ export default function ReceitaPage() {
         <section className="recipe-hero" aria-labelledby="recipe-title">
           <div className="section-inner recipe-inner recipe-with-art">
             <div>
-              <p className="section-kicker">Atendimento direto</p>
-              <h1 id="recipe-title">Envie sua receita para a unidade certa</h1>
+              <p className="section-kicker">Receita no WhatsApp da loja</p>
+              <h1 id="recipe-title">Envia a receita para o farmacêutico conferir</h1>
               <p>
-                Escolha uma loja e envie uma foto legível ou a receita Memed. A equipe confere a
-                disponibilidade e orienta os próximos passos pelo WhatsApp.
+                Foto nítida ou link do Memed. A equipe da unidade olha a prescrição, diz se tem o
+                medicamento e orienta o próximo passo. Controlado e antibiótico saem na loja.
               </p>
             </div>
             <img
               className="recipe-illustration"
-              src="/illustrations/atendimento.svg?v=6"
+              src="/illustrations/atendimento.svg?v=8"
               alt="Farmacêutica orientando uma cliente no balcão da União Farma"
               width="1200"
               height="900"
@@ -38,12 +38,11 @@ export default function ReceitaPage() {
               message={message}
               intent="enviar_receita"
               source="recipe_page"
-              heading="Escolha onde deseja ser atendido"
-              description="Antibióticos e medicamentos controlados devem ser retirados presencialmente, conforme as exigências aplicáveis."
+              heading="Escolha a loja que vai receber a receita"
+              description="Manda só o que o atendimento precisa. Preço e estoque a unidade confirma na hora."
             />
             <p className="recipe-note">
-              Não envie dados além dos necessários para o atendimento. Preço, estoque e condições
-              são confirmados diretamente com a unidade.
+              Não envie dados além dos necessários. Medicamentos sujeitos à vigilância sanitária.
             </p>
           </div>
         </section>
