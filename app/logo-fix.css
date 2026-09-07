@@ -36,16 +36,22 @@ a.brand img {
 }
 
 .photo-gallery,
-.store-photos {
+.store-photos,
+.hero-store-photos {
   display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: auto !important;
+  max-height: none !important;
   gap: 0.65rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding-bottom: 0.2rem;
+  padding: 0.15rem 0 0.35rem;
   scrollbar-width: none;
 }
 
-.store-photos::-webkit-scrollbar {
+.store-photos::-webkit-scrollbar,
+.hero-store-photos::-webkit-scrollbar {
   display: none;
 }
 
@@ -56,10 +62,17 @@ a.brand img {
 }
 
 .store-photo img {
-  display: block;
-  width: 100%;
-  height: 210px;
-  object-fit: cover;
+  display: block !important;
+  width: 100% !important;
+  height: 210px !important;
+  object-fit: cover !important;
   border-radius: 0.9rem;
   background: #eef7f2;
+}
+
+@media (max-width: 860px) {
+  .hero-store-photos,
+  .store-photos {
+    display: flex !important;
+  }
 }
