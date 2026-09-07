@@ -17,13 +17,23 @@ export default function ReceitaPage() {
       <ContentSiteHeader activePath="/receita" />
       <main className="recipe-page" id="conteudo">
         <section className="recipe-hero" aria-labelledby="recipe-title">
-          <div className="section-inner recipe-inner">
-            <p className="section-kicker">Atendimento direto</p>
-            <h1 id="recipe-title">Envie sua receita para a unidade certa</h1>
-            <p>
-              Escolha uma loja e envie uma foto legível ou a receita Memed. A equipe confere a
-              disponibilidade e orienta os próximos passos pelo WhatsApp.
-            </p>
+          <div className="section-inner recipe-inner recipe-with-art">
+            <div>
+              <p className="section-kicker">Atendimento direto</p>
+              <h1 id="recipe-title">Envie sua receita para a unidade certa</h1>
+              <p>
+                Escolha uma loja e envie uma foto legível ou a receita Memed. A equipe confere a
+                disponibilidade e orienta os próximos passos pelo WhatsApp.
+              </p>
+            </div>
+            <img
+              className="recipe-illustration"
+              src="/illustrations/receita-whatsapp.webp"
+              alt="Cliente mostrando a receita no celular para a farmacêutica"
+              width="900"
+              height="604"
+              decoding="async"
+            />
             <DirectUnitLinks
               message={message}
               intent="enviar_receita"
