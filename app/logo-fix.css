@@ -12,3 +12,25 @@ a.brand img {
 .quick-units-section {
   display: none !important;
 }
+
+.uf-footer,
+.uf-footer p,
+.uf-footer h2,
+.uf-footer strong,
+.uf-footer small,
+.uf-footer a,
+.uf-footer a:link,
+.uf-footer a:visited,
+.uf-footer a:hover,
+.uf-footer a:active,
+.uf-footer-col a,
+.uf-footer-col a:link,
+.uf-footer-col a:visited,
+.uf-footer-col p,
+.uf-footer-brand p,
+.uf-footer-bottom,
+.uf-footer-bottom p,
+.uf-footer-bottom a,
+.uf-footer-bottom a:visited {
+  color: #ffffff !important;
+}
