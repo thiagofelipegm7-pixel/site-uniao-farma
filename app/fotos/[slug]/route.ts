@@ -1,15 +1,13 @@
-import { readFile } from "node:fs/promises";
-import path from "node:path";
 import { NextResponse } from "next/server";
+import { PHOTOS } from "./photos";
 
-const ALLOWED = new Set([
-  "bio-extratus",
-  "salon-line-cremes",
-  "rexona-clinical",
-  "dove-oleo-serum",
-  "salon-line-matizadora",
-  "dove-banho",
-]);
+function jpegFromBase64(b64: string): Uint8Array {
+  const clean = b64.replace(/\s+/g, "");
+  const binary = atob(clean);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+  return bytes;
+}
 
 export async function GET(
   _request: Request,
@@ -17,33 +15,19 @@ export async function GET(
 ) {
   const params = await Promise.resolve(context.params);
   const slug = params.slug?.replace(/\.jpe?g$/i, "") ?? "";
-  if (!ALLOWED.has(slug)) {
-    return new NextResponse("Not found", { status: 404 });
+  const b64 = PHOTOS[slug];
+  if (!b64) {
+    return new NextResponse("Not found", {
+      status: 404,
+      headers: { "Cache-Control": "no-store" },
+    });
   }
 
-  try {
-    const chunks: string[] = [];
-    for (let i = 1; i <= 6; i += 1) {
-      try {
-        const filePath = path.join(process.cwd(), "public", "fotos", `${slug}.${i}.b64`);
-        chunks.push(await readFile(filePath, "utf8"));
-      } catch {
-        break;
-      }
-    }
-    if (chunks.length === 0) {
-      const filePath = path.join(process.cwd(), "public", "fotos", `${slug}.b64`);
-      chunks.push(await readFile(filePath, "utf8"));
-    }
-    const body = Buffer.from(chunks.join("").replace(/\s+/g, ""), "base64");
-    return new NextResponse(body, {
-      status: 200,
-      headers: {
-        "Content-Type": "image/jpeg",
-        "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800",
-      },
-    });
-  } catch {
-    return new NextResponse("Not found", { status: 404 });
-  }
+  return new NextResponse(jpegFromBase64(b64), {
+    status: 200,
+    headers: {
+      "Content-Type": "image/jpeg",
+      "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800",
+    },
+  });
 }
