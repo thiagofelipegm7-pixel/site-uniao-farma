@@ -41,15 +41,21 @@ export function HomeMore({
       </section>
 
       <section className="section reviews-section reveal" id="avaliacoes" aria-labelledby="reviews-title">
-        <h2 id="reviews-title">Quem passa aqui, volta</h2>
-        <p className="reviews-score">4,7 no Google — de vizinho para vizinho</p>
-        {reviews.map((review) => (
-          <blockquote className="review-card" key={review.author}>
-            <p>“{review.text}”</p>
-            <footer>{review.author}</footer>
-          </blockquote>
-        ))}
-        <a href={GOOGLE_REVIEWS_URL} target="_blank" rel="noreferrer" onClick={() => trackEvent("google_reviews_click")}>Ler as avaliações no Google</a>
+        <div className="reviews-head">
+          <h2 id="reviews-title">Quem passa aqui, volta</h2>
+          <p className="reviews-score">4,7 no Google</p>
+        </div>
+        <div className="reviews-track" role="list">
+          {reviews.map((review) => (
+            <blockquote className="review-card" key={review.author} role="listitem">
+              <p>“{review.text}”</p>
+              <footer>{review.author}</footer>
+            </blockquote>
+          ))}
+        </div>
+        <a className="reviews-google-link" href={GOOGLE_REVIEWS_URL} target="_blank" rel="noreferrer" onClick={() => trackEvent("google_reviews_click")}>
+          Ver no Google
+        </a>
       </section>
 
       <section className="section faq-section reveal" id="faq">
