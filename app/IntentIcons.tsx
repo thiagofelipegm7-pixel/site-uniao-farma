@@ -21,6 +21,15 @@ export function IntentIcon({ intent }: { intent: WhatsAppIntentKey }) {
     );
   }
 
+  if (intent === "offer") {
+    return (
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8">
+        <path d="M20.6 13.4 12 22l-8.6-8.6a5 5 0 0 1 0-7.1 5 5 0 0 1 7.1 0L12 7.4l1.5-1.5a5 5 0 0 1 7.1 0 5 5 0 0 1 0 7.1z" />
+        <circle cx="16" cy="8" r="1.2" />
+      </svg>
+    );
+  }
+
   return (
     <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8">
       <rect x="4" y="3" width="16" height="18" rx="2" />

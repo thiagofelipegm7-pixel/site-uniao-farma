@@ -1,7 +1,9 @@
 "use client";
 
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
+import DirectUnitLinks from "../DirectUnitLinks";
 import PublicOffersGrid from "../PublicOffersGrid";
+import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 
 type FAQ = { q: string; a: string };
 
@@ -14,7 +16,7 @@ export default function OffersPageClient({
   return (
     <>
       <a className="skip-link" href="#conteudo-ofertas">
-        Pular para o conteúdo
+        Pular para o conte\u00fado
       </a>
 
       <ContentSiteHeader activePath="/ofertas" />
@@ -23,20 +25,36 @@ export default function OffersPageClient({
         <section className="offers-hero" aria-labelledby="offers-title">
           <div className="section-inner">
             <p className="eyebrow">Ofertas selecionadas</p>
-            <h1 id="offers-title">Ofertas da União Farma em Sabará</h1>
+            <h1 id="offers-title">Ofertas da Uni\u00e3o Farma em Sabar\u00e1</h1>
             <p className="offers-hero-lead">
               Foto, produto e um toque na loja. A equipe confirma se tem hoje.
             </p>
-            <p className="offers-hero-note">Oferta válida enquanto durarem os estoques.</p>
-            <p className="offers-hero-note">Preços e disponibilidade podem variar conforme o estoque de cada unidade.</p>
+            <p className="offers-hero-note">Oferta v\u00e1lida enquanto durarem os estoques.</p>
+            <p className="offers-hero-note">Pre\u00e7os e disponibilidade podem variar conforme o estoque de cada unidade.</p>
+          </div>
+        </section>
+
+        <section className="section offers-whatsapp-section" id="ofertas-whatsapp" aria-labelledby="ofertas-whatsapp-title">
+          <div className="section-inner">
+            <div className="section-heading compact-heading">
+              <p className="section-kicker">Continuar no assunto</p>
+              <h2 id="ofertas-whatsapp-title">Consultar oferta na loja</h2>
+            </div>
+            <DirectUnitLinks
+              message={WHATSAPP_MESSAGES.offer}
+              intent="offer"
+              source="ofertas_page"
+              heading="Escolha a unidade"
+              description="A conversa abre falando de oferta, n\u00e3o de uma consulta gen\u00e9rica."
+            />
           </div>
         </section>
 
         <section className="section offers-list-section" id="lista-ofertas" aria-labelledby="offers-list-title">
           <div className="section-inner">
             <div className="section-heading compact-heading">
-              <p className="section-kicker">Ofertas aprovadas da União Farma</p>
-              <h2 id="offers-list-title">Promoções em destaque</h2>
+              <p className="section-kicker">Ofertas aprovadas da Uni\u00e3o Farma</p>
+              <h2 id="offers-list-title">Promo\u00e7\u00f5es em destaque</h2>
             </div>
             <PublicOffersGrid />
           </div>
@@ -45,7 +63,7 @@ export default function OffersPageClient({
         <section className="section offers-faq" aria-labelledby="offers-faq-title">
           <div className="section-inner offers-faq-inner">
             <div>
-              <p className="section-kicker">Dúvidas frequentes</p>
+              <p className="section-kicker">D\u00favidas frequentes</p>
               <h2 id="offers-faq-title">Antes de consultar</h2>
             </div>
             <div>
