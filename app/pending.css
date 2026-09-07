@@ -17,6 +17,19 @@
   outline-offset: 3px;
 }
 
+.section {
+  padding-top: 1.35rem !important;
+  padding-bottom: 1.35rem !important;
+}
+
+.section-heading {
+  margin-bottom: 0.85rem !important;
+}
+
+.section-heading p {
+  margin-top: 0.35rem !important;
+}
+
 .brand img {
   border-radius: 0.7rem;
   background: #04140e;
@@ -28,7 +41,7 @@
 
 .hero-copy .eyebrow {
   display: block !important;
-  margin: 0 0 0.45rem;
+  margin: 0 0 0.3rem;
   color: #0b6244;
   font-size: 0.72rem;
   font-weight: 800;
@@ -37,6 +50,7 @@
 }
 
 .hero-copy h1 {
+  margin: 0;
   letter-spacing: -0.03em;
   line-height: 1.12;
 }
@@ -44,10 +58,10 @@
 .hero-lead {
   display: block !important;
   max-width: 34rem;
-  margin: 0.65rem 0 0;
+  margin: 0.45rem 0 0;
   color: #3d524a;
-  font-size: 0.95rem;
-  line-height: 1.45;
+  font-size: 0.92rem;
+  line-height: 1.4;
 }
 
 .trust-strip {
@@ -55,37 +69,36 @@
   color: #10231c;
   border-top: 1px solid #b7d7c8;
   border-bottom: 1px solid #b7d7c8;
-  padding: 1.1rem 0;
+  padding: 0.75rem 0;
   overflow: hidden;
 }
 
 .trust-strip-grid {
   background: transparent !important;
-  gap: 0.75rem;
+  gap: 0.55rem;
 }
 
 .trust-strip-grid > div {
   min-height: 0;
   background: #ffffff;
   border: 1px solid #cfe3d8;
-  border-radius: 1rem;
-  padding: 0.85rem 0.7rem;
-  box-shadow: 0 0.2rem 0.7rem rgba(8, 53, 40, 0.04);
+  border-radius: 0.9rem;
+  padding: 0.65rem 0.55rem;
 }
 
 .trust-strip-grid strong {
   color: #0b6244;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
 }
 
 .trust-strip-grid span {
   color: #2a4038;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
 }
 
 .reviews-section {
-  padding-top: 1.1rem !important;
-  padding-bottom: 1.1rem !important;
+  padding-top: 0.9rem !important;
+  padding-bottom: 0.9rem !important;
 }
 
 .reviews-head {
@@ -93,11 +106,11 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 0.75rem;
-  margin: 0 1rem 0.75rem;
+  margin: 0 1rem 0.55rem;
 }
 
 .reviews-section h2 {
-  margin: 0 0 0.2rem;
+  margin: 0 0 0.15rem;
   font-size: 1.05rem;
   color: #202124;
 }
@@ -132,7 +145,7 @@
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  padding: 0 1rem 0.35rem;
+  padding: 0 1rem 0.2rem;
   scrollbar-width: none;
 }
 
@@ -144,7 +157,7 @@
   flex: 0 0 min(86vw, 320px);
   min-height: 0 !important;
   margin: 0 !important;
-  padding: 0.9rem 1rem !important;
+  padding: 0.7rem 0.85rem !important;
   border: 0 !important;
   border-radius: 0 !important;
   background: transparent !important;
@@ -159,25 +172,25 @@
 .review-person {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-bottom: 0.55rem;
+  gap: 0.65rem;
+  margin-bottom: 0.4rem;
 }
 
 .review-avatar {
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   color: #fff;
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 600;
   flex-shrink: 0;
 }
 
 .review-person strong {
   display: block;
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #202124;
   font-weight: 600;
   line-height: 1.2;
@@ -185,28 +198,27 @@
 
 .review-person small {
   display: block;
-  margin-top: 0.15rem;
-  font-size: 0.78rem;
+  margin-top: 0.1rem;
+  font-size: 0.74rem;
   color: #80868b;
-  font-weight: 400;
 }
 
 .review-rating-row {
   display: flex !important;
   align-items: center;
   gap: 0.45rem;
-  margin: 0 0 0.45rem !important;
+  margin: 0 0 0.35rem !important;
 }
 
 .review-rating-row time {
   color: #80868b;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
 }
 
 .review-text {
   margin: 0 !important;
-  font-size: 0.98rem !important;
-  line-height: 1.45 !important;
+  font-size: 0.92rem !important;
+  line-height: 1.4 !important;
   color: #202124 !important;
 }
 
@@ -227,7 +239,6 @@
 .hero-illustration {
   background: #f3faf6;
   overflow: hidden;
-  box-shadow: 0 0.6rem 1.4rem rgba(8, 53, 40, 0.06);
 }
 
 .hero-illustration-img,
@@ -241,26 +252,25 @@
 }
 
 .hero-offer-showcase {
-  padding-bottom: 0.55rem !important;
+  padding-bottom: 0.25rem !important;
 }
 
 .hero-whatsapp {
   display: grid;
-  gap: 0.55rem;
+  gap: 0.4rem;
 }
 
 .hero-whatsapp-label {
   margin: 0;
   font-size: 0.78rem;
   font-weight: 800;
-  letter-spacing: 0.02em;
   color: #0b6244;
 }
 
 .hero-whatsapp-row {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.5rem;
+  gap: 0.42rem;
 }
 
 .hero-whatsapp-btn {
@@ -268,14 +278,14 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  min-height: 52px;
-  padding: 0.75rem 1rem;
+  min-height: 50px;
+  padding: 0.65rem 1rem;
   border-radius: 999px;
   background: #128c3a;
   color: #ffffff;
   font-weight: 800;
   text-decoration: none;
-  box-shadow: 0 0.35rem 0.85rem rgba(18, 140, 58, 0.22);
+  box-shadow: 0 0.3rem 0.7rem rgba(18, 140, 58, 0.2);
 }
 
 .hero-whatsapp-btn img,
@@ -294,43 +304,66 @@
   color: #ffffff !important;
 }
 
+.quick-units-section {
+  padding-top: 1.1rem !important;
+  padding-bottom: 1.1rem !important;
+}
+
+.quick-unit-grid {
+  gap: 0.7rem !important;
+}
+
 .quick-unit-card {
-  border-radius: 1.15rem !important;
-  box-shadow: 0 0.25rem 0.8rem rgba(8, 53, 40, 0.05);
+  border-radius: 1rem !important;
+  padding: 0.85rem !important;
+}
+
+.category-grid {
+  gap: 0.7rem !important;
 }
 
 .category-card {
-  border-radius: 1.05rem;
+  border-radius: 1rem;
+  padding: 0.85rem !important;
 }
 
 .category-icon-img {
-  width: 24px;
-  height: 24px;
-  margin-bottom: 0.7rem;
+  width: 22px;
+  height: 22px;
+  margin-bottom: 0.45rem;
 }
 
 .family-illustration-row {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  gap: 0.75rem;
+  margin-top: 0.9rem;
 }
 
 .family-illustration {
   margin: 0;
-  padding: 0.75rem;
+  padding: 0.5rem;
   background: #f3faf6;
   border: 1px solid #b7d7c8;
-  border-radius: 1.15rem;
+  border-radius: 1rem;
   overflow: hidden;
 }
 
 .recipe-with-art {
   display: grid;
-  gap: 1.25rem;
+  gap: 1rem;
+}
+
+.faq-section h2 {
+  margin-bottom: 0.7rem;
 }
 
 @media (min-width: 861px) {
+  .section {
+    padding-top: 1.75rem !important;
+    padding-bottom: 1.75rem !important;
+  }
+
   .hero-inner {
     display: grid !important;
     grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr) !important;
@@ -338,7 +371,7 @@
       "copy art"
       "whatsapp art" !important;
     align-items: start;
-    gap: 1.5rem 3rem !important;
+    gap: 1.15rem 2.5rem !important;
   }
 
   .hero-copy {
@@ -362,7 +395,7 @@
 
   .family-illustration-row {
     grid-template-columns: 1fr 1fr;
-    gap: 1.1rem;
+    gap: 0.9rem;
   }
 
   .recipe-with-art {
@@ -481,18 +514,18 @@
 
 @media (max-width: 860px) {
   .hero {
-    padding-top: 5.35rem !important;
-    padding-bottom: 1.1rem !important;
+    padding-top: 4.85rem !important;
+    padding-bottom: 0.75rem !important;
   }
 
   .hero-inner {
     display: grid !important;
     grid-template-columns: 1fr !important;
-    gap: 0.7rem !important;
+    gap: 0.55rem !important;
   }
 
   .hero-copy h1 {
-    font-size: 1.72rem;
+    font-size: 1.62rem;
   }
 
   .hero-offer-showcase,
@@ -501,37 +534,35 @@
     visibility: visible !important;
     width: 100% !important;
     min-height: 0 !important;
-    margin: 0.1rem 0 !important;
-    padding: 0.45rem !important;
-    border-radius: 1.25rem !important;
+    margin: 0 !important;
+    padding: 0.2rem !important;
+    border-radius: 1.1rem !important;
     overflow: hidden;
   }
 
   .hero-whatsapp-btn {
-    min-height: 54px;
-    font-size: 0.98rem;
+    min-height: 50px;
+    font-size: 0.95rem;
+  }
+
+  .family-illustration-row {
+    display: none;
   }
 
   .delivery-visual {
-    display: flex !important;
-    min-height: 0 !important;
-    padding: 0.85rem !important;
-  }
-
-  .delivery-visual img,
-  .family-illustration img,
-  .recipe-illustration {
-    display: block !important;
-    width: 100% !important;
-    height: auto !important;
+    display: none !important;
   }
 
   main#conteudo {
-    padding-bottom: 8.75rem;
+    padding-bottom: 7.5rem;
   }
 
   .trust-strip-grid {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .seo-intent-grid {
+    margin-top: 0.7rem !important;
   }
 
   .cookie-banner {
