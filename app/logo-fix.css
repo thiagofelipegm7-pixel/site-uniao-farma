@@ -34,3 +34,32 @@ a.brand img {
 .uf-footer-bottom a:visited {
   color: #ffffff !important;
 }
+
+.photo-gallery,
+.store-photos {
+  display: flex !important;
+  gap: 0.65rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.2rem;
+  scrollbar-width: none;
+}
+
+.store-photos::-webkit-scrollbar {
+  display: none;
+}
+
+.store-photo {
+  flex: 0 0 min(78vw, 280px);
+  margin: 0;
+  scroll-snap-align: start;
+}
+
+.store-photo img {
+  display: block;
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 0.9rem;
+  background: #eef7f2;
+}
