@@ -14,7 +14,6 @@ import {
 
 export function HomeMore({
   generalIntent,
-  openSelector,
 }: {
   generalIntent: SelectorIntent;
   openSelector: (intent: SelectorIntent) => void;
@@ -36,8 +35,9 @@ export function HomeMore({
         </div>
       </section>
 
-      <section className="section reviews-section reveal" id="avaliacoes">
-        <h2>Quem conhece, confia</h2>
+      <section className="section reviews-section reveal" id="avaliacoes" aria-labelledby="reviews-title">
+        <h2 id="reviews-title">Quem conhece, confia</h2>
+        <p className="reviews-score">4,7 no Google</p>
         {reviews.map((review) => (
           <blockquote className="review-card" key={review.author}>
             <p>“{review.text}”</p>
