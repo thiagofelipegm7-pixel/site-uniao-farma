@@ -110,16 +110,6 @@
   }
 }
 
-@media (max-width: 860px) {
-  main#conteudo {
-    padding-bottom: 6rem;
-  }
-
-  .direct-unit-links-grid {
-    padding-bottom: 0.75rem;
-  }
-}
-
 .cookie-banner {
   position: fixed;
   left: 0;
@@ -219,7 +209,38 @@
   color: #10231c;
 }
 
+.locate-unit-bar {
+  background: #f3faf6;
+  border: 1px solid #b7d7c8;
+  color: #2a4038;
+}
+
 @media (max-width: 860px) {
+  .hero {
+    padding-top: 5.75rem !important;
+    padding-bottom: 1.25rem !important;
+  }
+
+  .hero-copy h1,
+  #hero-title {
+    letter-spacing: -0.035em;
+    margin-top: 0.15rem !important;
+    padding-top: 0.1rem;
+  }
+
+  main#conteudo {
+    padding-bottom: 8.75rem;
+  }
+
+  .hero-actions .direct-unit-links,
+  .direct-unit-links-grid {
+    padding-bottom: 5.25rem;
+  }
+
+  .direct-unit-link:last-child {
+    margin-bottom: 0.75rem;
+  }
+
   .cookie-banner {
     bottom: 0;
     max-height: 72px;
