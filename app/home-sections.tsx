@@ -1,15 +1,7 @@
 "use client";
 
 /* eslint-disable @next/next/no-html-link-for-pages */
-import UnitStatusBadge from "./UnitStatusBadge";
-import { trackEvent } from "./analytics";
-import { buildWhatsAppUrl, UNITS } from "./site-config";
-import {
-  SHORT_UNIT_ADDRESSES,
-  categories,
-  WhatsAppIcon,
-  type SelectorIntent,
-} from "./home-chrome";
+import { categories, type SelectorIntent } from "./home-chrome";
 import { HomeMore } from "./home-more";
 
 const CATEGORY_ICON_SRC: Record<string, string> = {
@@ -47,48 +39,6 @@ export function HomeSections({
           <div>
             <strong>Família</strong>
             <span>Remédio, higiene e cuidado</span>
-          </div>
-        </div>
-      </section>
-
-      <section className="quick-units-section reveal" id="unidades-rapidas" aria-labelledby="quick-units-title">
-        <div className="section-inner">
-          <div className="section-heading compact-heading">
-            <div>
-              <p className="section-kicker">Unidades em Sabará</p>
-              <h2 id="quick-units-title">Endereço, horário e WhatsApp</h2>
-            </div>
-            <p>Escolha a loja do seu bairro. A conversa abre pronta no WhatsApp.</p>
-          </div>
-          <div className="quick-unit-grid">
-            {UNITS.map((unit) => (
-              <article className="quick-unit-card" key={unit.id}>
-                <h3>{unit.shortName}</h3>
-                <p>{SHORT_UNIT_ADDRESSES[unit.id]}</p>
-                <UnitStatusBadge unit={unit} />
-                <div className="quick-unit-actions">
-                  <a
-                    className="button button-whatsapp"
-                    href={buildWhatsAppUrl(unit, generalIntent.message.replaceAll("{unidade}", unit.shortName))}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={() => trackEvent("whatsapp_click", { unit: unit.id, source: "quick_units" })}
-                  >
-                    <WhatsAppIcon /> WhatsApp
-                  </a>
-                  <a className="text-link" href={`/unidades/${unit.slug}`}>Endereço e horário</a>
-                  <a
-                    className="text-link quick-recipe-link"
-                    href={buildWhatsAppUrl(unit, `Olá, União Farma ${unit.shortName}! Vou enviar a foto da receita (ou Memed). Pode o farmacêutico conferir?`)}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={() => trackEvent("whatsapp_click", { unit: unit.id, intent: "enviar_receita", source: "quick_units", placement: "recipe" })}
-                  >
-                    Enviar receita
-                  </a>
-                </div>
-              </article>
-            ))}
           </div>
         </div>
       </section>
