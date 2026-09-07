@@ -2,7 +2,8 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages */
 import { trackEvent } from "./analytics";
-import { GOOGLE_REVIEWS_URL, INSTAGRAM_URL } from "./site-config";
+import { UNIT_GOOGLE_PROFILES } from "./google-reviews";
+import { INSTAGRAM_URL } from "./site-config";
 import { HOME_FAQS } from "./seo-content";
 import {
   InstagramIcon,
@@ -14,28 +15,28 @@ import { STORE_PHOTOS } from "./store-photos";
 const GOOGLE_REVIEWS = [
   {
     author: "Jaderson Almeida",
-    meta: "12 avalia\u00e7\u00f5es em Sabar\u00e1",
+    meta: "Avalia\u00e7\u00e3o no Google \u00b7 Sabar\u00e1",
     time: "5 anos atr\u00e1s",
     text: "Quer encontrar medicamentos baratos entre outras coisas. Confira os melhores pre\u00e7os e compare.",
     color: "#5f6368",
   },
   {
     author: "Beatriz Cristina",
-    meta: "8 avalia\u00e7\u00f5es em Sabar\u00e1",
+    meta: "Avalia\u00e7\u00e3o no Google \u00b7 Sabar\u00e1",
     time: "1 ano atr\u00e1s",
     text: "Atendimento excelente, todos s\u00e3o muito gentis e as entregas chegam rapidamente.",
     color: "#1a73e8",
   },
   {
     author: "Thais Juliane",
-    meta: "6 avalia\u00e7\u00f5es em Sabar\u00e1",
+    meta: "Avalia\u00e7\u00e3o no Google \u00b7 Sabar\u00e1",
     time: "8 meses atr\u00e1s",
     text: "Sempre que preciso compro l\u00e1. Pre\u00e7o \u00f3timo e atendimento maravilhoso!",
     color: "#188038",
   },
   {
     author: "Kenner Alcino",
-    meta: "4 avalia\u00e7\u00f5es em Sabar\u00e1",
+    meta: "Avalia\u00e7\u00e3o no Google \u00b7 Sabar\u00e1",
     time: "2 anos atr\u00e1s",
     text: "A melhor farm\u00e1cia da regi\u00e3o.",
     color: "#c5221f",
@@ -119,25 +120,33 @@ export function HomeMore({
             <div className="reviews-brand-copy">
               <h2 id="reviews-title">Avalia\u00e7\u00f5es no Google</h2>
               <p className="reviews-score">
-                <span className="reviews-score-number">4,7</span>
-                <Stars />
-                <span className="reviews-score-meta">m\u00e9dia das 3 lojas</span>
+                <span className="reviews-score-meta">Cada loja tem o pr\u00f3prio perfil. A nota s\u00f3 aparece depois da confer\u00eancia.</span>
               </p>
             </div>
           </div>
-          <a
-            className="reviews-google-cta reviews-google-link"
-            href={GOOGLE_REVIEWS_URL}
-            target="_blank"
-            rel="noreferrer"
-            onClick={() => trackEvent("google_reviews_click")}
-          >
-            Ver todas
-            <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
-              <path fill="currentColor" d="M5.5 3.5h7v7h-1.5V6.56L4.78 12.78 3.72 11.72 10.94 4.5H5.5z" />
-            </svg>
-          </a>
         </div>
+
+        <div className="reviews-unit-grid">
+          {UNIT_GOOGLE_PROFILES.map((profile) => (
+            <a
+              className="reviews-unit-card"
+              key={profile.unitId}
+              href={profile.mapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => trackEvent("google_reviews_click", { unit: profile.unitId })}
+            >
+              <strong>{profile.label}</strong>
+              {profile.rating !== null ? (
+                <span className="reviews-unit-score">{profile.rating.toFixed(1).replace(".", ",")} no Google</span>
+              ) : (
+                <span className="reviews-unit-score">Ver avalia\u00e7\u00f5es no Google</span>
+              )}
+              <small>{profile.sourceNote}</small>
+            </a>
+          ))}
+        </div>
+
         <div className="reviews-track" role="list">
           {GOOGLE_REVIEWS.map((review) => (
             <article className="review-card" key={review.author} role="listitem">
