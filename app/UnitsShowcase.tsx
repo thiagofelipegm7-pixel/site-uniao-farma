@@ -1,6 +1,7 @@
 "use client";
 
 import { trackEvent } from "./analytics";
+import { trackWhatsAppClick } from "./metrics";
 import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
 import { UNIT_PHOTOS, UNIT_PHOTO_KIND } from "./unit-photos";
 import UnitStatusBadge, { getFallbackLabel } from "./UnitStatusBadge";
@@ -70,8 +71,9 @@ export default function UnitsShowcase() {
                       target="_blank"
                       rel="noreferrer"
                       onClick={() => {
-                        trackEvent("whatsapp_click", {
+                        trackWhatsAppClick({
                           unit: unit.id,
+                          intent: "product",
                           source: "home_units",
                           placement: "unit_card",
                         });
