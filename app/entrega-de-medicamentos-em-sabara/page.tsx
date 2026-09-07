@@ -5,22 +5,22 @@ import { SITE_URL } from "../site-config";
 const config: LocalLandingPageConfig = {
   slug: "entrega-de-medicamentos-em-sabara",
   title: "Entrega de medicamentos em Sabará | União Farma",
-  description: "Consulte a disponibilidade de entrega de medicamentos em Sabará pelo WhatsApp da unidade União Farma mais próxima.",
-  eyebrow: "Farmácia com entrega em Sabará",
+  description: "Quer receber em casa? Manda o bairro no WhatsApp da União Farma mais perto. A loja confirma se entrega, a taxa e o horário.",
+  eyebrow: "Entrega pela loja do bairro",
   heading: "Entrega de medicamentos em Sabará",
-  lead: "Informe seu bairro ou endereço para a equipe confirmar se a unidade atende sua região, além de taxa, prazo e forma de pagamento.",
+  lead: "A gente não promete cidade inteira no site. Cada loja tem a sua área. Manda o endereço — a equipe responde se leva, quando e quanto fica a taxa.",
   bullets: [
-    "Escolha Nossa Senhora de Fátima, Nações Unidas ou Itacolomi.",
-    "Confirme a área atendida antes de finalizar o pedido.",
-    "Tire dúvidas sobre medicamentos, higiene, beleza e perfumaria pelo WhatsApp.",
+    "Fátima, Nações Unidas ou Itacolomi: escolha a mais perto.",
+    "Confirme bairro, taxa e prazo antes de separar o pedido.",
+    "Remédio, higiene e perfumaria entram na mesma conversa.",
   ],
   faqs: [
-    { q: "A União Farma entrega medicamentos em toda Sabará?", a: "Cada unidade possui uma área de atendimento. Envie seu bairro ou endereço pelo WhatsApp para confirmar a disponibilidade, a taxa e o prazo." },
-    { q: "Como consultar uma entrega de medicamentos?", a: "Escolha a unidade mais próxima nesta página e envie uma mensagem com seu bairro ou endereço. A equipe confirma as condições no momento do pedido." },
-    { q: "Quais formas de pagamento estão disponíveis na entrega?", a: "As formas de pagamento da entrega devem ser confirmadas com a unidade junto com a taxa e o prazo do pedido." },
+    { q: "Entregam em toda Sabará?", a: "Não automaticamente. Cada unidade cobre os bairros ao redor. Manda o endereço no WhatsApp para saber se atende." },
+    { q: "Como peço a entrega?", a: "Abre o WhatsApp da loja, manda o nome do produto e o bairro. A equipe confirma estoque, taxa e prazo." },
+    { q: "Como pago na entrega?", a: "Pix, dinheiro ou cartão — a loja confirma a forma junto com a taxa." },
   ],
   primaryLabel: "Consultar entrega",
-  primaryMessage: "Olá! Vim pela página de entrega de medicamentos em Sabará e gostaria de informar meu bairro para confirmar o atendimento.",
+  primaryMessage: "Oi, União Farma {unidade}! Quero saber se vocês entregam no meu bairro. Posso mandar o endereço?",
 };
 
 export const metadata: Metadata = {
