@@ -96,16 +96,11 @@ export default function Home() {
               <p className="eyebrow">Drogaria e Perfumaria em Sabará</p>
               <h1 id="hero-title">Cuidado, ofertas e entrega pertinho de você.</h1>
               <p className="hero-lead">Consulte produtos, preço e disponibilidade pelo WhatsApp da unidade mais próxima.</p>
-              <div className="hero-actions" ref={consultationRef}>
-                <DirectUnitLinks message={generalIntent.message} intent={generalIntent.eventName} source="home_hero" />
-                <a className="sr-only" href="/novidades">Novidades da União Farma</a>
-                <a className="sr-only" href="/novidades">Ver todas as novidades</a>
-              </div>
             </div>
             <aside className="hero-offer-showcase hero-illustration" aria-label="Atendimento na União Farma">
               <img
                 className="hero-illustration-img"
-                src="/illustrations/atendimento.svg?v=6"
+                src="/illustrations/atendimento.svg?v=8"
                 alt="Farmacêutica orientando uma cliente no balcão da União Farma"
                 width="1200"
                 height="900"
@@ -114,6 +109,11 @@ export default function Home() {
               />
               <button className="button button-whatsapp hero-offer-cta" type="button" onClick={() => openSelector(featuredOfferIntent)}>Pedir esta oferta</button>
             </aside>
+            <div className="hero-actions" ref={consultationRef}>
+              <DirectUnitLinks message={generalIntent.message} intent={generalIntent.eventName} source="home_hero" />
+              <a className="sr-only" href="/novidades">Novidades da União Farma</a>
+              <a className="sr-only" href="/novidades">Ver todas as novidades</a>
+            </div>
           </div>
         </section>
         <HomeSections generalIntent={generalIntent} openSelector={openSelector} />
