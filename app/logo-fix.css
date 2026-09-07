@@ -1,0 +1,15 @@
+.brand img,
+.uf-footer-logo img,
+.brand > img,
+a.brand img {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+  object-fit: contain !important;
+}
+
+.quick-units-section,
+.direct-unit-links {
+  display: none !important;
+}
