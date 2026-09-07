@@ -24,6 +24,27 @@ export function HomeSections({
 }) {
   return (
     <>
+      <section className="trust-strip" aria-label="Por que a União Farma">
+        <div className="section-inner trust-strip-grid">
+          <div>
+            <strong>3 lojas</strong>
+            <span>Fátima, Nações e Itacolomi</span>
+          </div>
+          <div>
+            <strong>Entrega</strong>
+            <span>Consulte no WhatsApp do bairro</span>
+          </div>
+          <div>
+            <strong>Farmacêutico</strong>
+            <span>Orientação durante o horário</span>
+          </div>
+          <div>
+            <strong>Família</strong>
+            <span>Saúde, higiene e bem-estar</span>
+          </div>
+        </div>
+      </section>
+
       <section className="quick-units-section reveal" id="unidades-rapidas" aria-labelledby="quick-units-title">
         <div className="section-inner">
           <div className="section-heading compact-heading">
