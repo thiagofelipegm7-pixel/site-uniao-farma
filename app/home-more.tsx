@@ -14,10 +14,22 @@ import {
 
 const AVATAR_COLORS = ["#1a73e8", "#188038", "#c5221f"];
 
+function GoldStar() {
+  return (
+    <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true">
+      <path fill="#F4B400" d="M12 2.6l2.7 6.2 6.7.6-5.1 4.4 1.6 6.5L12 16.9 6.1 20.3l1.6-6.5-5.1-4.4 6.7-.6z" />
+    </svg>
+  );
+}
+
 function Stars() {
   return (
     <span className="review-stars" aria-label="5 de 5 estrelas">
-      {"★★★★★"}
+      <GoldStar />
+      <GoldStar />
+      <GoldStar />
+      <GoldStar />
+      <GoldStar />
     </span>
   );
 }
