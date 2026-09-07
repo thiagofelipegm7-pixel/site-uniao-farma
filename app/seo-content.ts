@@ -8,23 +8,23 @@ export type FaqItem = {
 export const CUSTOMER_QUESTIONS: FaqItem[] = [
   {
     q: "Tem genérico?",
-    a: "Quase sempre. Manda o nome do remédio no WhatsApp da loja. A equipe olha o estoque daquele dia e fala se tem genérico, similar ou referência.",
+    a: "Na maioria das vezes, sim. Manda o nome e a dosagem no WhatsApp da loja. A equipe olha o estoque daquele dia e fala se tem genérico, similar ou referência — e o preço de cada um.",
   },
   {
     q: "Aceita receita digital?",
-    a: "Aceita. Envia a foto da receita ou o link do Memed no WhatsApp. O farmacêutico confere antes de separar.",
+    a: "Aceita. Envia a foto nítida da receita ou o link do Memed no WhatsApp da unidade. O farmacêutico confere antes de separar. Controlado e antibiótico pedem retirada na loja.",
   },
   {
     q: "Entrega no meu bairro?",
-    a: "Depende da loja e do endereço. Escolhe a unidade mais perto, manda o bairro e pergunta taxa e horário. Não prometemos entrega sem essa confirmação.",
+    a: "Depende da loja e do endereço. Escolhe a unidade mais perto, manda o bairro e pergunta taxa, horário e forma de pagamento. A gente só confirma entrega depois dessa conversa.",
   },
   {
     q: "Preciso de receita para tudo?",
-    a: "Não. Só controlados e alguns de tarja pedem receita. Se tiver dúvida, pergunta no Zap antes de sair de casa.",
+    a: "Não. Só controlados e alguns de tarja pedem receita. Se tiver dúvida, pergunta no WhatsApp antes de sair de casa — evita viagem à toa.",
   },
   {
     q: "Está aberto agora?",
-    a: "A faixa no topo mostra Fátima, Nações e Itacolomi. No domingo as três fecham às 12h. Feriado é melhor confirmar na loja.",
+    a: "A faixa no topo mostra Fátima, Nações e Itacolomi. De segunda a sábado as lojas abrem cedo; no domingo as três fecham às 12h. Feriado é melhor confirmar na loja.",
   },
 ];
 
@@ -32,7 +32,7 @@ export const HOME_FAQS: FaqItem[] = [
   ...CUSTOMER_QUESTIONS,
   {
     q: "Como consulto o preço?",
-    a: "Toque em Produto, escolha a unidade e mande o nome. Quem responde é a loja — com o preço e se tem na prateleira.",
+    a: "Toque na loja do seu bairro e mande o nome do produto. Quem responde é a equipe da unidade — com o preço de hoje e se tem na prateleira.",
   },
   {
     q: "Aceitam Pix, cartão e ECX Card?",
