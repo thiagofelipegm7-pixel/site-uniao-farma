@@ -2,8 +2,7 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links keep the Novidades route working in Vinext production. */
 
-import { useEffect, useRef, useState } from "react";
-import DirectUnitLinks from "./DirectUnitLinks";
+import { useEffect, useState } from "react";
 import { trackEvent } from "./analytics";
 import { SITE_OPTIONS, SITE_URL } from "./site-config";
 import { HOME_FAQS } from "./seo-content";
@@ -14,7 +13,6 @@ import { HomeSections } from "./home-sections";
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectorIntent, setSelectorIntent] = useState<SelectorIntent | null>(null);
-  const consultationRef = useRef<HTMLDivElement | null>(null);
   const homeStructuredData = getPageStructuredData({
     name: "Farmácia em Sabará | União Farma",
     url: `${SITE_URL}/`,
@@ -106,11 +104,7 @@ export default function Home() {
             />
             <button className="button button-whatsapp hero-offer-cta" type="button" onClick={() => openSelector(featuredOfferIntent)}>Ver se tem na loja</button>
           </aside>
-          <div className="hero-actions" ref={consultationRef}>
-            <DirectUnitLinks message={generalIntent.message} intent={generalIntent.eventName} source="home_hero" heading="Escolhe a loja e fala com a gente" description="O WhatsApp já abre com a mensagem pronta." />
-            <a className="sr-only" href="/novidades">Novidades da União Farma</a>
-            <a className="sr-only" href="/novidades">Ver todas as novidades</a>
-          </div>
+          <a className="sr-only" href="/novidades">Novidades da União Farma</a>
         </div>
       </section>
       <HomeSections generalIntent={generalIntent} openSelector={openSelector} />
