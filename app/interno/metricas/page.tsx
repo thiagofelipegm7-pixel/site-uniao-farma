@@ -12,6 +12,14 @@ type DayBucket = {
   sources: Record<string, number>;
 };
 
+type WebhookStatus = {
+  verifyTokenReady?: boolean;
+  appSecretReady?: boolean;
+  callbackPath?: string;
+  phoneIds?: Record<string, boolean>;
+  recent?: Array<{ at: string; unit: string; type: string; source: string }>;
+};
+
 const UNIT_LABEL: Record<string, string> = {
   fatima: "F\u00e1tima",
   nacoes: "Na\u00e7\u00f5es",
@@ -25,7 +33,7 @@ const STAGE_COPY: Record<MetricStage, { title: string; hint: string }> = {
   },
   conversation_received: {
     title: "Conversas recebidas",
-    hint: "A loja recebeu e atendeu a mensagem. A equipe registra aqui.",
+    hint: "Mensagem que chegou na loja pelo webhook da Meta, ou registro manual.",
   },
   order_completed: {
     title: "Pedidos conclu\u00eddos",
@@ -36,6 +44,7 @@ const STAGE_COPY: Record<MetricStage, { title: string; hint: string }> = {
 export default function MetricsPage() {
   const [today, setToday] = useState("");
   const [days, setDays] = useState<Record<string, DayBucket>>({});
+  const [webhook, setWebhook] = useState<WebhookStatus>({});
   const [error, setError] = useState("");
   const [unit, setUnit] = useState("fatima");
   const [busy, setBusy] = useState(false);
@@ -46,6 +55,7 @@ export default function MetricsPage() {
       .then((payload) => {
         setToday(payload.today);
         setDays(payload.days || {});
+        setWebhook(payload.webhook || {});
       })
       .catch(() => setError("N\u00e3o deu para ler as m\u00e9tricas agora."));
   }
@@ -89,14 +99,16 @@ export default function MetricsPage() {
     }
   }
 
+  const ready = Boolean(webhook.verifyTokenReady && webhook.appSecretReady);
+
   return (
     <main className="metrics-page">
       <section className="section-inner">
         <p className="eyebrow">Uso interno</p>
         <h1>Contatos e vendas</h1>
         <p>
-          Dia {today || "\u2014"}. Clique no site n\u00e3o \u00e9 pedido. A venda s\u00f3 entra quando a loja marca
-          o pedido como conclu\u00eddo.
+          Dia {today || "\u2014"}. Clique no site n\u00e3o \u00e9 pedido. Conversa s\u00f3 conta quando a Meta
+          avisa que a loja recebeu a mensagem.
         </p>
         {error ? <p>{error}</p> : null}
 
@@ -110,6 +122,32 @@ export default function MetricsPage() {
           ))}
         </div>
 
+        <h2>WhatsApp Business</h2>
+        <p>
+          Callback: <code>{webhook.callbackPath || "/api/whatsapp/webhook"}</code>
+        </p>
+        <ul>
+          <li>Verify token: {webhook.verifyTokenReady ? "configurado" : "faltando WHATSAPP_VERIFY_TOKEN"}</li>
+          <li>App secret: {webhook.appSecretReady ? "configurado" : "faltando WHATSAPP_APP_SECRET"}</li>
+          <li>Phone ID F\u00e1tima: {webhook.phoneIds?.fatima ? "ok" : "opcional"}</li>
+          <li>Phone ID Na\u00e7\u00f5es: {webhook.phoneIds?.nacoes ? "ok" : "opcional"}</li>
+          <li>Phone ID Itacolomi: {webhook.phoneIds?.itacolomi ? "ok" : "opcional"}</li>
+        </ul>
+        <p>{ready ? "Webhook pronto para a Meta verificar." : "Coloque as vari\u00e1veis no ambiente de produ\u00e7\u00e3o e volte aqui."}</p>
+
+        <h3>\u00daltimos eventos do webhook</h3>
+        <ul>
+          {(webhook.recent || []).length === 0 ? (
+            <li>Nenhuma mensagem inbound ainda. O texto da conversa n\u00e3o \u00e9 gravado.</li>
+          ) : (
+            (webhook.recent || []).map((event, index) => (
+              <li key={`${event.at}-${index}`}>
+                {event.at} \u00b7 {UNIT_LABEL[event.unit] || event.unit} \u00b7 {event.type}
+              </li>
+            ))
+          )}
+        </ul>
+
         <h2>Cliques por loja</h2>
         <div className="metrics-grid">
           {Object.entries(UNIT_LABEL).map(([id, label]) => (
@@ -121,7 +159,7 @@ export default function MetricsPage() {
         </div>
 
         <h2>Registrar conversa ou venda</h2>
-        <p>Use depois que a loja atender no WhatsApp ou fechar o pedido.</p>
+        <p>Use se o webhook ainda n\u00e3o estiver no ar, ou para marcar a venda fechada.</p>
         <label>
           Loja{" "}
           <select value={unit} onChange={(event) => setUnit(event.target.value)} disabled={busy}>
@@ -139,27 +177,6 @@ export default function MetricsPage() {
           <button type="button" disabled={busy} onClick={() => register("order_completed")}>
             Marcar pedido conclu\u00eddo
           </button>
-        </p>
-
-        <h2>Origem dos cliques</h2>
-        <ul>
-          {Object.entries(current.sources).filter(([key]) => !key.includes(":")).length === 0 ? (
-            <li>Nenhum clique ainda.</li>
-          ) : (
-            Object.entries(current.sources)
-              .filter(([key]) => !key.includes(":"))
-              .map(([key, value]) => (
-                <li key={key}>
-                  {key}: {value}
-                </li>
-              ))
-          )}
-        </ul>
-
-        <h2>No GA4</h2>
-        <p>
-          Evento <code>whatsapp_click</code> com <code>unit</code>, <code>source</code> e{" "}
-          <code>placement</code>. N\u00e3o use esse evento como convers\u00e3o de venda.
         </p>
       </section>
     </main>
