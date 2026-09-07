@@ -136,7 +136,6 @@ export default function Home() {
             />
           </aside>
           <div className="hero-whatsapp" id="whatsapp-lojas">
-            <span id="unidades-rapidas" />
             <p className="hero-whatsapp-label">Falar com a loja agora</p>
             <div className="hero-whatsapp-row">
               {UNITS.map((unit) => (
