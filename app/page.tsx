@@ -4,7 +4,7 @@
 
 import { useEffect, useState } from "react";
 import { trackEvent } from "./analytics";
-import { SITE_OPTIONS, SITE_URL } from "./site-config";
+import { buildWhatsAppUrl, SITE_OPTIONS, SITE_URL, UNITS } from "./site-config";
 import { HOME_FAQS } from "./seo-content";
 import { getPageStructuredData } from "./structured-data";
 import { WhatsAppIcon, UnitSelectorModal, type SelectorIntent } from "./home-chrome";
@@ -52,13 +52,6 @@ export default function Home() {
     eventName: "consulta_geral",
   };
 
-  const featuredOfferIntent: SelectorIntent = {
-    title: "Ver se a oferta tem na loja",
-    description: "A promoção vale enquanto durar o estoque da unidade.",
-    message: "Oi, União Farma {unidade}! Vi a oferta do Creme Seda 300 ml a R$ 13,90. Tem hoje?",
-    eventName: "oferta_creme_seda",
-  };
-
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeStructuredData) }} />
@@ -79,9 +72,9 @@ export default function Home() {
             <a href="#unidades-rapidas" onClick={() => setMenuOpen(false)}>Unidades</a>
             <a href="/receita" onClick={() => setMenuOpen(false)}>Receita</a>
           </div>
-          <button className="header-cta" type="button" onClick={() => openSelector(generalIntent)}>
-            <WhatsAppIcon /> Pedir no WhatsApp
-          </button>
+          <a className="header-cta" href="#whatsapp-lojas" onClick={() => setMenuOpen(false)}>
+            <WhatsAppIcon /> WhatsApp
+          </a>
         </nav>
       </header>
       <section className="hero reveal is-visible" id="inicio" aria-labelledby="hero-title">
@@ -89,7 +82,7 @@ export default function Home() {
           <div className="hero-copy">
             <p className="eyebrow">Três farmácias em Sabará</p>
             <h1 id="hero-title">Cuidado, ofertas e entrega pertinho de você.</h1>
-            <p className="hero-lead">Manda o nome no WhatsApp da loja do seu bairro. A equipe diz se tem, quanto custa e se dá para entregar hoje.</p>
+            <p className="hero-lead">Toque na loja do seu bairro. O WhatsApp abre na hora, com a conversa pronta.</p>
           </div>
           <aside className="hero-offer-showcase hero-illustration" aria-label="Atendimento na União Farma">
             <img
@@ -102,8 +95,28 @@ export default function Home() {
               fetchPriority="high"
               decoding="async"
             />
-            <button className="button button-whatsapp hero-offer-cta" type="button" onClick={() => openSelector(featuredOfferIntent)}>Ver se tem na loja</button>
           </aside>
+          <div className="hero-whatsapp" id="whatsapp-lojas">
+            <p className="hero-whatsapp-label">Falar com a loja agora</p>
+            <div className="hero-whatsapp-row">
+              {UNITS.map((unit) => (
+                <a
+                  key={unit.id}
+                  className="hero-whatsapp-btn"
+                  href={buildWhatsAppUrl(unit, generalIntent.message.replaceAll("{unidade}", unit.shortName), {
+                    campaign: "home_hero",
+                    content: `home_hero_${unit.id}`,
+                  })}
+                  target="_blank"
+                  rel="noreferrer"
+                  onClick={() => trackEvent("whatsapp_click", { unit: unit.id, source: "home_hero", placement: "hero_direct" })}
+                >
+                  <WhatsAppIcon />
+                  <span>{unit.shortName}</span>
+                </a>
+              ))}
+            </div>
+          </div>
           <a className="sr-only" href="/novidades">Novidades da União Farma</a>
         </div>
       </section>
