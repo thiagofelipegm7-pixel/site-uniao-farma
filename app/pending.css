@@ -48,10 +48,86 @@
   font-size: 0.78rem;
 }
 
+.reviews-section {
+  padding-top: 1.25rem !important;
+  padding-bottom: 1.25rem !important;
+}
+
+.reviews-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0 1rem 0.85rem;
+}
+
+.reviews-section h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
 .reviews-score {
-  margin: 0 0 1rem;
+  margin: 0 !important;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: #e7f6ee;
+  color: #0b6244;
+  font-size: 0.78rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.reviews-track {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 0 1rem 0.4rem;
+  scrollbar-width: none;
+}
+
+.reviews-track::-webkit-scrollbar {
+  display: none;
+}
+
+.review-card {
+  flex: 0 0 min(78vw, 280px);
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0.95rem 1rem !important;
+  border: 1px solid #b7d7c8 !important;
+  border-radius: 1rem !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  scroll-snap-align: start;
+}
+
+.review-card::before {
+  display: none !important;
+}
+
+.review-card p {
+  margin: 0 0 0.7rem;
+  font-size: 0.92rem;
+  line-height: 1.4;
+  color: #10231c;
+}
+
+.review-card footer {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #0b6244;
+}
+
+.reviews-google-link {
+  display: inline-block;
+  margin: 0.7rem 1rem 0;
   color: #0b6244;
   font-weight: 800;
+  font-size: 0.85rem;
 }
 
 .uf-footer-anvisa {
@@ -168,6 +244,10 @@
   .hero-whatsapp {
     grid-area: whatsapp;
     max-width: 28.5rem;
+  }
+
+  .review-card {
+    flex-basis: 280px;
   }
 
   .family-illustration-row {
