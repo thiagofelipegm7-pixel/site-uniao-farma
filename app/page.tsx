@@ -4,6 +4,7 @@
 
 import { useEffect, useState } from "react";
 import { trackEvent } from "./analytics";
+import { trackWhatsAppClick } from "./metrics";
 import { buildWhatsAppUrl, SITE_OPTIONS, SITE_URL, UNITS } from "./site-config";
 import { HOME_FAQS } from "./seo-content";
 import { getPageStructuredData } from "./structured-data";
@@ -110,7 +111,14 @@ export default function Home() {
                   })}
                   target="_blank"
                   rel="noreferrer"
-                  onClick={() => trackEvent("whatsapp_click", { unit: unit.id, source: "home_hero", placement: "hero_direct" })}
+                  onClick={() =>
+                    trackWhatsAppClick({
+                      unit: unit.id,
+                      intent: "consulta_geral",
+                      source: "home_hero",
+                      placement: "hero_direct",
+                    })
+                  }
                 >
                   <WhatsAppIcon />
                   <span>{unit.shortName}</span>
