@@ -15,6 +15,15 @@ import {
 } from "./home-chrome";
 import { HomeMore } from "./home-more";
 
+const CATEGORY_ICON_SRC: Record<string, string> = {
+  medicine: "/icons/medicamentos.svg",
+  beauty: "/icons/beleza.svg",
+  hair: "/icons/cabelos.svg",
+  hygiene: "/icons/higiene.svg",
+  baby: "/icons/mamae-bebe.svg",
+  vitamins: "/icons/vitaminas.svg",
+};
+
 export function HomeSections({
   generalIntent,
   openSelector,
@@ -101,8 +110,15 @@ export function HomeSections({
               compact
             />
           </div>
-          <div className="delivery-visual" aria-hidden="true">
-            <LineIcon name="delivery" size={92} />
+          <div className="delivery-visual">
+            <img
+              src="/illustrations/entrega.webp"
+              alt="Entregador levando uma sacola da farmácia até uma casa do bairro"
+              width="900"
+              height="604"
+              loading="lazy"
+              decoding="async"
+            />
             <strong>Pedido pelo WhatsApp</strong>
           </div>
         </div>
@@ -114,6 +130,7 @@ export function HomeSections({
           <div className="category-grid">
             {categories.map((category) => (
               <article className="category-card" key={category.title}>
+                <img className="category-icon-img" src={CATEGORY_ICON_SRC[category.icon]} alt="" width="24" height="24" />
                 <h3>{category.title}</h3>
                 <p>{category.text}</p>
                 <button
@@ -133,6 +150,16 @@ export function HomeSections({
               </article>
             ))}
           </div>
+          <figure className="family-illustration">
+            <img
+              src="/illustrations/familia.webp"
+              alt="Farmacêutica atendendo uma família com adulto, pessoa idosa e crianças"
+              width="900"
+              height="604"
+              loading="lazy"
+              decoding="async"
+            />
+          </figure>
           <div className="seo-intent-grid">
             <a href="/farmacia-em-sabara">Farmácia em Sabará</a>
             <a href="/entrega-de-medicamentos-em-sabara">Entrega de medicamentos em Sabará</a>
