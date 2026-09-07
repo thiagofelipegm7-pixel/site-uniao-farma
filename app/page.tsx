@@ -17,10 +17,10 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectorIntent, setSelectorIntent] = useState<SelectorIntent | null>(null);
   const homeStructuredData = getPageStructuredData({
-    name: "Farm\u00e1cia em Sabar\u00e1 | Uni\u00e3o Farma",
+    name: "Farmácia em Sabará | União Farma",
     url: `${SITE_URL}/`,
     faqs: HOME_FAQS,
-    breadcrumbs: [{ name: "In\u00edcio", url: `${SITE_URL}/` }],
+    breadcrumbs: [{ name: "Início", url: `${SITE_URL}/` }],
   });
 
   const openSelector = (intent: SelectorIntent) => {
@@ -49,9 +49,9 @@ export default function Home() {
   }, [menuOpen]);
 
   const generalIntent: SelectorIntent = {
-    title: "Qual loja fica melhor para voc\u00ea?",
-    description: "F\u00e1tima, Na\u00e7\u00f5es ou Itacolomi. A conversa abre no WhatsApp da unidade certa.",
-    message: "Oi, Uni\u00e3o Farma {unidade}! Quero consultar um produto. Posso mandar o nome?",
+    title: "Qual loja fica melhor para você?",
+    description: "Fátima, Nações ou Itacolomi. A conversa abre no WhatsApp da unidade certa.",
+    message: "Oi, União Farma {unidade}! Quero consultar um produto. Posso mandar o nome?",
     eventName: "consulta_geral",
   };
 
@@ -61,13 +61,13 @@ export default function Home() {
       <header className={SITE_OPTIONS.promoToast.enabled ? "site-header has-promo" : "site-header"}>
         <nav className="nav" aria-label="Menu principal">
           <a className="brand" href="#inicio" onClick={() => setMenuOpen(false)}>
-            <img src="/icon-192.png" alt="Logo da Uni\u00e3o Farma" width="52" height="52" decoding="async" />
+            <img src="/icon-192.png" alt="Logo da União Farma" width="52" height="52" decoding="async" />
             <span>
-              <strong>Uni\u00e3o Farma</strong>
+              <strong>{"União Farma"}</strong>
               <small>Drogaria e Perfumaria</small>
             </span>
           </a>
-          <button className="menu-button" type="button" aria-expanded={menuOpen} aria-controls="menu-links" aria-label={menuOpen ? "Fechar menu de navega\u00e7\u00e3o" : "Abrir menu de navega\u00e7\u00e3o"} onClick={() => setMenuOpen((value) => !value)}>
+          <button className="menu-button" type="button" aria-expanded={menuOpen} aria-controls="menu-links" aria-label={menuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"} onClick={() => setMenuOpen((value) => !value)}>
             <span className="menu-label">{menuOpen ? "Fechar" : "Menu"}</span>
           </button>
           <div className={menuOpen ? "menu-links is-open" : "menu-links"} id="menu-links">
@@ -83,15 +83,15 @@ export default function Home() {
       <section className="hero reveal is-visible" id="inicio" aria-labelledby="hero-title">
         <div className="hero-inner">
           <div className="hero-copy">
-            <p className="eyebrow">Tr\u00eas farm\u00e1cias em Sabar\u00e1</p>
-            <h1 id="hero-title">Cuidado, ofertas e entrega pertinho de voc\u00ea.</h1>
+            <p className="eyebrow">{"Três farmácias em Sabará"}</p>
+            <h1 id="hero-title">{"Cuidado, ofertas e entrega pertinho de você."}</h1>
             <p className="hero-lead">Toque na loja do seu bairro. O WhatsApp abre na hora, com a conversa pronta.</p>
           </div>
-          <aside className="hero-offer-showcase hero-illustration" aria-label="Atendimento na Uni\u00e3o Farma">
+          <aside className="hero-offer-showcase hero-illustration" aria-label="Atendimento na União Farma">
             <img
               className="hero-illustration-img"
               src="/illustrations/atendimento.svg?v=8"
-              alt="Ilustra\u00e7\u00e3o de farmac\u00eautica orientando uma cliente no balc\u00e3o da Uni\u00e3o Farma"
+              alt="Ilustração de farmacêutica orientando uma cliente no balcão da União Farma"
               width="720"
               height="540"
               sizes="(max-width: 860px) 92vw, 380px"
@@ -147,7 +147,7 @@ export default function Home() {
             ))}
           </div>
           <p className="store-photos-hint">Arraste para ver fachada e interior de cada loja</p>
-          <a className="sr-only" href="/novidades">Novidades da Uni\u00e3o Farma</a>
+          <a className="sr-only" href="/novidades">{"Novidades da União Farma"}</a>
         </div>
       </section>
       <HomeSections generalIntent={generalIntent} openSelector={openSelector} />
