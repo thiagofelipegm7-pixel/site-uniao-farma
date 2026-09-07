@@ -113,8 +113,9 @@ export function HomeSections({
             <img
               src="/illustrations/entrega.svg?v=7"
               alt="Entregador levando uma sacola da farmácia até uma casa do bairro"
-              width="1200"
-              height="900"
+              width="720"
+              height="540"
+              sizes="(max-width: 860px) 92vw, 420px"
               loading="lazy"
               decoding="async"
             />
@@ -129,7 +130,7 @@ export function HomeSections({
           <div className="category-grid">
             {categories.map((category) => (
               <article className="category-card" key={category.title}>
-                <img className="category-icon-img" src={CATEGORY_ICON_SRC[category.icon]} alt="" width="24" height="24" />
+                <img className="category-icon-img" src={CATEGORY_ICON_SRC[category.icon]} alt="" width="24" height="24" loading="lazy" decoding="async" />
                 <h3>{category.title}</h3>
                 <p>{category.text}</p>
                 <button
@@ -154,8 +155,9 @@ export function HomeSections({
               <img
                 src="/illustrations/familia.svg?v=7"
                 alt="Cliente acompanhando uma senhora na saída da farmácia, com a farmacêutica acenando na porta"
-                width="1200"
-                height="900"
+                width="720"
+                height="540"
+                sizes="(max-width: 860px) 92vw, 360px"
                 loading="lazy"
                 decoding="async"
               />
@@ -164,8 +166,9 @@ export function HomeSections({
               <img
                 src="/illustrations/perfumaria.svg?v=7"
                 alt="Farmacêutica indicando produtos de higiene e beleza para uma cliente"
-                width="1200"
-                height="900"
+                width="720"
+                height="540"
+                sizes="(max-width: 860px) 92vw, 360px"
                 loading="lazy"
                 decoding="async"
               />
