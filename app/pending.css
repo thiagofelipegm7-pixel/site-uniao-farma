@@ -104,13 +104,27 @@
 
 @media (min-width: 861px) {
   .hero-inner {
+    display: grid !important;
     grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr) !important;
+    grid-template-areas:
+      "copy art"
+      "actions art" !important;
     align-items: start;
-    gap: 3rem !important;
+    gap: 1.5rem 3rem !important;
   }
 
   .hero-copy {
+    grid-area: copy;
     max-width: none;
+  }
+
+  .hero-offer-showcase,
+  .hero-illustration {
+    grid-area: art;
+  }
+
+  .hero-actions {
+    grid-area: actions;
   }
 
   .hero-actions,
@@ -297,29 +311,8 @@
     gap: 0.75rem !important;
   }
 
-  .hero-copy {
-    display: contents;
-  }
-
-  .hero-copy .eyebrow {
-    order: 1;
-  }
-
-  .hero-copy h1,
-  #hero-title {
-    order: 2;
-    letter-spacing: -0.035em;
-    margin-top: 0.15rem !important;
-    padding-top: 0.1rem;
-  }
-
-  .hero-lead {
-    order: 3;
-  }
-
   .hero-offer-showcase,
   .hero-offer-showcase.hero-illustration {
-    order: 4;
     display: block !important;
     visibility: visible !important;
     width: 100% !important;
@@ -328,10 +321,6 @@
     padding: 0.55rem 0.55rem 3.5rem !important;
     border-radius: 1.15rem !important;
     overflow: hidden;
-  }
-
-  .hero-actions {
-    order: 5;
   }
 
   .delivery-visual {
