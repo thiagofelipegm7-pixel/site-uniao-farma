@@ -58,7 +58,7 @@ export default function Home() {
       <header className={SITE_OPTIONS.promoToast.enabled ? "site-header has-promo" : "site-header"}>
         <nav className="nav" aria-label="Menu principal">
           <a className="brand" href="#inicio" onClick={() => setMenuOpen(false)}>
-            <img src="/uniao-farma-logo.svg" alt="Logo da União Farma" width="52" height="52" decoding="async" />
+            <img src="/icon-192.png" alt="Logo da União Farma" width="52" height="52" decoding="async" />
             <span>
               <strong>União Farma</strong>
               <small>Drogaria e Perfumaria</small>
