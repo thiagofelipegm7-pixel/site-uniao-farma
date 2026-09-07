@@ -32,17 +32,18 @@ const PwaRegister = dynamic(() => import("./PwaRegister"), { ssr: false });
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "700", "800"],
+  weight: ["400", "800"],
   display: "swap",
-  preload: true,
+  preload: false,
   fallback: ["Arial", "sans-serif"],
   adjustFontFallback: true,
 });
 
 const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: ["600", "700"],
+  weight: ["700"],
   display: "swap",
+  preload: true,
   variable: "--font-display",
   fallback: ["Georgia", "serif"],
   adjustFontFallback: true,
@@ -156,7 +157,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pt-BR" data-theme="light" className={`${poppins.className} ${fraunces.variable}`}>
       <head>
-        <link rel="preload" href="/uniao-farma-logo.svg" as="image" type="image/svg+xml" fetchPriority="high" />
+        <link rel="preload" href="/illustrations/atendimento.svg?v=8" as="image" type="image/svg+xml" fetchPriority="high" />
       </head>
       <body>
         <a className="skip-link" href="#conteudo">
