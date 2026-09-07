@@ -1,9 +1,14 @@
+import { trackEvent } from "./analytics";
 import { postMetricInWorker } from "./inp-worker-client";
+
+export type MetricStage = "whatsapp_click" | "conversation_received" | "order_completed";
 
 export type MetricHit = {
   unit?: string;
   intent?: string;
   source?: string;
+  placement?: string;
+  stage?: MetricStage;
 };
 
 export function recordMetric(hit: MetricHit) {
@@ -11,6 +16,7 @@ export function recordMetric(hit: MetricHit) {
 
   const payload = {
     ...hit,
+    stage: hit.stage ?? "whatsapp_click",
     path: window.location.pathname,
     at: new Date().toISOString(),
   };
@@ -27,4 +33,14 @@ export function recordMetric(hit: MetricHit) {
       keepalive: true,
     });
   }
+}
+
+export function trackWhatsAppClick(hit: MetricHit) {
+  recordMetric({ ...hit, stage: "whatsapp_click" });
+  trackEvent("whatsapp_click", {
+    unit: hit.unit,
+    intent: hit.intent,
+    source: hit.source,
+    placement: hit.placement,
+  });
 }

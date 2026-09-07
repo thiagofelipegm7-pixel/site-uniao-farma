@@ -1,7 +1,10 @@
 import { NextResponse } from "next/server";
 
+type MetricStage = "whatsapp_click" | "conversation_received" | "order_completed";
+
 type DayBucket = {
   total: number;
+  stages: Record<MetricStage, number>;
   units: Record<string, number>;
   intents: Record<string, number>;
   sources: Record<string, number>;
@@ -11,11 +14,27 @@ type MetricsStore = {
   days: Record<string, DayBucket>;
 };
 
+const STAGES: MetricStage[] = ["whatsapp_click", "conversation_received", "order_completed"];
+
 const globalStore = globalThis as typeof globalThis & { __ufMetrics?: MetricsStore };
 
 function store(): MetricsStore {
   if (!globalStore.__ufMetrics) globalStore.__ufMetrics = { days: {} };
   return globalStore.__ufMetrics;
+}
+
+function emptyBucket(): DayBucket {
+  return {
+    total: 0,
+    stages: {
+      whatsapp_click: 0,
+      conversation_received: 0,
+      order_completed: 0,
+    },
+    units: {},
+    intents: {},
+    sources: {},
+  };
 }
 
 function todayKey() {
@@ -24,6 +43,11 @@ function todayKey() {
 
 function bump(map: Record<string, number>, key: string) {
   map[key] = (map[key] || 0) + 1;
+}
+
+function normalizeStage(value: unknown): MetricStage {
+  if (value === "conversation_received" || value === "order_completed") return value;
+  return "whatsapp_click";
 }
 
 export async function GET() {
@@ -39,16 +63,26 @@ export async function POST(request: Request) {
     unit?: string;
     intent?: string;
     source?: string;
+    stage?: string;
   };
 
   const day = todayKey();
   const data = store();
-  if (!data.days[day]) data.days[day] = { total: 0, units: {}, intents: {}, sources: {} };
+  if (!data.days[day]) data.days[day] = emptyBucket();
+  if (!data.days[day].stages) data.days[day].stages = emptyBucket().stages;
 
-  data.days[day].total += 1;
-  if (body.unit) bump(data.days[day].units, body.unit);
-  if (body.intent) bump(data.days[day].intents, body.intent);
-  if (body.source) bump(data.days[day].sources, body.source);
+  const stage = normalizeStage(body.stage);
+  data.days[day].stages[stage] += 1;
 
-  return NextResponse.json({ ok: true, today: data.days[day] });
+  if (stage === "whatsapp_click") {
+    data.days[day].total += 1;
+    if (body.unit) bump(data.days[day].units, body.unit);
+    if (body.intent) bump(data.days[day].intents, body.intent);
+    if (body.source) bump(data.days[day].sources, body.source);
+  } else {
+    if (body.unit) bump(data.days[day].units, `${stage}:${body.unit}`);
+    if (body.source) bump(data.days[day].sources, `${stage}:${body.source}`);
+  }
+
+  return NextResponse.json({ ok: true, today: data.days[day], stages: STAGES });
 }
