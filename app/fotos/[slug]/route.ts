@@ -22,9 +22,23 @@ export async function GET(
   }
 
   try {
-    const filePath = path.join(process.cwd(), "public", "fotos", `${slug}.b64`);
-    const encoded = await readFile(filePath, "utf8");
-    const body = Buffer.from(encoded.replace(/\s+/g, ""), "base64");
+    const dir = path.join(process.cwd(), "public", "fotos");
+    const chunks: string[] = [];
+    try {
+      chunks.push(await readFile(path.join(dir, `${slug}.b64`), "utf8"));
+    } catch {
+      for (let i = 1; i <= 6; i += 1) {
+        try {
+          chunks.push(await readFile(path.join(dir, `${slug}.${i}.b64`), "utf8"));
+        } catch {
+          break;
+        }
+      }
+    }
+    if (!chunks.length) {
+      return new NextResponse("Not found", { status: 404 });
+    }
+    const body = Buffer.from(chunks.join("").replace(/\s+/g, ""), "base64");
     return new NextResponse(body, {
       status: 200,
       headers: {

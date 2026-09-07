@@ -1,4 +1,4 @@
-const CACHE_NAME = "uf-static-v9";
+const CACHE_NAME = "uf-static-v10";
 const PRECACHE = ["/offline.html", "/manifest.json", "/favicon.png"];
 
 self.addEventListener("install", (event) => {
@@ -30,7 +30,7 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  if (/\.(webp|png|jpg|jpeg|svg|ico|woff2)$/i.test(url.pathname)) {
+  if (/\.(webp|png|jpg|jpeg|svg|ico|woff2)$/i.test(url.pathname) || url.pathname.startsWith("/fotos/")) {
     event.respondWith(
       fetch(request)
         .then((response) => {
