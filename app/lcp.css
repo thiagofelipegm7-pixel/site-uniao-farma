@@ -1,9 +1,13 @@
 .brand img,
 .uf-footer-logo img {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   aspect-ratio: 1 / 1;
   object-fit: contain;
+  object-position: center;
+  background: #f3f6f4;
+  border-radius: 0.5rem;
+  overflow: visible;
 }
 
 .open-now-strip {
