@@ -1,5 +1,5 @@
 import { getPublicOffers } from "./offers";
-import { SITE_URL, UNITS, type Unit } from "./site-config";
+import { SITE_URL, type Unit } from "./site-config";
 import { getUnitOpenStatus } from "./unit-hours";
 
 export type AutoIntent =
@@ -33,34 +33,34 @@ export function classifyWhatsAppIntent(text: string): AutoIntent {
 }
 
 function unitLabel(unit?: Unit) {
-  if (!unit) return "Uniao Farma";
-  if (unit.id === "fatima") return "Fatima";
-  if (unit.id === "nacoes") return "Nacoes Unidas";
+  if (!unit) return "União Farma";
+  if (unit.id === "fatima") return "Fátima";
+  if (unit.id === "nacoes") return "Nações Unidas";
   return "Itacolomi";
 }
 
 export function buildTemplateReply(intent: AutoIntent, unit?: Unit) {
   const name = unitLabel(unit);
-  const hours = unit ? getUnitOpenStatus(unit).label : "confirme o horario com a loja";
-  const address = unit ? unit.shortAddress : "as tres lojas em Sabara";
+  const hours = unit ? getUnitOpenStatus(unit).label : "confirme o horário com a loja";
+  const address = unit ? unit.shortAddress : "as três lojas em Sabará";
   const offers = getPublicOffers()
     .slice(0, 3)
     .map((offer) => offer.name)
     .join(", ");
 
   if (intent === "medical") {
-    return `Aqui a equipe nao indica remedio por mensagem. Fale com o farmaceutico da ${name} ou procure atendimento medico.`;
+    return `Aqui a equipe não indica remédio por mensagem. Fale com o farmacêutico da ${name} ou procure atendimento médico.`;
   }
   if (intent === "recipe") {
-    return `Pode mandar a foto da receita ou o Memed. O farmaceutico da ${name} confere e responde se tem.`;
+    return `Pode mandar a foto da receita ou o Memed. O farmacêutico da ${name} confere e responde se tem.`;
   }
   if (intent === "delivery") {
-    return `A ${name} confere se entrega no seu bairro, a taxa e o prazo. Pode mandar o endereco.`;
+    return `A ${name} confere se entrega no seu bairro, a taxa e o prazo. Pode mandar o endereço.`;
   }
   if (intent === "offer") {
     return offers
       ? `Ofertas da semana: ${offers}. Confira em ${SITE_URL}/ofertas. A loja confirma se tem hoje.`
-      : `Veja as ofertas em ${SITE_URL}/ofertas. A ${name} confirma preco e estoque.`;
+      : `Veja as ofertas em ${SITE_URL}/ofertas. A ${name} confirma preço e estoque.`;
   }
   if (intent === "hours") {
     return `${name}: ${hours}.`;
@@ -69,9 +69,9 @@ export function buildTemplateReply(intent: AutoIntent, unit?: Unit) {
     return `${name} fica em ${address}. Rota: ${unit?.map || SITE_URL}`;
   }
   if (intent === "greeting") {
-    return `Ola! Aqui e a Uniao Farma ${name}. Pode pedir preco, entrega, oferta ou mandar a receita. O farmaceutico confirma.`;
+    return `Olá! Aqui é a União Farma ${name}. Pode pedir preço, entrega, oferta ou mandar a receita. O farmacêutico confirma.`;
   }
-  return `Recebemos. A ${name} confirma preco e se tem agora. Se quiser, manda o nome do produto ou a foto da receita.`;
+  return `Recebemos. A ${name} confirma preço e se tem agora. Se quiser, manda o nome do produto ou a foto da receita.`;
 }
 
 export async function composeAutoReply(text: string, unit?: Unit) {
@@ -100,11 +100,11 @@ export async function composeAutoReply(text: string, unit?: Unit) {
           {
             role: "system",
             content:
-              "Voce atende o WhatsApp da farmacia Uniao Farma em Sabara. Responda em portugues curto, no maximo 3 frases. Nao indique remedio, dose, diagnostico nem leia receita. Preco e estoque so o farmaceutico confirma. Use os dados fornecidos.",
+              "Você atende o WhatsApp da farmácia União Farma em Sabará. Responda em português do Brasil, curto, no máximo 3 frases. Não indique remédio, dose, diagnóstico nem leia receita. Preço e estoque só o farmacêutico confirma. Use os dados fornecidos.",
           },
           {
             role: "user",
-            content: `Loja: ${unitLabel(unit)}. Endereco: ${unit?.shortAddress || "Sabara"}. Situacao: ${unit ? getUnitOpenStatus(unit).label : "confirmar"}. Intencao: ${intent}. Mensagem do cliente: ${text.slice(0, 400)}`,
+            content: `Loja: ${unitLabel(unit)}. Endereço: ${unit?.shortAddress || "Sabará"}. Situação: ${unit ? getUnitOpenStatus(unit).label : "confirmar"}. Intenção: ${intent}. Mensagem do cliente: ${text.slice(0, 400)}`,
           },
         ],
       }),

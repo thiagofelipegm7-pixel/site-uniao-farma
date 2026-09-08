@@ -5,11 +5,11 @@ const weekdayOrder: Weekday[] = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"
 const weekdayLabels: Record<Weekday, string> = {
   sun: "domingo",
   mon: "segunda-feira",
-  tue: "terca-feira",
+  tue: "terça-feira",
   wed: "quarta-feira",
   thu: "quinta-feira",
   fri: "sexta-feira",
-  sat: "sabado",
+  sat: "sábado",
 };
 
 function timeToMinutes(value: string) {
@@ -34,21 +34,21 @@ function getSaoPauloDateParts(date: Date) {
 function getNextOpening(unit: Unit, currentWeekday: Weekday, currentMinutes: number) {
   const currentIndex = weekdayOrder.indexOf(currentWeekday);
   const today = unit.schedule[currentWeekday];
-  if (today && currentMinutes < timeToMinutes(today.open)) return `abre hoje as ${today.open}`;
+  if (today && currentMinutes < timeToMinutes(today.open)) return `abre hoje às ${today.open}`;
   for (let offset = 1; offset <= 7; offset += 1) {
     const day = weekdayOrder[(currentIndex + offset) % 7];
     const hours = unit.schedule[day];
     if (!hours) continue;
-    if (offset === 1) return `abre amanha as ${hours.open}`;
-    return `abre ${weekdayLabels[day]} as ${hours.open}`;
+    if (offset === 1) return `abre amanhã às ${hours.open}`;
+    return `abre ${weekdayLabels[day]} às ${hours.open}`;
   }
-  return "horario indisponivel";
+  return "horário indisponível";
 }
 
 export function getUnitOpenStatus(unit: Unit, date = new Date()) {
   const holiday = getHolidayName(date);
   if (holiday) {
-    return { isOpen: false, holiday, label: `Feriado (${holiday}) · confirme o horario no WhatsApp` };
+    return { isOpen: false, holiday, label: `Feriado (${holiday}) · confirme o horário no WhatsApp` };
   }
   const { weekday, minutes } = getSaoPauloDateParts(date);
   const hours = unit.schedule[weekday];
@@ -56,7 +56,7 @@ export function getUnitOpenStatus(unit: Unit, date = new Date()) {
     const opening = timeToMinutes(hours.open);
     const closing = timeToMinutes(hours.close);
     if (minutes >= opening && minutes < closing) {
-      return { isOpen: true, holiday: null, label: `Aberto agora · fecha as ${hours.close}` };
+      return { isOpen: true, holiday: null, label: `Aberto agora · fecha às ${hours.close}` };
     }
   }
   return { isOpen: false, holiday: null, label: `Fechado · ${getNextOpening(unit, weekday, minutes)}` };
