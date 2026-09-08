@@ -81,6 +81,11 @@
     padding-top: 0.85rem !important;
   }
 
+  .hero-home .hero-inner {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
   .hero-copy {
     padding-top: 0.15rem !important;
     padding-left: 1.5rem !important;
@@ -166,12 +171,17 @@
     scroll-padding-inline: 1.5rem !important;
   }
 
-  .unit-store-card {
+  .unit-store-card,
+  .unit-store-card:first-child,
+  .unit-store-card:last-child {
     flex: 0 0 calc(100vw - 3rem) !important;
     width: calc(100vw - 3rem) !important;
     max-width: calc(100vw - 3rem) !important;
     min-width: 0 !important;
+    margin: 0 !important;
     scroll-snap-align: start !important;
+    scroll-snap-stop: always !important;
+    scroll-margin-inline: 1.5rem !important;
     box-sizing: border-box !important;
   }
 
