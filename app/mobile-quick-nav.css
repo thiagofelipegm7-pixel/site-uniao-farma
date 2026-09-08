@@ -4,66 +4,71 @@
 
 @media (max-width: 860px) {
   .mobile-quick-nav {
-    display: block !important;
-    position: sticky;
+    display: block;
+    position: fixed;
+    left: 0;
+    right: 0;
     bottom: 0;
-    z-index: 2200;
+    z-index: 4000;
     margin: 0;
     padding: 0.45rem 0.7rem calc(0.45rem + env(safe-area-inset-bottom));
-    background: rgba(241, 251, 250, 0.94);
-    border-top: 1px solid #c5e4e0;
-    box-shadow: 0 -10px 24px rgba(8, 58, 59, 0.08);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
+    background: linear-gradient(180deg, rgba(243, 251, 248, 0) 0%, rgba(243, 251, 248, 0.86) 38%, #f3fbf8 100%);
+    border-top: 0;
+    box-shadow: none;
   }
 
   .mobile-quick-nav-inner {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 0.35rem;
-    max-width: 28rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: stretch;
+    gap: 0.2rem;
+    max-width: 26rem;
     margin: 0 auto;
     padding: 0.28rem;
-    border: 1px solid #c5e4e0;
+    border: 1px solid rgba(14, 115, 112, 0.14);
     border-radius: 22px;
-    background: #ffffff;
-    box-shadow: 0 8px 20px rgba(8, 58, 59, 0.05);
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow:
+      0 12px 28px rgba(8, 58, 59, 0.14),
+      0 1px 0 rgba(255, 255, 255, 0.9) inset;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
   }
 
   .mobile-quick-nav a {
-    display: flex !important;
-    flex-direction: column !important;
+    display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 0.18rem !important;
-    min-height: 54px !important;
-    padding: 0.35rem 0.25rem !important;
-    border: 0 !important;
-    border-radius: 16px !important;
-    background: transparent !important;
-    color: #3a5554 !important;
-    font-size: 0.68rem !important;
-    font-weight: 800 !important;
+    gap: 0.16rem;
+    min-height: 52px;
+    padding: 0.3rem 0.15rem;
+    border: 0;
+    border-radius: 16px;
+    background: transparent;
+    color: #4a5f57;
+    font-size: 0.68rem;
+    font-weight: 800;
     letter-spacing: 0.01em;
     line-height: 1;
-    text-decoration: none !important;
-    box-shadow: none !important;
+    text-decoration: none;
+    box-shadow: none;
   }
 
   .mobile-quick-nav .mqn-icon {
     display: grid;
     place-items: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 10px;
-    background: #e8f6f4;
-    color: #0e7370;
+    width: 26px;
+    height: 26px;
+    border-radius: 9px;
+    background: transparent;
+    color: inherit;
   }
 
   .mobile-quick-nav .mqn-icon svg {
     display: block;
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
   }
 
   .mobile-quick-nav .mqn-label {
@@ -75,14 +80,19 @@
   }
 
   .mobile-quick-nav a.is-primary {
-    background: #0e7370 !important;
-    color: #ffffff !important;
-    box-shadow: 0 8px 16px rgba(14, 115, 112, 0.18) !important;
+    background: #e7f6f1;
+    color: #0b6244;
   }
 
-  .mobile-quick-nav a.is-primary .mqn-icon {
-    background: rgba(255, 255, 255, 0.16);
-    color: #ffffff;
+  .mobile-quick-nav a.is-whatsapp {
+    background: #25d366;
+    color: #06351f;
+    box-shadow: 0 6px 14px rgba(14, 140, 58, 0.28);
+  }
+
+  .mobile-quick-nav a.is-whatsapp .mqn-icon {
+    background: transparent;
+    color: #06351f;
   }
 
   .mobile-quick-nav a:focus-visible {
