@@ -5,6 +5,7 @@ import MobileQuickNav from "./MobileQuickNav";
 import OpenNowStrip from "./OpenNowStrip";
 import PreferredStoreBanner from "./PreferredStoreBanner";
 import SiteFooter from "./SiteFooter";
+import SkipLink from "./SkipLink";
 import WhatsAppFab from "./WhatsAppFab";
 import "./tokens.css";
 import "./globals.css";
@@ -36,6 +37,7 @@ import "./home-reasons.css";
 import "./mobile-opt.css";
 import "./a11y.css";
 import "./mobile.css";
+import "./audit-fix.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 
 const AnalyticsConsent = dynamic(() => import("./AnalyticsConsent"), { ssr: false });
@@ -83,9 +85,6 @@ export const metadata: Metadata = {
   },
   other: {
     "mobile-web-app-capable": "yes",
-  },
-  alternates: {
-    canonical: "/",
   },
   icons: {
     icon: [
@@ -172,9 +171,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <link rel="preload" href="/uniao-farma-nacoes-loja.webp?v=27" as="image" type="image/webp" />
       </head>
       <body>
-        <a className="skip-link" href="#conteudo">
-          Ir para o conteúdo
-        </a>
+        <SkipLink />
         <AnalyticsConsent />
         <PwaRegister />
         <OfferAlerts />
@@ -186,7 +183,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             __html: JSON.stringify([organizationSchema, websiteSchema]),
           }}
         />
-        <main id="conteudo">{children}</main>
+        <main id="conteudo" tabIndex={-1}>
+          {children}
+        </main>
         <SiteFooter />
         <MobileQuickNav />
         <WhatsAppFab />
