@@ -1,5 +1,9 @@
 export const STAFF_COOKIE = "uf_staff";
 
+function encodeToken(value: string) {
+  return btoa(value).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
+}
+
 export function getStaffCredentials() {
   return {
     user: process.env.STAFF_USER?.trim() || "uniao",
@@ -9,7 +13,7 @@ export function getStaffCredentials() {
 
 export function staffToken() {
   const { user, pass } = getStaffCredentials();
-  return Buffer.from(`${user}:${pass}`).toString("base64url");
+  return encodeToken(`${user}:${pass}`);
 }
 
 export function checkStaffLogin(user: string, pass: string) {
