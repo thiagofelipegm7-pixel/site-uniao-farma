@@ -191,6 +191,44 @@
     overflow-wrap: anywhere !important;
   }
 
+  .offers-list-section .section-inner {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .offer-consult-grid,
+  .home-reasons-offers {
+    display: flex !important;
+    gap: 0.8rem !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-padding-inline: 1.5rem !important;
+    padding: 0 1.5rem 0.7rem !important;
+  }
+
+  .offer-consult-card,
+  .home-offer-card,
+  .home-offer-card:nth-child(n + 3) {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 0 0 calc(100vw - 3rem) !important;
+    width: calc(100vw - 3rem) !important;
+    max-width: calc(100vw - 3rem) !important;
+    grid-template-columns: none !important;
+    scroll-snap-align: start !important;
+  }
+
+  .offer-consult-image {
+    min-height: 240px !important;
+    height: 240px !important;
+    aspect-ratio: 1 / 1 !important;
+    border-right: 0 !important;
+  }
+
+  .offer-consult-price strong {
+    font-size: 1.8rem !important;
+  }
+
   a,
   button,
   .unit-store-wa,
