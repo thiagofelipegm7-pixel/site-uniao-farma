@@ -59,8 +59,21 @@
     display: none !important;
   }
 
+  .whatsapp-fab {
+    display: none !important;
+  }
+
   main#conteudo {
     padding-top: calc(4.75rem + env(safe-area-inset-top)) !important;
+    padding-bottom: calc(8.5rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  .hero,
+  .hero-home,
+  .offers-page,
+  .recipe-page,
+  .neighborhood-page {
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom)) !important;
   }
 
   .hero,
@@ -82,6 +95,7 @@
   body {
     font-size: 17px !important;
     line-height: 1.45 !important;
+    padding-bottom: calc(8.5rem + env(safe-area-inset-bottom)) !important;
   }
 
   .hero-copy .eyebrow,
@@ -121,18 +135,37 @@
     font-size: 1.15rem !important;
   }
 
+  .unit-store-photo {
+    height: 132px !important;
+  }
+
+  .unit-store-body {
+    padding-bottom: 1.15rem !important;
+  }
+
+  .unit-store-more {
+    display: none !important;
+  }
+
+  .units-showcase,
+  .units-showcase-grid,
+  .offer-consult-grid,
+  .direct-unit-links,
+  .recipe-page,
+  .offers-page {
+    padding-bottom: 1.25rem !important;
+  }
+
   a,
   button,
   .unit-store-wa,
   .unit-store-map,
-  .unit-store-more,
   .offer-consult-choose,
   .direct-unit-actions a,
   .header-cta,
   .content-header-cta,
   .modal-close,
-  .modal-unit-option,
-  .whatsapp-fab {
+  .modal-unit-option {
     min-height: 44px;
     min-width: 44px;
   }
@@ -157,18 +190,6 @@
 
   .mobile-quick-nav .mqn-label {
     font-size: 13px !important;
-  }
-
-  .whatsapp-fab {
-    left: auto !important;
-    right: 0.75rem !important;
-    bottom: calc(5.8rem + env(safe-area-inset-bottom)) !important;
-    width: 52px !important;
-    height: 52px !important;
-    min-width: 52px !important;
-    min-height: 52px !important;
-    color: #ffffff !important;
-    background: #0b6244 !important;
   }
 
   .hero-home,
