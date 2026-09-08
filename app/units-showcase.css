@@ -105,6 +105,17 @@
   overflow-wrap: anywhere;
 }
 
+.unit-store-addr {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+}
+
+.unit-store-street,
+.unit-store-place {
+  display: block;
+}
+
 .unit-store-card .open-status {
   margin: 0.2rem 0 0.1rem;
   max-width: 100%;
@@ -203,6 +214,7 @@
 
   .unit-store-card,
   .unit-store-card:first-child,
+  .unit-store-card-fatima,
   .unit-store-card:last-child {
     flex: 0 0 calc(100vw - 3rem);
     width: calc(100vw - 3rem);
