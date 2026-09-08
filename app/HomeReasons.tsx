@@ -47,7 +47,7 @@ export default function HomeReasons({
       <div className="home-reasons-inner">
         <header className="home-reasons-head">
           <p className="section-kicker">Por que chamar agora</p>
-          <h2 id="home-reasons-title">Oferta confirmada, conversa pronta</h2>
+          <h2 id="home-reasons-title">Escolha a oferta e confirme preço e estoque no WhatsApp</h2>
           <p>{"Foto e preço de encarte. A loja confirma se ainda tem hoje."}</p>
         </header>
 
