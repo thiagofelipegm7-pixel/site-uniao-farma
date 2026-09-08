@@ -1,0 +1,26 @@
+.metrics-conversion-list {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.85rem;
+}
+
+.metrics-conversion-row {
+  display: grid;
+  gap: 0.2rem;
+  min-height: 72px;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid #c5e4e0;
+  border-radius: 16px;
+  background: #f7fcfb;
+  color: #102e2f;
+  text-align: left;
+}
+
+.metrics-conversion-row strong {
+  color: #0e7370;
+}
+
+.metrics-conversion-row span,
+.metrics-conversion-row small {
+  color: #3a5554;
+}
