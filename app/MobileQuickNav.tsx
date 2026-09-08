@@ -8,6 +8,14 @@ const ITEMS = [
   { href: "/receita", label: "Receita", kind: "receita" as const, icon: "/icons/nav/receita.svg" },
 ];
 
+const STORE_PATHS = [
+  "/fatima",
+  "/nacoes-unidas",
+  "/itacolomi",
+  "/nossa-senhora-de-fatima",
+  "/farmacia",
+];
+
 export default function MobileQuickNav() {
   const pathname = usePathname() || "/";
 
@@ -20,11 +28,7 @@ export default function MobileQuickNav() {
               ? pathname.startsWith("/ofertas")
               : kind === "receita"
                 ? pathname.startsWith("/receita")
-                : pathname.startsWith("/fatima") ||
-                  pathname.startsWith("/nacoes-unidas") ||
-                  pathname.startsWith("/itacolomi") ||
-                  pathname.startsWith("/nossa-senhora-de-fatima") ||
-                  pathname.startsWith("/farmacia");
+                : pathname === "/" || STORE_PATHS.some((path) => pathname.startsWith(path));
 
           return (
             <a
