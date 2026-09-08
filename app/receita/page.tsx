@@ -4,6 +4,7 @@ import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import { SITE_URL } from "../site-config";
 import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 import "../receita-polish.css";
+import "../page-concordance.css";
 
 export const metadata: Metadata = {
   title: { absolute: "Enviar receita pelo WhatsApp" },
@@ -17,12 +18,12 @@ export default function ReceitaPage() {
     <>
       <ContentSiteHeader activePath="/receita" />
       <div className="recipe-page" id="receita-whatsapp">
-        <section className="recipe-hero" aria-labelledby="recipe-title">
-          <div className="section-inner recipe-inner">
-            <div className="recipe-copy">
-              <p className="section-kicker">Receita no WhatsApp</p>
+        <section className="hero hero-home recipe-hero" aria-labelledby="recipe-title">
+          <div className="hero-inner">
+            <div className="hero-copy recipe-copy">
+              <p className="eyebrow">Receita no WhatsApp</p>
               <h1 id="recipe-title">{"Envie a receita para a loja"}</h1>
-              <p className="recipe-lead">
+              <p className="hero-lead recipe-lead">
                 {"Foto nítida ou link do Memed. A equipe confere no horário da loja e diz se tem."}
               </p>
             </div>

@@ -1,0 +1,130 @@
+.content-header,
+.site-header {
+  background: #f1fbfa;
+  border-bottom: 1px solid #c5e4e0;
+}
+
+.offers-page,
+.recipe-page,
+.news-page {
+  background: #f1fbfa;
+}
+
+.offers-hero,
+.recipe-hero,
+.news-hero,
+.hero-home {
+  background: transparent;
+}
+
+.offers-hero .eyebrow,
+.recipe-copy .section-kicker,
+.news-hero .eyebrow,
+.hero-copy .eyebrow,
+.offers-page .section-kicker,
+.recipe-page .section-kicker {
+  margin: 0 0 0.45rem;
+  color: #0e7370;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.offers-hero h1,
+.recipe-copy h1,
+.news-hero h1,
+.hero-copy h1 {
+  margin: 0;
+  color: #102e2f;
+  font-size: clamp(1.45rem, 5vw, 2.1rem);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.offers-hero-lead,
+.recipe-lead,
+.news-hero p,
+.hero-lead {
+  max-width: 28rem;
+  margin: 0.55rem 0 0;
+  color: #3a5554;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.offer-consult-card,
+.recipe-page .direct-unit-link,
+.offers-whatsapp-section .direct-unit-link,
+.unit-store-card,
+.news-visual-card,
+.news-card {
+  overflow: hidden;
+  border: 1px solid #c5e4e0 !important;
+  border-radius: 18px !important;
+  background: #ffffff !important;
+  box-shadow: 0 8px 20px rgba(8, 58, 59, 0.05) !important;
+}
+
+.offer-consult-choose,
+.recipe-page .direct-unit-actions a,
+.offers-whatsapp-section .direct-unit-actions a,
+.unit-store-wa,
+.offer-alerts-button {
+  background: #0b6244 !important;
+  color: #ffffff !important;
+  border-color: #0b6244 !important;
+  border-radius: 14px !important;
+  min-height: 48px !important;
+  font-weight: 800;
+}
+
+.recipe-steps li {
+  border: 1px solid #c5e4e0;
+  border-radius: 18px;
+  background: #ffffff;
+  color: #102e2f;
+}
+
+.recipe-steps strong {
+  background: #0e7370;
+}
+
+@media (max-width: 860px) {
+  .offers-hero .section-inner,
+  .recipe-inner,
+  .news-hero-inner {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .recipe-page .direct-unit-links,
+  .offers-whatsapp-section .direct-unit-links {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+  }
+
+  .recipe-page .direct-unit-links-grid,
+  .offers-whatsapp-section .direct-unit-links-grid {
+    display: flex !important;
+    gap: 0.8rem !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1.5rem;
+    padding: 0 1.5rem 0.6rem !important;
+    scrollbar-width: none;
+  }
+
+  .recipe-page .direct-unit-links-grid::-webkit-scrollbar,
+  .offers-whatsapp-section .direct-unit-links-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .recipe-page .direct-unit-link,
+  .offers-whatsapp-section .direct-unit-link {
+    flex: 0 0 calc(100vw - 3rem);
+    width: calc(100vw - 3rem);
+    max-width: calc(100vw - 3rem);
+    scroll-snap-align: start;
+  }
+}
