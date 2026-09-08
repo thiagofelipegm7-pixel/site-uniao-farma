@@ -78,15 +78,15 @@ export default function OfferAlerts({ showButton = false }: { showButton?: boole
       }
       const permission = await Notification.requestPermission();
       if (permission !== "granted") {
-        setNote("Permita o aviso nas configurações do telemóvel.");
+        setNote("Permita o aviso nas configurações do celular.");
         return;
       }
       const feed = await readFeed();
       if (feed) window.localStorage.setItem(STORAGE_STAMP, feed.stamp);
       window.localStorage.setItem(STORAGE_ON, "on");
       setEnabled(true);
-      await showOfferNotice("Avisos ligados", "Quando entrar oferta nova, o telemóvel avisa.");
-      setNote("Pronto. O telemóvel avisa oferta nova.");
+      await showOfferNotice("Avisos ligados", "Quando entrar oferta nova, o celular avisa.");
+      setNote("Pronto. O celular avisa oferta nova.");
     } finally {
       setBusy(false);
     }
