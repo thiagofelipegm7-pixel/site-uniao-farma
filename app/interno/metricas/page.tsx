@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import MetricsCharts from "../../components/MetricsCharts";
+import { RANGE_LABEL, daysForRange, sumRange, type RangeKey } from "../../metrics-range";
 import "../../metrics-polish.css";
 
 type MetricStage = "whatsapp_click" | "conversation_received" | "order_completed";
@@ -50,6 +51,7 @@ export default function MetricsPage() {
   const [error, setError] = useState("");
   const [unit, setUnit] = useState("fatima");
   const [busy, setBusy] = useState(false);
+  const [range, setRange] = useState<RangeKey>("today");
 
   function load() {
     fetch("/api/metricas")
@@ -66,18 +68,7 @@ export default function MetricsPage() {
     load();
   }, []);
 
-  const current = days[today] || {
-    total: 0,
-    stages: { whatsapp_click: 0, conversation_received: 0, order_completed: 0 },
-    units: {},
-    intents: {},
-    sources: {},
-  };
-  const stages = current.stages || {
-    whatsapp_click: current.total || 0,
-    conversation_received: 0,
-    order_completed: 0,
-  };
+  const totals = useMemo(() => sumRange(days, daysForRange(today, days, range)), [days, today, range]);
 
   async function register(stage: MetricStage) {
     setBusy(true);
@@ -111,7 +102,7 @@ export default function MetricsPage() {
             <p className="eyebrow">Uso interno</p>
             <h1>Contatos e vendas</h1>
             <p className="metrics-lead">
-              {"Dia "}{today || "—"}{". Clique não é pedido. Conversa só conta quando a loja recebe a mensagem."}
+              {RANGE_LABEL[range]}{" a partir de "}{today || "—"}{". Clique não é pedido."}
             </p>
           </div>
           <a className="metrics-exit" href="/interno/sair">
@@ -125,13 +116,13 @@ export default function MetricsPage() {
           {(Object.keys(STAGE_COPY) as MetricStage[]).map((stage) => (
             <article className="metrics-card" key={stage}>
               <strong>{STAGE_COPY[stage].title}</strong>
-              <span>{stages[stage] || 0}</span>
+              <span>{totals.stages[stage] || 0}</span>
               <small>{STAGE_COPY[stage].hint}</small>
             </article>
           ))}
         </div>
 
-        <MetricsCharts today={today} days={days} />
+        <MetricsCharts today={today} days={days} range={range} onRange={setRange} />
 
         <section className="metrics-block">
           <h2>Cliques por loja</h2>
@@ -139,8 +130,8 @@ export default function MetricsPage() {
             {Object.entries(UNIT_LABEL).map(([id, label]) => (
               <article className="metrics-card" key={id}>
                 <strong>{label}</strong>
-                <span>{current.units[id] || 0}</span>
-                <small>Toques no WhatsApp desta unidade</small>
+                <span>{totals.units[id] || 0}</span>
+                <small>Toques no WhatsApp neste período</small>
               </article>
             ))}
           </div>
