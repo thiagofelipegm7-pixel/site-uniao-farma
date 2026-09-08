@@ -1,4 +1,6 @@
-import { UNITS, type Unit } from "./site-config";
+import { SITE_URL, UNITS, type Unit } from "./site-config";
+
+const GRAPH_VERSION = "v21.0";
 
 export type InboundWhatsAppMessage = {
   id: string;
@@ -38,10 +40,7 @@ export function resolveUnitFromWhatsApp(meta: {
 
   const incoming = digitsOnly(meta.displayPhone || "");
   if (incoming) {
-    const byDigits = UNITS.find((unit) => {
-      const stored = digitsOnly(unit.whatsappDigits);
-      return stored === incoming;
-    });
+    const byDigits = UNITS.find((unit) => digitsOnly(unit.whatsappDigits) === incoming || digitsOnly(unit.whatsappDigits).endsWith(incoming));
     if (byDigits) return byDigits.id;
   }
 
@@ -106,10 +105,37 @@ export async function verifyWhatsAppSignature(rawBody: string, signatureHeader: 
   return timingSafeEqual(toHex(digest), expected);
 }
 
+export async function sendWhatsAppText(phoneNumberId: string, to: string, body: string) {
+  const token = process.env.WHATSAPP_ACCESS_TOKEN?.trim();
+  if (!token || !phoneNumberId || !to || !body) return { ok: false as const, error: "missing_config" };
+
+  const response = await fetch(`https://graph.facebook.com/${GRAPH_VERSION}/${phoneNumberId}/messages`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      messaging_product: "whatsapp",
+      to: to.replace(/\D/g, ""),
+      type: "text",
+      text: { preview_url: false, body },
+    }),
+  });
+
+  if (!response.ok) {
+    return { ok: false as const, error: `graph_${response.status}` };
+  }
+  return { ok: true as const };
+}
+
 export function webhookConfigStatus() {
   return {
     verifyTokenReady: Boolean(process.env.WHATSAPP_VERIFY_TOKEN?.trim()),
     appSecretReady: Boolean(process.env.WHATSAPP_APP_SECRET?.trim()),
+    accessTokenReady: Boolean(process.env.WHATSAPP_ACCESS_TOKEN?.trim()),
+    callbackPath: "/api/whatsapp/webhook",
+    callbackUrl: `${SITE_URL}/api/whatsapp/webhook`,
     phoneIds: {
       fatima: Boolean(process.env.WHATSAPP_PHONE_ID_FATIMA?.trim()),
       nacoes: Boolean(process.env.WHATSAPP_PHONE_ID_NACOES?.trim()),
