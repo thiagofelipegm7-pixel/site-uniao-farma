@@ -10,7 +10,7 @@ import { getPageStructuredData } from "./structured-data";
 import { WhatsAppIcon, type SelectorIntent } from "./home-chrome";
 import UnitSelectorModal from "./UnitSelectorModal";
 import { HomeSections } from "./home-sections";
-import StorePhotosStrip from "./StorePhotosStrip";
+import UnitsShowcase from "./UnitsShowcase";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -84,12 +84,11 @@ export default function Home() {
           <div className="hero-copy">
             <p className="eyebrow">{"Três farmácias em Sabará"}</p>
             <h1 id="hero-title">{"Cuidado, ofertas e entrega pertinho de você."}</h1>
-            <p className="hero-lead">{"Veja a loja do seu bairro. O WhatsApp fica no botão verde."}</p>
+            <p className="hero-lead">{"Arraste e escolha a loja do seu bairro."}</p>
           </div>
-          <StorePhotosStrip className="store-photos hero-store-photos" label="Fotos reais da loja, identificadas por unidade" />
-          <p className="store-photos-hint">Arraste para ver fachada e interior de cada loja</p>
           <a className="sr-only" href="/novidades">{"Novidades da União Farma"}</a>
         </div>
+        <UnitsShowcase />
       </section>
       <HomeSections generalIntent={generalIntent} openSelector={openSelector} />
       <UnitSelectorModal intent={selectorIntent} onClose={() => setSelectorIntent(null)} />

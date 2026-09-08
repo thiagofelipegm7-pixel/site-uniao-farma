@@ -4,7 +4,6 @@
 import { categories, type SelectorIntent } from "./home-chrome";
 import HomeReasons from "./HomeReasons";
 import { HomeMore } from "./home-more";
-import UnitsShowcase from "./UnitsShowcase";
 
 const CATEGORY_ICON_SRC: Record<string, string> = {
   medicine: "/icons/medicamentos.svg",
@@ -24,7 +23,6 @@ export function HomeSections({
 }) {
   return (
     <>
-      <UnitsShowcase />
       <HomeReasons openSelector={openSelector} />
 
       <section className="trust-strip" aria-label="Por que a União Farma">
