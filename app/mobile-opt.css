@@ -38,25 +38,27 @@
     bottom: 0 !important;
     z-index: 4000 !important;
     margin: 0 !important;
-    padding: 0.5rem 0.7rem calc(0.5rem + env(safe-area-inset-bottom)) !important;
-    background: linear-gradient(180deg, rgba(243, 251, 248, 0) 0%, rgba(243, 251, 248, 0.88) 40%, #f3fbf8 100%) !important;
+    padding: 0.35rem 0.9rem calc(0.55rem + env(safe-area-inset-bottom)) !important;
+    background: linear-gradient(180deg, rgba(247, 252, 250, 0) 0%, rgba(247, 252, 250, 0.72) 55%, #f7fcfa 100%) !important;
     border-top: 0 !important;
     box-shadow: none !important;
+    pointer-events: none !important;
   }
 
   .mobile-quick-nav-inner {
+    pointer-events: auto !important;
     display: grid !important;
     grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    gap: 0.2rem !important;
-    max-width: 24rem;
+    gap: 0.28rem !important;
+    max-width: 22.5rem;
     margin: 0 auto;
-    padding: 0.28rem !important;
-    border: 1px solid rgba(14, 115, 112, 0.14);
-    border-radius: 22px;
-    background: rgba(255, 255, 255, 0.96);
+    padding: 0.32rem !important;
+    border: 1px solid rgba(14, 115, 112, 0.1);
+    border-radius: 26px;
+    background: rgba(255, 255, 255, 0.94);
     box-shadow:
-      0 12px 28px rgba(8, 58, 59, 0.14),
-      0 1px 0 rgba(255, 255, 255, 0.9) inset;
+      0 14px 32px rgba(16, 40, 34, 0.12),
+      0 1px 0 rgba(255, 255, 255, 0.95) inset;
   }
 
   .mobile-quick-nav a {
@@ -64,11 +66,11 @@
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 0.16rem !important;
-    min-height: 52px !important;
-    padding: 0.28rem 0.12rem !important;
+    gap: 0.22rem !important;
+    min-height: 56px !important;
+    padding: 0.28rem 0.2rem 0.34rem !important;
     border: 0 !important;
-    border-radius: 16px !important;
+    border-radius: 20px !important;
     background: transparent !important;
     color: #4a5f57 !important;
     font-size: 11px !important;
@@ -82,11 +84,11 @@
   .mobile-quick-nav .mqn-icon {
     display: grid !important;
     place-items: center;
-    width: 26px !important;
-    height: 26px !important;
-    border-radius: 9px;
-    background: transparent !important;
-    color: inherit !important;
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 11px;
+    background: #eef7f4 !important;
+    color: #0e7370 !important;
   }
 
   .mobile-quick-nav .mqn-label {
@@ -96,12 +98,22 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 11px !important;
+    color: #2f4b44 !important;
   }
 
   .mobile-quick-nav a.is-primary {
-    background: #e7f6f1 !important;
-    color: #0b6244 !important;
+    background: #0e7370 !important;
+    color: #ffffff !important;
     box-shadow: none !important;
+  }
+
+  .mobile-quick-nav a.is-primary .mqn-icon {
+    background: rgba(255, 255, 255, 0.16) !important;
+    color: #ffffff !important;
+  }
+
+  .mobile-quick-nav a.is-primary .mqn-label {
+    color: #ffffff !important;
   }
 
   body.cookie-banner-visible .mobile-quick-nav {
