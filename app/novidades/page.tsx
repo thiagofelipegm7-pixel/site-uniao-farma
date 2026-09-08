@@ -64,10 +64,9 @@ export default function NewsIndexPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-      <a className="skip-link" href="#conteudo-novidades">Pular para o conteúdo</a>
       <ContentSiteHeader activePath="/novidades" />
 
-      <main id="conteudo-novidades" className="news-page">
+      <div className="news-page">
         <section className="news-hero" aria-labelledby="news-title">
           <div className="section-inner news-hero-inner">
             <p className="eyebrow">Novidades da União Farma</p>
@@ -78,7 +77,7 @@ export default function NewsIndexPage() {
           </div>
         </section>
 
-        <nav className="breadcrumb section-inner news-index-breadcrumb" aria-label="Breadcrumb">
+        <nav className="breadcrumb section-inner news-index-breadcrumb" aria-label="Navegação estrutural">
           <a href="/">Início</a>
           <span aria-hidden="true">/</span>
           <span>Novidades</span>
@@ -114,7 +113,7 @@ export default function NewsIndexPage() {
             )}
           </div>
         </section>
-      </main>
+      </div>
 
       <ContentSiteFooter notice="Os conteúdos desta área são informativos. Para confirmar atendimento, entrega ou disponibilidade, fale diretamente com uma unidade." />
     </>

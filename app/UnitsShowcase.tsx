@@ -43,7 +43,8 @@ export default function UnitsShowcase() {
 
             return (
               <article className="unit-store-card" key={unit.id} role="listitem">
-                <a className="unit-store-photo-link" href={PAGE_HREF[unit.id]}>
+                <a className="unit-store-photo-link" href={PAGE_HREF[unit.id]} aria-label={`Ver página da loja ${label}`}
+                >
                   <img
                     className="unit-store-photo"
                     src={UNIT_PHOTOS[unit.id]}
@@ -70,6 +71,7 @@ export default function UnitsShowcase() {
                       href={waHref}
                       target="_blank"
                       rel="noreferrer"
+                      aria-label={`Falar no WhatsApp com a loja ${label}`}
                       onClick={() => {
                         trackWhatsAppClick({
                           unit: unit.id,
@@ -86,11 +88,17 @@ export default function UnitsShowcase() {
                     >
                       Falar com esta loja
                     </a>
-                    <a className="unit-store-map" href={unit.map} target="_blank" rel="noreferrer">
+                    <a
+                      className="unit-store-map"
+                      href={unit.map}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`Como chegar à loja ${label}`}
+                    >
                       Como chegar
                     </a>
                   </div>
-                  <a className="unit-store-more" href={PAGE_HREF[unit.id]}>
+                  <a className="unit-store-more" href={PAGE_HREF[unit.id]} aria-label={`Abrir página da unidade ${label}`}>
                     {"Ver página da unidade"}
                   </a>
                 </div>

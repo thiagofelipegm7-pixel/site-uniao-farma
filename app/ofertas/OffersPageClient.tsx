@@ -16,13 +16,9 @@ export default function OffersPageClient({
 }) {
   return (
     <>
-      <a className="skip-link" href="#lista-ofertas">
-        {"Pular para as ofertas"}
-      </a>
-
       <ContentSiteHeader activePath="/ofertas" />
 
-      <main id="conteudo-ofertas" className="offers-page">
+      <div className="offers-page">
         <section className="offers-hero" aria-labelledby="offers-title">
           <div className="section-inner">
             <p className="eyebrow">Ofertas da semana</p>
@@ -35,9 +31,7 @@ export default function OffersPageClient({
 
         <section className="section offers-list-section" id="lista-ofertas" aria-labelledby="offers-list-title">
           <div className="section-inner">
-            <h2 id="offers-list-title" className="sr-only">
-              {"Promoções em destaque"}
-            </h2>
+            <h2 id="offers-list-title">{"Promoções em destaque"}</h2>
             <PublicOffersGrid />
           </div>
         </section>
@@ -70,7 +64,7 @@ export default function OffersPageClient({
             </div>
           </div>
         </section>
-      </main>
+      </div>
 
       <ContentSiteFooter />
     </>

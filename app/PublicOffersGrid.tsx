@@ -9,7 +9,7 @@ function OfferConsultCard({ offer }: { offer: Offer }) {
     <article className="offer-consult-card">
       <div className="offer-consult-image">
         {offer.image ? (
-          <img src={offer.image} alt="" width="640" height="640" loading="lazy" />
+          <img src={offer.image} alt={offer.name} width="640" height="640" loading="lazy" />
         ) : (
           <span>{offer.placeholderLabel ?? "Oferta"}</span>
         )}
@@ -28,6 +28,7 @@ function OfferConsultCard({ offer }: { offer: Offer }) {
         <a
           className="offer-consult-choose"
           href="#ofertas-whatsapp"
+          aria-label={`Escolher loja para consultar ${offer.name}`}
           onClick={() => {
             try {
               sessionStorage.setItem("uf_selected_offer", offer.id);
