@@ -1,3 +1,5 @@
+import { sourceToChannel, splitSourceKey, type ChannelKey } from "./metrics-channels";
+
 export type MetricStage = "whatsapp_click" | "conversation_received" | "order_completed";
 export type RangeKey = "today" | "7" | "30" | "all";
 
@@ -5,6 +7,7 @@ export type DayBucket = {
   total: number;
   stages?: Record<MetricStage, number>;
   units: Record<string, number>;
+  sources?: Record<string, number>;
 };
 
 export const RANGE_LABEL: Record<RangeKey, string> = {
@@ -41,31 +44,56 @@ export function daysForRange(today: string, days: Record<string, DayBucket>, ran
   return out;
 }
 
-export function stageValue(day: DayBucket | undefined, stage: MetricStage) {
+export function stageValue(day: DayBucket | undefined, stage: MetricStage, channel: ChannelKey = "all") {
   if (!day) return 0;
-  if (day.stages?.[stage] != null) return day.stages[stage];
-  return stage === "whatsapp_click" ? day.total || 0 : 0;
+  if (channel === "all") {
+    if (day.stages?.[stage] != null) return day.stages[stage];
+    return stage === "whatsapp_click" ? day.total || 0 : 0;
+  }
+  let total = 0;
+  for (const [key, count] of Object.entries(day.sources || {})) {
+    const parts = splitSourceKey(key);
+    const mappedStage = parts.stage === "conversation_received" || parts.stage === "order_completed"
+      ? parts.stage
+      : "whatsapp_click";
+    if (mappedStage !== stage) continue;
+    if (sourceToChannel(parts.source) !== channel && sourceToChannel(key) !== channel) continue;
+    total += count;
+  }
+  return total;
 }
 
 export function unitClicks(day: DayBucket | undefined, unitId: string) {
   return day?.units?.[unitId] || 0;
 }
 
-export function sumRange(days: Record<string, DayBucket>, keys: string[]) {
+export function sumRange(
+  days: Record<string, DayBucket>,
+  keys: string[],
+  channel: ChannelKey = "all",
+) {
   const stages: Record<MetricStage, number> = {
     whatsapp_click: 0,
     conversation_received: 0,
     order_completed: 0,
   };
   const units: Record<string, number> = {};
+  const channels: Record<string, number> = {};
   for (const key of keys) {
     const bucket = days[key];
-    stages.whatsapp_click += stageValue(bucket, "whatsapp_click");
-    stages.conversation_received += stageValue(bucket, "conversation_received");
-    stages.order_completed += stageValue(bucket, "order_completed");
-    for (const unitId of ["fatima", "nacoes", "itacolomi"]) {
-      units[unitId] = (units[unitId] || 0) + unitClicks(bucket, unitId);
+    stages.whatsapp_click += stageValue(bucket, "whatsapp_click", channel);
+    stages.conversation_received += stageValue(bucket, "conversation_received", channel);
+    stages.order_completed += stageValue(bucket, "order_completed", channel);
+    if (channel === "all") {
+      for (const unitId of ["fatima", "nacoes", "itacolomi"]) {
+        units[unitId] = (units[unitId] || 0) + unitClicks(bucket, unitId);
+      }
+    }
+    for (const [sourceKey, count] of Object.entries(bucket?.sources || {})) {
+      const parts = splitSourceKey(sourceKey);
+      const mapped = sourceToChannel(parts.source);
+      channels[mapped] = (channels[mapped] || 0) + count;
     }
   }
-  return { stages, units };
+  return { stages, units, channels };
 }
