@@ -1,9 +1,9 @@
 import type { Unit } from "./site-config";
 
-const V = "v=26";
+const V = "v=27";
 
 export const UNIT_PHOTOS: Record<Unit["id"], string> = {
-  fatima: `/fotos/fatima-interior.jpg?${V}`,
+  fatima: `/uniao-farma-perfumaria.webp?${V}`,
   nacoes: `/uniao-farma-nacoes-loja.webp?${V}`,
   itacolomi: `/uniao-farma-medicamentos.webp?${V}`,
 };

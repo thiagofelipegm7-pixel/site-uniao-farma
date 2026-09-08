@@ -6,56 +6,49 @@ export type StorePhoto = {
   caption: string;
 };
 
-const V = "v=26";
+const V = "v=27";
 
 export const STORE_PHOTOS: StorePhoto[] = [
   {
-    src: `/fotos/fatima-interior.jpg?${V}`,
-    alt: "Interior da União Farma Fátima — balcão, gôndolas e atendimento em Sabará",
-    unit: "Fátima",
+    src: `/uniao-farma-perfumaria.webp?${V}`,
+    alt: "Interior da Uni\u00e3o Farma F\u00e1tima \u2014 g\u00f4ndola de cabelos e perfumaria em Sabar\u00e1",
+    unit: "F\u00e1tima",
     kind: "Interior",
-    caption: "Interior · Fátima",
+    caption: "Interior \u00b7 F\u00e1tima",
   },
   {
     src: `/uniao-farma-nacoes-loja.webp?${V}`,
-    alt: "Fachada da União Farma Nações Unidas, em Sabará",
-    unit: "Nações Unidas",
+    alt: "Fachada da Uni\u00e3o Farma Na\u00e7\u00f5es Unidas, em Sabar\u00e1",
+    unit: "Na\u00e7\u00f5es Unidas",
     kind: "Fachada",
-    caption: "Fachada · Nações Unidas",
-  },
-  {
-    src: `/uniao-farma-perfumaria.webp?${V}`,
-    alt: "Gôndola de cabelos e perfumaria na União Farma Fátima",
-    unit: "Fátima",
-    kind: "Interior",
-    caption: "Gôndola · Fátima",
+    caption: "Fachada \u00b7 Na\u00e7\u00f5es Unidas",
   },
   {
     src: `/uniao-farma-medicamentos.webp?${V}`,
-    alt: "Interior da União Farma Itacolomi — prateleira de medicamentos",
+    alt: "Interior da Uni\u00e3o Farma Itacolomi \u2014 prateleira de medicamentos",
     unit: "Itacolomi",
     kind: "Interior",
-    caption: "Interior · Itacolomi",
+    caption: "Interior \u00b7 Itacolomi",
   },
   {
     src: `/promotions/drafts/seda-creme-pentear-original.jpeg?${V}`,
-    alt: "Creme Seda para pentear em oferta na União Farma",
+    alt: "Creme Seda para pentear em oferta na Uni\u00e3o Farma",
     unit: "Oferta da semana",
     kind: "Produto",
-    caption: "Produto · Seda",
+    caption: "Produto \u00b7 Seda",
   },
   {
     src: `/promotions/drafts/nivea-locao-original.jpeg?${V}`,
-    alt: "Loção hidratante Nivea em oferta na União Farma",
+    alt: "Lo\u00e7\u00e3o hidratante Nivea em oferta na Uni\u00e3o Farma",
     unit: "Oferta da semana",
     kind: "Produto",
-    caption: "Produto · Nivea",
+    caption: "Produto \u00b7 Nivea",
   },
   {
     src: `/promotions/drafts/sundown-original.jpeg?${V}`,
-    alt: "Protetor solar Sundown em oferta na União Farma",
+    alt: "Protetor solar Sundown em oferta na Uni\u00e3o Farma",
     unit: "Oferta da semana",
     kind: "Produto",
-    caption: "Produto · Sundown",
+    caption: "Produto \u00b7 Sundown",
   },
 ];

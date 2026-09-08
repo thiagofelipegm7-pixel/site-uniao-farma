@@ -1,4 +1,4 @@
-const CACHE_NAME = "uf-static-v18";
+const CACHE_NAME = "uf-static-v23";
 const PRECACHE = ["/offline.html", "/manifest.json", "/favicon.png"];
 
 self.addEventListener("install", (event) => {
@@ -9,9 +9,10 @@ self.addEventListener("install", (event) => {
 
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(keys.map((key) => caches.delete(key))),
-    ).then(() => self.clients.claim()),
+    caches
+      .keys()
+      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))))
+      .then(() => self.clients.claim()),
   );
 });
 
@@ -22,19 +23,38 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
   if (url.origin !== self.location.origin) return;
   if (url.pathname === "/sw.js") return;
+  if (url.pathname.startsWith("/api/")) return;
 
-  if (request.mode === "navigate" || url.pathname === "/" || url.pathname.endsWith(".html")) {
+  const accept = request.headers.get("accept") || "";
+  if (request.mode === "navigate" || accept.includes("text/html") || url.pathname === "/" || url.pathname.endsWith(".html")) {
     event.respondWith(
       fetch(request, { cache: "no-store" }).catch(async () => (await caches.match("/offline.html")) || Response.error()),
     );
     return;
   }
 
-  if (/\.(webp|png|jpg|jpeg|svg|ico|woff2)$/i.test(url.pathname) || url.pathname.startsWith("/fotos/")) {
+  if (url.pathname.startsWith("/_next/static/")) {
     event.respondWith(
-      fetch(request)
-        .then((response) => {
+      caches.match(request).then((cached) => {
+        if (cached) return cached;
+        return fetch(request).then((response) => {
           if (response.ok) {
+            const copy = response.clone();
+            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy)).catch(() => {});
+          }
+          return response;
+        });
+      }),
+    );
+    return;
+  }
+
+  if (/\.(webp|png|jpg|jpeg|svg|ico|woff2|gif)$/i.test(url.pathname) || url.pathname.startsWith("/fotos/")) {
+    event.respondWith(
+      fetch(request, { cache: "no-cache" })
+        .then((response) => {
+          const type = response.headers.get("content-type") || "";
+          if (response.ok && type.startsWith("image/")) {
             const copy = response.clone();
             caches.open(CACHE_NAME).then((cache) => cache.put(request, copy)).catch(() => {});
           }

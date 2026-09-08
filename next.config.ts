@@ -10,8 +10,12 @@ const nextConfig: NextConfig = {
       ],
     },
     {
+      source: "/offline.html",
+      headers: [{ key: "Cache-Control", value: "no-cache, must-revalidate" }],
+    },
+    {
       source: "/manifest.json",
-      headers: [{ key: "Cache-Control", value: "public, max-age=86400" }],
+      headers: [{ key: "Cache-Control", value: "no-cache, must-revalidate" }],
     },
     {
       source: "/_next/static/:path*",
@@ -19,16 +23,11 @@ const nextConfig: NextConfig = {
     },
     {
       source: "/:path*.:ext(ico|png|jpg|jpeg|webp|svg|woff2|gif)",
-      headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
+      headers: [{ key: "Cache-Control", value: "public, max-age=0, must-revalidate" }],
     },
     {
       source: "/:path*",
-      headers: [
-        {
-          key: "Cache-Control",
-          value: "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400",
-        },
-      ],
+      headers: [{ key: "Cache-Control", value: "public, max-age=0, must-revalidate" }],
     },
   ],
 };
