@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import MetricsCharts from "../../components/MetricsCharts";
 import { RANGE_LABEL, daysForRange, sumRange, type RangeKey } from "../../metrics-range";
 import "../../metrics-polish.css";
+import "../../metrics-range.css";
 
 type MetricStage = "whatsapp_click" | "conversation_received" | "order_completed";
 
