@@ -84,7 +84,7 @@ export default function Home() {
           <div className="hero-copy">
             <p className="eyebrow">{"Três farmácias em Sabará"}</p>
             <h1 id="hero-title">{"Cuidado, ofertas e entrega pertinho de você."}</h1>
-            <p className="hero-lead">{"Arraste e escolha a loja do seu bairro."}</p>
+            <p className="hero-lead">{"Fátima, Nações Unidas e Itacolomi."}</p>
           </div>
           <UnitsShowcase />
           <a className="sr-only" href="/novidades">{"Novidades da União Farma"}</a>

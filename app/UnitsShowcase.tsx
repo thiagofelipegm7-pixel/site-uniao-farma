@@ -26,9 +26,6 @@ export default function UnitsShowcase() {
         <header className="units-showcase-head">
           <p className="section-kicker">{"Três lojas em Sabará"}</p>
           <h2 id="units-showcase-title">Escolha a unidade do seu bairro</h2>
-          <p className="units-showcase-lead">
-            {"Arraste para o lado. Foto, horário e WhatsApp da loja certa."}
-          </p>
         </header>
 
         <div className="units-showcase-grid" role="list">
