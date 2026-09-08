@@ -1,38 +1,29 @@
-/* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
+/* eslint-disable @next/next/no-html-link-for-pages */
+import type { Metadata } from "next";
 import { SiteDirectoryLinks } from "./SiteDirectoryLinks";
+
+export const metadata: Metadata = {
+  title: { absolute: "Página não encontrada" },
+  robots: { index: false, follow: false },
+};
 
 export default function NotFound() {
   return (
-    <main className="not-found-page">
+    <div className="not-found-page">
       <div className="not-found-content">
-        <img
-          src="/uniao-farma-logo.svg"
-          alt="Logo da União Farma"
-          width="88"
-          height="88"
-          decoding="async"
-        />
+        <img src="/uniao-farma-logo.svg" alt="Logo da União Farma" width="88" height="88" decoding="async" />
         <p className="section-kicker">Erro 404</p>
         <h1>Página não encontrada</h1>
-        <p>
-          O endereço acessado não existe ou foi alterado. Volte ao início ou encontre uma das nossas
-          unidades.
-        </p>
+        <p>O endereço acessado não existe ou foi alterado. Volte ao início ou encontre uma das nossas unidades.</p>
         <div className="not-found-actions">
-          <a href="/" className="button button-whatsapp compact-button">
-            Voltar ao início
-          </a>
-          <a href="/#unidades-rapidas" className="button button-call compact-button">
-            Encontrar uma unidade
-          </a>
-          <a href="/ofertas" className="button button-call compact-button">
-            Ver ofertas
-          </a>
+          <a href="/" className="button button-whatsapp compact-button">Voltar ao início</a>
+          <a href="/#unidades-rapidas" className="button button-call compact-button">Encontrar uma unidade</a>
+          <a href="/ofertas" className="button button-call compact-button">Ver ofertas</a>
         </div>
         <nav className="not-found-site-map" aria-label="Navegação do site">
           <SiteDirectoryLinks />
         </nav>
       </div>
-    </main>
+    </div>
   );
 }

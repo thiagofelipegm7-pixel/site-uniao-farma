@@ -5,7 +5,7 @@ import { SITE_URL } from "../site-config";
 const config: LocalLandingPageConfig = {
   slug: "farmacia-em-sabara",
   title: "Farmácia em Sabará | União Farma",
-  description: "Três drogaria da União Farma em Sabará: Fátima, Nações Unidas e Itacolomi. Consulte remédio, preço e entrega no WhatsApp da loja do seu bairro.",
+  description: "Três drogarias da União Farma em Sabará: Fátima, Nações Unidas e Itacolomi. Consulte remédio, preço e entrega no WhatsApp da loja do seu bairro.",
   eyebrow: "Farmácia de rua em Sabará",
   heading: "Farmácia em Sabará, pertinho de casa",
   lead: "Não é um site de compra. É a loja do bairro respondendo no WhatsApp: se tem, quanto custa e se dá para entregar hoje.",

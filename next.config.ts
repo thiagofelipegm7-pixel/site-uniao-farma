@@ -1,6 +1,12 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  redirects: async () => [
+    { source: "/unidades/nossa-senhora-de-fatima", destination: "/fatima", permanent: true },
+    { source: "/unidades/nacoes-unidas", destination: "/nacoes-unidas", permanent: true },
+    { source: "/unidades/itacolomi", destination: "/itacolomi", permanent: true },
+    { source: "/nossa-senhora-de-fatima", destination: "/fatima", permanent: true },
+  ],
   headers: async () => [
     {
       source: "/sw.js",
