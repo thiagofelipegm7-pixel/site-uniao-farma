@@ -75,7 +75,7 @@ export default function Home() {
             <a href="#unidades-rapidas" onClick={() => setMenuOpen(false)}>Unidades</a>
             <a href="/receita" onClick={() => setMenuOpen(false)}>Receita</a>
           </div>
-          <a className="header-cta" href="#whatsapp-lojas" onClick={() => setMenuOpen(false)}>
+          <a className="header-cta" href="#whatsapp-lojas" aria-label="Falar no WhatsApp" onClick={() => setMenuOpen(false)}>
             <WhatsAppIcon /> WhatsApp
           </a>
         </nav>
@@ -85,7 +85,7 @@ export default function Home() {
           <div className="hero-copy">
             <p className="eyebrow">{"Três farmácias em Sabará"}</p>
             <h1 id="hero-title">{"Cuidado, ofertas e entrega pertinho de você."}</h1>
-            <p className="hero-lead">Toque na loja do seu bairro. O WhatsApp abre na hora, com a conversa pronta.</p>
+            <p className="hero-lead">Toque na loja do seu bairro. O WhatsApp abre na hora.</p>
           </div>
           <aside className="hero-offer-showcase hero-illustration" aria-label="Atendimento na União Farma">
             <img
@@ -95,7 +95,6 @@ export default function Home() {
               width="720"
               height="540"
               sizes="(max-width: 860px) 92vw, 380px"
-              fetchPriority="high"
               decoding="async"
             />
           </aside>

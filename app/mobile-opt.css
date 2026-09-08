@@ -1,0 +1,272 @@
+/* Ultima folha mobile: ganha das regras conflitantes. */
+@media (max-width: 860px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    font-size: 16px !important;
+    line-height: 1.45 !important;
+    padding-bottom: calc(5.25rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  #conteudo {
+    padding-bottom: 0.5rem;
+  }
+
+  .uf-footer,
+  .site-footer {
+    padding-bottom: 1.25rem !important;
+  }
+
+  .mobile-quick-nav {
+    display: block !important;
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 4000 !important;
+    margin: 0 !important;
+    padding: 0.4rem 0.65rem calc(0.4rem + env(safe-area-inset-bottom)) !important;
+    background: rgba(241, 251, 250, 0.96) !important;
+    border-top: 1px solid #c5e4e0 !important;
+    box-shadow: 0 -8px 24px rgba(8, 58, 59, 0.1) !important;
+  }
+
+  .mobile-quick-nav-inner {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 0.2rem !important;
+    max-width: 28rem;
+    margin: 0 auto;
+    padding: 0.2rem !important;
+    border: 1px solid #c5e4e0;
+    border-radius: 20px;
+    background: #ffffff;
+  }
+
+  .mobile-quick-nav a {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.15rem !important;
+    min-height: 52px !important;
+    padding: 0.3rem 0.1rem !important;
+    border: 0 !important;
+    border-radius: 14px !important;
+    background: transparent !important;
+    color: #1f3f3e !important;
+    font-size: 12px !important;
+    font-weight: 800 !important;
+    letter-spacing: 0 !important;
+    line-height: 1.1 !important;
+    text-decoration: none !important;
+    box-shadow: none !important;
+  }
+
+  .mobile-quick-nav .mqn-label {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 12px !important;
+  }
+
+  .mobile-quick-nav a.is-primary {
+    background: #0e7370 !important;
+    color: #ffffff !important;
+  }
+
+  .mobile-quick-nav a.is-whatsapp {
+    background: #25d366 !important;
+    color: #083226 !important;
+  }
+
+  .mobile-quick-nav a.is-whatsapp .mqn-icon {
+    background: rgba(255, 255, 255, 0.28);
+    color: #083226;
+  }
+
+  body.cookie-banner-visible .mobile-quick-nav {
+    bottom: 58px !important;
+  }
+
+  body.cookie-banner-visible {
+    padding-bottom: calc(8.5rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  .menu-button,
+  .content-menu-button,
+  .menu-backdrop,
+  .content-menu-backdrop,
+  .menu-links,
+  .content-menu-drawer {
+    display: none !important;
+  }
+
+  .header-cta,
+  .content-whatsapp-button,
+  .content-header-cta {
+    width: 48px !important;
+    height: 48px !important;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    padding: 0 !important;
+    border-radius: 14px !important;
+  }
+
+  .header-cta {
+    font-size: 0 !important;
+    color: transparent !important;
+  }
+
+  .hero {
+    padding-top: 12px !important;
+    padding-bottom: 8px !important;
+  }
+
+  .hero-copy .eyebrow {
+    display: block !important;
+    margin: 0 0 6px !important;
+    font-size: 12px !important;
+    letter-spacing: 0.08em !important;
+  }
+
+  .hero-copy h1 {
+    max-width: none !important;
+    margin: 0 0 8px !important;
+    font-size: 1.45rem !important;
+    line-height: 1.15 !important;
+  }
+
+  .hero-lead {
+    display: block !important;
+    margin: 0 0 10px !important;
+    font-size: 15px !important;
+    line-height: 1.35 !important;
+    color: #3a5554 !important;
+  }
+
+  .hero-offer-showcase.hero-illustration {
+    max-height: 148px !important;
+    min-height: 0 !important;
+    margin: 0 0 10px !important;
+    overflow: hidden;
+  }
+
+  .hero-illustration-img {
+    width: 100% !important;
+    max-height: 148px !important;
+    height: 148px !important;
+    object-fit: contain !important;
+  }
+
+  .hero-whatsapp-btn {
+    min-height: 48px !important;
+    font-size: 15px !important;
+  }
+
+  .hero-store-photos,
+  .store-photos.hero-store-photos {
+    display: flex !important;
+    gap: 0.55rem !important;
+    margin-top: 12px !important;
+  }
+
+  .hero-store-photos .store-photo:nth-child(n + 4) {
+    display: none !important;
+  }
+
+  .store-photo {
+    flex-basis: min(72vw, 260px) !important;
+  }
+
+  .store-photo img,
+  .hero-store-photos img,
+  .unit-store-photo {
+    height: 168px !important;
+  }
+
+  .story-section .store-photos {
+    display: none !important;
+  }
+
+  .categories-section {
+    display: none !important;
+  }
+
+  .trust-strip-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 8px !important;
+  }
+
+  .home-offer-card:nth-child(n + 3) {
+    display: none !important;
+  }
+
+  .home-offer-cta,
+  .home-reasons-actions a,
+  .home-reasons-actions button,
+  .unit-store-wa,
+  .unit-store-map,
+  .direct-unit-actions a,
+  .quick-unit-actions .button {
+    min-height: 48px !important;
+    font-size: 14px !important;
+  }
+
+  .whatsapp-intent-chips {
+    grid-template-columns: 1fr !important;
+  }
+
+  .whatsapp-intent-chips button {
+    min-height: 48px !important;
+    font-size: 15px !important;
+  }
+
+  .offer-consult-units {
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+  }
+
+  .offer-consult-units a {
+    min-height: 48px !important;
+    font-size: 14px !important;
+  }
+
+  .open-now-strip {
+    overflow-x: auto;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .open-now-list {
+    flex-wrap: nowrap !important;
+  }
+
+  .open-now-list a {
+    min-height: 40px;
+    font-size: 13px !important;
+  }
+
+  .reviews-track {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .faq-section details,
+  .faq-section button {
+    min-height: 44px;
+    font-size: 15px !important;
+  }
+
+  .unit-map-frame iframe,
+  .neighborhood-map iframe {
+    min-height: 14rem !important;
+    height: 14rem !important;
+  }
+}

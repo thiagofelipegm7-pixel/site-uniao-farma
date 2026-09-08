@@ -13,9 +13,9 @@ function PhotoCard({ photo, index, eager }: { photo: StorePhoto; index: number; 
         <img
           src={src}
           alt={photo.alt}
-          width="1200"
-          height="900"
-          sizes="(max-width: 860px) 86vw, 340px"
+          width="800"
+          height="520"
+          sizes="(max-width: 860px) 72vw, 340px"
           decoding="async"
           loading={eager || index < 2 ? "eager" : "lazy"}
           onError={() => {
@@ -48,9 +48,11 @@ export default function StorePhotosStrip({
   className?: string;
   label?: string;
 }) {
+  const photos = className?.includes("hero") ? STORE_PHOTOS.slice(0, 3) : STORE_PHOTOS;
+
   return (
     <div className={className ?? "store-photos"} role="list" aria-label={label ?? "Fotos da loja, identificadas por unidade"}>
-      {STORE_PHOTOS.map((photo, index) => (
+      {photos.map((photo, index) => (
         <PhotoCard key={`${photo.caption}-${index}`} photo={photo} index={index} eager={className?.includes("hero")} />
       ))}
     </div>

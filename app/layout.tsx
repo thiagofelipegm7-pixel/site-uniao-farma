@@ -32,6 +32,7 @@ import "./aqua-override.css";
 import "./units-showcase.css";
 import "./store-presence.css";
 import "./home-reasons.css";
+import "./mobile-opt.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 
 const AnalyticsConsent = dynamic(() => import("./AnalyticsConsent"), { ssr: false });
@@ -164,7 +165,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pt-BR" data-theme="light" className={`${poppins.className} ${fraunces.variable}`}>
       <head>
-        <link rel="preload" href="/illustrations/atendimento.svg?v=8" as="image" type="image/svg+xml" fetchPriority="high" />
+        <link rel="preload" href="/uniao-farma-nacoes-loja.webp?v=27" as="image" type="image/webp" />
       </head>
       <body>
         <a className="skip-link" href="#conteudo">
@@ -181,8 +182,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           }}
         />
         <main id="conteudo">{children}</main>
-        <MobileQuickNav />
         <SiteFooter />
+        <MobileQuickNav />
       </body>
     </html>
   );

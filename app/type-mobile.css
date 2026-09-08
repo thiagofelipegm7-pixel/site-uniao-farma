@@ -1,37 +1,37 @@
 @media (max-width: 43.75rem) {
   body {
-    font-size: 0.8125rem;
+    font-size: 16px;
   }
 
   .eyebrow,
   .section-kicker {
-    font-size: 0.68em;
-    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
   }
 
   .hero-copy h1,
   .neighborhood-hero h1,
   .encarte-page h1,
   .questions-page h1 {
-    font-size: clamp(1.25rem, 6.4vw, 1.625rem);
-    letter-spacing: -0.035em;
-    max-width: 18ch;
-    margin-bottom: 0.32em;
+    font-size: clamp(1.35rem, 6.2vw, 1.7rem);
+    letter-spacing: -0.03em;
+    max-width: none;
+    margin-bottom: 0.4em;
   }
 
   .hero-copy p,
   .neighborhood-hero p {
-    font-size: 0.95em;
+    font-size: 0.98rem;
     margin-bottom: 0.7em;
   }
 
   .direct-unit-name {
-    font-size: 1.12em;
+    font-size: 1.12rem;
     letter-spacing: -0.025em;
   }
 
   .direct-unit-neighborhood {
-    font-size: 0.86em;
+    font-size: 0.9rem;
   }
 
   .offer-consult-body {
@@ -40,21 +40,20 @@
   }
 
   .offer-consult-body h3 {
-    font-size: 0.95em;
+    font-size: 1rem;
   }
 
   .offer-consult-price strong {
-    font-size: 1.55em;
+    font-size: 1.45rem;
     letter-spacing: -0.04em;
   }
 
-  .whatsapp-intent-chips button,
   .mobile-quick-nav a {
-    font-size: 0.7em;
+    font-size: 12px;
     letter-spacing: 0;
   }
 
   .direct-unit-actions a {
-    font-size: 0.88em;
+    font-size: 0.9rem;
   }
 }
