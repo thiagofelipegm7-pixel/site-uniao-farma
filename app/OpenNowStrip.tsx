@@ -37,7 +37,7 @@ export default function OpenNowStrip() {
       UNITS.map((unit) => {
         const status = now
           ? getUnitOpenStatus(unit, now)
-          : { isOpen: false, holiday: null, label: "Confira o hor\u00e1rio" };
+          : { isOpen: false, holiday: null, label: "Confira o horário" };
         return { unit, ...status };
       }),
     [now],
@@ -47,15 +47,23 @@ export default function OpenNowStrip() {
   const openCount = rows.filter((row) => row.isOpen).length;
 
   return (
-    <div className="open-now-strip" role="status">
+    <div className="open-now-strip" role="status" aria-label="Situação das lojas agora">
       <strong>{holiday ? "Feriado" : openCount > 0 ? "Aberto agora" : "Unidades"}</strong>
       <div className="open-now-list">
-        {rows.map((row) => (
-          <a key={row.unit.id} href="/#unidades-rapidas" className={row.isOpen ? "is-open" : "is-closed"}>
-            <span>{row.unit.id === "fatima" ? "F\u00e1tima" : row.unit.id === "nacoes" ? "Na\u00e7\u00f5es" : "Itacolomi"}</span>
-            <small>{holiday ? "confirme" : now ? (row.isOpen ? "aberta" : "ver hor\u00e1rio") : ""}</small>
-          </a>
-        ))}
+        {rows.map((row) => {
+          const name = row.unit.id === "fatima" ? "Fátima" : row.unit.id === "nacoes" ? "Nações" : "Itacolomi";
+          return (
+            <a
+              key={row.unit.id}
+              href="/#unidades-rapidas"
+              className={row.isOpen ? "is-open" : "is-closed"}
+              aria-label={`${name}: ${holiday ? "confirme o horário" : now ? (row.isOpen ? "aberta agora" : "fechada, ver horário") : "ver loja"}`}
+            >
+              <span>{name}</span>
+              <small>{holiday ? "confirme" : now ? (row.isOpen ? "aberta" : "ver horário") : ""}</small>
+            </a>
+          );
+        })}
       </div>
     </div>
   );

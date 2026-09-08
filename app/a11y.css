@@ -1,0 +1,158 @@
+/* Acessibilidade movel e leitura — entra por ultimo. */
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  z-index: 8000;
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  background: #062016;
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 800;
+  text-decoration: none;
+  transform: translateY(-160%);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 3px solid #f7fcfa;
+  outline-offset: 2px;
+}
+
+.site-header,
+.content-header {
+  padding-top: env(safe-area-inset-top);
+}
+
+.open-status.is-open {
+  background: #0b6244;
+  color: #ffffff;
+}
+
+.open-status.is-hours {
+  background: #d7efe4;
+  color: #0b6244;
+}
+
+.unit-store-wa,
+.whatsapp-fab,
+.header-cta,
+.content-header-cta,
+.offer-consult-choose,
+.direct-unit-actions a,
+.modal-unit-action {
+  background: #0b6244;
+  color: #ffffff;
+}
+
+.unit-store-map {
+  background: #e7f6ee;
+  color: #0b6244;
+  border-color: #0b6244;
+}
+
+@media (max-width: 860px) {
+  .open-now-strip {
+    display: none !important;
+  }
+
+  body {
+    font-size: 17px !important;
+    line-height: 1.45 !important;
+  }
+
+  .hero-copy .eyebrow,
+  .section-kicker,
+  .unit-store-hood,
+  .offer-consult-brand,
+  .breadcrumb,
+  .brand small {
+    font-size: 14px !important;
+    letter-spacing: 0.04em;
+  }
+
+  .hero-copy h1,
+  .hero-home .hero-copy h1 {
+    max-width: none !important;
+    font-size: 1.55rem !important;
+  }
+
+  .hero-lead,
+  .unit-store-addr,
+  .unit-store-hours,
+  .unit-store-more,
+  .offer-consult-body p,
+  .recipe-lead,
+  .offers-hero-lead {
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+  }
+
+  .open-status,
+  .open-status strong {
+    font-size: 14px !important;
+  }
+
+  .unit-store-card h3,
+  .offer-consult-body h3 {
+    font-size: 1.15rem !important;
+  }
+
+  a,
+  button,
+  .unit-store-wa,
+  .unit-store-map,
+  .unit-store-more,
+  .offer-consult-choose,
+  .direct-unit-actions a,
+  .header-cta,
+  .content-header-cta,
+  .modal-close,
+  .modal-unit-option,
+  .whatsapp-fab {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .unit-store-actions {
+    grid-template-columns: 1fr !important;
+    gap: 0.45rem !important;
+  }
+
+  .unit-store-wa,
+  .unit-store-map,
+  .offer-consult-choose,
+  .direct-unit-actions a {
+    min-height: 48px !important;
+    font-size: 16px !important;
+  }
+
+  .mobile-quick-nav a {
+    min-height: 56px !important;
+    font-size: 13px !important;
+  }
+
+  .mobile-quick-nav .mqn-label {
+    font-size: 13px !important;
+  }
+
+  .whatsapp-fab {
+    left: 0.85rem !important;
+    right: auto !important;
+    bottom: calc(6.2rem + env(safe-area-inset-bottom)) !important;
+    width: 56px;
+    height: 56px;
+    color: #ffffff !important;
+    background: #0b6244 !important;
+  }
+
+  .hero-home,
+  .hero-home .hero-inner {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
