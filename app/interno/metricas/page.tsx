@@ -2,10 +2,12 @@
 
 import { useEffect, useMemo, useState } from "react";
 import MetricsCharts from "../../components/MetricsCharts";
+import MetricsConversion from "../../components/MetricsConversion";
 import { CHANNEL_LABEL, type ChannelKey } from "../../metrics-channels";
 import { RANGE_LABEL, daysForRange, sumRange, type RangeKey } from "../../metrics-range";
 import "../../metrics-polish.css";
 import "../../metrics-range.css";
+import "../../metrics-conversion.css";
 
 type MetricStage = "whatsapp_click" | "conversation_received" | "order_completed";
 
@@ -134,6 +136,14 @@ export default function MetricsPage() {
           range={range}
           channel={channel}
           onRange={setRange}
+          onChannel={setChannel}
+        />
+
+        <MetricsConversion
+          today={today}
+          days={days}
+          range={range}
+          channel={channel}
           onChannel={setChannel}
         />
 
