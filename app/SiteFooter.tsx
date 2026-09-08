@@ -8,15 +8,9 @@ import { INSTAGRAM_URL, UNITS, buildWhatsAppUrl, type Unit } from "./site-config
 const NAV = [
   { href: "/", label: "Início" },
   { href: "/ofertas", label: "Ofertas" },
-  { href: "/#unidades-rapidas", label: "Unidades" },
   { href: "/receita", label: "Receita" },
   { href: "/novidades", label: "Novidades" },
-  { href: "/farmacia-em-sabara", label: "Farmácia em Sabará" },
-  { href: "/entrega-de-medicamentos-em-sabara", label: "Entrega em Sabará" },
-  { href: "/perfumaria-em-sabara", label: "Perfumaria em Sabará" },
-  { href: "/unidades/nossa-senhora-de-fatima", label: "Unidade Nossa Senhora de Fátima" },
-  { href: "/unidades/nacoes-unidas", label: "Unidade Nações Unidas" },
-  { href: "/unidades/itacolomi", label: "Unidade Itacolomi" },
+  { href: "/perguntas", label: "Perguntas" },
   { href: "/privacidade", label: "Privacidade" },
 ];
 
@@ -59,10 +53,7 @@ export default function SiteFooter() {
                 <small>Drogaria e Perfumaria</small>
               </span>
             </a>
-            <p>
-              Cuidado próximo para toda a família. Medicamentos, higiene, beleza e bem-estar em
-              três unidades de Sabará/MG, com pedido pelo WhatsApp.
-            </p>
+            <p>Três lojas em Sabará. Pedido pelo WhatsApp da unidade do seu bairro.</p>
             <div className="uf-footer-social">
               <a className="instagram-link" href={INSTAGRAM_URL} target="_blank" rel="noreferrer" aria-label="Instagram da União Farma">
                 <InstagramIcon />
@@ -92,27 +83,14 @@ export default function SiteFooter() {
                 rel="noreferrer"
                 onClick={() => writePreferredUnitId(unit.id)}
               >
-                {unit.shortName}: {unit.whatsapp}
-                {preferredId === unit.id ? " · sua loja" : ""}
+                {unit.id === "fatima" ? "Fátima" : unit.id === "nacoes" ? "Nações" : "Itacolomi"}: {unit.whatsapp}
               </a>
             ))}
-            <a href={UNITS[0].phoneLink}>Fixo Fátima: {UNITS[0].phone}</a>
-          </div>
-
-          <div className="uf-footer-col">
-            <h2>Empresa</h2>
-            <p className="uf-footer-legal-name">Drogaria e Perfumaria União Farma</p>
-            {UNITS.map((unit) => (
-              <p key={unit.id}>{unit.shortAddress}</p>
-            ))}
-            <p>Sabará/MG</p>
           </div>
         </div>
 
         <div className="uf-footer-bottom">
-          <p>© {new Date().getFullYear()} União Farma. Todos os direitos reservados.</p>
-          <p>Farmacêutico(a) Responsável Técnico presente durante o horário de funcionamento.</p>
-          <p className="uf-footer-anvisa">Medicamentos sujeitos à vigilância sanitária (Anvisa). Consulte o farmacêutico. Imagens ilustrativas.</p>
+          <p>© {new Date().getFullYear()} União Farma. Sabará/MG.</p>
           <p>
             <a href="/privacidade">Privacidade</a>
             <span aria-hidden="true"> · </span>
