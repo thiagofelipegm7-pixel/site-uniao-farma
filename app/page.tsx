@@ -79,16 +79,16 @@ export default function Home() {
           </a>
         </nav>
       </header>
-      <section className="hero reveal is-visible" id="inicio" aria-labelledby="hero-title">
+      <section className="hero hero-home reveal is-visible" id="inicio" aria-labelledby="hero-title">
         <div className="hero-inner">
           <div className="hero-copy">
             <p className="eyebrow">{"Três farmácias em Sabará"}</p>
             <h1 id="hero-title">{"Cuidado, ofertas e entrega pertinho de você."}</h1>
             <p className="hero-lead">{"Arraste e escolha a loja do seu bairro."}</p>
           </div>
+          <UnitsShowcase />
           <a className="sr-only" href="/novidades">{"Novidades da União Farma"}</a>
         </div>
-        <UnitsShowcase />
       </section>
       <HomeSections generalIntent={generalIntent} openSelector={openSelector} />
       <UnitSelectorModal intent={selectorIntent} onClose={() => setSelectorIntent(null)} />
