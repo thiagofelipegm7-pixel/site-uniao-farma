@@ -27,11 +27,11 @@ export default function UnitsShowcase() {
           <p className="section-kicker">{"Três lojas em Sabará"}</p>
           <h2 id="units-showcase-title">Escolha a unidade do seu bairro</h2>
           <p className="units-showcase-lead">
-            {"Foto identificada, endereço, horário e rota. O WhatsApp abre na loja certa."}
+            {"Arraste para o lado. Foto, horário e WhatsApp da loja certa."}
           </p>
         </header>
 
-        <div className="units-showcase-grid">
+        <div className="units-showcase-grid" role="list">
           {UNITS.map((unit) => {
             const label = SHORT_LABEL[unit.id];
             const kind = UNIT_PHOTO_KIND[unit.id];
@@ -42,7 +42,7 @@ export default function UnitsShowcase() {
             });
 
             return (
-              <article className="unit-store-card" key={unit.id}>
+              <article className="unit-store-card" key={unit.id} role="listitem">
                 <a className="unit-store-photo-link" href={PAGE_HREF[unit.id]}>
                   <img
                     className="unit-store-photo"
