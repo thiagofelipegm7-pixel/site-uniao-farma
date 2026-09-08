@@ -32,8 +32,8 @@ function fabTarget(pathname: string) {
     };
   }
 
-  if (pathname === "/") return { href: "#whatsapp-lojas", external: false };
-  return { href: "/#whatsapp-lojas", external: false };
+  if (pathname === "/") return { href: "#unidades-rapidas", external: false };
+  return { href: "/#unidades-rapidas", external: false };
 }
 
 export default function WhatsAppFab() {

@@ -4,20 +4,13 @@
 
 import { useEffect, useState } from "react";
 import { trackEvent } from "./analytics";
-import { trackWhatsAppClick } from "./metrics";
-import { buildWhatsAppUrl, SITE_OPTIONS, SITE_URL, UNITS } from "./site-config";
+import { SITE_OPTIONS, SITE_URL } from "./site-config";
 import { HOME_FAQS } from "./seo-content";
 import { getPageStructuredData } from "./structured-data";
 import { WhatsAppIcon, type SelectorIntent } from "./home-chrome";
 import UnitSelectorModal from "./UnitSelectorModal";
 import { HomeSections } from "./home-sections";
 import StorePhotosStrip from "./StorePhotosStrip";
-
-function unitButtonLabel(unitId: (typeof UNITS)[number]["id"], shortName: string) {
-  if (unitId === "fatima") return "Fátima";
-  if (unitId === "nacoes") return "Nações";
-  return shortName;
-}
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -81,7 +74,7 @@ export default function Home() {
             <a href="#unidades-rapidas" onClick={() => setMenuOpen(false)}>Unidades</a>
             <a href="/receita" onClick={() => setMenuOpen(false)}>Receita</a>
           </div>
-          <a className="header-cta" href="#whatsapp-lojas" aria-label="Falar no WhatsApp" onClick={() => setMenuOpen(false)}>
+          <a className="header-cta" href="#unidades-rapidas" aria-label="Falar no WhatsApp" onClick={() => setMenuOpen(false)}>
             <WhatsAppIcon /> WhatsApp
           </a>
         </nav>
@@ -91,47 +84,7 @@ export default function Home() {
           <div className="hero-copy">
             <p className="eyebrow">{"Três farmácias em Sabará"}</p>
             <h1 id="hero-title">{"Cuidado, ofertas e entrega pertinho de você."}</h1>
-            <p className="hero-lead">Toque na loja do seu bairro. O WhatsApp abre na hora.</p>
-          </div>
-          <aside className="hero-offer-showcase hero-illustration" aria-label="Atendimento na União Farma">
-            <img
-              className="hero-illustration-img"
-              src="/illustrations/atendimento.svg?v=8"
-              alt="Ilustração de farmacêutica orientando uma cliente no balcão da União Farma"
-              width="720"
-              height="540"
-              sizes="(max-width: 860px) 92vw, 380px"
-              decoding="async"
-            />
-          </aside>
-          <div className="hero-whatsapp" id="whatsapp-lojas">
-            <p className="hero-whatsapp-label">Falar com a loja agora</p>
-            <div className="hero-whatsapp-row">
-              {UNITS.map((unit) => (
-                <a
-                  key={unit.id}
-                  className="hero-whatsapp-btn"
-                  href={buildWhatsAppUrl(unit, generalIntent.message.replaceAll("{unidade}", unit.shortName), {
-                    campaign: "home_hero",
-                    content: `home_hero_${unit.id}`,
-                  })}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`WhatsApp ${unit.shortName}`}
-                  onClick={() =>
-                    trackWhatsAppClick({
-                      unit: unit.id,
-                      intent: "consulta_geral",
-                      source: "home_hero",
-                      placement: "hero_direct",
-                    })
-                  }
-                >
-                  <WhatsAppIcon />
-                  <span>{unitButtonLabel(unit.id, unit.shortName)}</span>
-                </a>
-              ))}
-            </div>
+            <p className="hero-lead">{"Veja a loja do seu bairro. O WhatsApp fica no botão verde."}</p>
           </div>
           <StorePhotosStrip className="store-photos hero-store-photos" label="Fotos reais da loja, identificadas por unidade" />
           <p className="store-photos-hint">Arraste para ver fachada e interior de cada loja</p>
