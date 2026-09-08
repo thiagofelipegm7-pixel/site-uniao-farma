@@ -2,8 +2,6 @@ import type { Metadata, Viewport } from "next";
 import { Fraunces, Poppins } from "next/font/google";
 import dynamic from "next/dynamic";
 import MobileQuickNav from "./MobileQuickNav";
-import OpenNowStrip from "./OpenNowStrip";
-import PreferredStoreBanner from "./PreferredStoreBanner";
 import SiteFooter from "./SiteFooter";
 import SkipLink from "./SkipLink";
 import WhatsAppFab from "./WhatsAppFab";
@@ -38,6 +36,8 @@ import "./mobile-opt.css";
 import "./a11y.css";
 import "./mobile.css";
 import "./audit-fix.css";
+import "./page-concordance.css";
+import "./final-polish.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 
 const AnalyticsConsent = dynamic(() => import("./AnalyticsConsent"), { ssr: false });
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
     default: "Farmácia em Sabará | União Farma",
-    template: "%s | União Farma",
+    template: "%s",
   },
   description: SITE_DESCRIPTION,
   manifest: "/manifest.json",
@@ -175,8 +175,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <AnalyticsConsent />
         <PwaRegister />
         <OfferAlerts />
-        <OpenNowStrip />
-        <PreferredStoreBanner />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
