@@ -1,5 +1,3 @@
-import { FATIMA_INTERIOR_SRC } from "./fatima-interior-src";
-
 export type StorePhoto = {
   src: string;
   alt: string;
@@ -8,11 +6,11 @@ export type StorePhoto = {
   caption: string;
 };
 
-const V = "v=24";
+const V = "v=26";
 
 export const STORE_PHOTOS: StorePhoto[] = [
   {
-    src: FATIMA_INTERIOR_SRC,
+    src: `/fotos/fatima-interior.jpg?${V}`,
     alt: "Interior da União Farma Fátima — balcão, gôndolas e atendimento em Sabará",
     unit: "Fátima",
     kind: "Interior",

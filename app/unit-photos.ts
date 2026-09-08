@@ -1,10 +1,11 @@
 import type { Unit } from "./site-config";
-import { FATIMA_INTERIOR_SRC } from "./fatima-interior-src";
+
+const V = "v=26";
 
 export const UNIT_PHOTOS: Record<Unit["id"], string> = {
-  fatima: FATIMA_INTERIOR_SRC,
-  nacoes: "/uniao-farma-nacoes-loja.webp",
-  itacolomi: "/uniao-farma-medicamentos.webp",
+  fatima: `/fotos/fatima-interior.jpg?${V}`,
+  nacoes: `/uniao-farma-nacoes-loja.webp?${V}`,
+  itacolomi: `/uniao-farma-medicamentos.webp?${V}`,
 };
 
 export const UNIT_PHOTO_KIND: Record<Unit["id"], "Fachada" | "Interior"> = {
