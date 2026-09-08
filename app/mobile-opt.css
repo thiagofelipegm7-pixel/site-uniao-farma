@@ -8,16 +8,26 @@
   body {
     font-size: 16px !important;
     line-height: 1.45 !important;
-    padding-bottom: calc(5.25rem + env(safe-area-inset-bottom)) !important;
+    padding-bottom: calc(7rem + env(safe-area-inset-bottom)) !important;
   }
 
-  #conteudo {
-    padding-bottom: 0.5rem;
+  main#conteudo,
+  .offers-page,
+  .receita-page,
+  .neighborhood-page,
+  .questions-page {
+    padding-bottom: calc(7rem + env(safe-area-inset-bottom)) !important;
   }
 
   .uf-footer,
-  .site-footer {
-    padding-bottom: 1.25rem !important;
+  .site-footer,
+  footer {
+    padding-bottom: calc(7rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  .hero-store-photos,
+  .store-photos.hero-store-photos {
+    margin-bottom: 1.25rem !important;
   }
 
   .mobile-quick-nav {
@@ -28,7 +38,7 @@
     bottom: 0 !important;
     z-index: 4000 !important;
     margin: 0 !important;
-    padding: 0.4rem 0.65rem calc(0.4rem + env(safe-area-inset-bottom)) !important;
+    padding: 0.35rem 0.45rem calc(0.35rem + env(safe-area-inset-bottom)) !important;
     background: rgba(241, 251, 250, 0.96) !important;
     border-top: 1px solid #c5e4e0 !important;
     box-shadow: 0 -8px 24px rgba(8, 58, 59, 0.1) !important;
@@ -37,12 +47,12 @@
   .mobile-quick-nav-inner {
     display: grid !important;
     grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
-    gap: 0.2rem !important;
+    gap: 0.15rem !important;
     max-width: 28rem;
     margin: 0 auto;
-    padding: 0.2rem !important;
+    padding: 0.15rem !important;
     border: 1px solid #c5e4e0;
-    border-radius: 20px;
+    border-radius: 18px;
     background: #ffffff;
   }
 
@@ -51,14 +61,14 @@
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    gap: 0.15rem !important;
-    min-height: 52px !important;
-    padding: 0.3rem 0.1rem !important;
+    gap: 0.12rem !important;
+    min-height: 48px !important;
+    padding: 0.25rem 0.05rem !important;
     border: 0 !important;
-    border-radius: 14px !important;
+    border-radius: 12px !important;
     background: transparent !important;
     color: #1f3f3e !important;
-    font-size: 12px !important;
+    font-size: 11px !important;
     font-weight: 800 !important;
     letter-spacing: 0 !important;
     line-height: 1.1 !important;
@@ -70,9 +80,9 @@
     display: block;
     max-width: 100%;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: clip;
     white-space: nowrap;
-    font-size: 12px !important;
+    font-size: 11px !important;
   }
 
   .mobile-quick-nav a.is-primary {
@@ -95,7 +105,7 @@
   }
 
   body.cookie-banner-visible {
-    padding-bottom: calc(8.5rem + env(safe-area-inset-bottom)) !important;
+    padding-bottom: calc(10rem + env(safe-area-inset-bottom)) !important;
   }
 
   .menu-button,
@@ -123,8 +133,29 @@
     color: transparent !important;
   }
 
+  .open-now-strip {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    overflow-x: auto;
+    flex-wrap: nowrap !important;
+    -webkit-overflow-scrolling: touch;
+    padding: 7px 12px !important;
+  }
+
+  .open-now-list {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 6px !important;
+  }
+
+  .open-now-list a {
+    min-height: 36px;
+    font-size: 12px !important;
+  }
+
   .hero {
-    padding-top: 12px !important;
+    padding-top: 10px !important;
     padding-bottom: 8px !important;
   }
 
@@ -190,11 +221,10 @@
     height: 168px !important;
   }
 
-  .story-section .store-photos {
-    display: none !important;
-  }
-
-  .categories-section {
+  .story-section,
+  .categories-section,
+  .reviews-section,
+  .faq-section {
     display: none !important;
   }
 
@@ -235,33 +265,6 @@
   .offer-consult-units a {
     min-height: 48px !important;
     font-size: 14px !important;
-  }
-
-  .open-now-strip {
-    overflow-x: auto;
-    flex-wrap: nowrap !important;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .open-now-list {
-    flex-wrap: nowrap !important;
-  }
-
-  .open-now-list a {
-    min-height: 40px;
-    font-size: 13px !important;
-  }
-
-  .reviews-track {
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .faq-section details,
-  .faq-section button {
-    min-height: 44px;
-    font-size: 15px !important;
   }
 
   .unit-map-frame iframe,

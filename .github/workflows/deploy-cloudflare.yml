@@ -18,6 +18,9 @@ jobs:
     name: Build e publicar
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -35,7 +38,7 @@ jobs:
         run: npm run build
 
       - name: Publicar no Cloudflare
-        if: ${{ secrets.CLOUDFLARE_API_TOKEN != '' && secrets.CLOUDFLARE_ACCOUNT_ID != '' }}
+        if: ${{ env.CLOUDFLARE_API_TOKEN != '' && env.CLOUDFLARE_ACCOUNT_ID != '' }}
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -43,10 +46,9 @@ jobs:
           command: deploy --config dist/server/wrangler.json
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Secrets em falta
-        if: ${{ secrets.CLOUDFLARE_API_TOKEN == '' || secrets.CLOUDFLARE_ACCOUNT_ID == '' }}
+      - name: Sites publica fora deste workflow
+        if: ${{ env.CLOUDFLARE_API_TOKEN == '' || env.CLOUDFLARE_ACCOUNT_ID == '' }}
         run: |
-          echo "Build concluido. O deploy nao correu porque faltam secrets."
-          echo "Adiciona CLOUDFLARE_API_TOKEN e CLOUDFLARE_ACCOUNT_ID em Settings > Secrets and variables > Actions."
-          echo "Guia: .github/CLOUDFLARE.md"
-          exit 1
+          echo "Build ok. Sem CLOUDFLARE_API_TOKEN neste repo."
+          echo "O dominio continua a ser publicado pelo Vinext/Sites."
+          echo "Este job nao falha de proposito."

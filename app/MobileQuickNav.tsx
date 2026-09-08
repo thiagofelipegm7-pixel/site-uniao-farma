@@ -38,10 +38,10 @@ function WhatsAppNavIcon() {
 }
 
 const ITEMS = [
-  { href: "/ofertas", label: "Ofertas", kind: "ofertas" as const, Icon: TagIcon },
+  { href: "/ofertas", label: "Oferta", kind: "ofertas" as const, Icon: TagIcon },
   { href: "/#unidades-rapidas", label: "Lojas", kind: "lojas" as const, Icon: PinIcon },
   { href: "/receita", label: "Receita", kind: "receita" as const, Icon: RecipeIcon },
-  { href: "/#whatsapp-lojas", label: "WhatsApp", kind: "whatsapp" as const, Icon: WhatsAppNavIcon },
+  { href: "/#whatsapp-lojas", label: "Zap", kind: "whatsapp" as const, Icon: WhatsAppNavIcon },
 ];
 
 export default function MobileQuickNav() {
@@ -67,7 +67,13 @@ export default function MobileQuickNav() {
             .join(" ") || undefined;
 
           return (
-            <a key={label} href={href} className={className} aria-current={active ? "page" : undefined}>
+            <a
+              key={label}
+              href={href}
+              className={className}
+              aria-current={active ? "page" : undefined}
+              aria-label={kind === "whatsapp" ? "WhatsApp" : label}
+            >
               <span className="mqn-icon">
                 <Icon />
               </span>
