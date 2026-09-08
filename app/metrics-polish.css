@@ -178,6 +178,79 @@
   color: #9a3f2a;
 }
 
+.metrics-week-chart {
+  width: 100%;
+  height: auto;
+  margin: 0.4rem 0 1rem;
+}
+
+.metrics-week-chart rect {
+  cursor: pointer;
+}
+
+.metrics-week-chart rect:focus,
+.metrics-week-chart rect:hover {
+  opacity: 0.82;
+  outline: 2px solid #0e7370;
+}
+
+.metrics-chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 0.35rem 0 0.6rem;
+  color: #3a5554;
+  font-size: 0.86rem;
+}
+
+.metrics-chart-legend i {
+  display: inline-block;
+  width: 0.7rem;
+  height: 0.7rem;
+  margin-right: 0.35rem;
+  border-radius: 999px;
+}
+
+.metrics-chart-focus {
+  margin: 0 0 0.6rem;
+  color: #0b6244;
+  font-weight: 800;
+}
+
+.metrics-unit-bars {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.metrics-unit-bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  padding: 0.55rem 0.8rem;
+  overflow: hidden;
+  border: 1px solid #c5e4e0;
+  border-radius: 14px;
+  background: #f7fcfb;
+  color: #102e2f;
+  text-align: left;
+}
+
+.metrics-unit-bar i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(14, 115, 112, 0.18);
+}
+
+.metrics-unit-bar span,
+.metrics-unit-bar b {
+  position: relative;
+  z-index: 1;
+}
+
 @media (max-width: 760px) {
   .metrics-grid {
     grid-template-columns: 1fr;

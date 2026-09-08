@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import MetricsCharts from "../../components/MetricsCharts";
 import "../../metrics-polish.css";
 
 type MetricStage = "whatsapp_click" | "conversation_received" | "order_completed";
@@ -129,6 +130,8 @@ export default function MetricsPage() {
             </article>
           ))}
         </div>
+
+        <MetricsCharts today={today} days={days} />
 
         <section className="metrics-block">
           <h2>Cliques por loja</h2>
