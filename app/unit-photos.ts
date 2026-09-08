@@ -1,7 +1,8 @@
 import type { Unit } from "./site-config";
+import { FATIMA_INTERIOR_SRC } from "./fatima-interior-src";
 
 export const UNIT_PHOTOS: Record<Unit["id"], string> = {
-  fatima: "/uniao-farma-fatima-interior.svg?v=23",
+  fatima: FATIMA_INTERIOR_SRC,
   nacoes: "/uniao-farma-nacoes-loja.webp",
   itacolomi: "/uniao-farma-medicamentos.webp",
 };
