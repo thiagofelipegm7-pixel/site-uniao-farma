@@ -1,0 +1,197 @@
+.offers-page {
+  background:
+    linear-gradient(180deg, #f3fbf8 0%, #f7fcf9 220px, #ffffff 520px);
+}
+
+.offers-hero {
+  padding: 1.35rem 0 0.35rem !important;
+}
+
+.offers-hero .section-inner {
+  max-width: 40rem;
+}
+
+.offers-hero .eyebrow {
+  margin: 0 0 0.4rem;
+  color: #0b6244;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.offers-hero h1 {
+  margin: 0;
+  color: #10231c;
+  font-size: clamp(1.7rem, 6vw, 2.7rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.offers-hero-lead {
+  max-width: 28rem;
+  margin: 0.7rem 0 0;
+  color: #3a5554;
+  font-size: 1.02rem;
+  line-height: 1.4;
+}
+
+.offers-hero-note {
+  max-width: 28rem;
+  margin: 0.55rem 0 0;
+  color: #5b716c;
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+.offers-list-section,
+.offers-whatsapp-section,
+.offers-faq {
+  padding-top: 1.15rem !important;
+  padding-bottom: 1.15rem !important;
+}
+
+.offers-list-section .section-heading h2,
+.offers-whatsapp-section .section-heading h2,
+.offers-faq h2 {
+  color: #10231c;
+}
+
+.offer-consult-note {
+  margin: 0 0 0.85rem !important;
+  color: #3a5554 !important;
+  font-size: 0.82rem !important;
+}
+
+.offer-consult-card {
+  border-color: #cfe3dc !important;
+  box-shadow: 0 8px 22px rgba(16, 40, 34, 0.05) !important;
+}
+
+.offer-consult-price strong {
+  color: #0e7370 !important;
+}
+
+.offer-consult-units a {
+  background: #128c3a !important;
+}
+
+.offer-consult-units a[data-stock="consult"] {
+  background: #0e7370 !important;
+}
+
+.offers-whatsapp-section .direct-unit-links-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.offers-whatsapp-section .direct-unit-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-height: 100%;
+  padding: 0.95rem 0.9rem 0.85rem;
+  border: 1px solid #cfe3dc;
+  border-radius: 1rem;
+  background: #ffffff;
+}
+
+.offers-whatsapp-section .direct-unit-name {
+  color: #0e7370;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.offers-whatsapp-section .direct-unit-neighborhood {
+  color: #4a5f57;
+  font-size: 0.8rem;
+}
+
+.offers-whatsapp-section .direct-unit-actions a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  margin-top: auto;
+  border-radius: 0.8rem;
+  background: #128c3a;
+  color: #ffffff;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.offers-faq-inner {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.offers-faq-item {
+  border: 1px solid #d7e6de;
+  border-radius: 0.9rem;
+  background: #ffffff;
+  padding: 0.15rem 0.85rem;
+}
+
+.offers-faq-item summary {
+  cursor: pointer;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  font-weight: 800;
+  color: #10231c;
+}
+
+.offers-faq-item p {
+  margin: 0 0 0.85rem;
+  color: #3a5554;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 860px) {
+  .offers-hero {
+    padding: 0.7rem 0 0.15rem !important;
+  }
+
+  .offers-hero h1 {
+    font-size: 1.7rem !important;
+  }
+
+  .offers-hero-lead {
+    font-size: 0.98rem !important;
+  }
+
+  .offers-whatsapp-section .direct-unit-links-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .offer-consult-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  .offer-consult-card {
+    display: grid !important;
+    grid-template-columns: 118px minmax(0, 1fr);
+  }
+
+  .offer-consult-image {
+    aspect-ratio: auto !important;
+    min-height: 100%;
+  }
+
+  .offer-consult-image img {
+    width: 86% !important;
+    height: 86% !important;
+  }
+
+  .offer-consult-units {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .offer-consult-units a {
+    min-height: 44px !important;
+    font-size: 11px !important;
+  }
+}

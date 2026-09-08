@@ -4,6 +4,7 @@ import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import DirectUnitLinks from "../DirectUnitLinks";
 import PublicOffersGrid from "../PublicOffersGrid";
 import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
+import "../offers-polish.css";
 
 type FAQ = { q: string; a: string };
 
@@ -15,8 +16,8 @@ export default function OffersPageClient({
 }) {
   return (
     <>
-      <a className="skip-link" href="#conteudo-ofertas">
-        {"Pular para o conteúdo"}
+      <a className="skip-link" href="#lista-ofertas">
+        {"Pular para as ofertas"}
       </a>
 
       <ContentSiteHeader activePath="/ofertas" />
@@ -24,47 +25,47 @@ export default function OffersPageClient({
       <main id="conteudo-ofertas" className="offers-page">
         <section className="offers-hero" aria-labelledby="offers-title">
           <div className="section-inner">
-            <p className="eyebrow">Ofertas selecionadas</p>
-            <h1 id="offers-title">{"Ofertas da União Farma em Sabará"}</h1>
+            <p className="eyebrow">Ofertas da semana</p>
+            <h1 id="offers-title">{"Ofertas em Sabará"}</h1>
             <p className="offers-hero-lead">
-              Foto, produto e um toque na loja. A equipe confirma se tem hoje.
+              {"Toque no produto e escolha a loja. A equipe confirma se tem hoje."}
             </p>
-            <p className="offers-hero-note">{"Oferta válida enquanto durarem os estoques."}</p>
-            <p className="offers-hero-note">{"Preços e disponibilidade podem variar conforme o estoque de cada unidade."}</p>
-          </div>
-        </section>
-
-        <section className="section offers-whatsapp-section" id="ofertas-whatsapp" aria-labelledby="ofertas-whatsapp-title">
-          <div className="section-inner">
-            <div className="section-heading compact-heading">
-              <p className="section-kicker">Continuar no assunto</p>
-              <h2 id="ofertas-whatsapp-title">Consultar oferta na loja</h2>
-            </div>
-            <DirectUnitLinks
-              message={WHATSAPP_MESSAGES.offer}
-              intent="offer"
-              source="ofertas_page"
-              heading="Escolha a unidade"
-              description={"A conversa abre falando de oferta, não de uma consulta genérica."}
-            />
+            <p className="offers-hero-note">
+              {"Preço e estoque valem enquanto durarem em cada unidade."}
+            </p>
           </div>
         </section>
 
         <section className="section offers-list-section" id="lista-ofertas" aria-labelledby="offers-list-title">
           <div className="section-inner">
             <div className="section-heading compact-heading">
-              <p className="section-kicker">{"Ofertas aprovadas da União Farma"}</p>
+              <p className="section-kicker">Encarte confirmado</p>
               <h2 id="offers-list-title">{"Promoções em destaque"}</h2>
             </div>
             <PublicOffersGrid />
           </div>
         </section>
 
+        <section className="section offers-whatsapp-section" id="ofertas-whatsapp" aria-labelledby="ofertas-whatsapp-title">
+          <div className="section-inner">
+            <div className="section-heading compact-heading">
+              <p className="section-kicker">Continuar no WhatsApp</p>
+              <h2 id="ofertas-whatsapp-title">Consultar na loja</h2>
+            </div>
+            <DirectUnitLinks
+              compact
+              message={WHATSAPP_MESSAGES.offer}
+              intent="offer"
+              source="ofertas_page"
+            />
+          </div>
+        </section>
+
         <section className="section offers-faq" aria-labelledby="offers-faq-title">
           <div className="section-inner offers-faq-inner">
             <div>
-              <p className="section-kicker">{"Dúvidas frequentes"}</p>
-              <h2 id="offers-faq-title">Antes de consultar</h2>
+              <p className="section-kicker">{"Dúvidas"}</p>
+              <h2 id="offers-faq-title">Antes de chamar</h2>
             </div>
             <div>
               {faqs.map((faq) => (
