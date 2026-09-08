@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-const CACHE_BUST = "uf-static-v24";
+const CACHE_BUST = "uf-static-v25";
 
 export default function PwaRegister() {
   useEffect(() => {
