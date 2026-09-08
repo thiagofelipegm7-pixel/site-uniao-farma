@@ -1,12 +1,13 @@
-/* eslint-disable @next/next/no-html-link-for-pages -- Use native navigation with the current Vinext runtime. */
+/* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from "next";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import { getPublishedNews, NEWS_VISUALS } from "../news-content";
 import { SITE_URL } from "../site-config";
 import NewsCard from "./NewsCard";
 import NewsVisualGallery from "./NewsVisualGallery";
+import "../news-fix.css";
 
-const title = "Novidades da União Farma em Sabará | União Farma";
+const title = "Novidades da União Farma em Sabará";
 const description =
   "Acompanhe novidades da União Farma em Sabará e consulte as unidades para informações sobre disponibilidade.";
 
@@ -70,10 +71,8 @@ export default function NewsIndexPage() {
         <section className="news-hero" aria-labelledby="news-title">
           <div className="section-inner news-hero-inner">
             <p className="eyebrow">Novidades da União Farma</p>
-            <h1 id="news-title">Novidades, informações e conteúdos da União Farma</h1>
-            <p>
-              Acompanhe novidades das nossas unidades, informações úteis, campanhas e conteúdos preparados para quem está em Sabará.
-            </p>
+            <h1 id="news-title">Novidades da União Farma</h1>
+            <p>Artes, informações das lojas e o que a equipe publicou para Sabará.</p>
           </div>
         </section>
 
@@ -86,9 +85,8 @@ export default function NewsIndexPage() {
         <section className="section news-visual-highlights" aria-labelledby="news-visual-title">
           <div className="section-inner">
             <div className="section-heading compact-heading">
-              <p className="section-kicker">Destaques da União Farma</p>
+              <p className="section-kicker">Destaques</p>
               <h2 id="news-visual-title">Novidades em destaque</h2>
-              <p>Confira as artes e novidades compartilhadas pela União Farma. Consulte a equipe sobre disponibilidade e orientações.</p>
             </div>
             <NewsVisualGallery visuals={NEWS_VISUALS} />
           </div>
@@ -97,9 +95,8 @@ export default function NewsIndexPage() {
         <section className="section news-list" aria-labelledby="news-list-title">
           <div className="section-inner">
             <div className="section-heading compact-heading">
-              <p className="section-kicker">Conteúdo da União Farma</p>
-              <h2 id="news-list-title">Publicações recentes</h2>
-              <p>Informações institucionais e conteúdos revisados antes da publicação.</p>
+              <p className="section-kicker">Publicações</p>
+              <h2 id="news-list-title">Textos recentes</h2>
             </div>
             {articles.length > 0 ? (
               <div className="news-grid">
