@@ -1,0 +1,140 @@
+.recipe-page {
+  background:
+    linear-gradient(180deg, #f3fbf8 0%, #ffffff 420px);
+}
+
+.recipe-hero {
+  padding: 1.25rem 0 2rem;
+}
+
+.recipe-inner {
+  display: grid;
+  gap: 1rem;
+  max-width: 44rem;
+}
+
+.recipe-copy .section-kicker {
+  margin: 0 0 0.35rem;
+  color: #0b6244;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.recipe-copy h1 {
+  margin: 0;
+  color: #10231c;
+  font-size: clamp(1.65rem, 5.5vw, 2.4rem);
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+}
+
+.recipe-lead {
+  max-width: 28rem;
+  margin: 0.55rem 0 0;
+  color: #3a5554;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.recipe-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.recipe-steps li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 52px;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid #cfe3dc;
+  border-radius: 0.9rem;
+  background: #ffffff;
+  color: #2a4038;
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.recipe-steps strong {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background: #0e7370;
+  color: #ffffff;
+  font-size: 0.75rem;
+}
+
+.recipe-page .direct-unit-links-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.recipe-page .direct-unit-link {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-height: 100%;
+  padding: 0.95rem 0.9rem 0.85rem;
+  border: 1px solid #cfe3dc;
+  border-radius: 1rem;
+  background: #ffffff;
+}
+
+.recipe-page .direct-unit-name {
+  color: #0e7370;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.recipe-page .direct-unit-neighborhood {
+  color: #4a5f57;
+  font-size: 0.8rem;
+}
+
+.recipe-page .direct-unit-actions a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  margin-top: auto;
+  border-radius: 0.8rem;
+  background: #128c3a;
+  color: #ffffff;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.recipe-note {
+  margin: 0;
+  color: #5b716c;
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 860px) {
+  .recipe-hero {
+    padding: 0.7rem 0 7.25rem;
+  }
+
+  .recipe-copy h1 {
+    font-size: 1.6rem;
+  }
+
+  .recipe-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .recipe-page .direct-unit-links-grid {
+    grid-template-columns: 1fr;
+  }
+}
