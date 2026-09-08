@@ -72,12 +72,23 @@
   color: #0e7370 !important;
 }
 
-.offer-consult-units a {
-  background: #128c3a !important;
+.offer-consult-choose {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  margin-top: auto;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.8rem;
+  background: #128c3a;
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 800;
+  text-decoration: none;
 }
 
-.offer-consult-units a[data-stock="consult"] {
-  background: #0e7370 !important;
+.offer-consult-units {
+  display: none !important;
 }
 
 .offers-whatsapp-section .direct-unit-links-grid {
@@ -186,12 +197,8 @@
     height: 86% !important;
   }
 
-  .offer-consult-units {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  }
-
-  .offer-consult-units a {
-    min-height: 44px !important;
-    font-size: 11px !important;
+  .offer-consult-choose {
+    min-height: 44px;
+    font-size: 0.86rem;
   }
 }
