@@ -1,0 +1,24 @@
+.offer-alerts {
+  margin-top: 0.85rem;
+}
+
+.offer-alerts-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0.55rem 1rem;
+  border: 1px solid #0b6244;
+  border-radius: 14px;
+  background: #e7f6ee;
+  color: #0b6244;
+  font-size: 0.95rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.offer-alerts-note {
+  margin: 0.45rem 0 0;
+  color: #3a5554;
+  font-size: 0.88rem;
+}

@@ -2,9 +2,11 @@
 
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import DirectUnitLinks from "../DirectUnitLinks";
+import OfferAlerts from "../OfferAlerts";
 import PublicOffersGrid from "../PublicOffersGrid";
 import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 import "../offers-polish.css";
+import "../offer-alerts.css";
 
 type FAQ = { q: string; a: string };
 
@@ -26,6 +28,7 @@ export default function OffersPageClient({
             <p className="offers-hero-lead">
               {"Escolha o produto e depois a loja. A equipe confirma se tem hoje."}
             </p>
+            <OfferAlerts showButton />
           </div>
         </section>
 
