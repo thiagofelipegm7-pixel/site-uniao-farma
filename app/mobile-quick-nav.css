@@ -67,6 +67,7 @@
     color: #0e7370;
   }
 
+  .mobile-quick-nav .mqn-icon img,
   .mobile-quick-nav .mqn-icon svg {
     display: block;
     width: 18px;
@@ -90,6 +91,10 @@
   .mobile-quick-nav a.is-primary .mqn-icon {
     background: rgba(255, 255, 255, 0.16);
     color: #ffffff;
+  }
+
+  .mobile-quick-nav a.is-primary .mqn-icon img {
+    filter: brightness(0) invert(1);
   }
 
   .mobile-quick-nav a.is-primary .mqn-label {
