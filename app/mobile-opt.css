@@ -196,8 +196,20 @@
   }
 
   .hero-whatsapp-btn {
-    min-height: 48px !important;
+    display: grid !important;
+    grid-template-columns: 22px minmax(0, 1fr) !important;
+    align-items: center !important;
+    justify-content: stretch !important;
+    gap: 0.65rem !important;
+    min-height: 52px !important;
+    padding: 0.7rem 1rem 0.7rem 1.2rem !important;
     font-size: 15px !important;
+    text-align: left !important;
+  }
+
+  .hero-whatsapp-btn svg {
+    width: 22px !important;
+    height: 22px !important;
   }
 
   .hero-store-photos,
