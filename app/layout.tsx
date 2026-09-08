@@ -40,6 +40,7 @@ import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 
 const AnalyticsConsent = dynamic(() => import("./AnalyticsConsent"), { ssr: false });
 const PwaRegister = dynamic(() => import("./PwaRegister"), { ssr: false });
+const OfferAlerts = dynamic(() => import("./OfferAlerts"), { ssr: false });
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -176,6 +177,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         </a>
         <AnalyticsConsent />
         <PwaRegister />
+        <OfferAlerts />
         <OpenNowStrip />
         <PreferredStoreBanner />
         <script

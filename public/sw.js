@@ -1,4 +1,4 @@
-const CACHE_NAME = "uf-static-v23";
+const CACHE_NAME = "uf-static-v24";
 const PRECACHE = ["/offline.html", "/manifest.json", "/favicon.png"];
 
 self.addEventListener("install", (event) => {
@@ -13,6 +13,21 @@ self.addEventListener("activate", (event) => {
       .keys()
       .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))))
       .then(() => self.clients.claim()),
+  );
+});
+
+self.addEventListener("notificationclick", (event) => {
+  event.notification.close();
+  const target = event.notification.data?.url || "/ofertas";
+  event.waitUntil(
+    self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clients) => {
+      const open = clients.find((client) => "focus" in client);
+      if (open) {
+        open.navigate?.(target);
+        return open.focus();
+      }
+      return self.clients.openWindow(target);
+    }),
   );
 });
 
