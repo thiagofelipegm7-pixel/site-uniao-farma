@@ -1,19 +1,18 @@
-import { formatNewsDate, type NewsArticle } from "../news-content";
+import { formatNewsDate, NEWS_VISUALS, type NewsArticle } from "../news-content";
 
 export default function NewsCard({ article }: { article: NewsArticle }) {
+  const image = article.image || {
+    src: NEWS_VISUALS[0]?.src || "/novidades-og.png",
+    alt: article.title,
+    width: 1024,
+    height: 720,
+  };
+
   return (
-    <article className={`news-card${article.image ? "" : " news-card-no-image"}`}>
-      {article.image && (
-        <div className="news-card-image">
-          <img
-            src={article.image.src}
-            alt={article.image.alt}
-            width={article.image.width}
-            height={article.image.height}
-            loading="lazy"
-          />
-        </div>
-      )}
+    <article className="news-card">
+      <div className="news-card-image">
+        <img src={image.src} alt={image.alt} width={image.width} height={image.height} loading="lazy" />
+      </div>
       <div className="news-card-body">
         <div className="news-card-meta">
           <span>{article.category}</span>

@@ -1,0 +1,81 @@
+@media (max-width: 860px) {
+  .content-menu-button {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    padding: 0.35rem 0.55rem !important;
+    border: 1px solid #c5e4e0;
+    border-radius: 14px;
+    background: #ffffff !important;
+    color: #0b6244;
+    font-size: 14px !important;
+    font-weight: 800;
+  }
+
+  .content-menu-backdrop {
+    display: block !important;
+    position: fixed;
+    inset: 0;
+    z-index: 4500;
+    background: rgba(8, 32, 28, 0.45);
+  }
+
+  .content-menu-drawer {
+    display: block !important;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 4600;
+    width: min(20rem, 86vw);
+    height: 100%;
+    padding: calc(1rem + env(safe-area-inset-top)) 1rem 1.2rem;
+    background: #ffffff;
+    box-shadow: -12px 0 30px rgba(8, 32, 28, 0.16);
+  }
+
+  .content-side-nav a {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    font-size: 16px;
+    color: #102e2f;
+    text-decoration: none;
+  }
+
+  .cookie-manage-button {
+    display: inline-flex !important;
+    position: fixed !important;
+    left: 12px !important;
+    bottom: calc(5.6rem + env(safe-area-inset-bottom)) !important;
+    z-index: 4300 !important;
+    min-height: 44px !important;
+    min-width: 72px !important;
+    padding: 0.4rem 0.7rem !important;
+    border-radius: 999px;
+    background: #0b6244 !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+  }
+
+  .uf-footer-bottom a,
+  .uf-footer a[href="/privacidade"],
+  .uf-footer a[href="/termos"] {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 0.2rem;
+  }
+
+  dialog.unit-selector-modal {
+    width: min(28rem, calc(100vw - 1.5rem));
+    border: 0;
+    border-radius: 20px;
+    padding: 1rem;
+  }
+
+  dialog.unit-selector-modal::backdrop {
+    background: rgba(8, 32, 28, 0.55);
+  }
+}
