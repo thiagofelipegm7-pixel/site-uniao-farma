@@ -1,0 +1,108 @@
+/* Media queries mobile — folha final de layout. */
+
+@media (max-width: 860px) {
+  html {
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow-x: hidden;
+    padding-bottom: calc(8.5rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  img,
+  svg,
+  video,
+  iframe {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .hero,
+  .hero-inner,
+  .hero-home,
+  .hero-home .hero-inner,
+  .section-inner,
+  .offers-page,
+  .recipe-page,
+  .news-page,
+  .neighborhood-page {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .whatsapp-fab {
+    display: none !important;
+  }
+
+  .units-showcase-grid {
+    display: flex !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .unit-store-card {
+    flex: 0 0 82vw !important;
+    max-width: 22rem;
+    scroll-snap-align: start;
+  }
+
+  .unit-store-more {
+    display: none !important;
+  }
+
+  .offer-consult-grid,
+  .direct-unit-links-grid,
+  .news-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .hero-copy h1,
+  .hero-home .hero-copy h1,
+  .offers-hero h1,
+  .recipe-copy h1 {
+    font-size: 1.42rem !important;
+    line-height: 1.18 !important;
+  }
+
+  .unit-store-photo {
+    height: 128px !important;
+  }
+
+  .content-nav,
+  .site-header .nav {
+    padding-left: 0.7rem !important;
+    padding-right: 0.7rem !important;
+  }
+}
+
+@media (max-width: 860px) and (orientation: landscape) {
+  .hero-copy h1 {
+    font-size: 1.3rem !important;
+  }
+
+  .unit-store-photo {
+    height: 110px !important;
+  }
+
+  .mobile-quick-nav {
+    padding-bottom: calc(0.35rem + env(safe-area-inset-bottom)) !important;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .unit-store-wa,
+  .unit-store-map,
+  .offer-consult-choose,
+  .direct-unit-actions a,
+  .header-cta,
+  .content-header-cta {
+    min-height: 48px !important;
+  }
+}

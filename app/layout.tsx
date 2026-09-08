@@ -35,6 +35,7 @@ import "./store-presence.css";
 import "./home-reasons.css";
 import "./mobile-opt.css";
 import "./a11y.css";
+import "./mobile.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 
 const AnalyticsConsent = dynamic(() => import("./AnalyticsConsent"), { ssr: false });
