@@ -10,20 +10,30 @@ function jpegFromBase64(b64: string): Uint8Array {
 }
 
 export async function GET(
-  _request: Request,
+  request: Request,
   context: { params: Promise<{ slug: string }> | { slug: string } },
 ) {
   const params = await Promise.resolve(context.params);
   const slug = params.slug?.replace(/\.jpe?g$/i, "") ?? "";
   const b64 = PHOTOS[slug];
   if (!b64) {
+    // Preserve old photo URLs after moving the image to a public static asset.
+    // This avoids a 404 for cached pages while keeping the Worker bundle free
+    // of the removed base64 modules.
+    if (slug === "fatima-interior") {
+      return NextResponse.redirect(new URL("/uniao-farma-perfumaria.webp?v=27", request.url), 308);
+    }
     return new NextResponse("Not found", {
       status: 404,
       headers: { "Cache-Control": "no-store" },
     });
   }
 
-  return new NextResponse(jpegFromBase64(b64), {
+  const bytes = jpegFromBase64(b64);
+  const buffer = new ArrayBuffer(bytes.byteLength);
+  new Uint8Array(buffer).set(bytes);
+
+  return new NextResponse(buffer, {
     status: 200,
     headers: {
       "Content-Type": "image/jpeg",

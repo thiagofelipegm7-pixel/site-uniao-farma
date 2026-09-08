@@ -17,14 +17,14 @@ export default function OpenNowStrip() {
       interval = window.setInterval(() => setNow(new Date()), 60_000);
     };
 
-    if ("requestIdleCallback" in window) {
+    if (typeof window.requestIdleCallback === "function") {
       idleHandle = window.requestIdleCallback(start, { timeout: 2000 });
     } else {
       timeoutHandle = window.setTimeout(start, 800);
     }
 
     return () => {
-      if (idleHandle && "cancelIdleCallback" in window) {
+      if (idleHandle && typeof window.cancelIdleCallback === "function") {
         window.cancelIdleCallback(idleHandle);
       }
       if (timeoutHandle) window.clearTimeout(timeoutHandle);

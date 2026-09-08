@@ -30,7 +30,7 @@ export default function PwaRegister() {
     };
 
     const start = () => {
-      if ("requestIdleCallback" in window) {
+      if (typeof window.requestIdleCallback === "function") {
         window.requestIdleCallback(() => {
           void register();
         }, { timeout: 2000 });

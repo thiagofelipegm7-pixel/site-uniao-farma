@@ -1,7 +1,5 @@
-import { P1 } from "../../fatima-interior-p1";
-import { P2 } from "../../fatima-interior-p2";
-import { P3 } from "../../fatima-interior-p3";
-
-export const PHOTOS: Record<string, string> = {
-  "fatima-interior": P1 + P2 + P3,
-};
+// Fotos que eram montadas a partir de módulos base64 foram substituídas por
+// arquivos estáticos em `public/`. Mantemos o mapa para preservar a rota e
+// permitir que futuras fotos base64 sejam adicionadas sem reintroduzir imports
+// de arquivos gerados que não fazem parte do repositório.
+export const PHOTOS: Record<string, string> = {};
