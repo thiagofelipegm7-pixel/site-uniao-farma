@@ -23,6 +23,7 @@
 
 .site-header,
 .content-header {
+  top: 0;
   padding-top: env(safe-area-inset-top);
 }
 
@@ -56,6 +57,26 @@
 @media (max-width: 860px) {
   .open-now-strip {
     display: none !important;
+  }
+
+  main#conteudo {
+    padding-top: calc(4.75rem + env(safe-area-inset-top)) !important;
+  }
+
+  .hero,
+  .hero-home {
+    padding-top: 0.85rem !important;
+  }
+
+  .hero-copy {
+    padding-top: 0.15rem !important;
+  }
+
+  .hero-copy .eyebrow {
+    display: block !important;
+    overflow: visible !important;
+    clip: auto !important;
+    margin-bottom: 0.45rem !important;
   }
 
   body {
@@ -139,11 +160,13 @@
   }
 
   .whatsapp-fab {
-    left: 0.85rem !important;
-    right: auto !important;
-    bottom: calc(6.2rem + env(safe-area-inset-bottom)) !important;
-    width: 56px;
-    height: 56px;
+    left: auto !important;
+    right: 0.75rem !important;
+    bottom: calc(5.8rem + env(safe-area-inset-bottom)) !important;
+    width: 52px !important;
+    height: 52px !important;
+    min-width: 52px !important;
+    min-height: 52px !important;
     color: #ffffff !important;
     background: #0b6244 !important;
   }
