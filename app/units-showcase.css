@@ -4,6 +4,15 @@
   scroll-margin-top: 5.5rem;
 }
 
+.hero .units-showcase {
+  padding-top: 0.2rem;
+  background: transparent;
+}
+
+.hero .units-showcase-head {
+  display: none;
+}
+
 .units-showcase-inner {
   width: min(72rem, calc(100% - 2rem));
   margin: 0 auto;
