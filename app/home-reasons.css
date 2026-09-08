@@ -144,6 +144,55 @@
   font-size: 0.9rem;
 }
 
+@media (max-width: 859px) {
+  .home-reasons-inner {
+    width: 100%;
+    padding: 0;
+  }
+
+  .home-reasons-head {
+    padding: 0 1.5rem;
+  }
+
+  .home-reasons-offers {
+    display: flex;
+    gap: 0.8rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1.5rem;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 1.5rem 0.4rem;
+    scrollbar-width: none;
+  }
+
+  .home-reasons-offers::-webkit-scrollbar {
+    display: none;
+  }
+
+  .home-offer-card {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 calc(100vw - 3rem);
+    width: calc(100vw - 3rem);
+    max-width: calc(100vw - 3rem);
+    grid-template-columns: none;
+    scroll-snap-align: start;
+    padding: 0.85rem;
+  }
+
+  .home-offer-photo img {
+    height: 180px;
+  }
+
+  .home-reasons-actions {
+    padding: 0 1.5rem;
+  }
+
+  .home-reasons-more {
+    margin-left: 1.5rem;
+  }
+}
+
 @media (min-width: 860px) {
   .home-reasons-offers {
     grid-template-columns: repeat(3, minmax(0, 1fr));

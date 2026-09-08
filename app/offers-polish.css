@@ -210,33 +210,76 @@
 }
 
 @media (max-width: 900px) {
+  .offers-list-section .section-inner {
+    max-width: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .offers-hero .section-inner {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
   .offer-consult-grid {
-    grid-template-columns: 1fr !important;
-    gap: 10px !important;
+    display: flex !important;
+    grid-template-columns: none !important;
+    gap: 0.8rem !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1.5rem;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    padding: 0 1.5rem 0.7rem !important;
+    margin: 0;
+    scrollbar-width: none;
+  }
+
+  .offer-consult-grid::-webkit-scrollbar {
+    display: none;
   }
 
   .offer-consult-card {
-    display: grid !important;
-    grid-template-columns: 112px minmax(0, 1fr) !important;
-    align-items: stretch;
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 0 0 calc(100vw - 3rem) !important;
+    width: calc(100vw - 3rem) !important;
+    max-width: calc(100vw - 3rem) !important;
+    min-width: 0;
+    grid-template-columns: none !important;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
   }
 
   .offer-consult-image {
-    aspect-ratio: auto !important;
-    min-height: 100%;
-    border-right: 1px solid #e4efe9;
+    aspect-ratio: 1 / 1 !important;
+    width: 100%;
+    min-height: 240px !important;
+    height: 240px !important;
+    border-right: 0 !important;
+  }
+
+  .offer-consult-image img {
+    width: 86% !important;
+    height: 86% !important;
   }
 
   .offer-consult-body {
-    padding: 0.7rem 0.75rem 0.75rem !important;
+    padding: 1rem 1rem 1.1rem !important;
   }
 
   .offer-consult-body h3 {
-    font-size: 0.9rem !important;
+    font-size: 1.15rem !important;
   }
 
   .offer-consult-price strong {
-    font-size: 1.28rem !important;
+    font-size: 1.8rem !important;
+  }
+
+  .offer-consult-choose {
+    min-height: 48px;
+    font-size: 1rem;
   }
 
   .offers-whatsapp-section .direct-unit-links-grid {
