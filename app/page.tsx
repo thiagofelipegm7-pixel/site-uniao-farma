@@ -13,6 +13,11 @@ import UnitSelectorModal from "./UnitSelectorModal";
 import { HomeSections } from "./home-sections";
 import StorePhotosStrip from "./StorePhotosStrip";
 
+function unitButtonLabel(unitId: (typeof UNITS)[number]["id"], shortName: string) {
+  if (unitId === "fatima") return "N. Senhora de Fátima";
+  return shortName;
+}
+
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [selectorIntent, setSelectorIntent] = useState<SelectorIntent | null>(null);
@@ -121,7 +126,7 @@ export default function Home() {
                   }
                 >
                   <WhatsAppIcon />
-                  <span>{unit.shortName}</span>
+                  <span>{unitButtonLabel(unit.id, unit.shortName)}</span>
                 </a>
               ))}
             </div>
