@@ -14,7 +14,8 @@ import { HomeSections } from "./home-sections";
 import StorePhotosStrip from "./StorePhotosStrip";
 
 function unitButtonLabel(unitId: (typeof UNITS)[number]["id"], shortName: string) {
-  if (unitId === "fatima") return "N. Senhora de Fátima";
+  if (unitId === "fatima") return "Fátima";
+  if (unitId === "nacoes") return "Nações";
   return shortName;
 }
 
@@ -116,6 +117,7 @@ export default function Home() {
                   })}
                   target="_blank"
                   rel="noreferrer"
+                  aria-label={`WhatsApp ${unit.shortName}`}
                   onClick={() =>
                     trackWhatsAppClick({
                       unit: unit.id,
