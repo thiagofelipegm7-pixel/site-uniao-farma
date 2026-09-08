@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { CHANNEL_LABEL, type ChannelKey } from "../metrics-channels";
 import {
   RANGE_LABEL,
   daysForRange,
@@ -32,23 +33,27 @@ export default function MetricsCharts({
   today,
   days,
   range,
+  channel,
   onRange,
+  onChannel,
 }: {
   today: string;
   days: Record<string, DayBucket>;
   range: RangeKey;
+  channel: ChannelKey;
   onRange: (value: RangeKey) => void;
+  onChannel: (value: ChannelKey) => void;
 }) {
   const [focus, setFocus] = useState("");
   const keys = useMemo(() => daysForRange(today, days, range), [today, days, range]);
-  const totals = useMemo(() => sumRange(days, keys), [days, keys]);
+  const totals = useMemo(() => sumRange(days, keys, channel), [days, keys, channel]);
 
   const series = keys.map((day) => ({
     day,
     label: range === "today" ? day.slice(5) : day.slice(8),
-    clicks: stageValue(days[day], "whatsapp_click"),
-    talks: stageValue(days[day], "conversation_received"),
-    sales: stageValue(days[day], "order_completed"),
+    clicks: stageValue(days[day], "whatsapp_click", channel),
+    talks: stageValue(days[day], "conversation_received", channel),
+    sales: stageValue(days[day], "order_completed", channel),
   }));
 
   const maxDay = Math.max(1, ...series.flatMap((item) => [item.clicks, item.talks, item.sales]));
@@ -60,6 +65,9 @@ export default function MetricsCharts({
   const maxUnit = Math.max(1, ...units.map((item) => item.value));
   const barWidth = Math.max(6, Math.min(12, 320 / Math.max(keys.length, 1) / 3));
   const groupWidth = Math.max(18, 320 / Math.max(keys.length, 1));
+  const channelRows = Object.entries(totals.channels || {})
+    .sort((left, right) => right[1] - left[1])
+    .filter(([, value]) => value > 0);
 
   return (
     <section className="metrics-block metrics-charts">
@@ -81,9 +89,26 @@ export default function MetricsCharts({
           </button>
         ))}
       </div>
+      <div className="metrics-range" role="tablist" aria-label="Canal">
+        {(Object.keys(CHANNEL_LABEL) as ChannelKey[]).map((key) => (
+          <button
+            key={key}
+            type="button"
+            role="tab"
+            aria-selected={channel === key}
+            className={channel === key ? "is-on" : ""}
+            onClick={() => {
+              setFocus("");
+              onChannel(key);
+            }}
+          >
+            {CHANNEL_LABEL[key]}
+          </button>
+        ))}
+      </div>
       <p>
-        {RANGE_LABEL[range]}: {totals.stages.whatsapp_click} cliques, {totals.stages.conversation_received} conversas,{" "}
-        {totals.stages.order_completed} pedidos.
+        {RANGE_LABEL[range]} · {CHANNEL_LABEL[channel]}: {totals.stages.whatsapp_click} cliques,{" "}
+        {totals.stages.conversation_received} conversas, {totals.stages.order_completed} pedidos.
       </p>
       {focus ? <p className="metrics-chart-focus">{focus}</p> : null}
 
@@ -100,7 +125,7 @@ export default function MetricsCharts({
         className="metrics-week-chart"
         viewBox="0 0 360 180"
         role="img"
-        aria-label={`Cliques, conversas e pedidos em ${RANGE_LABEL[range].toLowerCase()}`}
+        aria-label={`Métricas em ${RANGE_LABEL[range].toLowerCase()} no canal ${CHANNEL_LABEL[channel]}`}
       >
         {series.map((item, index) => {
           const x = 16 + index * groupWidth;
@@ -145,21 +170,42 @@ export default function MetricsCharts({
         })}
       </svg>
 
-      <h3>Lojas no período</h3>
+      <h3>Canais no período</h3>
       <div className="metrics-unit-bars">
-        {units.map((item) => (
+        {channelRows.length === 0 ? <p>Ainda não há origem registrada neste período.</p> : null}
+        {channelRows.map(([key, value]) => (
           <button
             type="button"
-            key={item.id}
+            key={key}
             className="metrics-unit-bar"
-            onClick={() => setFocus(`${item.label}: ${item.value} cliques no período`)}
+            onClick={() => onChannel(key as ChannelKey)}
           >
-            <span>{item.label}</span>
-            <b>{item.value}</b>
-            <i style={{ width: `${(item.value / maxUnit) * 100}%` }} />
+            <span>{CHANNEL_LABEL[key as ChannelKey] || key}</span>
+            <b>{value}</b>
+            <i style={{ width: `${(value / Math.max(1, channelRows[0][1])) * 100}%` }} />
           </button>
         ))}
       </div>
+
+      {channel === "all" ? (
+        <>
+          <h3>Lojas no período</h3>
+          <div className="metrics-unit-bars">
+            {units.map((item) => (
+              <button
+                type="button"
+                key={item.id}
+                className="metrics-unit-bar"
+                onClick={() => setFocus(`${item.label}: ${item.value} cliques no período`)}
+              >
+                <span>{item.label}</span>
+                <b>{item.value}</b>
+                <i style={{ width: `${(item.value / maxUnit) * 100}%` }} />
+              </button>
+            ))}
+          </div>
+        </>
+      ) : null}
     </section>
   );
 }
