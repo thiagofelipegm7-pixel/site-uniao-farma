@@ -6,9 +6,16 @@ export type StorePhoto = {
   caption: string;
 };
 
-const V = "v=22";
+const V = "v=23";
 
 export const STORE_PHOTOS: StorePhoto[] = [
+  {
+    src: `/uniao-farma-fatima-interior.svg?${V}`,
+    alt: "Interior da Uni\u00e3o Farma F\u00e1tima \u2014 balc\u00e3o, g\u00f4ndolas e atendimento em Sabar\u00e1",
+    unit: "F\u00e1tima",
+    kind: "Interior",
+    caption: "Interior \u00b7 F\u00e1tima",
+  },
   {
     src: `/uniao-farma-nacoes-loja.webp?${V}`,
     alt: "Fachada da Uni\u00e3o Farma Na\u00e7\u00f5es Unidas, em Sabar\u00e1",
@@ -18,10 +25,10 @@ export const STORE_PHOTOS: StorePhoto[] = [
   },
   {
     src: `/uniao-farma-perfumaria.webp?${V}`,
-    alt: "Interior da Uni\u00e3o Farma F\u00e1tima \u2014 g\u00f4ndola de cabelos e perfumaria",
+    alt: "G\u00f4ndola de cabelos e perfumaria na Uni\u00e3o Farma F\u00e1tima",
     unit: "F\u00e1tima",
     kind: "Interior",
-    caption: "Interior \u00b7 F\u00e1tima",
+    caption: "G\u00f4ndola \u00b7 F\u00e1tima",
   },
   {
     src: `/uniao-farma-medicamentos.webp?${V}`,
