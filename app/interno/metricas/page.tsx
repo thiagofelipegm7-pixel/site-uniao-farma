@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import "../../metrics-polish.css";
 
 type MetricStage = "whatsapp_click" | "conversation_received" | "order_completed";
 
@@ -33,7 +34,7 @@ const STAGE_COPY: Record<MetricStage, { title: string; hint: string }> = {
   },
   conversation_received: {
     title: "Conversas recebidas",
-    hint: "Mensagem que chegou na loja pelo webhook da Meta, ou registro manual.",
+    hint: "Mensagem que chegou na loja, ou registro manual da equipe.",
   },
   order_completed: {
     title: "Pedidos concluídos",
@@ -103,17 +104,25 @@ export default function MetricsPage() {
 
   return (
     <main className="metrics-page">
-      <section className="section-inner">
-        <p className="eyebrow">Uso interno</p>
-        <h1>Contatos e vendas</h1>
-        <p>
-          {"Dia "}{today || "—"}{". Clique no site não é pedido. Conversa só conta quando a Meta avisa que a loja recebeu a mensagem."}
-        </p>
-        {error ? <p>{error}</p> : null}
+      <div className="metrics-wrap">
+        <div className="metrics-top">
+          <div>
+            <p className="eyebrow">Uso interno</p>
+            <h1>Contatos e vendas</h1>
+            <p className="metrics-lead">
+              {"Dia "}{today || "—"}{". Clique não é pedido. Conversa só conta quando a loja recebe a mensagem."}
+            </p>
+          </div>
+          <a className="metrics-exit" href="/interno/sair">
+            Sair
+          </a>
+        </div>
+
+        {error ? <p className="metrics-error">{error}</p> : null}
 
         <div className="metrics-grid">
           {(Object.keys(STAGE_COPY) as MetricStage[]).map((stage) => (
-            <article key={stage}>
+            <article className="metrics-card" key={stage}>
               <strong>{STAGE_COPY[stage].title}</strong>
               <span>{stages[stage] || 0}</span>
               <small>{STAGE_COPY[stage].hint}</small>
@@ -121,63 +130,69 @@ export default function MetricsPage() {
           ))}
         </div>
 
-        <h2>WhatsApp Business</h2>
-        <p>
-          Callback: <code>{webhook.callbackPath || "/api/whatsapp/webhook"}</code>
-        </p>
-        <ul>
-          <li>Verify token: {webhook.verifyTokenReady ? "configurado" : "faltando WHATSAPP_VERIFY_TOKEN"}</li>
-          <li>App secret: {webhook.appSecretReady ? "configurado" : "faltando WHATSAPP_APP_SECRET"}</li>
-          <li>{"Phone ID Fátima: "}{webhook.phoneIds?.fatima ? "ok" : "opcional"}</li>
-          <li>{"Phone ID Nações: "}{webhook.phoneIds?.nacoes ? "ok" : "opcional"}</li>
-          <li>Phone ID Itacolomi: {webhook.phoneIds?.itacolomi ? "ok" : "opcional"}</li>
-        </ul>
-        <p>{ready ? "Webhook pronto para a Meta verificar." : "Coloque as variáveis no ambiente de produção e volte aqui."}</p>
-
-        <h3>{"Últimos eventos do webhook"}</h3>
-        <ul>
-          {(webhook.recent || []).length === 0 ? (
-            <li>{"Nenhuma mensagem inbound ainda. O texto da conversa não é gravado."}</li>
-          ) : (
-            (webhook.recent || []).map((event, index) => (
-              <li key={`${event.at}-${index}`}>
-                {event.at}{" · "}{UNIT_LABEL[event.unit] || event.unit}{" · "}{event.type}
-              </li>
-            ))
-          )}
-        </ul>
-
-        <h2>Cliques por loja</h2>
-        <div className="metrics-grid">
-          {Object.entries(UNIT_LABEL).map(([id, label]) => (
-            <article key={id}>
-              <strong>{label}</strong>
-              <span>{current.units[id] || 0}</span>
-            </article>
-          ))}
-        </div>
-
-        <h2>Registrar conversa ou venda</h2>
-        <p>{"Use se o webhook ainda não estiver no ar, ou para marcar a venda fechada."}</p>
-        <label>
-          Loja{" "}
-          <select value={unit} onChange={(event) => setUnit(event.target.value)} disabled={busy}>
+        <section className="metrics-block">
+          <h2>Cliques por loja</h2>
+          <div className="metrics-grid" style={{ margin: "0.6rem 0 0" }}>
             {Object.entries(UNIT_LABEL).map(([id, label]) => (
-              <option key={id} value={id}>
-                {label}
-              </option>
+              <article className="metrics-card" key={id}>
+                <strong>{label}</strong>
+                <span>{current.units[id] || 0}</span>
+                <small>Toques no WhatsApp desta unidade</small>
+              </article>
             ))}
-          </select>
-        </label>
-        <p>
-          <button type="button" disabled={busy} onClick={() => register("conversation_received")}>
-            Marcar conversa recebida
-          </button>{" "}
-          <button type="button" disabled={busy} onClick={() => register("order_completed")}>
-            {"Marcar pedido concluído"}
-          </button>
-        </p>
-      </section>
+          </div>
+        </section>
+
+        <section className="metrics-block">
+          <h2>Registrar conversa ou venda</h2>
+          <p>{"Use se o WhatsApp ainda não avisar sozinho, ou para marcar a venda fechada."}</p>
+          <label>
+            Loja
+            <select value={unit} onChange={(event) => setUnit(event.target.value)} disabled={busy}>
+              {Object.entries(UNIT_LABEL).map(([id, label]) => (
+                <option key={id} value={id}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </label>
+          <div className="metrics-actions">
+            <button type="button" disabled={busy} onClick={() => register("conversation_received")}>
+              Marcar conversa recebida
+            </button>
+            <button type="button" disabled={busy} onClick={() => register("order_completed")}>
+              {"Marcar pedido concluído"}
+            </button>
+          </div>
+        </section>
+
+        <section className="metrics-block">
+          <h2>WhatsApp Business</h2>
+          <p>
+            Callback: <code>{webhook.callbackPath || "/api/whatsapp/webhook"}</code>
+          </p>
+          <ul>
+            <li>Verify token: {webhook.verifyTokenReady ? "configurado" : "faltando"}</li>
+            <li>App secret: {webhook.appSecretReady ? "configurado" : "faltando"}</li>
+            <li>{"Fátima: "}{webhook.phoneIds?.fatima ? "ok" : "opcional"}</li>
+            <li>{"Nações: "}{webhook.phoneIds?.nacoes ? "ok" : "opcional"}</li>
+            <li>Itacolomi: {webhook.phoneIds?.itacolomi ? "ok" : "opcional"}</li>
+          </ul>
+          <p>{ready ? "Webhook pronto para a Meta verificar." : "Falta terminar a configuração no ambiente."}</p>
+          <h3>{"Últimos eventos"}</h3>
+          <ul>
+            {(webhook.recent || []).length === 0 ? (
+              <li>{"Nenhuma mensagem inbound ainda. O texto da conversa não é gravado."}</li>
+            ) : (
+              (webhook.recent || []).map((event, index) => (
+                <li key={`${event.at}-${index}`}>
+                  {event.at}{" · "}{UNIT_LABEL[event.unit] || event.unit}{" · "}{event.type}
+                </li>
+              ))
+            )}
+          </ul>
+        </section>
+      </div>
     </main>
   );
 }

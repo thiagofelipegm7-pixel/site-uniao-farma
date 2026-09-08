@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "../../metrics-polish.css";
 
 export const metadata: Metadata = {
   title: "Entrar na área interna",
@@ -14,27 +15,23 @@ export default async function StaffLoginPage({
   const nextPath = params.next?.startsWith("/interno") ? params.next : "/interno/metricas";
 
   return (
-    <main className="legal-page">
-      <div className="legal-container" style={{ maxWidth: 420 }}>
-        <p className="section-kicker">Equipe</p>
+    <main className="staff-login-page">
+      <div className="staff-login-card">
+        <p className="eyebrow">Equipe</p>
         <h1>Entrar</h1>
-        <p>Use o usuário e a senha da loja para ver as métricas.</p>
-        {params.erro ? <p>Usuário ou senha não conferem.</p> : null}
-        <form action="/api/interno/login" method="post" style={{ display: "grid", gap: 12 }}>
+        <p className="metrics-lead">Use o usuário e a senha da loja para ver as métricas.</p>
+        {params.erro ? <p className="metrics-error">Usuário ou senha não conferem.</p> : null}
+        <form action="/api/interno/login" method="post">
           <input type="hidden" name="next" value={nextPath} />
           <label>
             Usuário
-            <br />
             <input name="user" autoComplete="username" defaultValue="uniao" required />
           </label>
           <label>
             Senha
-            <br />
             <input name="pass" type="password" autoComplete="current-password" required />
           </label>
-          <button className="button button-whatsapp" type="submit">
-            Entrar
-          </button>
+          <button type="submit">Entrar</button>
         </form>
       </div>
     </main>
