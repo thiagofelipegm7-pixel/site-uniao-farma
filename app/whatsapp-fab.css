@@ -1,0 +1,36 @@
+.whatsapp-fab {
+  position: fixed;
+  right: 1rem;
+  bottom: 1.1rem;
+  z-index: 4300;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+  background: #25d366;
+  color: #06351f;
+  box-shadow: 0 12px 28px rgba(14, 140, 58, 0.34);
+  text-decoration: none;
+}
+
+.whatsapp-fab:focus-visible {
+  outline: 2px solid #0e7370;
+  outline-offset: 3px;
+}
+
+@media (max-width: 860px) {
+  .whatsapp-fab {
+    right: 0.85rem;
+    bottom: calc(5.6rem + env(safe-area-inset-bottom));
+  }
+}
+
+@media (min-width: 861px) {
+  .whatsapp-fab {
+    right: 1.4rem;
+    bottom: 1.4rem;
+    width: 62px;
+    height: 62px;
+  }
+}

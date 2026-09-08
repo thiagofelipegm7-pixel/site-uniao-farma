@@ -19,10 +19,10 @@
 
   .mobile-quick-nav-inner {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     align-items: stretch;
     gap: 0.2rem;
-    max-width: 26rem;
+    max-width: 24rem;
     margin: 0 auto;
     padding: 0.28rem;
     border: 1px solid rgba(14, 115, 112, 0.14);
@@ -82,17 +82,6 @@
   .mobile-quick-nav a.is-primary {
     background: #e7f6f1;
     color: #0b6244;
-  }
-
-  .mobile-quick-nav a.is-whatsapp {
-    background: #25d366;
-    color: #06351f;
-    box-shadow: 0 6px 14px rgba(14, 140, 58, 0.28);
-  }
-
-  .mobile-quick-nav a.is-whatsapp .mqn-icon {
-    background: transparent;
-    color: #06351f;
   }
 
   .mobile-quick-nav a:focus-visible {
