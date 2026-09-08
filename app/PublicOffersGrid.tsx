@@ -9,15 +9,15 @@ function OfferConsultCard({ offer }: { offer: Offer }) {
     <article className="offer-consult-card">
       <div className="offer-consult-image">
         {offer.image ? (
-          <img src={offer.image} alt={offer.name} width="640" height="640" loading="lazy" />
+          <img src={offer.image} alt="" width="640" height="640" loading="lazy" />
         ) : (
           <span>{offer.placeholderLabel ?? "Oferta"}</span>
         )}
-        <span className="offer-consult-stamp">Consulte</span>
-        <span className="offer-consult-cat">{OFFER_CATEGORY_LABELS[offer.category]}</span>
       </div>
       <div className="offer-consult-body">
-        {offer.brand ? <p className="offer-consult-brand">{offer.brand}</p> : null}
+        <p className="offer-consult-brand">
+          {offer.brand || OFFER_CATEGORY_LABELS[offer.category]}
+        </p>
         <h3>{offer.name}</h3>
         {offer.currentPrice !== null ? (
           <p className="offer-consult-price">
@@ -57,13 +57,10 @@ export default function PublicOffersGrid() {
   }
 
   return (
-    <>
-      <p className="offer-consult-note">Preço de encarte. Confirme na loja.</p>
-      <div className="offer-consult-grid">
-        {offers.map((offer) => (
-          <OfferConsultCard key={offer.id} offer={offer} />
-        ))}
-      </div>
-    </>
+    <div className="offer-consult-grid">
+      {offers.map((offer) => (
+        <OfferConsultCard key={offer.id} offer={offer} />
+      ))}
+    </div>
   );
 }
