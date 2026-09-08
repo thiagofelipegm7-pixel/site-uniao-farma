@@ -128,6 +128,7 @@
   .open-status,
   .open-status strong {
     font-size: 14px !important;
+    white-space: normal !important;
   }
 
   .unit-store-card h3,
@@ -140,20 +141,42 @@
   }
 
   .unit-store-body {
-    padding-bottom: 1.15rem !important;
+    min-width: 0 !important;
+    padding: 0.85rem 0.85rem 1rem !important;
   }
 
   .unit-store-more {
     display: none !important;
   }
 
-  .units-showcase,
-  .units-showcase-grid,
-  .offer-consult-grid,
-  .direct-unit-links,
-  .recipe-page,
-  .offers-page {
-    padding-bottom: 1.25rem !important;
+  .hero-home .units-showcase-inner {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  .units-showcase-grid {
+    display: flex !important;
+    gap: 0.7rem !important;
+    padding: 0 1rem 0.6rem !important;
+    margin: 0 !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-padding-inline: 1rem !important;
+  }
+
+  .unit-store-card {
+    flex: 0 0 calc(100vw - 2rem) !important;
+    width: calc(100vw - 2rem) !important;
+    max-width: calc(100vw - 2rem) !important;
+    min-width: 0 !important;
+    scroll-snap-align: start !important;
+    box-sizing: border-box !important;
+  }
+
+  .unit-store-addr,
+  .unit-store-hood,
+  .unit-store-card h3 {
+    overflow-wrap: anywhere !important;
   }
 
   a,
@@ -173,14 +196,19 @@
   .unit-store-actions {
     grid-template-columns: 1fr !important;
     gap: 0.45rem !important;
+    min-width: 0 !important;
   }
 
   .unit-store-wa,
   .unit-store-map,
   .offer-consult-choose,
   .direct-unit-actions a {
+    width: 100% !important;
+    max-width: 100% !important;
     min-height: 48px !important;
-    font-size: 16px !important;
+    font-size: 15px !important;
+    white-space: normal !important;
+    box-sizing: border-box !important;
   }
 
   .mobile-quick-nav a {

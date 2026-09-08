@@ -76,6 +76,7 @@
 .unit-store-body {
   display: grid;
   gap: 0.28rem;
+  min-width: 0;
   padding: 0.85rem 0.9rem 1rem;
 }
 
@@ -101,10 +102,13 @@
   color: #3a5554;
   font-size: 0.82rem;
   line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .unit-store-card .open-status {
   margin: 0.2rem 0 0.1rem;
+  max-width: 100%;
+  white-space: normal;
 }
 
 .unit-store-actions {
@@ -112,6 +116,7 @@
   grid-template-columns: 1.35fr 0.9fr;
   gap: 0.45rem;
   margin-top: 0.55rem;
+  min-width: 0;
 }
 
 .unit-store-wa,
@@ -120,12 +125,15 @@
   align-items: center;
   justify-content: center;
   min-height: 44px;
+  max-width: 100%;
   padding: 0.45rem 0.55rem;
   border-radius: 14px;
   font-size: 0.78rem;
   font-weight: 800;
   text-align: center;
   text-decoration: none;
+  white-space: normal;
+  box-sizing: border-box;
 }
 
 .unit-store-wa {
@@ -164,13 +172,10 @@
     padding-right: 0 !important;
   }
 
-  .hero-home .hero-copy h1 {
-    max-width: 16ch;
-  }
-
   .units-showcase-inner {
     width: 100%;
-    padding-left: 0;
+    max-width: none;
+    padding: 0;
   }
 
   .units-showcase-grid {
@@ -180,10 +185,11 @@
     overflow-x: auto;
     overflow-y: hidden;
     scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1rem;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior-x: contain;
-    padding: 0 0 0.55rem;
-    margin: 0 -0.2rem;
+    padding: 0 1rem 0.55rem;
+    margin: 0;
     scrollbar-width: none;
   }
 
@@ -192,9 +198,12 @@
   }
 
   .unit-store-card {
-    flex: 0 0 min(86vw, 20.5rem);
-    max-width: 20.5rem;
+    flex: 0 0 calc(100vw - 2rem);
+    width: calc(100vw - 2rem);
+    max-width: calc(100vw - 2rem);
+    min-width: 0;
     scroll-snap-align: start;
+    box-sizing: border-box;
   }
 
   .unit-store-hours {
@@ -202,14 +211,15 @@
   }
 
   .unit-store-actions {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 
   .unit-store-wa,
   .unit-store-map {
+    width: 100%;
     min-height: 44px;
-    padding: 0.4rem 0.4rem;
-    font-size: 0.74rem;
+    padding: 0.45rem 0.7rem;
+    font-size: 0.92rem;
   }
 }
 
