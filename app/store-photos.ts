@@ -2,74 +2,53 @@ export type StorePhoto = {
   src: string;
   alt: string;
   unit: string;
-  kind: "Fachada" | "Interior" | "Gôndola";
+  kind: "Fachada" | "Interior" | "Produto";
   caption: string;
 };
 
-const V = "v=21";
+const V = "v=22";
 
 export const STORE_PHOTOS: StorePhoto[] = [
   {
     src: `/uniao-farma-nacoes-loja.webp?${V}`,
-    alt: "Fachada da União Farma Nações Unidas, em Sabará",
-    unit: "Nações Unidas",
+    alt: "Fachada da Uni\u00e3o Farma Na\u00e7\u00f5es Unidas, em Sabar\u00e1",
+    unit: "Na\u00e7\u00f5es Unidas",
     kind: "Fachada",
-    caption: "Fachada · Nações Unidas",
+    caption: "Fachada \u00b7 Na\u00e7\u00f5es Unidas",
   },
   {
     src: `/uniao-farma-perfumaria.webp?${V}`,
-    alt: "Interior da União Farma Fátima — gôndola de cabelos e perfumaria",
-    unit: "Fátima",
+    alt: "Interior da Uni\u00e3o Farma F\u00e1tima \u2014 g\u00f4ndola de cabelos e perfumaria",
+    unit: "F\u00e1tima",
     kind: "Interior",
-    caption: "Interior · Fátima",
+    caption: "Interior \u00b7 F\u00e1tima",
   },
   {
     src: `/uniao-farma-medicamentos.webp?${V}`,
-    alt: "Interior da União Farma Itacolomi — prateleira de medicamentos",
+    alt: "Interior da Uni\u00e3o Farma Itacolomi \u2014 prateleira de medicamentos",
     unit: "Itacolomi",
     kind: "Interior",
-    caption: "Interior · Itacolomi",
+    caption: "Interior \u00b7 Itacolomi",
   },
   {
-    src: `/loja-bio-extratus.svg?${V}`,
-    alt: "Linha Bio Extratus na gôndola da União Farma",
-    unit: "Nas três lojas",
-    kind: "Gôndola",
-    caption: "Gôndola · Bio Extratus",
+    src: `/promotions/drafts/seda-creme-pentear-original.jpeg?${V}`,
+    alt: "Creme Seda para pentear em oferta na Uni\u00e3o Farma",
+    unit: "Oferta da semana",
+    kind: "Produto",
+    caption: "Produto \u00b7 Seda",
   },
   {
-    src: `/loja-salon-line-cremes.svg?${V}`,
-    alt: "Cremes Salon Line na prateleira da União Farma",
-    unit: "Nas três lojas",
-    kind: "Gôndola",
-    caption: "Gôndola · Salon Line",
+    src: `/promotions/drafts/nivea-locao-original.jpeg?${V}`,
+    alt: "Lo\u00e7\u00e3o hidratante Nivea em oferta na Uni\u00e3o Farma",
+    unit: "Oferta da semana",
+    kind: "Produto",
+    caption: "Produto \u00b7 Nivea",
   },
   {
-    src: `/loja-rexona-clinical.svg?${V}`,
-    alt: "Rexona Clinical na União Farma",
-    unit: "Nas três lojas",
-    kind: "Gôndola",
-    caption: "Gôndola · Rexona",
-  },
-  {
-    src: `/loja-dove-oleo-serum.svg?${V}`,
-    alt: "Óleo sérum Dove na União Farma",
-    unit: "Nas três lojas",
-    kind: "Gôndola",
-    caption: "Gôndola · Dove",
-  },
-  {
-    src: `/loja-salon-line-matizadora.svg?${V}`,
-    alt: "Máscaras matizadoras Salon Line na União Farma",
-    unit: "Nas três lojas",
-    kind: "Gôndola",
-    caption: "Gôndola · Matizadora",
-  },
-  {
-    src: `/loja-dove-banho.svg?${V}`,
-    alt: "Linha Dove banho na União Farma",
-    unit: "Nas três lojas",
-    kind: "Gôndola",
-    caption: "Gôndola · Dove banho",
+    src: `/promotions/drafts/sundown-original.jpeg?${V}`,
+    alt: "Protetor solar Sundown em oferta na Uni\u00e3o Farma",
+    unit: "Oferta da semana",
+    kind: "Produto",
+    caption: "Produto \u00b7 Sundown",
   },
 ];
