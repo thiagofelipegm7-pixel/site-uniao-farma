@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import MetricsCharts from "../../components/MetricsCharts";
+import { CHANNEL_LABEL, type ChannelKey } from "../../metrics-channels";
 import { RANGE_LABEL, daysForRange, sumRange, type RangeKey } from "../../metrics-range";
 import "../../metrics-polish.css";
 import "../../metrics-range.css";
@@ -53,6 +54,7 @@ export default function MetricsPage() {
   const [unit, setUnit] = useState("fatima");
   const [busy, setBusy] = useState(false);
   const [range, setRange] = useState<RangeKey>("today");
+  const [channel, setChannel] = useState<ChannelKey>("all");
 
   function load() {
     fetch("/api/metricas")
@@ -69,7 +71,10 @@ export default function MetricsPage() {
     load();
   }, []);
 
-  const totals = useMemo(() => sumRange(days, daysForRange(today, days, range)), [days, today, range]);
+  const totals = useMemo(
+    () => sumRange(days, daysForRange(today, days, range), channel),
+    [days, today, range, channel],
+  );
 
   async function register(stage: MetricStage) {
     setBusy(true);
@@ -103,7 +108,7 @@ export default function MetricsPage() {
             <p className="eyebrow">Uso interno</p>
             <h1>Contatos e vendas</h1>
             <p className="metrics-lead">
-              {RANGE_LABEL[range]}{" a partir de "}{today || "—"}{". Clique não é pedido."}
+              {RANGE_LABEL[range]} · {CHANNEL_LABEL[channel]}. Clique não é pedido.
             </p>
           </div>
           <a className="metrics-exit" href="/interno/sair">
@@ -123,20 +128,29 @@ export default function MetricsPage() {
           ))}
         </div>
 
-        <MetricsCharts today={today} days={days} range={range} onRange={setRange} />
+        <MetricsCharts
+          today={today}
+          days={days}
+          range={range}
+          channel={channel}
+          onRange={setRange}
+          onChannel={setChannel}
+        />
 
-        <section className="metrics-block">
-          <h2>Cliques por loja</h2>
-          <div className="metrics-grid" style={{ margin: "0.6rem 0 0" }}>
-            {Object.entries(UNIT_LABEL).map(([id, label]) => (
-              <article className="metrics-card" key={id}>
-                <strong>{label}</strong>
-                <span>{totals.units[id] || 0}</span>
-                <small>Toques no WhatsApp neste período</small>
-              </article>
-            ))}
-          </div>
-        </section>
+        {channel === "all" ? (
+          <section className="metrics-block">
+            <h2>Cliques por loja</h2>
+            <div className="metrics-grid" style={{ margin: "0.6rem 0 0" }}>
+              {Object.entries(UNIT_LABEL).map(([id, label]) => (
+                <article className="metrics-card" key={id}>
+                  <strong>{label}</strong>
+                  <span>{totals.units[id] || 0}</span>
+                  <small>Toques no WhatsApp neste período</small>
+                </article>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <section className="metrics-block">
           <h2>Registrar conversa ou venda</h2>
