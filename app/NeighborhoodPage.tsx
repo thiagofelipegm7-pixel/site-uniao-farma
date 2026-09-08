@@ -17,7 +17,7 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
   const recipe = WHATSAPP_MESSAGES.recipe.replaceAll("{unidade}", unit.shortName);
 
   return (
-    <main className="neighborhood-page">
+    <div className="neighborhood-page">
       <section className="section-inner neighborhood-hero">
         <img className="neighborhood-photo" src={UNIT_PHOTOS[unit.id]} alt={`União Farma ${label}`} width="1200" height="720" />
         <p className="eyebrow">Farmácia em {unit.neighborhood}</p>
@@ -56,6 +56,6 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
         <h2>Mapa interativo</h2>
         <InteractiveUnitMap initialUnitId={unit.id} />
       </section>
-    </main>
+    </div>
   );
 }

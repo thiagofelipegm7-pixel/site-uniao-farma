@@ -1,6 +1,6 @@
 "use client";
 
-/* eslint-disable @next/next/no-html-link-for-pages -- Vinext's current Link runtime breaks production navigation. */
+/* eslint-disable @next/next/no-html-link-for-pages */
 
 import { useEffect, useRef, useState } from "react";
 
@@ -10,6 +10,9 @@ const NAV_LINKS: Array<{ href: string; label: string; activePath?: ContentPath }
   { href: "/ofertas", label: "Ofertas", activePath: "/ofertas" },
   { href: "/#unidades-rapidas", label: "Unidades" },
   { href: "/receita", label: "Receita", activePath: "/receita" },
+  { href: "/novidades", label: "Novidades", activePath: "/novidades" },
+  { href: "/perguntas", label: "Perguntas" },
+  { href: "/encarte", label: "Encarte" },
 ];
 
 const HEADER_CTA: Record<ContentPath, { href: string; label: string; ariaLabel: string }> = {
@@ -42,15 +45,12 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
 
   useEffect(() => {
     if (!menuOpen) return;
-
     const closeOnEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") setMenuOpen(false);
     };
-
     document.addEventListener("keydown", closeOnEscape);
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-
     return () => {
       document.removeEventListener("keydown", closeOnEscape);
       document.body.style.overflow = previousOverflow;
@@ -73,7 +73,7 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
           type="button"
           aria-expanded={menuOpen}
           aria-controls="content-menu-drawer"
-          aria-label={menuOpen ? "Fechar menu lateral" : "Abrir menu lateral"}
+          aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
           onClick={() => setMenuOpen((value) => !value)}
         >
           <span className="content-menu-icon" aria-hidden="true">
@@ -100,13 +100,13 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
           <button
             type="button"
             className="content-menu-backdrop"
-            aria-label="Fechar menu lateral"
+            aria-label="Fechar menu"
             onClick={() => setMenuOpen(false)}
           />
-          <aside className="content-menu-drawer" id="content-menu-drawer" aria-label="Menu lateral">
+          <aside className="content-menu-drawer" id="content-menu-drawer" aria-label="Menu">
             <div className="content-menu-drawer-header">
               <span>Menu</span>
-              <button type="button" onClick={() => setMenuOpen(false)} aria-label="Fechar menu lateral">
+              <button type="button" onClick={() => setMenuOpen(false)} aria-label="Fechar menu">
                 {"×"}
               </button>
             </div>

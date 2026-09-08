@@ -15,7 +15,7 @@ export default function QuestionsPage() {
   return (
     <>
       <ContentSiteHeader activePath="/ofertas" />
-      <main className="questions-page">
+      <div className="questions-page">
         <section className="section-inner">
           <p className="eyebrow">Dúvidas rápidas</p>
           <h1>O que o cliente mais pergunta</h1>
@@ -36,7 +36,7 @@ export default function QuestionsPage() {
             description="Escolha a loja e pergunte no WhatsApp."
           />
         </section>
-      </main>
+      </div>
       <ContentSiteFooter />
     </>
   );

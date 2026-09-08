@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
 import DirectUnitLinks from "../DirectUnitLinks";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
+import { SITE_URL } from "../site-config";
 import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 import "../receita-polish.css";
 
 export const metadata: Metadata = {
-  title: "Enviar receita pelo WhatsApp | União Farma",
+  title: { absolute: "Enviar receita pelo WhatsApp" },
   description:
     "Manda a foto da receita ou o Memed no WhatsApp da União Farma em Sabará. O farmacêutico confere no horário da loja, antes de separar.",
+  alternates: { canonical: `${SITE_URL}/receita` },
 };
 
 export default function ReceitaPage() {
