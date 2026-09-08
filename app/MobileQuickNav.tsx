@@ -4,33 +4,27 @@ import { usePathname } from "next/navigation";
 
 function TagIcon() {
   return (
-    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-      <path
-        fill="currentColor"
-        d="M20.2 11.3 12.7 3.8A2.4 2.4 0 0 0 11 3H4.6C3.7 3 3 3.7 3 4.6V11c0 .6.3 1.2.8 1.7l7.5 7.5a2.4 2.4 0 0 0 3.4 0l5.5-5.5a2.4 2.4 0 0 0 0-3.4ZM7.4 8.3a1.3 1.3 0 1 1 0-2.6 1.3 1.3 0 0 1 0 2.6Z"
-      />
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3.8 10.4V5.2A1.4 1.4 0 0 1 5.2 3.8h5.2c.4 0 .7.1 1 .4l8.4 8.4a1.4 1.4 0 0 1 0 2L12.6 21a1.4 1.4 0 0 1-2 0L3.8 12.8a1.4 1.4 0 0 1-.4-1V10.4z" />
+      <circle cx="8.1" cy="8.1" r="1.15" fill="currentColor" stroke="none" />
     </svg>
   );
 }
 
 function PinIcon() {
   return (
-    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-      <path
-        fill="currentColor"
-        d="M12 2.4A6.8 6.8 0 0 0 5.2 9.2c0 4.9 5.4 10.5 6.4 11.5.2.2.6.2.8 0 1-1 6.4-6.6 6.4-11.5A6.8 6.8 0 0 0 12 2.4Zm0 9.1A2.4 2.4 0 1 1 12 6.7a2.4 2.4 0 0 1 0 4.8Z"
-      />
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M12 21s6.4-5.8 6.4-11.1A6.4 6.4 0 0 0 5.6 9.9C5.6 15.2 12 21 12 21z" />
+      <circle cx="12" cy="9.8" r="2.15" />
     </svg>
   );
 }
 
 function RecipeIcon() {
   return (
-    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-      <path
-        fill="currentColor"
-        d="M7.2 2.5h7.1c.3 0 .6.1.8.3l4.1 4.1c.2.2.3.5.3.8v12.3c0 .8-.7 1.5-1.5 1.5H7.2c-.8 0-1.5-.7-1.5-1.5V4c0-.8.7-1.5 1.5-1.5Zm7.3 1.7v3.1h3.1l-3.1-3.1ZM9 12.1h6v1.5H9V12.1Zm0 3.2h4.2V16.8H9v-1.5Z"
-      />
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M7 3.6h7.2L20 9.4v11c0 .6-.5 1-1 1H7c-.6 0-1-.4-1-1V4.6c0-.6.4-1 1-1z" />
+      <path d="M14.2 3.6V9H20M8.6 13h6.8M8.6 16.4h4.6" />
     </svg>
   );
 }
