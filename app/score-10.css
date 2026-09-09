@@ -21,17 +21,31 @@
 }
 
 .uf-footer,
+.uf-footer-inner,
 .uf-footer-bottom,
-.uf-footer-legal-name {
+.uf-footer-legal-name,
+.uf-cnpj-bar {
   display: block !important;
   visibility: visible !important;
   opacity: 1 !important;
 }
 
+.uf-footer {
+  padding-bottom: calc(7.25rem + env(safe-area-inset-bottom)) !important;
+}
+
+.uf-cnpj-bar {
+  margin: 0 0 1rem !important;
+  color: #ffffff !important;
+  font-size: 1rem !important;
+  font-weight: 800 !important;
+  line-height: 1.4 !important;
+}
+
 .uf-footer-bottom {
   display: grid !important;
   gap: 0.45rem !important;
-  padding-bottom: 6.5rem !important;
+  padding-bottom: 0.5rem !important;
 }
 
 .uf-footer-legal-name {
