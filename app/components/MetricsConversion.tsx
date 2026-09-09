@@ -33,7 +33,7 @@ export default function MetricsConversion({
     <section className="metrics-block">
       <h2>Conversão por canal</h2>
       <p>
-        Clique vira conversa. Conversa vira pedido. O WhatsApp recebido e o painel fecham a venda; o clique do site mostra de onde a pessoa saiu.
+        Conversa e pedido entram no mesmo canal do último clique daquela loja, se o clique foi nas últimas 6 horas.
       </p>
 
       <div className="metrics-grid" style={{ marginTop: "0.8rem" }}>

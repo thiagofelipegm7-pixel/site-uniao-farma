@@ -17,11 +17,16 @@ export type WebhookEventLog = {
   source: string;
 };
 
+type LastTouch = { source: string; at: number };
+
 type MetricsStore = {
   days: Record<string, DayBucket>;
   seenMessageIds: string[];
   webhookEvents: WebhookEventLog[];
+  lastTouch: Record<string, LastTouch>;
 };
+
+const ATTRIBUTION_MS = 6 * 60 * 60 * 1000;
 
 const globalStore = globalThis as typeof globalThis & { __ufMetrics?: MetricsStore };
 
@@ -45,7 +50,6 @@ function database(): MetricsDb | undefined {
   try {
     return (env as { DB?: MetricsDb }).DB;
   } catch {
-    // The local Node test runtime does not provide Cloudflare bindings.
     return undefined;
   }
 }
@@ -70,8 +74,9 @@ export function todayKey(date = new Date()) {
 
 function store(): MetricsStore {
   if (!globalStore.__ufMetrics) {
-    globalStore.__ufMetrics = { days: {}, seenMessageIds: [], webhookEvents: [] };
+    globalStore.__ufMetrics = { days: {}, seenMessageIds: [], webhookEvents: [], lastTouch: {} };
   }
+  if (!globalStore.__ufMetrics.lastTouch) globalStore.__ufMetrics.lastTouch = {};
   return globalStore.__ufMetrics;
 }
 
@@ -81,6 +86,48 @@ function bump(map: Record<string, number>, key: string) {
 
 function bumpBy(map: Record<string, number>, key: string, amount: number) {
   map[key] = (map[key] || 0) + amount;
+}
+
+function rememberClick(unit: string | undefined, source: string | undefined) {
+  if (!source) return;
+  const key = unit || "*";
+  store().lastTouch[key] = { source, at: Date.now() };
+}
+
+function memoryTouch(unit?: string) {
+  const data = store().lastTouch;
+  const hit = (unit && data[unit]) || data["*"];
+  if (!hit) return "";
+  if (Date.now() - hit.at > ATTRIBUTION_MS) return "";
+  return hit.source;
+}
+
+async function lastClickSource(unit?: string) {
+  const fromMemory = memoryTouch(unit);
+  const db = database();
+  if (!db) return fromMemory;
+
+  const since = new Date(Date.now() - ATTRIBUTION_MS).toISOString();
+  const result = unit
+    ? await db
+        .prepare(
+          "SELECT source FROM metric_hits WHERE stage = 'whatsapp_click' AND unit = ? AND source IS NOT NULL AND created_at >= ? ORDER BY created_at DESC LIMIT 1",
+        )
+        .bind(unit, since)
+        .all()
+    : await db
+        .prepare(
+          "SELECT source FROM metric_hits WHERE stage = 'whatsapp_click' AND source IS NOT NULL AND created_at >= ? ORDER BY created_at DESC LIMIT 1",
+        )
+        .bind(since)
+        .all();
+  const source = String((result.results?.[0] as { source?: string } | undefined)?.source || "");
+  return source || fromMemory;
+}
+
+function isClosingSource(source?: string) {
+  const value = (source || "").toLowerCase();
+  return !value || value.includes("webhook") || value.includes("staff");
 }
 
 export function normalizeStage(value: unknown): MetricStage {
@@ -100,16 +147,23 @@ export async function recordMetricHit(hit: {
   if (!data.days[day].stages) data.days[day].stages = emptyBucket().stages;
 
   const stage = normalizeStage(hit.stage);
+  let source = hit.source || "";
+  if (stage === "whatsapp_click") {
+    rememberClick(hit.unit, source);
+  } else if (isClosingSource(source)) {
+    source = (await lastClickSource(hit.unit)) || source || "other";
+  }
+
   data.days[day].stages[stage] += 1;
 
   if (stage === "whatsapp_click") {
     data.days[day].total += 1;
     if (hit.unit) bump(data.days[day].units, hit.unit);
     if (hit.intent) bump(data.days[day].intents, hit.intent);
-    if (hit.source) bump(data.days[day].sources, hit.source);
+    if (source) bump(data.days[day].sources, source);
   } else {
     if (hit.unit) bump(data.days[day].units, `${stage}:${hit.unit}`);
-    if (hit.source) bump(data.days[day].sources, `${stage}:${hit.source}`);
+    if (source) bump(data.days[day].sources, `${stage}:${source}`);
   }
 
   const db = database();
@@ -118,7 +172,7 @@ export async function recordMetricHit(hit: {
       .prepare(
         "INSERT INTO metric_hits (day, stage, unit, intent, source, created_at) VALUES (?, ?, ?, ?, ?, ?)",
       )
-      .bind(day, stage, hit.unit || null, hit.intent || null, hit.source || null, new Date().toISOString())
+      .bind(day, stage, hit.unit || null, hit.intent || null, source || null, new Date().toISOString())
       .run();
   }
 
@@ -158,18 +212,17 @@ export async function recordInboundMessage(message: {
 }) {
   const at = new Date().toISOString();
   const day = todayKey();
+  const attributed = (await lastClickSource(message.unitId)) || "whatsapp_webhook";
   const db = database();
 
   if (db) {
-    // D1 batches are transactional. changes() makes all three writes conditional
-    // on the wamid claim, so a Meta retry cannot create a second conversation.
     const result = await db.batch([
       db.prepare("INSERT OR IGNORE INTO webhook_messages (wamid, received_at) VALUES (?, ?)").bind(message.id, at),
       db
         .prepare(
-          "INSERT INTO metric_hits (day, stage, unit, intent, source, created_at) SELECT ?, 'conversation_received', ?, ?, 'whatsapp_webhook', ? WHERE changes() = 1",
+          "INSERT INTO metric_hits (day, stage, unit, intent, source, created_at) SELECT ?, 'conversation_received', ?, ?, ?, ? WHERE changes() = 1",
         )
-        .bind(day, message.unitId, message.type, at),
+        .bind(day, message.unitId, message.type, attributed, at),
       db
         .prepare(
           "INSERT INTO webhook_events (at, unit, type, source) SELECT ?, ?, ?, 'whatsapp_webhook' WHERE changes() = 1",
@@ -183,7 +236,7 @@ export async function recordInboundMessage(message: {
       data.days[day] = bucket;
       bucket.stages.conversation_received += 1;
       bump(bucket.units, `conversation_received:${message.unitId}`);
-      bump(bucket.sources, "conversation_received:whatsapp_webhook");
+      bump(bucket.sources, `conversation_received:${attributed}`);
       data.webhookEvents.unshift({ at, unit: message.unitId, type: message.type, source: "whatsapp_webhook" });
       data.webhookEvents = data.webhookEvents.slice(0, 40);
     }
@@ -196,7 +249,7 @@ export async function recordInboundMessage(message: {
     stage: "conversation_received",
     unit: message.unitId,
     intent: message.type,
-    source: "whatsapp_webhook",
+    source: attributed,
   });
   await rememberWebhookEvent({ at, unit: message.unitId, type: message.type, source: "whatsapp_webhook" });
   return true;
