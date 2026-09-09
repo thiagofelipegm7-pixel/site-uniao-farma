@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect, useMemo, useRef, useState } from "react";
 import { trackEvent } from "./analytics";
 import { trackWhatsAppClick } from "./metrics";
+import { readPreferredUnitId, sortUnitsByPreference, writePreferredUnitId } from "./preferred-unit";
 import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
 import { UNIT_PHOTOS, UNIT_PHOTO_KIND } from "./unit-photos";
 import UnitStatusBadge from "./UnitStatusBadge";
@@ -29,6 +31,28 @@ function splitAddress(value: string): { street: string; place: string } {
 }
 
 export default function UnitsShowcase() {
+  const gridRef = useRef<HTMLDivElement>(null);
+  const [preferredId, setPreferredId] = useState<Unit["id"] | null>(null);
+  const units = useMemo(() => sortUnitsByPreference(UNITS, preferredId), [preferredId]);
+
+  useEffect(() => {
+    const saved = readPreferredUnitId();
+    if (saved) setPreferredId(saved);
+    const onChange = (event: Event) => {
+      const detail = (event as CustomEvent<Unit["id"]>).detail;
+      if (detail) setPreferredId(detail);
+    };
+    window.addEventListener("uf-preferred-unit", onChange);
+    return () => window.removeEventListener("uf-preferred-unit", onChange);
+  }, []);
+
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid || !preferredId) return;
+    const card = grid.querySelector<HTMLElement>(`.unit-store-card-${preferredId}`);
+    card?.scrollIntoView({ inline: "start", block: "nearest", behavior: "instant" });
+  }, [preferredId, units]);
+
   return (
     <section className="units-showcase" id="unidades-rapidas" aria-labelledby="units-showcase-title">
       <div className="units-showcase-inner">
@@ -37,8 +61,8 @@ export default function UnitsShowcase() {
           <h2 id="units-showcase-title">Escolha a unidade do seu bairro</h2>
         </header>
 
-        <div className="units-showcase-grid" role="list">
-          {UNITS.map((unit, index) => {
+        <div className="units-showcase-grid" role="list" ref={gridRef}>
+          {units.map((unit, index) => {
             const label = SHORT_LABEL[unit.id];
             const kind = UNIT_PHOTO_KIND[unit.id];
             const { street, place } = splitAddress(unit.shortAddress);
@@ -50,7 +74,12 @@ export default function UnitsShowcase() {
 
             return (
               <article className={`unit-store-card unit-store-card-${unit.id}`} key={unit.id} role="listitem">
-                <a className="unit-store-photo-link" href={PAGE_HREF[unit.id]} aria-label={`Ver página da loja ${label}`}>
+                <a
+                  className="unit-store-photo-link"
+                  href={PAGE_HREF[unit.id]}
+                  aria-label={`Ver página da loja ${label}`}
+                  onClick={() => writePreferredUnitId(unit.id)}
+                >
                   <WebImage
                     className="unit-store-photo"
                     src={UNIT_PHOTOS[unit.id]}
@@ -81,6 +110,7 @@ export default function UnitsShowcase() {
                       rel="noreferrer"
                       aria-label={`Falar no WhatsApp com a loja ${label}`}
                       onClick={() => {
+                        writePreferredUnitId(unit.id);
                         trackWhatsAppClick({
                           unit: unit.id,
                           intent: "product",
@@ -102,11 +132,17 @@ export default function UnitsShowcase() {
                       target="_blank"
                       rel="noreferrer"
                       aria-label={`Como chegar à loja ${label}`}
+                      onClick={() => writePreferredUnitId(unit.id)}
                     >
                       Como chegar
                     </a>
                   </div>
-                  <a className="unit-store-more" href={PAGE_HREF[unit.id]} aria-label={`Abrir página da unidade ${label}`}>
+                  <a
+                    className="unit-store-more"
+                    href={PAGE_HREF[unit.id]}
+                    aria-label={`Abrir página da unidade ${label}`}
+                    onClick={() => writePreferredUnitId(unit.id)}
+                  >
                     {"Ver página da unidade"}
                   </a>
                 </div>
