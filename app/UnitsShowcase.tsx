@@ -5,6 +5,7 @@ import { trackWhatsAppClick } from "./metrics";
 import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
 import { UNIT_PHOTOS, UNIT_PHOTO_KIND } from "./unit-photos";
 import UnitStatusBadge from "./UnitStatusBadge";
+import WebImage from "./WebImage";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
 
 const PAGE_HREF: Record<Unit["id"], string> = {
@@ -37,7 +38,7 @@ export default function UnitsShowcase() {
         </header>
 
         <div className="units-showcase-grid" role="list">
-          {UNITS.map((unit) => {
+          {UNITS.map((unit, index) => {
             const label = SHORT_LABEL[unit.id];
             const kind = UNIT_PHOTO_KIND[unit.id];
             const { street, place } = splitAddress(unit.shortAddress);
@@ -50,14 +51,14 @@ export default function UnitsShowcase() {
             return (
               <article className={`unit-store-card unit-store-card-${unit.id}`} key={unit.id} role="listitem">
                 <a className="unit-store-photo-link" href={PAGE_HREF[unit.id]} aria-label={`Ver página da loja ${label}`}>
-                  <img
+                  <WebImage
                     className="unit-store-photo"
                     src={UNIT_PHOTOS[unit.id]}
                     alt={`${kind} da União Farma ${label} — ${unit.shortAddress}`}
-                    width="800"
-                    height="520"
-                    loading="lazy"
-                    decoding="async"
+                    width={640}
+                    height={416}
+                    priority={index === 0}
+                    sizes="(max-width: 720px) 88vw, 360px"
                   />
                   <span className="unit-store-photo-tag">
                     <strong>{kind}</strong>
