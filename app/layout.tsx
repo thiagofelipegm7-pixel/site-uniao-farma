@@ -38,7 +38,10 @@ import "./mobile.css";
 import "./audit-fix.css";
 import "./page-concordance.css";
 import "./final-polish.css";
+import "./photos-fix.css";
+import "./score-10.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
+import { COMPANY } from "./company";
 
 const AnalyticsConsent = dynamic(() => import("./AnalyticsConsent"), { ssr: false });
 const PwaRegister = dynamic(() => import("./PwaRegister"), { ssr: false });
@@ -138,7 +141,8 @@ const organizationSchema = {
   "@type": "Organization",
   "@id": `${SITE_URL}/#organization`,
   name: "União Farma",
-  alternateName: "Drogaria e Perfumaria União Farma",
+  alternateName: COMPANY.legalName,
+  taxID: COMPANY.cnpj,
   url: SITE_URL,
   logo: `${SITE_URL}/icon-192.png`,
   sameAs: [INSTAGRAM_URL],
