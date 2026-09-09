@@ -6,6 +6,7 @@ import { SITE_URL } from "../site-config";
 import NewsCard from "./NewsCard";
 import NewsVisualGallery from "./NewsVisualGallery";
 import "../news-fix.css";
+import "../photos-fix.css";
 
 const title = "Novidades da União Farma em Sabará";
 const description =
