@@ -55,7 +55,7 @@ export default function SiteFooter() {
               </span>
             </a>
             <p>Três lojas em Sabará. Pedido pelo WhatsApp da unidade do seu bairro.</p>
-            <p>
+            <p className="uf-footer-legal-name">
               {COMPANY.legalName}. CNPJ {COMPANY.cnpj}.
             </p>
             <p>{COMPANY.pharmacistNote}</p>
@@ -95,6 +95,9 @@ export default function SiteFooter() {
         </div>
 
         <div className="uf-footer-bottom">
+          <p className="uf-footer-legal-name">
+            {COMPANY.legalName} · CNPJ {COMPANY.cnpj}
+          </p>
           <p>© {new Date().getFullYear()} União Farma. Sabará/MG.</p>
           <p>
             <a href="/privacidade">Privacidade</a>
