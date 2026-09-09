@@ -2,6 +2,7 @@
 
 import { trackEvent } from "./analytics";
 import "./encarte.css";
+import "./photos-fix.css";
 import { formatOfferPrice, getPublicOffers, OFFER_CATEGORY_LABELS, type Offer } from "./offers";
 
 function OfferConsultCard({ offer }: { offer: Offer }) {
