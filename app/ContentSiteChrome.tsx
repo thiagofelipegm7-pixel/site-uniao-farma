@@ -37,6 +37,7 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
   const linksRef = useRef<HTMLDivElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const cta = HEADER_CTA[activePath];
+  const hideHeaderWhatsApp = activePath === "/ofertas" || activePath === "/receita";
 
   useEffect(() => {
     const links = linksRef.current;
@@ -58,16 +59,18 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
   }, [menuOpen]);
 
   return (
-    <header className="content-header">
+    <header className="content-header" data-content-path={activePath}>
       <nav className="content-nav" aria-label="Menu principal">
         <a className="brand" href="/" onClick={() => setMenuOpen(false)}>
           <img src="/icon-192.png" alt="Logo da União Farma" width="52" height="52" decoding="async" />
           <span><strong>{"União Farma"}</strong><small>Drogaria e Perfumaria</small></span>
         </a>
-        <a className="content-header-cta" href={cta.href} aria-label={cta.ariaLabel}>
-          <img src="/whatsapp-icon.svg" alt="" width="24" height="24" aria-hidden="true" />
-          <span>{cta.label}</span>
-        </a>
+        {hideHeaderWhatsApp ? null : (
+          <a className="content-header-cta" href={cta.href} aria-label={cta.ariaLabel}>
+            <img src="/whatsapp-icon.svg" alt="" width="24" height="24" aria-hidden="true" />
+            <span>{cta.label}</span>
+          </a>
+        )}
         <button
           className="content-menu-button"
           type="button"
