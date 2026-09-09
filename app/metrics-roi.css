@@ -1,0 +1,27 @@
+.metrics-roi-list {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.9rem;
+}
+
+.metrics-roi-row {
+  display: grid;
+  grid-template-columns: 1fr minmax(7rem, 9rem);
+  gap: 0.7rem;
+  align-items: center;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid #c5e4e0;
+  border-radius: 16px;
+  background: #f7fcfb;
+}
+
+.metrics-roi-row strong {
+  display: block;
+  color: #0e7370;
+}
+
+.metrics-roi-row span,
+.metrics-roi-row small {
+  display: block;
+  color: #3a5554;
+}
