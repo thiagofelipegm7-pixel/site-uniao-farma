@@ -1,10 +1,18 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from "next";
+import "./photos-fix.css";
 
 export const metadata: Metadata = {
   title: { absolute: "Página não encontrada" },
   robots: { index: false, follow: false },
 };
+
+const LINKS = [
+  { href: "/", label: "Início" },
+  { href: "/ofertas", label: "Ofertas" },
+  { href: "/receita", label: "Receita" },
+  { href: "/#unidades-rapidas", label: "Lojas" },
+];
 
 export default function NotFound() {
   return (
@@ -14,12 +22,13 @@ export default function NotFound() {
         <p className="section-kicker">Erro 404</p>
         <h1>Página não encontrada</h1>
         <p>Esse endereço não existe. Escolha um caminho abaixo.</p>
-        <div className="not-found-actions">
-          <a href="/" className="button button-whatsapp compact-button">Início</a>
-          <a href="/ofertas" className="button button-call compact-button">Ofertas</a>
-          <a href="/receita" className="button button-call compact-button">Receita</a>
-          <a href="/#unidades-rapidas" className="button button-call compact-button">Lojas</a>
-        </div>
+        <nav className="not-found-actions" aria-label="Caminhos do site">
+          {LINKS.map((link) => (
+            <a key={link.href} href={link.href}>
+              {link.label}
+            </a>
+          ))}
+        </nav>
       </div>
     </div>
   );
