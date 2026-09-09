@@ -1,0 +1,27 @@
+.offer-consult-image,
+.offer-consult-image img,
+.news-visual-highlights,
+.news-visual-grid,
+.news-visual-card,
+.news-visual-image,
+.news-visual-image img,
+.news-card-image,
+.news-card-image img {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  max-width: 100%;
+  height: auto;
+}
+
+.offer-consult-image {
+  min-height: 160px;
+  background: #e7f4f1;
+}
+
+.offer-consult-image img,
+.news-visual-image img,
+.news-card-image img {
+  width: 100%;
+  object-fit: cover;
+}

@@ -4,7 +4,7 @@ import { trackEvent } from "./analytics";
 import { trackWhatsAppClick } from "./metrics";
 import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
 import { UNIT_PHOTOS, UNIT_PHOTO_KIND } from "./unit-photos";
-import UnitStatusBadge, { getFallbackLabel } from "./UnitStatusBadge";
+import UnitStatusBadge from "./UnitStatusBadge";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
 
 const PAGE_HREF: Record<Unit["id"], string> = {
@@ -49,8 +49,7 @@ export default function UnitsShowcase() {
 
             return (
               <article className={`unit-store-card unit-store-card-${unit.id}`} key={unit.id} role="listitem">
-                <a className="unit-store-photo-link" href={PAGE_HREF[unit.id]} aria-label={`Ver página da loja ${label}`}
-                >
+                <a className="unit-store-photo-link" href={PAGE_HREF[unit.id]} aria-label={`Ver página da loja ${label}`}>
                   <img
                     className="unit-store-photo"
                     src={UNIT_PHOTOS[unit.id]}
@@ -73,7 +72,6 @@ export default function UnitsShowcase() {
                     {place ? <span className="unit-store-place">{place}</span> : null}
                   </p>
                   <UnitStatusBadge unit={unit} />
-                  <p className="unit-store-hours">{getFallbackLabel(unit)}</p>
                   <div className="unit-store-actions">
                     <a
                       className="unit-store-wa"

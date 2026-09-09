@@ -7,16 +7,17 @@ function encodeToken(value: string) {
 export function getStaffCredentials() {
   return {
     user: process.env.STAFF_USER?.trim() || "uniao",
-    pass: process.env.STAFF_PASSWORD?.trim() || "farma2026",
+    pass: process.env.STAFF_PASSWORD?.trim() || "",
   };
 }
 
 export function staffToken() {
   const { user, pass } = getStaffCredentials();
-  return encodeToken(`${user}:${pass}`);
+  return encodeToken(`${user}:${pass || "pending"}`);
 }
 
 export function checkStaffLogin(user: string, pass: string) {
   const expected = getStaffCredentials();
+  if (!expected.pass) return false;
   return user.trim() === expected.user && pass === expected.pass;
 }

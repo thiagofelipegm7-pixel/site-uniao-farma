@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import type { Metadata } from "next";
-import { SiteDirectoryLinks } from "./SiteDirectoryLinks";
 
 export const metadata: Metadata = {
   title: { absolute: "Página não encontrada" },
@@ -14,15 +13,13 @@ export default function NotFound() {
         <img src="/uniao-farma-logo.svg" alt="Logo da União Farma" width="88" height="88" decoding="async" />
         <p className="section-kicker">Erro 404</p>
         <h1>Página não encontrada</h1>
-        <p>O endereço acessado não existe ou foi alterado. Volte ao início ou encontre uma das nossas unidades.</p>
+        <p>Esse endereço não existe. Escolha um caminho abaixo.</p>
         <div className="not-found-actions">
-          <a href="/" className="button button-whatsapp compact-button">Voltar ao início</a>
-          <a href="/#unidades-rapidas" className="button button-call compact-button">Encontrar uma unidade</a>
-          <a href="/ofertas" className="button button-call compact-button">Ver ofertas</a>
+          <a href="/" className="button button-whatsapp compact-button">Início</a>
+          <a href="/ofertas" className="button button-call compact-button">Ofertas</a>
+          <a href="/receita" className="button button-call compact-button">Receita</a>
+          <a href="/#unidades-rapidas" className="button button-call compact-button">Lojas</a>
         </div>
-        <nav className="not-found-site-map" aria-label="Navegação do site">
-          <SiteDirectoryLinks />
-        </nav>
       </div>
     </div>
   );
