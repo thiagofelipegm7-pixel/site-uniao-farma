@@ -19,13 +19,13 @@ export default async function StaffLoginPage({
       <div className="staff-login-card">
         <p className="eyebrow">Equipe</p>
         <h1>Entrar</h1>
-        <p className="metrics-lead">Use o usuário e a senha da loja para ver as métricas.</p>
+        <p className="metrics-lead">A senha é a definida no ambiente da loja. Não use senha publicada.</p>
         {params.erro ? <p className="metrics-error">Usuário ou senha não conferem.</p> : null}
         <form action="/api/interno/login" method="post">
           <input type="hidden" name="next" value={nextPath} />
           <label>
             Usuário
-            <input name="user" autoComplete="username" defaultValue="uniao" required />
+            <input name="user" autoComplete="username" required />
           </label>
           <label>
             Senha
