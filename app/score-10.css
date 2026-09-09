@@ -1,0 +1,74 @@
+.not-found-page {
+  min-height: 100dvh;
+  padding: 5.5rem 1.25rem 8.5rem !important;
+}
+
+.not-found-actions {
+  width: 100% !important;
+  display: grid !important;
+  gap: 0.75rem !important;
+}
+
+.not-found-actions a,
+.not-found-actions a.button {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 52px !important;
+  border-radius: 16px !important;
+  background: #0b6244 !important;
+  color: #fff !important;
+  font-size: 1.05rem !important;
+}
+
+.uf-footer,
+.uf-footer-bottom,
+.uf-footer-legal-name {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.uf-footer {
+  padding-bottom: 1rem;
+}
+
+.uf-footer-bottom {
+  display: grid !important;
+  gap: 0.45rem !important;
+  padding-bottom: 6.5rem !important;
+}
+
+.uf-footer-legal-name {
+  color: #fff !important;
+  font-size: 0.95rem !important;
+  line-height: 1.45 !important;
+  font-weight: 700 !important;
+}
+
+.offer-consult-card {
+  padding-bottom: 0.4rem;
+}
+
+.offer-consult-image {
+  min-height: 220px !important;
+}
+
+.offer-consult-price {
+  margin-top: 0.35rem !important;
+}
+
+.news-visual-highlights,
+.news-visual-grid,
+.news-visual-card {
+  display: grid !important;
+}
+
+.news-visual-image {
+  min-height: 180px !important;
+}
+
+@media (max-width: 700px) {
+  .offer-consult-grid {
+    padding-bottom: 1.5rem;
+  }
+}
