@@ -1,6 +1,7 @@
 "use client";
 
 import { trackEvent } from "./analytics";
+import WebImage from "./WebImage";
 import "./encarte.css";
 import "./photos-fix.css";
 import { formatOfferPrice, getPublicOffers, OFFER_CATEGORY_LABELS, type Offer } from "./offers";
@@ -10,7 +11,7 @@ function OfferConsultCard({ offer }: { offer: Offer }) {
     <article className="offer-consult-card">
       <div className="offer-consult-image">
         {offer.image ? (
-          <img src={offer.image} alt={offer.name} width="640" height="640" loading="lazy" />
+          <WebImage src={offer.image} alt={offer.name} width={480} height={480} sizes="(max-width: 720px) 80vw, 280px" />
         ) : (
           <span>{offer.placeholderLabel ?? "Oferta"}</span>
         )}
