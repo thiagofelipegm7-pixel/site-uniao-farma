@@ -28,10 +28,6 @@
   opacity: 1 !important;
 }
 
-.uf-footer {
-  padding-bottom: 1rem;
-}
-
 .uf-footer-bottom {
   display: grid !important;
   gap: 0.45rem !important;
@@ -41,34 +37,51 @@
 .uf-footer-legal-name {
   color: #fff !important;
   font-size: 0.95rem !important;
-  line-height: 1.45 !important;
   font-weight: 700 !important;
 }
 
-.offer-consult-card {
-  padding-bottom: 0.4rem;
+.content-header[data-content-path="/ofertas"] .content-header-cta,
+.content-header[data-content-path="/receita"] .content-header-cta {
+  display: none !important;
 }
 
-.offer-consult-image {
-  min-height: 220px !important;
+.offer-consult-choose {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100% !important;
+  min-height: 48px !important;
+  margin-top: 0.55rem !important;
+  border-radius: 14px !important;
+  background: #0b6244 !important;
+  color: #fff !important;
+  font-size: 1rem !important;
+  font-weight: 800 !important;
+  text-decoration: none !important;
 }
 
-.offer-consult-price {
-  margin-top: 0.35rem !important;
-}
+@media (max-width: 860px) {
+  .unit-store-card,
+  .unit-store-card:first-child,
+  .unit-store-card:last-child,
+  .offer-consult-card,
+  .home-offer-card {
+    flex: 0 0 calc(100vw - 4.75rem) !important;
+    width: calc(100vw - 4.75rem) !important;
+    max-width: calc(100vw - 4.75rem) !important;
+  }
 
-.news-visual-highlights,
-.news-visual-grid,
-.news-visual-card {
-  display: grid !important;
-}
+  .offer-consult-image {
+    min-height: 148px !important;
+    height: 148px !important;
+    aspect-ratio: auto !important;
+  }
 
-.news-visual-image {
-  min-height: 180px !important;
-}
+  .offer-consult-body {
+    padding: 0.75rem 0.9rem 1rem !important;
+  }
 
-@media (max-width: 700px) {
-  .offer-consult-grid {
-    padding-bottom: 1.5rem;
+  .offer-consult-body h3 {
+    display: none;
   }
 }
