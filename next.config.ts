@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  images: {
+    formats: ["image/avif", "image/webp"],
+  },
   redirects: async () => [
     { source: "/unidades/nossa-senhora-de-fatima", destination: "/fatima", permanent: true },
     { source: "/unidades/nacoes-unidas", destination: "/nacoes-unidas", permanent: true },
@@ -28,8 +31,20 @@ const nextConfig: NextConfig = {
       headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }],
     },
     {
-      source: "/:path*.:ext(ico|png|jpg|jpeg|webp|svg|woff2|gif)",
-      headers: [{ key: "Cache-Control", value: "public, max-age=0, must-revalidate" }],
+      source: "/promotions/:path*",
+      headers: [{ key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" }],
+    },
+    {
+      source: "/novidades/:path*",
+      headers: [{ key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=86400" }],
+    },
+    {
+      source: "/:path*.:ext(webp|svg|woff2)",
+      headers: [{ key: "Cache-Control", value: "public, max-age=2592000, stale-while-revalidate=86400" }],
+    },
+    {
+      source: "/:path*.:ext(ico|png|jpg|jpeg|gif)",
+      headers: [{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" }],
     },
     {
       source: "/:path*",
