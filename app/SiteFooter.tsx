@@ -2,6 +2,7 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages */
 import { useEffect, useState } from "react";
+import { COMPANY } from "./company";
 import { readPreferredUnitId, sortUnitsByPreference, writePreferredUnitId } from "./preferred-unit";
 import { INSTAGRAM_URL, UNITS, buildWhatsAppUrl, type Unit } from "./site-config";
 
@@ -54,6 +55,10 @@ export default function SiteFooter() {
               </span>
             </a>
             <p>Três lojas em Sabará. Pedido pelo WhatsApp da unidade do seu bairro.</p>
+            <p>
+              {COMPANY.legalName}. CNPJ {COMPANY.cnpj}.
+            </p>
+            <p>{COMPANY.pharmacistNote}</p>
             <div className="uf-footer-social">
               <a className="instagram-link" href={INSTAGRAM_URL} target="_blank" rel="noreferrer" aria-label="Instagram da União Farma">
                 <InstagramIcon />
