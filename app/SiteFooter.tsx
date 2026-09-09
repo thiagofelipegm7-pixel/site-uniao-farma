@@ -45,6 +45,11 @@ export default function SiteFooter() {
   return (
     <footer className="uf-footer">
       <div className="uf-footer-inner">
+        <p className="uf-cnpj-bar">
+          {COMPANY.legalName}
+          <br />
+          CNPJ {COMPANY.cnpj}
+        </p>
         <div className="uf-footer-grid">
           <div className="uf-footer-brand">
             <a className="uf-footer-logo" href="/">
@@ -55,9 +60,6 @@ export default function SiteFooter() {
               </span>
             </a>
             <p>Três lojas em Sabará. Pedido pelo WhatsApp da unidade do seu bairro.</p>
-            <p className="uf-footer-legal-name">
-              {COMPANY.legalName}. CNPJ {COMPANY.cnpj}.
-            </p>
             <p>{COMPANY.pharmacistNote}</p>
             <div className="uf-footer-social">
               <a className="instagram-link" href={INSTAGRAM_URL} target="_blank" rel="noreferrer" aria-label="Instagram da União Farma">
