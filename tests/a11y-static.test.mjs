@@ -15,7 +15,7 @@ test("keeps accessibility, contrast and tap-target hooks in source", async () =>
   assert.match(layout, /lang="pt-BR"/);
   assert.match(layout, /skip-link/);
   assert.match(layout, /id="conteudo"/);
-  assert.match(layout, /themeColor: "#0b6244"/);
+  assert.match(layout, /themeColor: "#0e7370"/);
   assert.match(page, /aria-expanded/);
   assert.match(page, /<h1/);
   assert.equal((page.match(/<h1\b/g) ?? []).length, 1);
@@ -23,6 +23,6 @@ test("keeps accessibility, contrast and tap-target hooks in source", async () =>
   assert.match(pending, /skip-link:focus/);
   assert.match(globals, /prefers-reduced-motion:\s*reduce/);
   assert.match(globals, /min-height:\s*48px/);
-  assert.match(units, /whatsapp_click/);
+  assert.match(units, /trackWhatsAppClick/);
   assert.match(units, /buildWhatsAppUrl/);
 });

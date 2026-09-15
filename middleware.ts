@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { STAFF_COOKIE, staffToken } from "./app/staff-auth";
+import { STAFF_COOKIE, verifyStaffSession } from "./app/staff-auth";
 
 const CANONICAL_HOST = "xn--uniofarmasabar-8gbu.com.br";
 
@@ -14,7 +14,7 @@ function redirectToCanonicalHost(request: NextRequest) {
     url.host = host.slice(4);
     changed = true;
   }
-  if (host && host !== "localhost" && host !== CANONICAL_HOST && host.endsWith(".workers.dev") === false) {
+  if (host && host !== "localhost" && host !== CANONICAL_HOST && !host.endsWith(".workers.dev")) {
     if (host.replace(/^www\./, "") === CANONICAL_HOST) {
       url.host = CANONICAL_HOST;
       changed = true;
@@ -24,13 +24,11 @@ function redirectToCanonicalHost(request: NextRequest) {
     url.protocol = "https:";
     changed = true;
   }
-  if (changed) {
-    return NextResponse.redirect(url, 301);
-  }
+  if (changed) return NextResponse.redirect(url, 301);
   return null;
 }
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const canonical = redirectToCanonicalHost(request);
   if (canonical) return canonical;
 
@@ -41,8 +39,7 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  const cookie = request.cookies.get(STAFF_COOKIE)?.value;
-  if (cookie && cookie === staffToken()) {
+  if (await verifyStaffSession(request.cookies.get(STAFF_COOKIE)?.value)) {
     return NextResponse.next();
   }
 

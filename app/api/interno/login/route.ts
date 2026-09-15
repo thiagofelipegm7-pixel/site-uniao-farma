@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { STAFF_COOKIE, checkStaffLogin, staffToken } from "../../../staff-auth";
+import { STAFF_COOKIE, STAFF_SESSION_SECONDS, checkStaffLogin, createStaffSession } from "../../../staff-auth";
 
 export async function POST(request: Request) {
   const form = await request.formData();
@@ -16,12 +16,12 @@ export async function POST(request: Request) {
   }
 
   const response = NextResponse.redirect(new URL(safeNext, request.url), { status: 303 });
-  response.cookies.set(STAFF_COOKIE, staffToken(), {
+  response.cookies.set(STAFF_COOKIE, await createStaffSession(), {
     httpOnly: true,
     sameSite: "lax",
     secure: true,
     path: "/",
-    maxAge: 60 * 60 * 24 * 30,
+    maxAge: STAFF_SESSION_SECONDS,
   });
   return response;
 }
