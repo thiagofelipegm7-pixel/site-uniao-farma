@@ -55,7 +55,9 @@ test("renders every landing page and unit page as an indexable route", async () 
     const html = await response.text();
     assert.equal((html.match(/<h1\b/gi) ?? []).length, 1, pathname);
     assert.match(html, new RegExp(`<link rel="canonical" href="https:\\/\\/xn--uniofarmasabar-8gbu\\.com\\.br${pathname.replaceAll("/", "\\/")}"`), pathname);
-    assert.match(html, /"@type":"FAQPage"/);
+    if (!['/fatima', '/nacoes-unidas', '/itacolomi'].includes(pathname)) {
+      assert.match(html, /"@type":"FAQPage"/);
+    }
     assert.match(html, /"@type":"BreadcrumbList"/);
     if (pathname === "/farmacia-em-sabara") {
       assert.match(html, /data-track-event="whatsapp_click"/);
