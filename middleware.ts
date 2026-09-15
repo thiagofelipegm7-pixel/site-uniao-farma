@@ -15,10 +15,11 @@ const SECURITY_HEADERS = {
     "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://region1.google-analytics.com; frame-src https://maps.google.com https://www.google.com; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'",
 } as const;
 
-function withSecurityHeaders(response: NextResponse) {
+function withSecurityHeaders(response: NextResponse, noStore = false) {
   for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
     response.headers.set(key, value);
   }
+  if (noStore) response.headers.set("Cache-Control", "no-store");
   return response;
 }
 
@@ -48,20 +49,25 @@ export async function middleware(request: NextRequest) {
   if (canonical) return canonical;
 
   const { pathname } = request.nextUrl;
+  const noStore =
+    pathname.startsWith("/interno") ||
+    pathname === "/api/metricas" ||
+    pathname === "/api/interno/login" ||
+    pathname === "/api/whatsapp/webhook";
   const staffPath = pathname.startsWith("/interno") || pathname === "/api/metricas";
-  if (!staffPath) return withSecurityHeaders(NextResponse.next());
+  if (!staffPath) return withSecurityHeaders(NextResponse.next(), noStore);
   if (pathname === "/interno/entrar" || pathname === "/interno/sair") {
-    return withSecurityHeaders(NextResponse.next());
+    return withSecurityHeaders(NextResponse.next(), noStore);
   }
 
   if (await verifyStaffSession(request.cookies.get(STAFF_COOKIE)?.value)) {
-    return withSecurityHeaders(NextResponse.next());
+    return withSecurityHeaders(NextResponse.next(), noStore);
   }
 
   const login = request.nextUrl.clone();
   login.pathname = "/interno/entrar";
   login.searchParams.set("next", pathname);
-  return withSecurityHeaders(NextResponse.redirect(login));
+  return withSecurityHeaders(NextResponse.redirect(login), noStore);
 }
 
 export const config = {
