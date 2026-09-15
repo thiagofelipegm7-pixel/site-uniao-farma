@@ -4,7 +4,7 @@
 
 import { useEffect, useState } from "react";
 import { trackEvent } from "./analytics";
-import { SITE_OPTIONS, SITE_URL } from "./site-config";
+import { SITE_OPTIONS, SITE_URL, UNITS } from "./site-config";
 import { HOME_FAQS } from "./seo-content";
 import { getPageStructuredData } from "./structured-data";
 import { WhatsAppIcon, type SelectorIntent } from "./home-chrome";
@@ -19,6 +19,7 @@ export default function Home() {
     name: "Farmácia em Sabará | União Farma",
     url: `${SITE_URL}/`,
     faqs: HOME_FAQS,
+    units: UNITS,
     breadcrumbs: [{ name: "Início", url: `${SITE_URL}/` }],
   });
 
