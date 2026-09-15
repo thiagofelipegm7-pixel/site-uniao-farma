@@ -36,8 +36,13 @@ export type Unit = {
   };
 };
 
-const mondayToFriday = {
+const fatimaWeekday = {
   open: "07:00",
+  close: "21:00",
+} as const;
+
+const eightToNine = {
+  open: "08:00",
   close: "21:00",
 } as const;
 
@@ -68,11 +73,11 @@ export const UNITS: Unit[] = [
     },
     schedule: {
       sun: { open: "07:00", close: "12:00" },
-      mon: mondayToFriday,
-      tue: mondayToFriday,
-      wed: mondayToFriday,
-      thu: mondayToFriday,
-      fri: mondayToFriday,
+      mon: fatimaWeekday,
+      tue: fatimaWeekday,
+      wed: fatimaWeekday,
+      thu: fatimaWeekday,
+      fri: fatimaWeekday,
       sat: { open: "07:00", close: "20:00" },
     },
   },
@@ -88,7 +93,7 @@ export const UNITS: Unit[] = [
     cep: "34505-800",
     legalLabel: "Nações Unidas",
     legalNeighborhood: "Bairro Nações Unidas",
-    hoursSummary: "Segunda a sexta 07:00–21:00 · sábado 07:00–21:00 · domingo 07:00–12:00",
+    hoursSummary: "Segunda a sexta 08:00–21:00 · sábado 08:00–21:00 · domingo 08:00–12:00",
     phone: "(31) 3671-8506",
     phoneLink: "tel:+553136718506",
     whatsapp: "(31) 98762-9909",
@@ -101,13 +106,13 @@ export const UNITS: Unit[] = [
       longitude: -43.866889,
     },
     schedule: {
-      sun: { open: "07:00", close: "12:00" },
-      mon: mondayToFriday,
-      tue: mondayToFriday,
-      wed: mondayToFriday,
-      thu: mondayToFriday,
-      fri: mondayToFriday,
-      sat: { open: "07:00", close: "21:00" },
+      sun: { open: "08:00", close: "12:00" },
+      mon: eightToNine,
+      tue: eightToNine,
+      wed: eightToNine,
+      thu: eightToNine,
+      fri: eightToNine,
+      sat: { open: "08:00", close: "21:00" },
     },
   },
   {
@@ -122,7 +127,7 @@ export const UNITS: Unit[] = [
     cep: "34518-200",
     legalLabel: "Itacolomi",
     legalNeighborhood: "Bairro Itacolomi",
-    hoursSummary: "Segunda a sexta 07:00–21:00 · sábado 07:00–20:00 · domingo 07:00–12:00",
+    hoursSummary: "Segunda a sexta 08:00–21:00 · sábado 08:00–20:00 · domingo 08:00–12:00",
     phone: "(31) 3673-3155",
     phoneLink: "tel:+553136733155",
     whatsapp: "(31) 99493-6960",
@@ -135,13 +140,13 @@ export const UNITS: Unit[] = [
       longitude: -43.84989,
     },
     schedule: {
-      sun: { open: "07:00", close: "12:00" },
-      mon: mondayToFriday,
-      tue: mondayToFriday,
-      wed: mondayToFriday,
-      thu: mondayToFriday,
-      fri: mondayToFriday,
-      sat: { open: "07:00", close: "20:00" },
+      sun: { open: "08:00", close: "12:00" },
+      mon: eightToNine,
+      tue: eightToNine,
+      wed: eightToNine,
+      thu: eightToNine,
+      fri: eightToNine,
+      sat: { open: "08:00", close: "20:00" },
     },
   },
 ];
