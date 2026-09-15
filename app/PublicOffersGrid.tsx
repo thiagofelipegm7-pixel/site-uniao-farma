@@ -7,11 +7,14 @@ import "./photos-fix.css";
 import { formatOfferPrice, getPublicOffers, OFFER_CATEGORY_LABELS, type Offer } from "./offers";
 
 function OfferConsultCard({ offer }: { offer: Offer }) {
+  const price = offer.currentPrice !== null ? formatOfferPrice(offer.currentPrice) : "preço sob consulta";
+  const alt = `${offer.name} em oferta na União Farma. ${price}, enquanto durar o estoque.`;
+
   return (
     <article className="offer-consult-card">
       <div className="offer-consult-image">
         {offer.image ? (
-          <WebImage src={offer.image} alt={offer.name} width={480} height={480} sizes="(max-width: 720px) 80vw, 280px" />
+          <WebImage src={offer.image} alt={alt} width={480} height={480} sizes="(max-width: 720px) 80vw, 280px" />
         ) : (
           <span>{offer.placeholderLabel ?? "Oferta"}</span>
         )}
@@ -30,7 +33,7 @@ function OfferConsultCard({ offer }: { offer: Offer }) {
         <a
           className="offer-consult-choose"
           href="#ofertas-whatsapp"
-          aria-label={`Escolher loja para consultar ${offer.name}`}
+          aria-label={`Escolher loja para consultar ${offer.name} por ${price}`}
           onClick={() => {
             try {
               sessionStorage.setItem("uf_selected_offer", offer.id);
@@ -60,7 +63,7 @@ export default function PublicOffersGrid() {
   }
 
   return (
-    <div className="offer-consult-grid">
+    <div className="offer-consult-grid" aria-label="Ofertas em destaque">
       {offers.map((offer) => (
         <OfferConsultCard key={offer.id} offer={offer} />
       ))}
