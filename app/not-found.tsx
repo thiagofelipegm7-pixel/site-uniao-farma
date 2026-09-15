@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import BrandLogo from "./BrandLogo";
-import "./photos-fix.css";
 
 export const metadata: Metadata = {
   title: { absolute: "Página não encontrada" },

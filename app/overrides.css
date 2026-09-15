@@ -1,0 +1,511 @@
+/* overrides.css — Patches de auditoria e polimento visual consolidados. */
+
+@layer overrides {
+/* --- audit-fix.css --- */
+@media (max-width: 860px) {
+  .content-menu-button {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 48px !important;
+    min-height: 48px !important;
+    padding: 0.35rem 0.55rem !important;
+    border: 1px solid #c5e4e0;
+    border-radius: 14px;
+    background: #ffffff !important;
+    color: #0b6244;
+    font-size: 14px !important;
+    font-weight: 800;
+  }
+
+  .content-menu-backdrop {
+    display: block !important;
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100dvh;
+    z-index: 4500;
+    background: rgba(8, 32, 28, 0.45);
+  }
+
+  .content-menu-drawer {
+    display: flex !important;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 4600;
+    width: min(20rem, 86vw);
+    min-height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: calc(1rem + env(safe-area-inset-top)) 1rem 1.2rem;
+    background: #ffffff;
+    box-shadow: -12px 0 30px rgba(8, 32, 28, 0.16);
+  }
+
+  .content-menu-drawer-header {
+    flex: 0 0 auto;
+  }
+
+  .content-side-nav {
+    overflow-y: auto;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .content-side-nav a {
+    display: flex;
+    align-items: center;
+    min-height: 48px;
+    font-size: 16px;
+    color: #102e2f;
+    text-decoration: none;
+  }
+
+  .cookie-manage-button {
+    display: inline-flex !important;
+    position: fixed !important;
+    left: 12px !important;
+    bottom: calc(5.6rem + env(safe-area-inset-bottom)) !important;
+    z-index: 4300 !important;
+    min-height: 44px !important;
+    min-width: 72px !important;
+    padding: 0.4rem 0.7rem !important;
+    border-radius: 999px;
+    background: #0b6244 !important;
+    color: #ffffff !important;
+    font-size: 14px !important;
+  }
+
+  .uf-footer-bottom a,
+  .uf-footer a[href="/privacidade"],
+  .uf-footer a[href="/termos"] {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 0.2rem;
+  }
+
+  dialog.unit-selector-modal {
+    width: min(28rem, calc(100vw - 1.5rem));
+    border: 0;
+    border-radius: 20px;
+    padding: 1rem;
+  }
+
+  dialog.unit-selector-modal::backdrop {
+    background: rgba(8, 32, 28, 0.55);
+  }
+}
+
+/* --- page-concordance.css --- */
+.content-header,
+.site-header {
+  background: #f1fbfa;
+  border-bottom: 1px solid #c5e4e0;
+}
+
+.offers-page,
+.recipe-page,
+.news-page {
+  background: #f1fbfa;
+}
+
+.offers-hero,
+.recipe-hero,
+.news-hero,
+.hero-home {
+  background: transparent;
+}
+
+.offers-hero .eyebrow,
+.recipe-copy .section-kicker,
+.news-hero .eyebrow,
+.hero-copy .eyebrow,
+.offers-page .section-kicker,
+.recipe-page .section-kicker {
+  margin: 0 0 0.45rem;
+  color: #0e7370;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.offers-hero h1,
+.recipe-copy h1,
+.news-hero h1,
+.hero-copy h1 {
+  margin: 0;
+  color: #102e2f;
+  font-size: clamp(1.45rem, 5vw, 2.1rem);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.offers-hero-lead,
+.recipe-lead,
+.news-hero p,
+.hero-lead {
+  max-width: 28rem;
+  margin: 0.55rem 0 0;
+  color: #3a5554;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.offer-consult-card,
+.recipe-page .direct-unit-link,
+.offers-whatsapp-section .direct-unit-link,
+.unit-store-card,
+.news-visual-card,
+.news-card {
+  overflow: hidden;
+  border: 1px solid #c5e4e0 !important;
+  border-radius: 18px !important;
+  background: #ffffff !important;
+  box-shadow: 0 8px 20px rgba(8, 58, 59, 0.05) !important;
+}
+
+.offer-consult-choose,
+.recipe-page .direct-unit-actions a,
+.offers-whatsapp-section .direct-unit-actions a,
+.unit-store-wa,
+.offer-alerts-button {
+  background: #0b6244 !important;
+  color: #ffffff !important;
+  border-color: #0b6244 !important;
+  border-radius: 14px !important;
+  min-height: 48px !important;
+  font-weight: 800;
+}
+
+.recipe-steps li {
+  border: 1px solid #c5e4e0;
+  border-radius: 18px;
+  background: #ffffff;
+  color: #102e2f;
+}
+
+.recipe-steps strong {
+  background: #0e7370;
+}
+
+@media (max-width: 860px) {
+  .offers-hero .section-inner,
+  .recipe-inner,
+  .news-hero-inner {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .recipe-page .direct-unit-links,
+  .offers-whatsapp-section .direct-unit-links {
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+  }
+
+  .recipe-page .direct-unit-links-grid,
+  .offers-whatsapp-section .direct-unit-links-grid {
+    display: flex !important;
+    gap: 0.8rem !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 1.5rem;
+    padding: 0 1.5rem 0.6rem !important;
+    scrollbar-width: none;
+  }
+
+  .recipe-page .direct-unit-links-grid::-webkit-scrollbar,
+  .offers-whatsapp-section .direct-unit-links-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .recipe-page .direct-unit-link,
+  .offers-whatsapp-section .direct-unit-link {
+    flex: 0 0 calc(100vw - 3rem);
+    width: calc(100vw - 3rem);
+    max-width: calc(100vw - 3rem);
+    scroll-snap-align: start;
+  }
+}
+
+/* --- final-polish.css --- */
+html {
+  background: #f1fbfa;
+}
+
+body {
+  background: #f1fbfa;
+  color: #102e2f;
+}
+
+.open-now-strip,
+.preferred-store-banner {
+  display: none !important;
+}
+
+.site-header,
+.content-header {
+  background: rgba(241, 251, 250, 0.94);
+  border-bottom: 1px solid #c5e4e0;
+  backdrop-filter: blur(16px);
+}
+
+.brand strong,
+.content-nav .brand strong {
+  color: #102e2f;
+}
+
+.brand small,
+.content-nav .brand small {
+  color: #3a5554;
+}
+
+.hero-home,
+.offers-page,
+.recipe-page,
+.news-page,
+.neighborhood-page,
+.questions-page {
+  background: #f1fbfa;
+}
+
+.section-kicker,
+.eyebrow {
+  color: #0e7370 !important;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+h3 {
+  color: #102e2f;
+  letter-spacing: -0.03em;
+}
+
+.trust-strip {
+  padding: 0.35rem 1.5rem 1.1rem;
+}
+
+.trust-strip-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+}
+
+.trust-strip-grid div {
+  padding: 0.75rem 0.8rem;
+  border: 1px solid #c5e4e0;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.trust-strip-grid strong {
+  display: block;
+  color: #0e7370;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.trust-strip-grid span {
+  color: #3a5554;
+  font-size: 0.92rem;
+}
+
+.uf-footer {
+  background: #e7f4f1;
+  border-top: 1px solid #c5e4e0;
+}
+
+.uf-footer-bottom {
+  color: #3a5554;
+}
+
+.offers-faq-item,
+.unit-faq-item,
+.question-card {
+  border: 1px solid #c5e4e0;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+@media (max-width: 860px) {
+  .hero-home .hero-copy,
+  .offers-hero .hero-copy,
+  .recipe-hero .hero-copy {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .trust-strip {
+    padding-bottom: 1.4rem;
+  }
+
+  .categories-section,
+  .reviews-section,
+  .story-section,
+  .faq-section {
+    display: none !important;
+  }
+
+  .content-header-cta span,
+  .header-cta {
+    font-size: 0;
+  }
+
+  .content-nav-links {
+    display: none;
+  }
+}
+
+/* --- score-10.css --- */
+.not-found-page {
+  min-height: 100dvh;
+  padding: 5.5rem 1.25rem 8.5rem !important;
+}
+
+.not-found-actions {
+  width: 100% !important;
+  display: grid !important;
+  gap: 0.75rem !important;
+}
+
+.not-found-actions a,
+.not-found-actions a.button {
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 52px !important;
+  border-radius: 16px !important;
+  background: #0b6244 !important;
+  color: #fff !important;
+  font-size: 1.05rem !important;
+}
+
+.uf-footer,
+.uf-footer-inner,
+.uf-footer-bottom,
+.uf-footer-legal-name,
+.uf-cnpj-bar {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.uf-footer {
+  padding-bottom: calc(7.25rem + env(safe-area-inset-bottom)) !important;
+}
+
+.uf-cnpj-bar {
+  margin: 0 0 1rem !important;
+  color: #ffffff !important;
+  font-size: 1rem !important;
+  font-weight: 800 !important;
+  line-height: 1.4 !important;
+}
+
+.uf-footer-bottom {
+  display: grid !important;
+  gap: 0.45rem !important;
+  padding-bottom: 0.5rem !important;
+}
+
+.uf-footer-legal-name {
+  color: #fff !important;
+  font-size: 0.95rem !important;
+  font-weight: 700 !important;
+}
+
+.content-header[data-content-path="/ofertas"] .content-header-cta,
+.content-header[data-content-path="/receita"] .content-header-cta {
+  display: none !important;
+}
+
+.offer-consult-choose {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100% !important;
+  min-height: 48px !important;
+  margin-top: 0.55rem !important;
+  border-radius: 14px !important;
+  background: #0b6244 !important;
+  color: #fff !important;
+  font-size: 1rem !important;
+  font-weight: 800 !important;
+  text-decoration: none !important;
+}
+
+@media (max-width: 860px) {
+  .unit-store-card,
+  .unit-store-card:first-child,
+  .unit-store-card:last-child,
+  .offer-consult-card,
+  .home-offer-card {
+    flex: 0 0 calc(100vw - 4.75rem) !important;
+    width: calc(100vw - 4.75rem) !important;
+    max-width: calc(100vw - 4.75rem) !important;
+  }
+
+  .offer-consult-image {
+    min-height: 148px !important;
+    height: 148px !important;
+    aspect-ratio: auto !important;
+  }
+
+  .offer-consult-body {
+    padding: 0.75rem 0.9rem 1rem !important;
+  }
+
+  .offer-consult-body h3 {
+    display: none;
+  }
+}
+
+/* Final readability and touch pass for older customers on phones. */
+@media (max-width: 860px) {
+  .mobile-quick-nav a,
+  .mobile-quick-nav .mqn-label,
+  .content-menu-label,
+  .unit-store-photo-tag,
+  .unit-store-photo-tag strong,
+  .unit-store-photo-tag span,
+  .home-offer-brand,
+  .home-offer-note,
+  .home-offer-cta,
+  .home-reasons-actions a,
+  .home-reasons-actions button,
+  .home-reasons-more,
+  .trust-strip-grid strong,
+  .recipe-note,
+  .offer-consult-price small {
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+  }
+
+  .home-offer-card h3,
+  .neighborhood-grid p,
+  .hours-grid li {
+    font-size: 16px !important;
+    line-height: 1.45 !important;
+  }
+
+  .neighborhood-grid article > a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    margin-top: 0.35rem;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid #0b6244;
+    border-radius: 12px;
+    color: #0b6244;
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: none;
+  }
+}
+}

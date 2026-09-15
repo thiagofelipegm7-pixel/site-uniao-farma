@@ -1,0 +1,587 @@
+/* typography.css — Tipografia, viewport e motion consolidados. */
+
+@layer typography {
+/* --- type.css --- */
+html {
+  font-size: 100%;
+}
+
+body {
+  font-size: var(--t-sm);
+  line-height: var(--lh-body);
+  color: var(--uf-ink);
+}
+
+.eyebrow,
+.section-kicker {
+  display: inline-block;
+  margin: 0 0 0.5em;
+  font-size: 0.72em;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--uf-green);
+}
+
+h1,
+.hero-copy h1,
+.neighborhood-hero h1,
+.questions-page h1,
+.encarte-page h1 {
+  margin: 0 0 0.35em;
+  font-family: var(--font-display), Georgia, serif;
+  font-size: var(--t-xl);
+  font-weight: 700;
+  line-height: var(--lh-tight);
+  letter-spacing: -0.04em;
+}
+
+h2,
+.direct-unit-name,
+.unit-map-details h2,
+.neighborhood-grid h2 {
+  margin: 0 0 0.3em;
+  font-size: 1.22em;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+
+h3,
+.offer-consult-body h3 {
+  margin: 0.15em 0 0;
+  font-size: 1em;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+}
+
+p,
+.direct-unit-neighborhood,
+.offer-consult-note,
+.locate-unit-status,
+.unit-map-details p,
+.neighborhood-hero p {
+  margin: 0 0 0.6em;
+  font-size: 1em;
+  line-height: var(--lh-body);
+  color: var(--uf-muted);
+}
+
+.direct-unit-link,
+.offer-consult-card,
+.question-card,
+.neighborhood-grid article,
+.unit-map-details {
+  font-size: var(--t-sm);
+  padding: 1em;
+  border-radius: var(--r-lg);
+}
+
+.offer-consult-card {
+  padding: 0;
+}
+
+.offer-consult-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+  padding: 1em;
+}
+
+.offer-consult-brand,
+.offer-consult-cat,
+.offer-consult-stamp {
+  margin: 0;
+  font-size: 0.72em;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.offer-consult-price {
+  margin: 0.35em 0 0.2em;
+}
+
+.offer-consult-price strong {
+  font-size: 1.85em;
+  letter-spacing: -0.05em;
+  line-height: 1;
+}
+
+.offer-consult-price s {
+  font-size: 0.8em;
+}
+
+.whatsapp-intent-chips {
+  margin: 0 0 0.85em;
+  gap: 0.5em;
+}
+
+.whatsapp-intent-chips button,
+.direct-unit-actions a,
+.mobile-quick-nav a,
+.offer-consult-units a,
+.locate-unit-whatsapp,
+.neighborhood-actions .button {
+  min-height: var(--tap);
+  border-radius: var(--r-md);
+  font-size: 0.95em;
+}
+
+.section-inner,
+.direct-unit-links,
+.neighborhood-page,
+.encarte-page,
+.questions-page {
+  padding-left: var(--vw-gutter, var(--space-4));
+  padding-right: var(--vw-gutter, var(--space-4));
+}
+
+.direct-unit-links-copy {
+  margin-bottom: 0.85em;
+}
+
+.direct-unit-links-copy strong {
+  display: block;
+  font-size: 1.15em;
+  letter-spacing: -0.02em;
+}
+
+.direct-unit-links-copy span {
+  color: var(--uf-muted);
+}
+
+.direct-unit-links,
+.neighborhood-grid,
+.offer-consult-grid,
+.unit-map {
+  margin-top: 1.25em;
+  gap: 0.75em;
+}
+
+.locate-unit-bar {
+  margin-bottom: 0.85em;
+}
+
+@media (max-width: 43.75rem) {
+  .hero-copy h1 {
+    font-size: clamp(1.375rem, 1.05rem + 4.5vw, 1.75rem);
+    margin-bottom: 0.4em;
+  }
+
+  .whatsapp-intent-chips button,
+  .mobile-quick-nav a {
+    font-size: 0.72em;
+  }
+}
+
+/* --- viewport.css --- */
+:root {
+  --vh-photo: clamp(9rem, 28svh, 16rem);
+  --vh-map: clamp(16rem, 42svh, 26rem);
+  --vw-gutter: clamp(0.875rem, 4vw, 2.5rem);
+}
+
+.neighborhood-photo {
+  height: var(--vh-photo);
+}
+
+.unit-map-frame iframe,
+.neighborhood-map iframe {
+  min-height: var(--vh-map);
+  height: var(--vh-map);
+}
+
+.hero {
+  padding-top: clamp(0.75rem, 3vh, 1.75rem);
+  padding-bottom: clamp(0.5rem, 2vh, 1.25rem);
+}
+
+.section-inner,
+.direct-unit-links,
+.neighborhood-page,
+.encarte-page,
+.questions-page {
+  padding-left: var(--vw-gutter);
+  padding-right: var(--vw-gutter);
+}
+
+.offer-consult-image {
+  aspect-ratio: 1;
+  min-height: clamp(9rem, 32vw, 16rem);
+}
+
+@media (max-width: 43.75rem) {
+  .hero-copy h1 {
+    font-size: clamp(1.375rem, 7vw, 1.75rem);
+  }
+}
+
+/* --- motion.css --- */
+@keyframes uf-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(216, 255, 230, 0.55);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 0 0.35em rgba(216, 255, 230, 0);
+  }
+}
+
+@keyframes uf-rise {
+  from {
+    opacity: 0.35;
+    transform: translateY(0.8rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.open-status.is-open::before {
+  animation: uf-pulse 1.8s ease-out infinite;
+}
+
+.direct-unit-link,
+.offer-consult-card,
+.question-card,
+.neighborhood-grid article,
+.unit-map,
+.neighborhood-photo {
+  animation: uf-rise 0.4s ease both;
+}
+
+@supports (animation-timeline: view()) {
+  .offer-consult-card,
+  .question-card,
+  .neighborhood-grid article,
+  .unit-map,
+  .neighborhood-photo {
+    animation: uf-rise linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 35%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .open-status.is-open::before,
+  .direct-unit-link,
+  .offer-consult-card,
+  .question-card,
+  .neighborhood-grid article,
+  .unit-map,
+  .neighborhood-photo {
+    animation: none;
+  }
+}
+
+/* --- refero.css --- */
+body {
+  background: var(--uf-paper);
+  color: var(--uf-ink);
+}
+
+h1,
+.hero-copy h1,
+.neighborhood-hero h1,
+.encarte-page h1 {
+  letter-spacing: -0.04em;
+  line-height: var(--lh-tight);
+}
+
+.direct-unit-link,
+.offer-consult-card,
+.question-card,
+.neighborhood-grid article,
+.unit-map-details {
+  background: var(--uf-card);
+  border: 0;
+  box-shadow: var(--shadow-card);
+}
+
+.direct-unit-link {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.35em;
+}
+
+.direct-unit-name {
+  order: 1;
+  font-size: 1.28em;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--uf-ink);
+}
+
+.direct-unit-link .open-status {
+  order: 2;
+}
+
+.direct-unit-neighborhood {
+  order: 3;
+  font-size: 0.88em;
+  color: var(--uf-muted);
+}
+
+.direct-unit-distance,
+.nearest-unit-badge,
+.preferred-unit-badge {
+  order: 4;
+  font-size: 0.75em;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--uf-muted);
+}
+
+.nearest-unit-badge {
+  color: #ffffff;
+  background: var(--uf-green);
+}
+
+.direct-unit-actions {
+  order: 5;
+  width: 100%;
+  margin-top: 0.55em;
+}
+
+.direct-unit-link:hover,
+.offer-consult-card:hover,
+.question-card:hover {
+  box-shadow: inset 0 0 0 1px var(--uf-line), 0 0.75rem 1.5rem rgba(28, 46, 41, 0.06);
+}
+
+.offer-consult-image {
+  background: var(--uf-fog);
+}
+
+.offer-consult-image img {
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+}
+
+.offer-consult-brand {
+  font-size: 0.72em;
+  color: var(--uf-muted);
+}
+
+.offer-consult-body h3 {
+  font-size: 0.98em;
+  font-weight: 700;
+  color: var(--uf-ink);
+  min-height: 0;
+}
+
+.offer-consult-price strong {
+  font-size: 1.85em;
+  font-weight: 800;
+  color: var(--uf-green);
+}
+
+.offer-consult-units a {
+  font-weight: 700;
+}
+
+.whatsapp-intent-chips button {
+  border-radius: 999px;
+  background: var(--uf-stone);
+  border-color: transparent;
+}
+
+.whatsapp-intent-chips button.is-active {
+  background: var(--uf-green);
+  color: #ffffff;
+}
+
+.direct-unit-actions a:first-child,
+.locate-unit-whatsapp,
+.button-whatsapp,
+.mobile-quick-nav a.is-primary {
+  border-radius: 999px;
+}
+
+.direct-unit-recipe,
+.mobile-quick-nav a:not(.is-primary) {
+  border-radius: 999px;
+  background: var(--uf-stone);
+  border-color: transparent;
+}
+
+.neighborhood-photo {
+  background: var(--uf-fog);
+  object-fit: cover;
+}
+
+@media (min-width: 56.25rem) {
+  .hero-copy h1 {
+    max-width: 14ch;
+  }
+}
+
+/* --- kerning.css --- */
+html {
+  font-kerning: normal;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+body,
+p,
+.direct-unit-neighborhood,
+.locate-unit-status,
+.unit-map-details p {
+  letter-spacing: -0.012em;
+}
+
+.eyebrow,
+.section-kicker,
+.offer-consult-brand,
+.offer-consult-cat,
+.offer-consult-stamp,
+.nearest-unit-badge,
+.preferred-unit-badge,
+.offer-consult-units a small {
+  letter-spacing: 0.12em;
+}
+
+h1,
+.hero-copy h1,
+.neighborhood-hero h1,
+.questions-page h1,
+.encarte-page h1 {
+  letter-spacing: -0.045em;
+}
+
+h2,
+.direct-unit-name,
+.unit-map-details h2,
+.neighborhood-grid h2,
+.direct-unit-links-copy strong {
+  letter-spacing: -0.03em;
+}
+
+h3,
+.offer-consult-body h3 {
+  letter-spacing: -0.02em;
+}
+
+.offer-consult-price strong {
+  letter-spacing: -0.055em;
+}
+
+.whatsapp-intent-chips button,
+.direct-unit-actions a,
+.locate-unit-whatsapp,
+.mobile-quick-nav a,
+.button {
+  letter-spacing: -0.01em;
+}
+
+/* --- type-mobile.css --- */
+@media (max-width: 43.75rem) {
+  body {
+    font-size: 16px;
+  }
+
+  .eyebrow,
+  .section-kicker {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+  }
+
+  .hero-copy h1,
+  .neighborhood-hero h1,
+  .encarte-page h1,
+  .questions-page h1 {
+    font-size: clamp(1.35rem, 6.2vw, 1.7rem);
+    letter-spacing: -0.03em;
+    max-width: none;
+    margin-bottom: 0.4em;
+  }
+
+  .hero-copy p,
+  .neighborhood-hero p {
+    font-size: 0.98rem;
+    margin-bottom: 0.7em;
+  }
+
+  .direct-unit-name {
+    font-size: 1.12rem;
+    letter-spacing: -0.025em;
+  }
+
+  .direct-unit-neighborhood {
+    font-size: 0.9rem;
+  }
+
+  .offer-consult-body {
+    padding: 0.85em;
+    gap: 0.18em;
+  }
+
+  .offer-consult-body h3 {
+    font-size: 1rem;
+  }
+
+  .offer-consult-price strong {
+    font-size: 1.45rem;
+    letter-spacing: -0.04em;
+  }
+
+  .mobile-quick-nav a {
+    font-size: 12px;
+    letter-spacing: 0;
+  }
+
+  .direct-unit-actions a {
+    font-size: 0.9rem;
+  }
+}
+
+/* --- type-format.css --- */
+h1,
+.hero-copy h1,
+.neighborhood-hero h1,
+.questions-page h1,
+.encarte-page h1 {
+  font-optical-sizing: auto;
+  text-wrap: balance;
+  hyphens: none;
+  overflow-wrap: normal;
+  hanging-punctuation: first;
+}
+
+h2,
+.direct-unit-name,
+.offer-consult-body h3 {
+  text-wrap: pretty;
+  hyphens: none;
+}
+
+p,
+.hero-lead,
+.direct-unit-neighborhood,
+.direct-unit-links-copy span,
+.locate-unit-status {
+  text-wrap: pretty;
+  hanging-punctuation: first;
+}
+
+.direct-unit-neighborhood,
+.offer-consult-body h3 {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 43.75rem) {
+  .hero-copy h1 {
+    text-wrap: pretty;
+    max-width: 16ch;
+  }
+}
+}

@@ -125,9 +125,12 @@ export default function UnitStatusBadge({ unit }: { unit: Unit }) {
   const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
-    setNow(new Date());
-    const timer = window.setInterval(() => setNow(new Date()), 60_000);
-    return () => window.clearInterval(timer);
+    const initialTimer = window.setTimeout(() => setNow(new Date()), 0);
+    const refreshTimer = window.setInterval(() => setNow(new Date()), 60_000);
+    return () => {
+      window.clearTimeout(initialTimer);
+      window.clearInterval(refreshTimer);
+    };
   }, []);
 
   const status = useMemo(
