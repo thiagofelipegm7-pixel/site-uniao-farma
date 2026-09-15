@@ -41,6 +41,7 @@ import "./final-polish.css";
 import "./photos-fix.css";
 import "./score-10.css";
 import "./nav-plain.css";
+import "./footer-contrast.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 import { COMPANY } from "./company";
 
