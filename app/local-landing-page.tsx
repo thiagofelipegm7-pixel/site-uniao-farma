@@ -90,7 +90,7 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
         </div>
       </header>
 
-      <main className="unit-page landing-page">
+      <div className="unit-page landing-page">
         <nav className="breadcrumb section-inner" aria-label="Breadcrumb">
           <a href="/">{"Início"}</a>
           <span aria-hidden="true">/</span>
@@ -181,7 +181,7 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
             </a>
           </div>
         </section>
-      </main>
+      </div>
 
       <footer className="simple-footer">
         <nav className="section-inner" aria-label="Navegação do site">

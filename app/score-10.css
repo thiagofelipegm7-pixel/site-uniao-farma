@@ -99,3 +99,46 @@
     display: none;
   }
 }
+
+/* Final readability and touch pass for older customers on phones. */
+@media (max-width: 860px) {
+  .mobile-quick-nav a,
+  .mobile-quick-nav .mqn-label,
+  .content-menu-label,
+  .unit-store-photo-tag,
+  .unit-store-photo-tag strong,
+  .unit-store-photo-tag span,
+  .home-offer-brand,
+  .home-offer-note,
+  .home-offer-cta,
+  .home-reasons-actions a,
+  .home-reasons-actions button,
+  .home-reasons-more,
+  .trust-strip-grid strong,
+  .recipe-note,
+  .offer-consult-price small {
+    font-size: 14px !important;
+    line-height: 1.35 !important;
+  }
+
+  .home-offer-card h3,
+  .neighborhood-grid p,
+  .hours-grid li {
+    font-size: 16px !important;
+    line-height: 1.45 !important;
+  }
+
+  .neighborhood-grid article > a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 48px;
+    margin-top: 0.35rem;
+    padding: 0.65rem 0.85rem;
+    border: 1px solid #0b6244;
+    border-radius: 12px;
+    color: #0b6244;
+    font-size: 16px;
+    font-weight: 800;
+    text-decoration: none;
+  }
+}

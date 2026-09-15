@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 
 type ContentPath = "/ofertas" | "/novidades" | "/receita";
 
@@ -35,6 +36,9 @@ const HEADER_CTA: Record<ContentPath, { href: string; label: string; ariaLabel: 
 
 export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
   const linksRef = useRef<HTMLDivElement>(null);
+  const drawerRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const cta = HEADER_CTA[activePath];
   const hideHeaderWhatsApp = activePath === "/ofertas" || activePath === "/receita";
@@ -46,17 +50,101 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
 
   useEffect(() => {
     if (!menuOpen) return;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
+
+    const menuButton = menuButtonRef.current;
+
+    const background = [
+      document.getElementById("conteudo"),
+      document.querySelector(".uf-footer"),
+      document.querySelector(".mobile-quick-nav"),
+      document.querySelector(".whatsapp-fab"),
+    ].filter((node): node is HTMLElement => node instanceof HTMLElement);
+    background.forEach((node) => node.setAttribute("inert", ""));
+
+    const focusTimer = window.setTimeout(() => closeButtonRef.current?.focus(), 20);
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        setMenuOpen(false);
+        return;
+      }
+      if (event.key !== "Tab" || !drawerRef.current) return;
+
+      const focusable = Array.from(
+        drawerRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
-    document.addEventListener("keydown", closeOnEscape);
+
+    const closeOnDesktop = () => {
+      if (window.innerWidth > 860) setMenuOpen(false);
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("resize", closeOnDesktop);
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     return () => {
-      document.removeEventListener("keydown", closeOnEscape);
+      window.clearTimeout(focusTimer);
+      document.removeEventListener("keydown", handleKeyDown);
+      window.removeEventListener("resize", closeOnDesktop);
       document.body.style.overflow = previousOverflow;
+      background.forEach((node) => node.removeAttribute("inert"));
+      menuButton?.focus();
     };
   }, [menuOpen]);
+
+  const mobileMenu = menuOpen
+    ? createPortal(
+        <>
+          <button
+            type="button"
+            className="content-menu-backdrop"
+            aria-label="Fechar menu"
+            onClick={() => setMenuOpen(false)}
+          />
+          <aside
+            ref={drawerRef}
+            className="content-menu-drawer"
+            id="content-menu-drawer"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
+          >
+            <div className="content-menu-drawer-header">
+              <span>Menu</span>
+              <button ref={closeButtonRef} type="button" onClick={() => setMenuOpen(false)} aria-label="Fechar menu">
+                {"×"}
+              </button>
+            </div>
+            <nav className="content-side-nav" aria-label="Navegação móvel">
+              {NAV_LINKS.map((link) => (
+                <a
+                  key={`drawer-${link.href}`}
+                  href={link.href}
+                  aria-current={link.activePath === activePath ? "page" : undefined}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          </aside>
+        </>,
+        document.body,
+      )
+    : null;
 
   return (
     <header className="content-header" data-content-path={activePath}>
@@ -72,6 +160,7 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
           </a>
         )}
         <button
+          ref={menuButtonRef}
           className="content-menu-button"
           type="button"
           aria-expanded={menuOpen}
@@ -98,40 +187,12 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
           ))}
         </div>
       </nav>
-      {menuOpen && (
-        <>
-          <button
-            type="button"
-            className="content-menu-backdrop"
-            aria-label="Fechar menu"
-            onClick={() => setMenuOpen(false)}
-          />
-          <aside className="content-menu-drawer" id="content-menu-drawer" aria-label="Menu">
-            <div className="content-menu-drawer-header">
-              <span>Menu</span>
-              <button type="button" onClick={() => setMenuOpen(false)} aria-label="Fechar menu">
-                {"×"}
-              </button>
-            </div>
-            <nav className="content-side-nav" aria-label="Navegação móvel">
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={`drawer-${link.href}`}
-                  href={link.href}
-                  aria-current={link.activePath === activePath ? "page" : undefined}
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {link.label}
-                </a>
-              ))}
-            </nav>
-          </aside>
-        </>
-      )}
+      {mobileMenu}
     </header>
   );
 }
 
-export function ContentSiteFooter(_props: { notice?: string }) {
+export function ContentSiteFooter(props: { notice?: string }) {
+  void props.notice;
   return null;
 }

@@ -15,7 +15,7 @@ export default async function StaffLoginPage({
   const nextPath = params.next?.startsWith("/interno") ? params.next : "/interno/metricas";
 
   return (
-    <main className="staff-login-page">
+    <div className="staff-login-page">
       <div className="staff-login-card">
         <p className="eyebrow">Equipe</p>
         <h1>Entrar</h1>
@@ -34,6 +34,6 @@ export default async function StaffLoginPage({
           <button type="submit">Entrar</button>
         </form>
       </div>
-    </main>
+    </div>
   );
 }

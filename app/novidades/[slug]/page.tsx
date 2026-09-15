@@ -99,7 +99,7 @@ export default async function NewsArticlePage({ params }: NewsPageProps) {
       <a className="skip-link" href="#conteudo-novidade">Pular para o conteúdo</a>
       <ContentSiteHeader activePath="/novidades" />
 
-      <main id="conteudo-novidade" className="news-article-page">
+      <div id="conteudo-novidade" className="news-article-page">
         <nav className="breadcrumb section-inner news-article-breadcrumb" aria-label="Breadcrumb">
           <a href="/">Início</a>
           <span aria-hidden="true">/</span>
@@ -152,7 +152,7 @@ export default async function NewsArticlePage({ params }: NewsPageProps) {
             </div>
           </section>
         )}
-      </main>
+      </div>
 
       <ContentSiteFooter notice="Este conteúdo é informativo. Para confirmar atendimento, entrega ou disponibilidade, fale diretamente com uma unidade." />
     </>

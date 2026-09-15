@@ -27,15 +27,14 @@ export function getOpeningHoursSpecification(unit: Unit) {
     .filter(Boolean);
 }
 
-export function getUnitBusinessSchema(unit: Unit) {
-  const url = `${SITE_URL}/unidades/${unit.slug}`;
+export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}/unidades/${unit.slug}`) {
 
   return {
     "@type": ["LocalBusiness", "Pharmacy"],
-    "@id": `${url}#localbusiness`,
+    "@id": `${pageUrl}#localbusiness`,
     name: unit.title,
     description: `Farmácia e drogaria da União Farma no bairro ${unit.neighborhood}, em Sabará/MG.`,
-    url,
+    url: pageUrl,
     telephone: `+${unit.phoneLink.replace("tel:+", "")}`,
     image: `${SITE_URL}/uniao-farma-logo.webp`,
     address: {
@@ -119,7 +118,7 @@ export function getPageStructuredData(options: {
     getBreadcrumbSchema(options.breadcrumbs),
   ];
 
-  if (options.unit) graph.push(getUnitBusinessSchema(options.unit));
+  if (options.unit) graph.push(getUnitBusinessSchema(options.unit, options.url));
   if (options.faqs?.length) graph.push(getFaqSchema(options.faqs, options.url));
 
   return {

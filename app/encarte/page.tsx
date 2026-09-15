@@ -14,7 +14,7 @@ export default function FlyerPage() {
   return (
     <>
       <ContentSiteHeader activePath="/ofertas" />
-      <main className="encarte-page">
+      <div className="encarte-page">
         <section className="section-inner">
           <p className="eyebrow">Encarte da semana</p>
           <h1>Ofertas no Instagram e no site, no mesmo dia</h1>
@@ -43,7 +43,7 @@ export default function FlyerPage() {
         <section className="section-inner" style={{ marginTop: 24 }}>
           <PublicOffersGrid />
         </section>
-      </main>
+      </div>
       <ContentSiteFooter />
     </>
   );

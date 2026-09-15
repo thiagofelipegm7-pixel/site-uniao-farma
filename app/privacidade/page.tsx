@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <main className="legal-page">
+    <div className="legal-page">
       <div className="legal-container">
         <a className="legal-brand" href="/">
           <img
@@ -124,6 +124,6 @@ export default function PrivacyPage() {
           <SiteDirectoryLinks />
         </nav>
       </div>
-    </main>
+    </div>
   );
 }

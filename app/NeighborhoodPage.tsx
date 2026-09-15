@@ -1,6 +1,7 @@
 import InteractiveUnitMap from "./InteractiveUnitMap";
 import UnitStatusBadge from "./UnitStatusBadge";
-import { buildWhatsAppUrl, type Unit } from "./site-config";
+import { buildWhatsAppUrl, SITE_URL, type Unit } from "./site-config";
+import { getPageStructuredData } from "./structured-data";
 import { UNIT_PHOTOS } from "./unit-photos";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
 
@@ -10,14 +11,31 @@ const SHORT_LABEL: Record<Unit["id"], string> = {
   itacolomi: "Itacolomi",
 };
 
+const PAGE_HREF: Record<Unit["id"], string> = {
+  fatima: "/fatima",
+  nacoes: "/nacoes-unidas",
+  itacolomi: "/itacolomi",
+};
+
 export default function NeighborhoodPage({ unit }: { unit: Unit }) {
   const label = SHORT_LABEL[unit.id];
   const product = WHATSAPP_MESSAGES.product.replaceAll("{unidade}", unit.shortName);
   const delivery = WHATSAPP_MESSAGES.delivery.replaceAll("{unidade}", unit.shortName);
   const recipe = WHATSAPP_MESSAGES.recipe.replaceAll("{unidade}", unit.shortName);
+  const pageUrl = `${SITE_URL}${PAGE_HREF[unit.id]}`;
+  const structuredData = getPageStructuredData({
+    name: `Farmácia ${unit.shortName} em Sabará`,
+    url: pageUrl,
+    unit,
+    breadcrumbs: [
+      { name: "Início", url: `${SITE_URL}/` },
+      { name: unit.shortName, url: pageUrl },
+    ],
+  });
 
   return (
     <div className="neighborhood-page">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <section className="section-inner neighborhood-hero">
         <img className="neighborhood-photo" src={UNIT_PHOTOS[unit.id]} alt={`União Farma ${label}`} width="1200" height="720" />
         <p className="eyebrow">Farmácia em {unit.neighborhood}</p>

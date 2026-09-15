@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <main className="legal-page">
+    <div className="legal-page">
       <div className="legal-container">
         <a className="legal-brand" href="/">
           <img
@@ -121,6 +121,6 @@ export default function TermsPage() {
           <SiteDirectoryLinks />
         </nav>
       </div>
-    </main>
+    </div>
   );
 }

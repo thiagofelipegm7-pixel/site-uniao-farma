@@ -1,4 +1,4 @@
-const CACHE_NAME = "uf-static-v24";
+const CACHE_NAME = "uf-static-v25";
 const PRECACHE = ["/offline.html", "/manifest.json", "/favicon.png"];
 
 self.addEventListener("install", (event) => {

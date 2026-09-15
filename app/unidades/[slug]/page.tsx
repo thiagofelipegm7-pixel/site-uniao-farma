@@ -113,7 +113,7 @@ export default async function UnitPage({ params }: UnitPageProps) {
         </div>
       </header>
 
-      <main className="unit-page">
+      <div className="unit-page">
         <nav className="breadcrumb section-inner" aria-label="Breadcrumb">
           <a href="/">Início</a>
           <span aria-hidden="true">/</span>
@@ -326,7 +326,7 @@ export default async function UnitPage({ params }: UnitPageProps) {
             </a>
           </div>
         </section>
-      </main>
+      </div>
 
       <footer className="simple-footer">
         <nav className="section-inner" aria-label="Navegação do site">

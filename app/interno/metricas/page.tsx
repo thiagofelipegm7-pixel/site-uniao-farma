@@ -105,7 +105,7 @@ export default function MetricsPage() {
   const ready = Boolean(webhook.verifyTokenReady && webhook.appSecretReady);
 
   return (
-    <main className="metrics-page">
+    <div className="metrics-page">
       <div className="metrics-wrap">
         <div className="metrics-top">
           <div>
@@ -216,6 +216,6 @@ export default function MetricsPage() {
           </ul>
         </section>
       </div>
-    </main>
+    </div>
   );
 }

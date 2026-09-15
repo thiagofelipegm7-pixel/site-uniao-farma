@@ -10,7 +10,7 @@ export default function WhatsAppSetupPage() {
   const status = webhookConfigStatus();
 
   return (
-    <main className="metrics-page">
+    <div className="metrics-page">
       <section className="section-inner">
         <p className="eyebrow">Uso interno</p>
         <h1>WhatsApp Business</h1>
@@ -48,6 +48,6 @@ export default function WhatsAppSetupPage() {
           <a href="/interno/metricas">Ver contatos e vendas</a>
         </p>
       </section>
-    </main>
+    </div>
   );
 }
