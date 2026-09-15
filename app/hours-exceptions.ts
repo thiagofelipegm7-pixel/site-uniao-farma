@@ -4,7 +4,6 @@ export type DayRule =
   | { type: "closed"; name: string }
   | { type: "special"; name: string; open: string; close: string };
 
-/** Feriados nacionais: fechado até a loja informar horário especial. */
 export const NATIONAL_HOLIDAYS: Record<string, string> = {
   "2026-01-01": "Confraternização Universal",
   "2026-02-16": "Carnaval",
@@ -34,16 +33,30 @@ export const NATIONAL_HOLIDAYS: Record<string, string> = {
   "2027-12-25": "Natal",
 };
 
-/** Véspera com horário reduzido, igual ao domingo, até a loja corrigir. */
+const eveFatima: DayRule = { type: "special", name: "Véspera", open: "07:00", close: "12:00" };
+const eveEight: DayRule = { type: "special", name: "Véspera", open: "08:00", close: "12:00" };
+
 export const SPECIAL_DATES: Record<string, DayRule> = {
-  "2026-12-24": { type: "special", name: "Véspera de Natal", open: "07:00", close: "12:00" },
-  "2026-12-31": { type: "special", name: "Véspera de Ano-Novo", open: "07:00", close: "12:00" },
-  "2027-12-24": { type: "special", name: "Véspera de Natal", open: "07:00", close: "12:00" },
-  "2027-12-31": { type: "special", name: "Véspera de Ano-Novo", open: "07:00", close: "12:00" },
+  "2026-12-24": eveFatima,
+  "2026-12-31": eveFatima,
+  "2027-12-24": eveFatima,
+  "2027-12-31": eveFatima,
 };
 
-/** Exceção por loja: preencha quando Fátima, Nações ou Itacolomi abrirem diferente. */
-export const UNIT_DAY_OVERRIDES: Partial<Record<Unit["id"], Record<string, DayRule>>> = {};
+export const UNIT_DAY_OVERRIDES: Partial<Record<Unit["id"], Record<string, DayRule>>> = {
+  nacoes: {
+    "2026-12-24": eveEight,
+    "2026-12-31": eveEight,
+    "2027-12-24": eveEight,
+    "2027-12-31": eveEight,
+  },
+  itacolomi: {
+    "2026-12-24": eveEight,
+    "2026-12-31": eveEight,
+    "2027-12-24": eveEight,
+    "2027-12-31": eveEight,
+  },
+};
 
 export function getSaoPauloDateKey(date: Date): string {
   return new Intl.DateTimeFormat("en-CA", {
