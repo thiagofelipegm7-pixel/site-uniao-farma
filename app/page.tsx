@@ -11,6 +11,7 @@ import { WhatsAppIcon, type SelectorIntent } from "./home-chrome";
 import UnitSelectorModal from "./UnitSelectorModal";
 import { HomeSections } from "./home-sections";
 import UnitsShowcase from "./UnitsShowcase";
+import BrandLogo from "./BrandLogo";
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -61,7 +62,7 @@ export default function Home() {
       <header className={SITE_OPTIONS.promoToast.enabled ? "site-header has-promo" : "site-header"}>
         <nav className="nav" aria-label="Menu principal">
           <a className="brand" href="#inicio" onClick={() => setMenuOpen(false)}>
-            <img src="/icon-192.png" alt="Logo da União Farma" width="52" height="52" decoding="async" />
+            <BrandLogo priority />
             <span>
               <strong>{"União Farma"}</strong>
               <small>Drogaria e Perfumaria</small>

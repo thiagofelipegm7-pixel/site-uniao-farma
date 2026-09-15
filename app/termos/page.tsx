@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
 import { SiteDirectoryLinks } from "../SiteDirectoryLinks";
+import BrandLogo from "../BrandLogo";
 
 export const metadata: Metadata = {
   title: "Termos de Uso",
@@ -15,12 +16,7 @@ export default function TermsPage() {
     <div className="legal-page">
       <div className="legal-container">
         <a className="legal-brand" href="/">
-          <img
-            src="/uniao-farma-logo.webp"
-            alt="Logo da União Farma"
-            width="64"
-            height="64"
-          />
+          <BrandLogo src="/uniao-farma-logo.webp" width={64} height={64} />
           <span>União Farma</span>
         </a>
 

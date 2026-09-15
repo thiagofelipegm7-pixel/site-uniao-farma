@@ -251,8 +251,131 @@
   z-index: 1;
 }
 
+.metrics-feedback-success {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid #7cd6b5;
+  border-radius: 12px;
+  background: #e6f7f0;
+  color: #0b6244;
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.metrics-unit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.85rem;
+}
+
+.metrics-unit-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem 0.95rem;
+  border: 1px solid #c5e4e0;
+  border-radius: 18px;
+  background: #f7fcfb;
+  box-shadow: 0 4px 12px rgba(8, 58, 59, 0.03);
+}
+
+.metrics-unit-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+
+.metrics-unit-card-header strong {
+  color: #0e7370;
+  font-size: 0.95rem;
+}
+
+.metrics-unit-rate-badge {
+  font-size: 0.76rem;
+  font-weight: 800;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: #e0f2ee;
+  color: #0b6244;
+}
+
+.metrics-unit-card-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  text-align: center;
+  gap: 0.4rem;
+  padding: 0.6rem 0;
+  border-top: 1px solid #e1f0ed;
+  border-bottom: 1px solid #e1f0ed;
+  margin-bottom: 0.6rem;
+}
+
+.metrics-unit-card-stats b {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #102e2f;
+  line-height: 1.1;
+}
+
+.metrics-unit-card-stats small {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.76rem;
+  color: #476665;
+}
+
+.metrics-unit-card-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.82rem;
+  color: #476665;
+}
+
+.metrics-unit-card-footer b {
+  color: #102e2f;
+}
+
+.metrics-roi-presets {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+}
+
+.metrics-roi-preset-label {
+  font-size: 0.78rem;
+  color: #476665;
+}
+
+.metrics-roi-preset-btn {
+  padding: 0.25rem 0.6rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 8px;
+  border: 1px solid #c5e4e0;
+  background: #ffffff;
+  color: #0e7370;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.metrics-roi-preset-btn:hover {
+  background: #e0f2ee;
+  border-color: #0e7370;
+}
+
 @media (max-width: 760px) {
-  .metrics-grid {
+  .metrics-grid,
+  .metrics-unit-grid {
     grid-template-columns: 1fr;
   }
 }
+

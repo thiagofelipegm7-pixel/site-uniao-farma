@@ -75,14 +75,29 @@ export default function MetricsRoi({
       </p>
 
       <label>
-        Ticket médio
+        Ticket médio (R$)
         <input
           inputMode="decimal"
           value={ticket}
           onChange={(event) => setTicket(event.target.value)}
           placeholder="80,00"
+          aria-label="Ticket médio em Reais"
         />
       </label>
+
+      <div className="metrics-roi-presets">
+        <span className="metrics-roi-preset-label">Sugestões rápidas:</span>
+        {["50", "80", "120", "150"].map((preset) => (
+          <button
+            key={preset}
+            type="button"
+            className="metrics-roi-preset-btn"
+            onClick={() => setTicket(preset)}
+          >
+            R$ {preset}
+          </button>
+        ))}
+      </div>
 
       <div className="metrics-grid" style={{ marginTop: "0.9rem" }}>
         <article className="metrics-card">
@@ -103,6 +118,9 @@ export default function MetricsRoi({
       </div>
 
       <div className="metrics-roi-list">
+        {rows.length === 0 ? (
+          <p>Nenhum canal com movimentação no período selecionado.</p>
+        ) : null}
         {rows.map((row) => (
           <article className="metrics-roi-row" key={row.channel}>
             <div>
@@ -122,6 +140,7 @@ export default function MetricsRoi({
                 value={costs[row.channel] || ""}
                 onChange={(event) => setCosts((current) => ({ ...current, [row.channel]: event.target.value }))}
                 placeholder="0,00"
+                aria-label={`Custo para o canal ${row.label}`}
               />
             </label>
           </article>

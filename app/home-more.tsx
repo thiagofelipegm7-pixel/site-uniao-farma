@@ -1,6 +1,5 @@
 "use client";
 
-/* eslint-disable @next/next/no-html-link-for-pages */
 import { trackEvent } from "./analytics";
 import { UNIT_GOOGLE_PROFILES } from "./google-reviews";
 import { INSTAGRAM_URL } from "./site-config";

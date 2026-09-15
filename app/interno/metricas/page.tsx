@@ -5,6 +5,7 @@ import MetricsCharts from "../../components/MetricsCharts";
 import MetricsConversion from "../../components/MetricsConversion";
 import MetricsRoi from "../../components/MetricsRoi";
 import { CHANNEL_LABEL, type ChannelKey } from "../../metrics-channels";
+import { unitFunnels, UNIT_LABEL } from "../../metrics-conversion";
 import { RANGE_LABEL, daysForRange, sumRange, type RangeKey } from "../../metrics-range";
 import "../../metrics-polish.css";
 import "../../metrics-range.css";
@@ -29,12 +30,6 @@ type WebhookStatus = {
   recent?: Array<{ at: string; unit: string; type: string; source: string }>;
 };
 
-const UNIT_LABEL: Record<string, string> = {
-  fatima: "Fátima",
-  nacoes: "Nações",
-  itacolomi: "Itacolomi",
-};
-
 const STAGE_COPY: Record<MetricStage, { title: string; hint: string }> = {
   whatsapp_click: {
     title: "Cliques no WhatsApp",
@@ -55,6 +50,7 @@ export default function MetricsPage() {
   const [days, setDays] = useState<Record<string, DayBucket>>({});
   const [webhook, setWebhook] = useState<WebhookStatus>({});
   const [error, setError] = useState("");
+  const [feedback, setFeedback] = useState<string | null>(null);
   const [unit, setUnit] = useState("fatima");
   const [busy, setBusy] = useState(false);
   const [range, setRange] = useState<RangeKey>("today");
@@ -80,9 +76,15 @@ export default function MetricsPage() {
     [days, today, range, channel],
   );
 
+  const unitRows = useMemo(
+    () => unitFunnels(days, daysForRange(today, days, range)),
+    [days, today, range],
+  );
+
   async function register(stage: MetricStage) {
     setBusy(true);
     setError("");
+    setFeedback(null);
     try {
       await fetch("/api/metricas", {
         method: "POST",
@@ -94,9 +96,12 @@ export default function MetricsPage() {
           intent: stage,
         }),
       });
+      const stageLabel = stage === "order_completed" ? "Pedido concluído" : "Conversa recebida";
+      const unitLabel = UNIT_LABEL[unit] || unit;
+      setFeedback(`✓ ${stageLabel} registrado com sucesso para a loja ${unitLabel}!`);
       load();
     } catch {
-      setError("Não deu para registrar agora.");
+      setError("Não deu para registrar agora. Verifique a conexão e tente novamente.");
     } finally {
       setBusy(false);
     }
@@ -153,13 +158,41 @@ export default function MetricsPage() {
 
         {channel === "all" ? (
           <section className="metrics-block">
-            <h2>Cliques por loja</h2>
-            <div className="metrics-grid" style={{ margin: "0.6rem 0 0" }}>
-              {Object.entries(UNIT_LABEL).map(([id, label]) => (
-                <article className="metrics-card" key={id}>
-                  <strong>{label}</strong>
-                  <span>{totals.units[id] || 0}</span>
-                  <small>Toques no WhatsApp neste período</small>
+            <h2>Desempenho por loja</h2>
+            <p>
+              Acompanhamento das unidades de Sabará: cliques no WhatsApp, conversas iniciadas e vendas concluídas.
+            </p>
+            <div className="metrics-unit-grid">
+              {unitRows.map((u) => (
+                <article className="metrics-unit-card" key={u.unit}>
+                  <div className="metrics-unit-card-header">
+                    <strong>{u.label}</strong>
+                    <span className="metrics-unit-rate-badge">
+                      {u.clicks > 0 ? `${u.clickToSale.toFixed(1).replace(".", ",")}% conv.` : "Sem dados"}
+                    </span>
+                  </div>
+                  <div className="metrics-unit-card-stats">
+                    <div>
+                      <b>{u.clicks}</b>
+                      <small>Cliques</small>
+                    </div>
+                    <div>
+                      <b>{u.talks}</b>
+                      <small>Conversas</small>
+                    </div>
+                    <div>
+                      <b>{u.sales}</b>
+                      <small>Pedidos</small>
+                    </div>
+                  </div>
+                  <div className="metrics-unit-card-footer">
+                    <small>
+                      Clique → Conversa: <b>{u.clicks > 0 ? `${u.clickToTalk.toFixed(1).replace(".", ",")}%` : "—"}</b>
+                    </small>
+                    <small>
+                      Conversa → Pedido: <b>{u.talks > 0 ? `${u.talkToSale.toFixed(1).replace(".", ",")}%` : "—"}</b>
+                    </small>
+                  </div>
                 </article>
               ))}
             </div>
@@ -187,6 +220,11 @@ export default function MetricsPage() {
               {"Marcar pedido concluído"}
             </button>
           </div>
+          {feedback ? (
+            <div className="metrics-feedback-success" role="status">
+              {feedback}
+            </div>
+          ) : null}
         </section>
 
         <section className="metrics-block">

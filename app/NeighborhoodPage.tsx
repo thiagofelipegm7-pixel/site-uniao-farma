@@ -1,5 +1,6 @@
 import InteractiveUnitMap from "./InteractiveUnitMap";
 import UnitStatusBadge from "./UnitStatusBadge";
+import WebImage from "./WebImage";
 import { buildWhatsAppUrl, SITE_URL, type Unit } from "./site-config";
 import { getPageStructuredData } from "./structured-data";
 import { UNIT_PHOTOS } from "./unit-photos";
@@ -37,7 +38,15 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
     <div className="neighborhood-page">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <section className="section-inner neighborhood-hero">
-        <img className="neighborhood-photo" src={UNIT_PHOTOS[unit.id]} alt={`União Farma ${label}`} width="1200" height="720" />
+        <WebImage
+          className="neighborhood-photo"
+          src={UNIT_PHOTOS[unit.id]}
+          alt={`União Farma ${label}`}
+          width={1200}
+          height={720}
+          priority
+          sizes="(max-width: 800px) 96vw, 1200px"
+        />
         <p className="eyebrow">Farmácia em {unit.neighborhood}</p>
         <h1>União Farma {label}</h1>
         <p>{unit.address}</p>

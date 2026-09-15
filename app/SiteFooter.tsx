@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { COMPANY } from "./company";
 import { readPreferredUnitId, sortUnitsByPreference, writePreferredUnitId } from "./preferred-unit";
 import { INSTAGRAM_URL, UNITS, buildWhatsAppUrl, type Unit } from "./site-config";
+import BrandLogo from "./BrandLogo";
 
 const NAV = [
   { href: "/", label: "Início" },
@@ -56,7 +57,7 @@ export default function SiteFooter() {
         <div className="uf-footer-grid">
           <div className="uf-footer-brand">
             <a className="uf-footer-logo" href="/">
-              <img src="/icon-192.png" alt="" width="52" height="52" decoding="async" />
+              <BrandLogo />
               <span>
                 <strong>União Farma</strong>
                 <small>Drogaria e Perfumaria</small>

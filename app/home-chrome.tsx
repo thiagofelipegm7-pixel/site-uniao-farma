@@ -1,7 +1,5 @@
 "use client";
 
-/* eslint-disable @next/next/no-html-link-for-pages -- Native links keep the Novidades route working in Vinext production. */
-
 import { useEffect, useState, type ReactNode } from "react";
 import { trackEvent } from "./analytics";
 import { buildWhatsAppUrl, UNITS } from "./site-config";

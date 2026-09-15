@@ -72,3 +72,57 @@ export function overallFunnel(rows: ChannelFunnel[]): ChannelFunnel {
     clickToSale: rate(sales, clicks),
   };
 }
+
+export type UnitFunnel = {
+  unit: string;
+  label: string;
+  clicks: number;
+  talks: number;
+  sales: number;
+  clickToTalk: number;
+  talkToSale: number;
+  clickToSale: number;
+};
+
+export const UNIT_LABEL: Record<string, string> = {
+  fatima: "Fátima",
+  nacoes: "Nações",
+  itacolomi: "Itacolomi",
+};
+
+export function unitFunnels(days: Record<string, DayBucket>, keys: string[]): UnitFunnel[] {
+  const map: Record<string, { clicks: number; talks: number; sales: number }> = {
+    fatima: { clicks: 0, talks: 0, sales: 0 },
+    nacoes: { clicks: 0, talks: 0, sales: 0 },
+    itacolomi: { clicks: 0, talks: 0, sales: 0 },
+  };
+
+  for (const key of keys) {
+    const bucket = days[key];
+    if (!bucket) continue;
+    for (const [rawUnitId, count] of Object.entries(bucket.units || {})) {
+      if (rawUnitId.startsWith("conversation_received:")) {
+        const id = rawUnitId.slice("conversation_received:".length);
+        if (map[id]) map[id].talks += count;
+      } else if (rawUnitId.startsWith("order_completed:")) {
+        const id = rawUnitId.slice("order_completed:".length);
+        if (map[id]) map[id].sales += count;
+      } else if (map[rawUnitId]) {
+        map[rawUnitId].clicks += count;
+      }
+    }
+  }
+
+  return Object.keys(map).map((unit) => {
+    const row = map[unit];
+    return {
+      unit,
+      label: UNIT_LABEL[unit] || unit,
+      ...row,
+      clickToTalk: rate(row.talks, row.clicks),
+      talkToSale: rate(row.sales, row.talks),
+      clickToSale: rate(row.sales, row.clicks),
+    };
+  });
+}
+

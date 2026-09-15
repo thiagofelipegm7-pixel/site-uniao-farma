@@ -117,7 +117,6 @@ export default function DirectUnitLinks({
     return () => {
       stop();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

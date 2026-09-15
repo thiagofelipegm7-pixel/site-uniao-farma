@@ -12,6 +12,7 @@ import {
 import { SITE_URL } from "../../site-config";
 import NewsCard from "../NewsCard";
 import NewsContactCta from "../NewsContactCta";
+import WebImage from "../../WebImage";
 
 type NewsPageProps = { params: Promise<{ slug: string }> };
 
@@ -120,7 +121,14 @@ export default async function NewsArticlePage({ params }: NewsPageProps) {
 
           {article.image && (
             <figure className="section-inner news-article-image">
-              <img src={article.image.src} alt={article.image.alt} width={article.image.width} height={article.image.height} />
+              <WebImage
+                src={article.image.src}
+                alt={article.image.alt}
+                width={article.image.width}
+                height={article.image.height}
+                priority
+                sizes="(max-width: 800px) 94vw, 760px"
+              />
             </figure>
           )}
 

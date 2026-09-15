@@ -4,6 +4,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import BrandLogo from "./BrandLogo";
 
 type ContentPath = "/ofertas" | "/novidades" | "/receita";
 
@@ -132,7 +133,7 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
     <header className="content-header" data-content-path={activePath}>
       <nav className="content-nav" aria-label="Menu principal">
         <a className="brand" href="/" onClick={() => setMenuOpen(false)}>
-          <img src="/icon-192.png" alt="Logo da União Farma" width="52" height="52" decoding="async" />
+          <BrandLogo />
           <span><strong>{"União Farma"}</strong><small>Drogaria e Perfumaria</small></span>
         </a>
         {hideHeaderWhatsApp ? null : (

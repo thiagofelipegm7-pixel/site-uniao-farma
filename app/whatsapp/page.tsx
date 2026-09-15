@@ -4,6 +4,7 @@ import Link from "next/link";
 import { trackEvent } from "../analytics";
 import { buildWhatsAppUrl, UNITS } from "../site-config";
 import { WhatsAppIcon } from "../home-chrome";
+import BrandLogo from "../BrandLogo";
 
 const MESSAGE =
   "Oi, União Farma {unidade}! Vim pelo anúncio e quero consultar um produto. Posso mandar o nome?";
@@ -14,7 +15,7 @@ export default function WhatsAppAdsPage() {
       <header className="site-header">
         <nav className="nav" aria-label="Menu">
           <Link className="brand" href="/">
-            <img src="/icon-192.png" alt="Logo da União Farma" width="52" height="52" decoding="async" />
+            <BrandLogo priority />
             <span>
               <strong>União Farma</strong>
               <small>Drogaria e Perfumaria</small>

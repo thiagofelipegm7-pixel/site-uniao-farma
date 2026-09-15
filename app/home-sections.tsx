@@ -1,6 +1,5 @@
 "use client";
 
-/* eslint-disable @next/next/no-html-link-for-pages */
 import { categories, type SelectorIntent } from "./home-chrome";
 import HomeReasons from "./HomeReasons";
 import { HomeMore } from "./home-more";
