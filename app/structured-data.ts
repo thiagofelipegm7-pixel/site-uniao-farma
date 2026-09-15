@@ -27,7 +27,6 @@ export function getOpeningHoursSpecification(unit: Unit) {
     .map((day) => {
       const hours = unit.schedule[day];
       if (!hours) return null;
-
       return {
         "@type": "OpeningHoursSpecification",
         dayOfWeek: weekdayNames[day],
@@ -68,16 +67,13 @@ export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}${PUBLIC
       : {}),
     hasMap: unit.map,
     openingHoursSpecification: getOpeningHoursSpecification(unit),
-    areaServed: [
-      { "@type": "City", name: "Sabará" },
-      { "@type": "AdministrativeArea", name: unit.neighborhood },
-    ],
+    areaServed: `Entrega sob consulta no bairro ${unit.neighborhood} e em Sabará. A loja confirma se atende o endereço.`,
     contactPoint: {
       "@type": "ContactPoint",
       telephone: `+${unit.whatsappDigits}`,
       contactType: "customer service",
       availableLanguage: "Portuguese",
-      areaServed: "BR",
+      areaServed: "Sabará",
     },
     sameAs: [INSTAGRAM_URL, unit.map],
     parentOrganization: {
