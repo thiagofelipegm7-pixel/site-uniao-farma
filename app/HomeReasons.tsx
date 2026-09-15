@@ -1,8 +1,8 @@
 "use client";
 
-/* eslint-disable @next/next/no-html-link-for-pages */
 import { trackEvent } from "./analytics";
 import { type SelectorIntent } from "./home-chrome";
+import WebImage from "./WebImage";
 import {
   formatOfferPrice,
   getPublicOffers,
@@ -60,7 +60,13 @@ export default function HomeReasons({
                 <article className="home-offer-card" key={offer.id}>
                   <div className="home-offer-photo">
                     {offer.image ? (
-                      <img src={offer.image} alt={offer.name} width="320" height="320" loading="lazy" />
+                      <WebImage
+                        src={offer.image}
+                        alt={offer.name}
+                        width={320}
+                        height={320}
+                        sizes="(max-width: 720px) 90vw, 320px"
+                      />
                     ) : (
                       <span>{offer.placeholderLabel ?? "Oferta"}</span>
                     )}
