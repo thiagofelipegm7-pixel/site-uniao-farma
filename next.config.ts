@@ -12,6 +12,14 @@ const nextConfig: NextConfig = {
   ],
   headers: async () => [
     {
+      source: "/:path*",
+      headers: [
+        { key: "Strict-Transport-Security", value: "max-age=31536000; includeSubDomains" },
+        { key: "X-Content-Type-Options", value: "nosniff" },
+        { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+      ],
+    },
+    {
       source: "/sw.js",
       headers: [
         { key: "Cache-Control", value: "no-cache, no-store, must-revalidate" },
