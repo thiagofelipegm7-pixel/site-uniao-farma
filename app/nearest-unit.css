@@ -59,6 +59,14 @@
   font-size: 12px;
 }
 
+.direct-unit-link {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  gap: 0.35rem !important;
+  overflow: visible !important;
+}
+
 .direct-unit-link.is-nearest {
   border-color: #176f62;
   box-shadow: 0 0 0 2px rgba(23, 111, 98, 0.18);
@@ -68,28 +76,57 @@
   border-color: #9aa7a2;
 }
 
+.direct-unit-distance {
+  display: block !important;
+  color: #16382f !important;
+  font-size: 0.8rem !important;
+  font-weight: 800 !important;
+  line-height: 1.3 !important;
+}
+
 .nearest-unit-badge,
 .preferred-unit-badge {
-  display: inline-flex;
-  width: fit-content;
-  margin-top: 4px;
-  border-radius: 999px;
-  padding: 3px 8px;
-  font-size: 11px;
-  font-weight: 800;
+  position: static !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: fit-content !important;
+  max-width: 100% !important;
+  min-height: 28px !important;
+  margin: 0.15rem 0 0.2rem !important;
+  padding: 0.2rem 0.7rem !important;
+  border-radius: 999px !important;
+  font-size: 0.75rem !important;
+  font-weight: 800 !important;
+  line-height: 1.2 !important;
+  white-space: nowrap !important;
+  overflow: visible !important;
+  z-index: 2 !important;
 }
 
 .nearest-unit-badge {
-  background: #176f62;
-  color: #ffffff;
+  background: #0b5f4c !important;
+  color: #ffffff !important;
 }
 
 .preferred-unit-badge {
-  background: #e7eeea;
-  color: #16382f;
+  background: #e7eeea !important;
+  color: #16382f !important;
 }
 
-.direct-unit-distance {
-  color: #5b6f68;
-  font-size: 12px;
+.direct-unit-actions {
+  position: static !important;
+  display: block !important;
+  width: 100% !important;
+  margin-top: 0.45rem !important;
+}
+
+.direct-unit-actions a {
+  position: static !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  min-height: 48px !important;
+  margin-top: 0 !important;
 }
