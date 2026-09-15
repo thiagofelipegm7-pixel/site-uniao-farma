@@ -39,19 +39,19 @@ export type NewsVisual = {
 
 export const NEWS_VISUALS: NewsVisual[] = [
   {
-    src: "/novidades/cognon-fos-novidade.jpg",
+    src: "/novidades/cognon-fos-novidade.webp",
     alt: "Arte de novidade sobre Cognon FOS, suplemento alimentar em comprimidos",
     title: "Novidade Cognon FOS",
     caption: "Consulte uma unidade da União Farma para informações sobre disponibilidade.",
   },
   {
-    src: "/novidades/gripe-e-cuidados.jpg",
+    src: "/novidades/gripe-e-cuidados.webp",
     alt: "Arte com orientações gerais sobre gripe e opções para adultos e crianças",
     title: "Cuidados na temporada de gripe",
     caption: "Consulte a equipe sobre disponibilidade de produtos. Em caso de sintomas ou dúvidas de saúde, procure orientação de profissional habilitado.",
   },
   {
-    src: "/novidades/melatonina-dr-good-fini.jpg",
+    src: "/novidades/melatonina-dr-good-fini.webp",
     alt: "Arte de novidade sobre melatonina Dr. Good com sabor de morango",
     title: "Novidade Dr. Good + Fini",
     caption: "Consulte uma unidade da União Farma para informações sobre disponibilidade.",

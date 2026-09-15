@@ -2,6 +2,7 @@
 
 import { trackEvent } from "./analytics";
 import WebImage from "./WebImage";
+import { responsiveSrcSet } from "./responsive-images";
 import "./encarte.css";
 import "./photos-fix.css";
 import { formatOfferPrice, getPublicOffers, OFFER_CATEGORY_LABELS, type Offer } from "./offers";
@@ -54,6 +55,7 @@ function OfferConsultCard({
             height={480}
             sizes="(max-width: 720px) 80vw, 280px"
             priority={priority}
+            srcSet={responsiveSrcSet(offer.image, [480, 768])}
           />
         ) : (
           <span>{offer.placeholderLabel ?? "Oferta"}</span>

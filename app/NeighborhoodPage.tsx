@@ -5,6 +5,7 @@ import { buildWhatsAppUrl, SITE_URL, type Unit } from "./site-config";
 import { getPageStructuredData } from "./structured-data";
 import { getUnitFaqs } from "./seo-content";
 import { UNIT_PHOTOS } from "./unit-photos";
+import { responsiveSrcSet } from "./responsive-images";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
 
 const SHORT_LABEL: Record<Unit["id"], string> = {
@@ -49,6 +50,7 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
           height={720}
           priority
           sizes="(max-width: 800px) 96vw, 1200px"
+          srcSet={responsiveSrcSet(UNIT_PHOTOS[unit.id], unit.id === "nacoes" ? [480, 768, 1024] : [480])}
         />
         <p className="eyebrow">Farmácia em {unit.neighborhood}</p>
         <h1>União Farma {label}</h1>
