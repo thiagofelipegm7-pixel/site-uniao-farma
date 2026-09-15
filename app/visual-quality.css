@@ -1,0 +1,234 @@
+/* União Farma — passo visual 2026-09-15. Não altera regra comercial. */
+
+body {
+  color: var(--uf-ink);
+}
+
+.site-header,
+.content-header {
+  min-height: 4.25rem;
+  padding-top: env(safe-area-inset-top);
+}
+
+.hero-home {
+  padding-top: 1.25rem !important;
+  padding-bottom: 0.4rem !important;
+}
+
+.hero-home .hero-inner {
+  display: flex !important;
+  flex-direction: column !important;
+  width: min(72rem, calc(100% - 2rem)) !important;
+  max-width: 72rem !important;
+  margin: 0 auto !important;
+  gap: 1rem !important;
+}
+
+.hero-home .hero-copy {
+  max-width: 36rem !important;
+}
+
+.hero-home .eyebrow {
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: none !important;
+}
+
+.hero-home h1 {
+  font-size: clamp(1.55rem, 4.2vw, 2.35rem) !important;
+  line-height: 1.18 !important;
+  letter-spacing: -0.03em !important;
+  font-weight: 700 !important;
+  text-wrap: balance;
+}
+
+.hero-home .hero-lead {
+  font-size: 1.05rem !important;
+  line-height: 1.45 !important;
+  font-weight: 400 !important;
+  color: var(--uf-muted) !important;
+}
+
+.hero .units-showcase,
+.hero .units-showcase-inner {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.hero .units-showcase-head {
+  display: block !important;
+  margin-bottom: 0.75rem;
+}
+
+.hero .units-showcase-head .section-kicker {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: none;
+}
+
+.unit-store-hood {
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+  text-transform: none !important;
+}
+
+.unit-store-card h3,
+.offer-consult-body h3,
+.home-offer-card h3 {
+  font-weight: 700 !important;
+}
+
+.unit-store-addr,
+.unit-store-hours,
+.open-status {
+  font-size: 0.95rem !important;
+  line-height: 1.45 !important;
+  font-weight: 400 !important;
+}
+
+.unit-store-actions {
+  grid-template-columns: 1fr !important;
+  gap: 0.5rem !important;
+}
+
+.unit-store-wa,
+.unit-store-map,
+.offer-consult-choose,
+.home-offer-cta,
+.direct-unit-actions a {
+  min-height: 48px !important;
+  padding: 0.55rem 0.85rem !important;
+  border-radius: 14px !important;
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  white-space: nowrap !important;
+}
+
+.unit-store-wa {
+  background: #128c3a !important;
+  color: #ffffff !important;
+}
+
+.unit-store-map {
+  background: #ffffff !important;
+  border: 1px solid var(--uf-line) !important;
+  color: #0b5f4c !important;
+}
+
+.unit-store-photo {
+  height: 200px !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+}
+
+.offer-consult-image,
+.home-offer-photo {
+  background: #f3faf8 !important;
+}
+
+.offer-consult-image img,
+.home-offer-photo img {
+  object-fit: contain !important;
+  object-position: center !important;
+  background: #f3faf8;
+}
+
+.offer-consult-price strong,
+.home-offer-price {
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
+  color: #0b5f4c !important;
+}
+
+.offer-consult-brand,
+.home-offer-brand {
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+  text-transform: none !important;
+}
+
+.content-nav-links a[aria-current="page"],
+.menu-links a[aria-current="page"],
+.content-side-nav a[aria-current="page"] {
+  color: #0b5f4c !important;
+  font-weight: 700 !important;
+  text-decoration: underline;
+  text-underline-offset: 0.28em;
+}
+
+.site-header .header-cta,
+.content-header-cta {
+  min-height: 44px;
+  border-radius: 999px;
+}
+
+:focus-visible {
+  outline: 3px solid #0b5f4c;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (max-width: 859px) {
+  .hero-home .hero-inner {
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .hero-home .hero-copy {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+
+  .units-showcase-grid,
+  .offer-consult-grid,
+  .home-reasons-offers {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+    scroll-padding-inline: 1.25rem !important;
+  }
+
+  .unit-store-card,
+  .offer-consult-card,
+  .home-offer-card {
+    flex-basis: min(20.5rem, calc(100vw - 2.5rem)) !important;
+    width: min(20.5rem, calc(100vw - 2.5rem)) !important;
+    max-width: min(20.5rem, calc(100vw - 2.5rem)) !important;
+  }
+
+  .unit-store-photo {
+    height: 176px !important;
+  }
+
+  .hero-home h1 {
+    font-size: 1.6rem !important;
+  }
+}
+
+@media (min-width: 860px) {
+  .units-showcase-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 1.1rem !important;
+  }
+
+  .unit-store-photo {
+    height: 210px !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .hero-home h1 {
+    font-size: 2.35rem !important;
+  }
+}
