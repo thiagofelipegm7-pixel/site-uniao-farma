@@ -36,8 +36,9 @@ export default function FlyerPage() {
             ))}
           </div>
           <p>
-            Link do Instagram: <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">@droguniaofarma</a>
-            {" · "}use <strong>{SITE_URL}/encarte</strong> na bio e nos stories.
+            <a className="button button-call" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
+              Ver no Instagram
+            </a>
           </p>
         </section>
         <section className="section-inner" style={{ marginTop: 24 }}>
