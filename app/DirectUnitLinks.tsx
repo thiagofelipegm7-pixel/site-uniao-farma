@@ -45,10 +45,21 @@ const ACTION_LABEL: Record<WhatsAppIntentKey, string> = {
   offer: "Oferta",
 };
 
+const SHORT_STORE: Record<Unit["id"], string> = {
+  fatima: "Fátima",
+  nacoes: "Nações",
+  itacolomi: "Itacolomi",
+};
+
 function pickMessage(message: string, intent: WhatsAppIntentKey): string {
   const trimmed = message.trim();
-  if (trimmed && !trimmed.includes("___")) return trimmed;
+  if (trimmed && !trimmed.includes("___") ) return trimmed;
   return WHATSAPP_MESSAGES[intent];
+}
+
+function actionText(intent: WhatsAppIntentKey, unitId: Unit["id"]) {
+  if (intent === "recipe") return `Receita · ${SHORT_STORE[unitId]}`;
+  return ACTION_LABEL[intent];
 }
 
 export default function DirectUnitLinks({
@@ -121,6 +132,7 @@ export default function DirectUnitLinks({
           const km = distances[unit.id];
           const isNearest = nearest?.unit.id === unit.id;
           const isPreferred = preferredId === unit.id;
+          const label = actionText(activeIntent, unit.id);
 
           return (
             <article
@@ -142,7 +154,7 @@ export default function DirectUnitLinks({
                   })}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={`${ACTION_LABEL[activeIntent]} no WhatsApp da loja ${unit.shortName}`}
+                  aria-label={`${label} no WhatsApp`}
                   onClick={() => {
                     rememberUnit(unit.id);
                     if (activeIntent === "delivery") {
@@ -152,7 +164,7 @@ export default function DirectUnitLinks({
                     logWhatsApp(unit.id, activeIntent, "direct_links");
                   }}
                 >
-                  <IntentIcon intent={activeIntent} /> {ACTION_LABEL[activeIntent]}
+                  <IntentIcon intent={activeIntent} /> {label}
                 </a>
               </div>
             </article>
