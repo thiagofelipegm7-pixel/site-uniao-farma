@@ -1,4 +1,5 @@
-.offer-consult-image {
+.offer-consult-image,
+.home-offer-image {
   display: grid !important;
   visibility: visible !important;
   opacity: 1 !important;
@@ -7,7 +8,10 @@
   background: #e7f4f1;
 }
 
+.offer-consult-image picture,
 .offer-consult-image img,
+.home-offer-image picture,
+.home-offer-image img,
 .news-visual-highlights,
 .news-visual-grid,
 .news-visual-card,
@@ -21,7 +25,14 @@
   max-width: 100%;
 }
 
-.offer-consult-image img {
+.offer-consult-image picture,
+.home-offer-image picture {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.offer-consult-image img,
+.home-offer-image img {
   width: 100% !important;
   height: 100% !important;
   object-fit: contain !important;
