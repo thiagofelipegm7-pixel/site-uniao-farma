@@ -26,10 +26,11 @@ export default function OffersPageClient({
           <div className="hero-inner">
             <div className="hero-copy">
               <p className="eyebrow">Ofertas da semana</p>
-              <h1 id="offers-title">{"Ofertas em Sabará"}</h1>
+              <h1 id="offers-title">Ofertas em Sabará</h1>
               <p className="hero-lead">
-                {"Escolha o produto e depois a loja. A equipe confirma se tem hoje."}
+                Escolha o produto e depois a loja. A equipe confirma se tem hoje.
               </p>
+              <p className="offers-freshness">Encarte conferido em 17/08/2026. Vale enquanto durar o estoque em cada loja.</p>
               <OfferAlerts showButton />
             </div>
           </div>
@@ -38,7 +39,7 @@ export default function OffersPageClient({
         <section className="section offers-list-section" id="lista-ofertas" aria-labelledby="offers-list-title">
           <div className="section-inner">
             <p className="section-kicker">Promoções</p>
-            <h2 id="offers-list-title">{"Em destaque"}</h2>
+            <h2 id="offers-list-title">Em destaque</h2>
             <PublicOffersGrid />
           </div>
         </section>
