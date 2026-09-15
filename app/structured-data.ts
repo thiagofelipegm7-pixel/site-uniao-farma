@@ -116,6 +116,7 @@ export function getPageStructuredData(options: {
   faqs?: FaqItem[];
   breadcrumbs: Array<{ name: string; url: string }>;
   unit?: Unit;
+  units?: Unit[];
 }) {
   const graph: Array<Record<string, unknown>> = [
     {
@@ -130,6 +131,11 @@ export function getPageStructuredData(options: {
   ];
 
   if (options.unit) graph.push(getUnitBusinessSchema(options.unit, options.url));
+  if (options.units?.length) {
+    for (const unit of options.units) {
+      graph.push(getUnitBusinessSchema(unit));
+    }
+  }
   if (options.faqs?.length) graph.push(getFaqSchema(options.faqs, options.url));
 
   return {
