@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { getHolidayName } from "./hours-exceptions";
+import { addSaoPauloDays, getDayRule, getSaoPauloDateKey } from "./hours-exceptions";
 import type { Unit, Weekday } from "./site-config";
 
 const weekdayOrder: Weekday[] = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
@@ -9,11 +9,11 @@ const weekdayOrder: Weekday[] = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"
 const weekdayLabels: Record<Weekday, string> = {
   sun: "domingo",
   mon: "segunda-feira",
-  tue: "ter\u00e7a-feira",
+  tue: "terça-feira",
   wed: "quarta-feira",
   thu: "quinta-feira",
   fri: "sexta-feira",
-  sat: "s\u00e1bado",
+  sat: "sábado",
 };
 
 function timeToMinutes(value: string): number {
@@ -24,6 +24,7 @@ function timeToMinutes(value: string): number {
 function getSaoPauloDateParts(date: Date): {
   weekday: Weekday;
   minutes: number;
+  dateKey: string;
 } {
   const parts = new Intl.DateTimeFormat("en-US", {
     timeZone: "America/Sao_Paulo",
@@ -41,38 +42,41 @@ function getSaoPauloDateParts(date: Date): {
   return {
     weekday,
     minutes: hour * 60 + minute,
+    dateKey: getSaoPauloDateKey(date),
   };
 }
 
-function getNextOpening(unit: Unit, currentWeekday: Weekday, currentMinutes: number): string {
-  const currentIndex = weekdayOrder.indexOf(currentWeekday);
-  const today = unit.schedule[currentWeekday];
+function hoursFor(unit: Unit, dateKey: string, weekday: Weekday) {
+  const rule = getDayRule(dateKey, unit.id);
+  if (rule?.type === "closed") return null;
+  if (rule?.type === "special") return { open: rule.open, close: rule.close, name: rule.name };
+  const weekly = unit.schedule[weekday];
+  return weekly ? { ...weekly, name: null } : null;
+}
 
+function getNextOpening(unit: Unit, dateKey: string, weekday: Weekday, currentMinutes: number): string {
+  const today = hoursFor(unit, dateKey, weekday);
   if (today && currentMinutes < timeToMinutes(today.open)) {
-    return `abre hoje \u00e0s ${today.open}`;
+    return `abre hoje às ${today.open}`;
   }
 
-  for (let offset = 1; offset <= 7; offset += 1) {
-    const day = weekdayOrder[(currentIndex + offset) % 7];
-    const hours = unit.schedule[day];
-
-    if (hours) {
-      if (offset === 1) {
-        return `abre amanh\u00e3 \u00e0s ${hours.open}`;
-      }
-
-      return `abre ${weekdayLabels[day]} \u00e0s ${hours.open}`;
-    }
+  for (let offset = 1; offset <= 14; offset += 1) {
+    const nextKey = addSaoPauloDays(dateKey, offset);
+    const day = weekdayOrder[(weekdayOrder.indexOf(weekday) + offset) % 7];
+    const hours = hoursFor(unit, nextKey, day);
+    if (!hours) continue;
+    if (offset === 1) return `abre amanhã às ${hours.open}`;
+    return `abre ${weekdayLabels[day]} às ${hours.open}`;
   }
 
-  return "hor\u00e1rio indispon\u00edvel";
+  return "confirme o horário no WhatsApp";
 }
 
 export function getFallbackLabel(unit: Unit): string {
   const weekday = unit.schedule.mon;
   const saturday = unit.schedule.sat;
   const sunday = unit.schedule.sun;
-  return `Seg\u2013sex ${weekday?.open.slice(0, 5)}\u2013${weekday?.close.slice(0, 5)} \u00b7 S\u00e1b ${saturday?.open.slice(0, 5)}\u2013${saturday?.close.slice(0, 5)} \u00b7 Dom ${sunday?.open.slice(0, 5)}\u2013${sunday?.close.slice(0, 5)}`;
+  return `Seg–sex ${weekday?.open.slice(0, 5)}–${weekday?.close.slice(0, 5)} · Sáb ${saturday?.open.slice(0, 5)}–${saturday?.close.slice(0, 5)} · Dom ${sunday?.open.slice(0, 5)}–${sunday?.close.slice(0, 5)}`;
 }
 
 export function getUnitOpenStatus(unit: Unit, date = new Date()): {
@@ -80,35 +84,40 @@ export function getUnitOpenStatus(unit: Unit, date = new Date()): {
   label: string;
   holiday: string | null;
 } {
-  const holiday = getHolidayName(date);
-  if (holiday) {
+  const { weekday, minutes, dateKey } = getSaoPauloDateParts(date);
+  const rule = getDayRule(dateKey, unit.id);
+  const hours = hoursFor(unit, dateKey, weekday);
+
+  if (!hours) {
     return {
       isOpen: false,
-      holiday,
-      label: `Feriado (${holiday}) \u00b7 confirme o hor\u00e1rio no WhatsApp`,
+      holiday: rule?.name ?? null,
+      label: rule
+        ? `${rule.name} · fechado · ${getNextOpening(unit, dateKey, weekday, minutes)}`
+        : `Fechado · ${getNextOpening(unit, dateKey, weekday, minutes)}`,
     };
   }
 
-  const { weekday, minutes } = getSaoPauloDateParts(date);
-  const hours = unit.schedule[weekday];
+  const opening = timeToMinutes(hours.open);
+  const closing = timeToMinutes(hours.close);
+  const specialName = hours.name;
 
-  if (hours) {
-    const opening = timeToMinutes(hours.open);
-    const closing = timeToMinutes(hours.close);
-
-    if (minutes >= opening && minutes < closing) {
-      return {
-        isOpen: true,
-        holiday: null,
-        label: `Aberto agora \u00b7 fecha \u00e0s ${hours.close}`,
-      };
-    }
+  if (minutes >= opening && minutes < closing) {
+    return {
+      isOpen: true,
+      holiday: specialName,
+      label: specialName
+        ? `${specialName} · aberto agora · fecha às ${hours.close}`
+        : `Aberto agora · fecha às ${hours.close}`,
+    };
   }
 
   return {
     isOpen: false,
-    holiday: null,
-    label: `Fechado \u00b7 ${getNextOpening(unit, weekday, minutes)}`,
+    holiday: specialName,
+    label: specialName
+      ? `${specialName} · ${getNextOpening(unit, dateKey, weekday, minutes)}`
+      : `Fechado · ${getNextOpening(unit, dateKey, weekday, minutes)}`,
   };
 }
 
@@ -116,8 +125,6 @@ export default function UnitStatusBadge({ unit }: { unit: Unit }) {
   const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
-    // The live clock is browser state and starts after mount to avoid hydration drift.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setNow(new Date());
     const timer = window.setInterval(() => setNow(new Date()), 60_000);
     return () => window.clearInterval(timer);
@@ -129,7 +136,7 @@ export default function UnitStatusBadge({ unit }: { unit: Unit }) {
   );
 
   return (
-    <span className={`open-status ${now ? (status.holiday ? "is-hours" : status.isOpen ? "is-open" : "is-closed") : "is-hours"}`}>
+    <span className={`open-status ${now ? (status.holiday && !status.isOpen ? "is-hours" : status.isOpen ? "is-open" : "is-closed") : "is-hours"}`}>
       <strong>{status.label}</strong>
     </span>
   );
