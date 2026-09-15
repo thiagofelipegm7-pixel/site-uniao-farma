@@ -24,6 +24,7 @@ export default function WebImage({
 }: WebImageProps) {
   const webp = webpCandidate(src);
   const img = (
+    // eslint-disable-next-line @next/next/no-img-element
     <img
       className={className}
       src={src}
