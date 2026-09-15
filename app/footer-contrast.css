@@ -1,0 +1,34 @@
+.uf-footer {
+  background: #073a38 !important;
+  color: #f4fffc !important;
+}
+
+.uf-footer p,
+.uf-footer a,
+.uf-footer small,
+.uf-footer h2,
+.uf-footer strong,
+.uf-footer span,
+.uf-cnpj-bar,
+.uf-footer-legal-name,
+.uf-footer-col a,
+.uf-footer-col p,
+.uf-footer-col h2,
+.uf-footer-brand p,
+.uf-footer-logo,
+.uf-footer-logo strong,
+.uf-footer-logo small,
+.uf-footer-bottom,
+.uf-footer-bottom p,
+.uf-footer-bottom a {
+  color: #f4fffc !important;
+}
+
+.uf-footer-bottom {
+  border-top-color: rgba(244, 255, 252, 0.28) !important;
+}
+
+.uf-footer-social a {
+  border-color: rgba(244, 255, 252, 0.4) !important;
+  color: #f4fffc !important;
+}
