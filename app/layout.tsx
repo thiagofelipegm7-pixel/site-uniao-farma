@@ -89,9 +89,6 @@ export const metadata: Metadata = {
   other: {
     "mobile-web-app-capable": "yes",
   },
-  alternates: {
-    canonical: "/",
-  },
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
@@ -154,7 +151,7 @@ const organizationSchema = {
     telephone: `+${unit.whatsappDigits}`,
     contactType: "customer service",
     availableLanguage: ["Portuguese"],
-    areaServed: "BR",
+    areaServed: "Sabará",
   })),
 };
 
