@@ -1,14 +1,18 @@
 export const STAFF_COOKIE = "uf_staff";
 export const STAFF_SESSION_SECONDS = 60 * 60 * 8;
 
-function staffSecret() {
+function staffPassword() {
   return process.env.STAFF_PASSWORD?.trim() || "";
+}
+
+function staffSecret() {
+  return process.env.STAFF_SECRET?.trim() || staffPassword();
 }
 
 export function getStaffCredentials() {
   return {
     user: process.env.STAFF_USER?.trim() || "uniao",
-    pass: staffSecret(),
+    pass: staffPassword(),
   };
 }
 
@@ -41,7 +45,7 @@ function sameHex(left: string, right: string) {
 
 export async function createStaffSession() {
   const secret = staffSecret();
-  if (!secret) throw new Error("STAFF_PASSWORD ausente");
+  if (!secret) throw new Error("STAFF_SECRET ou STAFF_PASSWORD ausente");
   const expires = String(Date.now() + STAFF_SESSION_SECONDS * 1000);
   const payload = `v1.${expires}`;
   return `${payload}.${await hmacHex(payload, secret)}`;
