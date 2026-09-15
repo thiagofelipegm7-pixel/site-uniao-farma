@@ -17,11 +17,13 @@ function OfferConsultCard({
   isSelected,
   onSelect,
   actionSource = "encarte_grid",
+  priority = false,
 }: {
   offer: Offer;
   isSelected?: boolean;
   onSelect?: (offer: Offer) => void;
   actionSource?: string;
+  priority?: boolean;
 }) {
   const price = offer.currentPrice !== null ? formatOfferPrice(offer.currentPrice) : "preço sob consulta";
   const alt = `${offer.name} em oferta na União Farma. ${price}, enquanto durar o estoque.`;
@@ -45,7 +47,14 @@ function OfferConsultCard({
     <article className={`offer-consult-card${isSelected ? " is-selected" : ""}`}>
       <div className="offer-consult-image">
         {offer.image ? (
-          <WebImage src={offer.image} alt={alt} width={480} height={480} sizes="(max-width: 720px) 80vw, 280px" />
+          <WebImage
+            src={offer.image}
+            alt={alt}
+            width={480}
+            height={480}
+            sizes="(max-width: 720px) 80vw, 280px"
+            priority={priority}
+          />
         ) : (
           <span>{offer.placeholderLabel ?? "Oferta"}</span>
         )}
@@ -90,16 +99,18 @@ export default function PublicOffersGrid({
 
   return (
     <div className="offer-consult-grid" aria-label="Ofertas em destaque">
-      {offers.map((offer) => (
+      {offers.map((offer, index) => (
         <OfferConsultCard
           key={offer.id}
           offer={offer}
           isSelected={selectedOfferId === offer.id}
           onSelect={onSelectOffer}
           actionSource={actionSource}
+          priority={index === 0}
         />
       ))}
     </div>
   );
 }
+
 

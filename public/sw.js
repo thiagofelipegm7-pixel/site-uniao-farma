@@ -1,4 +1,4 @@
-const CACHE_NAME = "uf-static-v25";
+const CACHE_NAME = "uf-static-v26";
 const PRECACHE = ["/offline.html", "/manifest.json", "/favicon.png"];
 
 self.addEventListener("install", (event) => {
@@ -66,16 +66,20 @@ self.addEventListener("fetch", (event) => {
 
   if (/\.(webp|png|jpg|jpeg|svg|ico|woff2|gif)$/i.test(url.pathname) || url.pathname.startsWith("/fotos/")) {
     event.respondWith(
-      fetch(request, { cache: "no-cache" })
-        .then((response) => {
-          const type = response.headers.get("content-type") || "";
-          if (response.ok && type.startsWith("image/")) {
-            const copy = response.clone();
-            caches.open(CACHE_NAME).then((cache) => cache.put(request, copy)).catch(() => {});
-          }
-          return response;
-        })
-        .catch(async () => (await caches.match(request)) || Response.error()),
+      caches.match(request).then((cached) => {
+        const fetchPromise = fetch(request)
+          .then((response) => {
+            const type = response.headers.get("content-type") || "";
+            if (response.ok && (type.startsWith("image/") || type.startsWith("font/"))) {
+              const copy = response.clone();
+              caches.open(CACHE_NAME).then((cache) => cache.put(request, copy)).catch(() => {});
+            }
+            return response;
+          })
+          .catch(() => cached || Response.error());
+
+        return cached || fetchPromise;
+      }),
     );
   }
 });

@@ -20,6 +20,7 @@ function PhotoCard({ photo, index, eager }: { photo: StorePhoto; index: number; 
           sizes="(max-width: 860px) 72vw, 340px"
           decoding="async"
           loading={eager || index < 2 ? "eager" : "lazy"}
+          fetchPriority={eager && index === 0 ? "high" : "low"}
           onError={() => {
             if (src.includes(".webp")) {
               setSrc(src.replace(".webp", ".jpg"));

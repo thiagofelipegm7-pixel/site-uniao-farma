@@ -185,7 +185,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pt-BR" data-theme="light" className={`${poppins.className} ${fraunces.variable}`}>
       <head>
-        <link rel="preload" href="/uniao-farma-nacoes-loja.webp?v=27" as="image" type="image/webp" />
         <meta charSet="utf-8" />
       </head>
       <body>
