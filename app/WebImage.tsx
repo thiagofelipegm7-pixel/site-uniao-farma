@@ -6,6 +6,8 @@ type WebImageProps = {
   className?: string;
   priority?: boolean;
   sizes?: string;
+  srcSet?: string;
+  onError?: React.ReactEventHandler<HTMLImageElement>;
 };
 
 export default function WebImage({
@@ -16,6 +18,8 @@ export default function WebImage({
   className,
   priority = false,
   sizes = "(max-width: 720px) 92vw, 360px",
+  srcSet,
+  onError,
 }: WebImageProps) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
@@ -26,9 +30,11 @@ export default function WebImage({
       width={width}
       height={height}
       sizes={sizes}
+      srcSet={srcSet}
       loading={priority ? "eager" : "lazy"}
       decoding="async"
       fetchPriority={priority ? "high" : "low"}
+      onError={onError}
     />
   );
 }

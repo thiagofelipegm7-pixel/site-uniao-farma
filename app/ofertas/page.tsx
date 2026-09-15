@@ -34,9 +34,9 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: `${SITE_URL}/ofertas-og.png`,
-        width: 1733,
-        height: 907,
+        url: `${SITE_URL}/ofertas-og-optimized.jpg`,
+        width: 1200,
+        height: 628,
         alt: "Ofertas da União Farma — confirme preço e estoque na unidade",
       },
     ],
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Ofertas da farmácia em Sabará | União Farma",
     description: "Confirme preço e estoque no WhatsApp da loja.",
-    images: [`${SITE_URL}/ofertas-og.png`],
+    images: [`${SITE_URL}/ofertas-og-optimized.jpg`],
   },
 };
 

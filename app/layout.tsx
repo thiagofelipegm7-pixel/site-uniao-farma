@@ -120,9 +120,9 @@ export const metadata: Metadata = {
     siteName: "União Farma",
     images: [
       {
-        url: "/og-instagram.png",
-        width: 1792,
-        height: 909,
+        url: "/og-instagram-optimized.jpg",
+        width: 1200,
+        height: 609,
         alt: "União Farma — cuidado e ofertas pertinho de você em três unidades de Sabará",
       },
     ],
@@ -131,7 +131,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Farmácia em Sabará | União Farma",
     description: SITE_DESCRIPTION,
-    images: ["/og-instagram.png"],
+    images: ["/og-instagram-optimized.jpg"],
   },
   robots: {
     index: true,
@@ -188,6 +188,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         <link rel="preload" href="/uniao-farma-nacoes-loja.webp?v=27" as="image" type="image/webp" />
         <meta charSet="utf-8" />
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.google-analytics.com" />
+        <link rel="preconnect" href="https://connect.facebook.net" />
+        <link rel="dns-prefetch" href="//www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="//www.google-analytics.com" />
+        <link rel="dns-prefetch" href="//connect.facebook.net" />
       </head>
       <body>
         <SkipLink />

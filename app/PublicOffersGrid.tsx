@@ -2,6 +2,7 @@
 
 import { trackEvent } from "./analytics";
 import WebImage from "./WebImage";
+import { responsiveSrcSet } from "./responsive-images";
 import "./encarte.css";
 import "./photos-fix.css";
 import { formatOfferPrice, getPublicOffers, OFFER_CATEGORY_LABELS, type Offer } from "./offers";
@@ -14,7 +15,14 @@ function OfferConsultCard({ offer }: { offer: Offer }) {
     <article className="offer-consult-card">
       <div className="offer-consult-image">
         {offer.image ? (
-          <WebImage src={offer.image} alt={alt} width={480} height={480} sizes="(max-width: 720px) 80vw, 280px" />
+          <WebImage
+            src={offer.image}
+            alt={alt}
+            width={480}
+            height={480}
+            sizes="(max-width: 720px) 80vw, 280px"
+            srcSet={responsiveSrcSet(offer.image, [480, 768])}
+          />
         ) : (
           <span>{offer.placeholderLabel ?? "Oferta"}</span>
         )}
