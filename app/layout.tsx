@@ -5,54 +5,17 @@ import MobileQuickNav from "./MobileQuickNav";
 import SiteFooter from "./SiteFooter";
 import SkipLink from "./SkipLink";
 import WhatsAppFab from "./WhatsAppFab";
-// 1. Tokens e Reset Base
+
+// Sistema de Design Consolidado (Camadas Tailwind 4)
 import "./tokens.css";
 import "./globals.css";
-
-// 2. Layouts e Seções Principais
-import "./mobile-fixes.css";
-import "./neighborhood.css";
-import "./site-footer.css";
-import "./nearest-unit.css";
-import "./visual-polish.css";
-
-// 3. Core Web Vitals (LCP e INP)
-import "./lcp.css";
-import "./inp.css";
-import "./visual-detail.css";
-
-// 4. Tipografia, Viewport e Motion
-import "./type.css";
-import "./viewport.css";
-import "./motion.css";
-import "./refero.css";
-import "./kerning.css";
-import "./type-mobile.css";
-import "./type-format.css";
-
-// 5. Acessibilidade, Tema e Componentes
-import "./skin.css";
-import "./contrast.css";
-import "./pending.css";
-import "./logo-fix.css";
-import "./reviews-section.css";
-import "./mobile-quick-nav.css";
-import "./aqua-override.css";
-import "./units-showcase.css";
-import "./store-presence.css";
-import "./home-reasons.css";
-import "./mobile-opt.css";
+import "./typography.css";
+import "./layout-system.css";
+import "./components.css";
+import "./theme.css";
 import "./a11y.css";
-import "./mobile.css";
+import "./overrides.css";
 
-// 6. Polimento Visual e Ajustes Finais
-import "./audit-fix.css";
-import "./page-concordance.css";
-import "./final-polish.css";
-import "./photos-fix.css";
-import "./score-10.css";
-import "./nav-plain.css";
-import "./footer-contrast.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 import { COMPANY } from "./company";
 

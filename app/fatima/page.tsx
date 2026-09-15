@@ -1,3 +1,10 @@
+/**
+ * Página da unidade Fátima.
+ *
+ * Convenção: cada unidade tem seu próprio arquivo page.tsx para que
+ * `export const metadata` (estático) gere as meta tags SEO corretas no build.
+ * O componente <NeighborhoodPage> é reutilizado — só o `unit` e os metadados mudam.
+ */
 import type { Metadata } from "next";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import NeighborhoodPage from "../NeighborhoodPage";

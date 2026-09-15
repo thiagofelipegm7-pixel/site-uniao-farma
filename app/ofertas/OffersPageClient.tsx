@@ -9,7 +9,6 @@ import { formatOfferPrice, getOfferById, getOffersLastUpdatedDate, type Offer } 
 import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 import "../offers-polish.css";
 import "../offer-alerts.css";
-import "../page-concordance.css";
 
 type FAQ = { q: string; a: string };
 

@@ -1,0 +1,1235 @@
+/* theme.css — Tema, contraste e skins consolidados. */
+
+@layer theme {
+/* --- skin.css --- */
+body {
+  background:
+    radial-gradient(56rem 26rem at 50% -8rem, rgba(20, 143, 138, 0.14), transparent 62%),
+    var(--uf-paper);
+  color: var(--uf-ink);
+}
+
+.site-header,
+.nav {
+  background: var(--uf-paper);
+  color: var(--uf-ink);
+}
+
+.site-header a,
+.nav a,
+.brand strong,
+.brand small,
+.menu-label,
+.menu-links a,
+.menu-button {
+  color: var(--uf-ink);
+}
+
+.menu-icon span {
+  background: var(--uf-ink);
+}
+
+.hero {
+  background:
+    linear-gradient(180deg, rgba(20, 143, 138, 0.1) 0%, transparent 58%);
+}
+
+.hero-copy .eyebrow {
+  color: var(--uf-green);
+}
+
+.hero-copy h1 {
+  max-width: 16ch;
+  color: var(--uf-ink);
+}
+
+.open-now-strip {
+  background: var(--uf-open-live);
+  color: #083a3b;
+}
+
+.preferred-store-banner {
+  background: var(--uf-stone);
+  color: var(--uf-ink);
+}
+
+.direct-unit-photo,
+.direct-unit-mono {
+  display: none !important;
+}
+
+.offer-consult-price {
+  display: block;
+  margin: 0.4em 0 0.3em;
+  padding: 0;
+  background: transparent;
+  color: var(--uf-green);
+}
+
+.offer-consult-price strong,
+.encarte-price,
+.price-large {
+  color: var(--uf-green);
+  background: transparent;
+  padding: 0;
+}
+
+.offer-consult-stamp,
+.selo-consulte,
+.offer-badge {
+  background: var(--uf-offer);
+  color: #ffffff;
+}
+
+.whatsapp-intent-chips button.is-active {
+  background: var(--uf-green);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.direct-unit-actions a:first-child,
+.locate-unit-whatsapp,
+.header-cta,
+.button-whatsapp,
+.offer-consult-units a {
+  background: var(--uf-whatsapp);
+  color: #083a3b;
+  border-color: transparent;
+  font-weight: 800;
+}
+
+.direct-unit-actions a:first-child:hover,
+.locate-unit-whatsapp:hover,
+.header-cta:hover,
+.button-whatsapp:hover,
+.offer-consult-units a:hover {
+  background: #1ebe5d;
+  color: #083a3b;
+}
+
+.header-cta {
+  border-radius: 999px;
+}
+
+.open-status.is-open {
+  background: var(--uf-open-live);
+  color: #083a3b;
+}
+
+.open-status.is-closed {
+  background: #f3d4cc;
+  color: var(--uf-closed);
+}
+
+.nearest-unit-badge {
+  color: var(--uf-green);
+}
+
+.reviews,
+.review-grid {
+  background: var(--uf-stone);
+}
+
+.review-card,
+.reviews article {
+  background: var(--uf-card);
+  box-shadow: inset 0 0 0 1px var(--uf-line);
+  border-radius: var(--r-lg);
+  padding: 1.1em 1.15em 1.2em;
+}
+
+.category-card,
+.categories article {
+  background: var(--uf-stone);
+  border-radius: var(--r-lg);
+}
+
+.uf-footer {
+  background: linear-gradient(180deg, #145a58 0%, #083032 100%);
+}
+
+/* --- contrast.css --- */
+html {
+  color-scheme: light;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+::selection {
+  background: #0b6244;
+  color: #ffffff;
+}
+
+body {
+  color: #10231c;
+  background: #f3faf6;
+}
+
+.scroll-indicator {
+  background: #0b6244;
+}
+
+.skip-link {
+  background: #0b6244;
+  color: #ffffff;
+}
+
+.brand img,
+.nav img[alt*="Uni\u00e3o"],
+.nav img[alt*="logo" i] {
+  filter: none;
+}
+
+a,
+.menu-links a,
+.content-nav a,
+.brand strong {
+  color: #0b6244;
+}
+
+a:visited,
+.menu-links a:visited,
+.content-nav a:visited,
+.uf-footer a:visited {
+  color: #083528;
+}
+
+.uf-footer a:hover,
+.uf-footer a:active {
+  color: #25d366;
+}
+
+.uf-footer a[href*="instagram"],
+.instagram-link,
+.instagram-icon {
+  background: linear-gradient(135deg, #f9ce34 0%, #ee2a7b 50%, #6228d7 100%);
+  color: #ffffff;
+  border-radius: 0.55em;
+}
+
+.brand small,
+.menu-label,
+.menu-button {
+  color: #2a4038;
+}
+
+.hero-copy p,
+.hero-lead,
+.direct-unit-neighborhood,
+.locate-unit-status,
+.direct-unit-links-copy span,
+.unit-map-details p,
+.neighborhood-hero p {
+  color: #2a4038;
+}
+
+.offer-consult-price,
+.offer-consult-price strong,
+.encarte-price,
+.price-large {
+  color: #0b6244;
+}
+
+.direct-unit-actions a:first-child,
+.locate-unit-whatsapp,
+.locate-unit-button,
+.header-cta,
+.button-whatsapp,
+.offer-consult-units a,
+.content-whatsapp-button,
+.offers-primary-button,
+.mobile-quick-nav a.is-primary,
+.cookie-accept,
+.cookie-banner button[type="button"]:not(.cookie-reject):not(.cookie-manage-button),
+.modal-unit-action {
+  background: #1f9e4b;
+  color: #042016;
+  border-color: #1f9e4b;
+}
+
+.direct-unit-actions a:first-child:hover,
+.direct-unit-actions a:first-child:active,
+.locate-unit-whatsapp:hover,
+.locate-unit-whatsapp:active,
+.locate-unit-button:hover,
+.locate-unit-button:active,
+.header-cta:hover,
+.header-cta:active,
+.button-whatsapp:hover,
+.button-whatsapp:active,
+.offer-consult-units a:hover,
+.offer-consult-units a:active,
+.content-whatsapp-button:hover,
+.content-whatsapp-button:active,
+.mobile-quick-nav a.is-primary:active,
+.cookie-accept:hover,
+.cookie-accept:active {
+  background: #178a40;
+  color: #042016;
+}
+
+.whatsapp-intent-chips button {
+  background: #cfe8dc;
+  color: #10231c;
+  border-color: #b7d7c8;
+}
+
+.whatsapp-intent-chips button.is-active {
+  background: #0b6244;
+  color: #ffffff;
+  border-color: #0b6244;
+}
+
+.open-now-strip {
+  background: #0c8a4a;
+  color: #062016;
+}
+
+.open-now-list a {
+  background: rgba(6, 32, 22, 0.12);
+  color: #062016;
+}
+
+.open-now-list a.is-open {
+  background: #1f9e4b;
+  color: #042016;
+}
+
+.open-status.is-hours {
+  background: #e7f6ee;
+  color: #0b6244;
+}
+
+.open-status.is-open {
+  background: #0c8a4a;
+  color: #062016;
+}
+
+.open-status.is-closed {
+  background: #fde8e4;
+  color: #9a2f22;
+}
+
+.offer-consult-card .offer-consult-stamp,
+.offer-consult-card .selo-consulte,
+.offer-consult-card .offer-badge,
+.encarte-page .selo-consulte {
+  background: #c01f16;
+  color: #ffffff;
+}
+
+.direct-unit-link .offer-badge,
+.direct-unit-link .selo-consulte {
+  background: #e7f6ee;
+  color: #0b6244;
+}
+
+.offer-consult-image {
+  background: #d4f0e2;
+}
+
+.uf-footer,
+.uf-footer a,
+.uf-footer p,
+.uf-footer small {
+  color: #f3faf6;
+}
+
+.direct-unit-recipe,
+.mobile-quick-nav a:not(.is-primary) {
+  background: #dcefe6;
+  color: #10231c;
+  border: 1px solid #0b6244;
+}
+
+.maps-link,
+.directions-link,
+a[href*="google.com/maps"],
+a[href*="maps.apple"] {
+  background: #dcefe6;
+  color: #10231c;
+  border: 1px solid #b7d7c8;
+}
+
+.unit-map-details a:not([href*="whatsapp"]),
+.map-view-link {
+  background: transparent;
+  color: #0b6244;
+  border: 0;
+}
+
+.mobile-quick-nav {
+  background: #f3faf6;
+  border-top-color: #b7d7c8;
+}
+
+.menu-links.is-open,
+.content-menu-drawer,
+.unit-selector-modal {
+  background: #f3faf6;
+  color: #10231c;
+}
+
+.modal-backdrop,
+.menu-backdrop,
+.content-menu-backdrop {
+  background: rgba(8, 53, 40, 0.45);
+}
+
+.modal-close {
+  background: #f3faf6;
+  color: #10231c;
+  border-color: #b7d7c8;
+}
+
+.modal-unit-option {
+  background: #ffffff;
+  border-color: #b7d7c8;
+  color: #10231c;
+}
+
+.cookie-banner {
+  background: #f3faf6;
+  color: #10231c;
+  border-color: #b7d7c8;
+}
+
+.cookie-reject,
+.cookie-manage-button {
+  background: #dcefe6;
+  color: #10231c;
+  border-color: #b7d7c8;
+}
+
+.faq-item.is-open,
+.faq-item.is-open .faq-answer {
+  background: #e7f6ee;
+}
+
+.faq-question {
+  color: #10231c;
+}
+
+.category-card,
+.categories article {
+  background: #cfe8dc;
+  color: #10231c;
+}
+
+.category-card .line-icon,
+.categories article .line-icon,
+.categories svg {
+  color: #0b6244;
+  stroke: #0b6244;
+}
+
+.review-card p::before,
+.reviews article p::before {
+  color: #0b6244;
+}
+
+.review-card,
+.reviews article {
+  border-top: 0.2rem solid #0b6244;
+}
+
+.direct-unit-link.is-preferred {
+  box-shadow: inset 0.25rem 0 0 #0b6244;
+  border-color: #0b6244;
+}
+
+.direct-unit-link:hover,
+.direct-unit-link:active,
+.offer-consult-card:hover,
+.offer-consult-card:active,
+.question-card:hover,
+.question-card:active,
+.neighborhood-grid article:hover {
+  box-shadow: inset 0 0 0 2px #7fb89a;
+}
+
+input,
+textarea,
+select,
+.search-input,
+[type="search"],
+[type="text"] {
+  background: #e7f6ee;
+  color: #10231c;
+  border-color: #0b6244;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #3a534a;
+  opacity: 1;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 0.2rem solid #12c25a;
+  outline-offset: 0.1rem;
+  border-color: #0b6244;
+}
+
+.unit-map-frame,
+.leaflet-container {
+  filter: saturate(1.05);
+}
+
+.leaflet-marker-icon {
+  filter: hue-rotate(95deg) saturate(1.4);
+}
+
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large,
+.marker-cluster div {
+  background: #0b6244;
+  color: #ffffff;
+}
+
+.leaflet-bar a,
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  background: #e7f6ee;
+  color: #0b6244;
+  border-color: #b7d7c8;
+}
+
+.leaflet-control-attribution,
+.leaflet-control-attribution a {
+  background: transparent;
+  color: #3a534a;
+}
+
+.leaflet-popup-content-wrapper,
+.leaflet-tooltip {
+  background: #f3faf6;
+  color: #10231c;
+  border: 0;
+  box-shadow: 0 0.6rem 1.4rem rgba(8, 53, 40, 0.18);
+}
+
+.leaflet-popup-tip {
+  background: #f3faf6;
+}
+
+:focus-visible {
+  outline: 0.2rem solid #0b6244;
+  outline-offset: 0.15rem;
+}
+
+@media (hover: none) {
+  .direct-unit-actions a:first-child:active,
+  .header-cta:active,
+  .locate-unit-whatsapp:active,
+  .locate-unit-button:active,
+  .offer-consult-units a:active,
+  .cookie-accept:active {
+    background: #178a40;
+  }
+}
+
+/* --- aqua-override.css --- */
+:root {
+  --uf-ink: #0e7370;
+  --uf-green: #0e7370;
+  --uf-green-hover: #0e7370;
+  --uf-green-dark: #083a3b;
+  --uf-green-deep: #083a3b;
+  --uf-green-bright: #2bbbad;
+  --uf-open: #129a90;
+  --uf-open-live: #2dd4c0;
+  --uf-paper: #f1fbfa;
+  --uf-stone: #d4efeb;
+  --uf-fog: #e4f6f3;
+  --uf-mint: #e4f6f3;
+  --uf-line: #a9d8d3;
+  --uf-line-strong: #6dbbb4;
+  --uf-muted: #3a5554;
+}
+
+html,
+body {
+  background: #f1fbfa;
+}
+
+::selection {
+  background: #0e7370 !important;
+  color: #ffffff !important;
+}
+
+.skip-link,
+.scroll-indicator {
+  background: #0e7370 !important;
+}
+
+a,
+.menu-links a,
+.content-nav a,
+.brand strong,
+.offer-consult-price,
+.offer-consult-price strong,
+.encarte-price,
+.price-large,
+.unit-map-details a:not([href*="whatsapp"]),
+.map-view-link {
+  color: #0e7370;
+}
+
+.content-header-cta,
+.content-nav a.content-header-cta,
+a.content-header-cta {
+  background: #0b5f5c !important;
+  color: #ffffff !important;
+  border: 0 !important;
+}
+
+.content-header-cta span,
+.content-nav a.content-header-cta span {
+  color: #ffffff !important;
+}
+
+.content-header-cta:hover,
+.content-header-cta:active,
+.content-nav a.content-header-cta:hover,
+.content-nav a.content-header-cta:active {
+  background: #083a3b !important;
+  color: #ffffff !important;
+}
+
+#ofertas-whatsapp,
+#receita-whatsapp,
+#unidades-landing {
+  scroll-margin-top: 5.5rem;
+}
+
+.whatsapp-intent-chips button.is-active {
+  background: #0e7370 !important;
+  border-color: #0e7370 !important;
+  color: #ffffff !important;
+}
+
+.open-status.is-hours,
+.faq-item.is-open,
+.faq-item.is-open .faq-answer,
+input,
+textarea,
+select {
+  background: #e4f6f3;
+}
+
+.open-status.is-open,
+.open-now-strip {
+  background: #129a90;
+  color: #083a3b;
+}
+
+.category-card .line-icon,
+.categories article .line-icon,
+.categories svg {
+  color: #0e7370;
+  stroke: #0e7370;
+}
+
+.review-card,
+.reviews article {
+  border-top-color: #0e7370;
+}
+
+.direct-unit-link.is-preferred {
+  box-shadow: inset 0.25rem 0 0 #0e7370;
+  border-color: #0e7370;
+}
+
+input,
+textarea,
+select {
+  border-color: #0e7370;
+  color: #102e2f;
+}
+
+input:focus,
+textarea:focus,
+select:focus,
+:focus-visible {
+  outline-color: #2dd4c0;
+  border-color: #0e7370;
+}
+
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large,
+.marker-cluster div {
+  background: #0e7370;
+  color: #ffffff;
+}
+
+/* --- footer-contrast.css --- */
+.uf-footer {
+  background: #073a38 !important;
+  color: #f4fffc !important;
+}
+
+.uf-footer p,
+.uf-footer a,
+.uf-footer small,
+.uf-footer h2,
+.uf-footer strong,
+.uf-footer span,
+.uf-cnpj-bar,
+.uf-footer-legal-name,
+.uf-footer-col a,
+.uf-footer-col p,
+.uf-footer-col h2,
+.uf-footer-brand p,
+.uf-footer-logo,
+.uf-footer-logo strong,
+.uf-footer-logo small,
+.uf-footer-bottom,
+.uf-footer-bottom p,
+.uf-footer-bottom a {
+  color: #f4fffc !important;
+}
+
+.uf-footer-bottom {
+  border-top-color: rgba(244, 255, 252, 0.28) !important;
+}
+
+.uf-footer-social a {
+  border-color: rgba(244, 255, 252, 0.4) !important;
+  color: #f4fffc !important;
+}
+
+/* --- pending.css --- */
+.skip-link {
+  position: fixed;
+  left: 0.75rem;
+  top: -5rem;
+  z-index: 4000;
+  padding: 0.65rem 0.9rem;
+  border-radius: 0.6rem;
+  background: #0b6244;
+  color: #ffffff;
+  font-weight: 800;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 5.15rem;
+  outline: 2px solid #12c25a;
+  outline-offset: 3px;
+}
+
+.instagram-section {
+  display: none !important;
+}
+
+.section,
+.reviews-section,
+.faq-section,
+.categories-section,
+.story-section,
+.quick-units-section {
+  content-visibility: visible !important;
+  min-height: 0 !important;
+}
+
+.section {
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+
+.section-heading {
+  margin-bottom: 1rem !important;
+}
+
+.section-kicker {
+  margin: 0 0 0.25rem;
+  color: #0b6244;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.section-heading h2 {
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.brand img,
+.uf-footer-logo img {
+  width: 48px !important;
+  height: 48px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  background: #f3f6f4 !important;
+  border-radius: 0.5rem !important;
+}
+
+.site-header {
+  border-bottom: 1px solid #d7e6de;
+  background: rgba(247, 252, 249, 0.92);
+  backdrop-filter: blur(12px);
+}
+
+.hero-copy .eyebrow {
+  display: block !important;
+  margin: 0 0 0.35rem;
+  color: #0b6244;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hero-copy h1 {
+  margin: 0;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+
+.hero-lead {
+  display: block !important;
+  max-width: 32rem;
+  margin: 0.55rem 0 0;
+  color: #3d524a;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.hero-offer-showcase,
+.hero-illustration {
+  background: #eef7f2;
+  border: 1px solid #d5e7dc;
+  box-shadow: none;
+}
+
+.hero-illustration-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.hero-whatsapp {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.hero-whatsapp-label {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #0b6244;
+}
+
+.hero-whatsapp-row {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.hero-whatsapp-btn {
+  display: grid;
+  grid-template-columns: 22px minmax(0, 1fr);
+  align-items: center;
+  justify-content: stretch;
+  gap: 0.65rem;
+  min-height: 50px;
+  padding: 0.7rem 1rem 0.7rem 1.2rem;
+  border-radius: 0.85rem;
+  background: #128c3a;
+  color: #ffffff;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  text-align: left;
+}
+
+.hero-whatsapp-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.hero-whatsapp-btn:hover {
+  background: #0f7a32;
+}
+
+.trust-strip {
+  background: #f7fcf9;
+  border-top: 1px solid #d7e6de;
+  border-bottom: 1px solid #d7e6de;
+  padding: 0.85rem 0;
+}
+
+.trust-strip-grid {
+  background: transparent !important;
+  gap: 0.6rem;
+}
+
+.trust-strip-grid > div {
+  min-height: 0;
+  background: #ffffff;
+  border: 1px solid #d7e6de;
+  border-radius: 0.85rem;
+  padding: 0.7rem 0.65rem;
+}
+
+.trust-strip-grid strong {
+  display: block;
+  color: #0b6244;
+  font-size: 0.88rem;
+}
+
+.trust-strip-grid span {
+  color: #4a5f57;
+  font-size: 0.74rem;
+}
+
+.quick-units-section .section-heading {
+  max-width: 40rem;
+}
+
+.quick-unit-grid {
+  gap: 0.8rem !important;
+}
+
+.quick-unit-card {
+  border: 1px solid #d7e6de !important;
+  border-radius: 1rem !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  padding: 1rem !important;
+}
+
+.quick-unit-card h3 {
+  margin: 0 0 0.2rem;
+  font-size: 1.05rem;
+}
+
+.category-grid {
+  gap: 0.75rem !important;
+}
+
+.category-card {
+  border: 1px solid #d7e6de;
+  border-radius: 1rem;
+  background: #ffffff;
+  padding: 0.95rem !important;
+}
+
+.category-icon-img {
+  width: 22px;
+  height: 22px;
+  margin-bottom: 0.5rem;
+}
+
+.category-link {
+  margin-top: 0.55rem;
+  color: #0b6244;
+  font-weight: 800;
+  font-size: 0.82rem;
+}
+
+.reviews-section {
+  padding-top: 1.25rem !important;
+  padding-bottom: 1.25rem !important;
+  background: #f7fcf9;
+  border-top: 1px solid #d7e6de;
+  border-bottom: 1px solid #d7e6de;
+}
+
+.reviews-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  max-width: 72rem;
+  margin: 0 auto 0.85rem;
+  padding: 0.7rem 0.8rem;
+}
+
+.reviews-section h2 {
+  margin: 0;
+  font-size: 0.98rem;
+  color: #10231c;
+}
+
+.reviews-score {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  color: #10231c;
+  font-weight: 700;
+}
+
+.review-stars {
+  display: inline-flex;
+  gap: 1px;
+}
+
+.reviews-track {
+  display: flex;
+  gap: 0.75rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 0 1rem 0.25rem;
+  scrollbar-width: none;
+}
+
+.reviews-track::-webkit-scrollbar {
+  display: none;
+}
+
+.review-card {
+  flex: 0 0 min(82vw, 300px);
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0.85rem 0.9rem !important;
+  border: 1px solid #d7e6de !important;
+  border-radius: 0.9rem !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  scroll-snap-align: start;
+}
+
+.review-card::before {
+  display: none !important;
+}
+
+.review-person {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.4rem;
+}
+
+.review-avatar {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: #fff;
+  font-weight: 700;
+}
+
+.review-person strong {
+  display: block;
+  font-size: 0.92rem;
+  color: #202124;
+}
+
+.review-person small {
+  display: block;
+  font-size: 0.72rem;
+  color: #80868b;
+}
+
+.review-rating-row {
+  display: flex !important;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 0.35rem !important;
+}
+
+.review-rating-row time {
+  color: #80868b;
+  font-size: 0.75rem;
+}
+
+.review-text {
+  margin: 0 !important;
+  font-size: 0.88rem !important;
+  line-height: 1.4 !important;
+  color: #3c4043 !important;
+}
+
+.reviews-google-link {
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-decoration: none;
+}
+
+.seo-intent-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.9rem;
+}
+
+.seo-intent-grid a {
+  padding: 0.35rem 0.65rem;
+  border: 1px solid #d7e6de;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #0b6244;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.faq-section h2 {
+  margin: 0 0 0.75rem;
+}
+
+.button.button-whatsapp {
+  background: #128c3a !important;
+  color: #ffffff !important;
+  border-color: #128c3a !important;
+}
+
+@media (min-width: 861px) {
+  .hero-inner {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.9fr) !important;
+    grid-template-areas:
+      "copy art"
+      "whatsapp art" !important;
+    align-items: start;
+    gap: 1.25rem 2.75rem !important;
+  }
+
+  .hero-copy {
+    grid-area: copy;
+  }
+
+  .hero-offer-showcase,
+  .hero-illustration {
+    grid-area: art;
+    padding: 0.75rem;
+  }
+
+  .hero-whatsapp {
+    grid-area: whatsapp;
+    max-width: 26rem;
+  }
+
+  .quick-units-section .section-heading,
+  .categories-section .section-heading {
+    text-align: left;
+  }
+}
+
+.cookie-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2300;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-height: 52px;
+  max-height: 72px;
+  padding: 0.45rem 1rem;
+  border-top: 1px solid #d7e6de;
+  background: #f7fcf9;
+}
+
+.cookie-copy {
+  margin: 0;
+  font-size: 0.78rem;
+  color: #2a4038;
+}
+
+.cookie-actions {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.cookie-manage-button {
+  position: fixed;
+  right: 10px;
+  bottom: 16px;
+  z-index: 70;
+  min-height: 40px;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid #d7e6de;
+  background: #f7fcf9;
+  color: #2a4038;
+  font-size: 0.66rem;
+}
+
+@media (max-width: 860px) {
+  .open-now-strip {
+    display: none !important;
+  }
+
+  .hero {
+    padding-top: 4.4rem !important;
+    padding-bottom: 0.85rem !important;
+  }
+
+  .hero-inner {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0.65rem !important;
+  }
+
+  .hero-copy h1 {
+    font-size: 1.58rem;
+  }
+
+  .hero-offer-showcase,
+  .hero-offer-showcase.hero-illustration {
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0.35rem !important;
+    border-radius: 1rem;
+  }
+
+  .hero-whatsapp-btn {
+    min-height: 52px;
+    border-radius: 0.9rem;
+  }
+
+  .section,
+  .quick-units-section,
+  .categories-section,
+  .story-section,
+  .faq-section,
+  .reviews-section {
+    padding-top: 1.05rem !important;
+    padding-bottom: 1.05rem !important;
+  }
+
+  .photo-gallery,
+  .family-illustration-row,
+  .delivery-visual {
+    display: none !important;
+  }
+
+  .trust-strip-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  main#conteudo {
+    padding-bottom: 6.5rem !important;
+  }
+
+  .uf-footer,
+  .site-footer,
+  footer {
+    padding-top: 1.25rem !important;
+    padding-bottom: 6.5rem !important;
+  }
+
+  .cookie-manage-button {
+    bottom: calc(4.5rem + env(safe-area-inset-bottom));
+  }
+}
+}

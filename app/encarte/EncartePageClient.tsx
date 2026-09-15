@@ -9,7 +9,6 @@ import { formatOfferPrice, getOfferById, getOffersLastUpdatedDate, type Offer } 
 import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 import "../offers-polish.css";
 import "../encarte.css";
-import "../page-concordance.css";
 
 export default function EncartePageClient() {
   const [selectedOfferId, setSelectedOfferId] = useState<string | null>(null);

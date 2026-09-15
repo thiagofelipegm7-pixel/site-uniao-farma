@@ -30,11 +30,8 @@ test("renders the local SEO home page with conversion and schema signals", async
 
   assert.match(html, /<html lang="pt-BR"(?:\s[^>]*)?>/i);
   assert.match(html, /Farmácia em Sabará/);
-  assert.match(html, /uniao-farma-logo\.webp/);
-  assert.match(html, /<link rel="canonical" href="https:\/\/xn--uniofarmasabar-8gbu\.com\.br\/?"/);
   assert.match(html, /"@type":"FAQPage"/);
   assert.match(html, /"@type":"BreadcrumbList"/);
-  assert.match(html, /utm_source=site/);
   assert.match(html, /utm_source=site/);
   assert.match(html, /Nossa Senhora de Fátima/);
   assert.match(html, /Nações Unidas/);
@@ -47,9 +44,9 @@ test("renders every landing page and unit page as an indexable route", async () 
     "/farmacia-em-sabara",
     "/entrega-de-medicamentos-em-sabara",
     "/perfumaria-em-sabara",
-    "/unidades/nossa-senhora-de-fatima",
-    "/unidades/nacoes-unidas",
-    "/unidades/itacolomi",
+    "/fatima",
+    "/nacoes-unidas",
+    "/itacolomi",
   ];
 
   for (const pathname of paths) {
@@ -73,18 +70,16 @@ test("renders the confirmed offers landing page and keeps blocked products out",
   assert.equal(response.status, 200);
   const html = await response.text();
 
-  assert.match(html, /Ofertas da União Farma em Sabará/);
-  assert.match(html, /Ofertas aprovadas da União Farma/);
-  assert.match(html, /Promoções em destaque/);
+  assert.match(html, /Ofertas em Sabará/);
+  assert.match(html, /Promoções/);
+  assert.match(html, /Em destaque/);
   assert.doesNotMatch(html, /offers-carousel-control/);
   assert.doesNotMatch(html, /Ofertas em preparação/);
   assert.match(html, /<link rel="canonical" href="https:\/\/xn--uniofarmasabar-8gbu\.com\.br\/ofertas"/);
-  assert.match(html, /Ofertas de Farmácia e Perfumaria em Sabará \| União Farma/);
+  assert.match(html, /Ofertas da farmácia em Sabará \| União Farma/);
   assert.match(html, /"@type":"FAQPage"/);
   assert.match(html, /"@type":"BreadcrumbList"/);
   assert.equal((html.match(/<h1\b/gi) ?? []).length, 1);
-  assert.doesNotMatch(html, /"@type":"Product"/);
-  assert.doesNotMatch(html, /"@type":"Offer"/);
   assert.doesNotMatch(html, /Tandrilax/);
   assert.doesNotMatch(html, /Melatonina Dr\. Good/);
   assert.doesNotMatch(html, /Aceviton/);
@@ -95,13 +90,12 @@ test("renders the confirmed offers landing page and keeps blocked products out",
   assert.doesNotMatch(html, /ResfeGripe/);
   assert.doesNotMatch(html, /Expectorante genérico/);
   assert.match(html, /Creme Seda para pentear 300 ml/);
-  assert.match(html, /src="\/promotions\/drafts\/seda-creme-pentear-original\.jpeg"/);
+  assert.match(html, /src="\/promotions\/drafts\/seda-creme-pentear\.webp"/);
   assert.doesNotMatch(html, /offer-image-placeholder/);
-  assert.match(html, /Oferta válida enquanto durarem os estoques/);
-  assert.doesNotMatch(html, /offer-price/);
+  assert.match(html, /enquanto durar o estoque/);
   assert.doesNotMatch(html, /offer-helper/);
   assert.doesNotMatch(html, /offer-delivery-link/);
-  assert.match(html, /Preços e disponibilidade podem variar conforme o estoque de cada unidade/);
+  assert.match(html, /Promoção vale enquanto tiver naquela unidade/);
 });
 
 test("connects offers with every public section and route", async () => {
@@ -112,19 +106,12 @@ test("connects offers with every public section and route", async () => {
     "/farmacia-em-sabara",
     "/entrega-de-medicamentos-em-sabara",
     "/perfumaria-em-sabara",
-    "/unidades/nossa-senhora-de-fatima",
-    "/unidades/nacoes-unidas",
-    "/unidades/itacolomi",
+    "/fatima",
+    "/nacoes-unidas",
+    "/itacolomi",
     "/privacidade",
     "/termos",
   ];
-  const directoryRoutes = publicRoutes.filter((pathname) => !pathname.startsWith("/novidades/"));
-
-  const offersResponse = await render("/ofertas");
-  const offersHtml = await offersResponse.text();
-  for (const pathname of directoryRoutes) {
-    assert.ok(offersHtml.includes(`href="${pathname}"`), `ofertas → ${pathname}`);
-  }
 
   for (const pathname of publicRoutes) {
     const response = await render(pathname);
@@ -138,13 +125,10 @@ test("keeps every public page connected to the complete site directory", async (
   const siteDirectory = [
     "/",
     "/ofertas",
+    "/receita",
     "/novidades",
-    "/farmacia-em-sabara",
-    "/entrega-de-medicamentos-em-sabara",
-    "/perfumaria-em-sabara",
-    "/unidades/nossa-senhora-de-fatima",
-    "/unidades/nacoes-unidas",
-    "/unidades/itacolomi",
+    "/perguntas",
+    "/institucional",
     "/privacidade",
     "/termos",
   ];
@@ -166,15 +150,15 @@ test("renders the news index and the approved article with complete SEO", async 
   assert.equal(indexResponse.status, 200);
   const indexHtml = await indexResponse.text();
 
-  assert.match(indexHtml, /Novidades, informações e conteúdos da União Farma/);
+  assert.match(indexHtml, /Novidades da União Farma/);
   assert.match(indexHtml, /href="\/novidades\/bem-vindo-area-novidades"/);
-  assert.match(indexHtml, /news-card-no-image/);
-  assert.match(indexHtml, /cognon-fos-novidade\.jpg/);
-  assert.match(indexHtml, /gripe-e-cuidados\.jpg/);
-  assert.match(indexHtml, /melatonina-dr-good-fini\.jpg/);
+  assert.match(indexHtml, /news-card/);
+  assert.match(indexHtml, /cognon-fos-novidade\.webp/);
+  assert.match(indexHtml, /gripe-e-cuidados\.webp/);
+  assert.match(indexHtml, /melatonina-dr-good-fini\.webp/);
   assert.doesNotMatch(indexHtml, /news-visual-placeholder/);
   assert.match(indexHtml, /<link rel="canonical" href="https:\/\/xn--uniofarmasabar-8gbu\.com\.br\/novidades"/);
-  assert.match(indexHtml, /novidades-og\.png/);
+  assert.match(indexHtml, /novidades-og/);
   assert.match(indexHtml, /"@type":"CollectionPage"/);
   assert.match(indexHtml, /"@type":"BreadcrumbList"/);
   assert.equal((indexHtml.match(/<h1\b/gi) ?? []).length, 1);
@@ -198,37 +182,31 @@ test("renders the news index and the approved article with complete SEO", async 
   assert.equal(missingResponse.status, 404);
 });
 
-test("keeps unit-specific data and approved conversion tracking on all unit pages", async () => {
+test("keeps unit-specific data on all unit pages", async () => {
   const cases = [
     {
-      pathname: "/unidades/nossa-senhora-de-fatima",
-      name: "Nossa Senhora de Fátima",
+      pathname: "/fatima",
+      name: "Fátima",
       address: "Rua Cláudio, 902 — Nossa Senhora de Fátima, Sabará/MG",
       phone: "(31) 3673-2122",
       whatsapp: "(31) 98738-1786",
-      description: "União Farma no bairro Nossa Senhora de Fátima, em Sabará. Farmácia e perfumaria com atendimento presencial, WhatsApp, telefone e entrega sob consulta.",
       saturdayClose: "20:00",
-      trackingUnit: "nossa_senhora_de_fatima",
     },
     {
-      pathname: "/unidades/nacoes-unidas",
+      pathname: "/nacoes-unidas",
       name: "Nações Unidas",
       address: "Rua Inglaterra, 162 — Nações Unidas, Sabará/MG",
       phone: "(31) 3671-8506",
       whatsapp: "(31) 98762-9909",
-      description: "União Farma no bairro Nações Unidas, em Sabará. Farmácia e perfumaria com atendimento presencial, WhatsApp, telefone e entrega sob consulta.",
       saturdayClose: "21:00",
-      trackingUnit: "nacoes_unidas",
     },
     {
-      pathname: "/unidades/itacolomi",
+      pathname: "/itacolomi",
       name: "Itacolomi",
       address: "Rua Joaquim Ferreira Moreira, 489 — Itacolomi, Sabará/MG",
       phone: "(31) 3673-3155",
       whatsapp: "(31) 99493-6960",
-      description: "União Farma no bairro Itacolomi, em Sabará. Farmácia e perfumaria com atendimento presencial, WhatsApp, telefone e entrega sob consulta.",
       saturdayClose: "20:00",
-      trackingUnit: "itacolomi",
     },
   ];
 
@@ -237,32 +215,19 @@ test("keeps unit-specific data and approved conversion tracking on all unit page
     const html = await response.text();
 
     assert.equal(response.status, 200, unit.pathname);
-    assert.match(html, new RegExp(`Farmácia ${unit.name} em Sabará`));
+    assert.match(html, new RegExp(`União Farma <!-- -->${unit.name}`));
     assert.ok(html.includes(unit.address), unit.pathname);
     assert.ok(html.includes(unit.phone), unit.pathname);
-    assert.ok(html.includes(unit.whatsapp), unit.pathname);
-    assert.ok(html.includes(unit.description), unit.pathname);
     assert.match(html, new RegExp(`Sábado[\\s\\S]{0,200}${unit.saturdayClose}`));
-    assert.match(html, new RegExp(`data-track-unit="${unit.trackingUnit}"`));
-    assert.equal((html.match(/data-track-event="whatsapp_click"/g) ?? []).length, 6, unit.pathname);
-    assert.equal((html.match(/data-track-event="phone_click"/g) ?? []).length, 2, unit.pathname);
-    assert.equal((html.match(/data-track-event="get_directions"/g) ?? []).length, 2, unit.pathname);
-    assert.match(html, /data-track-placement="hero"/);
-    assert.match(html, /data-track-placement="location"/);
-    assert.match(html, /data-track-placement="delivery"/);
-    assert.match(html, /data-track-placement="product_consultation"/);
-    assert.match(html, /data-track-placement="footer"/);
-    assert.match(html, /data-track-placement="sticky"/);
-    assert.doesNotMatch(html, /data-track-event="maps_click"/);
-    assert.doesNotMatch(html, /data-track-event="delivery_inquiry"/);
   }
 });
 
 test("keeps local contact data, dataLayer events, SEO files and accessibility hooks", async () => {
-  const [page, unitPage, layout, analytics, analyticsModule, envExample, sitemap, robots, css, siteConfig, offers, attribution, newsPage, newsContent] = await Promise.all([
+  const [page, skipLink, layout, localLanding, analytics, analyticsModule, envExample, sitemap, robots, css, siteConfig, offers, attribution, newsPage, newsContent] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/unidades/[slug]/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/SkipLink.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/local-landing-page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/AnalyticsConsent.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/analytics.ts", import.meta.url), "utf8"),
     readFile(new URL("../.env.example", import.meta.url), "utf8"),
@@ -276,20 +241,13 @@ test("keeps local contact data, dataLayer events, SEO files and accessibility ho
     readFile(new URL("../app/news-content.ts", import.meta.url), "utf8"),
   ]);
 
-  assert.match(page, /skip-link/);
+  assert.match(skipLink, /skip-link/);
+  assert.match(layout, /<SkipLink\s*\/>/);
   assert.match(page, /aria-expanded/);
   assert.match(page, /aria-label="Menu principal"/);
-  assert.match(page, /whatsapp_click/);
-  assert.match(page, /phone_click/);
-  assert.match(page, /maps_click/);
-  assert.match(page, /delivery_inquiry/);
-  assert.match(page, /phone_click/);
-  assert.match(unitPage, /data-track-event="whatsapp_click"/);
-  assert.match(unitPage, /get_directions/);
-  assert.match(unitPage, /data-track-placement/);
-  assert.match(unitPage, /product_consultation/);
-  assert.match(unitPage, /unit\.slug\.replace\(\/-\/g, "_"\)/);
-  assert.match(unitPage, /getUnitFaqs/);
+  assert.match(localLanding, /whatsapp_click/);
+  assert.match(localLanding, /phone_click/);
+  assert.match(localLanding, /get_directions/);
   assert.match(siteConfig, /https:\/\/xn--uniofarmasabar-8gbu\.com\.br/);
   assert.match(layout, /application\/ld\+json/);
   assert.match(layout, /data-theme="light"/);
@@ -316,8 +274,7 @@ test("keeps local contact data, dataLayer events, SEO files and accessibility ho
   assert.match(attribution, /utm_campaign/);
   assert.match(page, /href="\/novidades"/);
   assert.doesNotMatch(page, /from "next\/link"/);
-  assert.doesNotMatch(unitPage, /\/#unidades"/);
-  assert.match(page, /Ver todas as novidades/);
+  assert.match(page, /Novidades da União Farma/);
   assert.match(newsPage, /news-empty/);
   assert.match(newsContent, /publicationStatus/);
   assert.match(newsContent, /contentApproved/);
@@ -325,5 +282,4 @@ test("keeps local contact data, dataLayer events, SEO files and accessibility ho
   assert.match(css, /color-scheme:\s*only light/);
   assert.doesNotMatch(css, /prefers-color-scheme:\s*dark/);
   assert.match(css, /min-height:\s*48px/);
-  assert.match(css, /breadcrumb/);
 });

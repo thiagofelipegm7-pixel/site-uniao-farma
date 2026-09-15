@@ -4,7 +4,6 @@ import { trackEvent } from "./analytics";
 import WebImage from "./WebImage";
 import { responsiveSrcSet } from "./responsive-images";
 import "./encarte.css";
-import "./photos-fix.css";
 import { formatOfferPrice, getPublicOffers, OFFER_CATEGORY_LABELS, type Offer } from "./offers";
 
 export type PublicOffersGridProps = {
