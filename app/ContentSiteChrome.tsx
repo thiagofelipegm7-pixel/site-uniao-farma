@@ -1,6 +1,6 @@
 "use client";
 
-/* eslint-disable @next/next/no-html-link-for-pages */
+/* eslint-disable @next/next/no-html-link-for-pages, @next/next/no-img-element */
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";

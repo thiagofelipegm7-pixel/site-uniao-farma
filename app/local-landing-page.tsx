@@ -1,4 +1,4 @@
-/* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
+/* eslint-disable @next/next/no-html-link-for-pages, @next/next/no-img-element -- Native links and static icons avoid runtime failures. */
 import { buildWhatsAppUrl, SITE_URL, UNITS, type Unit } from "./site-config";
 import DirectUnitLinks from "./DirectUnitLinks";
 import type { FaqItem } from "./seo-content";
@@ -68,6 +68,7 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
     name: config.title,
     url: pageUrl,
     faqs: config.faqs,
+    units: UNITS,
     breadcrumbs: [
       { name: "Início", url: `${SITE_URL}/` },
       { name: config.heading, url: pageUrl },

@@ -48,11 +48,15 @@ export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}${PUBLIC
     telephone: `+${unit.phoneLink.replace("tel:+", "")}`,
     image: `${SITE_URL}/uniao-farma-logo.webp`,
     taxID: COMPANY.cnpj,
+    priceRange: "$$",
+    currenciesAccepted: "BRL",
+    paymentAccepted: "Cash, Credit Card, Debit Card, Pix, ECX Card",
     address: {
       "@type": "PostalAddress",
-      streetAddress: unit.address.split(" — ")[0],
+      streetAddress: unit.street || unit.address.split(" — ")[0],
       addressLocality: "Sabará",
       addressRegion: "MG",
+      postalCode: unit.cep,
       addressCountry: "BR",
       addressNeighborhood: unit.neighborhood,
     },
@@ -67,7 +71,16 @@ export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}${PUBLIC
       : {}),
     hasMap: unit.map,
     openingHoursSpecification: getOpeningHoursSpecification(unit),
-    areaServed: `Entrega sob consulta no bairro ${unit.neighborhood} e em Sabará. A loja confirma se atende o endereço.`,
+    areaServed: [
+      {
+        "@type": "City",
+        name: "Sabará",
+      },
+      {
+        "@type": "AdministrativeArea",
+        name: unit.neighborhood,
+      },
+    ],
     contactPoint: {
       "@type": "ContactPoint",
       telephone: `+${unit.whatsappDigits}`,

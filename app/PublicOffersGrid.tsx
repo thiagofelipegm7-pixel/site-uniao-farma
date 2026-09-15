@@ -6,18 +6,50 @@ import "./encarte.css";
 import "./photos-fix.css";
 import { formatOfferPrice, getPublicOffers, OFFER_CATEGORY_LABELS, type Offer } from "./offers";
 
-function OfferConsultCard({ offer }: { offer: Offer }) {
+export type PublicOffersGridProps = {
+  selectedOfferId?: string | null;
+  onSelectOffer?: (offer: Offer) => void;
+  actionSource?: string;
+};
+
+function OfferConsultCard({
+  offer,
+  isSelected,
+  onSelect,
+  actionSource = "encarte_grid",
+}: {
+  offer: Offer;
+  isSelected?: boolean;
+  onSelect?: (offer: Offer) => void;
+  actionSource?: string;
+}) {
   const price = offer.currentPrice !== null ? formatOfferPrice(offer.currentPrice) : "preço sob consulta";
   const alt = `${offer.name} em oferta na União Farma. ${price}, enquanto durar o estoque.`;
 
+  const handleClick = () => {
+    try {
+      sessionStorage.setItem("uf_selected_offer", offer.id);
+    } catch {
+      /* ignore */
+    }
+    trackEvent("offer_choose_store", {
+      offer_id: offer.id,
+      source: actionSource,
+    });
+    if (onSelect) {
+      onSelect(offer);
+    }
+  };
+
   return (
-    <article className="offer-consult-card">
+    <article className={`offer-consult-card${isSelected ? " is-selected" : ""}`}>
       <div className="offer-consult-image">
         {offer.image ? (
           <WebImage src={offer.image} alt={alt} width={480} height={480} sizes="(max-width: 720px) 80vw, 280px" />
         ) : (
           <span>{offer.placeholderLabel ?? "Oferta"}</span>
         )}
+        {isSelected ? <span className="offer-consult-selected-tag">Selecionado</span> : null}
       </div>
       <div className="offer-consult-body">
         <p className="offer-consult-brand">
@@ -31,29 +63,23 @@ function OfferConsultCard({ offer }: { offer: Offer }) {
           </p>
         ) : null}
         <a
-          className="offer-consult-choose"
+          className={`offer-consult-choose${isSelected ? " is-active" : ""}`}
           href="#ofertas-whatsapp"
-          aria-label={`Escolher loja para consultar ${offer.name} por ${price}`}
-          onClick={() => {
-            try {
-              sessionStorage.setItem("uf_selected_offer", offer.id);
-            } catch {
-              /* ignore */
-            }
-            trackEvent("offer_choose_store", {
-              offer_id: offer.id,
-              source: "encarte_grid",
-            });
-          }}
+          aria-label={isSelected ? `${offer.name} selecionado. Escolha a loja abaixo` : `Escolher loja para pedir ${offer.name} por ${price}`}
+          onClick={handleClick}
         >
-          Escolher loja
+          {isSelected ? "Loja selecionada abaixo ↓" : "Pedir no WhatsApp"}
         </a>
       </div>
     </article>
   );
 }
 
-export default function PublicOffersGrid() {
+export default function PublicOffersGrid({
+  selectedOfferId,
+  onSelectOffer,
+  actionSource = "encarte_grid",
+}: PublicOffersGridProps = {}) {
   const offers = getPublicOffers();
 
   if (offers.length === 0) {
@@ -65,8 +91,15 @@ export default function PublicOffersGrid() {
   return (
     <div className="offer-consult-grid" aria-label="Ofertas em destaque">
       {offers.map((offer) => (
-        <OfferConsultCard key={offer.id} offer={offer} />
+        <OfferConsultCard
+          key={offer.id}
+          offer={offer}
+          isSelected={selectedOfferId === offer.id}
+          onSelect={onSelectOffer}
+          actionSource={actionSource}
+        />
       ))}
     </div>
   );
 }
+

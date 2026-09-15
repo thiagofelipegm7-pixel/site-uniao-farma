@@ -3,6 +3,7 @@ import UnitStatusBadge from "./UnitStatusBadge";
 import WebImage from "./WebImage";
 import { buildWhatsAppUrl, SITE_URL, type Unit } from "./site-config";
 import { getPageStructuredData } from "./structured-data";
+import { getUnitFaqs } from "./seo-content";
 import { UNIT_PHOTOS } from "./unit-photos";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
 
@@ -24,10 +25,12 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
   const delivery = WHATSAPP_MESSAGES.delivery.replaceAll("{unidade}", unit.shortName);
   const recipe = WHATSAPP_MESSAGES.recipe.replaceAll("{unidade}", unit.shortName);
   const pageUrl = `${SITE_URL}${PAGE_HREF[unit.id]}`;
+  const faqs = getUnitFaqs(unit);
   const structuredData = getPageStructuredData({
     name: `Farmácia ${unit.shortName} em Sabará`,
     url: pageUrl,
     unit,
+    faqs,
     breadcrumbs: [
       { name: "Início", url: `${SITE_URL}/` },
       { name: unit.shortName, url: pageUrl },
@@ -82,6 +85,18 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
       <section className="section-inner">
         <h2>Mapa interativo</h2>
         <InteractiveUnitMap initialUnitId={unit.id} />
+      </section>
+
+      <section className="section-inner neighborhood-faqs" aria-labelledby="unit-faq-heading">
+        <h2 id="unit-faq-heading">Dúvidas sobre a farmácia {unit.shortName}</h2>
+        <div className="unit-faq-list">
+          {faqs.map((faq) => (
+            <details key={faq.q} className="unit-faq-item">
+              <summary>{faq.q}</summary>
+              <p>{faq.a}</p>
+            </details>
+          ))}
+        </div>
       </section>
     </div>
   );

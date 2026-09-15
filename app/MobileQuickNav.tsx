@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element -- Navigation SVGs */
+
 import { usePathname } from "next/navigation";
 
 const ITEMS = [

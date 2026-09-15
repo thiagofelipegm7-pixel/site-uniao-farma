@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element -- SVGs and static icons */
+
 import { useEffect, useState, type ReactNode } from "react";
 import { trackEvent } from "./analytics";
 import { buildWhatsAppUrl, UNITS } from "./site-config";

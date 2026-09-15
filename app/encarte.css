@@ -118,12 +118,35 @@
   font-size: 12px;
 }
 
+.offer-consult-choose {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  margin-top: auto;
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: #128c3a;
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 800;
+  text-decoration: none;
+  text-align: center;
+  transition: background 0.15s ease;
+}
+
+.offer-consult-choose:hover,
+.offer-consult-choose:focus-visible {
+  background: #0e722f;
+}
+
 .offer-consult-units {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 6px;
   margin-top: auto;
 }
+
 
 .offer-consult-units a {
   display: inline-flex;

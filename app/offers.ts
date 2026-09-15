@@ -514,3 +514,21 @@ export function canUseInAds(offer: Offer, now = new Date()): AdsDecision {
 export function formatOfferPrice(value: number): string {
   return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value);
 }
+
+export function getOfferById(id: string): Offer | undefined {
+  return OFFERS.find((offer) => offer.id === id);
+}
+
+export function getOffersLastUpdatedDate(offers = getPublicOffers()): string {
+  if (offers.length === 0) return "";
+  const dates = offers.map((o) => o.updatedAt).filter(Boolean).sort().reverse();
+  const latest = dates[0];
+  if (!latest) return "";
+  const parts = latest.split("-");
+  if (parts.length === 3) {
+    const [year, month, day] = parts;
+    return `${day}/${month}/${year}`;
+  }
+  return latest;
+}
+

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import OffersPageClient from "./OffersPageClient";
+import { getPublicOffers } from "../offers";
 import { SITE_URL } from "../site-config";
 
 const OFFERS_FAQS = [
@@ -49,38 +50,67 @@ export const metadata: Metadata = {
   },
 };
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": `${SITE_URL}/ofertas#webpage`,
-      url: `${SITE_URL}/ofertas`,
-      name: "Ofertas da farmácia em Sabará | União Farma",
-      description:
-        "Promoções da União Farma em Sabará. Confirme preço e estoque no WhatsApp da loja.",
-      isPartOf: { "@id": `${SITE_URL}/#website` },
-      inLanguage: "pt-BR",
-    },
-    {
-      "@type": "BreadcrumbList",
-      itemListElement: [
-        { "@type": "ListItem", position: 1, name: "Início", item: `${SITE_URL}/` },
-        { "@type": "ListItem", position: 2, name: "Ofertas", item: `${SITE_URL}/ofertas` },
-      ],
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: OFFERS_FAQS.map((faq) => ({
-        "@type": "Question",
-        name: faq.q,
-        acceptedAnswer: { "@type": "Answer", text: faq.a },
-      })),
-    },
-  ],
-};
-
 export default function OffersPage() {
+  const publicOffers = getPublicOffers();
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": `${SITE_URL}/ofertas#webpage`,
+        url: `${SITE_URL}/ofertas`,
+        name: "Ofertas da farmácia em Sabará | União Farma",
+        description:
+          "Promoções da União Farma em Sabará. Confirme preço e estoque no WhatsApp da loja.",
+        isPartOf: { "@id": `${SITE_URL}/#website` },
+        inLanguage: "pt-BR",
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Início", item: `${SITE_URL}/` },
+          { "@type": "ListItem", position: 2, name: "Ofertas", item: `${SITE_URL}/ofertas` },
+        ],
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: OFFERS_FAQS.map((faq) => ({
+          "@type": "Question",
+          name: faq.q,
+          acceptedAnswer: { "@type": "Answer", text: faq.a },
+        })),
+      },
+      {
+        "@type": "ItemList",
+        itemListElement: publicOffers.map((offer, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "Product",
+            name: offer.name,
+            ...(offer.brand ? { brand: { "@type": "Brand", name: offer.brand } } : {}),
+            ...(offer.image ? { image: `${SITE_URL}${offer.image}` } : {}),
+            ...(offer.currentPrice !== null
+              ? {
+                  offers: {
+                    "@type": "Offer",
+                    price: offer.currentPrice,
+                    priceCurrency: "BRL",
+                    availability: "https://schema.org/InStock",
+                    seller: {
+                      "@type": "Pharmacy",
+                      name: "Drogaria União Farma",
+                    },
+                  },
+                }
+              : {}),
+          },
+        })),
+      },
+    ],
+  };
+
   return (
     <>
       <script
@@ -96,3 +126,4 @@ export default function OffersPage() {
     </>
   );
 }
+

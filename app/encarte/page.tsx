@@ -1,51 +1,50 @@
 import type { Metadata } from "next";
-import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
-import PublicOffersGrid from "../PublicOffersGrid";
-import { INSTAGRAM_URL, SITE_URL, UNITS, buildWhatsAppUrl } from "../site-config";
-import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
+import EncartePageClient from "./EncartePageClient";
+import { SITE_URL } from "../site-config";
 
 export const metadata: Metadata = {
   title: { absolute: "Encarte da semana | União Farma Sabará" },
-  description: "Ofertas da semana da União Farma. Escolha a loja e peça no WhatsApp.",
+  description: "Ofertas da semana da União Farma em Sabará. Escolha a loja e peça no WhatsApp com confirmação de estoque.",
   alternates: { canonical: `${SITE_URL}/encarte` },
+  openGraph: {
+    title: "Encarte da semana | União Farma Sabará",
+    description: "Ofertas da semana no Instagram e no site da União Farma. Peça direto no WhatsApp da sua unidade.",
+    url: `${SITE_URL}/encarte`,
+    type: "website",
+  },
+};
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${SITE_URL}/encarte#webpage`,
+      url: `${SITE_URL}/encarte`,
+      name: "Encarte da semana | União Farma Sabará",
+      description: "Ofertas da semana da União Farma. Escolha a loja e peça no WhatsApp.",
+      isPartOf: { "@id": `${SITE_URL}/#website` },
+      inLanguage: "pt-BR",
+    },
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Início", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Encarte", item: `${SITE_URL}/encarte` },
+      ],
+    },
+  ],
 };
 
 export default function FlyerPage() {
   return (
     <>
-      <ContentSiteHeader activePath="/ofertas" />
-      <div className="encarte-page">
-        <section className="section-inner">
-          <p className="eyebrow">Encarte da semana</p>
-          <h1>Ofertas no Instagram e no site, no mesmo dia</h1>
-          <p>Quem vê o post cai na loja certa. Sem telefone único.</p>
-          <div className="encarte-unit-row">
-            {UNITS.map((unit) => (
-              <a
-                key={unit.id}
-                className="button button-whatsapp"
-                href={buildWhatsAppUrl(unit, WHATSAPP_MESSAGES.product.replaceAll("{unidade}", unit.shortName), {
-                  campaign: "instagram_encarte",
-                  content: unit.id,
-                })}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Pedir em {unit.id === "fatima" ? "Fátima" : unit.id === "nacoes" ? "Nações" : "Itacolomi"}
-              </a>
-            ))}
-          </div>
-          <p>
-            <a className="button button-call" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
-              Ver no Instagram
-            </a>
-          </p>
-        </section>
-        <section className="section-inner" style={{ marginTop: 24 }}>
-          <PublicOffersGrid />
-        </section>
-      </div>
-      <ContentSiteFooter />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <EncartePageClient />
     </>
   );
 }
+

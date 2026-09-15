@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element -- Dynamic JPG/WebP error fallback */
+
 import { useState } from "react";
 import { STORE_PHOTOS, type StorePhoto } from "./store-photos";
 

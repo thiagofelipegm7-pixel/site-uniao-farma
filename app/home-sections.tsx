@@ -1,5 +1,7 @@
 "use client";
 
+/* eslint-disable @next/next/no-img-element -- Category SVGs */
+
 import { categories, type SelectorIntent } from "./home-chrome";
 import HomeReasons from "./HomeReasons";
 import { HomeMore } from "./home-more";

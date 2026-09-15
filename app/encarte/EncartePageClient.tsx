@@ -3,22 +3,15 @@
 import { useEffect, useState } from "react";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import DirectUnitLinks from "../DirectUnitLinks";
-import OfferAlerts from "../OfferAlerts";
 import PublicOffersGrid from "../PublicOffersGrid";
+import { INSTAGRAM_URL, UNITS, buildWhatsAppUrl } from "../site-config";
 import { formatOfferPrice, getOfferById, getOffersLastUpdatedDate, type Offer } from "../offers";
 import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 import "../offers-polish.css";
-import "../offer-alerts.css";
+import "../encarte.css";
 import "../page-concordance.css";
 
-type FAQ = { q: string; a: string };
-
-export default function OffersPageClient({
-  faqs,
-}: {
-  faqs: FAQ[];
-  showReviewPanel: boolean;
-}) {
+export default function EncartePageClient() {
   const [selectedOfferId, setSelectedOfferId] = useState<string | null>(null);
   const freshnessDate = getOffersLastUpdatedDate();
 
@@ -38,7 +31,7 @@ export default function OffersPageClient({
   const selectedOffer = selectedOfferId ? getOfferById(selectedOfferId) : null;
 
   const whatsappMessage = selectedOffer
-    ? `Oi, União Farma {unidade}! Vi no site a oferta de ${selectedOffer.name}${selectedOffer.currentPrice !== null ? ` por ${formatOfferPrice(selectedOffer.currentPrice)}` : ""}. Tem disponível hoje?`
+    ? `Oi, União Farma {unidade}! Vi no encarte do site a oferta de ${selectedOffer.name}${selectedOffer.currentPrice !== null ? ` por ${formatOfferPrice(selectedOffer.currentPrice)}` : ""}. Tem disponível hoje?`
     : WHATSAPP_MESSAGES.offer;
 
   const handleSelectOffer = (offer: Offer) => {
@@ -62,46 +55,59 @@ export default function OffersPageClient({
     <>
       <ContentSiteHeader activePath="/ofertas" />
 
-      <div className="offers-page">
-        <section className="hero hero-home offers-hero" aria-labelledby="offers-title">
-          <div className="hero-inner">
-            <div className="hero-copy">
-              <p className="eyebrow">Ofertas da semana</p>
-              <h1 id="offers-title">Ofertas em Sabará</h1>
-              <p className="hero-lead">
-                Escolha o produto e depois a loja. A equipe confirma se tem hoje.
-              </p>
-              <p className="offers-freshness">
-                {freshnessDate
-                  ? `Encarte conferido em ${freshnessDate}. Vale enquanto durar o estoque em cada loja.`
-                  : "Ofertas válidas enquanto durar o estoque em cada loja."}
-              </p>
-              <OfferAlerts showButton />
-            </div>
+      <div className="encarte-page">
+        <section className="section-inner">
+          <p className="eyebrow">Encarte da semana</p>
+          <h1>Ofertas no Instagram e no site, no mesmo dia</h1>
+          <p>Quem vê o post cai na loja certa. Sem telefone único.</p>
+          <div className="encarte-unit-row">
+            {UNITS.map((unit) => (
+              <a
+                key={unit.id}
+                className="button button-whatsapp"
+                href={buildWhatsAppUrl(unit, WHATSAPP_MESSAGES.product.replaceAll("{unidade}", unit.shortName), {
+                  campaign: "instagram_encarte",
+                  content: unit.id,
+                })}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Pedir em {unit.id === "fatima" ? "Fátima" : unit.id === "nacoes" ? "Nações" : "Itacolomi"}
+              </a>
+            ))}
           </div>
+          <p>
+            <a className="button button-call" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
+              Ver no Instagram
+            </a>
+          </p>
+          {freshnessDate ? (
+            <p className="offers-freshness" style={{ marginTop: 12 }}>
+              Encarte conferido em {freshnessDate}. Vale enquanto durar o estoque em cada loja.
+            </p>
+          ) : null}
         </section>
 
-        <section className="section offers-list-section" id="lista-ofertas" aria-labelledby="offers-list-title">
-          <div className="section-inner">
-            <p className="section-kicker">Promoções</p>
-            <h2 id="offers-list-title">Em destaque</h2>
-            <PublicOffersGrid
-              selectedOfferId={selectedOfferId}
-              onSelectOffer={handleSelectOffer}
-              actionSource="ofertas_page"
-            />
-          </div>
+        <section className="section-inner" style={{ marginTop: 24 }}>
+          <p className="section-kicker">Promoções ativas</p>
+          <h2 style={{ margin: "0 0 16px", color: "#142924", fontSize: "1.4rem" }}>Produtos do encarte</h2>
+          <PublicOffersGrid
+            selectedOfferId={selectedOfferId}
+            onSelectOffer={handleSelectOffer}
+            actionSource="encarte_page"
+          />
         </section>
 
         <section
           className={`section offers-whatsapp-section${selectedOffer ? " has-selected-offer" : ""}`}
           id="ofertas-whatsapp"
-          aria-labelledby="ofertas-whatsapp-title"
+          aria-labelledby="encarte-whatsapp-title"
+          style={{ marginTop: 36 }}
         >
           <div className="section-inner">
-            <p className="section-kicker">WhatsApp da loja</p>
-            <h2 id="ofertas-whatsapp-title">
-              {selectedOffer ? `Pedir ${selectedOffer.name} no WhatsApp` : "Escolha a unidade"}
+            <p className="section-kicker">WhatsApp direto</p>
+            <h2 id="encarte-whatsapp-title">
+              {selectedOffer ? `Pedir ${selectedOffer.name} no WhatsApp` : "Escolha a unidade para pedir"}
             </h2>
             {selectedOffer ? (
               <div className="selected-offer-banner" role="status" aria-live="polite">
@@ -126,22 +132,8 @@ export default function OffersPageClient({
               compact
               message={whatsappMessage}
               intent="offer"
-              source="ofertas_page"
+              source="encarte_page"
             />
-          </div>
-        </section>
-
-        <section className="section offers-faq" aria-labelledby="offers-faq-title">
-          <div className="section-inner offers-faq-inner">
-            <h2 id="offers-faq-title">Antes de chamar</h2>
-            <div>
-              {faqs.map((faq) => (
-                <details key={faq.q} className="offers-faq-item">
-                  <summary>{faq.q}</summary>
-                  <p>{faq.a}</p>
-                </details>
-              ))}
-            </div>
           </div>
         </section>
       </div>
@@ -150,4 +142,3 @@ export default function OffersPageClient({
     </>
   );
 }
-
