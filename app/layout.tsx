@@ -40,6 +40,7 @@ import "./page-concordance.css";
 import "./final-polish.css";
 import "./photos-fix.css";
 import "./score-10.css";
+import "./nav-plain.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 import { COMPANY } from "./company";
 
@@ -173,6 +174,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="pt-BR" data-theme="light" className={`${poppins.className} ${fraunces.variable}`}>
       <head>
         <link rel="preload" href="/uniao-farma-nacoes-loja.webp?v=27" as="image" type="image/webp" />
+        <meta charSet="utf-8" />
       </head>
       <body>
         <SkipLink />
