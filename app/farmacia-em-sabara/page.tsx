@@ -27,8 +27,8 @@ export const metadata: Metadata = {
   title: { absolute: config.title },
   description: config.description,
   alternates: { canonical: `${SITE_URL}/${config.slug}` },
-  openGraph: { title: config.title, description: config.description, url: `${SITE_URL}/${config.slug}`, type: "website", images: ["/og.png"] },
-  twitter: { card: "summary_large_image", title: config.title, description: config.description, images: ["/og.png"] },
+  openGraph: { title: config.title, description: config.description, url: `${SITE_URL}/${config.slug}`, type: "website", images: ["/og-optimized.jpg"] },
+  twitter: { card: "summary_large_image", title: config.title, description: config.description, images: ["/og-optimized.jpg"] },
 };
 
 export default function FarmaciaEmSabaraPage() {

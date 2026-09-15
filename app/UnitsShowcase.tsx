@@ -6,6 +6,7 @@ import { trackWhatsAppClick } from "./metrics";
 import { readPreferredUnitId, sortUnitsByPreference, writePreferredUnitId } from "./preferred-unit";
 import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
 import { UNIT_PHOTOS, UNIT_PHOTO_KIND } from "./unit-photos";
+import { responsiveSrcSet } from "./responsive-images";
 import UnitStatusBadge from "./UnitStatusBadge";
 import WebImage from "./WebImage";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
@@ -90,6 +91,7 @@ export default function UnitsShowcase() {
                     height={416}
                     priority={index === 0}
                     sizes="(max-width: 720px) 88vw, 360px"
+                    srcSet={responsiveSrcSet(UNIT_PHOTOS[unit.id], unit.id === "nacoes" ? [480, 768, 1024] : [480])}
                   />
                   <span className="unit-store-photo-tag">
                     <strong>{kind}</strong>

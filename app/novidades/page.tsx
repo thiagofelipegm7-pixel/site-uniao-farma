@@ -23,9 +23,9 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: `${SITE_URL}/novidades-og.png`,
-        width: 1732,
-        height: 908,
+        url: `${SITE_URL}/novidades-og-optimized.jpg`,
+        width: 1200,
+        height: 629,
         alt: "Novidades da União Farma — informações e conteúdos para quem está em Sabará",
       },
     ],
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title,
     description,
-    images: [`${SITE_URL}/novidades-og.png`],
+    images: [`${SITE_URL}/novidades-og-optimized.jpg`],
   },
 };
 

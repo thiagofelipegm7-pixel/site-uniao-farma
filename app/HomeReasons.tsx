@@ -3,6 +3,7 @@
 import { trackEvent } from "./analytics";
 import { type SelectorIntent } from "./home-chrome";
 import WebImage from "./WebImage";
+import { responsiveSrcSet } from "./responsive-images";
 import {
   formatOfferPrice,
   getPublicOffers,
@@ -66,6 +67,7 @@ export default function HomeReasons({
                         width={320}
                         height={320}
                         sizes="(max-width: 720px) 90vw, 320px"
+                        srcSet={responsiveSrcSet(offer.image, [480, 768])}
                       />
                     ) : (
                       <span>{offer.placeholderLabel ?? "Oferta"}</span>
