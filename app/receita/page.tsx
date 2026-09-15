@@ -4,7 +4,6 @@ import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import { SITE_URL } from "../site-config";
 import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 import "../receita-polish.css";
-import "../page-concordance.css";
 
 export const metadata: Metadata = {
   title: { absolute: "Enviar receita pelo WhatsApp | União Farma" },

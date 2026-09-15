@@ -1,9 +1,0 @@
-.nav-plain-label,
-.content-side-nav a,
-.menu-links a,
-.content-nav-links a {
-  letter-spacing: 0 !important;
-  font-feature-settings: "liga" 0, "kern" 1 !important;
-  font-variant-ligatures: none !important;
-  text-transform: none !important;
-}

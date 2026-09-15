@@ -33,14 +33,23 @@ jobs:
           node-version: 22
           cache: npm
 
-      - name: Instalar dependencias
+      - name: Instalar dependências
         run: npm ci
 
-      - name: Testes
+      - name: Lint
+        run: npm run lint
+
+      - name: Checagem de tipos
+        run: npm run typecheck
+
+      - name: Testes unitários
         run: npm test
 
       - name: Gerar build Vinext / Cloudflare
         run: npm run build
+
+      - name: Testes de HTML renderizado
+        run: node --test tests/rendered-html.test.mjs
 
       - name: Publicar no Cloudflare
         if: ${{ env.CLOUDFLARE_API_TOKEN != '' && env.CLOUDFLARE_ACCOUNT_ID != '' }}
