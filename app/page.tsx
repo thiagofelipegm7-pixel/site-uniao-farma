@@ -47,7 +47,7 @@ export default function Home() {
       window.removeEventListener("keydown", closeOnEscape);
       window.removeEventListener("resize", closeOnDesktop);
     };
-  }, [menuOpen]);
+  }, []);
 
   const generalIntent: SelectorIntent = {
     title: "Qual loja fica melhor para você?",
@@ -88,9 +88,9 @@ export default function Home() {
             <h1 id="hero-title">{"Cuidado, ofertas e entrega pertinho de você."}</h1>
             <p className="hero-lead">{"Fátima, Nações Unidas e Itacolomi."}</p>
           </div>
-          <UnitsShowcase />
           <a className="sr-only" href="/novidades">{"Novidades da União Farma"}</a>
         </div>
+        <UnitsShowcase />
       </section>
       <HomeSections generalIntent={generalIntent} openSelector={openSelector} />
       <UnitSelectorModal intent={selectorIntent} onClose={() => setSelectorIntent(null)} />
