@@ -1,4 +1,5 @@
-import { SITE_URL, type Unit } from "./site-config";
+import { COMPANY } from "./company";
+import { INSTAGRAM_URL, SITE_URL, type Unit } from "./site-config";
 import type { FaqItem } from "./seo-content";
 
 const weekdayNames = {
@@ -10,6 +11,16 @@ const weekdayNames = {
   sat: "Saturday",
   sun: "Sunday",
 } as const;
+
+const PUBLIC_PATH: Record<Unit["id"], string> = {
+  fatima: "/fatima",
+  nacoes: "/nacoes-unidas",
+  itacolomi: "/itacolomi",
+};
+
+export function getUnitPublicPath(unit: Unit) {
+  return PUBLIC_PATH[unit.id];
+}
 
 export function getOpeningHoursSpecification(unit: Unit) {
   return (Object.keys(weekdayNames) as Array<keyof typeof weekdayNames>)
@@ -27,22 +38,24 @@ export function getOpeningHoursSpecification(unit: Unit) {
     .filter(Boolean);
 }
 
-export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}/unidades/${unit.slug}`) {
-
+export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}${PUBLIC_PATH[unit.id]}`) {
   return {
-    "@type": ["LocalBusiness", "Pharmacy"],
+    "@type": ["Pharmacy", "LocalBusiness"],
     "@id": `${pageUrl}#localbusiness`,
-    name: unit.title,
-    description: `Farmácia e drogaria da União Farma no bairro ${unit.neighborhood}, em Sabará/MG.`,
+    name: `União Farma ${unit.shortName}`,
+    alternateName: COMPANY.legalName,
+    description: `Farmácia e drogaria da União Farma no bairro ${unit.neighborhood}, em Sabará/MG. Medicamentos, perfumaria e pedido pelo WhatsApp.`,
     url: pageUrl,
     telephone: `+${unit.phoneLink.replace("tel:+", "")}`,
     image: `${SITE_URL}/uniao-farma-logo.webp`,
+    taxID: COMPANY.cnpj,
     address: {
       "@type": "PostalAddress",
       streetAddress: unit.address.split(" — ")[0],
       addressLocality: "Sabará",
       addressRegion: "MG",
       addressCountry: "BR",
+      addressNeighborhood: unit.neighborhood,
     },
     ...(unit.coordinates
       ? {
@@ -55,16 +68,18 @@ export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}/unidade
       : {}),
     hasMap: unit.map,
     openingHoursSpecification: getOpeningHoursSpecification(unit),
-    areaServed: {
-      "@type": "City",
-      name: "Sabará",
-    },
+    areaServed: [
+      { "@type": "City", name: "Sabará" },
+      { "@type": "AdministrativeArea", name: unit.neighborhood },
+    ],
     contactPoint: {
       "@type": "ContactPoint",
       telephone: `+${unit.whatsappDigits}`,
       contactType: "customer service",
       availableLanguage: "Portuguese",
+      areaServed: "BR",
     },
+    sameAs: [INSTAGRAM_URL, unit.map],
     parentOrganization: {
       "@id": `${SITE_URL}/#organization`,
     },
