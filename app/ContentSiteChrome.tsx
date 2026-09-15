@@ -52,7 +52,6 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
     if (!menuOpen) return;
 
     const menuButton = menuButtonRef.current;
-
     const background = [
       document.getElementById("conteudo"),
       document.querySelector(".uf-footer"),
@@ -69,11 +68,8 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
         return;
       }
       if (event.key !== "Tab" || !drawerRef.current) return;
-
       const focusable = Array.from(
-        drawerRef.current.querySelectorAll<HTMLElement>(
-          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
-        ),
+        drawerRef.current.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'),
       );
       if (focusable.length === 0) return;
       const first = focusable[0];
@@ -90,7 +86,6 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
     const closeOnDesktop = () => {
       if (window.innerWidth > 860) setMenuOpen(false);
     };
-
     document.addEventListener("keydown", handleKeyDown);
     window.addEventListener("resize", closeOnDesktop);
     const previousOverflow = document.body.style.overflow;
@@ -108,30 +103,17 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
   const mobileMenu = menuOpen
     ? createPortal(
         <>
-          <button
-            type="button"
-            className="content-menu-backdrop"
-            aria-label="Fechar menu"
-            onClick={() => setMenuOpen(false)}
-          />
-          <aside
-            ref={drawerRef}
-            className="content-menu-drawer"
-            id="content-menu-drawer"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Menu"
-          >
+          <button type="button" className="content-menu-backdrop" aria-label="Fechar menu" onClick={() => setMenuOpen(false)} />
+          <aside ref={drawerRef} className="content-menu-drawer" id="content-menu-drawer" role="dialog" aria-modal="true" aria-label="Menu">
             <div className="content-menu-drawer-header">
               <span>Menu</span>
-              <button ref={closeButtonRef} type="button" onClick={() => setMenuOpen(false)} aria-label="Fechar menu">
-                {"×"}
-              </button>
+              <button ref={closeButtonRef} type="button" onClick={() => setMenuOpen(false)} aria-label="Fechar menu">{"×"}</button>
             </div>
             <nav className="content-side-nav" aria-label="Navegação móvel">
               {NAV_LINKS.map((link) => (
                 <a
                   key={`drawer-${link.href}`}
+                  className="nav-plain-label"
                   href={link.href}
                   aria-current={link.activePath === activePath ? "page" : undefined}
                   onClick={() => setMenuOpen(false)}
@@ -168,20 +150,12 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
           aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
           onClick={() => setMenuOpen((value) => !value)}
         >
-          <span className="content-menu-icon" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </span>
+          <span className="content-menu-icon" aria-hidden="true"><span /><span /><span /></span>
           <span className="content-menu-label">{menuOpen ? "Fechar" : "Menu"}</span>
         </button>
         <div className="content-nav-links" ref={linksRef}>
           {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              aria-current={link.activePath === activePath ? "page" : undefined}
-            >
+            <a key={link.href} className="nav-plain-label" href={link.href} aria-current={link.activePath === activePath ? "page" : undefined}>
               {link.label}
             </a>
           ))}
