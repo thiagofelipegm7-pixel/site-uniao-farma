@@ -12,6 +12,7 @@ const NAV = [
   { href: "/receita", label: "Receita" },
   { href: "/novidades", label: "Novidades" },
   { href: "/perguntas", label: "Perguntas" },
+  { href: "/institucional", label: "Institucional" },
   { href: "/privacidade", label: "Privacidade" },
 ];
 
@@ -48,7 +49,7 @@ export default function SiteFooter() {
         <p className="uf-cnpj-bar">
           {COMPANY.legalName}
           <br />
-          CNPJ {COMPANY.cnpj}
+          CNPJ {COMPANY.cnpj} · Sabará/MG
         </p>
         <div className="uf-footer-grid">
           <div className="uf-footer-brand">
@@ -61,6 +62,7 @@ export default function SiteFooter() {
             </a>
             <p>Três lojas em Sabará. Pedido pelo WhatsApp da unidade do seu bairro.</p>
             <p>{COMPANY.pharmacistNote}</p>
+            <p className="uf-footer-warning">{COMPANY.anvisaWarnings[3]}</p>
             <div className="uf-footer-social">
               <a className="instagram-link" href={INSTAGRAM_URL} target="_blank" rel="noreferrer" aria-label="Instagram da União Farma">
                 <InstagramIcon />
@@ -100,8 +102,10 @@ export default function SiteFooter() {
           <p className="uf-footer-legal-name">
             {COMPANY.legalName} · CNPJ {COMPANY.cnpj}
           </p>
-          <p>© {new Date().getFullYear()} União Farma. Sabará/MG.</p>
+          <p>© {new Date().getFullYear()} União Farma. Todos os direitos reservados. Sabará/MG.</p>
           <p>
+            <a href="/institucional">Institucional</a>
+            <span aria-hidden="true"> · </span>
             <a href="/privacidade">Privacidade</a>
             <span aria-hidden="true"> · </span>
             <a href="/termos">Termos</a>
