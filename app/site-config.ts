@@ -18,6 +18,11 @@ export type Unit = {
   neighborhood: string;
   address: string;
   shortAddress: string;
+  street: string;
+  cep: string;
+  legalLabel: string;
+  legalNeighborhood: string;
+  hoursSummary: string;
   phone: string;
   phoneLink: string;
   whatsapp: string;
@@ -45,6 +50,11 @@ export const UNITS: Unit[] = [
     neighborhood: "Nossa Senhora de Fátima",
     address: "Rua Cláudio, 902 — Nossa Senhora de Fátima, Sabará/MG",
     shortAddress: "Rua Cláudio, 902 · Fátima",
+    street: "Rua Cláudio, 902",
+    cep: "34515-380",
+    legalLabel: "Fátima",
+    legalNeighborhood: "Bairro Fátima",
+    hoursSummary: "Segunda a sexta 07:00–21:00 · sábado 07:00–20:00 · domingo 07:00–12:00",
     phone: "(31) 3673-2122",
     phoneLink: "tel:+553136732122",
     whatsapp: "(31) 98738-1786",
@@ -74,6 +84,11 @@ export const UNITS: Unit[] = [
     neighborhood: "Nações Unidas",
     address: "Rua Inglaterra, 162 — Nações Unidas, Sabará/MG",
     shortAddress: "Rua Inglaterra, 162 · Nações Unidas",
+    street: "Rua Inglaterra, 162",
+    cep: "34505-800",
+    legalLabel: "Nações Unidas",
+    legalNeighborhood: "Bairro Nações Unidas",
+    hoursSummary: "Segunda a sexta 07:00–21:00 · sábado 07:00–21:00 · domingo 07:00–12:00",
     phone: "(31) 3671-8506",
     phoneLink: "tel:+553136718506",
     whatsapp: "(31) 98762-9909",
@@ -103,6 +118,11 @@ export const UNITS: Unit[] = [
     neighborhood: "Itacolomi",
     address: "Rua Joaquim Ferreira Moreira, 489 — Itacolomi, Sabará/MG",
     shortAddress: "Rua Joaquim F. Moreira, 489 · Itacolomi",
+    street: "Rua Joaquim F. Moreira, 489",
+    cep: "34518-200",
+    legalLabel: "Itacolomi",
+    legalNeighborhood: "Bairro Itacolomi",
+    hoursSummary: "Segunda a sexta 07:00–21:00 · sábado 07:00–20:00 · domingo 07:00–12:00",
     phone: "(31) 3673-3155",
     phoneLink: "tel:+553136733155",
     whatsapp: "(31) 99493-6960",

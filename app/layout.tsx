@@ -5,16 +5,23 @@ import MobileQuickNav from "./MobileQuickNav";
 import SiteFooter from "./SiteFooter";
 import SkipLink from "./SkipLink";
 import WhatsAppFab from "./WhatsAppFab";
+// 1. Tokens e Reset Base
 import "./tokens.css";
 import "./globals.css";
+
+// 2. Layouts e Seções Principais
 import "./mobile-fixes.css";
 import "./neighborhood.css";
 import "./site-footer.css";
 import "./nearest-unit.css";
 import "./visual-polish.css";
+
+// 3. Core Web Vitals (LCP e INP)
 import "./lcp.css";
 import "./inp.css";
 import "./visual-detail.css";
+
+// 4. Tipografia, Viewport e Motion
 import "./type.css";
 import "./viewport.css";
 import "./motion.css";
@@ -22,6 +29,8 @@ import "./refero.css";
 import "./kerning.css";
 import "./type-mobile.css";
 import "./type-format.css";
+
+// 5. Acessibilidade, Tema e Componentes
 import "./skin.css";
 import "./contrast.css";
 import "./pending.css";
@@ -35,6 +44,8 @@ import "./home-reasons.css";
 import "./mobile-opt.css";
 import "./a11y.css";
 import "./mobile.css";
+
+// 6. Polimento Visual e Ajustes Finais
 import "./audit-fix.css";
 import "./page-concordance.css";
 import "./final-polish.css";

@@ -39,7 +39,6 @@ export default function MetricsRoi({
       // ROI preferences are browser-local and intentionally hydrated after mount.
       // eslint-disable-next-line react-hooks/set-state-in-effect
       if (parsed.ticket) setTicket(parsed.ticket);
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (parsed.costs) setCosts(parsed.costs);
     } catch {
       /* ignore */

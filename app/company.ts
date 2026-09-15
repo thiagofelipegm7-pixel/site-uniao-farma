@@ -1,3 +1,5 @@
+import { UNITS } from "./site-config";
+
 export const COMPANY = {
   legalName: "Drogaria e Perfumaria União Farma Ltda",
   cnpj: "28.455.556/0001-91",
@@ -24,29 +26,25 @@ export const COMPANY = {
   ],
 };
 
-export const UNIT_LEGAL = {
-  fatima: {
-    label: "Fátima",
-    street: "Rua Cláudio, 902",
-    neighborhood: "Bairro Fátima",
-    cep: "34515-380",
-    whatsapp: "(31) 98738-1786",
-    hours: "Segunda a sexta 07:00–21:00 · sábado 07:00–20:00 · domingo 07:00–12:00",
-  },
-  nacoes: {
-    label: "Nações Unidas",
-    street: "Rua Inglaterra, 162",
-    neighborhood: "Bairro Nações Unidas",
-    cep: "34505-800",
-    whatsapp: "(31) 98762-9909",
-    hours: "Segunda a sexta 07:00–21:00 · sábado 07:00–21:00 · domingo 07:00–12:00",
-  },
-  itacolomi: {
-    label: "Itacolomi",
-    street: "Rua Joaquim F. Moreira, 489",
-    neighborhood: "Bairro Itacolomi",
-    cep: "34518-200",
-    whatsapp: "(31) 99493-6960",
-    hours: "Segunda a sexta 07:00–21:00 · sábado 07:00–20:00 · domingo 07:00–12:00",
-  },
-} as const;
+export type LegalUnit = {
+  label: string;
+  street: string;
+  neighborhood: string;
+  cep: string;
+  whatsapp: string;
+  hours: string;
+};
+
+export const UNIT_LEGAL = Object.fromEntries(
+  UNITS.map((unit) => [
+    unit.id,
+    {
+      label: unit.legalLabel,
+      street: unit.street,
+      neighborhood: unit.legalNeighborhood,
+      cep: unit.cep,
+      whatsapp: unit.whatsapp,
+      hours: unit.hoursSummary,
+    },
+  ]),
+) as Record<"fatima" | "nacoes" | "itacolomi", LegalUnit>;
