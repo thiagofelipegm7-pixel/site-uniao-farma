@@ -36,7 +36,10 @@ export default function MetricsRoi({
       const raw = window.localStorage.getItem(STORAGE);
       if (!raw) return;
       const parsed = JSON.parse(raw) as { ticket?: string; costs?: Record<string, string> };
+      // ROI preferences are browser-local and intentionally hydrated after mount.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (parsed.ticket) setTicket(parsed.ticket);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       if (parsed.costs) setCosts(parsed.costs);
     } catch {
       /* ignore */

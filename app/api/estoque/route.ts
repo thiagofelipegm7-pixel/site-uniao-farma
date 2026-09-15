@@ -6,11 +6,19 @@ export async function GET(request: Request) {
   const offerId = searchParams.get("offerId");
   const unit = searchParams.get("unit");
   const rows = await readStockSnapshot();
+  const allowedOfferIds = new Set(rows.map((row) => row.offerId));
+  const allowedUnits = new Set<string>(rows.map((row) => row.unit));
   const items = rows.filter((row) => {
-    if (offerId && row.offerId !== offerId) return false;
-    if (unit && row.unit !== unit) return false;
+    if (offerId && (!allowedOfferIds.has(offerId) || row.offerId !== offerId)) return false;
+    if (unit && (!allowedUnits.has(unit) || row.unit !== unit)) return false;
     return true;
-  });
+  }).map(({ offerId: id, unit: rowUnit, status, updatedAt, source }) => ({
+    offerId: id,
+    unit: rowUnit,
+    status,
+    updatedAt,
+    source,
+  }));
 
   return NextResponse.json(
     {

@@ -45,6 +45,8 @@ export default function OfferAlerts({ showButton = false }: { showButton?: boole
 
   useEffect(() => {
     const on = window.localStorage.getItem(STORAGE_ON) === "on";
+    // Notification permission is browser state and is intentionally read after mount.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setEnabled(on && "Notification" in window && Notification.permission === "granted");
     if (!on || !("Notification" in window) || Notification.permission !== "granted") return;
 

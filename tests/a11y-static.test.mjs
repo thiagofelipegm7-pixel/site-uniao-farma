@@ -13,7 +13,7 @@ test("keeps accessibility, contrast and tap-target hooks in source", async () =>
   ]);
 
   assert.match(layout, /lang="pt-BR"/);
-  assert.match(layout, /skip-link/);
+  assert.match(layout, /<SkipLink\s*\/>/);
   assert.match(layout, /id="conteudo"/);
   assert.match(layout, /themeColor: "#0e7370"/);
   assert.match(page, /aria-expanded/);

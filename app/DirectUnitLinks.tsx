@@ -108,6 +108,8 @@ export default function DirectUnitLinks({
   }
 
   useEffect(() => {
+    // The preferred unit lives in browser storage and is intentionally hydrated after mount.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPreferredId(readPreferredUnitId());
     const stop = scheduleAutoLocation((origin) => {
       void applyOrigin(origin, true);

@@ -102,6 +102,8 @@ export default function AnalyticsConsent() {
   );
 
   useEffect(() => {
+    // The consent value lives in browser storage and is intentionally hydrated after mount.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setConsent(readStoredConsent());
     captureCampaignAttribution();
   }, []);

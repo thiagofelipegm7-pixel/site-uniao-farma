@@ -37,6 +37,8 @@ export default function UnitsShowcase() {
 
   useEffect(() => {
     const saved = readPreferredUnitId();
+    // The preferred unit lives in browser storage and is intentionally hydrated after mount.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (saved) setPreferredId(saved);
     const onChange = (event: Event) => {
       const detail = (event as CustomEvent<Unit["id"]>).detail;

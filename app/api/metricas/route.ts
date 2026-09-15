@@ -19,6 +19,14 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const contentLength = Number(request.headers.get("content-length") || 0);
+  if (contentLength > 16_384) {
+    return NextResponse.json(
+      { ok: false, error: "payload_too_large" },
+      { status: 413, headers: { "Cache-Control": "no-store" } },
+    );
+  }
+
   const body = (await request.json().catch(() => ({}))) as {
     unit?: string;
     intent?: string;

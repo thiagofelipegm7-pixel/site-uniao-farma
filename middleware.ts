@@ -3,6 +3,24 @@ import type { NextRequest } from "next/server";
 import { STAFF_COOKIE, verifyStaffSession } from "./app/staff-auth";
 
 const CANONICAL_HOST = "xn--uniofarmasabar-8gbu.com.br";
+const WWW_CANONICAL_HOST = `www.${CANONICAL_HOST}`;
+
+const SECURITY_HEADERS = {
+  "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "DENY",
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "Permissions-Policy": "camera=(), microphone=(), geolocation=(self), payment=()",
+  "Content-Security-Policy":
+    "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://region1.google-analytics.com; frame-src https://maps.google.com https://www.google.com; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'",
+} as const;
+
+function withSecurityHeaders(response: NextResponse) {
+  for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
+    response.headers.set(key, value);
+  }
+  return response;
+}
 
 function redirectToCanonicalHost(request: NextRequest) {
   const host = (request.headers.get("host") || "").split(":")[0].toLowerCase();
@@ -10,21 +28,18 @@ function redirectToCanonicalHost(request: NextRequest) {
   const url = request.nextUrl.clone();
   let changed = false;
 
-  if (host.startsWith("www.")) {
-    url.host = host.slice(4);
+  if (host === WWW_CANONICAL_HOST) {
+    url.host = CANONICAL_HOST;
     changed = true;
   }
-  if (host && host !== "localhost" && host !== CANONICAL_HOST && !host.endsWith(".workers.dev")) {
-    if (host.replace(/^www\./, "") === CANONICAL_HOST) {
-      url.host = CANONICAL_HOST;
-      changed = true;
-    }
-  }
-  if (proto === "http" && host !== "localhost") {
+
+  const knownHost =
+    host === CANONICAL_HOST || host === WWW_CANONICAL_HOST || host === "localhost" || host.endsWith(".workers.dev");
+  if (proto === "http" && knownHost && host !== "localhost") {
     url.protocol = "https:";
     changed = true;
   }
-  if (changed) return NextResponse.redirect(url, 301);
+  if (changed) return withSecurityHeaders(NextResponse.redirect(url, 301));
   return null;
 }
 
@@ -34,19 +49,19 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
   const staffPath = pathname.startsWith("/interno") || pathname === "/api/metricas";
-  if (!staffPath) return NextResponse.next();
+  if (!staffPath) return withSecurityHeaders(NextResponse.next());
   if (pathname === "/interno/entrar" || pathname === "/interno/sair") {
-    return NextResponse.next();
+    return withSecurityHeaders(NextResponse.next());
   }
 
   if (await verifyStaffSession(request.cookies.get(STAFF_COOKIE)?.value)) {
-    return NextResponse.next();
+    return withSecurityHeaders(NextResponse.next());
   }
 
   const login = request.nextUrl.clone();
   login.pathname = "/interno/entrar";
   login.searchParams.set("next", pathname);
-  return NextResponse.redirect(login);
+  return withSecurityHeaders(NextResponse.redirect(login));
 }
 
 export const config = {

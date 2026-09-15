@@ -34,6 +34,8 @@ export default function SiteFooter() {
   const units = sortUnitsByPreference(UNITS, preferredId);
 
   useEffect(() => {
+    // The preferred unit lives in browser storage and is intentionally hydrated after mount.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPreferredId(readPreferredUnitId());
     const onChange = (event: Event) => {
       const detail = (event as CustomEvent<Unit["id"]>).detail;

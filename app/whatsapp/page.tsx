@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { trackEvent } from "../analytics";
 import { buildWhatsAppUrl, UNITS } from "../site-config";
 import { WhatsAppIcon } from "../home-chrome";
@@ -12,13 +13,13 @@ export default function WhatsAppAdsPage() {
     <>
       <header className="site-header">
         <nav className="nav" aria-label="Menu">
-          <a className="brand" href="/">
+          <Link className="brand" href="/">
             <img src="/icon-192.png" alt="Logo da União Farma" width="52" height="52" decoding="async" />
             <span>
               <strong>União Farma</strong>
               <small>Drogaria e Perfumaria</small>
             </span>
-          </a>
+          </Link>
         </nav>
       </header>
       <section className="hero reveal is-visible" id="inicio">

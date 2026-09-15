@@ -1,4 +1,4 @@
-export const STAFF_COOKIE = "uf_staff";
+export const STAFF_COOKIE = "__Host-uf_staff";
 export const STAFF_SESSION_SECONDS = 60 * 60 * 8;
 
 function staffSecret() {

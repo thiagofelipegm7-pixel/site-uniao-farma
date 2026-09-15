@@ -27,6 +27,8 @@ type MetricsStore = {
 };
 
 const ATTRIBUTION_MS = 6 * 60 * 60 * 1000;
+const VALID_UNITS = new Set(["fatima", "nacoes", "itacolomi"]);
+const MAX_DIMENSION_LENGTH = 80;
 
 const globalStore = globalThis as typeof globalThis & { __ufMetrics?: MetricsStore };
 
@@ -88,6 +90,15 @@ function bumpBy(map: Record<string, number>, key: string, amount: number) {
   map[key] = (map[key] || 0) + amount;
 }
 
+function cleanDimension(value: unknown) {
+  return typeof value === "string" ? value.trim().slice(0, MAX_DIMENSION_LENGTH) : "";
+}
+
+function cleanUnit(value: unknown) {
+  const unit = cleanDimension(value);
+  return VALID_UNITS.has(unit) ? unit : "";
+}
+
 function rememberClick(unit: string | undefined, source: string | undefined) {
   if (!source) return;
   const key = unit || "*";
@@ -141,28 +152,31 @@ export async function recordMetricHit(hit: {
   intent?: string;
   source?: string;
 }) {
+  const unit = cleanUnit(hit.unit);
+  const intent = cleanDimension(hit.intent);
+  const rawSource = cleanDimension(hit.source);
   const day = todayKey();
   const data = store();
   if (!data.days[day]) data.days[day] = emptyBucket();
   if (!data.days[day].stages) data.days[day].stages = emptyBucket().stages;
 
   const stage = normalizeStage(hit.stage);
-  let source = hit.source || "";
+  let source = rawSource;
   if (stage === "whatsapp_click") {
-    rememberClick(hit.unit, source);
+    rememberClick(unit, source);
   } else if (isClosingSource(source)) {
-    source = (await lastClickSource(hit.unit)) || source || "other";
+    source = (await lastClickSource(unit)) || source || "other";
   }
 
   data.days[day].stages[stage] += 1;
 
   if (stage === "whatsapp_click") {
     data.days[day].total += 1;
-    if (hit.unit) bump(data.days[day].units, hit.unit);
-    if (hit.intent) bump(data.days[day].intents, hit.intent);
+    if (unit) bump(data.days[day].units, unit);
+    if (intent) bump(data.days[day].intents, intent);
     if (source) bump(data.days[day].sources, source);
   } else {
-    if (hit.unit) bump(data.days[day].units, `${stage}:${hit.unit}`);
+    if (unit) bump(data.days[day].units, `${stage}:${unit}`);
     if (source) bump(data.days[day].sources, `${stage}:${source}`);
   }
 
@@ -172,7 +186,7 @@ export async function recordMetricHit(hit: {
       .prepare(
         "INSERT INTO metric_hits (day, stage, unit, intent, source, created_at) VALUES (?, ?, ?, ?, ?, ?)",
       )
-      .bind(day, stage, hit.unit || null, hit.intent || null, source || null, new Date().toISOString())
+      .bind(day, stage, unit || null, intent || null, source || null, new Date().toISOString())
       .run();
   }
 

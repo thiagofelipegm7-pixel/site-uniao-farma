@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import { UNITS } from "./site-config";
 import { getUnitOpenStatus } from "./UnitStatusBadge";
 
@@ -53,7 +54,7 @@ export default function OpenNowStrip() {
         {rows.map((row) => {
           const name = row.unit.id === "fatima" ? "Fátima" : row.unit.id === "nacoes" ? "Nações" : "Itacolomi";
           return (
-            <a
+            <Link
               key={row.unit.id}
               href="/#unidades-rapidas"
               className={row.isOpen ? "is-open" : "is-closed"}
@@ -61,7 +62,7 @@ export default function OpenNowStrip() {
             >
               <span>{name}</span>
               <small>{holiday ? "confirme" : now ? (row.isOpen ? "aberta" : "ver horário") : ""}</small>
-            </a>
+            </Link>
           );
         })}
       </div>

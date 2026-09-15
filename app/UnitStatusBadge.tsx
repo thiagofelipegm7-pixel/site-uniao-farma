@@ -116,6 +116,8 @@ export default function UnitStatusBadge({ unit }: { unit: Unit }) {
   const [now, setNow] = useState<Date | null>(null);
 
   useEffect(() => {
+    // The live clock is browser state and starts after mount to avoid hydration drift.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setNow(new Date());
     const timer = window.setInterval(() => setNow(new Date()), 60_000);
     return () => window.clearInterval(timer);
