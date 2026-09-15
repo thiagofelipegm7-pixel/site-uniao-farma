@@ -7,9 +7,9 @@ import "../receita-polish.css";
 import "../page-concordance.css";
 
 export const metadata: Metadata = {
-  title: { absolute: "Enviar receita pelo WhatsApp" },
+  title: { absolute: "Enviar receita pelo WhatsApp | União Farma" },
   description:
-    "Manda a foto da receita ou o Memed no WhatsApp da União Farma em Sabará. O farmacêutico confere no horário da loja, antes de separar.",
+    "Envie a foto da receita ou o link do Memed no WhatsApp da União Farma em Sabará. A loja confere no horário e diz se tem.",
   alternates: { canonical: `${SITE_URL}/receita` },
 };
 
@@ -22,24 +22,24 @@ export default function ReceitaPage() {
           <div className="hero-inner">
             <div className="hero-copy recipe-copy">
               <p className="eyebrow">Receita no WhatsApp</p>
-              <h1 id="recipe-title">{"Envie a receita para a loja"}</h1>
+              <h1 id="recipe-title">Envie a receita para a loja</h1>
               <p className="hero-lead recipe-lead">
-                {"Foto nítida ou link do Memed. A equipe confere no horário da loja e diz se tem."}
+                Foto nítida ou Memed. A loja do bairro confere no horário e responde se tem.
               </p>
             </div>
 
             <ol className="recipe-steps">
               <li>
                 <strong>1</strong>
-                <span>Manda a foto ou o Memed</span>
+                <span>Foto ou Memed</span>
               </li>
               <li>
                 <strong>2</strong>
-                <span>Escolhe a loja do bairro</span>
+                <span>Loja do bairro</span>
               </li>
               <li>
                 <strong>3</strong>
-                <span>A loja confirma no horário</span>
+                <span>Confirma se tem</span>
               </li>
             </ol>
 
@@ -51,7 +51,7 @@ export default function ReceitaPage() {
             />
 
             <p className="recipe-note">
-              {"Controlado e antibiótico saem na loja. Não envie dados além dos necessários."}
+              Controlado e antibiótico saem na loja. Não envie dados além dos necessários.
             </p>
           </div>
         </section>
