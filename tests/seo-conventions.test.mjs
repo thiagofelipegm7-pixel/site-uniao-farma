@@ -27,6 +27,9 @@ test("public pages declare relative canonicals", async () => {
     ["app/institucional/page.tsx", 'canonical: "/institucional"'],
     ["app/perguntas/page.tsx", 'canonical: "/perguntas"'],
     ["app/encarte/page.tsx", 'canonical: "/encarte"'],
+    ["app/farmacia-em-sabara/page.tsx", "canonical: `/${config.slug}`"],
+    ["app/entrega-de-medicamentos-em-sabara/page.tsx", "canonical: `/${config.slug}`"],
+    ["app/perfumaria-em-sabara/page.tsx", "canonical: `/${config.slug}`"],
   ];
 
   for (const [file, snippet] of files) {

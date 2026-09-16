@@ -7,7 +7,7 @@ import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 export const metadata: Metadata = {
   title: { absolute: "Encarte da semana | União Farma Sabará" },
   description: "Ofertas da semana da União Farma. Escolha a loja e peça no WhatsApp.",
-  alternates: { canonical: `${SITE_URL}/encarte` },
+  alternates: { canonical: "/encarte" },
 };
 
 export default function FlyerPage() {
