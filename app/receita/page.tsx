@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   title: { absolute: "Enviar receita pelo WhatsApp | União Farma" },
   description:
     "Envie a foto da receita ou o link do Memed no WhatsApp da União Farma em Sabará. A loja confere no horário e diz se tem.",
-  alternates: { canonical: `${SITE_URL}/receita` },
+  alternates: { canonical: "/receita" },
 };
 
 export default function ReceitaPage() {
