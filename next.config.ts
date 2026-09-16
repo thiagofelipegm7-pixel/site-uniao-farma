@@ -1,5 +1,23 @@
 import type { NextConfig } from "next";
 
+// CSP: Vinext não expoe middleware por request para carimbar nonce nos
+// scripts/styles inline do runtime, do GTM e dos mapas. Trocar
+// 'unsafe-inline' por nonce-{n} hoje quebra analytics, CSS e o worker.
+// Quando houver middleware estavel, gerar o nonce no request e so entao
+// remover unsafe-inline de script-src e style-src.
+const CONTENT_SECURITY_POLICY = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com",
+  "style-src 'self' 'unsafe-inline'",
+  "img-src 'self' data: https:",
+  "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://region1.google-analytics.com",
+  "frame-src https://maps.google.com https://www.google.com",
+  "frame-ancestors 'none'",
+  "form-action 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+].join("; ");
+
 const nextConfig: NextConfig = {
   redirects: async () => [
     { source: "/unidades/nossa-senhora-de-fatima", destination: "/fatima", permanent: true },
@@ -21,8 +39,7 @@ const nextConfig: NextConfig = {
         },
         {
           key: "Content-Security-Policy",
-          value:
-            "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://region1.google-analytics.com; frame-src https://maps.google.com https://www.google.com; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'",
+          value: CONTENT_SECURITY_POLICY,
         },
       ],
     },
