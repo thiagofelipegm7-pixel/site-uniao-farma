@@ -7,6 +7,9 @@ const loginAttempts = globalThis as typeof globalThis & {
   __ufLoginAttempts?: Map<string, { count: number; resetAt: number }>;
 };
 
+// Limitacao conhecida: este Map vive no isolate do Worker. Em Cloudflare
+// o contador nao e compartilhado entre isolados. KV/Durable Object unificaria
+// o limite, mas e desproporcional ao volume atual do painel interno.
 function attemptStore() {
   if (!loginAttempts.__ufLoginAttempts) loginAttempts.__ufLoginAttempts = new Map();
   return loginAttempts.__ufLoginAttempts;
