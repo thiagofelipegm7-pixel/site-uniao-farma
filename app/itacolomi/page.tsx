@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: { absolute: "Farmácia no Itacolomi, Sabará | União Farma" },
   description:
     "Farmácia União Farma na Rua Joaquim Ferreira Moreira, 489, Itacolomi, Sabará/MG. Horário, mapa e pedido pelo WhatsApp.",
-  alternates: { canonical: `${SITE_URL}/itacolomi` },
+  alternates: { canonical: "/itacolomi" },
   keywords: ["farmácia Itacolomi Sabará", "União Farma Itacolomi", "drogaria Itacolomi"],
   openGraph: {
     title: "Farmácia no Itacolomi, Sabará | União Farma",

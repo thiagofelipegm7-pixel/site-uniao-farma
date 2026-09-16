@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: { absolute: "Farmácia em Nações Unidas, Sabará | União Farma" },
   description:
     "Farmácia União Farma na Rua Inglaterra, 162, Nações Unidas, Sabará/MG. Horário, mapa e pedido pelo WhatsApp.",
-  alternates: { canonical: `${SITE_URL}/nacoes-unidas` },
+  alternates: { canonical: "/nacoes-unidas" },
   keywords: ["farmácia Nações Unidas Sabará", "União Farma Nações", "drogaria Nações Unidas"],
   openGraph: {
     title: "Farmácia em Nações Unidas, Sabará | União Farma",

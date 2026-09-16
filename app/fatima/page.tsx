@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: { absolute: "Farmácia em Nossa Senhora de Fátima, Sabará | União Farma" },
   description:
     "Farmácia União Farma na Rua Cláudio, 902, Nossa Senhora de Fátima, Sabará/MG. Horário, mapa e pedido pelo WhatsApp.",
-  alternates: { canonical: `${SITE_URL}/fatima` },
+  alternates: { canonical: "/fatima" },
   keywords: ["farmácia Fátima Sabará", "União Farma Fátima", "drogaria Nossa Senhora de Fátima"],
   openGraph: {
     title: "Farmácia em Nossa Senhora de Fátima, Sabará | União Farma",
