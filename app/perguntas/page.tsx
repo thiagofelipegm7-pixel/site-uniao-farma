@@ -8,7 +8,7 @@ import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 export const metadata: Metadata = {
   title: { absolute: "Perguntas frequentes | União Farma Sabará" },
   description: "Tem genérico? Aceita receita digital? Entrega no meu bairro? Respostas curtas e contato direto com a loja.",
-  alternates: { canonical: `${SITE_URL}/perguntas` },
+  alternates: { canonical: "/perguntas" },
 };
 
 export default function QuestionsPage() {
