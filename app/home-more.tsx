@@ -63,7 +63,7 @@ function GoldStar() {
 
 function Stars() {
   return (
-    <span className="review-stars" aria-label="5 de 5 estrelas">
+    <span className="review-stars" role="img" aria-label="5 de 5 estrelas">
       <GoldStar />
       <GoldStar />
       <GoldStar />
