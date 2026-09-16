@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getPublishedNews } from "./news-content";
-import { PAGE_LAST_UPDATED, SITE_URL, UNITS, sitemapDate } from "./site-config";
+import { SITE_URL, UNITS } from "./site-config";
+import { PAGE_LAST_UPDATED, sitemapDate } from "./sitemap-dates";
 import { getUnitPublicPath } from "./structured-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
