@@ -6,7 +6,7 @@ import { getUnitPublicPath } from "./structured-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const news = getPublishedNews();
-  const latestNews = news.reduce((latest, article) => {
+  const latestNews = news.reduce<string>((latest, article) => {
     return article.publishedAt > latest ? article.publishedAt : latest;
   }, PAGE_LAST_UPDATED.novidades);
 
