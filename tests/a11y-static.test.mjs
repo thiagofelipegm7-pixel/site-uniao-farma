@@ -5,7 +5,7 @@ import test from "node:test";
 test("keeps accessibility, contrast and tap-target hooks in source", async () => {
   const [layout, page, theme, globals, units] = await Promise.all([
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/HomePage.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/theme.css", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/DirectUnitLinks.tsx", import.meta.url), "utf8"),
