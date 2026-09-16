@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: { absolute: "Dados institucionais | União Farma Sabará" },
   description:
     "Razão social, CNPJ, endereços das três lojas em Sabará e avisos sanitários da União Farma.",
-  alternates: { canonical: `${SITE_URL}/institucional` },
+  alternates: { canonical: "/institucional" },
 };
 
 export default function InstitutionalPage() {
