@@ -11,20 +11,10 @@ async function render(pathname = "/") {
   const workerUrl = new URL(workerPath);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}-${pathname}`);
   const { default: worker } = await import(workerUrl.href);
-
   return worker.fetch(
-    new Request(`http://localhost${pathname}`, {
-      headers: { accept: "text/html" },
-    }),
-    {
-      ASSETS: {
-        fetch: async () => new Response("Not found", { status: 404 }),
-      },
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
+    new Request(`http://localhost${pathname}`, { headers: { accept: "text/html" } }),
+    { ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) } },
+    { waitUntil() {}, passThroughOnException() {} },
   );
 }
 
@@ -34,8 +24,15 @@ test("axe-core finds no critical or serious issues on key public pages", async (
     return;
   }
 
-  const { JSDOM } = await import("jsdom");
-  const axeJs = await readFile(require.resolve("axe-core/axe.min.js"), "utf8");
+  let JSDOM;
+  let axeJs;
+  try {
+    ({ JSDOM } = await import("jsdom"));
+    axeJs = await readFile(require.resolve("axe-core/axe.min.js"), "utf8");
+  } catch {
+    t.skip("Instale axe-core e jsdom no lockfile: npm i -D axe-core jsdom");
+    return;
+  }
 
   const paths = ["/", "/fatima", "/itacolomi", "/nacoes-unidas", "/ofertas", "/novidades", "/receita", "/perguntas", "/institucional"];
 
@@ -55,11 +52,7 @@ test("axe-core finds no critical or serious issues on key public pages", async (
       runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"] },
     });
     const blocking = results.violations.filter((item) => ["critical", "serious"].includes(item.impact));
-    assert.equal(
-      blocking.length,
-      0,
-      `${pathname}\n${blocking.map((item) => `${item.impact} ${item.id}: ${item.help}`).join("\n")}`,
-    );
+    assert.equal(blocking.length, 0, `${pathname}\n${blocking.map((item) => `${item.impact} ${item.id}: ${item.help}`).join("\n")}`);
     dom.window.close();
   }
 });
