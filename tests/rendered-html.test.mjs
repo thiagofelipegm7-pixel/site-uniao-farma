@@ -225,8 +225,9 @@ test("keeps unit-specific data on all unit pages", async () => {
 });
 
 test("keeps local contact data, dataLayer events, SEO files and accessibility hooks", async () => {
-  const [page, skipLink, layout, localLanding, analytics, analyticsModule, envExample, sitemap, robots, css, siteConfig, offers, attribution, newsPage, newsContent] = await Promise.all([
+  const [page, homePage, skipLink, layout, localLanding, analytics, analyticsModule, envExample, sitemap, robots, css, siteConfig, offers, attribution, newsPage, newsContent] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/HomePage.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/SkipLink.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/local-landing-page.tsx", import.meta.url), "utf8"),
@@ -245,8 +246,8 @@ test("keeps local contact data, dataLayer events, SEO files and accessibility ho
 
   assert.match(skipLink, /skip-link/);
   assert.match(layout, /<SkipLink\s*\/>/);
-  assert.match(page, /aria-expanded/);
-  assert.match(page, /aria-label="Menu principal"/);
+  assert.match(homePage, /aria-expanded/);
+  assert.match(homePage, /aria-label="Menu principal"/);
   assert.match(localLanding, /whatsapp_click/);
   assert.match(localLanding, /phone_click/);
   assert.match(localLanding, /get_directions/);
@@ -274,9 +275,9 @@ test("keeps local contact data, dataLayer events, SEO files and accessibility ho
   assert.match(offers, /prescription_blocked/);
   assert.match(attribution, /gclid/);
   assert.match(attribution, /utm_campaign/);
-  assert.match(page, /href="\/novidades"/);
+  assert.match(homePage, /href="\/novidades"/);
   assert.doesNotMatch(page, /from "next\/link"/);
-  assert.match(page, /Novidades da União Farma/);
+  assert.match(homePage, /Novidades da União Farma/);
   assert.match(newsPage, /news-empty/);
   assert.match(newsContent, /publicationStatus/);
   assert.match(newsContent, /contentApproved/);
