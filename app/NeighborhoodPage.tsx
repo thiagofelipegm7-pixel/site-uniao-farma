@@ -70,9 +70,9 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
         <article>
           <h2>Horário</h2>
           <ul className="hours-grid">
-            <li><span>Seg a sex</span><strong>07:00–21:00</strong></li>
+            <li><span>Seg a sex</span><strong>{unit.schedule.mon?.open}–{unit.schedule.mon?.close}</strong></li>
             <li><span>Sábado</span><strong>{unit.schedule.sat?.open}–{unit.schedule.sat?.close}</strong></li>
-            <li><span>Domingo</span><strong>07:00–12:00</strong></li>
+            <li><span>Domingo</span><strong>{unit.schedule.sun?.open}–{unit.schedule.sun?.close}</strong></li>
           </ul>
         </article>
         <article>

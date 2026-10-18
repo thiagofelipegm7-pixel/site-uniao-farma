@@ -40,7 +40,7 @@ export const HOME_FAQS: FaqItem[] = [
   },
   {
     q: "Qual o horário das lojas?",
-    a: "Segunda a sexta, das 7h às 21h. Sábado: Fátima e Itacolomi até 20h, Nações Unidas até 21h. Domingo, as três abrem das 7h ao meio-dia. Em feriado nacional o site não marca “aberto agora” — confirme o horário no WhatsApp da loja.",
+    a: "Fátima abre às 7h e Nações Unidas e Itacolomi abrem às 8h, todos os dias. Segunda a sexta, as três fecham às 21h. Sábado: Fátima e Itacolomi até 20h, Nações Unidas até 21h. Domingo, as três fecham ao meio-dia. Em feriado nacional o site não marca “aberto agora” — confirme o horário no WhatsApp da loja.",
   },
   {
     q: "Quais formas de pagamento?",
@@ -68,8 +68,8 @@ export function getUnitFaqs(unit: Unit): FaqItem[] {
     },
     {
       q: `Qual o horário da farmácia ${unit.shortName}?`,
-      a: "Segunda a sexta, das 07:00 às 21:00; sábado, das " +
-        `${unit.schedule.sat?.open} às ${unit.schedule.sat?.close}; domingo, das 07:00 às 12:00. Em feriado, o site não assume o horário da semana. Confirme no WhatsApp.`,
+      a: `Segunda a sexta, das ${unit.schedule.mon?.open} às ${unit.schedule.mon?.close}; sábado, das ` +
+        `${unit.schedule.sat?.open} às ${unit.schedule.sat?.close}; domingo, das ${unit.schedule.sun?.open} às ${unit.schedule.sun?.close}. Em feriado, o site não assume o horário da semana. Confirme no WhatsApp.`,
     },
   ];
 }
