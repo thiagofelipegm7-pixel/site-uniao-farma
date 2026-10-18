@@ -13,13 +13,13 @@ import { SITE_URL, UNITS } from "../site-config";
 const unit = UNITS[0];
 
 export const metadata: Metadata = {
-  title: { absolute: "Farmácia em Nossa Senhora de Fátima, Sabará | União Farma" },
+  title: { absolute: "Farmácia em Fátima, Sabará: entrega e WhatsApp | União Farma" },
   description:
-    "Farmácia União Farma na Rua Cláudio, 902, Nossa Senhora de Fátima, Sabará/MG. Horário, mapa e pedido pelo WhatsApp.",
+    "Rua Cláudio, 902. Seg a sex das 7h às 21h, sábado até 20h e domingo até 12h. Peça pelo WhatsApp (31) 98738-1786 e consulte a entrega.",
   alternates: { canonical: "/fatima" },
   keywords: ["farmácia Fátima Sabará", "União Farma Fátima", "drogaria Nossa Senhora de Fátima"],
   openGraph: {
-    title: "Farmácia em Nossa Senhora de Fátima, Sabará | União Farma",
+    title: "Farmácia em Fátima, Sabará: entrega e WhatsApp | União Farma",
     description: "Rua Cláudio, 902. Peça pelo WhatsApp da loja de Fátima.",
     url: `${SITE_URL}/fatima`,
     type: "website",

@@ -13,6 +13,12 @@ const SHORT_LABEL: Record<Unit["id"], string> = {
   itacolomi: "Itacolomi",
 };
 
+const PAGE_HEADING: Record<Unit["id"], string> = {
+  fatima: "Farmácia em Nossa Senhora de Fátima, Sabará",
+  nacoes: "Farmácia em Nações Unidas, Sabará",
+  itacolomi: "Farmácia no Itacolomi, Sabará",
+};
+
 const PAGE_HREF: Record<Unit["id"], string> = {
   fatima: "/fatima",
   nacoes: "/nacoes-unidas",
@@ -50,7 +56,7 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
           srcSet={responsiveSrcSet(UNIT_PHOTOS[unit.id], unit.id === "nacoes" ? [480, 768, 1024] : [480])}
         />
         <p className="eyebrow">Farmácia em {unit.neighborhood}</p>
-        <h1>União Farma {label}</h1>
+        <h1>{PAGE_HEADING[unit.id]}</h1>
         <p>{unit.address}</p>
         <UnitStatusBadge unit={unit} />
         <div className="neighborhood-actions">

@@ -189,6 +189,7 @@ test("keeps unit-specific data on all unit pages", async () => {
     {
       pathname: "/fatima",
       name: "Fátima",
+      heading: "Farmácia em Nossa Senhora de Fátima, Sabará",
       address: "Rua Cláudio, 902 — Nossa Senhora de Fátima, Sabará/MG",
       phone: "(31) 3673-2122",
       whatsapp: "(31) 98738-1786",
@@ -197,6 +198,7 @@ test("keeps unit-specific data on all unit pages", async () => {
     {
       pathname: "/nacoes-unidas",
       name: "Nações Unidas",
+      heading: "Farmácia em Nações Unidas, Sabará",
       address: "Rua Inglaterra, 162 — Nações Unidas, Sabará/MG",
       phone: "(31) 3671-8506",
       whatsapp: "(31) 98762-9909",
@@ -205,6 +207,7 @@ test("keeps unit-specific data on all unit pages", async () => {
     {
       pathname: "/itacolomi",
       name: "Itacolomi",
+      heading: "Farmácia no Itacolomi, Sabará",
       address: "Rua Joaquim Ferreira Moreira, 489 — Itacolomi, Sabará/MG",
       phone: "(31) 3673-3155",
       whatsapp: "(31) 99493-6960",
@@ -217,7 +220,7 @@ test("keeps unit-specific data on all unit pages", async () => {
     const html = await response.text();
 
     assert.equal(response.status, 200, unit.pathname);
-    assert.match(html, new RegExp(`União Farma <!-- -->${unit.name}`));
+    assert.ok(html.includes(`<h1>${unit.heading}</h1>`), unit.pathname);
     assert.ok(html.includes(unit.address), unit.pathname);
     assert.ok(html.includes(unit.phone), unit.pathname);
     assert.match(html, new RegExp(`Sábado[\\s\\S]{0,200}${unit.saturdayClose}`));
