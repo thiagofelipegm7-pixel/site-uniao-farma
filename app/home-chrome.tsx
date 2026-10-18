@@ -22,7 +22,7 @@ export const deliveryIntent: SelectorIntent = {
 export const SHORT_UNIT_ADDRESSES = {
   fatima: "Rua Cláudio, 902 · Fátima",
   nacoes: "Rua Inglaterra, 162 · Nações Unidas",
-  itacolomi: "Rua Joaquim F. Moreira, 489 · Itacolomi",
+  itacolomi: "Av. Joaquim Ferreira Madureira, 489 · Itacolomi",
 } as const;
 
 export const categories = [
