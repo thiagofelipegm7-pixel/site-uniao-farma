@@ -15,12 +15,12 @@ const unit = UNITS[2];
 export const metadata: Metadata = {
   title: { absolute: "Farmácia no Itacolomi, Sabará: entrega e WhatsApp | União Farma" },
   description:
-    "Rua Joaquim F. Moreira, 489. Seg a sex até 21h, sábado até 20h e domingo até 12h. Peça pelo WhatsApp (31) 99493-6960 e consulte a entrega.",
+    "Av. Joaquim Ferreira Madureira, 489. Seg a sex até 21h, sábado até 20h e domingo até 12h. Peça pelo WhatsApp (31) 99493-6960 e consulte a entrega.",
   alternates: { canonical: "/itacolomi" },
   keywords: ["farmácia Itacolomi Sabará", "União Farma Itacolomi", "drogaria Itacolomi"],
   openGraph: {
     title: "Farmácia no Itacolomi, Sabará: entrega e WhatsApp | União Farma",
-    description: "Rua Joaquim Ferreira Moreira, 489. Peça pelo WhatsApp da loja do Itacolomi.",
+    description: "Av. Joaquim Ferreira Madureira, 489. Peça pelo WhatsApp da loja do Itacolomi.",
     url: `${SITE_URL}/itacolomi`,
     type: "website",
   },

@@ -208,7 +208,7 @@ test("keeps unit-specific data on all unit pages", async () => {
       pathname: "/itacolomi",
       name: "Itacolomi",
       heading: "Farmácia no Itacolomi, Sabará",
-      address: "Rua Joaquim Ferreira Moreira, 489 — Itacolomi, Sabará/MG",
+      address: "Av. Joaquim Ferreira Madureira, 489 — Itacolomi, Sabará/MG",
       phone: "(31) 3673-3155",
       whatsapp: "(31) 99493-6960",
       saturdayClose: "20:00",

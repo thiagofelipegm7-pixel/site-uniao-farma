@@ -12,7 +12,7 @@ export const CUSTOMER_QUESTIONS: FaqItem[] = [
   },
   {
     q: "Qual loja eu escolho?",
-    a: "A mais perto de você: Fátima (Rua Cláudio, 902), Nações Unidas (Rua Inglaterra, 162) ou Itacolomi (Rua Joaquim F. Moreira, 489). Estoque e entrega são da loja que você chamar.",
+    a: "A mais perto de você: Fátima (Rua Cláudio, 902), Nações Unidas (Rua Inglaterra, 162) ou Itacolomi (Av. Joaquim Ferreira Madureira, 489). Estoque e entrega são da loja que você chamar.",
   },
   {
     q: "Vocês entregam no meu bairro?",

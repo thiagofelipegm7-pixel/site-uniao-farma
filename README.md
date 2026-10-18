@@ -55,7 +55,7 @@ npm run build
 ### Páginas das Lojas
 - `/fatima` — Loja 1: Rua Cláudio, 902 — Nossa Senhora de Fátima
 - `/nacoes-unidas` — Loja 2: Rua Inglaterra, 162 — Nações Unidas
-- `/itacolomi` — Loja 3: Rua Joaquim Ferreira Moreira, 489 — Itacolomi
+- `/itacolomi` — Loja 3: Av. Joaquim Ferreira Madureira, 489 — Itacolomi
 
 ### Campanhas e SEO Local
 - `/farmacia-em-sabara` — Landing page de SEO local
