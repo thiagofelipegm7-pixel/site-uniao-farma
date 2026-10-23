@@ -5,6 +5,7 @@ const SITE_DIRECTORY_LINKS = [
   { href: "/perguntas", label: "Perguntas" },
   { href: "/receita", label: "Enviar receita" },
   { href: "/novidades", label: "Novidades" },
+  { href: "/canetas-emagrecedoras", label: "Canetas emagrecedoras" },
   { href: "/fatima", label: "Farmácia em Fátima" },
   { href: "/nacoes-unidas", label: "Farmácia em Nações Unidas" },
   { href: "/itacolomi", label: "Farmácia no Itacolomi" },
