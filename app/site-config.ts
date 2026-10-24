@@ -1,4 +1,5 @@
 export const SITE_URL = "https://xn--uniofarmasabar-8gbu.com.br";
+export const OFFERS_GROUP_URL = "https://chat.whatsapp.com/GTqeJJk46N4KnJWGDGtfIp";
 export const INSTAGRAM_URL = "https://www.instagram.com/droguniaofarma/";
 
 export type Weekday = "sun" | "mon" | "tue" | "wed" | "thu" | "fri" | "sat";
@@ -25,6 +26,7 @@ export type Unit = {
   hoursSummary: string;
   phone: string;
   phoneLink: string;
+  extraPhones?: { phone: string; phoneLink: string }[];
   whatsapp: string;
   whatsappDigits: string;
   map: string;
@@ -94,8 +96,9 @@ export const UNITS: Unit[] = [
     legalLabel: "Nações Unidas",
     legalNeighborhood: "Bairro Nações Unidas",
     hoursSummary: "Segunda a sexta 08:00–21:00 · sábado 08:00–21:00 · domingo 08:00–12:00",
-    phone: "(31) 3671-8506",
-    phoneLink: "tel:+553136718506",
+    phone: "(31) 3607-3769",
+    phoneLink: "tel:+553136073769",
+    extraPhones: [{ phone: "(31) 3671-8506", phoneLink: "tel:+553136718506" }],
     whatsapp: "(31) 98762-9909",
     whatsappDigits: "5531987629909",
     map: "https://maps.app.goo.gl/V3S7ZFeZKwRQ2sm47",

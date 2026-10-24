@@ -24,6 +24,7 @@ const nextConfig: NextConfig = {
     { source: "/unidades/nacoes-unidas", destination: "/nacoes-unidas", permanent: true },
     { source: "/unidades/itacolomi", destination: "/itacolomi", permanent: true },
     { source: "/nossa-senhora-de-fatima", destination: "/fatima", permanent: true },
+    { source: "/canetas-emagrecedoras", destination: "/", permanent: true },
   ],
   headers: async () => [
     {

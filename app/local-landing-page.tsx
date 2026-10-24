@@ -30,6 +30,9 @@ function UnitContactCard({ unit, campaign, message }: { unit: Unit; campaign: st
       <p>{unit.address}</p>
       <p>
         Telefone: <a href={unit.phoneLink} data-track-event="phone_click" data-track-unit={unit.id} data-track-source={`${campaign}_unit_card`} data-track-placement="unit_card">{unit.phone}</a>
+        {unit.extraPhones?.map((extra) => (
+          <span key={extra.phoneLink}> / <a href={extra.phoneLink} data-track-event="phone_click" data-track-unit={unit.id} data-track-placement="unit_card">{extra.phone}</a></span>
+        ))}
       </p>
       <div className="landing-unit-actions">
         <a

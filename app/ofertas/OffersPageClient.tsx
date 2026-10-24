@@ -1,4 +1,5 @@
 "use client";
+import { OFFERS_GROUP_URL } from "../site-config";
 
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import DirectUnitLinks from "../DirectUnitLinks";
@@ -30,6 +31,11 @@ export default function OffersPageClient({
                 Escolha o produto e depois a loja. A equipe confirma se tem hoje.
               </p>
               <p className="offers-freshness">Encarte conferido em 17/08/2026. Vale enquanto durar o estoque em cada loja.</p>
+              <p>
+                <a className="button button-whatsapp" href={OFFERS_GROUP_URL} target="_blank" rel="noreferrer" data-track-event="offers_group_click" data-track-placement="ofertas_top">
+              Entre no Grupo de Ofertas
+            </a>
+              </p>
               <OfferAlerts showButton />
             </div>
           </div>

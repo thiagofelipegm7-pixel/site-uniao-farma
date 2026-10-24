@@ -63,6 +63,9 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
           <a className="button button-whatsapp" href={buildWhatsAppUrl(unit, product, { campaign: "bairro", content: `${unit.id}_pedir` })} target="_blank" rel="noreferrer">Pedir no WhatsApp</a>
           <a className="button button-call" href={unit.map} target="_blank" rel="noreferrer">Como chegar</a>
           <a className="text-link" href={unit.phoneLink}>Ligar {unit.phone}</a>
+          {unit.extraPhones?.map((extra) => (
+            <a className="text-link" key={extra.phoneLink} href={extra.phoneLink}>Ligar {extra.phone}</a>
+          ))}
         </div>
       </section>
 
