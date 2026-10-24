@@ -2,6 +2,15 @@ import type { Metadata } from "next";
 import DirectUnitLinks from "../DirectUnitLinks";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import { SITE_URL } from "../site-config";
+import { getBreadcrumbSchema } from "../structured-data";
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  ...getBreadcrumbSchema([
+    { name: "Início", url: SITE_URL },
+    { name: "Enviar receita", url: `${SITE_URL}/receita` },
+  ]),
+};
 import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 import "../receita-polish.css";
 
@@ -15,6 +24,7 @@ export const metadata: Metadata = {
 export default function ReceitaPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <ContentSiteHeader activePath="/receita" />
       <div className="recipe-page" id="receita-whatsapp">
         <section className="hero hero-home recipe-hero" aria-labelledby="recipe-title">
