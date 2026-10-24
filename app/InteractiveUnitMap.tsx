@@ -71,6 +71,9 @@ export default function InteractiveUnitMap({ initialUnitId }: { initialUnitId?: 
             Abrir rota
           </a>
           <a className="text-link" href={unit.phoneLink}>Ligar {unit.phone}</a>
+          {unit.extraPhones?.map((extra) => (
+            <a className="text-link" key={extra.phoneLink} href={extra.phoneLink}>Ligar {extra.phone}</a>
+          ))}
         </div>
       </div>
     </section>
