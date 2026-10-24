@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
+import OffersGroupCta from "./OffersGroupCta";
 import { buildWhatsAppUrl, SITE_URL, UNITS, type Unit } from "./site-config";
 import DirectUnitLinks from "./DirectUnitLinks";
 import type { FaqItem } from "./seo-content";
@@ -113,6 +114,9 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
                 heading="Escolha uma unidade e fale direto pelo WhatsApp"
                 description="A conversa abre no assunto desta página, sem voltar ao início."
               />
+              <p className="offers-group-inline">
+                <OffersGroupCta placement={`${config.slug}_hero`} />
+              </p>
               <p className="unit-page-note">
                 {"Preços, estoque, disponibilidade de entrega e horários especiais devem ser confirmados diretamente com a unidade."}
               </p>

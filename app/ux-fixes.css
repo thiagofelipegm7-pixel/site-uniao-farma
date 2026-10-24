@@ -1,0 +1,38 @@
+/* Carregado por último: correções de UX/contraste (PR melhorias/ux-performance). */
+a.button.button-group-offers,
+a.button.button-group-offers:visited {
+  background: #187d68 !important;
+  color: #ffffff !important;
+  border-color: #187d68 !important;
+}
+a.button.button-group-offers:hover,
+a.button.button-group-offers:focus-visible {
+  background: #12604f !important;
+  color: #ffffff !important;
+}
+.offers-group-inline {
+  margin: 1rem 0;
+}
+.unit-map-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  padding: 1.5rem;
+  background: #f1fbfa;
+  border: 1px solid #b7d0c6;
+  border-radius: 16px;
+  text-align: center;
+  color: #16382f;
+}
+.unit-map-placeholder p { margin: 0; }
+.unit-map-placeholder .unit-map-placeholder-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+}
