@@ -16,6 +16,7 @@ const LABEL: Record<Unit["id"], string> = {
 export default function InteractiveUnitMap({ initialUnitId }: { initialUnitId?: Unit["id"] }) {
   const [activeId, setActiveId] = useState<Unit["id"]>(initialUnitId ?? "fatima");
   const [locked] = useState(Boolean(initialUnitId));
+  const [mapLoaded, setMapLoaded] = useState(false);
   const unit = useMemo(() => UNITS.find((item) => item.id === activeId) ?? UNITS[0], [activeId]);
   const message = WHATSAPP_MESSAGES.product.replaceAll("{unidade}", unit.shortName);
 
@@ -46,12 +47,23 @@ export default function InteractiveUnitMap({ initialUnitId }: { initialUnitId?: 
       </div>
 
       <div className="unit-map-frame">
-        <iframe
-          src={unit.mapEmbed}
-          title={`Mapa da União Farma ${LABEL[unit.id]}`}
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-        />
+        {mapLoaded ? (
+          <iframe
+            src={unit.mapEmbed}
+            title={`Mapa da União Farma ${LABEL[unit.id]}`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        ) : (
+          <div className="unit-map-placeholder">
+            <p><strong>União Farma {LABEL[unit.id]}</strong></p>
+            <p>{unit.address}</p>
+            <div className="unit-map-placeholder-actions">
+              <a className="button button-call" href={unit.map} target="_blank" rel="noreferrer">Abrir no Maps</a>
+              <button type="button" className="button button-call" onClick={() => setMapLoaded(true)}>Ver mapa</button>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="unit-map-details">

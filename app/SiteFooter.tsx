@@ -1,6 +1,7 @@
 "use client";
 
 /* eslint-disable @next/next/no-html-link-for-pages */
+import OffersGroupCta from "./OffersGroupCta";
 import { useEffect, useState } from "react";
 import { COMPANY } from "./company";
 import { readPreferredUnitId, sortUnitsByPreference, writePreferredUnitId } from "./preferred-unit";
@@ -53,6 +54,9 @@ export default function SiteFooter() {
           {COMPANY.legalName}
           <br />
           CNPJ {COMPANY.cnpj} · Sabará/MG
+        </p>
+        <p className="offers-group-inline">
+          <OffersGroupCta placement="footer" />
         </p>
         <div className="uf-footer-grid">
           <div className="uf-footer-brand">

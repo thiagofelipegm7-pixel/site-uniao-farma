@@ -59,7 +59,7 @@ export default function UnitsShowcase() {
   return (
     <section className="units-showcase" id="unidades-rapidas" aria-labelledby="units-showcase-title">
       <div className="units-showcase-inner">
-        <header className="units-showcase-head">
+        <header className="units-showcase-head sr-only">
           <p className="section-kicker">{"Três lojas em Sabará"}</p>
           <h2 id="units-showcase-title">Escolha a unidade do seu bairro</h2>
         </header>
@@ -80,7 +80,6 @@ export default function UnitsShowcase() {
                 <a
                   className="unit-store-photo-link"
                   href={PAGE_HREF[unit.id]}
-                  aria-label={`Ver página da loja ${label}`}
                   onClick={() => writePreferredUnitId(unit.id)}
                 >
                   <WebImage
@@ -112,7 +111,7 @@ export default function UnitsShowcase() {
                       href={waHref}
                       target="_blank"
                       rel="noreferrer"
-                      aria-label={`Falar no WhatsApp com a loja ${label}`}
+                      aria-label={`Falar com esta loja: WhatsApp ${label}`}
                       onClick={() => {
                         writePreferredUnitId(unit.id);
                         trackWhatsAppClick({
@@ -135,7 +134,7 @@ export default function UnitsShowcase() {
                       href={unit.map}
                       target="_blank"
                       rel="noreferrer"
-                      aria-label={`Como chegar à loja ${label}`}
+                      aria-label={`Como chegar: loja ${label}`}
                       onClick={() => writePreferredUnitId(unit.id)}
                     >
                       Como chegar
@@ -144,7 +143,7 @@ export default function UnitsShowcase() {
                   <a
                     className="unit-store-more"
                     href={PAGE_HREF[unit.id]}
-                    aria-label={`Abrir página da unidade ${label}`}
+                    aria-label={`Ver página da unidade ${label}`}
                     onClick={() => writePreferredUnitId(unit.id)}
                   >
                     {"Ver página da unidade"}

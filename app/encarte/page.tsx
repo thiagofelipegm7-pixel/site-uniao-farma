@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import OffersGroupCta from "../OffersGroupCta";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import PublicOffersGrid from "../PublicOffersGrid";
 import { INSTAGRAM_URL, SITE_URL, UNITS, buildWhatsAppUrl } from "../site-config";
@@ -35,6 +36,9 @@ export default function FlyerPage() {
               </a>
             ))}
           </div>
+          <p className="offers-group-inline">
+            <OffersGroupCta placement="encarte" />
+          </p>
           <p>
             <a className="button button-call" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
               Ver no Instagram

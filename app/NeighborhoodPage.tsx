@@ -1,4 +1,5 @@
 import InteractiveUnitMap from "./InteractiveUnitMap";
+import OffersGroupCta from "./OffersGroupCta";
 import UnitStatusBadge from "./UnitStatusBadge";
 import WebImage from "./WebImage";
 import { buildWhatsAppUrl, SITE_URL, type Unit } from "./site-config";
@@ -88,6 +89,12 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
           <p>Envie a foto ou o Memed no WhatsApp desta unidade.</p>
           <a href={buildWhatsAppUrl(unit, recipe, { campaign: "bairro", content: `${unit.id}_receita` })} target="_blank" rel="noreferrer">Enviar receita</a>
         </article>
+      </section>
+
+      <section className="section-inner offers-group-inline">
+        <h2>Grupo de Ofertas no WhatsApp</h2>
+        <p>Receba as ofertas da semana das 3 lojas direto no seu celular.</p>
+        <OffersGroupCta placement={`unit_${unit.id}`} />
       </section>
 
       <section className="section-inner">

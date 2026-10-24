@@ -3,7 +3,7 @@
 import { categories, type SelectorIntent } from "./home-chrome";
 import HomeReasons from "./HomeReasons";
 import { HomeMore } from "./home-more";
-import { OFFERS_GROUP_URL } from "./site-config";
+import OffersGroupCta from "./OffersGroupCta";
 
 const CATEGORY_ICON_SRC: Record<string, string> = {
   medicine: "/icons/medicamentos.svg",
@@ -52,9 +52,7 @@ export function HomeSections({
           <h2 id="offers-group-title">Grupo de Ofertas no WhatsApp</h2>
           <p>Receba as ofertas da semana das 3 lojas direto no seu celular. Quem é do grupo fica sabendo primeiro.</p>
           <p>
-            <a className="button button-whatsapp" href={OFFERS_GROUP_URL} target="_blank" rel="noreferrer" data-track-event="offers_group_click" data-track-placement="home_offers_group">
-              Entre no Grupo de Ofertas
-            </a>
+            <OffersGroupCta placement="home_offers_group" />
           </p>
         </div>
       </section>
