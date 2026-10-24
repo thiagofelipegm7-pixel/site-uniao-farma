@@ -34,3 +34,25 @@
     height: 62px;
   }
 }
+
+/* Lojas: botão fixo com nome da loja no mobile */
+.whatsapp-fab-label {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  a.whatsapp-fab.whatsapp-fab-unit {
+    left: 0.85rem;
+    width: auto;
+    height: 52px;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .whatsapp-fab-unit .whatsapp-fab-label {
+    display: inline;
+  }
+}

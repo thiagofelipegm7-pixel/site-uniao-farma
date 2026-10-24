@@ -64,7 +64,7 @@ export default function UnitsShowcase() {
           <h2 id="units-showcase-title">Escolha a unidade do seu bairro</h2>
         </header>
 
-        <div className="units-showcase-grid" role="list" ref={gridRef}>
+        <div className="units-showcase-grid" ref={gridRef}>
           {units.map((unit, index) => {
             const label = SHORT_LABEL[unit.id];
             const kind = UNIT_PHOTO_KIND[unit.id];
@@ -76,7 +76,7 @@ export default function UnitsShowcase() {
             });
 
             return (
-              <article className={`unit-store-card unit-store-card-${unit.id}`} key={unit.id} role="listitem">
+              <article className={`unit-store-card unit-store-card-${unit.id}`} key={unit.id}>
                 <a
                   className="unit-store-photo-link"
                   href={PAGE_HREF[unit.id]}
@@ -90,7 +90,7 @@ export default function UnitsShowcase() {
                     height={416}
                     priority={index === 0}
                     sizes="(max-width: 720px) 88vw, 360px"
-                    srcSet={responsiveSrcSet(UNIT_PHOTOS[unit.id], unit.id === "nacoes" ? [480, 768, 1024] : [480])}
+                    srcSet={responsiveSrcSet(UNIT_PHOTOS[unit.id], unit.id === "nacoes" ? [360, 480, 768, 1024] : [360, 480])}
                   />
                   <span className="unit-store-photo-tag">
                     <strong>{kind}</strong>

@@ -150,8 +150,15 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pt-BR" data-theme="light" className={`${poppins.className} ${fraunces.variable}`}>
       <head>
-        <link rel="preload" href="/uniao-farma-nacoes-loja.webp?v=27" as="image" type="image/webp" />
-        <meta charSet="utf-8" />
+        <link
+          rel="preload"
+          href="/uniao-farma-perfumaria-480.webp?v=27"
+          as="image"
+          type="image/webp"
+          imageSrcSet="/uniao-farma-perfumaria-360.webp?v=27 360w, /uniao-farma-perfumaria-480.webp?v=27 480w"
+          imageSizes="(max-width: 720px) 88vw, 360px"
+          fetchPriority="high"
+        />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
         <link rel="preconnect" href="https://connect.facebook.net" />

@@ -29,6 +29,7 @@ function fabTarget(pathname: string) {
         content: `fab_${unit.id}`,
       }),
       external: true,
+      unitName: unit.shortName,
     };
   }
 
@@ -40,14 +41,17 @@ export default function WhatsAppFab() {
   const pathname = usePathname() || "/";
   const target = fabTarget(pathname);
 
+  const unitName = "unitName" in target ? target.unitName : undefined;
+
   return (
     <a
-      className="whatsapp-fab"
+      className={unitName ? "whatsapp-fab whatsapp-fab-unit" : "whatsapp-fab"}
       href={target.href}
-      aria-label="Falar no WhatsApp"
+      aria-label={unitName ? `Falar no WhatsApp da loja ${unitName}` : "Falar no WhatsApp"}
       {...(target.external ? { target: "_blank", rel: "noreferrer" } : {})}
     >
       <WhatsAppIcon />
+      {unitName ? <span className="whatsapp-fab-label">Pedir no WhatsApp da loja</span> : null}
     </a>
   );
 }
