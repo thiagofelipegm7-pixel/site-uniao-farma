@@ -1547,3 +1547,12 @@ a.brand img {
   color: #fff !important;
 }
 }
+
+.uf-footer-label {
+  margin: 0 0 6px;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}

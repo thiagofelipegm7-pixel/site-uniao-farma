@@ -46,17 +46,6 @@ export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}${PUBLIC
     description: `Farmácia e drogaria da União Farma no bairro ${unit.neighborhood}, em Sabará/MG. Medicamentos, perfumaria e pedido pelo WhatsApp.`,
     url: pageUrl,
     telephone: `+${unit.phoneLink.replace("tel:+", "")}`,
-    ...(unit.extraPhones?.length
-      ? {
-          contactPoint: unit.extraPhones.map((extra) => ({
-            "@type": "ContactPoint",
-            telephone: `+${extra.phoneLink.replace("tel:+", "")}`,
-            contactType: "customer service",
-            areaServed: "BR",
-            availableLanguage: "pt-BR",
-          })),
-        }
-      : {}),
     image: `${SITE_URL}/uniao-farma-logo.webp`,
     taxID: COMPANY.cnpj,
     address: {
@@ -66,6 +55,7 @@ export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}${PUBLIC
       addressRegion: "MG",
       addressCountry: "BR",
       addressNeighborhood: unit.neighborhood,
+      postalCode: unit.cep,
     },
     ...(unit.coordinates
       ? {
@@ -83,6 +73,7 @@ export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}${PUBLIC
       "@type": "ContactPoint",
       telephone: `+${unit.whatsappDigits}`,
       contactType: "customer service",
+      name: "WhatsApp",
       availableLanguage: "Portuguese",
       areaServed: "Sabará",
     },

@@ -80,7 +80,7 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     type: "website",
     locale: "pt_BR",
-    url: SITE_URL,
+    url: `${SITE_URL}/`,
     siteName: "União Farma",
     images: [
       {
@@ -121,9 +121,9 @@ const organizationSchema = {
   name: "União Farma",
   alternateName: COMPANY.legalName,
   taxID: COMPANY.cnpj,
-  url: SITE_URL,
+  url: `${SITE_URL}/`,
   logo: `${SITE_URL}/icon-192.png`,
-  sameAs: [INSTAGRAM_URL],
+  sameAs: [INSTAGRAM_URL, ...UNITS.map((unit) => unit.map)],
   contactPoint: UNITS.map((unit) => ({
     "@type": "ContactPoint",
     telephone: `+${unit.whatsappDigits}`,
@@ -137,7 +137,7 @@ const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   "@id": `${SITE_URL}/#website`,
-  url: SITE_URL,
+  url: `${SITE_URL}/`,
   name: "União Farma",
   description: SITE_DESCRIPTION,
   inLanguage: "pt-BR",

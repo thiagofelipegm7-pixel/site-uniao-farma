@@ -2,7 +2,8 @@ import InteractiveUnitMap from "./InteractiveUnitMap";
 import OffersGroupCta from "./OffersGroupCta";
 import UnitStatusBadge from "./UnitStatusBadge";
 import WebImage from "./WebImage";
-import { buildWhatsAppUrl, SITE_URL, type Unit } from "./site-config";
+import { buildWhatsAppUrl, SITE_URL, UNITS, type Unit } from "./site-config";
+import { getStoreContent } from "./store-content";
 import { getPageStructuredData } from "./structured-data";
 import { UNIT_PHOTOS } from "./unit-photos";
 import { responsiveSrcSet } from "./responsive-images";
@@ -32,10 +33,13 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
   const delivery = WHATSAPP_MESSAGES.delivery.replaceAll("{unidade}", unit.shortName);
   const recipe = WHATSAPP_MESSAGES.recipe.replaceAll("{unidade}", unit.shortName);
   const pageUrl = `${SITE_URL}${PAGE_HREF[unit.id]}`;
+  const content = getStoreContent(unit);
+  const otherUnits = UNITS.filter((other) => other.id !== unit.id);
   const structuredData = getPageStructuredData({
     name: `Farmácia ${unit.shortName} em Sabará`,
     url: pageUrl,
     unit,
+    faqs: content.faqs,
     breadcrumbs: [
       { name: "Início", url: `${SITE_URL}/` },
       { name: unit.shortName, url: pageUrl },
@@ -58,15 +62,12 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
         />
         <p className="eyebrow">Farmácia em {unit.neighborhood}</p>
         <h1>{PAGE_HEADING[unit.id]}</h1>
-        <p>{unit.address}</p>
+        <p>{unit.address} — CEP {unit.cep}</p>
         <UnitStatusBadge unit={unit} />
         <div className="neighborhood-actions">
           <a className="button button-whatsapp" href={buildWhatsAppUrl(unit, product, { campaign: "bairro", content: `${unit.id}_pedir` })} target="_blank" rel="noreferrer">Pedir no WhatsApp</a>
           <a className="button button-call" href={unit.map} target="_blank" rel="noreferrer">Como chegar</a>
           <a className="text-link" href={unit.phoneLink}>Ligar {unit.phone}</a>
-          {unit.extraPhones?.map((extra) => (
-            <a className="text-link" key={extra.phoneLink} href={extra.phoneLink}>Ligar {extra.phone}</a>
-          ))}
         </div>
       </section>
 
@@ -89,6 +90,48 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
           <p>Envie a foto ou o Memed no WhatsApp desta unidade.</p>
           <a href={buildWhatsAppUrl(unit, recipe, { campaign: "bairro", content: `${unit.id}_receita` })} target="_blank" rel="noreferrer">Enviar receita</a>
         </article>
+      </section>
+
+      <section className="section-inner store-about">
+        <h2>Sobre a loja de {label}</h2>
+        <p>{content.intro}</p>
+
+        <h3>Bairros atendidos na entrega</h3>
+        <p>{content.bairros.join(", ")}. {content.bairrosNote}</p>
+
+        <h3>Formas de pagamento</h3>
+        <p>Pix, dinheiro, cartão de débito e cartão de crédito, inclusive por aproximação. Na entrega, confirme a forma de pagamento com a loja pelo WhatsApp.</p>
+
+        <h3>Como pedir pelo WhatsApp</h3>
+        <ol>
+          <li>Chame a loja no WhatsApp {unit.whatsapp}.</li>
+          <li>Mande o nome dos produtos ou uma foto da embalagem.</li>
+          <li>Informe o seu endereço, se quiser receber em casa.</li>
+          <li>A loja confirma a disponibilidade, a taxa e o prazo.</li>
+        </ol>
+      </section>
+
+      <section className="section-inner store-faq">
+        <h2>Perguntas frequentes da loja de {label}</h2>
+        {content.faqs.map((faq) => (
+          <div key={faq.q}>
+            <h3>{faq.q}</h3>
+            <p>{faq.a}</p>
+          </div>
+        ))}
+      </section>
+
+      <section className="section-inner store-others">
+        <h2>Outras lojas</h2>
+        <ul>
+          {otherUnits.map((other) => (
+            <li key={other.id}>
+              <a href={PAGE_HREF[other.id]}>União Farma {SHORT_LABEL[other.id]}</a> — {other.street}
+            </li>
+          ))}
+          <li><a href="/entrega-de-medicamentos-em-sabara">Entrega de medicamentos em Sabará</a></li>
+          <li><a href="/farmacia-em-sabara">Farmácia em Sabará: as 3 lojas</a></li>
+        </ul>
       </section>
 
       <section className="section-inner offers-group-inline">
