@@ -425,7 +425,7 @@
     grid-template-columns: minmax(0, 1fr) !important;
   }
 
-  .whatsapp-fab {
+  .whatsapp-fab:not(.whatsapp-fab-unit) {
     display: none !important;
   }
 
