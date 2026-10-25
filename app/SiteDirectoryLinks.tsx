@@ -10,6 +10,7 @@ const SITE_DIRECTORY_LINKS = [
   { href: "/itacolomi", label: "Farmácia no Itacolomi" },
   { href: "/perfumaria-em-sabara", label: "Perfumaria em Sabará" },
   { href: "/farmacia-em-sabara", label: "Farmácia em Sabará" },
+  { href: "/farmacia-aberta-domingo-sabara", label: "Ver horários" },
   { href: "/entrega-de-medicamentos-em-sabara", label: "Entrega em Sabará" },
   { href: "/privacidade", label: "Privacidade" },
   { href: "/termos", label: "Termos de uso" },

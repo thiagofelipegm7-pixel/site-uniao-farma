@@ -90,6 +90,7 @@ export function HomeSections({
           </div>
           <div className="seo-intent-grid">
             <a href="/farmacia-em-sabara">{"Farmácia em Sabará"}</a>
+            <a href="/farmacia-aberta-domingo-sabara">{"Farmácia aberta agora e domingo"}</a>
             <a href="/entrega-de-medicamentos-em-sabara">{"Entrega de medicamentos em Sabará"}</a>
             <a href="/perfumaria-em-sabara">{"Perfumaria em Sabará"}</a>
           </div>

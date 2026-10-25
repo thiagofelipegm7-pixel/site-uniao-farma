@@ -66,6 +66,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      url: `${SITE_URL}/farmacia-aberta-domingo-sabara`,
+      lastModified: sitemapDate(PAGE_LAST_UPDATED.abertaDomingo),
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
+    {
       url: `${SITE_URL}/entrega-de-medicamentos-em-sabara`,
       lastModified: sitemapDate(PAGE_LAST_UPDATED.entrega),
       changeFrequency: "monthly",
