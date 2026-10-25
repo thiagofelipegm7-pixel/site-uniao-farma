@@ -39,3 +39,8 @@ test("public pages declare relative canonicals", async () => {
     assert.doesNotMatch(source, /canonical: `\$\{SITE_URL\}/);
   }
 });
+
+test("only Nações Unidas declares free parking", async () => {
+  const { UNITS } = await import("../app/site-config.ts");
+  assert.deepEqual(UNITS.filter((u) => u.amenities?.freeParking).map((u) => u.id), ["nacoes"]);
+});

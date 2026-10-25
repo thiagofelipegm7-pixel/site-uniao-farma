@@ -22,6 +22,10 @@ export function getStoreContent(unit: Unit): StoreExtraContent {
     { q: "Onde fica a loja?", a: `${unit.street}, bairro ${unit.neighborhood}, Sabará/MG, CEP ${unit.cep}.` },
   ];
 
+  if (unit.amenities?.freeParking) {
+    base.push({ q: "Tem estacionamento?", a: `Sim, a loja ${unit.shortName} tem estacionamento gratuito.` });
+  }
+
   if (unit.id === "fatima") {
     return {
       intro:

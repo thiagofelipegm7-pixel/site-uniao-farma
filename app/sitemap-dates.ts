@@ -5,7 +5,7 @@
 export const PAGE_LAST_UPDATED = {
   home: "2026-10-24",
   fatima: "2026-10-24",
-  nacoes: "2026-10-24",
+  nacoes: "2026-10-25",
   itacolomi: "2026-10-24",
   ofertas: "2026-08-17",
   receita: "2026-10-24",

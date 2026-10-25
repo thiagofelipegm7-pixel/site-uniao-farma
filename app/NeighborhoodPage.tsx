@@ -95,6 +95,7 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
       <section className="section-inner store-about">
         <h2>Sobre a loja de {label}</h2>
         <p>{content.intro}</p>
+        {unit.amenities?.freeParking ? <p><strong>Estacionamento gratuito</strong> para clientes da loja.</p> : null}
 
         <h3>Bairros atendidos na entrega</h3>
         <p>{content.bairros.join(", ")}. {content.bairrosNote}</p>

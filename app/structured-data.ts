@@ -66,6 +66,13 @@ export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}${PUBLIC
           },
         }
       : {}),
+    ...(unit.amenities?.freeParking
+      ? {
+          amenityFeature: [
+            { "@type": "LocationFeatureSpecification", name: "Estacionamento gratuito", value: true },
+          ],
+        }
+      : {}),
     hasMap: unit.map,
     openingHoursSpecification: getOpeningHoursSpecification(unit),
     areaServed: `Entrega sob consulta no bairro ${unit.neighborhood} e em Sabará. A loja confirma se atende o endereço.`,
