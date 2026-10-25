@@ -221,8 +221,20 @@ a.whatsapp-fab.whatsapp-fab-unit {
   .hero.hero-home.recipe-hero { min-height: auto !important; padding-top: 1.25rem !important; }
   .recipe-hero .hero-inner { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; width: 100% !important; }
   .recipe-hero .hero-inner > * { min-width: 0; max-width: 100%; }
-  .recipe-hero .hero-inner { margin-top: -2.75rem; row-gap: 1rem; }
+  .recipe-hero .hero-inner { row-gap: 1rem; }
+  .recipe-hero .direct-unit-links-grid { display: flex !important; flex-direction: column !important; overflow: visible !important; padding: 0 !important; margin: 0 !important; width: 100% !important; gap: 0.75rem !important; }
+  .recipe-hero .direct-unit-links-grid > .direct-unit-link { width: 100% !important; min-width: 0 !important; max-width: none !important; flex: none !important; margin: 0 !important; }
   .recipe-hero .recipe-steps { padding-inline: 24px !important; box-sizing: border-box; width: 100% !important; }
   .recipe-hero .hero-inner > .direct-unit-links { margin-inline: 0 !important; padding-inline: 24px !important; box-sizing: border-box; width: 100% !important; }
   .recipe-hero .recipe-note { margin-inline: 24px !important; width: auto !important; }
+}
+
+/* Receita: alinhamento final dos cartões */
+@media (max-width: 59.99rem) {
+  .recipe-hero .direct-unit-link .button { width: 100% !important; justify-content: center; }
+}
+@media (min-width: 60rem) {
+  .recipe-hero .hero-inner > .direct-unit-links,
+  .recipe-hero .direct-unit-links-grid { margin-inline: 0 !important; padding-inline: 0 !important; }
+  .recipe-hero .recipe-note { grid-column: 1 / -1; max-width: 40rem; margin-inline: 0 !important; }
 }

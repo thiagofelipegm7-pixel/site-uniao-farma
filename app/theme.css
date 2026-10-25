@@ -1169,7 +1169,7 @@ select:focus,
     display: none !important;
   }
 
-  .hero {
+  .hero:not(.recipe-hero) {
     padding-top: 4.4rem !important;
     padding-bottom: 0.85rem !important;
   }
