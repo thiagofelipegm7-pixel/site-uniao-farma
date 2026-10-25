@@ -403,3 +403,9 @@
 
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; scroll-behavior: auto !important; } }
 }
+
+@layer design {
+  @media (min-width: 768px) {
+    .button-group-offers { width: auto !important; max-width: max-content !important; align-self: flex-start !important; justify-self: start !important; padding-inline: 24px !important; }
+  }
+}
