@@ -19,6 +19,18 @@ export const metadata: Metadata = {
   description:
     "Envie a foto da receita ou o link do Memed no WhatsApp da União Farma em Sabará. A loja confere no horário e diz se tem.",
   alternates: { canonical: "/receita" },
+  openGraph: {
+    title: "Enviar receita pelo WhatsApp | União Farma",
+    description: "Envie a foto da receita ou o link do Memed no WhatsApp da União Farma em Sabará.",
+    url: `${SITE_URL}/receita`,
+    type: "website",
+    images: [{ url: "/og-receita.jpg", width: 1200, height: 630, alt: "Envie sua receita para a União Farma" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Enviar receita pelo WhatsApp | União Farma",
+    images: ["/og-receita.jpg"],
+  },
 };
 
 export default function ReceitaPage() {

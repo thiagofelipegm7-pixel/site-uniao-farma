@@ -843,7 +843,7 @@ select:focus,
   min-height: 50px;
   padding: 0.7rem 1rem 0.7rem 1.2rem;
   border-radius: 0.85rem;
-  background: #128c3a;
+  background: #0f7a33;
   color: #ffffff;
   font-weight: 800;
   letter-spacing: -0.01em;
@@ -1085,9 +1085,9 @@ select:focus,
 }
 
 .button.button-whatsapp {
-  background: #128c3a !important;
+  background: #0f7a33 !important;
   color: #ffffff !important;
-  border-color: #128c3a !important;
+  border-color: #0f7a33 !important;
 }
 
 @media (min-width: 861px) {

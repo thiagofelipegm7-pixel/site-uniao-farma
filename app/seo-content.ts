@@ -35,8 +35,8 @@ export const HOME_FAQS: FaqItem[] = [
     a: "Em regra, não. Controlado e antibiótico pedem receita e retirada na loja, com o farmacêutico. Tire a dúvida no WhatsApp antes de ir.",
   },
   {
-    q: "Tem genérico mais barato?",
-    a: "Na maioria das vezes, sim. Mande o nome e a dosagem. A loja diz se tem genérico, similar ou referência — e o preço de cada um hoje.",
+    q: "Vocês têm medicamento genérico?",
+    a: "Consulte com o farmacêutico as opções de genérico disponíveis para a sua receita. Mande o nome e a dosagem pelo WhatsApp e a loja informa o que tem hoje.",
   },
   {
     q: "Qual o horário das lojas?",
