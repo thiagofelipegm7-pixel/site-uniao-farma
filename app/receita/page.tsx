@@ -52,17 +52,21 @@ export default function ReceitaPage() {
             <ol className="recipe-steps">
               <li>
                 <strong>1</strong>
-                <span>Foto ou Memed</span>
+                <span>Foto nítida ou Memed</span>
               </li>
               <li>
                 <strong>2</strong>
-                <span>Loja do bairro</span>
+                <span>Escolha a loja</span>
               </li>
               <li>
                 <strong>3</strong>
-                <span>Confirma se tem</span>
+                <span>A loja confirma se tem</span>
               </li>
             </ol>
+
+            <p className="recipe-note legal-band" role="note">
+              Controlado e antibiótico: retirada na loja, com retenção da receita. Não envie dados além dos necessários.
+            </p>
 
             <DirectUnitLinks
               compact
@@ -71,9 +75,6 @@ export default function ReceitaPage() {
               source="recipe_page"
             />
 
-            <p className="recipe-note">
-              Controlado e antibiótico saem na loja. Não envie dados além dos necessários.
-            </p>
           </div>
         </section>
       </div>

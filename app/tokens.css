@@ -1,3 +1,6 @@
+/* Ordem das camadas: "design" (DESIGN.md) vem primeiro para que os !important dela prevaleçam. */
+@layer design, typography, layout, components, theme, overrides;
+
 :root {
   --uf-green: #148f8a;
   --uf-green-hover: #0e7370;

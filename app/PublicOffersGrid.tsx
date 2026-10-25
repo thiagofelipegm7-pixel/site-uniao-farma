@@ -4,7 +4,14 @@ import { trackEvent } from "./analytics";
 import WebImage from "./WebImage";
 import { responsiveSrcSet } from "./responsive-images";
 import "./encarte.css";
-import { formatOfferPrice, getPublicOffers, OFFER_CATEGORY_LABELS, type Offer } from "./offers";
+import {
+  formatOfferPrice,
+  getPublicOffers,
+  isMedicationOffer,
+  MEDICATION_WARNING,
+  OFFER_CATEGORY_LABELS,
+  type Offer,
+} from "./offers";
 
 function OfferConsultCard({ offer }: { offer: Offer }) {
   const price = offer.currentPrice !== null ? formatOfferPrice(offer.currentPrice) : "preço sob consulta";
@@ -34,9 +41,18 @@ function OfferConsultCard({ offer }: { offer: Offer }) {
         {offer.currentPrice !== null ? (
           <p className="offer-consult-price">
             <strong>{formatOfferPrice(offer.currentPrice)}</strong>
-            {offer.previousPrice ? <s>{formatOfferPrice(offer.previousPrice)}</s> : null}
+            {offer.previousPrice && offer.previousPriceConfirmed ? (
+              <s>
+                <span className="sr-only">De </span>
+                {formatOfferPrice(offer.previousPrice)}
+              </s>
+            ) : null}
           </p>
-        ) : null}
+        ) : (
+          <p className="offer-consult-price offer-consult-price-ask">Preço sob consulta</p>
+        )}
+        <p className="offer-consult-cond">Enquanto durar o estoque</p>
+        {isMedicationOffer(offer) ? <p className="offer-legal">{MEDICATION_WARNING}</p> : null}
         <a
           className="offer-consult-choose"
           href="#ofertas-whatsapp"
