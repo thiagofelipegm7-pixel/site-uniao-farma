@@ -229,7 +229,7 @@
   .delivery-slot-cta { white-space: nowrap; max-width: 100% !important; }
   .delivery-slot h2 { margin: 0 0 8px !important; }
   .delivery-slot p:not(.section-kicker) { color: var(--ink-2) !important; margin: 0 !important; max-width: 60ch; }
-  @media (min-width: 768px) { .delivery-slot-inner { flex-direction: row !important; align-items: center !important; justify-content: space-between !important; } .delivery-slot-cta { flex: none !important; } }
+  @media (min-width: 768px) { .delivery-slot-inner { flex-direction: row !important; align-items: center !important; justify-content: space-between !important; } .delivery-slot-cta { flex: none !important; width: auto !important; } .delivery-slot-copy { flex: 1 1 0 !important; } }
 
   /* ---------- Grupo de ofertas / categorias ---------- */
   .offers-group-section .section-inner, .offers-group-band .section-inner { border: 1px solid var(--line) !important; border-radius: var(--r-xl) !important; padding: clamp(24px, 4vw, 40px) !important; max-width: 1160px !important; width: calc(100% - 40px) !important; }
@@ -249,6 +249,12 @@
   .categories-section, .story-section, .reviews-section, .faq-section { display: block !important; }
   .offer-consult-choose, .home-offer-cta { background: var(--teal-600, #147a64) !important; color: #fff !important; opacity: 1 !important; }
   .offer-consult-brand, .offer-consult-cond, .review-card small, .review-card time { color: #4f5b59 !important; }
+  .categories-section { padding: 48px 20px !important; }
+  .categories-section .section-heading { margin: 0 auto 20px !important; width: 100% !important; max-width: 1200px !important; text-align: left !important; padding: 0 !important; align-items: flex-start !important; }
+  .direct-unit-link { flex-direction: column !important; align-items: stretch !important; }
+  .direct-unit-actions { grid-template-columns: 1fr !important; width: 100% !important; }
+  .direct-unit-actions:has(> :nth-child(2)) { grid-template-columns: 1fr 1fr !important; }
+  .direct-unit-actions > a { white-space: nowrap !important; justify-content: center !important; min-height: 48px !important; }
   .offer-consult-card { animation: none !important; opacity: 1 !important; }
   main section, .trust-strip { content-visibility: visible !important; contain-intrinsic-size: none !important; }
   body:has(main .button-group-offers) .uf-footer .offers-group-inline { display: none !important; }
