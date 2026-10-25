@@ -32,6 +32,8 @@ export type Unit = {
   map: string;
   mapEmbed: string;
   schedule: Record<Weekday, DailyHours>;
+  /** Comodidades confirmadas pelo dono. Só preencher o que for verdade. */
+  amenities?: { freeParking?: boolean };
   coordinates?: {
     latitude: number;
     longitude: number;
@@ -100,6 +102,7 @@ export const UNITS: Unit[] = [
     phoneLink: "tel:+553136718506",
     whatsapp: "(31) 98762-9909",
     whatsappDigits: "5531987629909",
+    amenities: { freeParking: true },
     map: "https://maps.app.goo.gl/V3S7ZFeZKwRQ2sm47",
     mapEmbed:
       "https://maps.google.com/maps?q=Rua+Inglaterra,162,Nacoes+Unidas,Sabara,MG&t=&z=17&ie=UTF8&iwloc=&output=embed",
