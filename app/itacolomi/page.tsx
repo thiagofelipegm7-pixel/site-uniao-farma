@@ -20,9 +20,16 @@ export const metadata: Metadata = {
   keywords: ["farmácia Itacolomi Sabará", "União Farma Itacolomi", "drogaria Itacolomi"],
   openGraph: {
     title: "Farmácia no Itacolomi, Sabará: entrega e WhatsApp | União Farma",
-    description: "Av. Joaquim Ferreira Madureira, 489. Peça pelo WhatsApp da loja do Itacolomi.",
+    description: "Av. Joaquim Ferreira Madureira, 489. Seg a sex até 21h, sábado até 20h e domingo até 12h. Peça pelo WhatsApp (31) 99493-6960 e consulte a entrega.",
     url: `${SITE_URL}/itacolomi`,
     type: "website",
+    images: ["/og-instagram-optimized.jpg"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Farmácia no Itacolomi, Sabará: entrega e WhatsApp | União Farma",
+    description: "Av. Joaquim Ferreira Madureira, 489. Seg a sex até 21h, sábado até 20h e domingo até 12h. Peça pelo WhatsApp (31) 99493-6960 e consulte a entrega.",
+    images: ["/og-instagram-optimized.jpg"],
   },
 };
 

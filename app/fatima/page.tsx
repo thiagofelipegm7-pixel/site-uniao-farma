@@ -20,9 +20,16 @@ export const metadata: Metadata = {
   keywords: ["farmácia Fátima Sabará", "União Farma Fátima", "drogaria Nossa Senhora de Fátima"],
   openGraph: {
     title: "Farmácia em Fátima, Sabará: entrega e WhatsApp | União Farma",
-    description: "Rua Cláudio, 902. Peça pelo WhatsApp da loja de Fátima.",
+    description: "Rua Cláudio, 902. Seg a sex das 7h às 21h, sábado até 20h e domingo até 12h. Peça pelo WhatsApp (31) 98738-1786 e consulte a entrega.",
     url: `${SITE_URL}/fatima`,
     type: "website",
+    images: ["/og-instagram-optimized.jpg"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Farmácia em Fátima, Sabará: entrega e WhatsApp | União Farma",
+    description: "Rua Cláudio, 902. Seg a sex das 7h às 21h, sábado até 20h e domingo até 12h. Peça pelo WhatsApp (31) 98738-1786 e consulte a entrega.",
+    images: ["/og-instagram-optimized.jpg"],
   },
 };
 

@@ -78,7 +78,7 @@ export default function SiteFooter() {
           </div>
 
           <nav className="uf-footer-col" aria-label="Navegação do rodapé">
-            <h2>Navegação</h2>
+            <p className="uf-footer-label">Navegação</p>
             {NAV.map((item) => (
               <a key={item.href} href={item.href}>
                 {item.label}
