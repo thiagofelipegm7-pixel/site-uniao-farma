@@ -28,6 +28,7 @@ test("public pages declare relative canonicals", async () => {
     ["app/perguntas/page.tsx", 'canonical: "/perguntas"'],
     ["app/encarte/page.tsx", 'canonical: "/encarte"'],
     ["app/farmacia-em-sabara/page.tsx", "canonical: `/${config.slug}`"],
+    ["app/farmacia-aberta-domingo-sabara/page.tsx", 'canonical: "/farmacia-aberta-domingo-sabara"'],
     ["app/entrega-de-medicamentos-em-sabara/page.tsx", "canonical: `/${config.slug}`"],
     ["app/perfumaria-em-sabara/page.tsx", "canonical: `/${config.slug}`"],
   ];

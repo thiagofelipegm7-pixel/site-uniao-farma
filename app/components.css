@@ -1556,3 +1556,23 @@ a.brand img {
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+
+/* Tabela de horários — /farmacia-aberta-domingo-sabara */
+.hours-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 16px; }
+.hours-table { width: 100%; border-collapse: collapse; background: var(--uf-card); color: var(--uf-ink); border: 1px solid var(--uf-line); border-radius: 12px; overflow: hidden; }
+.hours-table caption { text-align: left; font-weight: 700; padding: 0 0 8px; color: var(--uf-muted); }
+.hours-table th, .hours-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--uf-line); vertical-align: top; }
+.hours-table thead th { background: var(--uf-fog); font-size: 0.9rem; }
+.hours-table tbody th a { color: var(--uf-green-dark); font-weight: 700; }
+.hours-table td a { color: var(--uf-green); font-weight: 600; white-space: nowrap; }
+.hours-table .unit-status-open { color: var(--uf-open); }
+.hours-table .unit-status-closed { color: var(--uf-closed); }
+@media (max-width: 720px) {
+  .hours-table, .hours-table tbody, .hours-table tr, .hours-table th, .hours-table td { display: block; width: 100%; }
+  .hours-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .hours-table { border: 0; background: transparent; }
+  .hours-table tbody tr { background: var(--uf-card); border: 1px solid var(--uf-line); border-radius: 12px; margin-bottom: 12px; padding: 4px 0; }
+  .hours-table tbody th { font-size: 1.1rem; border-bottom: 1px solid var(--uf-line); }
+  .hours-table td { display: flex; justify-content: space-between; gap: 12px; border-bottom: 0; padding: 8px 14px; }
+  .hours-table td::before { content: attr(data-label); font-weight: 700; color: var(--uf-muted); }
+}

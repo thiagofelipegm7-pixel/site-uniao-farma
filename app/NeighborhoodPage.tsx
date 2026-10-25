@@ -131,6 +131,7 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
           ))}
           <li><a href="/entrega-de-medicamentos-em-sabara">Entrega de medicamentos em Sabará</a></li>
           <li><a href="/farmacia-em-sabara">Farmácia em Sabará: as 3 lojas</a></li>
+          <li><a href="/farmacia-aberta-domingo-sabara">Ver horários: farmácia aberta agora e domingo</a></li>
         </ul>
       </section>
 
