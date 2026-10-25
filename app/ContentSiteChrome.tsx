@@ -9,30 +9,17 @@ import BrandLogo from "./BrandLogo";
 type ContentPath = "/ofertas" | "/novidades" | "/receita";
 
 const NAV_LINKS: Array<{ href: string; label: string; activePath?: ContentPath }> = [
+  { href: "/#unidades-rapidas", label: "Lojas" },
   { href: "/ofertas", label: "Ofertas", activePath: "/ofertas" },
-  { href: "/#unidades-rapidas", label: "Unidades" },
   { href: "/receita", label: "Receita", activePath: "/receita" },
-  { href: "/novidades", label: "Novidades", activePath: "/novidades" },
+  { href: "/entrega-de-medicamentos-em-sabara", label: "Entrega" },
   { href: "/perguntas", label: "Perguntas" },
-  { href: "/encarte", label: "Encarte" },
 ];
 
-const HEADER_CTA: Record<ContentPath, { href: string; label: string; ariaLabel: string }> = {
-  "/ofertas": {
-    href: "#ofertas-whatsapp",
-    label: "Consultar oferta",
-    ariaLabel: "Consultar oferta no WhatsApp da loja",
-  },
-  "/receita": {
-    href: "#receita-whatsapp",
-    label: "Enviar receita",
-    ariaLabel: "Enviar receita no WhatsApp da loja",
-  },
-  "/novidades": {
-    href: "/#unidades-rapidas",
-    label: "Pedir no WhatsApp",
-    ariaLabel: "Pedir no WhatsApp",
-  },
+const HEADER_CTA: Record<ContentPath, string> = {
+  "/ofertas": "#ofertas-whatsapp",
+  "/receita": "#receita-whatsapp",
+  "/novidades": "/#unidades-rapidas",
 };
 
 export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
@@ -41,8 +28,7 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
   const menuButtonRef = useRef<HTMLButtonElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
-  const cta = HEADER_CTA[activePath];
-  const hideHeaderWhatsApp = activePath === "/ofertas" || activePath === "/receita";
+  const ctaHref = HEADER_CTA[activePath];
 
   useEffect(() => {
     const links = linksRef.current;
@@ -136,12 +122,10 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
           <BrandLogo />
           <span><strong>{"União Farma"}</strong><small>Drogaria e Perfumaria</small></span>
         </a>
-        {hideHeaderWhatsApp ? null : (
-          <a className="content-header-cta" href={cta.href} aria-label={cta.ariaLabel}>
-            <img src="/whatsapp-icon.svg" alt="" width="24" height="24" aria-hidden="true" />
-            <span>{cta.label}</span>
-          </a>
-        )}
+        <a className="content-header-cta" href={ctaHref} aria-label="WhatsApp: escolher a loja">
+          <img src="/whatsapp-icon.svg" alt="" width="24" height="24" aria-hidden="true" />
+          <span>WhatsApp</span>
+        </a>
         <button
           ref={menuButtonRef}
           className="content-menu-button"

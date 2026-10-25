@@ -19,6 +19,7 @@ import "./overrides.css";
 import "./visual-quality.css";
 import "./ux-fixes.css";
 import "./visual-fixes.css";
+import "./design.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 import { COMPANY } from "./company";
 

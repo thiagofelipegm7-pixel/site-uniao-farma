@@ -13,13 +13,6 @@ import StorePhotosStrip from "./StorePhotosStrip";
 
 const GOOGLE_REVIEWS = [
   {
-    author: "Jaderson Almeida",
-    meta: "Avaliação no Google · Sabará",
-    time: "5 anos atrás",
-    text: "Quer encontrar medicamentos baratos entre outras coisas. Confira os melhores preços e compare.",
-    color: "#5f6368",
-  },
-  {
     author: "Beatriz Cristina",
     meta: "Avaliação no Google · Sabará",
     time: "1 ano atrás",
@@ -137,7 +130,7 @@ export function HomeMore({
 
         <div className="reviews-track" role="list">
           {GOOGLE_REVIEWS.map((review) => (
-            <article className="review-card" key={review.author} role="listitem">
+            <div className="review-card" key={review.author} role="listitem">
               <header className="review-person">
                 <span className="review-avatar" style={{ background: review.color }} aria-hidden="true">
                   {review.author.charAt(0)}
@@ -152,7 +145,7 @@ export function HomeMore({
                 <time>{review.time}</time>
               </p>
               <p className="review-text">{review.text}</p>
-            </article>
+            </div>
           ))}
         </div>
       </section>

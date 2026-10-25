@@ -514,3 +514,10 @@ export function canUseInAds(offer: Offer, now = new Date()): AdsDecision {
 export function formatOfferPrice(value: number): string {
   return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value);
 }
+
+/** Oferta de medicamento (isento ou em revisão): o card precisa exibir a advertência da RDC 96/2008. */
+export function isMedicationOffer(offer: Pick<Offer, "category" | "regulatoryClass">): boolean {
+  return offer.category === "medicamentos" || offer.regulatoryClass === "otc_review";
+}
+
+export const MEDICATION_WARNING = "EVITE A AUTOMEDICAÇÃO. Informe-se com o farmacêutico.";

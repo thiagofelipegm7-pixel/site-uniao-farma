@@ -1,3 +1,4 @@
+import DeliverySlot from "./DeliverySlot";
 import InteractiveUnitMap from "./InteractiveUnitMap";
 import OffersGroupCta from "./OffersGroupCta";
 import UnitStatusBadge from "./UnitStatusBadge";
@@ -66,8 +67,10 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
         <UnitStatusBadge unit={unit} />
         <div className="neighborhood-actions">
           <a className="button button-whatsapp" href={buildWhatsAppUrl(unit, product, { campaign: "bairro", content: `${unit.id}_pedir` })} target="_blank" rel="noreferrer">Pedir no WhatsApp</a>
-          <a className="button button-call" href={unit.map} target="_blank" rel="noreferrer">Como chegar</a>
-          <a className="text-link" href={unit.phoneLink}>Ligar {unit.phone}</a>
+          <div className="neighborhood-secondary">
+            <a className="button button-outline" href={unit.map} target="_blank" rel="noreferrer">Como chegar</a>
+            <a className="button button-outline" href={unit.phoneLink}>Ligar {unit.phone}</a>
+          </div>
         </div>
       </section>
 
@@ -91,6 +94,8 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
           <a href={buildWhatsAppUrl(unit, recipe, { campaign: "bairro", content: `${unit.id}_receita` })} target="_blank" rel="noreferrer">Enviar receita</a>
         </article>
       </section>
+
+      <DeliverySlot unitName={label} href={buildWhatsAppUrl(unit, delivery, { campaign: "bairro", content: `${unit.id}_entrega_faixa` })} external />
 
       <section className="section-inner store-about">
         <h2>Sobre a loja de {label}</h2>

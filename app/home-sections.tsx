@@ -1,6 +1,7 @@
 "use client";
 
 import { categories, type SelectorIntent } from "./home-chrome";
+import DeliverySlot from "./DeliverySlot";
 import HomeReasons from "./HomeReasons";
 import { HomeMore } from "./home-more";
 import OffersGroupCta from "./OffersGroupCta";
@@ -45,6 +46,8 @@ export function HomeSections({
           </div>
         </div>
       </section>
+
+      <DeliverySlot />
 
       <section className="section offers-group-section reveal" id="grupo-ofertas" aria-labelledby="offers-group-title">
         <div className="section-inner">

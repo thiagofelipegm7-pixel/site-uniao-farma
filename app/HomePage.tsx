@@ -72,12 +72,14 @@ export default function HomePage() {
             <span className="menu-label">{menuOpen ? "Fechar" : "Menu"}</span>
           </button>
           <div className={menuOpen ? "menu-links is-open" : "menu-links"} id="menu-links">
+            <a href="#unidades-rapidas" onClick={() => setMenuOpen(false)}>Lojas</a>
             <a href="/ofertas" onClick={() => setMenuOpen(false)}>Ofertas</a>
-            <a href="#unidades-rapidas" onClick={() => setMenuOpen(false)}>Unidades</a>
             <a href="/receita" onClick={() => setMenuOpen(false)}>Receita</a>
+            <a href="/entrega-de-medicamentos-em-sabara" onClick={() => setMenuOpen(false)}>Entrega</a>
+            <a href="/perguntas" onClick={() => setMenuOpen(false)}>Perguntas</a>
           </div>
-          <a className="header-cta" href="#unidades-rapidas" aria-label="Falar no WhatsApp" onClick={() => setMenuOpen(false)}>
-            <WhatsAppIcon /> WhatsApp
+          <a className="header-cta" href="#unidades-rapidas" aria-label="WhatsApp: escolher a loja" onClick={() => setMenuOpen(false)}>
+            <WhatsAppIcon /> <span className="header-cta-label">WhatsApp</span>
           </a>
         </nav>
       </header>

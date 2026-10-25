@@ -31,10 +31,6 @@ export default function OffersPageClient({
                 Escolha o produto e depois a loja. A equipe confirma se tem hoje.
               </p>
               <p className="offers-freshness">Encarte conferido em 17/08/2026. Vale enquanto durar o estoque em cada loja.</p>
-              <p>
-                <OffersGroupCta placement="ofertas_top" />
-              </p>
-              <OfferAlerts showButton />
             </div>
           </div>
         </section>
@@ -57,6 +53,17 @@ export default function OffersPageClient({
               intent="offer"
               source="ofertas_page"
             />
+          </div>
+        </section>
+
+        <section className="section offers-group-band" aria-labelledby="offers-group-band-title">
+          <div className="section-inner">
+            <h2 id="offers-group-band-title">Receba as próximas ofertas</h2>
+            <p>As ofertas da semana das 3 lojas no seu celular.</p>
+            <p>
+              <OffersGroupCta placement="ofertas_top" />
+            </p>
+            <OfferAlerts showButton />
           </div>
         </section>
 

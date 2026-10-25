@@ -7,6 +7,8 @@ import { responsiveSrcSet } from "./responsive-images";
 import {
   formatOfferPrice,
   getPublicOffers,
+  isMedicationOffer,
+  MEDICATION_WARNING,
   type Offer,
 } from "./offers";
 
@@ -47,7 +49,7 @@ export default function HomeReasons({
     <section className="home-reasons" id="por-que-chamar" aria-labelledby="home-reasons-title">
       <div className="home-reasons-inner">
         <header className="home-reasons-head">
-          <p className="section-kicker">Por que chamar agora</p>
+          <p className="section-kicker">Ofertas da semana</p>
           <h2 id="home-reasons-title">Escolha a oferta e confirme preço e estoque no WhatsApp</h2>
           <p>{"Foto e preço de encarte. A loja confirma se ainda tem hoje."}</p>
         </header>
@@ -78,9 +80,11 @@ export default function HomeReasons({
                     <h3>{offer.name}</h3>
                     <p className="home-offer-price">{price}</p>
                     <p className="home-offer-note">Enquanto durar o estoque</p>
+                    {isMedicationOffer(offer) ? <p className="offer-legal">{MEDICATION_WARNING}</p> : null}
                     <button
                       type="button"
                       className="home-offer-cta"
+                      aria-label={`Consultar oferta: ${offer.name}`}
                       onClick={() => {
                         trackEvent("offer_unit_select", {
                           offer_id: offer.id,
@@ -94,7 +98,7 @@ export default function HomeReasons({
                         });
                       }}
                     >
-                      Consultar esta oferta
+                      Consultar oferta
                     </button>
                   </div>
                 </article>

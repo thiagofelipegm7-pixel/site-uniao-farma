@@ -12,7 +12,9 @@ const NAV = [
   { href: "/", label: "Início" },
   { href: "/ofertas", label: "Ofertas" },
   { href: "/receita", label: "Receita" },
+  { href: "/entrega-de-medicamentos-em-sabara", label: "Entrega" },
   { href: "/novidades", label: "Novidades" },
+  { href: "/encarte", label: "Encarte" },
   { href: "/perguntas", label: "Perguntas" },
   { href: "/institucional", label: "Institucional" },
   { href: "/privacidade", label: "Privacidade" },
@@ -50,11 +52,6 @@ export default function SiteFooter() {
   return (
     <footer className="uf-footer">
       <div className="uf-footer-inner">
-        <p className="uf-cnpj-bar">
-          {COMPANY.legalName}
-          <br />
-          CNPJ {COMPANY.cnpj} · Sabará/MG
-        </p>
         <p className="offers-group-inline">
           <OffersGroupCta placement="footer" />
         </p>
@@ -69,7 +66,6 @@ export default function SiteFooter() {
             </a>
             <p>Três lojas em Sabará. Pedido pelo WhatsApp da unidade do seu bairro.</p>
             <p>{COMPANY.pharmacistNote}</p>
-            <p className="uf-footer-warning">{COMPANY.anvisaWarnings[3]}</p>
             <div className="uf-footer-social">
               <a className="instagram-link" href={INSTAGRAM_URL} target="_blank" rel="noreferrer" aria-label="Instagram da União Farma">
                 <InstagramIcon />
@@ -87,7 +83,7 @@ export default function SiteFooter() {
           </nav>
 
           <div className="uf-footer-col">
-            <h2>Contato</h2>
+            <h2 className="uf-footer-label">WhatsApp das lojas</h2>
             {units.map((unit) => (
               <a
                 key={unit.id}
@@ -104,6 +100,8 @@ export default function SiteFooter() {
             ))}
           </div>
         </div>
+
+        <p className="uf-footer-warning legal-band">{COMPANY.anvisaWarnings[3]}</p>
 
         <div className="uf-footer-bottom">
           <p className="uf-footer-legal-name">
