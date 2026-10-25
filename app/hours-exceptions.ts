@@ -36,7 +36,12 @@ export const NATIONAL_HOLIDAYS: Record<string, string> = {
 const eveFatima: DayRule = { type: "special", name: "Véspera", open: "07:00", close: "12:00" };
 const eveEight: DayRule = { type: "special", name: "Véspera", open: "08:00", close: "12:00" };
 
+const finadosFatima: DayRule = { type: "special", name: "Finados", open: "07:00", close: "12:00" };
+const finadosEight: DayRule = { type: "special", name: "Finados", open: "08:00", close: "12:00" };
+
+/** Feriados em que as lojas abrem no horário de domingo (igual ao horário especial no Google). */
 export const SPECIAL_DATES: Record<string, DayRule> = {
+  "2026-11-02": finadosFatima,
   "2026-12-24": eveFatima,
   "2026-12-31": eveFatima,
   "2027-12-24": eveFatima,
@@ -45,12 +50,14 @@ export const SPECIAL_DATES: Record<string, DayRule> = {
 
 export const UNIT_DAY_OVERRIDES: Partial<Record<Unit["id"], Record<string, DayRule>>> = {
   nacoes: {
+    "2026-11-02": finadosEight,
     "2026-12-24": eveEight,
     "2026-12-31": eveEight,
     "2027-12-24": eveEight,
     "2027-12-31": eveEight,
   },
   itacolomi: {
+    "2026-11-02": finadosEight,
     "2026-12-24": eveEight,
     "2026-12-31": eveEight,
     "2027-12-24": eveEight,

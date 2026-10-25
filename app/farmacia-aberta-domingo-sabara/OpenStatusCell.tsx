@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { UNITS } from "../site-config";
-import { getUnitOpenStatus } from "../unit-hours";
+import { getUnitOpenStatus } from "../UnitStatusBadge";
 
 export default function OpenStatusCell({ unitId }: { unitId: string }) {
   const [label, setLabel] = useState<{ text: string; open: boolean } | null>(null);
@@ -12,7 +12,7 @@ export default function OpenStatusCell({ unitId }: { unitId: string }) {
     if (!unit) return;
     const update = () => {
       const status = getUnitOpenStatus(unit, new Date());
-      setLabel({ text: status.isOpen ? `Aberta agora · ${status.label.split("· ")[1] ?? ""}` : status.label.replace(/^Fechado/, "Fechada"), open: status.isOpen });
+      setLabel({ text: status.label.replace(/aberto/i, (m) => (m[0] === "A" ? "Aberta" : "aberta")).replace(/fechado/i, (m) => (m[0] === "F" ? "Fechada" : "fechada")), open: status.isOpen });
     };
     update();
     const timer = window.setInterval(update, 60_000);

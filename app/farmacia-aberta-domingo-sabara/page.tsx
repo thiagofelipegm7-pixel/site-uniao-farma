@@ -89,7 +89,7 @@ export default function FarmaciaAbertaDomingoPage() {
           <div className="section-inner">
             <h2 id="aberta-agora">Qual loja está aberta agora?</h2>
             <p>O status abaixo usa o horário de Brasília. Em feriados, confirme pelo WhatsApp.</p>
-            <div style={{ overflowX: "auto" }}>
+            <div className="hours-table-wrap">
               <table className="hours-table">
                 <caption>Horário das lojas União Farma em Sabará</caption>
                 <thead>
@@ -107,14 +107,14 @@ export default function FarmaciaAbertaDomingoPage() {
                   {UNITS.map((unit) => (
                     <tr key={unit.id}>
                       <th scope="row"><a href={getUnitPublicPath(unit)}>{unit.legalLabel}</a></th>
-                      <td>{unit.street} – CEP {unit.cep}</td>
-                      <td>{range(unit.schedule.mon)}</td>
-                      <td>{range(unit.schedule.sat)}</td>
-                      <td>{range(unit.schedule.sun)}</td>
-                      <td>
+                      <td data-label="Endereço">{unit.street} – CEP {unit.cep}</td>
+                      <td data-label="Seg a sex">{range(unit.schedule.mon)}</td>
+                      <td data-label="Sábado">{range(unit.schedule.sat)}</td>
+                      <td data-label="Domingo">{range(unit.schedule.sun)}</td>
+                      <td data-label="WhatsApp">
                         <a href={buildWhatsAppUrl(unit, `Oi, União Farma ${unit.shortName}! Vim pela página de horários.`, { campaign: SLUG, content: `table_${unit.id}` })} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unit.id} data-track-source={`${SLUG}_table`}>{unit.whatsapp}</a>
                       </td>
-                      <td><OpenStatusCell unitId={unit.id} /></td>
+                      <td data-label="Agora"><OpenStatusCell unitId={unit.id} /></td>
                     </tr>
                   ))}
                 </tbody>
