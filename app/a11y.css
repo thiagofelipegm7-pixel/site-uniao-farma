@@ -59,7 +59,7 @@
     display: none !important;
   }
 
-  .whatsapp-fab {
+  .whatsapp-fab:not(.whatsapp-fab-unit) {
     display: none !important;
   }
 

@@ -206,7 +206,7 @@
     margin-right: -1.5rem;
   }
 
-  .recipe-page .direct-unit-links-grid,
+  .recipe-page:not(:has(.recipe-hero)) .direct-unit-links-grid,
   .offers-whatsapp-section .direct-unit-links-grid {
     display: flex !important;
     gap: 0.8rem !important;

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { buildWhatsAppUrl, getUnitBySlug, UNITS } from "./site-config";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
@@ -42,12 +43,32 @@ export default function WhatsAppFab() {
   const target = fabTarget(pathname);
 
   const unitName = "unitName" in target ? target.unitName : undefined;
+  // Nas páginas de loja, a barra fixa só aparece depois que o botão da própria página sai da tela.
+  const [inPageCtaVisible, setInPageCtaVisible] = useState(Boolean(unitName));
+
+  useEffect(() => {
+    if (!unitName) return;
+    const cta = document.querySelector(".neighborhood-actions .button-whatsapp");
+    if (!cta || typeof IntersectionObserver === "undefined") {
+      const frame = requestAnimationFrame(() => setInPageCtaVisible(false));
+      return () => cancelAnimationFrame(frame);
+    }
+    const observer = new IntersectionObserver(([entry]) => setInPageCtaVisible(entry.isIntersecting), {
+      rootMargin: "0px 0px -120px 0px",
+    });
+    observer.observe(cta);
+    return () => observer.disconnect();
+  }, [unitName, pathname]);
+
+  const hidden = Boolean(unitName) && inPageCtaVisible;
 
   return (
     <a
-      className={unitName ? "whatsapp-fab whatsapp-fab-unit" : "whatsapp-fab"}
+      className={`whatsapp-fab${unitName ? " whatsapp-fab-unit" : ""}${hidden ? " is-hidden" : ""}`}
+      aria-hidden={hidden || undefined}
+      tabIndex={hidden ? -1 : undefined}
       href={target.href}
-      aria-label={unitName ? `Falar no WhatsApp da loja ${unitName}` : "Falar no WhatsApp"}
+      aria-label={unitName ? `Pedir no WhatsApp da loja ${unitName}` : "Falar no WhatsApp"}
       {...(target.external ? { target: "_blank", rel: "noreferrer" } : {})}
     >
       <WhatsAppIcon />

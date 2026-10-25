@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Poppins } from "next/font/google";
+import { Montserrat, Poppins } from "next/font/google";
 import dynamic from "next/dynamic";
 import MobileQuickNav from "./MobileQuickNav";
 import SiteFooter from "./SiteFooter";
@@ -18,6 +18,7 @@ import "./overrides.css";
 // Mantém o polimento visual recente que já estava na main.
 import "./visual-quality.css";
 import "./ux-fixes.css";
+import "./visual-fixes.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 import { COMPANY } from "./company";
 
@@ -29,18 +30,19 @@ const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "800"],
   display: "swap",
-  preload: false,
+  preload: true,
+  variable: "--font-brand",
   fallback: ["Arial", "sans-serif"],
   adjustFontFallback: true,
 });
 
-const fraunces = Fraunces({
+const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["700"],
+  weight: ["500", "600"],
   display: "swap",
-  preload: true,
-  variable: "--font-display",
-  fallback: ["Georgia", "serif"],
+  preload: false,
+  variable: "--font-support",
+  fallback: ["Arial", "sans-serif"],
   adjustFontFallback: true,
 });
 
@@ -148,7 +150,7 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" data-theme="light" className={`${poppins.className} ${fraunces.variable}`}>
+    <html lang="pt-BR" data-theme="light" className={`${poppins.className} ${poppins.variable} ${montserrat.variable}`}>
       <head>
         <link
           rel="preload"

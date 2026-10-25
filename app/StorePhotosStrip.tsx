@@ -10,7 +10,7 @@ function PhotoCard({ photo, index, eager }: { photo: StorePhoto; index: number; 
   const [failed, setFailed] = useState(false);
 
   return (
-    <figure className={`store-photo${failed ? " store-photo-fallback" : ""}`} role="listitem">
+    <figure className={`store-photo${failed ? " store-photo-fallback" : ""}`}>
       {!failed ? (
         <WebImage
           src={src}
@@ -53,7 +53,7 @@ export default function StorePhotosStrip({
   const photos = className?.includes("hero") ? STORE_PHOTOS.slice(0, 3) : STORE_PHOTOS;
 
   return (
-    <div className={className ?? "store-photos"} role="list" aria-label={label ?? "Fotos da loja, identificadas por unidade"}>
+    <div className={className ?? "store-photos"} role="group" aria-label={label ?? "Fotos da loja, identificadas por unidade"}>
       {photos.map((photo, index) => (
         <PhotoCard key={`${photo.caption}-${index}`} photo={photo} index={index} eager={className?.includes("hero")} />
       ))}

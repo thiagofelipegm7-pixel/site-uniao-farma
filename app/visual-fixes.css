@@ -1,0 +1,240 @@
+/* PR visual: correções da avaliação visual de 25/10/2026 */
+
+/* (5) Títulos em Poppins (fonte da marca) */
+:root {
+  --font-display: var(--font-brand), "Poppins", Arial, sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-brand), "Poppins", Arial, sans-serif !important;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+/* (2) Selo "Aberto agora": contraste AA (branco sobre verde-escuro) */
+.open-status.is-open,
+.open-status.is-hours {
+  background: #0b6244 !important;
+  color: #ffffff !important;
+}
+
+.open-status.is-open strong,
+.open-status.is-open small,
+.open-status.is-hours strong,
+.open-status.is-hours small {
+  color: #ffffff !important;
+}
+
+.open-status.is-open::before {
+  background: #7ee2b8 !important;
+}
+
+/* (3) Blocos das lojas: sem esmaecer; animação só se o usuário aceita movimento */
+.neighborhood-grid article,
+.unit-map,
+.neighborhood-photo {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .neighborhood-grid article,
+  .unit-map,
+  .neighborhood-photo {
+    animation: uf-fade-in 0.35s ease-out both !important;
+  }
+}
+
+@keyframes uf-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.neighborhood-page .store-about {
+  margin-top: 2rem !important;
+}
+
+/* (4) Cards "O que consultar": sem espaço vazio, link verde */
+.category-card {
+  min-height: 0 !important;
+  gap: 0.4rem !important;
+}
+
+.category-card p {
+  margin-bottom: 0.5rem !important;
+}
+
+.category-link,
+.category-card .category-link {
+  color: #187d68 !important;
+  text-decoration-color: #187d68 !important;
+  margin-top: auto;
+}
+
+/* (1) + (5) Home desktop: título em largura cheia e cards das lojas com espaço */
+@media (min-width: 861px) {
+  .hero-home {
+    display: block !important;
+    padding-top: 6.5rem !important;
+  }
+
+  .hero-home .hero-inner {
+    display: block !important;
+    width: min(72rem, calc(100% - 4rem)) !important;
+    max-width: 72rem !important;
+    margin: 0 auto !important;
+  }
+
+  .hero-home .hero-copy {
+    width: 100% !important;
+    max-width: 44rem !important;
+  }
+
+  .hero-home h1 {
+    font-size: clamp(2rem, 3vw, 2.75rem) !important;
+  }
+
+  .hero-home .units-showcase {
+    width: min(72rem, calc(100% - 4rem)) !important;
+    max-width: 72rem !important;
+    margin: 1.25rem auto 0 !important;
+  }
+
+  .hero-home .units-showcase-inner {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  .hero-home .units-showcase-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 1.25rem !important;
+    width: 100% !important;
+  }
+
+  .unit-store-card .unit-store-actions a,
+  .unit-store-card .unit-store-wa {
+    white-space: normal !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: center;
+  }
+}
+
+/* (6) Mobile: barra WhatsApp da loja acima da navegação inferior, sem cobrir conteúdo */
+@media (max-width: 860px) {
+  a.whatsapp-fab.whatsapp-fab-unit {
+    display: flex !important;
+    align-items: center;
+    left: 0.85rem !important;
+    right: 0.85rem !important;
+    width: auto !important;
+    height: 50px !important;
+    bottom: calc(92px + env(safe-area-inset-bottom)) !important;
+    border-radius: 14px !important;
+    z-index: 4300;
+  }
+
+  body:has(.whatsapp-fab-unit) main,
+  body:has(.whatsapp-fab-unit) .neighborhood-page {
+    padding-bottom: calc(160px + env(safe-area-inset-bottom)) !important;
+  }
+
+  main#conteudo {
+    padding-bottom: calc(100px + env(safe-area-inset-bottom));
+  }
+}
+
+/* Montserrat como apoio em rótulos pequenos */
+.eyebrow,
+.section-kicker,
+.unit-store-hood {
+  font-family: var(--font-support), "Montserrat", Arial, sans-serif !important;
+}
+
+/* Barra fixa da loja: escondida enquanto o botão da página está visível */
+a.whatsapp-fab.whatsapp-fab-unit.is-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(12px);
+}
+
+a.whatsapp-fab.whatsapp-fab-unit {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a.whatsapp-fab.whatsapp-fab-unit {
+    transition: none;
+  }
+}
+
+/* Ofertas: hero sem vazio no mobile */
+.hero.hero-home.offers-hero { min-height: auto !important; padding-bottom: 1.5rem !important; }
+@media (min-width: 60rem) {
+  .hero.hero-home.offers-hero { padding-top: 6.5rem !important; }
+}
+
+/* Links "Outras lojas": alvo de toque >= 24px */
+.neighborhood-page section ul li { margin-block: 0.35rem; }
+.neighborhood-page section ul li > a { display: inline-block; min-height: 28px; padding-block: 0.2rem; }
+
+/* Páginas de loja no desktop: foto e título lado a lado, nada atrás do cabeçalho */
+@media (min-width: 60rem) {
+  .neighborhood-page .neighborhood-hero {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    column-gap: 3rem;
+    align-items: center;
+    padding-top: 6.5rem !important;
+  }
+  .neighborhood-page .neighborhood-hero > .neighborhood-photo {
+    grid-row: 1 / span 20;
+    width: 100% !important;
+    height: auto !important;
+    max-height: 32rem;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 1.25rem;
+  }
+}
+
+/* Receita no desktop: cards das lojas na largura toda, selo sem quebrar */
+@media (min-width: 60rem) {
+  .recipe-hero .hero-inner > .direct-unit-links { grid-column: 1 / -1; max-width: none !important; width: 100% !important; }
+  .recipe-hero .direct-unit-links-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; width: 100% !important; gap: 1rem; }
+  .recipe-hero .direct-unit-link .open-status { white-space: nowrap; border-radius: 999px !important; width: auto !important; height: auto !important; align-self: flex-start; }
+  .recipe-hero .direct-unit-link .button { white-space: nowrap; }
+}
+/* Títulos de seção nas páginas de loja em tamanho proporcional */
+.neighborhood-page h2 { font-size: clamp(1.4rem, 1.1rem + 1.2vw, 2rem) !important; line-height: 1.15; }
+
+/* Receita no mobile: coluna cabe na tela, sem vazio no topo */
+@media (max-width: 59.99rem) {
+  .hero.hero-home.recipe-hero { min-height: auto !important; padding-top: 1.25rem !important; }
+  .recipe-hero .hero-inner { display: grid !important; grid-template-columns: minmax(0, 1fr) !important; width: 100% !important; }
+  .recipe-hero .hero-inner > * { min-width: 0; max-width: 100%; }
+  .recipe-hero .hero-inner { row-gap: 1rem; }
+  .recipe-hero .direct-unit-links-grid { display: flex !important; flex-direction: column !important; overflow: visible !important; padding: 0 !important; margin: 0 !important; width: 100% !important; gap: 0.75rem !important; }
+  .recipe-hero .direct-unit-links-grid > .direct-unit-link { width: 100% !important; min-width: 0 !important; max-width: none !important; flex: none !important; margin: 0 !important; }
+  .recipe-hero .recipe-steps { padding-inline: 24px !important; box-sizing: border-box; width: 100% !important; }
+  .recipe-hero .hero-inner > .direct-unit-links { margin-inline: 0 !important; padding-inline: 24px !important; box-sizing: border-box; width: 100% !important; }
+  .recipe-hero .recipe-note { margin-inline: 24px !important; width: auto !important; }
+}
+
+/* Receita: alinhamento final dos cartões */
+@media (max-width: 59.99rem) {
+  .recipe-hero .direct-unit-link .button { width: 100% !important; justify-content: center; }
+}
+@media (min-width: 60rem) {
+  .recipe-hero .hero-inner > .direct-unit-links,
+  .recipe-hero .direct-unit-links-grid { margin-inline: 0 !important; padding-inline: 0 !important; }
+  .recipe-hero .recipe-note { grid-column: 1 / -1; max-width: 40rem; margin-inline: 0 !important; }
+}
