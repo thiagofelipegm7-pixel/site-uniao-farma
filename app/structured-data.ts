@@ -75,7 +75,10 @@ export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}${PUBLIC
       : {}),
     hasMap: unit.map,
     openingHoursSpecification: getOpeningHoursSpecification(unit),
-    areaServed: `Entrega sob consulta no bairro ${unit.neighborhood} e em Sabará. A loja confirma se atende o endereço.`,
+    areaServed: unit.deliveryAreas.map((name) => ({
+      "@type": "Place",
+      name: `${name}, Sabará - MG`,
+    })),
     contactPoint: {
       "@type": "ContactPoint",
       telephone: `+${unit.whatsappDigits}`,

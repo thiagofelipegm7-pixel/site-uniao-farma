@@ -34,6 +34,8 @@ export type Unit = {
   schedule: Record<Weekday, DailyHours>;
   /** Comodidades confirmadas pelo dono. Só preencher o que for verdade. */
   amenities?: { freeParking?: boolean };
+  /** Bairros de entrega confirmados pelo dono. Não incluir bairros sem confirmação. */
+  deliveryAreas: string[];
   coordinates?: {
     latitude: number;
     longitude: number;
@@ -68,6 +70,7 @@ export const UNITS: Unit[] = [
     phoneLink: "tel:+553136732122",
     whatsapp: "(31) 98738-1786",
     whatsappDigits: "5531987381786",
+    deliveryAreas: ["Nossa Senhora de Fátima", "Jardim Vitória"],
     map: "https://maps.app.goo.gl/XeHATeSiSfqLQ7w37",
     mapEmbed:
       "https://maps.google.com/maps?q=-19.8650470,-43.8621090&t=&z=17&ie=UTF8&iwloc=&output=embed",
@@ -103,6 +106,7 @@ export const UNITS: Unit[] = [
     whatsapp: "(31) 98762-9909",
     whatsappDigits: "5531987629909",
     amenities: { freeParking: true },
+    deliveryAreas: ["Nações Unidas"],
     map: "https://maps.app.goo.gl/V3S7ZFeZKwRQ2sm47",
     mapEmbed:
       "https://maps.google.com/maps?q=Rua+Inglaterra,162,Nacoes+Unidas,Sabara,MG&t=&z=17&ie=UTF8&iwloc=&output=embed",
@@ -137,6 +141,7 @@ export const UNITS: Unit[] = [
     phoneLink: "tel:+553136733155",
     whatsapp: "(31) 99493-6960",
     whatsappDigits: "5531994936960",
+    deliveryAreas: ["Itacolomi"],
     map: "https://www.google.com/maps/search/?api=1&query=Av.+Joaquim+Ferreira+Madureira+489+Sabara+MG",
     mapEmbed:
       "https://maps.google.com/maps?q=Av.+Joaquim+Ferreira+Madureira+489+Sabará+MG&t=&z=16&ie=UTF8&iwloc=&output=embed",

@@ -29,7 +29,7 @@ test("public pages declare relative canonicals", async () => {
     ["app/encarte/page.tsx", 'canonical: "/encarte"'],
     ["app/farmacia-em-sabara/page.tsx", "canonical: `/${config.slug}`"],
     ["app/farmacia-aberta-domingo-sabara/page.tsx", 'canonical: "/farmacia-aberta-domingo-sabara"'],
-    ["app/entrega-de-medicamentos-em-sabara/page.tsx", "canonical: `/${config.slug}`"],
+    ["app/entrega-de-medicamentos-em-sabara/page.tsx", "canonical: `/${SLUG}`"],
     ["app/perfumaria-em-sabara/page.tsx", "canonical: `/${config.slug}`"],
   ];
 
@@ -43,4 +43,10 @@ test("public pages declare relative canonicals", async () => {
 test("only Nações Unidas declares free parking", async () => {
   const { UNITS } = await import("../app/site-config.ts");
   assert.deepEqual(UNITS.filter((u) => u.amenities?.freeParking).map((u) => u.id), ["nacoes"]);
+});
+
+test("delivery areas match owner-confirmed list", async () => {
+  const { UNITS } = await import("../app/site-config.ts");
+  const map = Object.fromEntries(UNITS.map((u) => [u.id, u.deliveryAreas]));
+  assert.deepEqual(map, { fatima: ["Nossa Senhora de Fátima", "Jardim Vitória"], nacoes: ["Nações Unidas"], itacolomi: ["Itacolomi"] });
 });
