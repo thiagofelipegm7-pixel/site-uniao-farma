@@ -113,7 +113,7 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
           <li>Chame a loja no WhatsApp {unit.whatsapp}.</li>
           <li>Mande o nome dos produtos ou uma foto da embalagem.</li>
           <li>Informe o seu endereço, se quiser receber em casa.</li>
-          <li>A loja confirma a disponibilidade, a taxa e o prazo.</li>
+          <li>A loja confirma o pedido com você.</li>
         </ol>
       </section>
 

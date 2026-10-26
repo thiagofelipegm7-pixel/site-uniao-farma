@@ -4,9 +4,9 @@
  */
 export const PAGE_LAST_UPDATED = {
   home: "2026-10-24",
-  fatima: "2026-10-24",
-  nacoes: "2026-10-25",
-  itacolomi: "2026-10-24",
+  fatima: "2026-10-26",
+  nacoes: "2026-10-26",
+  itacolomi: "2026-10-26",
   ofertas: "2026-08-17",
   receita: "2026-10-24",
   novidades: "2026-08-16",
@@ -14,7 +14,7 @@ export const PAGE_LAST_UPDATED = {
   institucional: "2026-09-10",
   farmaciaEmSabara: "2026-10-25",
   abertaDomingo: "2026-10-25",
-  entrega: "2026-08-16",
+  entrega: "2026-10-26",
   perfumaria: "2026-08-16",
   privacidade: "2026-08-16",
   termos: "2026-08-16",

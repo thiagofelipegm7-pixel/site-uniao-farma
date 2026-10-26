@@ -1,37 +1,151 @@
+/* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
 import type { Metadata } from "next";
-import LocalLandingPage, { type LocalLandingPageConfig } from "../local-landing-page";
-import { SITE_URL } from "../site-config";
+import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
+import { buildWhatsAppUrl, SITE_URL, UNITS } from "../site-config";
+import type { FaqItem } from "../seo-content";
+import { getPageStructuredData, getUnitPublicPath } from "../structured-data";
 
-const config: LocalLandingPageConfig = {
-  slug: "entrega-de-medicamentos-em-sabara",
-  title: "Entrega de medicamentos em Sabará | União Farma",
-  description: "Quer receber em casa? Manda o bairro no WhatsApp da União Farma mais perto. A loja confirma se entrega, a taxa e o horário.",
-  eyebrow: "Entrega pela loja do bairro",
-  heading: "Entrega de medicamentos em Sabará",
-  lead: "A gente não promete cidade inteira no site. Cada loja tem a sua área. Manda o endereço — a equipe responde se leva, quando e quanto fica a taxa.",
-  bullets: [
-    "Fátima, Nações Unidas ou Itacolomi: escolha a mais perto.",
-    "Confirme bairro, taxa e prazo antes de separar o pedido.",
-    "Remédio, higiene e perfumaria entram na mesma conversa.",
-  ],
-  faqs: [
-    { q: "Entregam em toda Sabará?", a: "Não automaticamente. Cada unidade cobre os bairros ao redor. Manda o endereço no WhatsApp para saber se atende." },
-    { q: "Como peço a entrega?", a: "Abre o WhatsApp da loja, manda o nome do produto e o bairro. A equipe confirma estoque, taxa e prazo." },
-    { q: "Como pago na entrega?", a: "Pix, dinheiro ou cartão — a loja confirma a forma junto com a taxa." },
-  ],
-  primaryLabel: "Consultar entrega",
-  primaryMessage: "Oi, União Farma {unidade}! Quero saber se vocês entregam no meu bairro. Posso mandar o endereço?",
-  intent: "delivery",
-};
+const SLUG = "entrega-de-medicamentos-em-sabara";
+const PAGE_URL = `${SITE_URL}/${SLUG}`;
+const TITLE = "Entrega de farmácia em Sabará | União Farma";
+const HEADING = "Entrega de farmácia em Sabará";
+const DESCRIPTION =
+  "Veja em quais bairros cada loja União Farma entrega em Sabará. Peça pelo WhatsApp da loja, dentro do horário de funcionamento.";
+
+const MESSAGE = "Oi, União Farma {unidade}! Quero fazer um pedido para entrega.";
+
+function areasText(areas: string[]) {
+  return areas.length > 1 ? `${areas.slice(0, -1).join(", ")} e ${areas.at(-1)}` : areas[0];
+}
+
+const byId = Object.fromEntries(UNITS.map((unit) => [unit.id, unit]));
+const directAnswer = `A União Farma entrega em Sabará pelo WhatsApp de cada loja. ${UNITS.map((unit) => `A loja ${unit.legalLabel} entrega em ${areasText(unit.deliveryAreas)}`).join(". ")}. Faça o pedido dentro do horário de funcionamento da loja.`;
+
+const faqs: FaqItem[] = [
+  { q: "A União Farma faz entrega em Sabará?", a: "Sim. Cada loja entrega nos bairros da sua área. Peça pelo WhatsApp da loja." },
+  ...UNITS.map((unit) => ({
+    q: `Quais bairros a loja ${unit.legalLabel} atende?`,
+    a: `A loja ${unit.legalLabel} entrega em ${areasText(unit.deliveryAreas)}. WhatsApp: ${unit.whatsapp}.`,
+  })),
+  { q: "Meu bairro não está na lista. E agora?", a: "Chame a loja mais perto pelo WhatsApp e pergunte se ela atende o seu endereço." },
+];
 
 export const metadata: Metadata = {
-  title: { absolute: config.title },
-  description: config.description,
-  alternates: { canonical: `/${config.slug}` },
-  openGraph: { title: config.title, description: config.description, url: `${SITE_URL}/${config.slug}`, type: "website", images: ["/og-optimized.jpg"] },
-  twitter: { card: "summary_large_image", title: config.title, description: config.description, images: ["/og-optimized.jpg"] },
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  alternates: { canonical: `/${SLUG}` },
+  keywords: ["entrega de farmácia Sabará", "farmácia que entrega Sabará", "delivery farmácia Sabará"],
+  openGraph: { title: TITLE, description: DESCRIPTION, url: PAGE_URL, type: "website", images: ["/og-optimized.jpg"] },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/og-optimized.jpg"] },
 };
 
 export default function EntregaDeMedicamentosEmSabaraPage() {
-  return <LocalLandingPage config={config} />;
+  const structuredData = getPageStructuredData({
+    name: TITLE,
+    url: PAGE_URL,
+    faqs,
+    units: UNITS,
+    breadcrumbs: [
+      { name: "Início", url: `${SITE_URL}/` },
+      { name: HEADING, url: PAGE_URL },
+    ],
+  });
+  const rows = UNITS.flatMap((unit) => unit.deliveryAreas.map((area) => ({ area, unitId: unit.id })));
+
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
+      <ContentSiteHeader activePath="/novidades" />
+      <div className="unit-page landing-page">
+        <nav className="breadcrumb section-inner" aria-label="Breadcrumb">
+          <a href="/">Início</a>
+          <span aria-hidden="true">/</span>
+          <span>{HEADING}</span>
+        </nav>
+
+        <section className="section">
+          <div className="section-inner">
+            <h1>{HEADING}</h1>
+            <p className="unit-page-address">{directAnswer}</p>
+          </div>
+        </section>
+
+        <section className="section" aria-labelledby="bairros">
+          <div className="section-inner">
+            <h2 id="bairros">Bairros atendidos por loja</h2>
+            <div className="hours-table-wrap">
+              <table className="hours-table">
+                <caption>Bairros de entrega da União Farma em Sabará</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Bairro</th>
+                    <th scope="col">Loja</th>
+                    <th scope="col">WhatsApp</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {rows.map(({ area, unitId }) => {
+                    const unit = byId[unitId];
+                    return (
+                      <tr key={`${unitId}-${area}`}>
+                        <th scope="row">{area}</th>
+                        <td data-label="Loja"><a href={getUnitPublicPath(unit)}>{unit.legalLabel}</a></td>
+                        <td data-label="WhatsApp">
+                          <a href={buildWhatsAppUrl(unit, MESSAGE.replace("{unidade}", unit.shortName), { campaign: SLUG, content: `table_${unit.id}` })} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unit.id} data-track-source={`${SLUG}_table`}>{unit.whatsapp}</a>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section className="section" aria-labelledby="como-pedir">
+          <div className="section-inner">
+            <h2 id="como-pedir">Como pedir pelo WhatsApp</h2>
+            <ol>
+              <li>Veja na tabela qual loja atende o seu bairro.</li>
+              <li>Chame essa loja no WhatsApp e mande a lista de produtos e o seu endereço.</li>
+              <li>A loja confirma o pedido com você pelo WhatsApp.</li>
+            </ol>
+            <p>
+              Os pedidos são feitos dentro do horário de cada loja. <a href="/farmacia-aberta-domingo-sabara">Veja os horários das lojas</a>.
+              Medicamentos com receita seguem as regras da Anvisa.
+            </p>
+          </div>
+        </section>
+
+        <section className="section" aria-labelledby="fora-da-lista">
+          <div className="section-inner">
+            <h2 id="fora-da-lista">Meu bairro não está na lista?</h2>
+            <p>Chame a loja mais perto de você pelo WhatsApp e pergunte se ela atende o seu endereço.</p>
+            <ul>
+              {UNITS.map((unit) => (
+                <li key={unit.id}>
+                  <a href={getUnitPublicPath(unit)}>{`Farmácia ${unit.shortName}`}</a> – {unit.shortAddress} – WhatsApp {unit.whatsapp}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
+        <section className="section unit-faq-section" aria-labelledby="faq">
+          <div className="section-inner">
+            <h2 id="faq">Perguntas frequentes</h2>
+            <div className="unit-faq-list">
+              {faqs.map((faq) => (
+                <details key={faq.q} className="unit-faq-item" open>
+                  <summary>{faq.q}</summary>
+                  <p>{faq.a}</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+      </div>
+      <ContentSiteFooter />
+    </>
+  );
 }
