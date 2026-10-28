@@ -50,3 +50,34 @@ test("delivery areas match owner-confirmed list", async () => {
   const map = Object.fromEntries(UNITS.map((u) => [u.id, u.deliveryAreas]));
   assert.deepEqual(map, { fatima: ["Nossa Senhora de Fátima", "Jardim Vitória"], nacoes: ["Nações Unidas"], itacolomi: ["Itacolomi"] });
 });
+
+test("redirects permanentes apontam para URLs canonicas, sem cadeia e sem sair do sitemap", async () => {
+  const config = (await import("../next.config.ts")).default;
+  const redirects = await config.redirects();
+  const sources = new Set(redirects.map((r) => r.source));
+  const canonicalStores = ["/fatima", "/nacoes-unidas", "/itacolomi"];
+
+  for (const r of redirects) {
+    assert.equal(r.permanent, true, `${r.source} deve ser redirect permanente`);
+    const target = r.destination.split("#")[0];
+    assert.ok(!sources.has(target), `${r.source} -> ${r.destination} cai em outro redirect`);
+  }
+  for (const store of canonicalStores) {
+    assert.ok(!sources.has(store), `${store} e canonical e nao pode redirecionar`);
+  }
+  for (const source of ["/unidades/nossa-senhora-de-fatima", "/unidades/nacoes-unidas", "/unidades/itacolomi"]) {
+    assert.ok(sources.has(source), `${source} precisa de redirect permanente`);
+  }
+
+  const structured = await readFile(new URL("../app/structured-data.ts", import.meta.url), "utf8");
+  for (const store of canonicalStores) {
+    assert.ok(structured.includes(`"${store}"`), `${store} deve ser o caminho publico da loja`);
+  }
+  assert.doesNotMatch(structured, /\/unidades\//);
+
+  const sitemap = await readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8");
+  assert.doesNotMatch(sitemap, /\/unidades\//);
+  for (const source of sources) {
+    assert.ok(!sitemap.includes(`SITE_URL}${source}\``), `${source} nao pode estar no sitemap`);
+  }
+});

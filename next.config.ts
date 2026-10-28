@@ -19,11 +19,26 @@ const CONTENT_SECURITY_POLICY = [
 ].join("; ");
 
 const nextConfig: NextConfig = {
+  // Canonical de cada loja: /fatima, /nacoes-unidas, /itacolomi (mesmo endereço do
+  // sitemap, dos links internos, do canonical e do JSON-LD). Qualquer outro caminho
+  // antigo ou alternativo da loja faz redirect permanente direto para ela (sem cadeia de redirects).
+  // `permanent: true` gera 308 (equivale a 301 para o Google). Não usar `statusCode: 301`:
+  // o vinext ignora esse campo e responde 307 (temporário).
   redirects: async () => [
+    // Lojas: variantes /unidades/* e apelidos antigos -> canonical
     { source: "/unidades/nossa-senhora-de-fatima", destination: "/fatima", permanent: true },
-    { source: "/unidades/nacoes-unidas", destination: "/nacoes-unidas", permanent: true },
-    { source: "/unidades/itacolomi", destination: "/itacolomi", permanent: true },
+    { source: "/unidades/fatima", destination: "/fatima", permanent: true },
     { source: "/nossa-senhora-de-fatima", destination: "/fatima", permanent: true },
+    { source: "/unidades/nacoes-unidas", destination: "/nacoes-unidas", permanent: true },
+    { source: "/unidades/nacoes", destination: "/nacoes-unidas", permanent: true },
+    { source: "/nacoes", destination: "/nacoes-unidas", permanent: true },
+    { source: "/unidades/itacolomi", destination: "/itacolomi", permanent: true },
+    // Pais de rota que nunca tiveram página (404 hoje)
+    { source: "/unidades", destination: "/#unidades-rapidas", permanent: true },
+    { source: "/farmacia", destination: "/farmacia-em-sabara", permanent: true },
+    // Antes era redirect() de servidor (307, temporário); agora permanente
+    { source: "/farmacia/sabara", destination: "/farmacia-em-sabara", permanent: true },
+    // Página removida em 24/10
     { source: "/canetas-emagrecedoras", destination: "/", permanent: true },
   ],
   headers: async () => [
