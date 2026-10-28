@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Montserrat, Poppins } from "next/font/google";
-import dynamic from "next/dynamic";
 import MobileQuickNav from "./MobileQuickNav";
 import SiteFooter from "./SiteFooter";
 import SkipLink from "./SkipLink";
@@ -24,9 +23,11 @@ import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 import { COMPANY } from "./company";
 
 import { GA_MEASUREMENT_ID, getGtagBootstrapScript } from "./ga-bootstrap";
-const AnalyticsConsent = dynamic(() => import("./AnalyticsConsent"), { ssr: false });
-const PwaRegister = dynamic(() => import("./PwaRegister"), { ssr: false });
-const OfferAlerts = dynamic(() => import("./OfferAlerts"), { ssr: false });
+// Importado direto (componente "use client"): com dynamic({ssr:false}) o vinext não montava o banner,
+// ninguém conseguia aceitar os cookies e o GA4 só recebia pings sem consentimento.
+import AnalyticsConsent from "./AnalyticsConsent";
+import PwaRegister from "./PwaRegister";
+import OfferAlerts from "./OfferAlerts";
 
 const poppins = Poppins({
   subsets: ["latin"],
