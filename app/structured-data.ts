@@ -92,7 +92,20 @@ export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}${PUBLIC
       availableLanguage: "Portuguese",
       areaServed: "Sabará",
     },
-    sameAs: [INSTAGRAM_URL, unit.map],
+    sameAs: [INSTAGRAM_URL, unit.map, ...(unit.ifoodUrl ? [unit.ifoodUrl] : [])],
+    ...(unit.ifoodUrl
+      ? {
+          potentialAction: {
+            "@type": "OrderAction",
+            name: `Pedir no iFood: União Farma ${unit.shortName}`,
+            target: {
+              "@type": "EntryPoint",
+              urlTemplate: unit.ifoodUrl,
+              actionPlatform: ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"],
+            },
+          },
+        }
+      : {}),
     parentOrganization: {
       "@id": `${SITE_URL}/#organization`,
     },

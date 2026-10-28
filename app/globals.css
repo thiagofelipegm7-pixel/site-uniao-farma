@@ -718,6 +718,32 @@ h3 {
   background: var(--teal-deep);
 }
 
+.button-ifood {
+  background: #b3101c;
+  color: var(--white);
+}
+
+.button-ifood:hover {
+  background: #8f0d17;
+}
+
+.ifood-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 22px 0 8px;
+}
+
+.ifood-actions .button {
+  width: auto;
+  min-width: 240px;
+}
+
+.delivery-slot-copy a {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
 .button-call {
   border-color: var(--line);
   background: var(--white);

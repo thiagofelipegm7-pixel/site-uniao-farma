@@ -15,6 +15,7 @@ export const PAGE_LAST_UPDATED = {
   farmaciaEmSabara: "2026-10-28",
   abertaDomingo: "2026-10-28",
   entrega: "2026-10-28",
+  ifood: "2026-10-28",
   perfumaria: "2026-10-28",
   privacidade: "2026-08-16",
   termos: "2026-08-16",

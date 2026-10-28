@@ -14,6 +14,7 @@ const NAV = [
   { href: "/ofertas", label: "Ofertas" },
   { href: "/receita", label: "Receita" },
   { href: "/entrega-de-medicamentos-em-sabara", label: "Entrega" },
+  { href: "/ifood", label: "iFood (Nações Unidas)" },
   { href: "/novidades", label: "Novidades" },
   { href: "/encarte", label: "Encarte" },
   { href: "/perguntas", label: "Perguntas" },

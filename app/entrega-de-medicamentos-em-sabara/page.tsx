@@ -23,6 +23,7 @@ const faqs: FaqItem[] = [
     q: `Quais bairros a loja ${unit.legalLabel} atende?`,
     a: `A loja ${unit.legalLabel} entrega ${unit.deliveryScope}. WhatsApp: ${unit.whatsapp}.`,
   })),
+  { q: "A União Farma está no iFood?", a: "Só a loja Nações Unidas está no iFood. As lojas Fátima e Itacolomi atendem pelo WhatsApp." },
   { q: "Meu bairro não está na lista. E agora?", a: "Hoje a entrega é feita só nos bairros da tabela. Se o seu bairro não está nela, fale com a loja mais perto pelo WhatsApp e retire o pedido no balcão." },
 ];
 
@@ -111,6 +112,16 @@ export default function EntregaDeMedicamentosEmSabaraPage() {
             <p>
               Os pedidos são feitos dentro do horário de cada loja. <a href="/farmacia-aberta-domingo-sabara">Veja os horários das lojas</a>.
               Medicamentos com receita seguem as regras da Anvisa.
+            </p>
+          </div>
+        </section>
+
+        <section className="section" aria-labelledby="ifood">
+          <div className="section-inner">
+            <h2 id="ifood">Loja Nações Unidas também no iFood</h2>
+            <p>
+              Além do WhatsApp, a loja Nações Unidas está no iFood. As lojas Fátima e Itacolomi não estão no iFood e atendem só pelo WhatsApp.{" "}
+              <a href="/ifood">Veja como pedir pelo iFood</a>.
             </p>
           </div>
         </section>

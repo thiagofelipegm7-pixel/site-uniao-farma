@@ -17,6 +17,9 @@ type TrackingWindow = Window & {
   __uniaoFarmaAnalyticsLoaded?: boolean;
 };
 
+/** Eventos de clique que levam o parâmetro `store` e `link_location`. */
+const STORE_EVENTS = new Set(["whatsapp_click", "phone_click", "ifood_click"]);
+
 export type GaStore = "fatima" | "nacoes_unidas" | "itacolomi" | "geral";
 
 const STORE_BY_UNIT_ID: Record<string, GaStore> = {
@@ -73,7 +76,7 @@ export function getClickTrackingParams(target: Element | null): { event: string;
     else if (href.startsWith("tel:")) eventName = "phone_click";
   }
   if (!eventName) return null;
-  if (eventName === "whatsapp_click" || eventName === "phone_click") {
+  if (STORE_EVENTS.has(eventName)) {
     const fromUnit = storeFromUnitId(params.unit);
     params.store = fromUnit ?? (href ? storeFromHref(href) : "geral");
     params.link_location = linkLocation(tracked ?? anchor!);
@@ -89,7 +92,7 @@ export function trackEvent(event: string, params: TrackingParams = {}): void {
   const trackingWindow = window as TrackingWindow;
 
   const store = params.store ?? storeFromUnitId(params.unit) ?? undefined;
-  if (event === "whatsapp_click" || event === "phone_click") {
+  if (STORE_EVENTS.has(event)) {
     // Evita contar duas vezes quando o link e um onClick disparam o mesmo clique.
     const key = `${event}:${String(store ?? "")}`;
     const now = Date.now();
@@ -101,7 +104,7 @@ export function trackEvent(event: string, params: TrackingParams = {}): void {
   const eventParams: TrackingParams = {
     ...params,
     ...(store ? { store } : {}),
-    ...(event === "whatsapp_click" || event === "phone_click"
+    ...(STORE_EVENTS.has(event)
       ? { link_location: params.link_location ?? params.placement ?? params.source ?? "pagina" }
       : {}),
     ...getCampaignAttribution(),

@@ -42,6 +42,8 @@ export type Unit = {
   deliveryExclusive?: boolean;
   /** Outros nomes com que a loja aparece (ex.: no Google). Só preencher o que for verdade. */
   alternateNames?: string[];
+  /** Link da loja no iFood. Só preencher para loja que realmente está lá (hoje, só Nações Unidas). */
+  ifoodUrl?: string;
   coordinates?: {
     latitude: number;
     longitude: number;
@@ -114,6 +116,8 @@ export const UNITS: Unit[] = [
     whatsappDigits: "5531987629909",
     amenities: { freeParking: true },
     deliveryAreas: ["Nações Unidas"],
+    ifoodUrl:
+      "https://www.ifood.com.br/delivery/sabara-mg/drogaria-uniao-farma-nacoes-unidas/97697e48-2712-4a41-9e59-29eca10d912a",
     deliveryScope: "somente no bairro Nações Unidas",
     deliveryExclusive: true,
     map: "https://maps.app.goo.gl/V3S7ZFeZKwRQ2sm47",

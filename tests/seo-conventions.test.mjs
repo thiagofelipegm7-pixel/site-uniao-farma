@@ -32,6 +32,7 @@ test("public pages declare relative canonicals", async () => {
     ["app/farmacia-aberta-domingo-sabara/page.tsx", 'canonical: "/farmacia-aberta-domingo-sabara"'],
     ["app/entrega-de-medicamentos-em-sabara/page.tsx", "canonical: `/${SLUG}`"],
     ["app/perfumaria-em-sabara/page.tsx", "canonical: `/${config.slug}`"],
+    ["app/ifood/page.tsx", "canonical: `/${SLUG}`"],
   ];
 
   for (const [file, snippet] of files) {
@@ -135,4 +136,38 @@ test("AEO: cobertura de entrega, Droga Manaus, pagamento e schemas", async () =>
     const text = read(file);
     for (const pattern of forbidden) assert.doesNotMatch(text, pattern, `${file} ainda tem ${pattern}`);
   }
+});
+
+test("iFood: só a loja Nações Unidas, link exato, rel seguro, evento e sitemap", async () => {
+  const { UNITS } = await import("../app/site-config.ts");
+  const IFOOD =
+    "https://www.ifood.com.br/delivery/sabara-mg/drogaria-uniao-farma-nacoes-unidas/97697e48-2712-4a41-9e59-29eca10d912a";
+  const byId = Object.fromEntries(UNITS.map((unit) => [unit.id, unit]));
+  assert.equal(byId.nacoes.ifoodUrl, IFOOD);
+  assert.equal(byId.fatima.ifoodUrl, undefined);
+  assert.equal(byId.itacolomi.ifoodUrl, undefined);
+
+  const read = (file) => readFileSync(new URL(`../${file}`, import.meta.url), "utf8");
+  const page = read("app/ifood/page.tsx");
+  assert.match(page, /target="_blank"/);
+  assert.match(page, /rel="noopener noreferrer"/);
+  assert.match(page, /data-track-event="ifood_click"/);
+  assert.match(page, /data-track-unit=\{nacoes\.id\}/);
+  assert.match(page, /Só a loja Nações Unidas está no iFood/);
+  assert.doesNotMatch(page, /ifood\.com\.br/, "a URL vem só de site-config");
+
+  // Só a URL do site-config contém o link do iFood no código.
+  assert.equal((read("app/site-config.ts").match(/ifood\.com\.br/g) ?? []).length, 1);
+
+  // Evento com store/link_location, sitemap, schema e links internos.
+  assert.match(read("app/analytics.ts"), /"ifood_click"/);
+  assert.match(read("app/sitemap.ts"), /\/ifood/);
+  assert.match(read("app/sitemap-dates.ts"), /ifood:/);
+  const structured = read("app/structured-data.ts");
+  assert.match(structured, /unit\.ifoodUrl \? \[unit\.ifoodUrl\]/);
+  assert.match(structured, /"@type": "OrderAction"/);
+  assert.match(read("app/SiteFooter.tsx"), /href: "\/ifood"/);
+  assert.match(read("app/NeighborhoodPage.tsx"), /unit\.ifoodUrl \? <a href="\/ifood">/);
+  assert.match(read("app/home-sections.tsx"), /<DeliverySlot ifood \/>/);
+  assert.match(read("app/entrega-de-medicamentos-em-sabara/page.tsx"), /href="\/ifood"/);
 });
