@@ -243,6 +243,13 @@
     min-width: 44px;
   }
 
+  .cookie-banner a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: 0.25rem;
+  }
+
   .unit-store-actions {
     grid-template-columns: 1fr !important;
     gap: 0.45rem !important;

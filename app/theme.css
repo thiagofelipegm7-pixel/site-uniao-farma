@@ -240,7 +240,7 @@ a:visited,
 .offers-primary-button,
 .mobile-quick-nav a.is-primary,
 .cookie-accept,
-.cookie-banner button[type="button"]:not(.cookie-reject):not(.cookie-manage-button),
+.cookie-banner button[type="button"]:not(.cookie-reject),
 .modal-unit-action {
   background: #1f9e4b;
   color: #042016;
@@ -394,8 +394,7 @@ a[href*="maps.apple"] {
   border-color: #b7d7c8;
 }
 
-.cookie-reject,
-.cookie-manage-button {
+.cookie-reject {
   background: #dcefe6;
   color: #10231c;
   border-color: #b7d7c8;
@@ -1150,20 +1149,6 @@ select:focus,
   gap: 0.35rem;
 }
 
-.cookie-manage-button {
-  position: fixed;
-  right: 10px;
-  bottom: 16px;
-  z-index: 70;
-  min-height: 40px;
-  padding: 0.35rem 0.65rem;
-  border-radius: 999px;
-  border: 1px solid #d7e6de;
-  background: #f7fcf9;
-  color: #2a4038;
-  font-size: 0.66rem;
-}
-
 @media (max-width: 860px) {
   .open-now-strip {
     display: none !important;
@@ -1226,10 +1211,6 @@ select:focus,
   footer {
     padding-top: 1.25rem !important;
     padding-bottom: 6.5rem !important;
-  }
-
-  .cookie-manage-button {
-    bottom: calc(4.5rem + env(safe-area-inset-bottom));
   }
 }
 }

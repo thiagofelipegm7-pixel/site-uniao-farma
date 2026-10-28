@@ -82,9 +82,6 @@ export function HomeMore({
             <p>
               {"Fachada da Nações Unidas e interior organizado em Fátima e Itacolomi. Três lojas de rua — você reconhece o endereço e se imagina no balcão."}
             </p>
-            <p className="story-note">
-              {"Fotos da equipe entram aqui só com autorização de quem aparece. Até lá, a loja se apresenta pela fachada, pela gôndola e pelo atendimento no WhatsApp."}
-            </p>
             <a className="text-link" href={INSTAGRAM_URL} target="_blank" rel="noreferrer" onClick={() => trackEvent("instagram_click", { source: "story" })}>
               <InstagramIcon /> Mais fotos no Instagram
             </a>
@@ -101,7 +98,7 @@ export function HomeMore({
             <div className="reviews-brand-copy">
               <h2 id="reviews-title">{"Avaliações no Google"}</h2>
               <p className="reviews-score">
-                <span className="reviews-score-meta">{"Cada loja tem o próprio perfil. A nota só aparece depois da conferência."}</span>
+                <span className="reviews-score-meta">{"Cada loja tem o próprio perfil no Google. Toque na unidade para ver as avaliações."}</span>
               </p>
             </div>
           </div>

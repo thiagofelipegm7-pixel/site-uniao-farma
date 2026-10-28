@@ -111,7 +111,7 @@ export default function UnitsShowcase() {
                       href={waHref}
                       target="_blank"
                       rel="noreferrer"
-                      aria-label={`Falar com esta loja: WhatsApp ${label}`}
+                      aria-label={`WhatsApp da loja ${label}`}
                       onClick={() => {
                         writePreferredUnitId(unit.id);
                         trackWhatsAppClick({
@@ -127,7 +127,7 @@ export default function UnitsShowcase() {
                         });
                       }}
                     >
-                      Falar com esta loja
+                      WhatsApp
                     </a>
                     <a
                       className="unit-store-map"

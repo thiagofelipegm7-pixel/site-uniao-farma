@@ -6,7 +6,7 @@ export const COMPANY = {
   city: "Sabará",
   state: "MG",
   pharmacistNote:
-    "Farmacêutico responsável presente no horário de funcionamento. Nome, CRF, AFE e alvará de cada unidade ficam no balcão até a conferência para o site.",
+    "Farmacêutico responsável presente em todo o horário de funcionamento das três lojas.",
   regulators: {
     crfmg: {
       name: "CRF/MG — Conselho Regional de Farmácia de Minas Gerais",

@@ -491,6 +491,36 @@ export function getPublicOffers(now = new Date()): Offer[] {
   return OFFERS.filter((offer) => canPublishOffer(offer, now).publishable);
 }
 
+/** Dias depois da última conferência em que o encarte ainda pode ser chamado de "da semana". */
+export const OFFERS_FRESH_DAYS = 10;
+
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+/** Data da última conferência do encarte (maior updatedAt, AAAA-MM-DD) ou null sem ofertas. */
+export function getOffersReviewDate(offers: Offer[] = getPublicOffers()): string | null {
+  return offers.reduce<string | null>(
+    (latest, offer) => (latest === null || offer.updatedAt > latest ? offer.updatedAt : latest),
+    null,
+  );
+}
+
+export function isOffersCatalogFresh(now = new Date(), offers: Offer[] = getPublicOffers(now)): boolean {
+  const reviewDate = getOffersReviewDate(offers);
+  const reviewedAt = reviewDate ? parseOfferDate(reviewDate) : null;
+  if (!reviewedAt) return false;
+  return now.getTime() - reviewedAt.getTime() <= OFFERS_FRESH_DAYS * DAY_MS;
+}
+
+export function getOffersKicker(now = new Date(), offers: Offer[] = getPublicOffers(now)): string {
+  return isOffersCatalogFresh(now, offers) ? "Ofertas da semana" : "Ofertas";
+}
+
+/** "2026-08-17" -> "17/08/2026". */
+export function formatOfferDate(value: string): string {
+  const [year, month, day] = value.split("-");
+  return `${day}/${month}/${year}`;
+}
+
 export type AdsDecision = { eligible: boolean; reason: string };
 
 export function canUseInAds(offer: Offer, now = new Date()): AdsDecision {

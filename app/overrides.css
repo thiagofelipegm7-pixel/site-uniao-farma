@@ -63,21 +63,6 @@
     text-decoration: none;
   }
 
-  .cookie-manage-button {
-    display: inline-flex !important;
-    position: fixed !important;
-    left: 12px !important;
-    bottom: calc(5.6rem + env(safe-area-inset-bottom)) !important;
-    z-index: 4300 !important;
-    min-height: 44px !important;
-    min-width: 72px !important;
-    padding: 0.4rem 0.7rem !important;
-    border-radius: 999px;
-    background: #0b6244 !important;
-    color: #ffffff !important;
-    font-size: 14px !important;
-  }
-
   .uf-footer-bottom a,
   .uf-footer a[href="/privacidade"],
   .uf-footer a[href="/termos"] {

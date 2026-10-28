@@ -3,6 +3,7 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { getClickTrackingParams, trackEvent } from "./analytics";
 import { captureCampaignAttribution } from "./campaign-attribution";
+import { OPEN_COOKIE_PREFERENCES_EVENT } from "./cookie-preferences";
 
 import { CONSENT_STORAGE_KEY as CONSENT_KEY } from "./ga-bootstrap";
 
@@ -103,16 +104,19 @@ export default function AnalyticsConsent() {
   }, [consent]);
 
   const showBanner = hydrated && (consent === null || showPreferences);
-  const showManage = Boolean(!showBanner && consent);
 
   useEffect(() => {
     document.body.classList.toggle("cookie-banner-visible", showBanner);
-    document.body.classList.toggle("cookie-manage-visible", showManage);
     return () => {
       document.body.classList.remove("cookie-banner-visible");
-      document.body.classList.remove("cookie-manage-visible");
     };
-  }, [showBanner, showManage]);
+  }, [showBanner]);
+
+  useEffect(() => {
+    const openPreferences = () => setShowPreferences(true);
+    window.addEventListener(OPEN_COOKIE_PREFERENCES_EVENT, openPreferences);
+    return () => window.removeEventListener(OPEN_COOKIE_PREFERENCES_EVENT, openPreferences);
+  }, []);
 
   useEffect(() => {
     // Cliques são medidos sempre. Sem consentimento, o gtag só envia pings sem cookies.
@@ -154,16 +158,6 @@ export default function AnalyticsConsent() {
             </button>
           </div>
         </section>
-      )}
-      {showManage && (
-        <button
-          type="button"
-          className="cookie-manage-button"
-          onClick={() => setShowPreferences(true)}
-          aria-label="Gerenciar preferências de cookies"
-        >
-          Cookies
-        </button>
       )}
     </>
   );
