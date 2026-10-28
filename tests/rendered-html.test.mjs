@@ -320,13 +320,18 @@ test("cookie banner is mounted (not dynamic ssr:false) and CSP lets GA4 send con
   // Com dynamic({ssr:false}) o vinext não montava o banner e ninguém conseguia aceitar.
   assert.match(layout, /import AnalyticsConsent from "\.\/AnalyticsConsent"/);
   assert.doesNotMatch(layout, /dynamic\(\(\) => import\("\.\/AnalyticsConsent"\)/);
+  assert.match(layout, /import PwaRegister from "\.\/PwaRegister"/);
+  assert.match(layout, /import OfferAlerts from "\.\/OfferAlerts"/);
   for (const source of [middleware, nextConfig]) {
+    assert.match(source, /script-src[^"]*https:\/\/connect\.facebook\.net/);
     const connect = source.match(/connect-src[^"]*/)?.[0] ?? "";
     for (const host of [
       "https://*.google-analytics.com",
       "https://analytics.google.com",
       "https://*.googletagmanager.com",
       "https://*.g.doubleclick.net",
+      "https://www.facebook.com",
+      "https://connect.facebook.net",
     ]) {
       assert.ok(connect.includes(host), `connect-src deve liberar ${host}`);
     }
