@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { trackEvent } from "./analytics";
+import { getClickTrackingParams, trackEvent } from "./analytics";
 import { captureCampaignAttribution } from "./campaign-attribution";
 
-const CONSENT_KEY = "uniao_farma_cookie_consent_v1";
-const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-1N8E5G39KF";
-const GTM_CONTAINER_ID = process.env.NEXT_PUBLIC_GTM_CONTAINER_ID ?? "GTM-M8BXJCHB";
-const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "";
+import { CONSENT_STORAGE_KEY as CONSENT_KEY } from "./ga-bootstrap";
+
+// GA4 (gtag.js) é carregado direto no <head> pelo layout, com Consent Mode v2.
+// O GTM só carrega se NEXT_PUBLIC_GTM_CONTAINER_ID for definido de propósito
+// (e o contêiner NÃO deve ter tag GA4, para não contar page_view em dobro).
+const GTM_CONTAINER_ID = process.env.NEXT_PUBLIC_GTM_CONTAINER_ID ?? "";
 const META_PIXEL_ID = "1566333861510486";
 
 type ConsentValue = "accepted" | "rejected";
@@ -51,17 +53,13 @@ function startAnalytics(): void {
   if (trackingWindow.__uniaoFarmaAnalyticsLoaded) return;
   trackingWindow.__uniaoFarmaAnalyticsLoaded = true;
   trackingWindow.dataLayer = trackingWindow.dataLayer || [];
-  if (GTM_CONTAINER_ID) {
-    startGoogleTagManager();
-  } else {
-    trackingWindow.gtag = (...args: unknown[]) => {
-      trackingWindow.dataLayer?.push(args);
-    };
-    trackingWindow.gtag("js", new Date());
-    trackingWindow.gtag("config", GA_MEASUREMENT_ID, { anonymize_ip: true });
-    if (GOOGLE_ADS_ID) trackingWindow.gtag("config", GOOGLE_ADS_ID);
-    appendScript("uniao-farma-ga4", `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`);
-  }
+  trackingWindow.gtag?.("consent", "update", {
+    analytics_storage: "granted",
+    ad_storage: "granted",
+    ad_user_data: "granted",
+    ad_personalization: "granted",
+  });
+  if (GTM_CONTAINER_ID) startGoogleTagManager();
   if (!trackingWindow.fbq) {
     const fbq = function (...args: unknown[]) {
       if (fbq.callMethod) fbq.callMethod(...args);
@@ -77,14 +75,6 @@ function startAnalytics(): void {
   appendScript("uniao-farma-meta-pixel", "https://connect.facebook.net/pt_BR/fbevents.js");
   trackingWindow.fbq?.("init", META_PIXEL_ID);
   trackingWindow.fbq?.("track", "PageView");
-  trackingWindow.dataLayer.push({
-    event: "consent_update",
-    consent_status: "granted",
-    analytics_storage: "granted",
-    ad_storage: "granted",
-    ad_user_data: "granted",
-    ad_personalization: "granted",
-  });
 }
 
 function readStoredConsent(): ConsentValue | null {
@@ -125,24 +115,15 @@ export default function AnalyticsConsent() {
   }, [showBanner, showManage]);
 
   useEffect(() => {
-    if (consent !== "accepted") return;
+    // Cliques são medidos sempre. Sem consentimento, o gtag só envia pings sem cookies.
     const onTrackedClick = (event: MouseEvent) => {
       const target = event.target as Element | null;
-      const element = target?.closest<HTMLElement>("[data-track-event]");
-      const eventName = element?.dataset.trackEvent;
-      if (!eventName) return;
-      const params: Record<string, unknown> = {};
-      for (const [key, value] of Object.entries(element.dataset)) {
-        if (key.startsWith("track") && key !== "trackEvent") {
-          const paramName = key.slice("track".length).replace(/^[A-Z]/, (letter) => letter.toLowerCase());
-          if (paramName) params[paramName] = value;
-        }
-      }
-      trackEvent(eventName, params);
+      const params = getClickTrackingParams(target);
+      if (params) trackEvent(params.event, params.params);
     };
     document.addEventListener("click", onTrackedClick);
     return () => document.removeEventListener("click", onTrackedClick);
-  }, [consent]);
+  }, []);
 
   const saveConsent = (value: ConsentValue) => {
     const hadAccepted = consent === "accepted";

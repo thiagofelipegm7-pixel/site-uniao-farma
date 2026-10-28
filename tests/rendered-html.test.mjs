@@ -264,7 +264,8 @@ test("keeps local contact data, dataLayer events, SEO files and accessibility ho
   assert.match(envExample, /NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION/);
   assert.match(envExample, /NEXT_PUBLIC_GOOGLE_ADS_ID/);
   assert.match(layout, /NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION/);
-  assert.match(analytics, /GTM-M8BXJCHB/);
+  assert.match(layout, /gtag\/js\?id=\$\{GA_MEASUREMENT_ID\}/);
+  assert.match(analytics, /consent", "update"/);
   assert.match(layout, /chgP6OWdJAiM-yv_oPbit7Rf91vAsI7xDUWEuNQG1xk/);
   assert.match(sitemap, /entrega-de-medicamentos-em-sabara/);
   assert.match(sitemap, /\/ofertas/);
@@ -288,4 +289,24 @@ test("keeps local contact data, dataLayer events, SEO files and accessibility ho
   assert.match(css, /color-scheme:\s*only light/);
   assert.doesNotMatch(css, /prefers-color-scheme:\s*dark/);
   assert.match(css, /min-height:\s*48px/);
+});
+
+test("GA4 loads directly with Consent Mode v2 defaults denied and tracks WhatsApp/phone clicks", async () => {
+  const [bootstrap, consent, analytics] = await Promise.all([
+    readFile(new URL("../app/ga-bootstrap.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/AnalyticsConsent.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/analytics.ts", import.meta.url), "utf8"),
+  ]);
+  assert.match(bootstrap, /G-1N8E5G39KF/);
+  assert.match(bootstrap, /gtag\('consent','default',\{analytics_storage:'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'/);
+  assert.match(bootstrap, /function gtag\(\)\{dataLayer\.push\(arguments\);\}/);
+  assert.match(consent, /ad_user_data: "granted"/);
+  assert.match(consent, /process\.env\.NEXT_PUBLIC_GTM_CONTAINER_ID \?\? ""/);
+  assert.doesNotMatch(consent, /GTM-M8BXJCHB/);
+  assert.match(analytics, /"whatsapp_click"/);
+  assert.match(analytics, /"phone_click"/);
+  assert.match(analytics, /link_location/);
+  assert.match(analytics, /nacoes_unidas/);
+  // Meta Pixel continua atrás do consentimento.
+  assert.match(analytics, /__uniaoFarmaAnalyticsLoaded\) trackingWindow\.fbq/);
 });

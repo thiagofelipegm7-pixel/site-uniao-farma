@@ -23,6 +23,7 @@ import "./design.css";
 import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
 import { COMPANY } from "./company";
 
+import { GA_MEASUREMENT_ID, getGtagBootstrapScript } from "./ga-bootstrap";
 const AnalyticsConsent = dynamic(() => import("./AnalyticsConsent"), { ssr: false });
 const PwaRegister = dynamic(() => import("./PwaRegister"), { ssr: false });
 const OfferAlerts = dynamic(() => import("./OfferAlerts"), { ssr: false });
@@ -162,6 +163,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           imageSizes="(max-width: 720px) 88vw, 360px"
           fetchPriority="high"
         />
+        <script dangerouslySetInnerHTML={{ __html: getGtagBootstrapScript() }} />
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
         <link rel="preconnect" href="https://www.googletagmanager.com" />
         <link rel="preconnect" href="https://www.google-analytics.com" />
         <link rel="preconnect" href="https://connect.facebook.net" />
