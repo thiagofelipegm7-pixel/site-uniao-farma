@@ -5,6 +5,7 @@ import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import DirectUnitLinks from "../DirectUnitLinks";
 import OfferAlerts from "../OfferAlerts";
 import PublicOffersGrid from "../PublicOffersGrid";
+import { formatOfferDate, getOffersKicker, getOffersReviewDate } from "../offers";
 import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 import "../offers-polish.css";
 import "../offer-alerts.css";
@@ -17,6 +18,7 @@ export default function OffersPageClient({
   faqs: FAQ[];
   showReviewPanel: boolean;
 }) {
+  const reviewDate = getOffersReviewDate();
   return (
     <>
       <ContentSiteHeader activePath="/ofertas" />
@@ -25,12 +27,15 @@ export default function OffersPageClient({
         <section className="hero hero-home offers-hero" aria-labelledby="offers-title">
           <div className="hero-inner">
             <div className="hero-copy">
-              <p className="eyebrow">Ofertas da semana</p>
+              <p className="eyebrow">{getOffersKicker()}</p>
               <h1 id="offers-title">Ofertas em Sabará</h1>
               <p className="hero-lead">
                 Escolha o produto e depois a loja. A equipe confirma se tem hoje.
               </p>
-              <p className="offers-freshness">Encarte conferido em 17/08/2026. Vale enquanto durar o estoque em cada loja.</p>
+              <p className="offers-freshness">
+                {reviewDate ? `Encarte conferido em ${formatOfferDate(reviewDate)}. ` : ""}
+                Vale enquanto durar o estoque em cada loja.
+              </p>
             </div>
           </div>
         </section>

@@ -298,6 +298,19 @@
   text-decoration: underline;
 }
 
+.uf-footer-cookie-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #ffffff;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 @media (max-width: 900px) {
   .uf-footer-grid {
     grid-template-columns: 1fr 1fr;

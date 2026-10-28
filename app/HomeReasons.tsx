@@ -6,6 +6,7 @@ import WebImage from "./WebImage";
 import { responsiveSrcSet } from "./responsive-images";
 import {
   formatOfferPrice,
+  getOffersKicker,
   getPublicOffers,
   isMedicationOffer,
   MEDICATION_WARNING,
@@ -49,7 +50,7 @@ export default function HomeReasons({
     <section className="home-reasons" id="por-que-chamar" aria-labelledby="home-reasons-title">
       <div className="home-reasons-inner">
         <header className="home-reasons-head">
-          <p className="section-kicker">Ofertas da semana</p>
+          <p className="section-kicker">{getOffersKicker()}</p>
           <h2 id="home-reasons-title">Escolha a oferta e confirme preço e estoque no WhatsApp</h2>
           <p>{"Foto e preço de encarte. A loja confirma se ainda tem hoje."}</p>
         </header>

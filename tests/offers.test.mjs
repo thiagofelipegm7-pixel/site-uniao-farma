@@ -1,6 +1,17 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { canPublishOffer, canUseInAds, getPublicOffers, isOfferExpired, OFFERS } from "../app/offers.ts";
+import {
+  canPublishOffer,
+  canUseInAds,
+  formatOfferDate,
+  getOffersKicker,
+  getOffersReviewDate,
+  getPublicOffers,
+  isOfferExpired,
+  isOffersCatalogFresh,
+  OFFERS,
+  OFFERS_FRESH_DAYS,
+} from "../app/offers.ts";
 
 const baseOffer = {
   id: "test-offer",
@@ -110,4 +121,28 @@ test("publishes confirmed promotions while keeping incomplete and blocked items 
   assert.equal(OFFERS.filter((offer) => offer.imageApproved).length, 9);
   assert.ok(OFFERS.some((offer) => offer.currentPrice !== null));
   assert.equal(getPublicOffers().some((offer) => offer.id === "tandrilax"), false);
+});
+
+test("offers kicker and review date come from the catalog data", () => {
+  const offers = [
+    { ...baseOffer, id: "a", updatedAt: "2026-08-10" },
+    { ...baseOffer, id: "b", updatedAt: "2026-08-17" },
+    { ...baseOffer, id: "c", updatedAt: "2026-08-12" },
+  ];
+  assert.equal(OFFERS_FRESH_DAYS, 10);
+  assert.equal(getOffersReviewDate(offers), "2026-08-17");
+  assert.equal(getOffersReviewDate([]), null);
+  assert.equal(formatOfferDate("2026-08-17"), "17/08/2026");
+
+  const fresh = new Date("2026-08-27T12:00:00-03:00");
+  const stale = new Date("2026-08-28T12:00:00-03:00");
+  assert.equal(isOffersCatalogFresh(fresh, offers), true);
+  assert.equal(isOffersCatalogFresh(stale, offers), false);
+  assert.equal(isOffersCatalogFresh(fresh, []), false);
+  assert.equal(getOffersKicker(fresh, offers), "Ofertas da semana");
+  assert.equal(getOffersKicker(stale, offers), "Ofertas");
+  assert.equal(getOffersKicker(fresh, []), "Ofertas");
+
+  const published = getPublicOffers();
+  assert.equal(getOffersReviewDate(), getOffersReviewDate(published));
 });

@@ -4,6 +4,7 @@
 import OffersGroupCta from "./OffersGroupCta";
 import { useEffect, useState } from "react";
 import { COMPANY } from "./company";
+import { openCookiePreferences } from "./cookie-preferences";
 import { readPreferredUnitId, sortUnitsByPreference, writePreferredUnitId } from "./preferred-unit";
 import { INSTAGRAM_URL, UNITS, buildWhatsAppUrl, type Unit } from "./site-config";
 import BrandLogo from "./BrandLogo";
@@ -114,6 +115,10 @@ export default function SiteFooter() {
             <a href="/privacidade">Privacidade</a>
             <span aria-hidden="true"> · </span>
             <a href="/termos">Termos</a>
+            <span aria-hidden="true"> · </span>
+            <button type="button" className="uf-footer-cookie-link" onClick={openCookiePreferences}>
+              Cookies
+            </button>
           </p>
         </div>
       </div>
