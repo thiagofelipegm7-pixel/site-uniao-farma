@@ -17,7 +17,7 @@ const config: LocalLandingPageConfig = {
   faqs: [
     { q: "Onde tem perfumaria da União Farma?", a: "Nas três lojas: Fátima, Nações Unidas e Itacolomi. Escolhe a mais perto." },
     { q: "Posso mandar foto do produto?", a: "Pode. Foto ou nome no WhatsApp. A equipe confere marca, tamanho, preço e se tem hoje." },
-    { q: "Perfumaria também entrega?", a: "Se a loja atender o seu bairro, sim. Confirma taxa e prazo na mesma conversa." },
+    { q: "Perfumaria também entrega?", a: "Sim, nos bairros atendidos pela loja (veja a página de entrega). Confirma taxa e prazo na mesma conversa." },
   ],
   primaryLabel: "Consultar perfumaria",
   primaryMessage: "Oi, União Farma {unidade}! Quero consultar um produto de perfumaria ou higiene. Posso mandar o nome?",

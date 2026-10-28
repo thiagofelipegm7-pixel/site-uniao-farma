@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
 import type { Metadata } from "next";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
-import { buildWhatsAppUrl, SITE_URL, UNITS, type DailyHours, type Unit } from "../site-config";
+import { buildWhatsAppUrl, getHoursSentence, SITE_URL, UNITS, type DailyHours, type Unit } from "../site-config";
 import type { FaqItem } from "../seo-content";
 import { getPageStructuredData, getUnitPublicPath } from "../structured-data";
 import OpenStatusCell from "./OpenStatusCell";
@@ -39,7 +39,7 @@ const faqs: FaqItem[] = [
   { q: "Qual farmácia abre mais cedo em Sabará?", a: `A União Farma Fátima abre às ${fatimaOpen} todos os dias. As lojas Nações Unidas e Itacolomi abrem às ${otherOpen}.` },
   { q: "Até que horas a farmácia fica aberta em Sabará?", a: `De segunda a sexta, as 3 lojas União Farma ficam abertas até ${weekdayClose}.` },
   { q: "Tem farmácia 24 horas em Sabará?", a: `A União Farma não é 24 horas. As lojas fecham às ${weekdayClose} e reabrem às ${fatimaOpen} (Fátima) ou ${otherOpen} (Nações Unidas e Itacolomi).` },
-  { q: "A farmácia entrega no domingo?", a: "Sim, dentro do horário de cada loja. Peça pelo WhatsApp e a loja confirma se atende o seu endereço." },
+  { q: "A farmácia entrega no domingo?", a: `Sim, dentro do horário de cada loja e nos bairros atendidos: ${UNITS.map((unit) => `${unit.legalLabel} entrega ${unit.deliveryScope}`).join(". ")}.` },
 ];
 
 export const metadata: Metadata = {
@@ -123,6 +123,17 @@ export default function FarmaciaAbertaDomingoPage() {
           </div>
         </section>
 
+        <section className="section" aria-labelledby="horario-por-loja">
+          <div className="section-inner">
+            <h2 id="horario-por-loja">Horário de cada loja</h2>
+            <ul>
+              {UNITS.map((unit) => (
+                <li key={unit.id}>{getHoursSentence(unit)} Endereço: {unit.address}.{unit.alternateNames?.length ? ` Também aparece no Google como ${unit.alternateNames.join(", ")}.` : ""}</li>
+              ))}
+            </ul>
+          </div>
+        </section>
+
         <section className="section" aria-labelledby="domingo">
           <div className="section-inner">
             <h2 id="domingo">Farmácia aberta domingo em Sabará</h2>
@@ -147,7 +158,7 @@ export default function FarmaciaAbertaDomingoPage() {
         <section className="section" aria-labelledby="entrega">
           <div className="section-inner">
             <h2 id="entrega">Peça pelo WhatsApp e receba em casa</h2>
-            <p>Dentro do horário de cada loja, você pode pedir pelo WhatsApp. A loja confirma se entrega no seu endereço. <a href="/entrega-de-medicamentos-em-sabara">Saiba como funciona a entrega em Sabará</a>.</p>
+            <p>Dentro do horário de cada loja, você pode pedir pelo WhatsApp. {UNITS.map((unit) => `A loja ${unit.legalLabel} entrega ${unit.deliveryScope}.`).join(" ")} <a href="/entrega-de-medicamentos-em-sabara">Saiba como funciona a entrega em Sabará</a>.</p>
             <ul>
               {UNITS.map((unit) => (
                 <li key={unit.id}><a href={getUnitPublicPath(unit)}>{`Farmácia ${unit.shortName}`}</a> – {unit.shortAddress}</li>

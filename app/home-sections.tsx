@@ -47,7 +47,7 @@ export function HomeSections({
         </div>
       </section>
 
-      <DeliverySlot />
+      <DeliverySlot ifood />
 
       <section className="section offers-group-section reveal" id="grupo-ofertas" aria-labelledby="offers-group-title">
         <div className="section-inner">

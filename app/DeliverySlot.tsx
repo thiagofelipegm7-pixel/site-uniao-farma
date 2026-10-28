@@ -8,10 +8,13 @@ export default function DeliverySlot({
   href = "/entrega-de-medicamentos-em-sabara",
   unitName,
   external = false,
+  ifood = false,
 }: {
   href?: string;
   unitName?: string;
   external?: boolean;
+  /** Mostra o aviso de que a loja Nações Unidas também está no iFood. */
+  ifood?: boolean;
 }) {
   return (
     <section className="delivery-slot" aria-labelledby="delivery-slot-title">
@@ -20,6 +23,11 @@ export default function DeliverySlot({
           <p className="section-kicker">Entrega em Sabará</p>
           <h2 id="delivery-slot-title">Fazemos entregas{unitName ? ` a partir da loja de ${unitName}` : ""}</h2>
           <p>{SITE_OPTIONS.delivery.coverageText}</p>
+          {ifood ? (
+            <p>
+              A loja Nações Unidas também está no iFood. <a href="/ifood">Veja como pedir</a>.
+            </p>
+          ) : null}
         </div>
         <a
           className="button button-outline delivery-slot-cta"

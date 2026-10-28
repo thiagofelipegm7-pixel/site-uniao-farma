@@ -13,7 +13,7 @@ const OFFERS_FAQS = [
   },
   {
     q: "Dá para entregar a promoção?",
-    a: "Se a unidade atender o seu bairro, sim. Taxa e prazo entram na mesma conversa.",
+    a: "Sim, nos bairros atendidos pela loja (veja a página de entrega). Taxa e prazo entram na mesma conversa.",
   },
   {
     q: "Até quando vale?",

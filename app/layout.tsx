@@ -19,8 +19,9 @@ import "./visual-quality.css";
 import "./ux-fixes.css";
 import "./visual-fixes.css";
 import "./design.css";
-import { INSTAGRAM_URL, SITE_URL, UNITS } from "./site-config";
+import { INSTAGRAM_URL, PAYMENT_ACCEPTED, SITE_URL, UNITS } from "./site-config";
 import { COMPANY } from "./company";
+import { getPostalAddress } from "./structured-data";
 
 import { GA_MEASUREMENT_ID, getGtagBootstrapScript } from "./ga-bootstrap";
 // Importado direto (componente "use client"): com dynamic({ssr:false}) o vinext não montava o banner,
@@ -129,6 +130,13 @@ const organizationSchema = {
   url: `${SITE_URL}/`,
   logo: `${SITE_URL}/icon-192.png`,
   sameAs: [INSTAGRAM_URL, ...UNITS.map((unit) => unit.map)],
+  address: UNITS.map((unit) => getPostalAddress(unit)),
+  location: UNITS.map((unit) => ({
+    "@type": "Place",
+    name: `União Farma ${unit.shortName}`,
+    address: getPostalAddress(unit),
+  })),
+  paymentAccepted: PAYMENT_ACCEPTED,
   contactPoint: UNITS.map((unit) => ({
     "@type": "ContactPoint",
     telephone: `+${unit.whatsappDigits}`,
