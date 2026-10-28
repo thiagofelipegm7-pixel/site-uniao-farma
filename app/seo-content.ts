@@ -1,4 +1,4 @@
-import type { Unit } from "./site-config";
+import { UNITS, type Unit } from "./site-config";
 
 export type FaqItem = {
   q: string;
@@ -16,7 +16,7 @@ export const CUSTOMER_QUESTIONS: FaqItem[] = [
   },
   {
     q: "Vocês entregam no meu bairro?",
-    a: "Muitas vezes sim, mas área, taxa e prazo mudam por loja e por endereço. Mande o bairro no WhatsApp da unidade mais perto. Só confirme o pedido depois dessa resposta.",
+    a: `Depende da loja. ${UNITS.map((unit) => `A loja ${unit.legalLabel} entrega ${unit.deliveryScope}`).join(". ")}. Taxa e prazo são confirmados no WhatsApp da loja antes de fechar o pedido.`,
   },
   {
     q: "Tem o remédio e o preço no site?",
@@ -64,7 +64,7 @@ export function getUnitFaqs(unit: Unit): FaqItem[] {
     },
     {
       q: `A unidade ${unit.shortName} entrega no meu bairro?`,
-      a: `A loja fica em ${unit.neighborhood}. Mande o endereço no WhatsApp para saber se atende, a taxa e o prazo.`,
+      a: `A loja ${unit.legalLabel} entrega ${unit.deliveryScope}. Taxa e prazo são confirmados no WhatsApp da loja.`,
     },
     {
       q: `Qual o horário da farmácia ${unit.shortName}?`,

@@ -19,6 +19,8 @@ export type LocalLandingPageConfig = {
   primaryLabel: string;
   primaryMessage: string;
   intent?: WhatsAppIntentKey | string;
+  /** Inclui o schema Pharmacy (com geo, horário e áreas de entrega) das 3 lojas. */
+  includeUnitSchema?: boolean;
 };
 
 function UnitContactCard({ unit, campaign, message }: { unit: Unit; campaign: string; message: string }) {
@@ -72,6 +74,7 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
     name: config.title,
     url: pageUrl,
     faqs: config.faqs,
+    units: config.includeUnitSchema ? UNITS : undefined,
     breadcrumbs: [
       { name: "Início", url: `${SITE_URL}/` },
       { name: config.heading, url: pageUrl },
