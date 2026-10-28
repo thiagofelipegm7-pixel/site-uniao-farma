@@ -310,3 +310,25 @@ test("GA4 loads directly with Consent Mode v2 defaults denied and tracks WhatsAp
   // Meta Pixel continua atrás do consentimento.
   assert.match(analytics, /__uniaoFarmaAnalyticsLoaded\) trackingWindow\.fbq/);
 });
+
+test("cookie banner is mounted (not dynamic ssr:false) and CSP lets GA4 send consented hits", async () => {
+  const [layout, middleware, nextConfig] = await Promise.all([
+    readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../middleware.ts", import.meta.url), "utf8"),
+    readFile(new URL("../next.config.ts", import.meta.url), "utf8"),
+  ]);
+  // Com dynamic({ssr:false}) o vinext não montava o banner e ninguém conseguia aceitar.
+  assert.match(layout, /import AnalyticsConsent from "\.\/AnalyticsConsent"/);
+  assert.doesNotMatch(layout, /dynamic\(\(\) => import\("\.\/AnalyticsConsent"\)/);
+  for (const source of [middleware, nextConfig]) {
+    const connect = source.match(/connect-src[^"]*/)?.[0] ?? "";
+    for (const host of [
+      "https://*.google-analytics.com",
+      "https://analytics.google.com",
+      "https://*.googletagmanager.com",
+      "https://*.g.doubleclick.net",
+    ]) {
+      assert.ok(connect.includes(host), `connect-src deve liberar ${host}`);
+    }
+  }
+});

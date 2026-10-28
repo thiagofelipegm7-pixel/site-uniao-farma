@@ -394,6 +394,8 @@
     }
     .whatsapp-fab .whatsapp-fab-label { position: absolute !important; width: 1px !important; height: 1px !important; overflow: hidden !important; clip: rect(0 0 0 0) !important; white-space: nowrap !important; }
     .whatsapp-fab.is-hidden { display: none !important; }
+    /* Banner de cookies visível: sobe o botão para não cobrir o "Aceitar". */
+    body.cookie-banner-visible .whatsapp-fab:not(.whatsapp-fab-unit) { bottom: 104px !important; }
   }
 
   /* ---------- Modal de lojas ---------- */
