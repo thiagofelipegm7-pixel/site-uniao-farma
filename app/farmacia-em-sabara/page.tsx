@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import LocalLandingPage, { type LocalLandingPageConfig } from "../local-landing-page";
-import { SITE_URL } from "../site-config";
+import { SITE_URL, UNITS } from "../site-config";
 
 const config: LocalLandingPageConfig = {
   slug: "farmacia-em-sabara",
@@ -17,8 +17,9 @@ const config: LocalLandingPageConfig = {
   faqs: [
     { q: "Onde tem União Farma em Sabará?", a: "Em Nossa Senhora de Fátima, Nações Unidas e Itacolomi. Escolhe a loja mais perto e abre o WhatsApp dela." },
     { q: "Como saber o preço?", a: "Manda o nome e a dosagem no WhatsApp da unidade. A resposta é do estoque de hoje, não de uma lista congelada." },
-    { q: "Fazem entrega?", a: "Depende do bairro e da loja. Informa o endereço que a equipe fala taxa, prazo e se atende." },
+    { q: "Fazem entrega?", a: `Sim, pelo WhatsApp de cada loja. ${UNITS.map((unit) => `A loja ${unit.legalLabel} entrega ${unit.deliveryScope}`).join(". ")}. Taxa e prazo são confirmados na conversa.` },
   ],
+  includeUnitSchema: true,
   primaryLabel: "Escolher uma unidade",
   primaryMessage: "Oi, União Farma {unidade}! Vim pela página Farmácia em Sabará. Quero consultar um produto.",
 };

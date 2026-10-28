@@ -36,6 +36,12 @@ export type Unit = {
   amenities?: { freeParking?: boolean };
   /** Bairros de entrega confirmados pelo dono. Não incluir bairros sem confirmação. */
   deliveryAreas: string[];
+  /** Cobertura de entrega confirmada pelo dono, em frase que completa "A loja entrega ...". */
+  deliveryScope: string;
+  /** Se true, a loja entrega SOMENTE nos bairros de deliveryAreas. */
+  deliveryExclusive?: boolean;
+  /** Outros nomes com que a loja aparece (ex.: no Google). Só preencher o que for verdade. */
+  alternateNames?: string[];
   coordinates?: {
     latitude: number;
     longitude: number;
@@ -71,6 +77,7 @@ export const UNITS: Unit[] = [
     whatsapp: "(31) 98738-1786",
     whatsappDigits: "5531987381786",
     deliveryAreas: ["Nossa Senhora de Fátima", "Jardim Vitória"],
+    deliveryScope: "em todo o bairro Nossa Senhora de Fátima e no Jardim Vitória",
     map: "https://maps.app.goo.gl/XeHATeSiSfqLQ7w37",
     mapEmbed:
       "https://maps.google.com/maps?q=-19.8650470,-43.8621090&t=&z=17&ie=UTF8&iwloc=&output=embed",
@@ -107,6 +114,8 @@ export const UNITS: Unit[] = [
     whatsappDigits: "5531987629909",
     amenities: { freeParking: true },
     deliveryAreas: ["Nações Unidas"],
+    deliveryScope: "somente no bairro Nações Unidas",
+    deliveryExclusive: true,
     map: "https://maps.app.goo.gl/V3S7ZFeZKwRQ2sm47",
     mapEmbed:
       "https://maps.google.com/maps?q=Rua+Inglaterra,162,Nacoes+Unidas,Sabara,MG&t=&z=17&ie=UTF8&iwloc=&output=embed",
@@ -142,6 +151,8 @@ export const UNITS: Unit[] = [
     whatsapp: "(31) 99493-6960",
     whatsappDigits: "5531994936960",
     deliveryAreas: ["Itacolomi"],
+    deliveryScope: "em todo o bairro Itacolomi",
+    alternateNames: ["Droga Manaus"],
     map: "https://www.google.com/maps/search/?api=1&query=Av.+Joaquim+Ferreira+Madureira+489+Sabara+MG",
     mapEmbed:
       "https://maps.google.com/maps?q=Av.+Joaquim+Ferreira+Madureira+489+Sabará+MG&t=&z=16&ie=UTF8&iwloc=&output=embed",
@@ -173,7 +184,7 @@ export const SITE_OPTIONS = {
   },
   delivery: {
     coverageText:
-      "A disponibilidade, a área atendida, a taxa e o prazo são confirmados diretamente pela unidade escolhida.",
+      "Cada loja entrega só nos bairros da sua área, listados na página de entrega. Taxa e prazo são confirmados no WhatsApp da loja.",
     paymentText:
       "Consulte as formas de pagamento disponíveis para a entrega no momento do pedido.",
   },
@@ -209,4 +220,27 @@ export function buildWhatsAppUrl(
 export function getUnitBySlug(slug: string): Unit | undefined {
   if (slug === "fatima") return UNITS.find((unit) => unit.id === "fatima");
   return UNITS.find((unit) => unit.slug === slug);
+}
+
+/** Formas de pagamento aceitas na loja (as mesmas do texto público das lojas). */
+export const PAYMENT_ACCEPTED = "Pix, dinheiro, cartão de débito, cartão de crédito";
+
+const WEEKDAY_GROUPS: Array<{ label: string; key: Weekday }> = [
+  { label: "de segunda a sexta", key: "mon" },
+  { label: "aos sábados", key: "sat" },
+  { label: "aos domingos", key: "sun" },
+];
+
+function hourLabel(value: string) {
+  const [hours, minutes] = value.split(":");
+  return minutes === "00" ? `${Number(hours)}h` : `${Number(hours)}h${minutes}`;
+}
+
+/** Frase com o horário da loja, gerada a partir de unit.schedule (renderizada no servidor). */
+export function getHoursSentence(unit: Unit) {
+  const parts = WEEKDAY_GROUPS.map(({ label, key }) => {
+    const hours = unit.schedule[key];
+    return hours ? `${label}, das ${hourLabel(hours.open)} às ${hourLabel(hours.close)}` : `${label}, fechada`;
+  });
+  return `A loja ${unit.legalLabel} abre ${parts.join("; ")}.`;
 }

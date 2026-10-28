@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
@@ -79,5 +80,59 @@ test("redirects permanentes apontam para URLs canonicas, sem cadeia e sem sair d
   assert.doesNotMatch(sitemap, /\/unidades\//);
   for (const source of sources) {
     assert.ok(!sitemap.includes(`SITE_URL}${source}\``), `${source} nao pode estar no sitemap`);
+  }
+});
+
+test("AEO: cobertura de entrega, Droga Manaus, pagamento e schemas", async () => {
+  const { UNITS, getHoursSentence, PAYMENT_ACCEPTED } = await import("../app/site-config.ts");
+  const byId = Object.fromEntries(UNITS.map((u) => [u.id, u]));
+
+  assert.equal(byId.fatima.deliveryScope, "em todo o bairro Nossa Senhora de Fátima e no Jardim Vitória");
+  assert.equal(byId.nacoes.deliveryScope, "somente no bairro Nações Unidas");
+  assert.equal(byId.nacoes.deliveryExclusive, true);
+  assert.equal(byId.itacolomi.deliveryScope, "em todo o bairro Itacolomi");
+  assert.deepEqual(byId.itacolomi.alternateNames, ["Droga Manaus"]);
+  assert.equal(byId.fatima.alternateNames, undefined);
+  assert.equal(byId.nacoes.alternateNames, undefined);
+  assert.match(PAYMENT_ACCEPTED, /Pix/);
+  assert.match(getHoursSentence(byId.fatima), /segunda a sexta, das 7h às 21h/);
+  assert.match(getHoursSentence(byId.nacoes), /aos domingos, das 8h às 12h/);
+
+  const read = (file) => readFileSync(new URL(`../${file}`, import.meta.url), "utf8");
+
+  // Schema: alternateName da loja, paymentAccepted e endereço na Organization.
+  const structured = read("app/structured-data.ts");
+  assert.match(structured, /alternateName: \[COMPANY\.legalName, \.\.\.\(unit\.alternateNames \?\? \[\]\)\]/);
+  assert.match(structured, /paymentAccepted: PAYMENT_ACCEPTED/);
+  assert.match(structured, /areaServed: unit\.deliveryAreas\.map/);
+  const layout = read("app/layout.tsx");
+  assert.match(layout, /address: UNITS\.map\(\(unit\) => getPostalAddress\(unit\)\)/);
+  assert.match(layout, /paymentAccepted: PAYMENT_ACCEPTED/);
+
+  // /perguntas tem FAQPage com as mesmas perguntas que renderiza; /farmacia-em-sabara tem schema das lojas.
+  const perguntas = read("app/perguntas/page.tsx");
+  assert.match(perguntas, /faqs: CUSTOMER_QUESTIONS/);
+  assert.match(perguntas, /CUSTOMER_QUESTIONS\.map/);
+  assert.match(read("app/farmacia-em-sabara/page.tsx"), /includeUnitSchema: true/);
+  assert.match(read("app/local-landing-page.tsx"), /units: config\.includeUnitSchema \? UNITS : undefined/);
+
+  // Sem frases genéricas que sugerem entrega fora dos bairros confirmados.
+  const forbidden = [
+    /Mora em outro bairro\? Chame a loja/,
+    /confirma se atende o seu endereço/,
+    /confirma se entrega no seu endereço/,
+    /Muitas vezes sim/,
+    /Depende do bairro e da loja/,
+  ];
+  for (const file of [
+    "app/store-content.ts",
+    "app/seo-content.ts",
+    "app/NeighborhoodPage.tsx",
+    "app/farmacia-aberta-domingo-sabara/page.tsx",
+    "app/entrega-de-medicamentos-em-sabara/page.tsx",
+    "app/farmacia-em-sabara/page.tsx",
+  ]) {
+    const text = read(file);
+    for (const pattern of forbidden) assert.doesNotMatch(text, pattern, `${file} ainda tem ${pattern}`);
   }
 });

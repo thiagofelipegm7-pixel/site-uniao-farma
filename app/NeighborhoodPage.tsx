@@ -3,7 +3,7 @@ import InteractiveUnitMap from "./InteractiveUnitMap";
 import OffersGroupCta from "./OffersGroupCta";
 import UnitStatusBadge from "./UnitStatusBadge";
 import WebImage from "./WebImage";
-import { buildWhatsAppUrl, SITE_URL, UNITS, type Unit } from "./site-config";
+import { buildWhatsAppUrl, getHoursSentence, SITE_URL, UNITS, type Unit } from "./site-config";
 import { getStoreContent } from "./store-content";
 import { getPageStructuredData } from "./structured-data";
 import { UNIT_PHOTOS } from "./unit-photos";
@@ -82,11 +82,12 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
             <li><span>Sábado</span><strong>{unit.schedule.sat?.open}–{unit.schedule.sat?.close}</strong></li>
             <li><span>Domingo</span><strong>{unit.schedule.sun?.open}–{unit.schedule.sun?.close}</strong></li>
           </ul>
+          <p>{getHoursSentence(unit)}</p>
         </article>
         <article>
           <h2>Entrega</h2>
-          <p>A loja de {label} confirma se atende o seu endereço.</p>
-          <a href={buildWhatsAppUrl(unit, delivery, { campaign: "bairro", content: `${unit.id}_entrega` })} target="_blank" rel="noreferrer">Perguntar entrega</a>
+          <p>A loja de {label} entrega {unit.deliveryScope}.</p>
+          <a href={buildWhatsAppUrl(unit, delivery, { campaign: "bairro", content: `${unit.id}_entrega` })} target="_blank" rel="noreferrer">Pedir entrega</a>
         </article>
         <article>
           <h2>Receita</h2>
@@ -100,10 +101,29 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
       <section className="section-inner store-about">
         <h2>Sobre a loja de {label}</h2>
         <p>{content.intro}</p>
+        {unit.alternateNames?.length ? (
+          <p>Loja {label} (antiga {unit.alternateNames.join(", ")}, como aparece no Google).</p>
+        ) : null}
         {unit.amenities?.freeParking ? <p><strong>Estacionamento gratuito</strong> para clientes da loja.</p> : null}
 
         <h3>Bairros atendidos na entrega</h3>
-        <p>{content.bairros.join(", ")}. {content.bairrosNote}</p>
+        <div className="hours-table-wrap">
+          <table className="hours-table">
+            <caption>Entrega da loja de {label}</caption>
+            <thead>
+              <tr><th scope="col">Bairro</th><th scope="col">Cobertura</th></tr>
+            </thead>
+            <tbody>
+              {content.bairros.map((bairro) => (
+                <tr key={bairro}>
+                  <th scope="row">{bairro}</th>
+                  <td data-label="Cobertura">{unit.deliveryExclusive ? "Todo o bairro. A loja entrega somente neste bairro." : "Todo o bairro"}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p>{content.bairrosNote}</p>
 
         <h3>Formas de pagamento</h3>
         <p>Pix, dinheiro, cartão de débito e cartão de crédito, inclusive por aproximação. Na entrega, confirme a forma de pagamento com a loja pelo WhatsApp.</p>

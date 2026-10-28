@@ -1,5 +1,5 @@
 import { COMPANY } from "./company";
-import { INSTAGRAM_URL, SITE_URL, type Unit } from "./site-config";
+import { INSTAGRAM_URL, PAYMENT_ACCEPTED, SITE_URL, type Unit } from "./site-config";
 import type { FaqItem } from "./seo-content";
 
 const weekdayNames = {
@@ -37,26 +37,30 @@ export function getOpeningHoursSpecification(unit: Unit) {
     .filter(Boolean);
 }
 
+export function getPostalAddress(unit: Unit) {
+  return {
+    "@type": "PostalAddress",
+    streetAddress: unit.address.split(" — ")[0],
+    addressLocality: "Sabará",
+    addressRegion: "MG",
+    addressCountry: "BR",
+    addressNeighborhood: unit.neighborhood,
+    postalCode: unit.cep,
+  };
+}
+
 export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}${PUBLIC_PATH[unit.id]}`) {
   return {
     "@type": ["Pharmacy", "LocalBusiness"],
     "@id": `${pageUrl}#localbusiness`,
     name: `União Farma ${unit.shortName}`,
-    alternateName: COMPANY.legalName,
+    alternateName: [COMPANY.legalName, ...(unit.alternateNames ?? [])],
     description: `Farmácia e drogaria da União Farma no bairro ${unit.neighborhood}, em Sabará/MG. Medicamentos, perfumaria e pedido pelo WhatsApp.`,
     url: pageUrl,
     telephone: `+${unit.phoneLink.replace("tel:+", "")}`,
     image: `${SITE_URL}/uniao-farma-logo.webp`,
     taxID: COMPANY.cnpj,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: unit.address.split(" — ")[0],
-      addressLocality: "Sabará",
-      addressRegion: "MG",
-      addressCountry: "BR",
-      addressNeighborhood: unit.neighborhood,
-      postalCode: unit.cep,
-    },
+    address: getPostalAddress(unit),
     ...(unit.coordinates
       ? {
           geo: {
@@ -73,6 +77,7 @@ export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}${PUBLIC
           ],
         }
       : {}),
+    paymentAccepted: PAYMENT_ACCEPTED,
     hasMap: unit.map,
     openingHoursSpecification: getOpeningHoursSpecification(unit),
     areaServed: unit.deliveryAreas.map((name) => ({
