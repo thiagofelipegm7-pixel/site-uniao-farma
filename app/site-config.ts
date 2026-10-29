@@ -157,12 +157,12 @@ export const UNITS: Unit[] = [
     deliveryAreas: ["Itacolomi"],
     deliveryScope: "em todo o bairro Itacolomi",
     alternateNames: ["Droga Manaus"],
-    map: "https://www.google.com/maps/search/?api=1&query=Av.+Joaquim+Ferreira+Madureira+489+Sabara+MG",
+    map: "https://www.google.com/maps/place/Droga+Manaus/@-19.8783117,-43.8494148,18z/data=!3m1!4b1!4m6!3m5!1s0xa69cbf14b2ecc7:0xdd9115c7b8524f35!8m2!3d-19.8783117!4d-43.8494148!16s%2Fg%2F11r_vpfd_c",
     mapEmbed:
-      "https://maps.google.com/maps?q=Av.+Joaquim+Ferreira+Madureira+489+Sabará+MG&t=&z=16&ie=UTF8&iwloc=&output=embed",
+      "https://maps.google.com/maps?q=-19.8783117,-43.8494148&t=&z=16&ie=UTF8&iwloc=&output=embed",
     coordinates: {
-      latitude: -19.87913,
-      longitude: -43.84989,
+      latitude: -19.8783117,
+      longitude: -43.8494148,
     },
     schedule: {
       sun: { open: "08:00", close: "12:00" },
