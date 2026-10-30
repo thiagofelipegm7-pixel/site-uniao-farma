@@ -15,12 +15,12 @@ const unit = UNITS[2];
 export const metadata: Metadata = {
   title: { absolute: "Farmácia no Itacolomi, Sabará: entrega e WhatsApp | União Farma" },
   description:
-    "Av. Joaquim Ferreira Madureira, 489. Seg a sex até 21h, sábado até 20h e domingo até 12h. Peça pelo WhatsApp (31) 99493-6960 e consulte a entrega.",
+    "Antiga Droga Manaus, na Av. Joaquim Ferreira Madureira, 489. Seg a sex até 21h, sábado até 20h e domingo até 12h. WhatsApp (31) 99493-6960.",
   alternates: { canonical: "/itacolomi" },
   keywords: ["farmácia Itacolomi Sabará", "União Farma Itacolomi", "drogaria Itacolomi", "Droga Manaus Itacolomi"],
   openGraph: {
     title: "Farmácia no Itacolomi, Sabará: entrega e WhatsApp | União Farma",
-    description: "Av. Joaquim Ferreira Madureira, 489. Seg a sex até 21h, sábado até 20h e domingo até 12h. Peça pelo WhatsApp (31) 99493-6960 e consulte a entrega.",
+    description: "Antiga Droga Manaus, na Av. Joaquim Ferreira Madureira, 489. Seg a sex até 21h, sábado até 20h e domingo até 12h. WhatsApp (31) 99493-6960.",
     url: `${SITE_URL}/itacolomi`,
     type: "website",
     images: [{ url: "/og-itacolomi.jpg", width: 1200, height: 630, alt: "União Farma Itacolomi, Av. Joaquim Ferreira Madureira, 489" }],
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Farmácia no Itacolomi, Sabará: entrega e WhatsApp | União Farma",
-    description: "Av. Joaquim Ferreira Madureira, 489. Seg a sex até 21h, sábado até 20h e domingo até 12h. Peça pelo WhatsApp (31) 99493-6960 e consulte a entrega.",
+    description: "Antiga Droga Manaus, na Av. Joaquim Ferreira Madureira, 489. Seg a sex até 21h, sábado até 20h e domingo até 12h. WhatsApp (31) 99493-6960.",
     images: [{ url: "/og-itacolomi.jpg", width: 1200, height: 630, alt: "União Farma Itacolomi, Av. Joaquim Ferreira Madureira, 489" }],
   },
 };

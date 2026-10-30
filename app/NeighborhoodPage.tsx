@@ -63,6 +63,9 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
         />
         <p className="eyebrow">Farmácia em {unit.neighborhood}</p>
         <h1>{PAGE_HEADING[unit.id]}</h1>
+        {unit.alternateNames?.length ? (
+          <p className="former-name"><strong>Antiga {unit.alternateNames.join(", ")}</strong> — mesmo endereço, agora União Farma</p>
+        ) : null}
         <p>{unit.address} — CEP {unit.cep}</p>
         <UnitStatusBadge unit={unit} />
         <div className="neighborhood-actions">

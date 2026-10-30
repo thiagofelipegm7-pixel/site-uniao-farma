@@ -93,6 +93,9 @@ test("AEO: cobertura de entrega, Droga Manaus, pagamento e schemas", async () =>
   assert.equal(byId.nacoes.deliveryExclusive, true);
   assert.equal(byId.itacolomi.deliveryScope, "em todo o bairro Itacolomi");
   assert.deepEqual(byId.itacolomi.alternateNames, ["Droga Manaus"]);
+  const neighborhood = readFileSync(new URL("../app/NeighborhoodPage.tsx", import.meta.url), "utf8");
+  assert.match(neighborhood, /Antiga \{unit\.alternateNames\.join\(", "\)\}/);
+  assert.match(readFileSync(new URL("../app/itacolomi/page.tsx", import.meta.url), "utf8"), /description:\s+"Antiga Droga Manaus/);
   assert.equal(byId.fatima.alternateNames, undefined);
   assert.equal(byId.nacoes.alternateNames, undefined);
   assert.match(PAYMENT_ACCEPTED, /Pix/);
