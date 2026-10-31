@@ -1,0 +1,98 @@
+/* Catálogo de produtos sem receita (Nações Unidas). CSS escopado desta página. */
+.catalogo-nacoes .catalogo-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 var(--space-5, 1.5rem);
+  padding: 0;
+  list-style: none;
+}
+
+.catalogo-nacoes .catalogo-chips a {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--teal-deep);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.catalogo-nacoes .catalogo-chips a:hover {
+  border-color: var(--aqua);
+  background: var(--aqua-pale);
+}
+
+.catalogo-nacoes .catalogo-grupo {
+  margin: 0 0 var(--space-6, 2rem);
+  scroll-margin-top: 126px;
+}
+
+.catalogo-nacoes .catalogo-lista {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  grid-template-columns: 1fr;
+}
+
+.catalogo-nacoes .catalogo-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm, 0.625rem);
+  background: var(--white);
+}
+
+.catalogo-nacoes .catalogo-item h4 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.catalogo-nacoes .catalogo-lab,
+.catalogo-nacoes .catalogo-mip {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.catalogo-nacoes .catalogo-mip {
+  color: var(--coral-dark);
+}
+
+.catalogo-nacoes .catalogo-preco {
+  flex: none;
+  color: var(--teal-deep);
+  font-size: 1.125rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.catalogo-nacoes .catalogo-aviso {
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm, 0.625rem);
+  background: var(--aqua-pale);
+}
+
+.catalogo-nacoes .catalogo-aviso p {
+  margin: 0 0 8px;
+}
+
+.catalogo-nacoes .catalogo-aviso p:last-child {
+  margin-bottom: 0;
+}
+
+@media (min-width: 720px) {
+  .catalogo-nacoes .catalogo-lista {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

@@ -33,6 +33,7 @@ test("public pages declare relative canonicals", async () => {
     ["app/entrega-de-medicamentos-em-sabara/page.tsx", "canonical: `/${SLUG}`"],
     ["app/perfumaria-em-sabara/page.tsx", "canonical: `/${config.slug}`"],
     ["app/ifood/page.tsx", "canonical: `/${SLUG}`"],
+    ["app/nacoes-unidas/produtos/page.tsx", "canonical: `/${SLUG}`"],
   ];
 
   for (const [file, snippet] of files) {
