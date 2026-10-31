@@ -82,6 +82,10 @@ cp .env.example .env
 - `STAFF_PASSWORD`: Senha de acesso para operadores.
 - `STAFF_SECRET`: Chave secreta para assinatura criptográfica da sessão HMAC.
 
+### Painel de cliques (`/painel-cliques`)
+- `PAINEL_SENHA`: **secret** do Worker. Senha do painel (HTTP Basic: qualquer usuário, senha = este valor). Sem o secret o painel responde 503 e fica fechado. Defina com `npx wrangler secret put PAINEL_SENHA` ou no painel da Cloudflare (Workers > uniao-farma-sabara > Settings > Variables and Secrets, tipo Secret). Use senha longa.
+- Contagem de cliques: o botão de WhatsApp/iFood envia `{página, botão, loja}` para `POST /api/cliques`, que soma em `click_counts` no D1 (binding `DB`, banco `site-creator-d1`). Sem IP, user agent, cookie ou ID. Bots óbvios (user agent) são ignorados. A tabela é criada sozinha (`CREATE TABLE IF NOT EXISTS`); o SQL está em `drizzle/0001_click_counts.sql`.
+
 ### Variáveis da Meta / WhatsApp Business API
 - `WHATSAPP_VERIFY_TOKEN`: Token de verificação do webhook da Meta.
 - `WHATSAPP_APP_SECRET`: Segredo do app Meta para validar assinaturas.

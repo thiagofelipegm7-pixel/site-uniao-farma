@@ -1,0 +1,12 @@
+.click-panel { max-width: 760px; margin: 0 auto; padding: 24px 16px 64px; font-family: system-ui, sans-serif; color: #1c2b24; }
+.click-panel h1 { font-size: 1.6rem; margin: 0 0 8px; }
+.click-panel h2 { font-size: 1.15rem; margin: 28px 0 8px; }
+.click-panel-lead { color: #4a5a52; line-height: 1.5; }
+.click-panel-warn { background: #fff4d6; border-radius: 8px; padding: 10px 12px; }
+.click-panel-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; }
+.click-panel-cards div { background: #eef6f1; border-radius: 12px; padding: 14px; display: flex; flex-direction: column; }
+.click-panel-cards strong { font-size: 1.8rem; }
+.click-panel table { width: 100%; border-collapse: collapse; }
+.click-panel th, .click-panel td { padding: 8px 10px; border-bottom: 1px solid #dfe8e2; text-align: right; }
+.click-panel th[scope="row"], .click-panel thead th:first-child { text-align: left; font-weight: 600; }
+.click-panel thead th { font-size: .85rem; color: #4a5a52; }

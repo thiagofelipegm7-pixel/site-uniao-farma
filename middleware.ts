@@ -44,14 +44,53 @@ function redirectToCanonicalHost(request: NextRequest) {
   return null;
 }
 
+const PAINEL_PATH = "/painel-cliques";
+
+async function sha256(value: string) {
+  return new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(value)));
+}
+
+/** Senha do painel de cliques: HTTP Basic, qualquer usuário, senha = secret PAINEL_SENHA. Sem secret, fica fechado. */
+async function guardPainel(request: NextRequest) {
+  const expected = process.env.PAINEL_SENHA?.trim() || "";
+  const deny = (status: number, body: string, challenge: boolean) => {
+    const response = new NextResponse(body, { status, headers: { "Content-Type": "text/plain; charset=utf-8" } });
+    if (challenge) response.headers.set("WWW-Authenticate", 'Basic realm="Painel de cliques", charset="UTF-8"');
+    response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+    return withSecurityHeaders(response, true);
+  };
+  if (!expected) return deny(503, "Painel desligado: falta configurar o secret PAINEL_SENHA.", false);
+
+  const header = request.headers.get("authorization") || "";
+  if (/^basic /i.test(header)) {
+    try {
+      const decoded = new TextDecoder().decode(Uint8Array.from(atob(header.slice(6).trim()), (c) => c.charCodeAt(0)));
+      const given = decoded.slice(decoded.indexOf(":") + 1);
+      const [a, b] = await Promise.all([sha256(given), sha256(expected)]);
+      let diff = 0;
+      for (let i = 0; i < a.length; i += 1) diff |= a[i] ^ b[i];
+      if (diff === 0) {
+        const response = withSecurityHeaders(NextResponse.next(), true);
+        response.headers.set("X-Robots-Tag", "noindex, nofollow, noarchive");
+        return response;
+      }
+    } catch {
+      // cabeçalho inválido: cai no desafio abaixo
+    }
+  }
+  return deny(401, "Senha necessária.", true);
+}
+
 export async function middleware(request: NextRequest) {
   const canonical = redirectToCanonicalHost(request);
   if (canonical) return canonical;
 
   const { pathname } = request.nextUrl;
+  if (pathname === PAINEL_PATH || pathname.startsWith(`${PAINEL_PATH}/`)) return guardPainel(request);
   const noStore =
     pathname.startsWith("/interno") ||
     pathname === "/api/metricas" ||
+    pathname === "/api/cliques" ||
     pathname === "/api/interno/login" ||
     pathname === "/api/whatsapp/webhook";
   const staffPath = pathname.startsWith("/interno") || pathname === "/api/metricas";

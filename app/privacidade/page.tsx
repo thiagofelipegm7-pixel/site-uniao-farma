@@ -22,7 +22,7 @@ export default function PrivacyPage() {
 
         <p className="section-kicker">Privacidade e transparência</p>
         <h1>Política de Privacidade</h1>
-        <p className="legal-updated">Última atualização: 31 de julho de 2026.</p>
+        <p className="legal-updated">Última atualização: 31 de outubro de 2026.</p>
 
         <section>
           <h2>1. Quem é responsável pelo site</h2>
@@ -67,6 +67,17 @@ export default function PrivacyPage() {
           <p>
             A preferência fica salva no seu navegador. O botão “Cookies”, exibido no canto da tela,
             permite reabrir as opções.
+          </p>
+        </section>
+
+        <section>
+          <h2>4.1. Contagem própria de cliques</h2>
+          <p>
+            Independente dos cookies opcionais, o site conta quantas vezes os botões de WhatsApp e
+            iFood são tocados. Essa contagem é feita pelo próprio site e guarda apenas o dia, a
+            página, o botão (WhatsApp ou iFood) e a loja, somados em totais. Não usa cookies, não
+            guarda IP, aparelho, navegador ou qualquer identificador, e não permite saber quem
+            clicou. Serve só para entender quais canais as pessoas mais usam.
           </p>
         </section>
 
