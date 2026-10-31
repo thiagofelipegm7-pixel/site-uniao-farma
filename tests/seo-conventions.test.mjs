@@ -33,6 +33,7 @@ test("public pages declare relative canonicals", async () => {
     ["app/entrega-de-medicamentos-em-sabara/page.tsx", "canonical: `/${SLUG}`"],
     ["app/perfumaria-em-sabara/page.tsx", "canonical: `/${config.slug}`"],
     ["app/ifood/page.tsx", "canonical: `/${SLUG}`"],
+    ["app/jardim-vitoria/page.tsx", "canonical: `/${SLUG}`"],
   ];
 
   for (const [file, snippet] of files) {
@@ -135,6 +136,7 @@ test("AEO: cobertura de entrega, Droga Manaus, pagamento e schemas", async () =>
     "app/farmacia-aberta-domingo-sabara/page.tsx",
     "app/entrega-de-medicamentos-em-sabara/page.tsx",
     "app/farmacia-em-sabara/page.tsx",
+    "app/jardim-vitoria/page.tsx",
   ]) {
     const text = read(file);
     for (const pattern of forbidden) assert.doesNotMatch(text, pattern, `${file} ainda tem ${pattern}`);
@@ -173,4 +175,27 @@ test("iFood: só a loja Nações Unidas, link exato, rel seguro, evento e sitema
   assert.match(read("app/NeighborhoodPage.tsx"), /unit\.ifoodUrl \? <a href="\/ifood">/);
   assert.match(read("app/home-sections.tsx"), /<DeliverySlot ifood \/>/);
   assert.match(read("app/entrega-de-medicamentos-em-sabara/page.tsx"), /href="\/ifood"/);
+});
+
+test("horário fixo no HTML, /jardim-vitoria, priceRange e FAQ da receita", async () => {
+  const { UNITS, getShortHoursPhrase } = await import("../app/site-config.ts");
+  const byId = Object.fromEntries(UNITS.map((u) => [u.id, u]));
+  assert.equal(getShortHoursPhrase(byId.fatima), "Seg a sex até 21h, sáb até 20h, dom até 12h");
+  assert.equal(getShortHoursPhrase(byId.nacoes), "Seg a sex até 21h, sáb até 21h, dom até 12h");
+  assert.equal(getShortHoursPhrase(byId.itacolomi), "Seg a sex até 21h, sáb até 20h, dom até 12h");
+
+  const read = (file) => readFileSync(new URL(`../${file}`, import.meta.url), "utf8");
+  assert.doesNotMatch(read("app/farmacia-aberta-domingo-sabara/OpenStatusCell.tsx"), /Veja o horário ao lado/);
+  assert.match(read("app/farmacia-aberta-domingo-sabara/page.tsx"), /fallback=\{getShortHoursPhrase\(unit\)\}/);
+  assert.match(read("app/NeighborhoodPage.tsx"), /getShortHoursPhrase\(unit\)/);
+
+  const page = read("app/jardim-vitoria/page.tsx");
+  assert.match(page, /find\(\(unit\) => unit\.id === "fatima"\)/);
+  assert.match(page, /units: \[fatima\]/);
+  assert.match(read("app/sitemap.ts"), /\/jardim-vitoria/);
+  assert.match(read("app/sitemap-dates.ts"), /jardimVitoria:/);
+  assert.match(read("app/entrega-de-medicamentos-em-sabara/page.tsx"), /href="\/jardim-vitoria"/);
+
+  assert.match(read("app/structured-data.ts"), /priceRange: "\$\$"/);
+  assert.match(read("app/receita/page.tsx"), /getFaqSchema\(RECIPE_FAQS/);
 });

@@ -3,7 +3,7 @@ import InteractiveUnitMap from "./InteractiveUnitMap";
 import OffersGroupCta from "./OffersGroupCta";
 import UnitStatusBadge from "./UnitStatusBadge";
 import WebImage from "./WebImage";
-import { buildWhatsAppUrl, getHoursSentence, SITE_URL, UNITS, type Unit } from "./site-config";
+import { buildWhatsAppUrl, getHoursSentence, getShortHoursPhrase, SITE_URL, UNITS, type Unit } from "./site-config";
 import { getStoreContent } from "./store-content";
 import { getPageStructuredData } from "./structured-data";
 import { UNIT_PHOTOS } from "./unit-photos";
@@ -67,6 +67,7 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
           <p className="former-name"><strong>Antiga {unit.alternateNames.join(", ")}</strong> — mesmo endereço, agora União Farma</p>
         ) : null}
         <p>{unit.address} — CEP {unit.cep}</p>
+        <p className="hours-static">Horário: {getShortHoursPhrase(unit)}.</p>
         <UnitStatusBadge unit={unit} />
         <div className="neighborhood-actions">
           <a className="button button-whatsapp" href={buildWhatsAppUrl(unit, product, { campaign: "bairro", content: `${unit.id}_pedir` })} target="_blank" rel="noreferrer">Pedir no WhatsApp</a>
@@ -120,7 +121,7 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
             <tbody>
               {content.bairros.map((bairro) => (
                 <tr key={bairro}>
-                  <th scope="row">{bairro}</th>
+                  <th scope="row">{bairro === "Jardim Vitória" ? <a href="/jardim-vitoria">{bairro}</a> : bairro}</th>
                   <td data-label="Cobertura">{unit.deliveryExclusive ? "Todo o bairro. A loja entrega somente neste bairro." : "Todo o bairro"}</td>
                 </tr>
               ))}

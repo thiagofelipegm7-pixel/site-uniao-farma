@@ -8,6 +8,7 @@ const SITE_DIRECTORY_LINKS = [
   { href: "/fatima", label: "Farmácia em Fátima" },
   { href: "/nacoes-unidas", label: "Farmácia em Nações Unidas" },
   { href: "/itacolomi", label: "Farmácia no Itacolomi" },
+  { href: "/jardim-vitoria", label: "Farmácia no Jardim Vitória" },
   { href: "/perfumaria-em-sabara", label: "Perfumaria em Sabará" },
   { href: "/farmacia-em-sabara", label: "Farmácia em Sabará" },
   { href: "/farmacia-aberta-domingo-sabara", label: "Ver horários" },

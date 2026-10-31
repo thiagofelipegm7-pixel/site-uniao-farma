@@ -60,6 +60,7 @@ export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}${PUBLIC
     telephone: `+${unit.phoneLink.replace("tel:+", "")}`,
     image: `${SITE_URL}/uniao-farma-logo.webp`,
     taxID: COMPANY.cnpj,
+    priceRange: "$$",
     address: getPostalAddress(unit),
     ...(unit.coordinates
       ? {

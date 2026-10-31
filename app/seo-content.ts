@@ -48,6 +48,34 @@ export const HOME_FAQS: FaqItem[] = [
   },
 ];
 
+/** FAQ de /receita: só fatos que já estão no site (home, termos e página da receita). */
+export const RECIPE_FAQS: FaqItem[] = [
+  {
+    q: "Posso enviar a receita por foto ou pelo Memed?",
+    a: "Sim. Envie foto nítida da receita ou o link do Memed no WhatsApp da loja. O farmacêutico confere no horário da loja, antes de separar.",
+  },
+  {
+    q: "A loja responde se tem o medicamento?",
+    a: "Sim. A loja do bairro confere no horário e responde se tem. O estoque muda no dia, então a resposta vale para hoje.",
+  },
+  {
+    q: "Enviar a foto da receita garante a venda ou a reserva?",
+    a: "Não. O envio de uma foto não garante a venda ou a reserva do produto. A equipe pode pedir receita, identificação ou outros documentos quando necessário.",
+  },
+  {
+    q: "Controlado e antibiótico saem na entrega?",
+    a: "Em regra, não. Controlado e antibiótico pedem retirada na loja, com retenção da receita e o farmacêutico. Tire a dúvida no WhatsApp antes de ir.",
+  },
+  {
+    q: "Qual loja eu escolho para enviar a receita?",
+    a: "A mais perto de você: Fátima (Rua Cláudio, 902), Nações Unidas (Rua Inglaterra, 162) ou Itacolomi (Av. Joaquim Ferreira Madureira, 489). Estoque e entrega são da loja que você chamar.",
+  },
+  {
+    q: "Que dados devo enviar junto com a receita?",
+    a: "Envie só os dados necessários. Não mande informações além das que a receita já traz.",
+  },
+];
+
 export function getUnitFaqs(unit: Unit): FaqItem[] {
   return [
     {

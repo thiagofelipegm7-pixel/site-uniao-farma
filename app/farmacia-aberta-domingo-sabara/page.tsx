@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
 import type { Metadata } from "next";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
-import { buildWhatsAppUrl, getHoursSentence, SITE_URL, UNITS, type DailyHours, type Unit } from "../site-config";
+import { buildWhatsAppUrl, getHoursSentence, getShortHoursPhrase, SITE_URL, UNITS, type DailyHours, type Unit } from "../site-config";
 import type { FaqItem } from "../seo-content";
 import { getPageStructuredData, getUnitPublicPath } from "../structured-data";
 import OpenStatusCell from "./OpenStatusCell";
@@ -114,7 +114,7 @@ export default function FarmaciaAbertaDomingoPage() {
                       <td data-label="WhatsApp">
                         <a href={buildWhatsAppUrl(unit, `Oi, União Farma ${unit.shortName}! Vim pela página de horários.`, { campaign: SLUG, content: `table_${unit.id}` })} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unit.id} data-track-source={`${SLUG}_table`}>{unit.whatsapp}</a>
                       </td>
-                      <td data-label="Agora"><OpenStatusCell unitId={unit.id} /></td>
+                      <td data-label="Agora"><OpenStatusCell unitId={unit.id} fallback={getShortHoursPhrase(unit)} /></td>
                     </tr>
                   ))}
                 </tbody>
