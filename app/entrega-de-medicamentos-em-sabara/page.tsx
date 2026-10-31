@@ -86,7 +86,7 @@ export default function EntregaDeMedicamentosEmSabaraPage() {
                     const unit = byId[unitId];
                     return (
                       <tr key={`${unitId}-${area}`}>
-                        <th scope="row">{area}</th>
+                        <th scope="row">{area === "Jardim Vitória" ? <a href="/jardim-vitoria">{area}</a> : area}</th>
                         <td data-label="Cobertura">{unit.deliveryExclusive ? "Todo o bairro. A loja entrega somente neste bairro." : "Todo o bairro"}</td>
                         <td data-label="Loja"><a href={getUnitPublicPath(unit)}>{unit.legalLabel}</a></td>
                         <td data-label="WhatsApp">
