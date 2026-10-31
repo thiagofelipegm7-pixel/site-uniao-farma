@@ -342,3 +342,22 @@ test("cookie banner is mounted (not dynamic ssr:false) and CSP lets GA4 send con
     }
   }
 });
+
+test("painel de cliques fica fechado sem a senha, noindex e fora do sitemap", async () => {
+  delete process.env.PAINEL_SENHA;
+  const response = await render("/painel-cliques");
+  assert.equal(response.status, 503);
+  assert.match(response.headers.get("x-robots-tag") ?? "", /noindex/);
+  const html = await response.text();
+  assert.equal(html.includes("Cliques no total"), false);
+
+  const sitemap = await render("/sitemap.xml");
+  assert.equal((await sitemap.text()).includes("painel-cliques"), false);
+});
+
+test("privacidade descreve a contagem própria de cliques", async () => {
+  const response = await render("/privacidade");
+  const html = await response.text();
+  assert.match(html, /Contagem própria de cliques/);
+  assert.match(html, /não guarda IP/);
+});

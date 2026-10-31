@@ -1,4 +1,5 @@
 import { getCampaignAttribution } from "./campaign-attribution";
+import { countClick } from "./click-counter-client";
 import { UNITS } from "./site-config";
 
 export type TrackingParams = Record<string, unknown>;
@@ -98,6 +99,10 @@ export function trackEvent(event: string, params: TrackingParams = {}): void {
     const now = Date.now();
     if (now - (recentEvents.get(key) ?? 0) < 1000) return;
     recentEvents.set(key, now);
+    // Contador próprio (sem cookies), sempre ligado, independente do consentimento do GA4.
+    if (event === "whatsapp_click" || event === "ifood_click") {
+      countClick(event === "ifood_click" ? "ifood" : "whatsapp", typeof store === "string" ? store : undefined);
+    }
   }
 
   trackingWindow.dataLayer = trackingWindow.dataLayer || [];
