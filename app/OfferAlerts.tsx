@@ -98,7 +98,7 @@ export default function OfferAlerts({ showButton = false }: { showButton?: boole
 
   return (
     <div className="offer-alerts">
-      <button type="button" className="offer-alerts-button" onClick={() => void toggle()} disabled={busy}>
+      <button type="button" className="offer-alerts-button" onClick={() => void toggle()} disabled={busy} aria-busy={busy}>
         {enabled ? "Parar avisos de oferta" : "Avisar novas ofertas"}
       </button>
       {note ? <p className="offer-alerts-note">{note}</p> : null}
