@@ -1,15 +1,19 @@
 import type { Metadata } from "next";
 import DirectUnitLinks from "../DirectUnitLinks";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
+import { RECIPE_FAQS } from "../seo-content";
 import { SITE_URL } from "../site-config";
-import { getBreadcrumbSchema } from "../structured-data";
+import { getBreadcrumbSchema, getFaqSchema } from "../structured-data";
 
 const breadcrumbSchema = {
   "@context": "https://schema.org",
-  ...getBreadcrumbSchema([
-    { name: "Início", url: SITE_URL },
-    { name: "Enviar receita", url: `${SITE_URL}/receita` },
-  ]),
+  "@graph": [
+    getBreadcrumbSchema([
+      { name: "Início", url: SITE_URL },
+      { name: "Enviar receita", url: `${SITE_URL}/receita` },
+    ]),
+    getFaqSchema(RECIPE_FAQS, `${SITE_URL}/receita`),
+  ],
 };
 import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 import "../receita-polish.css";
@@ -75,6 +79,20 @@ export default function ReceitaPage() {
               source="recipe_page"
             />
 
+          </div>
+        </section>
+
+        <section className="section unit-faq-section" aria-labelledby="recipe-faq">
+          <div className="section-inner">
+            <h2 id="recipe-faq">Perguntas sobre a receita</h2>
+            <div className="unit-faq-list">
+              {RECIPE_FAQS.map((faq) => (
+                <details key={faq.q} className="unit-faq-item">
+                  <summary>{faq.q}</summary>
+                  <p>{faq.a}</p>
+                </details>
+              ))}
+            </div>
           </div>
         </section>
       </div>

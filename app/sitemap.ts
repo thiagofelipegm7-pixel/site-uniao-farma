@@ -78,6 +78,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.75,
     },
     {
+      url: `${SITE_URL}/jardim-vitoria`,
+      lastModified: sitemapDate(PAGE_LAST_UPDATED.jardimVitoria),
+      changeFrequency: "monthly",
+      priority: 0.7,
+    },
+    {
       url: `${SITE_URL}/ifood`,
       lastModified: sitemapDate(PAGE_LAST_UPDATED.ifood),
       changeFrequency: "monthly",

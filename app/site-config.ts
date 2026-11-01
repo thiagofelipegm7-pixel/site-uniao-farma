@@ -240,6 +240,21 @@ function hourLabel(value: string) {
   return minutes === "00" ? `${Number(hours)}h` : `${Number(hours)}h${minutes}`;
 }
 
+/** Frase curta e fixa do horário (renderizada no servidor): "Seg a sex até 21h, sáb até 20h, dom até 12h". */
+export function getShortHoursPhrase(unit: Unit) {
+  const parts: Array<[string, Weekday]> = [
+    ["Seg a sex", "mon"],
+    ["sáb", "sat"],
+    ["dom", "sun"],
+  ];
+  return parts
+    .map(([label, key]) => {
+      const hours = unit.schedule[key];
+      return hours ? `${label} até ${hourLabel(hours.close)}` : `${label} fechada`;
+    })
+    .join(", ");
+}
+
 /** Frase com o horário da loja, gerada a partir de unit.schedule (renderizada no servidor). */
 export function getHoursSentence(unit: Unit) {
   const parts = WEEKDAY_GROUPS.map(({ label, key }) => {
