@@ -188,7 +188,7 @@
   .unit-store-addr,
   .unit-store-hood,
   .unit-store-card h3 {
-    overflow-wrap: anywhere !important;
+    overflow-wrap: break-word !important;
   }
 
   .offers-list-section .section-inner {

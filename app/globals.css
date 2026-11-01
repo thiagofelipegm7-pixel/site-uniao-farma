@@ -152,7 +152,7 @@ h2,
 h3,
 h4,
 p {
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 h1,

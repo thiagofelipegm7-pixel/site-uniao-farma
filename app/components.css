@@ -659,7 +659,7 @@
   color: #3a5554;
   font-size: 0.82rem;
   line-height: 1.35;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 .unit-store-addr {

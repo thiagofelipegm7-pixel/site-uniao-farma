@@ -166,6 +166,7 @@
   @media (min-width: 768px) { .home-reasons-offers { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: var(--spacing-xl) !important; } }
   @media (min-width: 1024px) { .offer-consult-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; gap: var(--spacing-xl) !important; } }
   @media (min-width: 768px) and (max-width: 1023px) { .offer-consult-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; } }
+  .home-offer-body, .offer-consult-body, .unit-store-body, .direct-unit-link > * { min-width: 0 !important; }
   .home-offer-card, .offer-consult-card {
     display: flex !important; flex-direction: column !important; background: #fff !important; border: 1px solid var(--color-line) !important;
     border-radius: var(--radius-lg) !important; overflow: hidden !important; box-shadow: var(--shadow-surface) !important;
@@ -181,9 +182,11 @@
   .home-offer-brand, .offer-consult-brand { font: 700 .75rem/1.2 var(--font-body) !important; text-transform: uppercase !important; letter-spacing: .06em !important; color: var(--color-ink-3) !important; margin: 0 !important; }
   .home-offer-body h3, .offer-consult-body h3 { display: block !important; font: 600 .9375rem/1.35 var(--font-body) !important; color: var(--color-ink) !important; margin: 0 !important; }
   .home-offer-price, .offer-consult-price, .offer-consult-price strong {
+    white-space: nowrap !important; overflow-wrap: normal !important;
     font: 700 var(--text-price)/1.1 var(--font-heading) !important; color: var(--color-ruby-600) !important; font-variant-numeric: tabular-nums !important; margin: var(--spacing-sm) 0 0 !important;
   }
   .offer-consult-price { display: flex !important; flex-wrap: wrap; align-items: baseline; gap: var(--spacing-sm); }
+  @media (max-width: 767px) { .home-offer-price, .offer-consult-price, .offer-consult-price strong { font-size: var(--text-price-sm) !important; } }
   .offer-consult-price s { font: 500 .875rem/1 var(--font-body) !important; color: var(--color-ink-3) !important; }
   .offer-consult-price-ask { font-size: 1.125rem !important; color: var(--color-ink-2) !important; }
   .home-offer-note, .offer-consult-cond { font-size: .8125rem !important; color: var(--color-ink-2) !important; margin: 0 !important; }
@@ -199,10 +202,10 @@
 
   /* ---------- Trust strip ---------- */
   .trust-strip { background: #fff !important; border-block: 1px solid var(--color-line) !important; padding-block: var(--spacing-xl) !important; }
-  .trust-strip-grid { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: var(--spacing-lg) !important; overflow: visible !important; }
-  @media (min-width: 1024px) { .trust-strip-grid { grid-template-columns: repeat(4, 1fr) !important; } }
-  .trust-strip-grid > div { display: flex !important; flex-direction: column !important; gap: var(--spacing-xs) !important; padding: 0 0 0 var(--spacing-md) !important; border-left: 3px solid var(--color-teal-500) !important; background: none !important; min-width: 0 !important; }
-  .trust-strip-grid strong { font: 700 1.0625rem/1.25 var(--font-heading) !important; color: var(--color-teal-800) !important; }
+  .trust-strip-grid { display: grid !important; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr)) !important; gap: var(--spacing-lg) !important; overflow: visible !important; }
+  @media (min-width: 1024px) { .trust-strip-grid { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; } }
+  .trust-strip-grid > div { border-radius: 0 !important; min-height: 0 !important; align-items: flex-start !important; text-align: left !important; display: flex !important; flex-direction: column !important; gap: var(--spacing-xs) !important; padding: 0 0 0 var(--spacing-md) !important; border-left: 3px solid var(--color-teal-500) !important; background: none !important; min-width: 0 !important; }
+  .trust-strip-grid strong { font: 700 clamp(.9375rem, .85rem + .4vw, 1.0625rem)/1.25 var(--font-heading) !important; color: var(--color-teal-800) !important; }
   .trust-strip-grid span { font-size: .875rem !important; color: var(--color-ink-2) !important; }
 
   /* ---------- Faixa de entrega (espaço do mascote, só texto) ---------- */
@@ -218,10 +221,10 @@
   .offers-group-section .section-inner, .offers-group-band .section-inner { border: 1px solid var(--color-line) !important; border-radius: var(--radius-xl) !important; padding: clamp(24px, 4vw, 40px) !important; max-width: 1160px !important; width: calc(100% - 40px) !important; }
   .offers-group-band { padding-block: var(--spacing-section) !important; }
   .offers-group-section p:not(.section-kicker), .offers-group-band p { color: var(--color-ink-2) !important; }
-  .category-grid { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: var(--spacing-md) !important; overflow: visible !important; }
-  @media (min-width: 1024px) { .category-grid { grid-template-columns: repeat(3, 1fr) !important; gap: var(--spacing-xl) !important; } }
+  .category-grid { display: grid !important; grid-template-columns: repeat(auto-fit, minmax(min(100%, 9.5rem), 1fr)) !important; gap: var(--spacing-md) !important; overflow: visible !important; }
+  @media (min-width: 1024px) { .category-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: var(--spacing-xl) !important; } }
   .category-card { background: #fff !important; border: 1px solid var(--color-line) !important; border-radius: var(--radius-lg) !important; padding: var(--spacing-lg) !important; box-shadow: none !important; min-width: 0 !important; width: auto !important; }
-  .category-card h3 { font-size: 1rem !important; margin: var(--spacing-sm) 0 var(--spacing-xs) !important; overflow-wrap: normal !important; }
+  .category-card h3 { font-size: 1rem !important; margin: var(--spacing-sm) 0 var(--spacing-xs) !important; overflow-wrap: break-word !important; hyphens: manual; }
   .category-card p { font-size: .875rem !important; color: var(--color-ink-2) !important; display: block !important; overflow: visible !important; -webkit-line-clamp: unset !important; }
   @media (max-width: 420px) { .category-card { padding: var(--spacing-md) !important; } .category-card h3 { font-size: .9375rem !important; } }
   .category-icon-img { width: 40px !important; height: 40px !important; }
@@ -269,7 +272,7 @@
   .neighborhood-hero > p:not(.eyebrow) { color: var(--color-ink-2) !important; margin: 0 !important; }
   .neighborhood-actions { display: flex !important; flex-direction: column !important; gap: var(--spacing-md) !important; margin-top: var(--spacing-md) !important; max-width: 560px; }
   .neighborhood-actions .button-whatsapp { width: 100% !important; }
-  .neighborhood-secondary { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: var(--spacing-md) !important; }
+  .neighborhood-secondary { display: grid !important; grid-template-columns: repeat(auto-fit, minmax(min(100%, 10rem), 1fr)) !important; gap: var(--spacing-md) !important; }
   .neighborhood-secondary .button { width: 100% !important; padding: 0 var(--spacing-sm) !important; font-size: .9375rem !important; }
   @media (max-width: 767px) {
     .neighborhood-photo { max-height: 200px; }
@@ -280,6 +283,9 @@
   .neighborhood-grid article { border: 1px solid var(--color-line) !important; border-radius: var(--radius-lg) !important; padding: var(--spacing-gutter) !important; background: #fff !important; box-shadow: none !important; }
   .neighborhood-grid article h2 { font-size: var(--text-h3) !important; margin: 0 0 var(--spacing-sm) !important; }
   .neighborhood-grid article a { min-height: var(--spacing-tap) !important; display: inline-flex !important; align-items: center !important; font-weight: 600 !important; }
+  /* Tabela vira cards no celular: legenda ocupa a largura toda (antes ficava com 1 palavra por linha). */
+  .hours-table caption { caption-side: top; text-align: left !important; font: 600 var(--text-small)/1.4 var(--font-body) !important; color: var(--color-ink-2) !important; padding: 0 0 var(--spacing-sm) !important; }
+  @media (max-width: 720px) { .hours-table caption { display: block !important; width: 100% !important; } }
   .hours-grid { list-style: none !important; padding: 0 !important; margin: 0 !important; }
   .hours-grid li { display: flex !important; justify-content: space-between !important; padding: var(--spacing-sm) 0 !important; border-bottom: 1px solid var(--color-line) !important; font-variant-numeric: tabular-nums; }
   .store-about, .store-faq, .store-others, .neighborhood-page .offers-group-inline, .neighborhood-page > section:last-child { padding-block: clamp(32px, 6vw, 56px) !important; }
