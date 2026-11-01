@@ -32,7 +32,8 @@ import OfferAlerts from "./OfferAlerts";
 
 const poppins = Poppins({
   subsets: ["latin"],
-  weight: ["400", "800"],
+  // Títulos, preço e selos (DESIGN.md §2.2): só os pesos usados.
+  weight: ["600", "700"],
   display: "swap",
   preload: true,
   variable: "--font-brand",
@@ -42,9 +43,11 @@ const poppins = Poppins({
 
 const montserrat = Montserrat({
   subsets: ["latin"],
-  weight: ["500", "600"],
+  // Corpo (400), rótulos e botões (600), sobretítulos (700). Antes 500/600: o
+  // corpo em 400 e os sobretítulos em 700 saíam com peso sintetizado pelo navegador.
+  weight: ["400", "600", "700"],
   display: "swap",
-  preload: false,
+  preload: true,
   variable: "--font-support",
   fallback: ["Arial", "sans-serif"],
   adjustFontFallback: true,

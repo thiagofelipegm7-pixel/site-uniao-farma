@@ -1,5 +1,73 @@
 @import "tailwindcss";
 
+/*
+ * Tokens de design (DESIGN.md §4). Fonte única para cor, tipo, espaço, raio e sombra.
+ * Nomes com namespace do Tailwind (--color-*, --radius-*, --spacing-*...) para não colidir
+ * com as variáveis legadas sem camada (--ink, --line, --r-md, --shadow-card) que antes
+ * sobrescreviam os valores do design.css sem aviso.
+ * "static" garante que todas as variáveis saiam no CSS mesmo sem utilitário usando.
+ */
+@theme static {
+  --color-teal-50: #eaf6f2;
+  --color-teal-100: #c9ede3;
+  --color-teal-500: #279b82; /* marca: ícone, foco, texto >= 24px */
+  --color-teal-600: #187d68; /* marca: CTA, link (5,03:1) */
+  --color-teal-700: #12604f; /* hover, selo aberto */
+  --color-teal-800: #0e4a3d; /* rodapé */
+  --color-ink: #111111;
+  --color-ink-2: #3d4a47;
+  --color-ink-3: #5b6865;
+  --color-line: #d5e3df;
+  --color-line-strong: #6e8c85;
+  --color-neutral-100: #f1f3f2;
+  --color-ruby-50: #fff1f1;
+  --color-ruby-500: #d11920; /* fundo de selo */
+  --color-ruby-600: #b81d24; /* preço */
+  --color-on-dark-muted: #c9ddd8;
+
+  --font-heading: var(--font-brand), "Poppins", system-ui, sans-serif;
+  --font-body: var(--font-support), "Montserrat", system-ui, sans-serif;
+
+  --text-display: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
+  --text-h1: clamp(1.75rem, 1.3rem + 2vw, 2.75rem);
+  --text-h2: clamp(1.375rem, 1.1rem + 1.2vw, 2rem);
+  --text-h3: clamp(1.125rem, 1.05rem + 0.3vw, 1.25rem);
+  --text-price: clamp(1.625rem, 1.5rem + 0.5vw, 1.875rem);
+  --text-price-sm: clamp(1.25rem, 1.2rem + 0.2vw, 1.375rem);
+  --text-body: 1rem;
+  --text-small: 0.875rem;
+  --text-caption: 0.8125rem;
+  --text-label: 0.75rem;
+
+  /* escala única de espaço: 4 / 8 / 12 / 16 / 24 / 32 / 48 */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 0.75rem;
+  --spacing-lg: 1rem;
+  --spacing-xl: 1.5rem;
+  --spacing-2xl: 2rem;
+  --spacing-3xl: 3rem;
+  --spacing-gutter: 1.25rem; /* margem lateral mobile (20px) */
+  --spacing-section: clamp(3rem, 8vw, 6rem);
+  --spacing-tap: 2.75rem; /* 44px: alvo mínimo */
+  --spacing-btn: 3rem; /* 48px: altura do botão */
+  --spacing-bar: 4rem; /* 64px: barra fixa do celular */
+  --spacing-header: 4rem; /* 64px: cabeçalho sticky */
+
+  --container-site: 75rem;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-pill: 999px;
+
+  --shadow-surface: 0 1px 2px rgb(17 17 17 / 0.06), 0 4px 14px rgb(14 74 61 / 0.06);
+  --shadow-raise: 0 2px 4px rgb(17 17 17 / 0.06), 0 12px 28px rgb(14 74 61 / 0.1);
+  --shadow-bar: 0 -2px 12px rgb(14 74 61 / 0.08);
+  --shadow-fab: 0 6px 20px rgb(14 74 61 / 0.18);
+}
+
 :root {
   color-scheme: only light;
   --aqua: #0e9a8a;
@@ -84,7 +152,7 @@ h2,
 h3,
 h4,
 p {
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 h1,
