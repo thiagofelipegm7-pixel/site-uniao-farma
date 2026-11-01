@@ -1,0 +1,33 @@
+/** Fotos oficiais de marca (public/produtos/<EAN>.webp), associadas pelo nome do item no catálogo (o Worker não expõe EAN). Item fora daqui fica sem foto. */
+export const FOTOS_NACOES: Readonly<Record<string, string>> = {
+  "BIOTINA MASTIGAVEL 45MCG C/60 COMP QUALY": "7898767762353",
+  "CR NIVEA 56 GR LATA": "78906617",
+  "CR NIVEA FACIAL CONTROLE OLEOSIDADE 100 G": "42495727",
+  "CREATINA MONOHIDRATADA 300G QUALYNUTRI": "7895143226973",
+  "DES AERO MONANGE HIDRAT INTENSIVA C/150 ML": "7891350034646",
+  "DES HERBISSIMO TRAD 55G": "7896049528512",
+  "DES REXONA COTTON DRY 150 ML": "7791293032467",
+  "DES ROLL ON NIVEA PROTECT 50ML": "4005900130785",
+  "FIO DENTAL HILLO 100 MTS": "7896444211118",
+  "HIDRAT CORPORAL BIOEXTRATUS 200G": "7898132988166",
+  "LISTERINE COOL MINT 500ML*": "7891010256753",
+  "LOCAO NIVEA SOFT MILK 200ML": "4005808335435",
+  "MACA PERUANA EM PO SEM SABOR 100G QUALYN": "7898767762827",
+  "MAG FORCE 600MG C/60 CAPS QUALYNUTRI": "7898767760489",
+  "METIL B12 600MG C/60 CAPS QUALYNUTRI": "7898767760540",
+  "OMEGA 3 1000MG C/120 CAPS QUALYNUTRI": "7898767760632",
+  "SAB DOVE RADIANT GLOW 135G": "7891150103672",
+  "SAB GRANADO BEBE REFIL 250 ML TRAD": "7896512922373",
+  "SAB GRANADO GLIC ROSA 90G": "7896512959898",
+  "VASENOL REPAIRING S/FRAG 200ML": "7891150028470",
+};
+
+function normalizarNome(nome: string): string {
+  return nome.trim().replace(/\s+/g, " ");
+}
+
+/** Caminho público da foto aprovada do item, ou null quando não há foto. */
+export function fotoDoProduto(nome: string): string | null {
+  const ean = FOTOS_NACOES[normalizarNome(nome)];
+  return ean ? `/produtos/${ean}.webp` : null;
+}

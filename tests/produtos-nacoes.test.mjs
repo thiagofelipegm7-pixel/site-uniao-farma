@@ -51,3 +51,14 @@ test("página de produtos da Nações: canonical relativo, noindex, avisos Anvis
   assert.match(page, /buildWhatsAppUrl/);
   assert.equal((page.match(/<h1\b/g) ?? []).length, 1);
 });
+
+test("fotos Nações: só EANs aprovados, arquivo existe e item sem foto devolve null", async () => {
+  const { fotoDoProduto, FOTOS_NACOES } = await import("../app/nacoes-unidas/produtos/imagens.ts");
+  const { access } = await import("node:fs/promises");
+  for (const ean of Object.values(FOTOS_NACOES)) await access(new URL(`../public/produtos/${ean}.webp`, import.meta.url));
+  assert.equal(Object.keys(FOTOS_NACOES).length, 20);
+  assert.equal(fotoDoProduto("DES REXONA COTTON DRY 150 ML"), "/produtos/7791293032467.webp");
+  assert.equal(fotoDoProduto("  DES REXONA   COTTON DRY 150 ML "), "/produtos/7791293032467.webp");
+  assert.equal(fotoDoProduto("PROT LABIAL NIVEA FRUIT"), null);
+  assert.equal(fotoDoProduto("DIPIRONA 1G cx 10cpr PRATI DONADUZZI"), null);
+});

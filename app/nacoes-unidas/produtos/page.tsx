@@ -6,6 +6,7 @@ import type { FaqItem } from "../../seo-content";
 import { buildWhatsAppUrl, getHoursSentence, SITE_URL, UNITS } from "../../site-config";
 import { getPageStructuredData, getUnitPublicPath } from "../../structured-data";
 import { fetchCatalogoNacoes, formatBRL, groupByCategoria, slugify } from "./catalogo";
+import { fotoDoProduto } from "./imagens";
 import "./produtos.css";
 
 // Preço muda no dia: renderiza a cada pedido (o Worker do catálogo já guarda 5 min em cache).
@@ -141,9 +142,12 @@ export default async function ProdutosNacoesPage() {
                   <section key={g.categoria} className="catalogo-grupo" aria-labelledby={slugify(g.categoria)}>
                     <h3 id={slugify(g.categoria)}>{g.categoria}</h3>
                     <ul className="catalogo-lista">
-                      {g.itens.map((item) => (
+                      {g.itens.map((item) => {
+                        const foto = fotoDoProduto(item.nome);
+                        return (
                         <li key={item.nome} className="catalogo-item">
-                          <div>
+                          {foto ? <img className="catalogo-foto" src={foto} alt={item.nome} width="80" height="80" loading="lazy" decoding="async" /> : null}
+                          <div className="catalogo-info">
                             <h4>{item.nome}</h4>
                             {item.lab ? <p className="catalogo-lab">{item.lab}</p> : null}
                             {item.isMIP ? (
@@ -152,7 +156,8 @@ export default async function ProdutosNacoesPage() {
                           </div>
                           <strong className="catalogo-preco">{formatBRL(item.preco)}</strong>
                         </li>
-                      ))}
+                        );
+                      })}
                     </ul>
                   </section>
                 ))}

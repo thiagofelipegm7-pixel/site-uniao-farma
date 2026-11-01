@@ -51,6 +51,20 @@
   background: var(--white);
 }
 
+.catalogo-nacoes .catalogo-foto {
+  flex: none;
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: var(--r-sm, 0.625rem);
+  background: var(--white);
+}
+
+.catalogo-nacoes .catalogo-info {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
 .catalogo-nacoes .catalogo-item h4 {
   margin: 0;
   font-size: 1rem;
