@@ -63,7 +63,7 @@
   }
   .site-header .brand, .content-nav .brand { display: flex !important; align-items: center !important; gap: var(--spacing-md) !important; margin-right: auto !important; color: var(--color-ink) !important; text-decoration: none !important; min-height: var(--spacing-tap); }
   .site-header .brand strong, .content-nav .brand strong { font: 700 1.0625rem/1.1 var(--font-heading) !important; color: var(--color-teal-800) !important; }
-  .site-header .brand small, .content-nav .brand small { font: 500 .75rem/1.2 var(--font-body) !important; color: var(--color-ink-2) !important; }
+  .site-header .brand small, .content-nav .brand small { font: 400 .75rem/1.2 var(--font-body) !important; color: var(--color-ink-2) !important; }
   .menu-links a, .content-nav-links a {
     color: var(--color-ink) !important; font: 600 .9375rem/1 var(--font-body) !important; text-decoration: none !important;
     min-height: var(--spacing-tap) !important; display: inline-flex !important; align-items: center !important; padding: 0 var(--spacing-md) !important;
@@ -198,7 +198,7 @@
   }
   .offer-consult-price { display: flex !important; flex-wrap: wrap; align-items: baseline; gap: var(--spacing-sm); }
   @media (max-width: 767px) { .home-offer-price, .offer-consult-price, .offer-consult-price strong { font-size: var(--text-price-sm) !important; } }
-  .offer-consult-price s { font: 500 .875rem/1 var(--font-body) !important; color: var(--color-ink-3) !important; }
+  .offer-consult-price s { font: 400 .875rem/1 var(--font-body) !important; color: var(--color-ink-3) !important; }
   .offer-consult-price-ask { font-size: 1.125rem !important; color: var(--color-ink-2) !important; }
   .home-offer-note, .offer-consult-cond { font-size: .8125rem !important; color: var(--color-ink-2) !important; margin: 0 !important; }
   .home-offer-cta, .offer-consult-choose { margin-top: auto !important; width: 100% !important; padding: 0 var(--spacing-sm) !important; white-space: normal !important; font-size: .9375rem !important; }
@@ -347,7 +347,7 @@
   @media (min-width: 768px) { .uf-footer-grid { grid-template-columns: 1.4fr 1fr 1fr !important; } }
   .uf-footer-col { display: flex !important; flex-direction: column !important; gap: 0 !important; }
   .uf-footer-col a, .uf-footer-bottom a, .uf-footer-social a, .uf-footer-logo {
-    min-height: var(--spacing-tap) !important; display: inline-flex !important; align-items: center !important; text-decoration: none !important; font-weight: 500 !important; width: fit-content;
+    min-height: var(--spacing-tap) !important; display: inline-flex !important; align-items: center !important; text-decoration: none !important; font-weight: 400 !important; width: fit-content;
   }
   .uf-footer-col a:hover, .uf-footer-bottom a:hover { text-decoration: underline !important; }
   .uf-footer-bottom p:last-child { display: flex !important; flex-wrap: wrap !important; align-items: center !important; column-gap: var(--spacing-xs) !important; }
