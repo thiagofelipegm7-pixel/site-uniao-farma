@@ -52,6 +52,7 @@
   --spacing-tap: 2.75rem; /* 44px: alvo mínimo */
   --spacing-btn: 3rem; /* 48px: altura do botão */
   --spacing-bar: 4rem; /* 64px: barra fixa do celular */
+  --spacing-header: 4rem; /* 64px: cabeçalho sticky */
 
   --container-site: 75rem;
 

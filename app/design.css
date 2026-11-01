@@ -87,6 +87,8 @@
     .menu-links.is-open a { width: 100% !important; }
   }
   main#conteudo { padding-top: 0 !important; }
+  /* Âncoras param logo abaixo do header sticky (antes: 126px fixos). */
+  html { scroll-padding-top: calc(var(--spacing-header) + var(--spacing-lg)) !important; }
 
   /* ---------- Hero ---------- */
   .hero {
@@ -345,22 +347,37 @@
     background: #fff !important; border-top: 1px solid var(--color-line) !important; box-shadow: var(--shadow-bar) !important;
     padding: 0 0 env(safe-area-inset-bottom) !important; height: auto !important; margin: 0 !important; border-radius: 0 !important; width: auto !important;
   }
-  .mobile-quick-nav-inner { display: grid !important; grid-template-columns: 1fr 1.25fr 1fr !important; align-items: center !important; height: var(--spacing-bar) !important; gap: var(--spacing-sm) !important; padding: 0 var(--spacing-sm) !important; max-width: 560px; margin: 0 auto !important; background: none !important; border: 0 !important; box-shadow: none !important; }
+  /* Colunas com minmax(0, …) e rótulo sem reticências: o texto encolhe/quebra, nunca vira "Whats…". */
+  .mobile-quick-nav-inner { display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr) minmax(0, 1fr) !important; align-items: center !important; min-height: var(--spacing-bar) !important; height: auto !important; gap: var(--spacing-xs) !important; padding: var(--spacing-xs) var(--spacing-sm) !important; max-width: 560px; margin: 0 auto !important; background: none !important; border: 0 !important; box-shadow: none !important; box-sizing: border-box !important; }
   .mobile-quick-nav a {
-    display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; gap: var(--spacing-xs) !important;
-    min-height: var(--spacing-btn) !important; height: 52px !important; border-radius: var(--radius-md) !important; color: var(--color-ink-2) !important; text-decoration: none !important;
-    font: 600 .75rem/1.1 var(--font-body) !important; background: none !important; border: 0 !important; box-shadow: none !important; padding: 0 !important; width: auto !important;
+    display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; gap: 2px !important;
+    min-height: var(--spacing-btn) !important; height: auto !important; min-width: 0 !important; border-radius: var(--radius-md) !important; color: var(--color-ink-2) !important; text-decoration: none !important;
+    font: 600 var(--text-label)/1.15 var(--font-body) !important; background: none !important; border: 0 !important; box-shadow: none !important; padding: var(--spacing-xs) 2px !important; width: auto !important; box-sizing: border-box !important;
+  }
+  .mobile-quick-nav .mqn-label {
+    display: block !important; max-width: 100% !important; min-width: 0 !important; overflow: visible !important; text-overflow: clip !important;
+    white-space: normal !important; overflow-wrap: normal !important; text-align: center !important; font-size: var(--text-label) !important; line-height: 1.15 !important; color: inherit !important;
   }
   .mobile-quick-nav a:not(.mqn-primary) .mqn-icon { color: var(--color-teal-700); }
-  .mobile-quick-nav .mqn-icon { display: grid !important; place-items: center !important; width: 24px !important; height: 24px !important; background: none !important; border: 0 !important; }
-  .mobile-quick-nav .mqn-icon img, .mobile-quick-nav .mqn-icon svg { width: 22px !important; height: 22px !important; }
-  .mobile-quick-nav a.mqn-primary { background: var(--color-teal-600) !important; color: #fff !important; flex-direction: row !important; gap: var(--spacing-sm) !important; font-size: .9375rem !important; }
-  .mobile-quick-nav a.mqn-primary .mqn-icon { background: #fff !important; border-radius: 50% !important; width: 28px !important; height: 28px !important; }
-  .mobile-quick-nav a.mqn-primary .mqn-icon img { width: 20px !important; height: 20px !important; }
-  .mobile-quick-nav a.mqn-primary .mqn-label { color: #fff !important; font-size: .9375rem !important; }
+  .mobile-quick-nav .mqn-icon { display: grid !important; place-items: center !important; flex: none !important; width: 24px !important; height: 24px !important; background: none !important; border: 0 !important; }
+  .mobile-quick-nav .mqn-icon img, .mobile-quick-nav .mqn-icon svg { width: 22px !important; height: 22px !important; filter: none !important; }
+  .mobile-quick-nav a.mqn-primary { background: var(--color-teal-600) !important; color: #fff !important; flex-direction: row !important; gap: var(--spacing-sm) !important; padding: 0 var(--spacing-sm) !important; }
+  .mobile-quick-nav a.mqn-primary:hover { background: var(--color-teal-700) !important; }
+  .mobile-quick-nav a.mqn-primary:active { background: var(--color-teal-800) !important; }
+  .mobile-quick-nav a:not(.mqn-primary):active { background: var(--color-teal-50) !important; }
+  .mobile-quick-nav a.mqn-primary .mqn-icon { background: #fff !important; border-radius: 50% !important; width: 26px !important; height: 26px !important; }
+  .mobile-quick-nav a.mqn-primary .mqn-icon img { width: 18px !important; height: 18px !important; }
+  .mobile-quick-nav a.mqn-primary .mqn-label { color: #fff !important; font-size: var(--text-small) !important; white-space: nowrap !important; }
+  @media (max-width: 359px) {
+    .mobile-quick-nav-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr) minmax(0, 1fr) !important; }
+    .mobile-quick-nav a.mqn-primary { gap: 6px !important; padding: 0 6px !important; }
+    .mobile-quick-nav a.mqn-primary .mqn-icon { width: 22px !important; height: 22px !important; }
+    .mobile-quick-nav a.mqn-primary .mqn-icon img { width: 16px !important; height: 16px !important; }
+  }
 
   @media (max-width: 1023px) {
-    body { padding-bottom: calc(var(--spacing-bar) + env(safe-area-inset-bottom) + 16px) !important; }
+    body { padding-bottom: calc(var(--spacing-bar) + env(safe-area-inset-bottom) + var(--spacing-lg)) !important; }
+    html { scroll-padding-bottom: calc(var(--spacing-bar) + env(safe-area-inset-bottom) + var(--spacing-lg)); }
     body.cookie-banner-visible { padding-bottom: calc(var(--spacing-bar) + env(safe-area-inset-bottom) + 160px) !important; }
     main#conteudo, .hero, .hero-home, .offers-page, .recipe-page, .neighborhood-page, .questions-page, footer, .site-footer, .uf-footer { padding-bottom: 0 !important; }
     .whatsapp-fab { display: none !important; }
