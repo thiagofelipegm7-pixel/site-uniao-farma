@@ -145,7 +145,7 @@ export default async function ProdutosNacoesPage() {
                       {g.itens.map((item) => {
                         const foto = fotoDoProduto(item.nome);
                         return (
-                        <li key={item.nome} className="catalogo-item">
+                        <li key={item.nome} className={foto ? "catalogo-item catalogo-item-foto" : "catalogo-item"}>
                           {foto ? <img className="catalogo-foto" src={foto} alt={item.nome} width="80" height="80" loading="lazy" decoding="async" /> : null}
                           <div className="catalogo-info">
                             <h4>{item.nome}</h4>
