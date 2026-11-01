@@ -62,3 +62,16 @@ test("fotos Nações: só EANs aprovados, arquivo existe e item sem foto devolve
   assert.equal(fotoDoProduto("PROT LABIAL NIVEA FRUIT"), null);
   assert.equal(fotoDoProduto("DIPIRONA 1G cx 10cpr PRATI DONADUZZI"), null);
 });
+
+test("layout mobile do catálogo: foto fixa, texto com min-width 0 e quebra de palavra, preço sem esmagar o nome", async () => {
+  const css = await read("app/nacoes-unidas/produtos/produtos.css");
+  const page = await read("app/nacoes-unidas/produtos/page.tsx");
+  assert.match(css, /@media \(max-width: 559px\)[\s\S]*grid-template-columns: 72px minmax\(0, 1fr\)/);
+  assert.match(css, /\.catalogo-info \{[^}]*min-width: 0/);
+  assert.match(css, /h4 \{[^}]*overflow-wrap: anywhere/);
+  assert.match(css, /\.catalogo-foto \{[^}]*flex: none/);
+  assert.match(css, /@media \(min-width: 1024px\)[\s\S]*repeat\(2, minmax\(0, 1fr\)\)/);
+  assert.ok(!/@media \(min-width: 720px\)/.test(css));
+  assert.match(page, /catalogo-item catalogo-item-foto/);
+  assert.match(page, /width="80" height="80"/);
+});
