@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import { UNITS } from "../site-config";
 import { IconFechar, IconLixeira, IconMais, IconMenos, IconSacola } from "./ReservaIcons";
 import { atualizarReserva, definirQtd, formatarCentavos, limpar, subtotalCentavos, totalItens } from "./reserva-store";
-import ReservaEnvio from "./ReservaEnvio";
+import { TEXTO_RESPONSAVEL } from "./ReservaEnvio";
 import { useReserva } from "./useReserva";
 
 const nomeLoja = (unitId: string) => UNITS.find((u) => u.id === unitId)?.shortName ?? "";
@@ -125,7 +125,6 @@ export default function ReservaSacola() {
                   </div>
                 </div>
               ) : null}
-              <ReservaEnvio estado={estado} />
             </>
           )}
         </div>
@@ -136,6 +135,7 @@ export default function ReservaSacola() {
             <p className="reserva-subtotal"><span>Subtotal estimado</span><strong>{formatarCentavos(subtotalCentavos(estado.itens))}</strong></p>
             <p className="reserva-aviso">A loja confirma preço e estoque pelo WhatsApp. Pagamento no balcão ou na entrega. Nada é cobrado no site.</p>
             <a className="reserva-botao" href="/reserva" onClick={fechar}>Continuar para a reserva</a>
+            <p className="reserva-aviso reserva-rt">{TEXTO_RESPONSAVEL}</p>
           </div>
         ) : null}
       </div>

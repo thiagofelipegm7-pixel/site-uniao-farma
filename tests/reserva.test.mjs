@@ -88,7 +88,9 @@ test("página /reserva: robots noindex e o HTML do servidor não traz texto de p
   assert.match(hook, /lerReservaServidor/);
   assert.match(pagina, /Sua reserva está vazia/);
   assert.match(pagina, /<ReservaEnvio/);
-  assert.match(sacola, /<ReservaEnvio/);
+  // A gaveta só lista e leva à /reserva: o envio exige escolher retirar ou receber, então fica na página.
+  assert.doesNotMatch(sacola, /<ReservaEnvio/);
+  assert.match(sacola, /TEXTO_RESPONSAVEL/);
   assert.match(envio, /Enviar pedido pelo WhatsApp/);
   assert.match(envio, /className="reserva-mensagem"/);
   assert.match(envio, /Responsável técnico das 3 lojas: João · CRF\/MG 31958\./);
