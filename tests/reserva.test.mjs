@@ -151,7 +151,8 @@ test("reserva_add, reserva_revisar e o clique do WhatsApp entram no dataLayer se
     read("app/reserva/ReservarBotao.tsx"),
     read("app/reserva/ReservaPagina.tsx"),
   ]);
-  assert.match(botao, /trackEvent\("reserva_add", \{ unit: unitId, source: "catalogo" \}\)/);
+  assert.match(botao, /source = "catalogo"/);
+  assert.match(botao, /trackEvent\("reserva_add", \{ unit: unitId, source \}\)/);
   assert.match(pagina, /trackEvent\("reserva_revisar", \{ modo: estado\.modo, itens: estado\.itens\.length \}\)/);
   assert.doesNotMatch(botao, /trackEvent\("reserva_add", \{[^}]*nome/);
   assert.doesNotMatch(pagina, /trackEvent\("reserva_revisar", \{[^}]*nome/);
