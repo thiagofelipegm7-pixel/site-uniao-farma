@@ -93,18 +93,21 @@ test("keeps site publication separate from Google Ads eligibility", () => {
 });
 
 test("publishes confirmed promotions while keeping incomplete and blocked items out", () => {
-  assert.equal(OFFERS.length, 19);
-  assert.equal(getPublicOffers(new Date("2026-08-16T12:00:00-03:00")).length, 9);
-  assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "approved").length, 9);
+  assert.equal(OFFERS.length, 22);
+  assert.equal(getPublicOffers(new Date("2026-08-16T12:00:00-03:00")).length, 12);
+  assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "approved").length, 12);
   assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "draft").length, 0);
   assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "review").length, 6);
   assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "blocked").length, 4);
   assert.equal(OFFERS.find((offer) => offer.id === "tandrilax")?.regulatoryClass, "prescription_blocked");
   const commercialOffers = OFFERS.filter((offer) => offer.publicationStatus === "approved");
-  assert.equal(commercialOffers.length, 9);
+  assert.equal(commercialOffers.length, 12);
   assert.deepEqual(
     commercialOffers.map((offer) => offer.name),
     [
+      "Adeforte Turbo + ampola de biotina pura 3ml",
+      "Cerave pote creme hidratante sem perfume 85g",
+      "Kit protetor solar Sunless FPS50 toque seco 200g + 120g",
       "Creme Seda para pentear 300 ml",
       "Loção hidratante Nivea 400 ml",
       "Creme Seda Boom 1 kg",
@@ -121,10 +124,12 @@ test("publishes confirmed promotions while keeping incomplete and blocked items 
   assert.ok(commercialOffers.every((offer) => offer.validityConfirmed));
   assert.ok(commercialOffers.every((offer) => offer.validityType === "while_stock_lasts"));
   assert.ok(commercialOffers.every((offer) => offer.validUntil === undefined));
-  assert.ok(commercialOffers.every((offer) => offer.adsEligible));
-  assert.ok(commercialOffers.every((offer) => canUseInAds(offer).eligible));
+  // Suplemento fica de fora dos anúncios pagos até a revisão do responsável técnico; as demais podem anunciar.
+  const anunciaveis = commercialOffers.filter((offer) => offer.regulatoryClass !== "supplement_review");
+  assert.ok(anunciaveis.every((offer) => offer.adsEligible));
+  assert.ok(anunciaveis.every((offer) => canUseInAds(offer).eligible));
   assert.ok(OFFERS.filter((offer) => offer.publicationStatus !== "approved").every((offer) => !offer.adsEligible));
-  assert.equal(OFFERS.filter((offer) => offer.imageApproved).length, 9);
+  assert.equal(OFFERS.filter((offer) => offer.imageApproved).length, 12);
   assert.ok(OFFERS.some((offer) => offer.currentPrice !== null));
   assert.equal(getPublicOffers().some((offer) => offer.id === "tandrilax"), false);
 });
@@ -160,7 +165,9 @@ test("painel da semana: no máximo 3 ofertas, sem receita, e De só com preço a
   assert.ok(semana.length <= 3);
   assert.equal(semana.length, 3);
   assert.ok(semana.every((offer) => offer.regulatoryClass !== "prescription_blocked"));
-  assert.ok(semana.every((offer) => precoAnteriorConfirmado(offer) === null));
+  // As 3 ofertas da semana vêm das artes da loja, com De/Por confirmados pelo dono.
+  assert.deepEqual(semana.map((offer) => precoAnteriorConfirmado(offer)), [45, 59.9, 79.9]);
+  assert.ok(semana.every((offer) => offer.currentPrice < precoAnteriorConfirmado(offer)));
   assert.deepEqual(semana.map((offer) => offer.name), publicas.slice(0, 3).map((offer) => offer.name));
 
   const comDe = { ...baseOffer, previousPrice: 45, previousPriceConfirmed: true, currentPrice: 39 };
@@ -190,16 +197,17 @@ test("painel da semana na home: estrutura, no máximo o componente pede 3, sem D
   assert.match(home, /<OfertasSemana/);
   assert.match(painel, /OFERTAS DA SEMANA/);
   assert.match(painel, /Preço e estoque confirmados pela loja/);
-  assert.match(painel, /Ver todas as ofertas/);
-  assert.match(painel, /href="\/ofertas"/);
   assert.match(painel, /A gente confere o preço e o estoque e te responde pelo WhatsApp\. Ofertas válidas enquanto durar o estoque em cada loja\./);
+  // O painel do protótipo não tem "Ver todas as ofertas"; /ofertas continua no cabeçalho.
+  assert.doesNotMatch(painel, /Ver todas as ofertas/);
   assert.match(painel, /ReservarBotao/);
   assert.match(painel, /source="ofertas_semana"/);
   assert.match(painel, /precoAnteriorConfirmado/);
   assert.match(painel, /selecionarOfertasSemana/);
   assert.doesNotMatch(painel, /De R\$ \d/);
   assert.match(ofertas, /previousPrice \(número maior que currentPrice\)/);
-  assert.doesNotMatch(ofertas, /previousPrice: \d/);
+  // Nenhum "De" sem confirmação: todo previousPrice numérico tem previousPriceConfirmed: true.
+  assert.equal((ofertas.match(/^\s+previousPrice: \d/gm) ?? []).length, (ofertas.match(/^\s+previousPriceConfirmed: true,/gm) ?? []).length);
 });
 
 test("reserva da oferta vai para a loja preferida do cliente quando a oferta vale nela", () => {

@@ -30,9 +30,13 @@ test("renders the local SEO home page with conversion and schema signals", async
 
   assert.match(html, /<html lang="pt-BR"(?:\s[^>]*)?>/i);
   assert.match(html, /Farmácia em Sabará/);
-  assert.match(html, /"@type":"FAQPage"/);
+  // A home do protótipo não tem FAQ visível, então não declara FAQPage no schema.
+  assert.doesNotMatch(html, /"@type":"FAQPage"/);
   assert.match(html, /"@type":"BreadcrumbList"/);
-  assert.match(html, /utm_source=site/);
+  // A entrada para o WhatsApp é a reserva (cartão marinho -> catálogo -> /reserva) e o botão flutuante.
+  assert.match(html, /Reserve pelo WhatsApp/);
+  assert.match(html, /href="\/nacoes-unidas\/produtos"/);
+  assert.match(html, /href="\/reserva"/);
   assert.match(html, /Nossa Senhora de Fátima/);
   assert.match(html, /Nações Unidas/);
   assert.match(html, /Itacolomi/);
@@ -127,17 +131,9 @@ test("connects offers with every public section and route", async () => {
 });
 
 test("keeps every public page connected to the complete site directory", async () => {
-  const siteDirectory = [
-    "/",
-    "/ofertas",
-    "/receita",
-    "/novidades",
-    "/perguntas",
-    "/institucional",
-    "/privacidade",
-    "/termos",
-  ];
-  const pages = [...siteDirectory, "/novidades/bem-vindo-area-novidades", "/nao-existe"];
+  // Links que o cabeçalho e o rodapé do protótipo levam em toda página. /novidades e /institucional seguem publicadas e no sitemap.
+  const siteDirectory = ["/", "/ofertas", "/receita", "/perguntas", "/privacidade", "/termos"];
+  const pages = [...siteDirectory, "/novidades", "/institucional", "/novidades/bem-vindo-area-novidades", "/nao-existe"];
 
   for (const pathname of pages) {
     const response = await render(pathname);
@@ -288,7 +284,7 @@ test("keeps local contact data, dataLayer events, SEO files and accessibility ho
   assert.match(offers, /prescription_blocked/);
   assert.match(attribution, /gclid/);
   assert.match(attribution, /utm_campaign/);
-  assert.match(homePage, /href="\/novidades"/);
+  // /novidades e /institucional seguem publicadas e no sitemap; o rodapé do protótipo não as lista.
   assert.doesNotMatch(page, /from "next\/link"/);
   assert.match(homePage, /Novidades da União Farma/);
   assert.match(newsPage, /news-empty/);

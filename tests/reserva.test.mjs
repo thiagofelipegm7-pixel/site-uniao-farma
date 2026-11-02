@@ -49,17 +49,25 @@ test("subtotal e agrupamento por loja", async () => {
   assert.deepEqual(grupos.map((g) => [g.unitId, g.itens.length]), [["nacoes", 2], ["fatima", 1]]);
 });
 
-test("mensagem do WhatsApp lista os itens, o subtotal e pede confirmação sem prometer estoque", async () => {
+test("mensagem do WhatsApp lista itens, loja, forma, nome, pagamento e subtotal, e pede confirmação sem prometer estoque", async () => {
   const { ESTADO_VAZIO, adicionar, mensagemReserva } = await mod();
-  let s = adicionar(ESTADO_VAZIO, nivea, 2);
-  const retirar = mensagemReserva("Nações Unidas", s.itens, "retirar");
-  assert.match(retirar, /^Oi, União Farma Nações Unidas! Quero reservar:/);
-  assert.match(retirar, /2x Loção Nivea Soft Milk 200ml \(R\$ 19,90\)/);
-  assert.match(retirar, /Subtotal estimado: R\$ 39,80\./);
-  assert.match(retirar, /retirar na loja e pagar no balcão/);
-  assert.match(retirar, /confirmar preço e disponibilidade/);
+  const s = adicionar(ESTADO_VAZIO, nivea, 2);
+  const retirar = mensagemReserva("Nações Unidas", s.itens, { modo: "retirar", nome: "  Maria  Souza " });
+  assert.match(retirar, /^Olá, União Farma Nações Unidas! Quero reservar:/);
+  assert.match(retirar, /\u2022 2x Loção Nivea Soft Milk 200ml/);
+  assert.match(retirar, /Loja: Nações Unidas/);
+  assert.match(retirar, /Forma: Retirar na loja/);
+  assert.match(retirar, /Nome: Maria Souza/);
+  assert.match(retirar, /Pagamento: no balcão/);
+  assert.match(retirar, /Subtotal estimado: R\$ 39,80/);
+  assert.match(retirar, /Podem confirmar preço e estoque\? Obrigado!/);
   assert.doesNotMatch(retirar, /garant|reservado|em estoque/i);
-  assert.match(mensagemReserva("Nações Unidas", s.itens, "casa"), /receber em casa e pagar na entrega/);
+  const casa = mensagemReserva("Nações Unidas", s.itens, { modo: "casa", nome: "Maria", bairro: "Nações Unidas", rua: "Rua Inglaterra, 100" });
+  assert.match(casa, /Forma: Receber em casa/);
+  assert.match(casa, /Bairro: Nações Unidas/);
+  assert.match(casa, /Endereço: Rua Inglaterra, 100/);
+  assert.match(casa, /Pagamento: na entrega/);
+  assert.match(mensagemReserva("Fátima", s.itens, { modo: "retirar", nome: "" }), /Nome: \[nome do cliente\]/);
 });
 
 test("lerEstado descarta dados estragados e aceita o formato salvo", async () => {
@@ -76,35 +84,40 @@ test("lerEstado descarta dados estragados e aceita o formato salvo", async () =>
 
 const read = (arquivo) => readFile(new URL(`../${arquivo}`, import.meta.url), "utf8");
 
-test("página /reserva: robots noindex e o HTML do servidor não traz texto de produto", async () => {
-  const [page, pagina, envio, sacola, hook] = await Promise.all([
+test("página /reserva: noindex, 3 passos como o protótipo, envio rastreado sem produto e sem dados pessoais no analytics", async () => {
+  const [page, fluxo, sacola, hook] = await Promise.all([
     read("app/reserva/page.tsx"),
-    read("app/reserva/ReservaPagina.tsx"),
-    read("app/reserva/ReservaEnvio.tsx"),
+    read("app/reserva/ReservaFluxo.tsx"),
     read("app/reserva/ReservaSacola.tsx"),
     read("app/reserva/useReserva.ts"),
   ]);
   assert.match(page, /robots:\s*\{\s*index:\s*false,\s*follow:\s*false\s*\}/);
   assert.match(hook, /lerReservaServidor/);
-  assert.match(pagina, /Sua reserva ainda está vazia\. Bora escolher\?/);
-  assert.match(pagina, /Separa pra você: reserve aqui e pague só quando retirar\./);
-  assert.match(pagina, /A gente confere o preço e o estoque e te responde pelo WhatsApp/);
+  assert.match(fluxo, /Passo \{passo\} de 3/);
+  assert.match(fluxo, /Continuar: escolher loja/);
+  assert.match(fluxo, /Adicionar mais itens/);
+  assert.match(fluxo, /Isto é uma reserva, não uma compra\./);
+  assert.match(fluxo, /Retirar na loja/);
+  assert.match(fluxo, /Receber em casa/);
+  assert.match(fluxo, /Quem vai retirar\?/);
+  assert.match(fluxo, /Mora em Sabará\? Entregamos no seu bairro\./);
+  assert.match(fluxo, /Revisar pedido/);
+  assert.match(fluxo, /Prévia da mensagem/);
+  assert.match(fluxo, /Depois de enviar/);
+  assert.match(fluxo, /Enviar pedido pelo WhatsApp/);
+  assert.match(fluxo, /Editar minha reserva/);
+  assert.match(fluxo, /<strong>João<\/strong> · CRF\/MG <strong>31958<\/strong>/);
+  assert.match(fluxo, /Sua reserva ainda está vazia\. Bora escolher\?/);
+  assert.match(fluxo, /data-track-event="whatsapp_click"/);
+  assert.match(fluxo, /data-track-source="reserva_envio"/);
+  assert.doesNotMatch(fluxo, /data-track-(product|nome|name|item)=/);
+  // Nome, rua e produto nunca vão ao analytics.
+  assert.doesNotMatch(fluxo, /trackEvent\([^)]*(nome|rua|bairro\b[^,)]*item)/);
   assert.match(sacola, /Sua reserva ainda está vazia\. Bora escolher\?/);
-  assert.match(page, /FarmaceuticoCard/);
-  assert.match(pagina, /<ReservaEnvio/);
-  // A gaveta só lista e leva à /reserva: o envio exige escolher retirar ou receber, então fica na página.
-  assert.doesNotMatch(sacola, /<ReservaEnvio/);
+  // A gaveta só lista e leva à /reserva.
+  assert.doesNotMatch(sacola, /mensagemReserva/);
   assert.match(sacola, /TEXTO_RESPONSAVEL/);
-  assert.match(envio, /Enviar pedido pelo WhatsApp/);
-  assert.match(envio, /className="reserva-mensagem"/);
-  assert.match(envio, /Responsável técnico das 3 lojas: João · CRF\/MG 31958\./);
-  assert.match(envio, /uma mensagem por loja/);
-  assert.match(envio, /data-track-event="whatsapp_click"/);
-  assert.match(envio, /data-track-source="reserva_envio"/);
-  assert.doesNotMatch(envio, /data-track-(product|nome|name|item)=/);
-  for (const src of [page, pagina, envio, sacola]) {
-    assert.doesNotMatch(src, /Nivea|Listerine|Dipirona/);
-  }
+  for (const src of [page, fluxo, sacola]) assert.doesNotMatch(src, /Nivea|Listerine|Dipirona/);
 });
 
 test("reserva_add, reserva_revisar e o clique do WhatsApp entram no dataLayer sem nome de produto", async () => {
@@ -153,11 +166,11 @@ test("reserva_add, reserva_revisar e o clique do WhatsApp entram no dataLayer se
 
   const [botao, pagina] = await Promise.all([
     read("app/reserva/ReservarBotao.tsx"),
-    read("app/reserva/ReservaPagina.tsx"),
+    read("app/reserva/ReservaFluxo.tsx"),
   ]);
   assert.match(botao, /source = "catalogo"/);
   assert.match(botao, /trackEvent\("reserva_add", \{ unit: unitId, source \}\)/);
-  assert.match(pagina, /trackEvent\("reserva_revisar", \{ modo: estado\.modo, itens: estado\.itens\.length \}\)/);
+  assert.match(pagina, /trackEvent\("reserva_revisar", \{ modo, itens: estado\.itens\.length \}\)/);
   assert.doesNotMatch(botao, /trackEvent\("reserva_add", \{[^}]*nome/);
   assert.doesNotMatch(pagina, /trackEvent\("reserva_revisar", \{[^}]*nome/);
 });

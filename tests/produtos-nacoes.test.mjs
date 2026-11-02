@@ -46,7 +46,8 @@ test("página de produtos da Nações: canonical relativo, noindex, avisos Anvis
   const page = await read("app/nacoes-unidas/produtos/page.tsx");
   assert.ok(page.includes("canonical: `/${SLUG}`"));
   assert.match(page, /robots: \{ index: false, follow: false \}/);
-  assert.match(page, /COMPANY\.anvisaWarnings/);
+  // O aviso da Anvisa fica no rodapé global (SiteFooter), como no protótipo.
+  assert.match(await read("app/SiteFooter.tsx"), /COMPANY\.anvisaWarnings\[3\]/);
   assert.match(page, /data-track-event="whatsapp_click"/);
   assert.match(page, /buildWhatsAppUrl/);
   assert.equal((page.match(/<h1\b/g) ?? []).length, 1);
@@ -80,8 +81,11 @@ test("busca do catálogo: ignora acento e caixa, exige todos os termos e esconde
 test("página de produtos usa a busca local com aviso de lista vazia levando ao WhatsApp", async () => {
   const [page, lista] = await Promise.all([read("app/nacoes-unidas/produtos/page.tsx"), read("app/nacoes-unidas/produtos/CatalogoLista.tsx")]);
   assert.match(page, /<CatalogoLista/);
-  assert.match(lista, /role="search"/);
-  assert.match(lista, /aria-live="polite"/);
+  // A busca mora no cabeçalho (como no protótipo); a lista lê ?q e, sem resultado, leva ao WhatsApp.
+  const header = await read("app/shop/ShopHeader.tsx");
+  assert.match(header, /role="search"/);
+  assert.match(header, /action="\/nacoes-unidas\/produtos"/);
+  assert.match(page, /consultaInicial=\{consultaInicial\}/);
   assert.match(lista, /data-track-event="whatsapp_click"/);
 });
 
@@ -93,7 +97,7 @@ test("ação por item: mensagem pede confirmação do dia, tem nome e preço, e 
   assert.doesNotMatch(msg, /em estoque|garantid/i);
   const lista = await read("app/nacoes-unidas/produtos/CatalogoLista.tsx");
   // Layout de loja: sem botão do WhatsApp em cada item; um único "Perguntar à loja", rastreado e sem expor produto.
-  assert.match(lista, /data-track-source="produtos_nacoes_pergunta"/);
+  assert.match(lista, /data-track-source="produtos_nacoes_busca_vazia"/);
   assert.doesNotMatch(lista, /data-track-(product|nome|name|item)\b/);
   assert.doesNotMatch(lista, /Confirmar no WhatsApp/);
   assert.match(lista, /Perguntar à loja pelo WhatsApp/);
@@ -161,7 +165,7 @@ test("página de produto: estrutura, noindex, sem texto de saúde inventado e ba
   assert.match(pagina, /Para que serve/);
   assert.match(pagina, /Destaques do rótulo/);
   assert.match(pagina, /Ficha técnica/);
-  assert.match(pagina, /Conteúdo\/volume/);
+  assert.match(pagina, /rotulo: "Conteúdo"/);
   assert.match(pagina, /Perguntas frequentes/);
   assert.match(pagina, /AVISO_MIP/);
   assert.match(pagina, /jsonLdProduto/);
@@ -268,11 +272,13 @@ test("busca da Nações: sugestões, filtro e ordenação no componente, lista c
     read("app/nacoes-unidas/produtos/busca.ts"),
   ]);
   assert.match(pagina, /preco: item\.preco/);
-  assert.match(lista, /useState\(consultaInicial\)/);
-  assert.match(lista, /BUSCAS_POPULARES/);
-  assert.match(lista, /Buscas populares/);
-  assert.match(lista, /1º/);
-  assert.match(lista, /catalogo-sugestao-foto/);
+  assert.match(lista, /const consulta = consultaInicial;/);
+  const header = await read("app/shop/ShopHeader.tsx");
+  assert.match(header, /BUSCAS_POPULARES/);
+  assert.match(header, /Buscas populares/);
+  assert.match(header, /1º/);
+  assert.match(header, /Não encontramos “/);
+  assert.doesNotMatch(header, /trackEvent\(/);
   assert.match(lista, /Não encontramos “/);
   assert.match(lista, /Confira a digitação, use termos mais amplos ou navegue pelas categorias\./);
   assert.match(lista, /Perguntar à loja pelo WhatsApp/);
@@ -285,7 +291,6 @@ test("busca da Nações: sugestões, filtro e ordenação no componente, lista c
   assert.match(lista, /eventoFiltro/);
   assert.match(lista, /data-track-source="produtos_nacoes_busca_vazia"/);
   assert.doesNotMatch(lista, /trackEvent\([^)]*(consulta|nome|lab)/);
-  assert.match(css, /\.catalogo-sugestao-foto \{[^}]*width: 44px;/);
   // O alvo de toque de 48px é a linha toda (label); a caixa visível é de 22px.
   assert.match(css, /\.catalogo-filtro-opcao \{[^}]*min-height: 48px;/);
   assert.match(css, /\.catalogo-filtro-opcao input \{[^}]*width: 22px;/);

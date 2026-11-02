@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import ReservarBotao from "./reserva/ReservarBotao";
 import { readPreferredUnitId } from "./preferred-unit";
 import { IconCoracao } from "./reserva/ReservaIcons";
-import { EtiquetaOferta, SeloSemReceita } from "./visual-fase2";
 import {
   formatOfferPrice,
   getPublicOffers,
@@ -67,10 +66,6 @@ export default function OfertasSemana() {
                   <span className="semana-foto semana-foto-vazia">{offer.placeholderLabel ?? "Oferta"}</span>
                 )}
                 <div className="semana-info">
-                  <div className="selos-linha">
-                    <SeloSemReceita />
-                    <EtiquetaOferta />
-                  </div>
                   <h3 className="semana-nome">{offer.name}</h3>
                   {anterior !== null ? <p className="semana-de">De {formatOfferPrice(anterior)}</p> : null}
                   <EtiquetaPreco valor={preco} />
@@ -87,8 +82,6 @@ export default function OfertasSemana() {
           );
         })}
       </ul>
-
-      <a className="semana-todas" href="/ofertas">Ver todas as ofertas</a>
       <p className="semana-rodape">A gente confere o preço e o estoque e te responde pelo WhatsApp. Ofertas válidas enquanto durar o estoque em cada loja.</p>
     </section>
   );

@@ -1,127 +1,37 @@
 "use client";
 
 /* eslint-disable @next/next/no-html-link-for-pages */
-import OffersGroupCta from "./OffersGroupCta";
-import { useEffect, useState } from "react";
+import BrandLogo from "./BrandLogo";
 import { COMPANY } from "./company";
 import { openCookiePreferences } from "./cookie-preferences";
-import { readPreferredUnitId, sortUnitsByPreference, writePreferredUnitId } from "./preferred-unit";
-import { INSTAGRAM_URL, UNITS, buildWhatsAppUrl, type Unit } from "./site-config";
-import BrandLogo from "./BrandLogo";
 
-const NAV = [
-  { href: "/", label: "Início" },
-  { href: "/ofertas", label: "Ofertas" },
-  { href: "/receita", label: "Receita" },
-  { href: "/entrega-de-medicamentos-em-sabara", label: "Entrega" },
-  { href: "/ifood", label: "iFood (Nações Unidas)" },
-  { href: "/novidades", label: "Novidades" },
-  { href: "/encarte", label: "Encarte" },
-  { href: "/perguntas", label: "Perguntas" },
-  { href: "/institucional", label: "Institucional" },
-  { href: "/privacidade", label: "Privacidade" },
-];
-
-const defaultMessage =
-  "Olá, União Farma {unidade}! Quero pedir um produto. Nome: ___  dosagem: ___  bairro: ___";
-
-function InstagramIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="1.8">
-      <rect x="3.5" y="3.5" width="17" height="17" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.4" cy="6.6" r="0.9" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
-
+/**
+ * Rodapé do protótipo: marca, quem é o responsável técnico, a faixa legal da Anvisa, razão social e CNPJ,
+ * e os links Privacidade, Termos e Perguntas. "Cookies" fica porque o cliente precisa poder rever o consentimento (LGPD).
+ */
 export default function SiteFooter() {
-  const [preferredId, setPreferredId] = useState<Unit["id"] | null>(null);
-  const units = sortUnitsByPreference(UNITS, preferredId);
-
-  useEffect(() => {
-    // The preferred unit lives in browser storage and is intentionally hydrated after mount.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setPreferredId(readPreferredUnitId());
-    const onChange = (event: Event) => {
-      const detail = (event as CustomEvent<Unit["id"]>).detail;
-      if (detail) setPreferredId(detail);
-    };
-    window.addEventListener("uf-preferred-unit", onChange);
-    return () => window.removeEventListener("uf-preferred-unit", onChange);
-  }, []);
-
   return (
     <footer className="uf-footer">
-      <div className="uf-footer-inner">
-        <p className="offers-group-inline">
-          <OffersGroupCta placement="footer" />
+      <div className="uf-footer-inner uf-footer-proto">
+        <a className="uf-footer-logo" href="/">
+          <BrandLogo />
+          <span>União Farma · Drogaria e Perfumaria</span>
+        </a>
+        <p>
+          Três lojas em Sabará. Farmacêutico responsável presente em todo o horário de funcionamento. Responsável técnico das 3 lojas: <strong>João</strong> · CRF/MG <strong>31958</strong>.
         </p>
-        <div className="uf-footer-grid">
-          <div className="uf-footer-brand">
-            <a className="uf-footer-logo" href="/">
-              <BrandLogo />
-              <span>
-                <strong>União Farma</strong>
-                <small>Drogaria e Perfumaria</small>
-              </span>
-            </a>
-            <p>Três lojas em Sabará. Pedido pelo WhatsApp da unidade do seu bairro.</p>
-            <p>{COMPANY.pharmacistNote}</p>
-            <div className="uf-footer-social">
-              <a className="instagram-link" href={INSTAGRAM_URL} target="_blank" rel="noreferrer" aria-label="Instagram da União Farma">
-                <InstagramIcon />
-              </a>
-            </div>
-          </div>
-
-          <nav className="uf-footer-col" aria-label="Navegação do rodapé">
-            <p className="uf-footer-label">Navegação</p>
-            {NAV.map((item) => (
-              <a key={item.href} href={item.href}>
-                {item.label}
-              </a>
-            ))}
-          </nav>
-
-          <div className="uf-footer-col">
-            <h2 className="uf-footer-label">WhatsApp das lojas</h2>
-            {units.map((unit) => (
-              <a
-                key={unit.id}
-                href={buildWhatsAppUrl(unit, defaultMessage.replaceAll("{unidade}", unit.shortName), {
-                  campaign: "footer",
-                  content: `footer_${unit.id}`,
-                })}
-                target="_blank"
-                rel="noreferrer"
-                onClick={() => writePreferredUnitId(unit.id)}
-              >
-                {unit.id === "fatima" ? "Fátima" : unit.id === "nacoes" ? "Nações" : "Itacolomi"}: {unit.whatsapp}
-              </a>
-            ))}
-          </div>
-        </div>
-
         <p className="uf-footer-warning legal-band">{COMPANY.anvisaWarnings[3]}</p>
-
-        <div className="uf-footer-bottom">
-          <p className="uf-footer-legal-name">
-            {COMPANY.legalName} · CNPJ {COMPANY.cnpj}
-          </p>
-          <p>© {new Date().getFullYear()} União Farma. Todos os direitos reservados. Sabará/MG.</p>
-          <p>
-            <a href="/institucional">Institucional</a>
-            <span aria-hidden="true"> · </span>
-            <a href="/privacidade">Privacidade</a>
-            <span aria-hidden="true"> · </span>
-            <a href="/termos">Termos</a>
-            <span aria-hidden="true"> · </span>
-            <button type="button" className="uf-footer-cookie-link" onClick={openCookiePreferences}>
-              Cookies
-            </button>
-          </p>
-        </div>
+        <p className="uf-footer-legal-name">
+          {COMPANY.legalName} · CNPJ {COMPANY.cnpj}
+        </p>
+        <nav className="uf-footer-links" aria-label="Links do rodapé">
+          <a href="/privacidade">Privacidade</a>
+          <a href="/termos">Termos</a>
+          <a href="/perguntas">Perguntas</a>
+          <button type="button" className="uf-footer-cookie-link" onClick={openCookiePreferences}>
+            Cookies
+          </button>
+        </nav>
       </div>
     </footer>
   );

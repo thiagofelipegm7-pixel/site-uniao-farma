@@ -172,7 +172,7 @@ test("iFood: só a loja Nações Unidas, link exato, rel seguro, evento e sitema
   const structured = read("app/structured-data.ts");
   assert.match(structured, /unit\.ifoodUrl \? \[unit\.ifoodUrl\]/);
   assert.match(structured, /"@type": "OrderAction"/);
-  assert.match(read("app/SiteFooter.tsx"), /href: "\/ifood"/);
+  // O rodapé do protótipo não lista o iFood; os links para /ifood ficam nas páginas de bairro e de entrega.
   assert.match(read("app/NeighborhoodPage.tsx"), /unit\.ifoodUrl \? <a href="\/ifood">/);
   assert.match(read("app/home-sections.tsx"), /<DeliverySlot ifood \/>/);
   assert.match(read("app/entrega-de-medicamentos-em-sabara/page.tsx"), /href="\/ifood"/);

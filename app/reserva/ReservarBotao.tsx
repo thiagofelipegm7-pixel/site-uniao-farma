@@ -12,10 +12,12 @@ type Props = {
   foto?: string | null;
   /** Origem do clique. Só o id da origem, nunca o nome do produto. */
   source?: string;
+  /** Cartão de produto do protótipo: só o "+" e, depois, o contador com "−" (sem texto). */
+  compacto?: boolean;
 };
 
 /** Botão "+" que vira contador depois do primeiro toque (como no protótipo). Sem texto do produto no analytics. */
-export default function ReservarBotao({ unitId, nome, precoCentavos, foto, source = "catalogo" }: Props) {
+export default function ReservarBotao({ unitId, nome, precoCentavos, foto, source = "catalogo", compacto = false }: Props) {
   const estado = useReserva();
   const id = idDoItem(unitId, nome);
   const qtd = qtdDoItem(estado, id);
@@ -24,7 +26,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, foto, sourc
     return (
       <button
         type="button"
-        className="reservar-mais"
+        className={compacto ? "reservar-mais reservar-mais-icone" : "reservar-mais"}
         aria-label={`Adicionar ${nome} à reserva`}
         onClick={() => {
           atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, foto }));
@@ -32,7 +34,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, foto, sourc
         }}
       >
         <IconMais size={22} />
-        <span>Reservar</span>
+        {compacto ? null : <span>Reservar</span>}
       </button>
     );
   }
@@ -40,7 +42,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, foto, sourc
   return (
     <div className="reservar-contador" role="group" aria-label={`Quantidade de ${nome} na reserva`}>
       <button type="button" aria-label={qtd === 1 ? `Remover ${nome} da reserva` : `Diminuir ${nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, id, qtd - 1))}>
-        {qtd === 1 ? <IconLixeira size={20} /> : <IconMenos size={20} />}
+        {qtd === 1 && !compacto ? <IconLixeira size={20} /> : <IconMenos size={20} />}
       </button>
       <output aria-live="polite">{qtd}</output>
       <button type="button" aria-label={`Aumentar ${nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, id, qtd + 1))}>

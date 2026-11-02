@@ -7,7 +7,7 @@ import { EVENTO_ABRIR_RESERVA } from "./abrir-reserva";
 import { UNITS } from "../site-config";
 import { IconFechar, IconLixeira, IconMais, IconMenos, IconSacola } from "./ReservaIcons";
 import { atualizarReserva, definirQtd, formatarCentavos, limpar, subtotalCentavos, totalItens } from "./reserva-store";
-import { TEXTO_RESPONSAVEL } from "./ReservaEnvio";
+import { TEXTO_RESPONSAVEL } from "./texto-responsavel";
 import { useReserva } from "./useReserva";
 
 const nomeLoja = (unitId: string) => UNITS.find((u) => u.id === unitId)?.shortName ?? "";

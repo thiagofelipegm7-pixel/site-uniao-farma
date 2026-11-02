@@ -458,3 +458,248 @@ body:has(.barra-reserva) { padding-bottom: calc(10.5rem + env(safe-area-inset-bo
 
 /* O respiro de 68px do .unit-page compensava o cabeçalho antigo; o cabeçalho de loja já ocupa o seu espaço. */
 .unit-page.catalogo-loja, .unit-page.produto-pagina { padding-top: 0.5rem; }
+
+/* =====================================================================
+   1 pra 1 com o protótipo: busca com sugestões, cartões, chips, foto
+   ===================================================================== */
+.shop-busca { position: relative; }
+.shop-sugestoes {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  left: 0;
+  z-index: 4500;
+  max-height: 60vh;
+  overflow-y: auto;
+  border: 1px solid #d3e2df;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(13, 20, 19, 0.12);
+}
+.shop-sugestoes ul { margin: 0; padding: 0; list-style: none; }
+.shop-sugestoes-titulo { margin: 0; padding: 0.75rem 0.75rem 0.25rem; color: #3e4b49; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.shop-sugestoes li a {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 3rem;
+  padding: 0.375rem 0.75rem;
+  border-bottom: 1px solid #e8f7f5;
+  color: var(--uf-ink);
+  font-size: 0.9375rem;
+  text-decoration: none;
+}
+.shop-sugestoes li a strong:first-child { width: 1.75rem; color: var(--uf-navy); font-size: 1rem; }
+.shop-sugestoes li a span { flex: 1; min-width: 0; font-size: 0.875rem; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+.shop-sugestoes li a img, .shop-sug-sem-foto { flex: none; width: 2.75rem; height: 2.75rem; border-radius: 4px; object-fit: contain; background: #ffffff; }
+.shop-sug-sem-foto { border: 1px solid #d3e2df; }
+.shop-sugestoes li a strong:last-child { flex: none; font-size: 0.9375rem; }
+.shop-sugestoes-todos, .shop-sugestoes-vazio a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  color: var(--uf-navy);
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.shop-sugestoes-vazio { display: grid; gap: 0.5rem; padding: 1rem; }
+.shop-sugestoes-vazio p { margin: 0; color: #3e4b49; font-size: 0.875rem; line-height: 1.5; }
+.shop-sugestoes-vazio a { border-radius: 6px; background: var(--uf-action); color: var(--uf-action-ink); }
+
+/* Chips de ordenar e filtrar em marinho, como no protótipo */
+.catalogo-nacoes .catalogo-barra button { border-color: #0a3548; color: #0a3548; }
+.catalogo-nacoes .catalogo-barra button[aria-pressed="true"] { border-color: #0a3548; background: #0a3548; color: #ffffff; }
+.catalogo-nacoes .catalogo-filtro-contagem { background: #0a3548; }
+.catalogo-contagem a { color: var(--uf-navy); font-weight: 700; }
+
+/* Botões do cartão de produto: só o "+" (aqua, 44px) e o contador com "−" (borda marinho) */
+.reservar-mais-icone { min-height: 2.75rem; padding: 0 !important; width: 100%; }
+.catalogo-card .reservar-contador, .shop-card .reservar-contador { border-color: #0a3548 !important; color: #0a3548; }
+.catalogo-card .reservar-contador button, .shop-card .reservar-contador button { color: #0a3548 !important; }
+.catalogo-card .reservar-contador { justify-content: space-between; }
+
+/* A foto do sistema vem com fundo cinza claro; o brilho a deixa branca como o cartão. */
+.catalogo-card-foto img, .shop-card-foto img, .produto-foto img { filter: brightness(1.04); }
+
+/* Links e contornos que no protótipo são marinho */
+.catalogo-caminho a, .shop-destaques-topo a { color: #0a3548; }
+
+/* ---- Produto: marca com favoritar/compartilhar, divisor e perguntas com seta ---- */
+.produto-marca-linha { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-bottom: 0.25rem; }
+.produto-marca-linha .produto-marca { margin: 0; }
+.produto-acoes { display: flex; gap: 0.5rem; }
+.produto-acoes button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 0;
+  border-radius: 4px;
+  background: #f2f6f5;
+  color: #0a3548;
+  cursor: pointer;
+}
+.produto-divisor { margin: 0.75rem 0; border: 0; border-top: 1px dashed #6b8b86; }
+.produto-faq summary { justify-content: space-between; list-style: none; }
+.produto-faq summary::-webkit-details-marker { display: none; }
+.produto-faq summary::after {
+  content: "";
+  flex: none;
+  width: 1.125rem;
+  height: 1.125rem;
+  background: #0a3548;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath d='M216.5 104.5l-80 80a12 12 0 0 1-17 0l-80-80a12 12 0 0 1 17-17L128 159l71.5-71.5a12 12 0 0 1 17 17z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 256'%3E%3Cpath d='M216.5 104.5l-80 80a12 12 0 0 1-17 0l-80-80a12 12 0 0 1 17-17L128 159l71.5-71.5a12 12 0 0 1 17 17z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.produto-faq details[open] summary::after { transform: rotate(180deg); }
+
+/* =====================================================================
+   Reserva em 3 passos (protótipo 05, 06a, 06b e 07)
+   ===================================================================== */
+.fluxo-reserva { min-height: 100vh; background: #ffffff; color: var(--uf-ink); }
+.fluxo-topo { display: flex; align-items: center; gap: 0.25rem; min-height: 3.5rem; padding: 0 0.5rem; background: #ffffff; }
+.fluxo-voltar { display: inline-flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; border: 0; background: transparent; color: var(--uf-ink); cursor: pointer; text-decoration: none; }
+.fluxo-progresso { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.375rem; margin: 0.75rem 1.25rem 0; }
+.fluxo-progresso span { height: 4px; border-radius: 2px; background: #d3e2df; }
+.fluxo-progresso span.is-on { background: #31a89d; }
+.fluxo-passo { margin: 0.5rem 1.25rem 0; color: #3e4b49; font-size: 0.75rem; font-weight: 600; }
+.fluxo-conteudo { max-width: 40rem; margin: 0 auto; padding: 0.75rem 1.25rem 11rem; }
+.fluxo-conteudo h2 { margin: 1.5rem 0 0.75rem; }
+.fluxo-itens { display: grid; gap: 0.75rem; margin: 0.5rem 0 1rem; padding: 0; list-style: none; }
+.fluxo-itens li { display: flex; gap: 0.75rem; padding: 0.75rem; border: 1.5px solid #d3e2df; border-radius: 8px; background: #ffffff; }
+.fluxo-item-foto { flex: none; display: flex; align-items: center; justify-content: center; width: 4.75rem; height: 4.75rem; border: 1px solid #d3e2df; border-radius: 4px; overflow: hidden; }
+.fluxo-item-foto img { width: 84%; height: 84%; object-fit: contain; filter: brightness(1.04); }
+.fluxo-itens li > div { flex: 1; min-width: 0; }
+.fluxo-item-nome { display: block; font-size: 0.875rem; font-weight: 600; line-height: 1.35; }
+.fluxo-item-preco { margin: 0.25rem 0 0.5rem; font-size: 0.9375rem; }
+.fluxo-item-preco small { color: #3e4b49; font-size: 0.75rem; }
+.fluxo-item-acoes { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+.fluxo-contador { min-width: 6.5rem; height: 2.5rem; border-color: #0a3548 !important; color: #0a3548; }
+.fluxo-contador button { width: 2.5rem; color: #0a3548 !important; }
+.fluxo-remover { min-height: 2.75rem; padding: 0 0.25rem; border: 0; background: transparent; color: #0a3548; font: inherit; font-size: 0.875rem; font-weight: 700; text-decoration: underline; cursor: pointer; }
+.fluxo-aviso { display: flex; gap: 0.75rem; margin: 1rem 0; padding: 0.875rem; border-radius: 8px; background: #e8f7f5; color: var(--uf-ink); font-size: 0.875rem; line-height: 1.5; }
+.fluxo-aviso svg { flex: none; color: #0a3548; }
+.fluxo-aviso small { display: block; margin-top: 0.5rem; color: #3e4b49; font-size: 0.75rem; line-height: 1.4; }
+.fluxo-resumo { padding: 0.875rem; border: 1.5px solid #d3e2df; border-radius: 8px; }
+.fluxo-resumo p { display: flex; justify-content: space-between; margin: 0 0 0.5rem; color: #3e4b49; font-size: 0.875rem; }
+.fluxo-resumo .fluxo-resumo-total { color: var(--uf-ink); font-size: 1rem; }
+.fluxo-resumo small { color: #3e4b49; font-size: 0.75rem; line-height: 1.4; }
+.fluxo-rodape {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4100;
+  display: grid;
+  gap: 0.5rem;
+  box-sizing: border-box;
+  padding: 0.75rem 1.25rem calc(0.75rem + env(safe-area-inset-bottom));
+  background: #ffffff;
+  box-shadow: 0 -1px 0 #d3e2df, 0 -8px 24px rgba(13, 20, 19, 0.06);
+}
+body.cookie-banner-visible .fluxo-rodape { bottom: 9rem; }
+.fluxo-botao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  min-height: 3.25rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 1rem;
+  border: 1.5px solid var(--uf-action);
+  border-radius: 6px;
+  background: var(--uf-action);
+  color: var(--uf-action-ink);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.fluxo-botao-vazado { border-color: #0a3548; background: #ffffff; color: #0a3548; }
+.fluxo-link { min-height: 2.75rem; border: 0; background: transparent; color: #0a3548; font: inherit; font-size: 0.9375rem; font-weight: 700; text-decoration: underline; cursor: pointer; }
+.fluxo-modo { display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; border: 1px solid #0a3548; border-radius: 6px; }
+.fluxo-modo button { display: flex; align-items: center; justify-content: center; gap: 0.375rem; min-height: 3.25rem; padding: 0 0.25rem; white-space: nowrap; border: 0; background: #ffffff; color: #0a3548; font: inherit; font-size: 0.9375rem; font-weight: 600; cursor: pointer; }
+.fluxo-modo button.is-on { background: var(--uf-action); color: var(--uf-action-ink); }
+.fluxo-lojas { display: grid; gap: 0.75rem; }
+.fluxo-loja { position: relative; display: flex; gap: 0.75rem; padding: 0.875rem; border: 1.5px solid #d3e2df; border-radius: 8px; background: #ffffff; cursor: pointer; }
+.fluxo-loja.is-on { border: 2px solid #0a3548; background: #e8f7f5; }
+.fluxo-loja input { position: absolute; opacity: 0; pointer-events: none; }
+.fluxo-loja:has(input:focus-visible) { outline: 3px solid var(--uf-action); outline-offset: 2px; }
+.fluxo-radio { flex: none; width: 1.5rem; height: 1.5rem; margin-top: 0.125rem; border: 2px solid #6b8b86; border-radius: 50%; box-sizing: border-box; }
+.fluxo-loja.is-on .fluxo-radio { border-color: #0a3548; box-shadow: inset 0 0 0 4px #e8f7f5, inset 0 0 0 12px #0a3548; }
+.fluxo-loja-corpo { display: grid; gap: 0.25rem; min-width: 0; }
+.fluxo-loja-corpo strong { font-size: 1.125rem; font-weight: 600; }
+.fluxo-loja-corpo > span { color: #3e4b49; font-size: 0.875rem; }
+.fluxo-nota { display: flex; align-items: center; gap: 0.375rem; color: var(--uf-ink) !important; }
+.fluxo-nota svg { color: #0a3548; }
+.fluxo-loja-corpo small { color: #3e4b49; font-size: 0.75rem; line-height: 1.4; }
+.fluxo-campo { display: grid; gap: 0.375rem; margin-bottom: 0.75rem; }
+.fluxo-campo > span { color: #3e4b49; font-size: 0.875rem; font-weight: 600; }
+.fluxo-campo input, .fluxo-campo select { height: 3.25rem; box-sizing: border-box; padding: 0 0.875rem; border: 1px solid #6b8b86; border-radius: 6px; background: #ffffff; color: var(--uf-ink); font: inherit; font-size: 1rem; }
+.fluxo-campo input[aria-invalid="true"], .fluxo-campo select[aria-invalid="true"] { border-color: #972524; }
+.fluxo-erro { margin: 0 0 0.75rem; color: #972524; font-size: 0.8125rem; line-height: 1.4; }
+.fluxo-nota-bairro { margin: 0.5rem 0 0; color: #3e4b49; font-size: 0.8125rem; line-height: 1.5; }
+.fluxo-destino { margin: 0 0 0.75rem; color: #3e4b49; font-size: 0.875rem; line-height: 1.5; }
+.fluxo-destino strong { color: var(--uf-ink); }
+.fluxo-bolha { padding: 0.875rem; border-radius: 8px; background: #cff0eb; }
+.fluxo-bolha pre { margin: 0; padding: 0.875rem; border-radius: 8px; background: #9fe0d7; color: #0a2d29; font: inherit; font-size: 0.875rem; line-height: 1.6; white-space: pre-wrap; overflow-wrap: anywhere; }
+.fluxo-bolha time { display: block; margin-top: 0.375rem; color: #3e4b49; font-size: 0.75rem; text-align: right; }
+.fluxo-passos { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; font-size: 0.875rem; line-height: 1.5; }
+.fluxo-passos li { display: flex; gap: 0.75rem; align-items: flex-start; }
+.fluxo-passos li p { margin: 0; min-width: 0; padding-top: 0.375rem; }
+.fluxo-passos .fluxo-n { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 2rem; height: 2rem; border-radius: 4px; background: #e8f7f5; color: #0a3548; font-weight: 700; }
+.fluxo-legal { margin: 1rem 0 0; color: #3e4b49; font-size: 0.75rem; line-height: 1.5; }
+.fluxo-rt { display: flex; gap: 0.5rem; align-items: center; margin: 0; color: #3e4b49; font-size: 0.75rem; line-height: 1.4; }
+.fluxo-rt svg { flex: none; color: #0a3548; }
+.fluxo-vazio { display: grid; gap: 0.75rem; max-width: 26rem; margin: 3rem auto; padding: 0 1.25rem; text-align: center; }
+.fluxo-vazio p { margin: 0; color: #3e4b49; font-size: 0.875rem; }
+
+@layer design {
+  .fluxo-topo h1 { margin: 0 !important; color: var(--uf-ink) !important; font-size: 1.25rem !important; font-weight: 700 !important; line-height: 1.3 !important; text-align: left !important; }
+  .fluxo-conteudo h2 { margin: 1.5rem 0 0.75rem !important; color: var(--uf-ink) !important; font-size: 1.25rem !important; font-weight: 700 !important; line-height: 1.3 !important; }
+  body:has(.fluxo-reserva) .mobile-quick-nav, body:has(.fluxo-reserva) .whatsapp-fab, body:has(.fluxo-reserva) .uf-footer, body:has(.fluxo-reserva) .site-footer { display: none !important; }
+}
+
+/* ---- Rodapé do protótipo ---- */
+.uf-footer .uf-footer-proto { display: grid; gap: 1rem; max-width: 75rem; margin: 0 auto; padding: 1.75rem 1.25rem 1.5rem; }
+.uf-footer-proto .uf-footer-logo { display: flex; align-items: center; gap: 0.75rem; color: #ffffff; font-size: 1.25rem; font-weight: 600; line-height: 1.3; text-decoration: none; }
+.uf-footer-proto .uf-footer-logo img, .uf-footer-proto .uf-footer-logo svg { flex: none; width: 3rem; height: 3rem; padding: 0.375rem; border-radius: 8px; background: #ffffff; object-fit: contain; box-sizing: border-box; }
+.uf-footer-proto > p { margin: 0; color: #e8f7f5; font-size: 1rem; line-height: 1.5; }
+.uf-footer-proto > p strong { color: #ffffff; }
+.uf-footer-proto .uf-footer-warning { padding: 0.25rem 0 0.25rem 0.875rem; border-left: 4px solid #31a89d; color: #ffffff; font-size: 0.8125rem; font-weight: 700; line-height: 1.45; text-transform: uppercase; }
+.uf-footer-proto .uf-footer-legal-name { color: #cff0eb; font-size: 0.8125rem; }
+.uf-footer-links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+.uf-footer-links a, .uf-footer-links button { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0; border: 0; background: transparent; color: #ffffff; font: inherit; font-size: 0.9375rem; font-weight: 600; text-decoration: underline; cursor: pointer; }
+.uf-footer { background: #0a3548; }
+@layer design { .uf-footer { background: #0a3548 !important; } }
+
+/* ---- Nossas lojas (protótipo): cartão simples ---- */
+.shop-lojas { max-width: 75rem; margin: 0 auto; padding: 1.25rem 1.25rem 1.5rem; }
+.shop-lojas ul { display: grid; gap: 0.75rem; margin: 0.75rem 0 0; padding: 0; list-style: none; }
+.shop-loja-cartao { position: relative; display: grid; gap: 0.375rem; padding: 0.875rem; border: 1.5px solid #d3e2df; border-radius: 8px; background: #ffffff; }
+.shop-loja-cartao p { margin: 0; color: #3e4b49; font-size: 0.875rem; }
+.shop-loja-cartao .shop-loja-nota { display: flex; align-items: center; gap: 0.375rem; color: var(--uf-ink); font-weight: 600; }
+.shop-loja-nota svg { color: #0a3548; }
+.shop-loja-cartao h3 a { color: var(--uf-ink); text-decoration: none; }
+.shop-loja-cartao h3 a::after { content: ""; position: absolute; inset: 0; }
+@media (min-width: 64rem) { .shop-lojas ul { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@layer design {
+  .shop-lojas h2 { margin: 0 !important; color: var(--uf-ink) !important; font-size: 1.375rem !important; font-weight: 700 !important; line-height: 1.3 !important; }
+  .shop-loja-cartao h3 { margin: 0 !important; color: var(--uf-ink) !important; font-size: 1.125rem !important; font-weight: 600 !important; line-height: 1.3 !important; }
+  @media (min-width: 64rem) { .shop-lojas h2 { font-size: 2rem !important; } }
+}
+
+/* Foto do produto na medida do protótipo (270px dentro de 300px) e nota final */
+.produto-foto img { width: 270px; height: 270px; }
+.produto-aviso { margin: 1rem auto 1.25rem; color: #3e4b49; font-size: 0.75rem; line-height: 1.5; }
+/* Logo do rodapé em quadrado branco, como no protótipo */
+.uf-footer-proto .uf-footer-logo > :first-child { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; padding: 0.375rem; border-radius: 8px; background: #ffffff; box-sizing: border-box; }
+.uf-footer-proto .uf-footer-logo > :first-child img { width: 100%; height: 100%; padding: 0; background: transparent; }
+
+/* Fotos das ofertas com respiro, como no protótipo */
+.semana-card .semana-foto { padding: 0.5rem; box-sizing: border-box; }

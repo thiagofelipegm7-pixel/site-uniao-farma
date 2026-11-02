@@ -533,7 +533,7 @@ select:focus {
 
 /* --- aqua-override.css --- */
 :root {
-  --uf-ink: #14736b;
+  --uf-ink: #0d1413;
   --uf-green: #14736b;
   --uf-green-hover: #14736b;
   --uf-green-dark: #0b3b36;
@@ -547,7 +547,7 @@ select:focus {
   --uf-mint: #e4f6f3;
   --uf-line: #a9d8d2;
   --uf-line-strong: #6ebcb2;
-  --uf-muted: #3b5552;
+  --uf-muted: #3e4b49;
 }
 
 html,

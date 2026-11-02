@@ -112,14 +112,6 @@ export default async function ProdutosNacoesPage({ searchParams }: { searchParam
           <p className="catalogo-nota">
             Preços do sistema da loja Nações Unidas{atualizadoEm ? `, atualizados em ${atualizadoEm}` : ""}. A loja confirma preço e estoque pelo WhatsApp antes da separação. Aqui só itens sem receita: medicamentos isentos de prescrição (MIPs), higiene e dermocosméticos. Leia a bula. Em caso de dúvida, procure o farmacêutico.
           </p>
-          <section className="catalogo-avisos" aria-labelledby="avisos">
-            <h2 id="avisos">Avisos importantes</h2>
-            <div className="catalogo-aviso">
-              {COMPANY.anvisaWarnings.map((warning) => (
-                <p key={warning}>{warning}</p>
-              ))}
-            </div>
-          </section>
         </div>
       </div>
       <ContentSiteFooter />
