@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import { register } from "node:module";
 import test from "node:test";
 
 const mod = () => import("../app/reserva/reserva-store.ts");
@@ -71,3 +73,85 @@ test("lerEstado descarta dados estragados e aceita o formato salvo", async () =>
   assert.equal(lido.itens.length, 0);
   assert.equal(lido.modo, "casa");
 });
+
+const read = (arquivo) => readFile(new URL(`../${arquivo}`, import.meta.url), "utf8");
+
+test("página /reserva: robots noindex e o HTML do servidor não traz texto de produto", async () => {
+  const [page, pagina, envio, sacola, hook] = await Promise.all([
+    read("app/reserva/page.tsx"),
+    read("app/reserva/ReservaPagina.tsx"),
+    read("app/reserva/ReservaEnvio.tsx"),
+    read("app/reserva/ReservaSacola.tsx"),
+    read("app/reserva/useReserva.ts"),
+  ]);
+  assert.match(page, /robots:\s*\{\s*index:\s*false,\s*follow:\s*false\s*\}/);
+  assert.match(hook, /lerReservaServidor/);
+  assert.match(pagina, /Sua reserva está vazia/);
+  assert.match(pagina, /<ReservaEnvio/);
+  assert.match(sacola, /<ReservaEnvio/);
+  assert.match(envio, /Enviar pedido pelo WhatsApp/);
+  assert.match(envio, /className="reserva-mensagem"/);
+  assert.match(envio, /Responsável técnico das 3 lojas: João · CRF\/MG 31958\./);
+  assert.match(envio, /uma mensagem por loja/);
+  assert.match(envio, /data-track-event="whatsapp_click"/);
+  assert.match(envio, /data-track-source="reserva_envio"/);
+  assert.doesNotMatch(envio, /data-track-(product|nome|name|item)=/);
+  for (const src of [page, pagina, envio, sacola]) {
+    assert.doesNotMatch(src, /Nivea|Listerine|Dipirona/);
+  }
+});
+
+test("reserva_add, reserva_revisar e o clique do WhatsApp entram no dataLayer sem nome de produto", async () => {
+  const nome = "Loção Nivea Soft Milk 200ml";
+  const dataLayer = [];
+  const anteriorWindow = globalThis.window;
+  const anteriorDocument = globalThis.document;
+  globalThis.window = {
+    dataLayer,
+    location: { href: "https://uniao.example/reserva", pathname: "/reserva" },
+    document: { title: "Minha reserva" },
+  };
+  globalThis.document = globalThis.window.document;
+  try {
+    await register(new URL("./resolve-ts.mjs", import.meta.url));
+    const { trackEvent, getClickTrackingParams } = await import("../app/analytics.ts");
+    trackEvent("reserva_add", { unit: "nacoes", source: "catalogo" });
+    trackEvent("reserva_revisar", { modo: "retirar", itens: 2 });
+    const ancora = {
+      dataset: { trackEvent: "whatsapp_click", trackUnit: "nacoes", trackSource: "reserva_envio" },
+      getAttribute(attr) {
+        return attr === "href" ? `https://wa.me/5531987654321?text=${encodeURIComponent(nome)}` : null;
+      },
+      closest(sel) {
+        if (sel === "[data-track-event]" || sel === "a[href]") return ancora;
+        return null;
+      },
+    };
+    const clique = getClickTrackingParams(ancora);
+    assert.equal(clique.event, "whatsapp_click");
+    assert.equal(clique.params.source, "reserva_envio");
+    assert.equal(clique.params.unit, "nacoes");
+    trackEvent(clique.event, clique.params);
+    const eventos = dataLayer.map((item) => item.event);
+    assert.ok(eventos.includes("reserva_add"));
+    assert.ok(eventos.includes("reserva_revisar"));
+    assert.ok(eventos.includes("whatsapp_click"));
+    const serial = JSON.stringify(dataLayer);
+    assert.equal(serial.includes(nome), false);
+    assert.equal(serial.includes("Nivea"), false);
+    assert.equal(serial.toLowerCase().includes("bairro"), false);
+  } finally {
+    globalThis.window = anteriorWindow;
+    globalThis.document = anteriorDocument;
+  }
+
+  const [botao, pagina] = await Promise.all([
+    read("app/reserva/ReservarBotao.tsx"),
+    read("app/reserva/ReservaPagina.tsx"),
+  ]);
+  assert.match(botao, /trackEvent\("reserva_add", \{ unit: unitId, source: "catalogo" \}\)/);
+  assert.match(pagina, /trackEvent\("reserva_revisar", \{ modo: estado\.modo, itens: estado\.itens\.length \}\)/);
+  assert.doesNotMatch(botao, /trackEvent\("reserva_add", \{[^}]*nome/);
+  assert.doesNotMatch(pagina, /trackEvent\("reserva_revisar", \{[^}]*nome/);
+});
+
