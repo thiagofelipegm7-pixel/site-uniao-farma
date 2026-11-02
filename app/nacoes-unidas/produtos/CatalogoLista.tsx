@@ -76,8 +76,6 @@ export default function CatalogoLista({ grupos, whatsappHref, unitId, consultaIn
   const refinando = buscando || ativos > 0 || ordem !== "recomendados";
   const mostrarPainel = painelAberto && (termo.length === 0 || (termo.length >= 2 && sugestoes.length > 0));
   const unit = UNITS.find((u) => u.id === unitId);
-  const hrefDoItem = (nome: string, precoFmt: string) =>
-    unit ? buildWhatsAppUrl(unit, mensagemItem(nome, precoFmt), { campaign: "produtos_nacoes", content: "nacoes_item" }) : whatsappHref;
 
   useEffect(() => {
     const evento = eventoBusca(consulta, total);
@@ -366,6 +364,8 @@ export default function CatalogoLista({ grupos, whatsappHref, unitId, consultaIn
         ))}
       </div>
 
+      <p className="catalogo-contagem">{total} {total === 1 ? "produto" : "produtos"}</p>
+
       {total === 0 ? (
         <div className="catalogo-vazio">
           <p>
@@ -379,52 +379,26 @@ export default function CatalogoLista({ grupos, whatsappHref, unitId, consultaIn
         </div>
       ) : (
         <>
-          {ordem === "recomendados" ? (
-            <ul className="catalogo-chips" aria-label="Categorias">
-              {visiveis.map((g) => (
-                <li key={g.id}>
-                  <a href={`#${g.id}`}>
-                    {g.categoria} ({g.itens.length})
-                  </a>
-                </li>
-              ))}
-            </ul>
-          ) : null}
           {visiveis.map((g) => (
             <section key={g.id} className="catalogo-grupo" aria-labelledby={ordem === "recomendados" ? g.id : undefined}>
               {ordem === "recomendados" ? <h3 id={g.id}>{g.categoria}</h3> : null}
               <ul className="catalogo-lista">
                 {g.itens.map((item) => (
-                  <li key={item.id ?? item.nome} id={item.id} className="catalogo-item">
-                    {item.foto ? <img className="catalogo-foto" src={item.foto} alt={item.nome} width="80" height="80" loading="lazy" decoding="async" /> : null}
-                    <div className="catalogo-info">
-                      <SeloSemReceita />
-                      <h4>
-                        <a href={`/nacoes-unidas/produtos/${slugify(item.nome)}`}>{item.nome}</a>
-                      </h4>
-                      {item.lab ? <p className="catalogo-lab">{item.lab}</p> : null}
-                      {item.isMIP ? (
-                        <p className="catalogo-mip">Medicamento isento de prescrição. Leia a bula. Se persistirem os sintomas, o médico deverá ser consultado.</p>
-                      ) : null}
-                      <div className="catalogo-reservar">
-                        {precoParaCentavos(item.precoFmt) ? (
-                          <ReservarBotao unitId={unitId} nome={item.nome} precoCentavos={precoParaCentavos(item.precoFmt) ?? 0} foto={item.foto} />
-                        ) : null}
-                        <a
-                          className="catalogo-acao"
-                          href={hrefDoItem(item.nome, item.precoFmt)}
-                          target="_blank"
-                          rel="noreferrer"
-                          aria-label={`Confirmar ${item.nome} no WhatsApp`}
-                          data-track-event="whatsapp_click"
-                          data-track-unit={unitId}
-                          data-track-source="produtos_nacoes_item"
-                        >
-                          Confirmar no WhatsApp
-                        </a>
-                      </div>
-                    </div>
-                    <strong className="catalogo-preco">{item.precoFmt}</strong>
+                  <li key={item.id ?? item.nome} id={item.id} className="catalogo-item catalogo-card">
+                    <SeloSemReceita />
+                    <a className="catalogo-card-foto" href={`/nacoes-unidas/produtos/${slugify(item.nome)}`} aria-label={`Ver ${item.nome}`}>
+                      {item.foto ? <img src={item.foto} alt="" width="120" height="120" loading="lazy" decoding="async" /> : <span aria-hidden="true" />}
+                    </a>
+                    <h4>
+                      <a href={`/nacoes-unidas/produtos/${slugify(item.nome)}`}>{item.nome}</a>
+                    </h4>
+                    {item.isMIP ? (
+                      <p className="catalogo-mip">Medicamento isento de prescrição. Leia a bula. Se persistirem os sintomas, o médico deverá ser consultado.</p>
+                    ) : null}
+                    <p className="catalogo-preco">{item.precoFmt}</p>
+                    {precoParaCentavos(item.precoFmt) ? (
+                      <ReservarBotao unitId={unitId} nome={item.nome} precoCentavos={precoParaCentavos(item.precoFmt) ?? 0} foto={item.foto} />
+                    ) : null}
                   </li>
                 ))}
               </ul>
@@ -432,6 +406,12 @@ export default function CatalogoLista({ grupos, whatsappHref, unitId, consultaIn
           ))}
         </>
       )}
+
+      {total > 0 ? (
+        <a className="catalogo-perguntar" href={whatsappHref} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unitId} data-track-source="produtos_nacoes_pergunta">
+          Perguntar à loja pelo WhatsApp
+        </a>
+      ) : null}
 
       {filtroAberto && typeof document !== "undefined" ? createPortal(dialog, document.body) : null}
     </>

@@ -92,9 +92,11 @@ test("ação por item: mensagem pede confirmação do dia, tem nome e preço, e 
   assert.match(msg, /confirmar preço e disponibilidade/);
   assert.doesNotMatch(msg, /em estoque|garantid/i);
   const lista = await read("app/nacoes-unidas/produtos/CatalogoLista.tsx");
-  assert.match(lista, /data-track-source="produtos_nacoes_item"/);
+  // Layout de loja: sem botão do WhatsApp em cada item; um único "Perguntar à loja", rastreado e sem expor produto.
+  assert.match(lista, /data-track-source="produtos_nacoes_pergunta"/);
   assert.doesNotMatch(lista, /data-track-(product|nome|name|item)\b/);
-  assert.match(lista, /className="catalogo-acao"/);
+  assert.doesNotMatch(lista, /Confirmar no WhatsApp/);
+  assert.match(lista, /Perguntar à loja pelo WhatsApp/);
 });
 
 test("analytics da busca: sem o texto digitado, ignora termo curto e separa busca vazia", async () => {
