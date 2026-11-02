@@ -226,3 +226,303 @@
   white-space: normal;
 }
 
+/* Busca: sugestões, ordenação e filtro em tela cheia. */
+.catalogo-nacoes .catalogo-sugestoes {
+  margin-top: 8px;
+  max-height: 320px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+}
+
+.catalogo-nacoes .catalogo-sugestoes ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.catalogo-nacoes .catalogo-sugestoes-titulo {
+  margin: 0;
+  padding: 12px 12px 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.catalogo-nacoes .catalogo-popular,
+.catalogo-nacoes .catalogo-sugestao {
+  display: flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  gap: 12px;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-align: left;
+  text-decoration: none;
+}
+
+.catalogo-nacoes .catalogo-popular span {
+  width: 2rem;
+  flex: none;
+  color: var(--teal-deep);
+  font-weight: 700;
+}
+
+.catalogo-nacoes .catalogo-sugestao-foto {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  object-fit: contain;
+  border-radius: 4px;
+  background: var(--white);
+}
+
+.catalogo-nacoes .catalogo-sugestao-sem-foto {
+  border: 1px solid var(--line);
+}
+
+.catalogo-nacoes .catalogo-sugestao-nome {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.catalogo-nacoes .catalogo-sugestao-preco {
+  flex: none;
+  color: var(--ink, #111);
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.catalogo-nacoes .catalogo-popular.catalogo-sugestao-ativa,
+.catalogo-nacoes .catalogo-sugestao.catalogo-sugestao-ativa {
+  background: var(--aqua-pale);
+}
+
+.catalogo-nacoes .catalogo-barra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0 0 12px;
+}
+
+.catalogo-nacoes .catalogo-barra button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-sizing: border-box;
+  padding: 0 14px;
+  border: 1px solid var(--teal-deep);
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--teal-deep);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.catalogo-nacoes .catalogo-barra button[aria-pressed="true"] {
+  background: var(--uf-action-ink, #0a2d29);
+  color: #fff;
+  border-color: var(--uf-action-ink, #0a2d29);
+}
+
+.catalogo-nacoes .catalogo-filtro-contagem {
+  display: inline-flex;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: var(--uf-action-ink, #0a2d29);
+  color: #fff;
+  font-size: 0.75rem;
+}
+
+.catalogo-nacoes .catalogo-perguntar {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: var(--uf-action, #40baaf);
+  color: var(--uf-action-ink, #0a2d29);
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+}
+
+.catalogo-filtro-raiz {
+  position: fixed;
+  inset: 0;
+  z-index: 4900;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  background: #fff;
+  color: var(--ink, #111);
+}
+
+.catalogo-filtro-topo {
+  display: flex;
+  height: 60px;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0 8px 0 16px;
+  border-bottom: 1px solid var(--line, #d3e2df);
+}
+
+.catalogo-filtro-topo h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.catalogo-filtro-fechar {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+}
+
+.catalogo-filtro-corpo {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 8px 16px 16px;
+}
+
+.catalogo-filtro-corpo fieldset {
+  margin: 0 0 16px;
+  padding: 0;
+  border: 0;
+}
+
+.catalogo-filtro-corpo legend {
+  margin: 8px 0 4px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.catalogo-filtro-opcao {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--line, #d3e2df);
+  font-size: 0.9375rem;
+}
+
+/* A linha toda (label de 48px) é o alvo de toque; a caixa em si é de 22px, como no protótipo. */
+.catalogo-filtro-opcao input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  flex: none;
+  margin: 0 0 0 4px;
+  border: 1.5px solid var(--uf-ink, #0a3548);
+  border-radius: 4px;
+  background: #ffffff center / 14px no-repeat;
+  cursor: pointer;
+}
+
+.catalogo-filtro-opcao input:checked {
+  background-color: var(--uf-ink, #0a3548);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 7.5l3 3 6-7'/%3E%3C/svg%3E");
+}
+
+.catalogo-filtro-opcao input:focus-visible {
+  outline: 3px solid var(--uf-action, #40baaf);
+  outline-offset: 2px;
+}
+
+.catalogo-filtro-opcao span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.catalogo-filtro-rodape {
+  display: flex;
+  height: 68px;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-sizing: border-box;
+  padding: 0 16px;
+  border-top: 1px solid var(--line, #d3e2df);
+  background: #fff;
+}
+
+.catalogo-filtro-limpar {
+  min-height: 44px;
+  padding: 0 8px;
+  border: 0;
+  background: transparent;
+  color: var(--teal-deep, #0a3548);
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.catalogo-filtro-ver {
+  display: inline-flex;
+  height: 48px;
+  max-width: 220px;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--uf-action, #40baaf);
+  color: var(--uf-action-ink, #0a2d29);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.catalogo-nacoes .catalogo-item {
+  scroll-margin-top: 126px;
+}
+
+/* A camada design força h2 com !important. O título do filtro precisa caber na barra de 60px. */
+@layer design {
+  .catalogo-filtro-topo h2 {
+    margin: 0 !important;
+    font-size: 1.25rem !important;
+    line-height: 1.2 !important;
+    font-weight: 700 !important;
+  }
+}
+
+
+
