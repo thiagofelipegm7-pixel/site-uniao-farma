@@ -3,12 +3,13 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("keeps accessibility, contrast and tap-target hooks in source", async () => {
-  const [layout, page, theme, globals, units] = await Promise.all([
+  const [layout, page, theme, globals, units, design] = await Promise.all([
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/HomePage.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/theme.css", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/DirectUnitLinks.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/design.css", import.meta.url), "utf8"),
   ]);
 
   assert.match(layout, /lang="pt-BR"/);
@@ -21,7 +22,9 @@ test("keeps accessibility, contrast and tap-target hooks in source", async () =>
   assert.match(theme, /:focus-visible/);
   assert.match(theme, /skip-link:focus/);
   assert.match(globals, /prefers-reduced-motion:\s*reduce/);
-  assert.match(globals, /min-height:\s*48px/);
+  // Alvo de toque de 48px: token no @theme (globals.css) aplicado aos botões no design.css.
+  assert.match(globals, /--spacing-btn:\s*3rem/);
+  assert.match(design, /min-height:\s*var\(--spacing-btn\)/);
   assert.match(units, /trackWhatsAppClick/);
   assert.match(units, /buildWhatsAppUrl/);
 });

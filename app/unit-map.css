@@ -58,7 +58,6 @@
 
 .unit-map-details h2 {
   margin: 4px 0 8px;
-  color: #16382f;
 }
 
 .unit-map-actions {
@@ -79,7 +78,7 @@
 
   .unit-map-pins { grid-area: pins; }
   .unit-map-frame { grid-area: frame; }
-  .unit-map-details { grid-area: details; margin: 0; }
+  .unit-map-details { grid-area: details; }
 }
 
 @media (max-width: 700px) {

@@ -293,7 +293,7 @@ test("keeps local contact data, dataLayer events, SEO files and accessibility ho
   assert.match(css, /prefers-reduced-motion:\s*reduce/);
   assert.match(css, /color-scheme:\s*only light/);
   assert.doesNotMatch(css, /prefers-color-scheme:\s*dark/);
-  assert.match(css, /min-height:\s*48px/);
+  assert.match(css, /--spacing-btn:\s*3rem/); // alvo de toque de 48px (token do @theme)
 });
 
 test("GA4 loads directly with Consent Mode v2 defaults denied and tracks WhatsApp/phone clicks", async () => {

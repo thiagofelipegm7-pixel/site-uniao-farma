@@ -35,18 +35,22 @@ O projeto utiliza **Tailwind CSS 4** com organização explícita através de di
 - **Nunca crie arquivos de patch pontual** (ex: `audit-fix.css`, `final-polish.css`, `score-10.css`, `mobile-fixes.css`).
 - **Nunca sobrescreva regras usando seletores redundantes ou `!important` desnecessário**. Quando precisar ajustar um estilo, edite a regra diretamente na camada correta.
 
-### As 8 Camadas Semânticas Globais (`app/layout.tsx`)
+### Arquivos globais (`app/layout.tsx`), na ordem de carregamento
 
-| Camada | Arquivo | Responsabilidade |
+| Arquivo | Camada | Responsabilidade |
 |---|---|---|
-| **Tokens** | `app/tokens.css` | Cores (`--uf-green`), espaçamentos (`--space-*`), raios (`--r-*`), tamanhos de toque (`--tap`). |
-| **Base** | `app/globals.css` | Reset CSS, import do Tailwind, estilos fundamentais de `html`, `body`, tipografia básica. |
-| **Tipografia** | `app/typography.css` | `@layer typography` — hierarquia de títulos, kerning, ajustes de entrelinha e animações de texto. |
-| **Layout** | `app/layout-system.css` | `@layer layout` — grids responsivos, containers, ajustes para telas móveis e Core Web Vitals (LCP/INP). |
-| **Componentes** | `app/components.css` | `@layer components` — estilos globais de componentes reutilizáveis (cards, rodapé, navegação rápida, etc.). |
-| **Tema** | `app/theme.css` | `@layer theme` — paleta de cores ativas, skins e contraste acessível (WCAG AA). |
-| **Acessibilidade** | `app/a11y.css` | Regras invioláveis de foco visível (`:focus-visible`), skip-link e áreas mínimas de toque (`>= 48px`). |
-| **Overrides** | `app/overrides.css` | `@layer overrides` — refinamentos de compatibilidade final e estados excepcionais. |
+| `app/tokens.css` | — | Ordem das camadas (`@layer design, typography, layout, components, theme, overrides`) e variáveis legadas (`--uf-*`, `--space-*`, `--r-*`, `--tap`). |
+| `app/globals.css` | sem camada | `@import "tailwindcss"`, **tokens de design em `@theme`** (`--color-*`, `--spacing-*`, `--radius-*`, `--text-*`, `--shadow-*`), base, componentes legados, acessibilidade (skip-link, foco, toque) e ajustes visuais finais. |
+| `app/typography.css` | `typography` | Hierarquia de títulos, entrelinha e animações de texto. |
+| `app/layout-system.css` | `layout` | Grids, containers e ajustes de layout no celular. |
+| `app/components.css` | `components` | Componentes reutilizáveis (cards, rodapé, barra fixa…). |
+| `app/theme.css` | `theme` | Paleta ativa e contraste. |
+| `app/overrides.css` | `overrides` | Estados excepcionais e compatibilidade. |
+| `app/design.css` | `design` | Sistema visual do DESIGN.md. É a primeira camada declarada, então os `!important` dela vencem as demais. Use só os tokens do `@theme`. |
+
+**Atenção à cascata:** CSS **sem camada** vence qualquer CSS **com camada** (sem `!important`), e entre `!important` vence a camada declarada **primeiro** (`design`). Antes de mudar uma regra, confira em qual camada ela está.
+
+**Como o CSS legado foi enxugado (nov/2026):** cada declaração foi removida e testada no navegador em todas as rotas públicas, em uma largura por faixa de breakpoint e em vários estados (loja aberta e fechada, cookies, menu, modal, FAQ aberto). Só saiu o que não alterava o estilo calculado de nenhum elemento. Se for remover CSS, mantenha esse critério: compare o estilo calculado antes e depois, não só screenshots.
 
 ### CSS Escopado de Componente
 Componentes específicos que possuem estilos isolados devem mantê-los no mesmo diretório ou referenciá-los localmente (ex: `encarte.css`, `offers-polish.css`, `whatsapp-fab.css`).

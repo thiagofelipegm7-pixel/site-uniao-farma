@@ -12,12 +12,7 @@ import "./typography.css";
 import "./layout-system.css";
 import "./components.css";
 import "./theme.css";
-import "./a11y.css";
 import "./overrides.css";
-// Mantém o polimento visual recente que já estava na main.
-import "./visual-quality.css";
-import "./ux-fixes.css";
-import "./visual-fixes.css";
 import "./design.css";
 import { INSTAGRAM_URL, PAYMENT_ACCEPTED, SITE_URL, UNITS } from "./site-config";
 import { COMPANY } from "./company";
