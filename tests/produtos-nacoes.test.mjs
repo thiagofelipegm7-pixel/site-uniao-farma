@@ -96,3 +96,14 @@ test("ação por item: mensagem pede confirmação do dia, tem nome e preço, e 
   assert.doesNotMatch(lista, /data-track-(product|nome|name|item)\b/);
   assert.match(lista, /className="catalogo-acao"/);
 });
+
+test("analytics da busca: sem o texto digitado, ignora termo curto e separa busca vazia", async () => {
+  const { eventoBusca } = await import("../app/nacoes-unidas/produtos/busca.ts");
+  assert.equal(eventoBusca("a", 3), null);
+  assert.equal(eventoBusca("  ", 3), null);
+  const ok = eventoBusca("Dipirona", 2);
+  assert.equal(ok.event, "catalog_search");
+  assert.deepEqual(ok.params, { source: "produtos_nacoes", unit: "nacoes", term_length: 8, results: 2 });
+  assert.equal(eventoBusca("xyz", 0).event, "empty_search");
+  for (const e of [ok, eventoBusca("remédio para x", 0)]) assert.ok(!JSON.stringify(e).match(/dipirona|rem[eé]dio/i));
+});

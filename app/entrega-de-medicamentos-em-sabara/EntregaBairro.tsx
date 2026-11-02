@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { listarBairros, lojaDoBairro, mensagemEntrega } from "../entrega-bairro";
+import { trackEvent } from "../analytics";
+import { eventoEntrega, listarBairros, lojaDoBairro, mensagemEntrega } from "../entrega-bairro";
 import { buildWhatsAppUrl, UNITS } from "../site-config";
 import "./entrega.css";
 
@@ -18,7 +19,15 @@ export default function EntregaBairro() {
       <div className="section-inner">
         <h2 id="entrega-bairro-titulo">Entregamos no seu bairro?</h2>
         <label htmlFor="entrega-bairro-campo">Escolha o seu bairro</label>
-        <select id="entrega-bairro-campo" value={escolha} onChange={(event) => setEscolha(event.target.value)}>
+        <select id="entrega-bairro-campo" value={escolha} onChange={(event) => {
+            const valor = event.target.value;
+            setEscolha(valor);
+            if (valor) {
+              const evento = eventoEntrega(valor === OUTRO ? null : lojaDoBairro(UNITS, valor));
+              trackEvent(evento.event, evento.params);
+            }
+          }}
+        >
           <option value="">Selecione…</option>
           {BAIRROS.map(({ bairro }) => (
             <option key={bairro} value={bairro}>

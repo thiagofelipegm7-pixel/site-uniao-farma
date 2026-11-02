@@ -25,3 +25,14 @@ test("página de entrega tem o seletor acessível, sem rede e com clique rastrea
   assert.doesNotMatch(comp, /fetch\(|XMLHttpRequest|viacep/i);
   assert.doesNotMatch(comp, /data-track-(bairro|neighborhood|cep)/i);
 });
+
+test("analytics da entrega: não usa delivery_inquiry (conversão do Ads) nem envia o bairro", async () => {
+  const { UNITS } = await import("../app/site-config.ts");
+  const { eventoEntrega } = await import("../app/entrega-bairro.ts");
+  const sim = eventoEntrega(UNITS.find((u) => u.id === "itacolomi"));
+  assert.equal(sim.event, "delivery_check");
+  assert.deepEqual(sim.params, { source: "entrega_bairro", covered: true, unit: "itacolomi" });
+  assert.deepEqual(eventoEntrega(null).params, { source: "entrega_bairro", covered: false });
+  assert.doesNotMatch(JSON.stringify(sim), /Itacolomi"|bairro"\s*:/);
+  assert.notEqual(sim.event, "delivery_inquiry");
+});

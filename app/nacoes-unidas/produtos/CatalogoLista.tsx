@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { trackEvent } from "../../analytics";
 import { buildWhatsAppUrl, UNITS } from "../../site-config";
-import { contarItens, filtrarGrupos, mensagemItem, type GrupoBusca } from "./busca";
+import { contarItens, eventoBusca, filtrarGrupos, mensagemItem, type GrupoBusca } from "./busca";
 
 type Props = {
   grupos: GrupoBusca[];
@@ -19,6 +20,14 @@ export default function CatalogoLista({ grupos, whatsappHref, unitId }: Props) {
   const unit = UNITS.find((u) => u.id === unitId);
   const hrefDoItem = (nome: string, precoFmt: string) =>
     unit ? buildWhatsAppUrl(unit, mensagemItem(nome, precoFmt), { campaign: "produtos_nacoes", content: "nacoes_item" }) : whatsappHref;
+
+  // Mede a busca só depois de uma pausa na digitação (sem o texto digitado, ver eventoBusca).
+  useEffect(() => {
+    const evento = eventoBusca(consulta, total);
+    if (!evento) return;
+    const timer = setTimeout(() => trackEvent(evento.event, evento.params), 1000);
+    return () => clearTimeout(timer);
+  }, [consulta, total]);
 
   return (
     <>

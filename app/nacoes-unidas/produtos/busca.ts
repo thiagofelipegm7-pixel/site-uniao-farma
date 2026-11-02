@@ -34,3 +34,16 @@ export function mensagemItem(nome: string, precoFmt: string): string {
   const limpo = nome.replace(/\s+/g, " ").trim();
   return `Oi, União Farma Nações Unidas! Vi "${limpo}" (${precoFmt}) na lista do site. Pode confirmar preço e disponibilidade?`;
 }
+
+/**
+ * Evento de analytics da busca. Nunca leva o texto digitado: uma busca por remédio pode revelar condição de saúde,
+ * e esse tipo de dado não deve ir ao GA4 nem ao Google Ads. Só o tamanho do termo e a quantidade de resultados.
+ */
+export function eventoBusca(consulta: string, resultados: number): { event: "catalog_search" | "empty_search"; params: Record<string, unknown> } | null {
+  const termo = normalizarBusca(consulta);
+  if (termo.length < 2) return null;
+  return {
+    event: resultados === 0 ? "empty_search" : "catalog_search",
+    params: { source: "produtos_nacoes", unit: "nacoes", term_length: termo.length, results: resultados },
+  };
+}
