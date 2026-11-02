@@ -19,7 +19,7 @@
   display: flex;
   flex-direction: column;
   background: #ffffff;
-  border: 1px solid #d7e4de;
+  border: 1px solid #d5e4e2;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 10px 28px rgba(16, 40, 34, 0.06);
@@ -29,7 +29,7 @@
   position: relative;
   aspect-ratio: 1 / 1;
   background:
-    radial-gradient(circle at 50% 20%, #ffffff 0%, #eef6f2 70%);
+    radial-gradient(circle at 50% 20%, #ffffff 0%, #edf6f5 70%);
   display: grid;
   place-items: center;
 }
@@ -46,7 +46,7 @@
   left: 10px;
   padding: 5px 9px;
   border-radius: 999px;
-  background: #102822;
+  background: #0d2825;
   color: #ffffff;
   font-size: 12px;
   font-weight: 800;
@@ -61,7 +61,7 @@
   padding: 4px 8px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.92);
-  color: #176f62;
+  color: #0f6e67;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.06em;
@@ -78,7 +78,7 @@
 
 .offer-consult-brand {
   margin: 0;
-  color: #176f62;
+  color: #0f6e67;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -87,7 +87,7 @@
 
 .offer-consult-body h3 {
   margin: 0;
-  color: #14332c;
+  color: #12332f;
   font-size: 16px;
   line-height: 1.25;
   min-height: 2.5em;
@@ -101,20 +101,20 @@
 }
 
 .offer-consult-price strong {
-  color: #176f62;
+  color: #0f6e67;
   font-size: 30px;
   line-height: 1;
   letter-spacing: -0.05em;
 }
 
 .offer-consult-price s {
-  color: #7a8c86;
+  color: #788c89;
   font-size: 13px;
 }
 
 .offer-consult-note {
   margin: 0 0 10px;
-  color: #2f4b44;
+  color: #2e4b47;
   font-size: 12px;
 }
 
@@ -133,7 +133,7 @@
   min-height: 48px;
   padding: 6px 4px;
   border-radius: 14px;
-  background: #176f62;
+  background: #0f6e67;
   color: #ffffff;
   font-size: 12px;
   font-weight: 800;
@@ -158,7 +158,7 @@
 }
 
 .offer-consult-units a[data-stock="consult"] {
-  background: #176f62;
+  background: #0f6e67;
 }
 
 @media (max-width: 700px) {

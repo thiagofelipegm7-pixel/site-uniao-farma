@@ -246,7 +246,7 @@
   /* Blocos mantidos por decisão do dono (não sair): visíveis em todas as larguras. */
   .categories-section, .story-section, .reviews-section, .faq-section { display: block !important; }
   .offer-consult-choose, .home-offer-cta { background: var(--color-teal-600) !important; color: #fff !important; opacity: 1 !important; }
-  .offer-consult-brand, .offer-consult-cond, .review-card small, .review-card time { color: #4f5b59 !important; }
+  .offer-consult-brand, .offer-consult-cond, .review-card small, .review-card time { color: #4e5b59 !important; }
   .categories-section { padding: var(--spacing-3xl) var(--spacing-gutter) !important; }
   .categories-section .section-heading { margin: 0 auto var(--spacing-xl) !important; width: 100% !important; max-width: var(--container-site) !important; text-align: left !important; padding: 0 !important; align-items: flex-start !important; }
   .direct-unit-link { flex-direction: column !important; align-items: stretch !important; }
@@ -343,7 +343,7 @@
   .uf-footer { background: var(--color-teal-800) !important; color: #fff !important; padding: 0 !important; margin: 0 !important; }
   .uf-footer-inner { padding-block: var(--spacing-3xl) var(--spacing-xl) !important; display: flex !important; flex-direction: column !important; gap: var(--spacing-2xl) !important; }
   .uf-footer *:not(.button):not(.button *) { color: #fff !important; }
-  .uf-footer p { color: #e3efec !important; }
+  .uf-footer p { color: #e2efed !important; }
   .uf-footer .offers-group-inline { margin: 0 !important; background: none !important; padding: 0 !important; border: 0 !important; }
   .uf-footer .button-group-offers { background: #fff !important; color: var(--color-teal-800) !important; border: 0 !important; }
   .uf-footer-grid { display: grid !important; grid-template-columns: 1fr !important; gap: var(--spacing-2xl) !important; }

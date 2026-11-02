@@ -1,5 +1,5 @@
 .offers-page {
-  background: #f6fbf9;
+  background: #f6fbfa;
 }
 
 .offers-hero {
@@ -24,7 +24,7 @@
 
 .offers-hero .eyebrow {
   margin: 0 0 0.35rem;
-  color: #0b6244;
+  color: #006058;
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -33,7 +33,7 @@
 
 .offers-hero h1 {
   margin: 0;
-  color: #10231c;
+  color: #0d2320;
   font-size: clamp(1.65rem, 5vw, 2.45rem);
   line-height: 1.08;
   letter-spacing: -0.04em;
@@ -42,7 +42,7 @@
 .offers-hero-lead {
   max-width: 28rem;
   margin: 0.55rem 0 0;
-  color: #3a5554;
+  color: #3b5552;
   font-size: 0.98rem;
   line-height: 1.4;
 }
@@ -70,14 +70,14 @@
 
 .offer-consult-card {
   overflow: hidden;
-  border: 1px solid #d3e5de !important;
+  border: 1px solid #d2e5e2 !important;
   border-radius: 18px !important;
   background: #ffffff !important;
   box-shadow: 0 6px 18px rgba(16, 40, 34, 0.04) !important;
 }
 
 .offer-consult-image {
-  background: #eef6f2 !important;
+  background: #edf6f5 !important;
 }
 
 .offer-consult-image img {
@@ -98,14 +98,14 @@
 
 .offer-consult-brand {
   margin: 0 !important;
-  color: #0e7370 !important;
+  color: #14736b !important;
   font-size: 0.75rem !important;
   letter-spacing: 0.08em !important;
 }
 
 .offer-consult-body h3 {
   min-height: 0 !important;
-  color: #142924 !important;
+  color: #122926 !important;
   font-size: 0.95rem !important;
   line-height: 1.25 !important;
 }
@@ -115,7 +115,7 @@
 }
 
 .offer-consult-price strong {
-  color: #0e7370 !important;
+  color: #14736b !important;
   font-size: 1.45rem !important;
 }
 
@@ -149,19 +149,19 @@
   flex-direction: column;
   gap: 0.3rem;
   padding: 0.9rem;
-  border: 1px solid #d3e5de;
+  border: 1px solid #d2e5e2;
   border-radius: 16px;
   background: #ffffff;
 }
 
 .offers-whatsapp-section .direct-unit-name {
-  color: #0e7370;
+  color: #14736b;
   font-size: 1rem;
   font-weight: 800;
 }
 
 .offers-whatsapp-section .direct-unit-neighborhood {
-  color: #4a5f57;
+  color: #485f5c;
   font-size: 0.78rem;
 }
 
@@ -184,7 +184,7 @@
 }
 
 .offers-faq-item {
-  border: 1px solid #d7e6de;
+  border: 1px solid #d5e6e4;
   border-radius: 0.85rem;
   background: #ffffff;
   padding: 0 0.85rem;
@@ -199,13 +199,13 @@
   align-items: center;
   min-height: 48px;
   font-weight: 800;
-  color: #10231c;
+  color: #0d2320;
   cursor: pointer;
 }
 
 .offers-faq-item p {
   margin: 0 0 0.8rem;
-  color: #3a5554;
+  color: #3b5552;
   font-size: 0.92rem;
 }
 

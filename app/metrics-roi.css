@@ -12,16 +12,16 @@
   padding: 0.8rem 0.9rem;
   border: 1px solid #c5e4e0;
   border-radius: 16px;
-  background: #f7fcfb;
+  background: #f6fcfb;
 }
 
 .metrics-roi-row strong {
   display: block;
-  color: #0e7370;
+  color: #14736b;
 }
 
 .metrics-roi-row span,
 .metrics-roi-row small {
   display: block;
-  color: #3a5554;
+  color: #3b5552;
 }

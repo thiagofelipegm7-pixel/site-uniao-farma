@@ -13,7 +13,7 @@
     border: 1px solid #c5e4e0;
     border-radius: 14px;
     background: #ffffff !important;
-    color: #0b6244;
+    color: #006058;
     font-size: 14px !important;
     font-weight: 800;
   }
@@ -59,7 +59,7 @@
     align-items: center;
     min-height: 48px;
     font-size: 16px;
-    color: #102e2f;
+    color: #112e2b;
     text-decoration: none;
   }
 
@@ -111,7 +111,7 @@
 .offers-page .section-kicker,
 .recipe-page .section-kicker {
   margin: 0 0 0.45rem;
-  color: #0e7370;
+  color: #14736b;
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -123,7 +123,7 @@
 .news-hero h1,
 .hero-copy h1 {
   margin: 0;
-  color: #102e2f;
+  color: #112e2b;
   font-size: clamp(1.45rem, 5vw, 2.1rem);
   line-height: 1.15;
   letter-spacing: -0.03em;
@@ -135,7 +135,7 @@
 .hero-lead {
   max-width: 28rem;
   margin: 0.55rem 0 0;
-  color: #3a5554;
+  color: #3b5552;
   font-size: 1rem;
   line-height: 1.4;
 }
@@ -158,9 +158,9 @@
 .offers-whatsapp-section .direct-unit-actions a,
 .unit-store-wa,
 .offer-alerts-button {
-  background: #0b6244 !important;
+  background: #006058 !important;
   color: #ffffff !important;
-  border-color: #0b6244 !important;
+  border-color: #006058 !important;
   border-radius: 14px !important;
   min-height: 48px !important;
   font-weight: 800;
@@ -170,11 +170,11 @@
   border: 1px solid #c5e4e0;
   border-radius: 18px;
   background: #ffffff;
-  color: #102e2f;
+  color: #112e2b;
 }
 
 .recipe-steps strong {
-  background: #0e7370;
+  background: #14736b;
 }
 
 @media (max-width: 860px) {
@@ -223,7 +223,7 @@ html {
 
 body {
   background: #f1fbfa;
-  color: #102e2f;
+  color: #112e2b;
 }
 
 .open-now-strip,
@@ -240,12 +240,12 @@ body {
 
 .brand strong,
 .content-nav .brand strong {
-  color: #102e2f;
+  color: #112e2b;
 }
 
 .brand small,
 .content-nav .brand small {
-  color: #3a5554;
+  color: #3b5552;
 }
 
 .hero-home,
@@ -259,7 +259,7 @@ body {
 
 .section-kicker,
 .eyebrow {
-  color: #0e7370 !important;
+  color: #14736b !important;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -268,7 +268,7 @@ body {
 h1,
 h2,
 h3 {
-  color: #102e2f;
+  color: #112e2b;
   letter-spacing: -0.03em;
 }
 
@@ -291,24 +291,24 @@ h3 {
 
 .trust-strip-grid strong {
   display: block;
-  color: #0e7370;
+  color: #14736b;
   font-size: 0.78rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .trust-strip-grid span {
-  color: #3a5554;
+  color: #3b5552;
   font-size: 0.92rem;
 }
 
 .uf-footer {
-  background: #e7f4f1;
+  background: #e7f4f2;
   border-top: 1px solid #c5e4e0;
 }
 
 .uf-footer-bottom {
-  color: #3a5554;
+  color: #3b5552;
 }
 
 .offers-faq-item,
@@ -366,7 +366,7 @@ h3 {
   max-width: none !important;
   min-height: 52px !important;
   border-radius: 16px !important;
-  background: #0b6244 !important;
+  background: #006058 !important;
   color: #fff !important;
   font-size: 1.05rem !important;
 }
@@ -418,7 +418,7 @@ h3 {
   min-height: 48px !important;
   margin-top: 0.55rem !important;
   border-radius: 14px !important;
-  background: #0b6244 !important;
+  background: #006058 !important;
   color: #fff !important;
   font-size: 1rem !important;
   font-weight: 800 !important;
@@ -485,9 +485,9 @@ h3 {
     min-height: 48px;
     margin-top: 0.35rem;
     padding: 0.65rem 0.85rem;
-    border: 1px solid #0b6244;
+    border: 1px solid #006058;
     border-radius: 12px;
-    color: #0b6244;
+    color: #006058;
     font-size: 16px;
     font-weight: 800;
     text-decoration: none;

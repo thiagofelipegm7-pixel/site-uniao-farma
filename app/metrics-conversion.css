@@ -11,16 +11,16 @@
   padding: 0.8rem 0.9rem;
   border: 1px solid #c5e4e0;
   border-radius: 16px;
-  background: #f7fcfb;
-  color: #102e2f;
+  background: #f6fcfb;
+  color: #112e2b;
   text-align: left;
 }
 
 .metrics-conversion-row strong {
-  color: #0e7370;
+  color: #14736b;
 }
 
 .metrics-conversion-row span,
 .metrics-conversion-row small {
-  color: #3a5554;
+  color: #3b5552;
 }

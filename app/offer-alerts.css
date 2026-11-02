@@ -8,10 +8,10 @@
   justify-content: center;
   min-height: 48px;
   padding: 0.55rem 1rem;
-  border: 1px solid #0b6244;
+  border: 1px solid #006058;
   border-radius: 14px;
-  background: #e7f6ee;
-  color: #0b6244;
+  background: #e5f6f4;
+  color: #006058;
   font-size: 0.95rem;
   font-weight: 800;
   cursor: pointer;
@@ -19,6 +19,6 @@
 
 .offer-alerts-note {
   margin: 0.45rem 0 0;
-  color: #3a5554;
+  color: #3b5552;
   font-size: 0.88rem;
 }
