@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat, Poppins } from "next/font/google";
+import { Inter } from "next/font/google";
 import MobileQuickNav from "./MobileQuickNav";
 import SiteFooter from "./SiteFooter";
 import SkipLink from "./SkipLink";
@@ -30,25 +30,13 @@ import AnalyticsConsent from "./AnalyticsConsent";
 import PwaRegister from "./PwaRegister";
 import OfferAlerts from "./OfferAlerts";
 
-const poppins = Poppins({
+const inter = Inter({
   subsets: ["latin"],
-  // Títulos, preço e selos (DESIGN.md §2.2): só os pesos usados.
-  weight: ["600", "700"],
+  // Corpo 400, rótulos 500/600, títulos 700/800. Preload inclui o corpo.
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
   preload: true,
-  variable: "--font-brand",
-  fallback: ["Arial", "sans-serif"],
-  adjustFontFallback: true,
-});
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  // Corpo (400), rótulos e botões (600), sobretítulos (700). Antes 500/600: o
-  // corpo em 400 e os sobretítulos em 700 saíam com peso sintetizado pelo navegador.
-  weight: ["400", "600", "700"],
-  display: "swap",
-  preload: true,
-  variable: "--font-support",
+  variable: "--font-inter",
   fallback: ["Arial", "sans-serif"],
   adjustFontFallback: true,
 });
@@ -164,7 +152,7 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" data-theme="light" className={`${poppins.className} ${poppins.variable} ${montserrat.variable}`}>
+    <html lang="pt-BR" data-theme="light" className={`${inter.className} ${inter.variable}`}>
       <head>
         <link
           rel="preload"
