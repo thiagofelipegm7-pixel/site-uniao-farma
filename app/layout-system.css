@@ -43,7 +43,7 @@
 }
 
 .open-now-list a small {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
   opacity: 0.85;
 }
@@ -120,7 +120,7 @@
   background: #e8f4ee;
   color: #16382f;
   padding: 7px 12px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   line-height: 1.35;
 }
@@ -592,7 +592,7 @@
     border-radius: 20px !important;
     background: transparent !important;
     color: #4a5f57 !important;
-    font-size: 11px !important;
+    font-size: 12px !important;
     font-weight: 800 !important;
     letter-spacing: 0.01em !important;
     line-height: 1.1 !important;
@@ -616,7 +616,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 11px !important;
+    font-size: 12px !important;
     color: #2f4b44 !important;
   }
 
@@ -854,7 +854,7 @@ body {
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--uf-green);
+  color: var(--uf-green-text);
 }
 
 .direct-unit-link,

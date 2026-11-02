@@ -315,7 +315,7 @@ h3 {
 .brand small {
   display: block;
   margin-top: 4px;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.09em;
   text-transform: uppercase;
@@ -584,7 +584,7 @@ h3 {
   display: block;
   max-width: 230px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
   line-height: 1.35;
 }
 
@@ -652,7 +652,7 @@ h3 {
   gap: 8px;
   border-radius: 999px;
   padding: 7px 11px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   line-height: 1.2;
 }
@@ -906,7 +906,7 @@ h3 {
 
 .direct-unit-neighborhood {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.25;
 }
 
@@ -915,7 +915,7 @@ h3 {
   align-items: center;
   gap: 5px;
   color: var(--teal);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   line-height: 1.2;
 }
@@ -938,7 +938,7 @@ h3 {
 }
 
 .direct-unit-links-compact .direct-unit-links-copy span {
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .hero .direct-unit-links-copy strong,
@@ -961,7 +961,7 @@ h3 {
   display: block;
   margin-bottom: 8px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
 }
 
@@ -982,7 +982,7 @@ h3 {
   border-radius: 10px;
   color: var(--teal);
   padding: 7px 5px;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
   line-height: 1.15;
   text-align: center;
@@ -1196,7 +1196,7 @@ h3 {
 }
 
 .hero-price-tag small {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
   text-transform: uppercase;
 }
@@ -1234,7 +1234,7 @@ h3 {
   max-width: 340px;
   margin: 0;
   color: var(--muted);
-  font-size: 9px;
+  font-size: 12px;
 }
 
 @media (max-width: 1040px) {
@@ -1634,7 +1634,7 @@ h3 {
 
 .contact-details small {
   display: block;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 700;
   text-transform: uppercase;
 }
@@ -1689,7 +1689,7 @@ h3 {
 .hours p {
   margin: 15px 0 0;
   color: var(--coral-dark);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   text-align: center;
 }
@@ -1776,7 +1776,7 @@ h3 {
 
 .review-card footer span {
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .reviews-link {
@@ -1793,7 +1793,7 @@ h3 {
   max-width: 690px;
   margin: 14px auto 0;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
   text-align: center;
 }
 
@@ -2013,7 +2013,7 @@ h3 {
 .anvisa-section > p {
   margin: 0 0 10px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
 }
 
@@ -2058,7 +2058,7 @@ h3 {
 
 .legal-note p {
   margin: 0;
-  font-size: 11px;
+  font-size: 12px;
 }
 
 /* Payment badges */
@@ -2071,7 +2071,7 @@ h3 {
   background: var(--paper);
   border: 1px solid var(--line);
   padding: 0 8px;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.04em;
 }
@@ -2276,7 +2276,7 @@ h3 {
 .modal-unit-option small {
   margin-top: 4px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .modal-unit-action {
@@ -2293,7 +2293,7 @@ h3 {
 .modal-note {
   margin: 20px 0 0;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
   text-align: center;
 }
 
@@ -2526,7 +2526,7 @@ h3 {
 .unit-trust-list span {
   margin-top: 4px;
   color: rgba(255, 255, 255, 0.72);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .unit-page-hero .open-status.is-open,
@@ -2831,7 +2831,7 @@ h3 {
 
 .landing-unit-card .section-kicker {
   margin-bottom: 8px;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .landing-unit-card h3 {
@@ -3214,7 +3214,7 @@ h3 {
   .eyebrow,
   .section-kicker {
     margin-bottom: 8px;
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.13em;
   }
 
@@ -3272,7 +3272,7 @@ h3 {
   .promo-toast {
     min-height: 38px;
     padding: 7px 12px;
-    font-size: 10.5px;
+    font-size: 12px;
     line-height: 1.25;
   }
 
@@ -3343,7 +3343,7 @@ h3 {
   .response-time {
     justify-content: center;
     margin-top: 0;
-    font-size: 11px;
+    font-size: 12px;
     line-height: 1.45;
     text-align: center;
   }
@@ -3370,7 +3370,7 @@ h3 {
     align-items: center;
     justify-content: center;
     color: rgba(255, 255, 255, 0.8);
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.2;
     text-align: center;
   }
@@ -3415,7 +3415,7 @@ h3 {
 
   .open-status {
     padding: 6px 9px;
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .quick-unit-actions {
@@ -3467,7 +3467,7 @@ h3 {
   }
 
   .trust-strip-grid span {
-    font-size: 10.5px;
+    font-size: 12px;
     line-height: 1.3;
   }
 
@@ -3545,7 +3545,7 @@ h3 {
     overflow: hidden;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
-    font-size: 11.5px;
+    font-size: 12px;
     line-height: 1.45;
   }
 
@@ -3553,7 +3553,7 @@ h3 {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
-    font-size: 11.5px;
+    font-size: 12px;
     line-height: 1.3;
     text-decoration-thickness: 1px;
   }
@@ -3585,7 +3585,7 @@ h3 {
     left: 12px;
     bottom: 12px;
     padding: 7px 10px;
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .photo-side {
@@ -3640,7 +3640,7 @@ h3 {
 
   .unit-card-top > p {
     margin: 9px 0 12px;
-    font-size: 11.5px;
+    font-size: 12px;
   }
 
   .unit-map iframe {
@@ -3657,7 +3657,7 @@ h3 {
     opacity: 1;
     transform: none;
     padding: 8px 10px;
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .contact-details {
@@ -3684,12 +3684,12 @@ h3 {
   }
 
   .hours dl > div {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .hours p {
     margin-top: 11px;
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .card-actions {
@@ -3753,7 +3753,7 @@ h3 {
   }
 
   .reviews-note {
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.45;
   }
 
@@ -3869,7 +3869,7 @@ h3 {
   }
 
   .legal-note p {
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.5;
   }
 
@@ -3956,18 +3956,18 @@ h3 {
 
   .modal-unit-option small {
     max-width: 210px;
-    font-size: 9.5px;
+    font-size: 12px;
     line-height: 1.35;
   }
 
   .modal-unit-action {
     min-width: 92px;
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .modal-note {
     margin-top: 14px;
-    font-size: 9.5px;
+    font-size: 12px;
     line-height: 1.4;
   }
 
@@ -3990,7 +3990,7 @@ h3 {
   }
 
   .cookie-banner p {
-    font-size: 11px;
+    font-size: 12px;
     line-height: 1.5;
   }
 
@@ -4077,7 +4077,7 @@ h3 {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .legal-page,
@@ -4139,7 +4139,7 @@ h3 {
 
   .hero-mobile-facts span {
     padding-inline: 3px;
-    font-size: 9px;
+    font-size: 12px;
   }
 
   .category-grid {
@@ -4155,7 +4155,7 @@ h3 {
   }
 
   .floating-btn {
-    font-size: 11px;
+    font-size: 12px;
   }
 }
 
@@ -4182,7 +4182,7 @@ h3 {
   .breadcrumb {
     padding-top: 12px;
     padding-bottom: 10px;
-    font-size: 10px;
+    font-size: 12px;
   }
 
   .seo-intent-links {
@@ -4252,7 +4252,7 @@ h3 {
     margin: -8px 0 12px;
     display: block;
     color: var(--muted);
-    font-size: 10.5px;
+    font-size: 12px;
     font-weight: 700;
   }
 }
@@ -4353,7 +4353,7 @@ h3 {
     gap: 12px;
   }
   .cookie-banner strong { font-size: 13px; }
-  .cookie-banner p { margin-top: 2px; font-size: 10px; line-height: 1.25; }
+  .cookie-banner p { margin-top: 2px; font-size: 12px; line-height: 1.25; }
   .cookie-actions { display: flex; flex-direction: row; }
   .cookie-actions button { width: auto; min-height: 40px; padding: 7px 14px; }
 }
@@ -4374,7 +4374,7 @@ h3 {
 
 .open-status { display: flex; flex-wrap: wrap; gap: 2px 8px; }
 .open-status strong, .open-status small { color: #16382f; }
-.open-status small { flex-basis: 100%; font-size: 10px; font-weight: 600; }
+.open-status small { flex-basis: 100%; font-size: 12px; font-weight: 600; }
 
 .hero .direct-unit-links-copy strong { display: none; }
 
@@ -4450,7 +4450,7 @@ h3 {
   background: var(--health-teal);
   color: var(--white);
   padding: 8px 10px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   text-align: center;
   text-decoration: none;
@@ -4642,7 +4642,7 @@ h3 {
 
   .cookie-banner p {
     margin-top: 3px;
-    font-size: 10px;
+    font-size: 12px;
     line-height: 1.4;
   }
 
@@ -5374,7 +5374,7 @@ html[data-theme="light"] .news-contact-units span {
 .offer-validity {
   margin: 10px 0 14px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.35;
 }
 
@@ -5622,7 +5622,7 @@ html[data-theme="light"] .news-contact-units span {
 .offers-footer p,
 .content-footer p {
   margin: 0;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.6;
 }
 
@@ -5636,7 +5636,7 @@ html[data-theme="light"] .news-contact-units span {
 
 .offers-footer nav a,
 .content-footer nav a {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
 }
 
@@ -5716,7 +5716,7 @@ html[data-theme="light"] .news-contact-units span {
 .offers-unit-option small {
   margin-top: 4px;
   color: var(--muted);
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .offers-unit-action {
@@ -5724,7 +5724,7 @@ html[data-theme="light"] .news-contact-units span {
   align-items: center;
   gap: 7px;
   color: var(--teal);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   white-space: nowrap;
 }
@@ -5732,7 +5732,7 @@ html[data-theme="light"] .news-contact-units span {
 .offers-modal-note {
   margin: 18px 0 0;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 @media (max-width: 900px) {
@@ -5939,7 +5939,7 @@ html[data-theme="light"] .news-contact-units span {
   }
 
   .offers-unit-action {
-    font-size: 10px;
+    font-size: 12px;
   }
 }
 
@@ -6155,7 +6155,7 @@ html[data-theme="light"] .news-contact-units span {
   justify-content: space-between;
   gap: 8px 16px;
   color: var(--muted);
-  font-size: 11px;
+  font-size: 12px;
 }
 
 .news-card-meta span {
@@ -6395,7 +6395,7 @@ html[data-theme="light"] .news-contact-units span {
 
 .news-contact-units span {
   color: #a9eadf;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   text-align: right;
 }
@@ -6682,7 +6682,7 @@ html[data-theme="light"] .news-contact-units span {
   }
 
   .content-menu-label {
-    font-size: 11px;
+    font-size: 12px;
   }
 
   .offers-hero {
@@ -7215,7 +7215,7 @@ h3 {
   background: var(--coral-dark);
   color: var(--white);
   padding: 6px 13px;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 900;
   letter-spacing: 0.05em;
   text-transform: uppercase;

@@ -421,7 +421,7 @@
   margin-top: 4px;
   border-radius: 999px;
   padding: 3px 8px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
 }
 
@@ -640,7 +640,7 @@
 .unit-store-hood {
   margin: 0;
   color: #0e7370;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -888,7 +888,7 @@
   padding: 1.6rem 0.7rem 0.55rem;
   background: linear-gradient(180deg, transparent 0%, rgba(8, 58, 59, 0.82) 72%);
   color: #f4fffd;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   line-height: 1.25;
   pointer-events: none;
 }
@@ -896,7 +896,7 @@
 .store-photo figcaption strong,
 .unit-store-photo-tag strong {
   display: block;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1041,7 +1041,7 @@
 .home-offer-brand {
   margin: 0;
   color: #0e7370;
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1065,7 +1065,7 @@
 .home-offer-note {
   margin: 0;
   color: #3a5554;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
 }
 
 .home-offer-cta {
@@ -1261,7 +1261,7 @@
 
 .reviews-score-meta {
   color: #4f6f6d;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 650;
 }
 
@@ -1297,7 +1297,7 @@
 
 .reviews-unit-card small {
   color: #4f6f6d;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
 }
 
 @media (min-width: 700px) {

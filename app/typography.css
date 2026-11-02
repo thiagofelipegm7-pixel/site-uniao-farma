@@ -20,7 +20,7 @@ body {
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--uf-green);
+  color: var(--uf-green-text);
 }
 
 h1,
@@ -382,7 +382,7 @@ h1,
 .offer-consult-price strong {
   font-size: 1.85em;
   font-weight: 800;
-  color: var(--uf-green);
+  color: var(--uf-green-text);
 }
 
 .offer-consult-units a {

@@ -35,7 +35,7 @@ body {
 }
 
 .hero-copy .eyebrow {
-  color: var(--uf-green);
+  color: var(--uf-green-text);
 }
 
 .hero-copy h1 {
@@ -63,13 +63,13 @@ body {
   margin: 0.4em 0 0.3em;
   padding: 0;
   background: transparent;
-  color: var(--uf-green);
+  color: var(--uf-green-text);
 }
 
 .offer-consult-price strong,
 .encarte-price,
 .price-large {
-  color: var(--uf-green);
+  color: var(--uf-green-text);
   background: transparent;
   padding: 0;
 }
@@ -122,7 +122,7 @@ body {
 }
 
 .nearest-unit-badge {
-  color: var(--uf-green);
+  color: var(--uf-green-text);
 }
 
 .reviews,
@@ -748,7 +748,7 @@ select:focus,
 .section-kicker {
   margin: 0 0 0.25rem;
   color: #0b6244;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -887,7 +887,7 @@ select:focus,
 
 .trust-strip-grid span {
   color: #4a5f57;
-  font-size: 0.74rem;
+  font-size: 0.75rem;
 }
 
 .quick-units-section .section-heading {
@@ -1031,7 +1031,7 @@ select:focus,
 
 .review-person small {
   display: block;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   color: #80868b;
 }
 
