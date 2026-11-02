@@ -62,3 +62,25 @@ test("fotos Nações: só EANs aprovados, arquivo existe e item sem foto devolve
   assert.equal(fotoDoProduto("PROT LABIAL NIVEA FRUIT"), null);
   assert.equal(fotoDoProduto("DIPIRONA 1G cx 10cpr PRATI DONADUZZI"), null);
 });
+
+test("busca do catálogo: ignora acento e caixa, exige todos os termos e esconde grupos vazios", async () => {
+  const { filtrarGrupos, contarItens, normalizarBusca } = await import("../app/nacoes-unidas/produtos/busca.ts");
+  const grupos = [
+    { categoria: "Pele e proteção solar", id: "pele", itens: [{ nome: "PROT SOLAR NIVEA FPS 50", lab: "Nivea", precoFmt: "R$ 10,00", isMIP: false, foto: null }] },
+    { categoria: "Medicamentos isentos de prescrição", id: "mip", itens: [{ nome: "DIPIRONA 1G", lab: "Prati", precoFmt: "R$ 5,00", isMIP: true, foto: null }] },
+  ];
+  assert.equal(normalizarBusca("  Proteção   SOLAR "), "protecao solar");
+  assert.equal(filtrarGrupos(grupos, "").length, 2);
+  assert.equal(contarItens(filtrarGrupos(grupos, "protecao")), 1);
+  assert.equal(contarItens(filtrarGrupos(grupos, "nivea solar")), 1);
+  assert.equal(filtrarGrupos(grupos, "dipirona nivea").length, 0);
+  assert.equal(filtrarGrupos(grupos, "isentos").length, 1);
+});
+
+test("página de produtos usa a busca local com aviso de lista vazia levando ao WhatsApp", async () => {
+  const [page, lista] = await Promise.all([read("app/nacoes-unidas/produtos/page.tsx"), read("app/nacoes-unidas/produtos/CatalogoLista.tsx")]);
+  assert.match(page, /<CatalogoLista/);
+  assert.match(lista, /role="search"/);
+  assert.match(lista, /aria-live="polite"/);
+  assert.match(lista, /data-track-event="whatsapp_click"/);
+});

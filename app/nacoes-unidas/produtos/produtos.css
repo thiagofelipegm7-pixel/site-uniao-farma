@@ -110,3 +110,69 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* Busca local (padrão inspirado no autocomplete de farmácias online: campo grande, limpar e contador). */
+.catalogo-nacoes .catalogo-busca {
+  margin: 0 0 var(--space-5, 1.5rem);
+}
+
+.catalogo-nacoes .catalogo-busca label {
+  display: block;
+  margin: 0 0 6px;
+  color: var(--teal-deep);
+  font-weight: 700;
+}
+
+.catalogo-nacoes .catalogo-busca-campo {
+  position: relative;
+}
+
+.catalogo-nacoes .catalogo-busca input[type="search"] {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 52px 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--white);
+  color: var(--ink, inherit);
+  font: inherit;
+  font-size: 1rem;
+  appearance: none;
+}
+
+.catalogo-nacoes .catalogo-busca input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+
+.catalogo-nacoes .catalogo-busca-limpar {
+  position: absolute;
+  top: 50%;
+  right: 4px;
+  display: inline-flex;
+  width: 48px;
+  height: 48px;
+  align-items: center;
+  justify-content: center;
+  transform: translateY(-50%);
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--teal-deep);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.catalogo-nacoes .catalogo-busca-status {
+  min-height: 1.5em;
+  margin: 6px 4px 0;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.catalogo-nacoes .catalogo-vazio {
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm, 0.625rem);
+  background: var(--aqua-pale);
+}
