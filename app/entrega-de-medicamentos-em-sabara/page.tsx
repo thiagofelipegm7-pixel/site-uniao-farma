@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
 import type { Metadata } from "next";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
+import EntregaBairro from "./EntregaBairro";
 import { buildWhatsAppUrl, SITE_URL, UNITS } from "../site-config";
 import type { FaqItem } from "../seo-content";
 import { getPageStructuredData, getUnitPublicPath } from "../structured-data";
@@ -66,6 +67,8 @@ export default function EntregaDeMedicamentosEmSabaraPage() {
             <p className="unit-page-address">{directAnswer}</p>
           </div>
         </section>
+
+        <EntregaBairro />
 
         <section className="section" aria-labelledby="bairros">
           <div className="section-inner">
