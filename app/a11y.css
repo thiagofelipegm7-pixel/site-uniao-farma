@@ -6,7 +6,7 @@
   z-index: 8000;
   padding: 0.7rem 1rem;
   border-radius: 12px;
-  background: #062016;
+  background: #01201e;
   color: #ffffff;
   font-size: 1rem;
   font-weight: 800;
@@ -17,7 +17,7 @@
 .skip-link:focus,
 .skip-link:focus-visible {
   transform: translateY(0);
-  outline: 3px solid #f7fcfa;
+  outline: 3px solid #f6fcfb;
   outline-offset: 2px;
 }
 
@@ -28,13 +28,13 @@
 }
 
 .open-status.is-open {
-  background: #0b6244;
+  background: #006058;
   color: #ffffff;
 }
 
 .open-status.is-hours {
-  background: #d7efe4;
-  color: #0b6244;
+  background: #d4efeb;
+  color: #006058;
 }
 
 .unit-store-wa,
@@ -44,14 +44,14 @@
 .offer-consult-choose,
 .direct-unit-actions a,
 .modal-unit-action {
-  background: #0b6244;
+  background: #006058;
   color: #ffffff;
 }
 
 .unit-store-map {
-  background: #e7f6ee;
-  color: #0b6244;
-  border-color: #0b6244;
+  background: #e5f6f4;
+  color: #006058;
+  border-color: #006058;
 }
 
 @media (max-width: 860px) {

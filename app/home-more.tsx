@@ -116,7 +116,7 @@ export function HomeMore({
             >
               <strong>{profile.label}</strong>
               {profile.rating !== null ? (
-                <span className="reviews-unit-score">{profile.rating.toFixed(1).replace(".", ",")} no Google</span>
+                <span className="reviews-unit-score">{profile.rating.toFixed(1).replace(".", ",")} no Google{profile.reviewCount !== null ? ` \u00b7 ${profile.reviewCount} avalia\u00e7\u00f5es` : ""}</span>
               ) : (
                 <span className="reviews-unit-score">{"Ver avaliações no Google"}</span>
               )}

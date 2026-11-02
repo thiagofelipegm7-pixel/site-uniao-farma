@@ -13,10 +13,10 @@
 .unit-map-pins button {
   min-height: 64px;
   padding: 10px 12px;
-  border: 1px solid #d7e4de;
+  border: 1px solid #d5e4e2;
   border-radius: 14px;
   background: #ffffff;
-  color: #14332c;
+  color: #12332f;
   text-align: left;
 }
 
@@ -27,18 +27,18 @@
 
 .unit-map-pins button span {
   margin-top: 4px;
-  color: #2f4b44;
+  color: #2e4b47;
   font-size: 12px;
 }
 
 .unit-map-pins button.is-active {
-  background: #176f62;
-  border-color: #176f62;
+  background: #0f6e67;
+  border-color: #0f6e67;
   color: #ffffff;
 }
 
 .unit-map-pins button.is-active span {
-  color: #e6efeb;
+  color: #e5efed;
 }
 
 .unit-map-frame iframe {
@@ -46,19 +46,19 @@
   min-height: 280px;
   border: 0;
   border-radius: 18px;
-  background: #eef6f2;
+  background: #edf6f5;
 }
 
 .unit-map-details {
   padding: 16px;
-  border: 1px solid #d7e4de;
+  border: 1px solid #d5e4e2;
   border-radius: 16px;
   background: #ffffff;
 }
 
 .unit-map-details h2 {
   margin: 4px 0 8px;
-  color: #16382f;
+  color: #123734;
 }
 
 .unit-map-actions {

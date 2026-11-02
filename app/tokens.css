@@ -2,28 +2,30 @@
 @layer design, typography, layout, components, theme, overrides;
 
 :root {
-  --uf-green: #148f8a;
-  --uf-green-hover: #0e7370;
-  --uf-green-dark: #083a3b;
-  --uf-green-bright: #2bbbad;
-  --uf-open: #129a90;
-  --uf-open-live: #2dd4c0;
+  --uf-green: #1a8f86;
+  --uf-green-hover: #14736b;
+  --uf-green-dark: #0b3b36;
+  --uf-green-bright: #29bbae;
+  --uf-open: #149a90;
+  --uf-open-live: #24d4c5;
   --uf-whatsapp: #25d366;
 
-  --uf-ink: #102e2f;
-  --uf-muted: #3a5554;
-  --uf-closed: #9a3f2a;
-  --uf-gold: #148f8a;
-  --uf-green-text: #0e7370; /* verde para TEXTO: 5,67:1 sobre branco (o verde-marca #148f8a dá 3,94:1) */
-  --uf-gold-ink: #0e7370;
-  --uf-offer: #e23b2e;
+  --uf-ink: #112e2b;
+  --uf-muted: #3b5552;
+  --uf-closed: #9b3e38;
+  --uf-gold: #1a8f86;
+  --uf-green-text: #14736b; /* verde para TEXTO: 5,67:1 sobre branco (o verde-marca #1a8f86 dá 3,94:1) */
+  --uf-gold-ink: #14736b;
+  --uf-panel: #31a89d; /* painel verde-água das faixas e ofertas: tinta escura passa 5,1:1 */
+  --uf-pill: #050d0c; /* pílula do lema */
+  --uf-offer: #d94641;
 
   --uf-paper: #f1fbfa;
-  --uf-stone: #d4efeb;
+  --uf-stone: #d4eeeb;
   --uf-fog: #e4f6f3;
   --uf-card: #ffffff;
-  --uf-line: #a9d8d3;
-  --uf-line-strong: #6dbbb4;
+  --uf-line: #a9d8d2;
+  --uf-line-strong: #6ebcb2;
 
   --t-xs: clamp(0.75rem, 0.74rem + 0.05vw, 0.8125rem);
   --t-sm: clamp(0.8125rem, 0.767rem + 0.23vw, 0.9375rem);

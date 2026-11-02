@@ -114,7 +114,7 @@ body {
 .unit-store-map {
   background: #ffffff !important;
   border: 1px solid var(--uf-line) !important;
-  color: #0b5f4c !important;
+  color: #005f57 !important;
 }
 
 .unit-store-photo {
@@ -125,21 +125,21 @@ body {
 
 .offer-consult-image,
 .home-offer-photo {
-  background: #f3faf8 !important;
+  background: #f3faf9 !important;
 }
 
 .offer-consult-image img,
 .home-offer-photo img {
   object-fit: contain !important;
   object-position: center !important;
-  background: #f3faf8;
+  background: #f3faf9;
 }
 
 .offer-consult-price strong,
 .home-offer-price {
   font-size: 1.35rem !important;
   font-weight: 700 !important;
-  color: #0b5f4c !important;
+  color: #005f57 !important;
 }
 
 .offer-consult-brand,
@@ -152,7 +152,7 @@ body {
 .content-nav-links a[aria-current="page"],
 .menu-links a[aria-current="page"],
 .content-side-nav a[aria-current="page"] {
-  color: #0b5f4c !important;
+  color: #005f57 !important;
   font-weight: 700 !important;
   text-decoration: underline;
   text-underline-offset: 0.28em;
@@ -165,7 +165,7 @@ body {
 }
 
 :focus-visible {
-  outline: 3px solid #0b5f4c;
+  outline: 3px solid #005f57;
   outline-offset: 3px;
 }
 
