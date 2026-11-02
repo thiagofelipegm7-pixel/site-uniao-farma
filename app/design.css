@@ -140,7 +140,8 @@
     color: var(--color-teal-600) !important; font-weight: 600 !important; text-decoration: underline !important; text-underline-offset: 3px;
   }
   .unit-store-card .unit-store-body { display: contents !important; }
-  .unit-store-card .unit-store-hood, .unit-store-card h3, .unit-store-card .unit-store-addr, .unit-store-card .open-status { grid-column: 2 !important; }
+  .unit-store-card .unit-store-hood, .unit-store-card h3, .unit-store-card .unit-store-addr, .unit-store-card .open-status,
+  .unit-store-card .loja-nota, .unit-store-card .loja-retirada { grid-column: 2 !important; min-width: 0 !important; }
   .unit-store-card { grid-template-rows: auto !important; row-gap: var(--spacing-xs) !important; }
   .unit-store-photo-link { grid-row: 1 / span 4 !important; }
   @media (min-width: 1024px) {
@@ -148,6 +149,7 @@
     .unit-store-card { grid-template-columns: 1fr !important; padding: 0 0 var(--spacing-lg) !important; overflow: hidden !important; }
     .unit-store-photo-link { width: 100% !important; height: auto !important; aspect-ratio: 16 / 10 !important; border-radius: 0 !important; grid-row: auto !important; }
     .unit-store-card .unit-store-hood, .unit-store-card h3, .unit-store-card .unit-store-addr, .unit-store-card .open-status,
+    .unit-store-card .loja-nota, .unit-store-card .loja-retirada,
     .unit-store-actions, .unit-store-more { grid-column: 1 !important; margin-inline: var(--spacing-lg) !important; }
     .unit-store-card .unit-store-hood { margin-top: var(--spacing-md) !important; }
   }

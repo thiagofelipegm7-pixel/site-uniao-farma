@@ -12,6 +12,7 @@ import {
   MEDICATION_WARNING,
   type Offer,
 } from "./offers";
+import { EtiquetaOferta, SeloSemReceita } from "./visual-fase2";
 
 function pickFeaturedOffers(): Offer[] {
   const published = getPublicOffers();
@@ -77,6 +78,10 @@ export default function HomeReasons({
                     )}
                   </div>
                   <div className="home-offer-body">
+                    <div className="selos-linha">
+                      <SeloSemReceita />
+                      <EtiquetaOferta />
+                    </div>
                     {offer.brand ? <p className="home-offer-brand">{offer.brand}</p> : null}
                     <h3>{offer.name}</h3>
                     <p className="home-offer-price">{price}</p>

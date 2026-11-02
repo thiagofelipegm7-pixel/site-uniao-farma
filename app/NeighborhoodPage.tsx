@@ -9,6 +9,7 @@ import { getPageStructuredData } from "./structured-data";
 import { UNIT_PHOTOS } from "./unit-photos";
 import { responsiveSrcSet } from "./responsive-images";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
+import { NotaEFaixaLoja } from "./visual-fase2";
 
 const SHORT_LABEL: Record<Unit["id"], string> = {
   fatima: "Fátima",
@@ -69,6 +70,7 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
         <p>{unit.address} — CEP {unit.cep}</p>
         <p className="hours-static">Horário: {getShortHoursPhrase(unit)}.</p>
         <UnitStatusBadge unit={unit} />
+        <NotaEFaixaLoja unitId={unit.id} />
         <div className="neighborhood-actions">
           <a className="button button-whatsapp" href={buildWhatsAppUrl(unit, product, { campaign: "bairro", content: `${unit.id}_pedir` })} target="_blank" rel="noreferrer">Pedir no WhatsApp</a>
           <div className="neighborhood-secondary">

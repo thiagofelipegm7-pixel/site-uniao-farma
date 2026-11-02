@@ -97,8 +97,8 @@ export default function ReservaSacola() {
         <div className="reserva-gaveta-corpo">
           {estado.itens.length === 0 ? (
             <div className="reserva-vazia">
-              <strong>Sua reserva está vazia</strong>
-              <p>Toque no “Reservar” de um produto para separar.</p>
+              <strong>Sua reserva ainda está vazia. Bora escolher?</strong>
+              <p>Separa pra você: reserve aqui e pague só quando retirar.</p>
               <a className="reserva-botao" href="/nacoes-unidas/produtos" onClick={fechar}>Ver produtos</a>
             </div>
           ) : (
@@ -141,7 +141,7 @@ export default function ReservaSacola() {
           <div className="reserva-gaveta-pe">
             <button type="button" className="reserva-link" onClick={() => setConfirmando(true)}>Limpar reserva</button>
             <p className="reserva-subtotal"><span>Subtotal estimado</span><strong>{formatarCentavos(subtotalCentavos(estado.itens))}</strong></p>
-            <p className="reserva-aviso">A loja confirma preço e estoque pelo WhatsApp. Pagamento no balcão ou na entrega. Nada é cobrado no site.</p>
+            <p className="reserva-aviso">A gente confere o preço e o estoque e te responde pelo WhatsApp. Pagamento no balcão ou na entrega. Nada é cobrado no site.</p>
             <a className="reserva-botao" href="/reserva" onClick={fechar}>Continuar para a reserva</a>
             <p className="reserva-aviso reserva-rt">{TEXTO_RESPONSAVEL}</p>
           </div>

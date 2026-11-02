@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import ReservaPagina from "./ReservaPagina";
+import { FarmaceuticoCard } from "../visual-fase2";
 
 const TITLE = "Minha reserva | União Farma";
 
@@ -20,6 +21,7 @@ export default function ReservaRota() {
       <main className="reserva-pagina" id="conteudo">
         <div className="section-inner">
           <ReservaPagina />
+          <FarmaceuticoCard />
         </div>
       </main>
       <ContentSiteFooter />
