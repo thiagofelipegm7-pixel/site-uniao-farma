@@ -107,3 +107,111 @@ test("analytics da busca: sem o texto digitado, ignora termo curto e separa busc
   assert.equal(eventoBusca("xyz", 0).event, "empty_search");
   for (const e of [ok, eventoBusca("remédio para x", 0)]) assert.ok(!JSON.stringify(e).match(/dipirona|rem[eé]dio/i));
 });
+
+test("catálogo: ordena por preço, filtra categoria/marca/faixa e combina com o texto", async () => {
+  const { aplicarCatalogo, faixaDoPreco, contarFiltrosAtivos, contarItens, sugerirProdutos, identificarItens, BUSCAS_POPULARES, FAIXAS_PRECO } =
+    await import("../app/nacoes-unidas/produtos/busca.ts");
+  const grupos = [
+    {
+      categoria: "Pele e proteção solar",
+      id: "pele",
+      itens: [
+        { nome: "PROT SOLAR NIVEA FPS 50", lab: "Nivea", preco: 30, precoFmt: "R$ 30,00", isMIP: false, foto: "/a.webp" },
+        { nome: "HIDRATANTE B", lab: "Nivea", preco: 10, precoFmt: "R$ 10,00", isMIP: false, foto: null },
+        { nome: "HIDRATANTE A", lab: "Nivea", preco: 10, precoFmt: "R$ 10,00", isMIP: false, foto: null },
+      ],
+    },
+    {
+      categoria: "Higiene",
+      id: "higiene",
+      itens: [
+        { nome: "LISTERINE COOL MINT", lab: "Listerine", preco: 18, precoFmt: "R$ 18,00", isMIP: false, foto: null },
+        { nome: "SABONETE", lab: "Dove", preco: 8, precoFmt: "R$ 8,00", isMIP: false, foto: null },
+        { nome: "LIMITE QUINZE", lab: "Dove", preco: 15, precoFmt: "R$ 15,00", isMIP: false, foto: null },
+        { nome: "LIMITE VINTE E CINCO", lab: "Dove", preco: 25, precoFmt: "R$ 25,00", isMIP: false, foto: null },
+      ],
+    },
+  ];
+
+  assert.deepEqual(BUSCAS_POPULARES, ["nivea", "listerine", "protetor solar"]);
+  assert.deepEqual(FAIXAS_PRECO.map((faixa) => faixa.label), ["Até R$ 15", "R$ 15 a 25", "Acima de R$ 25"]);
+  assert.equal(faixaDoPreco(15), "ate_15");
+  assert.equal(faixaDoPreco(15.01), "de_15_a_25");
+  assert.equal(faixaDoPreco(25), "de_15_a_25");
+  assert.equal(faixaDoPreco(25.01), "acima_25");
+
+  const recomendados = aplicarCatalogo(grupos, { ordem: "recomendados" });
+  assert.deepEqual(recomendados[0].itens.map((item) => item.nome), ["PROT SOLAR NIVEA FPS 50", "HIDRATANTE B", "HIDRATANTE A"]);
+
+  const menor = aplicarCatalogo(grupos, { ordem: "menor_preco" }).flatMap((grupo) => grupo.itens);
+  assert.deepEqual(menor.map((item) => item.preco), [8, 10, 10, 15, 18, 25, 30]);
+  assert.deepEqual(
+    menor.filter((item) => item.preco === 10).map((item) => item.nome),
+    ["HIDRATANTE A", "HIDRATANTE B"],
+  );
+  assert.deepEqual(aplicarCatalogo(grupos, { ordem: "maior_preco" }).flatMap((grupo) => grupo.itens).map((item) => item.preco), [30, 25, 18, 15, 10, 10, 8]);
+
+  assert.deepEqual(aplicarCatalogo(grupos, { categorias: ["Higiene"] }).map((grupo) => grupo.categoria), ["Higiene"]);
+  assert.ok(aplicarCatalogo(grupos, { marcas: ["nivea"] }).flatMap((grupo) => grupo.itens).every((item) => item.lab === "Nivea"));
+  assert.deepEqual(
+    aplicarCatalogo(grupos, { faixas: ["ate_15"] }).flatMap((grupo) => grupo.itens).map((item) => item.preco).sort((a, b) => a - b),
+    [8, 10, 10, 15],
+  );
+  assert.equal(contarItens(aplicarCatalogo(grupos, { consulta: "nivea", marcas: ["Nivea"], faixas: ["ate_15"] })), 2);
+  assert.equal(contarItens(aplicarCatalogo(grupos, { consulta: "listerine", categorias: ["Pele e proteção solar"] })), 0);
+  assert.equal(contarFiltrosAtivos({ categorias: ["Higiene"], marcas: [], faixas: ["ate_15", "acima_25"] }), 3);
+
+  const semNumero = aplicarCatalogo(
+    [{ categoria: "Higiene", id: "higiene", itens: [{ nome: "BARATO", lab: "Dove", precoFmt: "R$ 1.234,50", isMIP: false, foto: null }] }],
+    { ordem: "menor_preco", faixas: ["acima_25"] },
+  );
+  assert.equal(semNumero[0].itens[0].nome, "BARATO");
+
+  assert.equal(sugerirProdutos(grupos, "n").length, 0);
+  assert.deepEqual(sugerirProdutos(grupos, "nivea").map((item) => item.nome), ["PROT SOLAR NIVEA FPS 50", "HIDRATANTE B", "HIDRATANTE A"]);
+  const ids = identificarItens([{ ...grupos[0], itens: [grupos[0].itens[0], { ...grupos[0].itens[0] }] }]);
+  assert.equal(ids[0].itens[0].id, "prot-solar-nivea-fps-50");
+  assert.equal(ids[0].itens[1].id, "prot-solar-nivea-fps-50-2");
+});
+
+test("analytics do filtro: só contagens, sem texto, categoria ou marca", async () => {
+  const { eventoFiltro, eventoBusca } = await import("../app/nacoes-unidas/produtos/busca.ts");
+  assert.equal(eventoFiltro({ categorias: [], marcas: [], faixas: [] }, 4), null);
+  const evento = eventoFiltro({ categorias: ["Medicamentos isentos de prescrição"], marcas: ["Nivea"], faixas: ["ate_15"] }, 2);
+  assert.equal(evento.event, "catalog_filter");
+  assert.deepEqual(evento.params, { source: "produtos_nacoes", unit: "nacoes", categories: 1, brands: 1, ranges: 1, results: 2 });
+  assert.equal(eventoBusca("dipirona", 1).event, "catalog_search");
+  assert.doesNotMatch(JSON.stringify(evento), /nivea|dipirona|medicamento|ate_15/i);
+});
+
+test("busca da Nações: sugestões, filtro e ordenação no componente, lista completa no primeiro render", async () => {
+  const [lista, css, pagina, busca] = await Promise.all([
+    read("app/nacoes-unidas/produtos/CatalogoLista.tsx"),
+    read("app/nacoes-unidas/produtos/produtos.css"),
+    read("app/nacoes-unidas/produtos/page.tsx"),
+    read("app/nacoes-unidas/produtos/busca.ts"),
+  ]);
+  assert.match(pagina, /preco: item\.preco/);
+  assert.match(lista, /useState\(""\)/);
+  assert.match(lista, /BUSCAS_POPULARES/);
+  assert.match(lista, /Buscas populares/);
+  assert.match(lista, /1º/);
+  assert.match(lista, /catalogo-sugestao-foto/);
+  assert.match(lista, /Não encontramos “/);
+  assert.match(lista, /Confira a digitação, use termos mais amplos ou navegue pelas categorias\./);
+  assert.match(lista, /Perguntar à loja pelo WhatsApp/);
+  assert.match(lista, /aria-pressed=\{ordem === opcao\.id\}/);
+  assert.match(busca, /label: "Recomendados"/);
+  assert.match(busca, /label: "Menor preço"/);
+  assert.match(busca, /label: "Maior preço"/);
+  assert.match(busca, /BUSCAS_POPULARES = \["nivea", "listerine", "protetor solar"\]/);
+  assert.match(lista, /aria-modal="true"/);
+  assert.match(lista, /eventoFiltro/);
+  assert.match(lista, /data-track-source="produtos_nacoes_busca_vazia"/);
+  assert.doesNotMatch(lista, /trackEvent\([^)]*(consulta|nome|lab)/);
+  assert.match(css, /\.catalogo-sugestao-foto \{[^}]*width: 44px;/);
+  assert.match(css, /\.catalogo-filtro-opcao input \{[^}]*width: 48px;/);
+  assert.match(css, /\.catalogo-filtro-rodape \{[^}]*height: 68px;/);
+  assert.match(css, /min-height: 44px/);
+});
+
