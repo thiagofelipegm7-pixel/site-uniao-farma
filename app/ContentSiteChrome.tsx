@@ -5,6 +5,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import BrandLogo from "./BrandLogo";
+import BrandStrip from "./BrandStrip";
 
 type ContentPath = "/ofertas" | "/novidades" | "/receita";
 
@@ -116,6 +117,7 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
     : null;
 
   return (
+    <>
     <header className="content-header" data-content-path={activePath}>
       <nav className="content-nav" aria-label="Menu principal">
         <a className="brand" href="/" onClick={() => setMenuOpen(false)}>
@@ -148,6 +150,8 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
       </nav>
       {mobileMenu}
     </header>
+    <BrandStrip />
+    </>
   );
 }
 

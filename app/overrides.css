@@ -493,4 +493,38 @@ h3 {
     text-decoration: none;
   }
 }
+/* --- brand-strip: faixa do lema com selo de coração --- */
+.brand-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  min-height: 2.5rem;
+  padding: 0.25rem var(--vw-gutter) !important;
+  background: var(--uf-panel);
+}
+
+.brand-strip-heart {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.625rem;
+  height: 1.625rem;
+  border-radius: 50%;
+  color: #ffffff;
+  background: radial-gradient(circle at 30% 28%, #ed756c, #c53131 55%, #972524);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+.brand-strip-pill {
+  border-radius: 999px;
+  padding: 0.25rem 0.875rem !important; /* a camada base (* { padding: 0 }) vem depois e anularia */
+  color: #ffffff;
+  background: var(--uf-pill);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
 }

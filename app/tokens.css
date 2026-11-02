@@ -16,6 +16,8 @@
   --uf-gold: #1a8f86;
   --uf-green-text: #14736b; /* verde para TEXTO: 5,67:1 sobre branco (o verde-marca #1a8f86 dá 3,94:1) */
   --uf-gold-ink: #14736b;
+  --uf-panel: #31a89d; /* painel verde-água das faixas e ofertas: tinta escura passa 5,1:1 */
+  --uf-pill: #050d0c; /* pílula do lema */
   --uf-offer: #d94641;
 
   --uf-paper: #f1fbfa;

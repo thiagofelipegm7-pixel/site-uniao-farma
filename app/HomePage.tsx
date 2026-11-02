@@ -12,6 +12,7 @@ import UnitSelectorModal from "./UnitSelectorModal";
 import { HomeSections } from "./home-sections";
 import UnitsShowcase from "./UnitsShowcase";
 import BrandLogo from "./BrandLogo";
+import BrandStrip from "./BrandStrip";
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -83,6 +84,7 @@ export default function HomePage() {
           </a>
         </nav>
       </header>
+      <BrandStrip />
       <section className="hero hero-home reveal is-visible" id="inicio" aria-labelledby="hero-title">
         <div className="hero-inner">
           <div className="hero-copy">
