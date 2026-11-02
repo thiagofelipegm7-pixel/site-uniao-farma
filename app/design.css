@@ -1,7 +1,7 @@
 /*
  * DESIGN.md — implementação do sistema visual.
  * Camada "design" declarada primeiro em tokens.css: os !important daqui vencem os estilos legados.
- * Consolidar/remover CSS legado fica como trabalho futuro (ver PR).
+ * Use os tokens do @theme (globals.css); o CSS legado foi enxugado em nov/2026 (ver CONTRIBUTING.md).
  */
 @layer design {
   /* ---------- Base ---------- */

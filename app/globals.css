@@ -3375,3 +3375,505 @@ body { background: var(--health-paper); }
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ==========================================================================
+   Componentes sem camada (antes no fim de components.css)
+   ========================================================================== */
+
+/* Tabela de horários — /farmacia-aberta-domingo-sabara */
+
+.hours-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 16px; }
+
+.hours-table { width: 100%; background: var(--uf-card); color: var(--uf-ink); border: 1px solid var(--uf-line); border-radius: 12px; overflow: hidden; }
+
+.hours-table th, .hours-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--uf-line); vertical-align: top; }
+
+.hours-table thead th { background: var(--uf-fog); font-size: 0.9rem; }
+
+.hours-table tbody th a { color: var(--uf-green-dark); }
+
+.hours-table td a { color: var(--uf-green); font-weight: 600; white-space: nowrap; }
+
+.hours-table .unit-status-open { color: var(--uf-open); }
+
+.hours-table .unit-status-closed { color: var(--uf-closed); }
+
+@media (max-width: 720px) {
+  .hours-table, .hours-table tbody, .hours-table tr, .hours-table th, .hours-table td { display: block; width: 100%; }
+  .hours-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .hours-table { border: 0; background: transparent; }
+  .hours-table tbody tr { background: var(--uf-card); border: 1px solid var(--uf-line); border-radius: 12px; margin-bottom: 12px; padding: 4px 0; }
+  .hours-table tbody th { font-size: 1.1rem; }
+  .hours-table td { display: flex; justify-content: space-between; gap: 12px; border-bottom: 0; padding: 8px 14px; }
+  .hours-table td::before { content: attr(data-label); font-weight: 700; color: var(--uf-muted); }
+}
+
+
+/* ==========================================================================
+   Acessibilidade: skip-link, foco e leitura no celular (antes a11y.css)
+   ========================================================================== */
+
+/* Acessibilidade movel e leitura — entra por ultimo. */
+.skip-link {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  z-index: 8000;
+  padding: 0.7rem 1rem;
+  border-radius: 12px;
+  font-weight: 800;
+  transform: translateY(-160%);
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 3px solid #f7fcfa;
+  outline-offset: 2px;
+}
+
+.open-status.is-hours {
+  background: #d7efe4;
+  color: #0b6244;
+}
+
+.unit-store-wa,
+.whatsapp-fab,
+.header-cta,
+.content-header-cta,
+.offer-consult-choose,
+.direct-unit-actions a,
+.modal-unit-action {
+  color: #ffffff;
+}
+
+@media (max-width: 860px) {
+  .open-now-strip {
+    display: none !important;
+  }
+
+  main#conteudo {
+    padding-top: calc(4.75rem + env(safe-area-inset-top)) !important;
+    padding-bottom: calc(8.5rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  .hero,
+  .hero-home,
+  .offers-page,
+  .recipe-page,
+  .neighborhood-page {
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  .hero,
+  .hero-home {
+    padding-top: 0.85rem !important;
+  }
+
+  .hero-copy .eyebrow {
+    display: block !important;
+  }
+
+  body {
+    font-size: 17px !important;
+    line-height: 1.45 !important;
+    padding-bottom: calc(8.5rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  .hero-copy .eyebrow,
+  .section-kicker,
+  .unit-store-hood,
+  .offer-consult-brand,
+  .breadcrumb,
+  .brand small {
+    font-size: 14px !important;
+    letter-spacing: 0.04em;
+  }
+
+  .hero-copy h1,
+  .hero-home .hero-copy h1 {
+    max-width: none !important;
+  }
+
+  .hero-lead,
+  .unit-store-addr,
+  .unit-store-hours,
+  .unit-store-more,
+  .offer-consult-body p,
+  .recipe-lead,
+  .offers-hero-lead {
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+  }
+
+  .units-showcase-grid {
+    padding: 0 1.5rem 0.6rem !important;
+    scroll-padding-inline: 1.5rem !important;
+  }
+
+  .unit-store-card,
+  .unit-store-card:first-child,
+  .unit-store-card:last-child {
+    width: calc(100vw - 3rem) !important;
+    max-width: calc(100vw - 3rem) !important;
+    scroll-snap-align: start !important;
+    scroll-snap-stop: always !important;
+    scroll-margin-inline: 1.5rem !important;
+  }
+
+  .offer-consult-grid,
+  .home-reasons-offers {
+    gap: 0.8rem !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory !important;
+    scroll-padding-inline: 1.5rem !important;
+    padding: 0 1.5rem 0.7rem !important;
+  }
+
+  .offer-consult-card,
+  .home-offer-card,
+  .home-offer-card:nth-child(n + 3) {
+    width: calc(100vw - 3rem) !important;
+    max-width: calc(100vw - 3rem) !important;
+    grid-template-columns: none !important;
+    scroll-snap-align: start !important;
+  }
+
+  .offer-consult-image {
+    min-height: 240px !important;
+    border-right: 0 !important;
+  }
+
+  a,
+  button,
+  .unit-store-wa,
+  .unit-store-map,
+  .offer-consult-choose,
+  .direct-unit-actions a,
+  .header-cta,
+  .content-header-cta,
+  .modal-close,
+  .modal-unit-option {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  .cookie-banner a {
+    display: inline-flex;
+    align-items: center;
+    padding-inline: 0.25rem;
+  }
+
+  .unit-store-actions {
+    min-width: 0 !important;
+  }
+
+  .unit-store-wa,
+  .unit-store-map,
+  .offer-consult-choose,
+  .direct-unit-actions a {
+    max-width: 100% !important;
+  }
+
+  .hero-home,
+  .hero-home .hero-inner {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
+
+/* ==========================================================================
+   Ajustes visuais finais (antes visual-quality.css, ux-fixes.css e visual-fixes.css)
+   ========================================================================== */
+
+/* União Farma — passo visual 2026-09-15. Não altera regra comercial. */
+
+body {
+  color: var(--uf-ink);
+}
+
+.site-header,
+.content-header {
+  min-height: 4.25rem;
+}
+
+.hero-home {
+  padding-top: 1.25rem !important;
+  padding-bottom: 0.4rem !important;
+}
+
+.hero-home .hero-inner {
+  flex-direction: column !important;
+}
+
+.hero-home .hero-copy {
+  max-width: 36rem !important;
+}
+
+.hero-home .hero-lead {
+  line-height: 1.45 !important;
+  font-weight: 400 !important;
+}
+
+.hero .units-showcase-head {
+  margin-bottom: 0.75rem;
+}
+
+.unit-store-hood {
+  letter-spacing: 0.02em !important;
+  text-transform: none !important;
+}
+
+.unit-store-addr,
+.unit-store-hours,
+.open-status {
+  line-height: 1.45 !important;
+}
+
+.unit-store-wa,
+.unit-store-map,
+.offer-consult-choose,
+.home-offer-cta,
+.direct-unit-actions a {
+  white-space: nowrap !important;
+}
+
+.offer-consult-image img,
+.home-offer-photo img {
+  background: #f3faf8;
+}
+
+.content-nav-links a[aria-current="page"],
+.menu-links a[aria-current="page"],
+.content-side-nav a[aria-current="page"] {
+  text-underline-offset: 0.28em;
+}
+
+.site-header .header-cta,
+.content-header-cta {
+  border-radius: 999px;
+}
+
+:focus-visible {
+  outline: 3px solid #0b5f4c;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media (max-width: 859px) {
+
+  .units-showcase-grid,
+  .offer-consult-grid,
+  .home-reasons-offers {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+    scroll-padding-inline: 1.25rem !important;
+  }
+
+  .unit-store-card,
+  .offer-consult-card,
+  .home-offer-card {
+    width: min(20.5rem, calc(100vw - 2.5rem)) !important;
+    max-width: min(20.5rem, calc(100vw - 2.5rem)) !important;
+  }
+}
+
+/* Carregado por último: correções de UX/contraste (PR melhorias/ux-performance). */
+a.button.button-group-offers,
+a.button.button-group-offers:visited {
+  background: #187d68 !important;
+  color: #ffffff !important;
+  border-color: #187d68 !important;
+}
+a.button.button-group-offers:hover,
+a.button.button-group-offers:focus-visible {
+  background: #12604f !important;
+  color: #ffffff !important;
+}
+.offers-group-inline {
+  margin: 1rem 0;
+}
+.unit-map-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  padding: 1.5rem;
+  background: #f1fbfa;
+  border: 1px solid #b7d0c6;
+  border-radius: 16px;
+  text-align: center;
+  color: #16382f;
+}
+.unit-map-placeholder .unit-map-placeholder-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+}
+
+/* PR visual: correções da avaliação visual de 25/10/2026 */
+
+/* (5) Títulos em Poppins (fonte da marca) */
+:root {
+  --font-display: var(--font-brand), "Poppins", Arial, sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.01em;
+}
+
+/* (3) Blocos das lojas: sem esmaecer; animação só se o usuário aceita movimento */
+.neighborhood-grid article,
+.unit-map,
+.neighborhood-photo {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .neighborhood-grid article,
+  .unit-map,
+  .neighborhood-photo {
+    animation: uf-fade-in 0.35s ease-out both !important;
+  }
+}
+
+@keyframes uf-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.neighborhood-page .store-about {
+  margin-top: 2rem !important;
+}
+
+/* (4) Cards "O que consultar": sem espaço vazio, link verde */
+.category-card {
+  min-height: 0 !important;
+  gap: 0.4rem !important;
+}
+
+.category-card p {
+  margin-bottom: 0.5rem !important;
+}
+
+.category-link,
+.category-card .category-link {
+  color: #187d68 !important;
+  text-decoration-color: #187d68 !important;
+  margin-top: auto;
+}
+
+/* (1) + (5) Home desktop: título em largura cheia e cards das lojas com espaço */
+@media (min-width: 861px) {
+  .hero-home {
+    display: block !important;
+  }
+
+  .hero-home .hero-copy {
+    width: 100% !important;
+  }
+
+  .hero-home .units-showcase {
+    margin: 1.25rem auto 0 !important;
+  }
+
+  .unit-store-card .unit-store-actions a,
+  .unit-store-card .unit-store-wa {
+    white-space: normal !important;
+    max-width: 100% !important;
+  }
+}
+
+/* (6) Mobile: barra WhatsApp da loja acima da navegação inferior, sem cobrir conteúdo */
+@media (max-width: 860px) {
+  a.whatsapp-fab.whatsapp-fab-unit {
+    display: flex !important;
+    height: 50px !important;
+    bottom: calc(92px + env(safe-area-inset-bottom)) !important;
+    border-radius: 14px !important;
+  }
+
+  main#conteudo {
+    padding-bottom: calc(100px + env(safe-area-inset-bottom));
+  }
+}
+
+/* Barra fixa da loja: escondida enquanto o botão da página está visível */
+a.whatsapp-fab.whatsapp-fab-unit.is-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: translateY(12px);
+}
+
+a.whatsapp-fab.whatsapp-fab-unit {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a.whatsapp-fab.whatsapp-fab-unit {
+    transition: none;
+  }
+}
+
+/* Links "Outras lojas": alvo de toque >= 24px */
+.neighborhood-page section ul li { margin-block: 0.35rem; }
+.neighborhood-page section ul li > a { padding-block: 0.2rem; }
+
+/* Páginas de loja no desktop: foto e título lado a lado, nada atrás do cabeçalho */
+@media (min-width: 60rem) {
+  .neighborhood-page .neighborhood-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    align-items: center;
+  }
+  .neighborhood-page .neighborhood-hero > .neighborhood-photo {
+    grid-row: 1 / span 20;
+    max-height: 32rem;
+  }
+}
+
+/* Receita no desktop: cards das lojas na largura toda, selo sem quebrar */
+@media (min-width: 60rem) {
+  .recipe-hero .hero-inner > .direct-unit-links { grid-column: 1 / -1; }
+  .recipe-hero .direct-unit-links-grid { width: 100% !important; }
+  .recipe-hero .direct-unit-link .open-status { white-space: nowrap; }
+  .recipe-hero .direct-unit-link .button { white-space: nowrap; }
+}
+
+/* Receita no mobile: coluna cabe na tela, sem vazio no topo */
+@media (max-width: 59.99rem) {
+  .recipe-hero .hero-inner > * { min-width: 0; max-width: 100%; }
+  .recipe-hero .direct-unit-links-grid { flex-direction: column !important; width: 100% !important; gap: 0.75rem !important; }
+  .recipe-hero .direct-unit-links-grid > .direct-unit-link { flex: none !important; }
+  .recipe-hero .recipe-steps { width: 100% !important; }
+}
+
+/* Receita: alinhamento final dos cartões */
+@media (max-width: 59.99rem) {
+  .recipe-hero .direct-unit-link .button { width: 100% !important; justify-content: center; }
+}
+@media (min-width: 60rem) {
+  .recipe-hero .recipe-note { grid-column: 1 / -1; max-width: 40rem; }
+}
