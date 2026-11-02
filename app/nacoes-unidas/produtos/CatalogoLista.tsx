@@ -244,7 +244,6 @@ export default function CatalogoLista({ grupos, whatsappHref, unitId, consultaIn
               const centavos = precoParaCentavos(item.precoFmt);
               return (
                 <li key={item.id ?? item.nome} id={indice === 0 && ordem === "recomendados" ? g.id : undefined} className="catalogo-item catalogo-card">
-                  <p className="selo-sem-receita-simples">Sem receita</p>
                   <a className="catalogo-card-foto" href={href} aria-label={`Ver ${nome}`}>
                     {item.foto ? <img src={item.foto} alt="" width="120" height="120" loading="lazy" decoding="async" /> : <span aria-hidden="true" />}
                   </a>

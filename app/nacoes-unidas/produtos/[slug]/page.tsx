@@ -4,8 +4,8 @@ import { notFound } from "next/navigation";
 import { ContentSiteFooter } from "../../../ContentSiteChrome";
 import ShopTopo from "../../../shop/ShopTopo";
 import { SITE_URL, UNITS } from "../../../site-config";
-import { IconSelo, IconSetaDireita } from "../../../reserva/ReservaIcons";
-import { acharPorSlug, fetchCatalogoNacoes, formatBRL, slugify } from "../catalogo";
+import { IconSetaDireita } from "../../../reserva/ReservaIcons";
+import { acharPorSlug, carregarCatalogoNacoes, formatBRL, slugify } from "../catalogo";
 import { fotoDoProduto } from "../imagens";
 import ProdutoAcoes from "../ProdutoAcoes";
 import ProdutoBarra from "../ProdutoBarra";
@@ -21,7 +21,7 @@ type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const catalogo = await fetchCatalogoNacoes();
+  const catalogo = carregarCatalogoNacoes();
   const item = catalogo ? acharPorSlug(catalogo.itens, slug) : null;
   const titulo = item ? `${item.nome} | União Farma Nações Unidas` : "Produto | União Farma Nações Unidas";
   const descricao = item ? descricaoMetadata(item.nome) : "Produto da União Farma Nações Unidas, em Sabará.";
@@ -36,7 +36,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProdutoNacoesPage({ params }: Props) {
   const { slug } = await params;
-  const catalogo = await fetchCatalogoNacoes();
+  const catalogo = carregarCatalogoNacoes();
   const item = catalogo ? acharPorSlug(catalogo.itens, slug) : null;
   if (!item) notFound();
 
@@ -84,10 +84,6 @@ export default async function ProdutoNacoesPage({ params }: Props) {
         </div>
 
         <article className="produto-card section-inner">
-          <p className="produto-selo">
-            <IconSelo size={18} />
-            Sem receita
-          </p>
           <h1>{nomeExibido}</h1>
           {textos.descricao ? <p className="produto-descricao">{textos.descricao}</p> : null}
           <div className="produto-marca-linha">

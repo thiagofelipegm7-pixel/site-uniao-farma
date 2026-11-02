@@ -785,3 +785,72 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
     }
   }
 }
+
+/* Listas de preços de medicamentos com receita e controlados: sem cesta, sem oferta, sem destaque. */
+.catalogo-nacoes .restrito-selo {
+  display: inline-block;
+  margin: 0 0 6px;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--teal-deep, #0b4f55);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.catalogo-nacoes .restrito-ficha {
+  display: grid;
+  gap: 2px;
+  margin: 6px 0 0;
+  font-size: 0.875rem;
+}
+
+.catalogo-nacoes .restrito-ficha div {
+  display: flex;
+  gap: 6px;
+}
+
+.catalogo-nacoes .restrito-ficha dt {
+  color: var(--muted);
+}
+
+.catalogo-nacoes .restrito-ficha dt::after {
+  content: ":";
+}
+
+.catalogo-nacoes .restrito-ficha dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+.catalogo-nacoes .restrito-aviso {
+  margin: 8px 0 0;
+  color: var(--coral-dark);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.catalogo-nacoes .restrito-ilustrativa {
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.catalogo-nacoes .restrito-paginas {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: var(--space-5, 1.5rem) 0;
+  min-height: 44px;
+}
+
+.catalogo-nacoes .restrito-paginas a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  font-weight: 700;
+}
