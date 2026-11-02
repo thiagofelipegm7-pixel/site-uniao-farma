@@ -84,7 +84,7 @@
 
 .catalogo-nacoes .catalogo-preco {
   flex: none;
-  color: var(--teal-deep);
+  color: var(--color-ink);
   font-size: 1.125rem;
   font-weight: 800;
   white-space: nowrap;
@@ -610,7 +610,7 @@
 
 .produto-preco {
   margin: 12px 0 4px;
-  color: var(--uf-ink);
+  color: var(--color-ink);
   font-size: 1.5rem;
   font-weight: 700;
   line-height: 1.25;
@@ -743,7 +743,7 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
   }
   .produto-preco {
     margin: 12px 0 4px !important;
-    color: var(--uf-ink) !important;
+    color: var(--color-ink) !important;
     font-size: 1.5rem !important;
     font-weight: 700 !important;
     line-height: 1.25 !important;

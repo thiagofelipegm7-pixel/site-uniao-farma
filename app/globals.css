@@ -56,9 +56,9 @@
 
   --container-site: 75rem;
 
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
+  --radius-sm: 2px; /* etiqueta */
+  --radius-md: 6px; /* botão */
+  --radius-lg: 8px; /* cartão */
   --radius-xl: 1.5rem;
   --radius-pill: 999px;
 

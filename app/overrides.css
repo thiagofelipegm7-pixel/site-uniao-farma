@@ -755,7 +755,7 @@ h3 {
   gap: 0.75rem;
   min-width: 0;
   padding: 0.75rem !important;
-  border-radius: 12px;
+  border-radius: var(--r-lg);
   background: #ffffff;
   color: var(--uf-ink);
 }
@@ -867,6 +867,11 @@ h3 {
   }
   @media (min-width: 48rem) {
     .semana-painel h2 { font-size: 2.75rem !important; }
+  }
+  .semana-preco {
+    background: transparent !important;
+    color: var(--color-ink) !important;
+    padding: 0 !important;
   }
 }
 
