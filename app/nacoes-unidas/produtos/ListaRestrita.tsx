@@ -6,10 +6,13 @@ import { buildWhatsAppUrl, getHoursSentence, UNITS } from "../../site-config";
 import { formatBRL, formatDataDosDados } from "./catalogo";
 import {
   carregarRestritos,
+  COMO_COMPRAR,
+  COMO_COMPRAR_CONSULTE,
   filtrarRestritos,
   IMAGEM_GENERICA,
   NOTA_IMAGEM,
   paginar,
+  ROTULO_TARJA,
   SELO_CONTROLADO,
   type ItemRestrito,
   type TipoRestrito,
@@ -21,24 +24,40 @@ const nacoes = UNITS.find((unit) => unit.id === "nacoes")!;
 export type ParamsLista = { q?: string | string[]; pagina?: string | string[] };
 const primeiro = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) ?? "";
 
-const TEXTOS: Record<TipoRestrito, { titulo: string; h1: string; intro: string; rota: string; vazio: string; outra: { href: string; rotulo: string } }> = {
+type Link = { href: string; rotulo: string };
+const LINKS: Record<TipoRestrito, Link> = {
+  receita: { href: "/nacoes-unidas/produtos/receita", rotulo: "Ver medicamentos com receita" },
+  controlados: { href: "/nacoes-unidas/produtos/controlados", rotulo: "Ver medicamentos controlados" },
+  consulte: { href: "/nacoes-unidas/produtos/consulte-o-farmaceutico", rotulo: "Ver itens para consultar o farmacêutico" },
+};
+
+const TEXTOS: Record<TipoRestrito, { titulo: string; h1: string; intro: string; rota: string; vazio: string; caminho: string }> = {
   receita: {
     titulo: "Medicamentos com receita: lista de preços | União Farma Nações Unidas",
     h1: "Medicamentos com receita: lista de preços",
     intro:
-      "Lista de preços informativa dos medicamentos de venda sob prescrição médica da loja Nações Unidas. Não há venda online nem cesta: a compra é feita no balcão, com a receita.",
+      "Lista de preços informativa dos medicamentos de venda sob prescrição médica da loja Nações Unidas. Não há venda online nem cesta: a compra é feita na loja ou combinada pelo WhatsApp, sempre com a receita.",
     rota: "/nacoes-unidas/produtos/receita",
     vazio: "Nenhum medicamento encontrado nesta lista.",
-    outra: { href: "/nacoes-unidas/produtos/controlados", rotulo: "Ver medicamentos controlados" },
+    caminho: "Com receita",
   },
   controlados: {
     titulo: "Medicamentos controlados: lista de preços | União Farma Nações Unidas",
     h1: "Medicamentos controlados: lista de preços",
     intro:
-      "Lista de preços informativa dos medicamentos controlados (Portaria SVS/MS 344/98) da loja Nações Unidas. Não há venda online nem cesta: a compra é feita no balcão, com a receita retida pela farmácia.",
+      "Lista de preços informativa dos medicamentos controlados (Portaria SVS/MS 344/98) da loja Nações Unidas. Não há venda online nem cesta: a compra é feita na loja ou combinada pelo WhatsApp, com a receita retida pela farmácia.",
     rota: "/nacoes-unidas/produtos/controlados",
     vazio: "Nenhum medicamento controlado encontrado nesta lista.",
-    outra: { href: "/nacoes-unidas/produtos/receita", rotulo: "Ver medicamentos com receita" },
+    caminho: "Controlados",
+  },
+  consulte: {
+    titulo: "Consulte o farmacêutico: lista de preços | União Farma Nações Unidas",
+    h1: "Consulte o farmacêutico: lista de preços",
+    intro:
+      "Itens da loja Nações Unidas cujo enquadramento (com ou sem receita) ainda está sendo confirmado. Os preços são informativos. Não há venda online nem cesta: antes de comprar, converse com o farmacêutico na loja ou pelo WhatsApp.",
+    rota: "/nacoes-unidas/produtos/consulte-o-farmaceutico",
+    vazio: "Nenhum item encontrado nesta lista.",
+    caminho: "Consulte o farmacêutico",
   },
 };
 
@@ -52,13 +71,17 @@ export function metadadosRestrita(tipo: TipoRestrito) {
   };
 }
 
+const maiuscula = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
+
 function Cartao({ item }: { item: ItemRestrito }) {
   const ficha: Array<[string, string]> = [];
-  if (item.ativo) ficha.push(["Princípio ativo", item.ativo]);
+  if (item.ativo) ficha.push(["Princípio ativo", maiuscula(item.ativo)]);
   if (item.lab.trim()) ficha.push(["Fabricante", item.lab.trim()]);
   if (item.concentracao) ficha.push(["Concentração", item.concentracao]);
   if (item.apresentacao) ficha.push(["Apresentação", item.apresentacao]);
-  if (item.rms) ficha.push(["RMS", item.rms]);
+  if (item.rms) ficha.push(["Registro MS (RMS)", item.rms]);
+  if (item.tarja) ficha.push(["Tarja", ROTULO_TARJA[item.tarja]]);
+  if (item.tipo !== "consulte") ficha.push(["Retenção da receita", item.retencao === true ? "Sim" : item.retencao === false ? "Não" : "Confirmar com o farmacêutico"]);
   return (
     <li className={`catalogo-item restrito-item${item.controlado ? " restrito-controlado" : ""}`} data-tipo={item.tipo}>
       <img className="catalogo-foto" src={IMAGEM_GENERICA} alt="Imagem meramente ilustrativa de embalagem de medicamento" width={80} height={80} loading="lazy" decoding="async" />
@@ -76,6 +99,19 @@ function Cartao({ item }: { item: ItemRestrito }) {
           </dl>
         ) : null}
         <p className="restrito-aviso">{item.aviso}</p>
+        <p className="restrito-compra">
+          {item.tipo === "consulte" ? COMO_COMPRAR_CONSULTE : COMO_COMPRAR}{" "}
+          <a
+            href={buildWhatsAppUrl(nacoes, `Oi, União Farma Nações Unidas! Quero consultar: ${item.nome}.`, { campaign: "produtos_nacoes", content: `nacoes_${item.tipo}_item` })}
+            target="_blank"
+            rel="noreferrer"
+            data-track-event="whatsapp_click"
+            data-track-unit={nacoes.id}
+            data-track-source={`produtos_nacoes_${item.tipo}_item`}
+          >
+            Perguntar pelo WhatsApp
+          </a>
+        </p>
         <p className="restrito-ilustrativa">{NOTA_IMAGEM}</p>
       </div>
       <p className="catalogo-preco">{item.preco !== null ? formatBRL(item.preco) : "Consultar"}</p>
@@ -87,7 +123,7 @@ export default function ListaRestrita({ tipo, params }: { tipo: TipoRestrito; pa
   const t = TEXTOS[tipo];
   const consulta = primeiro(params.q).slice(0, 80);
   const dados = carregarRestritos();
-  const todos = tipo === "receita" ? dados.receita : dados.controlados;
+  const todos = dados[tipo];
   const filtrados = filtrarRestritos(todos, consulta);
   const pag = paginar(filtrados, Number(primeiro(params.pagina)));
   const data = formatDataDosDados(dados.geradoEm);
@@ -102,7 +138,7 @@ export default function ListaRestrita({ tipo, params }: { tipo: TipoRestrito; pa
       <ShopTopo />
       <div className="unit-page landing-page catalogo-nacoes catalogo-loja restrito-pagina">
         <nav className="catalogo-caminho section-inner" aria-label="Breadcrumb">
-          <a href="/">União Farma</a> / <a href="/nacoes-unidas/produtos">Produtos</a> / <span>{tipo === "receita" ? "Com receita" : "Controlados"}</span>
+          <a href="/">União Farma</a> / <a href="/nacoes-unidas/produtos">Produtos</a> / <span>{t.caminho}</span>
         </nav>
         <h1 className="catalogo-titulo section-inner">{t.h1}</h1>
         <div className="section-inner">
@@ -124,7 +160,14 @@ export default function ListaRestrita({ tipo, params }: { tipo: TipoRestrito; pa
           </form>
           <p className="catalogo-contagem" aria-live="polite">
             {filtrados.length} {filtrados.length === 1 ? "item" : "itens"}
-            {consulta ? ` para “${consulta}”` : ""}. <a href={t.outra.href}>{t.outra.rotulo}</a> · <a href="/nacoes-unidas/produtos">Voltar aos produtos sem receita</a>
+            {consulta ? ` para “${consulta}”` : ""}. {(Object.keys(LINKS) as TipoRestrito[])
+              .filter((k) => k !== tipo)
+              .map((k) => (
+                <span key={k}>
+                  <a href={LINKS[k].href}>{LINKS[k].rotulo}</a> ·{" "}
+                </span>
+              ))}
+            <a href="/nacoes-unidas/produtos">Voltar aos produtos sem receita</a>
           </p>
           {pag.itens.length === 0 ? (
             <p className="catalogo-vazio">{t.vazio}</p>
