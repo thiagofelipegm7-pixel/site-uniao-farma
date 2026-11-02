@@ -1,6 +1,9 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
 import type { Metadata } from "next";
-import { ContentSiteFooter, ContentSiteHeader } from "../../ContentSiteChrome";
+import { ContentSiteFooter } from "../../ContentSiteChrome";
+import { IconSetaDireita } from "../../reserva/ReservaIcons";
+import BarraReserva from "../../shop/BarraReserva";
+import ShopTopo from "../../shop/ShopTopo";
 import { COMPANY } from "../../company";
 import type { FaqItem } from "../../seo-content";
 import { buildWhatsAppUrl, getHoursSentence, SITE_URL, UNITS } from "../../site-config";
@@ -66,7 +69,6 @@ export default async function ProdutosNacoesPage({ searchParams }: { searchParam
   const structuredData = getPageStructuredData({
     name: TITLE,
     url: PAGE_URL,
-    faqs,
     units: [nacoes],
     breadcrumbs: [
       { name: "Início", url: `${SITE_URL}/` },
@@ -78,102 +80,50 @@ export default async function ProdutosNacoesPage({ searchParams }: { searchParam
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
-      <ContentSiteHeader activePath="/ofertas" />
-      <div className="unit-page landing-page catalogo-nacoes">
-        <nav className="breadcrumb section-inner" aria-label="Breadcrumb">
-          <a href="/">Início</a>
-          <span aria-hidden="true">/</span>
-          <a href={getUnitPublicPath(nacoes)}>Nações Unidas</a>
-          <span aria-hidden="true">/</span>
+      <ShopTopo consultaInicial={consultaInicial} />
+      <div className="unit-page landing-page catalogo-nacoes catalogo-loja">
+        <nav className="catalogo-caminho section-inner" aria-label="Breadcrumb">
+          <a href="/">União Farma</a>
+          <IconSetaDireita size={12} />
           <span>Produtos sem receita</span>
         </nav>
-
-        <section className="unit-page-hero">
-          <div className="section-inner unit-page-hero-grid">
-            <div>
-              <p className="section-kicker light">Loja Nações Unidas</p>
-              <h1>{HEADING}</h1>
-              <p className="unit-page-address">
-                Seleção de produtos que não exigem receita, com o preço do sistema da loja na {nacoes.street}.
-                {atualizadoEm ? ` Atualizado em ${atualizadoEm}.` : ""}
-              </p>
-              <div className="ifood-actions">
-                <a
-                  className="button button-whatsapp"
-                  href={whatsappHref}
-                  target="_blank"
-                  rel="noreferrer"
-                  data-track-event="whatsapp_click"
-                  data-track-unit={nacoes.id}
-                  data-track-source="produtos_nacoes_hero"
-                >
-                  Confirmar no WhatsApp
-                </a>
-              </div>
-              <p className="unit-page-note">Preço e disponibilidade valem para a confirmação do dia, no WhatsApp da loja.</p>
-            </div>
-            <div className="unit-page-logo-card">
-              <img src="/uniao-farma-logo.webp" alt="Logo da União Farma" width="150" height="150" />
-              <strong>Nações Unidas, Sabará</strong>
-            </div>
-          </div>
-        </section>
-
-        <section className="section" aria-labelledby="lista">
-          <div className="section-inner">
-            <h2 id="lista">Lista de produtos</h2>
-            {grupos.length === 0 ? (
-              <p>
-                A lista não está disponível agora. Chame a loja no{" "}
-                <a href={whatsappHref} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={nacoes.id} data-track-source="produtos_nacoes_indisponivel">
-                  WhatsApp {nacoes.whatsapp}
-                </a>{" "}
-                e pergunte pelo produto. {getHoursSentence(nacoes)}
-              </p>
-            ) : (
-              <CatalogoLista
-                consultaInicial={consultaInicial}
-                grupos={grupos.map((g) => ({
-                  categoria: g.categoria,
-                  id: slugify(g.categoria),
-                  itens: g.itens.map((item) => ({ nome: item.nome, lab: item.lab, isMIP: item.isMIP, preco: item.preco, precoFmt: formatBRL(item.preco), foto: fotoDoProduto(item.nome) })),
-                }))}
-                whatsappHref={whatsappHref}
-                unitId={nacoes.id}
-              />
-            )}
-          </div>
-        </section>
-
-        <section className="section" aria-labelledby="avisos">
-          <div className="section-inner">
+        <h1 className="catalogo-titulo section-inner">Produtos sem receita</h1>
+        <div className="section-inner" id="lista">
+          {grupos.length === 0 ? (
+            <p className="catalogo-vazio">
+              A lista não está disponível agora. Chame a loja no{" "}
+              <a href={whatsappHref} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={nacoes.id} data-track-source="produtos_nacoes_indisponivel">
+                WhatsApp {nacoes.whatsapp}
+              </a>{" "}
+              e pergunte pelo produto. {getHoursSentence(nacoes)}
+            </p>
+          ) : (
+            <CatalogoLista
+              consultaInicial={consultaInicial}
+              grupos={grupos.map((g) => ({
+                categoria: g.categoria,
+                id: slugify(g.categoria),
+                itens: g.itens.map((item) => ({ nome: item.nome, lab: item.lab, isMIP: item.isMIP, precoFmt: formatBRL(item.preco), preco: item.preco, foto: fotoDoProduto(item.nome) })),
+              }))}
+              whatsappHref={whatsappHref}
+              unitId={nacoes.id}
+            />
+          )}
+          <p className="catalogo-nota">
+            Preços do sistema da loja Nações Unidas{atualizadoEm ? `, atualizados em ${atualizadoEm}` : ""}. A loja confirma preço e estoque pelo WhatsApp antes da separação. Aqui só itens sem receita: medicamentos isentos de prescrição (MIPs), higiene e dermocosméticos. Leia a bula. Em caso de dúvida, procure o farmacêutico.
+          </p>
+          <section className="catalogo-avisos" aria-labelledby="avisos">
             <h2 id="avisos">Avisos importantes</h2>
             <div className="catalogo-aviso">
               {COMPANY.anvisaWarnings.map((warning) => (
                 <p key={warning}>{warning}</p>
               ))}
             </div>
-            <p>
-              Veja também a página da <a href={getUnitPublicPath(nacoes)}>loja Nações Unidas</a>. Os preços vêm do sistema da loja.
-            </p>
-          </div>
-        </section>
-
-        <section className="section unit-faq-section" aria-labelledby="faq">
-          <div className="section-inner">
-            <h2 id="faq">Perguntas frequentes</h2>
-            <div className="unit-faq-list">
-              {faqs.map((faq) => (
-                <details key={faq.q} className="unit-faq-item" open>
-                  <summary>{faq.q}</summary>
-                  <p>{faq.a}</p>
-                </details>
-              ))}
-            </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </div>
       <ContentSiteFooter />
+      <BarraReserva />
     </>
   );
 }

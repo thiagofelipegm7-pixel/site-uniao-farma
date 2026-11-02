@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ContentSiteFooter, ContentSiteHeader } from "../../../ContentSiteChrome";
+import { ContentSiteFooter } from "../../../ContentSiteChrome";
+import ShopTopo from "../../../shop/ShopTopo";
 import { SITE_URL, UNITS } from "../../../site-config";
-import { IconSelo } from "../../../reserva/ReservaIcons";
+import { IconSelo, IconSetaDireita } from "../../../reserva/ReservaIcons";
 import { acharPorSlug, fetchCatalogoNacoes, formatBRL, slugify } from "../catalogo";
 import { fotoDoProduto } from "../imagens";
 import ProdutoBarra from "../ProdutoBarra";
@@ -58,13 +59,13 @@ export default async function ProdutoNacoesPage({ params }: Props) {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <ContentSiteHeader activePath="/ofertas" />
+      <ShopTopo />
       <div className="unit-page landing-page catalogo-nacoes produto-pagina">
-        <nav className="breadcrumb section-inner produto-caminho" aria-label="Breadcrumb">
+        <nav className="catalogo-caminho section-inner produto-caminho" aria-label="Breadcrumb">
           <a href="/">União Farma</a>
-          <span aria-hidden="true">/</span>
+          <IconSetaDireita size={12} />
           <a href={`/nacoes-unidas/produtos#${slugify(item.categoria)}`}>{item.categoria}</a>
-          <span aria-hidden="true">/</span>
+          <IconSetaDireita size={12} />
           <span>{item.nome}</span>
         </nav>
 

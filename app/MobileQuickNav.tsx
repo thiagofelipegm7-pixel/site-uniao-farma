@@ -3,24 +3,31 @@
 import { usePathname } from "next/navigation";
 import { buildWhatsAppUrl, getUnitBySlug, UNITS, type Unit } from "./site-config";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
+import { IconCasa, IconCategorias, IconLoja, IconSacola } from "./reserva/ReservaIcons";
 
 type Slot = {
   key: string;
   href: string;
   label: string;
   ariaLabel?: string;
-  icon: "lojas" | "ofertas" | "receita" | "mapa" | "ligar" | "whatsapp";
+  icon: "lojas" | "ofertas" | "receita" | "mapa" | "ligar" | "whatsapp" | "inicio" | "categorias" | "reserva" | "loja";
   primary?: boolean;
   external?: boolean;
 };
 
 function findUnit(pathname: string): Unit | undefined {
+  // /nacoes-unidas/produtos é a loja virtual (barra de compra), não a página institucional da loja.
+  if (pathname.startsWith("/nacoes-unidas/produtos")) return undefined;
   const slug = pathname.replace(/^\//, "").split("/")[0];
   if (!slug) return undefined;
   return UNITS.find((item) => item.id === slug || item.slug === slug) || getUnitBySlug(slug);
 }
 
 function Icon({ name }: { name: Slot["icon"] }) {
+  if (name === "inicio") return <IconCasa size={24} />;
+  if (name === "categorias") return <IconCategorias size={24} />;
+  if (name === "reserva") return <IconSacola size={24} />;
+  if (name === "loja") return <IconLoja size={24} />;
   if (name === "whatsapp") return <img src="/whatsapp-icon.svg" alt="" width="22" height="22" />;
   if (name === "ofertas") return <img src="/icons/nav/oferta.svg" alt="" width="22" height="22" />;
   if (name === "lojas") return <img src="/icons/nav/lojas.svg" alt="" width="22" height="22" />;
@@ -59,24 +66,20 @@ function slotsFor(pathname: string): Slot[] {
     ];
   }
 
-  const onOffers = pathname.startsWith("/ofertas");
-  const onRecipe = pathname.startsWith("/receita");
-  const whatsappHref = onOffers ? "#ofertas-whatsapp" : onRecipe ? "#receita-whatsapp" : pathname === "/" ? "#unidades-rapidas" : "/#unidades-rapidas";
-
+  // Páginas de compra: Início, Categorias, Reserva e Lojas (como no protótipo). O WhatsApp fica no botão flutuante.
   return [
-    { key: "lojas", href: pathname === "/" ? "#unidades-rapidas" : "/#unidades-rapidas", label: "Lojas", icon: "lojas" },
-    {
-      key: "whatsapp",
-      href: whatsappHref,
-      label: "WhatsApp",
-      ariaLabel: "WhatsApp: escolher a loja",
-      icon: "whatsapp",
-      primary: true,
-    },
-    onOffers
-      ? { key: "receita", href: "/receita", label: "Receita", icon: "receita" }
-      : { key: "ofertas", href: "/ofertas", label: "Ofertas", icon: "ofertas" },
+    { key: "inicio", href: "/", label: "Início", icon: "inicio" },
+    { key: "categorias", href: "/nacoes-unidas/produtos", label: "Categorias", icon: "categorias" },
+    { key: "reserva", href: "/reserva", label: "Reserva", icon: "reserva" },
+    { key: "loja", href: pathname === "/" ? "#unidades-rapidas" : "/#unidades-rapidas", label: "Lojas", icon: "loja" },
   ];
+}
+
+function ativo(slot: Slot, pathname: string): boolean {
+  if (slot.key === "inicio") return pathname === "/";
+  if (slot.key === "categorias") return pathname.startsWith("/nacoes-unidas/produtos");
+  if (slot.key === "reserva") return pathname.startsWith("/reserva");
+  return false;
 }
 
 export default function MobileQuickNav() {
@@ -85,13 +88,14 @@ export default function MobileQuickNav() {
 
   return (
     <nav className="mobile-quick-nav" aria-label="Ações rápidas">
-      <div className="mobile-quick-nav-inner">
+      <div className={slots.length === 4 ? "mobile-quick-nav-inner is-shop" : "mobile-quick-nav-inner"}>
         {slots.map((slot) => (
           <a
             key={slot.key}
             href={slot.href}
             className={slot.primary ? "mqn-primary" : undefined}
             aria-label={slot.ariaLabel}
+            aria-current={ativo(slot, pathname) ? "page" : undefined}
             {...(slot.external ? { target: "_blank", rel: "noreferrer" } : {})}
           >
             <span className="mqn-icon">

@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos mantêm a navegação estável no Vinext em produção. */
 import type { Metadata } from "next";
-import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
+import { ContentSiteFooter } from "../ContentSiteChrome";
+import ShopTopo from "../shop/ShopTopo";
 import ReservaPagina from "./ReservaPagina";
 import { FarmaceuticoCard } from "../visual-fase2";
 
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
 export default function ReservaRota() {
   return (
     <>
-      <ContentSiteHeader activePath="/ofertas" />
+      <ShopTopo />
       <main className="reserva-pagina" id="conteudo">
         <div className="section-inner">
           <ReservaPagina />

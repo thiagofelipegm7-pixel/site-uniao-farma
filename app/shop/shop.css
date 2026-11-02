@@ -322,3 +322,139 @@
     .shop-destaques h2, .shop-passos h2, .seo-intro h2 { font-size: 2rem !important; }
   }
 }
+
+/* =====================================================================
+   Páginas de compra (catálogo, produto): caminho em uma linha, grade de 2 colunas, barra de reserva
+   ===================================================================== */
+.catalogo-caminho {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 0.375rem;
+  padding-top: 0.75rem;
+  overflow: hidden;
+  color: var(--uf-ink);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+.catalogo-caminho a { color: var(--uf-ink); text-decoration: underline; text-underline-offset: 0.15em; }
+.catalogo-caminho svg { flex: none; color: var(--uf-muted); }
+.catalogo-caminho span { min-width: 0; overflow: hidden; text-overflow: ellipsis; color: #3e4b49; }
+.catalogo-titulo { margin: 0.5rem auto 0.75rem; }
+
+/* Busca do catálogo no formato do protótipo: rótulo só para leitor de tela, campo de 44px, cantos de 6px. */
+.catalogo-loja .catalogo-busca label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.catalogo-loja .catalogo-busca-campo input { height: 2.75rem; border: 1px solid #6b8b86; border-radius: 6px; background: #ffffff; font-size: 0.875rem; }
+
+.catalogo-loja .catalogo-barra { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 0.25rem; }
+.catalogo-loja .catalogo-barra button { flex: none; }
+.catalogo-contagem { margin: 0 0 0.75rem; color: #3e4b49; font-size: 0.875rem; }
+
+.catalogo-loja .catalogo-grupo > h3 { margin: 1rem 0 0.5rem; }
+.catalogo-nacoes .catalogo-lista {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.catalogo-nacoes .catalogo-item.catalogo-card {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: stretch;
+  gap: 0;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0.75rem;
+  border: 1.5px solid #d3e2df;
+  border-radius: 8px;
+  background: #ffffff;
+}
+.catalogo-card .selo-sem-receita { align-self: flex-start; margin-bottom: 0.5rem; }
+.catalogo-card-foto { display: flex; align-items: center; justify-content: center; width: 80%; aspect-ratio: 1 / 1; margin: 0 auto; }
+.catalogo-card-foto img { width: 100%; height: 100%; object-fit: contain; }
+.catalogo-card-foto span { width: 100%; height: 100%; border-radius: 6px; background: #f2f6f5; }
+.catalogo-card h4 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 2.125rem;
+  margin: 0.75rem 0;
+  text-align: center;
+}
+.catalogo-card h4 a { min-height: 0; color: #3e4b49; text-decoration: none; }
+.catalogo-card .catalogo-mip { margin: 0 0 0.5rem; font-size: 0.75rem; line-height: 1.4; color: var(--uf-muted); }
+.catalogo-card .catalogo-preco { margin: 0 0 0.75rem; color: var(--uf-ink); font-size: 0.9375rem; font-weight: 700; text-align: center; white-space: nowrap; }
+.catalogo-card .reservar-mais, .catalogo-card .reservar-contador { width: 100%; box-sizing: border-box; margin-top: auto; }
+.catalogo-loja .catalogo-perguntar { margin-top: 1.25rem; }
+.catalogo-nota { margin: 1rem 0 1.25rem; color: #3e4b49; font-size: 0.75rem; line-height: 1.5; }
+
+/* Barra fixa "Ver minha reserva · N itens" */
+.barra-reserva {
+  position: fixed;
+  right: 0;
+  bottom: calc(4.5rem + env(safe-area-inset-bottom));
+  left: 0;
+  z-index: 4100;
+  box-sizing: border-box;
+  padding: 0.75rem 1.25rem;
+  background: #ffffff;
+  box-shadow: 0 -1px 0 #d3e2df, 0 -8px 24px rgba(17, 17, 17, 0.06);
+}
+.barra-reserva a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.625rem;
+  min-height: 3.25rem;
+  border-radius: 6px;
+  background: var(--uf-action);
+  color: var(--uf-action-ink);
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.barra-reserva p { margin: 0.5rem 0 0; color: #3e4b49; font-size: 0.75rem; line-height: 1.3; text-align: center; }
+body.cookie-banner-visible .barra-reserva { bottom: calc(14.25rem + env(safe-area-inset-bottom)); }
+body:has(.barra-reserva) { padding-bottom: calc(10.5rem + env(safe-area-inset-bottom)); }
+
+/* Barra inferior do celular (Início, Categorias, Reserva, Lojas) */
+.mobile-quick-nav a[aria-current="page"] { color: var(--uf-ink); font-weight: 700; }
+.mobile-quick-nav a[aria-current="page"] .mqn-icon { color: var(--uf-ink); }
+
+@media (min-width: 64rem) {
+  .catalogo-nacoes .catalogo-lista { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
+  .barra-reserva { bottom: 0; }
+  body.cookie-banner-visible .barra-reserva { bottom: 5rem; }
+  body:has(.barra-reserva) { padding-bottom: 7rem; }
+}
+
+@layer design {
+  .mobile-quick-nav .mobile-quick-nav-inner.is-shop { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  .mobile-quick-nav .mobile-quick-nav-inner.is-shop a { color: var(--uf-ink) !important; }
+  .mobile-quick-nav .mobile-quick-nav-inner.is-shop .mqn-icon { color: var(--uf-ink) !important; }
+  .catalogo-titulo { margin: 0.5rem auto 0.75rem !important; color: var(--uf-ink) !important; font-size: 1.5rem !important; font-weight: 700 !important; line-height: 1.25 !important; text-align: left !important; }
+  .catalogo-loja .catalogo-grupo > h3 { color: var(--uf-ink) !important; font-size: 1.125rem !important; font-weight: 700 !important; }
+  .catalogo-card h4 { margin: 0.75rem 0 !important; color: #3e4b49 !important; font-size: 0.875rem !important; font-weight: 400 !important; line-height: 1.2 !important; text-align: center !important; }
+  .produto-pagina .catalogo-caminho.produto-caminho { flex-wrap: nowrap !important; }
+  .catalogo-caminho { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center !important; gap: 0.375rem !important; }
+}
+
+.catalogo-avisos { margin-top: 1rem; }
+.catalogo-avisos .catalogo-aviso p { margin: 0 0 0.5rem; color: #3e4b49; font-size: 0.75rem; line-height: 1.5; }
+@layer design { .catalogo-avisos h2 { margin: 0 0 0.5rem !important; color: var(--uf-ink) !important; font-size: 1rem !important; font-weight: 700 !important; line-height: 1.3 !important; } }
+
+/* Caminho: links e setas não encolhem (a regra de toque dá largura mínima fixa e eles se sobrepunham); só o último item corta com reticências. */
+@layer design {
+  .catalogo-caminho a { flex: none !important; display: inline-flex !important; align-items: center !important; justify-content: flex-start !important; min-width: 0 !important; min-height: 2.75rem !important; padding: 0 !important; }
+  .catalogo-caminho svg { flex: none !important; }
+  .catalogo-caminho span { flex: 0 1 auto !important; min-width: 0 !important; }
+}
+.catalogo-caminho { padding-top: 0; padding-bottom: 0; }
+.catalogo-nacoes.catalogo-loja .catalogo-busca-campo input { height: 2.75rem; border: 1px solid #6b8b86; border-radius: 6px; padding: 0 2.75rem 0 0.875rem; }
+
+/* O respiro de 68px do .unit-page compensava o cabeçalho antigo; o cabeçalho de loja já ocupa o seu espaço. */
+.unit-page.catalogo-loja, .unit-page.produto-pagina { padding-top: 0.5rem; }
