@@ -1,4 +1,10 @@
-/** Catálogo público da loja Nações Unidas (Worker dmaster-catalogo): só seleção sem receita, sem estoque. */
+import catalogoEstatico from "./dados/catalogo-nacoes.json" with { type: "json" };
+
+/**
+ * Catálogo público da loja Nações Unidas. Fonte atual: JSON estático do repositório (export do DMaster de 31/10/2026,
+ * gerado por ops/catalogo-nacoes/gerar.py, sem estoque, sem código de barras e sem tokens).
+ * O Worker dmaster-catalogo continua disponível em fetchCatalogoNacoes, mas não é mais a fonte das páginas.
+ */
 export const CATALOGO_NACOES_URL =
   process.env.CATALOGO_NACOES_URL?.trim() || "https://dmaster-catalogo.thiagofelipegm7.workers.dev/loja/nacoes.json";
 
@@ -78,4 +84,25 @@ export function acharPorSlug(itens: readonly CatalogoItem[], slug: string): Cata
   }
   const normal = slugify(alvo);
   return itens.find((item) => slugify(item.nome) === normal) ?? null;
+}
+
+/** Catálogo estático (sem receita) já filtrado: só itens com nome e preço válidos. Sem rede, sem token. */
+export function carregarCatalogoNacoes(): Catalogo {
+  const bruto = catalogoEstatico as unknown as Partial<Catalogo>;
+  const itens = (Array.isArray(bruto.itens) ? bruto.itens : [])
+    .filter(isItem)
+    .map((i) => ({ nome: i.nome, lab: typeof i.lab === "string" ? i.lab : "", categoria: i.categoria, preco: i.preco, isMIP: i.isMIP === true }));
+  return { loja: "nacoes", geradoEm: typeof bruto.geradoEm === "string" ? bruto.geradoEm : undefined, total: itens.length, itens };
+}
+
+/** "2026-10-31T20:00:04" → "31/10/2026 às 20:00". */
+export function formatGeradoEm(value: string | undefined): string | null {
+  const m = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/.exec(value ?? "");
+  return m ? `${m[3]}/${m[2]}/${m[1]} às ${m[4]}:${m[5]}` : null;
+}
+
+/** "2026-10-31T20:00:04" → "31/10/2026". */
+export function formatDataDosDados(value: string | undefined): string | null {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(value ?? "");
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : null;
 }

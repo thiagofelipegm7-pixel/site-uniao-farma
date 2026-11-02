@@ -1,0 +1,830 @@
+{
+ "aviso": "Termos normalizados (maiúsculas, sem acento), casados no início de palavra. Lista simplificada da Portaria 344/98 e atualizações; 'duvida' = ativos que podem ser controlados conforme concentração/forma. Revisão do farmacêutico responsável obrigatória.",
+ "termos": [
+  {
+   "termo": "OPIO",
+   "lista": "A1"
+  },
+  {
+   "termo": "MORFINA",
+   "lista": "A1"
+  },
+  {
+   "termo": "METADONA",
+   "lista": "A1"
+  },
+  {
+   "termo": "FENTANIL",
+   "lista": "A1"
+  },
+  {
+   "termo": "FENTANILA",
+   "lista": "A1"
+  },
+  {
+   "termo": "MEPERIDINA",
+   "lista": "A1"
+  },
+  {
+   "termo": "PETIDINA",
+   "lista": "A1"
+  },
+  {
+   "termo": "OXICODONA",
+   "lista": "A1"
+  },
+  {
+   "termo": "HIDROMORFONA",
+   "lista": "A1"
+  },
+  {
+   "termo": "TAPENTADOL",
+   "lista": "A1"
+  },
+  {
+   "termo": "REMIFENTANIL",
+   "lista": "A1"
+  },
+  {
+   "termo": "SUFENTANIL",
+   "lista": "A1"
+  },
+  {
+   "termo": "ALFENTANIL",
+   "lista": "A1"
+  },
+  {
+   "termo": "BUPRENORFINA",
+   "lista": "A1"
+  },
+  {
+   "termo": "NALBUFINA",
+   "lista": "A1"
+  },
+  {
+   "termo": "COCAINA",
+   "lista": "A1"
+  },
+  {
+   "termo": "HEROINA",
+   "lista": "A1"
+  },
+  {
+   "termo": "LEVORFANOL",
+   "lista": "A1"
+  },
+  {
+   "termo": "DEXTROPROPOXIFENO",
+   "lista": "A1"
+  },
+  {
+   "termo": "PENTAZOCINA",
+   "lista": "A1"
+  },
+  {
+   "termo": "CODEINA",
+   "lista": "A2"
+  },
+  {
+   "termo": "DIIDROCODEINA",
+   "lista": "A2"
+  },
+  {
+   "termo": "DI-HIDROCODEINA",
+   "lista": "A2"
+  },
+  {
+   "termo": "ETILMORFINA",
+   "lista": "A2"
+  },
+  {
+   "termo": "TRAMADOL",
+   "lista": "A2"
+  },
+  {
+   "termo": "DIFENOXILATO",
+   "lista": "A2"
+  },
+  {
+   "termo": "ANFETAMINA",
+   "lista": "A3"
+  },
+  {
+   "termo": "DEXANFETAMINA",
+   "lista": "A3"
+  },
+  {
+   "termo": "LISDEXANFETAMINA",
+   "lista": "A3"
+  },
+  {
+   "termo": "METANFETAMINA",
+   "lista": "A3"
+  },
+  {
+   "termo": "METILFENIDATO",
+   "lista": "A3"
+  },
+  {
+   "termo": "MODAFINILA",
+   "lista": "A3"
+  },
+  {
+   "termo": "MODAFINIL",
+   "lista": "A3"
+  },
+  {
+   "termo": "ARMODAFINILA",
+   "lista": "A3"
+  },
+  {
+   "termo": "CETAMINA",
+   "lista": "A3"
+  },
+  {
+   "termo": "FENCICLIDINA",
+   "lista": "A3"
+  },
+  {
+   "termo": "ALPRAZOLAM",
+   "lista": "B1"
+  },
+  {
+   "termo": "BROMAZEPAN",
+   "lista": "B1"
+  },
+  {
+   "termo": "BROMAZEPAM",
+   "lista": "B1"
+  },
+  {
+   "termo": "CLOBAZAM",
+   "lista": "B1"
+  },
+  {
+   "termo": "CLONAZEPAM",
+   "lista": "B1"
+  },
+  {
+   "termo": "CLORAZEPATO",
+   "lista": "B1"
+  },
+  {
+   "termo": "DIAZEPAM",
+   "lista": "B1"
+  },
+  {
+   "termo": "ESTAZOLAM",
+   "lista": "B1"
+  },
+  {
+   "termo": "FLURAZEPAM",
+   "lista": "B1"
+  },
+  {
+   "termo": "FLUNITRAZEPAM",
+   "lista": "B1"
+  },
+  {
+   "termo": "LORAZEPAM",
+   "lista": "B1"
+  },
+  {
+   "termo": "MIDAZOLAM",
+   "lista": "B1"
+  },
+  {
+   "termo": "NITRAZEPAM",
+   "lista": "B1"
+  },
+  {
+   "termo": "OXAZEPAM",
+   "lista": "B1"
+  },
+  {
+   "termo": "TRIAZOLAM",
+   "lista": "B1"
+  },
+  {
+   "termo": "LORMETAZEPAM",
+   "lista": "B1"
+  },
+  {
+   "termo": "CLORDIAZEPOXIDO",
+   "lista": "B1"
+  },
+  {
+   "termo": "CLOXAZOLAM",
+   "lista": "B1"
+  },
+  {
+   "termo": "CETAZOLAM",
+   "lista": "B1"
+  },
+  {
+   "termo": "PRAZEPAM",
+   "lista": "B1"
+  },
+  {
+   "termo": "ZOLPIDEM",
+   "lista": "B1"
+  },
+  {
+   "termo": "ZOPICLONA",
+   "lista": "B1"
+  },
+  {
+   "termo": "ESZOPICLONA",
+   "lista": "B1"
+  },
+  {
+   "termo": "ZALEPLON",
+   "lista": "B1"
+  },
+  {
+   "termo": "FENOBARBITAL",
+   "lista": "B1"
+  },
+  {
+   "termo": "PRIMIDONA",
+   "lista": "B1"
+  },
+  {
+   "termo": "BUTALBITAL",
+   "lista": "B1"
+  },
+  {
+   "termo": "PENTOBARBITAL",
+   "lista": "B1"
+  },
+  {
+   "termo": "TIOPENTAL",
+   "lista": "B1"
+  },
+  {
+   "termo": "MEPROBAMATO",
+   "lista": "B1"
+  },
+  {
+   "termo": "ANFEPRAMONA",
+   "lista": "B2"
+  },
+  {
+   "termo": "DIETILPROPIONA",
+   "lista": "B2"
+  },
+  {
+   "termo": "FEMPROPOREX",
+   "lista": "B2"
+  },
+  {
+   "termo": "MAZINDOL",
+   "lista": "B2"
+  },
+  {
+   "termo": "SIBUTRAMINA",
+   "lista": "B2"
+  },
+  {
+   "termo": "AMITRIPTILINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "NORTRIPTILINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "IMIPRAMINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "CLOMIPRAMINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "DESIPRAMINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "AMOXAPINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "MAPROTILINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "FLUOXETINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "PAROXETINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "SERTRALINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "CITALOPRAM",
+   "lista": "C1"
+  },
+  {
+   "termo": "ESCITALOPRAM",
+   "lista": "C1"
+  },
+  {
+   "termo": "FLUVOXAMINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "VENLAFAXINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "DESVENLAFAXINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "DULOXETINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "MIRTAZAPINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "BUPROPIONA",
+   "lista": "C1"
+  },
+  {
+   "termo": "TRAZODONA",
+   "lista": "C1"
+  },
+  {
+   "termo": "MOCLOBEMIDA",
+   "lista": "C1"
+  },
+  {
+   "termo": "TRANILCIPROMINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "REBOXETINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "VORTIOXETINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "AGOMELATINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "NEFAZODONA",
+   "lista": "C1"
+  },
+  {
+   "termo": "VILAZODONA",
+   "lista": "C1"
+  },
+  {
+   "termo": "CLORPROMAZINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "HALOPERIDOL",
+   "lista": "C1"
+  },
+  {
+   "termo": "LEVOMEPROMAZINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "TIORIDAZINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "TRIFLUOPERAZINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "PERFENAZINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "FLUFENAZINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "PIMOZIDA",
+   "lista": "C1"
+  },
+  {
+   "termo": "SULPIRIDA",
+   "lista": "C1"
+  },
+  {
+   "termo": "AMISSULPRIDA",
+   "lista": "C1"
+  },
+  {
+   "termo": "RISPERIDONA",
+   "lista": "C1"
+  },
+  {
+   "termo": "OLANZAPINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "QUETIAPINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "ZIPRASIDONA",
+   "lista": "C1"
+  },
+  {
+   "termo": "ARIPIPRAZOL",
+   "lista": "C1"
+  },
+  {
+   "termo": "CLOZAPINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "PALIPERIDONA",
+   "lista": "C1"
+  },
+  {
+   "termo": "LURASIDONA",
+   "lista": "C1"
+  },
+  {
+   "termo": "PERICIAZINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "ZUCLOPENTIXOL",
+   "lista": "C1"
+  },
+  {
+   "termo": "FLUPENTIXOL",
+   "lista": "C1"
+  },
+  {
+   "termo": "CARBAMAZEPINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "PREGABALINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "LITIO",
+   "lista": "C1"
+  },
+  {
+   "termo": "BIPERIDENO",
+   "lista": "C1"
+  },
+  {
+   "termo": "TRIEXIFENIDIL",
+   "lista": "C1"
+  },
+  {
+   "termo": "ATOMOXETINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "PROPOFOL",
+   "lista": "C1"
+  },
+  {
+   "termo": "TETRABENAZINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "DEXMEDETOMIDINA",
+   "lista": "C1"
+  },
+  {
+   "termo": "ISOTRETINOINA",
+   "lista": "C2"
+  },
+  {
+   "termo": "ACITRETINA",
+   "lista": "C2"
+  },
+  {
+   "termo": "TALIDOMIDA",
+   "lista": "C3"
+  },
+  {
+   "termo": "LENALIDOMIDA",
+   "lista": "C3"
+  },
+  {
+   "termo": "ZIDOVUDINA",
+   "lista": "C4"
+  },
+  {
+   "termo": "LAMIVUDINA",
+   "lista": "C4"
+  },
+  {
+   "termo": "TENOFOVIR",
+   "lista": "C4"
+  },
+  {
+   "termo": "EFAVIRENZ",
+   "lista": "C4"
+  },
+  {
+   "termo": "DOLUTEGRAVIR",
+   "lista": "C4"
+  },
+  {
+   "termo": "ATAZANAVIR",
+   "lista": "C4"
+  },
+  {
+   "termo": "RITONAVIR",
+   "lista": "C4"
+  },
+  {
+   "termo": "LOPINAVIR",
+   "lista": "C4"
+  },
+  {
+   "termo": "RALTEGRAVIR",
+   "lista": "C4"
+  },
+  {
+   "termo": "ABACAVIR",
+   "lista": "C4"
+  },
+  {
+   "termo": "NEVIRAPINA",
+   "lista": "C4"
+  },
+  {
+   "termo": "DARUNAVIR",
+   "lista": "C4"
+  },
+  {
+   "termo": "EMTRICITABINA",
+   "lista": "C4"
+  },
+  {
+   "termo": "OXANDROLONA",
+   "lista": "C5"
+  },
+  {
+   "termo": "NANDROLONA",
+   "lista": "C5"
+  },
+  {
+   "termo": "TESTOSTERONA",
+   "lista": "C5"
+  },
+  {
+   "termo": "ESTANOZOLOL",
+   "lista": "C5"
+  },
+  {
+   "termo": "MESTEROLONA",
+   "lista": "C5"
+  },
+  {
+   "termo": "METILTESTOSTERONA",
+   "lista": "C5"
+  },
+  {
+   "termo": "OXIMETOLONA",
+   "lista": "C5"
+  },
+  {
+   "termo": "GESTRINONA",
+   "lista": "C5"
+  },
+  {
+   "termo": "DROSTANOLONA",
+   "lista": "C5"
+  },
+  {
+   "termo": "BOLDENONA",
+   "lista": "C5"
+  },
+  {
+   "termo": "EFEDRINA",
+   "lista": "D1"
+  },
+  {
+   "termo": "PSEUDOEFEDRINA",
+   "lista": "D1"
+  },
+  {
+   "termo": "ERGOTAMINA",
+   "lista": "D1"
+  },
+  {
+   "termo": "ERGOMETRINA",
+   "lista": "D1"
+  },
+  {
+   "termo": "CANABIDIOL",
+   "lista": "E/F"
+  },
+  {
+   "termo": "CANNABIS",
+   "lista": "E/F"
+  },
+  {
+   "termo": "MACONHA",
+   "lista": "E/F"
+  },
+  {
+   "termo": "TOPIRAMATO",
+   "lista": "duvida"
+  },
+  {
+   "termo": "GABAPENTINA",
+   "lista": "duvida"
+  },
+  {
+   "termo": "AMANTADINA",
+   "lista": "duvida"
+  },
+  {
+   "termo": "CARISOPRODOL",
+   "lista": "duvida"
+  },
+  {
+   "termo": "LAMOTRIGINA",
+   "lista": "duvida"
+  },
+  {
+   "termo": "LEVETIRACETAM",
+   "lista": "duvida"
+  },
+  {
+   "termo": "VALPROICO",
+   "lista": "duvida"
+  },
+  {
+   "termo": "VALPROATO",
+   "lista": "duvida"
+  },
+  {
+   "termo": "OXCARBAZEPINA",
+   "lista": "duvida"
+  },
+  {
+   "termo": "FENITOINA",
+   "lista": "duvida"
+  },
+  {
+   "termo": "CLONIDINA",
+   "lista": "duvida"
+  },
+  {
+   "termo": "MEMANTINA",
+   "lista": "duvida"
+  },
+  {
+   "termo": "PAREGORICO",
+   "lista": "A2"
+  },
+  {
+   "termo": "TANDRILAX",
+   "lista": "duvida"
+  },
+  {
+   "termo": "TORSILAX",
+   "lista": "duvida"
+  },
+  {
+   "termo": "TANDRIFLAN",
+   "lista": "duvida"
+  },
+  {
+   "termo": "MIOSAN CAF",
+   "lista": "duvida"
+  }
+ ],
+ "marcas": [
+  {
+   "termo": "RIVOTRIL",
+   "ativo": "clonazepam",
+   "lista": "B1"
+  },
+  {
+   "termo": "FRONTAL",
+   "ativo": "alprazolam",
+   "lista": "B1"
+  },
+  {
+   "termo": "LEXOTAN",
+   "ativo": "bromazepam",
+   "lista": "B1"
+  },
+  {
+   "termo": "VALIUM",
+   "ativo": "diazepam",
+   "lista": "B1"
+  },
+  {
+   "termo": "STILNOX",
+   "ativo": "zolpidem",
+   "lista": "B1"
+  },
+  {
+   "termo": "RITALINA",
+   "ativo": "metilfenidato",
+   "lista": "A3"
+  },
+  {
+   "termo": "CONCERTA",
+   "ativo": "metilfenidato",
+   "lista": "A3"
+  },
+  {
+   "termo": "VENVANSE",
+   "ativo": "lisdexanfetamina",
+   "lista": "A3"
+  },
+  {
+   "termo": "TRAMAL",
+   "ativo": "tramadol",
+   "lista": "A2"
+  },
+  {
+   "termo": "TYLEX",
+   "ativo": "paracetamol + fosfato de codeína",
+   "lista": "A2"
+  },
+  {
+   "termo": "CODEX",
+   "ativo": "paracetamol + fosfato de codeína",
+   "lista": "A2"
+  },
+  {
+   "termo": "PACO",
+   "ativo": "paracetamol + fosfato de codeína",
+   "lista": "A2"
+  },
+  {
+   "termo": "AMPLICTIL",
+   "ativo": "clorpromazina",
+   "lista": "C1"
+  },
+  {
+   "termo": "HALDOL",
+   "ativo": "haloperidol",
+   "lista": "C1"
+  },
+  {
+   "termo": "NEULEPTIL",
+   "ativo": "periciazina",
+   "lista": "C1"
+  },
+  {
+   "termo": "NEOZINE",
+   "ativo": "levomepromazina",
+   "lista": "C1"
+  },
+  {
+   "termo": "PAMELOR",
+   "ativo": "nortriptilina",
+   "lista": "C1"
+  },
+  {
+   "termo": "ATENTAH",
+   "ativo": "atomoxetina",
+   "lista": "C1"
+  },
+  {
+   "termo": "GARDENAL",
+   "ativo": "fenobarbital",
+   "lista": "B1"
+  },
+  {
+   "termo": "ARTANE",
+   "ativo": "triexifenidila",
+   "lista": "C1"
+  },
+  {
+   "termo": "IMIPRA",
+   "ativo": "imipramina",
+   "lista": "C1"
+  },
+  {
+   "termo": "AMYTRIL",
+   "ativo": "amitriptilina",
+   "lista": "C1"
+  }
+ ],
+ "etiquetas": "(?<![A-Z0-9])(A1|A2|A3|B1|B2|C1|C2|C3|C4|C5)(?![A-Z0-9])"
+}

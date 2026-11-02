@@ -1,12 +1,12 @@
 import { nomeDeExibicao } from "../../nome-exibicao";
-import { fetchCatalogoNacoes, slugify } from "../../nacoes-unidas/produtos/catalogo";
+import { carregarCatalogoNacoes, slugify } from "../../nacoes-unidas/produtos/catalogo";
 import { fotoDoProduto } from "../../nacoes-unidas/produtos/imagens";
 
 export const dynamic = "force-dynamic";
 
 /** Destaques da home: até 6 itens do catálogo da Nações, preferindo os que têm foto. Preço sempre do dia (cache de 5 min). */
 export async function GET() {
-  const catalogo = await fetchCatalogoNacoes();
+  const catalogo = carregarCatalogoNacoes();
   const itens = (catalogo?.itens ?? [])
     .map((item) => ({
       nome: nomeDeExibicao(item.nome),
