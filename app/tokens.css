@@ -14,7 +14,8 @@
   --uf-muted: #3a5554;
   --uf-closed: #9a3f2a;
   --uf-gold: #148f8a;
-  --uf-gold-ink: #148f8a;
+  --uf-green-text: #0e7370; /* verde para TEXTO: 5,67:1 sobre branco (o verde-marca #148f8a dá 3,94:1) */
+  --uf-gold-ink: #0e7370;
   --uf-offer: #e23b2e;
 
   --uf-paper: #f1fbfa;
@@ -24,7 +25,7 @@
   --uf-line: #a9d8d3;
   --uf-line-strong: #6dbbb4;
 
-  --t-xs: clamp(0.6875rem, 0.665rem + 0.11vw, 0.75rem);
+  --t-xs: clamp(0.75rem, 0.74rem + 0.05vw, 0.8125rem);
   --t-sm: clamp(0.8125rem, 0.767rem + 0.23vw, 0.9375rem);
   --t-md: clamp(0.9375rem, 0.892rem + 0.23vw, 1.0625rem);
   --t-lg: clamp(1.0625rem, 0.948rem + 0.57vw, 1.375rem);

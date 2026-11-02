@@ -1,0 +1,29 @@
+/* Seletor de bairro da página de entrega. CSS escopado deste componente. */
+.entrega-bairro label {
+  display: block;
+  margin: 0 0 6px;
+  color: var(--uf-green-text);
+  font-weight: 700;
+}
+
+.entrega-bairro select {
+  width: 100%;
+  max-width: 28rem;
+  min-height: 52px;
+  padding: 0 16px;
+  border: 1px solid var(--uf-line-strong);
+  border-radius: 999px;
+  background: var(--uf-card);
+  color: var(--uf-ink);
+  font: inherit;
+  font-size: 1rem;
+}
+
+.entrega-bairro .entrega-bairro-resultado {
+  min-height: 1.5em;
+  margin-top: 14px;
+}
+
+.entrega-bairro .entrega-bairro-resultado p {
+  margin: 0 0 12px;
+}

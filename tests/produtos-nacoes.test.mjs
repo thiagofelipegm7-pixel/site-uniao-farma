@@ -62,3 +62,48 @@ test("fotos Nações: só EANs aprovados, arquivo existe e item sem foto devolve
   assert.equal(fotoDoProduto("PROT LABIAL NIVEA FRUIT"), null);
   assert.equal(fotoDoProduto("DIPIRONA 1G cx 10cpr PRATI DONADUZZI"), null);
 });
+
+test("busca do catálogo: ignora acento e caixa, exige todos os termos e esconde grupos vazios", async () => {
+  const { filtrarGrupos, contarItens, normalizarBusca } = await import("../app/nacoes-unidas/produtos/busca.ts");
+  const grupos = [
+    { categoria: "Pele e proteção solar", id: "pele", itens: [{ nome: "PROT SOLAR NIVEA FPS 50", lab: "Nivea", precoFmt: "R$ 10,00", isMIP: false, foto: null }] },
+    { categoria: "Medicamentos isentos de prescrição", id: "mip", itens: [{ nome: "DIPIRONA 1G", lab: "Prati", precoFmt: "R$ 5,00", isMIP: true, foto: null }] },
+  ];
+  assert.equal(normalizarBusca("  Proteção   SOLAR "), "protecao solar");
+  assert.equal(filtrarGrupos(grupos, "").length, 2);
+  assert.equal(contarItens(filtrarGrupos(grupos, "protecao")), 1);
+  assert.equal(contarItens(filtrarGrupos(grupos, "nivea solar")), 1);
+  assert.equal(filtrarGrupos(grupos, "dipirona nivea").length, 0);
+  assert.equal(filtrarGrupos(grupos, "isentos").length, 1);
+});
+
+test("página de produtos usa a busca local com aviso de lista vazia levando ao WhatsApp", async () => {
+  const [page, lista] = await Promise.all([read("app/nacoes-unidas/produtos/page.tsx"), read("app/nacoes-unidas/produtos/CatalogoLista.tsx")]);
+  assert.match(page, /<CatalogoLista/);
+  assert.match(lista, /role="search"/);
+  assert.match(lista, /aria-live="polite"/);
+  assert.match(lista, /data-track-event="whatsapp_click"/);
+});
+
+test("ação por item: mensagem pede confirmação do dia, tem nome e preço, e o clique é rastreado sem expor o produto", async () => {
+  const { mensagemItem } = await import("../app/nacoes-unidas/produtos/busca.ts");
+  const msg = mensagemItem("  PROT SOLAR   NIVEA FPS 50 ", "R$ 54,90");
+  assert.match(msg, /"PROT SOLAR NIVEA FPS 50" \(R\$ 54,90\)/);
+  assert.match(msg, /confirmar preço e disponibilidade/);
+  assert.doesNotMatch(msg, /em estoque|garantid/i);
+  const lista = await read("app/nacoes-unidas/produtos/CatalogoLista.tsx");
+  assert.match(lista, /data-track-source="produtos_nacoes_item"/);
+  assert.doesNotMatch(lista, /data-track-(product|nome|name|item)\b/);
+  assert.match(lista, /className="catalogo-acao"/);
+});
+
+test("analytics da busca: sem o texto digitado, ignora termo curto e separa busca vazia", async () => {
+  const { eventoBusca } = await import("../app/nacoes-unidas/produtos/busca.ts");
+  assert.equal(eventoBusca("a", 3), null);
+  assert.equal(eventoBusca("  ", 3), null);
+  const ok = eventoBusca("Dipirona", 2);
+  assert.equal(ok.event, "catalog_search");
+  assert.deepEqual(ok.params, { source: "produtos_nacoes", unit: "nacoes", term_length: 8, results: 2 });
+  assert.equal(eventoBusca("xyz", 0).event, "empty_search");
+  for (const e of [ok, eventoBusca("remédio para x", 0)]) assert.ok(!JSON.stringify(e).match(/dipirona|rem[eé]dio/i));
+});

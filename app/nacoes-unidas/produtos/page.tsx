@@ -5,6 +5,7 @@ import { COMPANY } from "../../company";
 import type { FaqItem } from "../../seo-content";
 import { buildWhatsAppUrl, getHoursSentence, SITE_URL, UNITS } from "../../site-config";
 import { getPageStructuredData, getUnitPublicPath } from "../../structured-data";
+import CatalogoLista from "./CatalogoLista";
 import { fetchCatalogoNacoes, formatBRL, groupByCategoria, slugify } from "./catalogo";
 import { fotoDoProduto } from "./imagens";
 import "./produtos.css";
@@ -128,40 +129,15 @@ export default async function ProdutosNacoesPage() {
                 e pergunte pelo produto. {getHoursSentence(nacoes)}
               </p>
             ) : (
-              <>
-                <ul className="catalogo-chips" aria-label="Categorias">
-                  {grupos.map((g) => (
-                    <li key={g.categoria}>
-                      <a href={`#${slugify(g.categoria)}`}>
-                        {g.categoria} ({g.itens.length})
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-                {grupos.map((g) => (
-                  <section key={g.categoria} className="catalogo-grupo" aria-labelledby={slugify(g.categoria)}>
-                    <h3 id={slugify(g.categoria)}>{g.categoria}</h3>
-                    <ul className="catalogo-lista">
-                      {g.itens.map((item) => {
-                        const foto = fotoDoProduto(item.nome);
-                        return (
-                        <li key={item.nome} className="catalogo-item">
-                          {foto ? <img className="catalogo-foto" src={foto} alt={item.nome} width="80" height="80" loading="lazy" decoding="async" /> : null}
-                          <div className="catalogo-info">
-                            <h4>{item.nome}</h4>
-                            {item.lab ? <p className="catalogo-lab">{item.lab}</p> : null}
-                            {item.isMIP ? (
-                              <p className="catalogo-mip">Medicamento isento de prescrição. Leia a bula. Se persistirem os sintomas, o médico deverá ser consultado.</p>
-                            ) : null}
-                          </div>
-                          <strong className="catalogo-preco">{formatBRL(item.preco)}</strong>
-                        </li>
-                        );
-                      })}
-                    </ul>
-                  </section>
-                ))}
-              </>
+              <CatalogoLista
+                grupos={grupos.map((g) => ({
+                  categoria: g.categoria,
+                  id: slugify(g.categoria),
+                  itens: g.itens.map((item) => ({ nome: item.nome, lab: item.lab, isMIP: item.isMIP, precoFmt: formatBRL(item.preco), foto: fotoDoProduto(item.nome) })),
+                }))}
+                whatsappHref={whatsappHref}
+                unitId={nacoes.id}
+              />
             )}
           </div>
         </section>
