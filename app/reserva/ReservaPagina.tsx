@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
 "use client";
 
 import { useState } from "react";

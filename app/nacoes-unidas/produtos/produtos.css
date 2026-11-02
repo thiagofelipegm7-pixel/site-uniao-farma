@@ -524,5 +524,264 @@
   }
 }
 
+/* --- página de produto --- */
+.catalogo-nacoes .catalogo-info h4 a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
 
+.produto-pagina {
+  padding-bottom: 102px !important;
+}
 
+.produto-caminho {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.produto-foto {
+  display: flex;
+  height: 300px;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.produto-foto img {
+  width: 300px;
+  height: 300px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.produto-foto-vazia {
+  color: var(--muted, var(--uf-muted));
+  font-size: 0.875rem;
+}
+
+.produto-card {
+  box-sizing: border-box;
+  margin-top: 0;
+  padding: 16px !important;
+  border: 1px solid var(--line, var(--uf-line));
+  border-radius: 8px;
+  background: #fff;
+}
+
+.produto-selo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 2px 6px !important;
+  border-radius: 2px;
+  background: var(--uf-fog, #e4f6f3);
+  color: var(--uf-action-ink);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+}
+
+.produto-card h1 {
+  margin: 10px 0 8px;
+  overflow-wrap: anywhere;
+}
+
+.produto-descricao,
+.produto-marca,
+.produto-nota,
+.produto-secao p {
+  margin: 0 0 12px;
+  color: var(--uf-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.produto-marca { margin-bottom: 8px; color: var(--uf-ink); }
+.produto-marca strong { font-weight: 700; }
+
+.produto-preco {
+  margin: 12px 0 4px;
+  color: var(--uf-ink);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.produto-nota { margin: 0; font-size: 0.75rem; line-height: 1.5; }
+
+.produto-secao { padding-top: 24px; }
+.produto-secao h2 { margin: 0 0 8px; }
+
+.produto-ficha {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--line, var(--uf-line));
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.produto-ficha th,
+.produto-ficha td {
+  padding: 10px 12px !important;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  text-align: left;
+  vertical-align: top;
+}
+
+.produto-ficha th {
+  width: 42%;
+  color: var(--uf-muted);
+  font-weight: 500;
+}
+
+.produto-ficha td {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
+.produto-ficha tr:nth-child(odd) { background: var(--uf-paper, #f1fbfa); }
+
+.produto-faq details {
+  border-bottom: 1px solid var(--line, var(--uf-line));
+}
+
+.produto-faq summary {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.produto-faq p { margin: 0 0 12px; }
+
+.produto-barra {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4100;
+  display: flex;
+  height: 86px;
+  box-sizing: border-box;
+  align-items: center;
+  gap: 12px;
+  padding: 16px !important;
+  border-top: 1px solid var(--uf-line);
+  background: #fff;
+}
+
+.produto-adicionar,
+.produto-ver-reserva {
+  display: inline-flex;
+  height: 54px;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-sizing: border-box;
+  padding: 0 16px !important;
+  border: 0;
+  border-radius: 6px;
+  background: var(--uf-action);
+  color: var(--uf-action-ink);
+  font: inherit;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.produto-contador {
+  flex: none;
+  height: 54px !important;
+  min-width: 8.25rem;
+}
+
+.produto-contador button {
+  width: 54px;
+  min-height: 44px;
+}
+
+/* Desktop: o aviso de cookies encosta no rodapé da tela (~71px) e cobriria o Aceitar. */
+body.cookie-banner-visible .produto-barra { bottom: 5rem; }
+
+@media (max-width: 1023px) {
+  /* A barra do celular mede no mínimo 4rem e cresce quando o rótulo quebra (320px ≈ 71px). */
+  .produto-barra { bottom: calc(4.5rem + env(safe-area-inset-bottom)); }
+  /* O aviso de cookies fica por cima da barra (z-index maior). Sobe a barra para o Aceitar continuar tocável. */
+  body.cookie-banner-visible .produto-barra { bottom: calc(14.25rem + env(safe-area-inset-bottom)); }
+}
+
+/* A camada design força h2 e a cor dos títulos. Preço comum fica preto; seção fica em 18px.
+   O rodapé mora no layout, depois desta página: o respiro vai no body para a barra não cobri-lo. */
+@layer design {
+  .produto-pagina .produto-caminho {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 6px !important;
+  }
+  .produto-pagina h2 {
+    margin: 0 0 8px !important;
+    color: var(--uf-ink) !important;
+    font-size: 1.125rem !important;
+    font-weight: 700 !important;
+    line-height: 1.33 !important;
+  }
+  .produto-preco {
+    margin: 12px 0 4px !important;
+    color: var(--uf-ink) !important;
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+  }
+  .produto-adicionar,
+  .produto-ver-reserva {
+    height: 54px !important;
+    border: 0 !important;
+    border-radius: 6px !important;
+    background: var(--uf-action) !important;
+    color: var(--uf-action-ink) !important;
+    font-size: 1.125rem !important;
+    font-weight: 600 !important;
+  }
+  .produto-contador {
+    height: 54px !important;
+  }
+  .produto-contador button {
+    width: 54px !important;
+    height: 54px !important;
+  }
+  body:has(.produto-pagina) {
+    padding-bottom: 102px !important;
+  }
+  @media (min-width: 1024px) {
+    body.cookie-banner-visible:has(.produto-pagina) {
+      padding-bottom: calc(5rem + 102px) !important;
+    }
+  }
+  body:has(.produto-pagina) .whatsapp-fab {
+    display: none !important;
+  }
+  @media (max-width: 1023px) {
+    body:has(.produto-pagina) {
+      padding-bottom: calc(var(--spacing-bar, 4rem) + env(safe-area-inset-bottom) + 102px) !important;
+    }
+    body.cookie-banner-visible:has(.produto-pagina) {
+      padding-bottom: calc(14.25rem + env(safe-area-inset-bottom) + 102px) !important;
+    }
+  }
+}

@@ -27,6 +27,7 @@ import {
   type ItemBusca,
   type OrdemCatalogo,
 } from "./busca";
+import { slugify } from "./catalogo";
 
 type Props = {
   grupos: GrupoBusca[];
@@ -394,7 +395,9 @@ export default function CatalogoLista({ grupos, whatsappHref, unitId }: Props) {
                   <li key={item.id ?? item.nome} id={item.id} className="catalogo-item">
                     {item.foto ? <img className="catalogo-foto" src={item.foto} alt={item.nome} width="80" height="80" loading="lazy" decoding="async" /> : null}
                     <div className="catalogo-info">
-                      <h4>{item.nome}</h4>
+                      <h4>
+                        <a href={`/nacoes-unidas/produtos/${slugify(item.nome)}`}>{item.nome}</a>
+                      </h4>
                       {item.lab ? <p className="catalogo-lab">{item.lab}</p> : null}
                       {item.isMIP ? (
                         <p className="catalogo-mip">Medicamento isento de prescrição. Leia a bula. Se persistirem os sintomas, o médico deverá ser consultado.</p>

@@ -1,7 +1,9 @@
+/* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { EVENTO_ABRIR_RESERVA } from "./abrir-reserva";
 import { UNITS } from "../site-config";
 import { IconFechar, IconLixeira, IconMais, IconMenos, IconSacola } from "./ReservaIcons";
 import { atualizarReserva, definirQtd, formatarCentavos, limpar, subtotalCentavos, totalItens } from "./reserva-store";
@@ -21,6 +23,12 @@ export default function ReservaSacola() {
   const gatilhoRef = useRef<HTMLButtonElement>(null);
   const painelRef = useRef<HTMLDivElement>(null);
   const total = totalItens(estado);
+
+  useEffect(() => {
+    const abrir = () => setAberta(true);
+    window.addEventListener(EVENTO_ABRIR_RESERVA, abrir);
+    return () => window.removeEventListener(EVENTO_ABRIR_RESERVA, abrir);
+  }, []);
 
   useEffect(() => {
     if (!aberta) return;
