@@ -84,7 +84,7 @@
 
 .catalogo-nacoes .catalogo-preco {
   flex: none;
-  color: var(--teal-deep);
+  color: var(--color-ink);
   font-size: 1.125rem;
   font-weight: 800;
   white-space: nowrap;
@@ -208,4 +208,580 @@
 
 .catalogo-nacoes .catalogo-acao:hover {
   background: var(--aqua-pale);
+}
+
+.catalogo-nacoes,
+.catalogo-nacoes .catalogo-item,
+.catalogo-nacoes .catalogo-info,
+.catalogo-nacoes .catalogo-reservar {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.catalogo-nacoes .catalogo-item {
+  flex-wrap: wrap;
+}
+
+.catalogo-nacoes .catalogo-preco {
+  white-space: normal;
+}
+
+/* Busca: sugestões, ordenação e filtro em tela cheia. */
+.catalogo-nacoes .catalogo-sugestoes {
+  margin-top: 8px;
+  max-height: 320px;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+}
+
+.catalogo-nacoes .catalogo-sugestoes ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.catalogo-nacoes .catalogo-sugestoes-titulo {
+  margin: 0;
+  padding: 12px 12px 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.catalogo-nacoes .catalogo-popular,
+.catalogo-nacoes .catalogo-sugestao {
+  display: flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  gap: 12px;
+  box-sizing: border-box;
+  padding: 8px 12px;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-align: left;
+  text-decoration: none;
+}
+
+.catalogo-nacoes .catalogo-popular span {
+  width: 2rem;
+  flex: none;
+  color: var(--teal-deep);
+  font-weight: 700;
+}
+
+.catalogo-nacoes .catalogo-sugestao-foto {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  object-fit: contain;
+  border-radius: 4px;
+  background: var(--white);
+}
+
+.catalogo-nacoes .catalogo-sugestao-sem-foto {
+  border: 1px solid var(--line);
+}
+
+.catalogo-nacoes .catalogo-sugestao-nome {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.catalogo-nacoes .catalogo-sugestao-preco {
+  flex: none;
+  color: var(--ink, #111);
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+
+.catalogo-nacoes .catalogo-popular.catalogo-sugestao-ativa,
+.catalogo-nacoes .catalogo-sugestao.catalogo-sugestao-ativa {
+  background: var(--aqua-pale);
+}
+
+.catalogo-nacoes .catalogo-barra {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 100%;
+  min-width: 0;
+  margin: 0 0 12px;
+}
+
+.catalogo-nacoes .catalogo-barra button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-sizing: border-box;
+  padding: 0 14px;
+  border: 1px solid var(--teal-deep);
+  border-radius: 6px;
+  background: var(--white);
+  color: var(--teal-deep);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.catalogo-nacoes .catalogo-barra button[aria-pressed="true"] {
+  background: var(--uf-action-ink, #0a2d29);
+  color: #fff;
+  border-color: var(--uf-action-ink, #0a2d29);
+}
+
+.catalogo-nacoes .catalogo-filtro-contagem {
+  display: inline-flex;
+  min-width: 1.25rem;
+  height: 1.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  background: var(--uf-action-ink, #0a2d29);
+  color: #fff;
+  font-size: 0.75rem;
+}
+
+.catalogo-nacoes .catalogo-perguntar {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 12px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background: var(--uf-action, #40baaf);
+  color: var(--uf-action-ink, #0a2d29);
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+}
+
+.catalogo-filtro-raiz {
+  position: fixed;
+  inset: 0;
+  z-index: 4900;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  background: #fff;
+  color: var(--ink, #111);
+}
+
+.catalogo-filtro-topo {
+  display: flex;
+  height: 60px;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0 8px 0 16px;
+  border-bottom: 1px solid var(--line, #d3e2df);
+}
+
+.catalogo-filtro-topo h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.catalogo-filtro-fechar {
+  display: inline-flex;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+}
+
+.catalogo-filtro-corpo {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: 8px 16px 16px;
+}
+
+.catalogo-filtro-corpo fieldset {
+  margin: 0 0 16px;
+  padding: 0;
+  border: 0;
+}
+
+.catalogo-filtro-corpo legend {
+  margin: 8px 0 4px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.catalogo-filtro-opcao {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--line, #d3e2df);
+  font-size: 0.9375rem;
+}
+
+/* A linha toda (label de 48px) é o alvo de toque; a caixa em si é de 22px, como no protótipo. */
+.catalogo-filtro-opcao input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  flex: none;
+  margin: 0 0 0 4px;
+  border: 1.5px solid var(--uf-ink, #0a3548);
+  border-radius: 4px;
+  background: #ffffff center / 14px no-repeat;
+  cursor: pointer;
+}
+
+.catalogo-filtro-opcao input:checked {
+  background-color: var(--uf-ink, #0a3548);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 7.5l3 3 6-7'/%3E%3C/svg%3E");
+}
+
+.catalogo-filtro-opcao input:focus-visible {
+  outline: 3px solid var(--uf-action, #40baaf);
+  outline-offset: 2px;
+}
+
+.catalogo-filtro-opcao span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.catalogo-filtro-rodape {
+  display: flex;
+  height: 68px;
+  flex: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-sizing: border-box;
+  padding: 0 16px;
+  border-top: 1px solid var(--line, #d3e2df);
+  background: #fff;
+}
+
+.catalogo-filtro-limpar {
+  min-height: 44px;
+  padding: 0 8px;
+  border: 0;
+  background: transparent;
+  color: var(--teal-deep, #0a3548);
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.catalogo-filtro-ver {
+  display: inline-flex;
+  height: 48px;
+  max-width: 220px;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 6px;
+  background: var(--uf-action, #40baaf);
+  color: var(--uf-action-ink, #0a2d29);
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.catalogo-nacoes .catalogo-item {
+  scroll-margin-top: 126px;
+}
+
+/* A camada design força h2 com !important. O título do filtro precisa caber na barra de 60px. */
+@layer design {
+  .catalogo-filtro-topo h2 {
+    margin: 0 !important;
+    font-size: 1.25rem !important;
+    line-height: 1.2 !important;
+    font-weight: 700 !important;
+  }
+}
+
+/* --- página de produto --- */
+.catalogo-nacoes .catalogo-info h4 a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.produto-pagina {
+  padding-bottom: 102px !important;
+}
+
+.produto-caminho {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.produto-foto {
+  display: flex;
+  height: 300px;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+}
+
+.produto-foto img {
+  width: 300px;
+  height: 300px;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.produto-foto-vazia {
+  color: var(--muted, var(--uf-muted));
+  font-size: 0.875rem;
+}
+
+.produto-card {
+  box-sizing: border-box;
+  margin-top: 0;
+  padding: 16px !important;
+  border: 1px solid var(--line, var(--uf-line));
+  border-radius: 8px;
+  background: #fff;
+}
+
+.produto-selo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  padding: 2px 6px !important;
+  border-radius: 2px;
+  background: var(--uf-fog, #e4f6f3);
+  color: var(--uf-action-ink);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+}
+
+.produto-card h1 {
+  margin: 10px 0 8px;
+  overflow-wrap: anywhere;
+}
+
+.produto-descricao,
+.produto-marca,
+.produto-nota,
+.produto-secao p {
+  margin: 0 0 12px;
+  color: var(--uf-muted);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.produto-marca { margin-bottom: 8px; color: var(--uf-ink); }
+.produto-marca strong { font-weight: 700; }
+
+.produto-preco {
+  margin: 12px 0 4px;
+  color: var(--color-ink);
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.produto-nota { margin: 0; font-size: 0.75rem; line-height: 1.5; }
+
+.produto-secao { padding-top: 24px; }
+.produto-secao h2 { margin: 0 0 8px; }
+
+.produto-ficha {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--line, var(--uf-line));
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.produto-ficha th,
+.produto-ficha td {
+  padding: 10px 12px !important;
+  font-size: 0.875rem;
+  line-height: 1.4;
+  text-align: left;
+  vertical-align: top;
+}
+
+.produto-ficha th {
+  width: 42%;
+  color: var(--uf-muted);
+  font-weight: 500;
+}
+
+.produto-ficha td {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  text-align: right;
+}
+
+.produto-ficha tr:nth-child(odd) { background: var(--uf-paper, #f1fbfa); }
+
+.produto-faq details {
+  border-bottom: 1px solid var(--line, var(--uf-line));
+}
+
+.produto-faq summary {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.produto-faq p { margin: 0 0 12px; }
+
+.produto-barra {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 4100;
+  display: flex;
+  height: 86px;
+  box-sizing: border-box;
+  align-items: center;
+  gap: 12px;
+  padding: 16px !important;
+  border-top: 1px solid var(--uf-line);
+  background: #fff;
+}
+
+.produto-adicionar,
+.produto-ver-reserva {
+  display: inline-flex;
+  height: 54px;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  box-sizing: border-box;
+  padding: 0 16px !important;
+  border: 0;
+  border-radius: 6px;
+  background: var(--uf-action);
+  color: var(--uf-action-ink);
+  font: inherit;
+  font-size: 1.125rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.produto-contador {
+  flex: none;
+  height: 54px !important;
+  min-width: 8.25rem;
+}
+
+.produto-contador button {
+  width: 54px;
+  min-height: 44px;
+}
+
+/* Desktop: o aviso de cookies encosta no rodapé da tela (~71px) e cobriria o Aceitar. */
+body.cookie-banner-visible .produto-barra { bottom: 5rem; }
+
+@media (max-width: 1023px) {
+  /* A barra do celular mede no mínimo 4rem e cresce quando o rótulo quebra (320px ≈ 71px). */
+  .produto-barra { bottom: calc(4.5rem + env(safe-area-inset-bottom)); }
+  /* O aviso de cookies fica por cima da barra (z-index maior). Sobe a barra para o Aceitar continuar tocável. */
+  body.cookie-banner-visible .produto-barra { bottom: calc(14.25rem + env(safe-area-inset-bottom)); }
+}
+
+/* A camada design força h2 e a cor dos títulos. Preço comum fica preto; seção fica em 18px.
+   O rodapé mora no layout, depois desta página: o respiro vai no body para a barra não cobri-lo. */
+@layer design {
+  .produto-pagina .produto-caminho {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 6px !important;
+  }
+  .produto-pagina h2 {
+    margin: 0 0 8px !important;
+    color: var(--uf-ink) !important;
+    font-size: 1.125rem !important;
+    font-weight: 700 !important;
+    line-height: 1.33 !important;
+  }
+  .produto-preco {
+    margin: 12px 0 4px !important;
+    color: var(--color-ink) !important;
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+  }
+  .produto-adicionar,
+  .produto-ver-reserva {
+    height: 54px !important;
+    border: 0 !important;
+    border-radius: 6px !important;
+    background: var(--uf-action) !important;
+    color: var(--uf-action-ink) !important;
+    font-size: 1.125rem !important;
+    font-weight: 600 !important;
+  }
+  .produto-contador {
+    height: 54px !important;
+  }
+  .produto-contador button {
+    width: 54px !important;
+    height: 54px !important;
+  }
+  body:has(.produto-pagina) {
+    padding-bottom: 102px !important;
+  }
+  @media (min-width: 1024px) {
+    body.cookie-banner-visible:has(.produto-pagina) {
+      padding-bottom: calc(5rem + 102px) !important;
+    }
+  }
+  body:has(.produto-pagina) .whatsapp-fab {
+    display: none !important;
+  }
+  @media (max-width: 1023px) {
+    body:has(.produto-pagina) {
+      padding-bottom: calc(var(--spacing-bar, 4rem) + env(safe-area-inset-bottom) + 102px) !important;
+    }
+    body.cookie-banner-visible:has(.produto-pagina) {
+      padding-bottom: calc(14.25rem + env(safe-area-inset-bottom) + 102px) !important;
+    }
+  }
 }

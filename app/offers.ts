@@ -30,6 +30,12 @@ export interface Offer {
   brand?: string;
   category: OfferCategory;
   currentPrice: number | null;
+  /**
+   * Preço de antes ("De R$ X"). Opcional.
+   * Para o painel OFERTAS DA SEMANA mostrar o "De", preencha os dois no item de OFFERS:
+   * previousPrice (número maior que currentPrice) e previousPriceConfirmed: true.
+   * Sem confirmação o card mostra só o preço atual. Não inventar valor.
+   */
   previousPrice?: number | null;
   previousPriceConfirmed?: boolean;
   image?: string;
@@ -543,6 +549,43 @@ export function canUseInAds(offer: Offer, now = new Date()): AdsDecision {
 
 export function formatOfferPrice(value: number): string {
   return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value);
+}
+
+/** "De" só quando o preço anterior foi confirmado e é maior que o atual. */
+export function precoAnteriorConfirmado(
+  offer: Pick<Offer, "previousPrice" | "previousPriceConfirmed" | "currentPrice">,
+): number | null {
+  const anterior = offer.previousPrice;
+  if (offer.previousPriceConfirmed !== true) return null;
+  if (typeof anterior !== "number" || !Number.isFinite(anterior) || anterior <= 0) return null;
+  if (offer.currentPrice !== null && anterior <= offer.currentPrice) return null;
+  return anterior;
+}
+
+/** Até 3 ofertas publicáveis, nunca medicamento com receita. A ordem é a de OFFERS. */
+export function selecionarOfertasSemana(offers: readonly Offer[], limite = 3): Offer[] {
+  return offers
+    .filter((offer) => offer.regulatoryClass !== "prescription_blocked")
+    .filter((offer) => offer.currentPrice !== null && offer.currentPrice > 0)
+    .slice(0, Math.max(0, limite));
+}
+
+/** Primeira loja da oferta: é para ela que a reserva da home vai. */
+export function lojaDaOferta(offer: Pick<Offer, "units">): OfferUnitId | null {
+  return offer.units[0] ?? null;
+}
+
+/** Loja da reserva: a preferida do cliente, se a oferta vale nela; senão a primeira da oferta. */
+export function lojaParaReserva(
+  offer: Pick<Offer, "units">,
+  preferida: OfferUnitId | null | undefined,
+): OfferUnitId | null {
+  if (preferida && offer.units.includes(preferida)) return preferida;
+  return lojaDaOferta(offer);
+}
+
+export function precoOfertaCentavos(valor: number): number {
+  return Math.round(valor * 100);
 }
 
 /** Oferta de medicamento (isento ou em revisão): o card precisa exibir a advertência da RDC 96/2008. */

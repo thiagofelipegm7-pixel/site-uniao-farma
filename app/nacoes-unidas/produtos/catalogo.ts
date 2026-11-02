@@ -67,3 +67,15 @@ export function slugify(value: string): string {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-|-$/g, "");
 }
+
+/** Primeiro item cujo nome vira esse slug. Sem página para medicamento fora desta lista. */
+export function acharPorSlug(itens: readonly CatalogoItem[], slug: string): CatalogoItem | null {
+  let alvo = slug;
+  try {
+    alvo = decodeURIComponent(slug);
+  } catch {
+    alvo = slug;
+  }
+  const normal = slugify(alvo);
+  return itens.find((item) => slugify(item.nome) === normal) ?? null;
+}

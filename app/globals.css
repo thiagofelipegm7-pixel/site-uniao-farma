@@ -25,8 +25,8 @@
   --color-ruby-600: #b62024; /* preço */
   --color-on-dark-muted: #c8ddda;
 
-  --font-heading: var(--font-brand), "Poppins", system-ui, sans-serif;
-  --font-body: var(--font-support), "Montserrat", system-ui, sans-serif;
+  --font-heading: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-body: var(--font-inter), "Inter", system-ui, sans-serif;
 
   --text-display: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
   --text-h1: clamp(1.75rem, 1.3rem + 2vw, 2.75rem);
@@ -56,9 +56,9 @@
 
   --container-site: 75rem;
 
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
+  --radius-sm: 2px; /* etiqueta */
+  --radius-md: 6px; /* botão */
+  --radius-lg: 8px; /* cartão */
   --radius-xl: 1.5rem;
   --radius-pill: 999px;
 
@@ -107,7 +107,7 @@ body {
   color-scheme: only light;
   background: var(--paper);
   color: var(--ink);
-  font-family: "Poppins", Arial, sans-serif;
+  font-family: var(--font-inter), "Inter", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -120,7 +120,7 @@ button,
 input,
 textarea,
 select {
-  font-family: "Poppins", Arial, sans-serif;
+  font-family: var(--font-inter), "Inter", Arial, sans-serif;
 }
 
 a {

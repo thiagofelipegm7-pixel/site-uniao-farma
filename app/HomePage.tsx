@@ -13,6 +13,8 @@ import { HomeSections } from "./home-sections";
 import UnitsShowcase from "./UnitsShowcase";
 import BrandLogo from "./BrandLogo";
 import BrandStrip from "./BrandStrip";
+import OfertasSemana from "./OfertasSemana";
+import { FarmaceuticoCard } from "./visual-fase2";
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -96,6 +98,10 @@ export default function HomePage() {
         </div>
         <UnitsShowcase />
       </section>
+      <div className="section-inner">
+        <FarmaceuticoCard />
+      </div>
+      <OfertasSemana />
       <HomeSections generalIntent={generalIntent} openSelector={openSelector} />
       <UnitSelectorModal intent={selectorIntent} onClose={() => setSelectorIntent(null)} />
     </>

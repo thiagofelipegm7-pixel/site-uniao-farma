@@ -10,6 +10,7 @@ import { responsiveSrcSet } from "./responsive-images";
 import UnitStatusBadge from "./UnitStatusBadge";
 import WebImage from "./WebImage";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
+import { NotaEFaixaLoja } from "./visual-fase2";
 
 const PAGE_HREF: Record<Unit["id"], string> = {
   fatima: "/fatima",
@@ -105,6 +106,7 @@ export default function UnitsShowcase() {
                     {place ? <span className="unit-store-place">{place}</span> : null}
                   </p>
                   <UnitStatusBadge unit={unit} />
+                  <NotaEFaixaLoja unitId={unit.id} />
                   <div className="unit-store-actions">
                     <a
                       className="unit-store-wa"

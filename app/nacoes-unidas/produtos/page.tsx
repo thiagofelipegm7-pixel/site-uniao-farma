@@ -133,7 +133,7 @@ export default async function ProdutosNacoesPage() {
                 grupos={grupos.map((g) => ({
                   categoria: g.categoria,
                   id: slugify(g.categoria),
-                  itens: g.itens.map((item) => ({ nome: item.nome, lab: item.lab, isMIP: item.isMIP, precoFmt: formatBRL(item.preco), foto: fotoDoProduto(item.nome) })),
+                  itens: g.itens.map((item) => ({ nome: item.nome, lab: item.lab, isMIP: item.isMIP, preco: item.preco, precoFmt: formatBRL(item.preco), foto: fotoDoProduto(item.nome) })),
                 }))}
                 whatsappHref={whatsappHref}
                 unitId={nacoes.id}

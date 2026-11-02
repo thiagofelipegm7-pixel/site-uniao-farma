@@ -17,6 +17,10 @@
   --uf-green-text: #14736b; /* verde para TEXTO: 5,67:1 sobre branco (o verde-marca #1a8f86 dá 3,94:1) */
   --uf-gold-ink: #14736b;
   --uf-panel: #31a89d; /* painel verde-água das faixas e ofertas: tinta escura passa 5,1:1 */
+  --uf-action: #40baaf; /* botão de reserva: texto escuro #0a2d29 passa 6,2:1 */
+  --uf-action-hover: #35a89e; /* 5,1:1 com --uf-action-ink */
+  --uf-action-active: #32a096; /* 4,6:1 com --uf-action-ink */
+  --uf-action-ink: #0a2d29;
   --uf-pill: #050d0c; /* pílula do lema */
   --uf-offer: #d94641;
 
@@ -43,9 +47,9 @@
   --space-6: clamp(1.75rem, 1.477rem + 1.36vw, 2.5rem);
   --space-7: clamp(2.25rem, 1.795rem + 2.27vw, 3.5rem);
 
-  --r-sm: 0.625rem;
-  --r-md: 1.25rem;
-  --r-lg: 1.25rem;
+  --r-sm: 2px; /* etiqueta */
+  --r-md: 6px; /* botão */
+  --r-lg: 8px; /* cartão */
   --tap: clamp(2.75rem, 2.568rem + 0.91vw, 3.25rem);
 
   --vh-photo: clamp(9rem, 28svh, 16rem);

@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
 import test from "node:test";
 import {
   canPublishOffer,
@@ -9,8 +10,13 @@ import {
   getPublicOffers,
   isOfferExpired,
   isOffersCatalogFresh,
+  lojaDaOferta,
+  lojaParaReserva,
   OFFERS,
   OFFERS_FRESH_DAYS,
+  precoAnteriorConfirmado,
+  precoOfertaCentavos,
+  selecionarOfertasSemana,
 } from "../app/offers.ts";
 
 const baseOffer = {
@@ -145,4 +151,61 @@ test("offers kicker and review date come from the catalog data", () => {
 
   const published = getPublicOffers();
   assert.equal(getOffersReviewDate(), getOffersReviewDate(published));
+});
+
+test("painel da semana: no máximo 3 ofertas, sem receita, e De só com preço anterior confirmado", () => {
+  const publicas = getPublicOffers(new Date("2026-08-17T12:00:00-03:00"));
+  const semana = selecionarOfertasSemana(publicas);
+  assert.ok(semana.length >= 1);
+  assert.ok(semana.length <= 3);
+  assert.equal(semana.length, 3);
+  assert.ok(semana.every((offer) => offer.regulatoryClass !== "prescription_blocked"));
+  assert.ok(semana.every((offer) => precoAnteriorConfirmado(offer) === null));
+  assert.deepEqual(semana.map((offer) => offer.name), publicas.slice(0, 3).map((offer) => offer.name));
+
+  const comDe = { ...baseOffer, previousPrice: 45, previousPriceConfirmed: true, currentPrice: 39 };
+  assert.equal(precoAnteriorConfirmado(comDe), 45);
+  assert.equal(precoAnteriorConfirmado({ ...comDe, previousPriceConfirmed: false }), null);
+  assert.equal(precoAnteriorConfirmado({ ...comDe, previousPrice: null }), null);
+  assert.equal(precoAnteriorConfirmado({ ...comDe, previousPrice: 10 }), null);
+  assert.equal(precoOfertaCentavos(13.9), 1390);
+  assert.equal(precoOfertaCentavos(29), 2900);
+
+  const bloqueada = { ...baseOffer, id: "caneta", regulatoryClass: "prescription_blocked", currentPrice: 99 };
+  const extras = [0, 1, 2, 3].map((i) => ({ ...baseOffer, id: `extra-${i}` }));
+  const escolhidas = selecionarOfertasSemana([bloqueada, ...extras]);
+  assert.equal(escolhidas.length, 3);
+  assert.ok(escolhidas.every((offer) => offer.id !== "caneta"));
+  assert.equal(lojaDaOferta(baseOffer), "fatima");
+  assert.equal(lojaDaOferta({ ...baseOffer, units: [] }), null);
+});
+
+test("painel da semana na home: estrutura, no máximo o componente pede 3, sem De inventado", async () => {
+  const read = (arquivo) => readFile(new URL(`../${arquivo}`, import.meta.url), "utf8");
+  const [painel, home, ofertas] = await Promise.all([
+    read("app/OfertasSemana.tsx"),
+    read("app/HomePage.tsx"),
+    read("app/offers.ts"),
+  ]);
+  assert.match(home, /<OfertasSemana/);
+  assert.match(painel, /OFERTAS DA SEMANA/);
+  assert.match(painel, /Preço e estoque confirmados pela loja/);
+  assert.match(painel, /Ver todas as ofertas/);
+  assert.match(painel, /href="\/ofertas"/);
+  assert.match(painel, /A gente confere o preço e o estoque e te responde pelo WhatsApp\. Ofertas válidas enquanto durar o estoque em cada loja\./);
+  assert.match(painel, /ReservarBotao/);
+  assert.match(painel, /source="ofertas_semana"/);
+  assert.match(painel, /precoAnteriorConfirmado/);
+  assert.match(painel, /selecionarOfertasSemana/);
+  assert.doesNotMatch(painel, /De R\$ \d/);
+  assert.match(ofertas, /previousPrice \(número maior que currentPrice\)/);
+  assert.doesNotMatch(ofertas, /previousPrice: \d/);
+});
+
+test("reserva da oferta vai para a loja preferida do cliente quando a oferta vale nela", () => {
+  const todas = { units: ["fatima", "nacoes", "itacolomi"] };
+  assert.equal(lojaParaReserva(todas, "itacolomi"), "itacolomi");
+  assert.equal(lojaParaReserva(todas, null), "fatima");
+  assert.equal(lojaParaReserva({ units: ["nacoes"] }, "itacolomi"), "nacoes");
+  assert.equal(lojaParaReserva({ units: [] }, "itacolomi"), null);
 });
