@@ -107,3 +107,76 @@ test("analytics da busca: sem o texto digitado, ignora termo curto e separa busc
   assert.equal(eventoBusca("xyz", 0).event, "empty_search");
   for (const e of [ok, eventoBusca("remédio para x", 0)]) assert.ok(!JSON.stringify(e).match(/dipirona|rem[eé]dio/i));
 });
+
+test("página de produto: slug, volume, textos só quando existem e Product sem estoque", async () => {
+  const { slugify, acharPorSlug } = await import("../app/nacoes-unidas/produtos/catalogo.ts");
+  const { conteudoDoNome, textosPublicaveis, jsonLdProduto, FAQ_PRODUTO, NOTA_PRECO, AVISO_MIP } = await import("../app/nacoes-unidas/produtos/produto.ts");
+  const itens = [
+    { nome: "LOCAO NIVEA SOFT MILK 200ML", lab: "Nivea", categoria: "Pele e proteção solar", preco: 19.9, isMIP: false },
+    { nome: "DIPIRONA 1G cx 10cpr", lab: "Prati", categoria: "Medicamentos isentos de prescrição", preco: 5, isMIP: true },
+  ];
+  assert.equal(slugify(itens[0].nome), "locao-nivea-soft-milk-200ml");
+  assert.equal(acharPorSlug(itens, "locao-nivea-soft-milk-200ml")?.nome, itens[0].nome);
+  assert.equal(acharPorSlug(itens, "nao-existe"), null);
+  assert.equal(conteudoDoNome("LOCAO NIVEA SOFT MILK 200ML"), "200 ml");
+  assert.equal(conteudoDoNome("CR NIVEA 56 GR LATA"), "56 g");
+  assert.equal(conteudoDoNome("DES REXONA COTTON DRY 150 ML"), "150 ml");
+  assert.equal(conteudoDoNome("MAG FORCE 600MG C/60 CAPS"), "60 cápsulas");
+  assert.equal(conteudoDoNome("FIO DENTAL HILLO 100 MTS"), "100 m");
+  assert.equal(conteudoDoNome("PROT SOLAR NIVEA FPS 50"), null);
+  assert.deepEqual(textosPublicaveis(null), { descricao: null, paraQueServe: null, destaques: null });
+  assert.equal(textosPublicaveis({ paraQueServe: "  texto do rótulo  ", destaques: " " }).paraQueServe, "texto do rótulo");
+  assert.equal(textosPublicaveis({ paraQueServe: "  texto do rótulo  ", destaques: " " }).destaques, null);
+  const ld = jsonLdProduto({ nome: itens[0].nome, lab: "Nivea", categoria: itens[0].categoria, url: "https://exemplo/p", image: null });
+  assert.equal(ld["@type"], "Product");
+  const cru = JSON.stringify(ld);
+  assert.doesNotMatch(cru, /aggregateRating|availability|InStock|OutOfStock|"offers"/);
+  assert.deepEqual(FAQ_PRODUTO.map((item) => item.q), ["Preciso pagar agora?", "Posso retirar ou receber em casa?", "Quem confirma preço e estoque?"]);
+  assert.match(NOTA_PRECO, /A loja confirma preço e estoque pelo WhatsApp/);
+  assert.match(AVISO_MIP, /Medicamento isento de prescrição/);
+});
+
+test("página de produto: estrutura, noindex, sem texto de saúde inventado e barra de reserva", async () => {
+  const read = (arquivo) => readFile(new URL(`../${arquivo}`, import.meta.url), "utf8");
+  const [pagina, barra, css, lista, sacola] = await Promise.all([
+    read("app/nacoes-unidas/produtos/[slug]/page.tsx"),
+    read("app/nacoes-unidas/produtos/ProdutoBarra.tsx"),
+    read("app/nacoes-unidas/produtos/produtos.css"),
+    read("app/nacoes-unidas/produtos/CatalogoLista.tsx"),
+    read("app/reserva/ReservaSacola.tsx"),
+  ]);
+  assert.match(pagina, /robots: \{ index: false, follow: false \}/);
+  assert.match(pagina, /acharPorSlug/);
+  assert.match(pagina, /slugify\(item\.nome\)/);
+  assert.match(pagina, />União Farma</);
+  assert.match(pagina, /Sem receita/);
+  assert.match(pagina, /IconSelo/);
+  assert.match(pagina, /<strong>Marca:<\/strong>/);
+  assert.match(pagina, /NOTA_PRECO/);
+  assert.match(pagina, /textos\.paraQueServe \?/);
+  assert.match(pagina, /textos\.destaques \?/);
+  assert.match(pagina, /Para que serve/);
+  assert.match(pagina, /Destaques do rótulo/);
+  assert.match(pagina, /Ficha técnica/);
+  assert.match(pagina, /Conteúdo\/volume/);
+  assert.match(pagina, /Perguntas frequentes/);
+  assert.match(pagina, /AVISO_MIP/);
+  assert.match(pagina, /jsonLdProduto/);
+  assert.match(pagina, /width="300"/);
+  assert.doesNotMatch(pagina, /ácido hialurônico|pele seca|aggregateRating|availability/);
+  assert.match(barra, /Adicionar à reserva/);
+  assert.match(barra, /Ver reserva/);
+  assert.match(barra, /atualizarReserva/);
+  assert.match(barra, /adicionar\(/);
+  assert.match(barra, /abrirReserva/);
+  assert.match(barra, /IconLixeira/);
+  assert.match(barra, /source: "produto_nacoes"/);
+  assert.doesNotMatch(barra, /trackEvent\([^)]*nome/);
+  assert.match(sacola, /EVENTO_ABRIR_RESERVA/);
+  assert.match(lista, /\/nacoes-unidas\/produtos\/\$\{slugify\(item\.nome\)\}/);
+  assert.match(css, /\.produto-barra \{[^}]*height: 86px/);
+  assert.match(css, /\.produto-adicionar[\s\S]*height: 54px/);
+  assert.match(css, /padding-bottom: 102px !important/);
+  assert.match(css, /font-size: 1\.5rem !important/);
+  assert.match(css, /\.produto-pagina h2 \{[^}]*font-size: 1\.125rem !important/);
+});
