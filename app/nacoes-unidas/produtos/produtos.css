@@ -209,3 +209,20 @@
 .catalogo-nacoes .catalogo-acao:hover {
   background: var(--aqua-pale);
 }
+
+.catalogo-nacoes,
+.catalogo-nacoes .catalogo-item,
+.catalogo-nacoes .catalogo-info,
+.catalogo-nacoes .catalogo-reservar {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.catalogo-nacoes .catalogo-item {
+  flex-wrap: wrap;
+}
+
+.catalogo-nacoes .catalogo-preco {
+  white-space: normal;
+}
+

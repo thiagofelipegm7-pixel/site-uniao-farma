@@ -2,24 +2,22 @@
 
 import { useState } from "react";
 import { trackEvent } from "../analytics";
-import { buildWhatsAppUrl, UNITS } from "../site-config";
-import { IconCasa, IconLixeira, IconLoja, IconMais, IconMenos, IconWhats } from "./ReservaIcons";
+import { UNITS } from "../site-config";
+import { IconCasa, IconLixeira, IconLoja, IconMais, IconMenos } from "./ReservaIcons";
 import {
   atualizarReserva,
   definirQtd,
   formatarCentavos,
   limpar,
-  mensagemReserva,
-  porLoja,
   subtotalCentavos,
   type ModoReserva,
 } from "./reserva-store";
+import ReservaEnvio from "./ReservaEnvio";
 import { useReserva } from "./useReserva";
 
 export default function ReservaPagina() {
   const estado = useReserva();
   const [revisando, setRevisando] = useState(false);
-  const grupos = porLoja(estado);
 
   if (estado.itens.length === 0) {
     return (
@@ -88,37 +86,13 @@ export default function ReservaPagina() {
       ) : (
         <>
           <button type="button" className="reserva-link" onClick={() => setRevisando(false)}>Voltar para a reserva</button>
-          {grupos.map(({ unitId, itens }) => {
-            const unit = UNITS.find((u) => u.id === unitId);
-            if (!unit) return null;
-            const mensagem = mensagemReserva(unit.shortName, itens, estado.modo);
-            const href = buildWhatsAppUrl(unit, mensagem, { campaign: "reserva", content: `reserva_${unit.id}` });
-            return (
-              <section key={unitId} className="reserva-envio" aria-label={`Enviar para ${unit.shortName}`}>
-                <h2>{unit.shortName}</h2>
-                <pre className="reserva-mensagem">{mensagem}</pre>
-                <a
-                  className="reserva-botao reserva-botao-whats"
-                  href={href}
-                  target="_blank"
-                  rel="noreferrer"
-                  data-track-event="whatsapp_click"
-                  data-track-unit={unit.id}
-                  data-track-source="reserva_envio"
-                >
-                  <IconWhats size={26} />
-                  Enviar pedido pelo WhatsApp
-                </a>
-              </section>
-            );
-          })}
+          <ReservaEnvio estado={estado} />
           <h2>Depois de enviar</h2>
           <ol className="reserva-passos">
             <li>A loja confirma o preço e o estoque pelo WhatsApp, dentro do horário de atendimento.</li>
             <li>Você combina a retirada ou a entrega.</li>
             <li>O pagamento é feito no balcão ou na entrega.</li>
           </ol>
-          <p className="reserva-aviso">Responsável técnico das 3 lojas: João · CRF/MG 31958.</p>
         </>
       )}
     </>
