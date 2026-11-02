@@ -3,14 +3,18 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 test("keeps accessibility, contrast and tap-target hooks in source", async () => {
-  const [layout, page, theme, globals, units] = await Promise.all([
+  const [layout, home, shopHeader, shopSections, theme, globals, units] = await Promise.all([
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/HomePage.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/shop/ShopHeader.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/shop/ShopSections.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/theme.css", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/DirectUnitLinks.tsx", import.meta.url), "utf8"),
   ]);
 
+  // A home agora é montada por HomePage + cabeçalho e seções da casca de loja.
+  const page = [home, shopHeader, shopSections].join("\n");
   assert.match(layout, /lang="pt-BR"/);
   assert.match(layout, /<SkipLink\s*\/>/);
   assert.match(layout, /id="conteudo"/);

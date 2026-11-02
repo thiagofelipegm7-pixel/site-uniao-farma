@@ -266,7 +266,7 @@ test("busca da Nações: sugestões, filtro e ordenação no componente, lista c
     read("app/nacoes-unidas/produtos/busca.ts"),
   ]);
   assert.match(pagina, /preco: item\.preco/);
-  assert.match(lista, /useState\(""\)/);
+  assert.match(lista, /useState\(consultaInicial\)/);
   assert.match(lista, /BUSCAS_POPULARES/);
   assert.match(lista, /Buscas populares/);
   assert.match(lista, /1º/);

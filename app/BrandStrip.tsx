@@ -1,7 +1,7 @@
 import ReservaSacola from "./reserva/ReservaSacola";
 
 /** Faixa de identidade da União Farma: selo de coração, o lema da casa e a sacola da reserva. */
-export default function BrandStrip() {
+export default function BrandStrip({ semSacola = false }: { semSacola?: boolean }) {
   return (
     <div className="brand-strip">
       <span className="brand-strip-heart" aria-hidden="true">
@@ -10,7 +10,7 @@ export default function BrandStrip() {
         </svg>
       </span>
       <span className="brand-strip-pill">saúde e cuidado lado a lado.</span>
-      <ReservaSacola />
+      {semSacola ? <span aria-hidden="true" /> : <ReservaSacola />}
     </div>
   );
 }
