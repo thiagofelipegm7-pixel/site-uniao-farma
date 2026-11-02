@@ -11,6 +11,7 @@ import {
   isOfferExpired,
   isOffersCatalogFresh,
   lojaDaOferta,
+  lojaParaReserva,
   OFFERS,
   OFFERS_FRESH_DAYS,
   precoAnteriorConfirmado,
@@ -201,3 +202,10 @@ test("painel da semana na home: estrutura, no máximo o componente pede 3, sem D
   assert.doesNotMatch(ofertas, /previousPrice: \d/);
 });
 
+test("reserva da oferta vai para a loja preferida do cliente quando a oferta vale nela", () => {
+  const todas = { units: ["fatima", "nacoes", "itacolomi"] };
+  assert.equal(lojaParaReserva(todas, "itacolomi"), "itacolomi");
+  assert.equal(lojaParaReserva(todas, null), "fatima");
+  assert.equal(lojaParaReserva({ units: ["nacoes"] }, "itacolomi"), "nacoes");
+  assert.equal(lojaParaReserva({ units: [] }, "itacolomi"), null);
+});

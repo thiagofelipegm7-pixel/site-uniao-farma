@@ -1,11 +1,13 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import ReservarBotao from "./reserva/ReservarBotao";
+import { readPreferredUnitId } from "./preferred-unit";
 import { IconCoracao } from "./reserva/ReservaIcons";
 import {
   formatOfferPrice,
   getPublicOffers,
-  lojaDaOferta,
+  lojaParaReserva,
   precoAnteriorConfirmado,
   precoOfertaCentavos,
   selecionarOfertasSemana,
@@ -27,6 +29,13 @@ function EtiquetaPreco({ valor }: { valor: number }) {
 
 /** Painel verde da home. No máximo 3 ofertas reais. "De" só com preço anterior confirmado. */
 export default function OfertasSemana() {
+  const [preferida, setPreferida] = useState<ReturnType<typeof readPreferredUnitId>>(null);
+  useEffect(() => {
+    const sync = () => setPreferida(readPreferredUnitId());
+    sync();
+    window.addEventListener("uf-preferred-unit", sync);
+    return () => window.removeEventListener("uf-preferred-unit", sync);
+  }, []);
   const ofertas = selecionarOfertasSemana(getPublicOffers());
   if (ofertas.length === 0) return null;
 
@@ -45,7 +54,7 @@ export default function OfertasSemana() {
       <ul className="semana-lista">
         {ofertas.map((offer) => {
           const anterior = precoAnteriorConfirmado(offer);
-          const loja = lojaDaOferta(offer);
+          const loja = lojaParaReserva(offer, preferida);
           const preco = offer.currentPrice;
           if (preco === null || !loja) return null;
           return (

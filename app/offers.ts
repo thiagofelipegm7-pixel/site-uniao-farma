@@ -575,6 +575,15 @@ export function lojaDaOferta(offer: Pick<Offer, "units">): OfferUnitId | null {
   return offer.units[0] ?? null;
 }
 
+/** Loja da reserva: a preferida do cliente, se a oferta vale nela; senão a primeira da oferta. */
+export function lojaParaReserva(
+  offer: Pick<Offer, "units">,
+  preferida: OfferUnitId | null | undefined,
+): OfferUnitId | null {
+  if (preferida && offer.units.includes(preferida)) return preferida;
+  return lojaDaOferta(offer);
+}
+
 export function precoOfertaCentavos(valor: number): number {
   return Math.round(valor * 100);
 }
