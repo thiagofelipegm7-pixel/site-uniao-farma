@@ -210,7 +210,9 @@ test("busca da Nações: sugestões, filtro e ordenação no componente, lista c
   assert.match(lista, /data-track-source="produtos_nacoes_busca_vazia"/);
   assert.doesNotMatch(lista, /trackEvent\([^)]*(consulta|nome|lab)/);
   assert.match(css, /\.catalogo-sugestao-foto \{[^}]*width: 44px;/);
-  assert.match(css, /\.catalogo-filtro-opcao input \{[^}]*width: 48px;/);
+  // O alvo de toque de 48px é a linha toda (label); a caixa visível é de 22px.
+  assert.match(css, /\.catalogo-filtro-opcao \{[^}]*min-height: 48px;/);
+  assert.match(css, /\.catalogo-filtro-opcao input \{[^}]*width: 22px;/);
   assert.match(css, /\.catalogo-filtro-rodape \{[^}]*height: 68px;/);
   assert.match(css, /min-height: 44px/);
 });
