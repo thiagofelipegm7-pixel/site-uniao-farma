@@ -110,7 +110,7 @@ export default async function ProdutosNacoesPage({ searchParams }: { searchParam
               <strong>Medicamentos com receita e controlados:</strong> lista de preços, sem venda online. A compra é no balcão, com a receita (retida pela farmácia quando a lei exigir).
             </p>
             <p>
-              <a href="/nacoes-unidas/produtos/receita">Ver medicamentos com receita</a> · <a href="/nacoes-unidas/produtos/controlados">Ver medicamentos controlados</a>
+              <a href="/nacoes-unidas/produtos/receita">Ver medicamentos com receita</a> · <a href="/nacoes-unidas/produtos/controlados">Ver medicamentos controlados</a> · <a href="/nacoes-unidas/produtos/consulte-o-farmaceutico">Itens para consultar o farmacêutico</a>
             </p>
           </aside>
           <p className="catalogo-nota">

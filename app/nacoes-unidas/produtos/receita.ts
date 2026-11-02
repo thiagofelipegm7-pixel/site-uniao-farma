@@ -2,36 +2,60 @@ import receitaEstatica from "./dados/receita-nacoes.json" with { type: "json" };
 import { normalizarBusca } from "./busca";
 
 /**
- * Medicamentos com receita e controlados: LISTA DE PREÇOS, sem venda online, sem cesta, sem oferta, sem destaque.
- * Fonte: JSON estático (export do DMaster, ver ops/catalogo-nacoes/gerar.py). O export não traz RMS nem princípio ativo:
- * o princípio ativo dos controlados é o identificado pelo nome (ou omitido) e o RMS nunca é inventado.
+ * Medicamentos com receita, controlados e itens "consulte o farmacêutico": LISTA DE PREÇOS, sem venda online, sem cesta, sem oferta, sem destaque.
+ * Fonte: JSON estático (export do DMaster + tarja, princípio ativo e registro da lista pública CMED/Anvisa; ver ops/catalogo-nacoes/gerar.py).
+ * Princípio ativo, registro (RMS) e tarja só aparecem quando vêm de vínculo seguro com a CMED/Anvisa (ou, no caso do ativo dos controlados, da
+ * Portaria 344). Nada é inventado: sem fonte, o campo some.
  */
 export const IMAGEM_GENERICA = "/produtos/generica-ilustrativa.webp";
 export const AVISO_RECEITA = "Venda sob prescrição médica";
 export const AVISO_RETENCAO = "Venda sob prescrição médica com retenção da receita";
 export const AVISO_CONTROLADO = "Venda sob prescrição médica com retenção da receita";
+export const AVISO_CONSULTE = "Consulte o farmacêutico";
 export const SELO_CONTROLADO = "Controlado";
 export const NOTA_IMAGEM = "Imagem meramente ilustrativa.";
+export const COMO_COMPRAR = "Sem venda online: a compra é na loja ou combinada pelo WhatsApp, com a receita.";
+export const COMO_COMPRAR_CONSULTE = "Sem venda online: fale com o farmacêutico, na loja ou pelo WhatsApp.";
 export const POR_PAGINA = 48;
 
-export type TipoRestrito = "receita" | "controlados";
+export type TipoRestrito = "receita" | "controlados" | "consulte";
+export type Tarja = "preta" | "vermelha" | "vermelha-retencao";
 
-export type ItemReceita = { nome: string; lab: string; preco: number | null; retencao: boolean };
-export type ItemControlado = { nome: string; lab: string; preco: number | null; ativo: string; lista: string };
+export const ROTULO_TARJA: Record<Tarja, string> = {
+  preta: "Tarja preta",
+  vermelha: "Tarja vermelha",
+  "vermelha-retencao": "Tarja vermelha, com retenção da receita",
+};
+
+type BaseJson = { nome: string; lab: string; preco: number | null; ativo?: string; rms?: string; tarja?: Tarja };
+export type ItemReceita = BaseJson & { retencao: boolean };
+export type ItemControlado = BaseJson & { lista: string };
+export type ItemConsulte = BaseJson;
 export type ItemRestrito = {
   nome: string;
   lab: string;
   preco: number | null;
   tipo: TipoRestrito;
-  /** Princípio ativo (só controlados, quando identificado pelo nome). */
+  /** Princípio ativo (CMED/Anvisa ou Portaria 344), só quando há fonte. */
   ativo: string | null;
-  /** RMS/registro: não existe no export, então fica sempre null até haver fonte oficial. */
+  /** Registro no Ministério da Saúde (RMS, 9 dígitos do registro, formato 1.2345.6789), só quando vem da CMED/Anvisa. */
   rms: string | null;
+  /** Tarja do medicamento, só quando vem da CMED/Anvisa ou da lista da Portaria 344. */
+  tarja: Tarja | null;
+  /** Retenção da receita: true (sim), false (não) ou null (confirmar com o farmacêutico). */
+  retencao: boolean | null;
   concentracao: string | null;
   apresentacao: string | null;
   aviso: string;
   controlado: boolean;
 };
+
+/** Pela Portaria 344/98: listas A e B levam tarja preta; lista C, tarja vermelha com retenção. */
+export function tarjaDaLista(lista: string): Tarja | null {
+  if (/^[AB]/i.test(lista)) return "preta";
+  if (/^C/i.test(lista)) return "vermelha-retencao";
+  return null;
+}
 
 const CONCENTRACAO = /\d+(?:[.,]\d+)?(?:\s?[+/]\s?\d+(?:[.,]\d+)?)*\s?(?:mg|mcg|g|ml|ui|%)(?:\s?\/\s?(?:ml|g|dose))?/i;
 
@@ -46,32 +70,41 @@ export function lerNome(nome: string, lab: string): { concentracao: string | nul
   return { concentracao: m[0].replace(/\s+/g, " ").toLowerCase(), apresentacao: resto.length > 0 ? resto : null };
 }
 
-function paraRestrito(base: { nome: string; lab: string; preco: number | null }, tipo: TipoRestrito, extra: { ativo?: string; retencao?: boolean }): ItemRestrito {
+function paraRestrito(base: BaseJson & { retencao?: boolean; lista?: string }, tipo: TipoRestrito): ItemRestrito {
   const { concentracao, apresentacao } = lerNome(base.nome, base.lab);
   const controlado = tipo === "controlados";
+  const tarja: Tarja | null = base.tarja ?? (controlado && base.lista ? tarjaDaLista(base.lista) : null);
+  let retencao: boolean | null;
+  if (controlado || base.retencao === true || tarja === "preta" || tarja === "vermelha-retencao") retencao = true;
+  else if (tarja === "vermelha") retencao = false;
+  else retencao = null;
+  const aviso = tipo === "consulte" ? AVISO_CONSULTE : controlado ? AVISO_CONTROLADO : retencao === true ? AVISO_RETENCAO : AVISO_RECEITA;
   return {
     nome: base.nome,
     lab: base.lab,
     preco: typeof base.preco === "number" && base.preco > 0 ? base.preco : null,
     tipo,
-    ativo: controlado && extra.ativo ? extra.ativo : null,
-    rms: null,
+    ativo: base.ativo ? base.ativo.trim() || null : null,
+    rms: base.rms ?? null,
+    tarja,
+    retencao,
     concentracao,
     apresentacao,
-    aviso: controlado ? AVISO_CONTROLADO : extra.retencao ? AVISO_RETENCAO : AVISO_RECEITA,
+    aviso,
     controlado,
   };
 }
 
-export type CatalogoRestrito = { geradoEm: string | undefined; receita: ItemRestrito[]; controlados: ItemRestrito[] };
+export type CatalogoRestrito = { geradoEm: string | undefined; receita: ItemRestrito[]; controlados: ItemRestrito[]; consulte: ItemRestrito[] };
 
 export function carregarRestritos(): CatalogoRestrito {
-  const b = receitaEstatica as unknown as { geradoEm?: string; receita?: ItemReceita[]; controlados?: ItemControlado[] };
+  const b = receitaEstatica as unknown as { geradoEm?: string; receita?: ItemReceita[]; controlados?: ItemControlado[]; consulte?: ItemConsulte[] };
   const valido = (i: { nome?: unknown }) => typeof i?.nome === "string" && i.nome.trim().length > 0;
   return {
     geradoEm: typeof b.geradoEm === "string" ? b.geradoEm : undefined,
-    receita: (b.receita ?? []).filter(valido).map((i) => paraRestrito(i, "receita", { retencao: i.retencao === true })),
-    controlados: (b.controlados ?? []).filter(valido).map((i) => paraRestrito(i, "controlados", { ativo: i.ativo })),
+    receita: (b.receita ?? []).filter(valido).map((i) => paraRestrito(i, "receita")),
+    controlados: (b.controlados ?? []).filter(valido).map((i) => paraRestrito(i, "controlados")),
+    consulte: (b.consulte ?? []).filter(valido).map((i) => paraRestrito(i, "consulte")),
   };
 }
 

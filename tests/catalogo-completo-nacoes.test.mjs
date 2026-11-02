@@ -29,6 +29,7 @@ test("dados estáticos: data dos dados é 31/10/2026 e totais batem", async () =
   assert.match(rx.geradoEm, /^2026-10-31/);
   assert.equal(rx.totalReceita, rx.receita.length);
   assert.equal(rx.totalControlados, rx.controlados.length);
+  assert.equal(rx.totalConsulte, rx.consulte.length);
   assert.ok(cat.itens.length > 1000);
 });
 
@@ -36,24 +37,28 @@ test("receita e controlados não aparecem no catálogo principal", async () => {
   const cat = await json(`${D}/catalogo-nacoes.json`);
   const rx = await json(`${D}/receita-nacoes.json`);
   const normal = new Set(cat.itens.map((i) => `${i.nome}|${i.lab}|${i.preco}`));
-  for (const i of [...rx.receita, ...rx.controlados]) {
+  for (const i of [...rx.receita, ...rx.controlados, ...rx.consulte]) {
     assert.ok(!normal.has(`${i.nome}|${i.lab}|${i.preco}`), `${i.nome} está no catálogo normal`);
   }
 });
 
-test("todo item restrito tem nome e preço positivo; controlado tem lista da Portaria 344", async () => {
+test("todo item restrito tem nome; preço positivo ou ausente (nunca inventado); controlado tem lista da Portaria 344", async () => {
   const rx = await json(`${D}/receita-nacoes.json`);
-  for (const i of [...rx.receita, ...rx.controlados]) {
+  for (const i of [...rx.receita, ...rx.controlados, ...rx.consulte]) {
     assert.ok(i.nome && i.nome.trim());
-    assert.ok(typeof i.preco === "number" && i.preco > 0, i.nome);
+    assert.ok(i.preco === null || (typeof i.preco === "number" && i.preco > 0), i.nome);
+    if (i.rms !== undefined) assert.match(i.rms, /^\d\.\d{4}\.\d{4}$/, i.nome);
+    if (i.tarja !== undefined) assert.ok(["preta", "vermelha", "vermelha-retencao"].includes(i.tarja), i.nome);
   }
-  for (const i of rx.controlados) assert.match(i.lista, /^(A1|A2|A3|B1|B2|C1|C2|C3|C4|C5)$/, i.nome);
+  for (const i of rx.controlados) assert.match(i.lista, /^(A1|A2|A3|B1|B2|C1|C2|C3|C4|C5|A\/B)$/, i.nome);
+  assert.ok(rx.consulte.length > 100, "lista consulte-o-farmacêutico vazia");
 });
 
 test("avisos, selo e imagem genérica", async () => {
   const r = await rmod();
   assert.equal(r.AVISO_RECEITA, "Venda sob prescrição médica");
   assert.equal(r.AVISO_CONTROLADO, "Venda sob prescrição médica com retenção da receita");
+  assert.equal(r.AVISO_CONSULTE, "Consulte o farmacêutico");
   assert.equal(r.SELO_CONTROLADO, "Controlado");
   const img = await readFile(new URL(`../public${r.IMAGEM_GENERICA}`, import.meta.url));
   assert.ok(img.length > 1000);
@@ -64,6 +69,7 @@ test("lista restrita: sem cesta, oferta, % OFF, preço riscado ou destaque", asy
     "app/nacoes-unidas/produtos/ListaRestrita.tsx",
     "app/nacoes-unidas/produtos/receita/page.tsx",
     "app/nacoes-unidas/produtos/controlados/page.tsx",
+    "app/nacoes-unidas/produtos/consulte-o-farmaceutico/page.tsx",
     "app/nacoes-unidas/produtos/receita.ts",
   ]) {
     const src = (await read(f)).replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "");
@@ -72,16 +78,22 @@ test("lista restrita: sem cesta, oferta, % OFF, preço riscado ou destaque", asy
   const lista = await read("app/nacoes-unidas/produtos/ListaRestrita.tsx");
   assert.match(lista, /\{item\.aviso\}/);
   assert.match(lista, /SELO_CONTROLADO/);
-  const { carregarRestritos, AVISO_CONTROLADO, AVISO_RECEITA, AVISO_RETENCAO } = await rmod();
+  const { carregarRestritos, AVISO_CONTROLADO, AVISO_RECEITA, AVISO_RETENCAO, AVISO_CONSULTE } = await rmod();
   const c = carregarRestritos();
-  assert.ok(c.controlados.length > 100 && c.receita.length > 100);
+  assert.ok(c.controlados.length > 100 && c.receita.length > 100 && c.consulte.length > 100);
   for (const i of c.controlados) {
     assert.equal(i.aviso, AVISO_CONTROLADO, i.nome);
     assert.equal(i.controlado, true);
-    assert.equal(i.rms, null);
+    assert.equal(i.retencao, true);
+    assert.ok(i.rms === null || /^\d\.\d{4}\.\d{4}$/.test(i.rms), i.nome);
   }
   for (const i of c.receita) {
     assert.ok([AVISO_RECEITA, AVISO_RETENCAO].includes(i.aviso), i.nome);
+    assert.equal(i.controlado, false);
+    assert.equal(i.aviso === AVISO_RETENCAO, i.retencao === true, i.nome);
+  }
+  for (const i of c.consulte) {
+    assert.equal(i.aviso, AVISO_CONSULTE, i.nome);
     assert.equal(i.controlado, false);
   }
   assert.match(lista, /Consultar/);
@@ -90,6 +102,18 @@ test("lista restrita: sem cesta, oferta, % OFF, preço riscado ou destaque", asy
   const ctPage = await read("app/nacoes-unidas/produtos/controlados/page.tsx");
   assert.match(rxPage, /ListaRestrita/);
   assert.match(ctPage, /ListaRestrita/);
+  assert.match(await read("app/nacoes-unidas/produtos/consulte-o-farmaceutico/page.tsx"), /ListaRestrita/);
+  // campos da ficha (tarja, RMS, princípio ativo, fabricante, retenção, como comprar) sem texto de preço promocional
+  for (const campo of ["Princípio ativo", "Fabricante", "Registro MS (RMS)", "Tarja", "Retenção da receita", "COMO_COMPRAR"]) assert.ok(lista.includes(campo), campo);
+});
+
+test("tarja pela lista da Portaria 344 e retenção nunca afirmada sem fonte", async () => {
+  const { tarjaDaLista, carregarRestritos } = await rmod();
+  assert.equal(tarjaDaLista("B1"), "preta");
+  assert.equal(tarjaDaLista("A2"), "preta");
+  assert.equal(tarjaDaLista("C1"), "vermelha-retencao");
+  assert.equal(tarjaDaLista("D1"), null);
+  for (const i of carregarRestritos().receita) if (i.retencao === false) assert.equal(i.tarja, "vermelha", i.nome);
 });
 
 test("lerNome: concentração e apresentação só quando legíveis", async () => {
@@ -119,6 +143,35 @@ test("CSV de controlados e duvidosos existe, sem barras vazias e sem segredos", 
   assert.doesNotMatch(csv, /token|senha|password/i);
 });
 
+test("CSV de revisão do Thiago: 972 duvidosos originais, coluna categoria_final em branco, sem segredos", async () => {
+  const csv = await read("ops/catalogo-nacoes/revisao-thiago.csv");
+  const linhas = [];
+  let campo = "", linha = [], aspas = false;
+  for (const ch of csv.replace(/^\uFEFF/, "")) {
+    if (ch === '"') aspas = !aspas;
+    else if (ch === ";" && !aspas) {
+      linha.push(campo);
+      campo = "";
+    } else if (ch === "\n" && !aspas) {
+      linha.push(campo.replace(/\r$/, ""));
+      linhas.push(linha);
+      linha = [];
+      campo = "";
+    } else campo += ch;
+  }
+  const cab = linhas[0];
+  for (const c of ["Produto", "origem", "onde_esta_no_site", "confianca", "evidencia", "categoria_final", "observacao"]) assert.ok(cab.includes(c), c);
+  const iFinal = cab.indexOf("categoria_final");
+  const iOrig = cab.indexOf("origem");
+  const dados = linhas.slice(1).filter((l) => l.length > 1);
+  assert.equal(dados.filter((l) => l[iOrig] === "um dos 972 duvidosos").length, 972);
+  for (const l of dados) {
+    assert.equal(l.length, cab.length);
+    assert.equal(l[iFinal], "");
+  }
+  assert.doesNotMatch(csv, /token|senha|password/i);
+});
+
 test("selo/etiqueta 'Sem receita' removido de todos os cards de produto e ofertas", async () => {
   for (const f of [
     "app/nacoes-unidas/produtos/CatalogoLista.tsx",
@@ -128,6 +181,7 @@ test("selo/etiqueta 'Sem receita' removido de todos os cards de produto e oferta
     "app/PublicOffersGrid.tsx",
     "app/visual-fase2.tsx",
     "app/nacoes-unidas/produtos/ListaRestrita.tsx",
+    "app/nacoes-unidas/produtos/consulte-o-farmaceutico/page.tsx",
   ]) {
     const src = await read(f);
     assert.doesNotMatch(src, /SeloSemReceita|selo-sem-receita|<p className="produto-selo"|>\s*Sem receita\s*</, f);
