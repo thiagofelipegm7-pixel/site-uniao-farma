@@ -28,3 +28,9 @@ export function filtrarGrupos(grupos: GrupoBusca[], consulta: string): GrupoBusc
 export function contarItens(grupos: GrupoBusca[]): number {
   return grupos.reduce((total, grupo) => total + grupo.itens.length, 0);
 }
+
+/** Mensagem pronta do WhatsApp para um item da lista: pede confirmação do dia, sem prometer estoque. */
+export function mensagemItem(nome: string, precoFmt: string): string {
+  const limpo = nome.replace(/\s+/g, " ").trim();
+  return `Oi, União Farma Nações Unidas! Vi "${limpo}" (${precoFmt}) na lista do site. Pode confirmar preço e disponibilidade?`;
+}

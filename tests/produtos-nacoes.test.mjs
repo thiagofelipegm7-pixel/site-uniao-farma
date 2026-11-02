@@ -84,3 +84,15 @@ test("página de produtos usa a busca local com aviso de lista vazia levando ao 
   assert.match(lista, /aria-live="polite"/);
   assert.match(lista, /data-track-event="whatsapp_click"/);
 });
+
+test("ação por item: mensagem pede confirmação do dia, tem nome e preço, e o clique é rastreado sem expor o produto", async () => {
+  const { mensagemItem } = await import("../app/nacoes-unidas/produtos/busca.ts");
+  const msg = mensagemItem("  PROT SOLAR   NIVEA FPS 50 ", "R$ 54,90");
+  assert.match(msg, /"PROT SOLAR NIVEA FPS 50" \(R\$ 54,90\)/);
+  assert.match(msg, /confirmar preço e disponibilidade/);
+  assert.doesNotMatch(msg, /em estoque|garantid/i);
+  const lista = await read("app/nacoes-unidas/produtos/CatalogoLista.tsx");
+  assert.match(lista, /data-track-source="produtos_nacoes_item"/);
+  assert.doesNotMatch(lista, /data-track-(product|nome|name|item)\b/);
+  assert.match(lista, /className="catalogo-acao"/);
+});

@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { contarItens, filtrarGrupos, type GrupoBusca } from "./busca";
+import { buildWhatsAppUrl, UNITS } from "../../site-config";
+import { contarItens, filtrarGrupos, mensagemItem, type GrupoBusca } from "./busca";
 
 type Props = {
   grupos: GrupoBusca[];
@@ -15,6 +16,9 @@ export default function CatalogoLista({ grupos, whatsappHref, unitId }: Props) {
   const visiveis = filtrarGrupos(grupos, consulta);
   const total = contarItens(visiveis);
   const buscando = consulta.trim().length > 0;
+  const unit = UNITS.find((u) => u.id === unitId);
+  const hrefDoItem = (nome: string, precoFmt: string) =>
+    unit ? buildWhatsAppUrl(unit, mensagemItem(nome, precoFmt), { campaign: "produtos_nacoes", content: "nacoes_item" }) : whatsappHref;
 
   return (
     <>
@@ -73,6 +77,18 @@ export default function CatalogoLista({ grupos, whatsappHref, unitId }: Props) {
                       {item.isMIP ? (
                         <p className="catalogo-mip">Medicamento isento de prescrição. Leia a bula. Se persistirem os sintomas, o médico deverá ser consultado.</p>
                       ) : null}
+                      <a
+                        className="catalogo-acao"
+                        href={hrefDoItem(item.nome, item.precoFmt)}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label={`Confirmar ${item.nome} no WhatsApp`}
+                        data-track-event="whatsapp_click"
+                        data-track-unit={unitId}
+                        data-track-source="produtos_nacoes_item"
+                      >
+                        Confirmar no WhatsApp
+                      </a>
                     </div>
                     <strong className="catalogo-preco">{item.precoFmt}</strong>
                   </li>
