@@ -11,7 +11,6 @@
   background: #25d366;
   color: #06351f;
   box-shadow: 0 12px 28px rgba(14, 140, 58, 0.34);
-  text-decoration: none;
 }
 
 .whatsapp-fab:focus-visible {
@@ -44,12 +43,10 @@
   a.whatsapp-fab.whatsapp-fab-unit {
     left: 0.85rem;
     width: auto;
-    height: 52px;
     display: flex;
     justify-content: center;
     gap: 0.5rem;
     font-weight: 700;
-    font-size: 1rem;
   }
 
   .whatsapp-fab-unit .whatsapp-fab-label {

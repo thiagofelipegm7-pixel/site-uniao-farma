@@ -48,88 +48,18 @@
   opacity: 0.85;
 }
 
-.offer-consult-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
-}
-
-.offer-consult-card {
-  overflow: hidden;
-  border: 1px solid #d7e4de;
-  border-radius: 18px;
-  background: #ffffff;
-}
-
 .offer-consult-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
   min-height: 180px;
-  background: #f3f7f5;
-}
-
-.offer-consult-image img {
-  width: 100%;
-  height: 180px;
-  object-fit: contain;
-}
-
-.offer-consult-body {
-  padding: 14px;
-}
-
-.offer-consult-body h3 {
-  margin: 0 0 4px;
-  font-size: 17px;
-  line-height: 1.25;
-  color: #16382f;
-}
-
-.offer-consult-body p {
-  margin: 0 0 8px;
-  color: #4d635c;
-  font-size: 13px;
-}
-
-.offer-consult-units {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 6px;
-}
-
-.offer-consult-units a {
-  min-height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-  background: #176f62;
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 800;
-  text-decoration: none;
 }
 
 .open-status {
-  display: inline-flex;
-  flex-wrap: wrap;
-  align-items: center;
-  max-width: 100%;
-  border-radius: 999px;
   background: #e8f4ee;
   color: #16382f;
-  padding: 7px 12px;
-  font-size: 11px;
-  font-weight: 800;
-  line-height: 1.35;
 }
 .open-status > span { display: none; }
 .open-status strong,
 .open-status small {
   color: #16382f;
-  font-size: inherit;
-  font-weight: 800;
 }
 .open-status small { display: none; }
 
@@ -137,70 +67,13 @@
 .quick-unit-actions .button,
 .quick-unit-actions .text-link {
   min-width: 0;
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.whatsapp-intent-chips {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 8px;
-  margin: 0 0 12px;
-}
-
-.whatsapp-intent-chips button {
-  min-height: 42px;
-  border: 1px solid #d7e4de;
-  border-radius: 12px;
-  background: #ffffff;
-  color: #16382f;
-  font-size: 13px;
-  font-weight: 800;
-  cursor: pointer;
-}
-
-.whatsapp-intent-chips button.is-active {
-  background: #176f62;
-  border-color: #176f62;
-  color: #ffffff;
-}
-
-.offers-primary-button {
-  background: #176f62 !important;
-  border-color: #176f62 !important;
-  color: #ffffff !important;
-}
-
-.content-whatsapp-button {
-  width: 48px;
-  height: 48px;
-  min-width: 48px;
-  min-height: 48px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: auto;
-  border-radius: 14px;
-  background: #176f62;
-  color: #ffffff;
-  box-sizing: border-box;
-}
-
-.content-whatsapp-button svg {
-  display: block;
-  width: 22px;
-  height: 22px;
-  transform: none !important;
-}
-
 .header-cta {
-  display: inline-flex !important;
-  align-items: center;
   justify-content: center;
-  line-height: 1;
   border-radius: 14px !important;
-  box-sizing: border-box !important;
 }
 
 .header-cta .inline-icon {
@@ -208,7 +81,6 @@
   height: 22px;
   object-position: -999px;
   background: url("/whatsapp-glyph.svg") center / 22px 22px no-repeat;
-  transform: none !important;
 }
 
 .mobile-quick-nav {
@@ -216,72 +88,21 @@
 }
 
 @media (max-width: 860px) {
-  .menu-button,
-  .content-menu-button,
-  .menu-backdrop,
-  .content-menu-backdrop,
-  .menu-links,
-  .content-menu-drawer {
-    display: none !important;
-  }
 
   .mobile-quick-nav {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    position: sticky;
-    bottom: 0;
-    z-index: 2100;
-    gap: 8px;
-    margin: 0;
     padding: 10px 12px calc(10px + env(safe-area-inset-bottom));
-    background: rgba(255, 255, 255, 0.96);
-    border-top: 1px solid #d7e4de;
     backdrop-filter: blur(10px);
-  }
-
-  .mobile-quick-nav a {
-    min-height: 44px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 14px;
-    background: #f3f7f5;
-    color: #16382f;
-    font-size: 14px;
-    font-weight: 800;
-    text-decoration: none;
-  }
-
-  body.cookie-banner-visible .mobile-quick-nav {
-    bottom: 72px;
   }
 }
 
 @media (max-width: 700px) {
-  .nav,
-  .content-nav {
-    align-items: center !important;
-  }
 
   .header-cta,
   .content-whatsapp-button {
-    width: 48px !important;
-    height: 48px !important;
-    min-width: 48px !important;
-    min-height: 48px !important;
     padding: 0 !important;
     border-radius: 14px !important;
-    box-sizing: border-box !important;
-  }
-
-  .header-cta {
-    font-size: 0 !important;
-    color: transparent !important;
-    gap: 0 !important;
-  }
-
-  .header-cta .inline-icon {
-    margin: 0 !important;
   }
 
   .hero {
@@ -296,12 +117,6 @@
     display: none !important;
   }
 
-  .hero-copy h1 {
-    font-size: 28px !important;
-    line-height: 1.1 !important;
-    margin: 0 0 14px !important;
-  }
-
   .open-now-strip {
     padding: 8px 12px;
   }
@@ -310,85 +125,16 @@
     display: none;
   }
 
-  .quick-units-section {
-    padding-bottom: 28px;
-  }
-
-  .quick-unit-card {
-    overflow: visible;
-    padding: 16px 14px 14px;
-  }
-
-  .quick-unit-card h3 {
-    font-size: 20px;
-    line-height: 1.15;
-  }
-
-  .quick-unit-card > p {
-    margin: 6px 0 10px;
-    font-size: 13px;
-  }
-
-  .quick-unit-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    padding-top: 12px;
-  }
-
-  .quick-unit-actions .button {
-    grid-column: 1 / -1;
-    min-height: 48px;
-    justify-content: center;
-    padding-inline: 12px;
-    font-size: 14px;
-  }
-
-  .quick-unit-actions .text-link,
-  .quick-unit-actions .quick-recipe-link {
-    min-width: 0;
-    min-height: 44px;
-    justify-content: center;
-    padding: 8px;
-    font-size: 13px;
-  }
-
   .direct-unit-link {
     display: flex !important;
     flex-direction: column;
-    align-items: stretch;
     gap: 8px;
-    padding: 14px;
-  }
-
-  .direct-unit-name {
-    font-size: 18px;
-    line-height: 1.2;
   }
 
   .direct-unit-neighborhood {
     font-size: 13px;
   }
-
-  .direct-unit-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    width: 100%;
-    margin-top: 4px;
-  }
-
-  .direct-unit-actions a {
-    min-height: 44px;
-    font-size: 13px;
-    padding: 8px;
-  }
-
-  .locate-unit-bar {
-    padding: 10px 12px;
-  }
 }
-
-/* --- mobile.css --- */
 /* Media queries mobile — folha final de layout. */
 
 @media (max-width: 860px) {
@@ -425,51 +171,18 @@
     grid-template-columns: minmax(0, 1fr) !important;
   }
 
-  .whatsapp-fab:not(.whatsapp-fab-unit) {
-    display: none !important;
-  }
-
   .units-showcase-grid {
-    display: flex !important;
-    overflow-x: auto !important;
-    scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
   }
 
   .unit-store-card {
-    flex: 0 0 82vw !important;
     max-width: 22rem;
-    scroll-snap-align: start;
-  }
-
-  .unit-store-more {
-    display: none !important;
   }
 
   .offer-consult-grid,
   .direct-unit-links-grid,
   .news-grid {
     grid-template-columns: minmax(0, 1fr) !important;
-  }
-}
-
-@media (max-width: 430px) {
-  .hero-copy h1,
-  .hero-home .hero-copy h1,
-  .offers-hero h1,
-  .recipe-copy h1 {
-    font-size: 1.42rem !important;
-    line-height: 1.18 !important;
-  }
-
-  .unit-store-photo {
-    height: 128px !important;
-  }
-
-  .content-nav,
-  .site-header .nav {
-    padding-left: 0.7rem !important;
-    padding-right: 0.7rem !important;
   }
 }
 
@@ -497,8 +210,6 @@
     min-height: 48px !important;
   }
 }
-
-/* --- mobile-opt.css --- */
 /* Ultima folha mobile: ganha das regras conflitantes. */
 @media (max-width: 860px) {
   html {
@@ -542,105 +253,25 @@
     max-width: none !important;
   }
 
-  .hero-home .units-showcase,
-  .hero-home .units-showcase-inner,
-  .hero-home .units-showcase-grid {
-    width: 100% !important;
-    max-width: none !important;
-  }
-
   .mobile-quick-nav {
     display: block !important;
-    position: fixed !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    z-index: 4000 !important;
-    margin: 0 !important;
     padding: 0.35rem 0.9rem calc(0.55rem + env(safe-area-inset-bottom)) !important;
-    background: linear-gradient(180deg, rgba(247, 252, 250, 0) 0%, rgba(247, 252, 250, 0.72) 55%, #f7fcfa 100%) !important;
-    border-top: 0 !important;
-    box-shadow: none !important;
-    pointer-events: none !important;
   }
 
   .mobile-quick-nav-inner {
-    pointer-events: auto !important;
-    display: grid !important;
     grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    gap: 0.28rem !important;
     max-width: 22.5rem;
-    margin: 0 auto;
-    padding: 0.32rem !important;
-    border: 1px solid rgba(14, 115, 112, 0.1);
-    border-radius: 26px;
-    background: rgba(255, 255, 255, 0.94);
-    box-shadow:
-      0 14px 32px rgba(16, 40, 34, 0.12),
-      0 1px 0 rgba(255, 255, 255, 0.95) inset;
   }
 
   .mobile-quick-nav a {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
     gap: 0.22rem !important;
-    min-height: 56px !important;
     padding: 0.28rem 0.2rem 0.34rem !important;
-    border: 0 !important;
-    border-radius: 20px !important;
-    background: transparent !important;
-    color: #4a5f57 !important;
-    font-size: 11px !important;
-    font-weight: 800 !important;
-    letter-spacing: 0.01em !important;
-    line-height: 1.1 !important;
-    text-decoration: none !important;
-    box-shadow: none !important;
   }
 
   .mobile-quick-nav .mqn-icon {
-    display: grid !important;
-    place-items: center;
     width: 30px !important;
     height: 30px !important;
-    border-radius: 11px;
-    background: #eef7f4 !important;
     color: #0e7370 !important;
-  }
-
-  .mobile-quick-nav .mqn-label {
-    display: block;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 11px !important;
-    color: #2f4b44 !important;
-  }
-
-  .mobile-quick-nav a.is-primary {
-    background: #0e7370 !important;
-    color: #ffffff !important;
-    box-shadow: none !important;
-  }
-
-  .mobile-quick-nav a.is-primary .mqn-icon {
-    background: rgba(255, 255, 255, 0.16) !important;
-    color: #ffffff !important;
-  }
-
-  .mobile-quick-nav a.is-primary .mqn-label {
-    color: #ffffff !important;
-  }
-
-  .mobile-quick-nav a.is-primary .mqn-icon img {
-    filter: brightness(0) invert(1);
-  }
-
-  body.cookie-banner-visible .mobile-quick-nav {
-    bottom: 58px !important;
   }
 
   body.cookie-banner-visible {
@@ -659,17 +290,9 @@
   .header-cta,
   .content-whatsapp-button,
   .content-header-cta {
-    width: 48px !important;
-    height: 48px !important;
     min-width: 48px !important;
-    min-height: 48px !important;
     padding: 0 !important;
     border-radius: 14px !important;
-  }
-
-  .header-cta {
-    font-size: 0 !important;
-    color: transparent !important;
   }
 
   .open-now-strip {
@@ -700,24 +323,15 @@
 
   .hero-copy .eyebrow {
     display: block !important;
-    margin: 0 0 6px !important;
-    font-size: 12px !important;
-    letter-spacing: 0.08em !important;
   }
 
   .hero-copy h1 {
     max-width: none !important;
-    margin: 0 0 8px !important;
-    font-size: 1.45rem !important;
-    line-height: 1.15 !important;
   }
 
   .hero-lead {
     display: block !important;
-    margin: 0 0 10px !important;
-    font-size: 15px !important;
     line-height: 1.35 !important;
-    color: #3a5554 !important;
   }
 
   .story-section,
@@ -725,45 +339,6 @@
   .reviews-section,
   .faq-section {
     display: none !important;
-  }
-
-  .trust-strip-grid {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 8px !important;
-  }
-
-  .home-offer-card:nth-child(n + 3) {
-    display: none !important;
-  }
-
-  .home-offer-cta,
-  .home-reasons-actions a,
-  .home-reasons-actions button,
-  .unit-store-wa,
-  .unit-store-map,
-  .direct-unit-actions a,
-  .quick-unit-actions .button {
-    min-height: 44px !important;
-    font-size: 13px !important;
-  }
-
-  .whatsapp-intent-chips {
-    grid-template-columns: 1fr !important;
-  }
-
-  .whatsapp-intent-chips button {
-    min-height: 48px !important;
-    font-size: 15px !important;
-  }
-
-  .offer-consult-units {
-    grid-template-columns: 1fr !important;
-    gap: 8px !important;
-  }
-
-  .offer-consult-units a {
-    min-height: 48px !important;
-    font-size: 14px !important;
   }
 
   .unit-map-frame iframe,
@@ -776,14 +351,7 @@
 /* --- lcp.css --- */
 .brand img,
 .uf-footer-logo img {
-  width: 48px;
-  height: 48px;
   aspect-ratio: 1 / 1;
-  object-fit: contain;
-  object-position: center;
-  background: transparent !important;
-  border-radius: 0.45rem;
-  box-shadow: none;
 }
 
 .open-now-strip {
@@ -795,21 +363,9 @@
   min-height: 0;
 }
 
-.hero-offer-showcase.hero-illustration {
-  min-height: 0 !important;
-}
-
-.hero-illustration-img {
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  background: #f1fbfa;
-}
-
 .offer-consult-image img,
 .neighborhood-photo {
   aspect-ratio: 1 / 1;
-  height: auto;
 }
 
 .uf-footer,
@@ -821,9 +377,6 @@
 }
 
 /* --- inp.css --- */
-.scroll-indicator {
-  display: none !important;
-}
 
 .reveal {
   opacity: 1 !important;
@@ -850,11 +403,6 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--uf-green);
 }
 
 .direct-unit-link,
@@ -869,17 +417,7 @@ body {
 
 .direct-unit-link::before,
 .quick-unit-card::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
   width: 4px;
-  background: var(--uf-green);
-}
-
-.direct-unit-link.is-nearest::before {
-  background: var(--uf-green);
 }
 
 .direct-unit-link:hover,
@@ -890,29 +428,7 @@ body {
   box-shadow: 0 16px 36px rgba(16, 40, 34, 0.12);
 }
 
-.direct-unit-name {
-  font-weight: 800;
-}
-
-.open-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4em;
-  width: fit-content;
-  max-width: 100%;
-  padding: 0.4em 0.75em;
-  border-radius: 999px;
-  font-size: 0.78em;
-  font-weight: 800;
-  line-height: 1.3;
-}
-
 .open-status::before {
-  content: "";
-  width: 0.55em;
-  height: 0.55em;
-  border-radius: 50%;
-  flex: 0 0 0.55em;
   background: currentColor;
 }
 
@@ -921,67 +437,15 @@ body {
   color: var(--uf-ink);
 }
 
-.open-status.is-open {
-  background: var(--uf-open-live);
-  color: #062016;
-}
-
-.open-status.is-open::before {
-  background: #062016;
-  box-shadow: 0 0 0 0.18em rgba(6, 32, 22, 0.18);
-}
-
-.open-status.is-closed {
-  background: #f3d4cc;
-  color: var(--uf-closed);
-}
-
-.open-status.is-closed::before {
-  background: var(--uf-closed);
-}
-
 .open-status strong,
 .open-status small {
   color: inherit;
-  font-size: inherit;
-  font-weight: 800;
-}
-
-.whatsapp-intent-chips {
-  display: flex;
-  gap: 8px;
-}
-
-.whatsapp-intent-chips button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  border: 1px solid var(--uf-line);
-  font-weight: 700;
 }
 
 .whatsapp-intent-chips button svg,
 .direct-unit-recipe svg,
 .direct-unit-actions a svg {
   flex: 0 0 18px;
-}
-
-.locate-unit-bar {
-  background: linear-gradient(180deg, #ffffff 0%, #f3f8f6 100%);
-}
-
-.direct-unit-actions a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-.direct-unit-recipe {
-  background: #ffffff;
-  color: var(--uf-ink);
-  border: 1px solid var(--uf-line);
 }
 
 .uf-footer {
@@ -996,27 +460,10 @@ body {
   .questions-page,
   .encarte-page {
     width: min(1120px, calc(100% - 48px));
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero {
-    padding-top: 28px;
-    padding-bottom: 20px;
   }
 
   .hero-copy h1 {
-    font-size: 44px;
-    line-height: 1.12;
     max-width: 16ch;
-  }
-
-  .direct-unit-links-grid {
-    gap: 16px;
-  }
-
-  .direct-unit-link {
-    padding: 18px;
   }
 }
 
@@ -1071,20 +518,12 @@ body {
 .direct-unit-neighborhood,
 .offer-consult-body p,
 .locate-unit-status {
-  color: #2f4b4a;
   font-size: 14px;
 }
 
 .site-header,
 .content-header {
-  background: rgba(255, 255, 255, 0.96) !important;
-  border-bottom: 1px solid var(--uf-line) !important;
   box-shadow: none !important;
-}
-
-.header-cta,
-.content-whatsapp-button {
-  box-shadow: 0 8px 18px rgba(21, 127, 122, 0.22);
 }
 
 .open-now-strip {
@@ -1113,31 +552,6 @@ body {
 .questions-page h1,
 .encarte-page h1 {
   letter-spacing: -0.03em;
-  color: var(--uf-ink);
-}
-
-.whatsapp-intent-chips button {
-  min-height: 44px;
-  border-radius: 14px;
-  border-color: var(--uf-line);
-  background: #ffffff;
-  color: var(--uf-ink);
-  font-size: 14px;
-}
-
-.whatsapp-intent-chips button.is-active {
-  background: var(--uf-green);
-  border-color: var(--uf-green);
-  color: #ffffff;
-  box-shadow: 0 6px 14px rgba(21, 127, 122, 0.2);
-}
-
-.locate-unit-bar {
-  border: 1px solid var(--uf-line);
-  border-radius: var(--uf-radius);
-  background: #ffffff;
-  box-shadow: none;
-  padding: 10px 12px;
 }
 
 .locate-unit-button,
@@ -1152,7 +566,6 @@ body {
 .quick-unit-card,
 .offer-consult-card,
 .question-card {
-  border: 1px solid var(--uf-line);
   border-radius: 18px;
   background: #ffffff;
   box-shadow: var(--uf-shadow);
@@ -1161,38 +574,12 @@ body {
 .direct-unit-name,
 .quick-unit-card h3,
 .offer-consult-body h3 {
-  color: var(--uf-ink);
   letter-spacing: -0.02em;
 }
 
 .open-status {
-  width: fit-content;
-  max-width: 100%;
   background: var(--uf-mint);
   color: var(--uf-ink);
-  border-radius: 999px;
-  padding: 6px 10px;
-  font-size: 14px !important;
-}
-
-.direct-unit-actions a,
-.offer-consult-units a {
-  border-radius: 14px;
-  min-height: 44px;
-}
-
-.mobile-quick-nav {
-  background: rgba(255, 255, 255, 0.96);
-  border-top: 1px solid var(--uf-line);
-  box-shadow: 0 -10px 24px rgba(8, 58, 59, 0.08);
-}
-
-.mobile-quick-nav a {
-  background: var(--uf-mint);
-  color: var(--uf-ink);
-  border-radius: 14px;
-  min-height: 44px;
-  font-size: 14px;
 }
 
 .cookie-banner {
@@ -1202,13 +589,6 @@ body {
   box-shadow: 0 -16px 32px rgba(8, 58, 59, 0.14);
 }
 
-.button-whatsapp,
-.header-cta {
-  background: var(--uf-wa) !important;
-  border-color: var(--uf-wa) !important;
-  color: #ffffff !important;
-}
-
 .button-light {
   background: var(--uf-green) !important;
   border-color: var(--uf-green) !important;
@@ -1216,10 +596,6 @@ body {
 }
 
 @media (max-width: 860px) {
-  .floating-whatsapp-global,
-  .floating-bar {
-    display: none !important;
-  }
 
   .cookie-banner {
     gap: 8px;
@@ -1228,7 +604,6 @@ body {
   }
 
   .cookie-banner p {
-    display: block;
     margin: 0;
     font-size: 12px;
     line-height: 1.25;
@@ -1239,13 +614,8 @@ body {
   }
 
   .mobile-quick-nav {
-    z-index: 2200;
     padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
     gap: 6px;
-  }
-
-  body.cookie-banner-visible .mobile-quick-nav {
-    bottom: 58px;
   }
 
   body.cookie-banner-visible {
@@ -1260,44 +630,12 @@ body {
     padding-bottom: 8px !important;
   }
 
-  .hero-copy h1 {
-    font-size: 24px !important;
-    line-height: 1.2 !important;
-    margin: 0 0 10px !important;
-  }
-
-  .whatsapp-intent-chips {
-    margin-bottom: 8px;
-    gap: 6px;
-  }
-
-  .whatsapp-intent-chips button {
-    min-height: 44px;
-    font-size: 14px;
-  }
-
-  .locate-unit-bar {
-    padding: 8px !important;
-    margin-bottom: 8px;
-  }
-
   .direct-unit-links-grid {
     gap: 8px !important;
   }
 
   .direct-unit-link {
-    padding: 12px !important;
     gap: 6px !important;
-  }
-
-  .direct-unit-name {
-    font-size: 17px !important;
-    line-height: 1.25 !important;
-  }
-
-  .direct-unit-actions a {
-    min-height: 44px !important;
-    font-size: 14px !important;
   }
 
   .brand small {

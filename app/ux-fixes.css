@@ -29,7 +29,6 @@ a.button.button-group-offers:focus-visible {
   text-align: center;
   color: #16382f;
 }
-.unit-map-placeholder p { margin: 0; }
 .unit-map-placeholder .unit-map-placeholder-actions {
   display: flex;
   flex-wrap: wrap;
