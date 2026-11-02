@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { trackEvent } from "../../analytics";
 import { buildWhatsAppUrl, UNITS } from "../../site-config";
+import ReservarBotao from "../../reserva/ReservarBotao";
+import { precoParaCentavos } from "../../reserva/reserva-store";
 import { contarItens, eventoBusca, filtrarGrupos, mensagemItem, type GrupoBusca } from "./busca";
 
 type Props = {
@@ -86,6 +88,10 @@ export default function CatalogoLista({ grupos, whatsappHref, unitId }: Props) {
                       {item.isMIP ? (
                         <p className="catalogo-mip">Medicamento isento de prescrição. Leia a bula. Se persistirem os sintomas, o médico deverá ser consultado.</p>
                       ) : null}
+                      <div className="catalogo-reservar">
+                        {precoParaCentavos(item.precoFmt) ? (
+                          <ReservarBotao unitId={unitId} nome={item.nome} precoCentavos={precoParaCentavos(item.precoFmt) ?? 0} foto={item.foto} />
+                        ) : null}
                       <a
                         className="catalogo-acao"
                         href={hrefDoItem(item.nome, item.precoFmt)}
@@ -98,6 +104,7 @@ export default function CatalogoLista({ grupos, whatsappHref, unitId }: Props) {
                       >
                         Confirmar no WhatsApp
                       </a>
+                      </div>
                     </div>
                     <strong className="catalogo-preco">{item.precoFmt}</strong>
                   </li>
