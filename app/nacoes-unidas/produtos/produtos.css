@@ -854,14 +854,3 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
   padding: 0 12px;
   font-weight: 700;
 }
-
-.catalogo-nacoes .restrito-compra {
-  margin: 4px 0 0;
-  font-size: 0.8125rem;
-  color: var(--muted);
-}
-
-.catalogo-nacoes .restrito-compra a {
-  font-weight: 700;
-  white-space: nowrap;
-}

@@ -22,16 +22,16 @@ controlado_publicado;BUPROPIONA 300MG 24HRS CX 30CPR RANBAXY;DIVERSOS;GENERICO;9
 controlado_publicado;CARBAMAZEPINA 200MG CX 30CPR TEUTO;TEUTO;GENERICO;12;carbamazepina;C1;ativo/marca da Portaria 344;7896112119210
 controlado_publicado;CARBAMAZEPINA 400MG CX 30CAPS TEUTO;TEUTO;ETICO;28;carbamazepina;C1;ativo/marca da Portaria 344;7896112119258
 controlado_publicado;CARBONATO DE LITIO 300MG CX 60CPR EUROFARMA;DIVERSOS;GENERICO;36.9;litio;C1;ativo/marca da Portaria 344;7891317013646
-controlado_publicado;CINETOL 2MG C 80 COMP (C1);DIVERSOS;PERFUMARIA;40.25;cloridrato de biperideno;C1;"etiqueta de lista no nome; princípio ativo não identificado (não informado)";7896676442076
+controlado_publicado;CINETOL 2MG C 80 COMP (C1);DIVERSOS;PERFUMARIA;40.25;;C1;"etiqueta de lista no nome; princípio ativo não identificado (não informado)";7896676442076
 controlado_publicado;CITALOPRAM 20MG CX 30 COMP MEDLEY;MEDLEY;GENERICO;18.9;citalopram;C1;ativo/marca da Portaria 344;7896422515580
 controlado_publicado;CITALOPRAM 20mg cx 30CPR EUROFARMA;EUROFARMA;GENERICO;18.9;citalopram;C1;flag do export + ativo/marca da Portaria 344;7891317472009
 controlado_publicado;CLONAZEPAM 0.5MG CX 30CPR MEDLEY;MEDLEY;GENERICO;8;clonazepam;B1;ativo/marca da Portaria 344;7896422514644
 controlado_publicado;CLONAZEPAM 2 MG 30 CPR GERMED;GERMED;GENERICO;10;clonazepam;B1;ativo/marca da Portaria 344;7896004721842
 controlado_publicado;CLONAZEPAM 2.5mg GTS 20 ML TEUTO;TEUTO;GENERICO;12;clonazepam;B1;flag do export + ativo/marca da Portaria 344;7896112135913
 controlado_publicado;CLONAZEPAM 2mg cx 30 comp GEOLAB;GEOLAB;GENERICO;10;clonazepam;B1;flag do export + ativo/marca da Portaria 344;7899095202405
-controlado_publicado;COD 30MG C 12CP (C1);SUPERA;SIMILAR;26.69;fosfato de codeína hemi-hidratado;C1;"flag do export; princípio ativo não identificado (não informado)";7899420509582
-controlado_publicado;CODEIN 30MG C 12 CP (A2) CRI;CRISTALIA;ETICO;26.65;fosfato de codeína hemi-hidratado;A2;"flag do export; princípio ativo não identificado (não informado)";7896676442670
-controlado_publicado;CODEIN 30MG CPR 30 A2;CRISTALIA;ETICO;72.85;fosfato de codeína;A2;"etiqueta de lista no nome; princípio ativo não identificado (não informado)";7896676400175
+controlado_publicado;COD 30MG C 12CP (C1);SUPERA;SIMILAR;26.69;;C1;"flag do export; princípio ativo não identificado (não informado)";7899420509582
+controlado_publicado;CODEIN 30MG C 12 CP (A2) CRI;CRISTALIA;ETICO;26.65;;A2;"flag do export; princípio ativo não identificado (não informado)";7896676442670
+controlado_publicado;CODEIN 30MG CPR 30 A2;CRISTALIA;ETICO;72.85;;A2;"etiqueta de lista no nome; princípio ativo não identificado (não informado)";7896676400175
 controlado_publicado;CODEX 500+30MG 12CPR A2;DIVERSOS;ETICO;33.16;paracetamol + fosfato de codeína;A2;ativo/marca da Portaria 344;7896006219590
 controlado_publicado;DESVENLAFAXINA 100mg cx 30 comp ALTHAIA;ALTHAIA;GENERICO;65;desvenlafaxina;C1;flag do export + ativo/marca da Portaria 344;7898569764753
 controlado_publicado;DESVENLAFAXINA 50MG CX30 COMP ALTHAIA;DIVERSOS;GENERICO;49.9;desvenlafaxina;C1;ativo/marca da Portaria 344;7898569767556
@@ -54,7 +54,7 @@ controlado_publicado;FOSFATO CODEINA 30MG CX 30 CPR NOVA QUIMICA;DIVERSOS;GENERI
 controlado_publicado;GARDENAL 100MG C 20 COMP (C1);DIVERSOS;ETICO;14.3;fenobarbital;B1;ativo/marca da Portaria 344;7898216368037
 controlado_publicado;HALDOL 5MG C 20 CPR(C1);LUSOMEDICAMENTOS;ETICO;18;haloperidol;C1;flag do export + ativo/marca da Portaria 344;7898953165425
 controlado_publicado;IMIPRA 25 mg com rev ct bl;CRISTALIA;SIMILAR;14.97;imipramina;C1;ativo/marca da Portaria 344;7896676436129
-controlado_publicado;INSIT 25MG C 30 CAPS C1;DIVERSOS;ETICO;36.6;pregabalina;C1;"etiqueta de lista no nome; princípio ativo não identificado (não informado)";7896637029032
+controlado_publicado;INSIT 25MG C 30 CAPS C1;DIVERSOS;ETICO;36.6;;C1;"etiqueta de lista no nome; princípio ativo não identificado (não informado)";7896637029032
 controlado_publicado;MALEATO DE MIDAZOLAM 15MG CX 30 COMP MEDLEY;MEDLEY;ETICO;75;midazolam;B1;ativo/marca da Portaria 344;7896422517621
 controlado_publicado;METILFENIDATO 10mg 30CPR EMS;EMS GENERICO;GENERICO;29.9;metilfenidato;A3;flag do export + ativo/marca da Portaria 344;7896004754154
 controlado_publicado;MIRTAZAPINA 15MG CX 30CPR SANDOZ;DIVERSOS;GENERICO;39.9;mirtazapina;C1;ativo/marca da Portaria 344;7897595634962
@@ -121,156 +121,433 @@ controlado_publicado;ZOLPIDEM 10 mg CX 30CPR SANDOZ;SANDOZ;GENERICO;19.9;zolpide
 controlado_publicado;ZOLPIDEM 12.5MG 30CPR EUROFARMA;DIVERSOS;GENERICO;26.9;zolpidem;B1;flag do export + ativo/marca da Portaria 344;7891317027193
 controlado_publicado;ZOLPIDEM 5MG CX 30CPR BIOLAB;DIVERSOS;GENERICO;55;zolpidem;B1;ativo/marca da Portaria 344;7896112406488
 duvidoso;A SAUDE DA MULHER sus fr 150ml;EMS MARCAS;ETICO;29.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004817477
+duvidoso;ABC 10mg spray fr 30ml;HERTZ;SIMILAR;29.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896331702583
+duvidoso;ABLOK 25mg cx 30 comp;BIOLAB SAN;ETICO;7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896241221853
+duvidoso;ABLOK PLUS 25+12.5MG C/30 COMP;BIOLAB SAN;ETICO;26.7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896241225257
+duvidoso;ABRILAR xarope 100ml;FARMOQUIMI;ETICO;57.23;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7898040320973
+duvidoso;ACERATUM SOL. OTOLOGICA;DELTA;SIMILAR;16.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7893454300115
+duvidoso;ACERTIL 10MG TB 30 COMP;SERVIER;ETICO;113.7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898029550247
+duvidoso;ACERTIL 5MG TB 30 COMP;SERVIER;ETICO;66.6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898029550216
 duvidoso;ACETICIL 500mg 10CPR;CAZI;ETICO;4.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7893736013764
 duvidoso;ACEVITON 1G C/10 EFERVESCENTE PROMOCIONAL;DIVERSOS;LIBERADO;9.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7897947616271
 duvidoso;ACEVITON 500MG C/60 MASTIGAVEL;CIMED;SIMILAR;29.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7897947600836
 duvidoso;ACEVITON C+D+Z C/10;DIVERSOS;SIMILAR;12;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7897947601741
+duvidoso;ACIDO VALPROICO 250mg cx 25 cap BIOLAB;BIOLAB GENERICOS;GENERICO;21.9;valproico;duvida;ativo que pode ser controlado conforme forma/dose: valproico;7896112401230
 duvidoso;ACNEZIL GEL 20 G TRATAMENTO 2;CIMED;SIMILAR;21;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896523208282
 duvidoso;ACNEZIL GEL SECATIVO 10 G;CIMED;SIMILAR;18;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897947607392
+duvidoso;ACU FRESH G 10ML;DIVERSOS;SIMILAR;25;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7899095263215
+duvidoso;AD-TIL 20 ML;NYCOMED PH;ETICO;23.2;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896641808609
+duvidoso;ADDERA 14.000UI C/4 CAPS MOLE;MANTECORP/FARMASA;ETICO;39.99;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7891142206329
 duvidoso;ADEFORTE SOL 1AMP 3ML;GROSS;ETICO;29;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7892828001016
 duvidoso;ADEFORTE TURBO AMPOLA C 3ML;DIVERSOS;ETICO;45;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7892828002303
+duvidoso;ADOLESS 0060+0015mg cx 3 CARTELAS;FARMOQUIMICA;ETICO;122.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898040322137
+duvidoso;AERODINI SPRAY;TEUTO;SIMILAR;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112147640
+duvidoso;AEROLIN spray cx c/200 DOSES;GLAXOSMITH;ETICO;27.15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896269900150
 duvidoso;AFOLIC 5MG 20CPR (ACIDO FOLICO) / NATULA;DIVERSOS;SIMILAR;8;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898133136535
 duvidoso;AFOLIMAX 30ML (ACIDO FOLICO) /;DIVERSOS;SIMILAR;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7894164005222
+duvidoso;AFOPIC 5MG C/20 COMP;TEUTO;SIMILAR;8;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112198246
+duvidoso;AGIIGRIP DUO CARTELA COM 6CPR;DIVERSOS;SIMILAR;6;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7898216361946
 duvidoso;AGIL-CISTEIN VITA C 600MG+500MG 5G C/16;DIVERSOS;SIMILAR;35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898216368433
+duvidoso;ALBEL 400MG CX 5CPR;DIVERSOS;GENERICO;20;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899095202498
+duvidoso;ALEKTOS 20mg cx 20 comp;COSMED;ETICO;78.15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094927551
+duvidoso;ALEKTOS PED sol oral fr 120ml +;COSMED;ETICO;94.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094925137
+duvidoso;ALENIA 12/400MCG 60CAP REFIL;BIOSINTETICA;ETICO;139.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896181918943
+duvidoso;ALENIA 6+200mcg REFIL 60CAPS;BIOSINTETI;ETICO;121.3;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896181905288
+duvidoso;ALGINAC 1+50+50+50mg cx 15 c;MERCK;ETICO;38.4;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7891721029639
+duvidoso;ALGINAC 1+50+50+50mg cx 30 c;MERCK;ETICO;77;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7891721029646
+duvidoso;ALGINAC RETARD 1 mg 100 mg com;MERCK;ETICO;75.6;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7891721023965
 duvidoso;ALIVIK POMADA 12G;DIVERSOS;SIMILAR;9.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896186002944
+duvidoso;ALLEGRA D 60 mg + 120 mg 10CPR;SANOFI-AVE;ETICO;73.75;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891058006716
+duvidoso;ALLESTRA 20 20/75mcg cx 63 comp;ACHE;SIMILAR;88;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658036996
+duvidoso;ALLESTRA 20 CARTELA;ACHE;ETICO;30;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";0
+duvidoso;ALLESTRA 30 30/75mcg cx 63 comp;ACHE;SIMILAR;88;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658036965
+duvidoso;ALLESTRA 30 CARTELA;ACHE;ETICO;30;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";0
+duvidoso;ALLEXOFEDRIN D CX 10 COMP;EMS;SIMILAR;59.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004705408
 duvidoso;ALMEIDA PRADO 35 60CPR;ALME PRADO;ETICO;29.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898037080354
 duvidoso;ALMEIDA PRADO 46 CX 60CPR;DIVERSOS;ETICO;42.2;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896026173018
 duvidoso;AMICORED 2.500MCG/ML SOL INJ 2AMP (CIANO;DIVERSOS;SIMILAR;29.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898920500372
+duvidoso;AMOME 50mcg spr nas 120 ac;MANTECORP/FARMASA;SIMILAR;67.8;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094921375
+duvidoso;ANDOLBA C 1 TUBO SOL AER 43G;DIVERSOS;ETICO;41.29;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317036812
+duvidoso;ANDRIODERMOL 50 ML*;UNIAO ETIC;ETICO;35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006214007
+duvidoso;ANNITA 20mg po sus oral fr 100;FARMOQUIMI;ETICO;74;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898040321505
+duvidoso;ANNITA 20mg sus fr 45ml;FARMOQUIMI;ETICO;34.08;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898040321420
+duvidoso;ANNITA 500mg cx 6 comp 1 CP 12/12 HS 3 DIAS;FARMOQUIMI;ETICO;85.56;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898040321512
 duvidoso;ANSIODORON COM 40CPS;DIVERSOS;LIBERADO;65;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7893093067295
+duvidoso;ANSITEC 10mg cx 60 comp;LIBBS;SIMILAR;224;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094209633
+duvidoso;ANSITEC 5mg cx 60 comp;LIBBS;SIMILAR;125;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094209619
+duvidoso;ANTUX XPE 120ML*;ACHE;ETICO;49;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658001789
+duvidoso;APEVITIN B+C sol oral fr 240ml;EMS;SIMILAR;24.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004700502
+duvidoso;APRACUR ENV 6 CPR;DM;FRACIONADO;12.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891104193087
+duvidoso;APRESOLINA 25mg bl al 20CPR;NOVARTIS;ETICO;10.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006220534
+duvidoso;APRESOLINA 50 mg drg ct bl al/a;NOVARTIS;ETICO;43.2;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896261018488
+duvidoso;APRESOLINA 50MG 20COMP RVST;DIVERSOS;ETICO;14.35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006220510
+duvidoso;ARADOIS 25 mg c/30 CPR;BIOLAB SAN;ETICO;60.8;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896241241394
+duvidoso;ARADOIS 50 MG CPR 60;BIOLAB SAN;ETICO;30;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112486886
+duvidoso;ARADOIS 50 MG CX 30CPR;BIOLAB SAN;ETICO;15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112486787
 duvidoso;ARLIVRY 7 MG/ML 100 ML SABOR CEREJA;NATULAB;SIMILAR;19;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898133136634
 duvidoso;ARLIVRY 7MG/ML 100ML SABOR MEL;NATULAB;SIMILAR;19;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898133136757
 duvidoso;ARNICA GEL 200G TEUTO;DIVERSOS;PERFUMARIA;15;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7896112102854
 duvidoso;ARNICA WELEDA D3 C/80 CPR;DIVERSOS;ETICO;95;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7893093067134
+duvidoso;ARTELAC sol oft em frasco;BAUSCH & L;ETICO;30.93;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896046300036
+duvidoso;ARTRITEC 15mg C/10cpr;PHARLAB;SIMILAR;10;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898216360598
+duvidoso;ARTRITEC 7.5mg/10cpr;PHARLAB;SIMILAR;10;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898216360581
 duvidoso;ARTROCON PLUS C/30 COMP. COLAG. TIPO 2 G;DIVERSOS;SIMILAR;59.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896108022753
 duvidoso;ASPIRINA 500MG CARTELA COM 10;BAYER;ETICO;11.95;;;enquadramento regulatório a confirmar: ativo consta na LMIP mas forma farmacêutica não identificada no nome | ativos: ACIDO ACETILSALICILICO;7891106004213
+duvidoso;ATENSINA 0100MG C 30 COMP;DIVERSOS;ETICO;10.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898968453098
+duvidoso;ATENSINA 0150MG C 30 COMP;DIVERSOS;ETICO;14;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898968453104
+duvidoso;ATROPINA COLIRIO 01% 5ML;ALLERGAN;ETICO;14;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897316801154
+duvidoso;ATROVENT 025MG SOL P INAL 20M;DIVERSOS;ETICO;32.35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896026307826
+duvidoso;ATROVENT N 20mcg aer fr 10ml;BOEHRINGER;ETICO;43.35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896026302432
+duvidoso;ATURGYL 0 5MG SPRAY 15ML;DIVERSOS;ETICO;19.25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094931619
 duvidoso;AURIS SEDINA GOTAS 10 ML;OSORIO MOR;ETICO;37.55;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898089300011
+duvidoso;AVAMYS 27.5MCG 120DOSES;GLAXOSMITH;ETICO;69.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896015518875
+duvidoso;AVIDE 100MG CX 9 CAP;ACHE;ETICO;56.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658026195
+duvidoso;AZORGA fr 5ml;ALCON;ETICO;114.85;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896548197967
+duvidoso;AZUKON MR 30mg cx 30 comp;TORRENT DO;ETICO;25.35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";8902220106079
 duvidoso;BABY MED ROSA 45G;CIMED;SIMILAR;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896523208985
 duvidoso;BABYMED AZUL 45G;CIMED;SIMILAR;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896523223223
 duvidoso;BABYRUB 12G;ABL-ANTIBIOTICOS;ETICO;27.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";75075644
 duvidoso;BALA PROPOLIS E MEL SANT BARB;SANTA BARB;ALIMENTOS;7;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7897535411042
 duvidoso;BALA PROPOLIS SANTA BARBARA;SANTA BARB;ALIMENTOS;7;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7897535411059
+duvidoso;BALSAMO BENGUE 60G BISN POM;EMS OTC;ETICO;50.2;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896004753621
+duvidoso;BALSAMO BENGUE Pomada bg* 20GR;DIVERSOS;ETICO;29.6;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896004817569
+duvidoso;BALSAMO BENGUE gel bg 20g;EMS;ETICO;28.15;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896004817576
+duvidoso;BEDOZE 5mg/ml sol inj 2 amp;EUROFARMA;ETICO;44.95;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317026554
 duvidoso;BELFAREN 50mg cx 20 comp;BELFAR;SIMILAR;7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897917001465
+duvidoso;BENALET CARTELA COM 4;DIVERSOS;ETICO;16.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";
+duvidoso;BENEGRIP CARTELA 6CPR;COSMED;LIBERADO;16.5;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896094910683
+duvidoso;BENEGRIP MULTI DIA COM 4CPR;DIVERSOS;ETICO;11.9;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896094918597
+duvidoso;BENEGRIP MULTI NOITE COM 4CPR;DIVERSOS;ETICO;11.9;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896094918603
+duvidoso;BENEGRIP XPE MULTI 240ML;COSMED;ETICO;44.99;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896094905825
+duvidoso;BENERVA 300mg cx 30 comp rev;CELLERA FARMA;ETICO;35.6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7893454714325
 duvidoso;BENEUM 300mg cx 30 comp;TEUTO;SIMILAR;35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112103776
+duvidoso;BENZOATO DE BENZILA 250 MG/ML EMUL 100ML NATIVITA;NATIVITA;SIMILAR;14;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897848502734
+duvidoso;BENZOATO DE BENZILA SABONETE 60G GREEN PHARMA;GREENPHARM;GENERICO;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";0074468736870
 duvidoso;BENZOILMETRONIDAZOL+NIST+BENZAL VAG;PRATI. DON;GENERICO;35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898148299683
 duvidoso;BEPANTOL DERMA CREME 20;BAYER;LIBERADO;45;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7891106907286
 duvidoso;BEPANTOL DERMA REG LABIAL 75M;BAYER;ETICO;39.9;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7891106908870
 duvidoso;BEPANTOL DERMA ROSA MOSQUETA 20G;DIVERSOS;PERFUMARIA;45;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7891106916578
+duvidoso;BEPANTRIZ 50MG POMADA 30G;CIMED;SIMILAR;12;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896523210797
+duvidoso;BEPANTRIZ TATTOO 20G;DIVERSOS;LIBERADO;25.9;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7897947615250
 duvidoso;BERBERINA 500MG C/60 CPS POWER FIT;DIVERSOS;SIMILAR;69.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898653176561
+duvidoso;BEROTEC SPRAY 100 MCG;BOEHRINGER;ETICO;35.85;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896026302784
+duvidoso;BESEROL CX 4CPR;DAUDT;SIMILAR;8.48;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896026171199
 duvidoso;BESOMED C/60 COMP ALMEIDA PRADO;ALME PRADO;LIBERADO;39.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898037081252
+duvidoso;BETA+BETA 1 AMPOLA EUROFARMA;EUROFARMA;GENERICO;16;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317141967
 duvidoso;BETACORTAZOL CREME 30G;DIVERSOS;SIMILAR;15.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897917004688
+duvidoso;BETATRINTA 5+2mg inj cx 1amp 1;EUROFARMA;ETICO;33.18;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317103323
+duvidoso;BETRAT 5000MGC+100+100 CX 30CPR;MYRALIS PHARMA;ETICO;74.3;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898430194580
 duvidoso;BETRICORT POMADA 30G;GEOLAB;SIMILAR;16.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899095203273
 duvidoso;BETRICORT creme bg 30g;GEOLAB;SIMILAR;16.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899095203266
+duvidoso;BICARBONATO FARMAX POTE 100 G;FARMAX;PERFUMARIA;8;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7896902206380
 duvidoso;BIOFENAC DI 50MG cx 10 comp;ACHE;ETICO;22.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658004292
+duvidoso;BIOGRIPE CAP DURA X 10;DIVERSOS;SIMILAR;8;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896006297970
+duvidoso;BIOGRIPE CAP DURA X 20;DIVERSOS;GENERICO;14;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896006297932
 duvidoso;BIOLAGRIMA 010% 15ML TEU;DIVERSOS;SIMILAR;39.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112104162
 duvidoso;BIOPANTOVIT 10ML;ARTE NATIV;SIMILAR;1.5;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898277712572
 duvidoso;BIOTINA DOSE MAX 500MG 60CPS;DIVERSOS;SIMILAR;35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898714761088
 duvidoso;BIOTINA SUPREME + MSM 500MG C/60 CAPS QU;DIVERSOS;PERFUMARIA;45;;;"enquadramento regulatório a confirmar: forma tipo medicamento em classe PERFUMARIA; RT confirmar";7898767760069
 duvidoso;BIOTONICO FRASCO 400 ML;DM;ETICO;56.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896094903067
+duvidoso;BIOVICERIN 2 FLACONETES COM 5ML;GEYER;ETICO;16.6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898100268290
+duvidoso;BIOVICERIN CX 6 FLAC X 5ML;GEYER;ETICO;49.34;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898100264018
 duvidoso;BIOZINC KIDS FR 75ML;ACHE;LIBERADO;45;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896658026850
+duvidoso;BISGLICINATO FERROSO 150MG CX 30CPR METALAB;DIVERSOS;SIMILAR;17.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7908645201406
 duvidoso;BISMU-JET Gts c/20ml;LEGRAND;SIMILAR;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004810140
+duvidoso;BRONFENIRAMINA+FENILEFRINA 120ML NEO QUIMICA;NEO QUIMICA;GENERICO;18.9;;;enquadramento regulatório a confirmar: ativo/forma constam na LMIP mas concentração não aparece no nome | ativos: BRONFENIRAMINA + FENILEFRINA;7896714293387
+duvidoso;BRONFENIRAMINA+FENILEFRINA BIOSINTETICA;DIVERSOS;GENERICO;18.9;;;enquadramento regulatório a confirmar: ativo consta na LMIP mas forma farmacêutica não identificada no nome | ativos: BRONFENIRAMINA + FENILEFRINA;7896658051647
+duvidoso;BUCLINA 25MG 30 CPR;DIVERSOS;ETICO;21.7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094928077
+duvidoso;BUPROVIL 100MG/ML 20ML;MEDQUIMICA;SIMILAR;15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7895296450010
+duvidoso;BUSCOFEM 400mg cx 10 cap;COSMED;ETICO;34.97;;;enquadramento regulatório a confirmar: Buscofem (ibuprofeno+escopolamina) não consta na LMIP;7896094921344
+duvidoso;BUSONID 100MCG 120 DOSES 6ML;BIOSINTETI;ETICO;98.25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896181913719
+duvidoso;BUSONID 32MCG 120 DOSES 6ML;BIOSINTETI;ETICO;33.35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896181915171
+duvidoso;BUSONID 50MCG 120 DOSES 6ML;BIOSINTETI;ETICO;48.85;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896181907176
+duvidoso;BUSONID 64MCG 120 DOSES 6ML;BIOSINTETI;ETICO;38.2;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896181915188
 duvidoso;BUTACID 200mg cx 20 comp;VITAMEDIC;SIMILAR;19;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898049794683
 duvidoso;CALAMED POS SOL 100ML;CIMED;SIMILAR;23;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897947604582
+duvidoso;CALCITRAN MDK 60 COMP;DIVERSOS;ETICO;89.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898040329471
+duvidoso;CALCITRAN MDK CX 30 COMP;DIVCOM PHA;LIBERADO;53.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898414852581
+duvidoso;CALMASYN 3784MG/ML SOL 100ML;DIVERSOS;SIMILAR;35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898495608985
 duvidoso;CALMAZIL 225MG 20CPR REV (VALERIANA OFFI;AIRELA;SIMILAR;29.9;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7894164010172
+duvidoso;CAMOMILINA C cx 20 cap;THERASKIN;LIBERADO;66.36;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7897129300059
 duvidoso;CAMOMINE C BABY 20 CAPS;ARTE NATIV;SIMILAR;24;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898277713210
+duvidoso;CANDICORT CREME 30 GRS;ACHE;ETICO;47.69;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658001116
+duvidoso;CANDICORT POMADA 30 GRS;ACHE;ETICO;47.69;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658001123
 duvidoso;CANFORA;BRAVIR;PERFUMARIA;1.5;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7896186000902
 duvidoso;CARVE ACTIVE 250MG 30CPR;DIVERSOS;SIMILAR;49.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7908645200355
+duvidoso;CARVEROL 250MG COM X 20;DIVERSOS;SIMILAR;40;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006298601
 duvidoso;CATAFLAM 50mg cx 10 drg;NOVARTIS;ETICO;26.6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896261013490
+duvidoso;CEFALIV 12 CPRS;ACHE;ETICO;23.3;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658001079
+duvidoso;CELECOXIBE 200mg cx 10cap EUROFARMA;EUROFARMA;CONTROLADO;20;;;"export marca como controlado/retido, mas nenhum ativo da Portaria 344 foi identificado; RT confirmar";7891317137359
+duvidoso;CELESTRAT 2+0.25mg cx 20 comp;UNIAO QUIMICA;SIMILAR;14;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006241003
+duvidoso;CELESTRAT 2/025MG/ML 120ML;UNIAO SIMI;SIMILAR;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006284369
 duvidoso;CENTRUM ESSENCIAL C 30 COMP;DIVERSOS;ETICO;29.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896009499012
 duvidoso;CERUMIN SOL.OTOLOGICA 8ML;ALCON;ETICO;29.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896548140284
 duvidoso;CETO + BETA CREME 30 GR EUROFARMA;EUROFARMA;GENERICO;16;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317002442
 duvidoso;CETO+BETA CREME 30G EMS;EMS GENERI;GENERICO;16;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004705125
 duvidoso;CETO+BETA POMADA 30G EMS;EMS GENERI;GENERICO;16;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004705118
+duvidoso;CETOBETA POMADA 30G;DELTA;SIMILAR;19;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7893454100647
+duvidoso;CICLO 21 C/21 CPR;UNIAO SIMI;SIMILAR;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006234067
+duvidoso;CIFLOGEX MENTA-LIMAO C/ 12 PAS;CIMED;SIMILAR;14;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896523216447
+duvidoso;CIFLOGEX Mel/limao c/12;CIMED;SIMILAR;14;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896523216478
+duvidoso;CIFLOGEX PASTILHA CEREJA 12UN;DIVERSOS;SIMILAR;14;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896523216461
 duvidoso;CIFLOGEX SPRAY MEL C/30ML;CIMED;SIMILAR;16;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7896523206271
+duvidoso;CIFLOGEX SPRAY MENTA C/30ML;CIMED;SIMILAR;16;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896523206288
+duvidoso;CILOXAN sol. 5ml;MUNDIPHARMA;ETICO;34.7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896548112793
+duvidoso;CIMECORT CREME 30G;CIMED;SIMILAR;16;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896523206691
+duvidoso;CIMEGRIPE CX C/20 CAPS;CIMED;SIMILAR;14;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896523200576
+duvidoso;CIMEGRIPE GTS;3M;VAREJINHO;15;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896523206295
+duvidoso;CIMELIDE 100MG CX 12CPR;CIMED;SIMILAR;6.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896523206110
 duvidoso;CIMICIFUGA COM AMORA E ISOFLAVONA 500MG C/100 BIO;DIVERSOS;SUPLEMENTOS;35;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7896595222469
+duvidoso;CITONEURIN 5000 C 30 CP REV;DIVERSOS;ETICO;102;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7500435230957
+duvidoso;CLANISTIL COLIRIO 15 ML;NEO QUIMIC;SIMILAR;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896714202976
 duvidoso;CLARIL COLIR 15ML;ALCON;ETICO;32;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896548113479
+duvidoso;CLAXAM 500+125MG CX 21 COMP REV;SANDOZ;ETICO;70;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897595624611
+duvidoso;CLENIL HFA 200MCG SPRAY 200 DOS;CHIESI;ETICO;80;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896672202872
+duvidoso;CLENIL HFA 250mcg spray c/ 200;CHIESI;ETICO;64;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896672202902
+duvidoso;CLIMENE 2mg cx 11 comp rev+2;UNIAO QUIMICA;ETICO;42.75;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006201564
+duvidoso;CLINDOXYL CONTROL 10% 45G;DIVERSOS;ETICO;75.7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896026172165
 duvidoso;CLOMID 10 COMPRIMIDOS;MEDLEY;ETICO;84;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896422513098
+duvidoso;CLORANA 25mg c/30@;AVENTIS;ETICO;16.35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897595901521
+duvidoso;CLORANA 50mg c/20 COMP;AVENTIS;ETICO;16.15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897595900722
 duvidoso;CLORETO DE MAGNESIO 33G;FARMAX;PERFUMARIA;12;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7896902210035
 duvidoso;CLORETO DE MAGNESIO po 33g;PHARMASCIENCE;LIBERADO;12;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";
+duvidoso;CLORETO MAGNESIO P.A 60CPR IME;DIVERSOS;SIMILAR;24;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898964832057
+duvidoso;CLORETO MAGNESIO P.A 60CPS KAT;DIVERSOS;LIBERADO;29.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898714760579
+duvidoso;CLORIDRATO DE MEMANTINA 10MG CX 60 COMP BIOLAB;ACTAVIS;ETICO;55;memantina;duvida;ativo que pode ser controlado conforme forma/dose: memantina;7898146825129
+duvidoso;CLORIDRATO DE PROPAFENONA 300MG CX 30CPR ALTHAIA;ALTHAIA;ETICO;45;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898569761431
+duvidoso;CLOTRIMAZOL CREM DERM BG 20G MEDLEY;MEDLEY;GENERICO;13;;;enquadramento regulatório a confirmar: ativo/forma constam na LMIP mas concentração não aparece no nome | ativos: CLOTRIMAZOL;7896422504812
+duvidoso;COBAVITAL CX 16 CPR;SINTOFARMA;ETICO;30.5;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896255767330
+duvidoso;COBAVITAL CX 30 CPR;DIVERSOS;ETICO;48.43;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7891158106897
+duvidoso;COBI-12 1000MCG 60CPR;DIVERSOS;ETICO;63;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896637035743
 duvidoso;COGNON 84G C/60;DIVERSOS;ETICO;65;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898965191481
 duvidoso;COLACT cx c/1 fr de 120 ml AMEIXA;UNIAO QUIMICA;SIMILAR;22;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006213130
 duvidoso;COLAGENO TIPO II + AC HIALU 40MG;DIVERSOS;SIMILAR;59.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898734860679
+duvidoso;COLEDUE-R 10+20mg 30 cap;COSMED;SIMILAR;118.29;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094921276
 duvidoso;COLIC CALM SUSPENSAO ORAL 59ML;DIVERSOS;ETICO;139.99;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898014567410
 duvidoso;COLICALIV GOTAS 0.25+0.25+0.25+0.25m;HERBARIUM;ETICO;111.9;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896083412082
+duvidoso;COLIRIO GEOLAB 20 ML;GEOLAB;SIMILAR;10;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899095220928
+duvidoso;COLIRIO MOURA BRASIL 20ML;AVENTIS;ETICO;29;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891058020316
+duvidoso;COLIRIO TEUTO 20ML;TEUTO;SIMILAR;10;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112141655
+duvidoso;COMBODART 0.5+0.4mg C/30 PRECO JA COM DESCONTO;GLAXOSMITH;ETICO;115;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896015523398
+duvidoso;COMPLEXO B 100CPR REV CONCENTRADO AIRELA;DIVERSOS;LIBERADO;29.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7894164007912
+duvidoso;COMPLEXO B 100ML ARTENATIVA;ARTE NATIV;SIMILAR;15;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898277713333
+duvidoso;COMPLEXO B C/ 100 CPR ARTE NATIVA;ARTE NATIV;VAREJINHO;20;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898277713265
 duvidoso;COMPLEXO B C/ 50 CPR ARTE NATIVA;NATULAB;SIMILAR;12;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898133137549
 duvidoso;COMPOSTO DE MEL COM EXTRATO DE PROPOLIS;SANTA BARB;PERFUMARIA;12;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7897535411967
 duvidoso;CONDROFLAN ULTRA 30CPS / AIREL;AIRELA;SIMILAR;45;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7894164007684
+duvidoso;CONIDRIN SALINA spray fr 50ml7896006215714;UNIAO ETIC;SIMILAR;16;;;enquadramento regulatório a confirmar: marca cloreto de sódio nasal: ativo/forma constam na LMIP mas concentração não aparece no nome;7896006215714
 duvidoso;CONTRACEP sus inj fa x 1ml@;SIGMA PHAR;ETICO;34.65;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7894916502900
+duvidoso;CORISTINA D CONGEST 12+15MG 12CPR;DIVERSOS;ETICO;28.99;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896094930230
+duvidoso;CORISTINA D PRO C/4;MANTECORP;ETICO;13.85;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7891142136664
+duvidoso;CORTICORTEN 20MG C/20;NEO QUIMIC;SIMILAR;14;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896714200699
+duvidoso;CORTICORTEN 5 MG C/20;NEO QUIMIC;SIMILAR;8;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896714200705
+duvidoso;CORUS 25mg cx 30CPR;BIOSINTETI;ETICO;57.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896181920397
+duvidoso;CORUS 50mg CPR 30;BIOSINTETI;ETICO;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896181920410
 duvidoso;CRANBERRY 500MG LIFE NATURAL C/100;DIVERSOS;LIBERADO;45;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7895194102332
+duvidoso;CRISTALIN 0025+003 SOL OFT FR 15ML;UNIAO QUIM;ETICO;14.35;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896006290117
 duvidoso;CROMO 250MCG 60 CAPS MAXINUTRI;DIVERSOS;VAREJINHO;39.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898927980818
+duvidoso;CRONOBE 5000mcg inj cx 2amp;BIOLAB SAN;ETICO;44.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112424444
+duvidoso;CRONOPLEX 7.5mg/ml SOL ORAL 20ML;UNIAO QUIMICA;SIMILAR;16.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006216711
+duvidoso;CUTISANOL GEL 100G;DIVERSOS;ETICO;74.55;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897406119879
+duvidoso;CYLOCORT sol oft fr gts 5ml***;UNIAO QUIM;ETICO;43.4;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006290100
 duvidoso;CYSTEX 24 DRAGEAS 2 CAP 8/8;EMS;SIMILAR;48.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004801216
+duvidoso;Calcitran D3 CPR 30;VIDFARMA;LIBERADO;52.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898414850891
+duvidoso;DECADRON 0.50MG 20 CPRS*;ACHE;ETICO;13.45;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658003516
+duvidoso;DECADRON 4MG 10 CPRS*;ACHE;ETICO;26.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658003141
+duvidoso;DECADRON COLIRIO 5ML***;ACHE;CONTROLADO;18.48;;;"export marca como controlado/retido, mas nenhum ativo da Portaria 344 foi identificado; RT confirmar";7896658003547
 duvidoso;DECADRON SOL.NASAL 20ML**;ACHE;CONTROLADO;42.8;;;"export marca como controlado/retido, mas nenhum ativo da Portaria 344 foi identificado; RT confirmar";7896658003561
+duvidoso;DECONGEX PLUS comp c/12;ACHE;ETICO;33.9;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896658001901
+duvidoso;DECONGEX PLUS xpe 120 ml;ACHE;ETICO;21.9;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896658001918
 duvidoso;DEF B 1000MCG C/30;DIVERSOS;SIMILAR;39.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896112408666
+duvidoso;DEGEN 10.000UI 4CPS (VITAMINA D3) BIOLAB;DIVERSOS;SIMILAR;20;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896112409106
+duvidoso;DEGEN VITAMINA D3 50.000UI 8CAPS BIOLAB;DIVERSOS;SIMILAR;40;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896112407485
+duvidoso;DEGEN VITAMINA D3 7000UI 30CAPS BLB;AVERT;SIMILAR;28;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896112407454
 duvidoso;DELTAMETRIL D 4% emu capi fr 100ml;MEDQUIMICA;ETICO;32;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896862993795
 duvidoso;DELTAPIL 020mg shampoo fr 10;BELFAR;GENERICO;16;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897917000178
 duvidoso;DELTAPIL LOCAO 100ML;BELFAR;ETICO;16;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897917000161
+duvidoso;DEPAKENE 500mg fr 50 comp;ABBOTT;ETICO;108.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891158000898
+duvidoso;DEPAKENE 50mg/ml xpe fr 100 m;ABBOTT;ETICO;29.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891158103285
+duvidoso;DERMOSALIC SOLUCAO 30 ML;DELTA;SIMILAR;29.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7893454100654
+duvidoso;DERMOTRIZOL 1% 30 ML;BELFAR;SIMILAR;16.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897917002639
 duvidoso;DES AERO DOVE MEN CARE INVISIBLE DRY;UNILEVER;GENERICO;19.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7791293022819
+duvidoso;DESCON CARTELA COM 4CPR;DIVERSOS;ETICO;10.9;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896094932104
+duvidoso;DESCON XPE FR 120 ML;DIVERSOS;ETICO;23.99;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896094929371
+duvidoso;DESLORATADINA 5MG C/10 PHARLAB;DIVERSOS;GENERICO;16;;;enquadramento regulatório a confirmar: ativo consta na LMIP mas forma farmacêutica não identificada no nome | ativos: DESLORATADINA;7898216367719
 duvidoso;DESUPRE D3 (COLECALCIFEROL) KIDS 200UI G;DIVERSOS;SIMILAR;16;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898277715733
 duvidoso;DESUPRE D3 1.000 UI C/40 CPR;ARTE NATIV;SIMILAR;24;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898277714354
 duvidoso;DESUPRE D3 2.000 UI C/40 CPR;ARTE NATIV;SIMILAR;24;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898277714248
 duvidoso;DESUPRE D3 2.000 UI/GOTA 20 ML;ARTE NATIV;SIMILAR;29.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898277714422
+duvidoso;DEWS 5mg/ml sol oft fr go;UNIAO QUIMICA;ETICO;54.95;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896006221012
+duvidoso;DEXA-CITONEURIN NFF C/ 6 AMP;MERCK;ETICO;54.8;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7891721024481
+duvidoso;DEXADOR - CPR 5+100+100+0.5mg com;ARESE PHARMA;SIMILAR;81.6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899824400980
+duvidoso;DEXALGEN NF 100+100mg/ml amp 1ml;EUROFARMA;SIMILAR;54.85;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317010751
+duvidoso;DEXFER 100MG GOT 30ML;EUROFARMA;ETICO;59.55;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7891317016883
+duvidoso;DEXFER 400MG C/30 COMPRIMIDOS REV;EUROFARMA;ETICO;69.7;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7891317000660
+duvidoso;DEXILANT 30 mg cap lib ret C/30 CPR;TAKEDA PHARMA;ETICO;134.7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896641808982
+duvidoso;DEXILANT 60 mg cap lib retard;TAKEDA PHARMA;ETICO;134.7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896641809026
+duvidoso;DEXMINE XPE 120 ML;CIMED;SIMILAR;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896523206714
 duvidoso;DEXTRO-FOL 400MCG+10MG 100CPS;DIVERSOS;SIMILAR;80;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898965191641
 duvidoso;DIA D 1.5mg cx 1 comp;CIMED;SIMILAR;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896523216812
+duvidoso;DIACQUA 25mg cx 30 comp;MOMENTA;SIMILAR;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317014582
+duvidoso;DIAMICRON MR 30MG CX 60 COMP;SERVIER;ETICO;108.85;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898029552135
 duvidoso;DIAMOX 250 MG C/ 30 COMPRIMIDOS;GENOM;ETICO;28.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006245339
+duvidoso;DIANE 35 2+0.35mg cx 63 drg;BAYER;ETICO;85;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891106906944
+duvidoso;DIANE 35 CARTELA;BAYER;ETICO;29;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";
+duvidoso;DICLIN 2+0.035 CAIXA C/3 CARTELAS;MERCK;ETICO;57;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891721015366
 duvidoso;DICLOFENACO DIETILAMONIO GEL 60 G TEUTO;TEUTO;GENERICO;16;;;enquadramento regulatório a confirmar: ativo/forma constam na LMIP mas concentração não aparece no nome | ativos: DICLOFENACO;7896112147701
 duvidoso;DIGEFLEX 240ml sus sb morango;PRATI. DONADUZZI;ETICO;20;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7899547529487
+duvidoso;DIGEPLUS 30 CAPSULAS;ACHE;ETICO;56.4;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658008023
 duvidoso;DIMETIGASS 75MG/ML EMU OR FR GTS X 15ML;CIMED;GENERICO;9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896523212524
+duvidoso;DIOSMINA + HESPERIDINA 450MG + 50MG DISPH CX 60CPR;ACHE;SIMILAR;65;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658052903
+duvidoso;DIOVAN 160 MG CX 28 COMP REV;NOVARTIS;ETICO;158.35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896261005884
+duvidoso;DIPROSPAN 5.0+2.0mg/ml 6AMP INJ;MANTECORP/FARMASA;ETICO;263;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891142982582
+duvidoso;DIPROSPAN INJ.1X1ML;MANTECORP;ETICO;50;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891142142252
+duvidoso;DIVALPROATO DE SODIO 250mg cx 30 comp RANBAXY;RANBAXY;GENERICO;39.9;;;"export marca como controlado/retido, mas nenhum ativo da Portaria 344 foi identificado; RT confirmar";7897076921871
+duvidoso;DIVALPROATO SOD 250MG CX 30CPR EUROFARMA;DIVERSOS;GENERICO;39.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317020552
+duvidoso;DIVELOL 25mg cx 30 comp;BALDACCI;SIMILAR;44.3;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897851260041
+duvidoso;DOISKA 180mcg cx 30 cap;BIOLAB;ETICO;141.03;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112403371
+duvidoso;DOLAMIN 250mg cx 12 comp rev;FQM/FARMA;ETICO;54.45;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898040323769
+duvidoso;DONILA DUO 10MG+10MG COM REV CT BLX 7;ACHE;ETICO;47.74;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658022890
 duvidoso;DORDENTE 3ML;HEARST;SIMILAR;9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896888500120
+duvidoso;DORFLEX MAX C 8 COMP;DIVERSOS;ETICO;18;;;enquadramento regulatório a confirmar: composição da versão Dorflex a confirmar contra LMIP;7891058003944
+duvidoso;DORFLEX UNO 10 CPR;SANIFILL;ETICO;19.4;;;enquadramento regulatório a confirmar: composição da versão Dorflex a confirmar contra LMIP;7891058022815
 duvidoso;DORIDADE 60CPS KATIGUA;DIVERSOS;SIMILAR;65;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898330221638
+duvidoso;DORIL CX 10 COMP;COSMED;ETICO;18;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094929319
+duvidoso;DORILAX DT cx 12 comp;ACHE;SIMILAR;15.65;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658026546
+duvidoso;DORILEN CPR 12;LEGRAND OT;SIMILAR;26.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004715032
 duvidoso;DORMEC 100mg CARTELA 10CPR;IMEC;SIMILAR;1.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898179710065
 duvidoso;DOSSEO KM 60CPR;DIVERSOS;SIMILAR;69.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898965191450
 duvidoso;DOUTORSAN ADESIVO PARA HERPES C/6UND;DIVERSOS;PERFUMARIA;19.9;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7898108642238
+duvidoso;DRAMIN B6 25+5mg/ml fr gts 30m;COSMED;ETICO;24.6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094922075
+duvidoso;DRAMIN B6 CARTELA CPR 10;NYCOMED;FRACIONADO;9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896641800559
+duvidoso;DRAMIN B6 cx 30 comp rev;COSMED;ETICO;25.8;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094999978
+duvidoso;DRAMIN capsgel 50mg x 10;COSMED;ETICO;24.59;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094999411
+duvidoso;DUALGI 200MG+500MG 12CPR;DIVERSOS;ETICO;36.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317027179
+duvidoso;DUOFLAM 6.43+2.63mg AP 1ml+ser;CRISTALIA;ETICO;34.95;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896676410198
+duvidoso;DUTAM 0.5+0.4mg cx 30 cap;ZODIAC;ETICO;127;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7892953003558
+duvidoso;DYMISTA 137+50mcg sus spray;MYLAN;ETICO;156.35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898560664137
 duvidoso;ECOFILM0.5% sol oft gts fr 5ml;LATINOFARM;ETICO;22.2;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896676433050
+duvidoso;ECOS XAROPE 120ML;UNIAO SIMI;SIMILAR;30;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006216308
+duvidoso;EDISTRIDE 10MG C 30 COMP;DIVERSOS;ETICO;180;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";5000456073240
+duvidoso;ELANI 28 CARTELA;LIBBS;CARTELADOS;75;;;"export marca como controlado/retido, mas nenhum ativo da Portaria 344 foi identificado; RT confirmar";7896094203044
+duvidoso;ELANI CICLO 3+0.03mg C/3;LIBBS;ETICO;164;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094203051
 duvidoso;EMS EXPECTOR xpe fr 120ml;EMS;SIMILAR;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004727806
+duvidoso;ENAVO ODT 8mg CX 10CPR ORODISPERSIVEL;SIGMA PHARMA;SIMILAR;63.73;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7894916516310
 duvidoso;ENCAPSULADO COLAGENO\GOJI\CHIA 120 CPS L;DIVERSOS;LIBERADO;30;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898231021740
 duvidoso;ENDCOFF cx 12 PAST SB MEL/LIMAO;EMS;SIMILAR;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004702322
 duvidoso;ENDCOFF cx 12 past sb menta;EMS;SIMILAR;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004702346
+duvidoso;ENDOFER 100mg cx 30 comp mas;BIOLAB;ETICO;55.7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112406143
 duvidoso;ENGOV AFTER 250ML SABOR BERRY VIBES;DIVERSOS;ETICO;14.9;;;enquadramento regulatório a confirmar: Engov: confirmar composição/forma contra linha 179 da LMIP;7896094921351
 duvidoso;ENGOV AFTER 250ML SABOR CITRUS;HYPM;ETICO;14.9;;;enquadramento regulatório a confirmar: Engov: confirmar composição/forma contra linha 179 da LMIP;7896094919693
 duvidoso;ENGOV AFTER 250ML SABOR RED HITS;HYPM;ETICO;14.9;;;enquadramento regulatório a confirmar: Engov: confirmar composição/forma contra linha 179 da LMIP;7896094925120
 duvidoso;ENGOV ENV CPR 6;COSMED;ETICO;12;;;enquadramento regulatório a confirmar: marca : ativo/forma constam na LMIP mas concentração não aparece no nome;7896094903104
+duvidoso;ENJOY CARTELA 4CPR;PHARMASCIENCE;SIMILAR;3.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898014568066
 duvidoso;ENTEROGERMINA 2 bcfu/5ml cx 20 fr;SANOFI-AVENTIS;LIBERADO;95;;;"enquadramento regulatório a confirmar: possível medicamento/probiótico em classe LIBERADO; RT confirmar";7891058017002
 duvidoso;ENTEROGERMINA COM 10 FRASCOS DE 5ML;SANOFI-AVE;LIBERADO;55;;;"enquadramento regulatório a confirmar: possível medicamento/probiótico em classe LIBERADO; RT confirmar";7891058016999
 duvidoso;ENTEROGERMINA COMUM FLACONETE;DIVERSOS;LIBERADO;6;;;"enquadramento regulatório a confirmar: possível medicamento/probiótico em classe LIBERADO; RT confirmar";
 duvidoso;ENTEROGERMINA PLUS C/5 FR 5 ML;SANOFI-AVE;LIBERADO;55;;;"enquadramento regulatório a confirmar: possível medicamento/probiótico em classe LIBERADO; RT confirmar";7891058020286
 duvidoso;ENTEROGERMINA PLUS FLACONETE;DIVERSOS;ETICO;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";
+duvidoso;ENXAK C/12;CAZI;SIMILAR;19;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7893736010053
 duvidoso;EPAREMA FLAC tr 10ml;COSMED;ETICO;5.25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094922372
+duvidoso;EPITEGEL 10 G GEL;BAUSCH & L;ETICO;59.45;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896046303013
+duvidoso;EPITHELIZE 50MG GEL OFTAL 10G;CRISTALIA;ETICO;59.4;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896676438765
+duvidoso;EPOCLER FLACONETE;COSMED;ETICO;4.7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094912298
 duvidoso;ERITROMAX 4000ui po liof inj 1;BLAU FARMACEUTICA;ETICO;49.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896014661459
 duvidoso;ESCABIN PRO 4% emul fr 100ml;COSMED;ETICO;42.9;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896094920248
 duvidoso;ESPACADOR INALAR BABY;ROSESHONM;GENERICO;55;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898306210024
 duvidoso;ESPASMO FLATOL fr gts 20ml;LEGRAND;SIMILAR;24;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7896004706535
+duvidoso;ETNA INJETAVEL C/3 AMPOLAS + DILUENTE;GROSS;SIMILAR;105.6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7892828001221
+duvidoso;ETORICOXIBE 90MG CX 7CPR RANBAXY;RANBAXY;GENERICO;43.9;;;"export marca como controlado/retido, mas nenhum ativo da Portaria 344 foi identificado; RT confirmar";7897076924278
+duvidoso;EUTHYROX 137mcg cx 50 comp;MERCK;ETICO;61.2;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891721015007
+duvidoso;EUTHYROX 50mcg cart 50 comp;MERCK;ETICO;45;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891721014697
+duvidoso;EUTHYROX 75mcg cart 50 comp;MERCK;ETICO;49.8;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891721014741
+duvidoso;EXPEC Xpe c/120ml;LEGRAND;SIMILAR;30;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004812168
+duvidoso;EXPECTAMIN XAROPE C/120ML;LEGRAND;SIMILAR;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004731674
+duvidoso;EXPECTOVIC 120 ML XAROPE SB MORANGO;DIVERSOS;LIBERADO;25;;;"enquadramento regulatório a confirmar: possível medicamento/probiótico em classe LIBERADO; RT confirmar";7898636190782
+duvidoso;EXPULSATOX INFANTIL XAROPE 7MG/ML C/100ML;DIVERSOS;SIMILAR;29.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898636194179
 duvidoso;EXTRA PROPOLIS STA BARBARA GTS;SANTA BARB;ALIMENTOS;18;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7897535411660
 duvidoso;EXTRATO DE PROPOLIS 20ML;SANTA BARB;ALIMENTOS;17.9;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7897535410106
 duvidoso;EXTRATO DE PROPOLIS NAPILLUS 30ML;DIVERSOS;LIBERADO;15;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7898912382016
 duvidoso;EXTRATO DE PROPOLIS VERDE COM 20ML;DIVERSOS;PERFUMARIA;22;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7897535412766
 duvidoso;EXTRATO PROPOLIS AQUOSO 20ML 11%;SANTA BARB;ALIMENTOS;24.9;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7897535410878
+duvidoso;FACOBA 5+1mg/ml sol oft fr;LEGRAND PRESCRICAO;SIMILAR;48.7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004777221
 duvidoso;FARMAIODINE TOPICO 100ML;FARMAX;PERFUMARIA;14;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7896902234093
+duvidoso;FEMIANE 0075+0020MG CAIXA C/3;DIVERSOS;ETICO;150.13;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006297369
+duvidoso;FEMIANE CARTELA;BAYER;ETICO;43.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891106905923
 duvidoso;FEMINIDHA 30CPS;DIVERSOS;SIMILAR;80;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898965191542
 duvidoso;FENAFLAN ICE MASSAGEADOR 150ML TEU;DIVERSOS;SIMILAR;24;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112102441
+duvidoso;FENERGAN 25MG 20CPRS;AVENTIS;ETICO;20.74;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896070600447
+duvidoso;FENTIZOL 600mg ovl + bl aplic;ACHE;ETICO;96.75;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658007309
+duvidoso;FENTIZOL SPRAY 20mg 30 ML;ACHE;ETICO;72.79;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658001390
 duvidoso;FERI SEPT SPRAY 45ML;UNIAO QUIM;SIMILAR;15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006209898
+duvidoso;FERRO 100mg CX 30CPR MASTIGAVEIS BIOLAB;BIOLAB;ETICO;40;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896112401667
+duvidoso;FERRO 50mg/ml SOL ORAL 30ML;BIOLAB;ETICO;26;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896112401674
 duvidoso;FERRONIL 40mg cx 50 drg;TEUTO;SIMILAR;12;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896112144892
 duvidoso;FLACODIN 75MG/ML 15ML;DIVERSOS;SIMILAR;9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897930000506
+duvidoso;FLANAX XR 660mg cx 8 comp rev;BAYER;ETICO;33;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891106910989
+duvidoso;FLANCOX 300MG CX 14 COMP REV;APSEN;ETICO;32.65;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896637023146
+duvidoso;FLANCOX 400mg cx 10 comp;APSEN;ETICO;32.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896637023344
+duvidoso;FLANCOX 500mg cx 14 comp rev;APSEN;ETICO;54.6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896637023238
+duvidoso;FLANCOX 600mg cx 14 rev or;APSEN;ETICO;68.55;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896637031943
+duvidoso;FLAVONID 450 MG CPR 30;NEO QUIMIC;SIMILAR;36;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7896714203768
+duvidoso;FLAVONID 900+100MG C/30;DIVERSOS;SIMILAR;75;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7896714292816
+duvidoso;FLEBODIA 600mg cx 15 comp rev;GROSS;ETICO;53.39;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";3400970002139
+duvidoso;FLEBODIA 600mg cx 30 comp rev;DIVERSOS;ETICO;106;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";3400970002146
+duvidoso;FLEXALGIN CARTELA 10CPR;GEOLAB;SIMILAR;7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899095068223
+duvidoso;FLEXALGIN CPR 30;GEOLAB;SIMILAR;15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899095201255
 duvidoso;FLEXIGOLD COLAG TIPO 2 40MG C/30;DIVERSOS;SIMILAR;35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898303263597
+duvidoso;FLEXMUSCULAR 30CPR;DIVERSOS;GENERICO;14;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094932661
+duvidoso;FLOGORAL SPRAY 30ML MENTA*;ACHE;ETICO;42.79;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896658005305
 duvidoso;FLORATIL 200MG PED C 4 ENV;DIVERSOS;PERFUMARIA;39.75;;;"enquadramento regulatório a confirmar: forma tipo medicamento em classe PERFUMARIA; RT confirmar";7898040329570
 duvidoso;FLORATIL 200mg cx 6 cap;FQM/DIVCOM;ETICO;51.85;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898040329655
+duvidoso;FLOTAC 70 MG 10 CAPS;NOVARTIS;ETICO;34.1;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896261003996
 duvidoso;FLUTINOL COLIRIO 5 ML USO ADULTO ];LATINOFARM;ETICO;45.65;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896676432916
+duvidoso;FONT D gotas fr 10ml;UNIAO QUIMICA;SIMILAR;29.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896006207726
+duvidoso;FORXIGA 10MG CX 30COMP;DIVERSOS;ETICO;180;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";5000456070423
+duvidoso;FORXIGA 10MG CX 30CPR;DIVERSOS;ETICO;180;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";5000456096591
+duvidoso;FOSTAIR 200+6mcg SPRAY ORAL 120 DOSES;CHIESI;ETICO;259.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896672203428
 duvidoso;FRALDA BABYSEC MEGA M 38UND;DIVERSOS;GENERICO;43;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896061995903
+duvidoso;FRENOTOSSE 1333MG/ML XPE FR 120ML SAB MEL;CIMED;SIMILAR;15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896523207407
+duvidoso;FUMAGUM MENTA 4MG C 36 GOMAS;FARMOQUIMICA;SUPLEMENTOS;82;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7898244721231
+duvidoso;GABAPENTINA 300MG CX 30 CAPS BIOLAB;ACTAVIS;CONTROLADO;29.9;gabapentina;duvida;ativo que pode ser controlado conforme forma/dose: gabapentina;7898146820582
+duvidoso;GABAPENTINA 300MG CX 30CAPS EUROFARMA;DIVERSOS;GENERICO;29.9;gabapentina;duvida;ativo que pode ser controlado conforme forma/dose: gabapentina;7891317043278
+duvidoso;GABAPENTINA 400MG CX 30 CAPS BIOLAB;ACTAVIS;ETICO;39.9;gabapentina;duvida;ativo que pode ser controlado conforme forma/dose: gabapentina;7898146820612
+duvidoso;GASTROGEL 20CPR MAST MENTA;DIVERSOS;SIMILAR;14.9;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7896862993665
+duvidoso;GASTROGEL 20CPR MAST SEM SABOR;DIVERSOS;SIMILAR;14.9;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7896862993627
+duvidoso;GASTROGEL FRESH fr 150ml;MEDQUIMICA;SIMILAR;24.9;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7896862960254
 duvidoso;GEL ARNICA SPORT ORIGINAL 200 ML;DIVERSOS;PERFUMARIA;16.9;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7898946058277
+duvidoso;GELO BIO AEROSOL 150 ML;UNIAO QUIM;SIMILAR;28;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006291749
 duvidoso;GENERICO EXPEC EMS 120ML;EMS;SIMILAR;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004796352
 duvidoso;GENGICALM BABY GEL 10G-BIG;DIVERSOS;SIMILAR;39.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112410379
 duvidoso;GESTAMAX GOLD COM 30 CAPSULAS GELATINOSAS MOLES;MANTECORP;ETICO;129.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094927285
 duvidoso;GESTINOL 28 CARTELA;LIBBS;ETICO;52;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";0
+duvidoso;GESTINOL CAIXA COM 3;LIBBS;ETICO;156;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094203068
+duvidoso;GINKGO VITAL 120mg cx 30 comp;PRATI. DONADUZZI;SIMILAR;29.9;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7899547508857
+duvidoso;GINKGO VITAL 80mg cx 30 comp;PRATI. DONADUZZI;SIMILAR;20;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7899547508758
 duvidoso;GLALFITAL 20+5MG SOL OFT FR GTS 5ML;TEUTO;ETICO;39.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112138389
+duvidoso;GLAUB MD 1MG/ML FR 5ML;UNIAO QUIM;ETICO;39.95;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006208266
+duvidoso;GLAUCOTRAT 0.5% sol fr x 5 ML;UNIAO ETIC;ETICO;17.4;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006290162
 duvidoso;GLICEL ADULTO C/6;BRASTERAPI;SIMILAR;15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898100242955
 duvidoso;GLICEL LACTENTE 1667g sup c/6;BRASTERAPI;ETICO;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898100243808
 duvidoso;GLICENIX PED CX C/6;GLOBO;SIMILAR;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899620911833
+duvidoso;GLICERINA BI DESTILADA AVANTE;AVANTE;PERFUMARIA;9;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7896947022112
+duvidoso;GLIFAGE XR 500mg cx 30 comp;MERCK;ETICO;12.2;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891721201806
+duvidoso;GLIFAGE XR 850mg cx 30 comp lib;MERCK;ETICO;43.35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891721201530
 duvidoso;GLUCOMANAN 500MG C/60CPS POWERFIT;DIVERSOS;SIMILAR;49.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898653176585
+duvidoso;GRIPINEW 250mg cx 150 comp;MEDQUIMICA;SIMILAR;6;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896862920067
+duvidoso;GRIPINEW CARTELA C/6;MEDQUIMICA;SIMILAR;6;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";
 duvidoso;GUACOFLUS XAROPE 100ML;DIVERSOS;SIMILAR;15;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7894164007219
+duvidoso;HALOBEX 0.5mg crem derm bg 30g;GLENMARK;ETICO;23.85;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897473206403
 duvidoso;HELIORAL 60 CAPSULAS;DIVERSOS;ETICO;210;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898040328313
 duvidoso;HEMODASE POMADA 25G;DIVERSOS;SIMILAR;29.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898049790395
+duvidoso;HEPTRIS 40mg sol inj;MYLAN;ETICO;399.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898560664939
+duvidoso;HEXOMEDINE 1.0+0.5mg/ml colut f;MANTECORP/FARMASA;ETICO;75.15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094928053
 duvidoso;HIDRALI SAIS 45 LARANJA SACHE;DIVERSOS;SIMILAR;5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7894164009541
 duvidoso;HIDRAPLEX 1 ENVELOPE NATURAL;NATULAB;VAREJINHO;5;;;enquadramento regulatório a confirmar: sais de reidratação: enquadramento regulatório a confirmar;7898133137310
 duvidoso;HIDRAPLEX AGUA DE COCO;NATULAB;VAREJINHO;5;;;enquadramento regulatório a confirmar: sais de reidratação: enquadramento regulatório a confirmar;7898133137297
 duvidoso;HIDRAPLEX TUTTI FRUTI SACHE;NATULAB;VAREJINHO;5;;;enquadramento regulatório a confirmar: sais de reidratação: enquadramento regulatório a confirmar;7898133137396
+duvidoso;HIDROCORTISONA ACET CREME 30G TEUTO;TEUTO;GENERICO;19.9;;;enquadramento regulatório a confirmar: ativo/forma constam na LMIP mas concentração não aparece no nome | ativos: HIDROCORTISONA;7896112132974
+duvidoso;HIDROXIZINE 25MG C/30 CPR NOVA QUIMICA;NOVA QUIMI;GENERICO;39.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7895296053044
 duvidoso;HIPOGLOS AMENDOAS 40G;PROCTER;LIBERADO;28;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7891010249953
 duvidoso;HIPOGLOS POM ORIGINAL 40G;DIVERSOS;PERFUMARIA;29.9;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7891010255763
 duvidoso;HIRUDOID 500mg gel bg 40g;DAIICHI SA;ETICO;47.65;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7897411601543
@@ -279,24 +556,56 @@ duvidoso;HISTAMIN 2 mg cx 20 comp;NEO QUIMIC;SIMILAR;10;;;"enquadramento regulat
 duvidoso;HISTAMIN CREME;NEO QUIMIC;SIMILAR;12;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896714226033
 duvidoso;HISTAMIN XPE 100 ML;NEO QUIMIC;SIMILAR;15;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896714219318
 duvidoso;HISTYN 2MG C/20;GEOLAB;SIMILAR;8;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7899095200425
+duvidoso;HIXIZINE 120ML;THERASKIN;ETICO;66.75;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897129301506
+duvidoso;HORA H UNO C/1 CPR;MELCON;SIMILAR;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898907312646
 duvidoso;HYABAK sol oft fr x 10ml;UNIAO QUIMICA;ETICO;79.9;;;enquadramento regulatório a confirmar: marca hialuronato colírio: ativo/forma constam na LMIP mas concentração não aparece no nome;3662042000058
 duvidoso;HYSTIN XPE 120 ML;GEOLAB;SIMILAR;9.9;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7899095201415
+duvidoso;ICACORT CREME 30 GR;DIVERSOS;ETICO;46.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";5702191025644
+duvidoso;ICADEN 10mg/g crem derm bg;LEO PHARMA;ETICO;54.3;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";5702191025620
 duvidoso;IEROBINA FLAC;DIVERSOS;SIMILAR;1.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897917004749
 duvidoso;IMECALCIO 1250MG 60CPR;DIVERSOS;SIMILAR;36;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898964832101
 duvidoso;IMECALCIO D3 500/400 C/60 CPR;DIVERSOS;SIMILAR;36;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898964832125
 duvidoso;IMECALCIO D3 600/400 60CPR;DIVERSOS;SIMILAR;36;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898964832149
 duvidoso;IMECAP HAIR CAPS KIT L90P60;FARMACE;ETICO;69.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898244720036
 duvidoso;IMEGOV 6CPR;DIVERSOS;PERFUMARIA;4.9;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7898964832163
+duvidoso;IMOSEC 2MG C 12 COMP;DIVERSOS;ETICO;15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891010256364
 duvidoso;IMUNOBIL;BELFAR;SIMILAR;1.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";0
+duvidoso;INDAPEN SR 1.50mg cx 60 comp re;TORRENT DO BRASIL;ETICO;82.55;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";8903855076096
+duvidoso;INDAPEN SR 1.5mg cx c/30;TORRENT DO;ETICO;42.45;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";8902220105676
+duvidoso;INDUX 50mg cx 10 comp;SIGMA PHAR;ETICO;81;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7894916501408
+duvidoso;INFRALAX CARTELA C/ 15 COMP;EMS;SIMILAR;8.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";0
+duvidoso;INFRALAX cx 30 comp;EMS;SIMILAR;15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004705682
 duvidoso;IOIMBINA 10MG POWER FIT 60 CAPS;DIVERSOS;SUPLEMENTOS;49.9;;;"enquadramento regulatório a confirmar: possível medicamento/probiótico em classe SUPLEMENTOS; RT confirmar";7899598008245
 duvidoso;IOIMBINA 500MG C/100 NATUREL ERVAS;DIVERSOS;SUPLEMENTOS;35;;;"enquadramento regulatório a confirmar: possível medicamento/probiótico em classe SUPLEMENTOS; RT confirmar";7891222717608
+duvidoso;IUMI 24 3/0.02 C/3 CARTELAS;LIBBS;ETICO;174;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094208674
+duvidoso;IZIZ 2.5/1.5mg cart 28 co;LIBBS;SIMILAR;61.45;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094209503
+duvidoso;JARDIANCE 10MG CX 30 (JA COM DESCONTO);BOEHRINGER;ETICO;200;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896026306416
+duvidoso;JARDIANCE 25MG CX 30 (JA COM DESCONTO);BOEHRINGER;ETICO;228.9;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896026306188
 duvidoso;KALONAT 20% 10ML (AC SALICILIC;DIVERSOS;SIMILAR;19;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7899470807997
 duvidoso;KELO-TRIZ GEL 15G;DIVERSOS;SIMILAR;80;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898722860001
+duvidoso;KOIDE D 0.25mg/5ml+2 mg/5ml;MOMENTA;SIMILAR;53.7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317015060
+duvidoso;KURAMED 50ml;CIMED;SIMILAR;16;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896523206929
+duvidoso;LABCAINA 20MG/G GEL BG 30G;PHARLAB;SIMILAR;15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898216364930
+duvidoso;LABIRIN 16mg cx c/30 comp;APSEN;ETICO;29.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896637028479
+duvidoso;LABIRIN 24MG COM 30 COMP;DIVERSOS;ETICO;35.4;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896637028523
+duvidoso;LABIRIN 8 MG 30 COMP;DIVERSOS;ETICO;40.3;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896637028417
 duvidoso;LACDAY (LACTASE) 10000 CARTELA COM 10 CP;EMS;LIBERADO;28;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896004755519
+duvidoso;LACRIBELL 15ML;LATINOFARM;ETICO;26.2;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896676432855
+duvidoso;LACRIFILM 15 ML;UNIAO ETIC;ETICO;47.25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006290216
+duvidoso;LACRIMA PLUS 15ML;DIVERSOS;ETICO;43.4;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";0300651418477
 duvidoso;LACRIVISION;DIVERSOS;GENERICO;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898902180134
+duvidoso;LACTO PURGA 5mg cx 12 comp rev;COSMED;SIMILAR;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094999497
+duvidoso;LACTO PURGA C/16;BRAINFARMA;ETICO;15.49;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094904118
+duvidoso;LACTO PURGA C/6 CARTELA;DIVERSOS;ETICO;6.6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";0
 duvidoso;LACTUGOLD SABOR AMEIXA 120ML;ARTE NATIV;SIMILAR;22;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898277712473
 duvidoso;LACTULAXY 667MG/ML SOL 120ML AMEIXA (LAC;DIVERSOS;SIMILAR;22;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7894164005925
 duvidoso;LAKESIA (ANTIMICOTICO) SPRAY;GENOM;LIBERADO;56.95;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7898949409458
+duvidoso;LAMOTRIGINA 100mg cx 30 comp UNICHEM;UNICHEM;GENERICO;29.9;lamotrigina;duvida;ativo que pode ser controlado conforme forma/dose: lamotrigina;7898912189660
+duvidoso;LAMOTRIGINA 25MG CX 30 COMP EUROFARMA;EUROFARMA;GENERICO;17.9;lamotrigina;duvida;ativo que pode ser controlado conforme forma/dose: lamotrigina;7891317473648
+duvidoso;LAMOTRIGINA 50MG CX 30 COMP BIOLAB;ACTAVIS;ETICO;23.9;lamotrigina;duvida;ativo que pode ser controlado conforme forma/dose: lamotrigina;7898146820827
+duvidoso;LAMOTRIGINA 50mg cx 30 comp UNICHEM;UNICHEM;GENERICO;23.9;lamotrigina;duvida;ativo que pode ser controlado conforme forma/dose: lamotrigina;7898912189653
+duvidoso;LASIX 40MG 20 CPRS;AVENTIS;ETICO;26.25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891058431037
+duvidoso;LATANOPROSTA 005MG/ML SOL OFT X 2.5ML GEOLAB;GEOLAB;GENERICO;79.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899095238299
 duvidoso;LAVITAN 50+ C/60;DIVERSOS;LIBERADO;25;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7897947600928
 duvidoso;LAVITAN 50+ MULHER 60CPR;DIVERSOS;LIBERADO;29.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7897947601420
 duvidoso;LAVITAN A-Z 60 DRAGEAS;CIMED;SIMILAR;30;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7897947606517
@@ -312,10 +621,34 @@ duvidoso;LAVITAN VIT D 200UI 30ML;DIVERSOS;LIBERADO;26;;;"enquadramento regulat�
 duvidoso;LAXOL 100% sol or fr 60ml;DAUDT;ETICO;31.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896026170635
 duvidoso;LEITE DE MAGNESIA DE PHILLIPS fr 120ml;ASPEN PHARMA;ETICO;24;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7895858015688
 duvidoso;LEITE DE MAGNESIA DE PHILLIPS susp 8% fr 350ml sb;ASPEN PHARMA;ETICO;38;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7895858015695
+duvidoso;LEUCOGEN 200MG XPE FR 120ML;ACHE;ETICO;122.15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658002403
 duvidoso;LEVEDO DE CERVEJA 450MG/ 120 CAPS;DIVERSOS;LIBERADO;36.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898927980115
+duvidoso;LEVEL CX 21CPR;BIOLAB SAN;ETICO;31.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896241248287
+duvidoso;LEVETIRACETAM 250MG CX 30CPR EMS;DIVERSOS;GENERICO;39.9;levetiracetam;duvida;ativo que pode ser controlado conforme forma/dose: levetiracetam;7896004782935
+duvidoso;LEVETIRACETAM 500MG CX 30CPR EMS;DIVERSOS;GENERICO;65;levetiracetam;duvida;ativo que pode ser controlado conforme forma/dose: levetiracetam;7896004783024
+duvidoso;LEVETIRACETAM 750MG CX 30CPR EMS;DIVERSOS;GENERICO;130;levetiracetam;duvida;ativo que pode ser controlado conforme forma/dose: levetiracetam;7896004782980
+duvidoso;LEVOID 100mcg cx 30 comp;ACHE;ETICO;18.4;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658008825
+duvidoso;LEVOID 38mcg cx 30 comp;ACHE;ETICO;12.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658002076
+duvidoso;LEVOID 50mcg cx 30 comp;ACHE;ETICO;21.35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658008764
+duvidoso;LEVOID 75mcg cx 30 comp;ACHE;ETICO;21.99;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658008788
+duvidoso;LINADIB 5 MG 30 COMPRIMIDOS;DIVERSOS;ETICO;148.3;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004787527
+duvidoso;LIRIS 5mg/ml sol oft fr 10;UNIAO QUIMICA;ETICO;48;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7898636192182
+duvidoso;LIRIS CALM SOL OFT 10ML;DIVERSOS;ETICO;49.9;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7898636194278
+duvidoso;LIRIS POWER 10ML;DIVERSOS;ETICO;55;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7898636194285
+duvidoso;LIRUX 6MG/ML C/2 CANETAS 3ML GLP1;DIVERSOS;ETICO;584.54;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004793795
+duvidoso;LISADOR MUSCULAR BL 6CPR;DIVERSOS;ETICO;14.9;;;enquadramento regulatório a confirmar: composição do Lisador Muscular a confirmar;7896094929975
 duvidoso;LOMFER 125 MG/ML SULFATO FERROSO GOTAS 30 ML;DIVERSOS;SIMILAR;10;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898089300103
 duvidoso;LOMFER 190mg C/50 CPR;DIVERSOS;SIMILAR;16;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898089300882
 duvidoso;LOXONIN 60mg bl x 15 comp;DAIICHI SA;ETICO;44.98;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897411610941
+duvidoso;LOXONIN FLEX 100MG C/7 ADESIVOS;DAIICHI SANKYO;ETICO;128.87;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897411603141
+duvidoso;LUFTAGASTROPRO SACHE UND;RECKITT BENCKISER;ETICO;5.05;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7891035650130
+duvidoso;LUFTAL 125MG CX 10 CAP GEL;TAKEDA PHA;ETICO;30.65;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7896016804939
+duvidoso;LUFTAL 40MG C/20 COMP;B-MS;ETICO;50.73;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7896016801501
+duvidoso;LUFTAL 75mg INFANTIL 15ml;RECKITT BENCKISER;ETICO;45.65;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7896222720887
+duvidoso;LUFTAL EMULSAO ORAL 15ML;B-MS;ETICO;35.5;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7896016804915
+duvidoso;LUFTAL MAX 150MG/ML GTS 15ML SAB. CEREJA;DIVERSOS;ETICO;39.9;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7891035003035
+duvidoso;LUGANO 12+250mcg cx 60 cap;EUROFARMA;ETICO;111.19;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317132392
+duvidoso;LUNAH 1mg /ml sol oft fr g;CRISTALIA;ETICO;57.3;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896676435658
 duvidoso;MACA BLACK 600 MG/ 120 CPS LIFE NATURAL;DIVERSOS;LIBERADO;40;;;"enquadramento regulatório a confirmar: forma tipo medicamento em classe LIBERADO; RT confirmar";7894968204920
 duvidoso;MAGMILK 100ML-ARL;DIVERSOS;SIMILAR;12;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7894164005727
 duvidoso;MAGNESIO QUELATO 210MG 60CPS KATIGUA;DIVERSOS;LIBERADO;45;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898714762757
@@ -324,106 +657,275 @@ duvidoso;MALVATRICIN 03+10MG/ML SOL OR FR 100ML;DAUDT;ETICO;54.7;;;"marca/ativo 
 duvidoso;MARACUGINA PI 150ML+COPO;DIVERSOS;ETICO;56.9;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7896094918924
 duvidoso;MARACUGINA PI 420MG;DIVERSOS;ETICO;41;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7896094907119
 duvidoso;MARACUGINA PI 840mg cx 20 CPR;COSMED;ETICO;61.95;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7896094918894
+duvidoso;MARESIS BABY SOL SPRAY FR 100ML;FARMOQUIMI;ETICO;56.9;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7898040325237
+duvidoso;MAREVAN 2.5mg cx 60 comp;FARMOQUIMI;ETICO;34.3;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898040321284
+duvidoso;MASSAGEOL AEROSOL 120ml;NEO QUIMIC;SIMILAR;24;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896714273006
+duvidoso;MASSAGEOL Pomada c/30g;NEO QUIMIC;SIMILAR;15;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896714230504
 duvidoso;MATERNA C/30 CPR;NESTLE;LIBERADO;75;;;"enquadramento regulatório a confirmar: forma tipo medicamento em classe LIBERADO; RT confirmar";7891045031257
+duvidoso;MAXALT 10MG CX 2 COMP;MERCK SHAR;ETICO;39;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897337702089
+duvidoso;MAXIDEX COLIRIO FR 5ML;ALCON;ETICO;15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896548111727
+duvidoso;MAXIFLOX 3.5mg/g pom oft bg x;CRISTALIA;SIMILAR;42.8;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896676434309
+duvidoso;MAXIFLOX-D 3.5+1mg sus oft fr 5;CRISTALIA;SIMILAR;46.6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896676432800
+duvidoso;MAXINOM pom oft bg 3.5g ( ANTIB);UNIAO QUIM;ETICO;37.35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006290483
 duvidoso;MAXRUB 12G DISPLAY 12X12G;DIVERSOS;SIMILAR;9.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896186003088
 duvidoso;MAXRUB 40G;DIVERSOS;SIMILAR;23.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896186003095
+duvidoso;MAXSULID 400mg cx 10 comp;FARMASA;ETICO;53.45;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897322701738
+duvidoso;MECLIN JET 25mg cx 10 comp;APSEN;ETICO;19.95;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896637033343
+duvidoso;MECLIN JET 50mg cx 10 comp;APSEN;ETICO;34.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896637033350
+duvidoso;MECOBE 1mg cx 30 comp;MYRALIS PHARMA;ETICO;35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898430194238
 duvidoso;MELAGRIAO 150 ML;CATARINENS;ETICO;29;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896023719899
 duvidoso;MELATONINA GTS 20ML ARTE NATIVA;ARTE NATIV;SIMILAR;24;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7894164008551
+duvidoso;MEMANTINA 10 MG CX 60 CPR EUROFARMA;EUROFARMA;GENERICO;55;memantina;duvida;ativo que pode ser controlado conforme forma/dose: memantina;7891317472139
+duvidoso;METICORTEN 20MG 10CPR;MERCK SHAR;ETICO;32.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897337712576
+duvidoso;METICORTEN 5 MG C/20CPR;SUPERA;ETICO;26.2;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897337712590
+duvidoso;METREXATO 25MG CX 24 COMP;DIVERSOS;ETICO;32;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896014669028
+duvidoso;MICROPIL 20 C/21 CPRS;SIGMA PHAR;ETICO;44.85;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7894916206419
+duvidoso;MICROPIL 30 C/21 CPR;EMS;ETICO;32.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7894916503792
+duvidoso;MICROVLAR CX 21CPR;UNIAO QUIMICA;ETICO;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006201618
 duvidoso;MINANCORA 30 G;MINANCORA;LIBERADO;22;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";0000078905108
+duvidoso;MINILAX CX C/ 1 UNIDADE3;EUROFARMA;ETICO;9;;;enquadramento regulatório a confirmar: marca Minilax sol. retal: ativo/forma constam na LMIP mas concentração não aparece no nome;7899640807277
 duvidoso;MIOSAN 10mg cx 10 comp*;APSEN;ETICO;23;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896637023665
 duvidoso;MIOSAN 5mg cx 10 comp;APSEN;ETICO;20.6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896637023658
 duvidoso;MIOSAN CAF 10+60mg cx 15 comp;APSEN;ETICO;35;miosan caf;duvida;ativo que pode ser controlado conforme forma/dose: miosan caf;7896637025102
+duvidoso;MIOSAN ODT 10MG C 10 COMP OROD;DIVERSOS;ETICO;23.76;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896637034067
+duvidoso;MIOSAN ODT 5MG C 10 COMP OROD;DIVERSOS;GENERICO;20.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896637034050
 duvidoso;MIRACALCIO D 500MG+400UI 60CPR;DIVERSOS;SIMILAR;39.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7899095267732
 duvidoso;MIRACALCIO MDK COM 30CP;1FARMA;LIBERADO;35;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7899095260986
 duvidoso;MIRACALCIO VIT D COM 60CPS;DIVERSOS;SIMILAR;39.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7899095267596
+duvidoso;MIRUGELL 0.4+0.3+0.1% sol oft;CRISTALIA;FRACIONADO;27.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896676435214
 duvidoso;MOBILITY OSCAL 500mg cx 60 comp rev;SANOFI/MEDLEY;ETICO;129.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7891058002343
 duvidoso;MOBILITY OSCAL D 500mg+400ui cx 60 co;SANOFI/MEDLEY;ETICO;129.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7891058002336
+duvidoso;MOMENT 075MG CREME DERM TOP BG 50G;APSEN;ETICO;118.1;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896637022781
 duvidoso;MOROSIL 500MG C/30CPS;DIVERSOS;SIMILAR;59.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898927980276
+duvidoso;MUCOFAN 50MG 100ML ADULTO;UNIAO QUIM;SIMILAR;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006240457
+duvidoso;MUCOS EXPEC 40MG/ML XPE 120ML;DIVERSOS;GENERICO;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7894916996938
+duvidoso;MUCOS EXPEC 600MG/5G C/10 ENVELOPES-LES;DIVERSOS;SUPLEMENTOS;35;;;"enquadramento regulatório a confirmar: possível medicamento/probiótico em classe SUPLEMENTOS; RT confirmar";7894916325868
+duvidoso;MUPIROCINA 20MG/G POMADA 15G PRATI DONADUZZI;PRATI. DON;GENERICO;35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898148297542
+duvidoso;MYLANTA PLUS MORANGO 240ML;1FARMA;ETICO;64.8;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7891010256432
 duvidoso;NAC 600MG C/30 CAPS QUALY;DIVERSOS;SUPLEMENTOS;45;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7898767762995
+duvidoso;NACTALI 75mcg cx 3 CARTELAS;LIBBS;ETICO;115;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094208124
 duvidoso;NACTALI C/28 CPR (CARTELA);LIBBS;ETICO;39;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";0
+duvidoso;NALDECON PACK 6CPR (NOITE/DIA);RECKIT;ETICO;19.9;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896016807220
+duvidoso;NALDECON PACK CART 24 COMP;RECKITT BE;ETICO;66.65;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896016807213
+duvidoso;NARIDRIN 12HS 30ML;EMS;SIMILAR;16.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004714578
 duvidoso;NARIX 0.5mg fr 30ML ADULTO;CIMED;SIMILAR;3.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896523202600
+duvidoso;NASALIV sol or fr c/60ml*;UNIAO QUIM;SIMILAR;16;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006272724
 duvidoso;NASOJET ALTO FLUXO C/30 ENV 2.;DIVERSOS;SIMILAR;36.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899470808284
 duvidoso;NASOJET ALTO FLUXO ENV 30X216;DIVERSOS;SIMILAR;39.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899470808277
 duvidoso;NASONEW AIRES BABY SPRAY 100ML (CLOR SOD;DIVERSOS;SIMILAR;49.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7894164005314
+duvidoso;NASONEX SPRAY NASAL S CH 120 D;DIVERSOS;ETICO;72.85;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897337716543
 duvidoso;NATSEPT SPRAY 50 ML;NATIVITA;SIMILAR;14.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897848502567
 duvidoso;NATUCLER FLACONETE 10ML;DIVERSOS;SIMILAR;1.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899898601269
 duvidoso;NATUS GERIN 50 CP;LEGRAND;VAREJINHO;65;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7896004815077
+duvidoso;NAUTEX 8mg cx 10 comp;ACHE;SIMILAR;59;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658034237
+duvidoso;NEBLOCK 5mg cx 30 comp;TORRENT DO;ETICO;61.95;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";8902220114937
+duvidoso;NEBLOCK 5mg cx 60 comp;TORRENT DO;ETICO;121.15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";8902220116214
+duvidoso;NENE-DENT gel 10g x 1;COSMED;ETICO;27.15;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896094922129
+duvidoso;NEO B 5000mcg+100+100mg cx 30CPR;EUROFARMA;ETICO;90.35;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7891317019983
 duvidoso;NEO FRESH COLIRIO 15 ML(CARMELOSE);NEO QUIMIC;SIMILAR;35;;;enquadramento regulatório a confirmar: ativo/forma constam na LMIP mas concentração não aparece no nome | ativos: CARMELOSE;7896714224053
 duvidoso;NEOCOFLAN AEROSOL 11 6MG/G 85ML;NEO QUIMIC;SIMILAR;24;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896714221083
+duvidoso;NEOCOPAN COMPOSTO CX 20CPR;UNIAO QUIMICA;ETICO;16.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006217459
+duvidoso;NEOCOPAN COMPOSTO GOTAS 10ML;UNIAO QUIMICA;ETICO;17.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006217480
+duvidoso;NEODIA 1.5MG CX 1 COMP;NEO QUIMIC;ETICO;10;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896714213446
 duvidoso;NEOFEDIPINA 10mg C/30;NEO QUIMIC;SIMILAR;28;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896714200064
 duvidoso;NEOFEDIPINA 20mg C/30;NEO QUIMIC;SIMILAR;16;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896714200125
+duvidoso;NEOLEFRIN 400+20+400+4mg cx 20;NEO QUIMICA;GENERICO;16;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896714265933
+duvidoso;NEOLEFRIN CARTELA 10CPR;NEO QUIMICA;SIMILAR;8;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";
+duvidoso;NEOLEFRIN xpe fr 60ml;NEO QUIMICA;SIMILAR;20;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896714214573
 duvidoso;NEOLYTE SACHES 29 44G;DIVERSOS;SIMILAR;5;;;enquadramento regulatório a confirmar: sais de reidratação: enquadramento regulatório a confirmar;
+duvidoso;NEOMICINA+BACITRACINA 15G MEDLEY;MEDLEY;GENERICO;9;;;enquadramento regulatório a confirmar: ativo consta na LMIP mas forma farmacêutica não identificada no nome | ativos: BACITRACINA ZINCICA + NEOMICINA;7896422504454
+duvidoso;NEOMICINA+BACITRACINA 50G MEDLEY;MEDLEY;GENERICO;18;;;enquadramento regulatório a confirmar: ativo consta na LMIP mas forma farmacêutica não identificada no nome | ativos: BACITRACINA ZINCICA + NEOMICINA;7896422504478
 duvidoso;NEOPIRIDIN 1.466+10mg cx 12;NEO QUIMIC;SIMILAR;16;;;enquadramento regulatório a confirmar: marca benzocaína+cetilpiridínio pastilha: concentração ambígua no nome;7896714283005
 duvidoso;NEOPIRIDIN 7.5+60mg spray fr 50 ML;NEO QUIMIC;SIMILAR;19.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896714270029
 duvidoso;NEOSORO FLUID CX C/30 SACHES;DIVERSOS;SIMILAR;36.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896714295299
 duvidoso;NEOSORO sol nasal adu fr 30ml;NEO QUIMIC;SIMILAR;5;;;enquadramento regulatório a confirmar: marca cloreto de sódio nasal: ativo/forma constam na LMIP mas concentração não aparece no nome;7896714231143
+duvidoso;NEOVLAR 0.25+0.05mg cx 21 co;UNIAO QUIMICA;ETICO;9.99;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006201687
+duvidoso;NEUTOSS 048mg xpe fr 100ml;BELFAR;ETICO;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897917000550
+duvidoso;NEUTROFER 300MG 30 CPRS*;SIGMA PHAR;ETICO;64.18;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7894916500333
+duvidoso;NEUTROFER 500MG 30 CPRS;SIGMA PHAR;ETICO;95.6;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7894916500272
+duvidoso;NEUTROFER sol fr gts 30 ML;SIGMA PHAR;ETICO;66.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7894916500296
+duvidoso;NEVRALGEX CARTELA 10 CP;CIMED;SIMILAR;5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896523224459
+duvidoso;NEVRIX IM 2ML 3 AMPOLAS;DIVERSOS;PERFUMARIA;27.15;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7899824400409
 duvidoso;NIFEDIPRESS RETARD 20 MG C/30 CPR;MEDQUIMICA;SIMILAR;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896862910747
+duvidoso;NISTATINA+OXIDO DE ZINCO 60 G MEDLEY;MEDLEY;GENERICO;16;;;enquadramento regulatório a confirmar: ativo consta na LMIP mas forma farmacêutica não identificada no nome | ativos: NISTATINA + OXIDO DE ZINCO;7896422519229
+duvidoso;NISTATINA+OXIDO DE ZINCO 60G NEO QUIMICA;NEO GEN;GENERICO;16;;;enquadramento regulatório a confirmar: ativo consta na LMIP mas forma farmacêutica não identificada no nome | ativos: NISTATINA + OXIDO DE ZINCO;7896714224688
 duvidoso;NOCALVE 20ML;DIVERSOS;PERFUMARIA;30;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7908996100380
+duvidoso;NORDETTE 0.15+0.03mg cx 21 drg;WYETH;ETICO;15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891045008433
+duvidoso;NORESTIN 0.35MG CX 35 CPRS;BIOLAB SAN;ETICO;16.25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896241274903
+duvidoso;NORI-1 100MG C/30;AVERT;SIMILAR;40;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112409144
+duvidoso;NORIPURUM 10 mg/ml xpe fr x 12;BLANVER;ETICO;37;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898581710578
+duvidoso;NORIPURUM C 30 COMP;DIVERSOS;ETICO;77.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898581710547
+duvidoso;NORIPURUM ENDOVENOSA COM 5 AMP 5ML;DIVERSOS;ETICO;101.55;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896641817502
+duvidoso;NORIPURUM GTS 30ML;DIVERSOS;ETICO;48.7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898581710523
+duvidoso;NOTUSS XAROPE ADULTO 120 ML;ACHE;ETICO;32.14;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658021121
+duvidoso;NOTUSS XAROPE PED 120 ML;ACHE;ETICO;28.37;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658021381
 duvidoso;NOVACORT CREME 10G;ACHE;ETICO;22.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658007088
 duvidoso;NOVACORT POMADA 30GRS;ACHE;ETICO;55.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658000577
+duvidoso;NOVALGINA FLASH 1000+130 C 8 CPR;DIVERSOS;ETICO;25.8;;;enquadramento regulatório a confirmar: Novalgina Flash: composição a confirmar;7891058005993
+duvidoso;NOVANLO 2.5mg cx 30 comp;BIOLAB SAN;ETICO;80.7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112422136
+duvidoso;NOXX 40MG 1 SERINGA;DIVERSOS;SIMILAR;39.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896014671823
 duvidoso;NUTILIS ALIMENTAR 300G;DIVERSOS;ETICO;132;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";4008976681267
+duvidoso;OCTIFEN 0.25mg sol oft 5ml;UNIAO QUIM;ETICO;39.33;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006222620
+duvidoso;OCUPRESS 2 SOL FR X 5ML;UNIAO QUIM;ETICO;116;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006290209
+duvidoso;OESTROGEL PUMP 06MG/G GEL TB 80G+VAL DOS;BESINS HEA;ETICO;86.3;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898948648179
 duvidoso;OFOLATO C/30 CPR;MANTECORP/FARMASA;LIBERADO;108;;;"enquadramento regulatório a confirmar: forma tipo medicamento em classe LIBERADO; RT confirmar";7896094916203
+duvidoso;OFTALMOX 5MG ML 5ML;DIVERSOS;ETICO;36.6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899095204072
 duvidoso;OFTPRED 10mg/ml sus oft fr g;CRISTALIA;SIMILAR;52;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896676433029
 duvidoso;OLEO DE CARTAMO 1000 MG C/60 CAPS;MAXELL;VAREJINHO;45;;;"enquadramento regulatório a confirmar: forma tipo medicamento em classe VAREJINHO; RT confirmar";7898927980368
 duvidoso;OLEO MINERAL 100% CIMED;DIVERSOS;SIMILAR;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896523224435
+duvidoso;OLIRE 6 MG/ML 3 CARP X 3ML X 3 SIST APLIC-S GLP1;DIVERSOS;ETICO;219.2;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004793771
+duvidoso;OLMECOR 20MG CX 30 COMP REV;TORRENT DO;ETICO;56.7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";8902220114845
+duvidoso;OLMECOR 20MG CX 60 COMP REV;TORRENT DO;ETICO;108;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";8902220115569
+duvidoso;OLMECOR 40MG CX 30 COMP REV;TORRENT DO;ETICO;59.8;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";8902220114784
+duvidoso;OMCILON-A ORABASE 10 GRS;B-MS;ETICO;28;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7895858015824
 duvidoso;OMEGA 3 TRIPLA FONTE 1000MG 120CPS KATIGUA;DIVERSOS;SIMILAR;39.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898714760197
+duvidoso;OMEPRAZOL 20MG FR 56 GLOBO PHARMA;GLOBO;GENERICO;12;;;enquadramento regulatório a confirmar: ativo consta na LMIP mas forma farmacêutica não identificada no nome | ativos: OMEPRAZOL;7898060134154
+duvidoso;ONDSET 4MG 5ML SOL FR 100ML;DIVERSOS;ETICO;88.6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006222842
 duvidoso;OPTIVE fr.c/10ml;ALLERGAN;ETICO;69.9;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7897316806371
 duvidoso;OSTEOFIX 1250MG + 200UI 60CPR;DIVERSOS;SIMILAR;35;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7899898601764
 duvidoso;OSTEOFIX 1500MG + 200UI 60CPR;DIVERSOS;SIMILAR;35;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7899898601771
 duvidoso;OTO BETNOVATE sol fr 10ml*;FARMOQUIMI;CONTROLADO;37.6;;;"export marca como controlado/retido, mas nenhum ativo da Portaria 344 foi identificado; RT confirmar";7898040321390
 duvidoso;OTO-XILODASE SOL OTO FR 8ML+AMP;APSEN;CONTROLADO;28;;;"export marca como controlado/retido, mas nenhum ativo da Portaria 344 foi identificado; RT confirmar";7896637022439
+duvidoso;OTOMIXYN 5 ML***;EMS;GENERICO;9.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004707600
+duvidoso;OTOSPORIN sol oto fr gts ***;FARMOQUIMI;ETICO;18.55;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898040320942
 duvidoso;OXOTRON 60mg cx 15 comp;ACHE;ETICO;42.7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658030192
+duvidoso;OZIVY 1.34MG/ML 3ML 1CANET 4AGLH;DIVERSOS;ETICO;498;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004796581
+duvidoso;PARACETAMOL 200MG/L 15ML GREEN PHARMA;MULTILAB;SIMILAR;6;;;"enquadramento regulatório a confirmar: paracetamol líquido (gotas/solução): forma não localizada no anexo da LMIP parseado; RT confirmar | ativos: PARACETAMOL";7896472502271
+duvidoso;PARACETAMOL 200MG/ML SOL 15ML GEOLAB;DIVERSOS;GENERICO;6;;;"enquadramento regulatório a confirmar: paracetamol líquido (gotas/solução): forma não localizada no anexo da LMIP parseado; RT confirmar | ativos: PARACETAMOL";7899095205451
+duvidoso;PARACETAMOL 200mg/ML 15ML EMS;EMS GENERI;GENERICO;6;;;"enquadramento regulatório a confirmar: paracetamol líquido (gotas/solução): forma não localizada no anexo da LMIP parseado; RT confirmar | ativos: PARACETAMOL";7896004700038
+duvidoso;PARACETAMOL+PSEUDOEFEDRINA C/24 CPR;EMS GENERI;GENERICO;18;pseudoefedrina;D1;"precursor (lista D1): pseudoefedrina; RT confirmar como tratar";7896004722337
+duvidoso;PARACETAMOL+PSEUDOEFEDRINA C/24 CPR GERMED;GERMED;GENERICO;18;pseudoefedrina;D1;"precursor (lista D1): pseudoefedrina; RT confirmar como tratar";7896004722344
+duvidoso;PATANOL S 2mg sol oft fr gts 2.5 ML;ALCON;ETICO;84.32;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896548140581
 duvidoso;PEG LAX 8.5g cx 14 achet or;MYRALIS PHARMA;SIMILAR;49.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898430191978
 duvidoso;PEG-LAX 4000 250ML SOLUCAO ORAL;MYRALIS PH;SIMILAR;55;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898430194399
 duvidoso;PEGLAX 17 GR C/14 SACHES;DIVERSOS;LIBERADO;59.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898430191879
+duvidoso;PENETRO 33+22+5.5mg sol inal;DAUDT;ETICO;36;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896026120555
+duvidoso;PEPSAMAR cx 10 comp;SANOFI-AVE;ETICO;9.9;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7897595903747
+duvidoso;PERCOF XPE 120 ML;SUPERA;ETICO;46.65;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317411909
+duvidoso;PERFENOL CAPS 20;UNIAO QUIM;SIMILAR;12;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896006202103
 duvidoso;PERILAC LACTITOL 120ML;DIVERSOS;SIMILAR;29.9;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7898277713838
 duvidoso;PERILAC LACTITOL SOLUCAO ORAL 240 ML;DIVERSOS;SUPLEMENTOS;55;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7898277713845
 duvidoso;PERLATTE 10.000FCC CARTELA 10 COMP;DIVERSOS;ETICO;21;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317018207
 duvidoso;PERMANGANATO DE POTASSIO C/10 ADV FARMA;DIVERSOS;SIMILAR;10;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";00800976
+duvidoso;PERMESE 5mg/ml+2mg/ml sus in;MOMENTA;SIMILAR;33.18;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317015343
 duvidoso;PHOSFOENEMA 160+60mg/ml enema fr;SUPERA;ETICO;24.95;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896676434323
+duvidoso;PICOPREP 10MG+35+12G PO PREP CX 2 SACH;FERRING;ETICO;53.94;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896165600727
+duvidoso;PILEM 0.75mg c/2cpr*;UNIAO SIMI;SIMILAR;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006238751
+duvidoso;PIROXICAM 20 MG CX 15CAPS PHARLAB;PHARLAB;GENERICO;14;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898216367290
+duvidoso;PLABEL 40mg GTS;BELFAR;ETICO;6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897917000970
+duvidoso;PLABEL CX 20 COMP;BELFAR;GENERICO;8;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897917000963
 duvidoso;PLANTA GOLD 5G C/10 SACHES;DIVERSOS;PERFUMARIA;29.9;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7898277712879
+duvidoso;PLASIL 20 CPRS 10MG;AVENTIS;ETICO;15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891058059149
+duvidoso;PLENIGELL COLIRIO FR 5ML;LATINOFARM;ETICO;31.1;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896676435184
+duvidoso;PLESONAX CARTELA COM 4 COMP;DIVERSOS;SIMILAR;3;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896714269924
 duvidoso;PLUS FER 150MG 30CPR;DIVERSOS;SIMILAR;22.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898965191818
+duvidoso;POLTAX 50 MG 20CP;GEOLAB;SIMILAR;7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899095205772
 duvidoso;POM BASILICAO 27G UBERPHARMA;DIVERSOS;LIBERADO;29;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7899811100596
 duvidoso;POMADA DE BASILICAO 12 G;DIVERSOS;LIBERADO;12;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7898277714156
 duvidoso;POMADA MINANCORA BG 30G;CATARINENS;ETICO;21.8;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";78905108
+duvidoso;PONSTAN 500MG CX C 24 COMP*;PFIZER;ETICO;49.6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891268118001
+duvidoso;POSLOV 1.5mg cx 1 comp;CIFARMA;SIMILAR;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7908020503125
+duvidoso;PREDSIM 10MG C 10CPR;DIVERSOS;ETICO;23.4;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891142982889
+duvidoso;PREDSIM 20MG 10CPR SN;DIVERSOS;ETICO;41.8;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891142981363
+duvidoso;PREDSIM 40MG C 7COMP REV;DIVERSOS;ETICO;72;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891142981394
+duvidoso;PREDSIM solucao oral 60ml;MANTECORP;ETICO;37.95;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891142177162
+duvidoso;PRELONE 3MG/ML 60ML;ACHE;ETICO;33;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658009518
+duvidoso;PRESSAT 2.5mg cx 30 comp*;BIOLAB SAN;ETICO;43.7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112432401
+duvidoso;PRESSAT 5mg cx c/30 comp;BIOLAB SAN;ETICO;79.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112477938
+duvidoso;PREVIANE cx 3bl x 21comp;LEGRAND;SIMILAR;55;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004818993
 duvidoso;PRIMERA 20 CARTELA;EUROFARMA;ETICO;30;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";
+duvidoso;PRIMERA 20 CX 3 CARTELAS;EUROFARMA;ETICO;88;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317177652
+duvidoso;PRIMERA 30 CX 3 CARTELAS;EUROFARMA;ETICO;88;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317177683
 duvidoso;PROBIATOP CX 30CPR;FQM/FARMA;ETICO;169.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898040324551
 duvidoso;PROCTAN POMADA 25 G;GENOMMA;LIBERADO;59;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7898949409465
 duvidoso;PROCTFIS H pom bg 20g+10 aplic;UNIAO QUIMICA;SIMILAR;28.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006212584
 duvidoso;PROCTOSAN CREME 20G C/1 APLIC;HERTZ;GENERICO;35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896331700459
+duvidoso;PROCTYL 100+27mg cx 15 sup ret;NYCOMED;ETICO;118.29;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896641805905
+duvidoso;PROCTYL POMADA 30GRS*;TAKEDA PHARMA;ETICO;110.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896641801792
 duvidoso;PROFERGAN 20MG/G CREME 30G;TEUTO;SIMILAR;17.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112180616
 duvidoso;PROFERGAN 25MG C/20 COMP;TEUTO;SIMILAR;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112148685
+duvidoso;PROPAFENONA 300MG CX 30CPR PRATI DONADUZZI;PRATI. DON;GENERICO;45;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899547514865
 duvidoso;PROPOLIS VERDE EXTRATO 20 ML;SANTA BARB;PERFUMARIA;28;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7897535412391
 duvidoso;PROVERA 10MG 14 CPRS;PFIZER;ETICO;47.55;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891268106213
+duvidoso;PURAN T4 100mcg cx 30 comp;SANOFI/MEDLEY;ETICO;17.75;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897595901033
+duvidoso;PURAN T4 12.5 MCG CX 30;SANOFI-AVE;ETICO;4;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891058003555
+duvidoso;PURAN T4 125MCG CX 30CPR;AVENTIS;ETICO;26.02;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897595901446
+duvidoso;PURAN T4 150MCG CX 30CPR;AVENTIS;ETICO;27.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897595901330
+duvidoso;PURAN T4 25 MCG CX 30CPR;AVENTIS;ETICO;18.45;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897595901309
+duvidoso;PURAN T4 37.5MCG CX 30 COMP;SANOFI-AVE;ETICO;11.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891058003562
+duvidoso;PURAN T4 50MCG CX 30CPR;AVENTIS;ETICO;20.85;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897595901316
+duvidoso;PURAN T4 62.5 MCG CX 30 COMP;SANOFI-AVE;ETICO;19.85;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891058003579
+duvidoso;PURAN T4 75MCG CX 30CPR;AVENTIS;ETICO;22.75;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897595901323
+duvidoso;PYRIDIUM 100mg cx 25 drg;ZODIAC;ETICO;29.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7892953001370
+duvidoso;PYRIDIUM 200mg CX 18 DRG;ZODIAC;ETICO;35.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7892953001387
 duvidoso;QUEIMADOL 30G PDA-BEL;DIVERSOS;SIMILAR;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898582291854
 duvidoso;QUEIMADOL SPRAY 30ML -BEL;DIVERSOS;SIMILAR;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898582292240
+duvidoso;RAPILAX GTS 30 ML;HERTZ;SIMILAR;24.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896331704808
+duvidoso;REACTINE 10MG 10CPS;DIVERSOS;ETICO;49.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891010257941
+duvidoso;REGENCEL 10000UI+25/5/5MG POM OFT 35G;LATINOFARM;ETICO;18.18;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896180300510
 duvidoso;REHIDRALIN AGUA DE COCO SACHE 28G;DIVERSOS;VAREJINHO;5;;;enquadramento regulatório a confirmar: sais de reidratação: enquadramento regulatório a confirmar;7898593052154
 duvidoso;REHIDRALIN LARANJA SACHE 28G;DIVERSOS;VAREJINHO;5;;;enquadramento regulatório a confirmar: sais de reidratação: enquadramento regulatório a confirmar;7898593052130
 duvidoso;REHIDRALIN SACHES UVA 28G;DIVERSOS;SIMILAR;5;;;enquadramento regulatório a confirmar: sais de reidratação: enquadramento regulatório a confirmar;7898593052147
 duvidoso;RENU FRESCH FR 60ML;DIVERSOS;ETICO;29.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896046390020
 duvidoso;REPARIL gel 30g;MYLAN;ETICO;49.9;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7898560661563
+duvidoso;RESFEDRYL CX 20 CAP;PHARMASCIE;SIMILAR;16;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7898014560244
+duvidoso;RESFEGRIPE 20CPS;DIVERSOS;SIMILAR;12;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896472520206
+duvidoso;RESFEGRIPE SINUS C/24 COMP.;DIVERSOS;SIMILAR;19.9;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7896472520534
+duvidoso;RESFENOL 400MG+4MG+4MG CX 20 CAP GEL;HERTZ;SIMILAR;16;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896331703443
 duvidoso;RESFRILIV CHA 5G;DIVERSOS;LIBERADO;3.5;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7899095265639
 duvidoso;RESFRILIV SACHE HORTELA E GENGIBRE;DIVERSOS;SIMILAR;3.5;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7899095264267
+duvidoso;RETEMIC 1MG XPE FR 120ML;APSEN;ETICO;60.85;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896637022576
+duvidoso;RETEMIC 5mg cx 30 comp;APSEN;ETICO;45.75;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896637022552
+duvidoso;RETEMIC 5mg cx 60 comp;APSEN;ETICO;76.05;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896637022569
+duvidoso;RIFOTRAT SPRAY 20ML;NATULAB;SIMILAR;20;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898133134784
 duvidoso;RIODEINE PVPI TOPICO 100 ML;RIOQUIMICA;PERFUMARIA;18;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7897780203126
 duvidoso;RITMONEURAN RTM 2X10CPS / KLE;DIVERSOS;SIMILAR;24.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896331707946
+duvidoso;RITMONORM 300MG CX 60 COMP REV;ABBOTT;ETICO;290;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896255764858
+duvidoso;ROSUCOR 10mg cx 30 comp;TORRENT DO;ETICO;47.49;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";8902220109506
+duvidoso;ROSUCOR 20MG CX 30 COMP REV;TORRENT DO;ETICO;81.2;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";8902220109520
+duvidoso;ROSUCOR 5 mg CX 30CPR;TORRENT DO BRASIL;SIMILAR;36;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";8903855061207
+duvidoso;ROSUCOR 5 mg CX 60CPR;TORRENT DO BRASIL;SIMILAR;69.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";8903855067841
+duvidoso;ROXFLAN 5 mg cx 30 comp*;MERCK;ETICO;32.46;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891721012969
+duvidoso;RUSOVAS 5mg cx 60 comp rev;GERMED PRESCRICAO;SIMILAR;117;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004775739
 duvidoso;SAL AMARGO 30G FARMAX;FARMAX;PERFUMARIA;4;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7896902206458
 duvidoso;SALONPAS ADESIVO GRANDE 2 UNIDADES;HISAMITSU;ETICO;12;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896227800812
 duvidoso;SALONPAS ADESIVO PEQUENO 10 UNIDADES;DIVERSOS;LIBERADO;14;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896227800805
 duvidoso;SALONPAS ADESIVO PEQUENO 4 UNIDADES;HISAMITSU;ETICO;6;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896227800799
+duvidoso;SANDRENA GEL 1 0G C/28 SACHES;ORGANON;ETICO;96.6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897337716680
+duvidoso;SANY D 14.000UI C 4 COMP;DIVERSOS;ETICO;35.58;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896658047886
+duvidoso;SANY D 4.000 UI C 30 COMP;DIVERSOS;ETICO;58.15;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896658047848
+duvidoso;SANY D 7.000UI CX 8 COMP REV;ACHE;ETICO;36.86;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896658028366
+duvidoso;SAYA CONTROL 1.5MG CX 1 CPR;DIVERSOS;SIMILAR;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898079009122
 duvidoso;SEAKALM 260MG C/20;NATULAB;SIMILAR;23;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7898133136047
 duvidoso;SEAKALM 260MG C/30 COMP NATULAB;DIVERSOS;SIMILAR;34;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7898133136054
 duvidoso;SEAKALM 600MG 20CPR;NATULAB;SIMILAR;44.9;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7899470807652
 duvidoso;SEAKALM 600MG 30CPR (PASSIFLORA INCARNAT;DIVERSOS;LIBERADO;59.9;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7899470807669
 duvidoso;SEAKALM MELATONINA GTS 15ML (MELATONINA);DIVERSOS;GENERICO;24;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7899898601788
 duvidoso;SEAKALM XPE 100ML;NATULAB;GENERICO;29.9;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7899470800882
+duvidoso;SEKI XAROPE 120ML;ZAMBON;ETICO;36;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898074618183
+duvidoso;SELENE COM 3 CARTELAS;EUROFARMA;ETICO;71;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317465650
+duvidoso;SELOZOK 25mg cx 30 comp;ASTRAZENEC;ETICO;44.4;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896206402853
+duvidoso;SEMAVY 1MG + 4 AGULHAS;DIVERSOS;SIMILAR;459.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891142985217
+duvidoso;SEPURIN 120+20mg cx 20 drg*;GROSS;ETICO;50.55;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7892828001405
+duvidoso;SERETIDE 25+125mcg spray;GLAXOSMITH;ETICO;139.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896269955204
 duvidoso;SERINGA DE INSULINA 1ML AGULHA 13X0 45MM;DIVERSOS;FRACIONADO;3;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898283814703
 duvidoso;SIMETICONA 125MG CX 10CAPS GEL EUROFARMA;DIVERSOS;GENERICO;10;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7891317026509
 duvidoso;SIMETICONA 125mg cx 15 cap BIOLAB;BIOLAB GENERICOS;ETICO;12;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7896112406778
+duvidoso;SIMETICONA 40MG CX 20CPR GLOBO PHARMA;GLOBO;ETICO;9;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7899620912441
+duvidoso;SIMETICONA 40mg cx 20 comp MEDLEY;MEDLEY;GENERICO;9;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7896422522823
+duvidoso;SIMETICONA 75MG SOL FR GTS 15ML MULTILAB;BIOSINTETI;SIMILAR;9;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7896181918769
+duvidoso;SIMETICONA 75MG/ML GTS 15ML BIOSSINTETICA;DIVERSOS;GENERICO;9;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7896181918851
 duvidoso;SIMETICONA 75mg GTS 10ML BIOSSINTETICA;ACHE;ETICO;9;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7896181928683
+duvidoso;SIMETICONA 75mg/ml GTS 15ML MEDLEY;MEDLEY;GENERICO;9;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7896422504744
 duvidoso;SINTOCALMY 300MG CX 20 COMP REV;ACHE;ETICO;56.78;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7896658012341
 duvidoso;SINTOCALMY 300MG CX 40 COMP REV;ACHE;ETICO;98;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7896658013072
 duvidoso;SINTOCALMY 857MG C 20 CPR;ACHE;ETICO;99.9;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7896658053474
+duvidoso;SLOW K 600mg cx 20 comp rev;UNIAO QUIMICA;ETICO;28.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006219545
+duvidoso;SODIX 50mg cx 20 comp;GEOLAB;SIMILAR;7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899095201187
 duvidoso;SOLUCAO ANTIMICOTICA COM IODO 30ML;DIVERSOS;VAREJINHO;12;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7896902212527
+duvidoso;SOMALGIN CARDIO 100mg cx 60 comp rev;SIGMA PHARMA;ETICO;50.49;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7894916512022
+duvidoso;SOMALGIN CARDIO 200 mg cx 32*;SIGMA PHAR;ETICO;31.65;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7894916503419
+duvidoso;SOMALGIN CARDIO 81MG C/60;DIVERSOS;ETICO;32;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7894916512107
 duvidoso;SOMINEX COMPOSTO C/20CPS;DIVERSOS;LIBERADO;34;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896004774107
 duvidoso;SONECA MELATONINA 021MG GOTAS 30ML MARA;DIVERSOS;SIMILAR;24;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898722861442
 duvidoso;SORINE INF GOTAS 30 ML;ACHE;ETICO;21.25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658012303
@@ -439,42 +941,154 @@ duvidoso;SOROX FRUTAS VERMELHAS 550ML;DIVERSOS;ALIMENTOS;12.9;;;"enquadramento r
 duvidoso;SOROX LIMAO 550ML;DIVERSOS;ETICO;12.9;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7898636193493
 duvidoso;SOROX MORANGO COM LARANJA 550ML;DIVERSOS;ETICO;12.9;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7898636194193
 duvidoso;SOROX UVA 550ML;DIVERSOS;ALIMENTOS;12.9;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7898636193516
+duvidoso;SPIOLTO 2.5+2.5mcg sol inal;BOEHRINGER;ETICO;401.31;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896026306799
 duvidoso;SPRAY MEL E PROPOLIS 35ML;DIVERSOS;LIBERADO;12;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7897535411837
 duvidoso;SPRAY MEL/PROP/MAL/EUC/COP 35ML;SANTA BARB;ALIMENTOS;12;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7897535410175
 duvidoso;SPRAY PROPOLIS 35ML;SANTA BARB;ALIMENTOS;23.9;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7897535410540
 duvidoso;SPRAY PROPOLIS CRAV CAN MENTA;SANTA BARB;ALIMENTOS;12;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7897535412032
 duvidoso;SPRAY PROPOLIS.MEL.CANELA.ROMA;SANTA BARB;ALIMENTOS;12;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7897535412049
 duvidoso;SPRAY STA BARBARA MEL/PROP/MOR;DIVERSOS;SIMILAR;12;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897535412926
+duvidoso;STER 10mg sus oft fr gts 5ml;UNIAO QUIM;ETICO;33.08;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006290988
+duvidoso;STILL SOL OFT 5ML;ALLERGAN;ETICO;23.6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897316802335
+duvidoso;SUAVICID creme bg 15g;LEGRAND;SIMILAR;95;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004726694
 duvidoso;SUCRAFILM 1G CX 30 COMP;SIGMA PHAR;ETICO;77.99;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7894916500869
+duvidoso;SUGANON 5MG C 60 CPR;EUROFARMA;ETICO;258;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7798016923095
+duvidoso;SUMAX 100MG CX 2 COMP REV;LIBBS;ETICO;61.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094200340
+duvidoso;SUMAX 50MG 2 CPRS;LIBBS;ETICO;33.8;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094200432
+duvidoso;SUMAXPRO 500+50MG CX 2 COMP REV;LIBBS;ETICO;47.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094208278
 duvidoso;SUPOSITORIO DE GLICERINA ADULTO ESGRILAX;DIVERSOS;PERFUMARIA;12;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";751320331823
 duvidoso;SUPOSITORIO DE GLICERINA LACTENTE ESGRILAX;DIVERSOS;SIMILAR;12;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";751320331847
 duvidoso;SUPOSITORIO DE GLICERINA PEDIATRICO;DIVERSOS;SIMILAR;12;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";751320331830
+duvidoso;SUTRIPTAN 100mg cx 2 comp rev;ACTAVIS;SIMILAR;45;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899551308900
+duvidoso;SUTRIPTAN 50MG 6CPR AVERT;DIVERSOS;SIMILAR;55;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112409540
+duvidoso;SYMBICORT 6mcg/dos+200mcg/dos 120 DOSES;ASTRAZENEC;ETICO;149.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896206407902
+duvidoso;SYNTHROID 100mcg cx 30 comp*;ABBOTT;ETICO;54;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896255716970
 duvidoso;SYSTANE UD 10ML;DIVERSOS;ETICO;69.9;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";300652439259
+duvidoso;TAMISA 20 CX C/3 CARTELAS;EUROFARMA;ETICO;88;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317465032
+duvidoso;TAMISA 30 C/3 CARTELAS;EUROFARMA;SIMILAR;88;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317009724
+duvidoso;TANDRIFLAN CX C/30 CPR;UNIAO ETIC;SIMILAR;15;tandriflan;duvida;ativo que pode ser controlado conforme forma/dose: tandriflan;7896006234517
 duvidoso;TANDRILAX 30 COMPRS;ACHE;ETICO;37.9;tandrilax;duvida;ativo que pode ser controlado conforme forma/dose: tandrilax;7896658001666
 duvidoso;TANDRILAX cx 15 comp;ACHE;ETICO;16.9;tandrilax;duvida;ativo que pode ser controlado conforme forma/dose: tandrilax;7896658004704
+duvidoso;TANDUO 05+04MG C 30 CAPS;DIVERSOS;ETICO;108.6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896637033923
+duvidoso;TANTIN 28 comp;BIOLAB SAN;ETICO;31.2;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112424123
+duvidoso;TECNOMET 2.5mg cx 20 cP METOTREXATO;ZODIAC;ETICO;39.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7892953101865
 duvidoso;TENYS PE CANFORADO 100 G;BARUEL;PERFUMARIA;15.9;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7896020160069
 duvidoso;TERBINAFINA CREME 20G EMS;EMS GENERI;GENERICO;25;;;enquadramento regulatório a confirmar: ativo/forma constam na LMIP mas concentração não aparece no nome | ativos: TERBINAFINA;7896004701035
+duvidoso;TERICIN AT CREME VAGINAL 45G C/10 APLICADORES;DIVERSOS;ETICO;83.7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899824400911
+duvidoso;TEROLAC 0.5% sol. oftalmica;CRISTALIA;ETICO;58.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896676432961
+duvidoso;TEROQUATRO 4MG ML SOL OFT FR 5ML;DIVERSOS;ETICO;47.1;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896676441796
+duvidoso;TEUTOVIT E 400MG C/30 CPS TEUTO;DIVERSOS;PERFUMARIA;29.9;;;"enquadramento regulatório a confirmar: forma tipo medicamento em classe PERFUMARIA; RT confirmar";7896112117698
 duvidoso;TILEMAXY BABY 100MG/ML 15ML (P;DIVERSOS;SIMILAR;15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899470808314
+duvidoso;TIORFAN 100mg cx 9 cap;BAGO;ETICO;56.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898906376410
+duvidoso;TOBRACORT 3+1MG/ML SUS OFT FR 5ML;UNIAO QUIM;ETICO;42.35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006290520
+duvidoso;TOBRAMICINA 3MG SOL OFT 5ML GEOLAB;DIVERSOS;PERFUMARIA;15;;;"enquadramento regulatório a confirmar: forma tipo medicamento em classe PERFUMARIA; RT confirmar";7899095230330
+duvidoso;TOBREX sol. 5ml;MUNDIPHARMA;ETICO;40.88;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896548112717
 duvidoso;TOPCOID 5mg gel bg 40g;UNIAO SIMI;SIMILAR;36.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006280507
+duvidoso;TOPIRAMATO 100mg CX 60CPR NOVA QUIMICA;NOVA QUIMICA GENERIC;GENERICO;55;topiramato;duvida;ativo que pode ser controlado conforme forma/dose: topiramato;7895296444897
+duvidoso;TOPIRAMATO 25MG CX 60 COMP EUROFARMA;EUROFARMA;GENERICO;35;topiramato;duvida;ativo que pode ser controlado conforme forma/dose: topiramato;7891317434328
+duvidoso;TOPIRAMATO 25MG CX 60CPR GERMED;GERMED;GENERICO;35;topiramato;duvida;ativo que pode ser controlado conforme forma/dose: topiramato;7896004713038
+duvidoso;TOPIRAMATO 50 MG CX 60CPR GERMED;GERMED;GENERICO;45;topiramato;duvida;ativo que pode ser controlado conforme forma/dose: topiramato;7896004713052
+duvidoso;TOPIRAMATO 50MG CX 60 COMP EUROFARMA;EUROFARMA;GENERICO;45;topiramato;duvida;ativo que pode ser controlado conforme forma/dose: topiramato;7891317434335
+duvidoso;TORAGESIC 10mg peel off cx 20;SIGMA PHARMA;SIMILAR;41.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7894916516013
+duvidoso;TORAGESIC 5mg/ml sol oft fr 5m;LEGRAND PRESCRICAO;SIMILAR;55.7;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896004768366
+duvidoso;TORMIV SL 10MG C 10COMP SUBL;DIVERSOS;ETICO;23.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658038112
+duvidoso;TORMIV SL 10mg cx 20 comp;ACHE;SIMILAR;29.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896658038129
+duvidoso;TORSILAX CARTELA C/ 10 COMP;NEO QUIMIC;SIMILAR;7;torsilax;duvida;ativo que pode ser controlado conforme forma/dose: torsilax;0
+duvidoso;TORSILAX CX 30CPR;NEO QUIMIC;SIMILAR;18;torsilax;duvida;ativo que pode ser controlado conforme forma/dose: torsilax;7896714200804
+duvidoso;TOSSEXPEC XP 5MG/ML XPE 120ML-;NEO QUIMICA;SIMILAR;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094931534
+duvidoso;TRANSAMIN 250MG CX 12 COMP;ZYDUS NIKK;ETICO;59.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897460401668
+duvidoso;TRAVOPROSTA 0.04 mg/ml SOL OFT 2.5ML GEOLAB;GEOLAB;GENERICO;49.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899095258747
+duvidoso;TRELEGY 100+62.5+25mcg xx 30;GSK;ETICO;349.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896015591212
 duvidoso;TRIADE C 1 AMPOLA 3ML;DIVERSOS;ETICO;26.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7892828002280
+duvidoso;TRICORTID 20+05+25MG CREM DERM 30G;PHARLAB;ETICO;16;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898216361021
+duvidoso;TRICORTID 20+05+25MG POM DERM 30G;PHARLAB;SIMILAR;16;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898216361014
+duvidoso;TRIMBOW 100+6+12.5mcg INALATORIO 120 DOSES;CHIESI;ETICO;475.37;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896672203589
+duvidoso;TRIMUSK 125+50+300+30mg cx 1;EUROFARMA;SIMILAR;25.25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317005931
+duvidoso;TRIQUILAR 0.05+0.03mg cx 21 co;UNIAO QUIMICA;ETICO;12.52;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006201977
 duvidoso;TRISORB OFT 15ML;DIVERSOS;ETICO;39;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";300650426404
+duvidoso;TROK 20+0.5mg/g crem derm;EUROFARMA;SIMILAR;21.15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317025564
+duvidoso;TROK 20+0.5mg/g pom derm 10G;EUROFARMA;SIMILAR;20.55;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317025533
+duvidoso;TROK N creme bg c/ 10g***;EUROFARMA;ETICO;22.2;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317412531
+duvidoso;TROK-G 0.64+1mg creme derm ***;EUROFARMA;ETICO;33.98;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317452650
+duvidoso;TROK-G 0.64+1mg pom derm 30**;EUROFARMA;ETICO;33.98;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317452933
+duvidoso;TROK-N pom bg 10g;EUROFARMA;ETICO;21.6;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317412555
+duvidoso;TROMBOFOB GEL 40 GRS;KNOLL;ETICO;46.3;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896255717885
+duvidoso;TROMETAMOL CETOR 4MG/ML COLIRIO 10 ML GEOLAB;GEOLAB;GENERICO;40;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899095239050
 duvidoso;TROPINAL 20 COMPRIMIDOS;SIGMA PHAR;ETICO;27.5;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7894916208154
+duvidoso;TUA D (VITAMINA D3) 50.000UI 4 CAPS TEUTO;DIVERSOS;SIMILAR;20;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896112113836
+duvidoso;TUA D 7000COM 30 CAPS;TEUTO;SIMILAR;28;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896112113829
 duvidoso;TYLEMAXY INF 160MG/5ML 60ML NTB;DIVERSOS;SIMILAR;15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899470808321
+duvidoso;TYLENOL SINUS 500+30MG 24CPR;DIVERSOS;ETICO;24.79;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7891010256968
+duvidoso;ULTRAFER 50mg sol oral fr gts;FARMOQUIMI;ETICO;49.95;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898040322120
+duvidoso;UTROGESTAN 100MG CX 30 CAP;BESINS HEA;ETICO;89.1;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898948648131
+duvidoso;UTROGESTAN 200mg cx 14 cap;BESINS HEA;ETICO;83.2;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898948648148
+duvidoso;V - TOSSE XAROPE VALDA 100ML;DIVERSOS;SIMILAR;29.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891317041731
+duvidoso;VALERIMED 50mg cx 20 comp rev;CIMED;SIMILAR;18;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896523206547
+duvidoso;VALESSONE 225 75MG 20CPR (VALERIANA OFFI;DIVERSOS;SUPLEMENTOS;28;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7899470808130
+duvidoso;VALESSONE 50MG 20CPR NTB;DIVERSOS;GENERICO;15;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7899470807751
+duvidoso;VALPROATO DE SODIO 500mg fr 50 comp BIOLAB;BIOLAB GENERICOS;GENERICO;65;valproato;duvida;ativo que pode ser controlado conforme forma/dose: valproato;7896112401247
+duvidoso;VARIVAX 100MG C/30;NATULAB;SIMILAR;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898133136450
+duvidoso;VARIVAX 300 MG CPR 30;NATULAB;SIMILAR;45;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7899470803975
 duvidoso;VASELINA LIQ 100 ML;FARMAX;PERFUMARIA;8;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7896902211780
+duvidoso;VASOPRIL 10MG 30 CPRS;BIOLAB SAN;ETICO;15;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896241293669
+duvidoso;VENAFLON 450+50MG 30CPR TEUTO;DIVERSOS;SIMILAR;35;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112125822
+duvidoso;VENAFLON 450+50MG 60CPR TEUTO;DIVERSOS;SIMILAR;65;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112125839
+duvidoso;VENAFLON 900+100mg cx 30 comp TEUTO;TEUTO;ETICO;65;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112102908
+duvidoso;VENAFLON 900+100mg cx 60 comp TEUTO;TEUTO;ETICO;125;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896112104070
 duvidoso;VERRUX C/10ML*;THERASKIN;ETICO;84.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897129300134
 duvidoso;VERTIGIUM 10MG CX 50CPR;NEO QUIMIC;SIMILAR;16;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896714239712
 duvidoso;VERTIZAN 10MG CX 50CPR;VITAPAN;SIMILAR;16;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7898049790586
+duvidoso;VERUTEX 20mg creme derm bg 15g;LEOFARMA;CONTROLADO;89.95;;;"export marca como controlado/retido, mas nenhum ativo da Portaria 344 foi identificado; RT confirmar";5702191007985
+duvidoso;VERUTEX B 20+1MG CREME DERM BG 15G;DIVERSOS;CONTROLADO;108.7;;;"export marca como controlado/retido, mas nenhum ativo da Portaria 344 foi identificado; RT confirmar";5702191007961
+duvidoso;VICK INALADOR TUBO;PROCTER;ETICO;22.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";78911239
+duvidoso;VICK PYRENA 500mg po prep env;DIVERSOS;ETICO;6;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";78911246
+duvidoso;VICK VAPORUB 12 GR;PROCTER;ETICO;24;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";78911222
 duvidoso;VICK VAPORUB INALADOR;DIVERSOS;ETICO;23.9;;;"enquadramento regulatório a confirmar: provável isento, mas composição/concentração não confere com nome; RT confirmar";7896093000217
+duvidoso;VICK XAROPE 44E 120 ML;PROCTER & GAMBLE;ETICO;45.2;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7590002023228
+duvidoso;VICK XAROPE INFANTIL 120ML;DIVERSOS;ETICO;45.2;;;"enquadramento regulatório a confirmar: antigripal/descongestionante: composição não aparece no nome; confirmar contra LMIP";7500435153072
+duvidoso;VIGADEXA SUSPENSAO OFTALMICA 5ML;ALCON;ETICO;55.05;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896548197554
 duvidoso;VIGAMOX sol fr 5ml;ALCON;ETICO;56.3;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896548139585
 duvidoso;VIOLETA GENCIANA 30 ML UNIPHAR;DIVERSOS;PERFUMARIA;8;;;"enquadramento regulatório a confirmar: produto comumente tratado como medicamento/antisséptico/fitoterápico; não mapeado na LMIP; RT confirmar";7898031311034
 duvidoso;VIT B12 3.000MCG COM 60 POWER FIT;DIVERSOS;LIBERADO;45;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7897806000234
+duvidoso;VITA SUPRAZ A+D+E 3ML;DIVERSOS;SIMILAR;19.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896006298762
+duvidoso;VITA SUPRAZ homem cx 60 comp;UNIAO QUIMICA;ETICO;45;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896006212355
+duvidoso;VITA SUPRAZ mulher cx 60 comp;UNIAO QUIMICA;LIBERADO;45;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896006212379
+duvidoso;VITACID 0.25mg gel bg 25g;THERASKIN;ETICO;46.45;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897129300516
+duvidoso;VITACID 0.5 MG CREME;THERASKIN;ETICO;66.4;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897129300509
+duvidoso;VITACID XT bg 25g;THERASKIN;ETICO;82.4;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7897129303579
 duvidoso;VITAMINA B 12 COM 60 CAPS;DIVERSOS;LIBERADO;35;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898593050488
+duvidoso;VITAMINA B12 5000CG/2.5ML 2INJ BIOLAB;BIOLAB;SIMILAR;34.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896112410478
+duvidoso;VITAMINA D3 10.000UI CX 30CAPS GEL BIOLAB;DIVERSOS;GENERICO;45;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896112409304
+duvidoso;VITAMINA D3 10.000UI CX 4CAPS BIOLAB;DIVERSOS;GENERICO;20;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896112409281
 duvidoso;VITAMINA D3 1000ui cx 30 CAPS GEL BIOLAB;BIOLAB;ETICO;24;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896112401513
+duvidoso;VITAMINA D3 15.000UI CX 10CAPS GEL EUROFARMA;EUROFARMA;ETICO;45;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7891317026097
+duvidoso;VITAMINA D3 15.000UI CX 4CAPS GEL BIOLAB;BIOLAB GENERICOS;ETICO;25;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896112406839
+duvidoso;VITAMINA D3 15.000UI CX 4CAPS GEL EUROFARMA;DIVERSOS;SIMILAR;25;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7891317026080
+duvidoso;VITAMINA D3 5.000UI C/30CAPS GEL BIOLAB;DIVERSOS;GENERICO;28;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896112409274
+duvidoso;VITAMINA D3 50.000 UI 8CPR UNIAO QUIMICA;UNIAO QUIMICA;GENERICO;40;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896006262398
+duvidoso;VITAMINA D3 50.000 UI CX 4 CAPS NEO QUIMICA;NEO QUIMICA;ETICO;20;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896714292687
+duvidoso;VITAMINA D3 50.000 UI CX 8 CAPS NEO QUIMICA;NEO QUIMICA;SIMILAR;40;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896714292694
+duvidoso;VITAMINA D3 5000ui cx 30 CAPS GEL ALTHAIA;ALTHAIA;SIMILAR;26;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7898569765019
 duvidoso;VITAMINA D3 500UI SOL 10ML EUROFARMA;DIVERSOS;SIMILAR;35;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7891317021702
+duvidoso;VITAMINA D3 7.000 ui x 30 CAPS GEL NEO QUIMICA;NEO QUIMICA;ETICO;28;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896714292663
+duvidoso;VITAMINA D3 7.000ui cx 30 comp UNIAO QUIMICA;UNIAO QUIMICA;ETICO;28;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896006200901
+duvidoso;VITAMINA D3 7000ui cap x 30 BIOLAB;BIOLAB;SIMILAR;28;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896112402282
 duvidoso;VITAMINE SE B12 GOTAS 20ML-OTC;DIVERSOS;PERFUMARIA;39.9;;;"enquadramento regulatório a confirmar: forma tipo medicamento em classe PERFUMARIA; RT confirmar";0618231843671
 duvidoso;VITAXON C TRIPLA ACAO C/10;DIVERSOS;SIMILAR;16;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7894164006014
+duvidoso;VODOL CREME 28 GRAMAS;UNIAO ETIC;SIMILAR;29.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896006292005
+duvidoso;VONAU 4mg cx 10 comp;BIOLAB SAN;ETICO;51.1;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896241296523
+duvidoso;VONAU 8mg cx 10 comp;BIOLAB SAN;ETICO;100.65;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896241296400
+duvidoso;VYZULTA fr 2.5ml;BAUSCH & LOMB;ETICO;102.85;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896046304096
+duvidoso;XANTINON 15CPR CARTELA;UNIAO QUIMICA;ETICO;9;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7896006216254
+duvidoso;XANTINON COMPLEX 100ML;UNIAO QUIMICA;ETICO;17.75;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7896006216605
+duvidoso;XANTINON CX 20CAPS GEL;DIVERSOS;ETICO;21.9;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7896006299721
+duvidoso;XANTINON CX 30CPR;NYCOMED PH;LIBERADO;17.2;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7896006216483
+duvidoso;XANTINON FLACONETES;NYCOMED;ETICO;3.7;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7896641812958
+duvidoso;XAQUELIV CX 12CPR;DIVERSOS;SIMILAR;19;;;enquadramento regulatório a confirmar: antiácido/antigases: composição/concentração a confirmar (simeticona/hidróxido de magnésio isolados não constam na LMIP);7896004791081
 duvidoso;XAROPE DA VOVO 250ML;DIVERSOS;LIBERADO;20;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7898332112019
 duvidoso;XAROPE GRAVATA MEL 250ML;DIVERSOS;SIMILAR;25;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7895700100050
 duvidoso;XAROPE GUACO NAT 150ML;NATULAB;SIMILAR;19.9;;;enquadramento regulatório a confirmar: fitoterápico (Anexo II da LMIP): espécie/parte/forma a confirmar;7898133131837
+duvidoso;YAZ 24+4 COMP REV;DIVERSOS;ETICO;116.8;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7891106915342
+duvidoso;ZELLA 150MG/G GEL DERM 30G;DIVERSOS;ETICO;89.9;;;"marca/ativo não identificado: pode ser controlado ou não; RT confirmar";7896094929746
 duvidoso;ZEROLAC 10.000 FCC C/30 CAPS;DIVERSOS;LIBERADO;46.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896006216520
 duvidoso;ZEROLAC 10000FCC CARTELA COM 10CAPS;DIVERSOS;SIMILAR;21.9;;;"enquadramento regulatório a confirmar: vitamina/mineral/suplemento/laxante: enquadramento (medicamento x suplemento) incerto; RT confirmar";7896006298595
