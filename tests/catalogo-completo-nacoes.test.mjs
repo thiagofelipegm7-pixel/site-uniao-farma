@@ -118,3 +118,18 @@ test("CSV de controlados e duvidosos existe, sem barras vazias e sem segredos", 
   assert.ok(linhas.some((l) => l.startsWith("duvidoso;")));
   assert.doesNotMatch(csv, /token|senha|password/i);
 });
+
+test("selo/etiqueta 'Sem receita' removido de todos os cards de produto e ofertas", async () => {
+  for (const f of [
+    "app/nacoes-unidas/produtos/CatalogoLista.tsx",
+    "app/nacoes-unidas/produtos/[slug]/page.tsx",
+    "app/shop/DestaquesSemana.tsx",
+    "app/HomeReasons.tsx",
+    "app/PublicOffersGrid.tsx",
+    "app/visual-fase2.tsx",
+    "app/nacoes-unidas/produtos/ListaRestrita.tsx",
+  ]) {
+    const src = await read(f);
+    assert.doesNotMatch(src, /SeloSemReceita|selo-sem-receita|<p className="produto-selo"|>\s*Sem receita\s*</, f);
+  }
+});

@@ -41,7 +41,6 @@ export default function DestaquesSemana() {
         {itens.map((item) => (
           <li key={item.slug}>
             <article className="shop-card">
-              <p className="selo-sem-receita-simples">Sem receita</p>
               <a className="shop-card-foto" href={`/nacoes-unidas/produtos/${item.slug}`} aria-label={`Ver ${item.nome}`}>
                 {item.foto ? <img src={item.foto} alt="" width="120" height="120" loading="lazy" decoding="async" /> : <span aria-hidden="true" />}
               </a>

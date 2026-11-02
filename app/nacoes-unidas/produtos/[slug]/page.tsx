@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ContentSiteFooter } from "../../../ContentSiteChrome";
 import ShopTopo from "../../../shop/ShopTopo";
 import { SITE_URL, UNITS } from "../../../site-config";
-import { IconSelo, IconSetaDireita } from "../../../reserva/ReservaIcons";
+import { IconSetaDireita } from "../../../reserva/ReservaIcons";
 import { acharPorSlug, carregarCatalogoNacoes, formatBRL, slugify } from "../catalogo";
 import { fotoDoProduto } from "../imagens";
 import ProdutoAcoes from "../ProdutoAcoes";
@@ -84,10 +84,6 @@ export default async function ProdutoNacoesPage({ params }: Props) {
         </div>
 
         <article className="produto-card section-inner">
-          <p className="produto-selo">
-            <IconSelo size={18} />
-            Sem receita
-          </p>
           <h1>{nomeExibido}</h1>
           {textos.descricao ? <p className="produto-descricao">{textos.descricao}</p> : null}
           <div className="produto-marca-linha">

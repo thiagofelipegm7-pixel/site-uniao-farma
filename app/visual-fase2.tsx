@@ -1,15 +1,6 @@
 import { UNIT_GOOGLE_PROFILES } from "./google-reviews";
-import { IconKit, IconLojaFrente, IconSelo } from "./reserva/ReservaIcons";
+import { IconKit, IconLojaFrente } from "./reserva/ReservaIcons";
 import type { Unit } from "./site-config";
-
-export function SeloSemReceita() {
-  return (
-    <span className="selo-sem-receita">
-      <IconSelo size={16} />
-      Sem receita
-    </span>
-  );
-}
 
 export function EtiquetaOferta() {
   return <span className="etiqueta-oferta">Oferta</span>;
