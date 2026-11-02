@@ -2,22 +2,24 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links keep the Novidades route working in Vinext production. */
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { trackEvent } from "./analytics";
-import { SITE_OPTIONS, SITE_URL, UNITS } from "./site-config";
+import { SITE_URL, UNITS } from "./site-config";
 import { HOME_FAQS } from "./seo-content";
 import { getPageStructuredData } from "./structured-data";
-import { WhatsAppIcon, type SelectorIntent } from "./home-chrome";
+import type { SelectorIntent } from "./home-chrome";
 import UnitSelectorModal from "./UnitSelectorModal";
 import { HomeSections } from "./home-sections";
 import UnitsShowcase from "./UnitsShowcase";
-import BrandLogo from "./BrandLogo";
 import BrandStrip from "./BrandStrip";
 import OfertasSemana from "./OfertasSemana";
 import { FarmaceuticoCard } from "./visual-fase2";
+import LojaBar from "./shop/LojaBar";
+import ShopHeader from "./shop/ShopHeader";
+import DestaquesSemana from "./shop/DestaquesSemana";
+import { CategoriasLinha, ComoFunciona, HeroReserva } from "./shop/ShopSections";
 
 export default function HomePage() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [selectorIntent, setSelectorIntent] = useState<SelectorIntent | null>(null);
   const homeStructuredData = getPageStructuredData({
     name: "Farmácia em Sabará | União Farma",
@@ -30,27 +32,7 @@ export default function HomePage() {
   const openSelector = (intent: SelectorIntent) => {
     trackEvent("unit_selector_open", { intent: intent.eventName });
     setSelectorIntent(intent);
-    setMenuOpen(false);
   };
-
-  useEffect(() => {
-    if (!menuOpen) return;
-    const previousOverflow = document.body.style.overflow;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenuOpen(false);
-    };
-    const closeOnDesktop = () => {
-      if (window.innerWidth > 860) setMenuOpen(false);
-    };
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", closeOnEscape);
-    window.addEventListener("resize", closeOnDesktop);
-    return () => {
-      document.body.style.overflow = previousOverflow;
-      window.removeEventListener("keydown", closeOnEscape);
-      window.removeEventListener("resize", closeOnDesktop);
-    };
-  }, [menuOpen]);
 
   const generalIntent: SelectorIntent = {
     title: "Qual loja fica melhor para você?",
@@ -62,46 +44,24 @@ export default function HomePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeStructuredData) }} />
-      <header className={SITE_OPTIONS.promoToast.enabled ? "site-header has-promo" : "site-header"}>
-        <nav className="nav" aria-label="Menu principal">
-          <a className="brand" href="#inicio" onClick={() => setMenuOpen(false)}>
-            <BrandLogo priority />
-            <span>
-              <strong>{"União Farma"}</strong>
-              <small>Drogaria e Perfumaria</small>
-            </span>
-          </a>
-          <button className="menu-button" type="button" aria-expanded={menuOpen} aria-controls="menu-links" aria-label={menuOpen ? "Fechar menu de navegação" : "Abrir menu de navegação"} onClick={() => setMenuOpen((value) => !value)}>
-            <span className="menu-label">{menuOpen ? "Fechar" : "Menu"}</span>
-          </button>
-          <div className={menuOpen ? "menu-links is-open" : "menu-links"} id="menu-links">
-            <a href="#unidades-rapidas" onClick={() => setMenuOpen(false)}>Lojas</a>
-            <a href="/ofertas" onClick={() => setMenuOpen(false)}>Ofertas</a>
-            <a href="/receita" onClick={() => setMenuOpen(false)}>Receita</a>
-            <a href="/entrega-de-medicamentos-em-sabara" onClick={() => setMenuOpen(false)}>Entrega</a>
-            <a href="/perguntas" onClick={() => setMenuOpen(false)}>Perguntas</a>
-          </div>
-          <a className="header-cta" href="#unidades-rapidas" aria-label="WhatsApp: escolher a loja" onClick={() => setMenuOpen(false)}>
-            <WhatsAppIcon /> <span className="header-cta-label">WhatsApp</span>
-          </a>
-        </nav>
-      </header>
-      <BrandStrip />
-      <section className="hero hero-home reveal is-visible" id="inicio" aria-labelledby="hero-title">
-        <div className="hero-inner">
-          <div className="hero-copy">
-            <p className="eyebrow">{"Três farmácias em Sabará"}</p>
-            <h1 id="hero-title">{"Farmácia em Sabará: 3 lojas perto de você"}</h1>
-            <p className="hero-lead">{"Fátima, Nações Unidas e Itacolomi."}</p>
-          </div>
-          <a className="sr-only" href="/novidades">{"Novidades da União Farma"}</a>
-        </div>
-        <UnitsShowcase />
-      </section>
+      <ShopHeader />
+      <BrandStrip semSacola />
+      <LojaBar />
+      <CategoriasLinha />
+      <HeroReserva />
+      <OfertasSemana />
+      <DestaquesSemana />
+      <ComoFunciona />
+      <UnitsShowcase />
       <div className="section-inner">
         <FarmaceuticoCard />
       </div>
-      <OfertasSemana />
+      <section className="seo-intro section-inner" aria-labelledby="seo-intro-title">
+        <p className="eyebrow">{"Três farmácias em Sabará"}</p>
+        <h2 id="seo-intro-title">{"Farmácia em Sabará: 3 lojas perto de você"}</h2>
+        <p className="hero-lead">{"Fátima, Nações Unidas e Itacolomi."}</p>
+        <a className="sr-only" href="/novidades">{"Novidades da União Farma"}</a>
+      </section>
       <HomeSections generalIntent={generalIntent} openSelector={openSelector} />
       <UnitSelectorModal intent={selectorIntent} onClose={() => setSelectorIntent(null)} />
     </>

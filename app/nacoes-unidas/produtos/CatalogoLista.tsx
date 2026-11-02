@@ -31,6 +31,8 @@ import {
 import { slugify } from "./catalogo";
 
 type Props = {
+  /** Texto vindo do campo de busca do cabeçalho (?q=). */
+  consultaInicial?: string;
   grupos: GrupoBusca[];
   whatsappHref: string;
   unitId: string;
@@ -48,10 +50,10 @@ function alternar<T extends string>(lista: readonly T[] | undefined, valor: T): 
 }
 
 /** Lista do catálogo com busca local. O HTML do servidor já traz tudo, então sem JavaScript a lista continua completa. */
-export default function CatalogoLista({ grupos, whatsappHref, unitId }: Props) {
+export default function CatalogoLista({ grupos, whatsappHref, unitId, consultaInicial = "" }: Props) {
   const base = identificarItens(grupos);
   const opcoes = opcoesFiltro(base);
-  const [consulta, setConsulta] = useState("");
+  const [consulta, setConsulta] = useState(consultaInicial);
   const [ordem, setOrdem] = useState<OrdemCatalogo>("recomendados");
   const [selecao, setSelecao] = useState<Selecao>(SELECAO_VAZIA);
   const [painelAberto, setPainelAberto] = useState(false);

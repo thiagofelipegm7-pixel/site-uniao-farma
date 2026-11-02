@@ -233,7 +233,11 @@ test("keeps unit-specific data on all unit pages", async () => {
 test("keeps local contact data, dataLayer events, SEO files and accessibility hooks", async () => {
   const [page, homePage, skipLink, layout, localLanding, analytics, analyticsModule, envExample, sitemap, robots, css, siteConfig, offers, attribution, newsPage, newsContent] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/HomePage.tsx", import.meta.url), "utf8"),
+    // A home é montada por HomePage + cabeçalho da casca de loja (menu com aria-expanded).
+    Promise.all([
+      readFile(new URL("../app/HomePage.tsx", import.meta.url), "utf8"),
+      readFile(new URL("../app/shop/ShopHeader.tsx", import.meta.url), "utf8"),
+    ]).then((partes) => partes.join("\n")),
     readFile(new URL("../app/SkipLink.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/local-landing-page.tsx", import.meta.url), "utf8"),

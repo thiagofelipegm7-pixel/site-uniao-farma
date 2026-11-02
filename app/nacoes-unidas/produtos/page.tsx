@@ -52,7 +52,9 @@ function formatGeradoEm(value: string | undefined): string | null {
   return m ? `${m[3]}/${m[2]}/${m[1]} às ${m[4]}:${m[5]}` : null;
 }
 
-export default async function ProdutosNacoesPage() {
+export default async function ProdutosNacoesPage({ searchParams }: { searchParams?: Promise<{ q?: string | string[] }> }) {
+  const bruto = (await searchParams)?.q;
+  const consultaInicial = (Array.isArray(bruto) ? bruto[0] : bruto)?.slice(0, 80) ?? "";
   const catalogo = await fetchCatalogoNacoes();
   const grupos = catalogo ? groupByCategoria(catalogo.itens) : [];
   const atualizadoEm = formatGeradoEm(catalogo?.geradoEm);
@@ -130,6 +132,7 @@ export default async function ProdutosNacoesPage() {
               </p>
             ) : (
               <CatalogoLista
+                consultaInicial={consultaInicial}
                 grupos={grupos.map((g) => ({
                   categoria: g.categoria,
                   id: slugify(g.categoria),
