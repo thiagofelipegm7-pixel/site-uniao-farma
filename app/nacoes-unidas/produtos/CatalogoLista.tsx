@@ -6,6 +6,7 @@ import { trackEvent } from "../../analytics";
 import { buildWhatsAppUrl, UNITS } from "../../site-config";
 import { IconFechar } from "../../reserva/ReservaIcons";
 import ReservarBotao from "../../reserva/ReservarBotao";
+import { SeloSemReceita } from "../../visual-fase2";
 import { precoParaCentavos } from "../../reserva/reserva-store";
 import {
   aplicarCatalogo,
@@ -395,6 +396,7 @@ export default function CatalogoLista({ grupos, whatsappHref, unitId }: Props) {
                   <li key={item.id ?? item.nome} id={item.id} className="catalogo-item">
                     {item.foto ? <img className="catalogo-foto" src={item.foto} alt={item.nome} width="80" height="80" loading="lazy" decoding="async" /> : null}
                     <div className="catalogo-info">
+                      <SeloSemReceita />
                       <h4>
                         <a href={`/nacoes-unidas/produtos/${slugify(item.nome)}`}>{item.nome}</a>
                       </h4>

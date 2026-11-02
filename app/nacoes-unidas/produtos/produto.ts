@@ -13,7 +13,7 @@ export type FaqProduto = { q: string; a: string };
 
 export const AVISO_MIP = "Medicamento isento de prescrição. Leia a bula. Se persistirem os sintomas, o médico deverá ser consultado.";
 
-export const NOTA_PRECO = "Preço do sistema da loja. A loja confirma preço e estoque pelo WhatsApp.";
+export const NOTA_PRECO = "Preço do sistema da loja. A gente confere o preço e o estoque e te responde pelo WhatsApp.";
 
 export const FAQ_PRODUTO: readonly FaqProduto[] = [
   {
@@ -26,7 +26,7 @@ export const FAQ_PRODUTO: readonly FaqProduto[] = [
   },
   {
     q: "Quem confirma preço e estoque?",
-    a: "A loja confirma preço e estoque pelo WhatsApp.",
+    a: "A gente confere o preço e o estoque e te responde pelo WhatsApp.",
   },
 ];
 

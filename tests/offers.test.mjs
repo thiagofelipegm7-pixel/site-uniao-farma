@@ -192,7 +192,7 @@ test("painel da semana na home: estrutura, no máximo o componente pede 3, sem D
   assert.match(painel, /Preço e estoque confirmados pela loja/);
   assert.match(painel, /Ver todas as ofertas/);
   assert.match(painel, /href="\/ofertas"/);
-  assert.match(painel, /A loja confirma preço e estoque pelo WhatsApp\. Ofertas válidas enquanto durar o estoque em cada loja\./);
+  assert.match(painel, /A gente confere o preço e o estoque e te responde pelo WhatsApp\. Ofertas válidas enquanto durar o estoque em cada loja\./);
   assert.match(painel, /ReservarBotao/);
   assert.match(painel, /source="ofertas_semana"/);
   assert.match(painel, /precoAnteriorConfirmado/);

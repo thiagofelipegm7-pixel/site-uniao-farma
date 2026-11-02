@@ -23,8 +23,8 @@ export default function ReservaPagina() {
   if (estado.itens.length === 0) {
     return (
       <div className="reserva-vazia reserva-vazia-pagina">
-        <h1>Sua reserva está vazia</h1>
-        <p>Toque no “Reservar” de um produto para separar. Você fecha pelo WhatsApp e paga só na loja.</p>
+        <h1>Sua reserva ainda está vazia. Bora escolher?</h1>
+        <p>Separa pra você: reserve aqui e pague só quando retirar.</p>
         <a className="reserva-botao" href="/nacoes-unidas/produtos">Ver produtos</a>
       </div>
     );
@@ -61,7 +61,7 @@ export default function ReservaPagina() {
             ))}
           </ul>
           <p className="reserva-subtotal"><span>Subtotal estimado</span><strong>{formatarCentavos(subtotalCentavos(estado.itens))}</strong></p>
-          <p className="reserva-aviso">A loja confirma preço e estoque pelo WhatsApp. Nada é cobrado no site.</p>
+          <p className="reserva-aviso">A gente confere o preço e o estoque e te responde pelo WhatsApp. Nada é cobrado no site.</p>
 
           <fieldset className="reserva-modo">
             <legend>Como você quer receber?</legend>
@@ -90,7 +90,7 @@ export default function ReservaPagina() {
           <ReservaEnvio estado={estado} />
           <h2>Depois de enviar</h2>
           <ol className="reserva-passos">
-            <li>A loja confirma o preço e o estoque pelo WhatsApp, dentro do horário de atendimento.</li>
+            <li>A gente confere o preço e o estoque e te responde pelo WhatsApp, dentro do horário de atendimento.</li>
             <li>Você combina a retirada ou a entrega.</li>
             <li>O pagamento é feito no balcão ou na entrega.</li>
           </ol>

@@ -12,6 +12,7 @@ import {
   OFFER_CATEGORY_LABELS,
   type Offer,
 } from "./offers";
+import { EtiquetaOferta, SeloSemReceita } from "./visual-fase2";
 
 function OfferConsultCard({ offer }: { offer: Offer }) {
   const price = offer.currentPrice !== null ? formatOfferPrice(offer.currentPrice) : "preço sob consulta";
@@ -34,6 +35,10 @@ function OfferConsultCard({ offer }: { offer: Offer }) {
         )}
       </div>
       <div className="offer-consult-body">
+        <div className="selos-linha">
+          <SeloSemReceita />
+          <EtiquetaOferta />
+        </div>
         <p className="offer-consult-brand">
           {offer.brand || OFFER_CATEGORY_LABELS[offer.category]}
         </p>

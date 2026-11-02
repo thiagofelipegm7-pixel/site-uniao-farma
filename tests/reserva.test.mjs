@@ -86,7 +86,11 @@ test("página /reserva: robots noindex e o HTML do servidor não traz texto de p
   ]);
   assert.match(page, /robots:\s*\{\s*index:\s*false,\s*follow:\s*false\s*\}/);
   assert.match(hook, /lerReservaServidor/);
-  assert.match(pagina, /Sua reserva está vazia/);
+  assert.match(pagina, /Sua reserva ainda está vazia\. Bora escolher\?/);
+  assert.match(pagina, /Separa pra você: reserve aqui e pague só quando retirar\./);
+  assert.match(pagina, /A gente confere o preço e o estoque e te responde pelo WhatsApp/);
+  assert.match(sacola, /Sua reserva ainda está vazia\. Bora escolher\?/);
+  assert.match(page, /FarmaceuticoCard/);
   assert.match(pagina, /<ReservaEnvio/);
   // A gaveta só lista e leva à /reserva: o envio exige escolher retirar ou receber, então fica na página.
   assert.doesNotMatch(sacola, /<ReservaEnvio/);
