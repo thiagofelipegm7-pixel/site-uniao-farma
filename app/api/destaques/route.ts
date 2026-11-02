@@ -1,3 +1,4 @@
+import { nomeDeExibicao } from "../../nome-exibicao";
 import { fetchCatalogoNacoes, slugify } from "../../nacoes-unidas/produtos/catalogo";
 import { fotoDoProduto } from "../../nacoes-unidas/produtos/imagens";
 
@@ -8,7 +9,7 @@ export async function GET() {
   const catalogo = await fetchCatalogoNacoes();
   const itens = (catalogo?.itens ?? [])
     .map((item) => ({
-      nome: item.nome,
+      nome: nomeDeExibicao(item.nome),
       slug: slugify(item.nome),
       precoCentavos: Math.round(item.preco * 100),
       foto: fotoDoProduto(item.nome),

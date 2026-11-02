@@ -16,6 +16,8 @@ test("public store routes stay on one URL each", async () => {
   assert.match(nacoes, /\/nacoes-unidas/);
   assert.match(itacolomi, /\/itacolomi/);
   assert.match(sitemap, /\/institucional/);
-  assert.match(footer, /\/institucional/);
+  // Rodapé do protótipo: privacidade, termos e perguntas (a página institucional segue no sitemap).
+  assert.match(footer, /\/privacidade/);
+  assert.match(footer, /\/termos/);
   assert.match(company, /28\.455\.556\/0001-91/);
 });

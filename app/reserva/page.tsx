@@ -1,9 +1,6 @@
-/* eslint-disable @next/next/no-html-link-for-pages -- Links nativos mantêm a navegação estável no Vinext em produção. */
 import type { Metadata } from "next";
-import { ContentSiteFooter } from "../ContentSiteChrome";
-import ShopTopo from "../shop/ShopTopo";
-import ReservaPagina from "./ReservaPagina";
-import { FarmaceuticoCard } from "../visual-fase2";
+import "../shop/shop.css";
+import ReservaFluxo from "./ReservaFluxo";
 
 const TITLE = "Minha reserva | União Farma";
 
@@ -16,16 +13,5 @@ export const metadata: Metadata = {
 };
 
 export default function ReservaRota() {
-  return (
-    <>
-      <ShopTopo />
-      <main className="reserva-pagina" id="conteudo">
-        <div className="section-inner">
-          <ReservaPagina />
-          <FarmaceuticoCard />
-        </div>
-      </main>
-      <ContentSiteFooter />
-    </>
-  );
+  return <ReservaFluxo />;
 }

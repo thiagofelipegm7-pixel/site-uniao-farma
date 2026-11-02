@@ -49,7 +49,7 @@ export default function DestaquesSemana() {
                 <a href={`/nacoes-unidas/produtos/${item.slug}`}>{item.nome}</a>
               </h3>
               <p className="shop-card-preco">{formatarCentavos(item.precoCentavos)}</p>
-              <ReservarBotao unitId="nacoes" nome={item.nome} precoCentavos={item.precoCentavos} foto={item.foto} source="destaques_home" />
+              <ReservarBotao unitId="nacoes" nome={item.nome} precoCentavos={item.precoCentavos} foto={item.foto} source="destaques_home" compacto />
             </article>
           </li>
         ))}

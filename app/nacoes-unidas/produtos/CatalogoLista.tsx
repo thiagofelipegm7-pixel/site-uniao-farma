@@ -1,31 +1,27 @@
 "use client";
 
-import { useEffect, useRef, useState, type KeyboardEvent as Tecla } from "react";
+/* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
+
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { trackEvent } from "../../analytics";
-import { buildWhatsAppUrl, UNITS } from "../../site-config";
-import { IconFechar } from "../../reserva/ReservaIcons";
+import { nomeDeExibicao } from "../../nome-exibicao";
+import { IconFechar, IconFiltro } from "../../reserva/ReservaIcons";
 import ReservarBotao from "../../reserva/ReservarBotao";
-import { SeloSemReceita } from "../../visual-fase2";
 import { precoParaCentavos } from "../../reserva/reserva-store";
 import {
   aplicarCatalogo,
-  BUSCAS_POPULARES,
   contarFiltrosAtivos,
   contarItens,
   eventoBusca,
   eventoFiltro,
   FAIXAS_PRECO,
   identificarItens,
-  normalizarBusca,
   opcoesFiltro,
   ORDENS_CATALOGO,
-  sugerirProdutos,
-  mensagemItem,
   type FaixaPreco,
   type FiltroCatalogo,
   type GrupoBusca,
-  type ItemBusca,
   type OrdemCatalogo,
 } from "./busca";
 import { slugify } from "./catalogo";
@@ -41,7 +37,6 @@ type Props = {
 type Selecao = Pick<FiltroCatalogo, "categorias" | "marcas" | "faixas">;
 
 const SELECAO_VAZIA: Selecao = { categorias: [], marcas: [], faixas: [] };
-const ORDINAIS = ["1º", "2º", "3º"];
 const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 function alternar<T extends string>(lista: readonly T[] | undefined, valor: T): T[] {
@@ -49,47 +44,33 @@ function alternar<T extends string>(lista: readonly T[] | undefined, valor: T): 
   return atual.includes(valor) ? atual.filter((item) => item !== valor) : [...atual, valor];
 }
 
-/** Lista do catálogo com busca local. O HTML do servidor já traz tudo, então sem JavaScript a lista continua completa. */
+/**
+ * Ordenação, filtro e grade de produtos. A busca fica no cabeçalho (?q=), como no protótipo.
+ * O HTML do servidor já traz a lista inteira, então sem JavaScript ela continua completa.
+ */
 export default function CatalogoLista({ grupos, whatsappHref, unitId, consultaInicial = "" }: Props) {
   const base = identificarItens(grupos);
   const opcoes = opcoesFiltro(base);
-  const [consulta, setConsulta] = useState(consultaInicial);
+  const consulta = consultaInicial;
   const [ordem, setOrdem] = useState<OrdemCatalogo>("recomendados");
   const [selecao, setSelecao] = useState<Selecao>(SELECAO_VAZIA);
-  const [painelAberto, setPainelAberto] = useState(false);
-  const [indice, setIndice] = useState(0);
   const [filtroAberto, setFiltroAberto] = useState(false);
-  const buscaRef = useRef<HTMLDivElement>(null);
   const filtroRef = useRef<HTMLDivElement>(null);
   const fecharFiltroRef = useRef<HTMLButtonElement>(null);
   const gatilhoFiltroRef = useRef<HTMLButtonElement>(null);
   const filtroEnviado = useRef("");
-  const pendenteRef = useRef<string | null>(null);
 
-  const termo = normalizarBusca(consulta);
-  const sugestoes = sugerirProdutos(base, consulta);
-  const agrupados = aplicarCatalogo(base, { consulta, ordem: "recomendados", ...selecao });
-  const visiveis = ordem === "recomendados" ? agrupados : aplicarCatalogo(base, { consulta, ordem, ...selecao });
+  const visiveis = aplicarCatalogo(base, { consulta, ordem, ...selecao });
   const total = contarItens(visiveis);
   const ativos = contarFiltrosAtivos(selecao);
   const buscando = consulta.trim().length > 0;
-  const refinando = buscando || ativos > 0 || ordem !== "recomendados";
-  const mostrarPainel = painelAberto && (termo.length === 0 || (termo.length >= 2 && sugestoes.length > 0));
-  const unit = UNITS.find((u) => u.id === unitId);
 
+  // Mede a busca uma vez (sem o texto digitado, ver eventoBusca).
   useEffect(() => {
     const evento = eventoBusca(consulta, total);
-    if (!evento) return;
-    const timer = setTimeout(() => trackEvent(evento.event, evento.params), 1000);
-    return () => clearTimeout(timer);
-  }, [consulta, total]);
-
-  useEffect(() => {
-    const id = pendenteRef.current;
-    if (!id) return;
-    pendenteRef.current = null;
-    document.getElementById(id)?.scrollIntoView({ block: "center" });
-  });
+    if (evento) trackEvent(evento.event, evento.params);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [consulta]);
 
   useEffect(() => {
     if (!filtroAberto) return;
@@ -155,45 +136,6 @@ export default function CatalogoLista({ grupos, whatsappHref, unitId, consultaIn
     trackEvent(evento.event, evento.params);
   }, [filtroAberto, selecao, total]);
 
-  function escolherPopular(valor: string) {
-    setConsulta(valor);
-    setPainelAberto(false);
-    setIndice(0);
-  }
-
-  function irParaItem(item: ItemBusca) {
-    setPainelAberto(false);
-    if (!item.id) return;
-    if (document.getElementById(item.id)) {
-      document.getElementById(item.id)?.scrollIntoView({ block: "center" });
-      return;
-    }
-    setConsulta("");
-    setOrdem("recomendados");
-    setSelecao(SELECAO_VAZIA);
-    pendenteRef.current = item.id;
-  }
-
-  function aoTeclarBusca(event: Tecla<HTMLInputElement>) {
-    if (event.key === "Escape") {
-      setPainelAberto(false);
-      return;
-    }
-    const opcoesPainel = termo.length === 0 ? BUSCAS_POPULARES.length : sugestoes.length;
-    if (!mostrarPainel || opcoesPainel === 0) return;
-    if (event.key === "ArrowDown") {
-      event.preventDefault();
-      setIndice((atual) => (atual + 1) % opcoesPainel);
-    } else if (event.key === "ArrowUp") {
-      event.preventDefault();
-      setIndice((atual) => (atual - 1 + opcoesPainel) % opcoesPainel);
-    } else if (event.key === "Enter") {
-      event.preventDefault();
-      if (termo.length === 0) escolherPopular(BUSCAS_POPULARES[indice] ?? BUSCAS_POPULARES[0]);
-      else if (sugestoes[indice]) irParaItem(sugestoes[indice]);
-    }
-  }
-
   const dialog = (
     <div className="catalogo-filtro-raiz" role="dialog" aria-modal="true" aria-labelledby="catalogo-filtro-titulo" ref={filtroRef}>
       <div className="catalogo-filtro-topo">
@@ -256,94 +198,6 @@ export default function CatalogoLista({ grupos, whatsappHref, unitId, consultaIn
 
   return (
     <>
-      <form className="catalogo-busca" role="search" onSubmit={(event) => event.preventDefault()}>
-        <label htmlFor="catalogo-busca-campo">Buscar produto, marca ou categoria</label>
-        <div
-          className="catalogo-busca-campo"
-          ref={buscaRef}
-          onBlur={(event) => {
-            if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setPainelAberto(false);
-          }}
-        >
-          <input
-            id="catalogo-busca-campo"
-            type="search"
-            role="combobox"
-            enterKeyHint="search"
-            autoComplete="off"
-            aria-expanded={mostrarPainel}
-            aria-controls="catalogo-sugestoes"
-            aria-autocomplete="list"
-            aria-activedescendant={mostrarPainel ? `catalogo-sugestao-${indice}` : undefined}
-            placeholder="Ex.: protetor solar, Nivea, dipirona"
-            value={consulta}
-            onChange={(event) => {
-              setConsulta(event.target.value);
-              setIndice(0);
-              setPainelAberto(true);
-            }}
-            onFocus={() => setPainelAberto(true)}
-            onKeyDown={aoTeclarBusca}
-          />
-          {buscando ? (
-            <button type="button" className="catalogo-busca-limpar" onClick={() => { setConsulta(""); setIndice(0); }} aria-label="Limpar busca">
-              ×
-            </button>
-          ) : null}
-          {mostrarPainel ? (
-            <div className="catalogo-sugestoes" id="catalogo-sugestoes">
-              {termo.length === 0 ? (
-                <div>
-                  <p className="catalogo-sugestoes-titulo" id="buscas-populares">Buscas populares</p>
-                  <ul aria-labelledby="buscas-populares">
-                    {BUSCAS_POPULARES.map((valor, i) => (
-                      <li key={valor}>
-                        <button
-                          type="button"
-                          id={`catalogo-sugestao-${i}`}
-                          className={indice === i ? "catalogo-popular catalogo-sugestao-ativa" : "catalogo-popular"}
-                          onClick={() => escolherPopular(valor)}
-                        >
-                          <span>{ORDINAIS[i]}</span>
-                          {valor}
-                        </button>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : (
-                <ul aria-label="Sugestões de produtos">
-                  {sugestoes.map((item, i) => (
-                    <li key={item.id ?? item.nome}>
-                      <a
-                        id={`catalogo-sugestao-${i}`}
-                        className={indice === i ? "catalogo-sugestao catalogo-sugestao-ativa" : "catalogo-sugestao"}
-                        href={item.id ? `#${item.id}` : "#lista"}
-                        onClick={(event) => {
-                          event.preventDefault();
-                          irParaItem(item);
-                        }}
-                      >
-                        {item.foto ? (
-                          <img className="catalogo-sugestao-foto" src={item.foto} alt="" width="44" height="44" />
-                        ) : (
-                          <span className="catalogo-sugestao-foto catalogo-sugestao-sem-foto" aria-hidden="true" />
-                        )}
-                        <span className="catalogo-sugestao-nome">{item.nome}</span>
-                        <strong className="catalogo-sugestao-preco">{item.precoFmt}</strong>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          ) : null}
-        </div>
-        <p className="catalogo-busca-status" role="status" aria-live="polite">
-          {refinando ? (total === 0 ? "Nenhum produto encontrado." : `${total} ${total === 1 ? "produto encontrado" : "produtos encontrados"}.`) : ""}
-        </p>
-      </form>
-
       <div className="catalogo-barra" role="toolbar" aria-label="Filtrar e ordenar">
         <button
           ref={gatilhoFiltroRef}
@@ -354,6 +208,7 @@ export default function CatalogoLista({ grupos, whatsappHref, unitId, consultaIn
           aria-label={ativos > 0 ? `Filtrar, ${ativos} ${ativos === 1 ? "filtro ativo" : "filtros ativos"}` : "Filtrar"}
           onClick={() => setFiltroAberto(true)}
         >
+          <IconFiltro size={22} />
           Filtrar
           {ativos > 0 ? <span className="catalogo-filtro-contagem">{ativos}</span> : null}
         </button>
@@ -364,7 +219,10 @@ export default function CatalogoLista({ grupos, whatsappHref, unitId, consultaIn
         ))}
       </div>
 
-      <p className="catalogo-contagem">{total} {total === 1 ? "produto" : "produtos"}</p>
+      <p className="catalogo-contagem">
+        {total} {total === 1 ? "produto" : "produtos"}
+        {buscando ? <> para “{consulta.trim()}” · <a href="/nacoes-unidas/produtos">Limpar busca</a></> : null}
+      </p>
 
       {total === 0 ? (
         <div className="catalogo-vazio">
@@ -378,40 +236,32 @@ export default function CatalogoLista({ grupos, whatsappHref, unitId, consultaIn
           </a>
         </div>
       ) : (
-        <>
-          {visiveis.map((g) => (
-            <section key={g.id} className="catalogo-grupo" aria-labelledby={ordem === "recomendados" ? g.id : undefined}>
-              {ordem === "recomendados" ? <h3 id={g.id}>{g.categoria}</h3> : null}
-              <ul className="catalogo-lista">
-                {g.itens.map((item) => (
-                  <li key={item.id ?? item.nome} id={item.id} className="catalogo-item catalogo-card">
-                    <SeloSemReceita />
-                    <a className="catalogo-card-foto" href={`/nacoes-unidas/produtos/${slugify(item.nome)}`} aria-label={`Ver ${item.nome}`}>
-                      {item.foto ? <img src={item.foto} alt="" width="120" height="120" loading="lazy" decoding="async" /> : <span aria-hidden="true" />}
-                    </a>
-                    <h4>
-                      <a href={`/nacoes-unidas/produtos/${slugify(item.nome)}`}>{item.nome}</a>
-                    </h4>
-                    {item.isMIP ? (
-                      <p className="catalogo-mip">Medicamento isento de prescrição. Leia a bula. Se persistirem os sintomas, o médico deverá ser consultado.</p>
-                    ) : null}
-                    <p className="catalogo-preco">{item.precoFmt}</p>
-                    {precoParaCentavos(item.precoFmt) ? (
-                      <ReservarBotao unitId={unitId} nome={item.nome} precoCentavos={precoParaCentavos(item.precoFmt) ?? 0} foto={item.foto} />
-                    ) : null}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
-        </>
+        <ul className="catalogo-lista">
+          {visiveis.flatMap((g) =>
+            g.itens.map((item, indice) => {
+              const nome = nomeDeExibicao(item.nome);
+              const href = `/nacoes-unidas/produtos/${slugify(item.nome)}`;
+              const centavos = precoParaCentavos(item.precoFmt);
+              return (
+                <li key={item.id ?? item.nome} id={indice === 0 && ordem === "recomendados" ? g.id : undefined} className="catalogo-item catalogo-card">
+                  <p className="selo-sem-receita-simples">Sem receita</p>
+                  <a className="catalogo-card-foto" href={href} aria-label={`Ver ${nome}`}>
+                    {item.foto ? <img src={item.foto} alt="" width="120" height="120" loading="lazy" decoding="async" /> : <span aria-hidden="true" />}
+                  </a>
+                  <h4>
+                    <a href={href}>{nome}</a>
+                  </h4>
+                  {item.isMIP ? (
+                    <p className="catalogo-mip">Medicamento isento de prescrição. Leia a bula. Se persistirem os sintomas, o médico deverá ser consultado.</p>
+                  ) : null}
+                  <p className="catalogo-preco">{item.precoFmt}</p>
+                  {centavos ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} compacto /> : null}
+                </li>
+              );
+            }),
+          )}
+        </ul>
       )}
-
-      {total > 0 ? (
-        <a className="catalogo-perguntar" href={whatsappHref} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unitId} data-track-source="produtos_nacoes_pergunta">
-          Perguntar à loja pelo WhatsApp
-        </a>
-      ) : null}
 
       {filtroAberto && typeof document !== "undefined" ? createPortal(dialog, document.body) : null}
     </>

@@ -10,8 +10,9 @@
   --uf-open-live: #24d4c5;
   --uf-whatsapp: #25d366;
 
-  --uf-ink: #112e2b;
-  --uf-muted: #3b5552;
+  --uf-ink: #0d1413; /* texto do protótipo: quase preto */
+  --uf-navy: #0a3548; /* marinho: chips ativos, bordas de contador, links */
+  --uf-muted: #3e4b49;
   --uf-closed: #9b3e38;
   --uf-gold: #1a8f86;
   --uf-green-text: #14736b; /* verde para TEXTO: 5,67:1 sobre branco (o verde-marca #1a8f86 dá 3,94:1) */

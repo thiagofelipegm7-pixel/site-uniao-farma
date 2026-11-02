@@ -14,8 +14,8 @@
   --color-teal-600: #007c73; /* marca: CTA, link (5,03:1) */
   --color-teal-700: #006058; /* hover, selo aberto */
   --color-teal-800: #034a44; /* rodapé */
-  --color-ink: #111111;
-  --color-ink-2: #3c4a48;
+  --color-ink: #0d1413;
+  --color-ink-2: #3e4b49;
   --color-ink-3: #5b6866;
   --color-line: #d5e3e1;
   --color-line-strong: #6d8c88;
@@ -80,7 +80,7 @@
   --coral-dark: #a83b37;
   --white: #ffffff;
   --paper: #f5fbfa;
-  --ink: #123734;
+  --ink: #0d1413;
   --muted: #476763;
   --line: #b4d0cc;
   --yellow: #e8c9a8;
@@ -4279,7 +4279,7 @@ h3 {
 
 /* Surgical UX fixes: non-blocking consent, per-unit CTA visibility and calm compliance footer. */
 :root {
-  --uf-ink: #123734;
+  --uf-ink: #0d1413;
   --uf-ink-soft: #3c5a56;
   --uf-teal: #009a8f;
   --uf-wa: #088c82;

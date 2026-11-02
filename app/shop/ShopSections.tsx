@@ -50,7 +50,7 @@ export function HeroReserva() {
 const PASSOS = [
   { titulo: "Escolha e adicione", texto: "Monte a sua reserva." },
   { titulo: "Escolha a loja", texto: "Retirar na loja ou receber no seu bairro." },
-  { titulo: "Envie pelo WhatsApp", texto: "A loja confirma. Pague no balcão ou na entrega." },
+  { titulo: "Envie pelo WhatsApp", texto: "A loja confirma preço e estoque. Pague no balcão ou na entrega." },
 ] as const;
 
 export function ComoFunciona() {

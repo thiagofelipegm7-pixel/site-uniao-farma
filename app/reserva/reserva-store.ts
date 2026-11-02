@@ -82,19 +82,36 @@ export function porLoja(estado: ReservaEstado): Array<{ unitId: string; itens: R
   return [...mapa.entries()].map(([unitId, itens]) => ({ unitId, itens }));
 }
 
+export type DadosPedido = {
+  modo: ModoReserva;
+  /** Nome de quem retira ou recebe. */
+  nome: string;
+  /** Só na entrega. */
+  bairro?: string;
+  rua?: string;
+};
+
 /**
- * Mensagem pronta do WhatsApp. Pede confirmação de preço e estoque (não promete nada) e diz como o cliente quer receber.
- * O nome do cliente não é coletado.
+ * Mensagem pronta do WhatsApp (passo 3 do protótipo): itens, loja, forma, nome, pagamento e subtotal.
+ * Pede confirmação de preço e estoque (não promete nada). Nome e endereço vão só no texto da mensagem, nunca ao analytics.
  */
-export function mensagemReserva(unitNome: string, itens: ReservaItem[], modo: ModoReserva): string {
-  const linhas = itens.map((i) => `${i.qtd}x ${i.nome.replace(/\s+/g, " ").trim()} (${formatarCentavos(i.precoCentavos)})`);
-  const como = modo === "retirar" ? "Quero retirar na loja e pagar no balcão." : "Quero receber em casa e pagar na entrega.";
+export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: DadosPedido): string {
+  const linhas = itens.map((i) => `\u2022 ${i.qtd}x ${i.nome.replace(/\s+/g, " ").trim()}`);
+  const retirar = dados.modo === "retirar";
+  const nome = dados.nome.replace(/\s+/g, " ").trim();
   return [
-    `Oi, União Farma ${unitNome}! Quero reservar:`,
+    `Olá, União Farma ${unitNome}! Quero reservar:`,
     ...linhas,
-    `Subtotal estimado: ${formatarCentavos(subtotalCentavos(itens))}.`,
-    como,
-    "Pode confirmar preço e disponibilidade?",
+    "",
+    `Loja: ${unitNome}`,
+    `Forma: ${retirar ? "Retirar na loja" : "Receber em casa"}`,
+    ...(!retirar && dados.bairro ? [`Bairro: ${dados.bairro}`] : []),
+    ...(!retirar && dados.rua?.trim() ? [`Endereço: ${dados.rua.replace(/\s+/g, " ").trim()}`] : []),
+    `Nome: ${nome || "[nome do cliente]"}`,
+    `Pagamento: ${retirar ? "no balcão" : "na entrega"}`,
+    `Subtotal estimado: ${formatarCentavos(subtotalCentavos(itens))}`,
+    "",
+    "Podem confirmar preço e estoque? Obrigado!",
   ].join("\n");
 }
 
