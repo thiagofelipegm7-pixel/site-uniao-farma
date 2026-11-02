@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import HomePage from "./HomePage";
 import { SITE_URL } from "./site-config";
 
-const HOME_TITLE = "Farmácia em Sabará com entrega | União Farma";
+const HOME_TITLE = "Drogaria e Farmácia em Sabará com entrega | União Farma";
 const HOME_DESCRIPTION =
-  "3 lojas em Sabará: Fátima, Nações Unidas e Itacolomi. Aberta todos os dias, até domingo de manhã. Peça pelo WhatsApp e consulte a entrega no seu bairro.";
+  "Drogaria e farmácia em Sabará, com 3 lojas: Fátima, Nações Unidas e Itacolomi. Aberta todos os dias, até domingo de manhã. Peça pelo WhatsApp e consulte a entrega no seu bairro.";
 
 export const metadata: Metadata = {
   title: { absolute: HOME_TITLE },

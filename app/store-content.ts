@@ -49,11 +49,11 @@ export function getStoreContent(unit: Unit): StoreExtraContent {
   }
   base.push({
     q: "A loja do Itacolomi é a Droga Manaus?",
-    a: "Sim. A União Farma Itacolomi é a antiga Droga Manaus, nome com que a loja ainda aparece no Google. O endereço é o mesmo: Av. Joaquim Ferreira Madureira, 489, bairro Itacolomi, Sabará/MG.",
+    a: "Sim. A União Farma Itacolomi é a antiga Droga Manaus, a mesma drogaria no Itacolomi, nome com que a loja ainda aparece no Google. O endereço é o mesmo: Av. Joaquim Ferreira Madureira, 489, bairro Itacolomi, Sabará/MG.",
   });
   return {
     intro:
-      "A União Farma do Itacolomi fica na Av. Joaquim Ferreira Madureira, no bairro Itacolomi. A loja abre às 8h de segunda a sábado e também abre no domingo de manhã. Aqui você encontra medicamentos, itens de higiene, cuidados com a pele e perfumaria. Você pode pedir pelo WhatsApp e receber em casa.",
+      "A União Farma do Itacolomi é a drogaria no Itacolomi, em Sabará, antiga Droga Manaus. Fica na Av. Joaquim Ferreira Madureira, no bairro Itacolomi. A loja abre às 8h de segunda a sábado e também abre no domingo de manhã. Aqui você encontra medicamentos, itens de higiene, cuidados com a pele e perfumaria. Você pode pedir pelo WhatsApp e receber em casa.",
     bairros: unit.deliveryAreas,
     bairrosNote: OTHER_BAIRROS,
     faqs: base,

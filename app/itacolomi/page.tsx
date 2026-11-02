@@ -13,22 +13,22 @@ import { SITE_URL, UNITS } from "../site-config";
 const unit = UNITS[2];
 
 export const metadata: Metadata = {
-  title: { absolute: "Farmácia no Itacolomi, Sabará: entrega e WhatsApp | União Farma" },
+  title: { absolute: "Drogaria Itacolomi em Sabará — União Farma (antiga Droga Manaus)" },
   description:
-    "Antiga Droga Manaus, na Av. Joaquim Ferreira Madureira, 489. Seg a sex até 21h, sábado até 20h e domingo até 12h. WhatsApp (31) 99493-6960.",
+    "Drogaria no Itacolomi, em Sabará: União Farma, antiga Droga Manaus, na Av. Joaquim Ferreira Madureira, 489. Seg a sex até 21h, sáb até 20h, dom até 12h. WhatsApp (31) 99493-6960.",
   alternates: { canonical: "/itacolomi" },
-  keywords: ["farmácia Itacolomi Sabará", "União Farma Itacolomi", "drogaria Itacolomi", "Droga Manaus Itacolomi"],
+  keywords: ["drogaria Itacolomi Sabará", "drogaria no Itacolomi", "farmácia Itacolomi Sabará", "União Farma Itacolomi", "Droga Manaus Itacolomi"],
   openGraph: {
-    title: "Farmácia no Itacolomi, Sabará: entrega e WhatsApp | União Farma",
-    description: "Antiga Droga Manaus, na Av. Joaquim Ferreira Madureira, 489. Seg a sex até 21h, sábado até 20h e domingo até 12h. WhatsApp (31) 99493-6960.",
+    title: "Drogaria Itacolomi em Sabará — União Farma (antiga Droga Manaus)",
+    description: "Drogaria no Itacolomi, em Sabará: União Farma, antiga Droga Manaus, na Av. Joaquim Ferreira Madureira, 489. Seg a sex até 21h, sáb até 20h, dom até 12h. WhatsApp (31) 99493-6960.",
     url: `${SITE_URL}/itacolomi`,
     type: "website",
     images: [{ url: "/og-itacolomi.jpg", width: 1200, height: 630, alt: "União Farma Itacolomi, Av. Joaquim Ferreira Madureira, 489" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Farmácia no Itacolomi, Sabará: entrega e WhatsApp | União Farma",
-    description: "Antiga Droga Manaus, na Av. Joaquim Ferreira Madureira, 489. Seg a sex até 21h, sábado até 20h e domingo até 12h. WhatsApp (31) 99493-6960.",
+    title: "Drogaria Itacolomi em Sabará — União Farma (antiga Droga Manaus)",
+    description: "Drogaria no Itacolomi, em Sabará: União Farma, antiga Droga Manaus, na Av. Joaquim Ferreira Madureira, 489. Seg a sex até 21h, sáb até 20h, dom até 12h. WhatsApp (31) 99493-6960.",
     images: [{ url: "/og-itacolomi.jpg", width: 1200, height: 630, alt: "União Farma Itacolomi, Av. Joaquim Ferreira Madureira, 489" }],
   },
 };

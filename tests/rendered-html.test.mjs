@@ -342,3 +342,23 @@ test("cookie banner is mounted (not dynamic ssr:false) and CSP lets GA4 send con
     }
   }
 });
+
+test("palavra 'drogaria' nos títulos, descrições e schema das lojas", async () => {
+  const expectations = {
+    "/": /<title>Drogaria e Farmácia em Sabará com entrega \| União Farma<\/title>/,
+    "/farmacia-em-sabara": /<title>Drogaria e Farmácia em Sabará \| União Farma<\/title>/,
+    "/itacolomi": /<title>Drogaria Itacolomi em Sabará — União Farma \(antiga Droga Manaus\)<\/title>/,
+  };
+  for (const [pathname, titlePattern] of Object.entries(expectations)) {
+    const html = await (await render(pathname)).text();
+    assert.match(html, titlePattern, pathname);
+    assert.match(html, /<meta name="description" content="[^"]*[Dd]rogaria/, pathname);
+  }
+
+  const itacolomi = await (await render("/itacolomi")).text();
+  assert.match(itacolomi, /drogaria no Itacolomi/);
+  assert.match(itacolomi, /"alternateName":\["[^\]]*"Droga Manaus","Drogaria Itacolomi","Drogaria União Farma"\]/);
+  const fatima = await (await render("/fatima")).text();
+  assert.match(fatima, /"Drogaria União Farma"/);
+  assert.equal(fatima.includes('"Drogaria Itacolomi"'), false);
+});

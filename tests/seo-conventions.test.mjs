@@ -97,7 +97,7 @@ test("AEO: cobertura de entrega, Droga Manaus, pagamento e schemas", async () =>
   assert.deepEqual(byId.itacolomi.alternateNames, ["Droga Manaus"]);
   const neighborhood = readFileSync(new URL("../app/NeighborhoodPage.tsx", import.meta.url), "utf8");
   assert.match(neighborhood, /Antiga \{unit\.alternateNames\.join\(", "\)\}/);
-  assert.match(readFileSync(new URL("../app/itacolomi/page.tsx", import.meta.url), "utf8"), /description:\s+"Antiga Droga Manaus/);
+  assert.match(readFileSync(new URL("../app/itacolomi/page.tsx", import.meta.url), "utf8"), /description:\s+"Drogaria no Itacolomi, em Sabará: União Farma, antiga Droga Manaus/);
   assert.equal(byId.fatima.alternateNames, undefined);
   assert.equal(byId.nacoes.alternateNames, undefined);
   assert.match(PAYMENT_ACCEPTED, /Pix/);
@@ -108,7 +108,7 @@ test("AEO: cobertura de entrega, Droga Manaus, pagamento e schemas", async () =>
 
   // Schema: alternateName da loja, paymentAccepted e endereço na Organization.
   const structured = read("app/structured-data.ts");
-  assert.match(structured, /alternateName: \[COMPANY\.legalName, \.\.\.\(unit\.alternateNames \?\? \[\]\)\]/);
+  assert.match(structured, /alternateName: getUnitAlternateNames\(unit\)/);
   assert.match(structured, /paymentAccepted: PAYMENT_ACCEPTED/);
   assert.match(structured, /areaServed: unit\.deliveryAreas\.map/);
   const layout = read("app/layout.tsx");

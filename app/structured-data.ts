@@ -49,12 +49,28 @@ export function getPostalAddress(unit: Unit) {
   };
 }
 
+/** Nomes alternativos só para o schema (não aparecem na página): "drogaria" é como muita gente busca. */
+const SCHEMA_EXTRA_NAMES: Partial<Record<Unit["id"], string[]>> = {
+  itacolomi: ["Drogaria Itacolomi"],
+};
+
+export function getUnitAlternateNames(unit: Unit) {
+  return [
+    ...new Set([
+      COMPANY.legalName,
+      ...(unit.alternateNames ?? []),
+      ...(SCHEMA_EXTRA_NAMES[unit.id] ?? []),
+      "Drogaria União Farma",
+    ]),
+  ];
+}
+
 export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}${PUBLIC_PATH[unit.id]}`) {
   return {
     "@type": ["Pharmacy", "LocalBusiness"],
     "@id": `${pageUrl}#localbusiness`,
     name: `União Farma ${unit.shortName}`,
-    alternateName: [COMPANY.legalName, ...(unit.alternateNames ?? [])],
+    alternateName: getUnitAlternateNames(unit),
     description: `Farmácia e drogaria da União Farma no bairro ${unit.neighborhood}, em Sabará/MG. Medicamentos, perfumaria e pedido pelo WhatsApp.`,
     url: pageUrl,
     telephone: `+${unit.phoneLink.replace("tel:+", "")}`,
