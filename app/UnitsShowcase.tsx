@@ -60,9 +60,8 @@ export default function UnitsShowcase() {
   return (
     <section className="units-showcase" id="unidades-rapidas" aria-labelledby="units-showcase-title">
       <div className="units-showcase-inner">
-        <header className="units-showcase-head sr-only">
-          <p className="section-kicker">{"Três lojas em Sabará"}</p>
-          <h2 id="units-showcase-title">Escolha a unidade do seu bairro</h2>
+        <header className="units-showcase-head">
+          <h2 id="units-showcase-title">Nossas lojas</h2>
         </header>
 
         <div className="units-showcase-grid" ref={gridRef}>

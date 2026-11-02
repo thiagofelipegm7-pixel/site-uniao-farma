@@ -14,6 +14,9 @@ import UnitsShowcase from "./UnitsShowcase";
 import BrandLogo from "./BrandLogo";
 import BrandStrip from "./BrandStrip";
 import OfertasSemana from "./OfertasSemana";
+import HomeReasons from "./HomeReasons";
+import ReservaSacola from "./reserva/ReservaSacola";
+import { BarraLoja, BuscaLoja, CartaoMarinho, CategoriasLoja, ComoFunciona } from "./casca-loja";
 import { FarmaceuticoCard } from "./visual-fase2";
 
 export default function HomePage() {
@@ -62,7 +65,7 @@ export default function HomePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeStructuredData) }} />
-      <header className={SITE_OPTIONS.promoToast.enabled ? "site-header has-promo" : "site-header"}>
+      <header className={SITE_OPTIONS.promoToast.enabled ? "site-header has-promo" : "site-header"} id="inicio">
         <nav className="nav" aria-label="Menu principal">
           <a className="brand" href="#inicio" onClick={() => setMenuOpen(false)}>
             <BrandLogo priority />
@@ -85,23 +88,30 @@ export default function HomePage() {
             <WhatsAppIcon /> <span className="header-cta-label">WhatsApp</span>
           </a>
         </nav>
+        <div className="casca-busca-linha">
+          <BuscaLoja />
+          <ReservaSacola />
+        </div>
       </header>
       <BrandStrip />
-      <section className="hero hero-home reveal is-visible" id="inicio" aria-labelledby="hero-title">
-        <div className="hero-inner">
-          <div className="hero-copy">
-            <p className="eyebrow">{"Três farmácias em Sabará"}</p>
-            <h1 id="hero-title">{"Farmácia em Sabará: 3 lojas perto de você"}</h1>
-            <p className="hero-lead">{"Fátima, Nações Unidas e Itacolomi."}</p>
-          </div>
-          <a className="sr-only" href="/novidades">{"Novidades da União Farma"}</a>
-        </div>
-        <UnitsShowcase />
-      </section>
+      <BarraLoja />
+      <CategoriasLoja />
+      <CartaoMarinho />
+      <OfertasSemana />
+      <HomeReasons openSelector={openSelector} />
+      <ComoFunciona />
+      <UnitsShowcase />
       <div className="section-inner">
         <FarmaceuticoCard />
       </div>
-      <OfertasSemana />
+      <section className="section home-institucional" aria-labelledby="hero-title">
+        <div className="section-inner">
+          <p className="eyebrow">{"Três farmácias em Sabará"}</p>
+          <h1 id="hero-title">{"Farmácia em Sabará: 3 lojas perto de você"}</h1>
+          <p>{"Fátima, Nações Unidas e Itacolomi."}</p>
+          <a className="sr-only" href="/novidades">{"Novidades da União Farma"}</a>
+        </div>
+      </section>
       <HomeSections generalIntent={generalIntent} openSelector={openSelector} />
       <UnitSelectorModal intent={selectorIntent} onClose={() => setSelectorIntent(null)} />
     </>

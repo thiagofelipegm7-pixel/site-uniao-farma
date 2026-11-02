@@ -32,6 +32,13 @@ function storeFromUnitId(unitId: unknown): GaStore | null {
   return typeof unitId === "string" ? STORE_BY_UNIT_ID[unitId] ?? null : null;
 }
 
+/** O termo da busca fica na URL (`?q=`), mas não pode ir no evento. */
+export function pageLocationSemBusca(href: string): string {
+  const url = new URL(href);
+  url.searchParams.delete("q");
+  return url.toString();
+}
+
 /** Descobre a loja pelo número do link (wa.me ou tel:). "geral" se não for de uma loja. */
 export function storeFromHref(href: string): GaStore {
   const digits = href.replace(/^tel:/, "").replace(/\D/g, "");
@@ -108,7 +115,7 @@ export function trackEvent(event: string, params: TrackingParams = {}): void {
       ? { link_location: params.link_location ?? params.placement ?? params.source ?? "pagina" }
       : {}),
     ...getCampaignAttribution(),
-    page_location: window.location.href,
+    page_location: pageLocationSemBusca(window.location.href),
     page_path: window.location.pathname,
     page_title: document.title,
   };

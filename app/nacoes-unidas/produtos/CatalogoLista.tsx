@@ -78,6 +78,13 @@ export default function CatalogoLista({ grupos, whatsappHref, unitId }: Props) {
     unit ? buildWhatsAppUrl(unit, mensagemItem(nome, precoFmt), { campaign: "produtos_nacoes", content: "nacoes_item" }) : whatsappHref;
 
   useEffect(() => {
+    const q = new URLSearchParams(window.location.search).get("q")?.trim();
+    // A query só existe no browser. O HTML do servidor continua com a lista inteira.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (q) setConsulta(q.slice(0, 80));
+  }, []);
+
+  useEffect(() => {
     const evento = eventoBusca(consulta, total);
     if (!evento) return;
     const timer = setTimeout(() => trackEvent(evento.event, evento.params), 1000);

@@ -2,7 +2,6 @@
 
 import { categories, type SelectorIntent } from "./home-chrome";
 import DeliverySlot from "./DeliverySlot";
-import HomeReasons from "./HomeReasons";
 import { HomeMore } from "./home-more";
 import OffersGroupCta from "./OffersGroupCta";
 
@@ -24,8 +23,6 @@ export function HomeSections({
 }) {
   return (
     <>
-      <HomeReasons openSelector={openSelector} />
-
       <section className="trust-strip" aria-label="Por que a União Farma">
         <div className="section-inner trust-strip-grid">
           <div>
