@@ -18,6 +18,7 @@ import "./overrides.css";
 import "./visual-quality.css";
 import "./ux-fixes.css";
 import "./visual-fixes.css";
+import "./marca.css";
 import "./design.css";
 import { INSTAGRAM_URL, PAYMENT_ACCEPTED, SITE_URL, UNITS } from "./site-config";
 import { COMPANY } from "./company";

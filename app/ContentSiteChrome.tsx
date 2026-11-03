@@ -4,7 +4,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import BrandLogo from "./BrandLogo";
+import MarcaUniao from "./shop/MarcaUniao";
 import ReservaSacola from "./reserva/ReservaSacola";
 
 type ContentPath = "/ofertas" | "/novidades" | "/receita";
@@ -120,9 +120,8 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
     <>
     <header className="content-header" data-content-path={activePath}>
       <nav className="content-nav" aria-label="Menu principal">
-        <a className="brand" href="/" onClick={() => setMenuOpen(false)}>
-          <BrandLogo />
-          <span><strong>{"União Farma"}</strong><small>Drogaria e Perfumaria</small></span>
+        <a className="brand" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial" onClick={() => setMenuOpen(false)}>
+          <MarcaUniao claro />
         </a>
         <a className="content-header-cta" href={ctaHref} aria-label="WhatsApp: escolher a loja">
           <img src="/whatsapp-icon.svg" alt="" width="24" height="24" aria-hidden="true" />

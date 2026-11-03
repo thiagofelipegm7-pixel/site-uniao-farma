@@ -1,7 +1,7 @@
 "use client";
 
 /* eslint-disable @next/next/no-html-link-for-pages */
-import BrandLogo from "./BrandLogo";
+import MarcaUniao from "./shop/MarcaUniao";
 import { COMPANY } from "./company";
 import { openCookiePreferences } from "./cookie-preferences";
 
@@ -13,9 +13,8 @@ export default function SiteFooter() {
   return (
     <footer className="uf-footer">
       <div className="uf-footer-inner uf-footer-proto">
-        <a className="uf-footer-logo" href="/">
-          <BrandLogo />
-          <span>União Farma · Drogaria e Perfumaria</span>
+        <a className="uf-footer-logo" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial">
+          <MarcaUniao />
         </a>
         <p>
           Loja em Sabará (Nações Unidas). Farmacêutico responsável presente em todo o horário de funcionamento. Responsável técnico da loja Nações Unidas: <strong>João</strong> · CRF/MG <strong>31958</strong>.
