@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
+import MarcaUniao from "./shop/MarcaUniao";
 import OffersGroupCta from "./OffersGroupCta";
 import { buildWhatsAppUrl, SITE_URL, UNITS, type Unit } from "./site-config";
 import DirectUnitLinks from "./DirectUnitLinks";
@@ -86,12 +87,8 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <header className="simple-header">
         <div className="section-inner simple-header-inner">
-          <a className="brand" href="/">
-            <img src="/uniao-farma-logo.webp" alt="Logo da União Farma" width="52" height="52" />
-            <span>
-              <strong>{"União Farma"}</strong>
-              <small>Drogaria e Perfumaria</small>
-            </span>
+          <a className="brand" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial">
+            <MarcaUniao claro />
           </a>
           <a className="simple-back-link" href="#unidades-landing">Escolher unidade</a>
         </div>

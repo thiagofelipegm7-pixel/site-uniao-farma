@@ -1,14 +1,13 @@
 /**
- * Logo da faixa principal só com as letras, como a "PanVel" branca da Panvel: "UNIÃO FARMA" em itálico pesado direto
- * sobre a faixa, com "Drogaria e Perfumaria". Texto vivo (nítido em qualquer tela), sem ilustração.
- * O link que a envolve já tem o nome acessível.
+ * Logo só com as letras: "União Farma" em itálico + selo "Drogaria e Perfumaria". Texto vivo, sem ilustração.
+ * `claro` é para fundo branco (nome verde). O link que a envolve já tem o nome acessível.
  */
-export default function MarcaUniao() {
+export default function MarcaUniao({ claro = false }: { claro?: boolean }) {
   return (
-    <span className="marca-uf" aria-hidden="true">
+    <span className={claro ? "marca-uf marca-uf--claro" : "marca-uf"} aria-hidden="true">
       <span className="marca-uf-texto">
-        <strong className="marca-uf-nome">União Farma</strong>
-        <em className="marca-uf-pe">Drogaria e Perfumaria</em>
+        <span className="marca-uf-nome">União Farma</span>
+        <span className="marca-uf-pe">Drogaria e Perfumaria</span>
       </span>
     </span>
   );

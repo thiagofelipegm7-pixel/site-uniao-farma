@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
 import { SiteDirectoryLinks } from "../SiteDirectoryLinks";
-import BrandLogo from "../BrandLogo";
+import MarcaUniao from "../shop/MarcaUniao";
 
 export const metadata: Metadata = {
   title: "Política de Privacidade",
@@ -15,9 +15,8 @@ export default function PrivacyPage() {
   return (
     <div className="legal-page">
       <div className="legal-container">
-        <a className="legal-brand" href="/">
-          <BrandLogo src="/uniao-farma-logo.webp" width={64} height={64} />
-          <span>União Farma</span>
+        <a className="legal-brand" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial">
+          <MarcaUniao claro />
         </a>
 
         <p className="section-kicker">Privacidade e transparência</p>
