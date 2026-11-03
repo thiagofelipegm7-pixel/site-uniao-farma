@@ -67,6 +67,8 @@ test("mensagem do WhatsApp lista itens, loja, forma, nome, pagamento e subtotal,
   assert.match(casa, /Bairro: Nações Unidas/);
   assert.match(casa, /Endereço: Rua Inglaterra, 100/);
   assert.match(casa, /Pagamento: na entrega/);
+  assert.match(casa, /Taxa de entrega: R\$ 1,00/);
+  assert.match(casa, /Total estimado: R\$ 40,80/);
   assert.match(mensagemReserva("Fátima", s.itens, { modo: "retirar", nome: "" }), /Nome: \[nome do cliente\]/);
 });
 

@@ -104,7 +104,7 @@ export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: D
   const retirar = dados.modo === "retirar";
   const nome = dados.nome.replace(/\s+/g, " ").trim();
   const sub = subtotalCentavos(itens);
-  const taxa = !retirar ? (dados.taxaEntregaCentavos ?? 0) : 0;
+  const taxa = !retirar ? (dados.taxaEntregaCentavos ?? 100) : 0;
   const total = sub + taxa;
   const pag = dados.pagamento?.trim() || (retirar ? "no balcão" : "na entrega");
   return [
@@ -199,11 +199,8 @@ export function atualizarReserva(fn: (estado: ReservaEstado) => ReservaEstado): 
   ouvintes.forEach((o) => o());
 }
 
-/** Taxa de entrega por bairro (centavos). Valores a confirmar com a loja; 0 = a confirmar / não somar. */
-export const TAXAS_ENTREGA: Record<string, number> = {
-  // Exemplo: "Nações Unidas": 500, // R$ 5,00
-  // Preencher com os valores reais de cada região quando informados.
-};
-export function taxaDoBairro(bairro: string | undefined): number {
-  return bairro ? (TAXAS_ENTREGA[bairro] ?? 0) : 0;
+/** Taxa de entrega fixa: R$ 1,00 (100 centavos) para qualquer bairro. */
+export const TAXA_ENTREGA_CENTAVOS = 100;
+export function taxaDoBairro(_bairro: string | undefined): number {
+  return TAXA_ENTREGA_CENTAVOS;
 }
