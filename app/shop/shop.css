@@ -559,7 +559,7 @@ body:has(.barra-reserva) { padding-bottom: calc(10.5rem + env(safe-area-inset-bo
 /* =====================================================================
    Reserva em 3 passos (protótipo 05, 06a, 06b e 07)
    ===================================================================== */
-.fluxo-reserva { min-height: 100vh; background: #ffffff; color: var(--uf-ink); }
+.fluxo-reserva { min-height: 100vh; background: #f2f6f5; color: var(--uf-ink); }
 .fluxo-topo { display: flex; align-items: center; gap: 0.25rem; min-height: 3.5rem; padding: 0 0.5rem; background: #ffffff; }
 .fluxo-voltar { display: inline-flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; border: 0; background: transparent; color: var(--uf-ink); cursor: pointer; text-decoration: none; }
 .fluxo-progresso { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.375rem; margin: 0.75rem 1.25rem 0; }
@@ -703,3 +703,21 @@ body.cookie-banner-visible .fluxo-rodape { bottom: 9rem; }
 
 /* Fotos das ofertas com respiro, como no protótipo */
 .semana-card .semana-foto { padding: 0.5rem; box-sizing: border-box; }
+
+/* ---- Reserva no estilo da cesta: fundo claro, cartões brancos, passos com nome, resumo e barra de total fixa ---- */
+.fluxo-progresso-rotulos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.375rem; margin: 0.25rem 1.25rem 0; padding: 0; list-style: none; }
+.fluxo-progresso-rotulos li { color: #3e4b49; font-size: 0.75rem; font-weight: 600; }
+.fluxo-progresso-rotulos li.is-on { color: var(--uf-navy); font-weight: 700; }
+.fluxo-itens li { border: 0; border-radius: 16px; box-shadow: 0 0 24px rgba(13, 20, 19, 0.04); }
+.fluxo-item-total { float: right; color: var(--uf-ink); font-size: 0.875rem; font-weight: 700; }
+.fluxo-links { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin: 0 0 0.5rem; }
+.fluxo-link-quieto { min-height: 2.75rem; display: inline-flex; align-items: center; padding: 0; border: 0; background: transparent; color: #0a3548; font: inherit; font-size: 0.875rem; font-weight: 700; text-decoration: underline; cursor: pointer; }
+.fluxo-resumo { border: 0; border-radius: 16px; background: #ffffff; box-shadow: 0 0 24px rgba(13, 20, 19, 0.04); }
+.fluxo-resumo .fluxo-resumo-titulo { display: block; margin: 0 0 0.75rem; color: var(--uf-ink); font-size: 0.8125rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+.fluxo-resumo p span:last-child { text-align: right; }
+.fluxo-resumo .fluxo-resumo-total { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid #d3e2df; }
+.fluxo-rodape { border-radius: 16px 16px 0 0; box-shadow: 0 -4px 16px rgba(13, 20, 19, 0.08); }
+.fluxo-rodape-total { grid-template-columns: auto 1fr; align-items: center; column-gap: 1rem; }
+.fluxo-barra-total { display: grid; margin: 0; color: #3e4b49; font-size: 0.75rem; line-height: 1.2; }
+.fluxo-barra-total strong { color: var(--uf-ink); font-size: 1.125rem; font-weight: 800; }
+.fluxo-rodape-total .fluxo-botao { min-height: 3rem; }

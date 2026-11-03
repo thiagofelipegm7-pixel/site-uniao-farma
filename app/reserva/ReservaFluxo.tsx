@@ -11,7 +11,7 @@ import { readPreferredUnitId } from "../preferred-unit";
 import { buildWhatsAppUrl, PAYMENT_ACCEPTED, UNITS, type Unit } from "../site-config";
 import UnitStatusBadge from "../UnitStatusBadge";
 import { IconCartao, IconCheckCirculo, IconEstrela, IconInfo, IconLoja, IconMais, IconMenos, IconMoto, IconSelo, IconVoltar, IconWhats } from "./ReservaIcons";
-import { atualizarReserva, definirQtd, formatarCentavos, mensagemReserva, subtotalCentavos, totalItens, type ModoReserva } from "./reserva-store";
+import { atualizarReserva, definirQtd, formatarCentavos, limpar, mensagemReserva, subtotalCentavos, totalItens, type ModoReserva } from "./reserva-store";
 import { useReserva } from "./useReserva";
 
 type Passo = 1 | 2 | 3;
@@ -103,7 +103,10 @@ export default function ReservaFluxo() {
       <div className="fluxo-progresso" role="img" aria-label={`Passo ${passo} de 3`}>
         {[1, 2, 3].map((n) => <span key={n} className={n <= passo ? "is-on" : ""} />)}
       </div>
-      <p className="fluxo-passo">Passo {passo} de 3 · {ROTULOS[passo - 1]}</p>
+      <ol className="fluxo-progresso-rotulos" aria-hidden="true">
+        {["Reserva", "Loja", "Enviar"].map((r, i) => <li key={r} className={i + 1 <= passo ? "is-on" : ""}>{r}</li>)}
+      </ol>
+      <p className="fluxo-passo">Passo {passo} de 3 · {ROTULOS[passo - 1]}{passo === 1 ? ` · ${total} ${total === 1 ? "item" : "itens"} na reserva` : ""}</p>
 
       {passo === 1 ? (
         <div className="fluxo-conteudo">
@@ -113,7 +116,7 @@ export default function ReservaFluxo() {
                 <span className="fluxo-item-foto">{item.foto ? <img src={item.foto} alt="" width="64" height="64" /> : null}</span>
                 <div>
                   <strong className="fluxo-item-nome">{item.nome}</strong>
-                  <p className="fluxo-item-preco"><b>{formatarCentavos(item.precoCentavos)}</b> <small>cada</small></p>
+                  <p className="fluxo-item-preco"><b>{formatarCentavos(item.precoCentavos)}</b> <small>cada</small>{item.qtd > 1 ? <span className="fluxo-item-total">Total {formatarCentavos(item.precoCentavos * item.qtd)}</span> : null}</p>
                   <div className="fluxo-item-acoes">
                     <div className="reservar-contador fluxo-contador" role="group" aria-label={`Quantidade de ${item.nome}`}>
                       <button type="button" aria-label={`Diminuir ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, Math.max(1, item.qtd - 1)))}><IconMenos size={20} /></button>
@@ -127,20 +130,28 @@ export default function ReservaFluxo() {
             ))}
           </ul>
 
+          <div className="fluxo-links">
+            <button type="button" className="fluxo-link-quieto" onClick={() => atualizarReserva(limpar)}>Esvaziar minha reserva</button>
+            <a className="fluxo-link-quieto" href="/nacoes-unidas/produtos">Adicionar mais itens</a>
+          </div>
+
           <p className="fluxo-aviso fluxo-aviso-info">
             <IconInfo size={28} />
             <span><strong>Isto é uma reserva, não uma compra.</strong> A loja confirma preço e estoque pelo WhatsApp. Você paga no balcão (retirada) ou na entrega.</span>
           </p>
 
           <section className="fluxo-resumo" aria-label="Resumo da reserva">
-            <p><span>{total} {total === 1 ? "item" : "itens"}</span><span>Itens sem receita</span></p>
-            <p className="fluxo-resumo-total"><strong>Subtotal estimado</strong><strong>{subtotal}</strong></p>
+            <p className="fluxo-resumo-titulo">Resumo da sua reserva</p>
+            <p><span>Subtotal estimado ({total} {total === 1 ? "item" : "itens"})</span><span>{subtotal}</span></p>
+            <p><span>Cobrado neste site</span><span>R$ 0,00</span></p>
+            <p><span>Pagamento</span><span>no balcão ou na entrega</span></p>
+            <p className="fluxo-resumo-total"><strong>Total estimado</strong><strong>{subtotal}</strong></p>
             <small>Preço e estoque confirmados pela loja no WhatsApp. Nenhum pagamento é feito neste site.</small>
           </section>
 
-          <div className="fluxo-rodape">
+          <div className="fluxo-rodape fluxo-rodape-total">
+            <p className="fluxo-barra-total"><span>Total estimado</span><strong>{subtotal}</strong></p>
             <button type="button" className="fluxo-botao" onClick={() => ir(2)}>Continuar: escolher loja</button>
-            <a className="fluxo-botao fluxo-botao-vazado" href="/nacoes-unidas/produtos"><IconMais size={20} /> Adicionar mais itens</a>
           </div>
         </div>
       ) : null}
