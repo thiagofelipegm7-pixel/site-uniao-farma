@@ -9,6 +9,8 @@ type Props = {
   unitId: string;
   nome: string;
   precoCentavos: number;
+  /** Preço de antes confirmado (centavos). */
+  deCentavos?: number;
   foto?: string | null;
   /** Origem do clique. Só o id da origem, nunca o nome do produto. */
   source?: string;
@@ -17,7 +19,7 @@ type Props = {
 };
 
 /** Botão "+" que vira contador depois do primeiro toque (como no protótipo). Sem texto do produto no analytics. */
-export default function ReservarBotao({ unitId, nome, precoCentavos, foto, source = "catalogo", compacto = false }: Props) {
+export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos, foto, source = "catalogo", compacto = false }: Props) {
   const estado = useReserva();
   const id = idDoItem(unitId, nome);
   const qtd = qtdDoItem(estado, id);
@@ -29,7 +31,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, foto, sourc
         className={compacto ? "reservar-mais reservar-mais-icone" : "reservar-mais"}
         aria-label={`Adicionar ${nome} à reserva`}
         onClick={() => {
-          atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, foto }));
+          atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, deCentavos, foto }));
           trackEvent("reserva_add", { unit: unitId, source });
         }}
       >

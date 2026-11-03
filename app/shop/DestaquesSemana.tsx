@@ -12,7 +12,7 @@ type Destaque = { nome: string; slug: string; precoCentavos: number; foto: strin
  * Carrossel "Destaques da semana". Busca no navegador em /api/destaques (cache de 5 min) para a home continuar estática
  * e o preço nunca ficar congelado no build. Se a busca falhar, a seção some.
  */
-export default function DestaquesSemana() {
+export default function DestaquesSemana({ titulo = "Destaques da semana", verTodas = true, source = "destaques_home" }: { titulo?: string; verTodas?: boolean; source?: string } = {}) {
   const [itens, setItens] = useState<Destaque[]>([]);
 
   useEffect(() => {
@@ -33,8 +33,8 @@ export default function DestaquesSemana() {
   return (
     <section className="shop-destaques" aria-labelledby="destaques-titulo">
       <div className="shop-destaques-topo">
-        <h2 id="destaques-titulo">Destaques da semana</h2>
-        <a href="/nacoes-unidas/produtos">Ver todas</a>
+        <h2 id="destaques-titulo">{titulo}</h2>
+        {verTodas ? <a href="/nacoes-unidas/produtos">Ver todas</a> : null}
       </div>
       <p className="shop-destaques-sub">Preço e estoque confirmados pela loja no WhatsApp.</p>
       <ul className="shop-destaques-lista">
@@ -48,7 +48,7 @@ export default function DestaquesSemana() {
                 <a href={`/nacoes-unidas/produtos/${item.slug}`}>{item.nome}</a>
               </h3>
               <p className="shop-card-preco">{formatarCentavos(item.precoCentavos)}</p>
-              <ReservarBotao unitId="nacoes" nome={item.nome} precoCentavos={item.precoCentavos} foto={item.foto} source="destaques_home" compacto />
+              <ReservarBotao unitId="nacoes" nome={item.nome} precoCentavos={item.precoCentavos} foto={item.foto} source={source} compacto />
             </article>
           </li>
         ))}

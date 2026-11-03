@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
 import { useState, useSyncExternalStore } from "react";
+import BrandLogo from "../BrandLogo";
 import BrandStrip from "../BrandStrip";
 import { trackEvent } from "../analytics";
 import { listarBairros, lojaDoBairro } from "../entrega-bairro";
@@ -10,8 +11,9 @@ import { UNIT_GOOGLE_PROFILES } from "../google-reviews";
 import { readPreferredUnitId } from "../preferred-unit";
 import { buildWhatsAppUrl, PAYMENT_ACCEPTED, UNITS, type Unit } from "../site-config";
 import UnitStatusBadge from "../UnitStatusBadge";
-import { IconCartao, IconCheckCirculo, IconEstrela, IconInfo, IconLoja, IconMais, IconMenos, IconMoto, IconSelo, IconVoltar, IconWhats } from "./ReservaIcons";
-import { atualizarReserva, definirQtd, formatarCentavos, limpar, mensagemReserva, subtotalCentavos, totalItens, type ModoReserva } from "./reserva-store";
+import { IconCartao, IconCheckCirculo, IconEstrela, IconInfo, IconLixeira, IconLoja, IconMais, IconMenos, IconMoto, IconSacola, IconSelo, IconVoltar, IconWhats } from "./ReservaIcons";
+import DestaquesSemana from "../shop/DestaquesSemana";
+import { atualizarReserva, definirQtd, descontoCentavos, formatarCentavos, limpar, subtotalDeTabelaCentavos, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens, type ModoReserva } from "./reserva-store";
 import { useReserva } from "./useReserva";
 
 type Passo = 1 | 2 | 3;
@@ -47,6 +49,10 @@ export default function ReservaFluxo() {
   const unidade = (retirar ? UNITS.find((u) => u.id === lojaId) : unidadeEntrega) ?? UNITS[0];
   const total = totalItens(estado);
   const subtotal = formatarCentavos(subtotalCentavos(estado.itens));
+  const taxaEntrega = retirar ? 0 : TAXA_ENTREGA_CENTAVOS;
+  const totalComTaxa = formatarCentavos(subtotalCentavos(estado.itens) + taxaEntrega);
+  const descontos = descontoCentavos(estado.itens);
+  const subtotalTabela = formatarCentavos(subtotalDeTabelaCentavos(estado.itens));
 
   const nomeOk = nome.trim().length >= 2;
   const valido = retirar ? nomeOk : nomeOk && rua.trim().length >= 3 && unidadeEntrega !== null;
@@ -90,6 +96,18 @@ export default function ReservaFluxo() {
 
   return (
     <div className="fluxo-reserva">
+      <div className="cesta-faixa">
+        <a className="cesta-logo" href="/" aria-label="União Farma, página inicial"><BrandLogo priority width={44} height={44} /><span>União Farma</span></a>
+        <ol className="cesta-passos" role="img" aria-label={`Passo ${passo} de 3`}>
+          {[{ n: 1, r: "Reserva", i: <IconSacola size={26} /> }, { n: 2, r: "Loja", i: <IconLoja size={26} /> }, { n: 3, r: "Enviar", i: <IconWhats size={26} /> }].map((e) => (
+            <li key={e.n} className={e.n <= passo ? "is-on" : ""}><span aria-hidden="true">{e.i}</span><em>{e.r}</em></li>
+          ))}
+        </ol>
+        <div className="cesta-contato">
+          <a href={`https://wa.me/${UNITS[0].whatsappDigits}`} aria-label="Falar com a União Farma no WhatsApp"><IconWhats size={22} /><span>WhatsApp<strong>{UNITS.find((u) => u.id === "nacoes")?.whatsapp}</strong></span></a>
+          <p><IconSelo size={22} /> Sem cobrança no site</p>
+        </div>
+      </div>
       <header className="fluxo-topo">
         {passo === 1 ? (
           <a className="fluxo-voltar" href="/nacoes-unidas/produtos" aria-label="Voltar para os produtos"><IconVoltar size={26} /></a>
@@ -97,8 +115,9 @@ export default function ReservaFluxo() {
           <button type="button" className="fluxo-voltar" aria-label="Voltar" onClick={() => ir((passo - 1) as Passo)}><IconVoltar size={26} /></button>
         )}
         <h1>{titulo}</h1>
+        <a className="fluxo-continuar-comprando" href="/nacoes-unidas/produtos">Continuar comprando</a>
       </header>
-      <BrandStrip semSacola />
+      <div className="fluxo-brandstrip"><BrandStrip semSacola /></div>
 
       <div className="fluxo-progresso" role="img" aria-label={`Passo ${passo} de 3`}>
         {[1, 2, 3].map((n) => <span key={n} className={n <= passo ? "is-on" : ""} />)}
@@ -109,48 +128,74 @@ export default function ReservaFluxo() {
       <p className="fluxo-passo">Passo {passo} de 3 · {ROTULOS[passo - 1]}{passo === 1 ? ` · ${total} ${total === 1 ? "item" : "itens"} na reserva` : ""}</p>
 
       {passo === 1 ? (
-        <div className="fluxo-conteudo">
-          <ul className="fluxo-itens">
-            {estado.itens.map((item) => (
-              <li key={item.id}>
-                <span className="fluxo-item-foto">{item.foto ? <img src={item.foto} alt="" width="64" height="64" /> : null}</span>
-                <div>
-                  <strong className="fluxo-item-nome">{item.nome}</strong>
-                  <p className="fluxo-item-preco"><b>{formatarCentavos(item.precoCentavos)}</b> <small>cada</small>{item.qtd > 1 ? <span className="fluxo-item-total">Total {formatarCentavos(item.precoCentavos * item.qtd)}</span> : null}</p>
-                  <div className="fluxo-item-acoes">
-                    <div className="reservar-contador fluxo-contador" role="group" aria-label={`Quantidade de ${item.nome}`}>
-                      <button type="button" aria-label={`Diminuir ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, Math.max(1, item.qtd - 1)))}><IconMenos size={20} /></button>
-                      <output aria-live="polite">{item.qtd}</output>
-                      <button type="button" aria-label={`Aumentar ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, item.qtd + 1))}><IconMais size={20} /></button>
-                    </div>
-                    <button type="button" className="fluxo-remover" aria-label={`Remover ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, 0))}>Remover</button>
-                  </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+        <div className="fluxo-conteudo fluxo-conteudo-cesta">
+          <div className="fluxo-coluna-itens">
+            <div className="fluxo-titulo-cesta">
+              <span>Todos os produtos</span>
+              <p>{total} {total === 1 ? "item" : "itens"} na reserva</p>
+            </div>
+            <div className="fluxo-tabela">
+              <p className="fluxo-colunas" aria-hidden="true"><span>Produto</span><span>Preço</span><span>Quantidade</span><span>Total</span><span /></p>
+              <ul className="fluxo-itens">
+                {estado.itens.map((item) => {
+                  const temDe = !!item.deCentavos && item.deCentavos > item.precoCentavos;
+                  return (
+                    <li key={item.id}>
+                      <div className="cel-produto">
+                        <span className="fluxo-item-foto">{item.foto ? <img src={item.foto} alt="" width="64" height="64" /> : null}<b className="fluxo-item-qtd" aria-hidden="true">{item.qtd}</b></span>
+                        <div>
+                          <strong className="fluxo-item-nome">{item.nome}</strong>
+                          <p className="fluxo-item-loja">Separado na União Farma <b>{UNITS.find((u) => u.id === item.unitId)?.shortName ?? ""}</b></p>
+                        </div>
+                      </div>
+                      <div className="cel-preco">
+                        {temDe ? <span className="fluxo-item-tag">↓ {Math.round((1 - item.precoCentavos / item.deCentavos!) * 100)}%</span> : null}
+                        {temDe ? <s className="fluxo-item-de">{formatarCentavos(item.deCentavos!)}</s> : null}
+                        <b>{formatarCentavos(item.precoCentavos)}</b>
+                      </div>
+                      <div className="cel-qtd">
+                        <div className="reservar-contador fluxo-contador" role="group" aria-label={`Quantidade de ${item.nome}`}>
+                          <button type="button" aria-label={`Diminuir ${item.nome}`} disabled={item.qtd <= 1} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, Math.max(1, item.qtd - 1)))}><IconMenos size={18} /></button>
+                          <output aria-live="polite">{item.qtd}</output>
+                          <button type="button" aria-label={`Aumentar ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, item.qtd + 1))}><IconMais size={18} /></button>
+                        </div>
+                      </div>
+                      <div className="cel-total">
+                        {temDe ? <s className="fluxo-item-de">{formatarCentavos(item.deCentavos! * item.qtd)}</s> : null}
+                        <b>{formatarCentavos(item.precoCentavos * item.qtd)}</b>
+                      </div>
+                      <div className="cel-remover">
+                        <button type="button" className="fluxo-lixeira" aria-label={`Remover ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, 0))}><IconLixeira size={20} /></button>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
 
-          <div className="fluxo-links">
-            <button type="button" className="fluxo-link-quieto" onClick={() => atualizarReserva(limpar)}>Esvaziar minha reserva</button>
-            <a className="fluxo-link-quieto" href="/nacoes-unidas/produtos">Adicionar mais itens</a>
+            <div className="fluxo-links">
+              <button type="button" className="fluxo-link-quieto" onClick={() => atualizarReserva(limpar)}>Esvaziar minha reserva</button>
+              <a className="fluxo-link-quieto" href="/nacoes-unidas/produtos">Adicionar mais itens</a>
+            </div>
           </div>
 
-          <p className="fluxo-aviso fluxo-aviso-info">
-            <IconInfo size={28} />
-            <span><strong>Isto é uma reserva, não uma compra.</strong> A loja confirma preço e estoque pelo WhatsApp. Você paga no balcão (retirada) ou na entrega.</span>
-          </p>
+          <aside className="fluxo-coluna-resumo">
+            <section className="fluxo-resumo" aria-label="Resumo da reserva">
+              <p className="fluxo-resumo-titulo">Resumo da sua reserva</p>
+              <p><span>Subtotal</span><span>{descontos > 0 ? subtotalTabela : subtotal}</span></p>
+              <p className="fluxo-resumo-desconto"><span>Descontos</span><span>{descontos > 0 ? `- ${formatarCentavos(descontos)}` : "R$ 0,00"}</span></p>
+              <p><span>Taxa de entrega</span><span>{formatarCentavos(taxaEntrega)}</span></p>
+              <p><span>Cobrado neste site</span><span>R$ 0,00</span></p>
+              <p className="fluxo-resumo-total"><strong>Total estimado</strong><strong>{totalComTaxa}</strong></p>
+              <button type="button" className="fluxo-botao fluxo-botao-resumo" onClick={() => ir(2)}>Continuar: escolher loja</button>
+              <p className="fluxo-resumo-nota"><IconInfo size={18} /><span><strong>Isto é uma reserva, não uma compra.</strong> A loja confirma preço e estoque pelo WhatsApp. Você paga no balcão (retirada) ou na entrega.</span></p>
+            </section>
+          </aside>
 
-          <section className="fluxo-resumo" aria-label="Resumo da reserva">
-            <p className="fluxo-resumo-titulo">Resumo da sua reserva</p>
-            <p><span>Subtotal estimado ({total} {total === 1 ? "item" : "itens"})</span><span>{subtotal}</span></p>
-            <p><span>Cobrado neste site</span><span>R$ 0,00</span></p>
-            <p><span>Pagamento</span><span>no balcão ou na entrega</span></p>
-            <p className="fluxo-resumo-total"><strong>Total estimado</strong><strong>{subtotal}</strong></p>
-            <small>Preço e estoque confirmados pela loja no WhatsApp. Nenhum pagamento é feito neste site.</small>
-          </section>
+          <div className="fluxo-vitrine"><DestaquesSemana titulo="Aproveite também" verTodas={false} source="reserva_vitrine" /></div>
 
           <div className="fluxo-rodape fluxo-rodape-total">
-            <p className="fluxo-barra-total"><span>Total estimado</span><strong>{subtotal}</strong></p>
+            <p className="fluxo-barra-total"><span>Total estimado</span><strong>{totalComTaxa}</strong></p>
             <button type="button" className="fluxo-botao" onClick={() => ir(2)}>Continuar: escolher loja</button>
           </div>
         </div>
