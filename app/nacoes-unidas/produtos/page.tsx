@@ -30,7 +30,7 @@ const faqs: FaqItem[] = [
   },
   {
     q: "Esta lista tem todos os produtos da loja?",
-    a: "Esta página traz os produtos sem receita, com cesta e reserva pelo WhatsApp. Medicamentos com receita e controlados ficam em listas de preços à parte, sem venda online: a compra é no balcão, com a receita (retida, quando a lei exigir). Itens que não conseguimos classificar com segurança não são publicados.",
+    a: "Esta página traz os produtos sem receita, com cesta pelo WhatsApp. Medicamentos com receita e controlados ficam em listas de preços à parte, sem venda online: a compra é no balcão, com a receita (retida, quando a lei exigir). Itens que não conseguimos classificar com segurança não são publicados.",
   },
   {
     q: "Dá para receber em casa?",

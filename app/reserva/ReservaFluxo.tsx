@@ -74,19 +74,19 @@ export default function ReservaFluxo() {
     ir(3);
   }
 
-  const titulo = passo === 1 ? "Minha reserva" : passo === 2 ? (retirar ? "Loja e retirada" : "Entrega") : "Revisar e enviar";
+  const titulo = passo === 1 ? "Minha cesta" : passo === 2 ? (retirar ? "Loja e retirada" : "Entrega") : "Revisar e enviar";
 
   if (estado.itens.length === 0) {
     return (
       <div className="fluxo-reserva">
         <header className="fluxo-topo">
           <a className="fluxo-voltar" href="/nacoes-unidas/produtos" aria-label="Voltar para os produtos"><IconVoltar size={26} /></a>
-          <h1>Minha reserva</h1>
+          <h1>Minha cesta</h1>
         </header>
         <BrandStrip semSacola />
         <div className="fluxo-vazio">
-          <strong>Sua reserva ainda está vazia. Bora escolher?</strong>
-          <p>Separa pra você: reserve aqui e pague só quando retirar.</p>
+          <strong>Sua cesta ainda está vazia. Bora escolher?</strong>
+          <p>Escolha seus produtos e pague só quando retirar.</p>
           <a className="fluxo-botao" href="/nacoes-unidas/produtos">Ver produtos</a>
         </div>
       </div>
@@ -101,7 +101,7 @@ export default function ReservaFluxo() {
       <div className="cesta-faixa">
         <a className="cesta-logo" href="/" aria-label="União Farma, página inicial"><BrandLogo priority width={44} height={44} /><span>União Farma</span></a>
         <ol className="cesta-passos" role="img" aria-label={`Passo ${passo} de 3`}>
-          {[{ n: 1, r: "Reserva", i: <IconSacola size={26} /> }, { n: 2, r: "Loja", i: <IconLoja size={26} /> }, { n: 3, r: "Enviar", i: <IconWhats size={26} /> }].map((e) => (
+          {[{ n: 1, r: "Cesta", i: <IconSacola size={26} /> }, { n: 2, r: "Loja", i: <IconLoja size={26} /> }, { n: 3, r: "Enviar", i: <IconWhats size={26} /> }].map((e) => (
             <li key={e.n} className={e.n <= passo ? "is-on" : ""}><span aria-hidden="true">{e.i}</span><em>{e.r}</em></li>
           ))}
         </ol>
@@ -124,9 +124,9 @@ export default function ReservaFluxo() {
         {[1, 2, 3].map((n) => <span key={n} className={n <= passo ? "is-on" : ""} />)}
       </div>
       <ol className="fluxo-progresso-rotulos" aria-hidden="true">
-        {["Reserva", "Loja", "Enviar"].map((r, i) => <li key={r} className={i + 1 <= passo ? "is-on" : ""}>{r}</li>)}
+        {["Cesta", "Loja", "Enviar"].map((r, i) => <li key={r} className={i + 1 <= passo ? "is-on" : ""}>{r}</li>)}
       </ol>
-      <p className="fluxo-passo">Passo {passo} de 3 · {ROTULOS[passo - 1]}{passo === 1 ? ` · ${total} ${total === 1 ? "item" : "itens"} na reserva` : ""}</p>
+      <p className="fluxo-passo">Passo {passo} de 3 · {ROTULOS[passo - 1]}{passo === 1 ? ` · ${total} ${total === 1 ? "item" : "itens"} na cesta` : ""}</p>
 
       {passo === 1 ? (
         <div className="fluxo-conteudo fluxo-conteudo-cesta">
@@ -141,7 +141,7 @@ export default function ReservaFluxo() {
                 />
                 <span>Todos os produtos</span>
               </label>
-              <p>{total} {total === 1 ? "item" : "itens"} na reserva</p>
+              <p>{total} {total === 1 ? "item" : "itens"} na cesta</p>
             </div>
             <div className="fluxo-tabela">
               <p className="fluxo-colunas" aria-hidden="true"><span>Produto</span><span>Preço</span><span>Quantidade</span><span>Total</span><span /></p>
@@ -157,7 +157,7 @@ export default function ReservaFluxo() {
                         <span className="fluxo-item-foto">{item.foto ? <img src={item.foto} alt="" width="64" height="64" /> : null}<b className="fluxo-item-qtd" aria-hidden="true">{item.qtd}</b></span>
                         <div>
                           <strong className="fluxo-item-nome">{item.nome}</strong>
-                          <p className="fluxo-item-loja">Separado na União Farma <b>{UNITS.find((u) => u.id === item.unitId)?.shortName ?? ""}</b></p>
+                          <p className="fluxo-item-loja">Vendido e entregue por <b>União Farma</b> · {UNITS.find((u) => u.id === item.unitId)?.shortName ?? ""}</p>
                         </div>
                       </div>
                       <div className="cel-preco">
@@ -186,14 +186,14 @@ export default function ReservaFluxo() {
             </div>
 
             <div className="fluxo-links">
-              <button type="button" className="fluxo-link-quieto" onClick={() => atualizarReserva(limpar)}>Esvaziar minha reserva</button>
+              <button type="button" className="fluxo-link-quieto" onClick={() => atualizarReserva(limpar)}>Esvaziar minha cesta</button>
               <a className="fluxo-link-quieto" href="/nacoes-unidas/produtos">Adicionar mais itens</a>
             </div>
           </div>
 
           <aside className="fluxo-coluna-resumo">
-            <section className="fluxo-resumo" aria-label="Resumo da reserva">
-              <p className="fluxo-resumo-titulo">Resumo da sua reserva</p>
+            <section className="fluxo-resumo" aria-label="Resumo da cesta">
+              <p className="fluxo-resumo-titulo">Resumo da sua cesta</p>
               <p><span>Subtotal</span><span>{descontos > 0 ? subtotalTabela : subtotal}</span></p>
               {descontos > 0 ? <p className="fluxo-resumo-desconto"><span>Descontos</span><span>- {formatarCentavos(descontos)}</span></p> : null}
               <p><span>Taxa de entrega</span><span>{formatarCentavos(taxaEntrega)}</span></p>
@@ -307,9 +307,7 @@ export default function ReservaFluxo() {
             <pre>{mensagem}</pre>
             <time>agora</time>
           </div>
-          <p className="fluxo-legal">Aqui só itens sem receita: medicamentos isentos de prescrição (MIPs), higiene e dermocosméticos. Leia a bula. Em caso de dúvida, procure o farmacêutico.</p>
           <div className="fluxo-rodape">
-            <p className="fluxo-rt"><IconSelo size={22} /><span>Responsável técnico da loja Nações Unidas: <strong>João</strong> · CRF/MG <strong>31958</strong>. Farmacêutico presente em todo o horário.</span></p>
             <a
               className="fluxo-botao"
               href={href}
@@ -321,7 +319,7 @@ export default function ReservaFluxo() {
             >
               <IconWhats size={26} /> Enviar pedido pelo WhatsApp
             </a>
-            <button type="button" className="fluxo-link" onClick={() => ir(1)}>Editar minha reserva</button>
+            <button type="button" className="fluxo-link" onClick={() => ir(1)}>Editar minha cesta</button>
           </div>
         </div>
       ) : null}

@@ -53,7 +53,7 @@ test("mensagem do WhatsApp lista itens, loja, forma, nome, pagamento e subtotal,
   const { ESTADO_VAZIO, adicionar, mensagemReserva } = await mod();
   const s = adicionar(ESTADO_VAZIO, nivea, 2);
   const retirar = mensagemReserva("Nações Unidas", s.itens, { modo: "retirar", nome: "  Maria  Souza " });
-  assert.match(retirar, /^Olá, União Farma Nações Unidas! Quero reservar:/);
+  assert.match(retirar, /^Olá, União Farma Nações Unidas! Quero pedir:/);
   assert.match(retirar, /\u2022 2x Loção Nivea Soft Milk 200ml/);
   assert.match(retirar, /Loja: Nações Unidas/);
   assert.match(retirar, /Forma: Retirar na loja/);
@@ -130,18 +130,19 @@ test("página /reserva: noindex, 3 passos como o protótipo, envio rastreado sem
   assert.match(fluxo, /Prévia da mensagem/);
   assert.doesNotMatch(fluxo, /Depois de enviar/);
   assert.match(fluxo, /Enviar pedido pelo WhatsApp/);
-  assert.match(fluxo, /Editar minha reserva/);
-  assert.match(fluxo, /<strong>João<\/strong> · CRF\/MG <strong>31958<\/strong>/);
-  assert.match(fluxo, /Sua reserva ainda está vazia\. Bora escolher\?/);
+  assert.match(fluxo, /Editar minha cesta/);
+  assert.match(fluxo, /Vendido e entregue por <b>União Farma<\/b>/);
+  assert.match(fluxo, /Sua cesta ainda está vazia\. Bora escolher\?/);
   assert.match(fluxo, /data-track-event="whatsapp_click"/);
   assert.match(fluxo, /data-track-source="reserva_envio"/);
   assert.doesNotMatch(fluxo, /data-track-(product|nome|name|item)=/);
   // Nome, rua e produto nunca vão ao analytics.
   assert.doesNotMatch(fluxo, /trackEvent\([^)]*(nome|rua|bairro\b[^,)]*item)/);
-  assert.match(sacola, /Sua reserva ainda está vazia\. Bora escolher\?/);
+  assert.match(sacola, /Sua cesta ainda está vazia\. Bora escolher\?/);
   // A gaveta só lista e leva à /reserva.
   assert.doesNotMatch(sacola, /mensagemReserva/);
-  assert.match(sacola, /TEXTO_RESPONSAVEL/);
+  // O responsável técnico e o aviso da Anvisa ficam só no rodapé do site.
+  assert.doesNotMatch(sacola + fluxo, /TEXTO_RESPONSAVEL|Responsável técnico|Leia a bula/);
   for (const src of [page, fluxo, sacola]) assert.doesNotMatch(src, /Nivea|Listerine|Dipirona/);
 });
 

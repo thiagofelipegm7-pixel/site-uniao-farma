@@ -137,7 +137,7 @@ export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: D
   const total = sub + taxa;
   const pag = dados.pagamento?.trim() || (retirar ? "no balcão" : "na entrega");
   return [
-    `Olá, União Farma ${unitNome}! Quero reservar:`,
+    `Olá, União Farma ${unitNome}! Quero pedir:`,
     ...linhas,
     "",
     `Loja: ${unitNome}`,

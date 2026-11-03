@@ -7,14 +7,13 @@ import { EVENTO_ABRIR_RESERVA } from "./abrir-reserva";
 import { UNITS } from "../site-config";
 import { IconFechar, IconLixeira, IconMais, IconMenos, IconSacola } from "./ReservaIcons";
 import { atualizarReserva, definirQtd, formatarCentavos, limpar, subtotalCentavos, totalItens } from "./reserva-store";
-import { TEXTO_RESPONSAVEL } from "./texto-responsavel";
 import { useReserva } from "./useReserva";
 
 const nomeLoja = (unitId: string) => UNITS.find((u) => u.id === unitId)?.shortName ?? "";
 
 const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-/** Sacola com contador e a gaveta "Minha reserva" (mini-carrinho). Fica na faixa de identidade, sob o cabeçalho. */
+/** Sacola com contador e a gaveta "Minha cesta" (mini-carrinho). Fica na faixa de identidade, sob o cabeçalho. */
 export default function ReservaSacola() {
   const estado = useReserva();
   const [aberta, setAberta] = useState(false);
@@ -85,10 +84,10 @@ export default function ReservaSacola() {
 
   const gaveta = (
     <div className="reserva-gaveta-raiz" role="dialog" aria-modal="true" aria-labelledby="reserva-gaveta-titulo">
-      <button type="button" className="reserva-gaveta-fundo" aria-label="Fechar a reserva" tabIndex={-1} onClick={fechar} />
+      <button type="button" className="reserva-gaveta-fundo" aria-label="Fechar a cesta" tabIndex={-1} onClick={fechar} />
       <div className="reserva-gaveta" ref={painelRef}>
         <div className="reserva-gaveta-topo">
-          <h2 id="reserva-gaveta-titulo">Reserva · {total} {total === 1 ? "item" : "itens"}</h2>
+          <h2 id="reserva-gaveta-titulo">Cesta · {total} {total === 1 ? "item" : "itens"}</h2>
           <button ref={fecharRef} type="button" className="reserva-icone" aria-label="Fechar" onClick={fechar}>
             <IconFechar size={24} />
           </button>
@@ -97,8 +96,8 @@ export default function ReservaSacola() {
         <div className="reserva-gaveta-corpo">
           {estado.itens.length === 0 ? (
             <div className="reserva-vazia">
-              <strong>Sua reserva ainda está vazia. Bora escolher?</strong>
-              <p>Separa pra você: reserve aqui e pague só quando retirar.</p>
+              <strong>Sua cesta ainda está vazia. Bora escolher?</strong>
+              <p>Escolha seus produtos e pague só quando retirar.</p>
               <a className="reserva-botao" href="/nacoes-unidas/produtos" onClick={fechar}>Ver produtos</a>
             </div>
           ) : (
@@ -125,8 +124,8 @@ export default function ReservaSacola() {
                 ))}
               </ul>
               {confirmando ? (
-                <div className="reserva-confirma" role="alertdialog" aria-label="Limpar a reserva?">
-                  <strong>Limpar a reserva?</strong>
+                <div className="reserva-confirma" role="alertdialog" aria-label="Limpar a cesta?">
+                  <strong>Limpar a cesta?</strong>
                   <div>
                     <button type="button" className="reserva-botao reserva-botao-vazado" onClick={() => { atualizarReserva(limpar); setConfirmando(false); }}>Sim</button>
                     <button type="button" className="reserva-botao" onClick={() => setConfirmando(false)}>Não</button>
@@ -139,10 +138,9 @@ export default function ReservaSacola() {
 
         {estado.itens.length > 0 ? (
           <div className="reserva-gaveta-pe">
-            <button type="button" className="reserva-link" onClick={() => setConfirmando(true)}>Limpar reserva</button>
+            <button type="button" className="reserva-link" onClick={() => setConfirmando(true)}>Limpar cesta</button>
             <p className="reserva-subtotal"><span>Subtotal estimado</span><strong>{formatarCentavos(subtotalCentavos(estado.itens))}</strong></p>
-            <a className="reserva-botao" href="/reserva" onClick={fechar}>Continuar para a reserva</a>
-            <p className="reserva-aviso reserva-rt">{TEXTO_RESPONSAVEL}</p>
+            <a className="reserva-botao" href="/reserva" onClick={fechar}>Continuar para a cesta</a>
           </div>
         ) : null}
       </div>
@@ -155,7 +153,7 @@ export default function ReservaSacola() {
         ref={gatilhoRef}
         type="button"
         className="reserva-sacola"
-        aria-label={total === 0 ? "Minha reserva, vazia" : `Minha reserva, ${total} ${total === 1 ? "item" : "itens"}`}
+        aria-label={total === 0 ? "Minha cesta, vazia" : `Minha cesta, ${total} ${total === 1 ? "item" : "itens"}`}
         aria-haspopup="dialog"
         aria-expanded={aberta}
         onClick={() => setAberta(true)}

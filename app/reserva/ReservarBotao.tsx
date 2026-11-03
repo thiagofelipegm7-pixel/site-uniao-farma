@@ -29,21 +29,21 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
       <button
         type="button"
         className={compacto ? "reservar-mais reservar-mais-icone" : "reservar-mais"}
-        aria-label={`Adicionar ${nome} à reserva`}
+        aria-label={`Adicionar ${nome} à cesta`}
         onClick={() => {
           atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, deCentavos, foto }));
           trackEvent("reserva_add", { unit: unitId, source });
         }}
       >
         <IconMais size={22} />
-        {compacto ? null : <span>Reservar</span>}
+        {compacto ? null : <span>Adicionar</span>}
       </button>
     );
   }
 
   return (
-    <div className="reservar-contador" role="group" aria-label={`Quantidade de ${nome} na reserva`}>
-      <button type="button" aria-label={qtd === 1 ? `Remover ${nome} da reserva` : `Diminuir ${nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, id, qtd - 1))}>
+    <div className="reservar-contador" role="group" aria-label={`Quantidade de ${nome} na cesta`}>
+      <button type="button" aria-label={qtd === 1 ? `Remover ${nome} da cesta` : `Diminuir ${nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, id, qtd - 1))}>
         {qtd === 1 && !compacto ? <IconLixeira size={20} /> : <IconMenos size={20} />}
       </button>
       <output aria-live="polite">{qtd}</output>

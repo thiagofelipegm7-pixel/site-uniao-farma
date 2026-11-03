@@ -170,8 +170,8 @@ test("página de produto: estrutura, noindex, sem texto de saúde inventado e ba
   assert.match(pagina, /jsonLdProduto/);
   assert.match(pagina, /width="300"/);
   assert.doesNotMatch(pagina, /ácido hialurônico|pele seca|aggregateRating|availability/);
-  assert.match(barra, /Adicionar à reserva/);
-  assert.match(barra, /Ver reserva/);
+  assert.match(barra, /Adicionar à cesta/);
+  assert.match(barra, /Ver cesta/);
   assert.match(barra, /atualizarReserva/);
   assert.match(barra, /adicionar\(/);
   assert.match(barra, /abrirReserva/);

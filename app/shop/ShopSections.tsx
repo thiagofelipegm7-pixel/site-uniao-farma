@@ -36,7 +36,7 @@ export function HeroReserva() {
     <section className="shop-hero" id="inicio" aria-labelledby="hero-title">
       <div>
         <h1 id="hero-title">
-          Reserve pelo WhatsApp.
+          Peça pelo WhatsApp.
           <br />
           Pague só na loja.
         </h1>
@@ -48,7 +48,7 @@ export function HeroReserva() {
 }
 
 const PASSOS = [
-  { titulo: "Escolha e adicione", texto: "Monte a sua reserva." },
+  { titulo: "Escolha e adicione", texto: "Monte a sua cesta." },
   { titulo: "Escolha a loja", texto: "Retirar na loja ou receber no seu bairro." },
   { titulo: "Envie pelo WhatsApp", texto: "A loja confirma preço e estoque. Pague no balcão ou na entrega." },
 ] as const;
