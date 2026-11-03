@@ -37,3 +37,19 @@ test("home: cabeçalho que encolhe ao rolar e pílula de abas fixa, só no deskt
   assert.match(css, /\.cab-espaco, \.cab-fixo \{ display: contents; \}/);
   assert.match(css, /@media \(min-width: 992px\) and \(prefers-reduced-motion: reduce\)/);
 });
+
+test("home: 'Navegue por categoria' é um carrossel como o da Panvel (setas, 2 quadros por clique, volta infinita) e rola no celular", async () => {
+  const [sec, css] = await Promise.all([
+    readFile(new URL("../app/shop/ShopSections.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/shop/shop.css", import.meta.url), "utf8"),
+  ]);
+  assert.match(sec, /const VISIVEIS = 5/);
+  assert.match(sec, /const PASSO = 2/);
+  assert.match(sec, /aria-label="Categorias anteriores"/);
+  assert.match(sec, /aria-label="Próximas categorias"/);
+  assert.match(sec, /prefers-reduced-motion: reduce/);
+  assert.match(sec, /aria-hidden=\{copia \? true : undefined\}/);
+  // No celular: sem setas e sem cópias; no desktop: janela de 5 quadros.
+  assert.match(css, /\.shop-cat-seta, \.shop-cat-copia \{ display: none; \}/);
+  assert.match(css, /\.shop-categorias-janela \{ overflow: hidden; width: calc\(5 \* var\(--cat-tile\) \+ 4 \* var\(--cat-gap\)\); \}/);
+});
