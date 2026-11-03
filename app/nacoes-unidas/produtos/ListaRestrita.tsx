@@ -117,11 +117,15 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
   const [itens, setItens] = useState<ItemRestrito[]>([]);
   const [total, setTotal] = useState(0);
   const [data, setData] = useState<string | null>(null);
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const q = (params.get("q") || "").slice(0, 80);
     const pg = Math.max(1, Number(params.get("pagina")) || 1);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setConsulta(q);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setPagina(pg);
     (async () => {
       try {

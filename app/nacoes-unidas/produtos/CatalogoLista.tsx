@@ -62,7 +62,7 @@ export default function CatalogoLista({ grupos: gruposProps, whatsappHref, unitI
           gruposCarregados.push({
             categoria: g.categoria,
             id: g.slug,
-            itens: p1.map((item: any) => ({
+            itens: p1.map( (item: { nomeExibicao?: string; nome: string; lab: string; isMIP: boolean; precoFmt: string | null; preco: number; foto: string | null }) => ({
               nome: item.nomeExibicao || item.nome,
               lab: item.lab,
               isMIP: item.isMIP,
