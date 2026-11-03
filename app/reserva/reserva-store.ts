@@ -12,6 +12,8 @@ export type ReservaItem = {
   nome: string;
   /** Preço unitário em centavos (inteiro, evita erro de ponto flutuante). */
   precoCentavos: number;
+  /** Preço de antes ("De"), só quando a oferta confirma. Mostra o riscado e o desconto na reserva. */
+  deCentavos?: number;
   qtd: number;
   foto?: string | null;
 };
@@ -69,6 +71,16 @@ export function totalItens(estado: ReservaEstado): number {
 
 export function subtotalCentavos(itens: ReservaItem[]): number {
   return itens.reduce((soma, i) => soma + i.precoCentavos * i.qtd, 0);
+}
+
+/** Soma do que o cliente deixa de pagar nos itens com preço "De" confirmado. */
+export function descontoCentavos(itens: ReservaItem[]): number {
+  return itens.reduce((soma, i) => soma + (i.deCentavos && i.deCentavos > i.precoCentavos ? (i.deCentavos - i.precoCentavos) * i.qtd : 0), 0);
+}
+
+/** Subtotal "de tabela": usa o preço "De" quando existe, como na cesta (subtotal, descontos, total). */
+export function subtotalDeTabelaCentavos(itens: ReservaItem[]): number {
+  return subtotalCentavos(itens) + descontoCentavos(itens);
 }
 
 export function qtdDoItem(estado: ReservaEstado, id: string): number {

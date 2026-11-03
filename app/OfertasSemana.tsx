@@ -73,6 +73,7 @@ export default function OfertasSemana() {
                     unitId={loja}
                     nome={offer.name}
                     precoCentavos={precoOfertaCentavos(preco)}
+                    deCentavos={anterior !== null ? precoOfertaCentavos(anterior) : undefined}
                     foto={offer.image}
                     source="ofertas_semana"
                   />
