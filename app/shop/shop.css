@@ -1132,3 +1132,18 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .shop-cat-seta { display: grid; place-items: center; flex: none; width: 2rem; height: 2rem; margin-top: calc(var(--cat-tile) / 2 - 1rem); padding: 0; border: 0; border-radius: 6px; background: #c9d8d5; color: var(--uf-navy); cursor: pointer; transition: background-color 0.2s ease; }
   .shop-cat-seta:hover, .shop-cat-seta:focus-visible { background: var(--uf-panel); color: var(--uf-action-ink); }
 }
+
+/* =====================================================================
+   Logo da faixa principal como a "PanVel" da Panvel: texto itálico pesado direto sobre a faixa (branco no verde-água),
+   sem cartão nem ilustração. No celular (cabeçalho branco) o nome fica verde e sem a linha de cima.
+   ===================================================================== */
+.marca-uf { display: inline-flex; align-items: center; gap: 0.5rem; }
+.marca-uf-texto { display: grid; gap: 0.0625rem; font-style: italic; line-height: 1; text-transform: uppercase; white-space: nowrap; }
+.marca-uf-nome { color: var(--uf-green-text); font-size: 1.0625rem; font-weight: 800; font-style: italic; letter-spacing: -0.01em; }
+.marca-uf-pe { color: var(--uf-ink); font-size: 0.5625rem; font-weight: 700; font-style: italic; letter-spacing: 0.01em; }
+@media (min-width: 992px) {
+  .marca-uf { gap: 0.625rem; }
+  .marca-uf-texto { gap: 0.125rem; }
+  .marca-uf-nome { color: #ffffff; font-size: 1.75rem; text-shadow: 0 1px 0 rgba(10, 45, 41, 0.35); }
+  .marca-uf-pe { color: var(--uf-action-ink); font-size: 0.6875rem; letter-spacing: 0.02em; }
+}

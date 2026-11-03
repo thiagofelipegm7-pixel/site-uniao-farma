@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { BUSCAS_POPULARES, normalizarBusca } from "../nacoes-unidas/produtos/busca";
 import { buildWhatsAppUrl, UNITS } from "../site-config";
 import { formatarCentavos } from "../reserva/reserva-store";
-import BrandLogo from "../BrandLogo";
+import MarcaUniao from "./MarcaUniao";
 import ReservaSacola from "../reserva/ReservaSacola";
 import { IconLupa, IconMenu, IconPino, IconWhats } from "../reserva/ReservaIcons";
 import LojaPicker from "./LojaPicker";
@@ -66,9 +66,8 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
         <button type="button" className="shop-icone shop-menu" aria-label="Abrir menu" aria-expanded={menu} aria-controls="shop-menu-painel" onClick={() => setMenu(true)}>
           <IconMenu size={26} />
         </button>
-        <a className="shop-marca" href="/">
-          <BrandLogo priority />
-          <span>União Farma</span>
+        <a className="shop-marca" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial">
+          <MarcaUniao />
         </a>
         {nacoes ? (
           <a className="shop-whats" href={buildWhatsAppUrl(nacoes, "Oi, União Farma!", { campaign: "cabecalho", content: "nacoes" })} data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="cabecalho" target="_blank" rel="noreferrer">

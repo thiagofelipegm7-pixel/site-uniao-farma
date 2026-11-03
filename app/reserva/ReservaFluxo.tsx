@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
 import { useState, useSyncExternalStore } from "react";
-import BrandLogo from "../BrandLogo";
+import MarcaUniao from "../shop/MarcaUniao";
 import { trackEvent } from "../analytics";
 import { listarBairros, lojaDoBairro } from "../entrega-bairro";
 import { readPreferredUnitId } from "../preferred-unit";
@@ -131,7 +131,7 @@ export default function ReservaFluxo() {
   return (
     <div className="fluxo-reserva">
       <div className="cesta-faixa">
-        <a className="cesta-logo" href="/" aria-label="União Farma, página inicial"><BrandLogo priority width={44} height={44} /><span>União Farma</span></a>
+        <a className="cesta-logo" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial"><MarcaUniao /></a>
         <ol className="cesta-passos" role="img" aria-label={`Passo ${passo} de 3`}>
           {[{ n: 1, r: "Cesta", i: <IconSacola size={26} /> }, { n: 2, r: "Loja", i: <IconLoja size={26} /> }, { n: 3, r: "Enviar", i: <IconWhats size={26} /> }].map((e) => (
             <li key={e.n} className={e.n <= passo ? "is-on" : ""}><span aria-hidden="true">{e.i}</span><em>{e.r}</em></li>
