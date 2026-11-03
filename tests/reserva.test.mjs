@@ -67,6 +67,9 @@ test("mensagem do WhatsApp lista itens, loja, forma, nome, pagamento e subtotal,
   assert.match(casa, /Bairro: Nações Unidas/);
   assert.match(casa, /Endereço: Rua Inglaterra, 100/);
   assert.match(casa, /Pagamento: na entrega/);
+  const comPix = mensagemReserva("Nações Unidas", s.itens, { modo: "casa", nome: "Maria", bairro: "Nações Unidas", rua: "Rua Inglaterra, 100", pagamento: "Pix" });
+  assert.match(comPix, /Pagamento: Pix \(na entrega\)/);
+  assert.match(mensagemReserva("Nações Unidas", s.itens, { modo: "retirar", nome: "Maria", pagamento: "Cartão de débito" }), /Pagamento: Cartão de débito \(no balcão\)/);
   assert.match(casa, /Taxa de entrega: R\$ 1,00/);
   assert.match(casa, /Total estimado: R\$ 40,80/);
   assert.match(mensagemReserva("Fátima", s.itens, { modo: "retirar", nome: "" }), /Nome: \[nome do cliente\]/);
@@ -130,6 +133,8 @@ test("página /reserva: noindex, 3 passos como o protótipo, envio rastreado sem
   assert.match(fluxo, /Alterar/);
   assert.match(fluxo, /Revisar pedido/);
   assert.match(fluxo, /Prévia da mensagem/);
+  assert.match(fluxo, /Forma de pagamento/);
+  assert.match(fluxo, /FORMAS_PAGAMENTO/);
   assert.doesNotMatch(fluxo, /Depois de enviar/);
   assert.match(fluxo, /Enviar pedido pelo WhatsApp/);
   assert.match(fluxo, /Editar minha cesta/);

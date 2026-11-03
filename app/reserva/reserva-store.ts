@@ -3,6 +3,9 @@
  * Nada é cobrado no site. Preço e estoque são confirmados pela loja; o pagamento é no balcão ou na entrega.
  * Guardada só no navegador (localStorage), sem conta e sem enviar nada para servidor.
  */
+/** Formas de pagamento oferecidas ao cliente. O pagamento é combinado e feito pelo WhatsApp com a loja. */
+export const FORMAS_PAGAMENTO = ["Pix", "Dinheiro", "Cartão de débito", "Cartão de crédito"] as const;
+
 export type ModoReserva = "retirar" | "casa";
 
 export type ReservaItem = {
@@ -135,7 +138,9 @@ export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: D
   const sub = subtotalCentavos(itens);
   const taxa = !retirar ? (dados.taxaEntregaCentavos ?? 100) : 0;
   const total = sub + taxa;
-  const pag = dados.pagamento?.trim() || (retirar ? "no balcão" : "na entrega");
+  const quando = retirar ? "no balcão" : "na entrega";
+  const escolhido = dados.pagamento?.trim();
+  const pag = escolhido ? `${escolhido} (${quando})` : quando;
   return [
     `Olá, União Farma ${unitNome}! Quero pedir:`,
     ...linhas,

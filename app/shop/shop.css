@@ -884,3 +884,12 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .fluxo-entrega .fluxo-rodape-total { display: none; }
 }
 @media (min-width: 992px) { button.fluxo-continuar-comprando { display: block; text-align: left; } }
+
+/* ---- Passo "Enviar": escolha da forma de pagamento (combinada e paga pelo WhatsApp com a loja) ---- */
+.entrega-opcao-simples { grid-template-columns: auto 1fr auto; grid-template-areas: "radio tipo periodo"; }
+.entrega-opcao-simples .entrega-periodo { font-size: 0.875rem; }
+.fluxo-pagamento .entrega-titulo:first-child { margin-top: 0.25rem; }
+@media (min-width: 992px) {
+  .entrega-opcao-simples { grid-template-columns: auto 1fr auto; grid-template-areas: "radio tipo periodo"; }
+}
+.fluxo-pagamento .fluxo-botao-resumo { font-size: 0.875rem; letter-spacing: 0; white-space: nowrap; }
