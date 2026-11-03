@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import MobileQuickNav from "./MobileQuickNav";
 import SiteFooter from "./SiteFooter";
 import SkipLink from "./SkipLink";
@@ -39,6 +39,17 @@ const inter = Inter({
   variable: "--font-inter",
   fallback: ["Arial", "sans-serif"],
   adjustFontFallback: true,
+});
+
+// Só o logotipo (nome em itálico 700 e selo em 600): carrega apenas esses dois cortes.
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  style: ["italic"],
+  display: "swap",
+  preload: false,
+  variable: "--font-poppins",
+  fallback: ["Inter", "Arial", "sans-serif"],
 });
 
 const SITE_DESCRIPTION =
@@ -152,7 +163,7 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" data-theme="light" className={`${inter.className} ${inter.variable}`}>
+    <html lang="pt-BR" data-theme="light" className={`${inter.className} ${inter.variable} ${poppins.variable}`}>
       <head>
         <link
           rel="preload"
