@@ -894,3 +894,86 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 }
 .fluxo-pagamento .fluxo-botao-resumo { font-size: 0.875rem; letter-spacing: 0; white-space: nowrap; }
 .fluxo-pagamento .fluxo-rodape .fluxo-botao { font-size: 0.875rem; padding: 0 0.75rem; white-space: nowrap; }
+
+/* =====================================================================
+   Home na estrutura da home da Panvel (medidas do CSS dela, cores e fonte da União)
+   ===================================================================== */
+/* abas em pílula: 52px (60px no desktop), abas de 117px, raio 32/60px */
+.shop-abas { display: flex; gap: 0; box-sizing: border-box; max-width: 22.625rem; height: 3.25rem; margin: 0.75rem auto 0; padding: 0.5rem; border-radius: 32px; background: var(--uf-pill); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); }
+.shop-abas a { flex: 0 1 7.3rem; min-width: 0; height: 2.375rem; display: inline-flex; align-items: center; justify-content: center; border-radius: 60px; color: #e1e4e9; text-decoration: none; white-space: nowrap; }
+.shop-abas a.is-ativa { background: var(--uf-panel); color: var(--uf-action-ink); }
+.shop-abas a span { display: flex; flex-direction: column; text-align: start; font-size: 0.6875rem; line-height: 1.1; }
+.shop-abas a strong { margin-top: -0.125rem; font-size: 1.125rem; font-weight: 700; }
+.shop-abas a:hover:not(.is-ativa) { background: #1d2a28; }
+
+/* cartões de benefícios: 236 x 76, raio 16, rolagem lateral no celular */
+.shop-info { display: flex; gap: 0.75rem; max-width: 82rem; margin: 0.875rem auto 0; padding: 0 1.25rem; list-style: none; overflow-x: auto; scrollbar-width: none; }
+.shop-info::-webkit-scrollbar { display: none; }
+.shop-info li { flex: 0 0 14.75rem; }
+.shop-info a, .shop-info div { box-sizing: border-box; display: flex; align-items: center; gap: 0.75rem; width: 100%; height: 4.75rem; padding: 0.75rem; border-radius: 16px; background: var(--uf-pill); color: #ffffff; text-decoration: none; }
+.shop-info svg { flex: none; color: var(--uf-action); }
+.shop-info span { display: grid; min-width: 0; }
+.shop-info strong { font-size: 0.875rem; font-weight: 700; line-height: 1.25; }
+.shop-info small { color: #c5d2d0; font-size: 0.75rem; line-height: 1.3; }
+
+/* "Navegue por categoria" */
+.shop-categorias h2 { margin: 0 0 0.5rem; padding: 0 1.25rem; font-size: 1.125rem; font-weight: 800; }
+/* vitrines: cabeçalho, "Ver tudo" e setas */
+.shop-vitrine { position: relative; }
+.shop-seta { display: none; }
+.shop-card-marca { margin: 0.5rem 0 0; color: #5b6b68; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.04em; text-align: center; text-transform: uppercase; }
+/* "Como você quiser" e "Como entrar em contato" */
+.shop-quiser, .shop-contato { max-width: 75rem; margin: 0 auto; padding: 1.25rem 1.25rem 0.5rem; }
+.shop-quiser ul, .shop-contato ul { display: grid; gap: 0.75rem; margin: 0.75rem 0 0; padding: 0; list-style: none; }
+.shop-quiser a { display: flex; align-items: center; gap: 1rem; padding: 1rem; border-radius: 12px; background: #ffffff; color: var(--uf-ink); text-decoration: none; box-shadow: 0 0 24px rgba(13, 20, 19, 0.04); }
+.shop-quiser-icone { display: grid; place-items: center; flex: none; width: 3.5rem; height: 3.5rem; border-radius: 50%; background: var(--uf-panel); color: var(--uf-action-ink); }
+.shop-quiser a span:last-child { display: grid; }
+.shop-quiser strong { font-size: 1.0625rem; }
+.shop-quiser small { color: #3e4b49; font-size: 0.875rem; line-height: 1.4; }
+.shop-contato li { display: grid; gap: 0.375rem; padding: 1rem; border-radius: 12px; background: #ffffff; box-shadow: 0 0 24px rgba(13, 20, 19, 0.04); }
+.shop-contato a { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.5rem; color: var(--uf-navy); font-size: 0.9375rem; font-weight: 600; }
+/* submenu do desktop: escondido no celular */
+.shop-submenu { display: none; }
+@layer overrides {
+  .shop-quiser h2, .shop-contato h2 { margin: 0 !important; color: var(--uf-ink) !important; font-size: 1.375rem !important; }
+}
+
+@media (min-width: 992px) {
+  .shop-lojabar { display: none; }
+  .shop-submenu { display: flex; align-items: center; gap: 1.5rem; max-width: 82rem; margin: 0 auto; padding: 0.5rem 1.25rem; font-size: 0.875rem; }
+  .shop-submenu-dep { padding: 0.5rem 1rem; border-radius: 6px; background: var(--uf-pill); color: #ffffff; font-weight: 700; text-decoration: none; }
+  .shop-submenu-loja { display: inline-flex; align-items: center; gap: 0.5rem; border: 0; background: transparent; color: var(--uf-ink); font: inherit; cursor: pointer; }
+  .shop-submenu ul { display: flex; gap: 1.5rem; margin: 0 0 0 auto; padding: 0; list-style: none; }
+  .shop-submenu ul a { color: var(--uf-navy); font-weight: 600; text-decoration: none; }
+  .shop-abas { max-width: 35.25rem; height: 3.75rem; }
+  .shop-abas a { flex-basis: 7.3rem; }
+  .shop-info { justify-content: space-between; gap: 1.25rem; overflow: visible; }
+  .shop-info li { flex: 1 1 0; }
+  .shop-categorias h2 { max-width: 82rem; margin-inline: auto; font-size: 1.5rem; }
+  .shop-quiser ul, .shop-contato ul { grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+  /* vitrines no desktop: cartão de 229px, setas laterais */
+  .shop-vitrine { max-width: 82rem; margin: 0 auto; }
+  .shop-seta { position: absolute; top: 40%; z-index: 2; display: grid; place-items: center; width: 2.5rem; height: 2.5rem; padding: 0; border: 0; border-radius: 50%; background: var(--uf-pill); color: #ffffff; cursor: pointer; }
+  .shop-seta-esq { left: -0.5rem; }
+  .shop-seta-dir { right: -0.5rem; }
+  .shop-seta-dir svg { transform: none; }
+  .shop-destaques-lista li { flex-basis: 14.3rem; }
+}
+
+/* ajustes da home: cartões com a mesma altura, quadro de foto fixo e categorias alinhadas */
+.shop-destaques-lista { align-items: stretch; }
+.shop-destaques-lista li { display: flex; }
+.shop-destaques-lista .shop-card { flex: 1 1 auto; display: flex; flex-direction: column; }
+.shop-card-foto { width: 100% !important; height: 9rem; aspect-ratio: auto !important; margin: 0 !important; overflow: hidden; }
+.shop-card-foto img { width: auto !important; height: auto !important; max-width: 100%; max-height: 100%; object-fit: contain; }
+.shop-card-foto span { display: block; width: 70%; height: 80%; border-radius: 12px; background: #eef3f2; }
+.shop-card h3 { flex: 1 1 auto; }
+.shop-categorias { margin-top: 1.25rem; }
+@media (min-width: 992px) {
+  .shop-categorias { max-width: 82rem; margin-inline: auto; padding-inline: 1.25rem; }
+  .shop-categorias h2 { padding-inline: 0; margin-inline: 0; }
+  .shop-categorias ul { padding-inline: 0; }
+  .shop-destaques { max-width: 82rem; padding-left: 1.25rem; padding-right: 1.25rem; }
+  .shop-destaques-topo { padding-right: 0; }
+  .shop-semana, .semana-painel { max-width: none; }
+}

@@ -2,22 +2,39 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { IconSetaDireita, IconVoltar } from "../reserva/ReservaIcons";
 import ReservarBotao from "../reserva/ReservarBotao";
 import { formatarCentavos } from "../reserva/reserva-store";
 
-type Destaque = { nome: string; slug: string; precoCentavos: number; foto: string | null };
+type Destaque = { nome: string; slug: string; lab?: string; precoCentavos: number; foto: string | null };
+
+type Props = {
+  titulo?: string;
+  /** Slug da categoria do catálogo (ex.: "perfumaria-e-higiene"). Sem ele, traz itens variados. */
+  grupo?: string;
+  /** Quantos itens (1 a 12). */
+  n?: number;
+  /** Link do "Ver tudo". */
+  verTodasHref?: string | null;
+  verTodas?: boolean;
+  source?: string;
+  id?: string;
+};
 
 /**
- * Carrossel "Destaques da semana". Busca no navegador em /api/destaques (cache de 5 min) para a home continuar estática
- * e o preço nunca ficar congelado no build. Se a busca falhar, a seção some.
+ * Vitrine de produtos: título à esquerda, "Ver tudo" à direita e fileira rolável (setas no desktop).
+ * Busca no navegador em /api/destaques (cache de 5 min) para a home continuar estática e o preço nunca ficar congelado.
+ * Se a busca falhar, a seção some.
  */
-export default function DestaquesSemana({ titulo = "Destaques da semana", verTodas = true, source = "destaques_home" }: { titulo?: string; verTodas?: boolean; source?: string } = {}) {
+export default function DestaquesSemana({ titulo = "Destaques da semana", grupo, n = 8, verTodasHref = "/nacoes-unidas/produtos", verTodas = true, source = "destaques_home", id = "destaques" }: Props = {}) {
   const [itens, setItens] = useState<Destaque[]>([]);
+  const lista = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     let ativo = true;
-    fetch("/api/destaques", { headers: { accept: "application/json" } })
+    const consulta = new URLSearchParams({ n: String(n), ...(grupo ? { grupo } : {}) });
+    fetch(`/api/destaques?${consulta}`, { headers: { accept: "application/json" } })
       .then((resposta) => (resposta.ok ? resposta.json() : null))
       .then((dados: { itens?: Destaque[] } | null) => {
         if (ativo && dados?.itens?.length) setItens(dados.itens);
@@ -26,32 +43,39 @@ export default function DestaquesSemana({ titulo = "Destaques da semana", verTod
     return () => {
       ativo = false;
     };
-  }, []);
+  }, [grupo, n]);
 
   if (itens.length === 0) return null;
 
+  const rolar = (sentido: 1 | -1) => lista.current?.scrollBy({ left: sentido * Math.max(240, lista.current.clientWidth * 0.8), behavior: "smooth" });
+
   return (
-    <section className="shop-destaques" aria-labelledby="destaques-titulo">
+    <section className="shop-destaques" id={id} aria-labelledby={`${id}-titulo`}>
       <div className="shop-destaques-topo">
-        <h2 id="destaques-titulo">{titulo}</h2>
-        {verTodas ? <a href="/nacoes-unidas/produtos">Ver todas</a> : null}
+        <h2 id={`${id}-titulo`}>{titulo}</h2>
+        {verTodas && verTodasHref ? <a href={verTodasHref}>Ver tudo</a> : null}
       </div>
-      <ul className="shop-destaques-lista">
-        {itens.map((item) => (
-          <li key={item.slug}>
-            <article className="shop-card">
-              <a className="shop-card-foto" href={`/nacoes-unidas/produtos/${item.slug}`} aria-label={`Ver ${item.nome}`}>
-                {item.foto ? <img src={item.foto} alt="" width="120" height="120" loading="lazy" decoding="async" /> : <span aria-hidden="true" />}
-              </a>
-              <h3>
-                <a href={`/nacoes-unidas/produtos/${item.slug}`}>{item.nome}</a>
-              </h3>
-              <p className="shop-card-preco">{formatarCentavos(item.precoCentavos)}</p>
-              <ReservarBotao unitId="nacoes" nome={item.nome} precoCentavos={item.precoCentavos} foto={item.foto} source={source} compacto />
-            </article>
-          </li>
-        ))}
-      </ul>
+      <div className="shop-vitrine">
+        <button type="button" className="shop-seta shop-seta-esq" aria-label={`Anterior em ${titulo}`} onClick={() => rolar(-1)}><IconVoltar size={20} /></button>
+        <ul className="shop-destaques-lista" ref={lista}>
+          {itens.map((item) => (
+            <li key={item.slug}>
+              <article className="shop-card">
+                <a className="shop-card-foto" href={`/nacoes-unidas/produtos/${item.slug}`} aria-label={`Ver ${item.nome}`}>
+                  {item.foto ? <img src={item.foto} alt="" width="120" height="120" loading="lazy" decoding="async" /> : <span aria-hidden="true" />}
+                </a>
+                {item.lab ? <p className="shop-card-marca">{item.lab}</p> : null}
+                <h3>
+                  <a href={`/nacoes-unidas/produtos/${item.slug}`}>{item.nome}</a>
+                </h3>
+                <p className="shop-card-preco">{formatarCentavos(item.precoCentavos)}</p>
+                <ReservarBotao unitId="nacoes" nome={item.nome} precoCentavos={item.precoCentavos} foto={item.foto} source={source} compacto />
+              </article>
+            </li>
+          ))}
+        </ul>
+        <button type="button" className="shop-seta shop-seta-dir" aria-label={`Próximo em ${titulo}`} onClick={() => rolar(1)}><IconSetaDireita size={20} /></button>
+      </div>
     </section>
   );
 }
