@@ -8,10 +8,11 @@ import { buildWhatsAppUrl, UNITS } from "../site-config";
 import { formatarCentavos } from "../reserva/reserva-store";
 import BrandLogo from "../BrandLogo";
 import ReservaSacola from "../reserva/ReservaSacola";
-import { IconFechar, IconLupa, IconMenu, IconPino } from "../reserva/ReservaIcons";
+import { IconLupa, IconMenu, IconPino, IconWhats } from "../reserva/ReservaIcons";
 import LojaPicker from "./LojaPicker";
 import "./shop.css";
-import { abrirSeletorDeLoja } from "./loja-evento";
+import DepartamentosGaveta from "./DepartamentosGaveta";
+import { abrirSeletorDeLoja, EVENTO_ABRIR_DEPARTAMENTOS } from "./loja-evento";
 
 const LINKS = [
   { href: "/nacoes-unidas/produtos", label: "Produtos" },
@@ -51,22 +52,16 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   const mostrarPainel = foco && (normal.length === 0 || normal.length >= 2);
   const semResultado = normal.length >= 2 && itens !== null && resultados.length === 0;
 
+  // Abre a gaveta "Departamentos" pelo botão do cabeçalho do desktop.
   useEffect(() => {
-    if (!menu) return;
-    const anterior = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    const aoTeclar = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setMenu(false);
-    };
-    document.addEventListener("keydown", aoTeclar);
-    return () => {
-      document.body.style.overflow = anterior;
-      document.removeEventListener("keydown", aoTeclar);
-    };
-  }, [menu]);
+    const abrir = () => setMenu(true);
+    window.addEventListener(EVENTO_ABRIR_DEPARTAMENTOS, abrir);
+    return () => window.removeEventListener(EVENTO_ABRIR_DEPARTAMENTOS, abrir);
+  }, []);
 
   return (
     <>
+      <div className="shop-faixa-topo" aria-hidden="true" />
       <header className="shop-header">
         <button type="button" className="shop-icone shop-menu" aria-label="Abrir menu" aria-expanded={menu} aria-controls="shop-menu-painel" onClick={() => setMenu(true)}>
           <IconMenu size={26} />
@@ -75,6 +70,12 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
           <BrandLogo priority />
           <span>União Farma</span>
         </a>
+        {nacoes ? (
+          <a className="shop-whats" href={buildWhatsAppUrl(nacoes, "Oi, União Farma!", { campaign: "cabecalho", content: "nacoes" })} data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="cabecalho" target="_blank" rel="noreferrer">
+            <IconWhats size={26} />
+            <span>WhatsApp<strong>{nacoes.whatsapp}</strong></span>
+          </a>
+        ) : null}
         <form
           className="shop-busca"
           role="search"
@@ -106,7 +107,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
             aria-expanded={mostrarPainel}
             aria-controls="shop-sugestoes"
             aria-autocomplete="list"
-            placeholder="Buscar produto, ex.: nivea, listerine"
+            placeholder="Buscar na União Farma"
             autoComplete="off"
             enterKeyHint="search"
           />
@@ -167,6 +168,8 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
             <a key={link.href} href={link.href}>{link.label}</a>
           ))}
         </nav>
+        <span className="shop-vazio shop-vazio-sino" aria-hidden="true" />
+        <span className="shop-vazio shop-vazio-usuario" aria-hidden="true" />
         <div className="shop-acoes">
           <button type="button" className="shop-icone" aria-label="Escolher loja" onClick={abrirSeletorDeLoja}>
             <IconPino size={28} />
@@ -175,26 +178,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
         </div>
       </header>
 
-      {menu ? (
-        <div className="shop-menu-raiz" role="dialog" aria-modal="true" aria-label="Menu">
-          <button type="button" className="shop-menu-fundo" aria-label="Fechar o menu" tabIndex={-1} onClick={() => setMenu(false)} />
-          <div className="shop-menu-painel" id="shop-menu-painel">
-            <div className="shop-menu-topo">
-              <strong>Menu</strong>
-              <button type="button" className="reserva-icone" aria-label="Fechar o menu" onClick={() => setMenu(false)}>
-                <IconFechar size={24} />
-              </button>
-            </div>
-            <ul>
-              {LINKS.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href} onClick={() => setMenu(false)}>{link.label}</a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      ) : null}
+      <DepartamentosGaveta aberto={menu} onFechar={() => setMenu(false)} />
       <LojaPicker />
     </>
   );

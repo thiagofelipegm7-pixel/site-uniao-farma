@@ -29,6 +29,19 @@ export default function ReservaSacola() {
     return () => window.removeEventListener(EVENTO_ABRIR_RESERVA, abrir);
   }, []);
 
+  // Efeito da Panvel: se o zoom (ou a janela) deixar a página estreita (< 992 px, layout de celular), a gaveta que estava
+  // aberta se fecha sozinha para não atrapalhar a visão. Só reage ao cruzar o limite: abrir já no celular continua funcionando.
+  useEffect(() => {
+    const estreita = window.matchMedia("(max-width: 991.98px)");
+    const aoMudar = (event: MediaQueryListEvent) => {
+      if (!event.matches) return;
+      setAberta(false);
+      setConfirmando(false);
+    };
+    estreita.addEventListener("change", aoMudar);
+    return () => estreita.removeEventListener("change", aoMudar);
+  }, []);
+
   useEffect(() => {
     if (!aberta) return;
     const gatilho = gatilhoRef.current;
