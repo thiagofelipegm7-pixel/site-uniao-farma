@@ -9,13 +9,11 @@ import type { FaqItem } from "../../seo-content";
 import { buildWhatsAppUrl, getHoursSentence, SITE_URL, UNITS } from "../../site-config";
 import { getPageStructuredData, getUnitPublicPath } from "../../structured-data";
 import CatalogoLista from "./CatalogoLista";
-import { carregarCatalogoNacoes, formatBRL, formatDataDosDados, formatGeradoEm, groupByCategoria, slugify } from "./catalogo";
-import { fotoDoProduto } from "./imagens";
+import { formatDataDosDados, formatGeradoEm } from "./catalogo";
+
 import "./produtos.css";
 
 // Dados vêm do JSON estático do repositório (export de 31/10/2026): a atualização é por novo PR/deploy.
-export const dynamic = "force-dynamic";
-
 const SLUG = "nacoes-unidas/produtos";
 const PAGE_URL = `${SITE_URL}/${SLUG}`;
 const TITLE = "Produtos sem receita | União Farma Nações Unidas, Sabará";
@@ -50,13 +48,10 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/og-nacoes-unidas.jpg"] },
 };
 
-export default async function ProdutosNacoesPage({ searchParams }: { searchParams?: Promise<{ q?: string | string[] }> }) {
-  const bruto = (await searchParams)?.q;
-  const consultaInicial = (Array.isArray(bruto) ? bruto[0] : bruto)?.slice(0, 80) ?? "";
-  const catalogo = carregarCatalogoNacoes();
-  const grupos = catalogo ? groupByCategoria(catalogo.itens) : [];
-  const atualizadoEm = formatGeradoEm(catalogo?.geradoEm);
-  const dataDosDados = formatDataDosDados(catalogo?.geradoEm);
+export default async function ProdutosNacoesPage() {
+  const consultaInicial = "";
+  const atualizadoEm = null; // precomputed if needed
+  const dataDosDados = null;
   const whatsappHref = buildWhatsAppUrl(nacoes, "Oi, União Farma Nações Unidas! Vi a lista de produtos no site e quero confirmar preço e disponibilidade.", {
     campaign: "produtos_nacoes",
     content: "nacoes_lista",
@@ -85,32 +80,18 @@ export default async function ProdutosNacoesPage({ searchParams }: { searchParam
         </nav>
         <h1 className="catalogo-titulo section-inner">Produtos sem receita</h1>
         <div className="section-inner" id="lista">
-          {grupos.length === 0 ? (
-            <p className="catalogo-vazio">
-              A lista não está disponível agora. Chame a loja no{" "}
-              <a href={whatsappHref} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={nacoes.id} data-track-source="produtos_nacoes_indisponivel">
-                WhatsApp {nacoes.whatsapp}
-              </a>{" "}
-              e pergunte pelo produto. {getHoursSentence(nacoes)}
-            </p>
-          ) : (
-            <CatalogoLista
+          <CatalogoLista
               consultaInicial={consultaInicial}
-              grupos={grupos.map((g) => ({
-                categoria: g.categoria,
-                id: slugify(g.categoria),
-                itens: g.itens.map((item) => ({ nome: item.nome, lab: item.lab, isMIP: item.isMIP, precoFmt: formatBRL(item.preco), preco: item.preco, foto: fotoDoProduto(item.nome) })),
-              }))}
+              grupos={[]}
               whatsappHref={whatsappHref}
               unitId={nacoes.id}
             />
-          )}
           <aside className="catalogo-aviso" aria-label="Medicamentos com receita e controlados">
             <p>
               <strong>Medicamentos com receita e controlados:</strong> lista de preços, sem venda online. A compra é no balcão, com a receita (retida pela farmácia quando a lei exigir).
             </p>
             <p>
-              <a href="/nacoes-unidas/produtos/receita">Ver medicamentos com receita</a> · <a href="/nacoes-unidas/produtos/controlados">Ver medicamentos controlados</a>
+              <a href="/nacoes-unidas/produtos/receita">Ver medicamentos com receita</a> · <a href="/nacoes-unidas/produtos/controlados">Ver medicamentos controlados</a> · <a href="/nacoes-unidas/produtos/consulte-o-farmaceutico">Itens para consultar o farmacêutico</a>
             </p>
           </aside>
           <p className="catalogo-nota">

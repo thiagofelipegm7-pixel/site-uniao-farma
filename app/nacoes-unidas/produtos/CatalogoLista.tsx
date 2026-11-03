@@ -48,7 +48,37 @@ function alternar<T extends string>(lista: readonly T[] | undefined, valor: T): 
  * Ordenação, filtro e grade de produtos. A busca fica no cabeçalho (?q=), como no protótipo.
  * O HTML do servidor já traz a lista inteira, então sem JavaScript ela continua completa.
  */
-export default function CatalogoLista({ grupos, whatsappHref, unitId, consultaInicial = "" }: Props) {
+export default function CatalogoLista({ grupos: gruposProps, whatsappHref, unitId, consultaInicial = "" }: Props) {
+  const [grupos, setGrupos] = useState(gruposProps);
+  useEffect(() => {
+    if (gruposProps.length > 0) return;
+    let cancel = false;
+    (async () => {
+      try {
+        const idx = await fetch("/dados/nacoes/catalogo-index.json").then(r => r.json());
+        const gruposCarregados: GrupoBusca[] = [];
+        for (const g of idx.grupos || []) {
+          const p1 = await fetch(`/dados/nacoes/catalogo/${g.slug}/p1.json`).then(r => r.json());
+          gruposCarregados.push({
+            categoria: g.categoria,
+            id: g.slug,
+            itens: p1.map((item: any) => ({
+              nome: item.nomeExibicao || item.nome,
+              lab: item.lab,
+              isMIP: item.isMIP,
+              precoFmt: item.precoFmt,
+              preco: item.preco,
+              foto: item.foto,
+            })),
+          });
+        }
+        if (!cancel) setGrupos(gruposCarregados);
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+    return () => { cancel = true; };
+  }, [gruposProps]);
   const base = identificarItens(grupos);
   const opcoes = opcoesFiltro(base);
   const consulta = consultaInicial;
