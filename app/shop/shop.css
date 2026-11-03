@@ -1089,3 +1089,27 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .shop-categorias li { flex: 0 0 8.75rem; }
   .shop-categorias a { width: 8.75rem; }
 }
+
+/* =====================================================================
+   Cabeçalho que encolhe e expande ao rolar, como o da Panvel (vídeo): faixa de aviso e barra de acessos recolhem; a faixa
+   principal e a pílula de abas ficam fixas. Só no desktop; no celular o contêiner é transparente (display: contents).
+   ===================================================================== */
+.cab-espaco, .cab-fixo { display: contents; }
+@media (min-width: 992px) {
+  :root { --cab-faixa: 2.5rem; --cab-banda: 5.75rem; --cab-sub: 4.3125rem; }
+  html { scroll-padding-top: 8.5rem; }
+  .cab-espaco { display: block; height: calc(var(--cab-faixa) + var(--cab-banda) + var(--cab-sub)); }
+  .cab-fixo { display: block; position: fixed; top: 0; left: 0; right: 0; z-index: 4000; }
+  .cab-fixo .shop-header { position: static; }
+  .cab-fixo .shop-faixa-topo { overflow: hidden; transition: height 0.22s ease, opacity 0.22s ease; }
+  .cab-fixo .shop-submenu { overflow: hidden; max-height: var(--cab-sub); transition: max-height 0.22s ease, opacity 0.22s ease, padding 0.22s ease; }
+  html[data-cab-rolado="sim"] .cab-fixo .shop-faixa-topo { height: 0; opacity: 0; }
+  html[data-cab-rolado="sim"] .cab-fixo .shop-submenu { max-height: 0; opacity: 0; padding-block: 0; border-bottom-width: 0; pointer-events: none; }
+  html[data-cab-rolado="sim"] .cab-fixo .shop-header { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.14); }
+  /* pílula de abas: fixa logo abaixo do cabeçalho e acompanha a altura dele */
+  .shop-abas { position: sticky; top: calc(var(--cab-faixa) + var(--cab-banda) + var(--cab-sub) + 0.75rem); z-index: 3900; transition: top 0.22s ease; }
+  html[data-cab-rolado="sim"] .shop-abas { top: calc(var(--cab-banda) + 0.75rem); }
+}
+@media (min-width: 992px) and (prefers-reduced-motion: reduce) {
+  .cab-fixo .shop-faixa-topo, .cab-fixo .shop-submenu, .shop-abas { transition: none; }
+}

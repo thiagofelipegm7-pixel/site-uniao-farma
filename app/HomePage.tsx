@@ -7,6 +7,7 @@ import { getPageStructuredData } from "./structured-data";
 import LojasCartoes from "./shop/LojasCartoes";
 import OfertasSemana from "./OfertasSemana";
 import LojaBar from "./shop/LojaBar";
+import CabecalhoInteligente from "./shop/CabecalhoInteligente";
 import ShopHeader from "./shop/ShopHeader";
 import DestaquesSemana from "./shop/DestaquesSemana";
 import { AbasHome, BarraInfo, ComoContato, ComoQuiser, SubmenuHome } from "./shop/HomeBlocos";
@@ -27,8 +28,10 @@ export default function HomePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeStructuredData) }} />
-      <ShopHeader />
-      <SubmenuHome />
+      <CabecalhoInteligente>
+        <ShopHeader />
+        <SubmenuHome />
+      </CabecalhoInteligente>
       <LojaBar />
       <AbasHome />
       <HeroReserva />
