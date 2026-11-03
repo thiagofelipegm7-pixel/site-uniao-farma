@@ -8,7 +8,7 @@ import { buildWhatsAppUrl, UNITS } from "../site-config";
 import { formatarCentavos } from "../reserva/reserva-store";
 import BrandLogo from "../BrandLogo";
 import ReservaSacola from "../reserva/ReservaSacola";
-import { IconFechar, IconLupa, IconMenu, IconPino } from "../reserva/ReservaIcons";
+import { IconFechar, IconLupa, IconMenu, IconPino, IconWhats } from "../reserva/ReservaIcons";
 import LojaPicker from "./LojaPicker";
 import "./shop.css";
 import { abrirSeletorDeLoja } from "./loja-evento";
@@ -67,6 +67,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
 
   return (
     <>
+      <div className="shop-faixa-topo" aria-hidden="true" />
       <header className="shop-header">
         <button type="button" className="shop-icone shop-menu" aria-label="Abrir menu" aria-expanded={menu} aria-controls="shop-menu-painel" onClick={() => setMenu(true)}>
           <IconMenu size={26} />
@@ -75,6 +76,12 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
           <BrandLogo priority />
           <span>União Farma</span>
         </a>
+        {nacoes ? (
+          <a className="shop-whats" href={buildWhatsAppUrl(nacoes, "Oi, União Farma!", { campaign: "cabecalho", content: "nacoes" })} data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="cabecalho" target="_blank" rel="noreferrer">
+            <IconWhats size={26} />
+            <span>WhatsApp<strong>{nacoes.whatsapp}</strong></span>
+          </a>
+        ) : null}
         <form
           className="shop-busca"
           role="search"
@@ -106,7 +113,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
             aria-expanded={mostrarPainel}
             aria-controls="shop-sugestoes"
             aria-autocomplete="list"
-            placeholder="Buscar produto, ex.: nivea, listerine"
+            placeholder="Buscar na União Farma"
             autoComplete="off"
             enterKeyHint="search"
           />
@@ -167,6 +174,8 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
             <a key={link.href} href={link.href}>{link.label}</a>
           ))}
         </nav>
+        <span className="shop-vazio shop-vazio-sino" aria-hidden="true" />
+        <span className="shop-vazio shop-vazio-usuario" aria-hidden="true" />
         <div className="shop-acoes">
           <button type="button" className="shop-icone" aria-label="Escolher loja" onClick={abrirSeletorDeLoja}>
             <IconPino size={28} />

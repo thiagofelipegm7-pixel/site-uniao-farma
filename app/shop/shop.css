@@ -977,3 +977,65 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .shop-destaques-topo { padding-right: 0; }
   .shop-semana, .semana-painel { max-width: none; }
 }
+
+/* =====================================================================
+   Cabeçalho do desktop copiando o da Panvel: faixa de aviso, faixa principal (logo, WhatsApp, busca larga, sino,
+   usuário e cesta) e barra de acessos. O que a União não tem fica em branco. Cores e fonte da União.
+   ===================================================================== */
+.shop-faixa-topo, .shop-whats, .shop-vazio { display: none; }
+.shop-submenu-conteudo { display: contents; }
+
+@media (min-width: 992px) {
+  .shop-faixa-topo { display: block; height: 2.5rem; background: var(--uf-pill); }
+  .shop-header {
+    grid-template-columns: auto auto minmax(0, 1fr) 2.75rem 8.5rem auto;
+    grid-template-areas: "marca whats busca sino usuario acoes";
+    column-gap: 2rem;
+    box-sizing: border-box;
+    max-width: none;
+    height: 5.75rem;
+    padding: 0 max(2rem, calc((100% - 82rem) / 2 + 1.25rem));
+    border-bottom: 0;
+    background: var(--uf-panel);
+    color: var(--uf-action-ink);
+  }
+  .shop-marca { color: var(--uf-action-ink); }
+  .shop-marca img { width: 2.75rem; height: 2.75rem; padding: 4px; border-radius: 10px; background: #ffffff; }
+  .shop-marca span { font-size: 1.25rem; font-weight: 800; }
+  .shop-whats { grid-area: whats; display: inline-flex; align-items: center; gap: 0.5rem; color: var(--uf-action-ink); text-decoration: none; }
+  .shop-whats span { display: grid; font-size: 0.875rem; font-weight: 700; line-height: 1.2; }
+  .shop-whats strong { font-size: 1rem; }
+  .shop-busca { grid-area: busca; height: 3rem; border: 0; border-radius: 8px; padding: 0 0.75rem; }
+  .shop-busca input { order: 1; font-size: 0.9375rem; }
+  .shop-busca button { order: 0; width: 1.75rem; height: 1.75rem; margin-right: 0.5rem; background: transparent; color: var(--uf-navy); }
+  .shop-vazio { display: block; }
+  .shop-vazio-sino { grid-area: sino; }
+  .shop-vazio-usuario { grid-area: usuario; }
+  .shop-links { display: none; }
+  .shop-acoes { grid-area: acoes; }
+  .shop-acoes > .shop-icone { display: none; }
+  .shop-acoes .reserva-sacola { width: 2.75rem; height: 2.75rem; border-radius: 50%; background: #ffffff; color: var(--uf-action-ink); }
+
+  /* barra de acessos: Departamentos | Enviar para | 5 espaços iguais */
+  .shop-submenu { display: block; border-bottom: 1px solid #e3ecea; background: #ffffff; }
+  .shop-submenu-conteudo { display: flex; align-items: center; gap: 2rem; box-sizing: border-box; max-width: 82rem; min-height: 3.25rem; margin: 0 auto; padding: 0.25rem 1.25rem; }
+  .shop-submenu-dep { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0; background: transparent; color: var(--uf-navy); font-size: 0.875rem; font-weight: 800; text-decoration: none; }
+  .shop-submenu-loja { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0; border: 0; background: transparent; color: var(--uf-navy); font: inherit; text-align: left; cursor: pointer; }
+  .shop-submenu-loja span { display: grid; line-height: 1.2; }
+  .shop-submenu-loja small { color: #5b6b68; font-size: 0.75rem; }
+  .shop-submenu-loja strong { font-size: 0.875rem; font-weight: 800; }
+  .shop-submenu ul { flex: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; margin: 0; padding: 0; list-style: none; }
+  .shop-submenu li { display: grid; place-items: center; min-height: 2.5rem; }
+  .shop-submenu ul a { color: var(--uf-navy); font-size: 0.875rem; font-weight: 500; text-decoration: none; }
+}
+
+/* Abas em pílula como no vídeo da Panvel: contêiner claro com sombra, abas que dividem a pílula por igual,
+   aba ativa e aba sob o mouse preenchidas. Sem área vazia dentro da pílula. */
+.shop-abas { width: calc(100% - 2.5rem); max-width: 22.625rem; background: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); }
+.shop-abas a { flex: 1 1 0; color: var(--uf-navy); }
+.shop-abas a span { display: block; width: 100%; text-align: center; font-size: 1rem; font-weight: 600; line-height: 1.2; }
+.shop-abas a:hover:not(.is-ativa), .shop-abas a:focus-visible:not(.is-ativa) { background: var(--uf-panel); color: var(--uf-action-ink); }
+.shop-abas a.is-ativa { background: var(--uf-panel); color: var(--uf-action-ink); }
+.shop-abas a { transition: background-color 0.2s ease, color 0.2s ease; }
+@media (min-width: 992px) { .shop-abas { max-width: 35.25rem; } }
+@media (prefers-reduced-motion: reduce) { .shop-abas a { transition: none; } }

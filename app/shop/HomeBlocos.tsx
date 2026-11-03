@@ -4,14 +4,17 @@
 
 import { useEffect, useState } from "react";
 import { readPreferredUnitId } from "../preferred-unit";
-import { IconCartao, IconLoja, IconMoto, IconPino, IconWhats } from "../reserva/ReservaIcons";
+import { IconCartao, IconLoja, IconMenu, IconMoto, IconPino, IconWhats } from "../reserva/ReservaIcons";
 import { formatarCentavos, TAXA_ENTREGA_CENTAVOS } from "../reserva/reserva-store";
 import { buildWhatsAppUrl, UNITS } from "../site-config";
 import { abrirSeletorDeLoja } from "./loja-evento";
 
 const nacoes = UNITS.find((unit) => unit.id === "nacoes");
 
-/** Submenu do desktop (como a barra "Departamentos / Enviar para / acessos rápidos" da Panvel). Some no celular. */
+/**
+ * Barra de acessos do desktop, com os mesmos 7 espaços da Panvel: Departamentos, Enviar para, Meus Cupons, Kits e Combos,
+ * Ofertas Exclusivas, Combine e Ganhe e Desconto de Laboratório. O que a União não tem fica em branco. Some no celular.
+ */
 export function SubmenuHome() {
   const [id, setId] = useState<string | null>(null);
   useEffect(() => {
@@ -23,17 +26,20 @@ export function SubmenuHome() {
   const unit = UNITS.find((item) => item.id === id);
   return (
     <nav className="shop-submenu" aria-label="Acessos rápidos">
-      <a className="shop-submenu-dep" href="#departamentos">Departamentos</a>
-      <button type="button" className="shop-submenu-loja" onClick={abrirSeletorDeLoja}>
-        <IconPino size={20} />
-        <span>Enviar para <strong>{unit ? unit.shortName : "escolha sua loja"}</strong></span>
-      </button>
-      <ul>
-        <li><a href="/ofertas">Ofertas exclusivas</a></li>
-        <li><a href="/nacoes-unidas/produtos">Todos os produtos</a></li>
-        <li><a href="/entrega-de-medicamentos-em-sabara">Entrega</a></li>
-        <li><a href="#unidades-rapidas">Nossas lojas</a></li>
-      </ul>
+      <div className="shop-submenu-conteudo">
+        <a className="shop-submenu-dep" href="#departamentos"><IconMenu size={20} /><span>Departamentos</span></a>
+        <button type="button" className="shop-submenu-loja" onClick={abrirSeletorDeLoja}>
+          <IconPino size={20} />
+          <span><small>Enviar para</small><strong>{unit ? unit.shortName : "Escolha sua loja"}</strong></span>
+        </button>
+        <ul>
+          <li className="shop-submenu-vazio" aria-hidden="true" />
+          <li className="shop-submenu-vazio" aria-hidden="true" />
+          <li><a href="/ofertas">Ofertas Exclusivas</a></li>
+          <li className="shop-submenu-vazio" aria-hidden="true" />
+          <li className="shop-submenu-vazio" aria-hidden="true" />
+        </ul>
+      </div>
     </nav>
   );
 }
@@ -42,9 +48,9 @@ export function SubmenuHome() {
 export function AbasHome() {
   return (
     <nav className="shop-abas" aria-label="Seções da página">
-      <a className="is-ativa" href="#inicio" aria-current="true"><span><small>União Farma</small><strong>Para você</strong></span></a>
-      <a href="#ofertas-da-semana"><span><small>Ver</small><strong>Ofertas</strong></span></a>
-      <a href="#unidades-rapidas"><span><small>Ver</small><strong>Lojas</strong></span></a>
+      <a className="is-ativa" href="#inicio" aria-current="true"><span>Para você</span></a>
+      <a href="#ofertas-da-semana"><span>Ofertas</span></a>
+      <a href="#unidades-rapidas"><span>Lojas</span></a>
     </nav>
   );
 }
