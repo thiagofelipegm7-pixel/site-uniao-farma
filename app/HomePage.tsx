@@ -5,7 +5,6 @@
 import { SITE_URL, UNITS } from "./site-config";
 import { getPageStructuredData } from "./structured-data";
 import LojasCartoes from "./shop/LojasCartoes";
-import BrandStrip from "./BrandStrip";
 import OfertasSemana from "./OfertasSemana";
 import LojaBar from "./shop/LojaBar";
 import ShopHeader from "./shop/ShopHeader";
@@ -30,7 +29,6 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeStructuredData) }} />
       <ShopHeader />
       <SubmenuHome />
-      <BrandStrip semSacola />
       <LojaBar />
       <AbasHome />
       <HeroReserva />

@@ -4,7 +4,6 @@
 
 import { useState, useSyncExternalStore } from "react";
 import BrandLogo from "../BrandLogo";
-import BrandStrip from "../BrandStrip";
 import { trackEvent } from "../analytics";
 import { listarBairros, lojaDoBairro } from "../entrega-bairro";
 import { readPreferredUnitId } from "../preferred-unit";
@@ -90,7 +89,6 @@ export default function ReservaFluxo() {
           <a className="fluxo-voltar" href="/nacoes-unidas/produtos" aria-label="Voltar para os produtos"><IconVoltar size={26} /></a>
           <h1>Minha cesta</h1>
         </header>
-        <BrandStrip semSacola />
         <div className="fluxo-vazio">
           <strong>Sua cesta ainda está vazia. Bora escolher?</strong>
           <p>Escolha seus produtos e pague só quando retirar.</p>
@@ -156,7 +154,6 @@ export default function ReservaFluxo() {
           <button type="button" className="fluxo-continuar-comprando" onClick={() => ir((passo - 1) as Passo)}>Voltar</button>
         )}
       </header>
-      <div className="fluxo-brandstrip"><BrandStrip semSacola /></div>
 
       <div className="fluxo-progresso" role="img" aria-label={`Passo ${passo} de 3`}>
         {[1, 2, 3].map((n) => <span key={n} className={n <= passo ? "is-on" : ""} />)}
