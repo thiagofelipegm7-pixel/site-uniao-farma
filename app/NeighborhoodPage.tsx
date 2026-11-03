@@ -163,14 +163,14 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
             </li>
           ))}
           <li><a href="/entrega-de-medicamentos-em-sabara">Entrega de medicamentos em Sabará</a></li>
-          <li><a href="/farmacia-em-sabara">Farmácia em Sabará: as 3 lojas</a></li>
+          <li><a href="/farmacia-em-sabara">Farmácia em Sabará: a loja Nações Unidas</a></li>
           <li><a href="/farmacia-aberta-domingo-sabara">Ver horários: farmácia aberta agora e domingo</a></li>
         </ul>
       </section>
 
       <section className="section-inner offers-group-inline">
         <h2>Grupo de Ofertas no WhatsApp</h2>
-        <p>Receba as ofertas da semana das 3 lojas direto no seu celular.</p>
+        <p>Receba as ofertas da semana da loja Nações Unidas direto no seu celular.</p>
         <OffersGroupCta placement={`unit_${unit.id}`} />
       </section>
 

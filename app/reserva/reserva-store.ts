@@ -89,6 +89,10 @@ export type DadosPedido = {
   /** Só na entrega. */
   bairro?: string;
   rua?: string;
+  /** Forma de pagamento escolhida pelo cliente. */
+  pagamento?: string;
+  /** Taxa de entrega em centavos (0 se retirada ou não informada). */
+  taxaEntregaCentavos?: number;
 };
 
 /**
@@ -99,20 +103,25 @@ export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: D
   const linhas = itens.map((i) => `\u2022 ${i.qtd}x ${i.nome.replace(/\s+/g, " ").trim()}`);
   const retirar = dados.modo === "retirar";
   const nome = dados.nome.replace(/\s+/g, " ").trim();
+  const sub = subtotalCentavos(itens);
+  const taxa = !retirar ? (dados.taxaEntregaCentavos ?? 100) : 0;
+  const total = sub + taxa;
+  const pag = dados.pagamento?.trim() || (retirar ? "no balcão" : "na entrega");
   return [
     `Olá, União Farma ${unitNome}! Quero reservar:`,
     ...linhas,
     "",
     `Loja: ${unitNome}`,
-    `Forma: ${retirar ? "Retirar na loja" : "Receber em casa"}`,
+    `Forma: ${retirar ? "Retirar na loja" : "Entrega"}`,
     ...(!retirar && dados.bairro ? [`Bairro: ${dados.bairro}`] : []),
     ...(!retirar && dados.rua?.trim() ? [`Endereço: ${dados.rua.replace(/\s+/g, " ").trim()}`] : []),
     `Nome: ${nome || "[nome do cliente]"}`,
-    `Pagamento: ${retirar ? "no balcão" : "na entrega"}`,
-    `Subtotal estimado: ${formatarCentavos(subtotalCentavos(itens))}`,
+    `Pagamento: ${pag}`,
+    taxa > 0 ? `Taxa de entrega: ${formatarCentavos(taxa)}` : null,
+    `Total estimado: ${formatarCentavos(total)}`,
     "",
     "Podem confirmar preço e estoque? Obrigado!",
-  ].join("\n");
+  ].filter(Boolean).join("\n");
 }
 
 /** Lê e valida o que veio do navegador; qualquer coisa estranha vira reserva vazia. */
@@ -188,4 +197,10 @@ export function atualizarReserva(fn: (estado: ReservaEstado) => ReservaEstado): 
     /* navegação privada ou sem espaço: a reserva continua valendo nesta aba */
   }
   ouvintes.forEach((o) => o());
+}
+
+/** Taxa de entrega fixa: R$ 1,00 (100 centavos) para qualquer bairro. */
+export const TAXA_ENTREGA_CENTAVOS = 100;
+export function taxaDoBairro(_bairro: string | undefined): number {
+  return TAXA_ENTREGA_CENTAVOS;
 }

@@ -18,7 +18,7 @@ export default function SiteFooter() {
           <span>União Farma · Drogaria e Perfumaria</span>
         </a>
         <p>
-          Três lojas em Sabará. Farmacêutico responsável presente em todo o horário de funcionamento. Responsável técnico das 3 lojas: <strong>João</strong> · CRF/MG <strong>31958</strong>.
+          Loja em Sabará (Nações Unidas). Farmacêutico responsável presente em todo o horário de funcionamento. Responsável técnico da loja Nações Unidas: <strong>João</strong> · CRF/MG <strong>31958</strong>.
         </p>
         <p className="uf-footer-warning legal-band">{COMPANY.anvisaWarnings[3]}</p>
         <p className="uf-footer-legal-name">
