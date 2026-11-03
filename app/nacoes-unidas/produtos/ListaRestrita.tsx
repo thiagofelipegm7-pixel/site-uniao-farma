@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { ContentSiteFooter } from "../../ContentSiteChrome";
 import ShopTopo from "../../shop/ShopTopo";
 import { buildWhatsAppUrl, getHoursSentence, UNITS } from "../../site-config";
-import { formatBRL, formatDataDosDados } from "./catalogo";
+import { formatBRL } from "./catalogo";
 import {
   COMO_COMPRAR,
   COMO_COMPRAR_CONSULTE,
@@ -22,7 +22,6 @@ import "./produtos.css";
 const nacoes = UNITS.find((unit) => unit.id === "nacoes")!;
 
 export type ParamsLista = { q?: string | string[]; pagina?: string | string[] };
-const primeiro = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) ?? "";
 
 type Link = { href: string; rotulo: string };
 const LINKS: Record<TipoRestrito, Link> = {
@@ -121,11 +120,11 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
     const params = new URLSearchParams(window.location.search);
     const q = (params.get("q") || "").slice(0, 80);
     const pg = Math.max(1, Number(params.get("pagina")) || 1);
-    setConsulta(q);
-    setPagina(pg);
     (async () => {
       try {
         const idx = await fetch("/dados/nacoes/restritos-index.json").then(r => r.json());
+        setConsulta(q);
+        setPagina(pg);
         setData(idx.geradoEm ? new Date(idx.geradoEm).toLocaleDateString("pt-BR") : null);
         const info = idx[tipo];
         setTotal(info?.total || 0);
