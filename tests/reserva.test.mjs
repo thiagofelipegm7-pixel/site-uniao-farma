@@ -53,7 +53,7 @@ test("mensagem do WhatsApp lista itens, loja, forma, nome, pagamento e subtotal,
   const { ESTADO_VAZIO, adicionar, mensagemReserva } = await mod();
   const s = adicionar(ESTADO_VAZIO, nivea, 2);
   const retirar = mensagemReserva("Nações Unidas", s.itens, { modo: "retirar", nome: "  Maria  Souza " });
-  assert.match(retirar, /^Olá, União Farma Nações Unidas! Quero reservar:/);
+  assert.match(retirar, /^Olá, União Farma Nações Unidas! Quero pedir:/);
   assert.match(retirar, /\u2022 2x Loção Nivea Soft Milk 200ml/);
   assert.match(retirar, /Loja: Nações Unidas/);
   assert.match(retirar, /Forma: Retirar na loja/);
@@ -67,9 +67,35 @@ test("mensagem do WhatsApp lista itens, loja, forma, nome, pagamento e subtotal,
   assert.match(casa, /Bairro: Nações Unidas/);
   assert.match(casa, /Endereço: Rua Inglaterra, 100/);
   assert.match(casa, /Pagamento: na entrega/);
+  const comPix = mensagemReserva("Nações Unidas", s.itens, { modo: "casa", nome: "Maria", bairro: "Nações Unidas", rua: "Rua Inglaterra, 100", pagamento: "Pix" });
+  assert.match(comPix, /Pagamento: Pix \(na entrega\)/);
+  assert.match(mensagemReserva("Nações Unidas", s.itens, { modo: "retirar", nome: "Maria", pagamento: "Cartão de débito" }), /Pagamento: Cartão de débito \(no balcão\)/);
   assert.match(casa, /Taxa de entrega: R\$ 1,00/);
   assert.match(casa, /Total estimado: R\$ 40,80/);
   assert.match(mensagemReserva("Fátima", s.itens, { modo: "retirar", nome: "" }), /Nome: \[nome do cliente\]/);
+});
+
+test("seleção da cesta: item desmarcado fica fora do total, da contagem e da mensagem; adicionar de novo marca", async () => {
+  const { ESTADO_VAZIO, adicionar, definirSelecao, selecionarTodos, totalItens, subtotalCentavos, descontoCentavos, mensagemReserva, porLoja } = await mod();
+  let s = adicionar(ESTADO_VAZIO, nivea, 2);
+  s = adicionar(s, { ...rollon, deCentavos: 1590 });
+  assert.equal(totalItens(s), 3);
+  s = definirSelecao(s, s.itens[0].id, false);
+  assert.equal(totalItens(s), 1);
+  assert.equal(subtotalCentavos(s.itens), 1290);
+  assert.equal(descontoCentavos(s.itens), 300);
+  const msg = mensagemReserva("Nações Unidas", s.itens, { modo: "retirar", nome: "Ana" });
+  assert.doesNotMatch(msg, /Nivea Soft Milk/);
+  assert.match(msg, /1x Desodorante roll-on Nivea Protect/);
+  assert.match(msg, /Subtotal estimado: R\$ 12,90|Total estimado: R\$ 12,90/);
+  assert.deepEqual(porLoja(s).map((g) => g.itens.length), [1]);
+  s = selecionarTodos(s, false);
+  assert.equal(totalItens(s), 0);
+  s = adicionar(s, nivea);
+  assert.equal(s.itens[0].selecionado, true);
+  assert.equal(s.itens[0].qtd, 3);
+  s = selecionarTodos(s, true);
+  assert.equal(totalItens(s), 4);
 });
 
 test("lerEstado descarta dados estragados e aceita o formato salvo", async () => {
@@ -99,26 +125,31 @@ test("página /reserva: noindex, 3 passos como o protótipo, envio rastreado sem
   assert.match(fluxo, /Continuar: escolher loja/);
   assert.match(fluxo, /Adicionar mais itens/);
   assert.doesNotMatch(fluxo, /não uma compra|Nada é cobrado|Cobrado neste site|Sem cobrança/);
-  assert.match(fluxo, /Retirar na loja/);
+  assert.match(fluxo, /Entrega ou retirada/);
+  assert.match(fluxo, /Retire ou receba sua compra/);
+  assert.match(fluxo, /Selecione uma opção/);
   assert.match(fluxo, /Entrega/);
-  assert.match(fluxo, /Quem vai retirar\?/);
-  assert.match(fluxo, /Mora em Sabará\? Entregamos no seu bairro\./);
+  assert.match(fluxo, /Vendido e entregue por <strong>União Farma<\/strong>/);
+  assert.match(fluxo, /Alterar/);
   assert.match(fluxo, /Revisar pedido/);
   assert.match(fluxo, /Prévia da mensagem/);
+  assert.match(fluxo, /Forma de pagamento/);
+  assert.match(fluxo, /FORMAS_PAGAMENTO/);
   assert.doesNotMatch(fluxo, /Depois de enviar/);
   assert.match(fluxo, /Enviar pedido pelo WhatsApp/);
-  assert.match(fluxo, /Editar minha reserva/);
-  assert.match(fluxo, /<strong>João<\/strong> · CRF\/MG <strong>31958<\/strong>/);
-  assert.match(fluxo, /Sua reserva ainda está vazia\. Bora escolher\?/);
+  assert.match(fluxo, /Editar minha cesta/);
+  assert.match(fluxo, /Vendido e entregue por <b>União Farma<\/b>/);
+  assert.match(fluxo, /Sua cesta ainda está vazia\. Bora escolher\?/);
   assert.match(fluxo, /data-track-event="whatsapp_click"/);
   assert.match(fluxo, /data-track-source="reserva_envio"/);
   assert.doesNotMatch(fluxo, /data-track-(product|nome|name|item)=/);
   // Nome, rua e produto nunca vão ao analytics.
   assert.doesNotMatch(fluxo, /trackEvent\([^)]*(nome|rua|bairro\b[^,)]*item)/);
-  assert.match(sacola, /Sua reserva ainda está vazia\. Bora escolher\?/);
+  assert.match(sacola, /Sua cesta ainda está vazia\. Bora escolher\?/);
   // A gaveta só lista e leva à /reserva.
   assert.doesNotMatch(sacola, /mensagemReserva/);
-  assert.match(sacola, /TEXTO_RESPONSAVEL/);
+  // O responsável técnico e o aviso da Anvisa ficam só no rodapé do site.
+  assert.doesNotMatch(sacola + fluxo, /TEXTO_RESPONSAVEL|Responsável técnico|Leia a bula/);
   for (const src of [page, fluxo, sacola]) assert.doesNotMatch(src, /Nivea|Listerine|Dipirona/);
 });
 
@@ -172,7 +203,7 @@ test("reserva_add, reserva_revisar e o clique do WhatsApp entram no dataLayer se
   ]);
   assert.match(botao, /source = "catalogo"/);
   assert.match(botao, /trackEvent\("reserva_add", \{ unit: unitId, source \}\)/);
-  assert.match(pagina, /trackEvent\("reserva_revisar", \{ modo, itens: estado\.itens\.length \}\)/);
+  assert.match(pagina, /trackEvent\("reserva_revisar", \{ modo, itens: estado\.itens\.filter\(itemAtivo\)\.length \}\)/);
   assert.doesNotMatch(botao, /trackEvent\("reserva_add", \{[^}]*nome/);
   assert.doesNotMatch(pagina, /trackEvent\("reserva_revisar", \{[^}]*nome/);
 });

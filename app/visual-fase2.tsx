@@ -16,7 +16,7 @@ export function NotaEFaixaLoja({ unitId }: { unitId: Unit["id"] }) {
       {nota ? <p className="loja-nota">{nota}{avaliacoes}</p> : null}
       <p className="loja-retirada">
         <IconLojaFrente size={20} />
-        <span>Reserve aqui, retire e pague no balcão</span>
+        <span>Monte a cesta aqui, retire e pague no balcão</span>
       </p>
     </>
   );

@@ -772,18 +772,18 @@ body.cookie-banner-visible .fluxo-rodape { bottom: 9rem; }
 @media (min-width: 992px) {
   .fluxo-reserva { background: #f5f6f8; }
   /* faixa azul-marinho: logo, 3 passos em ícones ligados por linhas, WhatsApp e selo */
-  .cesta-faixa { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.5rem; padding: 0.875rem 2rem; background: #0a3548; color: #ffffff; }
-  .cesta-logo { display: inline-flex; align-items: center; gap: 0.625rem; width: fit-content; color: #ffffff; font-size: 1.25rem; font-weight: 800; text-decoration: none; }
+  .cesta-faixa { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 1.5rem; padding: 0.875rem 2rem; background: var(--uf-panel); color: var(--uf-action-ink); }
+  .cesta-logo { display: inline-flex; align-items: center; gap: 0.625rem; width: fit-content; color: var(--uf-action-ink); font-size: 1.25rem; font-weight: 800; text-decoration: none; }
   .cesta-logo img { padding: 4px; border-radius: 10px; background: #ffffff; }
   .cesta-passos { display: flex; align-items: flex-start; gap: 0; margin: 0; padding: 0; list-style: none; }
-  .cesta-passos li { position: relative; display: grid; justify-items: center; gap: 0.25rem; width: 5.5rem; opacity: 0.55; }
+  .cesta-passos li { position: relative; display: grid; justify-items: center; gap: 0.25rem; width: 5.5rem; opacity: 0.7; }
   .cesta-passos li.is-on { opacity: 1; }
   .cesta-passos li + li::before { content: ""; position: absolute; top: 1.5rem; right: 50%; width: 100%; height: 2px; background: currentColor; opacity: 0.5; }
-  .cesta-passos li span { position: relative; z-index: 1; display: grid; place-items: center; width: 3rem; height: 3rem; border: 2px solid #ffffff; border-radius: 50%; background: #0a3548; }
-  .cesta-passos li.is-on span { background: #ffffff; color: #0a3548; }
+  .cesta-passos li span { position: relative; z-index: 1; display: grid; place-items: center; width: 3rem; height: 3rem; border: 2px solid var(--uf-action-ink); border-radius: 50%; background: var(--uf-panel); color: var(--uf-action-ink); }
+  .cesta-passos li.is-on span { background: var(--uf-action-ink); color: #ffffff; }
   .cesta-passos li em { font-size: 0.75rem; font-style: normal; font-weight: 600; }
   .cesta-contato { display: flex; align-items: center; justify-content: flex-end; gap: 1.5rem; }
-  .cesta-contato a { display: inline-flex; align-items: center; gap: 0.5rem; color: #ffffff; text-decoration: none; }
+  .cesta-contato a { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--uf-action-ink); text-decoration: none; }
   .cesta-contato a span { display: grid; font-size: 0.8125rem; line-height: 1.2; }
   .cesta-contato a strong { font-size: 1rem; }
   /* o que a faixa já mostra some no desktop */
@@ -799,8 +799,8 @@ body.cookie-banner-visible .fluxo-rodape { bottom: 9rem; }
   .fluxo-conteudo-cesta .fluxo-vitrine { grid-column: 1 / -1; }
   .fluxo-conteudo-cesta .fluxo-rodape-total { display: none; }
   .fluxo-botao-resumo { display: flex; }
-  .fluxo-colunas { display: grid; grid-template-columns: minmax(0, 1fr) 7rem 9rem 6rem 2.5rem; gap: 1rem; margin: 0; padding: 1.125rem 1rem; border-bottom: 1px solid #e3ecea; color: #3e4b49; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
-  .fluxo-itens li { grid-template-columns: minmax(0, 1fr) 7rem 9rem 6rem 2.5rem; grid-template-areas: "prod preco qtd total remover"; gap: 1rem; padding: 1.25rem 1rem; }
+  .fluxo-colunas { display: grid; grid-template-columns: minmax(0, 1fr) 6rem 8rem 5.5rem 2.5rem; gap: 0.75rem; margin: 0; padding: 1.125rem 1rem; border-bottom: 1px solid #e3ecea; color: #3e4b49; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .fluxo-itens li { grid-template-columns: minmax(0, 1fr) 7rem 9rem 6rem 2.5rem; grid-template-areas: "prod preco qtd total remover"; gap: 0.75rem; padding: 1.25rem 1rem; }
   .cel-preco { display: grid; justify-items: start; gap: 0.125rem; }
   .cel-total { justify-items: start; }
   .cel-remover { justify-self: stretch; }
@@ -813,10 +813,167 @@ body.cookie-banner-visible .fluxo-rodape { bottom: 9rem; }
 }
 @layer design {
   @media (min-width: 992px) {
-    .fluxo-reserva .fluxo-topo h1 { font-size: 2.25rem !important; line-height: 1.1 !important; letter-spacing: 0.02em !important; text-transform: uppercase; color: #0a3548 !important; }
+    .fluxo-reserva .fluxo-topo h1 { font-size: 2.25rem !important; line-height: 1.1 !important; letter-spacing: 0.02em !important; text-transform: uppercase; color: var(--uf-ink) !important; }
   }
 }
 .fluxo-topo { flex-wrap: nowrap; }
 .fluxo-topo h1 { flex: 1; min-width: 0; }
 @media (min-width: 992px) { .fluxo-topo { flex-wrap: wrap; } }
 .fluxo-topo .fluxo-continuar-comprando { align-self: center; min-height: 0; line-height: 1.2; }
+
+/* ---- Cesta: caixa de seleção por item e em "Todos os produtos", colunas centralizadas, sem "−" com 1 unidade ---- */
+.fluxo-check { display: inline-flex; align-items: center; flex: none; gap: 0.625rem; cursor: pointer; }
+.fluxo-check input { width: 1.25rem; height: 1.25rem; margin: 0; accent-color: #0a3548; cursor: pointer; }
+.fluxo-check-todos { font-size: 0.9375rem; font-weight: 600; }
+.cel-produto .fluxo-check { align-self: center; }
+.fluxo-itens li.is-fora .cel-produto > :not(.fluxo-check), .fluxo-itens li.is-fora .cel-preco, .fluxo-itens li.is-fora .cel-total { opacity: 0.45; }
+.fluxo-botao:disabled { opacity: 0.5; cursor: not-allowed; }
+.cel-qtd { display: flex; }
+@media (min-width: 992px) {
+  .fluxo-colunas span:nth-child(n+2):nth-child(-n+4) { text-align: center; }
+  .cel-preco, .cel-total { justify-items: center; text-align: center; }
+  .cel-qtd { justify-content: center; }
+}
+
+/* ---- Entrega ou retirada: mesma estrutura da página de entrega da Panvel, com a identidade da União ---- */
+button.fluxo-continuar-comprando { border: 0; background: transparent; font: inherit; font-size: 0.8125rem; font-weight: 700; cursor: pointer; }
+.entrega-endereco { padding: 1.25rem; border-radius: 12px; background: #ffffff; box-shadow: 0 0 24px rgba(13, 20, 19, 0.03); }
+.entrega-end { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.entrega-end-texto { display: flex; flex-direction: column; min-width: 0; color: #3e4b49; font-size: 0.875rem; line-height: 1.55; }
+.entrega-end-texto strong { margin-bottom: 0.5rem; color: var(--uf-ink); font-size: 1.125rem; font-weight: 800; line-height: 1.55; }
+.entrega-form { display: grid; gap: 0.75rem; }
+.entrega-btn { min-height: 2.75rem; padding: 0 1.5rem; border: 1.5px solid var(--uf-navy); border-radius: 6px; background: var(--uf-action); color: var(--uf-action-ink); font: inherit; font-size: 0.875rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; cursor: pointer; justify-self: start; }
+.entrega-btn-alterar { background: #ffffff; color: var(--uf-navy); }
+.entrega-titulo { margin: 1.25rem 0 0.75rem; color: var(--uf-ink); font-size: 1.25rem; font-weight: 800; line-height: 1.5; }
+.entrega-pacote { overflow: hidden; border-radius: 12px; background: #ffffff; box-shadow: 0 0 24px rgba(13, 20, 19, 0.03); }
+.entrega-topbar { display: flex; align-items: center; gap: 0.5rem; min-height: 3rem; margin: 0; padding: 0 1rem; background: var(--uf-panel); color: var(--uf-action-ink); font-size: 0.875rem; }
+.entrega-miolo { padding: 0.8125rem 0.9rem 1.25rem; }
+.entrega-colunas { display: none; }
+.entrega-itens { display: grid; margin: 0; padding: 0; list-style: none; }
+.entrega-itens li { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "prod prod" "preco total" "qtd total"; gap: 0.25rem 0.75rem; align-items: center; padding: 0.875rem 0; border-bottom: 1px solid #e5e5e5; }
+.entrega-item-prod { grid-area: prod; display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
+.entrega-item-prod .fluxo-item-foto { width: 3.25rem; height: 3.25rem; }
+.entrega-item-preco { grid-area: preco; font-size: 0.875rem; font-weight: 600; }
+.entrega-item-qtd { grid-area: qtd; color: #5b6b68; font-size: 0.75rem; }
+.entrega-item-total { grid-area: total; justify-self: end; font-size: 0.9375rem; font-weight: 700; }
+.entrega-opcoes-titulo { margin: 1.5rem 0 0.25rem; color: var(--uf-ink); font-size: 1.125rem; font-weight: 800; line-height: 1.55; }
+.entrega-opcao { display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "radio tipo preco" ". periodo periodo"; align-items: center; gap: 0.125rem 0.85rem; box-sizing: border-box; min-height: 3.5rem; margin-top: 0.75rem; padding: 0.75rem 1rem; border: 1.5px solid transparent; border-radius: 4px; background: #ffffff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.07); cursor: pointer; }
+.entrega-opcao.is-on { border-color: var(--uf-navy); }
+.entrega-opcao input, .entrega-loja input { grid-area: radio; width: 1.15rem; height: 1.15rem; margin: 0; accent-color: var(--uf-navy); cursor: pointer; }
+.entrega-tipo { grid-area: tipo; font-size: 1rem; font-weight: 800; line-height: 1.5; }
+.entrega-periodo { grid-area: periodo; color: #3e4b49; font-size: 0.875rem; line-height: 1.5; }
+.entrega-preco { grid-area: preco; font-size: 1rem; font-weight: 700; }
+.entrega-preco-gratis { color: #1c7a43; }
+.entrega-lojas { display: grid; gap: 0.5rem; margin: 0.5rem 0 0 1.9rem; }
+.entrega-loja { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.75rem 1rem; border: 1.5px solid #d3e2df; border-radius: 4px; background: #ffffff; cursor: pointer; }
+.entrega-loja.is-on { border-color: var(--uf-navy); background: #e8f7f5; }
+.entrega-loja-corpo { display: grid; gap: 0.125rem; font-size: 0.875rem; }
+.entrega-loja-corpo strong { font-size: 1rem; }
+.entrega-loja-corpo > span { color: #3e4b49; }
+
+@media (min-width: 992px) {
+  .entrega-endereco { padding: 2rem; }
+  .entrega-topbar { padding: 0 2rem; font-size: 1rem; }
+  .entrega-miolo { padding: 2rem; }
+  .entrega-colunas { display: grid; grid-template-columns: minmax(0, 1fr) 6rem 7rem 6rem; gap: 0.75rem; padding: 0 0.75rem 0.5rem; border-bottom: 1px solid #edeff3; color: #5b6b68; font-size: 0.8125rem; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.5; }
+  .entrega-colunas span:nth-child(n+2) { text-align: center; }
+  .entrega-itens li { grid-template-columns: minmax(0, 1fr) 6rem 7rem 6rem; grid-template-areas: "prod preco qtd total"; gap: 0.75rem; padding: 1rem 0.75rem; }
+  .entrega-item-preco, .entrega-item-qtd, .entrega-item-total { justify-self: center; text-align: center; }
+  .entrega-opcao { grid-template-columns: auto minmax(0, 13rem) 1fr auto; grid-template-areas: "radio tipo periodo preco"; }
+  .entrega-periodo { font-size: 1rem; }
+  .fluxo-entrega .fluxo-rodape-total { display: none; }
+}
+@media (min-width: 992px) { button.fluxo-continuar-comprando { display: block; text-align: left; } }
+
+/* ---- Passo "Enviar": escolha da forma de pagamento (combinada e paga pelo WhatsApp com a loja) ---- */
+.entrega-opcao-simples { grid-template-columns: auto 1fr auto; grid-template-areas: "radio tipo periodo"; }
+.entrega-opcao-simples .entrega-periodo { font-size: 0.875rem; }
+.fluxo-pagamento .entrega-titulo:first-child { margin-top: 0.25rem; }
+@media (min-width: 992px) {
+  .entrega-opcao-simples { grid-template-columns: auto 1fr auto; grid-template-areas: "radio tipo periodo"; }
+}
+.fluxo-pagamento .fluxo-botao-resumo { font-size: 0.875rem; letter-spacing: 0; white-space: nowrap; }
+.fluxo-pagamento .fluxo-rodape .fluxo-botao { font-size: 0.875rem; padding: 0 0.75rem; white-space: nowrap; }
+
+/* =====================================================================
+   Home na estrutura da home da Panvel (medidas do CSS dela, cores e fonte da União)
+   ===================================================================== */
+/* abas em pílula: 52px (60px no desktop), abas de 117px, raio 32/60px */
+.shop-abas { display: flex; gap: 0; box-sizing: border-box; max-width: 22.625rem; height: 3.25rem; margin: 0.75rem auto 0; padding: 0.5rem; border-radius: 32px; background: var(--uf-pill); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); }
+.shop-abas a { flex: 0 1 7.3rem; min-width: 0; height: 2.375rem; display: inline-flex; align-items: center; justify-content: center; border-radius: 60px; color: #e1e4e9; text-decoration: none; white-space: nowrap; }
+.shop-abas a.is-ativa { background: var(--uf-panel); color: var(--uf-action-ink); }
+.shop-abas a span { display: flex; flex-direction: column; text-align: start; font-size: 0.6875rem; line-height: 1.1; }
+.shop-abas a strong { margin-top: -0.125rem; font-size: 1.125rem; font-weight: 700; }
+.shop-abas a:hover:not(.is-ativa) { background: #1d2a28; }
+
+/* cartões de benefícios: 236 x 76, raio 16, rolagem lateral no celular */
+.shop-info { display: flex; gap: 0.75rem; max-width: 82rem; margin: 0.875rem auto 0; padding: 0 1.25rem; list-style: none; overflow-x: auto; scrollbar-width: none; }
+.shop-info::-webkit-scrollbar { display: none; }
+.shop-info li { flex: 0 0 14.75rem; }
+.shop-info a, .shop-info div { box-sizing: border-box; display: flex; align-items: center; gap: 0.75rem; width: 100%; height: 4.75rem; padding: 0.75rem; border-radius: 16px; background: var(--uf-pill); color: #ffffff; text-decoration: none; }
+.shop-info svg { flex: none; color: var(--uf-action); }
+.shop-info span { display: grid; min-width: 0; }
+.shop-info strong { font-size: 0.875rem; font-weight: 700; line-height: 1.25; }
+.shop-info small { color: #c5d2d0; font-size: 0.75rem; line-height: 1.3; }
+
+/* "Navegue por categoria" */
+.shop-categorias h2 { margin: 0 0 0.5rem; padding: 0 1.25rem; font-size: 1.125rem; font-weight: 800; }
+/* vitrines: cabeçalho, "Ver tudo" e setas */
+.shop-vitrine { position: relative; }
+.shop-seta { display: none; }
+.shop-card-marca { margin: 0.5rem 0 0; color: #5b6b68; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.04em; text-align: center; text-transform: uppercase; }
+/* "Como você quiser" e "Como entrar em contato" */
+.shop-quiser, .shop-contato { max-width: 75rem; margin: 0 auto; padding: 1.25rem 1.25rem 0.5rem; }
+.shop-quiser ul, .shop-contato ul { display: grid; gap: 0.75rem; margin: 0.75rem 0 0; padding: 0; list-style: none; }
+.shop-quiser a { display: flex; align-items: center; gap: 1rem; padding: 1rem; border-radius: 12px; background: #ffffff; color: var(--uf-ink); text-decoration: none; box-shadow: 0 0 24px rgba(13, 20, 19, 0.04); }
+.shop-quiser-icone { display: grid; place-items: center; flex: none; width: 3.5rem; height: 3.5rem; border-radius: 50%; background: var(--uf-panel); color: var(--uf-action-ink); }
+.shop-quiser a span:last-child { display: grid; }
+.shop-quiser strong { font-size: 1.0625rem; }
+.shop-quiser small { color: #3e4b49; font-size: 0.875rem; line-height: 1.4; }
+.shop-contato li { display: grid; gap: 0.375rem; padding: 1rem; border-radius: 12px; background: #ffffff; box-shadow: 0 0 24px rgba(13, 20, 19, 0.04); }
+.shop-contato a { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.5rem; color: var(--uf-navy); font-size: 0.9375rem; font-weight: 600; }
+/* submenu do desktop: escondido no celular */
+.shop-submenu { display: none; }
+@layer overrides {
+  .shop-quiser h2, .shop-contato h2 { margin: 0 !important; color: var(--uf-ink) !important; font-size: 1.375rem !important; }
+}
+
+@media (min-width: 992px) {
+  .shop-lojabar { display: none; }
+  .shop-submenu { display: flex; align-items: center; gap: 1.5rem; max-width: 82rem; margin: 0 auto; padding: 0.5rem 1.25rem; font-size: 0.875rem; }
+  .shop-submenu-dep { padding: 0.5rem 1rem; border-radius: 6px; background: var(--uf-pill); color: #ffffff; font-weight: 700; text-decoration: none; }
+  .shop-submenu-loja { display: inline-flex; align-items: center; gap: 0.5rem; border: 0; background: transparent; color: var(--uf-ink); font: inherit; cursor: pointer; }
+  .shop-submenu ul { display: flex; gap: 1.5rem; margin: 0 0 0 auto; padding: 0; list-style: none; }
+  .shop-submenu ul a { color: var(--uf-navy); font-weight: 600; text-decoration: none; }
+  .shop-abas { max-width: 35.25rem; height: 3.75rem; }
+  .shop-abas a { flex-basis: 7.3rem; }
+  .shop-info { justify-content: space-between; gap: 1.25rem; overflow: visible; }
+  .shop-info li { flex: 1 1 0; }
+  .shop-categorias h2 { max-width: 82rem; margin-inline: auto; font-size: 1.5rem; }
+  .shop-quiser ul, .shop-contato ul { grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+  /* vitrines no desktop: cartão de 229px, setas laterais */
+  .shop-vitrine { max-width: 82rem; margin: 0 auto; }
+  .shop-seta { position: absolute; top: 40%; z-index: 2; display: grid; place-items: center; width: 2.5rem; height: 2.5rem; padding: 0; border: 0; border-radius: 50%; background: var(--uf-pill); color: #ffffff; cursor: pointer; }
+  .shop-seta-esq { left: -0.5rem; }
+  .shop-seta-dir { right: -0.5rem; }
+  .shop-seta-dir svg { transform: none; }
+  .shop-destaques-lista li { flex-basis: 14.3rem; }
+}
+
+/* ajustes da home: cartões com a mesma altura, quadro de foto fixo e categorias alinhadas */
+.shop-destaques-lista { align-items: stretch; }
+.shop-destaques-lista li { display: flex; }
+.shop-destaques-lista .shop-card { flex: 1 1 auto; display: flex; flex-direction: column; }
+.shop-card-foto { width: 100% !important; height: 9rem; aspect-ratio: auto !important; margin: 0 !important; overflow: hidden; }
+.shop-card-foto img { width: auto !important; height: auto !important; max-width: 100%; max-height: 100%; object-fit: contain; }
+.shop-card-foto span { display: block; width: 70%; height: 80%; border-radius: 12px; background: #eef3f2; }
+.shop-card h3 { flex: 1 1 auto; }
+.shop-categorias { margin-top: 1.25rem; }
+@media (min-width: 992px) {
+  .shop-categorias { max-width: 82rem; margin-inline: auto; padding-inline: 1.25rem; }
+  .shop-categorias h2 { padding-inline: 0; margin-inline: 0; }
+  .shop-categorias ul { padding-inline: 0; }
+  .shop-destaques { max-width: 82rem; padding-left: 1.25rem; padding-right: 1.25rem; }
+  .shop-destaques-topo { padding-right: 0; }
+  .shop-semana, .semana-painel { max-width: none; }
+}

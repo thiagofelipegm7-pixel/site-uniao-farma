@@ -4,17 +4,26 @@ import { fotoDoProduto } from "../../nacoes-unidas/produtos/imagens";
 
 export const dynamic = "force-dynamic";
 
-/** Destaques da home: até 6 itens do catálogo da Nações, preferindo os que têm foto. Preço sempre do dia (cache de 5 min). */
-export async function GET() {
+/**
+ * Vitrines da home e da cesta: itens do catálogo da Nações, preferindo os que têm foto.
+ * `?grupo=<slug da categoria>` filtra por categoria e `?n=<1..12>` limita a quantidade (padrão 6).
+ * Preço sempre do dia (cache de 5 min).
+ */
+export async function GET(request: Request) {
+  const params = new URL(request.url).searchParams;
+  const grupo = (params.get("grupo") ?? "").slice(0, 80);
+  const n = Math.min(12, Math.max(1, Math.floor(Number(params.get("n"))) || 6));
   const catalogo = carregarCatalogoNacoes();
   const itens = (catalogo?.itens ?? [])
+    .filter((item) => !grupo || slugify(item.categoria) === grupo)
     .map((item) => ({
       nome: nomeDeExibicao(item.nome),
       slug: slugify(item.nome),
+      lab: item.lab,
       precoCentavos: Math.round(item.preco * 100),
       foto: fotoDoProduto(item.nome),
     }))
     .sort((a, b) => Number(b.foto !== null) - Number(a.foto !== null))
-    .slice(0, 6);
+    .slice(0, n);
   return Response.json({ itens }, { headers: { "cache-control": "public, max-age=300" } });
 }

@@ -31,7 +31,7 @@ export default function ProdutoBarra({ unitId, nome, precoCentavos, foto }: Prop
           }}
         >
           <IconMais size={22} />
-          Adicionar à reserva
+          Adicionar à cesta
         </button>
       </div>
     );
@@ -39,8 +39,8 @@ export default function ProdutoBarra({ unitId, nome, precoCentavos, foto }: Prop
 
   return (
     <div className="produto-barra">
-      <div className="reservar-contador produto-contador" role="group" aria-label={`Quantidade de ${nome} na reserva`}>
-        <button type="button" aria-label={qtd === 1 ? `Remover ${nome} da reserva` : `Diminuir ${nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, id, qtd - 1))}>
+      <div className="reservar-contador produto-contador" role="group" aria-label={`Quantidade de ${nome} na cesta`}>
+        <button type="button" aria-label={qtd === 1 ? `Remover ${nome} da cesta` : `Diminuir ${nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, id, qtd - 1))}>
           {qtd === 1 ? <IconLixeira size={20} /> : <IconMenos size={20} />}
         </button>
         <output aria-live="polite">{qtd}</output>
@@ -49,7 +49,7 @@ export default function ProdutoBarra({ unitId, nome, precoCentavos, foto }: Prop
         </button>
       </div>
       <button type="button" className="produto-ver-reserva" onClick={() => abrirReserva()}>
-        Ver reserva
+        Ver cesta
       </button>
     </div>
   );

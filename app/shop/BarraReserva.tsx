@@ -6,7 +6,7 @@ import { IconSacola } from "../reserva/ReservaIcons";
 import { totalItens } from "../reserva/reserva-store";
 import { useReserva } from "../reserva/useReserva";
 
-/** Barra fixa "Ver minha reserva · N itens". Só aparece com itens; leva à página /reserva. */
+/** Barra fixa "Ver minha cesta · N itens". Só aparece com itens; leva à página /reserva. */
 export default function BarraReserva() {
   const total = totalItens(useReserva());
   if (total === 0) return null;
@@ -14,7 +14,7 @@ export default function BarraReserva() {
     <div className="barra-reserva">
       <a href="/reserva">
         <IconSacola size={26} />
-        Ver minha reserva · {total} {total === 1 ? "item" : "itens"}
+        Ver minha cesta · {total} {total === 1 ? "item" : "itens"}
       </a>
     </div>
   );

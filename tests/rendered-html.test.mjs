@@ -33,8 +33,8 @@ test("renders the local SEO home page with conversion and schema signals", async
   // A home do protótipo não tem FAQ visível, então não declara FAQPage no schema.
   assert.doesNotMatch(html, /"@type":"FAQPage"/);
   assert.match(html, /"@type":"BreadcrumbList"/);
-  // A entrada para o WhatsApp é a reserva (cartão marinho -> catálogo -> /reserva) e o botão flutuante.
-  assert.match(html, /Reserve pelo WhatsApp/);
+  // A entrada para o WhatsApp é a cesta (cartão marinho -> catálogo -> /reserva) e o botão flutuante.
+  assert.match(html, /Peça pelo WhatsApp/);
   assert.match(html, /href="\/nacoes-unidas\/produtos"/);
   assert.match(html, /href="\/reserva"/);
   assert.match(html, /Nossa Senhora de Fátima/);

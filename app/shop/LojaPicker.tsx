@@ -67,7 +67,7 @@ export default function LojaPicker() {
             </li>
           ))}
         </ul>
-        <p className="reserva-aviso">Sua escolha fica só neste aparelho e serve para as reservas e ofertas.</p>
+        <p className="reserva-aviso">Sua escolha fica só neste aparelho e serve para a cesta e as ofertas.</p>
       </div>
     </div>
   );

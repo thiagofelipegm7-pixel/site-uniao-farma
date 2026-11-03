@@ -18,7 +18,7 @@ export const NOTA_PRECO = "Preço do sistema da loja. A gente confere o preço e
 export const FAQ_PRODUTO: readonly FaqProduto[] = [
   {
     q: "Preciso pagar agora?",
-    a: "Não. A reserva não cobra nada no site. O pagamento é no balcão ou na entrega.",
+    a: "Não. A cesta não cobra nada no site. O pagamento é no balcão ou na entrega.",
   },
   {
     q: "Posso retirar ou receber em casa?",
