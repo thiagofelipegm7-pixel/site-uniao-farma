@@ -7,7 +7,7 @@ import { readPreferredUnitId } from "../preferred-unit";
 import { IconCartao, IconLoja, IconMenu, IconMoto, IconPino, IconWhats } from "../reserva/ReservaIcons";
 import { formatarCentavos, TAXA_ENTREGA_CENTAVOS } from "../reserva/reserva-store";
 import { buildWhatsAppUrl, UNITS } from "../site-config";
-import { abrirSeletorDeLoja } from "./loja-evento";
+import { abrirDepartamentos, abrirSeletorDeLoja } from "./loja-evento";
 
 const nacoes = UNITS.find((unit) => unit.id === "nacoes");
 
@@ -27,7 +27,7 @@ export function SubmenuHome() {
   return (
     <nav className="shop-submenu" aria-label="Acessos rápidos">
       <div className="shop-submenu-conteudo">
-        <a className="shop-submenu-dep" href="#departamentos"><IconMenu size={20} /><span>Departamentos</span></a>
+        <button type="button" className="shop-submenu-dep" onClick={abrirDepartamentos}><IconMenu size={20} /><span>Departamentos</span></button>
         <button type="button" className="shop-submenu-loja" onClick={abrirSeletorDeLoja}>
           <IconPino size={20} />
           <span><small>Enviar para</small><strong>{unit ? unit.shortName : "Escolha sua loja"}</strong></span>

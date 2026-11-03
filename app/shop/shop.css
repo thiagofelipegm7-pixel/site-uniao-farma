@@ -1039,3 +1039,28 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .shop-abas a { transition: background-color 0.2s ease, color 0.2s ease; }
 @media (min-width: 992px) { .shop-abas { max-width: 35.25rem; } }
 @media (prefers-reduced-motion: reduce) { .shop-abas a { transition: none; } }
+
+/* =====================================================================
+   Gaveta "Departamentos" copiando a da Panvel (vídeo de 03/11): abre à esquerda sobre um véu, título e × redondo no
+   topo, cartão branco com linhas de 54px e seta, segundo nível com Voltar / Ver tudo em. Cores e fonte da União.
+   ===================================================================== */
+.depto-raiz { position: fixed; inset: 0; z-index: 4900; display: flex; }
+.depto-fundo { position: absolute; inset: 0; border: 0; background: rgba(5, 13, 12, 0); cursor: default; transition: background-color 0.22s ease; }
+.depto-raiz.is-aberto .depto-fundo { background: rgba(5, 13, 12, 0.55); }
+.depto-painel { position: relative; z-index: 1; width: min(30rem, 100vw); height: 100%; box-sizing: border-box; overflow-y: auto; padding: 1.25rem 1rem 2rem; background: #f4f8f7; box-shadow: 8px 0 24px rgba(13, 20, 19, 0.18); transform: translateX(-100%); opacity: 0; transition: transform 0.22s ease, opacity 0.22s ease; }
+.depto-raiz.is-aberto .depto-painel { transform: none; opacity: 1; }
+.depto-topo { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1.25rem; padding: 0 0.25rem; }
+.depto-topo strong { color: var(--uf-ink); font-size: 1.125rem; font-weight: 800; }
+.depto-fechar { display: grid; place-items: center; width: 3rem; height: 3rem; padding: 0; border: 0; border-radius: 50%; background: #e3ecea; color: var(--uf-ink); cursor: pointer; }
+.depto-lista { margin: 0; padding: 0.25rem 1rem; list-style: none; border-radius: 12px; background: #ffffff; }
+.depto-lista li + li { border-top: 1px solid #edf2f1; }
+.depto-lista a, .depto-lista button { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 1rem; width: 100%; min-height: 3.375rem; padding: 0 0.25rem; border: 0; border-radius: 6px; background: transparent; color: #3e4b49; font: inherit; font-size: 1rem; text-align: left; text-decoration: none; cursor: pointer; }
+.depto-lista a:hover, .depto-lista button:hover, .depto-lista a:focus-visible, .depto-lista button:focus-visible { background: #f2f6f5; color: var(--uf-ink); }
+.depto-lista svg { flex: none; color: #8a9a97; }
+.depto-voltar { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; margin-bottom: 0.25rem; padding: 0 0.25rem; border: 0; background: transparent; color: var(--uf-navy); font: inherit; font-size: 0.9375rem; font-weight: 700; cursor: pointer; }
+.depto-secao { margin: 0 0 0.75rem 0.25rem; color: var(--uf-ink); font-size: 1.125rem; font-weight: 800; }
+.depto-estado { margin: 0.75rem 0.25rem; color: #3e4b49; font-size: 0.875rem; }
+.shop-submenu-dep { border: 0; background: transparent; font: inherit; cursor: pointer; }
+@media (prefers-reduced-motion: reduce) {
+  .depto-fundo, .depto-painel { transition: none; }
+}

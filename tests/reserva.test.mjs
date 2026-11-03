@@ -146,6 +146,9 @@ test("página /reserva: noindex, 3 passos como o protótipo, envio rastreado sem
   // Nome, rua e produto nunca vão ao analytics.
   assert.doesNotMatch(fluxo, /trackEvent\([^)]*(nome|rua|bairro\b[^,)]*item)/);
   assert.match(sacola, /Sua cesta ainda está vazia\. Bora escolher\?/);
+  // A gaveta aberta no desktop se fecha sozinha quando o zoom deixa a página estreita (< 992 px).
+  assert.match(sacola, /matchMedia\("\(max-width: 991\.98px\)"\)/);
+  assert.match(sacola, /addEventListener\("change", aoMudar\)/);
   // A gaveta só lista e leva à /reserva.
   assert.doesNotMatch(sacola, /mensagemReserva/);
   // O responsável técnico e o aviso da Anvisa ficam só no rodapé do site.
