@@ -834,3 +834,53 @@ body.cookie-banner-visible .fluxo-rodape { bottom: 9rem; }
   .cel-preco, .cel-total { justify-items: center; text-align: center; }
   .cel-qtd { justify-content: center; }
 }
+
+/* ---- Entrega ou retirada: mesma estrutura da página de entrega da Panvel, com a identidade da União ---- */
+button.fluxo-continuar-comprando { border: 0; background: transparent; font: inherit; font-size: 0.8125rem; font-weight: 700; cursor: pointer; }
+.entrega-endereco { padding: 1.25rem; border-radius: 12px; background: #ffffff; box-shadow: 0 0 24px rgba(13, 20, 19, 0.03); }
+.entrega-end { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.entrega-end-texto { display: flex; flex-direction: column; min-width: 0; color: #3e4b49; font-size: 0.875rem; line-height: 1.55; }
+.entrega-end-texto strong { margin-bottom: 0.5rem; color: var(--uf-ink); font-size: 1.125rem; font-weight: 800; line-height: 1.55; }
+.entrega-form { display: grid; gap: 0.75rem; }
+.entrega-btn { min-height: 2.75rem; padding: 0 1.5rem; border: 1.5px solid var(--uf-navy); border-radius: 6px; background: var(--uf-action); color: var(--uf-action-ink); font: inherit; font-size: 0.875rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; cursor: pointer; justify-self: start; }
+.entrega-btn-alterar { background: #ffffff; color: var(--uf-navy); }
+.entrega-titulo { margin: 1.25rem 0 0.75rem; color: var(--uf-ink); font-size: 1.25rem; font-weight: 800; line-height: 1.5; }
+.entrega-pacote { overflow: hidden; border-radius: 12px; background: #ffffff; box-shadow: 0 0 24px rgba(13, 20, 19, 0.03); }
+.entrega-topbar { display: flex; align-items: center; gap: 0.5rem; min-height: 3rem; margin: 0; padding: 0 1rem; background: var(--uf-panel); color: var(--uf-action-ink); font-size: 0.875rem; }
+.entrega-miolo { padding: 0.8125rem 0.9rem 1.25rem; }
+.entrega-colunas { display: none; }
+.entrega-itens { display: grid; margin: 0; padding: 0; list-style: none; }
+.entrega-itens li { display: grid; grid-template-columns: 1fr auto; grid-template-areas: "prod prod" "preco total" "qtd total"; gap: 0.25rem 0.75rem; align-items: center; padding: 0.875rem 0; border-bottom: 1px solid #e5e5e5; }
+.entrega-item-prod { grid-area: prod; display: flex; align-items: center; gap: 0.75rem; min-width: 0; }
+.entrega-item-prod .fluxo-item-foto { width: 3.25rem; height: 3.25rem; }
+.entrega-item-preco { grid-area: preco; font-size: 0.875rem; font-weight: 600; }
+.entrega-item-qtd { grid-area: qtd; color: #5b6b68; font-size: 0.75rem; }
+.entrega-item-total { grid-area: total; justify-self: end; font-size: 0.9375rem; font-weight: 700; }
+.entrega-opcoes-titulo { margin: 1.5rem 0 0.25rem; color: var(--uf-ink); font-size: 1.125rem; font-weight: 800; line-height: 1.55; }
+.entrega-opcao { display: grid; grid-template-columns: auto 1fr auto; grid-template-areas: "radio tipo preco" ". periodo periodo"; align-items: center; gap: 0.125rem 0.85rem; box-sizing: border-box; min-height: 3.5rem; margin-top: 0.75rem; padding: 0.75rem 1rem; border: 1.5px solid transparent; border-radius: 4px; background: #ffffff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.07); cursor: pointer; }
+.entrega-opcao.is-on { border-color: var(--uf-navy); }
+.entrega-opcao input, .entrega-loja input { grid-area: radio; width: 1.15rem; height: 1.15rem; margin: 0; accent-color: var(--uf-navy); cursor: pointer; }
+.entrega-tipo { grid-area: tipo; font-size: 1rem; font-weight: 800; line-height: 1.5; }
+.entrega-periodo { grid-area: periodo; color: #3e4b49; font-size: 0.875rem; line-height: 1.5; }
+.entrega-preco { grid-area: preco; font-size: 1rem; font-weight: 700; }
+.entrega-preco-gratis { color: #1c7a43; }
+.entrega-lojas { display: grid; gap: 0.5rem; margin: 0.5rem 0 0 1.9rem; }
+.entrega-loja { display: flex; align-items: flex-start; gap: 0.75rem; padding: 0.75rem 1rem; border: 1.5px solid #d3e2df; border-radius: 4px; background: #ffffff; cursor: pointer; }
+.entrega-loja.is-on { border-color: var(--uf-navy); background: #e8f7f5; }
+.entrega-loja-corpo { display: grid; gap: 0.125rem; font-size: 0.875rem; }
+.entrega-loja-corpo strong { font-size: 1rem; }
+.entrega-loja-corpo > span { color: #3e4b49; }
+
+@media (min-width: 992px) {
+  .entrega-endereco { padding: 2rem; }
+  .entrega-topbar { padding: 0 2rem; font-size: 1rem; }
+  .entrega-miolo { padding: 2rem; }
+  .entrega-colunas { display: grid; grid-template-columns: minmax(0, 1fr) 6rem 7rem 6rem; gap: 0.75rem; padding: 0 0.75rem 0.5rem; border-bottom: 1px solid #edeff3; color: #5b6b68; font-size: 0.8125rem; letter-spacing: 0.06em; text-transform: uppercase; line-height: 1.5; }
+  .entrega-colunas span:nth-child(n+2) { text-align: center; }
+  .entrega-itens li { grid-template-columns: minmax(0, 1fr) 6rem 7rem 6rem; grid-template-areas: "prod preco qtd total"; gap: 0.75rem; padding: 1rem 0.75rem; }
+  .entrega-item-preco, .entrega-item-qtd, .entrega-item-total { justify-self: center; text-align: center; }
+  .entrega-opcao { grid-template-columns: auto minmax(0, 13rem) 1fr auto; grid-template-areas: "radio tipo periodo preco"; }
+  .entrega-periodo { font-size: 1rem; }
+  .fluxo-entrega .fluxo-rodape-total { display: none; }
+}
+@media (min-width: 992px) { button.fluxo-continuar-comprando { display: block; text-align: left; } }

@@ -122,10 +122,12 @@ test("página /reserva: noindex, 3 passos como o protótipo, envio rastreado sem
   assert.match(fluxo, /Continuar: escolher loja/);
   assert.match(fluxo, /Adicionar mais itens/);
   assert.doesNotMatch(fluxo, /não uma compra|Nada é cobrado|Cobrado neste site|Sem cobrança/);
-  assert.match(fluxo, /Retirar na loja/);
+  assert.match(fluxo, /Entrega ou retirada/);
+  assert.match(fluxo, /Retire ou receba sua compra/);
+  assert.match(fluxo, /Selecione uma opção/);
   assert.match(fluxo, /Entrega/);
-  assert.match(fluxo, /Quem vai retirar\?/);
-  assert.match(fluxo, /Mora em Sabará\? Entregamos no seu bairro\./);
+  assert.match(fluxo, /Vendido e entregue por <strong>União Farma<\/strong>/);
+  assert.match(fluxo, /Alterar/);
   assert.match(fluxo, /Revisar pedido/);
   assert.match(fluxo, /Prévia da mensagem/);
   assert.doesNotMatch(fluxo, /Depois de enviar/);

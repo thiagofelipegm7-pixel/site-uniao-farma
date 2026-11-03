@@ -7,13 +7,12 @@ import BrandLogo from "../BrandLogo";
 import BrandStrip from "../BrandStrip";
 import { trackEvent } from "../analytics";
 import { listarBairros, lojaDoBairro } from "../entrega-bairro";
-import { UNIT_GOOGLE_PROFILES } from "../google-reviews";
 import { readPreferredUnitId } from "../preferred-unit";
 import { buildWhatsAppUrl, UNITS, type Unit } from "../site-config";
 import UnitStatusBadge from "../UnitStatusBadge";
-import { IconCheckCirculo, IconEstrela, IconLixeira, IconLoja, IconMais, IconMenos, IconMoto, IconSacola, IconSelo, IconVoltar, IconWhats } from "./ReservaIcons";
+import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats } from "./ReservaIcons";
 import DestaquesSemana from "../shop/DestaquesSemana";
-import { atualizarReserva, definirQtd, definirSelecao, descontoCentavos, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens, type ModoReserva } from "./reserva-store";
+import { atualizarReserva, definirQtd, definirSelecao, descontoCentavos, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
 
 type Passo = 1 | 2 | 3;
@@ -42,6 +41,7 @@ export default function ReservaFluxo() {
   const [bairro, setBairro] = useState("");
   const [pagamento, setPagamento] = useState("");
   const [tentou, setTentou] = useState(false);
+  const [editando, setEditando] = useState(true);
 
   const modo = estado.modo;
   const retirar = modo === "retirar";
@@ -65,6 +65,13 @@ export default function ReservaFluxo() {
     if (typeof window !== "undefined") window.scrollTo({ top: 0 });
   }
 
+  const mostrarForm = editando || !valido;
+
+  function salvar() {
+    if (valido) setEditando(false);
+    else setTentou(true);
+  }
+
   function revisar() {
     if (!valido) {
       setTentou(true);
@@ -74,7 +81,7 @@ export default function ReservaFluxo() {
     ir(3);
   }
 
-  const titulo = passo === 1 ? "Minha cesta" : passo === 2 ? (retirar ? "Loja e retirada" : "Entrega") : "Revisar e enviar";
+  const titulo = passo === 1 ? "Minha cesta" : passo === 2 ? "Entrega ou retirada" : "Revisar e enviar";
 
   if (estado.itens.length === 0) {
     return (
@@ -116,7 +123,11 @@ export default function ReservaFluxo() {
           <button type="button" className="fluxo-voltar" aria-label="Voltar" onClick={() => ir((passo - 1) as Passo)}><IconVoltar size={26} /></button>
         )}
         <h1>{titulo}</h1>
-        <a className="fluxo-continuar-comprando" href="/nacoes-unidas/produtos">Continuar comprando</a>
+        {passo === 1 ? (
+          <a className="fluxo-continuar-comprando" href="/nacoes-unidas/produtos">Continuar comprando</a>
+        ) : (
+          <button type="button" className="fluxo-continuar-comprando" onClick={() => ir((passo - 1) as Passo)}>Voltar</button>
+        )}
       </header>
       <div className="fluxo-brandstrip"><BrandStrip semSacola /></div>
 
@@ -212,88 +223,120 @@ export default function ReservaFluxo() {
       ) : null}
 
       {passo === 2 ? (
-        <div className="fluxo-conteudo">
-          <h2>Como quer receber?</h2>
-          <div className="fluxo-modo" role="group" aria-label="Como quer receber?">
-            {(["retirar", "casa"] as ModoReserva[]).map((m) => (
-              <button key={m} type="button" aria-pressed={modo === m} className={modo === m ? "is-on" : ""} onClick={() => atualizarReserva((s) => ({ ...s, modo: m }))}>
-                {m === "retirar" ? <IconLoja size={24} /> : <IconMoto size={24} />}
-                {m === "retirar" ? "Retirar na loja" : "Entrega"}
-              </button>
-            ))}
+        <div className="fluxo-conteudo fluxo-conteudo-cesta fluxo-entrega">
+          <div className="fluxo-coluna-itens">
+            <section className="entrega-endereco" aria-label="Dados da entrega">
+              {mostrarForm ? (
+                <div className="entrega-form">
+                  <label className="fluxo-campo">
+                    <span>Seu nome</span>
+                    <input value={nome} onChange={(e) => setNome(e.target.value)} placeholder={retirar ? "Nome para a retirada" : "Nome completo"} autoComplete="name" aria-invalid={tentou && !nomeOk} />
+                  </label>
+                  {!retirar ? (
+                    <>
+                      <label className="fluxo-campo">
+                        <span>Bairro</span>
+                        <select value={bairro} onChange={(e) => { setBairro(e.target.value); trackEvent("delivery_check", { source: "reserva", covered: lojaDoBairro(UNITS, e.target.value) !== null }); }} aria-invalid={tentou && !unidadeEntrega}>
+                          <option value="">Selecione</option>
+                          {BAIRROS.map((b) => <option key={b.bairro} value={b.bairro}>{b.bairro}</option>)}
+                        </select>
+                      </label>
+                      <label className="fluxo-campo">
+                        <span>Rua e número</span>
+                        <input value={rua} onChange={(e) => setRua(e.target.value)} placeholder="Ex.: Rua Inglaterra, 100" autoComplete="street-address" aria-invalid={tentou && rua.trim().length < 3} />
+                      </label>
+                      <label className="fluxo-campo">
+                        <span>Forma de pagamento</span>
+                        <select value={pagamento} onChange={(e) => setPagamento(e.target.value)}>
+                          <option value="">Selecione</option>
+                          <option value="Pix">Pix</option>
+                          <option value="Dinheiro">Dinheiro</option>
+                          <option value="Cartão de débito">Cartão de débito</option>
+                          <option value="Cartão de crédito">Cartão de crédito</option>
+                        </select>
+                      </label>
+                    </>
+                  ) : null}
+                  {tentou && !valido ? <p className="fluxo-erro" role="alert">{retirar ? "Informe o nome de quem vai retirar." : "Preencha o nome, escolha o bairro da lista e informe a rua com número."}</p> : null}
+                  <button type="button" className="entrega-btn" onClick={salvar}>Salvar</button>
+                </div>
+              ) : (
+                <div className="entrega-end">
+                  <div className="entrega-end-texto">
+                    <strong>{nome.trim()}</strong>
+                    {!retirar ? <span>{rua.trim()}</span> : null}
+                    <span>{retirar ? `Retirada na União Farma ${unidade.shortName}` : `${bairro}, Sabará - MG`}</span>
+                  </div>
+                  <button type="button" className="entrega-btn entrega-btn-alterar" onClick={() => setEditando(true)}>Alterar</button>
+                </div>
+              )}
+            </section>
+
+            <p className="entrega-titulo" role="heading" aria-level={2}>Retire ou receba sua compra</p>
+            <div className="entrega-pacote">
+              <p className="entrega-topbar"><IconSacola size={20} /><span>Vendido e entregue por <strong>União Farma</strong></span></p>
+              <div className="entrega-miolo">
+                <p className="entrega-colunas" aria-hidden="true"><span>Item</span><span>Preço</span><span>Quantidade</span><span>Total</span></p>
+                <ul className="entrega-itens">
+                  {estado.itens.filter(itemAtivo).map((item) => (
+                    <li key={item.id}>
+                      <div className="entrega-item-prod">
+                        <span className="fluxo-item-foto">{item.foto ? <img src={item.foto} alt="" width="52" height="52" /> : null}<b className="fluxo-item-qtd" aria-hidden="true">{item.qtd}</b></span>
+                        <strong className="fluxo-item-nome">{item.nome}</strong>
+                      </div>
+                      <span className="entrega-item-preco">{formatarCentavos(item.precoCentavos)}</span>
+                      <span className="entrega-item-qtd">{item.qtd} {item.qtd === 1 ? "unidade" : "unidades"}</span>
+                      <b className="entrega-item-total">{formatarCentavos(item.precoCentavos * item.qtd)}</b>
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="entrega-opcoes-titulo" role="heading" aria-level={3}>Selecione uma opção</p>
+                <div role="radiogroup" aria-label="Selecione uma opção">
+                  <label className={retirar ? "entrega-opcao is-on" : "entrega-opcao"}>
+                    <input type="radio" name="forma" checked={retirar} onChange={() => atualizarReserva((s) => ({ ...s, modo: "retirar" }))} />
+                    <span className="entrega-tipo">Retirada em loja</span>
+                    <span className="entrega-periodo">retire na loja que escolher</span>
+                    <span className="entrega-preco entrega-preco-gratis">Grátis</span>
+                  </label>
+                  {retirar ? (
+                    <div className="entrega-lojas" role="radiogroup" aria-label="Escolha a loja">
+                      {UNITS.filter((u) => u.id === "nacoes").map((u) => (
+                        <label key={u.id} className={lojaId === u.id ? "entrega-loja is-on" : "entrega-loja"}>
+                          <input type="radio" name="loja" checked={lojaId === u.id} onChange={() => setLojaId(u.id)} />
+                          <span className="entrega-loja-corpo">
+                            <strong>{u.shortName}</strong>
+                            <span>{u.shortAddress}</span>
+                            <UnitStatusBadge unit={u} />
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  ) : null}
+                  <label className={retirar ? "entrega-opcao" : "entrega-opcao is-on"}>
+                    <input type="radio" name="forma" checked={!retirar} onChange={() => atualizarReserva((s) => ({ ...s, modo: "casa" }))} />
+                    <span className="entrega-tipo">Entrega no seu bairro</span>
+                    <span className="entrega-periodo">{unidadeEntrega ? `pela União Farma ${unidadeEntrega.shortName}` : "receba em casa, em Sabará"}</span>
+                    <span className="entrega-preco">{formatarCentavos(TAXA_ENTREGA_CENTAVOS)}</span>
+                  </label>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {retirar ? (
-            <>
-              <h2>Escolha a loja</h2>
-              <div className="fluxo-lojas" role="radiogroup" aria-label="Escolha a loja">
-                {UNITS.filter((u) => u.id === "nacoes").map((u) => {
-                  const perfil = UNIT_GOOGLE_PROFILES.find((p) => p.unitId === u.id);
-                  return (
-                    <label key={u.id} className={lojaId === u.id ? "fluxo-loja is-on" : "fluxo-loja"}>
-                      <input type="radio" name="loja" checked={lojaId === u.id} onChange={() => setLojaId(u.id)} />
-                      <span className="fluxo-radio" aria-hidden="true" />
-                      <span className="fluxo-loja-corpo">
-                        <strong>{u.shortName}</strong>
-                        <span>{u.shortAddress}</span>
-                        {perfil?.rating != null ? (
-                          <span className="fluxo-nota"><IconEstrela size={16} /> {perfil.rating.toFixed(1).replace(".", ",")} · {perfil.reviewCount} avaliações no Google</span>
-                        ) : null}
-                        <small>{u.hoursSummary}</small>
-                        <UnitStatusBadge unit={u} />
-                      </span>
-                    </label>
-                  );
-                })}
-              </div>
-              <h2>Quem vai retirar?</h2>
-              <label className="fluxo-campo">
-                <span>Seu nome</span>
-                <input value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Nome para a retirada" autoComplete="name" aria-invalid={tentou && !nomeOk} />
-              </label>
-              {tentou && !nomeOk ? <p className="fluxo-erro" role="alert">Informe o nome de quem vai retirar.</p> : null}
-            </>
-          ) : (
-            <>
-              <h2>Mora em Sabará? Entregamos no seu bairro.</h2>
-              <label className="fluxo-campo">
-                <span>Escolha o seu bairro</span>
-                <select value={bairro} onChange={(e) => { setBairro(e.target.value); trackEvent("delivery_check", { source: "reserva", covered: lojaDoBairro(UNITS, e.target.value) !== null }); }} aria-invalid={tentou && !unidadeEntrega}>
-                  <option value="">Selecione</option>
-                  {BAIRROS.map((b) => <option key={b.bairro} value={b.bairro}>{b.bairro}</option>)}
-                </select>
-              </label>
-              {unidadeEntrega ? (
-                <p className="fluxo-aviso fluxo-aviso-ok" role="status">
-                  <IconCheckCirculo size={24} />
-                  <span>Entrega pela União Farma <strong>{unidadeEntrega.shortName}</strong>.</span>
-                </p>
-              ) : null}
-              {tentou && !unidadeEntrega ? <p className="fluxo-erro" role="alert">Escolha um bairro da lista para continuar.</p> : null}
-              <h2>Dados para a entrega</h2>
-              <label className="fluxo-campo">
-                <span>Seu nome</span>
-                <input value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Nome completo" autoComplete="name" aria-invalid={tentou && !nomeOk} />
-              </label>
-              <label className="fluxo-campo">
-                <span>Rua e número</span>
-                <input value={rua} onChange={(e) => setRua(e.target.value)} placeholder="Ex.: Rua Inglaterra, 100" autoComplete="street-address" aria-invalid={tentou && rua.trim().length < 3} />
-              </label>
-              {tentou && (!nomeOk || rua.trim().length < 3) ? <p className="fluxo-erro" role="alert">Preencha o nome e a rua com número.</p> : null}
-              <label className="fluxo-campo">
-                <span>Forma de pagamento</span>
-                <select value={pagamento} onChange={(e) => setPagamento(e.target.value)} required>
-                  <option value="">Selecione</option>
-                  <option value="Pix">Pix</option>
-                  <option value="Dinheiro">Dinheiro</option>
-                  <option value="Cartão de débito">Cartão de débito</option>
-                  <option value="Cartão de crédito">Cartão de crédito</option>
-                </select>
-              </label>
-            </>
-          )}
+          <aside className="fluxo-coluna-resumo">
+            <section className="fluxo-resumo" aria-label="Resumo da cesta">
+              <p className="fluxo-resumo-titulo">Resumo da sua cesta</p>
+              <p><span>Subtotal</span><span>{descontos > 0 ? subtotalTabela : subtotal}</span></p>
+              {descontos > 0 ? <p className="fluxo-resumo-desconto"><span>Descontos</span><span>- {formatarCentavos(descontos)}</span></p> : null}
+              <p><span>Taxa de entrega</span><span>{formatarCentavos(taxaEntrega)}</span></p>
+              <p className="fluxo-resumo-total"><strong>Total estimado</strong><strong>{totalComTaxa}</strong></p>
+              <button type="button" className="fluxo-botao fluxo-botao-resumo" onClick={revisar}>Revisar pedido</button>
+            </section>
+          </aside>
 
-          <div className="fluxo-rodape">
+          <div className="fluxo-rodape fluxo-rodape-total">
+            <p className="fluxo-barra-total"><span>Total estimado</span><strong>{totalComTaxa}</strong></p>
             <button type="button" className="fluxo-botao" onClick={revisar}>Revisar pedido</button>
           </div>
         </div>
