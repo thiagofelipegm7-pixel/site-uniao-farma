@@ -1064,3 +1064,28 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 @media (prefers-reduced-motion: reduce) {
   .depto-fundo, .depto-painel { transition: none; }
 }
+
+/* =====================================================================
+   Comprimento da página como o da Panvel (medido na home dela a 1440px): vitrine de 537px (título 36 + 24 + cartão de
+   404 + 73), cartão de 229x404 com foto de 160px e bloco de categorias de 332px.
+   ===================================================================== */
+@media (min-width: 992px) {
+  .shop-destaques { padding-top: 0; padding-bottom: 4.0625rem; }
+  .shop-destaques-topo { margin-bottom: 1.5rem; }
+  .shop-card { min-height: 25.25rem; padding: 1rem; }
+  .shop-card-foto { height: 10rem; }
+  .shop-categorias { padding-bottom: 3.625rem; }
+  .shop-categorias h2 { margin-bottom: 1.5rem; }
+  .shop-cat-icone { width: 8.75rem !important; height: 8.75rem !important; }
+  .shop-cat-icone svg { width: 3.5rem; height: 3.5rem; }
+  .shop-categorias ul { gap: 1.25rem; }
+}
+@layer design {
+  @media (min-width: 992px) {
+    .shop-destaques h2, .shop-categorias h2 { line-height: 2.25rem !important; margin: 0 !important; }
+  }
+}
+@media (min-width: 992px) {
+  .shop-categorias li { flex: 0 0 8.75rem; }
+  .shop-categorias a { width: 8.75rem; }
+}
