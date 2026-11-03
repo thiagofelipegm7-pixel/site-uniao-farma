@@ -787,7 +787,7 @@ body.cookie-banner-visible .fluxo-rodape { bottom: 9rem; }
   .cesta-contato a span { display: grid; font-size: 0.8125rem; line-height: 1.2; }
   .cesta-contato a strong { font-size: 1rem; }
   /* o que a faixa já mostra some no desktop */
-  .fluxo-brandstrip, .fluxo-progresso, .fluxo-progresso-rotulos, .fluxo-passo { display: none; }
+  .fluxo-progresso, .fluxo-progresso-rotulos, .fluxo-passo { display: none; }
   .fluxo-topo { flex-wrap: wrap; max-width: 70rem; margin: 0 auto; padding: 2rem 1.25rem 0; background: transparent; }
   .fluxo-topo .fluxo-voltar { display: none; }
   .fluxo-continuar-comprando { order: 1; width: 100%; margin: 0; padding: 0; text-decoration: none; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; color: #3e4b49; }

@@ -5,7 +5,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import BrandLogo from "./BrandLogo";
-import BrandStrip from "./BrandStrip";
+import ReservaSacola from "./reserva/ReservaSacola";
 
 type ContentPath = "/ofertas" | "/novidades" | "/receita";
 
@@ -147,10 +147,10 @@ export function ContentSiteHeader({ activePath }: { activePath: ContentPath }) {
             </a>
           ))}
         </div>
+        <div className="content-nav-sacola"><ReservaSacola /></div>
       </nav>
       {mobileMenu}
     </header>
-    <BrandStrip />
     </>
   );
 }

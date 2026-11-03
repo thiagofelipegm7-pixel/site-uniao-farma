@@ -47,7 +47,6 @@ export default function ReservaSacola() {
     const gatilho = gatilhoRef.current;
     const fundo = [
       document.querySelector("header"),
-      document.querySelector(".brand-strip"),
       document.getElementById("conteudo"),
       document.querySelector("main"),
       document.querySelector("footer"),

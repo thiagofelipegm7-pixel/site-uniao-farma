@@ -107,7 +107,6 @@ export default function CatalogoLista({ grupos: gruposProps, whatsappHref, unitI
     const gatilho = gatilhoFiltroRef.current;
     const fundo = [
       document.querySelector("header"),
-      document.querySelector(".brand-strip"),
       document.getElementById("conteudo"),
       document.querySelector("main"),
       document.querySelector("footer"),
