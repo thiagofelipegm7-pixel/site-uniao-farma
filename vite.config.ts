@@ -14,6 +14,8 @@ const { d1, r2 } = hostingConfig;
 const isCodexSeatbeltSandbox = process.env.CODEX_SANDBOX === "seatbelt";
 
 const localBindingConfig = {
+  // Nome do Worker no Cloudflare (o padrão vinha do "name" do package.json).
+  name: "site-uniao-farma",
   main: "./worker/index.ts",
   compatibility_date: "2026-08-06",
   compatibility_flags: ["nodejs_compat", "global_fetch_strictly_public"],
