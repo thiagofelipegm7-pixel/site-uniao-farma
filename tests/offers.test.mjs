@@ -93,19 +93,18 @@ test("keeps site publication separate from Google Ads eligibility", () => {
 });
 
 test("publishes confirmed promotions while keeping incomplete and blocked items out", () => {
-  assert.equal(OFFERS.length, 22);
-  assert.equal(getPublicOffers(new Date("2026-08-16T12:00:00-03:00")).length, 12);
-  assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "approved").length, 12);
+  assert.equal(OFFERS.length, 21);
+  assert.equal(getPublicOffers(new Date("2026-08-16T12:00:00-03:00")).length, 11);
+  assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "approved").length, 11);
   assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "draft").length, 0);
   assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "review").length, 6);
   assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "blocked").length, 4);
   assert.equal(OFFERS.find((offer) => offer.id === "tandrilax")?.regulatoryClass, "prescription_blocked");
   const commercialOffers = OFFERS.filter((offer) => offer.publicationStatus === "approved");
-  assert.equal(commercialOffers.length, 12);
+  assert.equal(commercialOffers.length, 11);
   assert.deepEqual(
     commercialOffers.map((offer) => offer.name),
     [
-      "Adeforte Turbo + ampola de biotina pura 3ml",
       "Cerave pote creme hidratante sem perfume 85g",
       "Kit protetor solar Sunless FPS50 toque seco 200g + 120g",
       "Creme Seda para pentear 300 ml",
@@ -129,7 +128,7 @@ test("publishes confirmed promotions while keeping incomplete and blocked items 
   assert.ok(anunciaveis.every((offer) => offer.adsEligible));
   assert.ok(anunciaveis.every((offer) => canUseInAds(offer).eligible));
   assert.ok(OFFERS.filter((offer) => offer.publicationStatus !== "approved").every((offer) => !offer.adsEligible));
-  assert.equal(OFFERS.filter((offer) => offer.imageApproved).length, 12);
+  assert.equal(OFFERS.filter((offer) => offer.imageApproved).length, 11);
   assert.ok(OFFERS.some((offer) => offer.currentPrice !== null));
   assert.equal(getPublicOffers().some((offer) => offer.id === "tandrilax"), false);
 });
@@ -165,9 +164,9 @@ test("painel da semana: no máximo 3 ofertas, sem receita, e De só com preço a
   assert.ok(semana.length <= 3);
   assert.equal(semana.length, 3);
   assert.ok(semana.every((offer) => offer.regulatoryClass !== "prescription_blocked"));
-  // As 3 ofertas da semana vêm das artes da loja, com De/Por confirmados pelo dono.
-  assert.deepEqual(semana.map((offer) => precoAnteriorConfirmado(offer)), [45, 59.9, 79.9]);
-  assert.ok(semana.every((offer) => offer.currentPrice < precoAnteriorConfirmado(offer)));
+  // As 2 primeiras vêm das artes da loja, com De/Por confirmados pelo dono; a terceira não tem "De" confirmado e não mostra riscado.
+  assert.deepEqual(semana.map((offer) => precoAnteriorConfirmado(offer)), [59.9, 79.9, null]);
+  assert.ok(semana.every((offer) => precoAnteriorConfirmado(offer) === null || offer.currentPrice < precoAnteriorConfirmado(offer)));
   assert.deepEqual(semana.map((offer) => offer.name), publicas.slice(0, 3).map((offer) => offer.name));
 
   const comDe = { ...baseOffer, previousPrice: 45, previousPriceConfirmed: true, currentPrice: 39 };
