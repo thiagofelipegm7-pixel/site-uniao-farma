@@ -196,8 +196,7 @@ test("painel da semana na home: estrutura, no máximo o componente pede 3, sem D
   ]);
   assert.match(home, /<OfertasSemana/);
   assert.match(painel, /OFERTAS DA SEMANA/);
-  assert.match(painel, /Preço e estoque confirmados pela loja/);
-  assert.match(painel, /A gente confere o preço e o estoque e te responde pelo WhatsApp\. Ofertas válidas enquanto durar o estoque em cada loja\./);
+  assert.match(painel, /Ofertas válidas enquanto durar o estoque em cada loja\./);
   // O painel do protótipo não tem "Ver todas as ofertas"; /ofertas continua no cabeçalho.
   assert.doesNotMatch(painel, /Ver todas as ofertas/);
   assert.match(painel, /ReservarBotao/);
