@@ -31,13 +31,13 @@ const nextConfig: NextConfig = {
     { source: "/itacolomi", destination: "/", permanent: false },
     { source: "/nossa-senhora-de-fatima", destination: "/", permanent: false },
     // Lojas: variantes /unidades/* e apelidos antigos -> canonical
-    { source: "/unidades/nossa-senhora-de-fatima", destination: "/fatima", permanent: true },
-    { source: "/unidades/fatima", destination: "/fatima", permanent: true },
-    { source: "/nossa-senhora-de-fatima", destination: "/fatima", permanent: true },
+    { source: "/unidades/nossa-senhora-de-fatima", destination: "/", permanent: false },
+    { source: "/unidades/fatima", destination: "/", permanent: false },
+    { source: "/nossa-senhora-de-fatima", destination: "/", permanent: false },
     { source: "/unidades/nacoes-unidas", destination: "/nacoes-unidas", permanent: true },
     { source: "/unidades/nacoes", destination: "/nacoes-unidas", permanent: true },
     { source: "/nacoes", destination: "/nacoes-unidas", permanent: true },
-    { source: "/unidades/itacolomi", destination: "/itacolomi", permanent: true },
+    { source: "/unidades/itacolomi", destination: "/", permanent: false },
     // Pais de rota que nunca tiveram página (404 hoje)
     { source: "/unidades", destination: "/#unidades-rapidas", permanent: true },
     { source: "/farmacia", destination: "/farmacia-em-sabara", permanent: true },

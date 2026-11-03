@@ -161,7 +161,7 @@ export default function ReservaFluxo() {
             <>
               <h2>Escolha a loja</h2>
               <div className="fluxo-lojas" role="radiogroup" aria-label="Escolha a loja">
-                {UNITS.map((u) => {
+                {UNITS.filter((u) => u.id === "nacoes").map((u) => {
                   const perfil = UNIT_GOOGLE_PROFILES.find((p) => p.unitId === u.id);
                   return (
                     <label key={u.id} className={lojaId === u.id ? "fluxo-loja is-on" : "fluxo-loja"}>
