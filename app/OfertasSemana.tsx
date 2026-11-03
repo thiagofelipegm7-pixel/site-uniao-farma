@@ -43,7 +43,6 @@ export default function OfertasSemana() {
     <section className="semana-painel" id="ofertas-da-semana" aria-labelledby="ofertas-semana-titulo">
       <div className="semana-topo">
         <div>
-          <p className="semana-sub">Preço e estoque confirmados pela loja</p>
           <h2 id="ofertas-semana-titulo">OFERTAS DA SEMANA</h2>
         </div>
         <span className="semana-coracao" aria-hidden="true">
@@ -83,7 +82,7 @@ export default function OfertasSemana() {
           );
         })}
       </ul>
-      <p className="semana-rodape">A gente confere o preço e o estoque e te responde pelo WhatsApp. Ofertas válidas enquanto durar o estoque em cada loja.</p>
+      <p className="semana-rodape">Ofertas válidas enquanto durar o estoque em cada loja.</p>
     </section>
   );
 }

@@ -16,7 +16,6 @@ export default function BarraReserva() {
         <IconSacola size={26} />
         Ver minha reserva · {total} {total === 1 ? "item" : "itens"}
       </a>
-      <p>Pague só na loja. Nada é cobrado no site.</p>
     </div>
   );
 }

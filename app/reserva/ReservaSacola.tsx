@@ -141,7 +141,6 @@ export default function ReservaSacola() {
           <div className="reserva-gaveta-pe">
             <button type="button" className="reserva-link" onClick={() => setConfirmando(true)}>Limpar reserva</button>
             <p className="reserva-subtotal"><span>Subtotal estimado</span><strong>{formatarCentavos(subtotalCentavos(estado.itens))}</strong></p>
-            <p className="reserva-aviso">A gente confere o preço e o estoque e te responde pelo WhatsApp. Pagamento no balcão ou na entrega. Nada é cobrado no site.</p>
             <a className="reserva-botao" href="/reserva" onClick={fechar}>Continuar para a reserva</a>
             <p className="reserva-aviso reserva-rt">{TEXTO_RESPONSAVEL}</p>
           </div>

@@ -9,9 +9,9 @@ import { trackEvent } from "../analytics";
 import { listarBairros, lojaDoBairro } from "../entrega-bairro";
 import { UNIT_GOOGLE_PROFILES } from "../google-reviews";
 import { readPreferredUnitId } from "../preferred-unit";
-import { buildWhatsAppUrl, PAYMENT_ACCEPTED, UNITS, type Unit } from "../site-config";
+import { buildWhatsAppUrl, UNITS, type Unit } from "../site-config";
 import UnitStatusBadge from "../UnitStatusBadge";
-import { IconCartao, IconCheckCirculo, IconEstrela, IconInfo, IconLixeira, IconLoja, IconMais, IconMenos, IconMoto, IconSacola, IconSelo, IconVoltar, IconWhats } from "./ReservaIcons";
+import { IconCheckCirculo, IconEstrela, IconLixeira, IconLoja, IconMais, IconMenos, IconMoto, IconSacola, IconSelo, IconVoltar, IconWhats } from "./ReservaIcons";
 import DestaquesSemana from "../shop/DestaquesSemana";
 import { atualizarReserva, definirQtd, descontoCentavos, formatarCentavos, limpar, subtotalDeTabelaCentavos, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens, type ModoReserva } from "./reserva-store";
 import { useReserva } from "./useReserva";
@@ -22,7 +22,7 @@ const BAIRROS = listarBairros(UNITS);
 
 /**
  * Reserva em 3 passos, igual ao protótipo: 1 Itens, 2 Loja e forma de receber (retirar ou receber em casa),
- * 3 Revisar e enviar pelo WhatsApp. Nada é cobrado. Nome e endereço ficam só na mensagem e nunca no analytics.
+ * 3 Revisar e enviar pelo WhatsApp. Nome e endereço ficam só na mensagem e nunca no analytics.
  */
 export default function ReservaFluxo() {
   const estado = useReserva();
@@ -182,11 +182,10 @@ export default function ReservaFluxo() {
             <section className="fluxo-resumo" aria-label="Resumo da reserva">
               <p className="fluxo-resumo-titulo">Resumo da sua reserva</p>
               <p><span>Subtotal</span><span>{descontos > 0 ? subtotalTabela : subtotal}</span></p>
-              <p className="fluxo-resumo-desconto"><span>Descontos</span><span>{descontos > 0 ? `- ${formatarCentavos(descontos)}` : "R$ 0,00"}</span></p>
+              {descontos > 0 ? <p className="fluxo-resumo-desconto"><span>Descontos</span><span>- {formatarCentavos(descontos)}</span></p> : null}
               <p><span>Taxa de entrega</span><span>{formatarCentavos(taxaEntrega)}</span></p>
               <p className="fluxo-resumo-total"><strong>Total estimado</strong><strong>{totalComTaxa}</strong></p>
               <button type="button" className="fluxo-botao fluxo-botao-resumo" onClick={() => ir(2)}>Continuar: escolher loja</button>
-              <p className="fluxo-resumo-nota"><IconInfo size={18} /><span><strong>Isto é uma reserva, não uma compra.</strong> A loja confirma preço e estoque pelo WhatsApp. Você paga no balcão (retirada) ou na entrega.</span></p>
             </section>
           </aside>
 
@@ -240,10 +239,6 @@ export default function ReservaFluxo() {
                 <input value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Nome para a retirada" autoComplete="name" aria-invalid={tentou && !nomeOk} />
               </label>
               {tentou && !nomeOk ? <p className="fluxo-erro" role="alert">Informe o nome de quem vai retirar.</p> : null}
-              <p className="fluxo-aviso">
-                <IconCartao size={28} />
-                <span><strong>Pagamento no balcão</strong>, ao retirar. A loja aceita {PAYMENT_ACCEPTED.replace(/, ([^,]+)$/, " e $1")}.</span>
-              </p>
             </>
           ) : (
             <>
@@ -257,14 +252,10 @@ export default function ReservaFluxo() {
               </label>
               {unidadeEntrega ? (
                 <p className="fluxo-aviso fluxo-aviso-ok" role="status">
-                  <IconCheckCirculo size={28} />
-                  <span>
-                    <strong>Sim, entregamos em {bairro}.</strong> A entrega sai da loja {unidadeEntrega.shortName}. Taxa e prazo são confirmados no WhatsApp da loja antes de fechar o pedido.
-                    {unidadeEntrega.deliveryExclusive ? <small>Esta loja entrega somente no bairro {unidadeEntrega.deliveryAreas.join(", ")}{unidadeEntrega.ifoodUrl ? " e também está no iFood" : ""}.</small> : null}
-                  </span>
+                  <IconCheckCirculo size={24} />
+                  <span>Entrega pela União Farma <strong>{unidadeEntrega.shortName}</strong>.</span>
                 </p>
               ) : null}
-              <p className="fluxo-nota-bairro">Outro bairro? Hoje a entrega é feita só nos bairros da lista. Escolha “Retirar na loja” e busque no balcão.</p>
               {tentou && !unidadeEntrega ? <p className="fluxo-erro" role="alert">Escolha um bairro da lista para continuar.</p> : null}
               <h2>Dados para a entrega</h2>
               <label className="fluxo-campo">
@@ -286,10 +277,6 @@ export default function ReservaFluxo() {
                   <option value="Cartão de crédito">Cartão de crédito</option>
                 </select>
               </label>
-              <p className="fluxo-aviso">
-                <IconCartao size={28} />
-                <span><strong>Pagamento na entrega.</strong> A loja aceita Pix, dinheiro, débito ou crédito. Confirme no WhatsApp.</span>
-              </p>
             </>
           )}
 
@@ -307,16 +294,6 @@ export default function ReservaFluxo() {
             <pre>{mensagem}</pre>
             <time>agora</time>
           </div>
-          <p className="fluxo-aviso">
-            <IconCheckCirculo size={28} />
-            <span>Ao tocar no botão, o WhatsApp abre com esta mensagem pronta. <strong>Nada é cobrado agora:</strong> a loja responde com preço, estoque e prazo.</span>
-          </p>
-          <h2>Depois de enviar</h2>
-          <ol className="fluxo-passos">
-            <li><span className="fluxo-n">1</span><p>A loja confirma o <strong>preço e o estoque</strong> pelo WhatsApp, dentro do horário de atendimento da loja.</p></li>
-            <li><span className="fluxo-n">2</span><p>O farmacêutico separa o seu pedido.</p></li>
-            <li><span className="fluxo-n">3</span><p>Você <strong>paga no balcão</strong> ao retirar (ou na entrega).</p></li>
-          </ol>
           <p className="fluxo-legal">Aqui só itens sem receita: medicamentos isentos de prescrição (MIPs), higiene e dermocosméticos. Leia a bula. Em caso de dúvida, procure o farmacêutico.</p>
           <div className="fluxo-rodape">
             <p className="fluxo-rt"><IconSelo size={22} /><span>Responsável técnico da loja Nações Unidas: <strong>João</strong> · CRF/MG <strong>31958</strong>. Farmacêutico presente em todo o horário.</span></p>

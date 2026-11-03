@@ -98,14 +98,14 @@ test("página /reserva: noindex, 3 passos como o protótipo, envio rastreado sem
   assert.match(fluxo, /Passo \{passo\} de 3/);
   assert.match(fluxo, /Continuar: escolher loja/);
   assert.match(fluxo, /Adicionar mais itens/);
-  assert.match(fluxo, /Isto é uma reserva, não uma compra\./);
+  assert.doesNotMatch(fluxo, /não uma compra|Nada é cobrado|Cobrado neste site|Sem cobrança/);
   assert.match(fluxo, /Retirar na loja/);
   assert.match(fluxo, /Entrega/);
   assert.match(fluxo, /Quem vai retirar\?/);
   assert.match(fluxo, /Mora em Sabará\? Entregamos no seu bairro\./);
   assert.match(fluxo, /Revisar pedido/);
   assert.match(fluxo, /Prévia da mensagem/);
-  assert.match(fluxo, /Depois de enviar/);
+  assert.doesNotMatch(fluxo, /Depois de enviar/);
   assert.match(fluxo, /Enviar pedido pelo WhatsApp/);
   assert.match(fluxo, /Editar minha reserva/);
   assert.match(fluxo, /<strong>João<\/strong> · CRF\/MG <strong>31958<\/strong>/);

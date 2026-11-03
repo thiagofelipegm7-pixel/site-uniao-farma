@@ -36,7 +36,6 @@ export default function DestaquesSemana({ titulo = "Destaques da semana", verTod
         <h2 id="destaques-titulo">{titulo}</h2>
         {verTodas ? <a href="/nacoes-unidas/produtos">Ver todas</a> : null}
       </div>
-      <p className="shop-destaques-sub">Preço e estoque confirmados pela loja no WhatsApp.</p>
       <ul className="shop-destaques-lista">
         {itens.map((item) => (
           <li key={item.slug}>
