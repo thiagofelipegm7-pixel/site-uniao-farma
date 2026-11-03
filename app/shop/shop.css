@@ -1115,6 +1115,25 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 }
 
 /* =====================================================================
+   "Navegue por categoria" como o carrossel da Panvel (vídeo): setas nas pontas (alinhadas ao título), 5 quadros de 140px,
+   deslize de 2 em 2 e volta infinita. No celular: linha rolável, sem setas nem cópias.
+   ===================================================================== */
+.shop-categorias-corpo { display: block; }
+.shop-categorias-janela { display: block; }
+.shop-cat-seta, .shop-cat-copia { display: none; }
+@media (min-width: 992px) {
+  .shop-categorias { --cat-tile: 8.75rem; --cat-gap: 1.0625rem; --cat-passo: calc(var(--cat-tile) + var(--cat-gap)); }
+  .shop-categorias-corpo { display: flex; align-items: flex-start; gap: 1.5625rem; width: fit-content; }
+  .shop-categorias-janela { overflow: hidden; width: calc(5 * var(--cat-tile) + 4 * var(--cat-gap)); }
+  .shop-categorias ul { display: flex; flex-wrap: nowrap; gap: var(--cat-gap); width: max-content; margin: 0; padding: 0 !important; overflow: visible; will-change: transform; }
+  .shop-categorias li { flex: 0 0 var(--cat-tile); }
+  .shop-categorias a { width: var(--cat-tile); }
+  .shop-cat-copia { display: block; }
+  .shop-cat-seta { display: grid; place-items: center; flex: none; width: 2rem; height: 2rem; margin-top: calc(var(--cat-tile) / 2 - 1rem); padding: 0; border: 0; border-radius: 6px; background: #c9d8d5; color: var(--uf-navy); cursor: pointer; transition: background-color 0.2s ease; }
+  .shop-cat-seta:hover, .shop-cat-seta:focus-visible { background: var(--uf-panel); color: var(--uf-action-ink); }
+}
+
+/* =====================================================================
    Logo da faixa principal como a "PanVel" da Panvel: texto itálico pesado direto sobre a faixa (branco no verde-água),
    sem cartão nem ilustração. No celular (cabeçalho branco) o nome fica verde e sem a linha de cima.
    ===================================================================== */
