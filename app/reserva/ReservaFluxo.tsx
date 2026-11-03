@@ -13,7 +13,7 @@ import { buildWhatsAppUrl, UNITS, type Unit } from "../site-config";
 import UnitStatusBadge from "../UnitStatusBadge";
 import { IconCheckCirculo, IconEstrela, IconLixeira, IconLoja, IconMais, IconMenos, IconMoto, IconSacola, IconSelo, IconVoltar, IconWhats } from "./ReservaIcons";
 import DestaquesSemana from "../shop/DestaquesSemana";
-import { atualizarReserva, definirQtd, descontoCentavos, formatarCentavos, limpar, subtotalDeTabelaCentavos, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens, type ModoReserva } from "./reserva-store";
+import { atualizarReserva, definirQtd, definirSelecao, descontoCentavos, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens, type ModoReserva } from "./reserva-store";
 import { useReserva } from "./useReserva";
 
 type Passo = 1 | 2 | 3;
@@ -48,6 +48,8 @@ export default function ReservaFluxo() {
   const unidadeEntrega = bairro ? lojaDoBairro(UNITS, bairro) : null;
   const unidade = (retirar ? UNITS.find((u) => u.id === lojaId) : unidadeEntrega) ?? UNITS[0];
   const total = totalItens(estado);
+  const marcados = estado.itens.filter(itemAtivo).length;
+  const todosMarcados = marcados === estado.itens.length;
   const subtotal = formatarCentavos(subtotalCentavos(estado.itens));
   const taxaEntrega = retirar ? 0 : TAXA_ENTREGA_CENTAVOS;
   const totalComTaxa = formatarCentavos(subtotalCentavos(estado.itens) + taxaEntrega);
@@ -68,7 +70,7 @@ export default function ReservaFluxo() {
       setTentou(true);
       return;
     }
-    trackEvent("reserva_revisar", { modo, itens: estado.itens.length });
+    trackEvent("reserva_revisar", { modo, itens: estado.itens.filter(itemAtivo).length });
     ir(3);
   }
 
@@ -130,7 +132,15 @@ export default function ReservaFluxo() {
         <div className="fluxo-conteudo fluxo-conteudo-cesta">
           <div className="fluxo-coluna-itens">
             <div className="fluxo-titulo-cesta">
-              <span>Todos os produtos</span>
+              <label className="fluxo-check fluxo-check-todos">
+                <input
+                  type="checkbox"
+                  checked={todosMarcados}
+                  ref={(el) => { if (el) el.indeterminate = marcados > 0 && !todosMarcados; }}
+                  onChange={(e) => atualizarReserva((s) => selecionarTodos(s, e.target.checked))}
+                />
+                <span>Todos os produtos</span>
+              </label>
               <p>{total} {total === 1 ? "item" : "itens"} na reserva</p>
             </div>
             <div className="fluxo-tabela">
@@ -139,8 +149,11 @@ export default function ReservaFluxo() {
                 {estado.itens.map((item) => {
                   const temDe = !!item.deCentavos && item.deCentavos > item.precoCentavos;
                   return (
-                    <li key={item.id}>
+                    <li key={item.id} className={itemAtivo(item) ? undefined : "is-fora"}>
                       <div className="cel-produto">
+                        <label className="fluxo-check">
+                          <input type="checkbox" aria-label={`Incluir ${item.nome}`} checked={itemAtivo(item)} onChange={(e) => atualizarReserva((s) => definirSelecao(s, item.id, e.target.checked))} />
+                        </label>
                         <span className="fluxo-item-foto">{item.foto ? <img src={item.foto} alt="" width="64" height="64" /> : null}<b className="fluxo-item-qtd" aria-hidden="true">{item.qtd}</b></span>
                         <div>
                           <strong className="fluxo-item-nome">{item.nome}</strong>
@@ -154,7 +167,7 @@ export default function ReservaFluxo() {
                       </div>
                       <div className="cel-qtd">
                         <div className="reservar-contador fluxo-contador" role="group" aria-label={`Quantidade de ${item.nome}`}>
-                          <button type="button" aria-label={`Diminuir ${item.nome}`} disabled={item.qtd <= 1} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, Math.max(1, item.qtd - 1)))}><IconMenos size={18} /></button>
+                          {item.qtd > 1 ? <button type="button" aria-label={`Diminuir ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, item.qtd - 1))}><IconMenos size={18} /></button> : null}
                           <output aria-live="polite">{item.qtd}</output>
                           <button type="button" aria-label={`Aumentar ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, item.qtd + 1))}><IconMais size={18} /></button>
                         </div>
@@ -185,7 +198,7 @@ export default function ReservaFluxo() {
               {descontos > 0 ? <p className="fluxo-resumo-desconto"><span>Descontos</span><span>- {formatarCentavos(descontos)}</span></p> : null}
               <p><span>Taxa de entrega</span><span>{formatarCentavos(taxaEntrega)}</span></p>
               <p className="fluxo-resumo-total"><strong>Total estimado</strong><strong>{totalComTaxa}</strong></p>
-              <button type="button" className="fluxo-botao fluxo-botao-resumo" onClick={() => ir(2)}>Continuar: escolher loja</button>
+              <button type="button" className="fluxo-botao fluxo-botao-resumo" disabled={marcados === 0} onClick={() => ir(2)}>Continuar: escolher loja</button>
             </section>
           </aside>
 
@@ -193,7 +206,7 @@ export default function ReservaFluxo() {
 
           <div className="fluxo-rodape fluxo-rodape-total">
             <p className="fluxo-barra-total"><span>Total estimado</span><strong>{totalComTaxa}</strong></p>
-            <button type="button" className="fluxo-botao" onClick={() => ir(2)}>Continuar: escolher loja</button>
+            <button type="button" className="fluxo-botao" disabled={marcados === 0} onClick={() => ir(2)}>Continuar: escolher loja</button>
           </div>
         </div>
       ) : null}

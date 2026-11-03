@@ -72,6 +72,29 @@ test("mensagem do WhatsApp lista itens, loja, forma, nome, pagamento e subtotal,
   assert.match(mensagemReserva("Fátima", s.itens, { modo: "retirar", nome: "" }), /Nome: \[nome do cliente\]/);
 });
 
+test("seleção da cesta: item desmarcado fica fora do total, da contagem e da mensagem; adicionar de novo marca", async () => {
+  const { ESTADO_VAZIO, adicionar, definirSelecao, selecionarTodos, totalItens, subtotalCentavos, descontoCentavos, mensagemReserva, porLoja } = await mod();
+  let s = adicionar(ESTADO_VAZIO, nivea, 2);
+  s = adicionar(s, { ...rollon, deCentavos: 1590 });
+  assert.equal(totalItens(s), 3);
+  s = definirSelecao(s, s.itens[0].id, false);
+  assert.equal(totalItens(s), 1);
+  assert.equal(subtotalCentavos(s.itens), 1290);
+  assert.equal(descontoCentavos(s.itens), 300);
+  const msg = mensagemReserva("Nações Unidas", s.itens, { modo: "retirar", nome: "Ana" });
+  assert.doesNotMatch(msg, /Nivea Soft Milk/);
+  assert.match(msg, /1x Desodorante roll-on Nivea Protect/);
+  assert.match(msg, /Subtotal estimado: R\$ 12,90|Total estimado: R\$ 12,90/);
+  assert.deepEqual(porLoja(s).map((g) => g.itens.length), [1]);
+  s = selecionarTodos(s, false);
+  assert.equal(totalItens(s), 0);
+  s = adicionar(s, nivea);
+  assert.equal(s.itens[0].selecionado, true);
+  assert.equal(s.itens[0].qtd, 3);
+  s = selecionarTodos(s, true);
+  assert.equal(totalItens(s), 4);
+});
+
 test("lerEstado descarta dados estragados e aceita o formato salvo", async () => {
   const { lerEstado, ESTADO_VAZIO, adicionar } = await mod();
   assert.deepEqual(lerEstado(null), ESTADO_VAZIO);
@@ -172,7 +195,7 @@ test("reserva_add, reserva_revisar e o clique do WhatsApp entram no dataLayer se
   ]);
   assert.match(botao, /source = "catalogo"/);
   assert.match(botao, /trackEvent\("reserva_add", \{ unit: unitId, source \}\)/);
-  assert.match(pagina, /trackEvent\("reserva_revisar", \{ modo, itens: estado\.itens\.length \}\)/);
+  assert.match(pagina, /trackEvent\("reserva_revisar", \{ modo, itens: estado\.itens\.filter\(itemAtivo\)\.length \}\)/);
   assert.doesNotMatch(botao, /trackEvent\("reserva_add", \{[^}]*nome/);
   assert.doesNotMatch(pagina, /trackEvent\("reserva_revisar", \{[^}]*nome/);
 });

@@ -14,6 +14,8 @@ export type ReservaItem = {
   precoCentavos: number;
   /** Preço de antes ("De"), só quando a oferta confirma. Mostra o riscado e o desconto na reserva. */
   deCentavos?: number;
+  /** Caixa de seleção da cesta: só os marcados entram no total e no pedido. Ausente = marcado. */
+  selecionado?: boolean;
   qtd: number;
   foto?: string | null;
 };
@@ -43,13 +45,28 @@ export function formatarCentavos(centavos: number): string {
   return `R$ ${reais.toLocaleString("pt-BR")},${cents}`;
 }
 
+/** Item marcado na cesta (o padrão). */
+export function itemAtivo(item: ReservaItem): boolean {
+  return item.selecionado !== false;
+}
+
 export function adicionar(estado: ReservaEstado, item: Omit<ReservaItem, "qtd" | "id">, qtd = 1): ReservaEstado {
   const id = idDoItem(item.unitId, item.nome);
   const existente = estado.itens.find((i) => i.id === id);
-  if (existente) return definirQtd(estado, id, existente.qtd + qtd);
+  if (existente) return definirSelecao(definirQtd(estado, id, existente.qtd + qtd), id, true);
   if (!(item.precoCentavos > 0)) return estado;
   const novo: ReservaItem = { ...item, id, qtd: Math.min(MAX_POR_ITEM, Math.max(1, qtd)) };
   return { ...estado, itens: [...estado.itens, novo] };
+}
+
+/** Marca ou desmarca um item. */
+export function definirSelecao(estado: ReservaEstado, id: string, selecionado: boolean): ReservaEstado {
+  return { ...estado, itens: estado.itens.map((i) => (i.id === id ? { ...i, selecionado } : i)) };
+}
+
+/** Marca ou desmarca todos os itens de uma vez. */
+export function selecionarTodos(estado: ReservaEstado, selecionado: boolean): ReservaEstado {
+  return { ...estado, itens: estado.itens.map((i) => ({ ...i, selecionado })) };
 }
 
 /** qtd <= 0 remove o item. */
@@ -66,16 +83,16 @@ export function limpar(estado: ReservaEstado): ReservaEstado {
 }
 
 export function totalItens(estado: ReservaEstado): number {
-  return estado.itens.reduce((soma, i) => soma + i.qtd, 0);
+  return estado.itens.filter(itemAtivo).reduce((soma, i) => soma + i.qtd, 0);
 }
 
 export function subtotalCentavos(itens: ReservaItem[]): number {
-  return itens.reduce((soma, i) => soma + i.precoCentavos * i.qtd, 0);
+  return itens.filter(itemAtivo).reduce((soma, i) => soma + i.precoCentavos * i.qtd, 0);
 }
 
 /** Soma do que o cliente deixa de pagar nos itens com preço "De" confirmado. */
 export function descontoCentavos(itens: ReservaItem[]): number {
-  return itens.reduce((soma, i) => soma + (i.deCentavos && i.deCentavos > i.precoCentavos ? (i.deCentavos - i.precoCentavos) * i.qtd : 0), 0);
+  return itens.filter(itemAtivo).reduce((soma, i) => soma + (i.deCentavos && i.deCentavos > i.precoCentavos ? (i.deCentavos - i.precoCentavos) * i.qtd : 0), 0);
 }
 
 /** Subtotal "de tabela": usa o preço "De" quando existe, como na cesta (subtotal, descontos, total). */
@@ -90,7 +107,7 @@ export function qtdDoItem(estado: ReservaEstado, id: string): number {
 /** Itens agrupados por loja: cada loja recebe a sua própria mensagem. */
 export function porLoja(estado: ReservaEstado): Array<{ unitId: string; itens: ReservaItem[] }> {
   const mapa = new Map<string, ReservaItem[]>();
-  for (const item of estado.itens) mapa.set(item.unitId, [...(mapa.get(item.unitId) ?? []), item]);
+  for (const item of estado.itens.filter(itemAtivo)) mapa.set(item.unitId, [...(mapa.get(item.unitId) ?? []), item]);
   return [...mapa.entries()].map(([unitId, itens]) => ({ unitId, itens }));
 }
 
@@ -112,7 +129,7 @@ export type DadosPedido = {
  * Pede confirmação de preço e estoque (não promete nada). Nome e endereço vão só no texto da mensagem, nunca ao analytics.
  */
 export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: DadosPedido): string {
-  const linhas = itens.map((i) => `\u2022 ${i.qtd}x ${i.nome.replace(/\s+/g, " ").trim()}`);
+  const linhas = itens.filter(itemAtivo).map((i) => `\u2022 ${i.qtd}x ${i.nome.replace(/\s+/g, " ").trim()}`);
   const retirar = dados.modo === "retirar";
   const nome = dados.nome.replace(/\s+/g, " ").trim();
   const sub = subtotalCentavos(itens);
