@@ -105,7 +105,6 @@ export default function ReservaFluxo() {
         </ol>
         <div className="cesta-contato">
           <a href={`https://wa.me/${UNITS[0].whatsappDigits}`} aria-label="Falar com a União Farma no WhatsApp"><IconWhats size={22} /><span>WhatsApp<strong>{UNITS.find((u) => u.id === "nacoes")?.whatsapp}</strong></span></a>
-          <p><IconSelo size={22} /> Sem cobrança no site</p>
         </div>
       </div>
       <header className="fluxo-topo">
@@ -185,7 +184,6 @@ export default function ReservaFluxo() {
               <p><span>Subtotal</span><span>{descontos > 0 ? subtotalTabela : subtotal}</span></p>
               <p className="fluxo-resumo-desconto"><span>Descontos</span><span>{descontos > 0 ? `- ${formatarCentavos(descontos)}` : "R$ 0,00"}</span></p>
               <p><span>Taxa de entrega</span><span>{formatarCentavos(taxaEntrega)}</span></p>
-              <p><span>Cobrado neste site</span><span>R$ 0,00</span></p>
               <p className="fluxo-resumo-total"><strong>Total estimado</strong><strong>{totalComTaxa}</strong></p>
               <button type="button" className="fluxo-botao fluxo-botao-resumo" onClick={() => ir(2)}>Continuar: escolher loja</button>
               <p className="fluxo-resumo-nota"><IconInfo size={18} /><span><strong>Isto é uma reserva, não uma compra.</strong> A loja confirma preço e estoque pelo WhatsApp. Você paga no balcão (retirada) ou na entrega.</span></p>

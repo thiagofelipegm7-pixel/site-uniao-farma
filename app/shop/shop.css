@@ -786,7 +786,6 @@ body.cookie-banner-visible .fluxo-rodape { bottom: 9rem; }
   .cesta-contato a { display: inline-flex; align-items: center; gap: 0.5rem; color: #ffffff; text-decoration: none; }
   .cesta-contato a span { display: grid; font-size: 0.8125rem; line-height: 1.2; }
   .cesta-contato a strong { font-size: 1rem; }
-  .cesta-contato p { display: inline-flex; align-items: center; gap: 0.375rem; margin: 0; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; opacity: 0.85; }
   /* o que a faixa já mostra some no desktop */
   .fluxo-brandstrip, .fluxo-progresso, .fluxo-progresso-rotulos, .fluxo-passo { display: none; }
   .fluxo-topo { flex-wrap: wrap; max-width: 70rem; margin: 0 auto; padding: 2rem 1.25rem 0; background: transparent; }
@@ -817,7 +816,6 @@ body.cookie-banner-visible .fluxo-rodape { bottom: 9rem; }
     .fluxo-reserva .fluxo-topo h1 { font-size: 2.25rem !important; line-height: 1.1 !important; letter-spacing: 0.02em !important; text-transform: uppercase; color: #0a3548 !important; }
   }
 }
-.cesta-faixa .cesta-contato p { color: #ffffff; opacity: 0.9; }
 .fluxo-topo { flex-wrap: nowrap; }
 .fluxo-topo h1 { flex: 1; min-width: 0; }
 @media (min-width: 992px) { .fluxo-topo { flex-wrap: wrap; } }
