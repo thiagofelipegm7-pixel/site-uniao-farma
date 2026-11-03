@@ -60,7 +60,7 @@ const eightToNine = {
   close: "21:00",
 } as const;
 
-const ALL_UNITS: Unit[] = [
+export const UNITS: Unit[] = [
   {
     id: "fatima",
     slug: "nossa-senhora-de-fatima",
@@ -115,21 +115,11 @@ const ALL_UNITS: Unit[] = [
     whatsapp: "(31) 98762-9909",
     whatsappDigits: "5531987629909",
     amenities: { freeParking: true },
-    deliveryAreas: [
-      "Nações Unidas",
-      "Itacolomi",
-      "Ipê Amarelo",
-      "General Carneiro",
-      "Vila Rica",
-      "Aviação Brasília",
-      "Cemitério Terra Santa",
-      "Centro Macaúbas",
-      "IFMG",
-    ],
+    deliveryAreas: ["Nações Unidas"],
     ifoodUrl:
       "https://www.ifood.com.br/delivery/sabara-mg/drogaria-uniao-farma-nacoes-unidas/97697e48-2712-4a41-9e59-29eca10d912a",
-    deliveryScope: "no bairro Nações Unidas e em Itacolomi, Ipê Amarelo, General Carneiro, Vila Rica, Aviação Brasília, Cemitério Terra Santa, Centro Macaúbas e IFMG",
-    deliveryExclusive: false,
+    deliveryScope: "somente no bairro Nações Unidas",
+    deliveryExclusive: true,
     map: "https://maps.app.goo.gl/V3S7ZFeZKwRQ2sm47",
     mapEmbed:
       "https://maps.google.com/maps?q=Rua+Inglaterra,162,Nacoes+Unidas,Sabara,MG&t=&z=17&ie=UTF8&iwloc=&output=embed",
@@ -186,9 +176,6 @@ const ALL_UNITS: Unit[] = [
   },
 ];
 
-/** Site público só com a loja Nações Unidas por enquanto. Reative as outras removendo o filter. */
-export const UNITS: Unit[] = ALL_UNITS.filter((u) => u.id === "nacoes");
-
 export const GOOGLE_REVIEWS_URL =
   "https://www.google.com/maps/place/Drogaria+e+Perfumaria+Uni%C3%A3o+Farma/@-19.8794223,-43.8668895,17z/data=!4m8!3m7!1s0xa69c9e248f1981:0xee9db0cbc26a5edc!8m2!3d-19.8794223!4d-43.8668895!9m1!1b1!16s%2Fg%2F11h7d3ybd9";
 
@@ -235,7 +222,7 @@ export function buildWhatsAppUrl(
 }
 
 export function getUnitBySlug(slug: string): Unit | undefined {
-  if (slug === "fatima" || slug === "itacolomi") return undefined;
+  if (slug === "fatima") return UNITS.find((unit) => unit.id === "fatima");
   return UNITS.find((unit) => unit.slug === slug);
 }
 

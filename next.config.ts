@@ -25,19 +25,14 @@ const nextConfig: NextConfig = {
   // `permanent: true` gera 308 (equivale a 301 para o Google). Não usar `statusCode: 301`:
   // o vinext ignora esse campo e responde 307 (temporário).
   redirects: async () => [
-    // Temporário: site só com Nações Unidas
-    { source: "/fatima", destination: "/", permanent: false },
-    { source: "/jardim-vitoria", destination: "/", permanent: false },
-    { source: "/itacolomi", destination: "/", permanent: false },
-    { source: "/nossa-senhora-de-fatima", destination: "/", permanent: false },
     // Lojas: variantes /unidades/* e apelidos antigos -> canonical
-    { source: "/unidades/nossa-senhora-de-fatima", destination: "/", permanent: false },
-    { source: "/unidades/fatima", destination: "/", permanent: false },
-    { source: "/nossa-senhora-de-fatima", destination: "/", permanent: false },
+    { source: "/unidades/nossa-senhora-de-fatima", destination: "/fatima", permanent: true },
+    { source: "/unidades/fatima", destination: "/fatima", permanent: true },
+    { source: "/nossa-senhora-de-fatima", destination: "/fatima", permanent: true },
     { source: "/unidades/nacoes-unidas", destination: "/nacoes-unidas", permanent: true },
     { source: "/unidades/nacoes", destination: "/nacoes-unidas", permanent: true },
     { source: "/nacoes", destination: "/nacoes-unidas", permanent: true },
-    { source: "/unidades/itacolomi", destination: "/", permanent: false },
+    { source: "/unidades/itacolomi", destination: "/itacolomi", permanent: true },
     // Pais de rota que nunca tiveram página (404 hoje)
     { source: "/unidades", destination: "/#unidades-rapidas", permanent: true },
     { source: "/farmacia", destination: "/farmacia-em-sabara", permanent: true },

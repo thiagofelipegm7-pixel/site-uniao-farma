@@ -97,7 +97,7 @@ test("lista restrita: sem cesta, oferta, % OFF, preço riscado ou destaque", asy
     assert.equal(i.controlado, false);
   }
   assert.match(lista, /Consultar/);
-  assert.match(lista, /noindex|index: false/);
+  assert.match(await read("app/nacoes-unidas/produtos/restritos-meta.ts"), /index: false/);
   const rxPage = await read("app/nacoes-unidas/produtos/receita/page.tsx");
   const ctPage = await read("app/nacoes-unidas/produtos/controlados/page.tsx");
   assert.match(rxPage, /ListaRestrita/);
