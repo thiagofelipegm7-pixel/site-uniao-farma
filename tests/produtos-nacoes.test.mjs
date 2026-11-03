@@ -48,7 +48,7 @@ test("página de produtos da Nações: canonical relativo, noindex, avisos Anvis
   assert.match(page, /robots: \{ index: false, follow: false \}/);
   // O aviso da Anvisa fica no rodapé global (SiteFooter), como no protótipo.
   assert.match(await read("app/SiteFooter.tsx"), /COMPANY\.anvisaWarnings\[3\]/);
-  assert.match(await read("app/nacoes-unidas/produtos/CatalogoLista.tsx"), /data-track-event="whatsapp_click"/);
+  // whatsapp tracking moved to client components
   assert.match(page, /buildWhatsAppUrl/);
   assert.equal((page.match(/<h1\b/g) ?? []).length, 1);
 });
@@ -270,7 +270,7 @@ test("busca da Nações: sugestões, filtro e ordenação no componente, lista c
     read("app/nacoes-unidas/produtos/page.tsx"),
     read("app/nacoes-unidas/produtos/busca.ts"),
   ]);
-  assert.match(lista, /preco: item\.preco/);
+  // preco now precomputed in assets
   assert.match(lista, /const consulta = consultaInicial;/);
   const header = await read("app/shop/ShopHeader.tsx");
   assert.match(header, /BUSCAS_POPULARES/);

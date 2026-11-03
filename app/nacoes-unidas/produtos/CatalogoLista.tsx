@@ -26,8 +26,6 @@ import {
 } from "./busca";
 import { slugify } from "./catalogo";
 
-type ItemCatalogoApi = { nome: string; nomeExibicao?: string; lab: string; isMIP: boolean; precoFmt: string; preco?: number; foto: string | null };
-
 type Props = {
   /** Texto vindo do campo de busca do cabeçalho (?q=). */
   consultaInicial?: string;
@@ -64,7 +62,7 @@ export default function CatalogoLista({ grupos: gruposProps, whatsappHref, unitI
           gruposCarregados.push({
             categoria: g.categoria,
             id: g.slug,
-            itens: (p1 as ItemCatalogoApi[]).map((item) => ({
+            itens: p1.map( (item: { nomeExibicao?: string; nome: string; lab: string; isMIP: boolean; precoFmt: string | null; preco: number; foto: string | null }) => ({
               nome: item.nomeExibicao || item.nome,
               lab: item.lab,
               isMIP: item.isMIP,
