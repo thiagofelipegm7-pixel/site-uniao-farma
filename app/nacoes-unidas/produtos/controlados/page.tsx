@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import ListaRestrita, { metadadosRestrita, type ParamsLista } from "../ListaRestrita";
-
-export const dynamic = "force-dynamic";
+import ListaRestrita from "../ListaRestrita";
+import { metadadosRestrita } from "../restritos-meta";
 
 export const metadata: Metadata = metadadosRestrita("controlados");
 
-export default async function Page({ searchParams }: { searchParams?: Promise<ParamsLista> }) {
-  return <ListaRestrita tipo="controlados" params={(await searchParams) ?? {}} />;
+export default function Page() {
+  return <ListaRestrita tipo="controlados" />;
 }

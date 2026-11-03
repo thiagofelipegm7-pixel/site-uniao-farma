@@ -39,9 +39,9 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   function carregar() {
     if (itens !== null || carregando.current) return;
     carregando.current = true;
-    fetch("/api/catalogo", { headers: { accept: "application/json" } })
+    fetch("/dados/nacoes/catalogo-busca.json", { headers: { accept: "application/json" } })
       .then((resposta) => (resposta.ok ? resposta.json() : null))
-      .then((dados: { itens?: Sugestao[] } | null) => setItens(dados?.itens ?? []))
+      .then((dados: Sugestao[] | null) => setItens(Array.isArray(dados) ? dados : []))
       .catch(() => setItens([]));
   }
 
