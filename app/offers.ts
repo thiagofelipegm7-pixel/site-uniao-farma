@@ -108,30 +108,7 @@ const createOffer = (
 });
 
 export const OFFERS: Offer[] = [
-  // Ofertas da semana das artes da loja (02/11/2026). "De" e "Por" confirmados pelo dono; valem enquanto durar o estoque em cada loja.
-  createOffer({
-    id: "adeforte-turbo-biotina-3ml",
-    slug: "adeforte-turbo-ampola-de-biotina-pura-3ml",
-    name: "Adeforte Turbo + ampola de biotina pura 3ml",
-    brand: "Adeforte",
-    category: "suplementos",
-    currentPrice: 39,
-    previousPrice: 45,
-    previousPriceConfirmed: true,
-    image: "/promotions/adeforte-turbo-biotina.webp",
-    placeholderLabel: "Oferta aprovada",
-    imageApproved: true,
-    priceConfirmed: true,
-    validityConfirmed: true,
-    validityType: "while_stock_lasts",
-    promotionConfirmed: true,
-    // Suplemento alimentar (não é medicamento). A arte foi publicada pela própria loja; confirmar com o responsável técnico.
-    regulatoryClass: "supplement_review",
-    manualRegulatoryApproval: true,
-    publicationStatus: "approved",
-    adsEligible: false,
-    updatedAt: "2026-11-02",
-  }),
+  // Ofertas da semana das artes da loja (02/11/2026; a do Adeforte foi retirada a pedido da loja). "De" e "Por" confirmados pelo dono; valem enquanto durar o estoque em cada loja.
   createOffer({
     id: "cerave-creme-hidratante-85g",
     slug: "cerave-pote-creme-hidratante-sem-perfume-85g",
