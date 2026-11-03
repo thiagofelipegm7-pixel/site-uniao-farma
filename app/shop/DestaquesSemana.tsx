@@ -13,6 +13,10 @@ type Props = {
   titulo?: string;
   /** Slug da categoria do catálogo (ex.: "perfumaria-e-higiene"). Sem ele, traz itens variados. */
   grupo?: string;
+  /** Marca (laboratório/fabricante) do catálogo. */
+  lab?: string;
+  /** Preço máximo em centavos. */
+  ate?: number;
   /** Quantos itens (1 a 12). */
   n?: number;
   /** Link do "Ver tudo". */
@@ -27,13 +31,13 @@ type Props = {
  * Busca no navegador em /api/destaques (cache de 5 min) para a home continuar estática e o preço nunca ficar congelado.
  * Se a busca falhar, a seção some.
  */
-export default function DestaquesSemana({ titulo = "Destaques da semana", grupo, n = 8, verTodasHref = "/nacoes-unidas/produtos", verTodas = true, source = "destaques_home", id = "destaques" }: Props = {}) {
+export default function DestaquesSemana({ titulo = "Destaques da semana", grupo, lab, ate, n = 8, verTodasHref = "/nacoes-unidas/produtos", verTodas = true, source = "destaques_home", id = "destaques" }: Props = {}) {
   const [itens, setItens] = useState<Destaque[]>([]);
   const lista = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     let ativo = true;
-    const consulta = new URLSearchParams({ n: String(n), ...(grupo ? { grupo } : {}) });
+    const consulta = new URLSearchParams({ n: String(n), ...(grupo ? { grupo } : {}), ...(lab ? { lab } : {}), ...(ate ? { ate: String(ate) } : {}) });
     fetch(`/api/destaques?${consulta}`, { headers: { accept: "application/json" } })
       .then((resposta) => (resposta.ok ? resposta.json() : null))
       .then((dados: { itens?: Destaque[] } | null) => {
@@ -43,7 +47,7 @@ export default function DestaquesSemana({ titulo = "Destaques da semana", grupo,
     return () => {
       ativo = false;
     };
-  }, [grupo, n]);
+  }, [grupo, lab, ate, n]);
 
   if (itens.length === 0) return null;
 
