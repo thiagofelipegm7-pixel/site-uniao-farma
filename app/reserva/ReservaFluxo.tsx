@@ -100,6 +100,25 @@ export default function ReservaFluxo() {
     );
   }
 
+  const tabelaItens = (
+    <>
+        <p className="entrega-colunas" aria-hidden="true"><span>Item</span><span>Preço</span><span>Quantidade</span><span>Total</span></p>
+        <ul className="entrega-itens">
+          {estado.itens.filter(itemAtivo).map((item) => (
+            <li key={item.id}>
+              <div className="entrega-item-prod">
+                <span className="fluxo-item-foto">{item.foto ? <img src={item.foto} alt="" width="52" height="52" /> : null}<b className="fluxo-item-qtd" aria-hidden="true">{item.qtd}</b></span>
+                <strong className="fluxo-item-nome">{item.nome}</strong>
+              </div>
+              <span className="entrega-item-preco">{formatarCentavos(item.precoCentavos)}</span>
+              <span className="entrega-item-qtd">{item.qtd} {item.qtd === 1 ? "unidade" : "unidades"}</span>
+              <b className="entrega-item-total">{formatarCentavos(item.precoCentavos * item.qtd)}</b>
+            </li>
+          ))}
+        </ul>
+    </>
+  );
+
   const enviarWhats = (classe: string) => pagamento ? (
     <a className={classe} href={href} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unidade.id} data-track-source="reserva_envio">
       <IconWhats size={24} /> Enviar pedido pelo WhatsApp
@@ -274,20 +293,7 @@ export default function ReservaFluxo() {
             <div className="entrega-pacote">
               <p className="entrega-topbar"><IconSacola size={20} /><span>Vendido e entregue por <strong>União Farma</strong></span></p>
               <div className="entrega-miolo">
-                <p className="entrega-colunas" aria-hidden="true"><span>Item</span><span>Preço</span><span>Quantidade</span><span>Total</span></p>
-                <ul className="entrega-itens">
-                  {estado.itens.filter(itemAtivo).map((item) => (
-                    <li key={item.id}>
-                      <div className="entrega-item-prod">
-                        <span className="fluxo-item-foto">{item.foto ? <img src={item.foto} alt="" width="52" height="52" /> : null}<b className="fluxo-item-qtd" aria-hidden="true">{item.qtd}</b></span>
-                        <strong className="fluxo-item-nome">{item.nome}</strong>
-                      </div>
-                      <span className="entrega-item-preco">{formatarCentavos(item.precoCentavos)}</span>
-                      <span className="entrega-item-qtd">{item.qtd} {item.qtd === 1 ? "unidade" : "unidades"}</span>
-                      <b className="entrega-item-total">{formatarCentavos(item.precoCentavos * item.qtd)}</b>
-                    </li>
-                  ))}
-                </ul>
+                {tabelaItens}
 
                 <p className="entrega-opcoes-titulo" role="heading" aria-level={3}>Selecione uma opção</p>
                 <div role="radiogroup" aria-label="Selecione uma opção">
@@ -343,22 +349,45 @@ export default function ReservaFluxo() {
       {passo === 3 ? (
         <div className="fluxo-conteudo fluxo-conteudo-cesta fluxo-pagamento">
           <div className="fluxo-coluna-itens">
-            <p className="entrega-titulo" role="heading" aria-level={2}>Forma de pagamento</p>
-            <div role="radiogroup" aria-label="Forma de pagamento">
-              {FORMAS_PAGAMENTO.map((forma) => (
-                <label key={forma} className={pagamento === forma ? "entrega-opcao entrega-opcao-simples is-on" : "entrega-opcao entrega-opcao-simples"}>
-                  <input type="radio" name="pagamento" checked={pagamento === forma} onChange={() => setPagamento(forma)} />
-                  <span className="entrega-tipo">{forma}</span>
-                  <span className="entrega-periodo">{retirar ? "no balcão" : "na entrega"}</span>
-                </label>
-              ))}
+            <section className="entrega-endereco" aria-label="Dados do pedido">
+              <div className="entrega-end">
+                <div className="entrega-end-texto">
+                  <strong>{nome.trim()}</strong>
+                  {!retirar ? <span>{rua.trim()}</span> : null}
+                  <span>{retirar ? `Retirada na União Farma ${unidade.shortName}` : `${bairro}, Sabará - MG`}</span>
+                </div>
+                <button type="button" className="entrega-btn entrega-btn-alterar" onClick={() => { setEditando(true); ir(2); }}>Alterar</button>
+              </div>
+            </section>
+
+            <p className="entrega-titulo" role="heading" aria-level={2}>Revise seu pedido</p>
+            <div className="entrega-pacote">
+              <p className="entrega-topbar"><IconSacola size={20} /><span>Vendido e entregue por <strong>União Farma</strong></span></p>
+              <div className="entrega-miolo">
+                {tabelaItens}
+
+                <p className="entrega-opcoes-titulo" role="heading" aria-level={3}>Forma de pagamento</p>
+                <div role="radiogroup" aria-label="Forma de pagamento">
+                  {FORMAS_PAGAMENTO.map((forma) => (
+                    <label key={forma} className={pagamento === forma ? "entrega-opcao entrega-opcao-simples is-on" : "entrega-opcao entrega-opcao-simples"}>
+                      <input type="radio" name="pagamento" checked={pagamento === forma} onChange={() => setPagamento(forma)} />
+                      <span className="entrega-tipo">{forma}</span>
+                      <span className="entrega-periodo">{retirar ? "no balcão" : "na entrega"}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
             </div>
 
             <p className="entrega-titulo" role="heading" aria-level={2}>Prévia da mensagem</p>
-            <p className="fluxo-destino">Vai para o WhatsApp da União Farma {unidade.shortName}: <strong>{unidade.whatsapp}</strong></p>
-            <div className="fluxo-bolha">
-              <pre>{mensagem}</pre>
-              <time>agora</time>
+            <div className="entrega-pacote">
+              <div className="entrega-miolo">
+                <p className="fluxo-destino">Vai para o WhatsApp da União Farma {unidade.shortName}: <strong>{unidade.whatsapp}</strong></p>
+                <div className="fluxo-bolha">
+                  <pre>{mensagem}</pre>
+                  <time>agora</time>
+                </div>
+              </div>
             </div>
             <div className="fluxo-links">
               <button type="button" className="fluxo-link-quieto" onClick={() => ir(1)}>Editar minha cesta</button>

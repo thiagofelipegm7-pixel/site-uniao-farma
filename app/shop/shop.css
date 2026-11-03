@@ -893,3 +893,4 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .entrega-opcao-simples { grid-template-columns: auto 1fr auto; grid-template-areas: "radio tipo periodo"; }
 }
 .fluxo-pagamento .fluxo-botao-resumo { font-size: 0.875rem; letter-spacing: 0; white-space: nowrap; }
+.fluxo-pagamento .fluxo-rodape .fluxo-botao { font-size: 0.875rem; padding: 0 0.75rem; white-space: nowrap; }
