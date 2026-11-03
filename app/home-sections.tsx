@@ -53,7 +53,7 @@ export function HomeSections({
         <div className="section-inner">
           <p className="section-kicker">Ofertas da semana</p>
           <h2 id="offers-group-title">Grupo de Ofertas no WhatsApp</h2>
-          <p>Receba as ofertas da semana das 3 lojas direto no seu celular. Quem é do grupo fica sabendo primeiro.</p>
+          <p>Receba as ofertas da semana da loja Nações Unidas direto no seu celular. Quem é do grupo fica sabendo primeiro.</p>
           <p>
             <OffersGroupCta placement="home_offers_group" />
           </p>

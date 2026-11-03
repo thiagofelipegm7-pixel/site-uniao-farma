@@ -59,11 +59,11 @@ test("mensagem do WhatsApp lista itens, loja, forma, nome, pagamento e subtotal,
   assert.match(retirar, /Forma: Retirar na loja/);
   assert.match(retirar, /Nome: Maria Souza/);
   assert.match(retirar, /Pagamento: no balcão/);
-  assert.match(retirar, /Subtotal estimado: R\$ 39,80/);
+  assert.match(retirar, /Total estimado: R\$ 39,80/);
   assert.match(retirar, /Podem confirmar preço e estoque\? Obrigado!/);
   assert.doesNotMatch(retirar, /garant|reservado|em estoque/i);
   const casa = mensagemReserva("Nações Unidas", s.itens, { modo: "casa", nome: "Maria", bairro: "Nações Unidas", rua: "Rua Inglaterra, 100" });
-  assert.match(casa, /Forma: Receber em casa/);
+  assert.match(casa, /Forma: Entrega/);
   assert.match(casa, /Bairro: Nações Unidas/);
   assert.match(casa, /Endereço: Rua Inglaterra, 100/);
   assert.match(casa, /Pagamento: na entrega/);
@@ -98,7 +98,7 @@ test("página /reserva: noindex, 3 passos como o protótipo, envio rastreado sem
   assert.match(fluxo, /Adicionar mais itens/);
   assert.match(fluxo, /Isto é uma reserva, não uma compra\./);
   assert.match(fluxo, /Retirar na loja/);
-  assert.match(fluxo, /Receber em casa/);
+  assert.match(fluxo, /Entrega/);
   assert.match(fluxo, /Quem vai retirar\?/);
   assert.match(fluxo, /Mora em Sabará\? Entregamos no seu bairro\./);
   assert.match(fluxo, /Revisar pedido/);

@@ -34,10 +34,11 @@ export default function ReservaFluxo() {
     () => null,
   );
   const [escolhida, setLojaId] = useState<Unit["id"] | null>(null);
-  const lojaId: Unit["id"] = escolhida ?? preferida ?? "fatima";
+  const lojaId: Unit["id"] = escolhida ?? preferida ?? "nacoes";
   const [nome, setNome] = useState("");
   const [rua, setRua] = useState("");
   const [bairro, setBairro] = useState("");
+  const [pagamento, setPagamento] = useState("");
   const [tentou, setTentou] = useState(false);
 
   const modo = estado.modo;
@@ -65,7 +66,7 @@ export default function ReservaFluxo() {
     ir(3);
   }
 
-  const titulo = passo === 1 ? "Minha reserva" : passo === 2 ? (retirar ? "Loja e retirada" : "Receber em casa") : "Revisar e enviar";
+  const titulo = passo === 1 ? "Minha reserva" : passo === 2 ? (retirar ? "Loja e retirada" : "Entrega") : "Revisar e enviar";
 
   if (estado.itens.length === 0) {
     return (
@@ -84,7 +85,7 @@ export default function ReservaFluxo() {
     );
   }
 
-  const mensagem = mensagemReserva(unidade.shortName, estado.itens, { modo, nome, bairro, rua });
+  const mensagem = mensagemReserva(unidade.shortName, estado.itens, { modo, nome, bairro, rua, pagamento, taxaEntregaCentavos: 0 });
   const href = buildWhatsAppUrl(unidade, mensagem, { campaign: "reserva", content: `reserva_${unidade.id}` });
 
   return (
@@ -151,7 +152,7 @@ export default function ReservaFluxo() {
             {(["retirar", "casa"] as ModoReserva[]).map((m) => (
               <button key={m} type="button" aria-pressed={modo === m} className={modo === m ? "is-on" : ""} onClick={() => atualizarReserva((s) => ({ ...s, modo: m }))}>
                 {m === "retirar" ? <IconLoja size={24} /> : <IconMoto size={24} />}
-                {m === "retirar" ? "Retirar na loja" : "Receber em casa"}
+                {m === "retirar" ? "Retirar na loja" : "Entrega"}
               </button>
             ))}
           </div>
@@ -221,9 +222,19 @@ export default function ReservaFluxo() {
                 <input value={rua} onChange={(e) => setRua(e.target.value)} placeholder="Ex.: Rua Inglaterra, 100" autoComplete="street-address" aria-invalid={tentou && rua.trim().length < 3} />
               </label>
               {tentou && (!nomeOk || rua.trim().length < 3) ? <p className="fluxo-erro" role="alert">Preencha o nome e a rua com número.</p> : null}
+              <label className="fluxo-campo">
+                <span>Forma de pagamento</span>
+                <select value={pagamento} onChange={(e) => setPagamento(e.target.value)} required>
+                  <option value="">Selecione</option>
+                  <option value="Pix">Pix</option>
+                  <option value="Dinheiro">Dinheiro</option>
+                  <option value="Cartão de débito">Cartão de débito</option>
+                  <option value="Cartão de crédito">Cartão de crédito</option>
+                </select>
+              </label>
               <p className="fluxo-aviso">
                 <IconCartao size={28} />
-                <span><strong>Pagamento na entrega.</strong> Combine a forma de pagamento com a loja no WhatsApp: Pix, dinheiro, débito ou crédito.</span>
+                <span><strong>Pagamento na entrega.</strong> A loja aceita Pix, dinheiro, débito ou crédito. Confirme no WhatsApp.</span>
               </p>
             </>
           )}
@@ -254,7 +265,7 @@ export default function ReservaFluxo() {
           </ol>
           <p className="fluxo-legal">Aqui só itens sem receita: medicamentos isentos de prescrição (MIPs), higiene e dermocosméticos. Leia a bula. Em caso de dúvida, procure o farmacêutico.</p>
           <div className="fluxo-rodape">
-            <p className="fluxo-rt"><IconSelo size={22} /><span>Responsável técnico das 3 lojas: <strong>João</strong> · CRF/MG <strong>31958</strong>. Farmacêutico presente em todo o horário.</span></p>
+            <p className="fluxo-rt"><IconSelo size={22} /><span>Responsável técnico da loja Nações Unidas: <strong>João</strong> · CRF/MG <strong>31958</strong>. Farmacêutico presente em todo o horário.</span></p>
             <a
               className="fluxo-botao"
               href={href}
