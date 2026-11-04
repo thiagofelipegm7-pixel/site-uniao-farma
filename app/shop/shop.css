@@ -107,6 +107,8 @@
 }
 
 /* ---- Categorias ---- */
+/* Medidas da Panvel (home medida em 1440 px): celular 72 px com 16 px de intervalo; desktop 163 px com 20 px, 7 à vista a partir de 1440 px. */
+.shop-categorias { --cat-tile: 4.5rem; --cat-gap: 1rem; --cat-n: 5; }
 .shop-categorias ul {
   display: flex;
   gap: 0.75rem;
@@ -312,7 +314,7 @@
 /* A camada "design" força h1/h2/h3 com !important e, por vir primeiro, esse !important vence. */
 @layer design {
   /* "main li > a" do design.css força inline-flex; aqui o link da categoria é uma coluna (ícone sobre o rótulo). */
-  .shop-categorias a { display: grid !important; justify-items: center !important; align-content: start !important; min-height: 0 !important; width: 4.5rem !important; }
+  .shop-categorias a { display: grid !important; justify-items: center !important; align-content: start !important; min-height: 0 !important; width: var(--cat-tile) !important; }
   .shop-hero h1 { margin: 0 !important; color: #ffffff !important; font-size: 1.125rem !important; font-weight: 700 !important; line-height: 1.35 !important; text-align: left !important; }
   .shop-destaques h2, .shop-passos h2, .seo-intro h2 { margin: 0 !important; color: var(--uf-ink) !important; font-size: 1.375rem !important; font-weight: 700 !important; line-height: 1.3 !important; }
   .shop-card h3 { margin: 0.75rem 0 !important; color: #3e4b49 !important; font-size: 0.875rem !important; font-weight: 400 !important; line-height: 1.2 !important; }
@@ -1072,9 +1074,9 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .shop-card-foto { height: 10rem; }
   .shop-categorias { padding-bottom: 3.625rem; }
   .shop-categorias h2 { margin-bottom: 1.5rem; }
-  .shop-cat-icone { width: 8.75rem !important; height: 8.75rem !important; }
+  .shop-cat-icone { width: var(--cat-tile) !important; height: var(--cat-tile) !important; }
   .shop-cat-icone svg { width: 3.5rem; height: 3.5rem; }
-  .shop-categorias ul { gap: 1.25rem; }
+  .shop-categorias ul { gap: var(--cat-gap); }
 }
 @layer design {
   @media (min-width: 992px) {
@@ -1082,8 +1084,6 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   }
 }
 @media (min-width: 992px) {
-  .shop-categorias li { flex: 0 0 8.75rem; }
-  .shop-categorias a { width: 8.75rem; }
 }
 
 /* =====================================================================
@@ -1118,15 +1118,24 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .shop-categorias-janela { display: block; }
 .shop-cat-seta, .shop-cat-copia { display: none; }
 @media (min-width: 992px) {
-  .shop-categorias { --cat-tile: 8.75rem; --cat-gap: 1.0625rem; --cat-passo: calc(var(--cat-tile) + var(--cat-gap)); }
-  .shop-categorias-corpo { display: flex; align-items: flex-start; gap: 1.5625rem; width: fit-content; }
-  .shop-categorias-janela { overflow: hidden; width: calc(5 * var(--cat-tile) + 4 * var(--cat-gap)); }
+  .shop-categorias { --cat-tile: 10.1875rem; --cat-gap: 1.25rem; --cat-passo: calc(var(--cat-tile) + var(--cat-gap)); }
+  .shop-categorias-corpo { display: flex; align-items: flex-start; gap: 1.625rem; width: fit-content; }
+  .shop-categorias-janela { overflow: hidden; width: calc(var(--cat-n) * var(--cat-tile) + (var(--cat-n) - 1) * var(--cat-gap)); }
   .shop-categorias ul { display: flex; flex-wrap: nowrap; gap: var(--cat-gap); width: max-content; margin: 0; padding: 0 !important; overflow: visible; will-change: transform; }
   .shop-categorias li { flex: 0 0 var(--cat-tile); }
   .shop-categorias a { width: var(--cat-tile); }
   .shop-cat-copia { display: block; }
-  .shop-cat-seta { display: grid; place-items: center; flex: none; width: 2rem; height: 2rem; margin-top: calc(var(--cat-tile) / 2 - 1rem); padding: 0; border: 0; border-radius: 6px; background: #c9d8d5; color: var(--uf-navy); cursor: pointer; transition: background-color 0.2s ease; }
+  .shop-cat-seta { display: grid; place-items: center; flex: none; width: 2.25rem; height: 2.25rem; margin-top: calc(var(--cat-tile) / 2 - 1.125rem); padding: 0; border: 0; border-radius: 4px; background: #c9d8d5; color: var(--uf-navy); cursor: pointer; transition: background-color 0.2s ease; }
   .shop-cat-seta:hover, .shop-cat-seta:focus-visible { background: var(--uf-panel); color: var(--uf-action-ink); }
+}
+@media (min-width: 992px) {
+  /* Título alinhado ao início dos quadros (depois da seta), como na Panvel. */
+  .shop-categorias h2 { padding-inline-start: 3.875rem; }
+}
+@media (min-width: 1440px) {
+  /* Só há 6 categorias: mostra todas de uma vez (sem repetir quadros); com mais categorias, trocar para 7. */
+  .shop-categorias { --cat-n: 6; max-width: 86.75rem; padding-inline: 1.625rem; }
+  .shop-categorias h2 { max-width: 86.75rem; }
 }
 
 /* Logo (regras base em app/marca.css). Celular: faixa verde-água como a Panvel, logo à esquerda ao lado do menu. */

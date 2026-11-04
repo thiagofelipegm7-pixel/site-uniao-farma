@@ -43,7 +43,7 @@ test("home: 'Navegue por categoria' é um carrossel como o da Panvel (setas, 2 q
     readFile(new URL("../app/shop/ShopSections.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/shop/shop.css", import.meta.url), "utf8"),
   ]);
-  assert.match(sec, /const VISIVEIS = 5/);
+  assert.match(sec, /const VISIVEIS = 6/);
   assert.match(sec, /const PASSO = 2/);
   assert.match(sec, /aria-label="Categorias anteriores"/);
   assert.match(sec, /aria-label="Próximas categorias"/);
