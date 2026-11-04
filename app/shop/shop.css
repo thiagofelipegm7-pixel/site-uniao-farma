@@ -998,7 +998,6 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   }
   .shop-marca { color: var(--uf-action-ink); }
   .shop-marca img { width: 2.75rem; height: 2.75rem; padding: 4px; border-radius: 10px; background: #ffffff; }
-  .shop-marca span { font-size: 1.25rem; font-weight: 800; }
   .shop-whats { grid-area: whats; display: inline-flex; align-items: center; gap: 0.5rem; color: var(--uf-action-ink); text-decoration: none; }
   .shop-whats span { display: grid; font-size: 0.875rem; font-weight: 700; line-height: 1.2; }
   .shop-whats strong { font-size: 1rem; }
