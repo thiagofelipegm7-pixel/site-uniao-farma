@@ -49,7 +49,9 @@ test("home: 'Navegue por categoria' é um carrossel como o da Panvel (setas, 2 q
   assert.match(sec, /aria-label="Próximas categorias"/);
   assert.match(sec, /prefers-reduced-motion: reduce/);
   assert.match(sec, /aria-hidden=\{copia \? true : undefined\}/);
-  // No celular: sem setas e sem cópias; no desktop: janela de 5 quadros.
+  // No celular: sem setas e sem cópias; no desktop: janela de --cat-n quadros (5; 6 a partir de 1440 px).
   assert.match(css, /\.shop-cat-seta, \.shop-cat-copia \{ display: none; \}/);
-  assert.match(css, /\.shop-categorias-janela \{ overflow: hidden; width: calc\(5 \* var\(--cat-tile\) \+ 4 \* var\(--cat-gap\)\); \}/);
+  assert.match(css, /\.shop-categorias-janela \{ overflow: hidden; width: calc\(var\(--cat-n\) \* var\(--cat-tile\) \+ \(var\(--cat-n\) - 1\) \* var\(--cat-gap\)\); \}/);
+  assert.match(css, /--cat-tile: 10\.1875rem/);
+  assert.match(css, /--cat-n: 6/);
 });
