@@ -158,10 +158,14 @@ const cat = JSON.parse(fs.readFileSync(path.join(DADOS, "catalogo-nacoes.json"),
 const itens = cat.itens || [];
 
 const CATEGORIAS_ORDEM = [
-  "Perfumaria e higiene",
-  "Pele e proteção solar",
-  "Suplementos e alimentos",
-  "Medicamentos isentos de prescrição",
+  "Medicamentos",
+  "Dermocosméticos",
+  "Perfumes",
+  "Infantil e Gestante",
+  "Beleza",
+  "Cuidado Diário",
+  "Bem Estar",
+  "Categoria a conferir",
 ];
 
 function rank(cat) {

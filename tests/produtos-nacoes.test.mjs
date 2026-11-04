@@ -34,11 +34,11 @@ test("catálogo Nações: erro de rede ou resposta ruim vira null", async () => 
 test("catálogo Nações: agrupa na ordem das categorias e ordena por nome", async () => {
   const { groupByCategoria } = await mod();
   const g = groupByCategoria([
-    { nome: "Z", lab: "", categoria: "Medicamentos isentos de prescrição", preco: 1, isMIP: true },
-    { nome: "b", lab: "", categoria: "Perfumaria e higiene", preco: 1, isMIP: false },
-    { nome: "a", lab: "", categoria: "Perfumaria e higiene", preco: 1, isMIP: false },
+    { nome: "Z", lab: "", categoria: "Bem Estar", preco: 1, isMIP: false },
+    { nome: "b", lab: "", categoria: "Medicamentos", preco: 1, isMIP: true },
+    { nome: "a", lab: "", categoria: "Medicamentos", preco: 1, isMIP: true },
   ]);
-  assert.deepEqual(g.map((x) => x.categoria), ["Perfumaria e higiene", "Medicamentos isentos de prescrição"]);
+  assert.deepEqual(g.map((x) => x.categoria), ["Medicamentos", "Bem Estar"]);
   assert.deepEqual(g[0].itens.map((i) => i.nome), ["a", "b"]);
 });
 

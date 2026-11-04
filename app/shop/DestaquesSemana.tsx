@@ -11,7 +11,7 @@ type Destaque = { nome: string; slug: string; lab?: string; precoCentavos: numbe
 
 type Props = {
   titulo?: string;
-  /** Slug da categoria do catálogo (ex.: "perfumaria-e-higiene"). Sem ele, traz itens variados. */
+  /** Slug da categoria do catálogo (ex.: "cuidado-diario"). Sem ele, traz itens variados. */
   grupo?: string;
   /** Marca (laboratório/fabricante) do catálogo. */
   lab?: string;

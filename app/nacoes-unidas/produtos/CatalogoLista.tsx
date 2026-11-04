@@ -56,23 +56,33 @@ export default function CatalogoLista({ grupos: gruposProps, whatsappHref, unitI
     (async () => {
       try {
         const idx = await fetch("/dados/nacoes/catalogo-index.json").then(r => r.json());
+        type ItemPagina = { nomeExibicao?: string; nome: string; lab: string; isMIP: boolean; precoFmt: string; preco: number; foto: string | null };
+        const paraItem = (item: ItemPagina) => ({
+          nome: item.nomeExibicao || item.nome,
+          lab: item.lab,
+          isMIP: item.isMIP,
+          precoFmt: item.precoFmt,
+          preco: item.preco,
+          foto: item.foto,
+        });
+        const lerPagina = (slug: string, n: number): Promise<ItemPagina[]> => fetch(`/dados/nacoes/catalogo/${slug}/p${n}.json`).then((r) => r.json());
         const gruposCarregados: GrupoBusca[] = [];
+        // Primeiro a página 1 de cada categoria (aparece rápido); depois as demais, até o catálogo inteiro estar na tela.
         for (const g of idx.grupos || []) {
-          const p1 = await fetch(`/dados/nacoes/catalogo/${g.slug}/p1.json`).then(r => r.json());
-          gruposCarregados.push({
-            categoria: g.categoria,
-            id: g.slug,
-            itens: p1.map( (item: { nomeExibicao?: string; nome: string; lab: string; isMIP: boolean; precoFmt: string | null; preco: number; foto: string | null }) => ({
-              nome: item.nomeExibicao || item.nome,
-              lab: item.lab,
-              isMIP: item.isMIP,
-              precoFmt: item.precoFmt,
-              preco: item.preco,
-              foto: item.foto,
-            })),
-          });
+          const p1 = await lerPagina(g.slug, 1);
+          gruposCarregados.push({ categoria: g.categoria, id: g.slug, itens: p1.map(paraItem) });
         }
-        if (!cancel) setGrupos(gruposCarregados);
+        if (cancel) return;
+        setGrupos([...gruposCarregados]);
+        for (let k = 0; k < gruposCarregados.length; k += 1) {
+          const g = (idx.grupos || [])[k];
+          for (let n = 2; n <= (g?.paginas ?? 1); n += 1) {
+            const pagina = await lerPagina(g.slug, n);
+            if (cancel) return;
+            gruposCarregados[k] = { ...gruposCarregados[k], itens: [...gruposCarregados[k].itens, ...pagina.map(paraItem)] };
+          }
+          setGrupos([...gruposCarregados]);
+        }
       } catch (e) {
         console.error(e);
       }

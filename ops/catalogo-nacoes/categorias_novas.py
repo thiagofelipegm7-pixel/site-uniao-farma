@@ -1,0 +1,67 @@
+#!/usr/bin/env python3
+"""Reclassifica o catálogo público (catalogo-nacoes.json) nas 8 categorias da loja:
+Medicamentos, Dermocosméticos, Perfumes, Infantil e Gestante, Beleza, Cuidado Diário, Bem Estar e Categoria a conferir.
+
+O export do DMaster não traz a categoria da loja, então a regra usa o nome e o laboratório do item, na ordem abaixo
+(a primeira que casar vence). O que não casa com nenhuma regra e não tem categoria antiga que o ajude vai para
+"Categoria a conferir". Para corrigir um item, acrescente o nome em AJUSTES (nome normalizado -> categoria).
+
+Uso: python3 categorias_novas.py [caminho/catalogo-nacoes.json]   (reescreve o arquivo e imprime o resumo)
+Depois: node scripts/gerar-assets-catalogo.mjs
+"""
+import json, os, re, sys, unicodedata, collections
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
+ARQ = os.path.join(RAIZ, "app/nacoes-unidas/produtos/dados/catalogo-nacoes.json")
+
+CATEGORIAS = ["Medicamentos", "Dermocosméticos", "Perfumes", "Infantil e Gestante", "Beleza", "Cuidado Diário", "Bem Estar", "Categoria a conferir"]
+
+# Correções manuais: nome normalizado -> categoria.
+AJUSTES: dict[str, str] = {}
+
+def norm(s):
+    s = unicodedata.normalize("NFKD", s or "").encode("ascii", "ignore").decode().upper()
+    return re.sub(r"[^A-Z0-9]+", " ", s).strip()
+
+def rx(p): return re.compile(p)
+INFANTIL = rx(r"\b(FRALDA|FRALD|BABY|BEBE|INFANT\w*|KIDS?|CHUPETA|MAMADEIRA|BICO|GESTANTE|GRAVIDEZ|TOALHAS? UMEDECIDAS?|LENCO UMEDECIDO|LENCOS? UMED\w*|APTAMIL|NAN|NESTOGENO|ENFAMIL|ISABABY|HIPOPO|PEQUENO PRINCIPE|PROTETOR DE SEIO|ASSADURA|ASSADURAS)\b")
+PERFUME = rx(r"\b(PERFUME|PERF|COLONIA|DEO COL\w*|DEO COLONIA|BODY SPLASH|SPLASH|EAU|AGUA DE COLONIA|FRAGRANCIA)\b")
+BELEZA = rx(r"\b(SHAMPOO|SH|SHAMP|CONDICIONADOR|COND|CR PENT\w*|CREME PENT\w*|CR P PENTEAR|MASC\w* CAPILAR|MASCARA|TINT\w*|COLORACAO|COLOR|ESMALTE|ACETONA|DEPILAT\w*|DEPIL|BATOM|MAQUIAGEM|ALISANTE|ALISAMENTO|RELAXAMENTO|CACHEADO|CACHOS|CAPILAR|FINALIZADOR|GEL FIXADOR|GELATINA|LAPIS|DELINEADOR|PINCEL|BASE LIQ\w*|PO COMPACTO|SOMBRA|BLUSH|RIMEL|SECADOR|PRANCHA|PENTE|ESCOVA DE CABELO|LIXA|ALICATE|CILIOS|REMOVEDOR|CERA DEPIL\w*|BRILHO LABIAL|HIDRATANTE CAPILAR|OLEO CAPILAR|AMPOLA CAPILAR|TRATAMENTO CAPILAR|BOTOX CAPILAR|OLEO DE ARGAN)\b")
+LABS_BELEZA = {"SALON LINE", "EMBELLEZE", "NIELY", "WELLA", "LOREAL", "BIOEXTRATO", "TRESEMME", "ELSEVE", "SEDA", "PANTENE", "PALMOLIVE NATURALS"}
+CUIDADO = rx(r"\b(SAB|SABONETE|SABAO|DESOD\w*|DES|ROLL ON|AEROSSOL|CR DENT\w*|CREME DENTAL|PASTA DENTAL|ESCOVA DENTAL|ESC DENT\w*|FIO DENTAL|ENXAG\w*|ANTISEPT\w*|LISTERINE|PLAX|ABS|ABSORVENTE|PROTETOR DIARIO|PAPEL HIG\w*|COTONETE|HASTES?|ALGODAO|BARBEAD\w*|GILLETTE|LAMINA|APARELHO DE BARBEAR|ALCOOL|HIGIENE|LENCO|PROT LABIAL|PROTETOR LABIAL|CHICLE|BALA|HALLS|DROPS|PASTILHA|ADOCANTE|ESCOVA|DENTAL|BANHO|SPRAY|CURATIVO|BAND AID|GAZE|ESPARADRAPO|ATADURA|LUVA\w*|MASCARA DESC\w*)\b")
+BEM_ESTAR = rx(r"\b(PRESERVATIVO|CAMISINHA|LUBRIFICANTE|GEL INTIMO|JONTEX|PRUDENCE|VITAMIN\w*|MULTIVIT\w*|WHEY|CREATINA|COLAGENO|OMEGA|MELATONINA|CHA|CHAS|PROBIOTICO|TERMOMETRO|TENSIOMETRO|APARELHO DE PRESSAO|GLICOSIMETRO|FITA GLICEMIA|TESTE)\b")
+
+SEM_PERF = rx(r"\b(S|C|COM|SEM)\s*(PERF\w*|PERFUMADO)\b|\bPERFUMAD\w*")
+CABELO = rx(r"\b(SHAMPOO|SH|SHAMP|CONDICIONADOR|COND|CR PENT\w*|CREME PENT\w*|CAPILAR|CACHOS?|CACHEADO|ALISANTE|ALIS|MASC\w* CAPILAR|TINT\w*|COLORACAO|FINALIZADOR|GEL FIXADOR|TRATAMENTO CAPILAR)\b")
+
+def categoria_nova(nome, lab, antiga, is_mip):
+    n = norm(nome); l = norm(lab)
+    if n in AJUSTES: return AJUSTES[n]
+    if is_mip or antiga == "Medicamentos isentos de prescrição": return "Medicamentos"
+    if INFANTIL.search(n) or l in {"ISABABY"}: return "Infantil e Gestante"
+    if PERFUME.search(SEM_PERF.sub(" ", n)): return "Perfumes"
+    if CABELO.search(n) or l in LABS_BELEZA: return "Beleza"
+    if re.match(r"(DES|DESOD\w*|SAB|SABONETE)\b", n): return "Cuidado Diário"
+    if antiga == "Pele e proteção solar": return "Dermocosméticos"
+    if BELEZA.search(n) or l in LABS_BELEZA: return "Beleza"
+    if antiga == "Suplementos e alimentos" or BEM_ESTAR.search(n): return "Bem Estar"
+    if CUIDADO.search(n): return "Cuidado Diário"
+    if antiga == "Perfumaria e higiene": return "Cuidado Diário"
+    return "Categoria a conferir"
+
+def main(path=ARQ):
+    d = json.load(open(path, encoding="utf-8"))
+    cont = collections.Counter(); amostra = collections.defaultdict(list)
+    for it in d["itens"]:
+        antiga = it.get("categoriaAntiga") or it["categoria"]
+        it["categoriaAntiga"] = antiga
+        it["categoria"] = categoria_nova(it["nome"], it.get("lab", ""), antiga, it.get("isMIP") is True)
+        cont[it["categoria"]] += 1
+        if len(amostra[it["categoria"]]) < 6: amostra[it["categoria"]].append(it["nome"])
+    json.dump(d, open(path, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))
+    for c in CATEGORIAS: print(f"{cont[c]:5d}  {c:22s} {amostra[c]}")
+    print(sum(cont.values()), "itens")
+
+if __name__ == "__main__":
+    main(*(sys.argv[1:2]))
