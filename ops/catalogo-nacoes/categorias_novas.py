@@ -19,6 +19,22 @@ CATEGORIAS = ["Medicamentos", "Dermocosméticos", "Perfumes", "Infantil e Gestan
 
 # Correções manuais: nome normalizado -> categoria.
 AJUSTES: dict[str, str] = {
+    # Itens com foto conferida pela loja (lote de bem-estar de 04/11).
+    "ADOCANTE ADOCYL STEVIA 80ML": "Bem Estar",
+    "ADOCANTE DIETETICO DOCURINHA 1": "Bem Estar",
+    "FINI GELAT BEIJO DE MORA15G": "Bem Estar",
+    "FINI GELATINA AMORAS DP 15G": "Bem Estar",
+    "FINI GELATINA DENTADURA DP 15G": "Bem Estar",
+    "FINI TUBES MORANGO DP 15G": "Bem Estar",
+    "OLEO DE ALHO EM CAPSULAS C 60 SOFTCAPS": "Bem Estar",
+    "OLEO DE COCO COPRA 200ML EXTRAVIRGEM": "Bem Estar",
+    "OLEO DE COCO EXTRAVIRGEM 15ML": "Bem Estar",
+    "OLEO DE ROSA MOSQUETAS 10ML": "Dermocosméticos",
+    "OLEO ROSA MOSQUETA 100 ML": "Dermocosméticos",
+    "PRESERV OLLA PLAY C 3UN": "Bem Estar",
+    "SUPRINUTRI 400G ORIGINAL E": "Bem Estar",
+    "VALDA FRIENDS PAST 25G": "Bem Estar",
+    "VINAGRE DE MACA SAO FRANCISCO ORGANICO 500ML": "Bem Estar",
     # Itens com foto conferida pela loja (lote de dermocosméticos de 04/11).
     "ADESIVO RICCA 3867 SECATIVO ACNE FASE CR": "Dermocosméticos",
     "AGUA MICELAR CICATRICURE 200ML": "Dermocosméticos",
