@@ -56,6 +56,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   useEffect(() => {
     if (window.location.pathname.startsWith("/nacoes-unidas/produtos")) {
       const q = new URLSearchParams(window.location.search).get("q");
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- a página é estática: o termo só existe na barra de endereço, depois que a página abre
       if (q) setTermo(q.slice(0, 80));
     }
   }, []);
