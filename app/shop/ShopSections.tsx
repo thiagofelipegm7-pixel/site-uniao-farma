@@ -15,12 +15,12 @@ const CATEGORIAS = [
   { href: "/nacoes-unidas/produtos#correlatos-e-outros", rotulo: "Correlatos", Icone: IconKit, destaque: false },
 ] as const;
 
-const VISIVEIS = 5; // quadros à vista no desktop
+const VISIVEIS = 6; // quadros à vista no desktop largo (5 abaixo de 1440 px); a fila tem cópias para os dois casos
 const PASSO = 2; // quadros por clique (como o carrossel da Panvel)
 const DURACAO_MS = 450;
 
 /**
- * "Navegue por categoria" como o carrossel da Panvel (vídeo de 03/11): no desktop, 5 quadros por vez, setas nas pontas,
+ * "Navegue por categoria" como o carrossel da Panvel (vídeo de 03/11): no desktop, 5 quadros por vez (6 a partir de 1440 px, todos), setas nas pontas,
  * cada clique avança 2 quadros com deslize suave e a lista dá a volta sem fim. No celular segue como linha rolável
  * (as setas e os quadros repetidos ficam escondidos).
  */
