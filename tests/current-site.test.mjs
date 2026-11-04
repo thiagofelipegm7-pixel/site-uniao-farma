@@ -52,6 +52,6 @@ test("home: 'Navegue por categoria' é um carrossel como o da Panvel (setas, 2 q
   // No celular: sem setas e sem cópias; no desktop: janela de --cat-n quadros (5; 6 a partir de 1440 px).
   assert.match(css, /\.shop-cat-seta, \.shop-cat-copia \{ display: none; \}/);
   assert.match(css, /\.shop-categorias-janela \{ overflow: hidden; width: calc\(var\(--cat-n\) \* var\(--cat-tile\) \+ \(var\(--cat-n\) - 1\) \* var\(--cat-gap\)\); \}/);
-  assert.match(css, /--cat-tile: 10\.1875rem/);
+  assert.match(css, /--cat-tile: calc\(\(100cqw - 7\.75rem/);
   assert.match(css, /--cat-n: 6/);
 });

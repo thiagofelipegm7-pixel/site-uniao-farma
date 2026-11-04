@@ -1118,8 +1118,9 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .shop-categorias-janela { display: block; }
 .shop-cat-seta, .shop-cat-copia { display: none; }
 @media (min-width: 992px) {
-  .shop-categorias { --cat-tile: 10.1875rem; --cat-gap: 1.25rem; --cat-passo: calc(var(--cat-tile) + var(--cat-gap)); }
-  .shop-categorias-corpo { display: flex; align-items: flex-start; gap: 1.625rem; width: fit-content; }
+  /* Os quadros dividem a largura inteira (menos as duas setas): sem faixa branca na direita em telas largas. */
+  .shop-categorias { --cat-tile: calc((100cqw - 7.75rem - (var(--cat-n) - 1) * var(--cat-gap)) / var(--cat-n)); --cat-gap: 1.25rem; --cat-passo: calc(var(--cat-tile) + var(--cat-gap)); }
+  .shop-categorias-corpo { display: flex; align-items: flex-start; gap: 1.625rem; width: 100%; container-type: inline-size; }
   .shop-categorias-janela { overflow: hidden; width: calc(var(--cat-n) * var(--cat-tile) + (var(--cat-n) - 1) * var(--cat-gap)); }
   .shop-categorias ul { display: flex; flex-wrap: nowrap; gap: var(--cat-gap); width: max-content; margin: 0; padding: 0 !important; overflow: visible; will-change: transform; }
   .shop-categorias li { flex: 0 0 var(--cat-tile); }
@@ -1134,8 +1135,8 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 }
 @media (min-width: 1440px) {
   /* Só há 6 categorias: mostra todas de uma vez (sem repetir quadros); com mais categorias, trocar para 7. */
-  .shop-categorias { --cat-n: 6; max-width: 86.75rem; padding-inline: 1.625rem; }
-  .shop-categorias h2 { max-width: 86.75rem; }
+  .shop-categorias { --cat-n: 6; max-width: none; padding-inline: 1.625rem; }
+  .shop-categorias h2 { max-width: none; }
 }
 
 /* Logo (regras base em app/marca.css). Celular: faixa verde-água como a Panvel, logo à esquerda ao lado do menu. */
