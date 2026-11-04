@@ -187,3 +187,12 @@ test("selo/etiqueta 'Sem receita' removido de todos os cards de produto e oferta
     assert.doesNotMatch(src, /SeloSemReceita|selo-sem-receita|<p className="produto-selo"|>\s*Sem receita\s*</, f);
   }
 });
+
+test("catálogo Nações: todos os itens estão nas 8 categorias da loja", async () => {
+  const { carregarCatalogoNacoes, CATEGORIAS_ORDEM } = await import("../app/nacoes-unidas/produtos/catalogo.ts");
+  const validas = new Set(CATEGORIAS_ORDEM);
+  assert.equal(CATEGORIAS_ORDEM.length, 8);
+  const itens = carregarCatalogoNacoes().itens;
+  assert.ok(itens.length > 1000);
+  for (const item of itens) assert.ok(validas.has(item.categoria), `${item.nome}: ${item.categoria}`);
+});

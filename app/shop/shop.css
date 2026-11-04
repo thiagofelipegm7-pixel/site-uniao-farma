@@ -1134,8 +1134,8 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .shop-categorias h2 { padding-inline-start: 3.875rem; }
 }
 @media (min-width: 1440px) {
-  /* Só há 6 categorias: mostra todas de uma vez (sem repetir quadros); com mais categorias, trocar para 7. */
-  .shop-categorias { --cat-n: 6; max-width: none; padding-inline: 1.625rem; }
+  /* 9 quadros (Ofertas + 8 categorias): 7 à vista, como a Panvel. */
+  .shop-categorias { --cat-n: 7; max-width: none; padding-inline: 1.625rem; }
   .shop-categorias h2 { max-width: none; }
 }
 

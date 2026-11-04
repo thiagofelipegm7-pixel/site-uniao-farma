@@ -13,10 +13,14 @@ export type Catalogo = { loja: string; geradoEm?: string; total?: number; itens:
 export type CatalogoGrupo = { categoria: string; itens: CatalogoItem[] };
 
 export const CATEGORIAS_ORDEM = [
-  "Perfumaria e higiene",
-  "Pele e proteção solar",
-  "Suplementos e alimentos",
-  "Medicamentos isentos de prescrição",
+  "Medicamentos",
+  "Dermocosméticos",
+  "Perfumes",
+  "Infantil e Gestante",
+  "Beleza",
+  "Cuidado Diário",
+  "Bem Estar",
+  "Categoria a conferir",
 ];
 
 function isItem(value: unknown): value is CatalogoItem {

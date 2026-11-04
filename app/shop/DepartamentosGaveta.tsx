@@ -8,14 +8,17 @@ import { IconFechar, IconSetaDireita, IconVoltar } from "../reserva/ReservaIcons
 type Secao = { id: string; rotulo: string; href: string; tipo: "link" | "marcas"; grupo?: string };
 type Marca = { nome: string; busca: string };
 
-/** 6 linhas: Ofertas e as categorias do catálogo (só o que a União tem). */
+/** Ofertas e as 8 categorias da loja. */
 const SECOES: Secao[] = [
   { id: "ofertas", rotulo: "Ofertas", href: "/ofertas", tipo: "link" },
-  { id: "higiene", rotulo: "Higiene e perfumaria", href: "/nacoes-unidas/produtos#perfumaria-e-higiene", tipo: "marcas", grupo: "perfumaria-e-higiene" },
-  { id: "pele", rotulo: "Pele e proteção solar", href: "/nacoes-unidas/produtos#pele-e-protecao-solar", tipo: "marcas", grupo: "pele-e-protecao-solar" },
-  { id: "mips", rotulo: "Medicamentos isentos de prescrição", href: "/nacoes-unidas/produtos#medicamentos-isentos-de-prescricao", tipo: "marcas", grupo: "medicamentos-isentos-de-prescricao" },
-  { id: "suplementos", rotulo: "Suplementos e alimentos", href: "/nacoes-unidas/produtos#suplementos-e-alimentos", tipo: "marcas", grupo: "suplementos-e-alimentos" },
-  { id: "correlatos", rotulo: "Correlatos e outros", href: "/nacoes-unidas/produtos#correlatos-e-outros", tipo: "marcas", grupo: "correlatos-e-outros" },
+  { id: "medicamentos", rotulo: "Medicamentos", href: "/nacoes-unidas/produtos#medicamentos", tipo: "marcas", grupo: "medicamentos" },
+  { id: "dermo", rotulo: "Dermocosméticos", href: "/nacoes-unidas/produtos#dermocosmeticos", tipo: "marcas", grupo: "dermocosmeticos" },
+  { id: "perfumes", rotulo: "Perfumes", href: "/nacoes-unidas/produtos#perfumes", tipo: "marcas", grupo: "perfumes" },
+  { id: "infantil", rotulo: "Infantil e Gestante", href: "/nacoes-unidas/produtos#infantil-e-gestante", tipo: "marcas", grupo: "infantil-e-gestante" },
+  { id: "beleza", rotulo: "Beleza", href: "/nacoes-unidas/produtos#beleza", tipo: "marcas", grupo: "beleza" },
+  { id: "cuidado", rotulo: "Cuidado Diário", href: "/nacoes-unidas/produtos#cuidado-diario", tipo: "marcas", grupo: "cuidado-diario" },
+  { id: "bem-estar", rotulo: "Bem Estar", href: "/nacoes-unidas/produtos#bem-estar", tipo: "marcas", grupo: "bem-estar" },
+  { id: "conferir", rotulo: "Categoria a conferir", href: "/nacoes-unidas/produtos#categoria-a-conferir", tipo: "marcas", grupo: "categoria-a-conferir" },
 ];
 
 const DURACAO = 220;

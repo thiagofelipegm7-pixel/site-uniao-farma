@@ -38,10 +38,10 @@ export default function HomePage() {
       <BarraInfo />
       <CategoriasLinha />
       <OfertasSemana />
-      <DestaquesSemana id="vitrine-higiene" titulo="Higiene e perfumaria" grupo="perfumaria-e-higiene" n={12} verTodas={false} source="home_higiene" />
-      <DestaquesSemana id="vitrine-pele" titulo="Pele e proteção solar" grupo="pele-e-protecao-solar" n={12} verTodas={false} source="home_pele" />
-      <DestaquesSemana id="vitrine-sem-receita" titulo="Medicamentos isentos de prescrição" grupo="medicamentos-isentos-de-prescricao" n={12} verTodas={false} source="home_mips" />
-      <DestaquesSemana id="vitrine-suplementos" titulo="Suplementos e alimentos" grupo="suplementos-e-alimentos" n={12} verTodas={false} source="home_suplementos" />
+      <DestaquesSemana id="vitrine-higiene" titulo="Cuidado Diário" grupo="cuidado-diario" n={12} verTodas={false} source="home_higiene" />
+      <DestaquesSemana id="vitrine-pele" titulo="Dermocosméticos" grupo="dermocosmeticos" n={12} verTodas={false} source="home_pele" />
+      <DestaquesSemana id="vitrine-sem-receita" titulo="Medicamentos" grupo="medicamentos" n={12} verTodas={false} source="home_mips" />
+      <DestaquesSemana id="vitrine-suplementos" titulo="Bem Estar" grupo="bem-estar" n={12} verTodas={false} source="home_suplementos" />
       <DestaquesSemana id="vitrine-ate-10" titulo="Até R$ 10,00" ate={1000} n={12} verTodas={false} source="home_ate_10" />
       <DestaquesSemana id="vitrine-unilever" titulo="Unilever" lab="UNILEVER" n={12} verTodas={false} source="home_unilever" />
       <DestaquesSemana id="vitrine-farmax" titulo="Farmax" lab="FARMAX" n={12} verTodas={false} source="home_farmax" />
