@@ -4,13 +4,11 @@
 
 import { useEffect, useRef, useState } from "react";
 import { IconFechar, IconSetaDireita, IconVoltar } from "../reserva/ReservaIcons";
-import { UNITS } from "../site-config";
-import { getUnitPublicPath } from "../structured-data";
 
-type Secao = { id: string; rotulo: string; href: string; tipo: "link" | "marcas" | "lojas"; grupo?: string };
+type Secao = { id: string; rotulo: string; href: string; tipo: "link" | "marcas"; grupo?: string };
 type Marca = { nome: string; busca: string };
 
-/** 10 linhas, como a lista da Panvel. Só o que a União tem; as categorias são as do catálogo. */
+/** 6 linhas: Ofertas e as categorias do catálogo (só o que a União tem). */
 const SECOES: Secao[] = [
   { id: "ofertas", rotulo: "Ofertas", href: "/ofertas", tipo: "link" },
   { id: "higiene", rotulo: "Higiene e perfumaria", href: "/nacoes-unidas/produtos#perfumaria-e-higiene", tipo: "marcas", grupo: "perfumaria-e-higiene" },
@@ -18,10 +16,6 @@ const SECOES: Secao[] = [
   { id: "mips", rotulo: "Medicamentos isentos de prescrição", href: "/nacoes-unidas/produtos#medicamentos-isentos-de-prescricao", tipo: "marcas", grupo: "medicamentos-isentos-de-prescricao" },
   { id: "suplementos", rotulo: "Suplementos e alimentos", href: "/nacoes-unidas/produtos#suplementos-e-alimentos", tipo: "marcas", grupo: "suplementos-e-alimentos" },
   { id: "correlatos", rotulo: "Correlatos e outros", href: "/nacoes-unidas/produtos#correlatos-e-outros", tipo: "marcas", grupo: "correlatos-e-outros" },
-  { id: "lojas", rotulo: "Nossas lojas", href: "/#unidades-rapidas", tipo: "lojas" },
-  { id: "entrega", rotulo: "Entrega", href: "/entrega-de-medicamentos-em-sabara", tipo: "link" },
-  { id: "receita", rotulo: "Receita", href: "/receita", tipo: "link" },
-  { id: "perguntas", rotulo: "Perguntas", href: "/perguntas", tipo: "link" },
 ];
 
 const DURACAO = 220;
@@ -148,25 +142,16 @@ export default function DepartamentosGaveta({ aberto, onFechar }: { aberto: bool
                   <IconSetaDireita size={18} />
                 </a>
               </li>
-              {secao.tipo === "lojas"
-                ? UNITS.map((unit) => (
-                    <li key={unit.id}>
-                      <a href={getUnitPublicPath(unit)} onClick={onFechar}>
-                        <span>{unit.shortName}</span>
+              {Array.isArray(lista)
+                ? lista.map((marca) => (
+                    <li key={marca.busca}>
+                      <a href={`/nacoes-unidas/produtos?q=${encodeURIComponent(marca.busca)}`} onClick={onFechar}>
+                        <span>{marca.nome}</span>
                         <IconSetaDireita size={18} />
                       </a>
                     </li>
                   ))
-                : Array.isArray(lista)
-                  ? lista.map((marca) => (
-                      <li key={marca.busca}>
-                        <a href={`/nacoes-unidas/produtos?q=${encodeURIComponent(marca.busca)}`} onClick={onFechar}>
-                          <span>{marca.nome}</span>
-                          <IconSetaDireita size={18} />
-                        </a>
-                      </li>
-                    ))
-                  : null}
+                : null}
             </ul>
             {lista === undefined && secao.tipo === "marcas" ? <p className="depto-estado">Carregando…</p> : null}
           </div>
