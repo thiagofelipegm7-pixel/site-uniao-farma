@@ -15,7 +15,7 @@ import { atualizarReserva, definirQtd, definirSelecao, descontoCentavos, FORMAS_
 import { useReserva } from "./useReserva";
 
 type Passo = 1 | 2 | 3;
-const ROTULOS = ["Itens", "Loja e forma de receber", "Enviar"] as const;
+const ROTULOS = ["Itens", "Entrega e forma de receber", "Finalizar"] as const;
 const BAIRROS = listarBairros(UNITS);
 
 /**
@@ -133,7 +133,7 @@ export default function ReservaFluxo() {
       <div className="cesta-faixa">
         <a className="cesta-logo" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial"><MarcaUniao /></a>
         <ol className="cesta-passos" role="img" aria-label={`Passo ${passo} de 3`}>
-          {[{ n: 1, r: "Cesta", i: <IconSacola size={26} /> }, { n: 2, r: "Loja", i: <IconLoja size={26} /> }, { n: 3, r: "Enviar", i: <IconWhats size={26} /> }].map((e) => (
+          {[{ n: 1, r: "Cesta", i: <IconSacola size={26} /> }, { n: 2, r: "Entrega", i: <IconLoja size={26} /> }, { n: 3, r: "Finalizar", i: <IconWhats size={26} /> }].map((e) => (
             <li key={e.n} className={e.n <= passo ? "is-on" : ""}><span aria-hidden="true">{e.i}</span><em>{e.r}</em></li>
           ))}
         </ol>
@@ -159,7 +159,7 @@ export default function ReservaFluxo() {
         {[1, 2, 3].map((n) => <span key={n} className={n <= passo ? "is-on" : ""} />)}
       </div>
       <ol className="fluxo-progresso-rotulos" aria-hidden="true">
-        {["Cesta", "Loja", "Enviar"].map((r, i) => <li key={r} className={i + 1 <= passo ? "is-on" : ""}>{r}</li>)}
+        {["Cesta", "Entrega", "Finalizar"].map((r, i) => <li key={r} className={i + 1 <= passo ? "is-on" : ""}>{r}</li>)}
       </ol>
       <p className="fluxo-passo">Passo {passo} de 3 · {ROTULOS[passo - 1]}{passo === 1 ? ` · ${total} ${total === 1 ? "item" : "itens"} na cesta` : ""}</p>
 
@@ -369,7 +369,7 @@ export default function ReservaFluxo() {
                     <label key={forma} className={pagamento === forma ? "entrega-opcao entrega-opcao-simples is-on" : "entrega-opcao entrega-opcao-simples"}>
                       <input type="radio" name="pagamento" checked={pagamento === forma} onChange={() => setPagamento(forma)} />
                       <span className="entrega-tipo">{forma}</span>
-                      <span className="entrega-periodo">{retirar ? "no balcão" : "na entrega"}</span>
+                      <span className="entrega-periodo">{forma === "Pix" ? "pelo WhatsApp" : retirar ? "no balcão" : "na entrega"}</span>
                     </label>
                   ))}
                 </div>

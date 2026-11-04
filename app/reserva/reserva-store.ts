@@ -140,7 +140,8 @@ export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: D
   const total = sub + taxa;
   const quando = retirar ? "no balcão" : "na entrega";
   const escolhido = dados.pagamento?.trim();
-  const pag = escolhido ? `${escolhido} (${quando})` : quando;
+  const quandoForma = escolhido === "Pix" ? "pelo WhatsApp" : quando;
+  const pag = escolhido ? `${escolhido} (${quandoForma})` : quando;
   return [
     `Olá, União Farma ${unitNome}! Quero pedir:`,
     ...linhas,

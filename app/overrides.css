@@ -931,3 +931,15 @@ h3 {
 .content-nav-sacola { position: absolute; top: 0.625rem; right: 1rem; z-index: 2; display: flex; align-items: center; }
 .content-nav-sacola .reserva-sacola { position: relative !important; right: auto; top: auto; transform: none; }
 @media (max-width: 63.99rem) { .content-nav-sacola { right: 5.5rem; top: 0.875rem; } }
+
+/* Os 3 cards de ofertas com o mesmo tamanho e a mesma estrutura: nome em 2 linhas, linha do "De" reservada e botão sempre na base. */
+.semana-lista { align-items: stretch; }
+.semana-lista > li { display: flex; }
+.semana-lista > li > .semana-card { flex: 1 1 auto; align-items: stretch; }
+.semana-card .semana-foto { align-self: center; }
+.semana-card .semana-info { display: flex; flex-direction: column; }
+.semana-card .semana-nome { min-height: 2.6em; }
+.semana-card .semana-de-vazio { min-height: 1.3em; }
+.semana-card .semana-preco { align-self: flex-start; }
+.semana-card .semana-info > :last-child { margin-top: auto; }
+.semana-lista > li > .semana-card { min-height: 190px; box-sizing: border-box; }

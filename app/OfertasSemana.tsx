@@ -66,7 +66,7 @@ export default function OfertasSemana() {
                 )}
                 <div className="semana-info">
                   <h3 className="semana-nome">{offer.name}</h3>
-                  {anterior !== null ? <p className="semana-de">De {formatOfferPrice(anterior)}</p> : null}
+                  {anterior !== null ? <p className="semana-de">De {formatOfferPrice(anterior)}</p> : <p className="semana-de semana-de-vazio" aria-hidden="true" />}
                   <EtiquetaPreco valor={preco} />
                   <ReservarBotao
                     unitId={loja}
