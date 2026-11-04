@@ -91,7 +91,14 @@ export default function CatalogoLista({ grupos: gruposProps, whatsappHref, unitI
   }, [gruposProps]);
   const base = identificarItens(grupos);
   const opcoes = opcoesFiltro(base);
-  const consulta = consultaInicial;
+  // A página é estática: o termo vem da barra de endereço (?q=fralda) depois que a página abre.
+  const [consulta, setConsulta] = useState(consultaInicial);
+  useEffect(() => {
+    const ler = () => setConsulta((new URLSearchParams(window.location.search).get("q") ?? "").slice(0, 80));
+    ler();
+    window.addEventListener("popstate", ler);
+    return () => window.removeEventListener("popstate", ler);
+  }, []);
   const [ordem, setOrdem] = useState<OrdemCatalogo>("recomendados");
   const [selecao, setSelecao] = useState<Selecao>(SELECAO_VAZIA);
   const [filtroAberto, setFiltroAberto] = useState(false);

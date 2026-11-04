@@ -271,7 +271,7 @@ test("busca da Nações: sugestões, filtro e ordenação no componente, lista c
     read("app/nacoes-unidas/produtos/busca.ts"),
   ]);
   // preco now precomputed in assets
-  assert.match(lista, /const consulta = consultaInicial;/);
+  assert.match(lista, /const \[consulta, setConsulta\] = useState\(consultaInicial\);/);
   const header = await read("app/shop/ShopHeader.tsx");
   assert.match(header, /BUSCAS_POPULARES/);
   assert.match(header, /Buscas populares/);
@@ -297,3 +297,17 @@ test("busca da Nações: sugestões, filtro e ordenação no componente, lista c
   assert.match(css, /min-height: 44px/);
 });
 
+
+test("busca: aceita plural, acento e várias palavras", async () => {
+  const { filtrarGrupos, contarItens, termosDeBusca } = await import("../app/nacoes-unidas/produtos/busca.ts");
+  assert.deepEqual(termosDeBusca("Fraldas"), ["fralda"]);
+  assert.deepEqual(termosDeBusca("protetores"), ["protetor"]);
+  const grupos = [{ categoria: "Infantil e Gestante", id: "i", itens: [
+    { nome: "Fralda Pampers Mega G", lab: "", isMIP: false, precoFmt: "R$ 10,00", preco: 10, foto: null },
+    { nome: "Lenço umedecido", lab: "", isMIP: false, precoFmt: "R$ 5,00", preco: 5, foto: null },
+  ] }];
+  assert.equal(contarItens(filtrarGrupos(grupos, "fraldas")), 1);
+  assert.equal(contarItens(filtrarGrupos(grupos, "FRALDA pampers")), 1);
+  assert.equal(contarItens(filtrarGrupos(grupos, "lenco")), 1);
+  assert.equal(contarItens(filtrarGrupos(grupos, "xyz")), 0);
+});

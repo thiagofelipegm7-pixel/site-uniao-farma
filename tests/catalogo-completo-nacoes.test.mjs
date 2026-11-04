@@ -196,3 +196,9 @@ test("catálogo Nações: todos os itens estão nas 8 categorias da loja", async
   assert.ok(itens.length > 1000);
   for (const item of itens) assert.ok(validas.has(item.categoria), `${item.nome}: ${item.categoria}`);
 });
+
+test("catálogo Nações: busca e páginas trazem todas as fotos do mapa de imagens.ts", async () => {
+  const { FOTOS_NACOES } = await import("../app/nacoes-unidas/produtos/imagens.ts");
+  const busca = await json("public/dados/nacoes/catalogo-busca.json");
+  assert.equal(busca.filter((i) => i.foto).length, Object.keys(FOTOS_NACOES).length);
+});

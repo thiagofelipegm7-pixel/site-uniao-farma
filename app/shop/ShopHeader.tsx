@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
 import { useEffect, useRef, useState } from "react";
-import { BUSCAS_POPULARES, normalizarBusca } from "../nacoes-unidas/produtos/busca";
+import { BUSCAS_POPULARES, normalizarBusca, termosDeBusca } from "../nacoes-unidas/produtos/busca";
 import { buildWhatsAppUrl, UNITS } from "../site-config";
 import { formatarCentavos } from "../reserva/reserva-store";
 import MarcaUniao from "./MarcaUniao";
@@ -47,10 +47,18 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   }
 
   const normal = normalizarBusca(termo);
-  const termos = normal.split(" ").filter(Boolean);
+  const termos = termosDeBusca(termo);
   const resultados = normal.length >= 2 && itens ? itens.filter((item) => termos.every((t) => item.busca.includes(t))).slice(0, 6) : [];
   const mostrarPainel = foco && (normal.length === 0 || normal.length >= 2);
   const semResultado = normal.length >= 2 && itens !== null && resultados.length === 0;
+
+  // Na página de produtos, a caixa já abre com o termo buscado (?q=fralda).
+  useEffect(() => {
+    if (window.location.pathname.startsWith("/nacoes-unidas/produtos")) {
+      const q = new URLSearchParams(window.location.search).get("q");
+      if (q) setTermo(q.slice(0, 80));
+    }
+  }, []);
 
   // Abre a gaveta "Departamentos" pelo botão do cabeçalho do desktop.
   useEffect(() => {

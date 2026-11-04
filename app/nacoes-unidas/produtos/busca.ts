@@ -49,6 +49,14 @@ export function normalizarBusca(value: string): string {
     .trim();
 }
 
+/** Palavras da busca sem acento e no singular simples ("fraldas" acha "fralda", "protetores" acha "protetor"). */
+export function termosDeBusca(consulta: string): string[] {
+  return normalizarBusca(consulta)
+    .split(" ")
+    .filter(Boolean)
+    .map((t) => (t.length > 5 && t.endsWith("es") ? t.slice(0, -2) : t.length > 3 && t.endsWith("s") ? t.slice(0, -1) : t));
+}
+
 function combina(termos: string[], ...campos: string[]): boolean {
   const alvo = normalizarBusca(campos.join(" "));
   return termos.every((termo) => alvo.includes(termo));
@@ -56,7 +64,7 @@ function combina(termos: string[], ...campos: string[]): boolean {
 
 /** Sem termo devolve tudo. Com termo, procura em nome, laboratório e categoria; grupos sem resultado somem. */
 export function filtrarGrupos(grupos: readonly GrupoBusca[], consulta: string): GrupoBusca[] {
-  const termos = normalizarBusca(consulta).split(" ").filter(Boolean);
+  const termos = termosDeBusca(consulta);
   if (termos.length === 0) return grupos.map((grupo) => ({ ...grupo, itens: [...grupo.itens] }));
   return grupos
     .map((grupo) => ({ ...grupo, itens: grupo.itens.filter((item) => combina(termos, item.nome, item.lab, grupo.categoria)) }))
