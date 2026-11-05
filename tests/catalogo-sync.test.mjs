@@ -8,9 +8,9 @@ test("sincronização do catálogo: validações da origem e da saída (python)"
   assert.equal(r.status, 0, r.stderr || r.stdout);
 });
 
-test("workflow catalogo-sync: cron depois do PC, token só por secret, sem permissões além de contents", () => {
+test("workflow catalogo-sync: a cada 10 min, token só por secret, sem permissões além de contents", () => {
   const y = readFileSync(".github/workflows/catalogo-sync.yml", "utf8");
-  assert.match(y, /cron: "15 11,14,17,20,23 \* \* \*"/);
+  assert.match(y, /cron: "\*\/10 \* \* \* \*"/);
   assert.match(y, /CATALOGO_READ_TOKEN: \$\{\{ secrets\.CATALOGO_READ_TOKEN \}\}/);
   assert.match(y, /permissions:\n  contents: write/);
   assert.match(y, /concurrency:/);
@@ -24,7 +24,7 @@ test("sincronizar.py nunca grava estoque nem código de barras no que é públic
   assert.match(py, /CodigoDeBarras/);
 });
 
-test("painel: idade, fonte e saúde com a janela de expediente (seg-sáb, 9h-21h)", async () => {
+test("painel: idade, fonte e saúde com a janela de expediente (seg-sáb, 8h-21h) e batimento 45 min", async () => {
   const { statusDoCatalogo, avaliarSaude, dentroDoExpediente, formatarIdade, instanteDoGeradoEm } = await import("../app/catalogo-painel.ts");
   const quinta17h = Date.parse("2026-11-05T17:00:00-03:00");
   assert.deepEqual(statusDoCatalogo("2026-11-05T11:00:06", 1399, quinta17h), { geradoEm: "2026-11-05T11:00:06", total: 1399, fonte: "pc", idadeHoras: 6 });
@@ -32,16 +32,18 @@ test("painel: idade, fonte e saúde com a janela de expediente (seg-sáb, 9h-21h
   assert.deepEqual(statusDoCatalogo(undefined, 0, quinta17h), { geradoEm: null, total: 0, fonte: "fallback", idadeHoras: null });
   assert.equal(instanteDoGeradoEm("lixo"), null);
 
-  assert.equal(avaliarSaude(statusDoCatalogo("2026-11-05T11:00:06", 1, quinta17h), quinta17h).nivel, "ok");
-  assert.equal(avaliarSaude(statusDoCatalogo("2026-11-05T08:00:06", 1, quinta17h), quinta17h).nivel, "problema"); // 9 h
+  // Conteúdo de 20 min atrás: ok. Conteúdo de 2 h sem batimento: problema. Batimento fresco salva conteúdo antigo.
+  assert.equal(avaliarSaude(statusDoCatalogo("2026-11-05T16:40:00", 1, quinta17h), quinta17h).nivel, "ok");
+  assert.equal(avaliarSaude(statusDoCatalogo("2026-11-05T15:00:00", 1, quinta17h), quinta17h).nivel, "problema");
+  assert.equal(avaliarSaude(statusDoCatalogo("2026-11-05T15:00:00", 1, quinta17h), quinta17h, 0.2).nivel, "ok");
   assert.equal(avaliarSaude(statusDoCatalogo(null, 1, quinta17h), quinta17h).nivel, "problema");
   const domingo = Date.parse("2026-11-08T15:00:00-03:00");
   assert.equal(dentroDoExpediente(domingo), false);
-  assert.equal(avaliarSaude(statusDoCatalogo("2026-11-07T20:00:00", 1, domingo), domingo).nivel, "ok"); // 19 h, domingo
+  assert.equal(avaliarSaude(statusDoCatalogo("2026-11-07T20:00:00", 1, domingo), domingo).nivel, "ok");
   const noite = Date.parse("2026-11-05T23:00:00-03:00");
   assert.equal(dentroDoExpediente(noite), false);
-  assert.equal(dentroDoExpediente(Date.parse("2026-11-05T08:59:00-03:00")), false);
-  assert.equal(dentroDoExpediente(Date.parse("2026-11-05T09:00:00-03:00")), true);
+  assert.equal(dentroDoExpediente(Date.parse("2026-11-05T07:59:00-03:00")), false);
+  assert.equal(dentroDoExpediente(Date.parse("2026-11-05T08:00:00-03:00")), true);
   assert.equal(avaliarSaude(statusDoCatalogo("2026-11-01T11:00:00", 1, noite), noite).nivel, "atencao");
   assert.equal(formatarIdade(0.2), "12 min");
   assert.equal(formatarIdade(3), "3 h");

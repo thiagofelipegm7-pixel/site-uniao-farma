@@ -81,12 +81,13 @@ cp .env.example .env
 - `STAFF_USER`: Nome de usuário da área interna da equipe (padrão: `uniao`).
 - `STAFF_PASSWORD`: Senha de acesso para operadores.
 - `STAFF_SECRET`: Chave secreta para assinatura criptográfica da sessão HMAC.
+- `CATALOGO_READ_TOKEN` (opcional no Worker do site): mesmo token de leitura do `dmaster-catalogo`, para o painel mostrar o batimento do PC. Sem ele o painel usa só a data do conteúdo publicado.
 - `GITHUB_DISPATCH_TOKEN` (opcional): token fino do GitHub (só este repositório, permissão *Actions: Read and write*) que liga o botão "Forçar atualização" do painel `/interno/catalogo`. Sem ele o botão fica desligado. Configure com `wrangler secret put GITHUB_DISPATCH_TOKEN` (nunca no repositório).
 
 ### Catálogo da loja e painel interno
-- O PC da loja envia o export ao Worker `dmaster-catalogo`; o workflow `catalogo-sync.yml` (08h15, 11h15, 14h15, 17h15 e 20h15 de Brasília) regenera os dados do site com validações e faz commit.
+- O PC da loja (TERMINAL02) a cada **10 min** manda `heartbeat` (sem mudança) ou `delta` (preço/estoque) ao Worker `dmaster-catalogo`. Upload completo só manual (`sync.ps1 -Completo`). O workflow `catalogo-sync.yml` roda a cada ~10 min, regenera o site só se o conteúdo mudou, com as mesmas validações.
 - `/interno/catalogo` (mesma sessão da equipe de `/interno`, noindex) mostra idade e fonte dos dados, últimas sincronizações com o motivo de cada recusa, uso da IA (só contagens, tabela D1 `ia_uso`) e o botão "Forçar atualização".
-- `catalogo-monitor.yml` abre/atualiza a issue "Estoque do site desatualizado" quando os dados passam de 8 h (seg-sáb, 9h-21h) ou a sincronização falha, e a fecha quando volta ao normal.
+- `catalogo-monitor.yml` abre/atualiza a issue "Estoque do site desatualizado" quando o **batimento** do PC passa de 45 min (seg-sáb, 8h-21h) ou a sincronização falha; uma issue por incidente. Conteúdo parado sem mudança de preço/estoque não gera alerta.
 - `ops/pc-terminal02/` tem o script que endurece a tarefa agendada do PC da loja.
 
 ### Variáveis da Meta / WhatsApp Business API

@@ -23,7 +23,7 @@ URL_PADRAO = "https://dmaster-catalogo.thiagofelipegm7.workers.dev/catalogo?loja
 LOJA = "itacolomi"
 
 MIN_ITENS_ORIGEM = 1000          # export bem abaixo do normal (~3400) = algo errado no PC/Worker
-MAX_IDADE_HORAS = 36             # o PC envia a cada 3h; mais que isso = PC parado
+MAX_IDADE_HORAS = 36             # recebidoEm/batimento: PC manda heartbeat a cada 10 min; mais que 36h = PC parado
 MIN_FRACAO_COM_PRECO = 0.90      # entre os itens com estoque, quantos têm Pvenda > 0
 MIN_FRACAO_ITENS = 0.80          # catálogo novo >= 80% do atual (queda > 20% é recusada)
 MAX_SEM_PRECO_SITE = 0.02        # itens do catálogo sem preço (acima do que já havia)

@@ -1,0 +1,12 @@
+name = "dmaster-catalogo"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+[[kv_namespaces]]
+binding = "CATALOGO"
+id = "091625af47304a0bb7d2827fb5fa3a27"
+
+[vars]
+EXCLUDE_CLASSES = ""
+WHATSAPP_NUMERO = ""

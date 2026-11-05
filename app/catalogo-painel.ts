@@ -6,8 +6,9 @@
 
 /** Acima disso o catálogo é considerado "fallback" (o PC da loja parou de enviar ou a sincronização foi recusada). */
 export const LIMITE_FONTE_PC_HORAS = 36;
-/** Durante o expediente, dados mais velhos que isso são problema (o PC envia de 3 em 3 horas). */
-export const LIMITE_EXPEDIENTE_HORAS = 8;
+/** Durante o expediente, batimento do PC mais velho que isso (em horas) = problema. O PC manda heartbeat/delta a cada 10 min. */
+export const LIMITE_EXPEDIENTE_HORAS = 0.75; // 45 min
+export const LIMITE_BATIMENTO_MIN = 45;
 
 /** "2026-11-05T11:00:06" (hora de Brasília, sem fuso) → instante em ms. */
 export function instanteDoGeradoEm(geradoEm: string | undefined | null): number | null {
@@ -25,29 +26,40 @@ export function statusDoCatalogo(geradoEm: string | undefined | null, total: num
   return { geradoEm: geradoEm ?? null, total, fonte, idadeHoras };
 }
 
-/** Segunda a sábado, das 09h às 21h em Brasília. Fora disso o PC pode estar legitimamente parado (noite, domingo). */
+/** Segunda a sábado, das 08h às 21h em Brasília. Fora disso o PC pode estar legitimamente parado (noite, domingo). */
 export function dentroDoExpediente(agora = Date.now()): boolean {
   const br = new Date(agora - 3 * 3_600_000);
   const dia = br.getUTCDay();
   const hora = br.getUTCHours() + br.getUTCMinutes() / 60;
-  return dia >= 1 && dia <= 6 && hora >= 9 && hora < 21;
+  return dia >= 1 && dia <= 6 && hora >= 8 && hora < 21;
 }
 
 export type Saude = { nivel: "ok" | "atencao" | "problema"; titulo: string; detalhe: string };
 
-export function avaliarSaude(status: StatusCatalogo, agora = Date.now()): Saude {
-  if (status.idadeHoras === null) return { nivel: "problema", titulo: "Sem data nos dados", detalhe: "O catálogo não traz a data do envio do PC." };
-  const idade = status.idadeHoras;
+/**
+ * Saúde do painel. Se `idadeBatimentoHoras` vier do Worker, ela manda no alerta de "PC parado".
+ * Sem batimento, usa a idade do conteúdo (geradoEm do site) — pode alarmar se preço/estoque ficaram iguais por >45 min;
+ * o monitor do GitHub usa sempre o batimento e é a fonte da issue.
+ */
+export function avaliarSaude(status: StatusCatalogo, agora = Date.now(), idadeBatimentoHoras: number | null = null): Saude {
+  const idadeSinal = idadeBatimentoHoras ?? status.idadeHoras;
+  if (idadeSinal === null) return { nivel: "problema", titulo: "Sem data nos dados", detalhe: "O catálogo não traz a data do envio do PC." };
   if (dentroDoExpediente(agora)) {
-    if (idade > LIMITE_EXPEDIENTE_HORAS) {
-      return { nivel: "problema", titulo: "Estoque desatualizado", detalhe: `Os dados têm ${idade} h, mais que o limite de ${LIMITE_EXPEDIENTE_HORAS} h no expediente. Confira o PC da loja (TERMINAL02) e a última sincronização abaixo.` };
+    if (idadeSinal > LIMITE_EXPEDIENTE_HORAS) {
+      const rotulo = idadeBatimentoHoras !== null ? "O último batimento do PC" : "Os dados";
+      return {
+        nivel: "problema",
+        titulo: "PC ou sincronização parados",
+        detalhe: `${rotulo} tem ${formatarIdade(idadeSinal)} (limite ${LIMITE_BATIMENTO_MIN} min no expediente 8h–21h). Confira o TERMINAL02 e a sincronização abaixo.`,
+      };
     }
-    return { nivel: "ok", titulo: "Em dia", detalhe: `Dados de ${idade} h atrás (limite de ${LIMITE_EXPEDIENTE_HORAS} h no expediente).` };
+    const conteudo = status.idadeHoras === null ? "" : ` Última mudança de preço/estoque no site: ${formatarIdade(status.idadeHoras)}.`;
+    return { nivel: "ok", titulo: "Em dia", detalhe: `Sinal do PC há ${formatarIdade(idadeSinal)}.${conteudo}` };
   }
   if (status.fonte === "fallback") {
-    return { nivel: "atencao", titulo: "Dados antigos (fora do expediente)", detalhe: `Os dados têm ${idade} h. Fora do expediente isso pode ser normal, mas passou de ${LIMITE_FONTE_PC_HORAS} h.` };
+    return { nivel: "atencao", titulo: "Dados antigos (fora do expediente)", detalhe: `Os dados têm ${formatarIdade(status.idadeHoras)}. Fora do expediente isso pode ser normal, mas passou de ${LIMITE_FONTE_PC_HORAS} h.` };
   }
-  return { nivel: "ok", titulo: "Fora do expediente", detalhe: `Dados de ${idade} h atrás. A checagem de 8 h vale de segunda a sábado, das 9h às 21h.` };
+  return { nivel: "ok", titulo: "Fora do expediente", detalhe: `Sinal há ${formatarIdade(idadeSinal)}. A checagem de ${LIMITE_BATIMENTO_MIN} min vale de segunda a sábado, das 8h às 21h.` };
 }
 
 export function formatarIdade(horas: number | null): string {

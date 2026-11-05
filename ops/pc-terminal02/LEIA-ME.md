@@ -1,14 +1,22 @@
-# PC da loja (TERMINAL02): endurecer o envio do catálogo
+# PC da loja (TERMINAL02) — sync quase em tempo real
 
-`aplicar-endurecimento.ps1` deixa a tarefa `UniaoFarma_Catalogo_Sync` à prova de reinício/logoff e faz as falhas aparecerem.
-**Rodar uma vez**, como Administrador, no TERMINAL02, com o mesmo usuário do Windows que já roda a tarefa
-(os arquivos `sql.sec` e `upload.sec` só abrem para esse usuário). As instruções completas estão no cabeçalho do script.
+## O que roda
+- `sync.ps1` a **cada 10 minutos** (tarefa `UniaoFarma_Catalogo_Sync`):
+  - sem mudança de preço/estoque → `POST /heartbeat` (poucos bytes; o monitor sabe que o PC está vivo);
+  - com mudança → `POST /delta` só com itens alterados/novos e códigos que saíram;
+  - **não há** upload completo agendado (nem de madrugada).
+- Upload completo **só manual**, se houver deriva ou primeiro setup:
+  `powershell -NoProfile -ExecutionPolicy Bypass -File C:\ProgramData\UniaoFarmaSync\sync.ps1 -Completo`
 
-- `-SoVerificar` só mostra o estado atual (usuário, tipo de logon, gatilhos, última execução), sem mudar nada.
-- Sem parâmetros: faz backup (`backup-<data>\tarefa.xml` e `sync.ps1`), cria `sync-monitorado.ps1`, reconfigura a tarefa e oferece um teste.
-- O `sync.ps1` original **não é alterado**. O `sync-monitorado.ps1` o executa, confere a linha que ele grava no `sync.log` e, se for `ERRO`
-  (ou não gravar nada), tenta de novo até 3 vezes; se persistir grava `sync-erro.log`, um evento de erro no Visualizador de Eventos
-  (Application, origem `UniaoFarmaSync`, ID 2000) e sai com código 1, para o Agendador tentar de novo.
-- Sucesso: `ultimo-ok.txt` com a hora.
-- A senha do Windows é pedida numa janela do Windows e usada só para registrar a tarefa (não é gravada em arquivo, não passa pelo repositório).
-- O script só tem caracteres ASCII de propósito (PowerShell 5.1 lê UTF-8 sem BOM como ANSI).
+## Instalar / atualizar (uma vez, Admin)
+1. Copie esta pasta `ops/pc-terminal02/` para o PC (ex.: `C:\Temp\pc-terminal02`).
+2. Se ainda não rodou o endurecimento (falha visível + tarefa com senha):  
+   `powershell -ExecutionPolicy Bypass -File C:\Temp\pc-terminal02\aplicar-endurecimento.ps1`
+3. Instale o ritmo de 10 min + o sync novo:  
+   `powershell -ExecutionPolicy Bypass -File C:\Temp\pc-terminal02\aplicar-tempo-real.ps1`  
+   (pede a senha do Windows do mesmo usuário dos arquivos `sql.sec` / `upload.sec`)
+4. Só conferir, sem mudar: acrescente `-SoVerificar`.
+
+## Logs
+- `C:\ProgramData\UniaoFarmaSync\sync.log` — uma linha por ciclo (`BATIMENTO`, `DELTA`, `COMPLETO`, `ERRO`)
+- `sync-erro.log` + Visualizador de Eventos (se o wrapper `sync-monitorado.ps1` estiver ativo)
