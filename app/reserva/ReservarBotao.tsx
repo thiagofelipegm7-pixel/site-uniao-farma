@@ -1,7 +1,7 @@
 "use client";
 
 import { trackEvent } from "../analytics";
-import { IconLixeira, IconMais, IconMenos, IconSacola } from "./ReservaIcons";
+import { IconLixeira, IconMais, IconMenos, IconCesta } from "./ReservaIcons";
 import { adicionar, atualizarReserva, definirQtd, idDoItem, qtdDoItem } from "./reserva-store";
 import { useReserva } from "./useReserva";
 
@@ -41,7 +41,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
       >
         {variante === "cesta" ? (
           <>
-            <IconSacola size={26} />
+            <IconCesta size={26} />
             <span className="pv-cesta-mais" aria-hidden="true"><IconMais size={12} /></span>
           </>
         ) : (

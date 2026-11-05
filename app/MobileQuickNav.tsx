@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import { buildWhatsAppUrl, getUnitBySlug, UNITS, type Unit } from "./site-config";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
-import { IconCasa, IconCategorias, IconLoja, IconSacola } from "./reserva/ReservaIcons";
+import { IconCasa, IconCategorias, IconLoja, IconCesta } from "./reserva/ReservaIcons";
 
 type Slot = {
   key: string;
@@ -26,7 +26,7 @@ function findUnit(pathname: string): Unit | undefined {
 function Icon({ name }: { name: Slot["icon"] }) {
   if (name === "inicio") return <IconCasa size={24} />;
   if (name === "categorias") return <IconCategorias size={24} />;
-  if (name === "reserva") return <IconSacola size={24} />;
+  if (name === "reserva") return <IconCesta size={24} />;
   if (name === "loja") return <IconLoja size={24} />;
   if (name === "whatsapp") return <img src="/whatsapp-icon.svg" alt="" width="22" height="22" />;
   if (name === "ofertas") return <img src="/icons/nav/oferta.svg" alt="" width="22" height="22" />;
