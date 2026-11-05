@@ -77,8 +77,8 @@ test("lista restrita: sem oferta, % OFF, preço riscado ou destaque; cesta só p
     assert.doesNotMatch(src, /ReservaFluxo|Adicionar|<del|<s>|line-through|% ?OFF|desconto|destaque|banner|isMIP/i, f);
   }
   const lista = await read("app/nacoes-unidas/produtos/ListaRestrita.tsx");
-  assert.match(lista, /\{item\.aviso\}/);
-  assert.match(lista, /SELO_CONTROLADO/);
+  // Aviso e selo saem do cartão: a imagem ilustrativa já traz a faixa de prescrição.
+  assert.ok(!lista.includes("item.aviso") && !lista.includes("SELO_CONTROLADO"));
   // Cesta nos itens com receita e controlados (retirada na loja); "consulte o farmacêutico" fica sem cesta.
   assert.match(lista, /item\.tipo !== "consulte" && item\.preco !== null/);
   assert.match(lista, /receita=\{item\.controlado \? "controlado" : "receita"\}/);
@@ -109,7 +109,6 @@ test("lista restrita: sem oferta, % OFF, preço riscado ou destaque; cesta só p
   assert.match(await read("app/nacoes-unidas/produtos/consulte-o-farmaceutico/page.tsx"), /ListaRestrita/);
   // O cartão não traz mais o bloco "Detalhes" (ficha com princípio ativo, RMS, tarja e retenção): só nome, marca, preço, aviso de venda sob prescrição e cesta.
   for (const campo of ["Princípio ativo", "Registro MS (RMS)", "Retenção da receita", "pv-detalhes"]) assert.ok(!lista.includes(campo), campo);
-  assert.ok(lista.includes("item.aviso"));
 });
 
 test("tarja pela lista da Portaria 344 e retenção nunca afirmada sem fonte", async () => {

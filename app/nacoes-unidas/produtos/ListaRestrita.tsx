@@ -13,7 +13,6 @@ import { buildWhatsAppUrl, getHoursSentence, UNITS } from "../../site-config";
 import { formatBRL } from "./catalogo";
 import {
   imagemIlustrativa,
-  SELO_CONTROLADO,
   type ItemRestrito,
   type TipoRestrito,
 } from "./receita";
@@ -86,12 +85,6 @@ export function Cartao({ item }: { item: ItemRestrito }) {
             compacto
           />
         ) : null
-      }
-      avisos={
-        <>
-          {item.controlado ? <p className="restrito-selo">{SELO_CONTROLADO}</p> : null}
-          <p className="restrito-aviso">{item.aviso}</p>
-        </>
       }
     />
   );
