@@ -9,7 +9,7 @@ import { listarBairros, lojaDoBairro } from "../entrega-bairro";
 import { readPreferredUnitId } from "../preferred-unit";
 import { buildWhatsAppUrl, UNITS, type Unit } from "../site-config";
 import UnitStatusBadge from "../UnitStatusBadge";
-import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats } from "./ReservaIcons";
+import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats, IconCesta, IconCaminhao, IconConfirmado } from "./ReservaIcons";
 import DestaquesSemana from "../shop/DestaquesSemana";
 import { atualizarReserva, definirQtd, exigeReceita, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
@@ -135,7 +135,7 @@ export default function ReservaFluxo() {
       <div className="cesta-faixa">
         <a className="cesta-logo" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial"><MarcaUniao /></a>
         <ol className="cesta-passos" role="img" aria-label={`Passo ${passo} de 3`}>
-          {[{ n: 1, r: "Cesta", i: <IconSacola size={26} /> }, { n: 2, r: "Entrega", i: <IconLoja size={26} /> }, { n: 3, r: "Finalizar", i: <IconWhats size={26} /> }].map((e) => (
+          {[{ n: 1, r: "Cesta", i: <IconCesta size={26} /> }, { n: 2, r: "Entrega", i: <IconCaminhao size={26} /> }, { n: 3, r: "Finalizar", i: <IconConfirmado size={26} /> }].map((e) => (
             <li key={e.n} className={e.n <= passo ? "is-on" : ""}><span aria-hidden="true">{e.i}</span><em>{e.r}</em></li>
           ))}
         </ol>
