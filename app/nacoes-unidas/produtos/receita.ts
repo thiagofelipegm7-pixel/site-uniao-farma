@@ -159,7 +159,8 @@ export const ILUSTRACOES: readonly Ilustracao[] = [
 
 /** Palavra inteira só em letras ("30CAPS" e "CX30CPR" contam; "CAPSULA" não casa com "CAP"). */
 const palavra = (alternativas: string) => new RegExp(`(?<![A-Z])(?:${alternativas})(?![A-Z])`);
-const RX_INAL = palavra("INAL[A-Z]*|AEROSS?OL|AER|HFA|DISCUS|TURBUHALER|SPRAY ORAL");
+// Nomes de inaladores conhecidos entram pelo nome, sem depender do princípio ativo (itens sem cadastro do ativo).
+const RX_INAL = palavra("INAL[A-Z]*|AEROSS?OL|AER|HFA|DISCUS|TURBUHALER|SPRAY ORAL|AERODIN[A-Z]*|AEROLIN|BEROTEC|FOSTAIR|SPIOLTO|TRIMBOW|SYMBICORT|SERETIDE|SPIRIVA|ONBRIZE|CLENIL|ALENIA|LUGANO|FORASEQ|FLUIR|ATROVENT");
 // Princípios ativos de uso inalatório (broncodilatadores e associações). Budesonida, fluticasona e mometasona sozinhas são,
 // na maioria dos casos, spray nasal: ficam como spray, a não ser que o nome diga que é inalatório.
 const RX_INAL_ATIVO = /(salbutamol|fenoterol|formoterol|salmeterol|tiotr|ipratr|beclometasona|ciclesonida|vilanterol|indacaterol|glicopirr|umeclid|olodaterol)/i;

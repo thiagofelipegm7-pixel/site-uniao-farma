@@ -20,7 +20,7 @@ export const dynamic = "force-dynamic";
 
 const nacoes = UNITS.find((unit) => unit.id === "nacoes")!;
 
-type Props = { params: Promise<{ slug: string }> };
+type Props = { params: Promise<{ slug: string }>; searchParams?: Promise<{ pagina?: string | string[] }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
@@ -37,8 +37,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function DepartamentoPage({ params }: Props) {
+export default async function DepartamentoPage({ params, searchParams }: Props) {
   const { slug } = await params;
+  const bruto = (await searchParams)?.pagina;
+  const paginaPedida = Math.max(1, Math.floor(Number(Array.isArray(bruto) ? bruto[0] : bruto)) || 1);
   const dep = acharDepartamento(slug);
   if (!dep || dep.provisorio) notFound(); // categoria interna (ex.: a conferir) não tem página pública
 
@@ -95,9 +97,9 @@ export default async function DepartamentoPage({ params }: Props) {
         </nav>
         <div className="section-inner" id="lista">
           {dep.slug === "medicamentos" ? (
-            <MedicamentosTodos otcInicial={itens.map((i) => ({ nome: i.nome, slug: i.slug, lab: i.lab, precoFmt: i.precoFmt, foto: i.foto, isMIP: i.isMIP }))} unitId={nacoes.id} />
+            <MedicamentosTodos paginaInicial={paginaPedida} otcInicial={itens.map((i) => ({ nome: i.nome, slug: i.slug, lab: i.lab, precoFmt: i.precoFmt, foto: i.foto, isMIP: i.isMIP }))} unitId={nacoes.id} />
           ) : (
-            <CatalogoLista grupos={grupos} departamento={dep.slug} whatsappHref={whatsappHref} unitId={nacoes.id} />
+            <CatalogoLista paginaInicial={paginaPedida} grupos={grupos} departamento={dep.slug} whatsappHref={whatsappHref} unitId={nacoes.id} />
           )}
           <aside className="catalogo-aviso" aria-label="Medicamentos com receita e controlados">
             <p>

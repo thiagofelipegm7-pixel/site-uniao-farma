@@ -303,10 +303,24 @@ test("cartão de produto no padrão da Panvel: um componente só, com as medidas
 test("ilustração: inaladores usam a caixa com o inalador; spray nasal usa a de spray", async () => {
   const { imagemIlustrativa } = await rmod();
   const base = { apresentacao: null, tipo: "receita", tarja: "vermelha", retencao: false, controlado: false, generico: false };
-  for (const [nome, ativo] of [["SYMBICORT 6mcg/dos+200mcg/dos 120 DOSES", "budesonida;fumarato de formoterol"], ["AEROLIN spray cx c/200 DOSES", "sulfato de salbutamol"], ["SERETIDE 25+125mcg spray", "propionato de fluticasona;xinafoato de salmeterol"], ["ALENIA 6+200mcg REFIL 60CAPS", "budesonida;formoterol"], ["BEROTEC SPRAY 100 MCG", "bromidrato de fenoterol"]]) {
+  for (const [nome, ativo] of [["SYMBICORT 6mcg/dos+200mcg/dos 120 DOSES", "budesonida;fumarato de formoterol"], ["AEROLIN spray cx c/200 DOSES", "sulfato de salbutamol"], ["SERETIDE 25+125mcg spray", "propionato de fluticasona;xinafoato de salmeterol"], ["ALENIA 6+200mcg REFIL 60CAPS", "budesonida;formoterol"], ["BEROTEC SPRAY 100 MCG", "bromidrato de fenoterol"], ["AERODINI SPRAY", null], ["AERODINI 100MCG SPRAY 200 DOSES", ""]]) {
     assert.match(imagemIlustrativa({ ...base, nome, ativo }), /inal-ref-vermelha/, nome);
   }
   for (const [nome, ativo] of [["MOMETASONA 50MCG 120 DOSES NEO QUIMICA", "furoato de mometasona"], ["BUSONID 64MCG 120 DOSES 6ML", "budesonida"], ["NASONEX SPRAY NASAL 120 D", "furoato de mometasona"]]) {
     assert.match(imagemIlustrativa({ ...base, nome, ativo }), /spr-/, nome);
   }
+});
+
+test("paginação: 24 por página e números como na Panvel (1 2 3 4 … última)", async () => {
+  const { paginasVisiveis } = await import("../app/nacoes-unidas/produtos/Paginacao.tsx").catch(() => ({ paginasVisiveis: null }));
+  assert.equal(paginasVisiveis, null); // .tsx não carrega no teste: a regra é conferida pelo texto abaixo
+  const fonte = await read("app/nacoes-unidas/produtos/Paginacao.tsx");
+  assert.match(fonte, /POR_PAGINA = 24/);
+  assert.match(fonte, /if \(atual <= 3\) \[2, 3, 4\]/);
+  for (const f of ["CatalogoLista.tsx", "MedicamentosTodos.tsx", "ListaRestrita.tsx"]) {
+    const src = await read(`app/nacoes-unidas/produtos/${f}`);
+    assert.match(src, /<Paginacao /, f);
+    assert.match(src, /POR_PAGINA/, f);
+  }
+  assert.match(await read("app/departamentos/[slug]/page.tsx"), /paginaInicial=\{paginaPedida\}/);
 });

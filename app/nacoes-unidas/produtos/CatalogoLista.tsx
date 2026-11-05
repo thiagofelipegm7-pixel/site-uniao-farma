@@ -26,11 +26,14 @@ import {
 } from "./busca";
 import { slugify } from "./catalogo";
 import CartaoPanvel from "./CartaoPanvel";
+import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./Paginacao";
 import { AVISO_MIP, AVISO_NBCAL, ehNbcal } from "./produto";
 
 type Props = {
   /** Texto vindo do campo de busca do cabeçalho (?q=). */
   consultaInicial?: string;
+  /** Página pedida no endereço (?pagina=), lida no servidor para o HTML já vir com a fatia certa. */
+  paginaInicial?: number;
   grupos: GrupoBusca[];
   /** Slug de um departamento (ex.: "beleza"): a página mostra só essa categoria. Sem ele, mostra todas. */
   departamento?: string;
@@ -52,7 +55,7 @@ function alternar<T extends string>(lista: readonly T[] | undefined, valor: T): 
  * Ordenação, filtro e grade de produtos. A busca fica no cabeçalho (?q=), como no protótipo.
  * O HTML do servidor já traz a lista inteira, então sem JavaScript ela continua completa.
  */
-export default function CatalogoLista({ grupos: gruposProps, departamento, whatsappHref, unitId, consultaInicial = "" }: Props) {
+export default function CatalogoLista({ grupos: gruposProps, departamento, whatsappHref, unitId, consultaInicial = "", paginaInicial = 1 }: Props) {
   const [grupos, setGrupos] = useState(gruposProps);
   useEffect(() => {
     if (gruposProps.length > 0) return;
@@ -115,6 +118,32 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
 
   const visiveis = aplicarCatalogo(base, { consulta, ordem, ...selecao });
   const total = contarItens(visiveis);
+  const [pagina, setPagina] = useState(paginaInicial);
+  const totalPaginas = Math.max(1, Math.ceil(total / POR_PAGINA));
+  const paginaAtual = Math.min(pagina, totalPaginas);
+  const itensDaPagina = visiveis.flatMap((g) => g.itens).slice((paginaAtual - 1) * POR_PAGINA, paginaAtual * POR_PAGINA);
+  const primeiraBusca = useRef(true);
+  // Mudou a busca, o filtro ou a ordem: volta para a página 1 (menos na primeira carga, que respeita o endereço).
+  useEffect(() => {
+    if (primeiraBusca.current) {
+      primeiraBusca.current = false;
+      return;
+    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- volta à primeira página quando a lista muda
+    setPagina(1);
+    if (new URLSearchParams(window.location.search).has("pagina")) {
+      const u = new URL(window.location.href);
+      u.searchParams.delete("pagina");
+      window.history.replaceState(null, "", u);
+    }
+  }, [ordem, selecao]);
+  // Voltar e avançar do navegador.
+  useEffect(() => {
+    const ler = () => setPagina(paginaDaUrl(window.location.search));
+    ler();
+    window.addEventListener("popstate", ler);
+    return () => window.removeEventListener("popstate", ler);
+  }, []);
   const ativos = contarFiltrosAtivos(selecao);
   const buscando = consulta.trim().length > 0;
 
@@ -312,8 +341,8 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
         </div>
       ) : (
         <ul className="catalogo-lista pv-grade">
-          {visiveis.flatMap((g) =>
-            g.itens.map((item) => {
+          {[itensDaPagina].flatMap((lista) =>
+            lista.map((item) => {
               const nome = nomeDeExibicao(item.nome);
               const href = `/nacoes-unidas/produtos/${item.slug ?? slugify(item.nome)}`;
               const centavos = precoParaCentavos(item.precoFmt);
@@ -338,6 +367,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
           )}
         </ul>
       )}
+      <Paginacao atual={paginaAtual} total={totalPaginas} href={(n) => hrefPagina(n, consulta)} onIr={(n) => { setPagina(n); irParaPagina(n, consulta); }} />
 
         </div>
       </div>
