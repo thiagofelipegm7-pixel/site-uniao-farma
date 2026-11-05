@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
-import { IconSacola } from "../reserva/ReservaIcons";
+import { IconCesta } from "../reserva/ReservaIcons";
 import { totalItens } from "../reserva/reserva-store";
 import { useReserva } from "../reserva/useReserva";
 
@@ -13,7 +13,7 @@ export default function BarraReserva() {
   return (
     <div className="barra-reserva">
       <a href="/reserva">
-        <IconSacola size={26} />
+        <IconCesta size={26} />
         Ver minha cesta · {total} {total === 1 ? "item" : "itens"}
       </a>
     </div>

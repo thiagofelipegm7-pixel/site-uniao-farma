@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { EVENTO_ABRIR_RESERVA } from "./abrir-reserva";
 import { UNITS } from "../site-config";
-import { IconFechar, IconLixeira, IconMais, IconMenos, IconSacola } from "./ReservaIcons";
+import { IconFechar, IconLixeira, IconMais, IconMenos, IconCesta } from "./ReservaIcons";
 import { atualizarReserva, definirQtd, formatarCentavos, limpar, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
 
@@ -170,7 +170,7 @@ export default function ReservaSacola() {
         aria-expanded={aberta}
         onClick={() => setAberta(true)}
       >
-        <IconSacola size={26} />
+        <IconCesta size={26} />
         <span className="reserva-contador-bolha" aria-hidden="true">{total}</span>
       </button>
 
