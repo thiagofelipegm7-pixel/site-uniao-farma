@@ -130,7 +130,8 @@ export function paginar<T>(itens: readonly T[], pagina: number, porPagina = POR_
 // ---- Ilustração por forma do medicamento -------------------------------------------------------------------------
 // Não são fotos do produto: são caixas ilustrativas da loja (faixa vermelha "Venda sob prescrição médica", amarela "Genérico",
 // preta para controlados e "só pode ser vendido com retenção da receita"). A regra escolhe a mais próxima da forma
-// (comprimido, cápsula, injetável, xarope, pomada, gotas, spray, inalador) e da faixa do item.
+// (comprimido, cápsula, injetável, xarope, pomada, gotas, spray, inalador) e da faixa do item. A faixa (preta, retenção, simples) e o
+// "Genérico" são exatos; só a forma pode ser aproximada.
 type FormaIlustracao = "cpr" | "cap" | "inj" | "liq" | "tub" | "got" | "spr" | "inal";
 type BandaIlustracao = "vermelha" | "retencao" | "preta";
 type Ilustracao = { arquivo: string; forma: FormaIlustracao; generico: boolean; banda: BandaIlustracao };
@@ -198,9 +199,13 @@ export function imagemIlustrativa(item: Pick<ItemRestrito, "nome" | "apresentaca
   let melhor = ILUSTRACOES[0];
   let menor = Infinity;
   for (const cand of ILUSTRACOES) {
+    // Regras que não se negociam: a tarja preta só aparece em item de tarja preta (e o contrário), e a faixa "Genérico"
+    // nunca aparece em medicamento de referência. Já a forma pode ser a mais parecida.
+    if (cand.generico && !generico) continue;
+    if (cand.banda !== banda && (banda === "preta" || cand.banda === "preta")) continue;
     let custo = cand.forma === forma ? 0 : 100;
-    if (cand.banda !== banda) custo += banda === "preta" || cand.banda === "preta" ? 30 : 10;
-    if (cand.generico !== generico) custo += 3;
+    if (cand.banda !== banda) custo += 10;
+    if (!cand.generico && generico) custo += 3;
     if (custo < menor) {
       menor = custo;
       melhor = cand;

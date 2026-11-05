@@ -324,3 +324,21 @@ test("paginação: 24 por página e números como na Panvel (1 2 3 4 … última
   }
   assert.match(await read("app/departamentos/[slug]/page.tsx"), /paginaInicial=\{paginaPedida\}/);
 });
+
+test("controlados: tarja pela Portaria 344 e ilustração com a faixa certa", async () => {
+  const { imagemIlustrativa, ILUSTRACOES } = await rmod();
+  const fs = await import("node:fs");
+  const dir = new URL("../public/dados/nacoes/restritos/controlados/", import.meta.url);
+  const itens = fs.readdirSync(dir).flatMap((f) => JSON.parse(fs.readFileSync(new URL(f, dir), "utf8")));
+  assert.equal(itens.length, 121);
+  const por = (re) => itens.filter((i) => re.test(i.nome));
+  for (const i of por(/ALPRAZOLAM|CLONAZEPAM|DIAZEPAM|BROMAZEPAM|FENOBARBITAL|TRAMADOL|MORFINA|METILFENIDATO/i)) assert.equal(i.tarja, "preta", i.nome);
+  for (const i of por(/PREGABALINA|AMITRIPTILINA|FLUOXETINA|PARACETAMOL.*CODEINA|PACO|CODEX|PAREGORICO/i)) assert.equal(i.tarja, "vermelha-retencao", i.nome);
+  for (const i of itens) {
+    const arq = imagemIlustrativa(i).split("/").pop().replace(".webp", "");
+    const ilu = ILUSTRACOES.find((x) => x.arquivo === arq);
+    assert.ok(ilu, `${i.nome}: ${arq}`);
+    assert.equal(ilu.banda === "preta", i.tarja === "preta", `${i.nome}: tarja ${i.tarja} com ${arq}`);
+    if (ilu.generico) assert.equal(i.generico === true, true, `${i.nome}: faixa "Genérico" em remédio de referência`);
+  }
+});
