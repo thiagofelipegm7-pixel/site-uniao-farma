@@ -1,12 +1,12 @@
 name: Sincronizar catálogo da loja
 
-# O PC da loja (tarefa UniaoFarma_Catalogo_Sync) envia o export ao Worker dmaster-catalogo às 08h, 11h, 14h, 17h e 20h (horário de Brasília).
-# Este workflow roda ~15 min depois, baixa o último envio, refaz o catálogo com o mesmo pipeline do export de 31/10
-# (ops/catalogo-nacoes), confere tudo e, se mudou, faz commit na main: o Workers Builds publica o site em seguida.
-# Dados recusados ou Worker fora do ar: nada é commitado e o site segue com o JSON anterior (o JSON do repositório é o fallback).
+# O PC da loja manda heartbeat/delta ao Worker a cada ~10 min. Este workflow acompanha o ritmo:
+# baixa o catálogo, refaz o pipeline (ops/catalogo-nacoes) e, se o conteúdo mudou, faz commit na main
+# (Workers Builds publica em seguida). Sem mudança: sai rápido (mudou=false), sem build.
+# Dados recusados ou Worker fora do ar: nada é commitado e o site segue com o JSON anterior (fallback).
 on:
   schedule:
-    - cron: "15 11,14,17,20,23 * * *" # 08:15, 11:15, 14:15, 17:15 e 20:15 em Brasília (UTC-3)
+    - cron: "*/10 * * * *" # a cada 10 min (a maioria das execuções não publica nada)
   workflow_dispatch:
     inputs:
       forcar:

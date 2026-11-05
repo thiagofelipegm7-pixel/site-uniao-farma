@@ -1,7 +1,32 @@
 import { env } from "cloudflare:workers";
 import { carregarCatalogoNacoes } from "../../../nacoes-unidas/produtos/catalogo";
-import { avaliarSaude, buscarExecucoes, REPO, somarUso, statusDoCatalogo, WORKFLOW, type ExecucaoSync } from "../../../catalogo-painel";
+import { avaliarSaude, buscarExecucoes, instanteDoGeradoEm, REPO, somarUso, statusDoCatalogo, WORKFLOW, type ExecucaoSync } from "../../../catalogo-painel";
 import { lerUsoIA } from "../../../ia-uso";
+
+const WORKER_CATALOGO = "https://dmaster-catalogo.thiagofelipegm7.workers.dev/catalogo?loja=itacolomi";
+
+async function lerBatimentoWorker(): Promise<{ batimentoEm: string | null; geradoEm: string | null } | null> {
+  const token = (() => {
+    try {
+      const v = (env as unknown as Record<string, string | undefined>).CATALOGO_READ_TOKEN;
+      if (v) return v.trim();
+    } catch {
+      /* sem binding */
+    }
+    return process.env.CATALOGO_READ_TOKEN?.trim() || "";
+  })();
+  if (!token) return null;
+  try {
+    const r = await fetch(WORKER_CATALOGO, {
+      headers: { authorization: `Bearer ${token}`, accept: "application/json", "user-agent": "uniao-farma-painel" },
+    });
+    if (!r.ok) return null;
+    const j = (await r.json()) as { batimentoEm?: string; recebidoEm?: string; geradoEm?: string };
+    return { batimentoEm: j.batimentoEm || j.recebidoEm || null, geradoEm: j.geradoEm || null };
+  } catch {
+    return null;
+  }
+}
 
 export const dynamic = "force-dynamic";
 
@@ -31,13 +56,17 @@ export async function GET() {
   const status = statusDoCatalogo(catalogo?.geradoEm, catalogo?.itens.length ?? 0, agora);
 
   if (!memoExecucoes || agora - memoExecucoes.em > 60_000) memoExecucoes = { em: agora, dados: await buscarExecucoes() };
-  const [usoHoje, uso7] = await Promise.all([lerUsoIA(1), lerUsoIA(7)]);
+  const [usoHoje, uso7, worker] = await Promise.all([lerUsoIA(1), lerUsoIA(7), lerBatimentoWorker()]);
+  const batMs = worker?.batimentoEm ? instanteDoGeradoEm(worker.batimentoEm) ?? Date.parse(worker.batimentoEm) : null;
+  const idadeBatimento =
+    batMs && !Number.isNaN(batMs) ? Math.max(0, Math.round(((agora - batMs) / 3_600_000) * 10) / 10) : null;
 
   return Response.json(
     {
       agora: new Date(agora).toISOString(),
       catalogo: status,
-      saude: avaliarSaude(status, agora),
+      pc: worker ? { batimentoEm: worker.batimentoEm, geradoEm: worker.geradoEm, idadeBatimentoHoras: idadeBatimento } : null,
+      saude: avaliarSaude(status, agora, idadeBatimento),
       sincronizacao: { execucoes: memoExecucoes.dados, repositorio: `https://github.com/${REPO}/actions/workflows/${WORKFLOW}` },
       ia: usoHoje === null || uso7 === null ? null : { hoje: somarUso(usoHoje), seteDias: somarUso(uso7) },
       forcar: { configurado: Boolean(segredo("GITHUB_DISPATCH_TOKEN")) },
