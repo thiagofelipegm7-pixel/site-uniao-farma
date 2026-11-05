@@ -179,7 +179,7 @@ test("página de produto: estrutura, noindex, sem texto de saúde inventado e ba
   assert.match(barra, /source: "produto_nacoes"/);
   assert.doesNotMatch(barra, /trackEvent\([^)]*nome/);
   assert.match(sacola, /EVENTO_ABRIR_RESERVA/);
-  assert.match(lista, /\/nacoes-unidas\/produtos\/\$\{slugify\(item\.nome\)\}/);
+  assert.match(lista, /\/nacoes-unidas\/produtos\/\$\{item\.slug \?\? slugify\(item\.nome\)\}/);
   assert.match(css, /\.produto-barra \{[^}]*height: 86px/);
   assert.match(css, /\.produto-adicionar[\s\S]*height: 54px/);
   assert.match(css, /padding-bottom: 102px !important/);

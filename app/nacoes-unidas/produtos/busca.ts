@@ -10,6 +10,8 @@ export type ItemBusca = {
   foto: string | null;
   /** Âncora estável (`slugify` do nome). A página do produto ainda não existe: a sugestão rola até o item. */
   id?: string;
+  /** Slug da página do produto (do nome original do catálogo; o nome de exibição pode gerar outro). */
+  slug?: string;
 };
 export type GrupoBusca = { categoria: string; id: string; itens: ItemBusca[] };
 
