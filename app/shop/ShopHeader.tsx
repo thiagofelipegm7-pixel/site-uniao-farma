@@ -26,7 +26,7 @@ const LINKS = [
 
 /** Cabeçalho de loja virtual: menu, marca, pino de loja, sacola e busca. Sem JavaScript a busca é um formulário GET comum. */
 type Sugestao = { nome: string; slug: string; precoCentavos: number; foto: string | null; busca: string };
-type SugestaoRestrita = { nome: string; nomeOriginal: string; tipo: "receita" | "controlados"; precoCentavos: number | null; busca: string; q: string; apresentacao: string | null; tarja: "vermelha" | "vermelha-retencao" | "preta" | null; retencao: boolean | null; controlado: boolean; generico?: boolean };
+type SugestaoRestrita = { nome: string; nomeOriginal: string; tipo: "receita" | "controlados"; precoCentavos: number | null; busca: string; q: string; apresentacao: string | null; tarja: "vermelha" | "vermelha-retencao" | "preta" | null; retencao: boolean | null; controlado: boolean; generico?: boolean; ativo?: string | null };
 const ROTA_RESTRITA = { receita: "/nacoes-unidas/produtos/receita", controlados: "/nacoes-unidas/produtos/controlados" } as const;
 const ROTULO_RESTRITA = { receita: "Com receita", controlados: "Controlado" } as const;
 const ORDINAIS = ["1º", "2º", "3º"];

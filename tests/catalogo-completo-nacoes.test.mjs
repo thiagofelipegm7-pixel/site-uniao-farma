@@ -299,3 +299,14 @@ test("cartão de produto no padrão da Panvel: um componente só, com as medidas
     assert.match(await read(f), /CartaoPanvel|<Cartao /, f);
   }
 });
+
+test("ilustração: inaladores usam a caixa com o inalador; spray nasal usa a de spray", async () => {
+  const { imagemIlustrativa } = await rmod();
+  const base = { apresentacao: null, tipo: "receita", tarja: "vermelha", retencao: false, controlado: false, generico: false };
+  for (const [nome, ativo] of [["SYMBICORT 6mcg/dos+200mcg/dos 120 DOSES", "budesonida;fumarato de formoterol"], ["AEROLIN spray cx c/200 DOSES", "sulfato de salbutamol"], ["SERETIDE 25+125mcg spray", "propionato de fluticasona;xinafoato de salmeterol"], ["ALENIA 6+200mcg REFIL 60CAPS", "budesonida;formoterol"], ["BEROTEC SPRAY 100 MCG", "bromidrato de fenoterol"]]) {
+    assert.match(imagemIlustrativa({ ...base, nome, ativo }), /inal-ref-vermelha/, nome);
+  }
+  for (const [nome, ativo] of [["MOMETASONA 50MCG 120 DOSES NEO QUIMICA", "furoato de mometasona"], ["BUSONID 64MCG 120 DOSES 6ML", "budesonida"], ["NASONEX SPRAY NASAL 120 D", "furoato de mometasona"]]) {
+    assert.match(imagemIlustrativa({ ...base, nome, ativo }), /spr-/, nome);
+  }
+});

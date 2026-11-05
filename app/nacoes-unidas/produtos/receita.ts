@@ -159,7 +159,11 @@ export const ILUSTRACOES: readonly Ilustracao[] = [
 
 /** Palavra inteira só em letras ("30CAPS" e "CX30CPR" contam; "CAPSULA" não casa com "CAP"). */
 const palavra = (alternativas: string) => new RegExp(`(?<![A-Z])(?:${alternativas})(?![A-Z])`);
-const RX_INAL = palavra("INAL[A-Z]*|AEROSS?OL|HFA|DISCUS|TURBUHALER|SPRAY ORAL");
+const RX_INAL = palavra("INAL[A-Z]*|AEROSS?OL|AER|HFA|DISCUS|TURBUHALER|SPRAY ORAL");
+// Princípios ativos de uso inalatório (broncodilatadores e associações). Budesonida, fluticasona e mometasona sozinhas são,
+// na maioria dos casos, spray nasal: ficam como spray, a não ser que o nome diga que é inalatório.
+const RX_INAL_ATIVO = /(salbutamol|fenoterol|formoterol|salmeterol|tiotr|ipratr|beclometasona|ciclesonida|vilanterol|indacaterol|glicopirr|umeclid|olodaterol)/i;
+const RX_NASAL = palavra("NASAL|NAS|SPR NAS|NASONEX|AVAMYS|DYMISTA|AMOME|MOMETASONA");
 const RX_INJ = palavra("INJ[A-Z]*|AMP[A-Z]*|CANETA?|SERINGA|LIOF[A-Z]*|REFIL");
 const RX_SPR = palavra("SPRAY|NASAL|SOL NAS[A-Z]*|JATO");
 const RX_GOT = palavra("GOTAS?|GTS?|COLIRIO|OFT[A-Z]*|OTO[A-Z]*");
@@ -168,9 +172,12 @@ const RX_CPR = palavra("CPR|COMP[A-Z]*|DRG|DRAGEAS?");
 const RX_TUB = palavra("CR|CREME|POM|POMADA|GEL|BG|DERM|LOCAO|PAST");
 const RX_LIQ = palavra("XPE|XAROPE|SUSP[A-Z]*|SOL|SOLUCAO|LIQ|EMULS[A-Z]*|ELIXIR|\\d+ ?ML");
 
-export function formaDoMedicamento(nome: string, apresentacao: string | null): FormaIlustracao {
+export function formaDoMedicamento(nome: string, apresentacao: string | null, ativo?: string | null): FormaIlustracao {
   const t = ` ${nome} ${apresentacao ?? ""} `.toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   if (RX_INAL.test(t)) return "inal";
+  if (ativo && RX_INAL_ATIVO.test(ativo) && !RX_NASAL.test(t) && /(DOSES?|SPRAY|JATOS?|REFIL|CAPS?|MCG|AER|INAL)/.test(t)) return "inal";
+  // "120 DOSES" de corticoide sem sinal de inalatório: spray nasal.
+  if (ativo && /(mometasona|fluticasona|budesonida)/i.test(ativo) && /DOSES?/.test(t)) return "spr";
   if (RX_INJ.test(t)) return "inj";
   if (RX_SPR.test(t)) return "spr";
   if (RX_GOT.test(t)) return "got";
@@ -182,9 +189,9 @@ export function formaDoMedicamento(nome: string, apresentacao: string | null): F
 }
 
 /** Caminho da ilustração mais próxima do item (receita e controlados). "Consulte o farmacêutico" usa a imagem genérica. */
-export function imagemIlustrativa(item: Pick<ItemRestrito, "nome" | "apresentacao" | "tipo" | "tarja" | "retencao" | "controlado" | "generico">): string {
+export function imagemIlustrativa(item: Pick<ItemRestrito, "nome" | "apresentacao" | "tipo" | "tarja" | "retencao" | "controlado" | "generico"> & { ativo?: string | null }): string {
   if (item.tipo === "consulte") return IMAGEM_GENERICA;
-  const forma = formaDoMedicamento(item.nome, item.apresentacao);
+  const forma = formaDoMedicamento(item.nome, item.apresentacao, item.ativo);
   const banda: BandaIlustracao = item.tarja === "preta" ? "preta" : item.retencao === true || item.controlado ? "retencao" : "vermelha";
   const generico = item.generico === true;
   let melhor = ILUSTRACOES[0];
