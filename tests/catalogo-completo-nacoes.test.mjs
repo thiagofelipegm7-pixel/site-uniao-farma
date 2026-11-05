@@ -227,3 +227,19 @@ test("catálogo Nações: o slug de cada cartão leva à página do produto", as
   const pagina = await json("public/dados/nacoes/catalogo/cuidado-diario/p1.json");
   for (const item of pagina) assert.ok(acharPorSlug(itens, item.slug), `sem página: ${item.slug}`);
 });
+
+test("receita e controlados: cada medicamento recebe a ilustração da sua forma e faixa", async () => {
+  const { imagemIlustrativa, formaDoMedicamento, ILUSTRACOES } = await import("../app/nacoes-unidas/produtos/receita.ts");
+  for (const i of ILUSTRACOES) await readFile(new URL(`../public/ilustrativas/${i.arquivo}.webp`, import.meta.url));
+  assert.equal(formaDoMedicamento("AAS PROTECT 100MG C 30 COMP", null), "cpr");
+  assert.equal(formaDoMedicamento("VERUTEX B 20+1MG CREME DERM BG 15G", "CREME DERM BG 15G"), "tub");
+  assert.equal(formaDoMedicamento("FOSTAIR 200+6mcg SPRAY ORAL 120 DOSES", null), "inal");
+  assert.equal(formaDoMedicamento("OZIVY 1.34MG/ML 3ML 1CANET 4AGLH", null), "inj");
+  const base = { apresentacao: null, tipo: "receita", tarja: "vermelha", retencao: false, controlado: false, generico: false };
+  assert.equal(imagemIlustrativa({ ...base, nome: "X 500MG CX 30 COMP" }), "/ilustrativas/cpr-ref-vermelha.webp");
+  assert.equal(imagemIlustrativa({ ...base, nome: "X 500MG CX 30 COMP", generico: true }), "/ilustrativas/cpr-gen-vermelha.webp");
+  assert.equal(imagemIlustrativa({ ...base, nome: "X 500MG CX 30 COMP", tarja: "vermelha-retencao", retencao: true }), "/ilustrativas/cpr-ref-retencao.webp");
+  assert.equal(imagemIlustrativa({ ...base, nome: "ALPRAZOLAM 0.5MG CX 30CPR", tipo: "controlados", tarja: "preta", retencao: true, controlado: true, generico: true }), "/ilustrativas/cpr-gen-preta.webp");
+  assert.equal(imagemIlustrativa({ ...base, nome: "X GOTAS 20ML", tipo: "controlados", tarja: "preta", retencao: true, controlado: true }), "/ilustrativas/got-ref-preta.webp");
+  assert.equal(imagemIlustrativa({ ...base, nome: "QUALQUER", tipo: "consulte", tarja: null, retencao: null }), "/produtos/generica-ilustrativa.webp");
+});

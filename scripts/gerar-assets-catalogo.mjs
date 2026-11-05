@@ -121,6 +121,7 @@ function paraRestrito(base, tipo) {
     apresentacao,
     aviso,
     controlado,
+    generico: base.generico === true,
     busca: normalizarBusca(`${base.nome} ${base.lab} ${base.ativo ?? ""}`),
     nomeExibicao: nomeDeExibicao(base.nome),
     slug: slugify(base.nome),
