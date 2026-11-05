@@ -129,6 +129,7 @@ test("receita: a rota não guarda nada, não vaza erro em cabeçalho e o diagnó
   assert.match(rota, /no-store/);
   const busca = await lerTexto("app/api/busca-ia/route.ts");
   assert.doesNotMatch(busca, /x-busca-diag/);
+  assert.doesNotMatch(rota, /diag/i);
   assert.match(busca, /erro-ia/);
 });
 
