@@ -38,7 +38,7 @@ test("receita e controlados não aparecem no catálogo principal", async () => {
   const cat = await json(`${D}/catalogo-nacoes.json`);
   const rx = await json(`${D}/receita-nacoes.json`);
   const normal = new Set(cat.itens.map((i) => `${i.nome}|${i.lab}|${i.preco}`));
-  for (const i of [...rx.receita, ...rx.controlados, ...rx.consulte]) {
+  for (const i of [...rx.receita, ...rx.controlados]) {
     assert.ok(!normal.has(`${i.nome}|${i.lab}|${i.preco}`), `${i.nome} está no catálogo normal`);
   }
 });
@@ -70,7 +70,6 @@ test("lista restrita: sem oferta, % OFF, preço riscado ou destaque; cesta só p
     "app/nacoes-unidas/produtos/ListaRestrita.tsx",
     "app/nacoes-unidas/produtos/receita/page.tsx",
     "app/nacoes-unidas/produtos/controlados/page.tsx",
-    "app/nacoes-unidas/produtos/consulte-o-farmaceutico/page.tsx",
     "app/nacoes-unidas/produtos/receita.ts",
   ]) {
     const src = (await read(f)).replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "");
@@ -106,7 +105,6 @@ test("lista restrita: sem oferta, % OFF, preço riscado ou destaque; cesta só p
   const ctPage = await read("app/nacoes-unidas/produtos/controlados/page.tsx");
   assert.match(rxPage, /ListaRestrita/);
   assert.match(ctPage, /ListaRestrita/);
-  assert.match(await read("app/nacoes-unidas/produtos/consulte-o-farmaceutico/page.tsx"), /ListaRestrita/);
   // O cartão não traz mais o bloco "Detalhes" (ficha com princípio ativo, RMS, tarja e retenção): só nome, marca, preço, aviso de venda sob prescrição e cesta.
   for (const campo of ["Princípio ativo", "Registro MS (RMS)", "Retenção da receita", "pv-detalhes"]) assert.ok(!lista.includes(campo), campo);
 });
@@ -185,7 +183,6 @@ test("selo/etiqueta 'Sem receita' removido de todos os cards de produto e oferta
     "app/PublicOffersGrid.tsx",
     "app/visual-fase2.tsx",
     "app/nacoes-unidas/produtos/ListaRestrita.tsx",
-    "app/nacoes-unidas/produtos/consulte-o-farmaceutico/page.tsx",
   ]) {
     const src = await read(f);
     assert.doesNotMatch(src, /SeloSemReceita|selo-sem-receita|<p className="produto-selo"|>\s*Sem receita\s*</, f);
@@ -280,7 +277,8 @@ test("medicamentos: o departamento reúne sem receita, com receita, controlados 
   const pagina = await read("app/departamentos/[slug]/page.tsx");
   assert.ok(pagina.includes('dep.slug === "medicamentos"') && pagina.includes("<MedicamentosTodos"));
   const comp = await read("app/nacoes-unidas/produtos/MedicamentosTodos.tsx");
-  for (const tipo of ["receita", "controlados", "consulte"]) assert.ok(comp.includes(`"${tipo}"`), tipo);
+  for (const tipo of ["receita", "controlados"]) assert.ok(comp.includes(`"${tipo}"`), tipo);
+  assert.ok(!comp.includes("Consulte o farmacêutico"), "a aba Consulte foi extinta");
   assert.match(comp, /restritos-index\.json/);
   assert.match(comp, /restritos\/\$\{tipo\}\/p\$\{p\}\.json/);
   const idx = await json("public/dados/nacoes/restritos-index.json");
@@ -367,9 +365,12 @@ test("quantidade vem do nome nos produtos comuns", async () => {
   assert.equal(q("ESC DENT NAVY"), null);
 });
 
-test("a busca do cabeçalho também acha os itens 'consulte o farmacêutico'", async () => {
-  const busca = JSON.parse(await read("public/dados/nacoes/restritos-busca.json"));
-  assert.ok(busca.some((i) => i.tipo === "consulte" && /hipoglos/.test(i.busca)), "Hipoglós precisa aparecer na busca");
-  const header = await read("app/shop/ShopHeader.tsx");
-  assert.match(header, /consulte: "\/nacoes-unidas\/produtos\/consulte-o-farmaceutico"/);
+test("itens 'consulte o farmacêutico' viraram produtos comuns, achados na busca e liberados para a cesta", async () => {
+  const busca = JSON.parse(await read("public/dados/nacoes/catalogo-busca.json"));
+  assert.ok(busca.some((i) => /hipoglos/.test(i.busca)), "Hipoglós precisa aparecer na busca");
+  const idx = await json("public/dados/nacoes/restritos-index.json");
+  assert.equal(idx.consulte.total, 0);
+  const cat = await json("app/nacoes-unidas/produtos/dados/catalogo-nacoes.json");
+  assert.ok(cat.itens.filter((i) => i.origem === "consulte").length > 100);
+  assert.match(await read("next.config.ts"), /consulte-o-farmaceutico", destination: "\/departamentos\/medicamentos", permanent: true/);
 });

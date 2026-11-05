@@ -242,7 +242,8 @@ function gerarRestrito(lista, tipo) {
 
 const receitaFmt = gerarRestrito(rec.receita, "receita");
 const controladosFmt = gerarRestrito(rec.controlados, "controlados");
-const consulteFmt = gerarRestrito(rec.consulte, "consulte");
+// A lista "consulte o farmacêutico" não existe mais: esses itens entram no catálogo comum (ver ops/catalogo-nacoes/categorias_novas.py).
+const consulteFmt = [];
 
 function paginarEEscrever(itensFmt, prefixo) {
   const paginas = Math.ceil(itensFmt.length / POR_PAGINA);
@@ -255,7 +256,7 @@ function paginarEEscrever(itensFmt, prefixo) {
 
 const recInfo = paginarEEscrever(receitaFmt, "receita");
 const ctlInfo = paginarEEscrever(controladosFmt, "controlados");
-const conInfo = paginarEEscrever(consulteFmt, "consulte");
+const conInfo = { total: 0, paginas: 0 };
 
 // Índice leve para a busca do cabeçalho achar também os medicamentos com receita, os controlados e os "consulte o farmacêutico".
 writeJson(

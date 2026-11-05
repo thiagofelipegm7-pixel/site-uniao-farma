@@ -85,7 +85,6 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
           <nav className="departamento-receita section-inner" aria-label="Medicamentos com receita">
             <a href="/nacoes-unidas/produtos/receita">Medicamentos com receita</a>
             <a href="/nacoes-unidas/produtos/controlados">Medicamentos controlados</a>
-            <a href="/nacoes-unidas/produtos/consulte-o-farmaceutico">Consulte o farmacêutico</a>
           </nav>
         ) : null}
         <nav className="departamento-outros section-inner" aria-label="Departamentos">
@@ -106,7 +105,7 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
               <strong>Medicamentos com receita e controlados:</strong> pedido pelo WhatsApp, sem pagamento no site. Retire na loja com a receita (retida pela farmácia quando a lei exigir).
             </p>
             <p>
-              <a href="/nacoes-unidas/produtos/receita">Ver medicamentos com receita</a> · <a href="/nacoes-unidas/produtos/controlados">Ver medicamentos controlados</a> · <a href="/nacoes-unidas/produtos/consulte-o-farmaceutico">Itens para consultar o farmacêutico</a>
+              <a href="/nacoes-unidas/produtos/receita">Ver medicamentos com receita</a> · <a href="/nacoes-unidas/produtos/controlados">Ver medicamentos controlados</a>
             </p>
           </aside>
           <p className="catalogo-nota">Preços do sistema da loja Nações Unidas. Preço e disponibilidade podem ter mudado: a loja confirma pelo WhatsApp antes da separação.</p>
