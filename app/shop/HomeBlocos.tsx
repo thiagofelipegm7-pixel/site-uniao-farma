@@ -49,8 +49,8 @@ export function AbasHome() {
   return (
     <nav className="shop-abas" aria-label="Seções da página">
       <a className="is-ativa" href="#inicio" aria-current="true"><span>Para você</span></a>
-      <a href="#ofertas-da-semana"><span>Ofertas</span></a>
-      <a href="#unidades-rapidas"><span>Lojas</span></a>
+      <a href="/departamentos/medicamentos"><span>Saúde</span></a>
+      <a href="/departamentos/beleza"><span>Beleza</span></a>
     </nav>
   );
 }
