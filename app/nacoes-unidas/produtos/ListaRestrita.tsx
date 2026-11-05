@@ -2,6 +2,7 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 /* eslint-disable @next/next/no-img-element -- Imagem estática pequena, igual ao restante do catálogo. */
+import { quantidadeLegivel } from "./quantidade";
 import { useEffect, useState } from "react";
 import { ContentSiteFooter } from "../../ContentSiteChrome";
 import ReservarBotao from "../../reserva/ReservarBotao";
@@ -69,7 +70,7 @@ export function Cartao({ item }: { item: ItemRestrito }) {
       classe={`restrito-item${item.controlado ? " restrito-controlado" : ""}`}
       nome={nome}
       marca={item.lab}
-      apresentacao={item.apresentacao}
+      apresentacao={quantidadeLegivel(item.apresentacao)}
       foto={imagemIlustrativa(item)}
       precoFmt={item.preco !== null ? formatBRL(item.preco) : null}
       cesta={
