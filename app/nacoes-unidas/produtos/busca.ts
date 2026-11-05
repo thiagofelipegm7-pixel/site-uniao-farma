@@ -36,6 +36,8 @@ export type FaixaPreco = (typeof FAIXAS_PRECO)[number]["id"];
 
 export type FiltroCatalogo = {
   consulta?: string;
+  /** Busca corrigida (erro de digitação): se vier, vale no lugar de `consulta`, e o produto só precisa casar com uma delas. */
+  consultasAlternativas?: readonly string[];
   ordem?: OrdemCatalogo;
   categorias?: readonly string[];
   marcas?: readonly string[];
@@ -62,6 +64,15 @@ export function termosDeBusca(consulta: string): string[] {
 function combina(termos: string[], ...campos: string[]): boolean {
   const alvo = normalizarBusca(campos.join(" "));
   return termos.every((termo) => alvo.includes(termo));
+}
+
+/** Como `filtrarGrupos`, mas o produto pode casar com qualquer uma das buscas (OU entre elas, E entre as palavras de cada uma). */
+export function filtrarGruposAlternativos(grupos: readonly GrupoBusca[], consultas: readonly string[]): GrupoBusca[] {
+  const listas = consultas.map(termosDeBusca).filter((termos) => termos.length > 0);
+  if (listas.length === 0) return grupos.map((grupo) => ({ ...grupo, itens: [...grupo.itens] }));
+  return grupos
+    .map((grupo) => ({ ...grupo, itens: grupo.itens.filter((item) => listas.some((termos) => combina(termos, item.nome, item.lab, grupo.categoria))) }))
+    .filter((grupo) => grupo.itens.length > 0);
 }
 
 /** Sem termo devolve tudo. Com termo, procura em nome, laboratório e categoria; grupos sem resultado somem. */
@@ -174,7 +185,8 @@ export function aplicarCatalogo(grupos: readonly GrupoBusca[], filtro: FiltroCat
   const cats = new Set((filtro.categorias ?? []).map(normalizarBusca).filter(Boolean));
   const marcas = new Set((filtro.marcas ?? []).map(normalizarBusca).filter(Boolean));
   const faixas = new Set(filtro.faixas ?? []);
-  const filtrados = filtrarGrupos(grupos, filtro.consulta ?? "")
+  const porTexto = filtro.consultasAlternativas?.length ? filtrarGruposAlternativos(grupos, filtro.consultasAlternativas) : filtrarGrupos(grupos, filtro.consulta ?? "");
+  const filtrados = porTexto
     .filter((grupo) => cats.size === 0 || cats.has(normalizarBusca(grupo.categoria)))
     .map((grupo) => ({
       ...grupo,
