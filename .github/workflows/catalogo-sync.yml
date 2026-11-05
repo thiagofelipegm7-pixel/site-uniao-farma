@@ -56,6 +56,10 @@ jobs:
         if: steps.sync.outputs.mudou == 'true'
         run: npm ci
 
+      - name: Podar textos e pares de IA que deixaram de valer
+        if: steps.sync.outputs.mudou == 'true'
+        run: node --experimental-strip-types --import ./tests/ts-resolve-hook.mjs scripts/podar-dados-ia.mjs
+
       - name: Testes unitários
         if: steps.sync.outputs.mudou == 'true'
         run: npm test
@@ -75,8 +79,12 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add app/nacoes-unidas/produtos/dados/catalogo-nacoes.json app/nacoes-unidas/produtos/dados/receita-nacoes.json public/dados/nacoes
+          git add app/nacoes-unidas/produtos/dados/catalogo-nacoes.json app/nacoes-unidas/produtos/dados/receita-nacoes.json app/nacoes-unidas/produtos/dados/descricoes-ia.json app/nacoes-unidas/produtos/dados/relacionados-ia.json public/dados/nacoes
           git diff --cached --quiet && exit 0
           git commit -m "Catálogo: dados da loja de ${DADOS_DE} (sincronização automática)"
           git pull --rebase origin main
           git push origin HEAD:main
+
+      - name: Anotar a falha para o painel
+        if: failure()
+        run: echo "::error title=Sincronização falhou::Os dados novos foram baixados, mas algum passo (testes, build ou publicação) falhou. O site segue com os dados anteriores. Abra esta execução para ver qual passo."

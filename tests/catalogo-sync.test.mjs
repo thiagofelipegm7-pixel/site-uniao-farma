@@ -107,3 +107,11 @@ test("monitor.py (python)", () => {
   const r = spawnSync("python3", ["-m", "unittest", "test_monitor"], { cwd: "ops/catalogo-nacoes", encoding: "utf8" });
   assert.equal(r.status, 0, r.stderr);
 });
+
+test("workflow catalogo-sync: poda textos/pares de IA antes dos testes e versiona os dois arquivos", () => {
+  const y = readFileSync(".github/workflows/catalogo-sync.yml", "utf8");
+  assert.ok(y.indexOf("scripts/podar-dados-ia.mjs") > y.indexOf("npm ci"));
+  assert.ok(y.indexOf("scripts/podar-dados-ia.mjs") < y.indexOf("npm test"));
+  assert.match(y, /git add [^\n]*descricoes-ia\.json [^\n]*relacionados-ia\.json/);
+  assert.match(y, /if: failure\(\)/);
+});
