@@ -1,0 +1,33 @@
+name: Publicar site agora
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CF_SECRETS_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+      STAFF_PASSWORD: ci-test-only-${{ github.run_id }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Publicar
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_SECRETS_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          # O wrangler.json do Vinext usa o nome uniao-farma-sabara; produção é site-uniao-farma.
+          command: deploy --config dist/server/wrangler.json --name site-uniao-farma
