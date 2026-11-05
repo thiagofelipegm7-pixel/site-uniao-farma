@@ -4,7 +4,7 @@
  * o navegador só mostra produtos que já existem na lista e que combinam com esses termos.
  */
 
-export const MODELO_IA = "@cf/meta/llama-3.1-8b-instruct";
+export const MODELO_IA = "@cf/meta/llama-3.2-3b-instruct";
 export const MAX_TERMOS = 4;
 export const TAMANHO_MIN = 3;
 export const TAMANHO_MAX = 60;
