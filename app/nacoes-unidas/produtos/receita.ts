@@ -27,7 +27,7 @@ export const ROTULO_TARJA: Record<Tarja, string> = {
   "vermelha-retencao": "Tarja vermelha, com retenção da receita",
 };
 
-type BaseJson = { nome: string; lab: string; preco: number | null; ativo?: string; rms?: string; tarja?: Tarja };
+type BaseJson = { nome: string; lab: string; preco: number | null; ativo?: string; rms?: string; tarja?: Tarja; generico?: boolean };
 export type ItemReceita = BaseJson & { retencao: boolean };
 export type ItemControlado = BaseJson & { lista: string };
 export type ItemConsulte = BaseJson;
@@ -48,6 +48,8 @@ export type ItemRestrito = {
   apresentacao: string | null;
   aviso: string;
   controlado: boolean;
+  /** Classe "genérico" no sistema da loja (define a faixa amarela "Medicamento Genérico" na ilustração). */
+  generico?: boolean;
   busca?: string;
 };
 
@@ -119,4 +121,78 @@ export function paginar<T>(itens: readonly T[], pagina: number, porPagina = POR_
   const paginas = Math.max(1, Math.ceil(itens.length / porPagina));
   const p = Math.min(Math.max(1, Math.floor(pagina) || 1), paginas);
   return { itens: itens.slice((p - 1) * porPagina, p * porPagina), pagina: p, paginas };
+}
+
+// ---- Ilustração por forma do medicamento -------------------------------------------------------------------------
+// Não são fotos do produto: são caixas ilustrativas da loja (faixa vermelha "Venda sob prescrição médica", amarela "Genérico",
+// preta para controlados e "só pode ser vendido com retenção da receita"). A regra escolhe a mais próxima da forma
+// (comprimido, cápsula, injetável, xarope, pomada, gotas, spray, inalador) e da faixa do item.
+type FormaIlustracao = "cpr" | "cap" | "inj" | "liq" | "tub" | "got" | "spr" | "inal";
+type BandaIlustracao = "vermelha" | "retencao" | "preta";
+type Ilustracao = { arquivo: string; forma: FormaIlustracao; generico: boolean; banda: BandaIlustracao };
+
+export const ILUSTRACOES: readonly Ilustracao[] = [
+  { arquivo: "cpr-gen-vermelha", forma: "cpr", generico: true, banda: "vermelha" },
+  { arquivo: "cpr-ref-vermelha", forma: "cpr", generico: false, banda: "vermelha" },
+  { arquivo: "cpr-ref-retencao", forma: "cpr", generico: false, banda: "retencao" },
+  { arquivo: "cpr-gen-preta", forma: "cpr", generico: true, banda: "preta" },
+  { arquivo: "cap-gen-retencao", forma: "cap", generico: true, banda: "retencao" },
+  { arquivo: "cap-ref-retencao", forma: "cap", generico: false, banda: "retencao" },
+  { arquivo: "cap-ref-preta", forma: "cap", generico: false, banda: "preta" },
+  { arquivo: "inj-gen-vermelha", forma: "inj", generico: true, banda: "vermelha" },
+  { arquivo: "inj-ref-vermelha", forma: "inj", generico: false, banda: "vermelha" },
+  { arquivo: "inj-ref-retencao", forma: "inj", generico: false, banda: "retencao" },
+  { arquivo: "liq-gen-vermelha", forma: "liq", generico: true, banda: "vermelha" },
+  { arquivo: "liq-ref-vermelha", forma: "liq", generico: false, banda: "vermelha" },
+  { arquivo: "tub-gen-vermelha", forma: "tub", generico: true, banda: "vermelha" },
+  { arquivo: "tub-ref-vermelha", forma: "tub", generico: false, banda: "vermelha" },
+  { arquivo: "got-ref-retencao", forma: "got", generico: false, banda: "retencao" },
+  { arquivo: "got-ref-preta", forma: "got", generico: false, banda: "preta" },
+  { arquivo: "spr-gen-vermelha", forma: "spr", generico: true, banda: "vermelha" },
+  { arquivo: "spr-ref-retencao", forma: "spr", generico: false, banda: "retencao" },
+  { arquivo: "inal-ref-vermelha", forma: "inal", generico: false, banda: "vermelha" },
+];
+
+/** Palavra inteira só em letras ("30CAPS" e "CX30CPR" contam; "CAPSULA" não casa com "CAP"). */
+const palavra = (alternativas: string) => new RegExp(`(?<![A-Z])(?:${alternativas})(?![A-Z])`);
+const RX_INAL = palavra("INAL[A-Z]*|AEROSS?OL|HFA|DISCUS|TURBUHALER|SPRAY ORAL");
+const RX_INJ = palavra("INJ[A-Z]*|AMP[A-Z]*|CANETA?|SERINGA|LIOF[A-Z]*|REFIL");
+const RX_SPR = palavra("SPRAY|NASAL|SOL NAS[A-Z]*|JATO");
+const RX_GOT = palavra("GOTAS?|GTS?|COLIRIO|OFT[A-Z]*|OTO[A-Z]*");
+const RX_CAP = palavra("CAPS?|CAPSULAS?");
+const RX_CPR = palavra("CPR|COMP[A-Z]*|DRG|DRAGEAS?");
+const RX_TUB = palavra("CR|CREME|POM|POMADA|GEL|BG|DERM|LOCAO|PAST");
+const RX_LIQ = palavra("XPE|XAROPE|SUSP[A-Z]*|SOL|SOLUCAO|LIQ|EMULS[A-Z]*|ELIXIR|\\d+ ?ML");
+
+export function formaDoMedicamento(nome: string, apresentacao: string | null): FormaIlustracao {
+  const t = ` ${nome} ${apresentacao ?? ""} `.toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  if (RX_INAL.test(t)) return "inal";
+  if (RX_INJ.test(t)) return "inj";
+  if (RX_SPR.test(t)) return "spr";
+  if (RX_GOT.test(t)) return "got";
+  if (RX_CAP.test(t)) return "cap"; // cápsula gelatinosa ("CAPS GEL") é cápsula, não gel
+  if (RX_CPR.test(t)) return "cpr";
+  if (RX_TUB.test(t)) return "tub";
+  if (RX_LIQ.test(t)) return "liq";
+  return "cpr";
+}
+
+/** Caminho da ilustração mais próxima do item (receita e controlados). "Consulte o farmacêutico" usa a imagem genérica. */
+export function imagemIlustrativa(item: Pick<ItemRestrito, "nome" | "apresentacao" | "tipo" | "tarja" | "retencao" | "controlado" | "generico">): string {
+  if (item.tipo === "consulte") return IMAGEM_GENERICA;
+  const forma = formaDoMedicamento(item.nome, item.apresentacao);
+  const banda: BandaIlustracao = item.tarja === "preta" ? "preta" : item.retencao === true || item.controlado ? "retencao" : "vermelha";
+  const generico = item.generico === true;
+  let melhor = ILUSTRACOES[0];
+  let menor = Infinity;
+  for (const cand of ILUSTRACOES) {
+    let custo = cand.forma === forma ? 0 : 100;
+    if (cand.banda !== banda) custo += banda === "preta" || cand.banda === "preta" ? 30 : 10;
+    if (cand.generico !== generico) custo += 3;
+    if (custo < menor) {
+      menor = custo;
+      melhor = cand;
+    }
+  }
+  return `/ilustrativas/${melhor.arquivo}.webp`;
 }

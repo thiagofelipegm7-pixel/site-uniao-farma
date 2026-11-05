@@ -10,7 +10,7 @@ import { formatBRL, formatDataDosDados } from "./catalogo";
 import {
   COMO_COMPRAR,
   COMO_COMPRAR_CONSULTE,
-  IMAGEM_GENERICA,
+  imagemIlustrativa,
   NOTA_IMAGEM,
   ROTULO_TARJA,
   SELO_CONTROLADO,
@@ -75,7 +75,7 @@ function Cartao({ item }: { item: ItemRestrito }) {
   if (item.tipo !== "consulte") ficha.push(["Retenção da receita", item.retencao === true ? "Sim" : item.retencao === false ? "Não" : "Confirmar com o farmacêutico"]);
   return (
     <li className={`catalogo-item restrito-item${item.controlado ? " restrito-controlado" : ""}`} data-tipo={item.tipo}>
-      <img className="catalogo-foto" src={IMAGEM_GENERICA} alt="Imagem meramente ilustrativa de embalagem de medicamento" width={80} height={80} loading="lazy" decoding="async" />
+      <img className="catalogo-foto" src={imagemIlustrativa(item)} alt="Imagem meramente ilustrativa de embalagem de medicamento" width={80} height={80} loading="lazy" decoding="async" />
       <div className="catalogo-info">
         {item.controlado ? <p className="restrito-selo">{SELO_CONTROLADO}</p> : null}
         <h4>{item.nome}</h4>
