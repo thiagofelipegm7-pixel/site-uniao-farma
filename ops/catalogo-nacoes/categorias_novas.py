@@ -183,13 +183,31 @@ def categoria_nova(nome, lab, antiga, is_mip):
     if antiga == "Perfumaria e higiene": return "Cuidado Diário"
     return "Categoria a conferir"
 
+def incluir_consulte(d):
+    """Os itens da lista "consulte o farmacêutico" (receita-nacoes.json) entram no catálogo comum, sem aviso e sem lista à parte.
+    Idempotente: o que veio de lá é marcado com origem="consulte" e refeito a cada rodada."""
+    arq = os.path.join(os.path.dirname(ARQ), "receita-nacoes.json")
+    if not os.path.exists(arq): return 0
+    d["itens"] = [i for i in d["itens"] if i.get("origem") != "consulte"]
+    existentes = {norm(i["nome"]) for i in d["itens"]}
+    novos = 0
+    for i in json.load(open(arq, encoding="utf-8")).get("consulte", []):
+        if not i.get("preco") or norm(i["nome"]) in existentes: continue
+        d["itens"].append({"nome": i["nome"], "lab": i.get("lab", ""), "preco": i["preco"], "categoria": "Medicamentos", "isMIP": False, "categoriaAntiga": "Consulte o farmacêutico", "origem": "consulte"})
+        existentes.add(norm(i["nome"])); novos += 1
+    d["total"] = len(d["itens"])
+    return novos
+
 def main(path=ARQ):
     d = json.load(open(path, encoding="utf-8"))
+    print(incluir_consulte(d), "itens de 'consulte o farmacêutico' incluídos no catálogo")
     cont = collections.Counter(); amostra = collections.defaultdict(list)
     for it in d["itens"]:
         antiga = it.get("categoriaAntiga") or it["categoria"]
         it["categoriaAntiga"] = antiga
         it["categoria"] = categoria_nova(it["nome"], it.get("lab", ""), antiga, it.get("isMIP") is True)
+        # Veio da lista "consulte": o que nenhuma regra reconhece é remédio, então fica em Medicamentos.
+        if it.get("origem") == "consulte" and it["categoria"] == "Categoria a conferir": it["categoria"] = "Medicamentos"
         cont[it["categoria"]] += 1
         if len(amostra[it["categoria"]]) < 6: amostra[it["categoria"]].append(it["nome"])
     json.dump(d, open(path, "w", encoding="utf-8"), ensure_ascii=False, separators=(",", ":"))

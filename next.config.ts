@@ -25,6 +25,7 @@ const nextConfig: NextConfig = {
   // `permanent: true` gera 308 (equivale a 301 para o Google). Não usar `statusCode: 301`:
   // o vinext ignora esse campo e responde 307 (temporário).
   redirects: async () => [
+    { source: "/nacoes-unidas/produtos/consulte-o-farmaceutico", destination: "/departamentos/medicamentos", permanent: true },
     // Lojas: variantes /unidades/* e apelidos antigos -> canonical
     { source: "/unidades/nossa-senhora-de-fatima", destination: "/fatima", permanent: true },
     { source: "/unidades/fatima", destination: "/fatima", permanent: true },

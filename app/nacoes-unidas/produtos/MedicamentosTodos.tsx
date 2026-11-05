@@ -14,7 +14,7 @@ import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./
 import type { ItemRestrito } from "./receita";
 
 export type MedicamentoSemReceita = { nome: string; slug: string; lab: string; precoFmt: string; foto: string | null; isMIP: boolean };
-type Aba = "todos" | "sem-receita" | "receita" | "controlados" | "consulte";
+type Aba = "todos" | "sem-receita" | "receita" | "controlados";
 type Linha = { chave: string; nome: string; busca: string; aba: Exclude<Aba, "todos">; otc?: MedicamentoSemReceita; restrito?: ItemRestrito };
 
 const ABAS: ReadonlyArray<{ id: Aba; rotulo: string }> = [
@@ -22,7 +22,6 @@ const ABAS: ReadonlyArray<{ id: Aba; rotulo: string }> = [
   { id: "sem-receita", rotulo: "Sem receita" },
   { id: "receita", rotulo: "Com receita" },
   { id: "controlados", rotulo: "Controlados" },
-  { id: "consulte", rotulo: "Consulte o farmacêutico" },
 ];
 
 const comparar = (a: Linha, b: Linha) => a.nome.localeCompare(b.nome, "pt-BR");
@@ -50,9 +49,9 @@ export default function MedicamentosTodos({ otcInicial, unitId, paginaInicial = 
       try {
         const idx = await fetch("/dados/nacoes/restritos-index.json").then((r) => r.json());
         if (cancelado) return;
-        setTotais({ receita: idx.receita?.total ?? 0, controlados: idx.controlados?.total ?? 0, consulte: idx.consulte?.total ?? 0 });
+        setTotais({ receita: idx.receita?.total ?? 0, controlados: idx.controlados?.total ?? 0 });
         const acumulado: Linha[] = [];
-        for (const tipo of ["receita", "controlados", "consulte"] as const) {
+        for (const tipo of ["receita", "controlados"] as const) {
           for (let p = 1; p <= (idx[tipo]?.paginas ?? 0); p += 1) {
             const pagina: ItemRestrito[] = await fetch(`/dados/nacoes/restritos/${tipo}/p${p}.json`).then((r) => r.json());
             if (cancelado) return;
@@ -93,7 +92,7 @@ export default function MedicamentosTodos({ otcInicial, unitId, paginaInicial = 
     window.addEventListener("popstate", ler);
     return () => window.removeEventListener("popstate", ler);
   }, []);
-  const contagem = (id: Aba) => (id === "todos" ? otcInicial.length + (totais.receita ?? 0) + (totais.controlados ?? 0) + (totais.consulte ?? 0) : id === "sem-receita" ? otcInicial.length : (totais[id] ?? 0));
+  const contagem = (id: Aba) => (id === "todos" ? otcInicial.length + (totais.receita ?? 0) + (totais.controlados ?? 0) : id === "sem-receita" ? otcInicial.length : (totais[id] ?? 0));
 
   return (
     <section aria-label="Todos os medicamentos">
