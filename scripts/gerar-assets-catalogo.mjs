@@ -99,10 +99,23 @@ const AVISO_RETENCAO = "Venda sob prescrição médica com retenção da receita
 const AVISO_CONTROLADO = "Venda sob prescrição médica com retenção da receita";
 const AVISO_CONSULTE = "Consulte o farmacêutico";
 
+/**
+ * Tarja dos controlados pela lista da Portaria 344/98 (a substância manda): A e B → preta; C → vermelha com retenção.
+ * Exceções do adendo: associações de codeína com paracetamol e o elixir paregórico saem como vermelha com retenção.
+ * Vale mais que o cruzamento por nome com a CMED, que errou em itens como alprazolam (B1) e pregabalina (C1).
+ */
+function tarjaControlado(base) {
+  const lista = String(base.lista || "");
+  if (!lista) return base.tarja ?? null;
+  const texto = `${base.nome} ${base.ativo ?? ""}`.toLowerCase();
+  if (/^A/i.test(lista) && (/paregoric|paregórico/.test(texto) || (/code[ií]n/.test(texto) && /paracetamol|\+/.test(texto)))) return "vermelha-retencao";
+  return tarjaDaLista(lista);
+}
+
 function paraRestrito(base, tipo) {
   const { concentracao, apresentacao } = lerNome(base.nome, base.lab);
   const controlado = tipo === "controlados";
-  const tarja = base.tarja ?? (controlado && base.lista ? tarjaDaLista(base.lista) : null);
+  const tarja = controlado ? tarjaControlado(base) : (base.tarja ?? null);
   let retencao = null;
   if (controlado || base.retencao === true || tarja === "preta" || tarja === "vermelha-retencao") retencao = true;
   else if (tarja === "vermelha") retencao = false;
