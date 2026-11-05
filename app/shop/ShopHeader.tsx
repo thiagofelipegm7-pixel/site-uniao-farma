@@ -11,6 +11,7 @@ import ReservaSacola from "../reserva/ReservaSacola";
 import { IconLupa, IconMenu, IconPino, IconWhats } from "../reserva/ReservaIcons";
 import LojaPicker from "./LojaPicker";
 import "./shop.css";
+import { imagemIlustrativa } from "../nacoes-unidas/produtos/receita";
 import DepartamentosGaveta from "./DepartamentosGaveta";
 import { abrirSeletorDeLoja, EVENTO_ABRIR_DEPARTAMENTOS } from "./loja-evento";
 
@@ -25,6 +26,9 @@ const LINKS = [
 
 /** Cabeçalho de loja virtual: menu, marca, pino de loja, sacola e busca. Sem JavaScript a busca é um formulário GET comum. */
 type Sugestao = { nome: string; slug: string; precoCentavos: number; foto: string | null; busca: string };
+type SugestaoRestrita = { nome: string; nomeOriginal: string; tipo: "receita" | "controlados"; precoCentavos: number | null; busca: string; q: string; apresentacao: string | null; tarja: "vermelha" | "vermelha-retencao" | "preta" | null; retencao: boolean | null; controlado: boolean; generico?: boolean };
+const ROTA_RESTRITA = { receita: "/nacoes-unidas/produtos/receita", controlados: "/nacoes-unidas/produtos/controlados" } as const;
+const ROTULO_RESTRITA = { receita: "Com receita", controlados: "Controlado" } as const;
 const ORDINAIS = ["1º", "2º", "3º"];
 const nacoes = UNITS.find((unit) => unit.id === "nacoes");
 
@@ -33,6 +37,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   const [termo, setTermo] = useState(consultaInicial);
   const [foco, setFoco] = useState(false);
   const [itens, setItens] = useState<Sugestao[] | null>(null);
+  const [restritos, setRestritos] = useState<SugestaoRestrita[]>([]);
   const carregando = useRef(false);
   const painelRef = useRef<HTMLDivElement>(null);
 
@@ -44,13 +49,19 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
       .then((resposta) => (resposta.ok ? resposta.json() : null))
       .then((dados: Sugestao[] | null) => setItens(Array.isArray(dados) ? dados : []))
       .catch(() => setItens([]));
+    fetch("/dados/nacoes/restritos-busca.json", { headers: { accept: "application/json" } })
+      .then((resposta) => (resposta.ok ? resposta.json() : null))
+      .then((dados: SugestaoRestrita[] | null) => setRestritos(Array.isArray(dados) ? dados : []))
+      .catch(() => setRestritos([]));
   }
 
   const normal = normalizarBusca(termo);
   const termos = termosDeBusca(termo);
   const resultados = normal.length >= 2 && itens ? itens.filter((item) => termos.every((t) => item.busca.includes(t))).slice(0, 6) : [];
+  // Medicamentos com receita e controlados também aparecem na busca (lista de preços, sem cesta).
+  const resultadosRestritos = normal.length >= 2 ? restritos.filter((item) => termos.every((t) => item.busca.includes(t))).slice(0, 4) : [];
   const mostrarPainel = foco && (normal.length === 0 || normal.length >= 2);
-  const semResultado = normal.length >= 2 && itens !== null && resultados.length === 0;
+  const semResultado = normal.length >= 2 && itens !== null && resultados.length === 0 && resultadosRestritos.length === 0;
 
   // Na página de produtos, a caixa já abre com o termo buscado (?q=fralda).
   useEffect(() => {
@@ -138,7 +149,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                     ))}
                   </ul>
                 </>
-              ) : resultados.length > 0 ? (
+              ) : resultados.length > 0 || resultadosRestritos.length > 0 ? (
                 <>
                   <ul aria-label="Produtos sugeridos">
                     {resultados.map((item) => (
@@ -147,6 +158,17 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                           {item.foto ? <img src={item.foto} alt="" width="44" height="44" /> : <span className="shop-sug-sem-foto" aria-hidden="true" />}
                           <span>{item.nome}</span>
                           <strong>{formatarCentavos(item.precoCentavos)}</strong>
+                        </a>
+                      </li>
+                    ))}
+                    {resultadosRestritos.map((item) => (
+                      <li key={`${item.tipo}-${item.nome}`}>
+                        <a href={`${ROTA_RESTRITA[item.tipo]}?q=${encodeURIComponent(item.q)}`}>
+                          <img src={imagemIlustrativa({ ...item, nome: item.nomeOriginal })} alt="" width="44" height="44" />
+                          <span>
+                            {item.nome} <em className="shop-sug-restrito">{ROTULO_RESTRITA[item.tipo]}</em>
+                          </span>
+                          <strong>{item.precoCentavos === null ? "" : formatarCentavos(item.precoCentavos)}</strong>
                         </a>
                       </li>
                     ))}

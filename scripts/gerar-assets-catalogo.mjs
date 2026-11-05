@@ -244,6 +244,26 @@ const recInfo = paginarEEscrever(receitaFmt, "receita");
 const ctlInfo = paginarEEscrever(controladosFmt, "controlados");
 const conInfo = paginarEEscrever(consulteFmt, "consulte");
 
+// Índice leve para a busca do cabeçalho achar também os medicamentos com receita e os controlados.
+writeJson(
+  "restritos-busca.json",
+  [...receitaFmt, ...controladosFmt].map((i) => ({
+    nome: i.nomeExibicao,
+    tipo: i.tipo,
+    precoCentavos: i.preco === null ? null : Math.round(i.preco * 100),
+    busca: i.busca,
+    // Palavras iniciais do nome original: levam à lista já filtrada neste medicamento.
+    q: normalizarBusca(i.nome).split(" ").slice(0, 6).join(" "),
+    // Dados da ilustração da caixa (ver imagemIlustrativa em receita.ts).
+    apresentacao: i.apresentacao,
+    tarja: i.tarja,
+    retencao: i.retencao,
+    controlado: i.controlado,
+    generico: i.generico,
+    nomeOriginal: i.nome,
+  })),
+);
+
 writeJson("restritos-index.json", {
   geradoEm: rec.geradoEm,
   receita: recInfo,

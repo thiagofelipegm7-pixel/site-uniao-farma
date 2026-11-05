@@ -18,6 +18,8 @@ const SECOES: Secao[] = [
   { id: "beleza", rotulo: "Beleza", href: "/departamentos/beleza", tipo: "marcas", grupo: "beleza" },
   { id: "cuidado", rotulo: "Cuidado Diário", href: "/departamentos/cuidado-diario", tipo: "marcas", grupo: "cuidado-diario" },
   { id: "bem-estar", rotulo: "Bem Estar", href: "/departamentos/bem-estar", tipo: "marcas", grupo: "bem-estar" },
+  { id: "receita-lista", rotulo: "Medicamentos com receita", href: "/nacoes-unidas/produtos/receita", tipo: "link" },
+  { id: "controlados-lista", rotulo: "Medicamentos controlados", href: "/nacoes-unidas/produtos/controlados", tipo: "link" },
 ];
 
 const DURACAO = 220;
