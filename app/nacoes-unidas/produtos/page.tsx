@@ -23,12 +23,13 @@ const HEADING = "Produtos sem receita – Nações Unidas";
 
 const nacoes = UNITS.find((unit) => unit.id === "nacoes")!;
 
-const dataDosDados = formatDataDosDados(carregarCatalogoNacoes().geradoEm);
+const geradoEmDosDados = carregarCatalogoNacoes().geradoEm;
+const diaDosDados = formatDataDosDados(geradoEmDosDados);
 
 const faqs: FaqItem[] = [
   {
     q: "O preço da lista é o do balcão?",
-    a: `A lista vem do sistema da loja Nações Unidas, ${dataDosDados ? `com dados de ${dataDosDados}` : "com dados recentes"}, e pode estar desatualizada. Confirme preço e disponibilidade no WhatsApp ${nacoes.whatsapp} antes de ir à loja.`,
+    a: `A lista vem do sistema da loja Nações Unidas, ${diaDosDados ? `com dados de ${diaDosDados}` : "com dados recentes"}, e pode estar desatualizada. Confirme preço e disponibilidade no WhatsApp ${nacoes.whatsapp} antes de ir à loja.`,
   },
   {
     q: "Esta lista tem todos os produtos da loja?",
@@ -52,8 +53,8 @@ export const metadata: Metadata = {
 
 export default async function ProdutosNacoesPage() {
   const consultaInicial = "";
-  const atualizadoEm = null; // precomputed if needed
-  const dataDosDados = null;
+  const atualizadoEm = null;
+  const dataDosDados = formatGeradoEm(geradoEmDosDados);
   const whatsappHref = buildWhatsAppUrl(nacoes, "Oi, União Farma Nações Unidas! Vi a lista de produtos no site e quero confirmar preço e disponibilidade.", {
     campaign: "produtos_nacoes",
     content: "nacoes_lista",
