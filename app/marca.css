@@ -14,3 +14,8 @@
 
 /* Rodapé (fundo escuro): o rodapé força texto branco, então o selo vira contorno branco sem preenchimento. */
 .uf-footer .uf-footer-logo .marca-uf-pe { background: transparent; box-shadow: inset 0 0 0 1px #ffffff; }
+
+/* Nome do produto nos cartões: área de toque de pelo menos 24 px de altura (WCAG 2.5.8). */
+.catalogo-card h4 a, .shop-card h3 a, .shop-loja-cartao h3 a { display: inline-block; min-height: 1.5rem; padding-block: 0.1875rem; }
+.catalogo-aviso a, .delivery-slot-copy p a { display: inline-block; padding-block: 0.25rem; }
+.content-nav .nav-plain-label { display: inline-flex; align-items: center; min-height: 2.75rem; }
