@@ -25,6 +25,7 @@ import {
   type OrdemCatalogo,
 } from "./busca";
 import { slugify } from "./catalogo";
+import { AVISO_NBCAL, ehNbcal } from "./produto";
 
 type Props = {
   /** Texto vindo do campo de busca do cabeçalho (?q=). */
@@ -299,6 +300,7 @@ export default function CatalogoLista({ grupos: gruposProps, whatsappHref, unitI
                   {item.isMIP ? (
                     <p className="catalogo-mip">Medicamento isento de prescrição. Leia a bula. Se persistirem os sintomas, o médico deverá ser consultado.</p>
                   ) : null}
+                  {ehNbcal(item.nome) ? <p className="catalogo-nbcal">{AVISO_NBCAL}</p> : null}
                   <p className="catalogo-preco">{item.precoFmt}</p>
                   {centavos ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} compacto /> : null}
                 </li>

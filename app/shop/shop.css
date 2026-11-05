@@ -1153,3 +1153,7 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 @media (min-width: 992px) {
   .shop-card-foto { height: auto !important; }
 }
+
+/* Aviso do Ministério da Saúde (NBCAL) nos itens de chupeta, bico e mamadeira. */
+.catalogo-nbcal { margin: 0 0 0.5rem; padding: 0.5rem 0.625rem; border: 1px solid var(--uf-navy); border-radius: 6px; background: #eef3f7; color: var(--uf-navy); font-size: 0.75rem; font-weight: 700; line-height: 1.4; }
+.produto-card .catalogo-nbcal { margin: 0.75rem 0 0; font-size: 0.8125rem; }
