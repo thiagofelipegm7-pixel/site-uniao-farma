@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import PainelCatalogo from "../../components/PainelCatalogo";
 
 export const metadata: Metadata = {
-  title: "Catálogo e sincronização",
+  title: "Estoque da loja",
   robots: { index: false, follow: false },
 };
 
