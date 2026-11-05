@@ -23,6 +23,7 @@ type Banco = {
   prepare(consulta: string): { bind(...valores: unknown[]): { first<T = unknown>(): Promise<T | null>; run(): Promise<unknown> } };
 };
 let tabelaPronta = false;
+let diagLim = "";
 
 async function resumoDoVisitante(visitante: string): Promise<string> {
   const bytes = new TextEncoder().encode(`uf-receita|${visitante}`);
@@ -34,7 +35,7 @@ async function resumoDoVisitante(visitante: string): Promise<string> {
 async function dentroDoLimiteCompartilhado(visitante: string, max: number, janelaMs: number): Promise<boolean> {
   try {
     const db = (env as { DB?: Banco }).DB;
-    if (!db) return true;
+    if (!db) { diagLim = "sem-db"; return true; }
     if (!tabelaPronta) {
       await db.prepare("CREATE TABLE IF NOT EXISTS limite_receita (chave TEXT NOT NULL, janela INTEGER NOT NULL, n INTEGER NOT NULL, PRIMARY KEY (chave, janela))").bind().run();
       tabelaPronta = true;
@@ -47,7 +48,8 @@ async function dentroDoLimiteCompartilhado(visitante: string, max: number, janel
       .first<{ n: number }>();
     if (Math.random() < 0.02) await db.prepare("DELETE FROM limite_receita WHERE janela < ?").bind(janela - 1).run();
     return (linha?.n ?? 1) <= max;
-  } catch {
+  } catch (e) {
+    diagLim = String(e).slice(0, 160);
     return true;
   }
 }
@@ -55,7 +57,7 @@ async function dentroDoLimiteCompartilhado(visitante: string, max: number, janel
 type Ia = { run(modelo: string, entrada: Record<string, unknown>): Promise<unknown> };
 
 function responder(corpo: Record<string, unknown>, status: number, estado: string) {
-  return Response.json(corpo, { status, headers: { "cache-control": "no-store", "x-receita-ia": estado } });
+  return Response.json(corpo, { status, headers: { "cache-control": "no-store", "x-receita-ia": estado, "x-lim-diag": diagLim || "ok" } });
 }
 
 async function lerComLimite(ia: Ia, modelo: string, imagem: string, extra: Record<string, unknown>, ms: number): Promise<unknown> {
