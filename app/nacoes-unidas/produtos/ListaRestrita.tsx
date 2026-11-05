@@ -5,6 +5,7 @@
 import { useEffect, useState } from "react";
 import { ContentSiteFooter } from "../../ContentSiteChrome";
 import ReservarBotao from "../../reserva/ReservarBotao";
+import CartaoPanvel from "./CartaoPanvel";
 import ShopTopo from "../../shop/ShopTopo";
 import { buildWhatsAppUrl, getHoursSentence, UNITS } from "../../site-config";
 import { formatBRL, formatDataDosDados } from "./catalogo";
@@ -74,51 +75,67 @@ export function Cartao({ item }: { item: ItemRestrito }) {
   if (item.rms) ficha.push(["Registro MS (RMS)", item.rms]);
   if (item.tarja) ficha.push(["Tarja", ROTULO_TARJA[item.tarja]]);
   if (item.tipo !== "consulte") ficha.push(["Retenção da receita", item.retencao === true ? "Sim" : item.retencao === false ? "Não" : "Confirmar com o farmacêutico"]);
+  const nome = item.nomeExibicao ?? item.nome;
+  const pedeCesta = item.tipo !== "consulte" && item.preco !== null && item.preco > 0;
   return (
-    <li className={`catalogo-item restrito-item${item.controlado ? " restrito-controlado" : ""}`} data-tipo={item.tipo}>
-      <img className="catalogo-foto" src={imagemIlustrativa(item)} alt="Imagem meramente ilustrativa de embalagem de medicamento" width={80} height={80} loading="lazy" decoding="async" />
-      <div className="catalogo-info">
-        {item.controlado ? <p className="restrito-selo">{SELO_CONTROLADO}</p> : null}
-        <h4>{item.nome}</h4>
-        {ficha.length > 0 ? (
-          <dl className="restrito-ficha">
-            {ficha.map(([rotulo, valor]) => (
-              <div key={rotulo}>
-                <dt>{rotulo}</dt>
-                <dd>{valor}</dd>
-              </div>
-            ))}
-          </dl>
-        ) : null}
-        <p className="restrito-aviso">{item.aviso}</p>
-        <p className="restrito-compra">
-          {item.tipo === "consulte" ? COMO_COMPRAR_CONSULTE : COMO_COMPRAR}{" "}
-          <a
-            href={buildWhatsAppUrl(nacoes, `Oi, União Farma Nações Unidas! Quero consultar: ${item.nome}.`, { campaign: "produtos_nacoes", content: `nacoes_${item.tipo}_item` })}
-            target="_blank"
-            rel="noreferrer"
-            data-track-event="whatsapp_click"
-            data-track-unit={nacoes.id}
-            data-track-source={`produtos_nacoes_${item.tipo}_item`}
-          >
-            Perguntar pelo WhatsApp
-          </a>
-        </p>
-        <p className="restrito-ilustrativa">{NOTA_IMAGEM}</p>
-      </div>
-      <p className="catalogo-preco">{item.preco !== null ? formatBRL(item.preco) : "Consultar"}</p>
-      {item.tipo !== "consulte" && item.preco !== null && item.preco > 0 ? (
-        <ReservarBotao
-          unitId={nacoes.id}
-          nome={item.nomeExibicao ?? item.nome}
-          precoCentavos={Math.round(item.preco * 100)}
-          foto={imagemIlustrativa(item)}
-          source={`produtos_nacoes_${item.tipo}`}
-          receita={item.controlado ? "controlado" : "receita"}
-          compacto
-        />
-      ) : null}
-    </li>
+    <CartaoPanvel
+      tipo={item.tipo}
+      classe={`restrito-item${item.controlado ? " restrito-controlado" : ""}`}
+      nome={nome}
+      marca={item.lab}
+      apresentacao={item.apresentacao}
+      foto={imagemIlustrativa(item)}
+      precoFmt={item.preco !== null ? formatBRL(item.preco) : null}
+      cesta={
+        pedeCesta ? (
+          <ReservarBotao
+            unitId={nacoes.id}
+            nome={nome}
+            precoCentavos={Math.round((item.preco as number) * 100)}
+            foto={imagemIlustrativa(item)}
+            source={`produtos_nacoes_${item.tipo}`}
+            receita={item.controlado ? "controlado" : "receita"}
+            variante="cesta"
+            compacto
+          />
+        ) : null
+      }
+      avisos={
+        <>
+          {item.controlado ? <p className="restrito-selo">{SELO_CONTROLADO}</p> : null}
+          <p className="restrito-aviso">{item.aviso}</p>
+        </>
+      }
+      extra={
+        <details className="pv-detalhes">
+          <summary>Detalhes</summary>
+          {ficha.length > 0 ? (
+            <dl className="restrito-ficha">
+              {ficha.map(([rotulo, valor]) => (
+                <div key={rotulo}>
+                  <dt>{rotulo}</dt>
+                  <dd>{valor}</dd>
+                </div>
+              ))}
+            </dl>
+          ) : null}
+          <p className="restrito-compra">
+            {item.tipo === "consulte" ? COMO_COMPRAR_CONSULTE : COMO_COMPRAR}{" "}
+            <a
+              href={buildWhatsAppUrl(nacoes, `Oi, União Farma Nações Unidas! Quero consultar: ${item.nome}.`, { campaign: "produtos_nacoes", content: `nacoes_${item.tipo}_item` })}
+              target="_blank"
+              rel="noreferrer"
+              data-track-event="whatsapp_click"
+              data-track-unit={nacoes.id}
+              data-track-source={`produtos_nacoes_${item.tipo}_item`}
+            >
+              Perguntar pelo WhatsApp
+            </a>
+          </p>
+          <p className="restrito-ilustrativa">{NOTA_IMAGEM}</p>
+        </details>
+      }
+    />
   );
 }
 
@@ -204,7 +221,7 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
           {pag.itens.length === 0 ? (
             <p className="catalogo-vazio">{t.vazio}</p>
           ) : (
-            <ul className="catalogo-lista">
+            <ul className="catalogo-lista pv-grade">
               {pag.itens.map((item) => (
                 <Cartao key={`${item.nome}|${item.lab}|${item.preco}`} item={item} />
               ))}

@@ -25,7 +25,8 @@ import {
   type OrdemCatalogo,
 } from "./busca";
 import { slugify } from "./catalogo";
-import { AVISO_NBCAL, ehNbcal } from "./produto";
+import CartaoPanvel from "./CartaoPanvel";
+import { AVISO_MIP, AVISO_NBCAL, ehNbcal } from "./produto";
 
 type Props = {
   /** Texto vindo do campo de busca do cabeçalho (?q=). */
@@ -187,15 +188,8 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     trackEvent(evento.event, evento.params);
   }, [filtroAberto, selecao, total]);
 
-  const dialog = (
-    <div className="catalogo-filtro-raiz" role="dialog" aria-modal="true" aria-labelledby="catalogo-filtro-titulo" ref={filtroRef}>
-      <div className="catalogo-filtro-topo">
-        <h2 id="catalogo-filtro-titulo">Filtrar</h2>
-        <button ref={fecharFiltroRef} type="button" className="catalogo-filtro-fechar" aria-label="Fechar filtros" onClick={() => setFiltroAberto(false)}>
-          <IconFechar size={24} />
-        </button>
-      </div>
-      <div className="catalogo-filtro-corpo">
+  const filtrosCampos = (
+    <>
         <fieldset>
           <legend>Categoria</legend>
           {opcoes.categorias.map((categoria) => (
@@ -235,6 +229,19 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
             </label>
           ))}
         </fieldset>
+    </>
+  );
+
+  const dialog = (
+    <div className="catalogo-filtro-raiz" role="dialog" aria-modal="true" aria-labelledby="catalogo-filtro-titulo" ref={filtroRef}>
+      <div className="catalogo-filtro-topo">
+        <h2 id="catalogo-filtro-titulo">Filtrar</h2>
+        <button ref={fecharFiltroRef} type="button" className="catalogo-filtro-fechar" aria-label="Fechar filtros" onClick={() => setFiltroAberto(false)}>
+          <IconFechar size={24} />
+        </button>
+      </div>
+      <div className="catalogo-filtro-corpo">
+        {filtrosCampos}
       </div>
       <div className="catalogo-filtro-rodape">
         <button type="button" className="catalogo-filtro-limpar" onClick={() => setSelecao(SELECAO_VAZIA)}>
@@ -249,31 +256,48 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
 
   return (
     <>
-      <div className="catalogo-barra" role="toolbar" aria-label="Filtrar e ordenar">
-        <button
-          ref={gatilhoFiltroRef}
-          type="button"
-          className="catalogo-filtrar"
-          aria-haspopup="dialog"
-          aria-expanded={filtroAberto}
-          aria-label={ativos > 0 ? `Filtrar, ${ativos} ${ativos === 1 ? "filtro ativo" : "filtros ativos"}` : "Filtrar"}
-          onClick={() => setFiltroAberto(true)}
-        >
-          <IconFiltro size={22} />
-          Filtrar
-          {ativos > 0 ? <span className="catalogo-filtro-contagem">{ativos}</span> : null}
-        </button>
-        {ORDENS_CATALOGO.map((opcao) => (
-          <button key={opcao.id} type="button" aria-pressed={ordem === opcao.id} onClick={() => setOrdem(opcao.id)}>
-            {opcao.label}
-          </button>
-        ))}
-      </div>
-
-      <p className="catalogo-contagem">
-        {total} {total === 1 ? "produto" : "produtos"}
-        {buscando ? <> para “{consulta.trim()}” · <a href="/nacoes-unidas/produtos">Limpar busca</a></> : null}
-      </p>
+      <div className="pv-layout">
+        <aside className="pv-filtros" aria-label="Filtros">
+          <div className="pv-filtros-topo">
+            <p className="pv-filtros-titulo">Filtros</p>
+            {ativos > 0 ? (
+              <button type="button" onClick={() => setSelecao(SELECAO_VAZIA)}>
+                Limpar
+              </button>
+            ) : null}
+          </div>
+          {filtrosCampos}
+        </aside>
+        <div className="pv-conteudo">
+          <div className="pv-topo" role="toolbar" aria-label="Filtrar e ordenar">
+            <p className="pv-contagem">
+              <b>{total}</b> {total === 1 ? "produto" : "produtos"}
+              {buscando ? <> para “{consulta.trim()}” · <a href="/nacoes-unidas/produtos">Limpar busca</a></> : null}
+            </p>
+            <button
+              ref={gatilhoFiltroRef}
+              type="button"
+              className="catalogo-filtrar pv-filtrar"
+              aria-haspopup="dialog"
+              aria-expanded={filtroAberto}
+              aria-label={ativos > 0 ? `Filtrar, ${ativos} ${ativos === 1 ? "filtro ativo" : "filtros ativos"}` : "Filtrar"}
+              onClick={() => setFiltroAberto(true)}
+            >
+              <IconFiltro size={20} />
+              Filtrar
+              {ativos > 0 ? <span className="catalogo-filtro-contagem">{ativos}</span> : null}
+            </button>
+            <label className="pv-ordenar">
+              <span>Ordenar por</span>
+              <select value={ordem} onChange={(e) => setOrdem(e.target.value as OrdemCatalogo)}>
+                {ORDENS_CATALOGO.map((opcao) => (
+                  <option key={opcao.id} value={opcao.id}>
+                    {opcao.id === "recomendados" ? "Mais relevantes" : opcao.label}
+                  </option>
+                ))}
+              </select>
+            </label>
+          </div>
 
       {total === 0 ? (
         <div className="catalogo-vazio">
@@ -287,32 +311,36 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
           </a>
         </div>
       ) : (
-        <ul className="catalogo-lista">
+        <ul className="catalogo-lista pv-grade">
           {visiveis.flatMap((g) =>
-            g.itens.map((item, indice) => {
+            g.itens.map((item) => {
               const nome = nomeDeExibicao(item.nome);
               const href = `/nacoes-unidas/produtos/${item.slug ?? slugify(item.nome)}`;
               const centavos = precoParaCentavos(item.precoFmt);
               return (
-                <li key={item.id ?? item.nome} id={indice === 0 && ordem === "recomendados" ? g.id : undefined} className="catalogo-item catalogo-card">
-                  <a className="catalogo-card-foto" href={href} aria-label={`Ver ${nome}`}>
-                    {item.foto ? <img src={item.foto} alt="" width="120" height="120" loading="lazy" decoding="async" /> : <span aria-hidden="true" />}
-                  </a>
-                  <h4>
-                    <a href={href}>{nome}</a>
-                  </h4>
-                  {item.isMIP ? (
-                    <p className="catalogo-mip">Medicamento isento de prescrição. Leia a bula. Se persistirem os sintomas, o médico deverá ser consultado.</p>
-                  ) : null}
-                  {ehNbcal(item.nome) ? <p className="catalogo-nbcal">{AVISO_NBCAL}</p> : null}
-                  <p className="catalogo-preco">{item.precoFmt}</p>
-                  {centavos ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} compacto /> : null}
-                </li>
+                <CartaoPanvel
+                  key={item.id ?? item.nome}
+                  href={href}
+                  nome={nome}
+                  foto={item.foto}
+                  marca={item.lab}
+                  precoFmt={item.precoFmt}
+                  cesta={centavos ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cesta" compacto /> : null}
+                  avisos={
+                    <>
+                      {item.isMIP ? <p className="catalogo-mip">{AVISO_MIP}</p> : null}
+                      {ehNbcal(item.nome) ? <p className="catalogo-nbcal">{AVISO_NBCAL}</p> : null}
+                    </>
+                  }
+                />
               );
             }),
           )}
         </ul>
       )}
+
+        </div>
+      </div>
 
       {filtroAberto && typeof document !== "undefined" ? createPortal(dialog, document.body) : null}
     </>

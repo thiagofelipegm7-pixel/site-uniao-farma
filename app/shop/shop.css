@@ -1165,3 +1165,119 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .fluxo-item-receita { display: block; margin: 0.125rem 0 0; color: #7a2b1d; font-size: 0.75rem; font-weight: 700; line-height: 1.3; }
 .fluxo-aviso-receita { margin: 0 0 0.5rem; padding: 0.625rem 0.75rem; border: 1px solid #0a3548; border-radius: 6px; background: #eef3f7; color: #0a3548; font-size: 0.8125rem; font-weight: 700; line-height: 1.4; }
 .entrega-opcao[aria-disabled="true"] { opacity: 0.55; cursor: not-allowed; }
+
+/* =====================================================================
+   Cartão de produto no padrão da listagem da Panvel (cards.htm salvo, medido em 1440 px e 390 px):
+   desktop: grade de quadros de 229 px com 20 px de intervalo, cartão branco de 8 px de raio, sem borda nem sombra, cesta redonda de 44 px
+   a 12 px do canto, imagem de 160 px, nome 16/22 centralizado, marca 12 px em negrito e maiúsculas, apresentação 12 px, preço com "R$" 14 px,
+   reais 26 px (peso 900) e centavos 14 px. Celular: cartão horizontal de largura total (imagem de 76 px à esquerda, textos 14/20), cesta de 36 px a 8 px.
+   Sem selo de programa, sem "De/Por" nem % OFF: a União não tem esses dados e o espaço fica em branco.
+   ===================================================================== */
+.pv-grade { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; margin: 0; padding: 0; list-style: none; }
+.catalogo-nacoes .catalogo-lista.pv-grade { display: grid; grid-template-columns: minmax(0, 1fr); gap: 4px; }
+.pv-card { position: relative; display: flex; flex-direction: column; min-width: 0; padding: 16px 0 12px; border-radius: 8px; background: #ffffff; color: var(--uf-navy); }
+.pv-corpo { display: grid; grid-template-columns: 76px minmax(0, 1fr); column-gap: 12px; align-items: start; padding: 0 12px; color: inherit; text-decoration: none; }
+.pv-img { grid-row: 1 / span 2; display: flex; align-items: center; justify-content: center; width: 76px; height: 76px; }
+.pv-img img { width: 76px; height: 76px; object-fit: contain; }
+.pv-sem-foto { display: block; width: 76px; height: 76px; border-radius: 6px; background: #eef3f2; }
+.pv-texto { display: grid; gap: 2px; min-width: 0; padding-right: 44px; }
+.pv-nome { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; color: var(--uf-navy); font-size: 14px; font-weight: 400; line-height: 20px; overflow-wrap: anywhere; }
+.pv-marca { color: #3f6475; font-size: 12px; font-weight: 800; letter-spacing: 0.25px; line-height: 18px; text-transform: uppercase; }
+.pv-apres { color: #3f6475; font-size: 12px; font-weight: 400; line-height: 14px; }
+.pv-preco { grid-column: 2; margin-top: 6px; color: var(--uf-navy); font-size: 14px; font-weight: 800; line-height: 1; white-space: nowrap; }
+.pv-preco b { font-size: 26px; font-weight: 900; line-height: 1; }
+.pv-preco-vazio { font-size: 14px; font-weight: 700; }
+.pv-cesta { position: absolute; top: 8px; right: 8px; z-index: 2; }
+.pv-avisos { padding: 8px 12px 0; }
+.pv-avisos p { margin: 0 0 4px; font-size: 12px; line-height: 1.4; }
+.pv-avisos .catalogo-mip { color: #3f6475; }
+.pv-avisos .catalogo-nbcal { margin: 4px 0; }
+.pv-avisos .restrito-aviso { color: #9b2c1f; font-weight: 700; }
+.pv-avisos .restrito-selo { display: inline-block; margin: 0 0 4px; padding: 2px 8px; border-radius: 999px; background: #0a2d29; color: #ffffff; font-size: 11px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+.pv-detalhes { margin: 8px 12px 0; padding-top: 8px; border-top: 1px solid #e3ecef; font-size: 12px; }
+.pv-detalhes summary { cursor: pointer; color: var(--uf-navy); font-weight: 700; }
+.pv-detalhes .restrito-ficha { margin: 8px 0; }
+.pv-detalhes .restrito-compra, .pv-detalhes .restrito-ilustrativa { margin: 6px 0 0; color: #3f6475; line-height: 1.4; }
+/* botão da cesta: círculo com sacola e "+" */
+.pv-cesta .pv-cesta-botao { position: relative; display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 1.5px solid var(--uf-navy); border-radius: 50%; background: #ffffff; color: var(--uf-navy); cursor: pointer; }
+.pv-cesta .pv-cesta-botao svg { width: 22px; height: 22px; }
+.pv-cesta .pv-cesta-mais { position: absolute; top: -3px; right: -3px; display: grid; place-items: center; width: 14px; height: 14px; border-radius: 50%; background: #ffffff; color: var(--uf-navy); }
+.pv-cesta .pv-cesta-mais svg { width: 10px; height: 10px; }
+.pv-cesta .reservar-contador { width: auto; min-width: 88px; height: 36px; margin: 0; border-radius: 18px; background: #ffffff; }
+/* topo da lista: contagem, "Filtrar" (celular) e "Ordenar por" */
+.pv-layout { display: block; }
+.pv-filtros { display: none; }
+.pv-topo { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0 0 12px; }
+.pv-contagem { margin: 0 auto 0 0; color: var(--uf-navy); font-size: 14px; line-height: 20px; }
+.pv-contagem b { font-weight: 800; }
+.pv-filtrar { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border: 0; border-radius: 8px; background: #ffffff; color: var(--uf-navy); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+.pv-ordenar { display: inline-flex; align-items: center; gap: 8px; color: var(--uf-navy); font-size: 14px; }
+.pv-ordenar span { display: none; }
+.pv-ordenar select { min-height: 40px; padding: 0 12px; border: 0; border-radius: 8px; background: #ffffff; color: var(--uf-navy); font: inherit; font-size: 14px; }
+/* fundo cinza-claro atrás dos cartões brancos, como na Panvel */
+.catalogo-loja { background: #f1f5f7; }
+.catalogo-loja .catalogo-aviso, .catalogo-loja .catalogo-nota { color: #3e4b49; }
+/* vitrines em carrossel: cartão vertical */
+.pv-card--v { padding: 16px 0 12px; }
+.pv-card--v .pv-corpo { display: flex; flex-direction: column; align-items: center; flex: 1; padding: 0 8px; text-align: center; }
+.pv-card--v .pv-img { grid-row: auto; width: 128px; height: 128px; }
+.pv-card--v .pv-img img, .pv-card--v .pv-sem-foto { width: 128px; height: 128px; }
+.pv-card--v .pv-texto { padding-right: 0; justify-items: center; width: 100%; }
+.pv-card--v .pv-nome { -webkit-line-clamp: 2; }
+.pv-card--v .pv-preco { margin-top: auto; padding-top: 8px; }
+.shop-destaques-lista > .pv-card--v { flex: 0 0 10.5rem; scroll-snap-align: start; }
+@media (min-width: 992px) {
+  .pv-grade, .catalogo-nacoes .catalogo-lista.pv-grade { grid-template-columns: repeat(auto-fill, 229px); gap: 20px; justify-content: start; }
+  .pv-card { padding: 16px 0 12px; }
+  .pv-corpo { display: flex; flex-direction: column; align-items: center; flex: 1; padding: 0; text-align: center; }
+  .pv-img { grid-row: auto; width: 160px; height: 160px; margin: 0 auto; }
+  .pv-img img, .pv-sem-foto { width: 160px; height: 160px; }
+  .pv-texto { justify-items: center; width: 100%; padding: 12px 12px 0; gap: 4px; }
+  .pv-nome { -webkit-line-clamp: 2; font-size: 16px; line-height: 22px; text-align: center; }
+  .pv-marca { text-align: center; }
+  .pv-apres { text-align: center; }
+  .pv-preco { grid-column: auto; margin-top: auto; padding: 12px 8px 0; text-align: center; }
+  .pv-avisos { text-align: center; }
+  .pv-cesta { top: 12px; right: 12px; }
+  .pv-cesta .pv-cesta-botao { width: 44px; height: 44px; }
+  .pv-cesta .pv-cesta-botao svg { width: 26px; height: 26px; }
+  .pv-cesta .pv-cesta-mais { width: 16px; height: 16px; }
+  .pv-cesta .reservar-contador { height: 44px; border-radius: 22px; min-width: 104px; }
+  .pv-layout { display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 26px; align-items: start; }
+  .pv-filtros { display: block; padding: 16px; border-radius: 8px; background: #ffffff; }
+  .pv-filtros-topo { display: flex; align-items: center; justify-content: space-between; margin: 0 0 8px; }
+  .pv-filtros-titulo { margin: 0; color: var(--uf-navy); font-size: 18px; font-weight: 800; line-height: 1.3; }
+  .pv-filtros-topo button { padding: 0; border: 0; background: none; color: var(--uf-navy); font: inherit; font-size: 13px; font-weight: 700; text-decoration: underline; cursor: pointer; }
+  .pv-filtros fieldset { margin: 0 0 12px; padding: 0; border: 0; }
+  .pv-filtros legend { margin: 0 0 6px; padding: 0; color: var(--uf-navy); font-size: 14px; font-weight: 800; }
+  .pv-filtros .catalogo-filtro-opcao { display: flex; align-items: center; gap: 8px; min-height: 32px; font-size: 14px; color: var(--uf-ink); }
+  .pv-filtros fieldset:nth-of-type(2) { max-height: 280px; overflow-y: auto; }
+  .pv-filtrar { display: none; }
+  .pv-ordenar span { display: inline; }
+  .pv-ordenar select { min-width: 185px; }
+  .catalogo-loja .section-inner { max-width: 86.75rem; }
+  .shop-destaques-lista > .pv-card--v { flex: 0 0 14.3125rem; }
+  .pv-card--v .pv-img { width: 160px; height: 160px; }
+  .pv-card--v .pv-img img, .pv-card--v .pv-sem-foto { width: 160px; height: 160px; }
+  .pv-card--v .pv-nome { font-size: 16px; line-height: 22px; }
+}
+
+/* As camadas "design" e "overrides" usam !important (ex.: "main li > a" vira inline-flex); o cartão precisa vencer nelas. */
+@layer design {
+  .pv-card .pv-corpo { display: grid !important; grid-template-columns: 76px minmax(0, 1fr) !important; align-items: start !important; padding: 0 12px !important; min-height: 0 !important; text-align: left !important; }
+  .pv-card .pv-cesta-botao { display: grid !important; place-items: center !important; width: 44px !important; height: 44px !important; min-width: 44px !important; min-height: 44px !important; padding: 0 !important; border: 1.5px solid var(--uf-navy) !important; border-radius: 50% !important; background: #ffffff !important; color: var(--uf-navy) !important; box-shadow: none !important; }
+  .pv-card .reservar-contador { width: auto !important; min-width: 104px !important; height: 44px !important; background: #ffffff !important; }
+  .pv-card--v .pv-corpo { display: flex !important; flex-direction: column !important; align-items: center !important; padding: 0 8px !important; text-align: center !important; }
+  .pv-filtros input[type="checkbox"] { width: 18px !important; height: 18px !important; }
+  .pv-filtros .catalogo-filtro-opcao { min-height: 32px !important; padding: 0 !important; border: 0 !important; }
+  .departamento-outros { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; overflow-x: auto !important; scrollbar-width: none; }
+  .departamento-outros a { flex: none !important; width: auto !important; }
+}
+@media (min-width: 992px) {
+  @layer design {
+    .pv-card .pv-corpo { display: flex !important; flex-direction: column !important; align-items: center !important; padding: 0 !important; text-align: center !important; }
+    .pv-card--v .pv-corpo { padding: 0 8px !important; }
+    .catalogo-loja .section-inner { max-width: 86.75rem !important; }
+    .departamento-outros { flex-wrap: wrap !important; overflow: visible !important; }
+  }
+}
