@@ -9,11 +9,11 @@ import type { FaqItem } from "../../seo-content";
 import { buildWhatsAppUrl, getHoursSentence, SITE_URL, UNITS } from "../../site-config";
 import { getPageStructuredData, getUnitPublicPath } from "../../structured-data";
 import CatalogoLista from "./CatalogoLista";
-import { formatDataDosDados, formatGeradoEm } from "./catalogo";
+import { carregarCatalogoNacoes, formatDataDosDados, formatGeradoEm } from "./catalogo";
 
 import "./produtos.css";
 
-// Dados vêm do JSON estático do repositório (export de 31/10/2026): a atualização é por novo PR/deploy.
+// Dados vêm do JSON do repositório, atualizado sozinho pela sincronização com o PC da loja (.github/workflows/catalogo-sync.yml).
 const SLUG = "nacoes-unidas/produtos";
 const PAGE_URL = `${SITE_URL}/${SLUG}`;
 const TITLE = "Produtos sem receita | União Farma Nações Unidas, Sabará";
@@ -23,10 +23,12 @@ const HEADING = "Produtos sem receita – Nações Unidas";
 
 const nacoes = UNITS.find((unit) => unit.id === "nacoes")!;
 
+const dataDosDados = formatDataDosDados(carregarCatalogoNacoes().geradoEm);
+
 const faqs: FaqItem[] = [
   {
     q: "O preço da lista é o do balcão?",
-    a: `A lista vem do sistema da loja Nações Unidas, com dados de 31/10/2026, e pode estar desatualizada. Confirme preço e disponibilidade no WhatsApp ${nacoes.whatsapp} antes de ir à loja.`,
+    a: `A lista vem do sistema da loja Nações Unidas, ${dataDosDados ? `com dados de ${dataDosDados}` : "com dados recentes"}, e pode estar desatualizada. Confirme preço e disponibilidade no WhatsApp ${nacoes.whatsapp} antes de ir à loja.`,
   },
   {
     q: "Esta lista tem todos os produtos da loja?",

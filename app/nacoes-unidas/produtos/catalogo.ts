@@ -1,9 +1,10 @@
 import catalogoEstatico from "./dados/catalogo-nacoes.json" with { type: "json" };
 
 /**
- * Catálogo público da loja Nações Unidas. Fonte atual: JSON estático do repositório (export do DMaster de 31/10/2026,
- * gerado por ops/catalogo-nacoes/gerar.py, sem estoque, sem código de barras e sem tokens).
- * O Worker dmaster-catalogo continua disponível em fetchCatalogoNacoes, mas não é mais a fonte das páginas.
+ * Catálogo público da loja Nações Unidas. Fonte: JSON do repositório (export do DMaster, gerado por ops/catalogo-nacoes/gerar.py,
+ * sem estoque, sem código de barras e sem tokens), atualizado de 3 em 3 horas pelo workflow catalogo-sync.yml com o último envio do PC
+ * da loja ao Worker dmaster-catalogo. Se o Worker falhar ou os dados forem recusados, este JSON continua valendo.
+ * O Worker continua disponível em fetchCatalogoNacoes, mas as páginas só leem o JSON.
  */
 export const CATALOGO_NACOES_URL =
   process.env.CATALOGO_NACOES_URL?.trim() || "https://dmaster-catalogo.thiagofelipegm7.workers.dev/loja/nacoes.json";

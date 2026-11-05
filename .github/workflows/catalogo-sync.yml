@@ -1,0 +1,82 @@
+name: Sincronizar catálogo da loja
+
+# O PC da loja (tarefa UniaoFarma_Catalogo_Sync) envia o export ao Worker dmaster-catalogo às 08h, 11h, 14h, 17h e 20h (horário de Brasília).
+# Este workflow roda ~15 min depois, baixa o último envio, refaz o catálogo com o mesmo pipeline do export de 31/10
+# (ops/catalogo-nacoes), confere tudo e, se mudou, faz commit na main: o Workers Builds publica o site em seguida.
+# Dados recusados ou Worker fora do ar: nada é commitado e o site segue com o JSON anterior (o JSON do repositório é o fallback).
+on:
+  schedule:
+    - cron: "15 11,14,17,20,23 * * *" # 08:15, 11:15, 14:15, 17:15 e 20:15 em Brasília (UTC-3)
+  workflow_dispatch:
+    inputs:
+      forcar:
+        description: "Ignorar só os limites de queda de itens e de variação de preços (reajuste grande e consciente)"
+        type: boolean
+        default: false
+
+concurrency:
+  group: catalogo-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  sincronizar:
+    name: Baixar, conferir e publicar
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      STAFF_PASSWORD: ci-test-only-${{ github.run_id }}-${{ github.run_attempt }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          ref: main
+
+      - name: Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Baixar o último envio do PC e refazer o catálogo
+        id: sync
+        env:
+          CATALOGO_READ_TOKEN: ${{ secrets.CATALOGO_READ_TOKEN }}
+          FORCAR: ${{ inputs.forcar && '--forcar' || '' }}
+        run: python3 ops/catalogo-nacoes/sincronizar.py $FORCAR
+
+      - name: Instalar dependências
+        if: steps.sync.outputs.mudou == 'true'
+        run: npm ci
+
+      - name: Testes unitários
+        if: steps.sync.outputs.mudou == 'true'
+        run: npm test
+
+      - name: Build
+        if: steps.sync.outputs.mudou == 'true'
+        run: npm run build
+
+      - name: Testes de HTML renderizado
+        if: steps.sync.outputs.mudou == 'true'
+        run: node --test tests/rendered-html.test.mjs
+
+      - name: Commit na main
+        if: steps.sync.outputs.mudou == 'true'
+        env:
+          DADOS_DE: ${{ steps.sync.outputs.dados_de }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/nacoes-unidas/produtos/dados/catalogo-nacoes.json app/nacoes-unidas/produtos/dados/receita-nacoes.json public/dados/nacoes
+          git diff --cached --quiet && exit 0
+          git commit -m "Catálogo: dados da loja de ${DADOS_DE} (sincronização automática)"
+          git pull --rebase origin main
+          git push origin HEAD:main
