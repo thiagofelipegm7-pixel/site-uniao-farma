@@ -28,7 +28,7 @@ export function FarmaceuticoCard() {
       <IconKit size={32} />
       <div>
         <strong>João, farmacêutico responsável</strong>
-        <p>CRF/MG 31958 · responsável técnico das 3 lojas. Dúvida sobre um produto? Pergunte pelo WhatsApp.</p>
+        <p>CRF/MG 31958 · responsável técnico da loja. Dúvida sobre um produto? Pergunte pelo WhatsApp.</p>
       </div>
     </aside>
   );

@@ -1,4 +1,4 @@
-import { buildWhatsAppUrl, UNITS } from "../site-config";
+import { buildWhatsAppUrl, PUBLIC_UNITS } from "../site-config";
 
 export default function NewsContactCta({ articleTitle, label }: { articleTitle: string; label: string }) {
   return (
@@ -9,7 +9,7 @@ export default function NewsContactCta({ articleTitle, label }: { articleTitle: 
         <p>Escolha a unidade mais conveniente. A equipe confirma as informações durante o atendimento.</p>
       </div>
       <div className="news-contact-units">
-        {UNITS.map((unit) => {
+        {PUBLIC_UNITS.map((unit) => {
           const message = `Olá! Li uma novidade no site da União Farma e gostaria de falar com a unidade ${unit.shortName}. Publicação: ${articleTitle}.`;
           return (
             <a

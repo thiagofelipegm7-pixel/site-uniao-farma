@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { readPreferredUnitId } from "../preferred-unit";
 import { IconPino } from "../reserva/ReservaIcons";
-import { UNITS } from "../site-config";
+import { PUBLIC_UNITS } from "../site-config";
 import { abrirSeletorDeLoja } from "./loja-evento";
 
 /** "Retirar ou receber em [loja] · Trocar". Usa a loja preferida; sem escolha pede para escolher. */
@@ -17,7 +17,7 @@ export default function LojaBar() {
     return () => window.removeEventListener("uf-preferred-unit", sincronizar);
   }, []);
 
-  const unit = UNITS.find((item) => item.id === id);
+  const unit = PUBLIC_UNITS.find((item) => item.id === id) ?? (PUBLIC_UNITS.length === 1 ? PUBLIC_UNITS[0] : undefined);
 
   return (
     <div className="shop-lojabar">

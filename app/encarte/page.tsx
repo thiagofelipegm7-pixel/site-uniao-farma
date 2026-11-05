@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import OffersGroupCta from "../OffersGroupCta";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import PublicOffersGrid from "../PublicOffersGrid";
-import { INSTAGRAM_URL, SITE_URL, UNITS, buildWhatsAppUrl } from "../site-config";
+import { INSTAGRAM_URL, SITE_URL, PUBLIC_UNITS, buildWhatsAppUrl } from "../site-config";
 import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export default function FlyerPage() {
           <h1>Ofertas no Instagram e no site, no mesmo dia</h1>
           <p>Quem vê o post cai na loja certa. Sem telefone único.</p>
           <div className="encarte-unit-row">
-            {UNITS.map((unit) => (
+            {PUBLIC_UNITS.map((unit) => (
               <a
                 key={unit.id}
                 className="button button-whatsapp"

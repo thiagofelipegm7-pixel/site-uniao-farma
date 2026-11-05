@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 import { readPreferredUnitId } from "../preferred-unit";
 import { IconCartao, IconLoja, IconMenu, IconMoto, IconPino, IconWhats } from "../reserva/ReservaIcons";
 import { formatarCentavos, TAXA_ENTREGA_CENTAVOS } from "../reserva/reserva-store";
-import { buildWhatsAppUrl, UNITS } from "../site-config";
+import { buildWhatsAppUrl, PUBLIC_UNITS } from "../site-config";
 import { abrirDepartamentos, abrirSeletorDeLoja } from "./loja-evento";
 
-const nacoes = UNITS.find((unit) => unit.id === "nacoes");
+const nacoes = PUBLIC_UNITS.find((unit) => unit.id === "nacoes");
 
 /**
  * Barra de acessos do desktop, com os mesmos 7 espaços da Panvel: Departamentos, Enviar para, Meus Cupons, Kits e Combos,
@@ -23,7 +23,7 @@ export function SubmenuHome() {
     window.addEventListener("uf-preferred-unit", sincronizar);
     return () => window.removeEventListener("uf-preferred-unit", sincronizar);
   }, []);
-  const unit = UNITS.find((item) => item.id === id);
+  const unit = PUBLIC_UNITS.find((item) => item.id === id) ?? (PUBLIC_UNITS.length === 1 ? PUBLIC_UNITS[0] : undefined);
   return (
     <nav className="shop-submenu" aria-label="Acessos rápidos">
       <div className="shop-submenu-conteudo">
@@ -60,10 +60,10 @@ export function BarraInfo() {
   return (
     <ul className="shop-info" aria-label="Como receber">
       <li>
-        <a href="#unidades-rapidas"><IconLoja size={22} /><span><strong>Retire em loja</strong><small>3 lojas em Sabará</small></span></a>
+        <a href="#unidades-rapidas"><IconLoja size={22} /><span><strong>Retire em loja</strong><small>Loja Nações Unidas, em Sabará</small></span></a>
       </li>
       <li>
-        <a href="/entrega-de-medicamentos-em-sabara"><IconMoto size={22} /><span><strong>Entrega no bairro</strong><small>Taxa de {formatarCentavos(TAXA_ENTREGA_CENTAVOS)}</small></span></a>
+        <a href="/entrega-de-medicamentos-em-sabara"><IconMoto size={22} /><span><strong>Entrega no bairro</strong><small>Taxa a partir de {formatarCentavos(TAXA_ENTREGA_CENTAVOS)}</small></span></a>
       </li>
       <li>
         <div><IconCartao size={22} /><span><strong>Pix, dinheiro e cartão</strong><small>Na retirada ou na entrega</small></span></div>
@@ -86,7 +86,7 @@ export function ComoQuiser() {
         <li>
           <a href="#unidades-rapidas">
             <span className="shop-quiser-icone"><IconLoja size={28} /></span>
-            <span><strong>Retire em loja</strong><small>Escolha uma das 3 lojas de Sabará.</small></span>
+            <span><strong>Retire em loja</strong><small>Retire na loja Nações Unidas, em Sabará.</small></span>
           </a>
         </li>
         <li>
@@ -106,7 +106,7 @@ export function ComoContato() {
     <section className="shop-contato" aria-labelledby="contato-titulo">
       <h2 id="contato-titulo">Como entrar em contato</h2>
       <ul>
-        {UNITS.map((unit) => (
+        {PUBLIC_UNITS.map((unit) => (
           <li key={unit.id}>
             <strong>{unit.shortName}</strong>
             <a href={buildWhatsAppUrl(unit, `Oi, União Farma ${unit.shortName}!`, { campaign: "home_contato", content: unit.id })} data-track-event="whatsapp_click" data-track-unit={unit.id} data-track-source="home_contato" target="_blank" rel="noreferrer">

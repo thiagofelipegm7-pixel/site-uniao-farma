@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { scheduleAutoLocation } from "./auto-location";
 import { rankUnitsByDistance } from "./geo";
-import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
+import { buildWhatsAppUrl, PUBLIC_UNITS, type Unit } from "./site-config";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
 import "./unit-map.css";
 
@@ -17,7 +17,7 @@ export default function InteractiveUnitMap({ initialUnitId }: { initialUnitId?: 
   const [activeId, setActiveId] = useState<Unit["id"]>(initialUnitId ?? "fatima");
   const [locked] = useState(Boolean(initialUnitId));
   const [mapLoaded, setMapLoaded] = useState(false);
-  const unit = useMemo(() => UNITS.find((item) => item.id === activeId) ?? UNITS[0], [activeId]);
+  const unit = useMemo(() => PUBLIC_UNITS.find((item) => item.id === activeId) ?? PUBLIC_UNITS[0], [activeId]);
   const message = WHATSAPP_MESSAGES.product.replaceAll("{unidade}", unit.shortName);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function InteractiveUnitMap({ initialUnitId }: { initialUnitId?: 
   return (
     <section className="unit-map" aria-label="Mapa das unidades">
       <div className="unit-map-pins" role="tablist" aria-label="Escolher loja no mapa">
-        {UNITS.map((item) => (
+        {PUBLIC_UNITS.map((item) => (
           <button
             key={item.id}
             type="button"

@@ -52,7 +52,7 @@ test("only Nações Unidas declares free parking", async () => {
 test("delivery areas match owner-confirmed list", async () => {
   const { UNITS } = await import("../app/site-config.ts");
   const map = Object.fromEntries(UNITS.map((u) => [u.id, u.deliveryAreas]));
-  assert.deepEqual(map, { fatima: ["Nossa Senhora de Fátima", "Jardim Vitória"], nacoes: ["Nações Unidas"], itacolomi: ["Itacolomi"] });
+  assert.deepEqual(map, { fatima: ["Nossa Senhora de Fátima", "Jardim Vitória"], nacoes: ["Nações Unidas", "General Carneiro", "Vila Rica", "Itacolomi", "Coqueiros", "Ipê Amarelo", "Vale Paraíso", "Vila São José"], itacolomi: ["Itacolomi"] });
 });
 
 test("redirects permanentes apontam para URLs canonicas, sem cadeia e sem sair do sitemap", async () => {
@@ -91,7 +91,7 @@ test("AEO: cobertura de entrega, Droga Manaus, pagamento e schemas", async () =>
   const byId = Object.fromEntries(UNITS.map((u) => [u.id, u]));
 
   assert.equal(byId.fatima.deliveryScope, "em todo o bairro Nossa Senhora de Fátima e no Jardim Vitória");
-  assert.equal(byId.nacoes.deliveryScope, "somente no bairro Nações Unidas");
+  assert.match(byId.nacoes.deliveryScope, /^nos bairros Nações Unidas, General Carneiro/);
   assert.equal(byId.nacoes.deliveryExclusive, true);
   assert.equal(byId.itacolomi.deliveryScope, "em todo o bairro Itacolomi");
   assert.deepEqual(byId.itacolomi.alternateNames, ["Droga Manaus"]);
@@ -112,7 +112,7 @@ test("AEO: cobertura de entrega, Droga Manaus, pagamento e schemas", async () =>
   assert.match(structured, /paymentAccepted: PAYMENT_ACCEPTED/);
   assert.match(structured, /areaServed: unit\.deliveryAreas\.map/);
   const layout = read("app/layout.tsx");
-  assert.match(layout, /address: UNITS\.map\(\(unit\) => getPostalAddress\(unit\)\)/);
+  assert.match(layout, /address: PUBLIC_UNITS\.map\(\(unit\) => getPostalAddress\(unit\)\)/);
   assert.match(layout, /paymentAccepted: PAYMENT_ACCEPTED/);
 
   // /perguntas tem FAQPage com as mesmas perguntas que renderiza; /farmacia-em-sabara tem schema das lojas.
@@ -120,7 +120,7 @@ test("AEO: cobertura de entrega, Droga Manaus, pagamento e schemas", async () =>
   assert.match(perguntas, /faqs: CUSTOMER_QUESTIONS/);
   assert.match(perguntas, /CUSTOMER_QUESTIONS\.map/);
   assert.match(read("app/farmacia-em-sabara/page.tsx"), /includeUnitSchema: true/);
-  assert.match(read("app/local-landing-page.tsx"), /units: config\.includeUnitSchema \? UNITS : undefined/);
+  assert.match(read("app/local-landing-page.tsx"), /units: config\.includeUnitSchema \? PUBLIC_UNITS : undefined/);
 
   // Sem frases genéricas que sugerem entrega fora dos bairros confirmados.
   const forbidden = [
@@ -159,7 +159,7 @@ test("iFood: só a loja Nações Unidas, link exato, rel seguro, evento e sitema
   assert.match(page, /rel="noopener noreferrer"/);
   assert.match(page, /data-track-event="ifood_click"/);
   assert.match(page, /data-track-unit=\{nacoes\.id\}/);
-  assert.match(page, /Só a loja Nações Unidas está no iFood/);
+  assert.match(page, /A loja União Farma Nações Unidas, na .*está no iFood/);
   assert.doesNotMatch(page, /ifood\.com\.br/, "a URL vem só de site-config");
 
   // Só a URL do site-config contém o link do iFood no código.

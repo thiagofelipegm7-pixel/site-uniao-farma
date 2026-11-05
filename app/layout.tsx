@@ -20,7 +20,7 @@ import "./ux-fixes.css";
 import "./visual-fixes.css";
 import "./marca.css";
 import "./design.css";
-import { INSTAGRAM_URL, PAYMENT_ACCEPTED, SITE_URL, UNITS } from "./site-config";
+import { INSTAGRAM_URL, PAYMENT_ACCEPTED, SITE_URL, PUBLIC_UNITS } from "./site-config";
 import { COMPANY } from "./company";
 import { getPostalAddress } from "./structured-data";
 
@@ -54,7 +54,7 @@ const poppins = Poppins({
 });
 
 const SITE_DESCRIPTION =
-  "Farmácia e drogaria em Sabará com três unidades: Fátima, Nações Unidas e Itacolomi. Medicamentos, perfumaria e pedido pelo WhatsApp.";
+  "Farmácia e drogaria em Sabará, loja Nações Unidas. Medicamentos, perfumaria e pedido pelo WhatsApp.";
 
 const GOOGLE_SITE_VERIFICATION =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim() ||
@@ -132,15 +132,15 @@ const organizationSchema = {
   taxID: COMPANY.cnpj,
   url: `${SITE_URL}/`,
   logo: `${SITE_URL}/icon-192.png`,
-  sameAs: [INSTAGRAM_URL, ...UNITS.map((unit) => unit.map)],
-  address: UNITS.map((unit) => getPostalAddress(unit)),
-  location: UNITS.map((unit) => ({
+  sameAs: [INSTAGRAM_URL, ...PUBLIC_UNITS.map((unit) => unit.map)],
+  address: PUBLIC_UNITS.map((unit) => getPostalAddress(unit)),
+  location: PUBLIC_UNITS.map((unit) => ({
     "@type": "Place",
     name: `União Farma ${unit.shortName}`,
     address: getPostalAddress(unit),
   })),
   paymentAccepted: PAYMENT_ACCEPTED,
-  contactPoint: UNITS.map((unit) => ({
+  contactPoint: PUBLIC_UNITS.map((unit) => ({
     "@type": "ContactPoint",
     telephone: `+${unit.whatsappDigits}`,
     contactType: "customer service",

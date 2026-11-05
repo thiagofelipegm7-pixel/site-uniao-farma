@@ -5,7 +5,7 @@ import test from "node:test";
 const read = (f) => readFile(new URL(`../${f}`, import.meta.url), "utf8");
 
 test("seletor de bairro usa só os bairros confirmados em deliveryAreas", async () => {
-  const { UNITS } = await import("../app/site-config.ts");
+  const { PUBLIC_UNITS: UNITS } = await import("../app/site-config.ts");
   const { listarBairros, lojaDoBairro, mensagemEntrega } = await import("../app/entrega-bairro.ts");
   const lista = listarBairros(UNITS);
   const confirmados = UNITS.flatMap((u) => u.deliveryAreas).sort((a, b) => a.localeCompare(b, "pt-BR"));

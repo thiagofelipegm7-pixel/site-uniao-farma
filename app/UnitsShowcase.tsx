@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { trackEvent } from "./analytics";
 import { trackWhatsAppClick } from "./metrics";
 import { readPreferredUnitId, sortUnitsByPreference, writePreferredUnitId } from "./preferred-unit";
-import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
+import { buildWhatsAppUrl, PUBLIC_UNITS, type Unit } from "./site-config";
 import { UNIT_PHOTOS, UNIT_PHOTO_KIND } from "./unit-photos";
 import { responsiveSrcSet } from "./responsive-images";
 import UnitStatusBadge from "./UnitStatusBadge";
@@ -35,7 +35,7 @@ function splitAddress(value: string): { street: string; place: string } {
 export default function UnitsShowcase() {
   const gridRef = useRef<HTMLDivElement>(null);
   const [preferredId, setPreferredId] = useState<Unit["id"] | null>(null);
-  const units = useMemo(() => sortUnitsByPreference(UNITS, preferredId), [preferredId]);
+  const units = useMemo(() => sortUnitsByPreference(PUBLIC_UNITS, preferredId), [preferredId]);
 
   useEffect(() => {
     const saved = readPreferredUnitId();

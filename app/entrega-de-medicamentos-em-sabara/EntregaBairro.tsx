@@ -3,16 +3,17 @@
 import { useState } from "react";
 import { trackEvent } from "../analytics";
 import { eventoEntrega, listarBairros, lojaDoBairro, mensagemEntrega } from "../entrega-bairro";
-import { buildWhatsAppUrl, UNITS } from "../site-config";
+import { buildWhatsAppUrl, PUBLIC_UNITS } from "../site-config";
+import { formatarCentavos } from "../reserva/reserva-store";
 import "./entrega.css";
 
 const OUTRO = "__outro__";
-const BAIRROS = listarBairros(UNITS);
+const BAIRROS = listarBairros(PUBLIC_UNITS);
 
 /** Seletor de bairro: responde sem rede se a União Farma entrega no bairro e abre o WhatsApp da loja certa. */
 export default function EntregaBairro() {
   const [escolha, setEscolha] = useState("");
-  const unit = escolha && escolha !== OUTRO ? lojaDoBairro(UNITS, escolha) : null;
+  const unit = escolha && escolha !== OUTRO ? lojaDoBairro(PUBLIC_UNITS, escolha) : null;
 
   return (
     <section className="section entrega-bairro" aria-labelledby="entrega-bairro-titulo">
@@ -23,7 +24,7 @@ export default function EntregaBairro() {
             const valor = event.target.value;
             setEscolha(valor);
             if (valor) {
-              const evento = eventoEntrega(valor === OUTRO ? null : lojaDoBairro(UNITS, valor));
+              const evento = eventoEntrega(valor === OUTRO ? null : lojaDoBairro(PUBLIC_UNITS, valor));
               trackEvent(evento.event, evento.params);
             }
           }}
@@ -41,7 +42,7 @@ export default function EntregaBairro() {
           {unit ? (
             <>
               <p>
-                <strong>Sim, entregamos em {escolha}.</strong> A entrega sai da loja {unit.legalLabel}. Taxa e prazo são confirmados no WhatsApp da loja antes de fechar o pedido.
+                <strong>Sim, entregamos em {escolha}.</strong> A entrega sai da loja {unit.legalLabel}. Taxa de entrega: {formatarCentavos(unit.deliveryFees?.[escolha] ?? 0)}. O prazo é confirmado no WhatsApp da loja antes de fechar o pedido.
               </p>
               <a
                 className="button button-whatsapp"

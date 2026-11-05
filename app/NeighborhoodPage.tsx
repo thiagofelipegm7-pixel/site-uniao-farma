@@ -3,7 +3,7 @@ import InteractiveUnitMap from "./InteractiveUnitMap";
 import OffersGroupCta from "./OffersGroupCta";
 import UnitStatusBadge from "./UnitStatusBadge";
 import WebImage from "./WebImage";
-import { buildWhatsAppUrl, getHoursSentence, getShortHoursPhrase, SITE_URL, UNITS, type Unit } from "./site-config";
+import { buildWhatsAppUrl, getHoursSentence, getShortHoursPhrase, SITE_URL, PUBLIC_UNITS, type Unit } from "./site-config";
 import { getStoreContent } from "./store-content";
 import { getPageStructuredData } from "./structured-data";
 import { UNIT_PHOTOS } from "./unit-photos";
@@ -36,7 +36,7 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
   const recipe = WHATSAPP_MESSAGES.recipe.replaceAll("{unidade}", unit.shortName);
   const pageUrl = `${SITE_URL}${PAGE_HREF[unit.id]}`;
   const content = getStoreContent(unit);
-  const otherUnits = UNITS.filter((other) => other.id !== unit.id);
+  const otherUnits = PUBLIC_UNITS.filter((other) => other.id !== unit.id);
   const structuredData = getPageStructuredData({
     name: `Farmácia ${unit.shortName} em Sabará`,
     url: pageUrl,

@@ -12,7 +12,7 @@ import { IntentIcon } from "./IntentIcons";
 import { rankUnitsInWorker } from "./inp-worker-client";
 import { trackWhatsAppClick } from "./metrics";
 import { readPreferredUnitId, sortUnitsByPreference, writePreferredUnitId } from "./preferred-unit";
-import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
+import { buildWhatsAppUrl, PUBLIC_UNITS, type Unit } from "./site-config";
 import UnitStatusBadge from "./UnitStatusBadge";
 import {
   fillUnitPlaceholder,
@@ -78,7 +78,7 @@ export default function DirectUnitLinks({
 
   const units = useMemo(() => {
     if (locate.status === "ready") return locate.ranked.map((item) => item.unit);
-    return sortUnitsByPreference(UNITS, preferredId);
+    return sortUnitsByPreference(PUBLIC_UNITS, preferredId);
   }, [locate, preferredId]);
 
   const nearest = locate.status === "ready" ? locate.ranked[0] : null;
@@ -96,10 +96,10 @@ export default function DirectUnitLinks({
   }
 
   async function applyOrigin(origin: { latitude: number; longitude: number }, fromCache: boolean) {
-    const offThread = await rankUnitsInWorker(origin, UNITS);
+    const offThread = await rankUnitsInWorker(origin, PUBLIC_UNITS);
     const ranked: RankedUnit[] = offThread.length
       ? offThread.flatMap((item) => {
-          const unit = UNITS.find((entry) => entry.id === item.id);
+          const unit = PUBLIC_UNITS.find((entry) => entry.id === item.id);
           return unit ? [{ unit, distanceKm: item.distanceKm }] : [];
         })
       : rankUnitsByDistance(origin);

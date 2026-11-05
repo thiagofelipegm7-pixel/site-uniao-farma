@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { UNITS } from "./site-config";
+import { PUBLIC_UNITS } from "./site-config";
 import { getUnitOpenStatus } from "./UnitStatusBadge";
 
 export default function OpenNowStrip() {
@@ -35,7 +35,7 @@ export default function OpenNowStrip() {
 
   const rows = useMemo(
     () =>
-      UNITS.map((unit) => {
+      PUBLIC_UNITS.map((unit) => {
         const status = now
           ? getUnitOpenStatus(unit, now)
           : { isOpen: false, holiday: null, label: "Confira o horário" };

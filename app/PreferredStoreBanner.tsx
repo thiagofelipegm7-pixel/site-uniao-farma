@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { buildWhatsAppUrl, UNITS, type Unit } from "./site-config";
+import { buildWhatsAppUrl, PUBLIC_UNITS, type Unit } from "./site-config";
 import { readPreferredUnitId } from "./preferred-unit";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
 import { recordMetric } from "./metrics";
@@ -22,7 +22,7 @@ export default function PreferredStoreBanner() {
     return () => window.removeEventListener("uf-preferred-unit", sync);
   }, []);
 
-  const unit = UNITS.find((item) => item.id === unitId);
+  const unit = PUBLIC_UNITS.find((item) => item.id === unitId);
   if (!unit) return null;
 
   const href = buildWhatsAppUrl(unit, WHATSAPP_MESSAGES.product.replaceAll("{unidade}", unit.shortName), {
