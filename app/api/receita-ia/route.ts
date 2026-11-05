@@ -47,6 +47,7 @@ async function dentroDoLimiteCompartilhado(visitante: string, max: number, janel
       .bind(chave, janela)
       .first<{ n: number }>();
     if (Math.random() < 0.02) await db.prepare("DELETE FROM limite_receita WHERE janela < ?").bind(janela - 1).run();
+    diagLim = "linha=" + JSON.stringify(linha) + " j=" + janela;
     return (linha?.n ?? 1) <= max;
   } catch (e) {
     diagLim = String(e).slice(0, 160);
