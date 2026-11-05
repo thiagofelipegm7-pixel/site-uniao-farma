@@ -13,7 +13,7 @@ import ProdutoBarra from "../ProdutoBarra";
 import { nomeDeExibicao } from "../../../nome-exibicao";
 import CombinaCom, { itensCombinaCom } from "../CombinaCom";
 import { descricaoPublica } from "../descricoes";
-import { AVISO_MIP, AVISO_NBCAL, conteudoDoNome, ehNbcal, descricaoMetadata, FAQ_PRODUTO, jsonLdProduto, NOTA_PRECO, textosPublicaveis } from "../produto";
+import { AVISO_NBCAL, conteudoDoNome, ehNbcal, descricaoMetadata, FAQ_PRODUTO, jsonLdProduto, NOTA_PRECO, textosPublicaveis } from "../produto";
 import "../produtos.css";
 
 export const dynamic = "force-dynamic";
@@ -107,7 +107,6 @@ export default async function ProdutoNacoesPage({ params }: Props) {
             ) : <span />}
             <ProdutoAcoes slug={slugItem} titulo={nomeExibido} />
           </div>
-          {item.isMIP ? <p className="catalogo-mip">{AVISO_MIP}</p> : null}
           {ehNbcal(item.nome) ? <p className="catalogo-nbcal">{AVISO_NBCAL}</p> : null}
           <hr className="produto-divisor" />
           <p className="produto-preco">{formatBRL(item.preco)}</p>

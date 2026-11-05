@@ -11,7 +11,6 @@ import CartaoPanvel from "./CartaoPanvel";
 import { quantidadeDoNome } from "./quantidade";
 import { Cartao } from "./ListaRestrita";
 import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./Paginacao";
-import { AVISO_MIP } from "./produto";
 import type { ItemRestrito } from "./receita";
 
 export type MedicamentoSemReceita = { nome: string; slug: string; lab: string; precoFmt: string; foto: string | null; isMIP: boolean };
@@ -141,7 +140,6 @@ export default function MedicamentosTodos({ otcInicial, unitId, paginaInicial = 
               apresentacao={quantidadeDoNome(i.nome)}
               precoFmt={i.precoFmt}
               cesta={centavos ? <ReservarBotao unitId={unitId} nome={i.nome} precoCentavos={centavos} foto={i.foto} variante="cesta" compacto /> : null}
-              avisos={i.isMIP ? <p className="catalogo-mip">{AVISO_MIP}</p> : null}
             />
           );
         })}
