@@ -37,9 +37,9 @@ test("renders the local SEO home page with conversion and schema signals", async
   assert.match(html, /Peça pelo WhatsApp/);
   assert.match(html, /href="\/nacoes-unidas\/produtos"/);
   assert.match(html, /href="\/reserva"/);
-  assert.match(html, /Nossa Senhora de Fátima/);
+  // Por enquanto o site mostra só a loja Nações Unidas.
   assert.match(html, /Nações Unidas/);
-  assert.match(html, /Itacolomi/);
+  assert.doesNotMatch(html, /Nossa Senhora de Fátima/);
   assert.equal((html.match(/<h1\b/gi) ?? []).length, 1);
 });
 
@@ -176,7 +176,7 @@ test("renders the news index and the approved article with complete SEO", async 
   assert.match(articleHtml, /"publisher":\{"@id":"https:\/\/xn--uniofarmasabar-8gbu\.com\.br\/#organization"\}/);
   assert.doesNotMatch(articleHtml, /"author":/);
   assert.doesNotMatch(articleHtml, /"image":/);
-  assert.equal((articleHtml.match(/data-track-event="whatsapp_click"/g) ?? []).length, 3);
+  assert.equal((articleHtml.match(/data-track-event="whatsapp_click"/g) ?? []).length, 1);
   assert.equal((articleHtml.match(/<h1\b/gi) ?? []).length, 1);
 
   const missingResponse = await render("/novidades/nao-existe");
