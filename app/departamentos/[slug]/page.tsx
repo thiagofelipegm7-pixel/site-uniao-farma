@@ -11,7 +11,7 @@ import { getPageStructuredData } from "../../structured-data";
 import type { GrupoBusca } from "../../nacoes-unidas/produtos/busca";
 import CatalogoLista from "../../nacoes-unidas/produtos/CatalogoLista";
 import { carregarCatalogoNacoes, formatBRL, slugify } from "../../nacoes-unidas/produtos/catalogo";
-import { acharDepartamento, DEPARTAMENTOS } from "../../nacoes-unidas/produtos/departamentos";
+import { acharDepartamento, departamentosPublicos } from "../../nacoes-unidas/produtos/departamentos";
 import { fotoDoProduto } from "../../nacoes-unidas/produtos/imagens";
 import "../../nacoes-unidas/produtos/produtos.css";
 
@@ -23,15 +23,15 @@ type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const dep = acharDepartamento(slug);
+  const depRaw = acharDepartamento(slug);
+  const dep = depRaw && !depRaw.provisorio ? depRaw : null; // provisório (ex.: a conferir) não é página pública
   const titulo = dep ? `${dep.nome} | União Farma Nações Unidas, Sabará` : "Departamento | União Farma";
   const descricao = dep ? `${dep.resumo} Lista de preços da loja Nações Unidas, em Sabará.` : "Departamentos da União Farma.";
   return {
     title: { absolute: titulo },
     description: descricao,
     alternates: { canonical: dep ? `/departamentos/${dep.slug}` : "/nacoes-unidas/produtos" },
-    // Departamento provisório (itens ainda sem categoria) fica fora do Google e do sitemap.
-    robots: { index: !dep?.provisorio, follow: true },
+    robots: { index: Boolean(dep), follow: true },
     openGraph: { title: titulo, description: descricao, url: `${SITE_URL}/departamentos/${dep?.slug ?? ""}`, type: "website", images: ["/og-nacoes-unidas.jpg"] },
   };
 }
@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function DepartamentoPage({ params }: Props) {
   const { slug } = await params;
   const dep = acharDepartamento(slug);
-  if (!dep) notFound();
+  if (!dep || dep.provisorio) notFound(); // categoria interna (ex.: a conferir) não tem página pública
 
   const whatsappHref = buildWhatsAppUrl(nacoes, `Oi, União Farma Nações Unidas! Vi o departamento ${dep.nome} no site e quero confirmar preço e disponibilidade.`, {
     campaign: "departamento",
@@ -51,7 +51,6 @@ export default async function DepartamentoPage({ params }: Props) {
     .itens.filter((i) => slugify(i.categoria) === dep.slug)
     .sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"))
     .map((i) => ({ nome: nomeDeExibicao(i.nome), lab: i.lab, isMIP: i.isMIP, precoFmt: formatBRL(i.preco), preco: i.preco, foto: fotoDoProduto(i.nome), slug: slugify(i.nome) }));
-  if (dep.provisorio && itens.length === 0) notFound(); // nada para conferir: a página não existe
   const grupos: GrupoBusca[] = [{ categoria: dep.nome, id: dep.slug, itens }];
   const pagina = `${SITE_URL}/departamentos/${dep.slug}`;
   const structuredData = getPageStructuredData({
@@ -80,7 +79,7 @@ export default async function DepartamentoPage({ params }: Props) {
         <h1 className="catalogo-titulo section-inner">{dep.nome}</h1>
         <p className="departamento-resumo section-inner">{dep.resumo}</p>
         <nav className="departamento-outros section-inner" aria-label="Departamentos">
-          {DEPARTAMENTOS.map((d) => (
+          {departamentosPublicos().map((d) => (
             <a key={d.slug} href={`/departamentos/${d.slug}`} aria-current={d.slug === dep.slug ? "page" : undefined}>
               {d.nome}
             </a>
