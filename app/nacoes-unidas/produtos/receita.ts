@@ -2,7 +2,8 @@ import receitaEstatica from "./dados/receita-nacoes.json" with { type: "json" };
 import { normalizarBusca } from "./busca";
 
 /**
- * Medicamentos com receita, controlados e itens "consulte o farmacêutico": LISTA DE PREÇOS, sem venda online, sem cesta, sem oferta, sem destaque.
+ * Medicamentos com receita, controlados e itens "consulte o farmacêutico": lista de preços, sem oferta e sem destaque. Receita e controlados
+ * entram na cesta só para retirada na loja com a receita; "consulte" fica sem cesta.
  * Fonte: JSON estático (export do DMaster + tarja, princípio ativo e registro da lista pública CMED/Anvisa; ver ops/catalogo-nacoes/gerar.py).
  * Princípio ativo, registro (RMS) e tarja só aparecem quando vêm de vínculo seguro com a CMED/Anvisa (ou, no caso do ativo dos controlados, da
  * Portaria 344). Nada é inventado: sem fonte, o campo some.
@@ -14,8 +15,8 @@ export const AVISO_CONTROLADO = "Venda sob prescrição médica com retenção d
 export const AVISO_CONSULTE = "Consulte o farmacêutico";
 export const SELO_CONTROLADO = "Controlado";
 export const NOTA_IMAGEM = "Imagem meramente ilustrativa.";
-export const COMO_COMPRAR = "Sem venda online: a compra é na loja ou combinada pelo WhatsApp, com a receita.";
-export const COMO_COMPRAR_CONSULTE = "Sem venda online: fale com o farmacêutico, na loja ou pelo WhatsApp.";
+export const COMO_COMPRAR = "Sem pagamento no site: peça pelo WhatsApp e retire na loja com a receita.";
+export const COMO_COMPRAR_CONSULTE = "Fale com o farmacêutico, na loja ou pelo WhatsApp.";
 export const POR_PAGINA = 48;
 
 export type TipoRestrito = "receita" | "controlados" | "consulte";

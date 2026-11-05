@@ -16,10 +16,12 @@ type Props = {
   source?: string;
   /** Cartão de produto do protótipo: só o "+" e, depois, o contador com "−" (sem texto). */
   compacto?: boolean;
+  /** Medicamento com receita ou controlado: a cesta marca o item e só deixa retirar na loja. */
+  receita?: "receita" | "controlado";
 };
 
 /** Botão "+" que vira contador depois do primeiro toque (como no protótipo). Sem texto do produto no analytics. */
-export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos, foto, source = "catalogo", compacto = false }: Props) {
+export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos, foto, source = "catalogo", compacto = false, receita }: Props) {
   const estado = useReserva();
   const id = idDoItem(unitId, nome);
   const qtd = qtdDoItem(estado, id);
@@ -31,7 +33,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
         className={compacto ? "reservar-mais reservar-mais-icone" : "reservar-mais"}
         aria-label={`Adicionar ${nome} à cesta`}
         onClick={() => {
-          atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, deCentavos, foto }));
+          atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, deCentavos, foto, ...(receita ? { receita } : {}) }));
           trackEvent("reserva_add", { unit: unitId, source });
         }}
       >

@@ -211,3 +211,18 @@ test("reserva_add, reserva_revisar e o clique do WhatsApp entram no dataLayer se
   assert.doesNotMatch(pagina, /trackEvent\("reserva_revisar", \{[^}]*nome/);
 });
 
+
+test("cesta com medicamento de receita ou controlado: só retirada, com a receita na mensagem", async () => {
+  const { exigeReceita, mensagemReserva } = await import("../app/reserva/reserva-store.ts");
+  const comum = { id: "a", unitId: "nacoes", nome: "SHAMPOO", precoCentavos: 1000, qtd: 1 };
+  const rx = { id: "b", unitId: "nacoes", nome: "AMOXICILINA 500MG", precoCentavos: 2000, qtd: 1, receita: "receita" };
+  const ctl = { id: "c", unitId: "nacoes", nome: "ALPRAZOLAM 1MG", precoCentavos: 1500, qtd: 2, receita: "controlado" };
+  assert.equal(exigeReceita([comum]), false);
+  assert.equal(exigeReceita([comum, rx]), true);
+  assert.equal(exigeReceita([comum, { ...rx, selecionado: false }]), false); // item desmarcado não conta
+  const msg = mensagemReserva("Nações Unidas", [comum, rx, ctl], { modo: "retirar", nome: "Maria", pagamento: "Pix" });
+  assert.match(msg, /1x AMOXICILINA 500MG \(exige receita\)/);
+  assert.match(msg, /2x ALPRAZOLAM 1MG \(controlado: receita retida na loja\)/);
+  assert.match(msg, /Tem medicamento com receita: retiro na loja e apresento a receita\./);
+  assert.doesNotMatch(mensagemReserva("Nações Unidas", [comum], { modo: "retirar", nome: "Maria" }), /receita/);
+});

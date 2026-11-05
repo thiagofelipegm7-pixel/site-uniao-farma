@@ -30,7 +30,7 @@ const faqs: FaqItem[] = [
   },
   {
     q: "Esta lista tem todos os produtos da loja?",
-    a: "Esta página traz os produtos sem receita, com cesta pelo WhatsApp. Medicamentos com receita e controlados ficam em listas de preços à parte, sem venda online: a compra é no balcão, com a receita (retida, quando a lei exigir). Itens que não conseguimos classificar com segurança não são publicados.",
+    a: "Esta página traz os produtos sem receita, com cesta pelo WhatsApp. Medicamentos com receita e controlados ficam em listas à parte, com retirada na loja e a receita: a compra é no balcão, com a receita (retida, quando a lei exigir). Itens que não conseguimos classificar com segurança não são publicados.",
   },
   {
     q: "Dá para receber em casa?",
@@ -88,7 +88,7 @@ export default async function ProdutosNacoesPage() {
             />
           <aside className="catalogo-aviso" aria-label="Medicamentos com receita e controlados">
             <p>
-              <strong>Medicamentos com receita e controlados:</strong> lista de preços, sem venda online. A compra é no balcão, com a receita (retida pela farmácia quando a lei exigir).
+              <strong>Medicamentos com receita e controlados:</strong> pedido pelo WhatsApp, sem pagamento no site. Retire na loja com a receita (retida pela farmácia quando a lei exigir).
             </p>
             <p>
               <a href="/nacoes-unidas/produtos/receita">Ver medicamentos com receita</a> · <a href="/nacoes-unidas/produtos/controlados">Ver medicamentos controlados</a> · <a href="/nacoes-unidas/produtos/consulte-o-farmaceutico">Itens para consultar o farmacêutico</a>

@@ -29,7 +29,7 @@ const linhaRestrita = (i: ItemRestrito): Linha => ({ chave: `${i.tipo}-${i.slug 
 
 /**
  * Departamento Medicamentos completo: sem receita (com cesta), com receita, controlados e "consulte o farmacêutico",
- * numa lista só, com busca e abas. Receita e controlados seguem como lista de preços, sem cesta.
+ * numa lista só, com busca e abas. Receita e controlados entram na cesta só para retirada na loja, com a receita.
  */
 export default function MedicamentosTodos({ otcInicial, unitId }: { otcInicial: MedicamentoSemReceita[]; unitId: string }) {
   const [aba, setAba] = useState<Aba>("todos");

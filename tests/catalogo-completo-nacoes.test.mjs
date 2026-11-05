@@ -65,7 +65,7 @@ test("avisos, selo e imagem genérica", async () => {
   assert.ok(img.length > 1000);
 });
 
-test("lista restrita: sem cesta, oferta, % OFF, preço riscado ou destaque", async () => {
+test("lista restrita: sem oferta, % OFF, preço riscado ou destaque; cesta só para retirada com receita", async () => {
   for (const f of [
     "app/nacoes-unidas/produtos/ListaRestrita.tsx",
     "app/nacoes-unidas/produtos/receita/page.tsx",
@@ -74,11 +74,14 @@ test("lista restrita: sem cesta, oferta, % OFF, preço riscado ou destaque", asy
     "app/nacoes-unidas/produtos/receita.ts",
   ]) {
     const src = (await read(f)).replace(/\/\*[\s\S]*?\*\//g, "").replace(/\/\/.*$/gm, "");
-    assert.doesNotMatch(src, /ReservarBotao|ReservaFluxo|Adicionar|<del|<s>|line-through|% ?OFF|desconto|destaque|banner|isMIP/i, f);
+    assert.doesNotMatch(src, /ReservaFluxo|Adicionar|<del|<s>|line-through|% ?OFF|desconto|destaque|banner|isMIP/i, f);
   }
   const lista = await read("app/nacoes-unidas/produtos/ListaRestrita.tsx");
   assert.match(lista, /\{item\.aviso\}/);
   assert.match(lista, /SELO_CONTROLADO/);
+  // Cesta nos itens com receita e controlados (retirada na loja); "consulte o farmacêutico" fica sem cesta.
+  assert.match(lista, /item\.tipo !== "consulte" && item\.preco !== null/);
+  assert.match(lista, /receita=\{item\.controlado \? "controlado" : "receita"\}/);
   const { carregarRestritos, AVISO_CONTROLADO, AVISO_RECEITA, AVISO_RETENCAO, AVISO_CONSULTE } = await rmod();
   const c = carregarRestritos();
   assert.ok(c.controlados.length > 100 && c.receita.length > 100 && c.consulte.length > 100);

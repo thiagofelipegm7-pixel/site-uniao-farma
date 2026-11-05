@@ -21,6 +21,8 @@ export type ReservaItem = {
   selecionado?: boolean;
   qtd: number;
   foto?: string | null;
+  /** Medicamento de venda sob prescrição ("receita") ou de controle especial ("controlado"): retirada na loja com a receita. */
+  receita?: "receita" | "controlado";
 };
 
 export type ReservaEstado = { itens: ReservaItem[]; modo: ModoReserva };
@@ -46,6 +48,11 @@ export function formatarCentavos(centavos: number): string {
   const reais = Math.floor(centavos / 100);
   const cents = String(centavos % 100).padStart(2, "0");
   return `R$ ${reais.toLocaleString("pt-BR")},${cents}`;
+}
+
+/** A cesta tem medicamento com receita ou controlado (entre os marcados)? Então só há retirada na loja, com a receita. */
+export function exigeReceita(itens: readonly ReservaItem[]): boolean {
+  return itens.some((i) => itemAtivo(i) && !!i.receita);
 }
 
 /** Item marcado na cesta (o padrão). */
@@ -132,7 +139,7 @@ export type DadosPedido = {
  * Pede confirmação de preço e estoque (não promete nada). Nome e endereço vão só no texto da mensagem, nunca ao analytics.
  */
 export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: DadosPedido): string {
-  const linhas = itens.filter(itemAtivo).map((i) => `\u2022 ${i.qtd}x ${i.nome.replace(/\s+/g, " ").trim()}`);
+  const linhas = itens.filter(itemAtivo).map((i) => `\u2022 ${i.qtd}x ${i.nome.replace(/\s+/g, " ").trim()}${i.receita === "controlado" ? " (controlado: receita retida na loja)" : i.receita ? " (exige receita)" : ""}`);
   const retirar = dados.modo === "retirar";
   const nome = dados.nome.replace(/\s+/g, " ").trim();
   const sub = subtotalCentavos(itens);
@@ -155,6 +162,7 @@ export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: D
     taxa > 0 ? `Taxa de entrega: ${formatarCentavos(taxa)}` : null,
     `Total estimado: ${formatarCentavos(total)}`,
     "",
+    ...(exigeReceita(itens) ? ["Tem medicamento com receita: retiro na loja e apresento a receita.", ""] : []),
     "Podem confirmar preço e estoque? Obrigado!",
   ].filter(Boolean).join("\n");
 }

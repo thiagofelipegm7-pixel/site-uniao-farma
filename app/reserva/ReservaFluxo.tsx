@@ -11,7 +11,7 @@ import { buildWhatsAppUrl, UNITS, type Unit } from "../site-config";
 import UnitStatusBadge from "../UnitStatusBadge";
 import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats } from "./ReservaIcons";
 import DestaquesSemana from "../shop/DestaquesSemana";
-import { atualizarReserva, definirQtd, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
+import { atualizarReserva, definirQtd, exigeReceita, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
 
 type Passo = 1 | 2 | 3;
@@ -42,7 +42,9 @@ export default function ReservaFluxo() {
   const [tentou, setTentou] = useState(false);
   const [editando, setEditando] = useState(true);
 
-  const modo = estado.modo;
+  // Medicamento com receita ou controlado na cesta: só retirada na loja, com a receita.
+  const soRetirada = exigeReceita(estado.itens);
+  const modo = soRetirada ? "retirar" : estado.modo;
   const retirar = modo === "retirar";
   const unidadeEntrega = bairro ? lojaDoBairro(UNITS, bairro) : null;
   const unidade = (retirar ? UNITS.find((u) => u.id === lojaId) : unidadeEntrega) ?? UNITS[0];
@@ -106,7 +108,7 @@ export default function ReservaFluxo() {
             <li key={item.id}>
               <div className="entrega-item-prod">
                 <span className="fluxo-item-foto">{item.foto ? <img src={item.foto} alt="" width="52" height="52" /> : null}<b className="fluxo-item-qtd" aria-hidden="true">{item.qtd}</b></span>
-                <strong className="fluxo-item-nome">{item.nome}</strong>
+                <strong className="fluxo-item-nome">{item.nome}{item.receita ? <span className="fluxo-item-receita">{item.receita === "controlado" ? "Controlado · receita retida" : "Exige receita"}</span> : null}</strong>
               </div>
               <span className="entrega-item-preco">{formatarCentavos(item.precoCentavos)}</span>
               <span className="entrega-item-qtd">{item.qtd} {item.qtd === 1 ? "unidade" : "unidades"}</span>
@@ -192,6 +194,7 @@ export default function ReservaFluxo() {
                         <span className="fluxo-item-foto">{item.foto ? <img src={item.foto} alt="" width="64" height="64" /> : null}<b className="fluxo-item-qtd" aria-hidden="true">{item.qtd}</b></span>
                         <div>
                           <strong className="fluxo-item-nome">{item.nome}</strong>
+                          {item.receita ? <p className="fluxo-item-receita">{item.receita === "controlado" ? "Controlado: retirada na loja, com a receita retida pela farmácia." : "Exige receita: retirada na loja, apresentando a receita."}</p> : null}
                           <p className="fluxo-item-loja">Vendido e entregue por <b>União Farma</b> · {UNITS.find((u) => u.id === item.unitId)?.shortName ?? ""}</p>
                         </div>
                       </div>
@@ -314,8 +317,9 @@ export default function ReservaFluxo() {
                       ))}
                     </div>
                   ) : null}
-                  <label className={retirar ? "entrega-opcao" : "entrega-opcao is-on"}>
-                    <input type="radio" name="forma" checked={!retirar} onChange={() => atualizarReserva((s) => ({ ...s, modo: "casa" }))} />
+                  {soRetirada ? <p className="fluxo-aviso-receita" role="note">Sua cesta tem medicamento com receita ou controlado: a retirada é na loja, com a receita. Entrega indisponível.</p> : null}
+                  <label className={retirar ? "entrega-opcao" : "entrega-opcao is-on"} aria-disabled={soRetirada}>
+                    <input type="radio" name="forma" checked={!retirar} disabled={soRetirada} onChange={() => atualizarReserva((s) => ({ ...s, modo: "casa" }))} />
                     <span className="entrega-tipo">Entrega no seu bairro</span>
                     <span className="entrega-periodo">{unidadeEntrega ? `pela União Farma ${unidadeEntrega.shortName}` : "receba em casa, em Sabará"}</span>
                     <span className="entrega-preco">{formatarCentavos(TAXA_ENTREGA_CENTAVOS)}</span>
