@@ -26,7 +26,7 @@ const ABAS: ReadonlyArray<{ id: Aba; rotulo: string }> = [
 
 const comparar = (a: Linha, b: Linha) => a.nome.localeCompare(b.nome, "pt-BR");
 const linhaOtc = (i: MedicamentoSemReceita): Linha => ({ chave: `o-${i.slug}`, nome: i.nome, busca: normalizarBusca(`${i.nome} ${i.lab}`), aba: "sem-receita", otc: i });
-const linhaRestrita = (i: ItemRestrito): Linha => ({ chave: `${i.tipo}-${i.slug ?? i.nome}`, nome: i.nomeExibicao ?? i.nome, busca: i.busca ?? normalizarBusca(i.nome), aba: i.tipo, restrito: i });
+const linhaRestrita = (i: ItemRestrito): Linha => ({ chave: `${i.tipo}-${i.slug ?? i.nome}`, nome: i.nomeExibicao ?? i.nome, busca: i.busca ?? normalizarBusca(i.nome), aba: i.tipo === "consulte" ? "sem-receita" : i.tipo, restrito: i });
 
 /**
  * Departamento Medicamentos completo: sem receita (com cesta), com receita, controlados e "consulte o farmacêutico",
