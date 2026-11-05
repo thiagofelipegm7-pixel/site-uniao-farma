@@ -204,12 +204,14 @@ test("horário fixo no HTML, /jardim-vitoria, priceRange e FAQ da receita", asyn
 test("departamentos: cada página entra no sitemap, é indexável e traz a lista no HTML", async () => {
   const read = (f) => readFile(new URL(`../${f}`, import.meta.url), "utf8");
   const sitemap = await read("app/sitemap.ts");
-  assert.match(sitemap, /DEPARTAMENTOS\.filter\(\(d\) => !d\.provisorio\)\.map/);
+  assert.match(sitemap, /departamentosPublicos\(\)\.map/);
   assert.match(sitemap, /\/departamentos\/\$\{d\.slug\}/);
   assert.match(await read("app/sitemap-dates.ts"), /departamentos:/);
   const pagina = await read("app/departamentos/[slug]/page.tsx");
-  assert.match(pagina, /robots: \{ index: !dep\?\.provisorio, follow: true \}/);
+  assert.match(pagina, /robots: \{ index: Boolean\(dep\), follow: true \}/);
   assert.match(pagina, /canonical: dep \? `\/departamentos\/\$\{dep\.slug\}`/);
+  assert.match(pagina, /!dep \|\| dep\.provisorio\) notFound/);
+  assert.match(pagina, /departamentosPublicos\(\)\.map/);
   assert.match(pagina, /grupos=\{grupos\}/);
   assert.match(pagina, /application\/ld\+json/);
 });

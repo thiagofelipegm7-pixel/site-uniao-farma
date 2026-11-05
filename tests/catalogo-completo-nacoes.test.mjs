@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { register } from "node:module";
@@ -217,6 +218,16 @@ test("departamentos: cada categoria do catálogo tem a sua página e o menu apon
     assert.ok(gaveta.includes(`/departamentos/${d.slug}`), `gaveta: ${d.slug}`);
     assert.ok(tiles.includes(`/departamentos/${d.slug}`), `carrossel: ${d.slug}`);
   }
+  const provisorios = DEPARTAMENTOS.filter((x) => x.provisorio);
+  assert.ok(provisorios.some((d) => d.slug === "categoria-a-conferir"));
+  const paginaDep = await read("app/departamentos/[slug]/page.tsx");
+  for (const d of provisorios) {
+    assert.equal(gaveta.includes(`/departamentos/${d.slug}`), false, `gaveta não deve ter ${d.slug}`);
+    assert.equal(tiles.includes(`/departamentos/${d.slug}`), false, `carrossel não deve ter ${d.slug}`);
+  }
+  assert.match(paginaDep, /departamentosPublicos\(\)\.map/);
+  assert.match(paginaDep, /dep\.provisorio\) notFound/);
+  assert.equal(existsSync(new URL("../public/dados/nacoes/catalogo/categoria-a-conferir", import.meta.url)), false);
 });
 
 test("catálogo Nações: o slug de cada cartão leva à página do produto", async () => {

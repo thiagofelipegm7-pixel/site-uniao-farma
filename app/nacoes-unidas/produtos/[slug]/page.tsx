@@ -6,6 +6,7 @@ import ShopTopo from "../../../shop/ShopTopo";
 import { SITE_URL, UNITS } from "../../../site-config";
 import { IconSetaDireita } from "../../../reserva/ReservaIcons";
 import { acharPorSlug, carregarCatalogoNacoes, formatBRL, slugify } from "../catalogo";
+import { acharDepartamento } from "../departamentos";
 import { fotoDoProduto } from "../imagens";
 import ProdutoAcoes from "../ProdutoAcoes";
 import ProdutoBarra from "../ProdutoBarra";
@@ -61,6 +62,9 @@ export default async function ProdutoNacoesPage({ params }: Props) {
     url: pagina,
     image: foto ? `${SITE_URL}${foto}` : null,
   });
+  const depCat = acharDepartamento(slugify(item.categoria));
+  const categoriaHref = depCat && !depCat.provisorio ? `/departamentos/${depCat.slug}` : "/nacoes-unidas/produtos";
+  const categoriaRotulo = depCat && !depCat.provisorio ? depCat.nome : "Produtos";
 
   return (
     <>
@@ -70,7 +74,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
         <nav className="catalogo-caminho section-inner produto-caminho" aria-label="Breadcrumb">
           <a href="/">União Farma</a>
           <IconSetaDireita size={12} />
-          <a href={`/departamentos/${slugify(item.categoria)}`}>{item.categoria}</a>
+          <a href={categoriaHref}>{categoriaRotulo}</a>
           <IconSetaDireita size={12} />
           <span>{nomeExibido}</span>
         </nav>

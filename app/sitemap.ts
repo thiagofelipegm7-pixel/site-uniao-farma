@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { getPublishedNews } from "./news-content";
 import { SITE_URL, UNITS } from "./site-config";
 import { PAGE_LAST_UPDATED, sitemapDate } from "./sitemap-dates";
-import { DEPARTAMENTOS } from "./nacoes-unidas/produtos/departamentos";
+import { departamentosPublicos } from "./nacoes-unidas/produtos/departamentos";
 import { getUnitPublicPath } from "./structured-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -30,7 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority: 0.95,
     })),
-    ...DEPARTAMENTOS.filter((d) => !d.provisorio).map((d) => ({
+    ...departamentosPublicos().map((d) => ({
       url: `${SITE_URL}/departamentos/${d.slug}`,
       lastModified: sitemapDate(PAGE_LAST_UPDATED.departamentos),
       changeFrequency: "weekly" as const,
