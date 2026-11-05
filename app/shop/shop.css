@@ -1210,6 +1210,11 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .pv-topo { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0 0 12px; }
 .pv-contagem { margin: 0 auto 0 0; color: var(--uf-navy); font-size: 14px; line-height: 20px; }
 .pv-contagem b { font-weight: 800; }
+/* "Mostrando resultados para: …" quando a busca foi corrigida (erro de digitação). Quebra de linha livre em tela estreita. */
+.pv-corrigida { margin: 0 0 12px; padding: 8px 12px; border-radius: 8px; background: #ffffff; color: var(--uf-navy); font-size: 14px; line-height: 20px; overflow-wrap: anywhere; }
+.pv-corrigida strong { font-weight: 800; }
+.shop-sugestoes-corrigida { margin: 0; padding: 8px 12px 4px; color: var(--uf-navy); font-size: 13px; line-height: 18px; overflow-wrap: anywhere; }
+.shop-sugestoes-corrigida strong { font-weight: 800; }
 .pv-filtrar { display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border: 0; border-radius: 8px; background: #ffffff; color: var(--uf-navy); font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
 .pv-ordenar { display: inline-flex; align-items: center; gap: 8px; color: var(--uf-navy); font-size: 14px; }
 .pv-ordenar span { display: none; }

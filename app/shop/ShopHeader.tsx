@@ -2,8 +2,9 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { BUSCAS_POPULARES, normalizarBusca, termosDeBusca } from "../nacoes-unidas/produtos/busca";
+import { analisarConsulta, casaConsulta, contarCasos, criarVocabulario } from "../nacoes-unidas/produtos/busca-tolerante";
 import { buildWhatsAppUrl, UNITS } from "../site-config";
 import { formatarCentavos } from "../reserva/reserva-store";
 import MarcaUniao from "./MarcaUniao";
@@ -57,9 +58,19 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
 
   const normal = normalizarBusca(termo);
   const termos = termosDeBusca(termo);
-  const resultados = normal.length >= 2 && itens ? itens.filter((item) => termos.every((t) => item.busca.includes(t))).slice(0, 6) : [];
+  const exatos = normal.length >= 2 && itens ? itens.filter((item) => termos.every((t) => item.busca.includes(t))) : [];
+  const exatosRestritos = normal.length >= 2 ? restritos.filter((item) => termos.every((t) => item.busca.includes(t))) : [];
+  // Digitou errado e nada casou? Corrige com o vocabulário do catálogo (local e instantâneo, sem IA no painel).
+  const vocab = useMemo(() => (itens && itens.length > 0 ? criarVocabulario([...itens.map((i) => i.busca), ...restritos.map((i) => i.busca)]) : null), [itens, restritos]);
+  const corrigida = useMemo(() => {
+    if (!vocab || normal.length < 3 || exatos.length > 0 || exatosRestritos.length > 0) return null;
+    const analise = analisarConsulta(vocab, termo);
+    if (analise.sintoma || !analise.corrigida || contarCasos(vocab, analise.corrigida) === 0) return null;
+    return analise.corrigida;
+  }, [vocab, normal, termo, exatos.length, exatosRestritos.length]);
+  const resultados = (corrigida ? (itens ?? []).filter((item) => casaConsulta(item.busca, corrigida)) : exatos).slice(0, 6);
   // Medicamentos com receita e controlados também aparecem na busca (lista de preços, sem cesta).
-  const resultadosRestritos = normal.length >= 2 ? restritos.filter((item) => termos.every((t) => item.busca.includes(t))).slice(0, 4) : [];
+  const resultadosRestritos = (corrigida ? restritos.filter((item) => casaConsulta(item.busca, corrigida)) : exatosRestritos).slice(0, 4);
   const mostrarPainel = foco && (normal.length === 0 || normal.length >= 2);
   const semResultado = normal.length >= 2 && itens !== null && resultados.length === 0 && resultadosRestritos.length === 0;
 
@@ -151,6 +162,11 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                 </>
               ) : resultados.length > 0 || resultadosRestritos.length > 0 ? (
                 <>
+                  {corrigida ? (
+                    <p className="shop-sugestoes-corrigida" role="status">
+                      Mostrando resultados para: <strong>{corrigida}</strong>
+                    </p>
+                  ) : null}
                   <ul aria-label="Produtos sugeridos">
                     {resultados.map((item) => (
                       <li key={item.slug}>

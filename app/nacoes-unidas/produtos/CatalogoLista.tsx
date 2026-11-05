@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { trackEvent } from "../../analytics";
 import { nomeDeExibicao } from "../../nome-exibicao";
@@ -15,8 +15,10 @@ import {
   contarItens,
   eventoBusca,
   eventoFiltro,
+  filtrarGrupos,
   FAIXAS_PRECO,
   identificarItens,
+  normalizarBusca,
   opcoesFiltro,
   ORDENS_CATALOGO,
   type FaixaPreco,
@@ -28,6 +30,7 @@ import { slugify } from "./catalogo";
 import CartaoPanvel from "./CartaoPanvel";
 import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./Paginacao";
 import { AVISO_MIP, AVISO_NBCAL, ehNbcal } from "./produto";
+import { useBuscaTolerante } from "./useBuscaTolerante";
 
 type Props = {
   /** Texto vindo do campo de busca do cabeçalho (?q=). */
@@ -57,6 +60,8 @@ function alternar<T extends string>(lista: readonly T[] | undefined, valor: T): 
  */
 export default function CatalogoLista({ grupos: gruposProps, departamento, whatsappHref, unitId, consultaInicial = "", paginaInicial = 1 }: Props) {
   const [grupos, setGrupos] = useState(gruposProps);
+  // Falso até o catálogo inteiro estar na tela: a correção de digitação só vale com a lista completa.
+  const [carregado, setCarregado] = useState(false);
   useEffect(() => {
     if (gruposProps.length > 0) return;
     let cancel = false;
@@ -92,13 +97,14 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
           }
           setGrupos([...gruposCarregados]);
         }
+        if (!cancel) setCarregado(true);
       } catch (e) {
         console.error(e);
       }
     })();
     return () => { cancel = true; };
   }, [gruposProps, departamento]);
-  const base = identificarItens(grupos);
+  const base = useMemo(() => identificarItens(grupos), [grupos]);
   const opcoes = opcoesFiltro(base);
   // A página é estática: o termo vem da barra de endereço (?q=fralda) depois que a página abre.
   const [consulta, setConsulta] = useState(consultaInicial);
@@ -116,7 +122,17 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   const gatilhoFiltroRef = useRef<HTMLButtonElement>(null);
   const filtroEnviado = useRef("");
 
-  const visiveis = aplicarCatalogo(base, { consulta, ordem, ...selecao });
+  // Erro de digitação: quando a busca exata não acha nada, tenta corrigir (local primeiro, IA só se precisar).
+  const completo = gruposProps.length > 0 || carregado;
+  const textosBusca = useMemo(
+    () => (completo ? base.flatMap((grupo) => grupo.itens.map((item) => normalizarBusca(`${item.nome} ${item.lab} ${grupo.categoria}`))) : null),
+    [completo, base],
+  );
+  const totalExato = useMemo(() => (consulta.trim() ? filtrarGrupos(base, consulta).reduce((soma, g) => soma + g.itens.length, 0) : 1), [base, consulta]);
+  const tolerante = useBuscaTolerante({ textos: textosBusca, consulta, totalExato });
+  const consultasAlternativas = tolerante.tipo === "corrigida" ? tolerante.consultas : undefined;
+
+  const visiveis = aplicarCatalogo(base, { consulta, consultasAlternativas, ordem, ...selecao });
   const total = contarItens(visiveis);
   const [pagina, setPagina] = useState(paginaInicial);
   const totalPaginas = Math.max(1, Math.ceil(total / POR_PAGINA));
@@ -301,7 +317,8 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
           <div className="pv-topo" role="toolbar" aria-label="Filtrar e ordenar">
             <p className="pv-contagem">
               <b>{total}</b> {total === 1 ? "produto" : "produtos"}
-              {buscando ? <> para “{consulta.trim()}” · <a href="/nacoes-unidas/produtos">Limpar busca</a></> : null}
+              {buscando && !consultasAlternativas ? <> para “{consulta.trim()}” · <a href="/nacoes-unidas/produtos">Limpar busca</a></> : null}
+              {consultasAlternativas ? <> · <a href="/nacoes-unidas/produtos">Limpar busca</a></> : null}
             </p>
             <button
               ref={gatilhoFiltroRef}
@@ -328,10 +345,22 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
             </label>
           </div>
 
+      {tolerante.tipo === "corrigida" ? (
+        <p className="pv-corrigida" role="status">
+          Mostrando resultados para: <strong>{tolerante.rotulo}</strong>
+        </p>
+      ) : null}
+
       {total === 0 ? (
         <div className="catalogo-vazio">
           <p>
-            {buscando
+            {buscando && tolerante.tipo === "sintoma"
+              ? "Para escolher um remédio para o que você está sentindo, converse com o farmacêutico. Ele orienta com segurança e confirma o que a loja tem."
+              : buscando && tolerante.procurando
+                ? "Procurando o que você quis dizer…"
+                : consultasAlternativas
+                ? "Não encontramos produtos com esses filtros. Limpe os filtros ou navegue pelas categorias."
+                : buscando
               ? `Não encontramos “${consulta.trim()}”. Confira a digitação, use termos mais amplos ou navegue pelas categorias.`
               : "Não encontramos produtos com esses filtros. Limpe os filtros ou navegue pelas categorias."}
           </p>

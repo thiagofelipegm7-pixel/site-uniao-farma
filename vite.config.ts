@@ -17,6 +17,8 @@ const localBindingConfig = {
   main: "./worker/index.ts",
   compatibility_date: "2026-08-06",
   compatibility_flags: ["nodejs_compat", "global_fetch_strictly_public"],
+  // Workers AI: a busca tolerante (app/api/busca-ia) usa o binding AI. Sem login nem chave: vale a conta do deploy.
+  ai: { binding: "AI" },
   d1_databases: d1
     ? [
         {
