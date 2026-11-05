@@ -127,10 +127,13 @@ def sem_data(d):
 
 
 def mudou_de_verdade(cat_antigo, rx_antigo, cat_novo, rx_novo):
-    """True se houve mudança de itens/preços/listas, ou se o dia dos dados mudou (a data mostrada no site fica em dia)."""
+    """True se houve mudança de itens/preços/listas ou se a data dos dados mudou.
+
+    A data (geradoEm) é publicada em /api/catalogo-status e no site, e é o que o monitor usa para saber se o estoque está em dia:
+    por isso cada envio novo e válido do PC vira commit, mesmo sem mudança de preço (no máximo 5 por dia)."""
     if sem_data(cat_antigo) != sem_data(cat_novo) or sem_data(rx_antigo) != sem_data(rx_novo):
         return True
-    return (cat_antigo.get("geradoEm") or "")[:10] != (cat_novo.get("geradoEm") or "")[:10]
+    return (cat_antigo.get("geradoEm") or "") != (cat_novo.get("geradoEm") or "")
 
 
 def ler(p):
@@ -183,8 +186,16 @@ def saida_github(chave, valor):
             f.write(f"{chave}={valor}\n")
 
 
+def anotar(nivel, titulo, texto):
+    """Anotação do GitHub Actions (vira linha na página da execução e no painel /interno/catalogo, que lê pela API pública)."""
+    if os.environ.get("GITHUB_ACTIONS"):
+        msg = str(texto).replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A")[:600]
+        print(f"::{nivel} title={titulo}::{msg}")
+
+
 def resumo(texto):
     print(texto)
+    anotar("notice", "Catálogo", texto)
     if os.environ.get("GITHUB_STEP_SUMMARY"):
         with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
             f.write(texto + "\n\n")
@@ -241,7 +252,12 @@ if __name__ == "__main__":
         sys.exit(main(sys.argv[1:]))
     except Recusa as e:
         print(f"RECUSADO: {e}", file=sys.stderr)
+        anotar("error", "Atualização recusada", e)
         if os.environ.get("GITHUB_STEP_SUMMARY"):
             with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as f:
                 f.write(f"**Atualização recusada (o site segue com o catálogo anterior):** {e}\n")
+        sys.exit(1)
+    except Exception as e:  # erro inesperado: também aparece no painel, e nada é publicado
+        print(f"ERRO: {type(e).__name__}: {e}", file=sys.stderr)
+        anotar("error", "Erro inesperado na sincronização", f"{type(e).__name__}: {e}")
         sys.exit(1)

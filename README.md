@@ -81,6 +81,13 @@ cp .env.example .env
 - `STAFF_USER`: Nome de usuário da área interna da equipe (padrão: `uniao`).
 - `STAFF_PASSWORD`: Senha de acesso para operadores.
 - `STAFF_SECRET`: Chave secreta para assinatura criptográfica da sessão HMAC.
+- `GITHUB_DISPATCH_TOKEN` (opcional): token fino do GitHub (só este repositório, permissão *Actions: Read and write*) que liga o botão "Forçar atualização" do painel `/interno/catalogo`. Sem ele o botão fica desligado. Configure com `wrangler secret put GITHUB_DISPATCH_TOKEN` (nunca no repositório).
+
+### Catálogo da loja e painel interno
+- O PC da loja envia o export ao Worker `dmaster-catalogo`; o workflow `catalogo-sync.yml` (08h15, 11h15, 14h15, 17h15 e 20h15 de Brasília) regenera os dados do site com validações e faz commit.
+- `/interno/catalogo` (mesma sessão da equipe de `/interno`, noindex) mostra idade e fonte dos dados, últimas sincronizações com o motivo de cada recusa, uso da IA (só contagens, tabela D1 `ia_uso`) e o botão "Forçar atualização".
+- `catalogo-monitor.yml` abre/atualiza a issue "Estoque do site desatualizado" quando os dados passam de 8 h (seg-sáb, 9h-21h) ou a sincronização falha, e a fecha quando volta ao normal.
+- `ops/pc-terminal02/` tem o script que endurece a tarefa agendada do PC da loja.
 
 ### Variáveis da Meta / WhatsApp Business API
 - `WHATSAPP_VERIFY_TOKEN`: Token de verificação do webhook da Meta.

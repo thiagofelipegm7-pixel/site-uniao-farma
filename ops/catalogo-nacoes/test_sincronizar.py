@@ -112,10 +112,13 @@ class Saida(unittest.TestCase):
 
 
 class Mudanca(unittest.TestCase):
-    def test_so_a_hora_mudou_no_mesmo_dia_nao_publica(self):
+    def test_so_a_hora_mudou_publica_a_data_nova(self):
         novo = copy.deepcopy(catalogo()); novo["geradoEm"] = "2026-10-31T23:00:00"
         rx = copy.deepcopy(restritos()); rx["geradoEm"] = novo["geradoEm"]
-        self.assertFalse(S.mudou_de_verdade(catalogo(), restritos(), novo, rx))
+        self.assertTrue(S.mudou_de_verdade(catalogo(), restritos(), novo, rx))
+
+    def test_nada_mudou_nao_publica(self):
+        self.assertFalse(S.mudou_de_verdade(catalogo(), restritos(), catalogo(), restritos()))
 
     def test_novo_dia_atualiza_a_data(self):
         novo = catalogo(); novo["geradoEm"] = "2026-11-01T08:00:00"

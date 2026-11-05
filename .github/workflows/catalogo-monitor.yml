@@ -1,0 +1,70 @@
+name: Monitor do estoque do site
+
+# Vigia a cadeia PC -> Worker -> repositório -> site e abre (ou atualiza) a issue "Estoque do site desatualizado".
+# O GitHub avisa o dono do repositório por e-mail quando a issue é aberta ou comentada.
+# Roda: logo depois de cada sincronização, e duas vezes por dia (09h30 e 18h30 de Brasília) para pegar PC parado ou deploy que não saiu.
+on:
+  schedule:
+    - cron: "30 12,21 * * *"
+  workflow_run:
+    workflows: ["Sincronizar catálogo da loja"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: catalogo-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TITULO: "Estoque do site desatualizado"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Conferir
+        id: conferir
+        env:
+          CATALOGO_READ_TOKEN: ${{ secrets.CATALOGO_READ_TOKEN }}
+          RUN_CONCLUSAO: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.conclusion || '' }}
+          RUN_URL: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.html_url || '' }}
+        run: python3 ops/catalogo-nacoes/monitor.py
+
+      - name: Abrir, atualizar ou fechar a issue
+        env:
+          PROBLEMA: ${{ steps.conferir.outputs.problema }}
+        run: |
+          set -euo pipefail
+          numero=$(gh issue list --state open --search "\"$TITULO\" in:title" --json number,title --jq "map(select(.title==\"$TITULO\"))[0].number // empty")
+          if [ "$PROBLEMA" = "true" ]; then
+            if [ -z "$numero" ]; then
+              gh issue create --title "$TITULO" --body-file /tmp/monitor-corpo.md
+              echo "::error title=Estoque do site desatualizado::Issue aberta. Veja o relatório no log."
+            else
+              gh issue edit "$numero" --body-file /tmp/monitor-corpo.md
+              ultimo=$(gh issue view "$numero" --json comments,createdAt --jq '([.comments[].createdAt] + [.createdAt]) | max')
+              if [ "$(date -u -d "$ultimo" +%s)" -lt "$(date -u -d '24 hours ago' +%s)" ]; then
+                gh issue comment "$numero" --body "Continua desatualizado. Relatório atualizado no texto da issue."
+              fi
+              echo "::error title=Estoque do site desatualizado::Issue #$numero segue aberta."
+            fi
+            exit 1
+          fi
+          if [ -n "$numero" ]; then
+            gh issue comment "$numero" --body "Voltou ao normal. $(sed -n 3,5p /tmp/monitor-corpo.md | tr '\n' ' ')"
+            gh issue close "$numero"
+          fi

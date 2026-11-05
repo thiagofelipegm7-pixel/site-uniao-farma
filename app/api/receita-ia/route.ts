@@ -1,4 +1,5 @@
 import { env } from "cloudflare:workers";
+import { registrarUsoIA } from "../../ia-uso";
 import { criarLimitador, conteudoDaRespostaIA } from "../../busca-ia-nucleo";
 import {
   limparRespostaReceita,
@@ -55,6 +56,7 @@ async function dentroDoLimiteCompartilhado(visitante: string, max: number, janel
 type Ia = { run(modelo: string, entrada: Record<string, unknown>): Promise<unknown> };
 
 function responder(corpo: Record<string, unknown>, status: number, estado: string) {
+  registrarUsoIA("receita", estado);
   return Response.json(corpo, { status, headers: { "cache-control": "no-store", "x-receita-ia": estado } });
 }
 

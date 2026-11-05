@@ -1,4 +1,5 @@
 import { env } from "cloudflare:workers";
+import { registrarUsoIA } from "../../ia-uso";
 import {
   candidatosValidos,
   conteudoDaRespostaIA,
@@ -26,6 +27,7 @@ type Ia = { run(modelo: string, entrada: Record<string, unknown>): Promise<unkno
 const VAZIA: RespostaBuscaIA = { termos: [], sintoma: false };
 
 function responder(corpo: RespostaBuscaIA, extra: Record<string, string> = {}) {
+  registrarUsoIA("busca", extra["x-busca-ia"]);
   return Response.json(corpo, { headers: { "cache-control": "no-store", ...extra } });
 }
 
