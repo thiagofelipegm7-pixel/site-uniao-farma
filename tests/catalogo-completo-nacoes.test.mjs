@@ -342,3 +342,13 @@ test("controlados: tarja pela Portaria 344 e ilustração com a faixa certa", as
     if (ilu.generico) assert.equal(i.generico === true, true, `${i.nome}: faixa "Genérico" em remédio de referência`);
   }
 });
+
+test("apresentação crua vira quantidade legível no cartão restrito", async () => {
+  const { quantidadeLegivel: q } = await import("../app/nacoes-unidas/produtos/quantidade.ts");
+  assert.equal(q("CX 24CPR NOVA QUIMICA"), "24 comprimido(s)");
+  assert.equal(q("cx 6 cap"), "6 cápsula(s)");
+  assert.equal(q("120 DOSES 6ML"), "120 dose(s)");
+  assert.equal(q("30ML"), "30 mililitro(s)");
+  assert.equal(q("***"), null);
+  assert.equal(q(null), null);
+});
