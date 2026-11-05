@@ -4,6 +4,7 @@
 /* eslint-disable @next/next/no-img-element -- Imagem estática pequena, igual ao restante do catálogo. */
 import { useEffect, useState } from "react";
 import { ContentSiteFooter } from "../../ContentSiteChrome";
+import ReservarBotao from "../../reserva/ReservarBotao";
 import ShopTopo from "../../shop/ShopTopo";
 import { buildWhatsAppUrl, getHoursSentence, UNITS } from "../../site-config";
 import { formatBRL, formatDataDosDados } from "./catalogo";
@@ -36,7 +37,7 @@ const TEXTOS: Record<TipoRestrito, { titulo: string; h1: string; intro: string; 
     titulo: "Medicamentos com receita: lista de preços | União Farma Nações Unidas",
     h1: "Medicamentos com receita: lista de preços",
     intro:
-      "Lista de preços informativa dos medicamentos de venda sob prescrição médica da loja Nações Unidas. Não há venda online nem cesta: a compra é feita na loja ou combinada pelo WhatsApp, sempre com a receita.",
+      "Lista de preços informativa dos medicamentos de venda sob prescrição médica da loja Nações Unidas. Pedido pelo WhatsApp, sem pagamento no site: monte a cesta e retire na loja apresentando a receita.",
     rota: "/nacoes-unidas/produtos/receita",
     vazio: "Nenhum medicamento encontrado nesta lista.",
     caminho: "Com receita",
@@ -45,7 +46,7 @@ const TEXTOS: Record<TipoRestrito, { titulo: string; h1: string; intro: string; 
     titulo: "Medicamentos controlados: lista de preços | União Farma Nações Unidas",
     h1: "Medicamentos controlados: lista de preços",
     intro:
-      "Lista de preços informativa dos medicamentos controlados (Portaria SVS/MS 344/98) da loja Nações Unidas. Não há venda online nem cesta: a compra é feita na loja ou combinada pelo WhatsApp, com a receita retida pela farmácia.",
+      "Lista de preços informativa dos medicamentos controlados (Portaria SVS/MS 344/98) da loja Nações Unidas. Pedido pelo WhatsApp, sem pagamento no site: monte a cesta e retire na loja; a receita fica retida pela farmácia.",
     rota: "/nacoes-unidas/produtos/controlados",
     vazio: "Nenhum medicamento controlado encontrado nesta lista.",
     caminho: "Controlados",
@@ -54,7 +55,7 @@ const TEXTOS: Record<TipoRestrito, { titulo: string; h1: string; intro: string; 
     titulo: "Consulte o farmacêutico: lista de preços | União Farma Nações Unidas",
     h1: "Consulte o farmacêutico: lista de preços",
     intro:
-      "Itens da loja Nações Unidas cujo enquadramento (com ou sem receita) ainda está sendo confirmado. Os preços são informativos. Não há venda online nem cesta: antes de comprar, converse com o farmacêutico na loja ou pelo WhatsApp.",
+      "Itens da loja Nações Unidas cujo enquadramento (com ou sem receita) ainda está sendo confirmado. Os preços são informativos. Não há cesta para estes itens: antes de comprar, converse com o farmacêutico na loja ou pelo WhatsApp.",
     rota: "/nacoes-unidas/produtos/consulte-o-farmaceutico",
     vazio: "Nenhum item encontrado nesta lista.",
     caminho: "Consulte o farmacêutico",
@@ -106,6 +107,17 @@ export function Cartao({ item }: { item: ItemRestrito }) {
         <p className="restrito-ilustrativa">{NOTA_IMAGEM}</p>
       </div>
       <p className="catalogo-preco">{item.preco !== null ? formatBRL(item.preco) : "Consultar"}</p>
+      {item.tipo !== "consulte" && item.preco !== null && item.preco > 0 ? (
+        <ReservarBotao
+          unitId={nacoes.id}
+          nome={item.nomeExibicao ?? item.nome}
+          precoCentavos={Math.round(item.preco * 100)}
+          foto={imagemIlustrativa(item)}
+          source={`produtos_nacoes_${item.tipo}`}
+          receita={item.controlado ? "controlado" : "receita"}
+          compacto
+        />
+      ) : null}
     </li>
   );
 }
