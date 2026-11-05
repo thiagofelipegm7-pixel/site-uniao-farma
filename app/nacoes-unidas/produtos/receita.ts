@@ -8,7 +8,7 @@ import { normalizarBusca } from "./busca";
  * Princípio ativo, registro (RMS) e tarja só aparecem quando vêm de vínculo seguro com a CMED/Anvisa (ou, no caso do ativo dos controlados, da
  * Portaria 344). Nada é inventado: sem fonte, o campo some.
  */
-export const IMAGEM_GENERICA = "/produtos/generica-ilustrativa.webp";
+export const IMAGEM_GENERICA = "/ilustrativas/neutra.webp"; // caixa branca sem faixa: "consulte o farmacêutico" ainda não tem enquadramento
 export const AVISO_RECEITA = "Venda sob prescrição médica";
 export const AVISO_RETENCAO = "Venda sob prescrição médica com retenção da receita";
 export const AVISO_CONTROLADO = "Venda sob prescrição médica com retenção da receita";

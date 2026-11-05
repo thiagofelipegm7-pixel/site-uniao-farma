@@ -77,8 +77,8 @@ test("lista restrita: sem oferta, % OFF, preço riscado ou destaque; cesta só p
     assert.doesNotMatch(src, /ReservaFluxo|Adicionar|<del|<s>|line-through|% ?OFF|desconto|destaque|banner|isMIP/i, f);
   }
   const lista = await read("app/nacoes-unidas/produtos/ListaRestrita.tsx");
-  assert.match(lista, /\{item\.aviso\}/);
-  assert.match(lista, /SELO_CONTROLADO/);
+  // Aviso e selo saem do cartão: a imagem ilustrativa já traz a faixa de prescrição.
+  assert.ok(!lista.includes("item.aviso") && !lista.includes("SELO_CONTROLADO"));
   // Cesta nos itens com receita e controlados (retirada na loja); "consulte o farmacêutico" fica sem cesta.
   assert.match(lista, /item\.tipo !== "consulte" && item\.preco !== null/);
   assert.match(lista, /receita=\{item\.controlado \? "controlado" : "receita"\}/);
@@ -107,8 +107,8 @@ test("lista restrita: sem oferta, % OFF, preço riscado ou destaque; cesta só p
   assert.match(rxPage, /ListaRestrita/);
   assert.match(ctPage, /ListaRestrita/);
   assert.match(await read("app/nacoes-unidas/produtos/consulte-o-farmaceutico/page.tsx"), /ListaRestrita/);
-  // campos da ficha (tarja, RMS, princípio ativo, fabricante, retenção, como comprar) sem texto de preço promocional
-  for (const campo of ["Princípio ativo", "Fabricante", "Registro MS (RMS)", "Tarja", "Retenção da receita", "COMO_COMPRAR"]) assert.ok(lista.includes(campo), campo);
+  // O cartão não traz mais o bloco "Detalhes" (ficha com princípio ativo, RMS, tarja e retenção): só nome, marca, preço, aviso de venda sob prescrição e cesta.
+  for (const campo of ["Princípio ativo", "Registro MS (RMS)", "Retenção da receita", "pv-detalhes"]) assert.ok(!lista.includes(campo), campo);
 });
 
 test("tarja pela lista da Portaria 344 e retenção nunca afirmada sem fonte", async () => {
@@ -255,7 +255,7 @@ test("receita e controlados: cada medicamento recebe a ilustração da sua forma
   assert.equal(imagemIlustrativa({ ...base, nome: "X 500MG CX 30 COMP", tarja: "vermelha-retencao", retencao: true }), "/ilustrativas/cpr-ref-retencao.webp");
   assert.equal(imagemIlustrativa({ ...base, nome: "ALPRAZOLAM 0.5MG CX 30CPR", tipo: "controlados", tarja: "preta", retencao: true, controlado: true, generico: true }), "/ilustrativas/cpr-gen-preta.webp");
   assert.equal(imagemIlustrativa({ ...base, nome: "X GOTAS 20ML", tipo: "controlados", tarja: "preta", retencao: true, controlado: true }), "/ilustrativas/got-ref-preta.webp");
-  assert.equal(imagemIlustrativa({ ...base, nome: "QUALQUER", tipo: "consulte", tarja: null, retencao: null }), "/produtos/generica-ilustrativa.webp");
+  assert.equal(imagemIlustrativa({ ...base, nome: "QUALQUER", tipo: "consulte", tarja: null, retencao: null }), "/ilustrativas/neutra.webp");
 });
 
 test("acesso livre: a busca do cabeçalho e o menu levam aos medicamentos com receita e controlados", async () => {
