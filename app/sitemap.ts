@@ -30,7 +30,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly" as const,
       priority: 0.95,
     })),
-    ...DEPARTAMENTOS.filter((d) => d.slug !== "categoria-a-conferir").map((d) => ({
+    ...DEPARTAMENTOS.filter((d) => !d.provisorio).map((d) => ({
       url: `${SITE_URL}/departamentos/${d.slug}`,
       lastModified: sitemapDate(PAGE_LAST_UPDATED.departamentos),
       changeFrequency: "weekly" as const,

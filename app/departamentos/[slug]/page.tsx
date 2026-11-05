@@ -30,8 +30,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: { absolute: titulo },
     description: descricao,
     alternates: { canonical: dep ? `/departamentos/${dep.slug}` : "/nacoes-unidas/produtos" },
-    // "Categoria a conferir" é provisória (itens ainda sem categoria): fica fora do Google e do sitemap.
-    robots: { index: dep?.slug !== "categoria-a-conferir", follow: true },
+    // Departamento provisório (itens ainda sem categoria) fica fora do Google e do sitemap.
+    robots: { index: !dep?.provisorio, follow: true },
     openGraph: { title: titulo, description: descricao, url: `${SITE_URL}/departamentos/${dep?.slug ?? ""}`, type: "website", images: ["/og-nacoes-unidas.jpg"] },
   };
 }
@@ -51,6 +51,7 @@ export default async function DepartamentoPage({ params }: Props) {
     .itens.filter((i) => slugify(i.categoria) === dep.slug)
     .sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"))
     .map((i) => ({ nome: nomeDeExibicao(i.nome), lab: i.lab, isMIP: i.isMIP, precoFmt: formatBRL(i.preco), preco: i.preco, foto: fotoDoProduto(i.nome), slug: slugify(i.nome) }));
+  if (dep.provisorio && itens.length === 0) notFound(); // nada para conferir: a página não existe
   const grupos: GrupoBusca[] = [{ categoria: dep.nome, id: dep.slug, itens }];
   const pagina = `${SITE_URL}/departamentos/${dep.slug}`;
   const structuredData = getPageStructuredData({

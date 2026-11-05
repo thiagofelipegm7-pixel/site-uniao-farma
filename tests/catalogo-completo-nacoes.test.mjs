@@ -213,7 +213,7 @@ test("departamentos: cada categoria do catálogo tem a sua página e o menu apon
   for (const item of carregarCatalogoNacoes().itens) assert.ok(acharDepartamento(slugify(item.categoria)), item.categoria);
   const gaveta = await read("app/shop/DepartamentosGaveta.tsx");
   const tiles = await read("app/shop/ShopSections.tsx");
-  for (const d of DEPARTAMENTOS) {
+  for (const d of DEPARTAMENTOS.filter((x) => !x.provisorio)) {
     assert.ok(gaveta.includes(`/departamentos/${d.slug}`), `gaveta: ${d.slug}`);
     assert.ok(tiles.includes(`/departamentos/${d.slug}`), `carrossel: ${d.slug}`);
   }
