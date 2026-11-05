@@ -13,6 +13,8 @@ import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, Ico
 import DestaquesSemana from "../shop/DestaquesSemana";
 import { atualizarReserva, definirQtd, exigeReceita, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
+import LerReceita from "../receita-foto/LerReceita";
+import BotaoReceita from "../receita-foto/BotaoReceita";
 
 type Passo = 1 | 2 | 3;
 const ROTULOS = ["Itens", "Entrega e forma de receber", "Finalizar"] as const;
@@ -95,7 +97,9 @@ export default function ReservaFluxo() {
           <strong>Sua cesta ainda está vazia. Bora escolher?</strong>
           <p>Escolha seus produtos e pague só quando retirar.</p>
           <a className="fluxo-botao" href="/nacoes-unidas/produtos">Ver produtos</a>
+          <BotaoReceita classe="receita-gatilho-bloco" />
         </div>
+        <LerReceita />
       </div>
     );
   }
@@ -164,6 +168,7 @@ export default function ReservaFluxo() {
         {["Cesta", "Entrega", "Finalizar"].map((r, i) => <li key={r} className={i + 1 <= passo ? "is-on" : ""}>{r}</li>)}
       </ol>
       <p className="fluxo-passo">Passo {passo} de 3 · {ROTULOS[passo - 1]}{passo === 1 ? ` · ${total} ${total === 1 ? "item" : "itens"} na cesta` : ""}</p>
+      {passo === 1 ? <p className="pv-receita-atalho"><BotaoReceita /><span>Foto da receita: achamos os remédios na loja.</span></p> : null}
 
       {passo === 1 ? (
         <div className="fluxo-conteudo fluxo-conteudo-cesta">
@@ -412,6 +417,7 @@ export default function ReservaFluxo() {
           </div>
         </div>
       ) : null}
+      <LerReceita />
     </div>
   );
 }

@@ -20,10 +20,12 @@ type Props = {
   receita?: "receita" | "controlado";
   /** "cesta": botão redondo com sacola e "+" no canto do cartão de produto (padrão da listagem). */
   variante?: "cesta";
+  /** Texto do botão grande (padrão "Adicionar"). */
+  rotulo?: string;
 };
 
 /** Botão "+" que vira contador depois do primeiro toque (como no protótipo). Sem texto do produto no analytics. */
-export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos, foto, source = "catalogo", compacto = false, receita, variante }: Props) {
+export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos, foto, source = "catalogo", compacto = false, receita, variante, rotulo = "Adicionar" }: Props) {
   const estado = useReserva();
   const id = idDoItem(unitId, nome);
   const qtd = qtdDoItem(estado, id);
@@ -47,7 +49,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
         ) : (
           <>
             <IconMais size={22} />
-            {compacto ? null : <span>Adicionar</span>}
+            {compacto ? null : <span>{rotulo}</span>}
           </>
         )}
       </button>

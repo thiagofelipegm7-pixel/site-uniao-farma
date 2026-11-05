@@ -8,6 +8,8 @@ import { analisarConsulta, casaConsulta, contarCasos, criarVocabulario } from ".
 import { buildWhatsAppUrl, UNITS } from "../site-config";
 import { formatarCentavos } from "../reserva/reserva-store";
 import MarcaUniao from "./MarcaUniao";
+import BotaoVoz from "./BotaoVoz";
+import BotaoReceita from "../receita-foto/BotaoReceita";
 import ReservaSacola from "../reserva/ReservaSacola";
 import { IconLupa, IconMenu, IconPino, IconWhats } from "../reserva/ReservaIcons";
 import LojaPicker from "./LojaPicker";
@@ -39,7 +41,9 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   const [foco, setFoco] = useState(false);
   const [itens, setItens] = useState<Sugestao[] | null>(null);
   const [restritos, setRestritos] = useState<SugestaoRestrita[]>([]);
+  const [vozAtiva, setVozAtiva] = useState(false);
   const carregando = useRef(false);
+  const formRef = useRef<HTMLFormElement>(null);
   const painelRef = useRef<HTMLDivElement>(null);
 
   // Busca o catálogo uma vez, só quando o cliente toca no campo.
@@ -71,7 +75,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   const resultados = (corrigida ? (itens ?? []).filter((item) => casaConsulta(item.busca, corrigida)) : exatos).slice(0, 6);
   // Medicamentos com receita e controlados também aparecem na busca (lista de preços, sem cesta).
   const resultadosRestritos = (corrigida ? restritos.filter((item) => casaConsulta(item.busca, corrigida)) : exatosRestritos).slice(0, 4);
-  const mostrarPainel = foco && (normal.length === 0 || normal.length >= 2);
+  const mostrarPainel = foco && !vozAtiva && (normal.length === 0 || normal.length >= 2);
   const semResultado = normal.length >= 2 && itens !== null && resultados.length === 0 && resultadosRestritos.length === 0;
 
   // Na página de produtos, a caixa já abre com o termo buscado (?q=fralda).
@@ -107,6 +111,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
           </a>
         ) : null}
         <form
+          ref={formRef}
           className="shop-busca"
           role="search"
           action="/nacoes-unidas/produtos"
@@ -141,6 +146,16 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
             autoComplete="off"
             enterKeyHint="search"
           />
+          <BotaoVoz
+            contexto="cabecalho"
+            onAtividade={setVozAtiva}
+            onTexto={(texto) => {
+              setTermo(texto);
+              carregar();
+              // Deixa o cliente ver o que foi entendido por um instante e então busca (a busca tolerante e a IA ajudam a achar).
+              window.setTimeout(() => formRef.current?.requestSubmit(), 450);
+            }}
+          />
           <button type="submit" aria-label="Buscar">
             <IconLupa size={22} />
           </button>
@@ -148,6 +163,9 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
             <div className="shop-sugestoes" id="shop-sugestoes" ref={painelRef}>
               {normal.length === 0 ? (
                 <>
+                  <div className="shop-sugestoes-receita">
+                    <BotaoReceita aoAbrir={() => setFoco(false)} classe="receita-gatilho-bloco" rotulo="Tenho uma receita: ler a foto" />
+                  </div>
                   <p className="shop-sugestoes-titulo">Buscas populares</p>
                   <ul>
                     {BUSCAS_POPULARES.map((valor, i) => (

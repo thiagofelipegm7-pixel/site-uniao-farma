@@ -8,6 +8,7 @@ import { trackEvent } from "../../analytics";
 import { nomeDeExibicao } from "../../nome-exibicao";
 import { IconFechar, IconFiltro } from "../../reserva/ReservaIcons";
 import ReservarBotao from "../../reserva/ReservarBotao";
+import BotaoReceita from "../../receita-foto/BotaoReceita";
 import { precoParaCentavos } from "../../reserva/reserva-store";
 import {
   aplicarCatalogo,
@@ -345,6 +346,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
               </select>
             </label>
           </div>
+          <p className="pv-receita-atalho"><BotaoReceita /><span>Foto da receita: achamos os remédios na loja.</span></p>
 
       {tolerante.tipo === "corrigida" ? (
         <p className="pv-corrigida" role="status">

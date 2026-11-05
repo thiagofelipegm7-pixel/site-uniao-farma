@@ -1,0 +1,61 @@
+/* Busca por voz: botão de microfone dentro da caixa de busca e o aviso logo abaixo. */
+.shop-busca .shop-voz,
+.voz-campo .shop-voz {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: 0 0.125rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--uf-navy, #0c2f4d);
+  cursor: pointer;
+  order: 2;
+  position: relative;
+}
+.shop-voz:hover { background: #e8f2f0; }
+.shop-voz:focus-visible { outline: 3px solid var(--uf-action, #0a7a5a); outline-offset: 1px; }
+.shop-busca .shop-voz.is-ouvindo,
+.voz-campo .shop-voz.is-ouvindo { background: #c62828; color: #ffffff; }
+.shop-voz.is-ouvindo::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 2px solid #c62828;
+  border-radius: 50%;
+  animation: voz-pulso 1.2s ease-out infinite;
+}
+@keyframes voz-pulso {
+  from { opacity: 0.8; transform: scale(0.85); }
+  to { opacity: 0; transform: scale(1.25); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .shop-voz.is-ouvindo::after { animation: none; opacity: 0.6; }
+}
+.shop-voz-aviso {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  left: 0;
+  z-index: 4600;
+  box-sizing: border-box;
+  padding: 0.625rem 0.75rem;
+  border: 1px solid #d3e2df;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(13, 20, 19, 0.12);
+  color: #0d1413;
+  font-size: 0.875rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+.shop-voz-aviso.is-erro { border-color: #c62828; background: #fff5f5; color: #7a1010; }
+
+/* Caixas de busca das listas (medicamentos, receita, controlados): o campo ganha o microfone ao lado. */
+.voz-campo { position: relative; display: flex; align-items: center; gap: 0.25rem; }
+.voz-campo > input { flex: 1; min-width: 0; }
+.voz-campo .shop-voz { border: 1px solid #6b8b86; background: #ffffff; width: 2.75rem; height: 2.75rem; margin: 0; }

@@ -10,6 +10,7 @@ import CartaoPanvel from "./CartaoPanvel";
 import { termosDeBusca } from "./busca";
 import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./Paginacao";
 import ShopTopo from "../../shop/ShopTopo";
+import BotaoVoz from "../../shop/BotaoVoz";
 import { buildWhatsAppUrl, getHoursSentence, UNITS } from "../../site-config";
 import { formatBRL } from "./catalogo";
 import {
@@ -157,7 +158,10 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
           </div>
           <form method="get" action={t.rota} className="catalogo-busca" role="search">
             <label htmlFor="restrito-q">Buscar nesta lista</label>
-            <input key={consulta} id="restrito-q" name="q" type="search" defaultValue={consulta} maxLength={80} placeholder="Nome ou princípio ativo" />
+            <div className="voz-campo">
+              <input key={consulta} id="restrito-q" name="q" type="search" defaultValue={consulta} maxLength={80} placeholder="Nome ou princípio ativo" />
+              <BotaoVoz contexto={tipo} onTexto={(texto) => { window.location.assign(`${t.rota}?q=${encodeURIComponent(texto)}`); }} />
+            </div>
             <button type="submit">Buscar</button>
           </form>
           <p className="catalogo-contagem" aria-live="polite">
