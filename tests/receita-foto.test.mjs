@@ -122,10 +122,10 @@ test("receita: a foto é reduzida mantendo a proporção e nunca ampliada", asyn
 
 test("receita: a rota não guarda nada, não vaza erro em cabeçalho e o diagnóstico temporário saiu", async () => {
   const rota = await lerTexto("app/api/receita-ia/route.ts");
-  assert.doesNotMatch(rota, /console\.|\.insert|INSERT|KV|R2|waitUntil/);
-  const gravacoes = rota.match(/\.put\([^\n]*/g) ?? [];
-  assert.equal(gravacoes.length, 1, "a única gravação é o contador do limite");
-  assert.match(gravacoes[0], /String\(atual \+ 1\)/);
+  assert.doesNotMatch(rota, /console\.|\.insert|KV|R2|waitUntil/);
+  assert.doesNotMatch(rota, /\.put\(/);
+  assert.match(rota, /limite_receita \(chave TEXT NOT NULL, janela INTEGER NOT NULL, n INTEGER NOT NULL/);
+  assert.doesNotMatch(rota, /INSERT INTO limite_receita \([^)]*(imagem|bytes|foto)/);
   assert.match(rota, /no-store/);
   const busca = await lerTexto("app/api/busca-ia/route.ts");
   assert.doesNotMatch(busca, /x-busca-diag/);

@@ -19,17 +19,34 @@ const TEMPO_RESERVA_MS = 12_000;
 const limitePorVisitante = criarLimitador(6, 600_000);
 const limiteGeral = criarLimitador(300, 3_600_000);
 
-/** Contador por visitante guardado no cache do datacenter (compartilhado entre as instâncias do Worker). Guarda só um número por janela, nunca a foto. Se o cache falhar, deixa passar e o limite local continua valendo. */
-async function dentroDoLimiteCompartilhado(origemUrl: string, visitante: string, max: number, janelaMs: number): Promise<boolean> {
+type Banco = {
+  prepare(consulta: string): { bind(...valores: unknown[]): { first<T = unknown>(): Promise<T | null>; run(): Promise<unknown> } };
+};
+let tabelaPronta = false;
+
+async function resumoDoVisitante(visitante: string): Promise<string> {
+  const bytes = new TextEncoder().encode(`uf-receita|${visitante}`);
+  const hash = new Uint8Array(await crypto.subtle.digest("SHA-256", bytes));
+  return Array.from(hash.slice(0, 12), (b) => b.toString(16).padStart(2, "0")).join("");
+}
+
+/** Contador por visitante no banco (vale para todas as instâncias do Worker). Guarda só um resumo irreversível do IP e um número por janela, nunca a foto. Se o banco falhar, deixa passar e o limite local continua valendo. */
+async function dentroDoLimiteCompartilhado(visitante: string, max: number, janelaMs: number): Promise<boolean> {
   try {
-    const cache = typeof caches !== "undefined" ? (caches as unknown as { default?: Cache }).default : undefined;
-    if (!cache) return true;
+    const db = (env as { DB?: Banco }).DB;
+    if (!db) return true;
+    if (!tabelaPronta) {
+      await db.prepare("CREATE TABLE IF NOT EXISTS limite_receita (chave TEXT NOT NULL, janela INTEGER NOT NULL, n INTEGER NOT NULL, PRIMARY KEY (chave, janela))").bind().run();
+      tabelaPronta = true;
+    }
     const janela = Math.floor(Date.now() / janelaMs);
-    const chave = new Request(`${new URL(origemUrl).origin}/__limite/receita/${encodeURIComponent(visitante)}/${janela}`);
-    const atual = Number(await (await cache.match(chave))?.text()) || 0;
-    if (atual >= max) return false;
-    await cache.put(chave, new Response(String(atual + 1), { headers: { "cache-control": `public, max-age=${Math.ceil(janelaMs / 1000)}` } }));
-    return true;
+    const chave = await resumoDoVisitante(visitante);
+    const linha = await db
+      .prepare("INSERT INTO limite_receita (chave, janela, n) VALUES (?, ?, 1) ON CONFLICT(chave, janela) DO UPDATE SET n = n + 1 RETURNING n")
+      .bind(chave, janela)
+      .first<{ n: number }>();
+    if (Math.random() < 0.02) await db.prepare("DELETE FROM limite_receita WHERE janela < ?").bind(janela - 1).run();
+    return (linha?.n ?? 1) <= max;
   } catch {
     return true;
   }
@@ -91,7 +108,7 @@ export async function POST(request: Request) {
   if (!ia) return responder({ erro: "indisponivel" }, 503, "sem-binding");
 
   const visitante = request.headers.get("cf-connecting-ip") ?? "anonimo";
-  if (!limitePorVisitante(visitante) || !limiteGeral("geral") || !(await dentroDoLimiteCompartilhado(request.url, visitante, 6, 600_000))) return responder({ erro: "limite" }, 429, "limite");
+  if (!limitePorVisitante(visitante) || !limiteGeral("geral") || !(await dentroDoLimiteCompartilhado(visitante, 6, 600_000))) return responder({ erro: "limite" }, 429, "limite");
 
   let bytes: Uint8Array;
   try {
