@@ -1281,3 +1281,15 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
     .departamento-outros { flex-wrap: wrap !important; overflow: visible !important; }
   }
 }
+
+/* Paginação no padrão da Panvel: setas e quadrados de 42 px com borda clara; a página atual tem borda e número na cor da marca. */
+.pv-paginas { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; margin: 24px 0 8px; }
+.pv-pag-num, .pv-pag-seta { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 4px; font-size: 16px; font-weight: 700; text-decoration: none; }
+.pv-pag-num { border: 1px solid #e3e8ee; background: #f8fafc; color: #6b7280; }
+.pv-pag-num.is-on { border-color: var(--uf-navy); background: #ffffff; color: var(--uf-navy); }
+.pv-pag-num:hover { border-color: var(--uf-navy); color: var(--uf-navy); }
+.pv-pag-seta { background: transparent; color: var(--uf-navy); }
+.pv-pag-seta.is-off { color: #9aa7b2; }
+@layer design {
+  .pv-paginas a { min-height: 42px !important; min-width: 42px !important; }
+}

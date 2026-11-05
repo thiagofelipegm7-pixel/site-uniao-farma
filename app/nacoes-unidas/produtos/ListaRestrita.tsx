@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { ContentSiteFooter } from "../../ContentSiteChrome";
 import ReservarBotao from "../../reserva/ReservarBotao";
 import CartaoPanvel from "./CartaoPanvel";
+import { termosDeBusca } from "./busca";
+import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./Paginacao";
 import ShopTopo from "../../shop/ShopTopo";
 import { buildWhatsAppUrl, getHoursSentence, UNITS } from "../../site-config";
 import { formatBRL, formatDataDosDados } from "./catalogo";
@@ -143,44 +145,45 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
   const t = TEXTOS[tipo];
   const [consulta, setConsulta] = useState("");
   const [pagina, setPagina] = useState(1);
-  const [itens, setItens] = useState<ItemRestrito[]>([]);
-  const [total, setTotal] = useState(0);
+  const [todos, setTodos] = useState<ItemRestrito[]>([]);
   const [data, setData] = useState<string | null>(null);
-  // eslint-disable-next-line react-hooks/set-state-in-effect
-  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const q = (params.get("q") || "").slice(0, 80);
-    const pg = Math.max(1, Number(params.get("pagina")) || 1);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setConsulta(q);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setPagina(pg);
+    const lerUrl = () => {
+      const params = new URLSearchParams(window.location.search);
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- página estática: o termo e a página só existem na barra de endereço
+      setConsulta((params.get("q") || "").slice(0, 80));
+      setPagina(paginaDaUrl(window.location.search));
+    };
+    lerUrl();
+    window.addEventListener("popstate", lerUrl);
+    let cancelado = false;
     (async () => {
       try {
-        const idx = await fetch("/dados/nacoes/restritos-index.json").then(r => r.json());
+        const idx = await fetch("/dados/nacoes/restritos-index.json").then((r) => r.json());
+        if (cancelado) return;
         setData(idx.geradoEm ? new Date(idx.geradoEm).toLocaleDateString("pt-BR") : null);
-        const info = idx[tipo];
-        setTotal(info?.total || 0);
-        // For simplicity load the requested page (search is client filter on loaded, or load all for small lists)
-        const pfile = await fetch(`/dados/nacoes/restritos/${tipo}/p${pg}.json`).then(r => r.ok ? r.json() : []);
-        let lista = pfile as ItemRestrito[];
-        if (q) {
-          // load more pages for search if needed; for now filter the page
-          const nq = q.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
-          lista = lista.filter(i => (i.busca || "").includes(nq));
-        }
-        setItens(lista);
-      } catch (e) { console.error(e); }
+        const paginas: number = idx[tipo]?.paginas ?? 0;
+        // Carrega todas as fatias da lista: a busca e a paginação de 24 em 24 trabalham sobre a lista inteira.
+        const fatias = await Promise.all(Array.from({ length: paginas }, (_, k) => fetch(`/dados/nacoes/restritos/${tipo}/p${k + 1}.json`).then((r) => (r.ok ? r.json() : []))));
+        if (!cancelado) setTodos((fatias as ItemRestrito[][]).flat());
+      } catch (e) {
+        console.error(e);
+      }
     })();
+    return () => {
+      cancelado = true;
+      window.removeEventListener("popstate", lerUrl);
+    };
   }, [tipo]);
-  const filtrados = itens;
-  const pag = { itens: filtrados, pagina, paginas: Math.ceil(total / 48) || 1 };
+  const termos = termosDeBusca(consulta);
+  const filtrados = termos.length === 0 ? todos : todos.filter((i) => termos.every((t) => (i.busca ?? "").includes(t)));
+  const paginas = Math.max(1, Math.ceil(filtrados.length / POR_PAGINA));
+  const paginaAtual = Math.min(pagina, paginas);
+  const pag = { itens: filtrados.slice((paginaAtual - 1) * POR_PAGINA, paginaAtual * POR_PAGINA), pagina: paginaAtual, paginas };
   const wa = buildWhatsAppUrl(nacoes, "Oi, União Farma Nações Unidas! Vi a lista de preços no site e quero confirmar preço e disponibilidade.", {
     campaign: "produtos_nacoes",
     content: `nacoes_${tipo}`,
   });
-  const link = (p: number) => `${t.rota}?${new URLSearchParams({ ...(consulta ? { q: consulta } : {}), ...(p > 1 ? { pagina: String(p) } : {}) }).toString()}`.replace(/\?$/, "");
 
   return (
     <>
@@ -190,7 +193,7 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
           <a href="/">União Farma</a> / <a href="/nacoes-unidas/produtos">Produtos</a> / <span>{t.caminho}</span>
         </nav>
         <h1 className="catalogo-titulo section-inner">{t.h1}</h1>
-        <div className="section-inner">
+        <div className="section-inner" id="lista">
           <div className="catalogo-aviso" role="note">
             <p>{t.intro}</p>
             <p>
@@ -204,7 +207,7 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
           </div>
           <form method="get" action={t.rota} className="catalogo-busca" role="search">
             <label htmlFor="restrito-q">Buscar nesta lista</label>
-            <input id="restrito-q" name="q" type="search" defaultValue={consulta} maxLength={80} placeholder="Nome ou princípio ativo" />
+            <input key={consulta} id="restrito-q" name="q" type="search" defaultValue={consulta} maxLength={80} placeholder="Nome ou princípio ativo" />
             <button type="submit">Buscar</button>
           </form>
           <p className="catalogo-contagem" aria-live="polite">
@@ -227,15 +230,7 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
               ))}
             </ul>
           )}
-          {pag.paginas > 1 ? (
-            <nav className="restrito-paginas" aria-label="Páginas">
-              {pag.pagina > 1 ? <a href={link(pag.pagina - 1)}>← Anterior</a> : <span />}
-              <span>
-                Página {pag.pagina} de {pag.paginas}
-              </span>
-              {pag.pagina < pag.paginas ? <a href={link(pag.pagina + 1)}>Próxima →</a> : <span />}
-            </nav>
-          ) : null}
+          <Paginacao atual={pag.pagina} total={pag.paginas} href={(n) => hrefPagina(n, consulta)} onIr={(n) => { setPagina(n); irParaPagina(n, consulta); }} />
         </div>
       </div>
       <ContentSiteFooter />

@@ -8,6 +8,7 @@ import { precoParaCentavos } from "../../reserva/reserva-store";
 import { normalizarBusca, termosDeBusca } from "./busca";
 import CartaoPanvel from "./CartaoPanvel";
 import { Cartao } from "./ListaRestrita";
+import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./Paginacao";
 import { AVISO_MIP } from "./produto";
 import type { ItemRestrito } from "./receita";
 
@@ -15,7 +16,6 @@ export type MedicamentoSemReceita = { nome: string; slug: string; lab: string; p
 type Aba = "todos" | "sem-receita" | "receita" | "controlados" | "consulte";
 type Linha = { chave: string; nome: string; busca: string; aba: Exclude<Aba, "todos">; otc?: MedicamentoSemReceita; restrito?: ItemRestrito };
 
-const POR_LOTE = 48;
 const ABAS: ReadonlyArray<{ id: Aba; rotulo: string }> = [
   { id: "todos", rotulo: "Todos" },
   { id: "sem-receita", rotulo: "Sem receita" },
@@ -32,10 +32,10 @@ const linhaRestrita = (i: ItemRestrito): Linha => ({ chave: `${i.tipo}-${i.slug 
  * Departamento Medicamentos completo: sem receita (com cesta), com receita, controlados e "consulte o farmacêutico",
  * numa lista só, com busca e abas. Receita e controlados entram na cesta só para retirada na loja, com a receita.
  */
-export default function MedicamentosTodos({ otcInicial, unitId }: { otcInicial: MedicamentoSemReceita[]; unitId: string }) {
+export default function MedicamentosTodos({ otcInicial, unitId, paginaInicial = 1 }: { otcInicial: MedicamentoSemReceita[]; unitId: string; paginaInicial?: number }) {
   const [aba, setAba] = useState<Aba>("todos");
   const [consulta, setConsulta] = useState("");
-  const [limite, setLimite] = useState(POR_LOTE);
+  const [pagina, setPagina] = useState(paginaInicial);
   const [restritos, setRestritos] = useState<Linha[]>([]);
   const [totais, setTotais] = useState<Record<string, number>>({});
   const [carregando, setCarregando] = useState(true);
@@ -76,6 +76,22 @@ export default function MedicamentosTodos({ otcInicial, unitId }: { otcInicial: 
     () => todas.filter((l) => (aba === "todos" || l.aba === aba) && termos.every((t) => l.busca.includes(t))),
     [todas, aba, consulta], // eslint-disable-line react-hooks/exhaustive-deps -- termos deriva de consulta
   );
+  const totalPaginas = Math.max(1, Math.ceil(visiveis.length / POR_PAGINA));
+  const paginaAtual = Math.min(pagina, totalPaginas);
+  // Troca de aba ou de busca volta à página 1 (e tira ?pagina= do endereço).
+  function irParaPaginaLocal(n: number) {
+    setPagina(n);
+    if (n === 1 && new URLSearchParams(window.location.search).has("pagina")) {
+      const u = new URL(window.location.href);
+      u.searchParams.delete("pagina");
+      window.history.replaceState(null, "", u);
+    }
+  }
+  useEffect(() => {
+    const ler = () => setPagina(paginaDaUrl(window.location.search));
+    window.addEventListener("popstate", ler);
+    return () => window.removeEventListener("popstate", ler);
+  }, []);
   const contagem = (id: Aba) => (id === "todos" ? otcInicial.length + (totais.receita ?? 0) + (totais.controlados ?? 0) + (totais.consulte ?? 0) : id === "sem-receita" ? otcInicial.length : (totais[id] ?? 0));
 
   return (
@@ -90,7 +106,7 @@ export default function MedicamentosTodos({ otcInicial, unitId }: { otcInicial: 
             className={aba === a.id ? "is-on" : undefined}
             onClick={() => {
               setAba(a.id);
-              setLimite(POR_LOTE);
+              irParaPaginaLocal(1);
             }}
           >
             {a.rotulo} <span>{contagem(a.id).toLocaleString("pt-BR")}</span>
@@ -99,14 +115,14 @@ export default function MedicamentosTodos({ otcInicial, unitId }: { otcInicial: 
       </div>
       <form className="medicamentos-busca" role="search" onSubmit={(e) => e.preventDefault()}>
         <label htmlFor="medicamentos-q">Buscar nos medicamentos</label>
-        <input id="medicamentos-q" type="search" value={consulta} maxLength={80} placeholder="Nome ou princípio ativo" onChange={(e) => { setConsulta(e.target.value); setLimite(POR_LOTE); }} />
+        <input id="medicamentos-q" type="search" value={consulta} maxLength={80} placeholder="Nome ou princípio ativo" onChange={(e) => { setConsulta(e.target.value); irParaPaginaLocal(1); }} />
       </form>
       <p className="medicamentos-contagem" aria-live="polite">
         {visiveis.length.toLocaleString("pt-BR")} {visiveis.length === 1 ? "medicamento" : "medicamentos"}
         {carregando ? " · carregando as listas de receita e controlados…" : ""}
       </p>
       <ul className="catalogo-lista pv-grade">
-        {visiveis.slice(0, limite).map((l) => {
+        {visiveis.slice((paginaAtual - 1) * POR_PAGINA, paginaAtual * POR_PAGINA).map((l) => {
           if (l.restrito) return <Cartao key={l.chave} item={l.restrito} />;
           const i = l.otc!;
           const centavos = precoParaCentavos(i.precoFmt);
@@ -124,11 +140,7 @@ export default function MedicamentosTodos({ otcInicial, unitId }: { otcInicial: 
           );
         })}
       </ul>
-      {visiveis.length > limite ? (
-        <button type="button" className="medicamentos-mais" onClick={() => setLimite((n) => n + POR_LOTE)}>
-          Mostrar mais ({(visiveis.length - limite).toLocaleString("pt-BR")} restantes)
-        </button>
-      ) : null}
+      <Paginacao atual={paginaAtual} total={totalPaginas} href={(n) => hrefPagina(n, consulta)} onIr={(n) => { setPagina(n); irParaPagina(n, consulta); }} />
       {!carregando && visiveis.length === 0 ? <p className="catalogo-vazio">Não encontramos medicamentos com esse nome. Fale com a loja pelo WhatsApp.</p> : null}
     </section>
   );
