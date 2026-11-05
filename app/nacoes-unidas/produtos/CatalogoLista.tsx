@@ -59,7 +59,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     (async () => {
       try {
         const idx = await fetch("/dados/nacoes/catalogo-index.json").then(r => r.json());
-        type ItemPagina = { nomeExibicao?: string; nome: string; lab: string; isMIP: boolean; precoFmt: string; preco: number; foto: string | null };
+        type ItemPagina = { slug?: string; nomeExibicao?: string; nome: string; lab: string; isMIP: boolean; precoFmt: string; preco: number; foto: string | null };
         const paraItem = (item: ItemPagina) => ({
           nome: item.nomeExibicao || item.nome,
           lab: item.lab,
@@ -67,6 +67,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
           precoFmt: item.precoFmt,
           preco: item.preco,
           foto: item.foto,
+          slug: item.slug,
         });
         const lerPagina = (slug: string, n: number): Promise<ItemPagina[]> => fetch(`/dados/nacoes/catalogo/${slug}/p${n}.json`).then((r) => r.json());
         const lista: { slug: string; categoria: string; paginas?: number }[] = (idx.grupos || []).filter((g: { slug: string }) => !departamento || g.slug === departamento);
@@ -290,7 +291,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
           {visiveis.flatMap((g) =>
             g.itens.map((item, indice) => {
               const nome = nomeDeExibicao(item.nome);
-              const href = `/nacoes-unidas/produtos/${slugify(item.nome)}`;
+              const href = `/nacoes-unidas/produtos/${item.slug ?? slugify(item.nome)}`;
               const centavos = precoParaCentavos(item.precoFmt);
               return (
                 <li key={item.id ?? item.nome} id={indice === 0 && ordem === "recomendados" ? g.id : undefined} className="catalogo-item catalogo-card">

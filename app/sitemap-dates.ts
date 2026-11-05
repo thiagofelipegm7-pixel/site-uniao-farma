@@ -20,6 +20,7 @@ export const PAGE_LAST_UPDATED = {
   perfumaria: "2026-10-28",
   privacidade: "2026-08-16",
   termos: "2026-08-16",
+  departamentos: "2026-11-05",
 } as const;
 
 export function sitemapDate(value: string): Date {

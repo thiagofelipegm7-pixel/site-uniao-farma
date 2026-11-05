@@ -218,3 +218,12 @@ test("departamentos: cada categoria do catálogo tem a sua página e o menu apon
     assert.ok(tiles.includes(`/departamentos/${d.slug}`), `carrossel: ${d.slug}`);
   }
 });
+
+test("catálogo Nações: o slug de cada cartão leva à página do produto", async () => {
+  const { carregarCatalogoNacoes, acharPorSlug } = await import("../app/nacoes-unidas/produtos/catalogo.ts");
+  const itens = carregarCatalogoNacoes().itens;
+  const busca = await json("public/dados/nacoes/catalogo-busca.json");
+  for (const entrada of busca) assert.ok(acharPorSlug(itens, entrada.slug), `sem página: ${entrada.slug}`);
+  const pagina = await json("public/dados/nacoes/catalogo/cuidado-diario/p1.json");
+  for (const item of pagina) assert.ok(acharPorSlug(itens, item.slug), `sem página: ${item.slug}`);
+});

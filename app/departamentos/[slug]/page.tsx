@@ -5,9 +5,14 @@ import { ContentSiteFooter } from "../../ContentSiteChrome";
 import { IconSetaDireita } from "../../reserva/ReservaIcons";
 import BarraReserva from "../../shop/BarraReserva";
 import ShopTopo from "../../shop/ShopTopo";
+import { nomeDeExibicao } from "../../nome-exibicao";
 import { buildWhatsAppUrl, SITE_URL, UNITS } from "../../site-config";
+import { getPageStructuredData } from "../../structured-data";
+import type { GrupoBusca } from "../../nacoes-unidas/produtos/busca";
 import CatalogoLista from "../../nacoes-unidas/produtos/CatalogoLista";
+import { carregarCatalogoNacoes, formatBRL, slugify } from "../../nacoes-unidas/produtos/catalogo";
 import { acharDepartamento, DEPARTAMENTOS } from "../../nacoes-unidas/produtos/departamentos";
+import { fotoDoProduto } from "../../nacoes-unidas/produtos/imagens";
 import "../../nacoes-unidas/produtos/produtos.css";
 
 export const dynamic = "force-dynamic";
@@ -25,8 +30,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: { absolute: titulo },
     description: descricao,
     alternates: { canonical: dep ? `/departamentos/${dep.slug}` : "/nacoes-unidas/produtos" },
-    // Como o catálogo: fica fora do Google até o dono aprovar.
-    robots: { index: false, follow: false },
+    // "Categoria a conferir" é provisória (itens ainda sem categoria): fica fora do Google e do sitemap.
+    robots: { index: dep?.slug !== "categoria-a-conferir", follow: true },
     openGraph: { title: titulo, description: descricao, url: `${SITE_URL}/departamentos/${dep?.slug ?? ""}`, type: "website", images: ["/og-nacoes-unidas.jpg"] },
   };
 }
@@ -41,8 +46,27 @@ export default async function DepartamentoPage({ params }: Props) {
     content: dep.slug,
   });
 
+  // A lista já vai no HTML (o Google lê sem precisar rodar JavaScript); o navegador continua filtrando e ordenando.
+  const itens = carregarCatalogoNacoes()
+    .itens.filter((i) => slugify(i.categoria) === dep.slug)
+    .sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"))
+    .map((i) => ({ nome: nomeDeExibicao(i.nome), lab: i.lab, isMIP: i.isMIP, precoFmt: formatBRL(i.preco), preco: i.preco, foto: fotoDoProduto(i.nome), slug: slugify(i.nome) }));
+  const grupos: GrupoBusca[] = [{ categoria: dep.nome, id: dep.slug, itens }];
+  const pagina = `${SITE_URL}/departamentos/${dep.slug}`;
+  const structuredData = getPageStructuredData({
+    name: `${dep.nome} | União Farma Nações Unidas`,
+    url: pagina,
+    units: [nacoes],
+    breadcrumbs: [
+      { name: "Início", url: `${SITE_URL}/` },
+      { name: "Produtos", url: `${SITE_URL}/nacoes-unidas/produtos` },
+      { name: dep.nome, url: pagina },
+    ],
+  });
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <ShopTopo />
       <div className="unit-page landing-page catalogo-nacoes catalogo-loja">
         <nav className="catalogo-caminho section-inner" aria-label="Breadcrumb">
@@ -62,7 +86,7 @@ export default async function DepartamentoPage({ params }: Props) {
           ))}
         </nav>
         <div className="section-inner" id="lista">
-          <CatalogoLista grupos={[]} departamento={dep.slug} whatsappHref={whatsappHref} unitId={nacoes.id} />
+          <CatalogoLista grupos={grupos} departamento={dep.slug} whatsappHref={whatsappHref} unitId={nacoes.id} />
           <aside className="catalogo-aviso" aria-label="Medicamentos com receita e controlados">
             <p>
               <strong>Medicamentos com receita e controlados:</strong> lista de preços, sem venda online. A compra é no balcão, com a receita (retida pela farmácia quando a lei exigir).
