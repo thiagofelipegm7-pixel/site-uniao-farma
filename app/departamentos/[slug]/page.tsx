@@ -10,6 +10,7 @@ import { buildWhatsAppUrl, SITE_URL, UNITS } from "../../site-config";
 import { getPageStructuredData } from "../../structured-data";
 import type { GrupoBusca } from "../../nacoes-unidas/produtos/busca";
 import CatalogoLista from "../../nacoes-unidas/produtos/CatalogoLista";
+import MedicamentosTodos from "../../nacoes-unidas/produtos/MedicamentosTodos";
 import { carregarCatalogoNacoes, formatBRL, slugify } from "../../nacoes-unidas/produtos/catalogo";
 import { acharDepartamento, departamentosPublicos } from "../../nacoes-unidas/produtos/departamentos";
 import { fotoDoProduto } from "../../nacoes-unidas/produtos/imagens";
@@ -93,7 +94,11 @@ export default async function DepartamentoPage({ params }: Props) {
           ))}
         </nav>
         <div className="section-inner" id="lista">
-          <CatalogoLista grupos={grupos} departamento={dep.slug} whatsappHref={whatsappHref} unitId={nacoes.id} />
+          {dep.slug === "medicamentos" ? (
+            <MedicamentosTodos otcInicial={itens.map((i) => ({ nome: i.nome, slug: i.slug, lab: i.lab, precoFmt: i.precoFmt, foto: i.foto, isMIP: i.isMIP }))} unitId={nacoes.id} />
+          ) : (
+            <CatalogoLista grupos={grupos} departamento={dep.slug} whatsappHref={whatsappHref} unitId={nacoes.id} />
+          )}
           <aside className="catalogo-aviso" aria-label="Medicamentos com receita e controlados">
             <p>
               <strong>Medicamentos com receita e controlados:</strong> lista de preços, sem venda online. A compra é no balcão, com a receita (retida pela farmácia quando a lei exigir).

@@ -64,7 +64,7 @@ const TEXTOS: Record<TipoRestrito, { titulo: string; h1: string; intro: string; 
 
 const maiuscula = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
 
-function Cartao({ item }: { item: ItemRestrito }) {
+export function Cartao({ item }: { item: ItemRestrito }) {
   const ficha: Array<[string, string]> = [];
   if (item.ativo) ficha.push(["Princípio ativo", maiuscula(item.ativo)]);
   if (item.lab.trim()) ficha.push(["Fabricante", item.lab.trim()]);

@@ -8,7 +8,7 @@ export type Departamento = {
 };
 
 export const DEPARTAMENTOS: readonly Departamento[] = [
-  { slug: "medicamentos", nome: "Medicamentos", resumo: "Medicamentos isentos de prescrição. Leia a bula; em caso de dúvida, fale com o farmacêutico." },
+  { slug: "medicamentos", nome: "Medicamentos", resumo: "Todos os medicamentos da loja: sem receita (com cesta) e, em lista de preços, com receita e controlados. Leia a bula; em caso de dúvida, fale com o farmacêutico." },
   { slug: "dermocosmeticos", nome: "Dermocosméticos", resumo: "Hidratantes, protetores solares, séruns, águas micelares e cuidados com a pele." },
   { slug: "perfumes", nome: "Perfumes", resumo: "Colônias e body splashes." },
   { slug: "infantil-e-gestante", nome: "Infantil e Gestante", resumo: "Fraldas, lenços umedecidos, higiene do bebê, testes de gravidez e itens para a gestação." },
