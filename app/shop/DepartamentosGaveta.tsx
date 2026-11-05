@@ -11,14 +11,14 @@ type Marca = { nome: string; busca: string };
 /** Ofertas e as 8 categorias da loja. */
 const SECOES: Secao[] = [
   { id: "ofertas", rotulo: "Ofertas", href: "/ofertas", tipo: "link" },
-  { id: "medicamentos", rotulo: "Medicamentos", href: "/nacoes-unidas/produtos#medicamentos", tipo: "marcas", grupo: "medicamentos" },
-  { id: "dermo", rotulo: "Dermocosméticos", href: "/nacoes-unidas/produtos#dermocosmeticos", tipo: "marcas", grupo: "dermocosmeticos" },
-  { id: "perfumes", rotulo: "Perfumes", href: "/nacoes-unidas/produtos#perfumes", tipo: "marcas", grupo: "perfumes" },
-  { id: "infantil", rotulo: "Infantil e Gestante", href: "/nacoes-unidas/produtos#infantil-e-gestante", tipo: "marcas", grupo: "infantil-e-gestante" },
-  { id: "beleza", rotulo: "Beleza", href: "/nacoes-unidas/produtos#beleza", tipo: "marcas", grupo: "beleza" },
-  { id: "cuidado", rotulo: "Cuidado Diário", href: "/nacoes-unidas/produtos#cuidado-diario", tipo: "marcas", grupo: "cuidado-diario" },
-  { id: "bem-estar", rotulo: "Bem Estar", href: "/nacoes-unidas/produtos#bem-estar", tipo: "marcas", grupo: "bem-estar" },
-  { id: "conferir", rotulo: "Categoria a conferir", href: "/nacoes-unidas/produtos#categoria-a-conferir", tipo: "marcas", grupo: "categoria-a-conferir" },
+  { id: "medicamentos", rotulo: "Medicamentos", href: "/departamentos/medicamentos", tipo: "marcas", grupo: "medicamentos" },
+  { id: "dermo", rotulo: "Dermocosméticos", href: "/departamentos/dermocosmeticos", tipo: "marcas", grupo: "dermocosmeticos" },
+  { id: "perfumes", rotulo: "Perfumes", href: "/departamentos/perfumes", tipo: "marcas", grupo: "perfumes" },
+  { id: "infantil", rotulo: "Infantil e Gestante", href: "/departamentos/infantil-e-gestante", tipo: "marcas", grupo: "infantil-e-gestante" },
+  { id: "beleza", rotulo: "Beleza", href: "/departamentos/beleza", tipo: "marcas", grupo: "beleza" },
+  { id: "cuidado", rotulo: "Cuidado Diário", href: "/departamentos/cuidado-diario", tipo: "marcas", grupo: "cuidado-diario" },
+  { id: "bem-estar", rotulo: "Bem Estar", href: "/departamentos/bem-estar", tipo: "marcas", grupo: "bem-estar" },
+  { id: "conferir", rotulo: "Categoria a conferir", href: "/departamentos/categoria-a-conferir", tipo: "marcas", grupo: "categoria-a-conferir" },
 ];
 
 const DURACAO = 220;
@@ -148,7 +148,7 @@ export default function DepartamentosGaveta({ aberto, onFechar }: { aberto: bool
               {Array.isArray(lista)
                 ? lista.map((marca) => (
                     <li key={marca.busca}>
-                      <a href={`/nacoes-unidas/produtos?q=${encodeURIComponent(marca.busca)}`} onClick={onFechar}>
+                      <a href={`/departamentos/${secao.grupo}?q=${encodeURIComponent(marca.busca)}`} onClick={onFechar}>
                         <span>{marca.nome}</span>
                         <IconSetaDireita size={18} />
                       </a>

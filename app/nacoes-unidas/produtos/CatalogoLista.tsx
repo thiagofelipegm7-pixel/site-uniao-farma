@@ -31,6 +31,8 @@ type Props = {
   /** Texto vindo do campo de busca do cabeçalho (?q=). */
   consultaInicial?: string;
   grupos: GrupoBusca[];
+  /** Slug de um departamento (ex.: "beleza"): a página mostra só essa categoria. Sem ele, mostra todas. */
+  departamento?: string;
   whatsappHref: string;
   unitId: string;
 };
@@ -49,7 +51,7 @@ function alternar<T extends string>(lista: readonly T[] | undefined, valor: T): 
  * Ordenação, filtro e grade de produtos. A busca fica no cabeçalho (?q=), como no protótipo.
  * O HTML do servidor já traz a lista inteira, então sem JavaScript ela continua completa.
  */
-export default function CatalogoLista({ grupos: gruposProps, whatsappHref, unitId, consultaInicial = "" }: Props) {
+export default function CatalogoLista({ grupos: gruposProps, departamento, whatsappHref, unitId, consultaInicial = "" }: Props) {
   const [grupos, setGrupos] = useState(gruposProps);
   useEffect(() => {
     if (gruposProps.length > 0) return;
@@ -67,16 +69,17 @@ export default function CatalogoLista({ grupos: gruposProps, whatsappHref, unitI
           foto: item.foto,
         });
         const lerPagina = (slug: string, n: number): Promise<ItemPagina[]> => fetch(`/dados/nacoes/catalogo/${slug}/p${n}.json`).then((r) => r.json());
+        const lista: { slug: string; categoria: string; paginas?: number }[] = (idx.grupos || []).filter((g: { slug: string }) => !departamento || g.slug === departamento);
         const gruposCarregados: GrupoBusca[] = [];
         // Primeiro a página 1 de cada categoria (aparece rápido); depois as demais, até o catálogo inteiro estar na tela.
-        for (const g of idx.grupos || []) {
+        for (const g of lista) {
           const p1 = await lerPagina(g.slug, 1);
           gruposCarregados.push({ categoria: g.categoria, id: g.slug, itens: p1.map(paraItem) });
         }
         if (cancel) return;
         setGrupos([...gruposCarregados]);
         for (let k = 0; k < gruposCarregados.length; k += 1) {
-          const g = (idx.grupos || [])[k];
+          const g = lista[k];
           for (let n = 2; n <= (g?.paginas ?? 1); n += 1) {
             const pagina = await lerPagina(g.slug, n);
             if (cancel) return;
@@ -89,7 +92,7 @@ export default function CatalogoLista({ grupos: gruposProps, whatsappHref, unitI
       }
     })();
     return () => { cancel = true; };
-  }, [gruposProps]);
+  }, [gruposProps, departamento]);
   const base = identificarItens(grupos);
   const opcoes = opcoesFiltro(base);
   // A página é estática: o termo vem da barra de endereço (?q=fralda) depois que a página abre.

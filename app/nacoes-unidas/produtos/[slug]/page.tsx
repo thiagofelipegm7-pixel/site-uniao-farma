@@ -70,7 +70,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
         <nav className="catalogo-caminho section-inner produto-caminho" aria-label="Breadcrumb">
           <a href="/">União Farma</a>
           <IconSetaDireita size={12} />
-          <a href={`/nacoes-unidas/produtos#${slugify(item.categoria)}`}>{item.categoria}</a>
+          <a href={`/departamentos/${slugify(item.categoria)}`}>{item.categoria}</a>
           <IconSetaDireita size={12} />
           <span>{nomeExibido}</span>
         </nav>
