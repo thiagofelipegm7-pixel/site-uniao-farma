@@ -2,28 +2,23 @@
 import type { Metadata } from "next";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import type { FaqItem } from "../seo-content";
-import { buildWhatsAppUrl, getHoursSentence, SITE_URL, UNITS } from "../site-config";
+import { buildWhatsAppUrl, getHoursSentence, SITE_URL, PUBLIC_UNITS } from "../site-config";
 import { getPageStructuredData, getUnitPublicPath } from "../structured-data";
 
 const SLUG = "ifood";
 const PAGE_URL = `${SITE_URL}/${SLUG}`;
 const TITLE = "União Farma no iFood | Farmácia Nações Unidas em Sabará";
 const DESCRIPTION =
-  "A União Farma Nações Unidas (Rua Inglaterra, 162, Sabará) está no iFood. Veja como pedir e como pedir pelo WhatsApp nas lojas Fátima e Itacolomi.";
+  "A União Farma Nações Unidas (Rua Inglaterra, 162, Sabará) está no iFood. Veja como pedir e como pedir pelo WhatsApp.";
 const HEADING = "União Farma no iFood";
 
-const nacoes = UNITS.find((unit) => unit.id === "nacoes")!;
-const others = UNITS.filter((unit) => unit.id !== "nacoes");
+const nacoes = PUBLIC_UNITS.find((unit) => unit.id === "nacoes")!;
 const ifoodUrl = nacoes.ifoodUrl!;
 
 const faqs: FaqItem[] = [
   {
     q: "A União Farma está no iFood?",
-    a: "Sim, mas só a loja Nações Unidas (Rua Inglaterra, 162, bairro Nações Unidas, Sabará/MG). As lojas Fátima e Itacolomi não estão no iFood.",
-  },
-  {
-    q: "Como peço nas lojas Fátima e Itacolomi?",
-    a: `Pelo WhatsApp de cada loja: ${others.map((unit) => `${unit.legalLabel} ${unit.whatsapp}`).join(" e ")}.`,
+    a: "Sim. A loja Nações Unidas (Rua Inglaterra, 162, bairro Nações Unidas, Sabará/MG) está no iFood.",
   },
   {
     q: "Qual o valor da entrega e o prazo no iFood?",
@@ -94,9 +89,6 @@ export default function IfoodPage() {
               <div className="ifood-actions">
                 <IfoodButton source="hero" />
               </div>
-              <p className="unit-page-note">
-                Só a loja Nações Unidas está no iFood. As lojas Fátima e Itacolomi atendem pelo WhatsApp.
-              </p>
             </div>
             <div className="unit-page-logo-card">
               <img src="/uniao-farma-logo.webp" alt="Logo da União Farma" width="150" height="150" />
@@ -139,33 +131,6 @@ export default function IfoodPage() {
                 WhatsApp {nacoes.whatsapp}
               </a>
               . Medicamentos com receita seguem as regras da Anvisa.
-            </p>
-          </div>
-        </section>
-
-        <section className="section" aria-labelledby="outras-lojas">
-          <div className="section-inner">
-            <h2 id="outras-lojas">E as lojas Fátima e Itacolomi?</h2>
-            <p>Essas duas lojas não estão no iFood. Peça pelo WhatsApp de cada uma:</p>
-            <ul>
-              {others.map((unit) => (
-                <li key={unit.id}>
-                  <a href={getUnitPublicPath(unit)}>{`Farmácia ${unit.shortName}`}</a> – {unit.shortAddress} – entrega {unit.deliveryScope} –{" "}
-                  <a
-                    href={buildWhatsAppUrl(unit, `Oi, União Farma ${unit.shortName}! Vim pela página do iFood e quero fazer um pedido.`, { campaign: SLUG, content: `${unit.id}_pedido` })}
-                    target="_blank"
-                    rel="noreferrer"
-                    data-track-event="whatsapp_click"
-                    data-track-unit={unit.id}
-                    data-track-source={`${SLUG}_outras_lojas`}
-                  >
-                    WhatsApp {unit.whatsapp}
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <p>
-              Veja os bairros atendidos por cada loja em <a href="/entrega-de-medicamentos-em-sabara">entrega de medicamentos em Sabará</a>.
             </p>
           </div>
         </section>

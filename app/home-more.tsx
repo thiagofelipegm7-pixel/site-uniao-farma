@@ -80,7 +80,7 @@ export function HomeMore({
             <p className="section-kicker">Fotos da loja</p>
             <h2 id="story-title">{"A farmácia de verdade, em Sabará"}</h2>
             <p>
-              {"Fachada da Nações Unidas e interior organizado em Fátima e Itacolomi. Três lojas de rua — você reconhece o endereço e se imagina no balcão."}
+              {"Fachada e interior da loja Nações Unidas, na Rua Inglaterra. Uma farmácia de rua — você reconhece o endereço e se imagina no balcão."}
             </p>
             <a className="text-link" href={INSTAGRAM_URL} target="_blank" rel="noreferrer" onClick={() => trackEvent("instagram_click", { source: "story" })}>
               <InstagramIcon /> Mais fotos no Instagram

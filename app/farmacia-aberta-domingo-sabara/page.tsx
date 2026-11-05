@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
 import type { Metadata } from "next";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
-import { buildWhatsAppUrl, getHoursSentence, getShortHoursPhrase, SITE_URL, UNITS, type DailyHours, type Unit } from "../site-config";
+import { buildWhatsAppUrl, getHoursSentence, getShortHoursPhrase, SITE_URL, PUBLIC_UNITS, type DailyHours, type Unit } from "../site-config";
 import type { FaqItem } from "../seo-content";
 import { getPageStructuredData, getUnitPublicPath } from "../structured-data";
 import OpenStatusCell from "./OpenStatusCell";
@@ -10,10 +10,10 @@ const SLUG = "farmacia-aberta-domingo-sabara";
 const PAGE_URL = `${SITE_URL}/${SLUG}`;
 const TITLE = "Farmácia aberta agora e domingo em Sabará | União Farma";
 const DESCRIPTION =
-  "Veja o horário das 3 lojas União Farma em Sabará. Abertas todo dia, domingo até 12h. Peça pelo WhatsApp e receba em casa.";
+  "Veja o horário da loja União Farma Nações Unidas, em Sabará. Abertas todo dia, domingo até 12h. Peça pelo WhatsApp e receba em casa.";
 const HEADING = "Farmácia aberta agora e domingo em Sabará";
 
-const [fatima] = UNITS;
+const [loja] = PUBLIC_UNITS;
 
 function h(value: string) {
   const [hours, minutes] = value.split(":");
@@ -28,18 +28,17 @@ function latestWeekdayClose(units: Unit[]) {
   return units.map((unit) => unit.schedule.mon?.close ?? "00:00").sort().at(-1) ?? "21:00";
 }
 
-const weekdayClose = h(latestWeekdayClose(UNITS));
-const sundayClose = h(UNITS[0].schedule.sun?.close ?? "12:00");
-const fatimaOpen = h(fatima.schedule.mon?.open ?? "07:00");
-const otherOpen = h(UNITS[1].schedule.mon?.open ?? "08:00");
-const satEarlyClose = UNITS.filter((unit) => unit.schedule.sat?.close !== unit.schedule.mon?.close);
+const weekdayClose = h(latestWeekdayClose(PUBLIC_UNITS));
+const sundayClose = h(PUBLIC_UNITS[0].schedule.sun?.close ?? "12:00");
+const abertura = h(loja.schedule.mon?.open ?? "08:00");
+const satEarlyClose = PUBLIC_UNITS.filter((unit) => unit.schedule.sat?.close !== unit.schedule.mon?.close);
 
 const faqs: FaqItem[] = [
-  { q: "Tem farmácia aberta domingo em Sabará?", a: `Sim. As 3 lojas União Farma abrem no domingo de manhã e fecham às ${sundayClose}.` },
-  { q: "Qual farmácia abre mais cedo em Sabará?", a: `A União Farma Fátima abre às ${fatimaOpen} todos os dias. As lojas Nações Unidas e Itacolomi abrem às ${otherOpen}.` },
-  { q: "Até que horas a farmácia fica aberta em Sabará?", a: `De segunda a sexta, as 3 lojas União Farma ficam abertas até ${weekdayClose}.` },
-  { q: "Tem farmácia 24 horas em Sabará?", a: `A União Farma não é 24 horas. As lojas fecham às ${weekdayClose} e reabrem às ${fatimaOpen} (Fátima) ou ${otherOpen} (Nações Unidas e Itacolomi).` },
-  { q: "A farmácia entrega no domingo?", a: `Sim, dentro do horário de cada loja e nos bairros atendidos: ${UNITS.map((unit) => `${unit.legalLabel} entrega ${unit.deliveryScope}`).join(". ")}.` },
+  { q: "Tem farmácia aberta domingo em Sabará?", a: `Sim. A União Farma Nações Unidas abre no domingo de manhã e fecham às ${sundayClose}.` },
+  { q: "Qual farmácia abre mais cedo em Sabará?", a: `A União Farma Nações Unidas abre às ${abertura} todos os dias.` },
+  { q: "Até que horas a farmácia fica aberta em Sabará?", a: `De segunda a sexta, a União Farma Nações Unidas fica aberta até ${weekdayClose}.` },
+  { q: "Tem farmácia 24 horas em Sabará?", a: `A União Farma não é 24 horas. A loja fecha às ${weekdayClose} e reabre às ${abertura}.` },
+  { q: "A farmácia entrega no domingo?", a: `Sim, dentro do horário da loja e nos bairros atendidos: ${PUBLIC_UNITS.map((unit) => `${unit.legalLabel} entrega ${unit.deliveryScope}`).join(". ")}.` },
 ];
 
 export const metadata: Metadata = {
@@ -56,7 +55,7 @@ export default function FarmaciaAbertaDomingoPage() {
     name: TITLE,
     url: PAGE_URL,
     faqs,
-    units: UNITS,
+    units: PUBLIC_UNITS,
     breadcrumbs: [
       { name: "Início", url: `${SITE_URL}/` },
       { name: HEADING, url: PAGE_URL },
@@ -78,9 +77,9 @@ export default function FarmaciaAbertaDomingoPage() {
           <div className="section-inner">
             <h1>{HEADING}</h1>
             <p className="unit-page-address">
-              {`A União Farma tem 3 lojas em Sabará abertas todos os dias. De segunda a sábado, abrem até ${weekdayClose}`}
+              {`A União Farma Nações Unidas fica aberta todos os dias. De segunda a sábado, fecha às ${weekdayClose}`}
               {satEarlyClose.length ? ` (${satEarlyClose.map((unit) => unit.legalLabel).join(" e ")} fecham às ${h(satEarlyClose[0].schedule.sat?.close ?? "20:00")} no sábado)` : ""}
-              {`. No domingo, as três abrem de manhã e fecham às ${sundayClose}. A loja do Fátima abre mais cedo, às ${fatimaOpen}.`}
+              {`. No domingo, abre de manhã e fecha às ${sundayClose}. A loja abre às ${abertura}.`}
             </p>
           </div>
         </section>
@@ -104,7 +103,7 @@ export default function FarmaciaAbertaDomingoPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {UNITS.map((unit) => (
+                  {PUBLIC_UNITS.map((unit) => (
                     <tr key={unit.id}>
                       <th scope="row"><a href={getUnitPublicPath(unit)}>{unit.legalLabel}</a></th>
                       <td data-label="Endereço">{unit.street} – CEP {unit.cep}</td>
@@ -127,7 +126,7 @@ export default function FarmaciaAbertaDomingoPage() {
           <div className="section-inner">
             <h2 id="horario-por-loja">Horário de cada loja</h2>
             <ul>
-              {UNITS.map((unit) => (
+              {PUBLIC_UNITS.map((unit) => (
                 <li key={unit.id}>{getHoursSentence(unit)} Endereço: {unit.address}.{unit.alternateNames?.length ? ` Também aparece no Google como ${unit.alternateNames.join(", ")}.` : ""}</li>
               ))}
             </ul>
@@ -137,14 +136,14 @@ export default function FarmaciaAbertaDomingoPage() {
         <section className="section" aria-labelledby="domingo">
           <div className="section-inner">
             <h2 id="domingo">Farmácia aberta domingo em Sabará</h2>
-            <p>{`As 3 lojas abrem no domingo. ${UNITS.map((unit) => `${unit.legalLabel}: ${range(unit.schedule.sun)}`).join(". ")}.`}</p>
+            <p>{`A loja abre no domingo. ${PUBLIC_UNITS.map((unit) => `${unit.legalLabel}: ${range(unit.schedule.sun)}`).join(". ")}.`}</p>
           </div>
         </section>
 
         <section className="section" aria-labelledby="noite">
           <div className="section-inner">
             <h2 id="noite">{`Farmácia aberta à noite em Sabará (até ${weekdayClose})`}</h2>
-            <p>{`De segunda a sexta, as 3 lojas ficam abertas até ${weekdayClose}. No sábado: ${UNITS.map((unit) => `${unit.legalLabel} até ${h(unit.schedule.sat?.close ?? "20:00")}`).join(", ")}.`}</p>
+            <p>{`De segunda a sexta, a loja fica aberta até ${weekdayClose}. No sábado: ${PUBLIC_UNITS.map((unit) => `${unit.legalLabel} até ${h(unit.schedule.sat?.close ?? "20:00")}`).join(", ")}.`}</p>
           </div>
         </section>
 
@@ -158,12 +157,12 @@ export default function FarmaciaAbertaDomingoPage() {
         <section className="section" aria-labelledby="entrega">
           <div className="section-inner">
             <h2 id="entrega">Peça pelo WhatsApp e receba em casa</h2>
-            <p>Dentro do horário de cada loja, você pode pedir pelo WhatsApp. {UNITS.map((unit) => `A loja ${unit.legalLabel} entrega ${unit.deliveryScope}.`).join(" ")} <a href="/entrega-de-medicamentos-em-sabara">Saiba como funciona a entrega em Sabará</a>.</p>
+            <p>Dentro do horário de cada loja, você pode pedir pelo WhatsApp. {PUBLIC_UNITS.map((unit) => `A loja ${unit.legalLabel} entrega ${unit.deliveryScope}.`).join(" ")} <a href="/entrega-de-medicamentos-em-sabara">Saiba como funciona a entrega em Sabará</a>.</p>
             <ul>
-              {UNITS.map((unit) => (
+              {PUBLIC_UNITS.map((unit) => (
                 <li key={unit.id}><a href={getUnitPublicPath(unit)}>{`Farmácia ${unit.shortName}`}</a> – {unit.shortAddress}</li>
               ))}
-              <li><a href="/farmacia-em-sabara">Farmácia em Sabará: as 3 lojas</a></li>
+              <li><a href="/farmacia-em-sabara">Farmácia em Sabará: a loja</a></li>
             </ul>
           </div>
         </section>

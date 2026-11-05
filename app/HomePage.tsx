@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
-import { SITE_URL, UNITS } from "./site-config";
+import { SITE_URL, PUBLIC_UNITS } from "./site-config";
 import { getPageStructuredData } from "./structured-data";
 import LojasCartoes from "./shop/LojasCartoes";
 import OfertasSemana from "./OfertasSemana";
@@ -21,7 +21,7 @@ export default function HomePage() {
   const homeStructuredData = getPageStructuredData({
     name: "Farmácia em Sabará | União Farma",
     url: `${SITE_URL}/`,
-    units: UNITS,
+    units: PUBLIC_UNITS,
     breadcrumbs: [{ name: "Início", url: `${SITE_URL}/` }],
   });
 

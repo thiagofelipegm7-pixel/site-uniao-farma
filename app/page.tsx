@@ -4,7 +4,7 @@ import { SITE_URL } from "./site-config";
 
 const HOME_TITLE = "Farmácia em Sabará com entrega | União Farma";
 const HOME_DESCRIPTION =
-  "3 lojas em Sabará: Fátima, Nações Unidas e Itacolomi. Aberta todos os dias, até domingo de manhã. Peça pelo WhatsApp e consulte a entrega no seu bairro.";
+  "Loja Nações Unidas, na Rua Inglaterra, 162, em Sabará. Aberta todos os dias, até domingo de manhã. Peça pelo WhatsApp e consulte a entrega no seu bairro.";
 
 export const metadata: Metadata = {
   title: { absolute: HOME_TITLE },

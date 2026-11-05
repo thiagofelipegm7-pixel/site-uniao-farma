@@ -29,8 +29,8 @@ export function HomeSections({
       <section className="trust-strip" aria-label="Por que a União Farma">
         <div className="section-inner trust-strip-grid">
           <div>
-            <strong>3 unidades</strong>
-            <span>{"Fátima, Nações e Itacolomi"}</span>
+            <strong>Nações Unidas</strong>
+            <span>{"Rua Inglaterra, 162"}</span>
           </div>
           <div>
             <strong>Entrega</strong>

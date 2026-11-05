@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
 import { UNIT_GOOGLE_PROFILES } from "../google-reviews";
-import { UNITS } from "../site-config";
+import { PUBLIC_UNITS } from "../site-config";
 import { getUnitPublicPath } from "../structured-data";
 import UnitStatusBadge from "../UnitStatusBadge";
 import { IconEstrela } from "../reserva/ReservaIcons";
@@ -14,7 +14,7 @@ export default function LojasCartoes() {
     <section className="shop-lojas" id="unidades-rapidas" aria-labelledby="nossas-lojas-titulo">
       <h2 id="nossas-lojas-titulo">Nossas lojas</h2>
       <ul>
-        {UNITS.map((unit) => {
+        {PUBLIC_UNITS.map((unit) => {
           const perfil = UNIT_GOOGLE_PROFILES.find((item) => item.unitId === unit.id);
           return (
             <li key={unit.id} className="shop-loja-cartao">

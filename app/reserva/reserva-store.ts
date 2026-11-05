@@ -1,3 +1,4 @@
+import { UNITS } from "../site-config";
 /**
  * Reserva: lista de produtos que o cliente separa no site e fecha pelo WhatsApp da loja.
  * Nada é cobrado no site. Preço e estoque são confirmados pela loja; o pagamento é no balcão ou na entrega.
@@ -143,7 +144,7 @@ export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: D
   const retirar = dados.modo === "retirar";
   const nome = dados.nome.replace(/\s+/g, " ").trim();
   const sub = subtotalCentavos(itens);
-  const taxa = !retirar ? (dados.taxaEntregaCentavos ?? 100) : 0;
+  const taxa = !retirar ? (dados.taxaEntregaCentavos ?? 0) : 0;
   const total = sub + taxa;
   const quando = retirar ? "no balcão" : "na entrega";
   const escolhido = dados.pagamento?.trim();
@@ -242,8 +243,13 @@ export function atualizarReserva(fn: (estado: ReservaEstado) => ReservaEstado): 
   ouvintes.forEach((o) => o());
 }
 
-/** Taxa de entrega fixa: R$ 1,00 (100 centavos) para qualquer bairro. */
+/** Menor taxa de entrega (bairro da loja). A taxa de cada bairro vem de site-config (deliveryFees). */
 export const TAXA_ENTREGA_CENTAVOS = 100;
-export function taxaDoBairro(_bairro: string | undefined): number {
-  return TAXA_ENTREGA_CENTAVOS;
+export function taxaDoBairro(bairro: string | undefined): number | null {
+  if (!bairro) return null;
+  for (const unit of UNITS) {
+    const taxa = unit.deliveryFees?.[bairro];
+    if (taxa !== undefined) return taxa;
+  }
+  return null;
 }

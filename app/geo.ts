@@ -1,4 +1,4 @@
-import { UNITS, type Unit } from "./site-config";
+import { PUBLIC_UNITS, type Unit } from "./site-config";
 
 export type GeoPoint = {
   latitude: number;
@@ -63,7 +63,7 @@ export function formatDistance(km: number) {
 }
 
 export function rankUnitsByDistance(origin: GeoPoint): RankedUnit[] {
-  return UNITS.filter((unit) => unit.coordinates)
+  return PUBLIC_UNITS.filter((unit) => unit.coordinates)
     .map((unit) => ({
       unit,
       distanceKm: distanceKm(origin, unit.coordinates as GeoPoint),

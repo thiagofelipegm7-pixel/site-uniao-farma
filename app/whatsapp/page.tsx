@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { trackEvent } from "../analytics";
-import { buildWhatsAppUrl, UNITS } from "../site-config";
+import { buildWhatsAppUrl, PUBLIC_UNITS } from "../site-config";
 import { WhatsAppIcon } from "../home-chrome";
 import MarcaUniao from "../shop/MarcaUniao";
 
@@ -29,7 +29,7 @@ export default function WhatsAppAdsPage() {
           <div className="hero-whatsapp" id="whatsapp-lojas">
             <p className="hero-whatsapp-label">Falar com a loja agora</p>
             <div className="hero-whatsapp-row">
-              {UNITS.map((unit) => (
+              {PUBLIC_UNITS.map((unit) => (
                 <a
                   key={unit.id}
                   className="hero-whatsapp-btn"

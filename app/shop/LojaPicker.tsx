@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { UNITS } from "../site-config";
+import { PUBLIC_UNITS } from "../site-config";
 import { readPreferredUnitId, writePreferredUnitId } from "../preferred-unit";
 import { IconFechar } from "../reserva/ReservaIcons";
 import { EVENTO_ABRIR_LOJA } from "./loja-evento";
@@ -50,7 +50,7 @@ export default function LojaPicker() {
           </button>
         </div>
         <ul>
-          {UNITS.map((unit) => (
+          {PUBLIC_UNITS.map((unit) => (
             <li key={unit.id}>
               <button
                 type="button"

@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { trackEvent } from "./analytics";
 import { WhatsAppIcon } from "./home-chrome";
 import { trackWhatsAppClick } from "./metrics";
-import { buildWhatsAppUrl, UNITS } from "./site-config";
+import { buildWhatsAppUrl, PUBLIC_UNITS } from "./site-config";
 
 export type SelectorIntent = {
   title: string;
@@ -61,7 +61,7 @@ export default function UnitSelectorModal({
           <h2 id="unit-selector-title">{intent.title}</h2>
           <p className="modal-description">{intent.description}</p>
           <div className="modal-unit-list">
-            {UNITS.map((unit) => (
+            {PUBLIC_UNITS.map((unit) => (
               <a
                 className="modal-unit-option"
                 key={unit.id}

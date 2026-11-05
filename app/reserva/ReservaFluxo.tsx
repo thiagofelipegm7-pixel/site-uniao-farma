@@ -7,16 +7,16 @@ import MarcaUniao from "../shop/MarcaUniao";
 import { trackEvent } from "../analytics";
 import { listarBairros, lojaDoBairro } from "../entrega-bairro";
 import { readPreferredUnitId } from "../preferred-unit";
-import { buildWhatsAppUrl, UNITS, type Unit } from "../site-config";
+import { buildWhatsAppUrl, PUBLIC_UNITS, type Unit } from "../site-config";
 import UnitStatusBadge from "../UnitStatusBadge";
 import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats, IconCesta, IconCaminhao, IconConfirmado } from "./ReservaIcons";
 import DestaquesSemana from "../shop/DestaquesSemana";
-import { atualizarReserva, definirQtd, exigeReceita, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
+import { atualizarReserva, definirQtd, exigeReceita, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
 
 type Passo = 1 | 2 | 3;
 const ROTULOS = ["Itens", "Entrega e forma de receber", "Finalizar"] as const;
-const BAIRROS = listarBairros(UNITS);
+const BAIRROS = listarBairros(PUBLIC_UNITS);
 
 /**
  * Reserva em 3 passos, igual ao protótipo: 1 Itens, 2 Loja e forma de receber (retirar ou receber em casa),
@@ -46,13 +46,14 @@ export default function ReservaFluxo() {
   const soRetirada = exigeReceita(estado.itens);
   const modo = soRetirada ? "retirar" : estado.modo;
   const retirar = modo === "retirar";
-  const unidadeEntrega = bairro ? lojaDoBairro(UNITS, bairro) : null;
-  const unidade = (retirar ? UNITS.find((u) => u.id === lojaId) : unidadeEntrega) ?? UNITS[0];
+  const unidadeEntrega = bairro ? lojaDoBairro(PUBLIC_UNITS, bairro) : null;
+  const unidade = (retirar ? PUBLIC_UNITS.find((u) => u.id === lojaId) : unidadeEntrega) ?? PUBLIC_UNITS[0];
   const total = totalItens(estado);
   const marcados = estado.itens.filter(itemAtivo).length;
   const todosMarcados = marcados === estado.itens.length;
   const subtotal = formatarCentavos(subtotalCentavos(estado.itens));
-  const taxaEntrega = retirar ? 0 : TAXA_ENTREGA_CENTAVOS;
+  const taxaDoLocal = taxaDoBairro(bairro);
+  const taxaEntrega = retirar ? 0 : (taxaDoLocal ?? 0);
   const totalComTaxa = formatarCentavos(subtotalCentavos(estado.itens) + taxaEntrega);
   const descontos = descontoCentavos(estado.itens);
   const subtotalTabela = formatarCentavos(subtotalDeTabelaCentavos(estado.itens));
@@ -127,7 +128,7 @@ export default function ReservaFluxo() {
     <button type="button" className={classe} disabled><IconWhats size={24} /> Enviar pedido pelo WhatsApp</button>
   );
 
-  const mensagem = mensagemReserva(unidade.shortName, estado.itens, { modo, nome, bairro, rua, pagamento, taxaEntregaCentavos: retirar ? 0 : 100 });
+  const mensagem = mensagemReserva(unidade.shortName, estado.itens, { modo, nome, bairro, rua, pagamento, taxaEntregaCentavos: taxaEntrega });
   const href = buildWhatsAppUrl(unidade, mensagem, { campaign: "reserva", content: `reserva_${unidade.id}` });
 
   return (
@@ -140,7 +141,7 @@ export default function ReservaFluxo() {
           ))}
         </ol>
         <div className="cesta-contato">
-          <a href={`https://wa.me/${UNITS[0].whatsappDigits}`} aria-label="Falar com a União Farma no WhatsApp"><IconWhats size={22} /><span>WhatsApp<strong>{UNITS.find((u) => u.id === "nacoes")?.whatsapp}</strong></span></a>
+          <a href={`https://wa.me/${PUBLIC_UNITS[0].whatsappDigits}`} aria-label="Falar com a União Farma no WhatsApp"><IconWhats size={22} /><span>WhatsApp<strong>{PUBLIC_UNITS.find((u) => u.id === "nacoes")?.whatsapp}</strong></span></a>
         </div>
       </div>
       <header className="fluxo-topo">
@@ -195,7 +196,7 @@ export default function ReservaFluxo() {
                         <div>
                           <strong className="fluxo-item-nome">{item.nome}</strong>
                           {item.receita ? <p className="fluxo-item-receita">{item.receita === "controlado" ? "Controlado: retirada na loja, com a receita retida pela farmácia." : "Exige receita: retirada na loja, apresentando a receita."}</p> : null}
-                          <p className="fluxo-item-loja">Vendido e entregue por <b>União Farma</b> · {UNITS.find((u) => u.id === item.unitId)?.shortName ?? ""}</p>
+                          <p className="fluxo-item-loja">Vendido e entregue por <b>União Farma</b> · {PUBLIC_UNITS.find((u) => u.id === item.unitId)?.shortName ?? ""}</p>
                         </div>
                       </div>
                       <div className="cel-preco">
@@ -263,9 +264,9 @@ export default function ReservaFluxo() {
                     <>
                       <label className="fluxo-campo">
                         <span>Bairro</span>
-                        <select value={bairro} onChange={(e) => { setBairro(e.target.value); trackEvent("delivery_check", { source: "reserva", covered: lojaDoBairro(UNITS, e.target.value) !== null }); }} aria-invalid={tentou && !unidadeEntrega}>
+                        <select value={bairro} onChange={(e) => { setBairro(e.target.value); trackEvent("delivery_check", { source: "reserva", covered: lojaDoBairro(PUBLIC_UNITS, e.target.value) !== null }); }} aria-invalid={tentou && !unidadeEntrega}>
                           <option value="">Selecione</option>
-                          {BAIRROS.map((b) => <option key={b.bairro} value={b.bairro}>{b.bairro}</option>)}
+                          {BAIRROS.map((b) => <option key={b.bairro} value={b.bairro}>{b.bairro} · {formatarCentavos(taxaDoBairro(b.bairro) ?? 0)}</option>)}
                         </select>
                       </label>
                       <label className="fluxo-campo">
@@ -305,7 +306,7 @@ export default function ReservaFluxo() {
                   </label>
                   {retirar ? (
                     <div className="entrega-lojas" role="radiogroup" aria-label="Escolha a loja">
-                      {UNITS.filter((u) => u.id === "nacoes").map((u) => (
+                      {PUBLIC_UNITS.filter((u) => u.id === "nacoes").map((u) => (
                         <label key={u.id} className={lojaId === u.id ? "entrega-loja is-on" : "entrega-loja"}>
                           <input type="radio" name="loja" checked={lojaId === u.id} onChange={() => setLojaId(u.id)} />
                           <span className="entrega-loja-corpo">
@@ -322,7 +323,7 @@ export default function ReservaFluxo() {
                     <input type="radio" name="forma" checked={!retirar} disabled={soRetirada} onChange={() => atualizarReserva((s) => ({ ...s, modo: "casa" }))} />
                     <span className="entrega-tipo">Entrega no seu bairro</span>
                     <span className="entrega-periodo">{unidadeEntrega ? `pela União Farma ${unidadeEntrega.shortName}` : "receba em casa, em Sabará"}</span>
-                    <span className="entrega-preco">{formatarCentavos(TAXA_ENTREGA_CENTAVOS)}</span>
+                    <span className="entrega-preco">{taxaDoLocal !== null ? formatarCentavos(taxaDoLocal) : `a partir de ${formatarCentavos(TAXA_ENTREGA_CENTAVOS)}`}</span>
                   </label>
                 </div>
               </div>

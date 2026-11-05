@@ -62,7 +62,7 @@ test("mensagem do WhatsApp lista itens, loja, forma, nome, pagamento e subtotal,
   assert.match(retirar, /Total estimado: R\$ 39,80/);
   assert.match(retirar, /Podem confirmar preço e estoque\? Obrigado!/);
   assert.doesNotMatch(retirar, /garant|reservado|em estoque/i);
-  const casa = mensagemReserva("Nações Unidas", s.itens, { modo: "casa", nome: "Maria", bairro: "Nações Unidas", rua: "Rua Inglaterra, 100" });
+  const casa = mensagemReserva("Nações Unidas", s.itens, { modo: "casa", nome: "Maria", bairro: "Nações Unidas", rua: "Rua Inglaterra, 100", taxaEntregaCentavos: 100 });
   assert.match(casa, /Forma: Entrega/);
   assert.match(casa, /Bairro: Nações Unidas/);
   assert.match(casa, /Endereço: Rua Inglaterra, 100/);
@@ -225,4 +225,12 @@ test("cesta com medicamento de receita ou controlado: só retirada, com a receit
   assert.match(msg, /2x ALPRAZOLAM 1MG \(controlado: receita retida na loja\)/);
   assert.match(msg, /Tem medicamento com receita: retiro na loja e apresento a receita\./);
   assert.doesNotMatch(mensagemReserva("Nações Unidas", [comum], { modo: "retirar", nome: "Maria" }), /receita/);
+});
+
+test("taxa de entrega por bairro informada pelo dono", async () => {
+  const { taxaDoBairro } = await import("../app/reserva/reserva-store.ts");
+  const esperado = { "Nações Unidas": 100, "General Carneiro": 200, "Vila Rica": 200, Itacolomi: 200, Coqueiros: 400, "Ipê Amarelo": 500, "Vale Paraíso": 300, "Vila São José": 200 };
+  for (const [b, v] of Object.entries(esperado)) assert.equal(taxaDoBairro(b), v, b);
+  assert.equal(taxaDoBairro("Outro lugar"), null);
+  assert.equal(taxaDoBairro(undefined), null);
 });

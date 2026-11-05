@@ -1,4 +1,4 @@
-import { UNITS, type Unit } from "./site-config";
+import { PUBLIC_UNITS, type Unit } from "./site-config";
 
 export type FaqItem = {
   q: string;
@@ -11,12 +11,12 @@ export const CUSTOMER_QUESTIONS: FaqItem[] = [
     a: "Toque na loja do seu bairro no topo do site. A conversa abre pronta. Mande o nome do produto, a dosagem e o bairro. A equipe responde no horário da loja, conforme a fila do atendimento.",
   },
   {
-    q: "Qual loja eu escolho?",
-    a: "A mais perto de você: Fátima (Rua Cláudio, 902), Nações Unidas (Rua Inglaterra, 162) ou Itacolomi (Av. Joaquim Ferreira Madureira, 489). Estoque e entrega são da loja que você chamar.",
+    q: "Onde fica a loja?",
+    a: "A loja Nações Unidas (Rua Inglaterra, 162). Estoque e entrega são da loja que você chamar.",
   },
   {
     q: "Vocês entregam no meu bairro?",
-    a: `Depende da loja. ${UNITS.map((unit) => `A loja ${unit.legalLabel} entrega ${unit.deliveryScope}`).join(". ")}. Taxa e prazo são confirmados no WhatsApp da loja antes de fechar o pedido.`,
+    a: `Depende da loja. ${PUBLIC_UNITS.map((unit) => `A loja ${unit.legalLabel} entrega ${unit.deliveryScope}`).join(". ")}. Taxa e prazo são confirmados no WhatsApp da loja antes de fechar o pedido.`,
   },
   {
     q: "Tem o remédio e o preço no site?",
@@ -39,8 +39,8 @@ export const HOME_FAQS: FaqItem[] = [
     a: "Consulte com o farmacêutico as opções de genérico disponíveis para a sua receita. Mande o nome e a dosagem pelo WhatsApp e a loja informa o que tem hoje.",
   },
   {
-    q: "Qual o horário das lojas?",
-    a: "Fátima abre às 7h e Nações Unidas e Itacolomi abrem às 8h, todos os dias. Segunda a sexta, as três fecham às 21h. Sábado: Fátima e Itacolomi até 20h, Nações Unidas até 21h. Domingo, as três fecham ao meio-dia. Em feriado nacional o site não marca “aberto agora” — confirme o horário no WhatsApp da loja.",
+    q: "Qual o horário da loja?",
+    a: "A loja Nações Unidas abre às 8h, todos os dias. De segunda a sábado fecha às 21h; domingo, ao meio-dia. Em feriado nacional o site não marca “aberto agora” — confirme o horário no WhatsApp da loja.",
   },
   {
     q: "Quais formas de pagamento?",
@@ -67,8 +67,8 @@ export const RECIPE_FAQS: FaqItem[] = [
     a: "Em regra, não. Controlado e antibiótico pedem retirada na loja, com retenção da receita e o farmacêutico. Tire a dúvida no WhatsApp antes de ir.",
   },
   {
-    q: "Qual loja eu escolho para enviar a receita?",
-    a: "A mais perto de você: Fátima (Rua Cláudio, 902), Nações Unidas (Rua Inglaterra, 162) ou Itacolomi (Av. Joaquim Ferreira Madureira, 489). Estoque e entrega são da loja que você chamar.",
+    q: "Para onde envio a receita?",
+    a: "A loja Nações Unidas (Rua Inglaterra, 162). Estoque e entrega são da loja que você chamar.",
   },
   {
     q: "Que dados devo enviar junto com a receita?",

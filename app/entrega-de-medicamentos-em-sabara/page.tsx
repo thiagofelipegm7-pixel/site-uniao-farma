@@ -2,9 +2,10 @@
 import type { Metadata } from "next";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import EntregaBairro from "./EntregaBairro";
-import { buildWhatsAppUrl, SITE_URL, UNITS } from "../site-config";
+import { buildWhatsAppUrl, SITE_URL, PUBLIC_UNITS } from "../site-config";
 import type { FaqItem } from "../seo-content";
 import { getPageStructuredData, getUnitPublicPath } from "../structured-data";
+import { formatarCentavos } from "../reserva/reserva-store";
 
 const SLUG = "entrega-de-medicamentos-em-sabara";
 const PAGE_URL = `${SITE_URL}/${SLUG}`;
@@ -15,17 +16,17 @@ const DESCRIPTION =
 
 const MESSAGE = "Oi, União Farma {unidade}! Quero fazer um pedido para entrega.";
 
-const byId = Object.fromEntries(UNITS.map((unit) => [unit.id, unit]));
-const directAnswer = `A União Farma entrega em Sabará pelo WhatsApp de cada loja. ${UNITS.map((unit) => `A loja ${unit.legalLabel} entrega ${unit.deliveryScope}`).join(". ")}. Faça o pedido dentro do horário de funcionamento da loja.`;
+const byId = Object.fromEntries(PUBLIC_UNITS.map((unit) => [unit.id, unit]));
+const directAnswer = `A União Farma entrega em Sabará pelo WhatsApp da loja. ${PUBLIC_UNITS.map((unit) => `A loja ${unit.legalLabel} entrega ${unit.deliveryScope}`).join(". ")}. Faça o pedido dentro do horário de funcionamento da loja.`;
 
 const faqs: FaqItem[] = [
-  { q: "A União Farma faz entrega em Sabará?", a: "Sim. Cada loja entrega nos bairros da tabela desta página. Peça pelo WhatsApp da loja." },
-  ...UNITS.map((unit) => ({
+  { q: "A União Farma faz entrega em Sabará?", a: "Sim. A loja entrega nos bairros da tabela desta página. Peça pelo WhatsApp da loja." },
+  ...PUBLIC_UNITS.map((unit) => ({
     q: `Quais bairros a loja ${unit.legalLabel} atende?`,
     a: `A loja ${unit.legalLabel} entrega ${unit.deliveryScope}. WhatsApp: ${unit.whatsapp}.`,
   })),
-  { q: "A União Farma está no iFood?", a: "Só a loja Nações Unidas está no iFood. As lojas Fátima e Itacolomi atendem pelo WhatsApp." },
-  { q: "Meu bairro não está na lista. E agora?", a: "Hoje a entrega é feita só nos bairros da tabela. Se o seu bairro não está nela, fale com a loja mais perto pelo WhatsApp e retire o pedido no balcão." },
+  { q: "A União Farma está no iFood?", a: "Sim, a loja Nações Unidas está no iFood." },
+  { q: "Meu bairro não está na lista. E agora?", a: "Hoje a entrega é feita só nos bairros da tabela. Se o seu bairro não está nela, fale com a loja pelo WhatsApp e retire o pedido no balcão." },
 ];
 
 export const metadata: Metadata = {
@@ -42,13 +43,13 @@ export default function EntregaDeMedicamentosEmSabaraPage() {
     name: TITLE,
     url: PAGE_URL,
     faqs,
-    units: UNITS,
+    units: PUBLIC_UNITS,
     breadcrumbs: [
       { name: "Início", url: `${SITE_URL}/` },
       { name: HEADING, url: PAGE_URL },
     ],
   });
-  const rows = UNITS.flatMap((unit) => unit.deliveryAreas.map((area) => ({ area, unitId: unit.id })));
+  const rows = PUBLIC_UNITS.flatMap((unit) => unit.deliveryAreas.map((area) => ({ area, unitId: unit.id })));
 
   return (
     <>
@@ -81,6 +82,7 @@ export default function EntregaDeMedicamentosEmSabaraPage() {
                     <th scope="col">Bairro</th>
                     <th scope="col">Cobertura</th>
                     <th scope="col">Loja</th>
+                    <th scope="col">Taxa</th>
                     <th scope="col">WhatsApp</th>
                   </tr>
                 </thead>
@@ -90,8 +92,9 @@ export default function EntregaDeMedicamentosEmSabaraPage() {
                     return (
                       <tr key={`${unitId}-${area}`}>
                         <th scope="row">{area === "Jardim Vitória" ? <a href="/jardim-vitoria">{area}</a> : area}</th>
-                        <td data-label="Cobertura">{unit.deliveryExclusive ? "Todo o bairro. A loja entrega somente neste bairro." : "Todo o bairro"}</td>
+                        <td data-label="Cobertura">{unit.deliveryExclusive ? "Todo o bairro" : "Todo o bairro"}</td>
                         <td data-label="Loja"><a href={getUnitPublicPath(unit)}>{unit.legalLabel}</a></td>
+                        <td data-label="Taxa">{unit.deliveryFees?.[area] !== undefined ? formatarCentavos(unit.deliveryFees[area]) : "A combinar"}</td>
                         <td data-label="WhatsApp">
                           <a href={buildWhatsAppUrl(unit, MESSAGE.replace("{unidade}", unit.shortName), { campaign: SLUG, content: `table_${unit.id}` })} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unit.id} data-track-source={`${SLUG}_table`}>{unit.whatsapp}</a>
                         </td>
@@ -123,7 +126,7 @@ export default function EntregaDeMedicamentosEmSabaraPage() {
           <div className="section-inner">
             <h2 id="ifood">Loja Nações Unidas também no iFood</h2>
             <p>
-              Além do WhatsApp, a loja Nações Unidas está no iFood. As lojas Fátima e Itacolomi não estão no iFood e atendem só pelo WhatsApp.{" "}
+              Além do WhatsApp, a loja Nações Unidas está no iFood.{" "}
               <a href="/ifood">Veja como pedir pelo iFood</a>.
             </p>
           </div>
@@ -132,9 +135,9 @@ export default function EntregaDeMedicamentosEmSabaraPage() {
         <section className="section" aria-labelledby="fora-da-lista">
           <div className="section-inner">
             <h2 id="fora-da-lista">Meu bairro não está na lista?</h2>
-            <p>A entrega é feita somente nos bairros da tabela acima. Se o seu bairro não está nela, fale com a loja mais perto pelo WhatsApp e retire o pedido no balcão.</p>
+            <p>A entrega é feita somente nos bairros da tabela acima. Se o seu bairro não está nela, fale com a loja pelo WhatsApp e retire o pedido no balcão.</p>
             <ul>
-              {UNITS.map((unit) => (
+              {PUBLIC_UNITS.map((unit) => (
                 <li key={unit.id}>
                   <a href={getUnitPublicPath(unit)}>{`Farmácia ${unit.shortName}`}</a> – {unit.shortAddress} – WhatsApp {unit.whatsapp}
                 </li>

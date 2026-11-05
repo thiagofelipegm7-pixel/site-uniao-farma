@@ -6,7 +6,7 @@ import { IconSetaDireita } from "../../reserva/ReservaIcons";
 import BarraReserva from "../../shop/BarraReserva";
 import ShopTopo from "../../shop/ShopTopo";
 import { nomeDeExibicao } from "../../nome-exibicao";
-import { buildWhatsAppUrl, SITE_URL, UNITS } from "../../site-config";
+import { buildWhatsAppUrl, SITE_URL, PUBLIC_UNITS } from "../../site-config";
 import { getPageStructuredData } from "../../structured-data";
 import type { GrupoBusca } from "../../nacoes-unidas/produtos/busca";
 import CatalogoLista from "../../nacoes-unidas/produtos/CatalogoLista";
@@ -18,7 +18,7 @@ import "../../nacoes-unidas/produtos/produtos.css";
 
 export const dynamic = "force-dynamic";
 
-const nacoes = UNITS.find((unit) => unit.id === "nacoes")!;
+const nacoes = PUBLIC_UNITS.find((unit) => unit.id === "nacoes")!;
 
 type Props = { params: Promise<{ slug: string }>; searchParams?: Promise<{ pagina?: string | string[] }> };
 

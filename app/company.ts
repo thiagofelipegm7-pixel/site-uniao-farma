@@ -1,4 +1,4 @@
-import { UNITS } from "./site-config";
+import { PUBLIC_UNITS } from "./site-config";
 
 export const COMPANY = {
   legalName: "Drogaria e Perfumaria União Farma Ltda",
@@ -6,7 +6,7 @@ export const COMPANY = {
   city: "Sabará",
   state: "MG",
   pharmacistNote:
-    "Farmacêutico responsável presente em todo o horário de funcionamento das três lojas.",
+    "Farmacêutico responsável presente em todo o horário de funcionamento da loja.",
   regulators: {
     crfmg: {
       name: "CRF/MG — Conselho Regional de Farmácia de Minas Gerais",
@@ -36,7 +36,7 @@ export type LegalUnit = {
 };
 
 export const UNIT_LEGAL = Object.fromEntries(
-  UNITS.map((unit) => [
+  PUBLIC_UNITS.map((unit) => [
     unit.id,
     {
       label: unit.legalLabel,
