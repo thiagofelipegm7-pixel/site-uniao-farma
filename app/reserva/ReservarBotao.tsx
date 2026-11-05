@@ -1,7 +1,7 @@
 "use client";
 
 import { trackEvent } from "../analytics";
-import { IconLixeira, IconMais, IconMenos } from "./ReservaIcons";
+import { IconLixeira, IconMais, IconMenos, IconSacola } from "./ReservaIcons";
 import { adicionar, atualizarReserva, definirQtd, idDoItem, qtdDoItem } from "./reserva-store";
 import { useReserva } from "./useReserva";
 
@@ -18,10 +18,12 @@ type Props = {
   compacto?: boolean;
   /** Medicamento com receita ou controlado: a cesta marca o item e só deixa retirar na loja. */
   receita?: "receita" | "controlado";
+  /** "cesta": botão redondo com sacola e "+" no canto do cartão de produto (padrão da listagem). */
+  variante?: "cesta";
 };
 
 /** Botão "+" que vira contador depois do primeiro toque (como no protótipo). Sem texto do produto no analytics. */
-export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos, foto, source = "catalogo", compacto = false, receita }: Props) {
+export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos, foto, source = "catalogo", compacto = false, receita, variante }: Props) {
   const estado = useReserva();
   const id = idDoItem(unitId, nome);
   const qtd = qtdDoItem(estado, id);
@@ -30,15 +32,24 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
     return (
       <button
         type="button"
-        className={compacto ? "reservar-mais reservar-mais-icone" : "reservar-mais"}
+        className={variante === "cesta" ? "reservar-mais pv-cesta-botao" : compacto ? "reservar-mais reservar-mais-icone" : "reservar-mais"}
         aria-label={`Adicionar ${nome} à cesta`}
         onClick={() => {
           atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, deCentavos, foto, ...(receita ? { receita } : {}) }));
           trackEvent("reserva_add", { unit: unitId, source });
         }}
       >
-        <IconMais size={22} />
-        {compacto ? null : <span>Adicionar</span>}
+        {variante === "cesta" ? (
+          <>
+            <IconSacola size={26} />
+            <span className="pv-cesta-mais" aria-hidden="true"><IconMais size={12} /></span>
+          </>
+        ) : (
+          <>
+            <IconMais size={22} />
+            {compacto ? null : <span>Adicionar</span>}
+          </>
+        )}
       </button>
     );
   }

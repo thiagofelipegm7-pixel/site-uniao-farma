@@ -6,6 +6,7 @@ import { useEffect, useMemo, useState } from "react";
 import ReservarBotao from "../../reserva/ReservarBotao";
 import { precoParaCentavos } from "../../reserva/reserva-store";
 import { normalizarBusca, termosDeBusca } from "./busca";
+import CartaoPanvel from "./CartaoPanvel";
 import { Cartao } from "./ListaRestrita";
 import { AVISO_MIP } from "./produto";
 import type { ItemRestrito } from "./receita";
@@ -104,24 +105,22 @@ export default function MedicamentosTodos({ otcInicial, unitId }: { otcInicial: 
         {visiveis.length.toLocaleString("pt-BR")} {visiveis.length === 1 ? "medicamento" : "medicamentos"}
         {carregando ? " · carregando as listas de receita e controlados…" : ""}
       </p>
-      <ul className="catalogo-lista">
+      <ul className="catalogo-lista pv-grade">
         {visiveis.slice(0, limite).map((l) => {
           if (l.restrito) return <Cartao key={l.chave} item={l.restrito} />;
           const i = l.otc!;
-          const href = `/nacoes-unidas/produtos/${i.slug}`;
           const centavos = precoParaCentavos(i.precoFmt);
           return (
-            <li key={l.chave} className="catalogo-item catalogo-card">
-              <a className="catalogo-card-foto" href={href} aria-label={`Ver ${i.nome}`}>
-                {i.foto ? <img src={i.foto} alt="" width="120" height="120" loading="lazy" decoding="async" /> : <span aria-hidden="true" />}
-              </a>
-              <h4>
-                <a href={href}>{i.nome}</a>
-              </h4>
-              {i.isMIP ? <p className="catalogo-mip">{AVISO_MIP}</p> : null}
-              <p className="catalogo-preco">{i.precoFmt}</p>
-              {centavos ? <ReservarBotao unitId={unitId} nome={i.nome} precoCentavos={centavos} foto={i.foto} compacto /> : null}
-            </li>
+            <CartaoPanvel
+              key={l.chave}
+              href={`/nacoes-unidas/produtos/${i.slug}`}
+              nome={i.nome}
+              foto={i.foto}
+              marca={i.lab}
+              precoFmt={i.precoFmt}
+              cesta={centavos ? <ReservarBotao unitId={unitId} nome={i.nome} precoCentavos={centavos} foto={i.foto} variante="cesta" compacto /> : null}
+              avisos={i.isMIP ? <p className="catalogo-mip">{AVISO_MIP}</p> : null}
+            />
           );
         })}
       </ul>

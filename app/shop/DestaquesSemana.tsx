@@ -5,6 +5,7 @@
 import { useEffect, useRef, useState } from "react";
 import { IconSetaDireita, IconVoltar } from "../reserva/ReservaIcons";
 import ReservarBotao from "../reserva/ReservarBotao";
+import CartaoPanvel from "../nacoes-unidas/produtos/CartaoPanvel";
 import { formatarCentavos } from "../reserva/reserva-store";
 
 type Destaque = { nome: string; slug: string; lab?: string; precoCentavos: number; foto: string | null };
@@ -63,19 +64,16 @@ export default function DestaquesSemana({ titulo = "Destaques da semana", grupo,
         <button type="button" className="shop-seta shop-seta-esq" aria-label={`Anterior em ${titulo}`} onClick={() => rolar(-1)}><IconVoltar size={20} /></button>
         <ul className="shop-destaques-lista" ref={lista}>
           {itens.map((item) => (
-            <li key={item.slug}>
-              <article className="shop-card">
-                <a className="shop-card-foto" href={`/nacoes-unidas/produtos/${item.slug}`} aria-label={`Ver ${item.nome}`}>
-                  {item.foto ? <img src={item.foto} alt="" width="120" height="120" loading="lazy" decoding="async" /> : <span aria-hidden="true" />}
-                </a>
-                {item.lab ? <p className="shop-card-marca">{item.lab}</p> : null}
-                <h3>
-                  <a href={`/nacoes-unidas/produtos/${item.slug}`}>{item.nome}</a>
-                </h3>
-                <p className="shop-card-preco">{formatarCentavos(item.precoCentavos)}</p>
-                <ReservarBotao unitId="nacoes" nome={item.nome} precoCentavos={item.precoCentavos} foto={item.foto} source={source} compacto />
-              </article>
-            </li>
+            <CartaoPanvel
+              key={item.slug}
+              vertical
+              href={`/nacoes-unidas/produtos/${item.slug}`}
+              nome={item.nome}
+              foto={item.foto}
+              marca={item.lab}
+              precoFmt={formatarCentavos(item.precoCentavos)}
+              cesta={<ReservarBotao unitId="nacoes" nome={item.nome} precoCentavos={item.precoCentavos} foto={item.foto} source={source} variante="cesta" compacto />}
+            />
           ))}
         </ul>
         <button type="button" className="shop-seta shop-seta-dir" aria-label={`Próximo em ${titulo}`} onClick={() => rolar(1)}><IconSetaDireita size={20} /></button>
