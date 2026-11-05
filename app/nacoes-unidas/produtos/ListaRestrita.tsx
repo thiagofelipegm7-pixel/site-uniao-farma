@@ -10,13 +10,9 @@ import { termosDeBusca } from "./busca";
 import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./Paginacao";
 import ShopTopo from "../../shop/ShopTopo";
 import { buildWhatsAppUrl, getHoursSentence, UNITS } from "../../site-config";
-import { formatBRL, formatDataDosDados } from "./catalogo";
+import { formatBRL } from "./catalogo";
 import {
-  COMO_COMPRAR,
-  COMO_COMPRAR_CONSULTE,
   imagemIlustrativa,
-  NOTA_IMAGEM,
-  ROTULO_TARJA,
   SELO_CONTROLADO,
   type ItemRestrito,
   type TipoRestrito,
@@ -26,7 +22,6 @@ import "./produtos.css";
 const nacoes = UNITS.find((unit) => unit.id === "nacoes")!;
 
 export type ParamsLista = { q?: string | string[]; pagina?: string | string[] };
-const primeiro = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) ?? "";
 
 type Link = { href: string; rotulo: string };
 const LINKS: Record<TipoRestrito, Link> = {
@@ -66,17 +61,7 @@ const TEXTOS: Record<TipoRestrito, { titulo: string; h1: string; intro: string; 
 };
 
 
-const maiuscula = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
-
 export function Cartao({ item }: { item: ItemRestrito }) {
-  const ficha: Array<[string, string]> = [];
-  if (item.ativo) ficha.push(["Princípio ativo", maiuscula(item.ativo)]);
-  if (item.lab.trim()) ficha.push(["Fabricante", item.lab.trim()]);
-  if (item.concentracao) ficha.push(["Concentração", item.concentracao]);
-  if (item.apresentacao) ficha.push(["Apresentação", item.apresentacao]);
-  if (item.rms) ficha.push(["Registro MS (RMS)", item.rms]);
-  if (item.tarja) ficha.push(["Tarja", ROTULO_TARJA[item.tarja]]);
-  if (item.tipo !== "consulte") ficha.push(["Retenção da receita", item.retencao === true ? "Sim" : item.retencao === false ? "Não" : "Confirmar com o farmacêutico"]);
   const nome = item.nomeExibicao ?? item.nome;
   const pedeCesta = item.tipo !== "consulte" && item.preco !== null && item.preco > 0;
   return (
@@ -107,35 +92,6 @@ export function Cartao({ item }: { item: ItemRestrito }) {
           {item.controlado ? <p className="restrito-selo">{SELO_CONTROLADO}</p> : null}
           <p className="restrito-aviso">{item.aviso}</p>
         </>
-      }
-      extra={
-        <details className="pv-detalhes">
-          <summary>Detalhes</summary>
-          {ficha.length > 0 ? (
-            <dl className="restrito-ficha">
-              {ficha.map(([rotulo, valor]) => (
-                <div key={rotulo}>
-                  <dt>{rotulo}</dt>
-                  <dd>{valor}</dd>
-                </div>
-              ))}
-            </dl>
-          ) : null}
-          <p className="restrito-compra">
-            {item.tipo === "consulte" ? COMO_COMPRAR_CONSULTE : COMO_COMPRAR}{" "}
-            <a
-              href={buildWhatsAppUrl(nacoes, `Oi, União Farma Nações Unidas! Quero consultar: ${item.nome}.`, { campaign: "produtos_nacoes", content: `nacoes_${item.tipo}_item` })}
-              target="_blank"
-              rel="noreferrer"
-              data-track-event="whatsapp_click"
-              data-track-unit={nacoes.id}
-              data-track-source={`produtos_nacoes_${item.tipo}_item`}
-            >
-              Perguntar pelo WhatsApp
-            </a>
-          </p>
-          <p className="restrito-ilustrativa">{NOTA_IMAGEM}</p>
-        </details>
       }
     />
   );
