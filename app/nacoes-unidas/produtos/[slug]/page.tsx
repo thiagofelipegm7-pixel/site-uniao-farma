@@ -11,6 +11,8 @@ import { fotoDoProduto } from "../imagens";
 import ProdutoAcoes from "../ProdutoAcoes";
 import ProdutoBarra from "../ProdutoBarra";
 import { nomeDeExibicao } from "../../../nome-exibicao";
+import CombinaCom, { itensCombinaCom } from "../CombinaCom";
+import { descricaoPublica } from "../descricoes";
 import { AVISO_MIP, AVISO_NBCAL, conteudoDoNome, ehNbcal, descricaoMetadata, FAQ_PRODUTO, jsonLdProduto, NOTA_PRECO, textosPublicaveis } from "../produto";
 import "../produtos.css";
 
@@ -25,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const catalogo = carregarCatalogoNacoes();
   const item = catalogo ? acharPorSlug(catalogo.itens, slug) : null;
   const titulo = item ? `${item.nome} | União Farma Nações Unidas` : "Produto | União Farma Nações Unidas";
-  const descricao = item ? descricaoMetadata(item.nome) : "Produto da União Farma Nações Unidas, em Sabará.";
+  const descricao = item ? descricaoMetadata(item.nome, (ehNbcal(item.nome) ? null : descricaoPublica(slugify(item.nome), item.isMIP))?.texto) : "Produto da União Farma Nações Unidas, em Sabará.";
   return {
     title: { absolute: titulo },
     description: descricao,
@@ -48,7 +50,9 @@ export default async function ProdutoNacoesPage({ params }: Props) {
   const conteudo = conteudoDoNome(item.nome);
   // O arquivo da foto oficial é nomeado pelo código de barras (EAN) do produto.
   const ean = foto?.match(/(\d{8,14})\.webp$/)?.[1] ?? null;
-  const textos = textosPublicaveis(null);
+  const descricaoIA = ehNbcal(item.nome) ? null : descricaoPublica(slugItem, item.isMIP);
+  const textos = textosPublicaveis({ descricao: descricaoIA?.texto });
+  const combinaCom = itensCombinaCom(catalogo!.itens, item);
   const ficha = [
     item.lab.trim() ? { rotulo: "Marca", valor: item.lab.trim() } : null,
     { rotulo: "Categoria", valor: item.categoria },
@@ -61,6 +65,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
     categoria: item.categoria,
     url: pagina,
     image: foto ? `${SITE_URL}${foto}` : null,
+    descricao: descricaoIA?.texto,
   });
   const depCat = acharDepartamento(slugify(item.categoria));
   const categoriaHref = depCat && !depCat.provisorio ? `/departamentos/${depCat.slug}` : "/nacoes-unidas/produtos";
@@ -89,7 +94,11 @@ export default async function ProdutoNacoesPage({ params }: Props) {
 
         <article className="produto-card section-inner">
           <h1>{nomeExibido}</h1>
-          {textos.descricao ? <p className="produto-descricao">{textos.descricao}</p> : null}
+          {textos.descricao ? (
+            <p className="produto-descricao" data-descricao-origem={descricaoIA?.origem}>
+              {textos.descricao}
+            </p>
+          ) : null}
           <div className="produto-marca-linha">
             {item.lab.trim() ? (
               <p className="produto-marca">
@@ -132,6 +141,8 @@ export default async function ProdutoNacoesPage({ params }: Props) {
             </tbody>
           </table>
         </section>
+
+        <CombinaCom itens={combinaCom} />
 
         <section className="produto-secao section-inner" aria-labelledby="faq-produto">
           <h2 id="faq-produto">Perguntas frequentes</h2>

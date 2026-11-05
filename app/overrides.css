@@ -943,3 +943,18 @@ h3 {
 .semana-card .semana-preco { align-self: flex-start; }
 .semana-card .semana-info > :last-child { margin-top: auto; }
 .semana-lista > li > .semana-card { min-height: 190px; box-sizing: border-box; }
+
+/* Leve também: sugestões na cesta (gaveta e página) */
+.cesta-sugestoes { margin: 1rem 0; padding: 0.75rem; border: 1px solid #c9d8d5; border-radius: 8px; background: #f7fbfa; }
+.cesta-sugestoes h3 { margin: 0 0 0.125rem; font-size: 1rem; }
+.cesta-sugestoes-nota { margin: 0 0 0.5rem; color: #3e4b49; font-size: 0.8125rem; line-height: 1.4; }
+.cesta-sugestoes ul { list-style: none; margin: 0; padding: 0; }
+.cesta-sugestoes li { display: flex; align-items: center; gap: 0.625rem; padding: 0.5rem 0; border-top: 1px solid #e1ebe9; }
+.cesta-sugestoes li img, .cesta-sugestao-sem-foto { flex: 0 0 auto; width: 48px; height: 48px; object-fit: contain; border-radius: 0.25rem; background: #ffffff; }
+.cesta-sugestao-sem-foto { background: #e1ebe9; }
+.cesta-sugestao-info { flex: 1 1 auto; min-width: 0; display: grid; gap: 0.125rem; }
+.cesta-sugestao-nome { color: #0a3548; font-size: 0.8125rem; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; text-decoration: none; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.cesta-sugestao-info strong { font-size: 0.875rem; }
+.cesta-sugestao-add { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 0.25rem; min-height: 2.75rem; min-width: 2.75rem; padding: 0 0.625rem; border: 1px solid #0a3548; border-radius: 6px; background: #ffffff; color: #0a3548; font: inherit; font-size: 0.8125rem; font-weight: 700; cursor: pointer; }
+.cesta-sugestoes-gaveta { margin-bottom: 0.5rem; }
+@media (max-width: 400px) { .cesta-sugestao-add span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } }

@@ -10,6 +10,7 @@ import { atualizarReserva, definirQtd, formatarCentavos, limpar, subtotalCentavo
 import { useReserva } from "./useReserva";
 import LerReceita from "../receita-foto/LerReceita";
 import BotaoReceita from "../receita-foto/BotaoReceita";
+import CestaSugestoes from "./CestaSugestoes";
 
 const nomeLoja = (unitId: string) => UNITS.find((u) => u.id === unitId)?.shortName ?? "";
 
@@ -138,6 +139,7 @@ export default function ReservaSacola() {
                   </li>
                 ))}
               </ul>
+              <CestaSugestoes itens={estado.itens} max={3} variante="gaveta" />
               {confirmando ? (
                 <div className="reserva-confirma" role="alertdialog" aria-label="Limpar a cesta?">
                   <strong>Limpar a cesta?</strong>

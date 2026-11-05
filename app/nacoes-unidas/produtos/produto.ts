@@ -92,19 +92,21 @@ export function conteudoDoNome(nome: string): string | null {
   return `${bruto} ${unidade}`;
 }
 
-export function descricaoMetadata(nome: string): string {
+export function descricaoMetadata(nome: string, descricao?: string | null): string {
+  const texto = descricao?.replace(/\s+/g, " ").trim();
+  if (texto) return `${texto} União Farma Nações Unidas, Sabará.`;
   return `${nome} na União Farma Nações Unidas, Sabará. ${NOTA_PRECO}`;
 }
 
 /** Product sem nota, sem estoque e sem oferta. O preço fica na página, não no schema. */
-export function jsonLdProduto(input: { nome: string; lab: string; categoria: string; url: string; image?: string | null }): Record<string, unknown> {
+export function jsonLdProduto(input: { nome: string; lab: string; categoria: string; url: string; image?: string | null; descricao?: string | null }): Record<string, unknown> {
   const dados: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: input.nome,
     category: input.categoria,
     url: input.url,
-    description: descricaoMetadata(input.nome),
+    description: descricaoMetadata(input.nome, input.descricao),
   };
   const marca = input.lab.trim();
   if (marca) dados.brand = { "@type": "Brand", name: marca };
