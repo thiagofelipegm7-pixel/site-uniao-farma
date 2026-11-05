@@ -69,6 +69,43 @@ export function formatarIdade(horas: number | null): string {
   return `${Math.round(horas / 24)} dias`;
 }
 
+/** "hoje 16:02" / "ontem 09:15" / "05/11 14:00" em Brasília. */
+export function formatarQuandoBRT(iso: string | null | undefined, agora = Date.now()): string {
+  if (!iso) return "—";
+  const ms = Date.parse(/(Z|[+-]\d{2}:\d{2})$/.test(iso) ? iso : `${iso}-03:00`);
+  if (Number.isNaN(ms)) return "—";
+  const br = new Date(ms - 3 * 3_600_000);
+  const agoraBr = new Date(agora - 3 * 3_600_000);
+  const hh = String(br.getUTCHours()).padStart(2, "0");
+  const mm = String(br.getUTCMinutes()).padStart(2, "0");
+  const dia = `${String(br.getUTCDate()).padStart(2, "0")}/${String(br.getUTCMonth() + 1).padStart(2, "0")}`;
+  const mesmoDia = br.getUTCFullYear() === agoraBr.getUTCFullYear() && br.getUTCMonth() === agoraBr.getUTCMonth() && br.getUTCDate() === agoraBr.getUTCDate();
+  const ontem = new Date(agoraBr);
+  ontem.setUTCDate(ontem.getUTCDate() - 1);
+  const ehOntem = br.getUTCFullYear() === ontem.getUTCFullYear() && br.getUTCMonth() === ontem.getUTCMonth() && br.getUTCDate() === ontem.getUTCDate();
+  if (mesmoDia) return `hoje ${hh}:${mm}`;
+  if (ehOntem) return `ontem ${hh}:${mm}`;
+  return `${dia} ${hh}:${mm}`;
+}
+
+export type EventoHistorico = {
+  quando: string;
+  tipo: "delta" | "completo";
+  aplicados: number;
+  removidos: number;
+  nomes: string[];
+};
+
+export type StatusPc = {
+  online: boolean;
+  batimentoEm: string | null;
+  idadeBatimentoHoras: number | null;
+  mudancaEm: string | null;
+  geradoEm: string | null;
+  total: number | null;
+  historico: EventoHistorico[];
+};
+
 // ---- Execuções da sincronização (API pública do GitHub, repositório público) ----
 
 export const REPO = "thiagofelipegm7-pixel/site-uniao-farma";

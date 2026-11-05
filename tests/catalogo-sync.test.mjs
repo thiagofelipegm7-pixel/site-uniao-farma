@@ -48,6 +48,11 @@ test("painel: idade, fonte e saúde com a janela de expediente (seg-sáb, 8h-21h
   assert.equal(formatarIdade(0.2), "12 min");
   assert.equal(formatarIdade(3), "3 h");
   assert.equal(formatarIdade(72), "3 dias");
+  const { formatarQuandoBRT } = await import("../app/catalogo-painel.ts");
+  const agora = Date.parse("2026-11-05T17:00:00-03:00");
+  assert.equal(formatarQuandoBRT("2026-11-05T16:02:00-03:00", agora), "hoje 16:02");
+  assert.equal(formatarQuandoBRT("2026-11-05T19:02:00.000Z", agora), "hoje 16:02");
+  assert.equal(formatarQuandoBRT("2026-11-04T09:15:00-03:00", agora), "ontem 09:15");
 });
 
 test("painel: execuções da sincronização lidas da API pública do GitHub, com motivo da recusa", async () => {
@@ -90,9 +95,15 @@ test("painel: rota e página só pela sessão da equipe, noindex, sem estoque/c�
   assert.match(pagina, /robots: \{ index: false, follow: false \}/);
   const rota = readFileSync("app/api/interno/catalogo/route.ts", "utf8");
   assert.match(rota, /origem_invalida/);
+  assert.match(rota, /\/status\?loja=/);
   assert.doesNotMatch(rota, /Estoque|CodigoDeBarras|ghp_|github_pat_/);
+  const ui = readFileSync("app/components/PainelCatalogo.tsx", "utf8");
+  assert.match(ui, /PC do estoque/);
+  assert.match(ui, /a cada 10 minutos/);
+  assert.doesNotMatch(ui, /8h, 11h, 14h|ubuntu-latest|Sem novidade/);
+  assert.doesNotMatch(ui, /buscarExecucoes|ExecucaoSync/);
   const uso = readFileSync("app/ia-uso.ts", "utf8");
-  assert.doesNotMatch(uso, /cf-connecting-ip|request\./); // contador sem IP nem texto
+  assert.doesNotMatch(uso, /cf-connecting-ip|request\./);
 });
 
 test("workflow catalogo-monitor: só lê o repositório, abre issue com o título combinado e falha em voz alta", () => {
