@@ -7,6 +7,7 @@ import ReservarBotao from "../../reserva/ReservarBotao";
 import { precoParaCentavos } from "../../reserva/reserva-store";
 import { normalizarBusca, termosDeBusca } from "./busca";
 import CartaoPanvel from "./CartaoPanvel";
+import { quantidadeDoNome } from "./quantidade";
 import { Cartao } from "./ListaRestrita";
 import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./Paginacao";
 import { AVISO_MIP } from "./produto";
@@ -133,6 +134,7 @@ export default function MedicamentosTodos({ otcInicial, unitId, paginaInicial = 
               nome={i.nome}
               foto={i.foto}
               marca={i.lab}
+              apresentacao={quantidadeDoNome(i.nome)}
               precoFmt={i.precoFmt}
               cesta={centavos ? <ReservarBotao unitId={unitId} nome={i.nome} precoCentavos={centavos} foto={i.foto} variante="cesta" compacto /> : null}
               avisos={i.isMIP ? <p className="catalogo-mip">{AVISO_MIP}</p> : null}

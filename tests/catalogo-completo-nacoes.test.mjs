@@ -352,3 +352,13 @@ test("apresentação crua vira quantidade legível no cartão restrito", async (
   assert.equal(q("***"), null);
   assert.equal(q(null), null);
 });
+
+test("quantidade vem do nome nos produtos comuns", async () => {
+  const { quantidadeDoNome: q } = await import("../app/nacoes-unidas/produtos/quantidade.ts");
+  assert.equal(q("ACETONA FARMAX 100 ML"), "100 mililitro(s)");
+  assert.equal(q("NAPROXENO 500 MG CX 20CPR TEUTO"), "20 comprimido(s)");
+  assert.equal(q("ENO SAL DE FRUTA LIMAO 2 ENV"), "2 envelope(s)");
+  assert.equal(q("FRALDA GER CONFORT MASTER PANTS G/XG C/16"), "16 unidade(s)");
+  assert.equal(q("NOVALGINA 50 MG ORAL 100 ML"), "100 mililitro(s)");
+  assert.equal(q("ESC DENT NAVY"), null);
+});

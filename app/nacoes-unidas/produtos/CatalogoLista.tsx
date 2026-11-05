@@ -26,6 +26,7 @@ import {
 } from "./busca";
 import { slugify } from "./catalogo";
 import CartaoPanvel from "./CartaoPanvel";
+import { quantidadeDoNome } from "./quantidade";
 import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./Paginacao";
 import { AVISO_MIP, AVISO_NBCAL, ehNbcal } from "./produto";
 
@@ -353,6 +354,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
                   nome={nome}
                   foto={item.foto}
                   marca={item.lab}
+                  apresentacao={quantidadeDoNome(item.nome)}
                   precoFmt={item.precoFmt}
                   cesta={centavos ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cesta" compacto /> : null}
                   avisos={

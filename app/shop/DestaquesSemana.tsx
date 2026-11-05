@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { IconSetaDireita, IconVoltar } from "../reserva/ReservaIcons";
 import ReservarBotao from "../reserva/ReservarBotao";
 import CartaoPanvel from "../nacoes-unidas/produtos/CartaoPanvel";
+import { quantidadeDoNome } from "../nacoes-unidas/produtos/quantidade";
 import { formatarCentavos } from "../reserva/reserva-store";
 
 type Destaque = { nome: string; slug: string; lab?: string; precoCentavos: number; foto: string | null };
@@ -71,6 +72,7 @@ export default function DestaquesSemana({ titulo = "Destaques da semana", grupo,
               nome={item.nome}
               foto={item.foto}
               marca={item.lab}
+              apresentacao={quantidadeDoNome(item.nome)}
               precoFmt={formatarCentavos(item.precoCentavos)}
               cesta={<ReservarBotao unitId="nacoes" nome={item.nome} precoCentavos={item.precoCentavos} foto={item.foto} source={source} variante="cesta" compacto />}
             />

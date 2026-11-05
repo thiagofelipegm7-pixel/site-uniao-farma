@@ -42,3 +42,39 @@ export function quantidadeLegivel(apresentacao: string | null | undefined): stri
   if (m) return `${m[1]} unidade(s)`;
   return null;
 }
+
+// Para produtos comuns a quantidade vem dentro do nome ("Acetona Farmax 100 ml", "Fralda G 30 unidades").
+// Prefere contagem (comprimidos, unidades...) a volume/peso, e volume/peso a miligramas (concentração).
+const PALAVRA_NOME = "(comprimidos?|comp|cprs?|c[aá]psulas?|caps?|cps|dr[aá]geas?|drgs?|envelopes?|env|sach[eê]s?|ampolas?|amp|doses?|unidades?|unids?|und|un|p[aá]res?|pe[cç]as?|pcs?|ml|litros?|l|kg|gr|g|mg)";
+const NOME_RX = new RegExp(`(?<![\\d.,\\w])${NUM}\\s*${PALAVRA_NOME}(?![a-zà-ú\\d])`, "gi");
+const EXTRAS: Array<[RegExp, string]> = [
+  [/^(?:p[aá]res?)$/i, "par(es)"],
+  [/^(?:pe[cç]as?|pcs?)$/i, "peça(s)"],
+  [/^(?:litros?|l)$/i, "litro(s)"],
+  [/^(?:kg)$/i, "quilo(s)"],
+];
+
+function nomeUnidadeNome(p: string): string | null {
+  for (const [rx, nome] of EXTRAS) if (rx.test(p)) return nome;
+  return nomeUnidade(p);
+}
+
+function prioridade(unidade: string): number {
+  if (unidade === "miligrama(s)") return 2;
+  if (/^(mililitro|grama|litro|quilo)/.test(unidade)) return 1;
+  return 0;
+}
+
+export function quantidadeDoNome(nome: string | null | undefined): string | null {
+  const t = (nome ?? "").replace(/\s+/g, " ");
+  let melhor: { texto: string; p: number } | null = null;
+  for (const m of t.matchAll(NOME_RX)) {
+    const u = nomeUnidadeNome(m[2]);
+    if (!u) continue;
+    const p = prioridade(u);
+    if (!melhor || p < melhor.p) melhor = { texto: `${m[1].replace(".", ",")} ${u}`, p };
+  }
+  if (melhor) return melhor.texto;
+  const c = /(?:^|\s)c\/\s?(\d{1,4})(?![\d/])/i.exec(t);
+  return c ? `${c[1]} unidade(s)` : null;
+}
