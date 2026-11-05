@@ -257,10 +257,10 @@ const recInfo = paginarEEscrever(receitaFmt, "receita");
 const ctlInfo = paginarEEscrever(controladosFmt, "controlados");
 const conInfo = paginarEEscrever(consulteFmt, "consulte");
 
-// Índice leve para a busca do cabeçalho achar também os medicamentos com receita e os controlados.
+// Índice leve para a busca do cabeçalho achar também os medicamentos com receita, os controlados e os "consulte o farmacêutico".
 writeJson(
   "restritos-busca.json",
-  [...receitaFmt, ...controladosFmt].map((i) => ({
+  [...receitaFmt, ...controladosFmt, ...consulteFmt].map((i) => ({
     nome: i.nomeExibicao,
     tipo: i.tipo,
     precoCentavos: i.preco === null ? null : Math.round(i.preco * 100),

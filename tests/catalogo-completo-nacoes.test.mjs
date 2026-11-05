@@ -265,8 +265,8 @@ test("receita e controlados: cada medicamento recebe a ilustração da sua forma
 test("acesso livre: a busca do cabeçalho e o menu levam aos medicamentos com receita e controlados", async () => {
   const idx = await json("public/dados/nacoes/restritos-index.json");
   const busca = await json("public/dados/nacoes/restritos-busca.json");
-  assert.equal(busca.length, idx.receita.total + idx.controlados.total);
-  assert.ok(busca.every((i) => (i.tipo === "receita" || i.tipo === "controlados") && typeof i.busca === "string"));
+  assert.equal(busca.length, idx.receita.total + idx.controlados.total + idx.consulte.total);
+  assert.ok(busca.every((i) => ["receita", "controlados", "consulte"].includes(i.tipo) && typeof i.busca === "string"));
   const header = await read("app/shop/ShopHeader.tsx");
   assert.match(header, /restritos-busca\.json/);
   assert.match(header, /ROTA_RESTRITA\[item\.tipo\]/);
@@ -365,4 +365,11 @@ test("quantidade vem do nome nos produtos comuns", async () => {
   assert.equal(q("FRALDA GER CONFORT MASTER PANTS G/XG C/16"), "16 unidade(s)");
   assert.equal(q("NOVALGINA 50 MG ORAL 100 ML"), "100 mililitro(s)");
   assert.equal(q("ESC DENT NAVY"), null);
+});
+
+test("a busca do cabeçalho também acha os itens 'consulte o farmacêutico'", async () => {
+  const busca = JSON.parse(await read("public/dados/nacoes/restritos-busca.json"));
+  assert.ok(busca.some((i) => i.tipo === "consulte" && /hipoglos/.test(i.busca)), "Hipoglós precisa aparecer na busca");
+  const header = await read("app/shop/ShopHeader.tsx");
+  assert.match(header, /consulte: "\/nacoes-unidas\/produtos\/consulte-o-farmaceutico"/);
 });
