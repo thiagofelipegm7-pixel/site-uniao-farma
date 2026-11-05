@@ -19,6 +19,24 @@ CATEGORIAS = ["Medicamentos", "Dermocosméticos", "Perfumes", "Infantil e Gestan
 
 # Correções manuais: nome normalizado -> categoria.
 AJUSTES: dict[str, str] = {
+    # Itens do lote infantil e gestação (05/11): lenços, mordedores, testes de gravidez, linha Bebelo etc.
+    "ABS POS PARTO GERIAMAX COM 20UND": "Infantil e Gestante",
+    "BYE BYE FEVER BEBES C 2UN": "Infantil e Gestante",
+    "COND BEBELO MELANCIA 250ML": "Infantil e Gestante",
+    "CREME DE PENTEAR SKALINHA CAMO": "Infantil e Gestante",
+    "LENC UMEDECIDO HUGGIES NATURAL 48UND": "Infantil e Gestante",
+    "LENC UMEDECIDO JOAO E MARIA 90UND": "Infantil e Gestante",
+    "LENC UMEDECIDO PIQUITUCHO 140UND": "Infantil e Gestante",
+    "MASCARA CAPILAR BEBELO 250G": "Infantil e Gestante",
+    "MORDEDOR CENTOPEIA BUBA": "Infantil e Gestante",
+    "MORDEDOR LOLLY AGUA FRUTINHAS C7708 01 U": "Infantil e Gestante",
+    "MORDEDOR LOLLY AGUA FRUTINHAS C7709 01 M": "Infantil e Gestante",
+    "SERINGA 20 ML SEM AGULHA BICO LUER LOCK DESCARPACK": "Categoria a conferir",
+    "SERINGA 3ML SEM AGULHA BICO LUER SLIP DESCARPACK": "Categoria a conferir",
+    "SERINGA 3ML SEM AGULHA LUER LOCK SR": "Categoria a conferir",
+    "SERINGA 5ML SEM AGULHA BICO LUER SLIP DESCARPACK": "Categoria a conferir",
+    "SHAMPOO BEBELO MELANCIA 500ML": "Infantil e Gestante",
+    "TEST GRAV CLEARBLUE COMPACTO": "Infantil e Gestante",
     # Itens com foto conferida pela loja (lote de bem-estar de 04/11).
     "ADOCANTE ADOCYL STEVIA 80ML": "Bem Estar",
     "ADOCANTE DIETETICO DOCURINHA 1": "Bem Estar",
