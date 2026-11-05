@@ -8,14 +8,14 @@ import { IconBrilho, IconComprimido, IconCoracao, IconCoracaoLinha, IconEstrela,
 
 const CATEGORIAS = [
   { href: "/ofertas", rotulo: "Ofertas", Icone: IconEtiqueta, destaque: true },
-  { href: "/nacoes-unidas/produtos#medicamentos", rotulo: "Medicamentos", Icone: IconComprimido, destaque: false },
-  { href: "/nacoes-unidas/produtos#dermocosmeticos", rotulo: "Dermo­cosméticos", Icone: IconGota, destaque: false },
-  { href: "/nacoes-unidas/produtos#perfumes", rotulo: "Perfumes", Icone: IconBrilho, destaque: false },
-  { href: "/nacoes-unidas/produtos#infantil-e-gestante", rotulo: "Infantil e Gestante", Icone: IconCoracao, destaque: false },
-  { href: "/nacoes-unidas/produtos#beleza", rotulo: "Beleza", Icone: IconEstrela, destaque: false },
-  { href: "/nacoes-unidas/produtos#cuidado-diario", rotulo: "Cuidado Diário", Icone: IconSabonete, destaque: false },
-  { href: "/nacoes-unidas/produtos#bem-estar", rotulo: "Bem Estar", Icone: IconCoracaoLinha, destaque: false },
-  { href: "/nacoes-unidas/produtos#categoria-a-conferir", rotulo: "Categoria a conferir", Icone: IconKit, destaque: false },
+  { href: "/departamentos/medicamentos", rotulo: "Medicamentos", Icone: IconComprimido, destaque: false },
+  { href: "/departamentos/dermocosmeticos", rotulo: "Dermo­cosméticos", Icone: IconGota, destaque: false },
+  { href: "/departamentos/perfumes", rotulo: "Perfumes", Icone: IconBrilho, destaque: false },
+  { href: "/departamentos/infantil-e-gestante", rotulo: "Infantil e Gestante", Icone: IconCoracao, destaque: false },
+  { href: "/departamentos/beleza", rotulo: "Beleza", Icone: IconEstrela, destaque: false },
+  { href: "/departamentos/cuidado-diario", rotulo: "Cuidado Diário", Icone: IconSabonete, destaque: false },
+  { href: "/departamentos/bem-estar", rotulo: "Bem Estar", Icone: IconCoracaoLinha, destaque: false },
+  { href: "/departamentos/categoria-a-conferir", rotulo: "Categoria a conferir", Icone: IconKit, destaque: false },
 ] as const;
 
 const VISIVEIS = 7; // quadros à vista no desktop largo (5 abaixo de 1440 px); a fila tem cópias para os dois casos

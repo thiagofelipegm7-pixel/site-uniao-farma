@@ -202,3 +202,19 @@ test("catálogo Nações: busca e páginas trazem todas as fotos do mapa de imag
   const busca = await json("public/dados/nacoes/catalogo-busca.json");
   assert.equal(busca.filter((i) => i.foto).length, Object.keys(FOTOS_NACOES).length);
 });
+
+test("departamentos: cada categoria do catálogo tem a sua página e o menu aponta para ela", async () => {
+  const { DEPARTAMENTOS, acharDepartamento } = await import("../app/nacoes-unidas/produtos/departamentos.ts");
+  const { CATEGORIAS_ORDEM, slugify, carregarCatalogoNacoes } = await import("../app/nacoes-unidas/produtos/catalogo.ts");
+  assert.deepEqual(DEPARTAMENTOS.map((d) => d.nome), CATEGORIAS_ORDEM);
+  for (const d of DEPARTAMENTOS) assert.equal(d.slug, slugify(d.nome));
+  assert.equal(acharDepartamento("beleza")?.nome, "Beleza");
+  assert.equal(acharDepartamento("nao-existe"), null);
+  for (const item of carregarCatalogoNacoes().itens) assert.ok(acharDepartamento(slugify(item.categoria)), item.categoria);
+  const gaveta = await read("app/shop/DepartamentosGaveta.tsx");
+  const tiles = await read("app/shop/ShopSections.tsx");
+  for (const d of DEPARTAMENTOS) {
+    assert.ok(gaveta.includes(`/departamentos/${d.slug}`), `gaveta: ${d.slug}`);
+    assert.ok(tiles.includes(`/departamentos/${d.slug}`), `carrossel: ${d.slug}`);
+  }
+});
