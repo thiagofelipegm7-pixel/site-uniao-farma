@@ -260,6 +260,7 @@ writeJson(
     retencao: i.retencao,
     controlado: i.controlado,
     generico: i.generico,
+    ativo: i.ativo,
     nomeOriginal: i.nome,
   })),
 );
