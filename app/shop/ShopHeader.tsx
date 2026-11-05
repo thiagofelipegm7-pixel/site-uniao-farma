@@ -31,7 +31,6 @@ const LINKS = [
 type Sugestao = { nome: string; slug: string; precoCentavos: number; foto: string | null; busca: string };
 type SugestaoRestrita = { nome: string; nomeOriginal: string; tipo: "receita" | "controlados"; precoCentavos: number | null; busca: string; q: string; apresentacao: string | null; tarja: "vermelha" | "vermelha-retencao" | "preta" | null; retencao: boolean | null; controlado: boolean; generico?: boolean; ativo?: string | null };
 const ROTA_RESTRITA = { receita: "/nacoes-unidas/produtos/receita", controlados: "/nacoes-unidas/produtos/controlados" } as const;
-const ROTULO_RESTRITA = { receita: "Com receita", controlados: "Controlado" } as const;
 const ORDINAIS = ["1º", "2º", "3º"];
 const nacoes = UNITS.find((unit) => unit.id === "nacoes");
 
@@ -200,7 +199,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                         <a href={`${ROTA_RESTRITA[item.tipo]}?q=${encodeURIComponent(item.q)}`}>
                           <img src={imagemIlustrativa({ ...item, nome: item.nomeOriginal })} alt="" width="44" height="44" />
                           <span>
-                            {item.nome} <em className="shop-sug-restrito">{ROTULO_RESTRITA[item.tipo]}</em>
+                            {item.nome}
                           </span>
                           <strong>{item.precoCentavos === null ? "" : formatarCentavos(item.precoCentavos)}</strong>
                         </a>

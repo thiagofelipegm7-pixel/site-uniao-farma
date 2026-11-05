@@ -166,7 +166,7 @@ test("página de produto: estrutura, noindex, sem texto de saúde inventado e ba
   assert.match(pagina, /Ficha técnica/);
   assert.match(pagina, /rotulo: "Conteúdo"/);
   assert.match(pagina, /Perguntas frequentes/);
-  assert.match(pagina, /AVISO_MIP/);
+  assert.doesNotMatch(pagina, /AVISO_MIP/, "avisos de venda ficam só na foto e no WhatsApp");
   assert.match(pagina, /jsonLdProduto/);
   assert.match(pagina, /width="300"/);
   assert.doesNotMatch(pagina, /ácido hialurônico|pele seca|aggregateRating|availability/);
