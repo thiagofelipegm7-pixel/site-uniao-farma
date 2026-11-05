@@ -6,7 +6,7 @@ export default function NewsContactCta({ articleTitle, label }: { articleTitle: 
       <div>
         <p className="section-kicker light">Atendimento direto</p>
         <h2 id="news-contact-title">{label}</h2>
-        <p>Escolha a unidade mais conveniente. A equipe confirma as informações durante o atendimento.</p>
+        <p>Fale com a loja Nações Unidas. A equipe confirma as informações durante o atendimento.</p>
       </div>
       <div className="news-contact-units">
         {PUBLIC_UNITS.map((unit) => {
