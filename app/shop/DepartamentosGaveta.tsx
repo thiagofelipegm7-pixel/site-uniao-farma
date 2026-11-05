@@ -18,7 +18,6 @@ const SECOES: Secao[] = [
   { id: "beleza", rotulo: "Beleza", href: "/departamentos/beleza", tipo: "marcas", grupo: "beleza" },
   { id: "cuidado", rotulo: "Cuidado Diário", href: "/departamentos/cuidado-diario", tipo: "marcas", grupo: "cuidado-diario" },
   { id: "bem-estar", rotulo: "Bem Estar", href: "/departamentos/bem-estar", tipo: "marcas", grupo: "bem-estar" },
-  { id: "conferir", rotulo: "Categoria a conferir", href: "/departamentos/categoria-a-conferir", tipo: "marcas", grupo: "categoria-a-conferir" },
 ];
 
 const DURACAO = 220;

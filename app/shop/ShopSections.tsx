@@ -4,7 +4,7 @@
 
 import { useRef, useState } from "react";
 import { flushSync } from "react-dom";
-import { IconBrilho, IconComprimido, IconCoracao, IconCoracaoLinha, IconEstrela, IconEtiqueta, IconGota, IconKit, IconSabonete, IconSetaDireita, IconVoltar } from "../reserva/ReservaIcons";
+import { IconBrilho, IconComprimido, IconCoracao, IconCoracaoLinha, IconEstrela, IconEtiqueta, IconGota, IconSabonete, IconSetaDireita, IconVoltar } from "../reserva/ReservaIcons";
 
 const CATEGORIAS = [
   { href: "/ofertas", rotulo: "Ofertas", Icone: IconEtiqueta, destaque: true },
@@ -15,7 +15,6 @@ const CATEGORIAS = [
   { href: "/departamentos/beleza", rotulo: "Beleza", Icone: IconEstrela, destaque: false },
   { href: "/departamentos/cuidado-diario", rotulo: "Cuidado Diário", Icone: IconSabonete, destaque: false },
   { href: "/departamentos/bem-estar", rotulo: "Bem Estar", Icone: IconCoracaoLinha, destaque: false },
-  { href: "/departamentos/categoria-a-conferir", rotulo: "Categoria a conferir", Icone: IconKit, destaque: false },
 ] as const;
 
 const VISIVEIS = 7; // quadros à vista no desktop largo (5 abaixo de 1440 px); a fila tem cópias para os dois casos
