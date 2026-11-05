@@ -1,6 +1,7 @@
 import { nomeDeExibicao } from "../../nome-exibicao";
 import { carregarCatalogoNacoes, slugify } from "../../nacoes-unidas/produtos/catalogo";
 import { fotoDoProduto } from "../../nacoes-unidas/produtos/imagens";
+import { ehNbcal } from "../../nacoes-unidas/produtos/produto";
 
 export const dynamic = "force-dynamic";
 
@@ -18,6 +19,7 @@ export async function GET(request: Request) {
   const n = Math.min(12, Math.max(1, Math.floor(Number(params.get("n"))) || 6));
   const catalogo = carregarCatalogoNacoes();
   const itens = (catalogo?.itens ?? [])
+    .filter((item) => !ehNbcal(item.nome)) // NBCAL: sem vitrine nem destaque
     .filter((item) => !grupo || slugify(item.categoria) === grupo)
     .filter((item) => !lab || item.lab.replace(/\s+/g, " ").trim().toLowerCase() === lab)
     .filter((item) => !ate || Math.round(item.preco * 100) <= ate)

@@ -11,6 +11,20 @@ export type TextosProduto = {
 
 export type FaqProduto = { q: string; a: string };
 
+/**
+ * Chupetas, bicos, mamadeiras e seus prendedores: a Lei 11.265/2006 (NBCAL) permite oferecer o produto, mas a divulgação
+ * precisa trazer o aviso do Ministério da Saúde (texto igual ao das embalagens) e esses itens não entram em vitrines
+ * nem em destaques da home.
+ */
+export const AVISO_NBCAL =
+  "O Ministério da Saúde adverte: a criança que mama no peito não necessita de mamadeira, bico ou chupeta. O uso de mamadeira, bico ou chupeta prejudica o aleitamento materno.";
+
+export function ehNbcal(nome: string): boolean {
+  const n = nome.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
+  if (/\bSERINGA\b/.test(n)) return false; // "bico luer" é conector de seringa, não bico de mamadeira
+  return /\b(CHUPETA|MAMADEIRA|CHUQUINHA)\b|^BICO\b|\bBICO (MAMAD|CHUPETA|PEPETA|MAMITA)|PRENDEDOR DE (BICO|CHUPETA)|PREDNDEDOR DE (BICO|CHUPETA)/.test(n);
+}
+
 export const AVISO_MIP = "Medicamento isento de prescrição. Leia a bula. Se persistirem os sintomas, o médico deverá ser consultado.";
 
 export const NOTA_PRECO = "Preço do sistema da loja. A gente confere o preço e o estoque e te responde pelo WhatsApp.";

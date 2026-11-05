@@ -57,7 +57,7 @@ test("fotos Nações: só EANs aprovados, arquivo existe e item sem foto devolve
   const { fotoDoProduto, FOTOS_NACOES } = await import("../app/nacoes-unidas/produtos/imagens.ts");
   const { access } = await import("node:fs/promises");
   for (const ean of Object.values(FOTOS_NACOES)) await access(new URL(`../public/produtos/${ean}.webp`, import.meta.url));
-  assert.equal(Object.keys(FOTOS_NACOES).length, 263);
+  assert.equal(Object.keys(FOTOS_NACOES).length, 279);
   assert.equal(fotoDoProduto("DES REXONA COTTON DRY 150 ML"), "/produtos/7791293032467.webp");
   assert.equal(fotoDoProduto("  DES REXONA   COTTON DRY 150 ML "), "/produtos/7791293032467.webp");
   assert.equal(fotoDoProduto("PROT LABIAL NIVEA FRUIT"), null);
@@ -310,4 +310,17 @@ test("busca: aceita plural, acento e várias palavras", async () => {
   assert.equal(contarItens(filtrarGrupos(grupos, "FRALDA pampers")), 1);
   assert.equal(contarItens(filtrarGrupos(grupos, "lenco")), 1);
   assert.equal(contarItens(filtrarGrupos(grupos, "xyz")), 0);
+});
+
+test("NBCAL: chupeta, bico e mamadeira levam o aviso do Ministério da Saúde e ficam fora dos destaques", async () => {
+  const { ehNbcal, AVISO_NBCAL } = await import("../app/nacoes-unidas/produtos/produto.ts");
+  for (const nome of ["CHUPETA KUKA TAM 1 100% SILICONE ROSA", "MAMADEIRA LILLO DIVERTIDA 240ML", "BICO MAMAD SIL SUPER RED0065", "BICO PEPETA ACHATADO", "PRENDEDOR DE CHUPETA BUBA +3M", "PREDNDEDOR DE CHUPETA BUBA +3M"]) {
+    assert.equal(ehNbcal(nome), true, nome);
+  }
+  for (const nome of ["SERINGA 3ML SEM AGULHA BICO LUER SLIP", "FRALDA PAMPERS MEGA G", "MORDEDOR LOLLY AGUA FRUTINHAS"]) {
+    assert.equal(ehNbcal(nome), false, nome);
+  }
+  assert.match(AVISO_NBCAL, /^O Ministério da Saúde adverte: a criança que mama no peito não necessita de mamadeira, bico ou chupeta\./);
+  const rota = await readFile(new URL("../app/api/destaques/route.ts", import.meta.url), "utf8");
+  assert.match(rota, /ehNbcal\(item\.nome\)/);
 });
