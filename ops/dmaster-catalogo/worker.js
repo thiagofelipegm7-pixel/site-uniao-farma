@@ -4,8 +4,8 @@
 //   POST /upload      -> Bearer UPLOAD_TOKEN, full replace {loja, geradoEm, itens:[...]} (manual / bootstrap)
 //   POST /delta       -> Bearer UPLOAD_TOKEN, merge {loja, geradoEm, mudancas:[...], removidos?:[codigo]}
 //   POST /heartbeat   -> Bearer UPLOAD_TOKEN, tiny {loja} — marks PC alive without touching itens
-//   GET  /catalogo    -> Bearer READ_TOKEN, ?loja=itacolomi; returns geradoEm (last content),
-//                        recebidoEm (last contact: upload/delta/heartbeat), batimentoEm, mudancaEm
+//   GET  /catalogo    -> Bearer READ_TOKEN, ?loja=itacolomi; geradoEm/recebidoEm/batimentoEm/mudancaEm + itens
+//   GET  /status      -> Bearer READ_TOKEN, meta leve + historico de deltas (sem itens)
 //   GET  /loja/nacoes -> PUBLIC prescription-free catalog page (noindex, 5 min cache)
 // Vars: EXCLUDE_CLASSES (comma-separated Classe names to hide from ?ofertavel=1; empty for now).
 
@@ -42,6 +42,35 @@ const isGzip = (b) => b.length > 2 && b[0] === 0x1f && b[1] === 0x8b;
 
 const lojaKey = (loja) => `catalogo:${loja}`;
 const validLoja = (s) => typeof s === "string" && /^[a-z0-9_-]{1,40}$/i.test(s);
+const historicoKey = (loja) => `historico:${loja}`;
+const HISTORICO_MAX = 20;
+
+async function registrarHistorico(env, loja, evento) {
+  const key = historicoKey(loja.toLowerCase());
+  let lista = [];
+  try {
+    const raw = await env.CATALOGO.get(key);
+    if (raw) lista = JSON.parse(raw);
+  } catch {
+    lista = [];
+  }
+  if (!Array.isArray(lista)) lista = [];
+  lista.unshift(evento);
+  if (lista.length > HISTORICO_MAX) lista = lista.slice(0, HISTORICO_MAX);
+  await env.CATALOGO.put(key, JSON.stringify(lista));
+}
+
+async function lerHistorico(env, loja) {
+  try {
+    const raw = await env.CATALOGO.get(historicoKey(loja.toLowerCase()));
+    if (!raw) return [];
+    const lista = JSON.parse(raw);
+    return Array.isArray(lista) ? lista : [];
+  } catch {
+    return [];
+  }
+}
+
 
 const truthy = (v) => {
   if (v === true || v === 1) return true;
@@ -85,6 +114,13 @@ async function upload(request, env) {
     itens: data.itens,
   };
   await gravarCatalogo(env, loja, stored);
+  await registrarHistorico(env, loja, {
+    quando: agora,
+    tipo: "completo",
+    aplicados: stored.total,
+    removidos: 0,
+    nomes: [],
+  });
   return json({ ok: true, loja, total: stored.total, recebidoEm: stored.recebidoEm, modo: "completo" });
 }
 
@@ -152,6 +188,7 @@ async function delta(request, env) {
   }
   let by = indice();
   let aplicados = 0;
+  const nomesAmostra = [];
   for (const it of data.mudancas) {
     if (!it || typeof it !== "object") continue;
     const c = codigoDe(it);
@@ -165,6 +202,8 @@ async function delta(request, env) {
       itens.push(it);
     }
     aplicados += 1;
+    const nome = String(it.Produto ?? "").replace(/\s+/g, " ").trim();
+    if (nome && nomesAmostra.length < 5) nomesAmostra.push(nome.slice(0, 60));
   }
   const depois = itens.length;
   if (antes > 0 && depois < antes * 0.8) {
@@ -184,6 +223,13 @@ async function delta(request, env) {
     itens,
   };
   await gravarCatalogo(env, loja, stored);
+  await registrarHistorico(env, loja, {
+    quando: agora,
+    tipo: "delta",
+    aplicados,
+    removidos: removidos.length,
+    nomes: typeof nomesAmostra !== "undefined" ? nomesAmostra : [],
+  });
   return json({
     ok: true,
     loja: stored.loja,
@@ -438,6 +484,26 @@ async function lojaJson(request, env) {
   return new Response(body, { headers: h });
 }
 
+
+/** Meta leve para o painel: batimento, última mudança e histórico recente (sem itens, sem estoque). */
+async function status(request, env, url) {
+  if (!(await authorized(request, env.READ_TOKEN))) return json({ error: "unauthorized" }, 401);
+  const loja = (url.searchParams.get("loja") || "itacolomi").toLowerCase();
+  if (!validLoja(loja)) return json({ error: "invalid_loja" }, 400);
+  const atual = await lerCatalogo(env, loja);
+  if (!atual) return json({ error: "not_found", loja }, 404);
+  const historico = await lerHistorico(env, loja);
+  return json({
+    loja,
+    total: atual.total ?? (Array.isArray(atual.itens) ? atual.itens.length : 0),
+    geradoEm: atual.geradoEm ?? null,
+    recebidoEm: atual.recebidoEm ?? null,
+    batimentoEm: atual.batimentoEm ?? atual.recebidoEm ?? null,
+    mudancaEm: atual.mudancaEm ?? null,
+    historico,
+  });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -447,6 +513,7 @@ export default {
     if (request.method === "POST" && url.pathname === "/heartbeat") return heartbeat(request, env);
     if (request.method === "POST" && url.pathname === "/allowlist") return allowlist(request, env);
     if (request.method === "GET" && url.pathname === "/catalogo") return catalogo(request, env, url);
+    if (request.method === "GET" && url.pathname === "/status") return status(request, env, url);
     if (request.method === "GET" && /^\/loja\/nacoes\/?$/.test(url.pathname)) return loja(request, env);
     if ((request.method === "GET" || request.method === "OPTIONS") && url.pathname === "/loja/nacoes.json") return lojaJson(request, env);
     return json({ error: "not_found" }, 404);

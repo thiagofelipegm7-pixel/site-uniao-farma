@@ -1,38 +1,22 @@
 import { env } from "cloudflare:workers";
 import { carregarCatalogoNacoes } from "../../../nacoes-unidas/produtos/catalogo";
-import { avaliarSaude, buscarExecucoes, instanteDoGeradoEm, REPO, somarUso, statusDoCatalogo, WORKFLOW, type ExecucaoSync } from "../../../catalogo-painel";
+import {
+  avaliarSaude,
+  instanteDoGeradoEm,
+  REPO,
+  somarUso,
+  statusDoCatalogo,
+  WORKFLOW,
+  type EventoHistorico,
+  type StatusPc,
+} from "../../../catalogo-painel";
 import { lerUsoIA } from "../../../ia-uso";
 
-const WORKER_CATALOGO = "https://dmaster-catalogo.thiagofelipegm7.workers.dev/catalogo?loja=itacolomi";
-
-async function lerBatimentoWorker(): Promise<{ batimentoEm: string | null; geradoEm: string | null } | null> {
-  const token = (() => {
-    try {
-      const v = (env as unknown as Record<string, string | undefined>).CATALOGO_READ_TOKEN;
-      if (v) return v.trim();
-    } catch {
-      /* sem binding */
-    }
-    return process.env.CATALOGO_READ_TOKEN?.trim() || "";
-  })();
-  if (!token) return null;
-  try {
-    const r = await fetch(WORKER_CATALOGO, {
-      headers: { authorization: `Bearer ${token}`, accept: "application/json", "user-agent": "uniao-farma-painel" },
-    });
-    if (!r.ok) return null;
-    const j = (await r.json()) as { batimentoEm?: string; recebidoEm?: string; geradoEm?: string };
-    return { batimentoEm: j.batimentoEm || j.recebidoEm || null, geradoEm: j.geradoEm || null };
-  } catch {
-    return null;
-  }
-}
+const WORKER_STATUS = "https://dmaster-catalogo.thiagofelipegm7.workers.dev/status?loja=itacolomi";
 
 export const dynamic = "force-dynamic";
 
 const SEM_CACHE = { "cache-control": "no-store" };
-/** Segurados por instância para não estourar o limite de consultas anônimas do GitHub (60/h). */
-let memoExecucoes: { em: number; dados: ExecucaoSync[] | null } | null = null;
 let ultimoDisparo = 0;
 
 function segredo(nome: string): string {
@@ -45,37 +29,80 @@ function segredo(nome: string): string {
   return process.env[nome]?.trim() || "";
 }
 
+async function lerStatusPc(agora: number): Promise<StatusPc | null> {
+  const token = segredo("CATALOGO_READ_TOKEN");
+  if (!token) return null;
+  try {
+    const r = await fetch(WORKER_STATUS, {
+      headers: { authorization: `Bearer ${token}`, accept: "application/json", "user-agent": "uniao-farma-painel" },
+    });
+    if (!r.ok) return null;
+    const j = (await r.json()) as {
+      batimentoEm?: string;
+      recebidoEm?: string;
+      mudancaEm?: string;
+      geradoEm?: string;
+      total?: number;
+      historico?: EventoHistorico[];
+    };
+    const bat = j.batimentoEm || j.recebidoEm || null;
+    const batMs = bat ? instanteDoGeradoEm(bat) ?? Date.parse(bat) : null;
+    const idadeBatimentoHoras =
+      batMs && !Number.isNaN(batMs) ? Math.max(0, Math.round(((agora - batMs) / 3_600_000) * 10) / 10) : null;
+    const historico = Array.isArray(j.historico)
+      ? j.historico
+          .filter((e) => e && (e.tipo === "delta" || e.tipo === "completo") && typeof e.quando === "string")
+          .slice(0, 12)
+          .map((e) => ({
+            quando: e.quando,
+            tipo: e.tipo === "completo" ? ("completo" as const) : ("delta" as const),
+            aplicados: Number(e.aplicados) || 0,
+            removidos: Number(e.removidos) || 0,
+            nomes: Array.isArray(e.nomes) ? e.nomes.map((n) => String(n).slice(0, 60)).slice(0, 5) : [],
+          }))
+      : [];
+    return {
+      online: idadeBatimentoHoras !== null && idadeBatimentoHoras <= 0.75,
+      batimentoEm: bat,
+      idadeBatimentoHoras,
+      mudancaEm: j.mudancaEm || null,
+      geradoEm: j.geradoEm || null,
+      total: typeof j.total === "number" ? j.total : null,
+      historico,
+    };
+  } catch {
+    return null;
+  }
+}
+
 /**
- * Painel interno do catálogo. Só chega aqui com a sessão da equipe (middleware: cookie HttpOnly assinado).
- * Mostra data/idade dos dados do PC, fonte, execuções da sincronização (com o motivo de cada recusa) e uso da IA.
+ * Painel interno do catálogo. Sessão da equipe obrigatória.
+ * Mostra se o PC está online (batimento), última mudança de estoque/preço, histórico de deltas e uso da IA.
  * Nunca devolve estoque, código de barras nem itens.
  */
 export async function GET() {
   const agora = Date.now();
   const catalogo = carregarCatalogoNacoes();
   const status = statusDoCatalogo(catalogo?.geradoEm, catalogo?.itens.length ?? 0, agora);
-
-  if (!memoExecucoes || agora - memoExecucoes.em > 60_000) memoExecucoes = { em: agora, dados: await buscarExecucoes() };
-  const [usoHoje, uso7, worker] = await Promise.all([lerUsoIA(1), lerUsoIA(7), lerBatimentoWorker()]);
-  const batMs = worker?.batimentoEm ? instanteDoGeradoEm(worker.batimentoEm) ?? Date.parse(worker.batimentoEm) : null;
-  const idadeBatimento =
-    batMs && !Number.isNaN(batMs) ? Math.max(0, Math.round(((agora - batMs) / 3_600_000) * 10) / 10) : null;
+  const [usoHoje, uso7, pc] = await Promise.all([lerUsoIA(1), lerUsoIA(7), lerStatusPc(agora)]);
 
   return Response.json(
     {
       agora: new Date(agora).toISOString(),
       catalogo: status,
-      pc: worker ? { batimentoEm: worker.batimentoEm, geradoEm: worker.geradoEm, idadeBatimentoHoras: idadeBatimento } : null,
-      saude: avaliarSaude(status, agora, idadeBatimento),
-      sincronizacao: { execucoes: memoExecucoes.dados, repositorio: `https://github.com/${REPO}/actions/workflows/${WORKFLOW}` },
+      pc,
+      saude: avaliarSaude(status, agora, pc?.idadeBatimentoHoras ?? null),
       ia: usoHoje === null || uso7 === null ? null : { hoje: somarUso(usoHoje), seteDias: somarUso(uso7) },
       forcar: { configurado: Boolean(segredo("GITHUB_DISPATCH_TOKEN")) },
+      ajuda: {
+        ritmo: "O PC da loja confere o estoque a cada 10 minutos. Se nada mudou, só avisa que está ligado; se mudou preço ou quantidade, manda só o que mudou.",
+      },
     },
     { headers: SEM_CACHE },
   );
 }
 
-/** "Forçar atualização": dispara o workflow de sincronização agora (baixa o último envio do PC e refaz o catálogo, com todas as travas). */
+/** Força o site a baixar de novo o catálogo do Worker e republicar (não manda o PC ler o Dmaster de novo). */
 export async function POST(request: Request) {
   const origem = request.headers.get("origin");
   if (!origem || new URL(origem).host !== new URL(request.url).host) {
@@ -99,7 +126,6 @@ export async function POST(request: Request) {
   }).catch(() => null);
 
   if (r && r.status === 204) {
-    memoExecucoes = null;
     return Response.json({ ok: true }, { headers: SEM_CACHE });
   }
   ultimoDisparo = 0;

@@ -26,3 +26,9 @@
   .painel-catalogo .painel-saude { flex-direction: column; gap: 8px; }
   .painel-catalogo .painel-valor { font-size: 1.45rem; }
 }
+
+.painel-catalogo .painel-ritmo { margin: 0 0 14px; overflow-wrap: anywhere; }
+.painel-catalogo .painel-saude-ok { border-color: #9dcaa8; background: #f3faf5; }
+.painel-catalogo .painel-nomes { color: #55645a; font-size: 0.88rem; }
+.painel-catalogo .metrics-card small { display: block; margin-top: 4px; overflow-wrap: anywhere; }
+.painel-catalogo .metrics-block p { overflow-wrap: anywhere; }
