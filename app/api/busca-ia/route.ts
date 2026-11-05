@@ -57,7 +57,7 @@ export async function GET(request: Request) {
   if (!limitePorVisitante(visitante) || !limiteGeral("geral")) return responder(VAZIA, { "x-busca-ia": "limite" });
 
   try {
-    let diag = "";
+    let falhou = false;
     let temporizador: ReturnType<typeof setTimeout> | undefined;
     const limite = new Promise<null>((resolve) => {
       temporizador = setTimeout(() => resolve(null), TEMPO_LIMITE_MS);
@@ -72,13 +72,13 @@ export async function GET(request: Request) {
         temperature: 0,
         response_format: ESQUEMA_RESPOSTA,
       })
-      .catch((e: unknown) => {
-        diag = String((e as Error)?.message ?? e).replace(/[^\x20-\x7e]/g, " ").slice(0, 200);
+      .catch(() => {
+        falhou = true;
         return null;
       });
     const resultado = await Promise.race([chamada, limite]);
     if (temporizador) clearTimeout(temporizador);
-    if (resultado === null) return responder(VAZIA, { "x-busca-ia": diag ? "erro-ia" : "tempo", ...(diag ? { "x-busca-diag": diag } : {}) });
+    if (resultado === null) return responder(VAZIA, { "x-busca-ia": falhou ? "erro-ia" : "tempo" });
 
     const limpa = limparRespostaIA(conteudoDaRespostaIA(resultado), candidatos);
     if (!limpa) return responder(VAZIA, { "x-busca-ia": "invalida" });

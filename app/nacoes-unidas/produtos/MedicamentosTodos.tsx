@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 /* eslint-disable @next/next/no-img-element -- Imagem estática pequena, igual ao restante do catálogo. */
 import { useEffect, useMemo, useState } from "react";
+import BotaoVoz from "../../shop/BotaoVoz";
 import ReservarBotao from "../../reserva/ReservarBotao";
 import { precoParaCentavos } from "../../reserva/reserva-store";
 import { normalizarBusca, termosDeBusca } from "./busca";
@@ -116,7 +117,10 @@ export default function MedicamentosTodos({ otcInicial, unitId, paginaInicial = 
       </div>
       <form className="medicamentos-busca" role="search" onSubmit={(e) => e.preventDefault()}>
         <label htmlFor="medicamentos-q">Buscar nos medicamentos</label>
-        <input id="medicamentos-q" type="search" value={consulta} maxLength={80} placeholder="Nome ou princípio ativo" onChange={(e) => { setConsulta(e.target.value); irParaPaginaLocal(1); }} />
+        <div className="voz-campo">
+          <input id="medicamentos-q" type="search" value={consulta} maxLength={80} placeholder="Nome ou princípio ativo" onChange={(e) => { setConsulta(e.target.value); irParaPaginaLocal(1); }} />
+          <BotaoVoz contexto="medicamentos" onTexto={(texto) => { setConsulta(texto); irParaPaginaLocal(1); }} />
+        </div>
       </form>
       <p className="medicamentos-contagem" aria-live="polite">
         {visiveis.length.toLocaleString("pt-BR")} {visiveis.length === 1 ? "medicamento" : "medicamentos"}
