@@ -19,6 +19,22 @@ const TEMPO_RESERVA_MS = 12_000;
 const limitePorVisitante = criarLimitador(6, 600_000);
 const limiteGeral = criarLimitador(300, 3_600_000);
 
+/** Contador por visitante guardado no cache do datacenter (compartilhado entre as instâncias do Worker). Guarda só um número por janela, nunca a foto. Se o cache falhar, deixa passar e o limite local continua valendo. */
+async function dentroDoLimiteCompartilhado(origemUrl: string, visitante: string, max: number, janelaMs: number): Promise<boolean> {
+  try {
+    const cache = typeof caches !== "undefined" ? (caches as unknown as { default?: Cache }).default : undefined;
+    if (!cache) return true;
+    const janela = Math.floor(Date.now() / janelaMs);
+    const chave = new Request(`${new URL(origemUrl).origin}/__limite/receita/${encodeURIComponent(visitante)}/${janela}`);
+    const atual = Number(await (await cache.match(chave))?.text()) || 0;
+    if (atual >= max) return false;
+    await cache.put(chave, new Response(String(atual + 1), { headers: { "cache-control": `public, max-age=${Math.ceil(janelaMs / 1000)}` } }));
+    return true;
+  } catch {
+    return true;
+  }
+}
+
 type Ia = { run(modelo: string, entrada: Record<string, unknown>): Promise<unknown> };
 
 function responder(corpo: Record<string, unknown>, status: number, estado: string) {
@@ -75,7 +91,7 @@ export async function POST(request: Request) {
   if (!ia) return responder({ erro: "indisponivel" }, 503, "sem-binding");
 
   const visitante = request.headers.get("cf-connecting-ip") ?? "anonimo";
-  if (!limitePorVisitante(visitante) || !limiteGeral("geral")) return responder({ erro: "limite" }, 429, "limite");
+  if (!limitePorVisitante(visitante) || !limiteGeral("geral") || !(await dentroDoLimiteCompartilhado(request.url, visitante, 6, 600_000))) return responder({ erro: "limite" }, 429, "limite");
 
   let bytes: Uint8Array;
   try {
