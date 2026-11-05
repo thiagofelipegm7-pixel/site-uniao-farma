@@ -268,3 +268,16 @@ test("acesso livre: a busca do cabeçalho e o menu levam aos medicamentos com re
   const pagina = await read("app/departamentos/[slug]/page.tsx");
   assert.ok(pagina.includes('dep.slug === "medicamentos"') && pagina.includes("/nacoes-unidas/produtos/receita"));
 });
+
+test("medicamentos: o departamento reúne sem receita, com receita, controlados e consulte numa lista só", async () => {
+  const pagina = await read("app/departamentos/[slug]/page.tsx");
+  assert.ok(pagina.includes('dep.slug === "medicamentos"') && pagina.includes("<MedicamentosTodos"));
+  const comp = await read("app/nacoes-unidas/produtos/MedicamentosTodos.tsx");
+  for (const tipo of ["receita", "controlados", "consulte"]) assert.ok(comp.includes(`"${tipo}"`), tipo);
+  assert.match(comp, /restritos-index\.json/);
+  assert.match(comp, /restritos\/\$\{tipo\}\/p\$\{p\}\.json/);
+  const idx = await json("public/dados/nacoes/restritos-index.json");
+  const cat = await json("public/dados/nacoes/catalogo-index.json");
+  const otc = cat.grupos.find((g) => g.slug === "medicamentos").total;
+  assert.equal(otc + idx.receita.total + idx.controlados.total + idx.consulte.total, 1716);
+});

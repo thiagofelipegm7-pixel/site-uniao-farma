@@ -48,6 +48,9 @@ export type ItemRestrito = {
   apresentacao: string | null;
   aviso: string;
   controlado: boolean;
+  /** Campos pré-calculados nos dados gerados (nome de exibição e endereço). */
+  nomeExibicao?: string;
+  slug?: string;
   /** Classe "genérico" no sistema da loja (define a faixa amarela "Medicamento Genérico" na ilustração). */
   generico?: boolean;
   busca?: string;
