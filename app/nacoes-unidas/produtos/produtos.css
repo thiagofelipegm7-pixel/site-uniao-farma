@@ -870,3 +870,6 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
 .departamento-outros { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 auto 1rem; }
 .departamento-outros a { display: inline-flex; align-items: center; min-height: 2.25rem; padding: 0 0.875rem; border: 1px solid #c9d8d5; border-radius: 999px; background: #ffffff; color: #0a3548; font-size: 0.8125rem; font-weight: 600; text-decoration: none; }
 .departamento-outros a[aria-current="page"] { border-color: #0a3548; background: #0a3548; color: #ffffff; }
+
+.departamento-receita { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 auto 0.75rem; }
+.departamento-receita a { display: inline-flex; align-items: center; min-height: 2.5rem; padding: 0 1rem; border: 1px solid #0a3548; border-radius: 6px; background: #eef3f7; color: #0a3548; font-size: 0.875rem; font-weight: 700; text-decoration: none; }

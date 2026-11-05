@@ -79,6 +79,13 @@ export default async function DepartamentoPage({ params }: Props) {
         </nav>
         <h1 className="catalogo-titulo section-inner">{dep.nome}</h1>
         <p className="departamento-resumo section-inner">{dep.resumo}</p>
+        {dep.slug === "medicamentos" ? (
+          <nav className="departamento-receita section-inner" aria-label="Medicamentos com receita">
+            <a href="/nacoes-unidas/produtos/receita">Medicamentos com receita</a>
+            <a href="/nacoes-unidas/produtos/controlados">Medicamentos controlados</a>
+            <a href="/nacoes-unidas/produtos/consulte-o-farmaceutico">Consulte o farmacêutico</a>
+          </nav>
+        ) : null}
         <nav className="departamento-outros section-inner" aria-label="Departamentos">
           {DEPARTAMENTOS.map((d) => (
             <a key={d.slug} href={`/departamentos/${d.slug}`} aria-current={d.slug === dep.slug ? "page" : undefined}>

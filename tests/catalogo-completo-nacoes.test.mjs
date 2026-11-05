@@ -243,3 +243,17 @@ test("receita e controlados: cada medicamento recebe a ilustração da sua forma
   assert.equal(imagemIlustrativa({ ...base, nome: "X GOTAS 20ML", tipo: "controlados", tarja: "preta", retencao: true, controlado: true }), "/ilustrativas/got-ref-preta.webp");
   assert.equal(imagemIlustrativa({ ...base, nome: "QUALQUER", tipo: "consulte", tarja: null, retencao: null }), "/produtos/generica-ilustrativa.webp");
 });
+
+test("acesso livre: a busca do cabeçalho e o menu levam aos medicamentos com receita e controlados", async () => {
+  const idx = await json("public/dados/nacoes/restritos-index.json");
+  const busca = await json("public/dados/nacoes/restritos-busca.json");
+  assert.equal(busca.length, idx.receita.total + idx.controlados.total);
+  assert.ok(busca.every((i) => (i.tipo === "receita" || i.tipo === "controlados") && typeof i.busca === "string"));
+  const header = await read("app/shop/ShopHeader.tsx");
+  assert.match(header, /restritos-busca\.json/);
+  assert.match(header, /ROTA_RESTRITA\[item\.tipo\]/);
+  const gaveta = await read("app/shop/DepartamentosGaveta.tsx");
+  assert.ok(gaveta.includes("/nacoes-unidas/produtos/receita") && gaveta.includes("/nacoes-unidas/produtos/controlados"));
+  const pagina = await read("app/departamentos/[slug]/page.tsx");
+  assert.ok(pagina.includes('dep.slug === "medicamentos"') && pagina.includes("/nacoes-unidas/produtos/receita"));
+});
