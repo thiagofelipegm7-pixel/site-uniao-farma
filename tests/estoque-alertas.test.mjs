@@ -119,3 +119,39 @@ test("vigia do PC: só avisa com a loja aberta, uma vez ao parar, a cada 6 h e a
   assert.equal(pc.decidirAviso(d.proximo, false, t0 + 8 * 3_600_000).enviar, null);
   assert.match(pc.textoDoAviso("parou", 3).corpo, /nao envia o estoque há 3 h|nao envia o estoque ha 3 h|há 3 h/);
 });
+
+test("painel de fotos: cruza estoque x fotos do site, resume, filtra e gera CSV", async () => {
+  const f = await import("../app/fotos-painel.ts");
+  const itens = [
+    { CodigoDeBarras: "111", Produto: "ADOCANTE ADOCYL STEVIA 80ML", Laboratorio: "COSMED", Estoque: 2, Pvenda: 12, Classe: "ETICO", ProdutoControlado: false },
+    { CodigoDeBarras: "222", Produto: "ALPRAZOLAM 1MG 30CPR", Laboratorio: "EMS", Estoque: 5, Pvenda: 10, Classe: "GENERICO", ProdutoControlado: true },
+    { CodigoDeBarras: "333", Produto: "ITEM ZERADO", Laboratorio: "DIVERSOS", Estoque: 0, Pvenda: 9 },
+    { CodigoDeBarras: "444", Produto: "AMOXICILINA 500MG", Laboratorio: "EUROFARMA", Estoque: 3, Pvenda: 20, ProdutoAntimicrobiano: 1 },
+    { CodigoDeBarras: "111", Produto: "REPETIDO", Estoque: 1, Pvenda: 1 },
+    { CodigoDeBarras: "555", Produto: "TAXA DE ENTREGA", Estoque: 1, Pvenda: 1 },
+  ];
+  const categorias = new Map([[f.chaveDeNome("Adoçante Adocyl Stevia 80ml"), "Bem Estar"], [f.chaveDeNome("ALPRAZOLAM 1MG 30CPR"), "Controlados"]]);
+  const linhas = f.montarLinhas(itens, new Set(["111"]), categorias);
+  assert.deepEqual(linhas.map((l) => l.ean), ["111", "222", "333", "444"], "sem repetido nem taxa de entrega");
+  assert.equal(linhas[0].categoria, "Bem Estar");
+  assert.equal(linhas[0].noSite, true);
+  assert.equal(linhas[1].controlado, true);
+  assert.equal(linhas[2].lab, "", "DIVERSOS vira não identificado");
+  assert.equal(linhas[2].categoria, f.SEM_CATEGORIA);
+  assert.equal(linhas[2].valor, 0);
+  assert.equal(linhas[3].antimicrobiano, true);
+  assert.equal(linhas[1].valor, 50);
+  const r = f.resumirFotos(linhas);
+  assert.deepEqual([r.total, r.comFoto, r.faltam, r.faltamComEstoque, r.valorSemFoto], [4, 1, 3, 2, 110]);
+  assert.deepEqual(f.filtrarLinhas(linhas, { fotos: "faltam", estoque: "com" }).map((l) => l.ean), ["222", "444"]);
+  assert.deepEqual(f.filtrarLinhas(linhas, { tipo: "controlado" }).map((l) => l.ean), ["222"]);
+  assert.deepEqual(f.filtrarLinhas(linhas, { busca: "amoxi" }).map((l) => l.ean), ["444"]);
+  assert.deepEqual(f.filtrarLinhas(linhas, { fotos: "pc", marcados: new Set(["222", "111"]) }).map((l) => l.ean), ["222"], "marcado no PC e ainda sem foto no site");
+  const csv = f.csvDasLinhas(f.filtrarLinhas(linhas, { fotos: "faltam" }), new Set(["222"]));
+  assert.ok(csv.startsWith("﻿Código de barras;Produto"));
+  assert.match(csv, /222;"ALPRAZOLAM 1MG 30CPR";"EMS";"Controlados";5;10,00;50,00;não;sim/);
+  const rota = await (await import("node:fs/promises")).readFile(new URL("../app/api/interno/fotos/route.ts", import.meta.url), "utf8");
+  assert.match(rota, /lerExportBruto/);
+  const mw = await (await import("node:fs/promises")).readFile(new URL("../middleware.ts", import.meta.url), "utf8");
+  assert.match(mw, /staffPath = [^;]*"\/api\/interno\/fotos"/);
+});

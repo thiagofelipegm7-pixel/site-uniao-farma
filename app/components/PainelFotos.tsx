@@ -99,7 +99,7 @@ export default function PainelFotos() {
   };
 
   return (
-    <main className="painel-fotos">
+    <section className="painel-fotos">
       <h1>Fotos dos produtos</h1>
       <p className="pf-nav">
         <a href="/interno/estoque">Alertas de estoque</a> · <a href="/interno/catalogo">Saúde do catálogo</a> · <a href="/interno/metricas">Métricas</a>
@@ -183,6 +183,6 @@ export default function PainelFotos() {
           ) : null}
         </>
       ) : null}
-    </main>
+    </section>
   );
 }

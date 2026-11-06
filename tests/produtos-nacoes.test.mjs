@@ -57,7 +57,7 @@ test("fotos Nações: só EANs aprovados, arquivo existe e item sem foto devolve
   const { fotoDoProduto, FOTOS_NACOES } = await import("../app/nacoes-unidas/produtos/imagens.ts");
   const { access } = await import("node:fs/promises");
   for (const ean of Object.values(FOTOS_NACOES)) await access(new URL(`../public/produtos/${ean}.webp`, import.meta.url));
-  assert.equal(Object.keys(FOTOS_NACOES).length, 278);
+  assert.equal(Object.keys(FOTOS_NACOES).length, 381);
   assert.equal(fotoDoProduto("DES REXONA COTTON DRY 150 ML"), "/produtos/7791293032467.webp");
   assert.equal(fotoDoProduto("  DES REXONA   COTTON DRY 150 ML "), "/produtos/7791293032467.webp");
   assert.equal(fotoDoProduto("PROT LABIAL NIVEA FRUIT"), null);
