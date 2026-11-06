@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import MetricsCharts from "../../components/MetricsCharts";
 import MetricsConversion from "../../components/MetricsConversion";
 import MetricsRoi from "../../components/MetricsRoi";
+import FunilCesta from "../../components/FunilCesta";
 import { CHANNEL_LABEL, type ChannelKey } from "../../metrics-channels";
 import { unitFunnels, UNIT_LABEL } from "../../metrics-conversion";
 import { RANGE_LABEL, daysForRange, sumRange, type RangeKey } from "../../metrics-range";
@@ -160,6 +161,7 @@ export default function MetricsPage() {
         />
 
         <MetricsRoi today={today} days={days} range={range} channel={channel} />
+        <FunilCesta />
 
         {channel === "all" ? (
           <section className="metrics-block">

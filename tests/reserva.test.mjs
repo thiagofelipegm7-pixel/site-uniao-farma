@@ -312,3 +312,20 @@ test("repetir pedido: usa o preço de hoje, mantém quantidade e receita e avisa
   assert.deepEqual(lerUltimoPedido("lixo"), []);
   assert.deepEqual(lerUltimoPedido(JSON.stringify([{ nome: "A", qtd: 99 }, { nome: "B", qtd: 1 }])), [{ nome: "B", qtd: 1 }]);
 });
+
+test("funil da cesta: etapas fixas, sem dados pessoais, porcentagens e gatilhos no fluxo", async () => {
+  const { ETAPAS_FUNIL, etapaValida, montarFunil } = await import("../app/funil.ts");
+  assert.deepEqual([...ETAPAS_FUNIL], ["add", "cesta", "entrega", "finalizar", "enviar"]);
+  assert.equal(etapaValida("enviar"), true);
+  assert.equal(etapaValida("nome"), false);
+  assert.equal(etapaValida(undefined), false);
+  const f = montarFunil({ add: 100, cesta: 60, entrega: 30, finalizar: 24, enviar: 18 });
+  assert.deepEqual(f.map((l) => [l.etapa, l.total, l.doAnterior, l.doTopo]), [["add", 100, null, null], ["cesta", 60, 60, 60], ["entrega", 30, 50, 30], ["finalizar", 24, 80, 24], ["enviar", 18, 75, 18]]);
+  assert.equal(montarFunil({}).every((l) => l.total === 0 && (l.doAnterior === null)), true, "sem dados não divide por zero");
+  const fluxo = await readFile(new URL("../app/reserva/ReservaFluxo.tsx", import.meta.url), "utf8");
+  for (const e of ["entrega", "finalizar", "enviar", "cesta"]) assert.match(fluxo, new RegExp(`registrarEtapa\\("${e}"\\)`));
+  for (const f of ["app/reserva/ReservarBotao.tsx", "app/nacoes-unidas/produtos/ProdutoBarra.tsx", "app/reserva/CestaSugestoes.tsx"]) assert.match(await readFile(new URL(`../${f}`, import.meta.url), "utf8"), /registrarEtapa\("add"\)/);
+  const api = await readFile(new URL("../app/api/funil/route.ts", import.meta.url), "utf8");
+  assert.doesNotMatch(api, /nome|endereco|telefone|produto/i, "o funil não guarda dados pessoais");
+  assert.match(await readFile(new URL("../middleware.ts", import.meta.url), "utf8"), /staffPath = [^;]*"\/api\/interno\/funil"/);
+});

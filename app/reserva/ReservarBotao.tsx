@@ -1,6 +1,7 @@
 "use client";
 
 import { trackEvent } from "../analytics";
+import { registrarEtapa } from "../funil";
 import { IconLixeira, IconMais, IconMenos, IconCesta } from "./ReservaIcons";
 import { adicionar, atualizarReserva, definirQtd, idDoItem, qtdDoItem, tetoDoItem } from "./reserva-store";
 import { useReserva } from "./useReserva";
@@ -41,6 +42,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
         onClick={() => {
           atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, deCentavos, foto, ...(receita ? { receita } : {}), ...(max ? { max } : {}) }));
           trackEvent("reserva_add", { unit: unitId, source });
+          registrarEtapa("add");
         }}
       >
         {variante === "cesta" ? (

@@ -5,6 +5,7 @@
 import { useEffect, useState, useSyncExternalStore } from "react";
 import MarcaUniao from "../shop/MarcaUniao";
 import { trackEvent } from "../analytics";
+import { registrarEtapa } from "../funil";
 import { listarBairros, lojaDoBairro } from "../entrega-bairro";
 import { readPreferredUnitId } from "../preferred-unit";
 import { buildWhatsAppUrl, PUBLIC_UNITS, type Unit } from "../site-config";
@@ -48,6 +49,11 @@ export default function ReservaFluxo() {
   const [editando, setEditando] = useState(true);
   // Depois do toque em "Enviar pedido pelo WhatsApp": lembra o cliente de tocar em enviar dentro do WhatsApp.
   const [enviado, setEnviado] = useState(false);
+  // Funil: a visita abriu a cesta com itens (conta uma vez por visita).
+  const temItens = estado.itens.length > 0;
+  useEffect(() => {
+    if (temItens) registrarEtapa("cesta");
+  }, [temItens]);
   // Hora atual só no navegador (o servidor não sabe se a loja está aberta): para o aviso de loja fechada.
   const [agora, setAgora] = useState<Date | null>(null);
   // Nome e endereço do último pedido, guardados só neste aparelho.
@@ -91,6 +97,8 @@ export default function ReservaFluxo() {
   const valido = retirar ? nomeOk : nomeOk && rua.trim().length >= 3 && unidadeEntrega !== null;
 
   function ir(proximo: Passo) {
+    if (proximo === 2) registrarEtapa("entrega");
+    if (proximo === 3) registrarEtapa("finalizar");
     setPasso(proximo);
     setTentou(false);
     if (typeof window !== "undefined") window.scrollTo({ top: 0 });
@@ -183,7 +191,7 @@ export default function ReservaFluxo() {
   );
 
   const enviarWhats = (classe: string) => pagamento ? (
-    <a className={classe} href={href} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unidade.id} data-track-source="reserva_envio" onClick={() => { guardarUltimoPedido(estado.itens.filter(itemAtivo)); setEnviado(true); }}>
+    <a className={classe} href={href} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unidade.id} data-track-source="reserva_envio" onClick={() => { guardarUltimoPedido(estado.itens.filter(itemAtivo)); registrarEtapa("enviar"); setEnviado(true); }}>
       <IconWhats size={24} /> Enviar pedido pelo WhatsApp
     </a>
   ) : (
