@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { candidatosDoArraste } from "../fotos-arrastar";
 import { prepararFoto } from "./preparar-foto";
 import { csvDasLinhas, filtrarLinhas, resumirFotos, type FiltroFotos, type LinhaFoto, type ResumoFotos } from "../fotos-painel";
 import "../metrics-polish.css";
@@ -15,6 +16,18 @@ const POR_PAGINA = 100;
 
 function paraLinha(l: Linha): LinhaFoto {
   return { ean: l[0], nome: l[1], lab: l[2], classe: l[3], estoque: l[4], preco: l[5], valor: l[6], controlado: l[7] === 1, antimicrobiano: l[8] === 1, categoria: l[9], noSite: l[10] === 1 };
+}
+
+/** Arquivo do computador ou imagem arrastada de outro site (o navegador só manda o endereço e o HTML dela). */
+function arrastoDeImagem(dt: DataTransfer): boolean {
+  return dt.types.includes("Files") || dt.types.includes("text/uri-list") || dt.types.includes("text/html");
+}
+
+function origemDoArraste(dt: DataTransfer): File | string[] | undefined {
+  const arquivo = [...(dt.files ?? [])].find((f) => f.type.startsWith("image/"));
+  if (arquivo) return arquivo;
+  const enderecos = candidatosDoArraste({ uriList: dt.getData("text/uri-list"), html: dt.getData("text/html"), texto: dt.getData("text/plain") });
+  return enderecos.length > 0 ? enderecos : undefined;
 }
 
 type Envio = "enviando" | "enviada" | "erro";
@@ -63,7 +76,7 @@ export default function PainelFotos() {
   useEffect(() => {
     // Soltar um arquivo fora de uma linha não pode abrir a foto no navegador e sair do painel.
     const segurar = (e: DragEvent) => {
-      if (e.dataTransfer?.types.includes("Files")) e.preventDefault();
+      if (e.dataTransfer && arrastoDeImagem(e.dataTransfer)) e.preventDefault();
     };
     window.addEventListener("dragover", segurar);
     window.addEventListener("drop", segurar);
@@ -105,14 +118,30 @@ export default function PainelFotos() {
     });
   }
 
-  async function enviarFoto(l: LinhaFoto, arquivo: File | undefined) {
-    if (!arquivo) return;
-    if (!arquivo.type.startsWith("image/")) {
-      setEnvios((e) => ({ ...e, [l.ean]: "erro" }));
-      return;
+  /** Imagem arrastada de outro site: tenta cada endereço (data: aqui mesmo; https pelo servidor) até um abrir. */
+  async function imagemDaWeb(enderecos: string[]): Promise<Blob | null> {
+    for (const url of enderecos) {
+      try {
+        if (url.startsWith("data:")) {
+          const [cab, dados] = url.split(",");
+          const bytes = Uint8Array.from(atob(dados), (c) => c.charCodeAt(0));
+          return new Blob([bytes], { type: cab.slice(5).split(";")[0] });
+        }
+        const r = await fetch("/api/interno/fotos/baixar", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ url }) });
+        if (r.ok) return await r.blob();
+      } catch {
+        // tenta o próximo endereço
+      }
     }
+    return null;
+  }
+
+  async function enviarFoto(l: LinhaFoto, origem: File | Blob | string[] | undefined) {
+    if (!origem) return;
     setEnvios((e) => ({ ...e, [l.ean]: "enviando" }));
     try {
+      const arquivo = Array.isArray(origem) ? await imagemDaWeb(origem) : origem;
+      if (!arquivo || (arquivo.type && !arquivo.type.startsWith("image/"))) throw new Error("origem");
       const imagem = await prepararFoto(arquivo);
       const r = await fetch("/api/interno/fotos/enviar", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ean: l.ean, nome: l.nome, imagem }) });
       const j = (await r.json().catch(() => null)) as { ok?: boolean } | null;
@@ -152,7 +181,7 @@ export default function PainelFotos() {
             <div><strong>{REAIS.format(resumo.valorSemFoto)}</strong><span>em estoque sem foto</span></div>
             <div><strong>{resumo.comEstoque > 0 ? Math.round((resumo.comEstoqueComFoto / resumo.comEstoque) * 100) : 0}%</strong><span>dos itens com estoque já têm foto</span></div>
           </section>
-          <p className="pf-dados">Estoque de {dados.geradoEm ?? "—"}. No computador, arraste o arquivo da foto para a linha do produto; no celular, toque em &ldquo;Enviar foto&rdquo;. Depois a foto entra no site em até 15 minutos e sai de &ldquo;faltam&rdquo; sozinha.</p>
+          <p className="pf-dados">Estoque de {dados.geradoEm ?? "—"}. No computador, arraste o arquivo da foto (ou a imagem de outro site, como o Google Imagens) para a linha do produto; no celular, toque em &ldquo;Enviar foto&rdquo;. Depois a foto entra no site em até 15 minutos e sai de &ldquo;faltam&rdquo; sozinha.</p>
 
           <div className="pf-filtros">
             <input type="search" value={busca} onChange={(e) => mudar(setBusca)(e.target.value)} placeholder="Buscar produto, laboratório ou código de barras" aria-label="Buscar" />
@@ -196,9 +225,9 @@ export default function PainelFotos() {
                   <tr
                     key={l.ean}
                     className={[l.estoque <= 0 ? "pf-zero" : "", arrastando === l.ean ? "pf-arrastando" : ""].filter(Boolean).join(" ") || undefined}
-                    onDragOver={l.noSite ? undefined : (e) => { if (e.dataTransfer.types.includes("Files")) { e.preventDefault(); setArrastando(l.ean); } }}
+                    onDragOver={l.noSite ? undefined : (e) => { if (arrastoDeImagem(e.dataTransfer)) { e.preventDefault(); setArrastando(l.ean); } }}
                     onDragLeave={l.noSite ? undefined : (e) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setArrastando((a) => (a === l.ean ? null : a)); }}
-                    onDrop={l.noSite ? undefined : (e) => { e.preventDefault(); setArrastando(null); void enviarFoto(l, e.dataTransfer.files?.[0]); }}
+                    onDrop={l.noSite ? undefined : (e) => { e.preventDefault(); setArrastando(null); void enviarFoto(l, origemDoArraste(e.dataTransfer)); }}
                   >
                     <td className="pf-foto">
                       {l.noSite ? (

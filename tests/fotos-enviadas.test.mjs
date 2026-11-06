@@ -27,3 +27,19 @@ test("foto enviada pelo painel: aceita WebP/PNG/JPEG de verdade e recusa o resto
   assert.equal(erro({ ean: "7891234567890", nome: "X", imagem: Buffer.from("<script>alert(1)</script>".repeat(40)).toString("base64") }), "formato_invalido");
   assert.equal(erro(null), "codigo_invalido");
 });
+
+test("imagem arrastada de outro site: acha o endereço da imagem e só deixa o servidor baixar https público", async () => {
+  const { candidatosDoArraste } = await import("../app/fotos-arrastar.ts");
+  const { urlPermitida } = await import("../app/fotos-enviadas.ts");
+  const google = "https://www.google.com/imgres?q=dove&imgurl=https%3A%2F%2Fassets.unileversolutions.com%2Fv1%2Fdove.png&imgrefurl=https%3A%2F%2Floja.com%2Fp";
+  const c = candidatosDoArraste({ uriList: google, html: '<a href="x"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:abc" alt="d"></a>', texto: google });
+  assert.equal(c[0], "https://assets.unileversolutions.com/v1/dove.png");
+  assert.ok(c.includes("https://encrypted-tbn0.gstatic.com/images?q=tbn:abc"));
+  assert.deepEqual(candidatosDoArraste({ uriList: "javascript:alert(1)\nhttp://inseguro.com/a.png", html: "", texto: "" }), []);
+  assert.ok(candidatosDoArraste({ uriList: "", html: '<img src="data:image/png;base64,AAAA">', texto: "" })[0].startsWith("data:image/png"));
+
+  assert.ok(urlPermitida("https://assets.unileversolutions.com/v1/dove.png"));
+  for (const ruim of ["http://site.com/a.png", "https://localhost/a.png", "https://127.0.0.1/a.png", "https://10.0.0.5/a.png", "https://[::1]/a.png", "https://meu.servico.internal/a", "https://u:p@site.com/a", "https://site.com:8443/a", "file:///etc/passwd", "texto"]) {
+    assert.equal(urlPermitida(ruim), null, ruim);
+  }
+});
