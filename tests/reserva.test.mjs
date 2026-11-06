@@ -121,7 +121,7 @@ test("página /reserva: noindex, 3 passos como o protótipo, envio rastreado sem
   ]);
   assert.match(page, /robots:\s*\{\s*index:\s*false,\s*follow:\s*false\s*\}/);
   assert.match(hook, /lerReservaServidor/);
-  assert.match(fluxo, /Passo \{passo\} de 3/);
+  assert.match(fluxo, /aria-label=\{`Passo \$\{passo\} de 3`\}/);
   assert.match(fluxo, /Continuar: entrega ou retirada/);
   assert.match(fluxo, /Adicionar mais itens/);
   assert.doesNotMatch(fluxo, /não uma compra|Nada é cobrado|Cobrado neste site|Sem cobrança/);
@@ -138,14 +138,13 @@ test("página /reserva: noindex, 3 passos como o protótipo, envio rastreado sem
   assert.doesNotMatch(fluxo, /Depois de enviar/);
   assert.match(fluxo, /Enviar pedido pelo WhatsApp/);
   assert.match(fluxo, /Editar minha cesta/);
-  assert.match(fluxo, /Vendido e entregue por <b>União Farma<\/b>/);
-  assert.match(fluxo, /Sua cesta ainda está vazia\. Bora escolher\?/);
+  assert.match(fluxo, /Sua cesta está vazia\./);
   assert.match(fluxo, /data-track-event="whatsapp_click"/);
   assert.match(fluxo, /data-track-source="reserva_envio"/);
   assert.doesNotMatch(fluxo, /data-track-(product|nome|name|item)=/);
   // Nome, rua e produto nunca vão ao analytics.
   assert.doesNotMatch(fluxo, /trackEvent\([^)]*(nome|rua|bairro\b[^,)]*item)/);
-  assert.match(sacola, /Sua cesta ainda está vazia\. Bora escolher\?/);
+  assert.match(sacola, /Sua cesta está vazia\./);
   // A gaveta aberta no desktop se fecha sozinha quando o zoom deixa a página estreita (< 992 px).
   assert.match(sacola, /matchMedia\("\(max-width: 991\.98px\)"\)/);
   assert.match(sacola, /addEventListener\("change", aoMudar\)/);

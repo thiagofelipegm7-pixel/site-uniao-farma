@@ -21,7 +21,6 @@ import LerReceita from "../receita-foto/LerReceita";
 import BotaoReceita from "../receita-foto/BotaoReceita";
 
 type Passo = 1 | 2 | 3;
-const ROTULOS = ["Itens", "Entrega e forma de receber", "Finalizar"] as const;
 const BAIRROS = listarBairros(PUBLIC_UNITS);
 
 /**
@@ -155,7 +154,7 @@ export default function ReservaFluxo() {
           <h1>Minha cesta</h1>
         </header>
         <div className="fluxo-vazio">
-          <strong>Sua cesta ainda está vazia. Bora escolher?</strong>
+          <strong>Sua cesta está vazia.</strong>
           <p>Escolha seus produtos e pague só quando retirar.</p>
           {ultimo.length > 0 ? (
             <button type="button" className="fluxo-botao fluxo-botao-repetir" disabled={repetindo} onClick={repetir}>
@@ -237,8 +236,7 @@ export default function ReservaFluxo() {
       <ol className="fluxo-progresso-rotulos" aria-hidden="true">
         {["Cesta", "Entrega", "Finalizar"].map((r, i) => <li key={r} className={i + 1 <= passo ? "is-on" : ""}>{r}</li>)}
       </ol>
-      <p className="fluxo-passo">Passo {passo} de 3 · {ROTULOS[passo - 1]}{passo === 1 ? ` · ${total} ${total === 1 ? "item" : "itens"} na cesta` : ""}</p>
-      {passo === 1 ? <p className="pv-receita-atalho"><BotaoReceita /><span>Foto da receita: achamos os remédios na loja.</span></p> : null}
+      {passo === 1 ? <p className="pv-receita-atalho"><BotaoReceita /></p> : null}
 
       {passo === 1 ? (
         <div className="fluxo-conteudo fluxo-conteudo-cesta">
@@ -271,7 +269,6 @@ export default function ReservaFluxo() {
                         <div>
                           <strong className="fluxo-item-nome">{item.nome}</strong>
                           {item.receita ? <p className="fluxo-item-receita">{item.receita === "controlado" ? "Controlado: retirada na loja, com a receita retida pela farmácia." : "Exige receita: retirada na loja, apresentando a receita."}</p> : null}
-                          <p className="fluxo-item-loja">Vendido e entregue por <b>União Farma</b> · {PUBLIC_UNITS.find((u) => u.id === item.unitId)?.shortName ?? ""}</p>
                         </div>
                       </div>
                       <div className="cel-preco">
@@ -479,7 +476,7 @@ export default function ReservaFluxo() {
                     ? "Você não paga nada pelo site. Quando a loja confirmar o pedido, ela manda o código Pix (copia e cola) na conversa do WhatsApp."
                     : pagamento
                       ? `Você não paga nada pelo site. Você paga ${retirar ? "no balcão, ao retirar" : "ao receber em casa"}.`
-                      : "Você não paga nada pelo site. Escolha como prefere pagar; a loja confirma tudo com você no WhatsApp."}
+                      : "Você não paga nada pelo site. A loja confirma tudo pelo WhatsApp."}
                 </p>
               </div>
             </div>

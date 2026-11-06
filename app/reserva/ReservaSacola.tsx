@@ -111,7 +111,7 @@ export default function ReservaSacola() {
         <div className="reserva-gaveta-corpo">
           {estado.itens.length === 0 ? (
             <div className="reserva-vazia">
-              <strong>Sua cesta ainda está vazia. Bora escolher?</strong>
+              <strong>Sua cesta está vazia.</strong>
               <p>Escolha seus produtos e pague só quando retirar.</p>
               <a className="reserva-botao" href="/nacoes-unidas/produtos" onClick={fechar}>Ver produtos</a>
               <BotaoReceita aoAbrir={fechar} classe="receita-gatilho-bloco" />
