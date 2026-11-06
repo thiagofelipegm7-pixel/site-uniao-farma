@@ -676,8 +676,6 @@ body.cookie-banner-visible .fluxo-rodape { bottom: 9rem; }
 .uf-footer-proto > p strong { color: #ffffff; }
 .uf-footer-proto .uf-footer-warning { padding: 0.25rem 0 0.25rem 0.875rem; border-left: 4px solid #31a89d; color: #ffffff; font-size: 0.8125rem; font-weight: 700; line-height: 1.45; text-transform: uppercase; }
 .uf-footer-proto .uf-footer-legal-name { color: #cff0eb; font-size: 0.8125rem; }
-.uf-footer-links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
-.uf-footer-links a, .uf-footer-links button { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0; border: 0; background: transparent; color: #ffffff; font: inherit; font-size: 0.9375rem; font-weight: 600; text-decoration: underline; cursor: pointer; }
 .uf-footer { background: #0a3548; }
 @layer design { .uf-footer { background: #0a3548 !important; } }
 

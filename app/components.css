@@ -298,6 +298,29 @@
   text-decoration: underline;
 }
 
+.uf-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+
+.uf-footer-links a,
+.uf-footer-links button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #ffffff;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .uf-footer-cookie-link {
   display: inline-flex;
   align-items: center;
