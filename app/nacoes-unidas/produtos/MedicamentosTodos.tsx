@@ -139,7 +139,7 @@ export default function MedicamentosTodos({ otcInicial, unitId, paginaInicial = 
               apresentacao={quantidadeDoNome(i.nome)}
               precoFmt={i.precoFmt}
               restam={i.restam}
-              cesta={centavos ? <ReservarBotao unitId={unitId} nome={i.nome} precoCentavos={centavos} foto={i.foto} variante="cesta" compacto /> : null}
+              cesta={centavos ? <ReservarBotao unitId={unitId} nome={i.nome} precoCentavos={centavos} foto={i.foto} variante="cesta" compacto max={i.restam} /> : null}
             />
           );
         })}

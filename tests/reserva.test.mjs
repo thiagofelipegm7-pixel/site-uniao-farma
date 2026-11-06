@@ -234,3 +234,24 @@ test("taxa de entrega por bairro informada pelo dono", async () => {
   assert.equal(taxaDoBairro("Outro lugar"), null);
   assert.equal(taxaDoBairro(undefined), null);
 });
+
+test("cesta: a quantidade nunca passa do que resta na loja (max)", async () => {
+  const { adicionar, definirQtd, idDoItem, lerEstado, qtdDoItem, ESTADO_VAZIO } = await import("../app/reserva/reserva-store.ts");
+  const id = idDoItem("nacoes", "Acetona Farmax 500 ml");
+  let s = adicionar(ESTADO_VAZIO, { unitId: "nacoes", nome: "Acetona Farmax 500 ml", precoCentavos: 2190, max: 2 });
+  s = definirQtd(s, id, 5);
+  assert.equal(qtdDoItem(s, id), 2);
+  s = adicionar(s, { unitId: "nacoes", nome: "Acetona Farmax 500 ml", precoCentavos: 2190, max: 2 });
+  assert.equal(qtdDoItem(s, id), 2, "adicionar de novo também respeita o limite");
+  // Quantidade inicial maior que o resta também é cortada.
+  const t = adicionar(ESTADO_VAZIO, { unitId: "nacoes", nome: "X", precoCentavos: 100, max: 1 }, 4);
+  assert.equal(qtdDoItem(t, idDoItem("nacoes", "X")), 1);
+  // Sem max, o teto geral continua.
+  const u = definirQtd(adicionar(ESTADO_VAZIO, { unitId: "nacoes", nome: "Y", precoCentavos: 100 }), idDoItem("nacoes", "Y"), 3);
+  assert.equal(qtdDoItem(u, idDoItem("nacoes", "Y")), 3);
+  // Estado salvo no navegador com quantidade acima do max é corrigido ao ler; max inválido é descartado.
+  const lido = lerEstado(JSON.stringify({ modo: "retirar", itens: [{ id: "a", unitId: "nacoes", nome: "A", precoCentavos: 100, qtd: 4, max: 2 }, { id: "b", unitId: "nacoes", nome: "B", precoCentavos: 100, qtd: 3, max: -1 }] }));
+  assert.equal(lido.itens[0].qtd, 2);
+  assert.equal(lido.itens[1].qtd, 3);
+  assert.equal(lido.itens[1].max, undefined);
+});

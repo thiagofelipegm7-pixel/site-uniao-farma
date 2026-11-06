@@ -6,7 +6,7 @@ import { createPortal } from "react-dom";
 import { EVENTO_ABRIR_RESERVA } from "./abrir-reserva";
 import { UNITS } from "../site-config";
 import { IconFechar, IconLixeira, IconMais, IconMenos, IconCesta } from "./ReservaIcons";
-import { atualizarReserva, definirQtd, formatarCentavos, limpar, subtotalCentavos, totalItens } from "./reserva-store";
+import { atualizarReserva, definirQtd, tetoDoItem, formatarCentavos, limpar, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
 import LerReceita from "../receita-foto/LerReceita";
 import BotaoReceita from "../receita-foto/BotaoReceita";
@@ -131,7 +131,7 @@ export default function ReservaSacola() {
                           {item.qtd === 1 ? <IconLixeira size={18} /> : <IconMenos size={18} />}
                         </button>
                         <output aria-live="polite">{item.qtd}</output>
-                        <button type="button" aria-label={`Aumentar ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, item.qtd + 1))}>
+                        <button type="button" aria-label={`Aumentar ${item.nome}`} disabled={item.qtd >= tetoDoItem(item)} title={item.max && item.qtd >= item.max ? `Só restam ${item.max}` : undefined} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, item.qtd + 1))}>
                           <IconMais size={18} />
                         </button>
                       </div>

@@ -2,7 +2,7 @@
 
 import { trackEvent } from "../analytics";
 import { IconLixeira, IconMais, IconMenos, IconCesta } from "./ReservaIcons";
-import { adicionar, atualizarReserva, definirQtd, idDoItem, qtdDoItem } from "./reserva-store";
+import { adicionar, atualizarReserva, definirQtd, idDoItem, qtdDoItem, tetoDoItem } from "./reserva-store";
 import { useReserva } from "./useReserva";
 
 type Props = {
@@ -22,10 +22,12 @@ type Props = {
   variante?: "cesta";
   /** Texto do botão grande (padrão "Adicionar"). */
   rotulo?: string;
+  /** Unidades que restam na loja (1 a 5): a cesta não passa disso. */
+  max?: number;
 };
 
 /** Botão "+" que vira contador depois do primeiro toque (como no protótipo). Sem texto do produto no analytics. */
-export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos, foto, source = "catalogo", compacto = false, receita, variante, rotulo = "Adicionar" }: Props) {
+export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos, foto, source = "catalogo", compacto = false, receita, variante, rotulo = "Adicionar", max }: Props) {
   const estado = useReserva();
   const id = idDoItem(unitId, nome);
   const qtd = qtdDoItem(estado, id);
@@ -37,7 +39,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
         className={variante === "cesta" ? "reservar-mais pv-cesta-botao" : compacto ? "reservar-mais reservar-mais-icone" : "reservar-mais"}
         aria-label={`Adicionar ${nome} à cesta`}
         onClick={() => {
-          atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, deCentavos, foto, ...(receita ? { receita } : {}) }));
+          atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, deCentavos, foto, ...(receita ? { receita } : {}), ...(max ? { max } : {}) }));
           trackEvent("reserva_add", { unit: unitId, source });
         }}
       >
@@ -62,7 +64,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
         {qtd === 1 && !compacto ? <IconLixeira size={20} /> : <IconMenos size={20} />}
       </button>
       <output aria-live="polite">{qtd}</output>
-      <button type="button" aria-label={`Aumentar ${nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, id, qtd + 1))}>
+      <button type="button" aria-label={`Aumentar ${nome}`} disabled={qtd >= tetoDoItem({ max })} title={max && qtd >= max ? `Só restam ${max}` : undefined} onClick={() => atualizarReserva((s) => definirQtd(s, id, qtd + 1))}>
         <IconMais size={20} />
       </button>
     </div>

@@ -12,7 +12,7 @@ import UnitStatusBadge from "../UnitStatusBadge";
 import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats, IconCesta, IconCaminhao, IconConfirmado } from "./ReservaIcons";
 import CestaSugestoes from "./CestaSugestoes";
 import DestaquesSemana from "../shop/DestaquesSemana";
-import { atualizarReserva, definirQtd, exigeReceita, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
+import { atualizarReserva, definirQtd, tetoDoItem, exigeReceita, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
 import LerReceita from "../receita-foto/LerReceita";
 import BotaoReceita from "../receita-foto/BotaoReceita";
@@ -214,7 +214,7 @@ export default function ReservaFluxo() {
                         <div className="reservar-contador fluxo-contador" role="group" aria-label={`Quantidade de ${item.nome}`}>
                           {item.qtd > 1 ? <button type="button" aria-label={`Diminuir ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, item.qtd - 1))}><IconMenos size={18} /></button> : null}
                           <output aria-live="polite">{item.qtd}</output>
-                          <button type="button" aria-label={`Aumentar ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, item.qtd + 1))}><IconMais size={18} /></button>
+                          <button type="button" aria-label={`Aumentar ${item.nome}`} disabled={item.qtd >= tetoDoItem(item)} title={item.max && item.qtd >= item.max ? `Só restam ${item.max}` : undefined} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, item.qtd + 1))}><IconMais size={18} /></button>
                         </div>
                       </div>
                       <div className="cel-total">
