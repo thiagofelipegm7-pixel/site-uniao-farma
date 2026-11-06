@@ -58,7 +58,7 @@ test("mensagem do WhatsApp lista itens, loja, forma, nome, pagamento e subtotal,
   assert.match(retirar, /Loja: Nações Unidas/);
   assert.match(retirar, /Forma: Retirar na loja/);
   assert.match(retirar, /Nome: Maria Souza/);
-  assert.match(retirar, /Pagamento: no balcão/);
+  assert.match(retirar, /Pagamento: a escolher/, "sem forma escolhida a prévia não promete balcão");
   assert.match(retirar, /Total estimado: R\$ 39,80/);
   assert.match(retirar, /Podem confirmar preço e estoque\? Obrigado!/);
   assert.doesNotMatch(retirar, /garant|reservado|em estoque/i);
@@ -66,7 +66,7 @@ test("mensagem do WhatsApp lista itens, loja, forma, nome, pagamento e subtotal,
   assert.match(casa, /Forma: Entrega/);
   assert.match(casa, /Bairro: Nações Unidas/);
   assert.match(casa, /Endereço: Rua Inglaterra, 100/);
-  assert.match(casa, /Pagamento: na entrega/);
+  assert.match(casa, /Pagamento: a escolher/);
   const comPix = mensagemReserva("Nações Unidas", s.itens, { modo: "casa", nome: "Maria", bairro: "Nações Unidas", rua: "Rua Inglaterra, 100", pagamento: "Pix" });
   assert.match(comPix, /Pagamento: Pix \(pelo WhatsApp\)/);
   assert.match(mensagemReserva("Nações Unidas", s.itens, { modo: "retirar", nome: "Maria", pagamento: "Cartão de débito" }), /Pagamento: Cartão de débito \(no balcão\)/);
@@ -263,4 +263,13 @@ test("fluxo do pedido fácil: textos sem 'escolher loja', pagamento pendente exp
   assert.match(fluxo, /Falta só um passo: toque em enviar no WhatsApp/);
   assert.match(fluxo, /Confirmar nome/);
   assert.match(fluxo, /PUBLIC_UNITS\.length > 1 \? <input type="radio" name="loja"/);
+});
+
+test("pagamento: a prévia diz 'a escolher' até haver escolha e o passo 3 explica o Pix", async () => {
+  const { mensagemReserva } = await mod();
+  const itens = [{ id: "n:x", unitId: "nacoes", nome: "X", precoCentavos: 1000, qtd: 1 }];
+  assert.match(mensagemReserva("Nações Unidas", itens, { modo: "retirar", nome: "Ana" }), /Pagamento: a escolher/);
+  assert.match(mensagemReserva("Nações Unidas", itens, { modo: "retirar", nome: "Ana", pagamento: "Pix" }), /Pagamento: Pix \(pelo WhatsApp\)/);
+  const fluxo = await readFile(new URL("../app/reserva/ReservaFluxo.tsx", import.meta.url), "utf8");
+  assert.match(fluxo, /manda o código Pix \(copia e cola\) na conversa do WhatsApp/);
 });
