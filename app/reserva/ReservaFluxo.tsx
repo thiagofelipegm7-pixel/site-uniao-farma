@@ -2,13 +2,14 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
-import { useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import MarcaUniao from "../shop/MarcaUniao";
 import { trackEvent } from "../analytics";
 import { listarBairros, lojaDoBairro } from "../entrega-bairro";
 import { readPreferredUnitId } from "../preferred-unit";
 import { buildWhatsAppUrl, PUBLIC_UNITS, type Unit } from "../site-config";
-import UnitStatusBadge from "../UnitStatusBadge";
+import UnitStatusBadge, { getUnitOpenStatus } from "../UnitStatusBadge";
+import { carregarDadosCliente, esquecerDadosCliente, guardarDadosCliente } from "./dados-cliente";
 import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats, IconCesta, IconCaminhao, IconConfirmado } from "./ReservaIcons";
 import CestaSugestoes from "./CestaSugestoes";
 import DestaquesSemana from "../shop/DestaquesSemana";
@@ -46,6 +47,23 @@ export default function ReservaFluxo() {
   const [editando, setEditando] = useState(true);
   // Depois do toque em "Enviar pedido pelo WhatsApp": lembra o cliente de tocar em enviar dentro do WhatsApp.
   const [enviado, setEnviado] = useState(false);
+  // Hora atual só no navegador (o servidor não sabe se a loja está aberta): para o aviso de loja fechada.
+  const [agora, setAgora] = useState<Date | null>(null);
+  // Nome e endereço do último pedido, guardados só neste aparelho.
+  const [lembrado, setLembrado] = useState(false);
+  useEffect(() => {
+    const salvo = carregarDadosCliente();
+    /* eslint-disable react-hooks/set-state-in-effect -- lê o armazenamento do navegador uma vez, depois que a página abre */
+    setAgora(new Date());
+    if (salvo) {
+      setNome(salvo.nome);
+      setRua(salvo.rua);
+      setBairro(salvo.bairro);
+      setLembrado(true);
+      setEditando(false);
+    }
+    /* eslint-enable react-hooks/set-state-in-effect */
+  }, []);
 
   // Medicamento com receita ou controlado na cesta: só retirada na loja, com a receita.
   const soRetirada = exigeReceita(estado.itens);
@@ -85,6 +103,8 @@ export default function ReservaFluxo() {
       return;
     }
     trackEvent("reserva_revisar", { modo, itens: estado.itens.filter(itemAtivo).length });
+    guardarDadosCliente(retirar ? { nome } : { nome, rua, bairro });
+    setLembrado(true);
     ir(3);
   }
 
@@ -134,6 +154,9 @@ export default function ReservaFluxo() {
   ) : (
     <button type="button" className={classe} disabled><IconWhats size={24} /> Escolha o pagamento</button>
   );
+
+  const statusLoja = agora ? getUnitOpenStatus(unidade, agora) : null;
+  const aberta = statusLoja ? statusLoja.isOpen : null;
 
   const mensagem = mensagemReserva(unidade.shortName, estado.itens, { modo, nome, bairro, rua, pagamento, taxaEntregaCentavos: taxaEntrega });
   const href = buildWhatsAppUrl(unidade, mensagem, { campaign: "reserva", content: `reserva_${unidade.id}` });
@@ -298,6 +321,12 @@ export default function ReservaFluxo() {
                   <button type="button" className="entrega-btn entrega-btn-alterar" onClick={() => setEditando(true)}>Alterar</button>
                 </div>
               )}
+              {lembrado ? (
+                <p className="fluxo-lembrado">
+                  Seus dados ficam só neste aparelho, para o próximo pedido.{" "}
+                  <button type="button" className="fluxo-link" onClick={() => { esquecerDadosCliente(); setNome(""); setRua(""); setBairro(""); setLembrado(false); setEditando(true); }}>Esquecer meus dados</button>
+                </p>
+              ) : null}
             </section>
 
             <p className="entrega-titulo" role="heading" aria-level={2}>Retire ou receba sua compra</p>
@@ -362,6 +391,11 @@ export default function ReservaFluxo() {
       {passo === 3 ? (
         <div className="fluxo-conteudo fluxo-conteudo-cesta fluxo-pagamento">
           <div className="fluxo-coluna-itens">
+            {aberta === false ? (
+              <p className="fluxo-fechada" role="note">
+                A loja está fechada agora ({statusLoja?.label.replace(/^Fechado · /, "").replace(/^[A-ZÀ-Ú]/, (c) => c.toLowerCase())}). Pode enviar o pedido mesmo assim: a loja responde quando abrir.
+              </p>
+            ) : null}
             {enviado ? (
               <section className="fluxo-enviado" role="status" aria-live="polite">
                 <strong>Falta só um passo: toque em enviar no WhatsApp</strong>

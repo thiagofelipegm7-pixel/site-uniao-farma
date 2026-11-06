@@ -66,12 +66,12 @@ function slotsFor(pathname: string): Slot[] {
     ];
   }
 
-  // Páginas de compra: Início, Categorias, Cesta e Lojas (como no protótipo). O WhatsApp fica no botão flutuante.
+  // Páginas de compra: Início, Categorias, Cesta e A loja (como no protótipo). O WhatsApp fica no botão flutuante.
   return [
     { key: "inicio", href: "/", label: "Início", icon: "inicio" },
     { key: "categorias", href: "/nacoes-unidas/produtos", label: "Categorias", icon: "categorias" },
     { key: "reserva", href: "/reserva", label: "Cesta", icon: "reserva" },
-    { key: "loja", href: pathname === "/" ? "#unidades-rapidas" : "/#unidades-rapidas", label: "Lojas", icon: "loja" },
+    { key: "loja", href: pathname === "/" ? "#unidades-rapidas" : "/#unidades-rapidas", label: "A loja", icon: "loja" },
   ];
 }
 

@@ -21,7 +21,7 @@ import { abrirSeletorDeLoja, EVENTO_ABRIR_DEPARTAMENTOS } from "./loja-evento";
 const LINKS = [
   { href: "/nacoes-unidas/produtos", label: "Produtos" },
   { href: "/ofertas", label: "Ofertas" },
-  { href: "/#unidades-rapidas", label: "Lojas" },
+  { href: "/#unidades-rapidas", label: "A loja" },
   { href: "/receita", label: "Receita" },
   { href: "/entrega-de-medicamentos-em-sabara", label: "Entrega" },
   { href: "/perguntas", label: "Perguntas" },

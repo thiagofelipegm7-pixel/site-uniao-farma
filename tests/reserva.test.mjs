@@ -273,3 +273,25 @@ test("pagamento: a prévia diz 'a escolher' até haver escolha e o passo 3 expli
   const fluxo = await readFile(new URL("../app/reserva/ReservaFluxo.tsx", import.meta.url), "utf8");
   assert.match(fluxo, /manda o código Pix \(copia e cola\) na conversa do WhatsApp/);
 });
+
+test("dados do cliente: lembrados só no aparelho, validados ao ler e fáceis de esquecer", async () => {
+  const { lerDadosCliente, CHAVE_CLIENTE } = await import("../app/reserva/dados-cliente.ts");
+  assert.equal(CHAVE_CLIENTE, "uf-cliente-v1");
+  assert.deepEqual(lerDadosCliente(JSON.stringify({ nome: "  Maria   Souza ", rua: "Rua A, 10", bairro: "Coqueiros", x: 1 })), { nome: "Maria Souza", rua: "Rua A, 10", bairro: "Coqueiros" });
+  assert.equal(lerDadosCliente(JSON.stringify({ nome: "M" })), null, "nome curto demais");
+  assert.equal(lerDadosCliente("não é json"), null);
+  assert.equal(lerDadosCliente(null), null);
+  const fluxo = await readFile(new URL("../app/reserva/ReservaFluxo.tsx", import.meta.url), "utf8");
+  assert.match(fluxo, /Esquecer meus dados/);
+  assert.match(fluxo, /guardarDadosCliente\(retirar \? \{ nome \} : \{ nome, rua, bairro \}\)/);
+  assert.doesNotMatch(await readFile(new URL("../app/analytics.ts", import.meta.url), "utf8"), /dados-cliente|uf-cliente/, "nunca vai ao analytics");
+});
+
+test("loja fechada avisa na hora de enviar; título das buscas e aba da loja sem 'sem receita'/'Lojas'", async () => {
+  const fluxo = await readFile(new URL("../app/reserva/ReservaFluxo.tsx", import.meta.url), "utf8");
+  assert.match(fluxo, /A loja está fechada agora/);
+  assert.match(fluxo, /getUnitOpenStatus/);
+  const pagina = await readFile(new URL("../app/nacoes-unidas/produtos/page.tsx", import.meta.url), "utf8");
+  assert.match(pagina, /<h1 className="catalogo-titulo section-inner">Todos os produtos<\/h1>/);
+  assert.match(await readFile(new URL("../app/MobileQuickNav.tsx", import.meta.url), "utf8"), /label: "A loja"/);
+});

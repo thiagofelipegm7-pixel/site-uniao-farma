@@ -16,10 +16,10 @@ import "./produtos.css";
 // Dados vêm do JSON do repositório, atualizado sozinho pela sincronização com o PC da loja (.github/workflows/catalogo-sync.yml).
 const SLUG = "nacoes-unidas/produtos";
 const PAGE_URL = `${SITE_URL}/${SLUG}`;
-const TITLE = "Produtos sem receita | União Farma Nações Unidas, Sabará";
+const TITLE = "Todos os produtos | União Farma Nações Unidas, Sabará";
 const DESCRIPTION =
   "Catálogo da União Farma Nações Unidas (Rua Inglaterra, 162, Sabará): higiene, pele e proteção solar, suplementos e isentos de prescrição, com lista de preços de medicamentos com receita e controlados.";
-const HEADING = "Produtos sem receita – Nações Unidas";
+const HEADING = "Todos os produtos – Nações Unidas";
 
 const nacoes = UNITS.find((unit) => unit.id === "nacoes")!;
 
@@ -67,7 +67,7 @@ export default async function ProdutosNacoesPage() {
     breadcrumbs: [
       { name: "Início", url: `${SITE_URL}/` },
       { name: "Nações Unidas", url: `${SITE_URL}${getUnitPublicPath(nacoes)}` },
-      { name: "Produtos sem receita", url: PAGE_URL },
+      { name: "Todos os produtos", url: PAGE_URL },
     ],
   });
 
@@ -79,9 +79,9 @@ export default async function ProdutosNacoesPage() {
         <nav className="catalogo-caminho section-inner" aria-label="Breadcrumb">
           <a href="/">União Farma</a>
           <IconSetaDireita size={12} />
-          <span>Produtos sem receita</span>
+          <span>Todos os produtos</span>
         </nav>
-        <h1 className="catalogo-titulo section-inner">Produtos sem receita</h1>
+        <h1 className="catalogo-titulo section-inner">Todos os produtos</h1>
         <div className="section-inner" id="lista">
           <CatalogoLista
               consultaInicial={consultaInicial}
