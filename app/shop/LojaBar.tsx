@@ -26,7 +26,7 @@ export default function LojaBar() {
         <small>Retirar ou receber em</small>
         <strong>{unit ? unit.shortName : "Escolha sua loja"}</strong>
       </div>
-      <button type="button" onClick={abrirSeletorDeLoja}>{unit ? "Trocar" : "Escolher"}</button>
+      {PUBLIC_UNITS.length > 1 ? <button type="button" onClick={abrirSeletorDeLoja}>{unit ? "Trocar" : "Escolher"}</button> : null}
     </div>
   );
 }

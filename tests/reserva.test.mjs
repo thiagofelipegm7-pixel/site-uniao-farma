@@ -122,7 +122,7 @@ test("página /reserva: noindex, 3 passos como o protótipo, envio rastreado sem
   assert.match(page, /robots:\s*\{\s*index:\s*false,\s*follow:\s*false\s*\}/);
   assert.match(hook, /lerReservaServidor/);
   assert.match(fluxo, /Passo \{passo\} de 3/);
-  assert.match(fluxo, /Continuar: escolher loja/);
+  assert.match(fluxo, /Continuar: entrega ou retirada/);
   assert.match(fluxo, /Adicionar mais itens/);
   assert.doesNotMatch(fluxo, /não uma compra|Nada é cobrado|Cobrado neste site|Sem cobrança/);
   assert.match(fluxo, /Entrega ou retirada/);
@@ -254,4 +254,13 @@ test("cesta: a quantidade nunca passa do que resta na loja (max)", async () => {
   assert.equal(lido.itens[0].qtd, 2);
   assert.equal(lido.itens[1].qtd, 3);
   assert.equal(lido.itens[1].max, undefined);
+});
+
+test("fluxo do pedido fácil: textos sem 'escolher loja', pagamento pendente explicado e aviso para tocar em enviar", async () => {
+  const fluxo = await readFile(new URL("../app/reserva/ReservaFluxo.tsx", import.meta.url), "utf8");
+  assert.doesNotMatch(fluxo, /escolher loja|loja que escolher/);
+  assert.match(fluxo, /Escolha o pagamento/);
+  assert.match(fluxo, /Falta só um passo: toque em enviar no WhatsApp/);
+  assert.match(fluxo, /Confirmar nome/);
+  assert.match(fluxo, /PUBLIC_UNITS\.length > 1 \? <input type="radio" name="loja"/);
 });

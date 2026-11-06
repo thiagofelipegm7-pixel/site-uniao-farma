@@ -1303,3 +1303,26 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .pv-restam { display: block; margin-top: 0.25rem; color: #b42318; font-size: 0.8125rem; font-weight: 700; }
 .produto-restam { margin: 0.25rem 0 0; color: #b42318; font-size: 1rem; font-weight: 700; }
 .produto-esgotado { margin: 0.5rem 0 0; padding: 0.75rem 1rem; border-radius: 0.5rem; background: #fdecea; color: #7a271a; font-weight: 600; }
+
+/* Depois de enviar: lembra de tocar em enviar dentro do WhatsApp. */
+.fluxo-enviado { margin: 0 0 1rem; padding: 1rem 1.125rem; border: 2px solid #1f8a4c; border-radius: 12px; background: #eaf7ef; color: #0d1413; }
+.fluxo-enviado strong { display: block; font-size: 1.0625rem; font-weight: 800; }
+.fluxo-enviado p { margin: 0.5rem 0 0; font-size: 0.9375rem; line-height: 1.5; }
+.fluxo-enviado a, .fluxo-link { color: #0a3548; font-weight: 700; text-decoration: underline; }
+.fluxo-link { padding: 0; border: 0; background: none; font: inherit; font-weight: 700; cursor: pointer; }
+
+/* Celular: alvos de toque de pelo menos 44 px (links e botões de texto, caixas de seleção, filtros). */
+@media (max-width: 991px) {
+  .fluxo-topo .fluxo-continuar-comprando, .fluxo-topo a:not(.fluxo-voltar) { display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.25rem; }
+  .shop-submenu a, .shop-lojabar a { display: inline-flex; align-items: center; min-height: 44px; }
+  .pv-contagem a { display: inline-flex; align-items: center; min-height: 44px; }
+  .pv-filtrar, .pv-ordenar, .pv-ordenar select { min-height: 44px; }
+  .fluxo-check { min-height: 44px; }
+  .fluxo-check input { width: 1.5rem; height: 1.5rem; }
+  .fluxo-lixeira, .fluxo-contador button { min-width: 44px; min-height: 44px; }
+}
+
+/* Telas estreitas (360 px): botões da cesta sem texto colado na borda. */
+@media (max-width: 400px) {
+  .entrega-btn { padding: 0 1rem; letter-spacing: 0.02em; }
+}

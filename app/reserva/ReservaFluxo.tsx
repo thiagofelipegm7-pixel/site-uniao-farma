@@ -44,6 +44,8 @@ export default function ReservaFluxo() {
   const [pagamento, setPagamento] = useState("");
   const [tentou, setTentou] = useState(false);
   const [editando, setEditando] = useState(true);
+  // Depois do toque em "Enviar pedido pelo WhatsApp": lembra o cliente de tocar em enviar dentro do WhatsApp.
+  const [enviado, setEnviado] = useState(false);
 
   // Medicamento com receita ou controlado na cesta: só retirada na loja, com a receita.
   const soRetirada = exigeReceita(estado.itens);
@@ -126,11 +128,11 @@ export default function ReservaFluxo() {
   );
 
   const enviarWhats = (classe: string) => pagamento ? (
-    <a className={classe} href={href} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unidade.id} data-track-source="reserva_envio">
+    <a className={classe} href={href} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unidade.id} data-track-source="reserva_envio" onClick={() => setEnviado(true)}>
       <IconWhats size={24} /> Enviar pedido pelo WhatsApp
     </a>
   ) : (
-    <button type="button" className={classe} disabled><IconWhats size={24} /> Enviar pedido pelo WhatsApp</button>
+    <button type="button" className={classe} disabled><IconWhats size={24} /> Escolha o pagamento</button>
   );
 
   const mensagem = mensagemReserva(unidade.shortName, estado.itens, { modo, nome, bairro, rua, pagamento, taxaEntregaCentavos: taxaEntrega });
@@ -245,7 +247,7 @@ export default function ReservaFluxo() {
               {descontos > 0 ? <p className="fluxo-resumo-desconto"><span>Descontos</span><span>- {formatarCentavos(descontos)}</span></p> : null}
               <p><span>Taxa de entrega</span><span>{formatarCentavos(taxaEntrega)}</span></p>
               <p className="fluxo-resumo-total"><strong>Total estimado</strong><strong>{totalComTaxa}</strong></p>
-              <button type="button" className="fluxo-botao fluxo-botao-resumo" disabled={marcados === 0} onClick={() => ir(2)}>Continuar: escolher loja</button>
+              <button type="button" className="fluxo-botao fluxo-botao-resumo" disabled={marcados === 0} onClick={() => ir(2)}>Continuar: entrega ou retirada</button>
             </section>
           </aside>
 
@@ -253,7 +255,7 @@ export default function ReservaFluxo() {
 
           <div className="fluxo-rodape fluxo-rodape-total">
             <p className="fluxo-barra-total"><span>Total estimado</span><strong>{totalComTaxa}</strong></p>
-            <button type="button" className="fluxo-botao" disabled={marcados === 0} onClick={() => ir(2)}>Continuar: escolher loja</button>
+            <button type="button" className="fluxo-botao" disabled={marcados === 0} onClick={() => ir(2)}>Continuar: entrega ou retirada</button>
           </div>
         </div>
       ) : null}
@@ -266,7 +268,7 @@ export default function ReservaFluxo() {
                 <div className="entrega-form">
                   <label className="fluxo-campo">
                     <span>Seu nome</span>
-                    <input value={nome} onChange={(e) => setNome(e.target.value)} placeholder={retirar ? "Nome para a retirada" : "Nome completo"} autoComplete="name" aria-invalid={tentou && !nomeOk} />
+                    <input value={nome} onChange={(e) => setNome(e.target.value)} placeholder={retirar ? "Nome para a retirada" : "Nome completo"} autoComplete="name" autoCapitalize="words" enterKeyHint="done" aria-invalid={tentou && !nomeOk} />
                   </label>
                   {!retirar ? (
                     <>
@@ -279,12 +281,12 @@ export default function ReservaFluxo() {
                       </label>
                       <label className="fluxo-campo">
                         <span>Rua e número</span>
-                        <input value={rua} onChange={(e) => setRua(e.target.value)} placeholder="Ex.: Rua Inglaterra, 100" autoComplete="street-address" aria-invalid={tentou && rua.trim().length < 3} />
+                        <input value={rua} onChange={(e) => setRua(e.target.value)} placeholder="Ex.: Rua Inglaterra, 100" autoComplete="street-address" autoCapitalize="words" enterKeyHint="done" aria-invalid={tentou && rua.trim().length < 3} />
                       </label>
                     </>
                   ) : null}
                   {tentou && !valido ? <p className="fluxo-erro" role="alert">{retirar ? "Informe o nome de quem vai retirar." : "Preencha o nome, escolha o bairro da lista e informe a rua com número."}</p> : null}
-                  <button type="button" className="entrega-btn" onClick={salvar}>Salvar</button>
+                  <button type="button" className="entrega-btn" onClick={salvar}>{retirar ? "Confirmar nome" : "Confirmar endereço"}</button>
                 </div>
               ) : (
                 <div className="entrega-end">
@@ -309,14 +311,15 @@ export default function ReservaFluxo() {
                   <label className={retirar ? "entrega-opcao is-on" : "entrega-opcao"}>
                     <input type="radio" name="forma" checked={retirar} onChange={() => atualizarReserva((s) => ({ ...s, modo: "retirar" }))} />
                     <span className="entrega-tipo">Retirada em loja</span>
-                    <span className="entrega-periodo">retire na loja que escolher</span>
+                    <span className="entrega-periodo">retire na loja Nações Unidas</span>
                     <span className="entrega-preco entrega-preco-gratis">Grátis</span>
                   </label>
                   {retirar ? (
                     <div className="entrega-lojas" role="radiogroup" aria-label="Escolha a loja">
                       {PUBLIC_UNITS.filter((u) => u.id === "nacoes").map((u) => (
+                        // Com uma loja só não há o que escolher: mostra o endereço, sem botão de seleção.
                         <label key={u.id} className={lojaId === u.id ? "entrega-loja is-on" : "entrega-loja"}>
-                          <input type="radio" name="loja" checked={lojaId === u.id} onChange={() => setLojaId(u.id)} />
+                          {PUBLIC_UNITS.length > 1 ? <input type="radio" name="loja" checked={lojaId === u.id} onChange={() => setLojaId(u.id)} /> : null}
                           <span className="entrega-loja-corpo">
                             <strong>{u.shortName}</strong>
                             <span>{u.shortAddress}</span>
@@ -359,6 +362,13 @@ export default function ReservaFluxo() {
       {passo === 3 ? (
         <div className="fluxo-conteudo fluxo-conteudo-cesta fluxo-pagamento">
           <div className="fluxo-coluna-itens">
+            {enviado ? (
+              <section className="fluxo-enviado" role="status" aria-live="polite">
+                <strong>Falta só um passo: toque em enviar no WhatsApp</strong>
+                <p>O WhatsApp abriu com o seu pedido escrito. O pedido só chega para a loja depois que você toca no botão verde de enviar.</p>
+                <p>Não abriu? <a href={href} target="_blank" rel="noreferrer">Abrir o WhatsApp de novo</a>. Já enviou? <button type="button" className="fluxo-link" onClick={() => { atualizarReserva(limpar); setEnviado(false); window.location.assign("/"); }}>Esvaziar a cesta e voltar ao início</button>.</p>
+              </section>
+            ) : null}
             <section className="entrega-endereco" aria-label="Dados do pedido">
               <div className="entrega-end">
                 <div className="entrega-end-texto">
