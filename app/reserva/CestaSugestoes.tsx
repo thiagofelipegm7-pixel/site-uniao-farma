@@ -1,5 +1,6 @@
 "use client";
 
+import SemFoto from "../nacoes-unidas/produtos/SemFoto";
 import { useEffect, useMemo, useState } from "react";
 import { trackEvent } from "../analytics";
 import { registrarEtapa } from "../funil";
@@ -79,7 +80,7 @@ export default function CestaSugestoes({ itens, max = 3, variante }: { itens: re
       <ul>
         {sugestoes.map((p) => (
           <li key={p.slug}>
-            {p.foto ? <img src={p.foto} alt="" width="48" height="48" loading="lazy" decoding="async" /> : <span className="cesta-sugestao-sem-foto" aria-hidden="true" />}
+            {p.foto ? <img src={p.foto} alt="" width="48" height="48" loading="lazy" decoding="async" /> : <SemFoto className="cesta-sugestao-sem-foto" />}
             <div className="cesta-sugestao-info">
               <a href={`/nacoes-unidas/produtos/${p.slug}`} className="cesta-sugestao-nome">{p.nome}</a>
               <strong>{formatarCentavos(p.precoCentavos)}</strong>

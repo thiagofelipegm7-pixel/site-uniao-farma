@@ -1,0 +1,15 @@
+/* Quadro de produto sem foto (componente SemFoto.tsx): mesmo fundo, mesmo ícone e proporção da foto (1:1). */
+.sem-foto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  box-sizing: border-box;
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  background: #eef3f2;
+  color: #6b8b86;
+}
+.sem-foto-icone { width: 48%; height: auto; max-width: 3.5rem; }
+.sem-foto-legenda { color: #3f6475; font-size: 0.75rem; line-height: 1.2; }

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ReservarBotao from "./reserva/ReservarBotao";
+import Preco from "./nacoes-unidas/produtos/Preco";
 import { readPreferredUnitId } from "./preferred-unit";
 import { IconCoracao } from "./reserva/ReservaIcons";
 import {
@@ -14,15 +15,9 @@ import {
 } from "./offers";
 
 function EtiquetaPreco({ valor }: { valor: number }) {
-  const centavos = precoOfertaCentavos(valor);
-  const reais = Math.floor(centavos / 100).toLocaleString("pt-BR");
-  const cents = String(centavos % 100).padStart(2, "0");
   return (
     <p className="semana-preco">
-      <span className="sr-only">{formatOfferPrice(valor)}</span>
-      <span aria-hidden="true" className="semana-preco-cifrao">R$</span>
-      <span aria-hidden="true" className="semana-preco-inteiro">{reais}</span>
-      <span aria-hidden="true" className="semana-preco-cents">,{cents}</span>
+      <Preco precoFmt={formatOfferPrice(valor)} variante="selo" />
     </p>
   );
 }

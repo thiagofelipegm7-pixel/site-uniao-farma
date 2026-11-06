@@ -3,6 +3,7 @@
 import { trackEvent } from "./analytics";
 import { type SelectorIntent } from "./home-chrome";
 import WebImage from "./WebImage";
+import Preco from "./nacoes-unidas/produtos/Preco";
 import { responsiveSrcSet } from "./responsive-images";
 import {
   formatOfferPrice,
@@ -83,7 +84,7 @@ export default function HomeReasons({
                     </div>
                     {offer.brand ? <p className="home-offer-brand">{offer.brand}</p> : null}
                     <h3>{offer.name}</h3>
-                    <p className="home-offer-price">{price}</p>
+                    <p className="home-offer-price"><Preco precoFmt={offer.currentPrice !== null ? price : null} vazio="Consulte" /></p>
                     <p className="home-offer-note">Enquanto durar o estoque</p>
                     {isMedicationOffer(offer) ? <p className="offer-legal">{MEDICATION_WARNING}</p> : null}
                     <button

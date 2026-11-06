@@ -750,29 +750,9 @@ h3 {
   text-decoration: line-through;
 }
 .semana-preco {
-  position: relative;
-  display: inline-flex;
-  align-items: flex-start;
-  gap: 0.125rem;
+  display: flex;
   margin: 0.125rem 0 0.5rem;
-  padding: 0.375rem 0.75rem !important;
-  border-radius: 8px;
-  background: var(--uf-offer);
-  color: #ffffff;
-  font-weight: 800;
 }
-.semana-preco .sr-only {
-  position: absolute !important;
-  width: 1px !important;
-  height: 1px !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-  clip: rect(0 0 0 0) !important;
-  white-space: nowrap !important;
-}
-.semana-preco-cifrao { font-size: 0.875rem; line-height: 1.6rem; }
-.semana-preco-inteiro { font-size: 1.875rem; line-height: 1.875rem; }
-.semana-preco-cents { font-size: 0.875rem; line-height: 1.25rem; }
 .semana-card .reservar-mais,
 .semana-card .reservar-contador {
   width: 100%;

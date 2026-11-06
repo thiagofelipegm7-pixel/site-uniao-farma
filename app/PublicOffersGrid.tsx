@@ -12,6 +12,7 @@ import {
   OFFER_CATEGORY_LABELS,
   type Offer,
 } from "./offers";
+import Preco from "./nacoes-unidas/produtos/Preco";
 import { EtiquetaOferta } from "./visual-fase2";
 
 function OfferConsultCard({ offer }: { offer: Offer }) {
@@ -44,7 +45,7 @@ function OfferConsultCard({ offer }: { offer: Offer }) {
         <h3>{offer.name}</h3>
         {offer.currentPrice !== null ? (
           <p className="offer-consult-price">
-            <strong>{formatOfferPrice(offer.currentPrice)}</strong>
+            <Preco precoFmt={formatOfferPrice(offer.currentPrice)} />
             {offer.previousPrice && offer.previousPriceConfirmed ? (
               <s>
                 <span className="sr-only">De </span>
