@@ -110,7 +110,6 @@ export default async function ProdutoNacoesPage({ params }: Props) {
           <hr className="produto-divisor" />
           <p className="produto-preco">{formatBRL(item.preco)}</p>
           {item.esgotado ? <p className="produto-esgotado" role="status">Indisponível no momento. Fale com a loja pelo WhatsApp para saber quando chega.</p> : null}
-          {!item.esgotado && item.restam ? <p className="produto-restam" role="status">{item.restam === 1 ? "Resta 1" : `Restam ${item.restam}`}</p> : null}
           <p className="produto-nota">{NOTA_PRECO}</p>
         </article>
 

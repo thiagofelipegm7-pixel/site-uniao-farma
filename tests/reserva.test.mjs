@@ -229,7 +229,7 @@ test("cesta com medicamento de receita ou controlado: só retirada, com a receit
 
 test("taxa de entrega por bairro informada pelo dono", async () => {
   const { taxaDoBairro } = await import("../app/reserva/reserva-store.ts");
-  const esperado = { "Nações Unidas": 100, "General Carneiro": 200, "Vila Rica": 200, Itacolomi: 200, Coqueiros: 400, "Ipê Amarelo": 500, "Vale Paraíso": 300, "Vila São José": 200 };
+  const esperado = { "Nações Unidas": 100, "General Carneiro": 200, "Vila Rica": 200, Itacolomi: 200, Coqueiros: 400, "Ipê Amarelo": 500, "Valparaíso": 300, "Vila São José": 200 };
   for (const [b, v] of Object.entries(esperado)) assert.equal(taxaDoBairro(b), v, b);
   assert.equal(taxaDoBairro("Outro lugar"), null);
   assert.equal(taxaDoBairro(undefined), null);

@@ -52,7 +52,7 @@ test("only Nações Unidas declares free parking", async () => {
 test("delivery areas match owner-confirmed list", async () => {
   const { UNITS } = await import("../app/site-config.ts");
   const map = Object.fromEntries(UNITS.map((u) => [u.id, u.deliveryAreas]));
-  assert.deepEqual(map, { fatima: ["Nossa Senhora de Fátima", "Jardim Vitória"], nacoes: ["Nações Unidas", "General Carneiro", "Vila Rica", "Itacolomi", "Coqueiros", "Ipê Amarelo", "Vale Paraíso", "Vila São José"], itacolomi: ["Itacolomi"] });
+  assert.deepEqual(map, { fatima: ["Nossa Senhora de Fátima", "Jardim Vitória"], nacoes: ["Nações Unidas", "General Carneiro", "Vila Rica", "Itacolomi", "Coqueiros", "Ipê Amarelo", "Valparaíso", "Vila São José"], itacolomi: ["Itacolomi"] });
 });
 
 test("redirects permanentes apontam para URLs canonicas, sem cadeia e sem sair do sitemap", async () => {

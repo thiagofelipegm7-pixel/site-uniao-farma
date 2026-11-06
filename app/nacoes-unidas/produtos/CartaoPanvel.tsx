@@ -24,7 +24,7 @@ type Props = {
   /** Apresentação ("30 comprimidos"). Em branco quando o catálogo não tem. */
   apresentacao?: string | null;
   precoFmt?: string | null;
-  /** Unidades que restam (1 a 5): mostra "Resta 2" abaixo do preço. */
+  /** Unidades que restam (1 a 5). O aviso "Resta N" está desligado (quase todo produto tem 1 ou 2); só a trava da cesta usa o dado. */
   restam?: number | null;
   /** Botão da cesta (canto superior direito). */
   cesta?: ReactNode;
@@ -44,7 +44,7 @@ type Props = {
  * nome, marca, apresentação e preço com o inteiro em destaque. Sem selo de programa, sem "De/Por" e sem % OFF quando
  * o catálogo não tem preço de antes: o que a União não tem fica em branco.
  */
-export default function CartaoPanvel({ href, nome, foto, marca, apresentacao, precoFmt, restam, cesta, avisos, extra, vertical = false, classe = "", tipo }: Props) {
+export default function CartaoPanvel({ href, nome, foto, marca, apresentacao, precoFmt, cesta, avisos, extra, vertical = false, classe = "", tipo }: Props) {
   const corpo = (
     <>
       <span className="pv-img">{foto ? <img src={foto} alt="" width="160" height="160" loading="lazy" decoding="async" /> : <span className="pv-sem-foto" aria-hidden="true" />}</span>
@@ -54,7 +54,6 @@ export default function CartaoPanvel({ href, nome, foto, marca, apresentacao, pr
         {apresentacao?.trim() ? <span className="pv-apres">{apresentacao.trim()}</span> : null}
       </span>
       <Preco precoFmt={precoFmt} />
-      {restam && restam > 0 ? <span className="pv-restam">{restam === 1 ? "Resta 1" : `Restam ${restam}`}</span> : null}
     </>
   );
   return (
