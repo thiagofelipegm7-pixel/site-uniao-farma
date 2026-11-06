@@ -55,9 +55,8 @@ export default async function ProdutoNacoesPage({ params }: Props) {
   const descricaoIA = ehNbcal(item.nome) ? null : descricaoPublica(slugItem, item.isMIP);
   const textos = textosPublicaveis({ descricao: descricaoIA?.texto });
   const combinaCom = itensCombinaCom(carregarCatalogoNacoes().itens, item);
+  // Marca já aparece ao lado do nome e a categoria na trilha do topo: a ficha só traz o que é novo.
   const ficha = [
-    item.lab.trim() ? { rotulo: "Marca", valor: item.lab.trim() } : null,
-    { rotulo: "Categoria", valor: item.categoria },
     conteudo ? { rotulo: "Conteúdo", valor: conteudo } : null,
     ean ? { rotulo: "Código de barras", valor: ean } : null,
   ].filter((linha): linha is { rotulo: string; valor: string } => linha !== null);
@@ -132,6 +131,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
           </section>
         ) : null}
 
+        {ficha.length ? (
         <section className="produto-secao section-inner" aria-labelledby="ficha-tecnica">
           <h2 id="ficha-tecnica">Ficha técnica</h2>
           <table className="produto-ficha">
@@ -145,6 +145,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
             </tbody>
           </table>
         </section>
+        ) : null}
 
         <CombinaCom itens={combinaCom} />
 
