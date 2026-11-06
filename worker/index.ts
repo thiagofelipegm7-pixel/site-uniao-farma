@@ -5,6 +5,7 @@ import handler from "vinext/server/app-router-entry";
 interface Env {
   ASSETS: Fetcher;
   DB: D1Database;
+  CATALOGO_READ_TOKEN?: string;
   IMAGES: {
     input(stream: ReadableStream): {
       transform(options: Record<string, unknown>): {
@@ -41,6 +42,16 @@ const worker = {
     }
 
     return handler.fetch(request, env, ctx);
+  },
+
+  /** Tarefa agendada (cron do wrangler): guarda o estoque do dia no D1 para os alertas do painel interno. */
+  async scheduled(_evento: unknown, env: Env, ctx: ExecutionContext): Promise<void> {
+    if (!env.CATALOGO_READ_TOKEN) return;
+    const pedido = new Request("https://xn--uniofarmasabar-8gbu.com.br/api/estoque-snapshot", {
+      method: "POST",
+      headers: { authorization: `Bearer ${env.CATALOGO_READ_TOKEN}` },
+    });
+    ctx.waitUntil(handler.fetch(pedido, env, ctx).then(() => undefined));
   },
 };
 
