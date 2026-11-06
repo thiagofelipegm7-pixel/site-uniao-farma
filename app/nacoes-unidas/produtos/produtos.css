@@ -879,9 +879,9 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
 .medicamentos-abas button span { padding: 0.0625rem 0.4375rem; border-radius: 999px; background: #eef3f7; font-size: 0.75rem; }
 .medicamentos-abas button.is-on { background: #0a3548; color: #ffffff; }
 .medicamentos-abas button.is-on span { background: #ffffff; color: #0a3548; }
-.medicamentos-busca { display: grid; gap: 0.25rem; margin: 0 0 0.5rem; }
+.medicamentos-busca { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.25rem; margin: 0 0 0.5rem; }
 .medicamentos-busca label { font-size: 0.8125rem; font-weight: 700; color: #3e4b49; }
-.medicamentos-busca input { min-height: 2.75rem; padding: 0 0.875rem; border: 1px solid #6b8b86; border-radius: 6px; font: inherit; }
+.medicamentos-busca input { box-sizing: border-box; width: 100%; min-width: 0; min-height: 2.75rem; padding: 0 0.875rem; border: 1px solid #6b8b86; border-radius: 6px; font: inherit; }
 .medicamentos-contagem { margin: 0 0 0.75rem; color: #3e4b49; font-size: 0.875rem; }
 .medicamentos-mais { display: block; margin: 1.25rem auto; min-height: 2.75rem; padding: 0 1.5rem; border: 1px solid #0a3548; border-radius: 6px; background: #ffffff; color: #0a3548; font: inherit; font-weight: 700; cursor: pointer; }
 
