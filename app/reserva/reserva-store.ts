@@ -24,6 +24,8 @@ export type ReservaItem = {
   foto?: string | null;
   /** Medicamento de venda sob prescrição ("receita") ou de controle especial ("controlado"): retirada na loja com a receita. */
   receita?: "receita" | "controlado";
+  /** Unidades que restam na loja (1 a 5): a quantidade da cesta não passa disso. Ausente = sem limite além de MAX_POR_ITEM. */
+  max?: number;
 };
 
 export type ReservaEstado = { itens: ReservaItem[]; modo: ModoReserva };
@@ -64,9 +66,14 @@ export function itemAtivo(item: ReservaItem): boolean {
 export function adicionar(estado: ReservaEstado, item: Omit<ReservaItem, "qtd" | "id">, qtd = 1): ReservaEstado {
   const id = idDoItem(item.unitId, item.nome);
   const existente = estado.itens.find((i) => i.id === id);
-  if (existente) return definirSelecao(definirQtd(estado, id, existente.qtd + qtd), id, true);
+  if (existente) {
+    // O limite vem do último "Resta N" que o cliente viu; sem limite agora, o antigo cai.
+    const comLimite: ReservaEstado = { ...estado, itens: estado.itens.map((i) => (i.id === id ? limiteDoItem({ ...i, max: item.max }) : i)) };
+    return definirSelecao(definirQtd(comLimite, id, existente.qtd + qtd), id, true);
+  }
   if (!(item.precoCentavos > 0)) return estado;
-  const novo: ReservaItem = { ...item, id, qtd: Math.min(MAX_POR_ITEM, Math.max(1, qtd)) };
+  const novo: ReservaItem = limiteDoItem({ ...item, id, qtd: 1 });
+  novo.qtd = Math.min(tetoDoItem(novo), Math.max(1, qtd));
   return { ...estado, itens: [...estado.itens, novo] };
 }
 
@@ -80,12 +87,29 @@ export function selecionarTodos(estado: ReservaEstado, selecionado: boolean): Re
   return { ...estado, itens: estado.itens.map((i) => ({ ...i, selecionado })) };
 }
 
-/** qtd <= 0 remove o item. */
+/** Maior quantidade permitida do item: o que resta na loja (se informado) ou o teto geral. */
+export function tetoDoItem(item: Pick<ReservaItem, "max">): number {
+  return typeof item.max === "number" && item.max >= 1 ? Math.min(MAX_POR_ITEM, Math.floor(item.max)) : MAX_POR_ITEM;
+}
+
+/** Descarta um `max` inválido (zero, negativo, fracionado ou fora de 1..MAX_POR_ITEM). */
+function limiteDoItem<T extends Pick<ReservaItem, "max">>(item: T): T {
+  if (item.max === undefined) return item;
+  const { max, ...resto } = item;
+  return (typeof max === "number" && Number.isInteger(max) && max >= 1 && max <= MAX_POR_ITEM ? { ...resto, max } : resto) as T;
+}
+
+/** Limite de unidades do item na cesta (undefined = sem limite próprio). */
+export function maxDoItem(estado: ReservaEstado, id: string): number | undefined {
+  return estado.itens.find((i) => i.id === id)?.max;
+}
+
+/** qtd <= 0 remove o item. A quantidade nunca passa do que resta na loja (`max`). */
 export function definirQtd(estado: ReservaEstado, id: string, qtd: number): ReservaEstado {
   if (qtd <= 0) return { ...estado, itens: estado.itens.filter((i) => i.id !== id) };
   return {
     ...estado,
-    itens: estado.itens.map((i) => (i.id === id ? { ...i, qtd: Math.min(MAX_POR_ITEM, Math.floor(qtd)) } : i)),
+    itens: estado.itens.map((i) => (i.id === id ? { ...i, qtd: Math.min(tetoDoItem(i), Math.floor(qtd)) } : i)),
   };
 }
 
@@ -185,7 +209,7 @@ export function lerEstado(bruto: string | null): ReservaEstado {
             Number.isInteger(i.qtd) &&
             i.qtd > 0 &&
             i.qtd <= MAX_POR_ITEM,
-        )
+        ).map((i) => limiteDoItem(i)).map((i) => (i.qtd > tetoDoItem(i) ? { ...i, qtd: tetoDoItem(i) } : i))
       : [];
     return { itens, modo: dado.modo === "casa" ? "casa" : "retirar" };
   } catch {

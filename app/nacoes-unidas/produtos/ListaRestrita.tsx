@@ -85,6 +85,7 @@ export function Cartao({ item }: { item: ItemRestrito }) {
             source={`produtos_nacoes_${item.tipo}`}
             receita={item.controlado ? "controlado" : "receita"}
             variante="cesta"
+            max={item.restam}
             compacto
           />
         ) : null

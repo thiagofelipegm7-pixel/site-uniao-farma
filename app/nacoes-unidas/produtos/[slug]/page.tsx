@@ -159,7 +159,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
         <p className="produto-aviso section-inner">Aqui só itens sem receita. Leia a bula ou o rótulo. Em caso de dúvida, procure o farmacêutico.</p>
       </div>
       <ContentSiteFooter />
-      {item.esgotado ? null : <ProdutoBarra unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} />}
+      {item.esgotado ? null : <ProdutoBarra unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} max={item.restam} />}
     </>
   );
 }
