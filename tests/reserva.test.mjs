@@ -336,3 +336,11 @@ test("celular com letra grande: logo e ícones do topo em vw (pino não cobre o 
   assert.match(css, /\.shop-abas a \{ flex: 1 1 auto;/);
   assert.match(css, /\.shop-hero \{ flex-wrap: wrap; \}/);
 });
+
+test("texto no celular nunca passa da caixa: botões quebram a linha e a trilha de navegação também", async () => {
+  const css = await readFile(new URL("../app/shop/shop.css", import.meta.url), "utf8");
+  assert.match(css, /\.fluxo-botao, a\.fluxo-botao, button\.fluxo-botao, \.entrega-btn, \.shop-hero a/);
+  assert.match(css, /white-space: normal !important; overflow-wrap: anywhere;/);
+  assert.match(css, /@layer design \{\s*@media \(max-width: 991px\) \{\s*\.catalogo-caminho, \.produto-pagina \.catalogo-caminho\.produto-caminho \{ flex-wrap: wrap !important; \}/);
+  assert.ok((await readFile(new URL("../tests/audit-texto-mobile.cjs", import.meta.url), "utf8")).includes("passa da caixa"), "auditoria presente");
+});

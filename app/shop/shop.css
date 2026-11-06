@@ -1353,3 +1353,29 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .shop-hero a { flex: 0 1 auto; max-width: 100%; }
   .mobile-quick-nav .mqn-label { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: min(0.75rem, 3.3vw); }
 }
+
+/* ---- Celular: nenhum texto pode passar da própria caixa, nem com a letra do aparelho ampliada ----
+   (tests/audit-texto-mobile.cjs simula o tamanho da fonte do Android e procura texto estourando.)
+   Botões e links em forma de botão quebram a linha em vez de vazar; títulos e trilhas de navegação quebram também. */
+@media (max-width: 991px) {
+  .fluxo-botao, a.fluxo-botao, button.fluxo-botao, .entrega-btn, .shop-hero a, .fluxo-pagamento .fluxo-rodape .fluxo-botao {
+    box-sizing: border-box; max-width: 100%; height: auto; min-height: 2.75rem; padding-block: 0.5rem;
+    white-space: normal !important; overflow-wrap: anywhere; text-align: center; line-height: 1.2; justify-content: center;
+  }
+  .fluxo-pagamento .fluxo-rodape .fluxo-botao { padding-inline: 0.5rem; }
+  .entrega-end { flex-wrap: wrap; }
+  .entrega-end-texto { flex: 1 1 8rem; min-width: 0; overflow-wrap: anywhere; }
+  .catalogo-caminho span { overflow: visible; text-overflow: clip; overflow-wrap: anywhere; }
+  .fluxo-titulo-cesta { flex-wrap: wrap; gap: 0.25rem 0.75rem; }
+  .entrega-form { grid-template-columns: minmax(0, 1fr); }
+  .entrega-form .entrega-btn { width: 100%; min-width: 0; }
+  h1, h2, h3 { overflow-wrap: anywhere; }
+}
+
+/* A trilha de navegação (início > categoria > produto) quebra a linha em vez de sair da tela. Está na camada "design" porque
+   as regras que a mantinham numa linha só (nowrap !important) também estão nela. */
+@layer design {
+  @media (max-width: 991px) {
+    .catalogo-caminho, .produto-pagina .catalogo-caminho.produto-caminho { flex-wrap: wrap !important; }
+  }
+}
