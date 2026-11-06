@@ -5,7 +5,7 @@ const OCUPA = 0.98;
 type Fonte = { fonte: CanvasImageSource; w: number; h: number; fechar: () => void };
 
 /** Abre o arquivo como imagem. Não usa blob: (a política de segurança do site só deixa 'self', data: e https:). */
-async function abrir(arquivo: File): Promise<Fonte> {
+async function abrir(arquivo: Blob): Promise<Fonte> {
   if (typeof createImageBitmap === "function") {
     try {
       const bmp = await createImageBitmap(arquivo);
@@ -29,7 +29,7 @@ async function abrir(arquivo: File): Promise<Fonte> {
   return { fonte: img, w: img.naturalWidth, h: img.naturalHeight, fechar: () => undefined };
 }
 
-export async function prepararFoto(arquivo: File): Promise<string> {
+export async function prepararFoto(arquivo: Blob): Promise<string> {
   const origem = await abrir(arquivo);
   try {
     if (!origem.w || !origem.h) throw new Error("abrir");

@@ -66,3 +66,17 @@ export async function apagarFoto(db: Banco, ean: string): Promise<void> {
   await garantirTabela(db);
   await db.prepare("DELETE FROM foto_enviada WHERE ean = ?").bind(ean).run();
 }
+
+/** Endereços que o painel pode mandar o servidor baixar: https, com nome de site (nunca IP, localhost ou rede interna), sem usuário/senha. */
+export function urlPermitida(texto: string): URL | null {
+  let u: URL;
+  try {
+    u = new URL(texto);
+  } catch {
+    return null;
+  }
+  if (u.protocol !== "https:" || u.username || u.password || (u.port && u.port !== "443")) return null;
+  const h = u.hostname.toLowerCase();
+  if (!h.includes(".") || /^[\d.]+$/.test(h) || h.includes(":") || h.startsWith("[") || /(^|\.)(localhost|local|internal|lan|home|corp)$/.test(h)) return null;
+  return u;
+}
