@@ -1174,14 +1174,12 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .pv-corpo { display: grid; grid-template-columns: 76px minmax(0, 1fr); column-gap: 12px; align-items: start; padding: 0 12px; color: inherit; text-decoration: none; }
 .pv-img { grid-row: 1 / span 2; display: flex; align-items: center; justify-content: center; width: 76px; height: 76px; }
 .pv-img img { width: 76px; height: 76px; object-fit: contain; }
-.pv-sem-foto { display: block; width: 76px; height: 76px; border-radius: 6px; background: #eef3f2; }
+.pv-sem-foto { width: 76px; height: 76px; }
 .pv-texto { display: grid; gap: 2px; min-width: 0; padding-right: 44px; }
 .pv-nome { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; color: var(--uf-navy); font-size: 14px; font-weight: 400; line-height: 20px; overflow-wrap: anywhere; }
 .pv-marca { color: #3f6475; font-size: 12px; font-weight: 800; letter-spacing: 0.25px; line-height: 18px; text-transform: uppercase; }
 .pv-apres { color: #3f6475; font-size: 12px; font-weight: 400; line-height: 14px; }
-.pv-preco { grid-column: 2; margin-top: 6px; color: var(--uf-navy); font-size: 14px; font-weight: 800; line-height: 1; white-space: nowrap; }
-.pv-preco b { font-size: 26px; font-weight: 900; line-height: 1; }
-.pv-preco-vazio { font-size: 14px; font-weight: 700; }
+.pv-preco { grid-column: 2; margin-top: 6px; }
 .pv-cesta { position: absolute; top: 8px; right: 8px; z-index: 2; }
 .pv-avisos { padding: 8px 12px 0; }
 .pv-avisos p { margin: 0 0 4px; font-size: 12px; line-height: 1.4; }
@@ -1227,7 +1225,7 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .pv-card--v .pv-preco { margin-top: auto; padding-top: 8px; }
 .shop-destaques-lista > .pv-card--v { flex: 0 0 10.5rem; scroll-snap-align: start; }
 @media (min-width: 992px) {
-  .pv-grade, .catalogo-nacoes .catalogo-lista.pv-grade { grid-template-columns: repeat(auto-fill, 229px); gap: 20px; justify-content: start; }
+  .pv-grade, .catalogo-nacoes .catalogo-lista.pv-grade { grid-template-columns: repeat(auto-fill, minmax(10.5rem, 1fr)); gap: 20px; }
   .pv-card { padding: 16px 0 12px; }
   .pv-corpo { display: flex; flex-direction: column; align-items: center; flex: 1; padding: 0; text-align: center; }
   .pv-img { grid-row: auto; width: 160px; height: 160px; margin: 0 auto; }

@@ -289,14 +289,15 @@ test("medicamentos: o departamento reúne sem receita, com receita, controlados 
 
 test("cartão de produto no padrão da Panvel: um componente só, com as medidas do cards.htm", async () => {
   const comp = await read("app/nacoes-unidas/produtos/CartaoPanvel.tsx");
-  for (const c of ["pv-cesta", "pv-corpo", "pv-img", "pv-nome", "pv-marca", "pv-apres", "pv-preco"]) assert.ok(comp.includes(c), c);
+  for (const c of ["pv-cesta", "pv-corpo", "pv-img", "pv-nome", "pv-marca", "pv-apres"]) assert.ok(comp.includes(c), c);
+  assert.ok((await read("app/nacoes-unidas/produtos/Preco.tsx")).includes("pv-preco"));
   const { partesPreco } = await import("../app/nacoes-unidas/produtos/preco.ts");
   assert.deepEqual(partesPreco("R$ 19,49"), { reais: "19", centavos: "49" });
   assert.deepEqual(partesPreco("R$ 1.234,50"), { reais: "1.234", centavos: "50" });
   assert.equal(partesPreco("Consultar"), null);
   const css = await read("app/shop/shop.css");
-  assert.match(css, /grid-template-columns: repeat\(auto-fill, 229px\); gap: 20px/);
-  assert.match(css, /\.pv-preco b \{ font-size: 26px; font-weight: 900/);
+  assert.match(css, /grid-template-columns: repeat\(auto-fill, minmax\(10\.5rem, 1fr\)\); gap: 20px/);
+  assert.match(await read("app/nacoes-unidas/produtos/preco.css"), /\.pv-preco b \{ font-size: 26px; font-weight: 900/);
   for (const f of ["app/nacoes-unidas/produtos/CatalogoLista.tsx", "app/nacoes-unidas/produtos/MedicamentosTodos.tsx", "app/nacoes-unidas/produtos/ListaRestrita.tsx", "app/shop/DestaquesSemana.tsx"]) {
     assert.match(await read(f), /CartaoPanvel|<Cartao /, f);
   }
