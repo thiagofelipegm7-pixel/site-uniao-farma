@@ -10,7 +10,6 @@ import { formatarCentavos } from "../reserva/reserva-store";
 import SemFoto from "../nacoes-unidas/produtos/SemFoto";
 import MarcaUniao from "./MarcaUniao";
 import BotaoVoz from "./BotaoVoz";
-import BotaoReceita from "../receita-foto/BotaoReceita";
 import ReservaSacola from "../reserva/ReservaSacola";
 import { IconLupa, IconMenu, IconPino, IconWhats } from "../reserva/ReservaIcons";
 import LojaPicker from "./LojaPicker";
@@ -23,7 +22,6 @@ const LINKS = [
   { href: "/nacoes-unidas/produtos", label: "Produtos" },
   { href: "/ofertas", label: "Ofertas" },
   { href: "/#unidades-rapidas", label: "A loja" },
-  { href: "/receita", label: "Receita" },
   { href: "/entrega-de-medicamentos-em-sabara", label: "Entrega" },
   { href: "/perguntas", label: "Perguntas" },
 ] as const;
@@ -169,9 +167,6 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
             <div className="shop-sugestoes" id="shop-sugestoes" ref={painelRef}>
               {normal.length === 0 ? (
                 <>
-                  <div className="shop-sugestoes-receita">
-                    <BotaoReceita aoAbrir={() => setFoco(false)} classe="receita-gatilho-bloco" rotulo="Tenho uma receita: ler a foto" />
-                  </div>
                   <p className="shop-sugestoes-titulo">Buscas populares</p>
                   <ul>
                     {BUSCAS_POPULARES.map((valor, i) => (

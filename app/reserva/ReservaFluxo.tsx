@@ -17,8 +17,6 @@ import CestaSugestoes from "./CestaSugestoes";
 import DestaquesSemana from "../shop/DestaquesSemana";
 import { atualizarReserva, definirQtd, tetoDoItem, exigeReceita, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
-import LerReceita from "../receita-foto/LerReceita";
-import BotaoReceita from "../receita-foto/BotaoReceita";
 
 type Passo = 1 | 2 | 3;
 const BAIRROS = listarBairros(PUBLIC_UNITS);
@@ -163,9 +161,7 @@ export default function ReservaFluxo() {
           ) : null}
           {faltaram.length > 0 ? <p className="fluxo-faltaram" role="status">Não achamos hoje: {faltaram.join(", ")}. Procure na loja ou pelo WhatsApp.</p> : null}
           <a className="fluxo-botao" href="/nacoes-unidas/produtos">Ver produtos</a>
-          <BotaoReceita classe="receita-gatilho-bloco" />
         </div>
-        <LerReceita />
       </div>
     );
   }
@@ -236,7 +232,6 @@ export default function ReservaFluxo() {
       <ol className="fluxo-progresso-rotulos" aria-hidden="true">
         {["Cesta", "Entrega", "Finalizar"].map((r, i) => <li key={r} className={i + 1 <= passo ? "is-on" : ""}>{r}</li>)}
       </ol>
-      {passo === 1 ? <p className="pv-receita-atalho"><BotaoReceita /></p> : null}
 
       {passo === 1 ? (
         <div className="fluxo-conteudo fluxo-conteudo-cesta">
@@ -513,7 +508,6 @@ export default function ReservaFluxo() {
           </div>
         </div>
       ) : null}
-      <LerReceita />
     </div>
   );
 }

@@ -148,7 +148,7 @@ export default function JardimVitoriaPage() {
               <li>A loja confirma o pedido com você.</li>
             </ol>
             <p>
-              Medicamentos com receita seguem as regras da Anvisa. <a href="/receita">Veja como enviar a receita</a>.
+              Medicamentos com receita seguem as regras da Anvisa.
             </p>
           </div>
         </section>

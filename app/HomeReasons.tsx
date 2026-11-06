@@ -130,7 +130,6 @@ export default function HomeReasons({
             {"Consultar preço e disponibilidade"}
           </button>
           <a href="/entrega-de-medicamentos-em-sabara">Ver se entrega no meu bairro</a>
-          <a href="/receita">Enviar minha receita</a>
         </nav>
 
         <a className="home-reasons-more" href="/ofertas">

@@ -9,7 +9,6 @@ export const metadata: Metadata = {
 const LINKS = [
   { href: "/", label: "Início" },
   { href: "/ofertas", label: "Ofertas" },
-  { href: "/receita", label: "Receita" },
   { href: "/#unidades-rapidas", label: "Lojas" },
 ];
 

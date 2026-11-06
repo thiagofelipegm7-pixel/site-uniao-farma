@@ -33,7 +33,6 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
   const label = SHORT_LABEL[unit.id];
   const product = WHATSAPP_MESSAGES.product.replaceAll("{unidade}", unit.shortName);
   const delivery = WHATSAPP_MESSAGES.delivery.replaceAll("{unidade}", unit.shortName);
-  const recipe = WHATSAPP_MESSAGES.recipe.replaceAll("{unidade}", unit.shortName);
   const pageUrl = `${SITE_URL}${PAGE_HREF[unit.id]}`;
   const content = getStoreContent(unit);
   const otherUnits = PUBLIC_UNITS.filter((other) => other.id !== unit.id);
@@ -95,11 +94,6 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
           <p>A loja de {label} entrega {unit.deliveryScope}.</p>
           <a href={buildWhatsAppUrl(unit, delivery, { campaign: "bairro", content: `${unit.id}_entrega` })} target="_blank" rel="noreferrer">Pedir entrega</a>
           {unit.ifoodUrl ? <a href="/ifood">Pedir pelo iFood</a> : null}
-        </article>
-        <article>
-          <h2>Receita</h2>
-          <p>Envie a foto ou o Memed no WhatsApp desta unidade.</p>
-          <a href={buildWhatsAppUrl(unit, recipe, { campaign: "bairro", content: `${unit.id}_receita` })} target="_blank" rel="noreferrer">Enviar receita</a>
         </article>
       </section>
 

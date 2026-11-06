@@ -12,7 +12,6 @@ type ContentPath = "/ofertas" | "/novidades" | "/receita";
 const NAV_LINKS: Array<{ href: string; label: string; activePath?: ContentPath }> = [
   { href: "/#unidades-rapidas", label: "Lojas" },
   { href: "/ofertas", label: "Ofertas", activePath: "/ofertas" },
-  { href: "/receita", label: "Receita", activePath: "/receita" },
   { href: "/entrega-de-medicamentos-em-sabara", label: "Entrega" },
   { href: "/perguntas", label: "Perguntas" },
 ];
