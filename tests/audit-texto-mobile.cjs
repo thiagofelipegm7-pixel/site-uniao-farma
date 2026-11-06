@@ -129,6 +129,15 @@ function auditar() {
       range.selectNodeContents(n);
       for (const t of range.getClientRects()) {
         if (t.width < 4 || t.height < 4 || t.bottom < 0 || t.top > window.innerHeight * 6) continue;
+        // Linha escondida por corte do próprio bloco (nome limitado a 2 linhas): não aparece, não conta.
+        let escondida = false;
+        for (let a = T.el; a && a !== document.body; a = a.parentElement) {
+          const o = getComputedStyle(a);
+          if (o.overflowY !== "hidden" && o.overflowY !== "clip") continue;
+          const ar = a.getBoundingClientRect();
+          if (t.top >= ar.bottom - 1 || t.bottom <= ar.top + 1) { escondida = true; break; }
+        }
+        if (escondida) continue;
         linhas.push({ el: T.el, texto: T.texto, esq: t.left, dir: t.right, topo: t.top, base: t.bottom });
       }
     }

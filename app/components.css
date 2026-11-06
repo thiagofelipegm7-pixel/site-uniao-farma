@@ -1601,6 +1601,7 @@ a.brand img {
 .hours-table thead th { background: var(--uf-fog); font-size: 0.9rem; }
 .hours-table tbody th a { color: var(--uf-green-dark); font-weight: 700; }
 .hours-table td a { color: var(--uf-green); font-weight: 600; white-space: nowrap; }
+@media (max-width: 720px) { .hours-table td a, .hours-table tbody th a { white-space: normal; overflow-wrap: anywhere; } }
 .hours-table .unit-status-open { color: var(--uf-open); }
 .hours-table .unit-status-closed { color: var(--uf-closed); }
 @media (max-width: 720px) {

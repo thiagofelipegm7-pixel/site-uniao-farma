@@ -1401,3 +1401,14 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
     .mobile-quick-nav .mobile-quick-nav-inner.is-shop { grid-template-columns: repeat(4, minmax(min-content, 1fr)) !important; }
   }
 }
+
+/* Últimos ajustes de letra ampliada: o telefone na tabela de horários quebra em vez de ser cortado, e o menu de baixo das
+   páginas de conteúdo (3 ou 4 itens) também dimensiona cada coluna pelo rótulo. */
+@media (max-width: 991px) {
+  .hours-table td a, .hours-table tbody th a { white-space: normal !important; overflow-wrap: anywhere; }
+}
+@layer design {
+  @media (max-width: 991px) {
+    .mobile-quick-nav .mobile-quick-nav-inner { grid-template-columns: none !important; grid-auto-flow: column; grid-auto-columns: minmax(min-content, 1fr); }
+  }
+}

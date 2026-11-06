@@ -378,9 +378,9 @@
     padding: 0 0 env(safe-area-inset-bottom) !important; height: auto !important; margin: 0 !important; border-radius: 0 !important; width: auto !important;
   }
   /* Colunas com minmax(0, …) e rótulo sem reticências: o texto encolhe/quebra, nunca vira "Whats…". */
-  .mobile-quick-nav-inner { display: grid !important; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr) minmax(0, 1fr) !important; align-items: center !important; min-height: var(--spacing-bar) !important; height: auto !important; gap: var(--spacing-xs) !important; padding: var(--spacing-xs) var(--spacing-sm) !important; max-width: 560px; margin: 0 auto !important; background: none !important; border: 0 !important; box-shadow: none !important; box-sizing: border-box !important; }
+  .mobile-quick-nav-inner { display: grid !important; grid-template-columns: minmax(min-content, 1fr) minmax(min-content, 1.3fr) minmax(min-content, 1fr) !important; align-items: center !important; min-height: var(--spacing-bar) !important; height: auto !important; gap: var(--spacing-xs) !important; padding: var(--spacing-xs) var(--spacing-sm) !important; max-width: 560px; margin: 0 auto !important; background: none !important; border: 0 !important; box-shadow: none !important; box-sizing: border-box !important; }
   /* Barra da loja: 4 itens (Início, Categorias, Cesta, Lojas). Com 3 colunas o "Lojas" ia para uma 2ª linha e a barra ficava por cima do aviso de cookies. */
-  .mobile-quick-nav-inner.is-shop { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+  .mobile-quick-nav-inner.is-shop { grid-template-columns: repeat(4, minmax(min-content, 1fr)) !important; }
   .mobile-quick-nav a {
     display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; gap: 2px !important;
     min-height: var(--spacing-btn) !important; height: auto !important; min-width: 0 !important; border-radius: var(--radius-md) !important; color: var(--color-ink-2) !important; text-decoration: none !important;
