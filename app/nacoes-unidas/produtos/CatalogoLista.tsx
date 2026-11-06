@@ -346,7 +346,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
               </select>
             </label>
           </div>
-          <p className="pv-receita-atalho"><BotaoReceita /><span>Foto da receita: achamos os remédios na loja.</span></p>
+          <p className="pv-receita-atalho"><BotaoReceita /></p>
 
       {tolerante.tipo === "corrigida" ? (
         <p className="pv-corrigida" role="status">

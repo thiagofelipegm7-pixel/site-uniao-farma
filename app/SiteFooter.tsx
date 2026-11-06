@@ -3,10 +3,11 @@
 /* eslint-disable @next/next/no-html-link-for-pages */
 import MarcaUniao from "./shop/MarcaUniao";
 import { COMPANY } from "./company";
+import { PUBLIC_UNITS } from "./site-config";
 import { openCookiePreferences } from "./cookie-preferences";
 
 /**
- * Rodapé do protótipo: marca, quem é o responsável técnico, a faixa legal da Anvisa, razão social e CNPJ,
+ * Rodapé: marca, responsável técnico (CRF), endereço e telefone da loja (Decreto 7.962/2013), a faixa legal da Anvisa, razão social e CNPJ,
  * e os links Privacidade, Termos e Perguntas. "Cookies" fica porque o cliente precisa poder rever o consentimento (LGPD).
  */
 export default function SiteFooter() {
@@ -17,8 +18,13 @@ export default function SiteFooter() {
           <MarcaUniao />
         </a>
         <p>
-          Loja em Sabará (Nações Unidas). Farmacêutico responsável presente em todo o horário de funcionamento. Responsável técnico da loja Nações Unidas: <strong>João</strong> · CRF/MG <strong>31958</strong>.
+          Responsável técnico da loja Nações Unidas: <strong>João</strong> · CRF/MG <strong>31958</strong>.
         </p>
+        {PUBLIC_UNITS.map((unit) => (
+          <p key={unit.id} className="uf-footer-endereco">
+            {unit.address} · <a href={unit.phoneLink}>{unit.phone}</a>
+          </p>
+        ))}
         <p className="uf-footer-warning legal-band">{COMPANY.anvisaWarnings[3]}</p>
         <p className="uf-footer-legal-name">
           {COMPANY.legalName} · CNPJ {COMPANY.cnpj}

@@ -27,7 +27,7 @@ export function ehNbcal(nome: string): boolean {
 
 export const AVISO_MIP = "Medicamento isento de prescrição. Leia a bula. Se persistirem os sintomas, o médico deverá ser consultado.";
 
-export const NOTA_PRECO = "Preço do sistema da loja. A gente confere o preço e o estoque e te responde pelo WhatsApp.";
+export const NOTA_PRECO = "A loja confirma preço e estoque pelo WhatsApp.";
 
 export const FAQ_PRODUTO: readonly FaqProduto[] = [
   {
@@ -37,10 +37,6 @@ export const FAQ_PRODUTO: readonly FaqProduto[] = [
   {
     q: "Posso retirar ou receber em casa?",
     a: "Pode retirar na loja Nações Unidas. Para receber em casa, a loja combina taxa e prazo pelo WhatsApp.",
-  },
-  {
-    q: "Quem confirma preço e estoque?",
-    a: "A gente confere o preço e o estoque e te responde pelo WhatsApp.",
   },
 ];
 

@@ -137,9 +137,8 @@ test("página de produto: slug, volume, textos só quando existem e Product sem 
   assert.equal(ld["@type"], "Product");
   const cru = JSON.stringify(ld);
   assert.doesNotMatch(cru, /aggregateRating|availability|InStock|OutOfStock|"offers"/);
-  assert.deepEqual(FAQ_PRODUTO.map((item) => item.q), ["Preciso pagar agora?", "Posso retirar ou receber em casa?", "Quem confirma preço e estoque?"]);
-  assert.match(NOTA_PRECO, /A gente confere o preço e o estoque e te responde pelo WhatsApp/);
-  assert.match(FAQ_PRODUTO[2].a, /A gente confere o preço e o estoque e te responde pelo WhatsApp/);
+  assert.deepEqual(FAQ_PRODUTO.map((item) => item.q), ["Preciso pagar agora?", "Posso retirar ou receber em casa?"]);
+  assert.match(NOTA_PRECO, /A loja confirma preço e estoque pelo WhatsApp/);
   assert.match(AVISO_MIP, /Medicamento isento de prescrição/);
 });
 
