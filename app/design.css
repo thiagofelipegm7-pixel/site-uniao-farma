@@ -408,9 +408,10 @@
   }
 
   @media (max-width: 1023px) {
-    body { padding-bottom: calc(var(--spacing-bar) + env(safe-area-inset-bottom) + var(--spacing-lg)) !important; }
-    html { scroll-padding-bottom: calc(var(--spacing-bar) + env(safe-area-inset-bottom) + var(--spacing-lg)); }
-    body.cookie-banner-visible { padding-bottom: calc(var(--spacing-bar) + env(safe-area-inset-bottom) + 160px) !important; }
+    /* Sem a barra fixa de baixo: sobra só espaço para o botão do WhatsApp. */
+    body { padding-bottom: calc(4.5rem + env(safe-area-inset-bottom)) !important; }
+    html { scroll-padding-bottom: calc(4.5rem + env(safe-area-inset-bottom)); }
+    body.cookie-banner-visible { padding-bottom: calc(160px + env(safe-area-inset-bottom)) !important; }
     main#conteudo, .hero, .hero-home, .offers-page, .recipe-page, .neighborhood-page, .questions-page, footer, .site-footer, .uf-footer { padding-bottom: 0 !important; }
     .whatsapp-fab { display: none !important; }
   }
