@@ -904,11 +904,10 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .shop-abas a strong { margin-top: -0.125rem; font-size: 1.125rem; font-weight: 700; }
 .shop-abas a:hover:not(.is-ativa) { background: #1d2a28; }
 
-/* cartões de benefícios: 236 x 76, raio 16, rolagem lateral no celular */
-.shop-info { display: flex; gap: 0.75rem; max-width: 82rem; margin: 0.875rem auto 0; padding: 0 1.25rem; list-style: none; overflow-x: auto; scrollbar-width: none; }
-.shop-info::-webkit-scrollbar { display: none; }
-.shop-info li { flex: 0 0 14.75rem; }
-.shop-info a, .shop-info div { box-sizing: border-box; display: flex; align-items: center; gap: 0.75rem; width: 100%; height: 4.75rem; padding: 0.75rem; border-radius: 16px; background: var(--uf-pill); color: #ffffff; text-decoration: none; }
+/* cartões de benefícios: grade 2 x 2 no celular (texto inteiro), fileira de 4 no desktop */
+.shop-info { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; max-width: 82rem; margin: 0.875rem auto 0; padding: 0 1.25rem; list-style: none; }
+.shop-info li { min-width: 0; }
+.shop-info a, .shop-info div { box-sizing: border-box; display: flex; align-items: center; gap: 0.75rem; width: 100%; height: 100%; min-height: 4.75rem; padding: 0.75rem; border-radius: 16px; background: var(--uf-pill); color: #ffffff; text-decoration: none; }
 .shop-info svg { flex: none; color: var(--uf-action); }
 .shop-info span { display: grid; min-width: 0; }
 .shop-info strong { font-size: 0.875rem; font-weight: 700; line-height: 1.25; }
@@ -945,7 +944,7 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .shop-submenu ul a { color: var(--uf-navy); font-weight: 600; text-decoration: none; }
   .shop-abas { max-width: 35.25rem; height: 3.75rem; }
   .shop-abas a { flex-basis: 7.3rem; }
-  .shop-info { justify-content: space-between; gap: 1.25rem; overflow: visible; }
+  .shop-info { display: flex; justify-content: space-between; gap: 1.25rem; }
   .shop-info li { flex: 1 1 0; }
   .shop-categorias h2 { max-width: 82rem; margin-inline: auto; font-size: 1.5rem; }
   .shop-quiser ul, .shop-contato ul { grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
@@ -1113,6 +1112,11 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .shop-categorias-corpo { display: block; }
 .shop-categorias-janela { display: block; }
 .shop-cat-seta, .shop-cat-copia { display: none; }
+/* Celular: as categorias quebram em grade (nada de rótulo cortado na borda da tela). */
+@media (max-width: 991.98px) {
+  .shop-categorias { --cat-tile: 100%; }
+  .shop-categorias ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(5.25rem, 1fr)); gap: 0.75rem 0.25rem; overflow: visible; }
+}
 @media (min-width: 992px) {
   /* Os quadros dividem a largura inteira (menos as duas setas): sem faixa branca na direita em telas largas. */
   .shop-categorias { --cat-tile: calc((100cqw - 7.75rem - (var(--cat-n) - 1) * var(--cat-gap)) / var(--cat-n)); --cat-gap: 1.25rem; --cat-passo: calc(var(--cat-tile) + var(--cat-gap)); }
