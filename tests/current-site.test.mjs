@@ -58,5 +58,5 @@ test("home: 'Navegue por categoria' é um carrossel como o da Panvel (setas, 2 q
 
 test("celular: a barra de atalhos da loja tem 4 colunas e não cobre o aviso de cookies", async () => {
   const css = await readFile(new URL("../app/design.css", import.meta.url), "utf8");
-  assert.match(css, /\.mobile-quick-nav-inner\.is-shop \{ grid-template-columns: repeat\(4, minmax\(0, 1fr\)\) !important; \}/);
+  assert.match(css, /\.mobile-quick-nav-inner\.is-shop \{ grid-template-columns: repeat\(4, minmax\(min-content, 1fr\)\) !important; \}/);
 });
