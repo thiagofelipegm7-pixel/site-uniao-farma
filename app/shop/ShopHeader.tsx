@@ -95,7 +95,6 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
 
   return (
     <>
-      <div className="shop-faixa-topo" aria-hidden="true" />
       <header className="shop-header">
         <button type="button" className="shop-icone shop-menu" aria-label="Abrir menu" aria-expanded={menu} aria-controls="shop-menu-painel" onClick={() => setMenu(true)}>
           <IconMenu size={26} />
