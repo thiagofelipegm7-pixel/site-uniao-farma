@@ -1340,3 +1340,29 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 /* Cesta vazia: repetir o último pedido. */
 .fluxo-botao-repetir { margin-bottom: 0.75rem; }
 .fluxo-faltaram { margin: 0 0 0.75rem; color: #7a2b1d; font-size: 0.9375rem; line-height: 1.5; }
+
+/* Celular com letra grande (ajuste de fonte do Android): o logo e os ícones do topo usam vw, que não cresce com a fonte,
+   para não se sobreporem (o pino de loja chegou a ficar em cima do nome). */
+@media (max-width: 991px) {
+  .shop-marca { justify-self: stretch; justify-content: center; min-width: 0; overflow: hidden; }
+  .shop-marca .marca-uf .marca-uf-nome { font-size: min(1.75rem, 7vw); }
+  .shop-marca .marca-uf .marca-uf-pe { font-size: min(0.625rem, 2.7vw); padding: 0.25rem min(0.6875rem, 2.8vw); }
+  .shop-header { grid-template-columns: min(2.75rem, 12vw) minmax(0, 1fr) auto; }
+  .shop-icone, .shop-acoes .reserva-sacola { width: min(2.75rem, 12vw); height: min(2.75rem, 12vw); min-width: 0; }
+}
+
+/* Letra grande no celular: abas, ícone da cesta e bolha da quantidade ficam dentro do próprio espaço. */
+@media (max-width: 991px) {
+  .shop-abas a { flex: 1 1 auto; padding: 0 0.5rem; }
+  .shop-abas a span { font-size: min(1rem, 4.2vw); }
+  .reserva-sacola svg { width: min(1.625rem, 6.5vw); height: min(1.625rem, 6.5vw); }
+  .reserva-contador-bolha { min-width: min(1.25rem, 5vw); height: min(1.25rem, 5vw); font-size: min(0.75rem, 3.2vw); line-height: 1; }
+}
+
+/* Letra grande no celular: o cartão marinho passa o botão para baixo do texto (em vez de sair da borda) e os rótulos do menu de baixo não se encostam. */
+@media (max-width: 991px) {
+  .shop-hero { flex-wrap: wrap; }
+  .shop-hero > div { flex: 1 1 12rem; min-width: 0; }
+  .shop-hero a { flex: 0 1 auto; max-width: 100%; }
+  .mobile-quick-nav .mqn-label { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: min(0.75rem, 3.3vw); }
+}
