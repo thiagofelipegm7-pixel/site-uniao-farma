@@ -44,10 +44,15 @@ const worker = {
     return handler.fetch(request, env, ctx);
   },
 
-  /** Tarefa agendada (cron do wrangler): guarda o estoque do dia no D1 para os alertas do painel interno. */
-  async scheduled(_evento: unknown, env: Env, ctx: ExecutionContext): Promise<void> {
+  /**
+   * Tarefas agendadas (crons do wrangler):
+   *  - 00:30 UTC (21h30 em Brasília): guarda o estoque do dia no D1 para os alertas do painel interno;
+   *  - a cada 30 min no horário da loja: confere se o PC da loja ainda envia o estoque e avisa no celular se parar.
+   */
+  async scheduled(evento: { cron?: string }, env: Env, ctx: ExecutionContext): Promise<void> {
     if (!env.CATALOGO_READ_TOKEN) return;
-    const pedido = new Request("https://xn--uniofarmasabar-8gbu.com.br/api/estoque-snapshot", {
+    const caminho = evento.cron === "30 0 * * *" ? "/api/estoque-snapshot" : "/api/estoque-alerta";
+    const pedido = new Request(`https://xn--uniofarmasabar-8gbu.com.br${caminho}`, {
       method: "POST",
       headers: { authorization: `Bearer ${env.CATALOGO_READ_TOKEN}` },
     });

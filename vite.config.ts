@@ -19,8 +19,8 @@ const localBindingConfig = {
   compatibility_flags: ["nodejs_compat", "global_fetch_strictly_public"],
   // Workers AI: a busca tolerante (app/api/busca-ia) usa o binding AI. Sem login nem chave: vale a conta do deploy.
   ai: { binding: "AI" },
-  // Estoque do dia guardado no D1 às 21h30 de Brasília (00h30 UTC), com a loja já fechada: base dos alertas em /interno/estoque.
-  triggers: { crons: ["30 0 * * *"] },
+  // Estoque do dia guardado no D1 às 21h30 de Brasília (00h30 UTC), com a loja já fechada: base dos alertas em /interno/estoque. A cada 30 min das 8h às 20h30 (11h-23h UTC): vigia o PC da loja.
+  triggers: { crons: ["30 0 * * *", "*/30 11-23 * * *"] },
   d1_databases: d1
     ? [
         {

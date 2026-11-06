@@ -391,3 +391,23 @@ test("estoque: esgotado some das listas e da busca mas a página segue aberta; '
   assert.match(py, /LIMITE_RESTAM = 5/);
   assert.doesNotMatch(py, /item\["estoque"\]|"Estoque":\s*unidades/);
 });
+
+test("nomes legíveis: o gerador e o site expandem abreviações do mesmo jeito, sem inventar", async () => {
+  const { nomeDeExibicao } = await import("../app/nome-exibicao.ts");
+  assert.equal(nomeDeExibicao("SH J&J BABY CAB CACHEADO"), "Shampoo J&j Baby cabelo Cacheado");
+  assert.equal(nomeDeExibicao("FRALDA PAMPERS SUPSEQUI MEGA G 34UN"), "Fralda Pampers Supsequi Mega G 34UN");
+  assert.equal(nomeDeExibicao("CREME DE CACAU 230 GRS."), "Creme de Cacau 230 g.");
+  assert.equal(nomeDeExibicao("ALMEIDA PRADO 35 60CPR"), "Almeida Prado 35 60 comprimidos");
+  assert.equal(nomeDeExibicao("TINT MAXTON 3.0 CASTANHO ESCURO"), "Tintura Maxton 3.0 Castanho Escuro");
+  // Os arquivos gerados para o site saem iguais ao que o código do site calcularia.
+  const idx = await json("public/dados/nacoes/catalogo-index.json");
+  let conferidos = 0;
+  for (const g of idx.grupos) {
+    const pagina = await json(`public/dados/nacoes/catalogo/${g.slug}/p1.json`);
+    for (const i of pagina) {
+      assert.equal(i.nomeExibicao, nomeDeExibicao(i.nome), i.nome);
+      conferidos += 1;
+    }
+  }
+  assert.ok(conferidos > 100);
+});

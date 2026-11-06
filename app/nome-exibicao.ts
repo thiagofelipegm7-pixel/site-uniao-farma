@@ -3,17 +3,16 @@
  * ("DES ROLL ON NIVEA PROTECT 50ML"); no site aparece como o cliente fala ("Desodorante roll-on Nivea Protect 50ml").
  * Só expande abreviações conhecidas e ajusta caixa e unidades. Não inventa informação.
  */
-const PALAVRAS: Record<string, string> = {
-  "roll-on": "roll-on", gr: "g", g: "g", ml: "ml", des: "Desodorante", desod: "Desodorante", cr: "Creme", sab: "Sabonete", prot: "Protetor", hidrat: "Hidratante",
-  locao: "Loção", shamp: "Shampoo", cond: "Condicionador", enx: "Enxaguante", esc: "Escova", cap: "cápsulas", caps: "cápsulas",
-  comp: "comprimidos", cpr: "comprimidos", mastigavel: "mastigável", glic: "Glicerinado", trad: "Tradicional", bebe: "bebê",
-  "s/frag": "sem fragrância", "c/": "com", "s/": "sem", maca: "Maçã", peruana: "Peruana", po: "pó", omega: "Ômega",
-  vitamina: "Vitamina", dental: "dental", aero: "Aerosol", hidratante: "Hidratante", corporal: "corporal", facial: "facial",
-  oleosidade: "oleosidade", controle: "controle", refil: "refil", granado: "Granado", rosa: "rosa", radiant: "Radiant", glow: "Glow",
-};
+import PALAVRAS_JSON from "./nome-exibicao-palavras.json" with { type: "json" };
+
+const PALAVRAS = PALAVRAS_JSON as Record<string, string>;
 const MINUSCULAS = new Set(["de", "da", "do", "e", "com", "sem", "para", "em", "na", "no", "a", "o"]);
-function formatarPalavra(bruta: string): string {
+function formatarPalavra(bruta: string, anterior = ""): string {
   const p = bruta.toLowerCase();
+  // "G" sozinho depois de número é grama ("100 g"); fora disso é tamanho ("Fralda ... G").
+  if ((p === "g" || p === "gr") && !/^\d/.test(anterior)) return "G";
+  const colada = /^(\d+)(cpr|comp|caps|cap|cps|drg|env)$/.exec(p);
+  if (colada) return `${colada[1]} ${PALAVRAS[colada[2]] ?? colada[2]}`;
   const med = /^(\d+(?:[.,]\d+)?)(ml|mg|g|gr|kg|l|mcg|mts|mt)$/.exec(p);
   if (med) return `${med[1]}${med[2] === "gr" ? "g" : med[2] === "mts" || med[2] === "mt" ? "m" : med[2]}`;
   const comPre = /^c\/(\d+)$/.exec(p);
@@ -29,7 +28,8 @@ export function nomeDeExibicao(nomeBruto: string): string {
   if (!limpo) return nomeBruto;
   // "ROLL ON" vira "roll-on" (como o rótulo escreve).
   const juntado = limpo.replace(/\broll on\b/gi, "roll-on");
-  const partes = juntado.split(" ").map(formatarPalavra);
+  const brutas = juntado.split(" ");
+  const partes = brutas.map((b, i) => formatarPalavra(b, brutas[i - 1] ?? ""));
   // Junta número e unidade que a regra de medida separou ("200 ml"): já vêm em um token só.
   const texto = partes.join(" ").replace(/\s+/g, " ").trim();
   return texto.charAt(0).toUpperCase() + texto.slice(1);
