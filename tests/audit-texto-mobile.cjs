@@ -18,6 +18,8 @@ function instalar(escala) {
     for (const r of regras) {
       if (r.cssRules && !r.style) { try { andar(r.cssRules); } catch (e) { /* folha de outro domínio */ } continue; }
       if (!r.style || feitas.has(r)) continue;
+      const lh = r.style.getPropertyValue("line-height");
+      if (lh && /^[\d.]+(px|rem)$/.test(lh.trim())) r.style.setProperty("line-height", `calc(${lh} * ${escala})`, r.style.getPropertyPriority("line-height"));
       const v = r.style.getPropertyValue("font-size");
       if (!v || /^(inherit|initial|unset|revert|smaller|larger|xx?-(small|large)|small|medium|large)$/.test(v.trim())) continue;
       if (/^[\d.]+(em|%)$/.test(v.trim())) continue; // relativo ao pai: já acompanha
@@ -59,6 +61,8 @@ function auditar() {
     const r = el.getBoundingClientRect();
     const cs = getComputedStyle(el);
     // Texto só para leitor de tela (caixa de 1 px) e títulos de tabela escondidos não contam.
+    if (typeof el.checkVisibility === "function" && !el.checkVisibility({ contentVisibilityAuto: true, visibilityProperty: true, opacityProperty: true })) return false;
+    if (el.closest("details:not([open])") && !el.closest("summary")) return false;
     return r.width > 2 && r.height > 2 && cs.visibility !== "hidden" && cs.display !== "none" && cs.opacity !== "0" && !/sr-only|visually-hidden/.test(String(el.className));
   };
   const rotulo = (el) => `${el.tagName.toLowerCase()}${el.className && typeof el.className === "string" ? "." + el.className.trim().split(/\s+/).slice(0, 2).join(".") : ""}`;
