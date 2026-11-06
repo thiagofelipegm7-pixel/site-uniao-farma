@@ -374,3 +374,20 @@ test("itens 'consulte o farmacêutico' viraram produtos comuns, achados na busca
   assert.ok(cat.itens.filter((i) => i.origem === "consulte").length > 100);
   assert.match(await read("next.config.ts"), /consulte-o-farmaceutico", destination: "\/departamentos\/medicamentos", permanent: true/);
 });
+
+test("estoque: esgotado some das listas e da busca mas a página segue aberta; 'Resta N' no cartão e na página", async () => {
+  const gen = await read("scripts/gerar-assets-catalogo.mjs");
+  assert.match(gen, /esgotado !== true/);
+  const cat = await read("app/nacoes-unidas/produtos/catalogo.ts");
+  assert.match(cat, /export function carregarCatalogoCompleto/);
+  assert.match(cat, /filter\(\(i\) => i\.esgotado !== true\)/);
+  const pagina = await read("app/nacoes-unidas/produtos/[slug]/page.tsx");
+  assert.match(pagina, /carregarCatalogoCompleto\(\)/);
+  assert.match(pagina, /item\.esgotado \? null : <ProdutoBarra/);
+  const cartao = await read("app/nacoes-unidas/produtos/CartaoPanvel.tsx");
+  assert.match(cartao, /Resta 1/);
+  // A quantidade exata nunca é publicada: só `esgotado` e `restam` (1 a 5).
+  const py = await read("ops/catalogo-nacoes/gerar.py");
+  assert.match(py, /LIMITE_RESTAM = 5/);
+  assert.doesNotMatch(py, /item\["estoque"\]|"Estoque":\s*unidades/);
+});

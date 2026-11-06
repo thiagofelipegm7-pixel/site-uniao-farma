@@ -138,6 +138,7 @@ function paraRestrito(base, tipo) {
     busca: normalizarBusca(`${base.nome} ${base.lab} ${base.ativo ?? ""}`),
     nomeExibicao: nomeDeExibicao(base.nome),
     slug: slugify(base.nome),
+    ...(typeof base.restam === "number" ? { restam: base.restam } : {}),
   };
 }
 
@@ -152,7 +153,9 @@ function writeJson(rel, data) {
 
 // ---- Catálogo sem receita ----
 const cat = JSON.parse(fs.readFileSync(path.join(DADOS, "catalogo-nacoes.json"), "utf8"));
-const itens = cat.itens || [];
+// Esgotado (estoque zero): sai das listas e da busca; a página do produto continua aberta (ver gerar.py).
+const itensTodos = cat.itens || [];
+const itens = itensTodos.filter((i) => i.esgotado !== true);
 
 const CATEGORIAS_ORDEM = [
   "Medicamentos",
@@ -203,6 +206,7 @@ for (const g of grupos) {
       preco: item.preco,
       precoFmt,
       isMIP: item.isMIP === true,
+      ...(typeof item.restam === "number" ? { restam: item.restam } : {}),
       slug,
       foto,
       busca,
@@ -237,7 +241,7 @@ writeJson("catalogo-index.json", { geradoEm: cat.geradoEm, grupos: paginasIndex,
 const rec = JSON.parse(fs.readFileSync(path.join(DADOS, "receita-nacoes.json"), "utf8"));
 
 function gerarRestrito(lista, tipo) {
-  return (lista || []).map((base) => paraRestrito(base, tipo));
+  return (lista || []).filter((base) => base.esgotado !== true).map((base) => paraRestrito(base, tipo));
 }
 
 const receitaFmt = gerarRestrito(rec.receita, "receita");

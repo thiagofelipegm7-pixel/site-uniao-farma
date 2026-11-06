@@ -193,7 +193,7 @@ def incluir_consulte(d):
     novos = 0
     for i in json.load(open(arq, encoding="utf-8")).get("consulte", []):
         if not i.get("preco") or norm(i["nome"]) in existentes: continue
-        d["itens"].append({"nome": i["nome"], "lab": i.get("lab", ""), "preco": i["preco"], "categoria": "Medicamentos", "isMIP": False, "categoriaAntiga": "Consulte o farmacêutico", "origem": "consulte"})
+        d["itens"].append({"nome": i["nome"], "lab": i.get("lab", ""), "preco": i["preco"], "categoria": "Medicamentos", "isMIP": False, "categoriaAntiga": "Consulte o farmacêutico", "origem": "consulte", **{k: i[k] for k in ("esgotado", "restam") if k in i}})
         existentes.add(norm(i["nome"])); novos += 1
     d["total"] = len(d["itens"])
     return novos

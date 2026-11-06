@@ -74,6 +74,7 @@ export function Cartao({ item }: { item: ItemRestrito }) {
       apresentacao={quantidadeLegivel(item.apresentacao)}
       foto={imagemIlustrativa(item)}
       precoFmt={item.preco !== null ? formatBRL(item.preco) : null}
+      restam={item.restam}
       cesta={
         pedeCesta ? (
           <ReservarBotao

@@ -8,11 +8,12 @@ Por isso a classificação usa: (1) flags do export, (2) classe CONTROLADO/CARTE
 Vínculo com a lista pública de preços da CMED/Anvisa (anvisa-cmed-vinculos.json, gerado por vincular_cmed.py) fornece tarja,
 princípio ativo e registro. Com vínculo seguro a tarja da CMED decide (preta = controlado; vermelha = receita; vermelha sob restrição =
 receita com retenção; sem tarja = isento). Quem segue em dúvida entra na lista "Consulte o farmacêutico" (sem cesta, sem oferta).
-Nunca grava token nem estoque (só a data dos dados).
+Nunca grava token, código de barras nem a quantidade em estoque. Só publica dois sinais: `esgotado` (estoque zerado, item já publicado antes;
+sai das listas e da busca, a página do produto continua aberta) e `restam` (1 a LIMITE_RESTAM unidades, para o aviso "Resta 2").
 Uso: python3 gerar.py /caminho/cat_full.json [--sem-csv]
 --sem-csv: não reescreve os CSVs de revisão (a sincronização automática usa, porque eles têm código de barras e são uma revisão manual de 31/10).
 """
-import csv, json, os, re, sys, collections, unicodedata
+import csv, json, math, os, re, sys, collections, unicodedata
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.abspath(os.path.join(AQUI, "..", ".."))
@@ -40,6 +41,28 @@ TARJA_SITE = {"preta": "preta", "restricao": "vermelha-retencao", "vermelha": "v
 def fmt_rms(reg):
     return f"{reg[0]}.{reg[1:5]}.{reg[5:9]}" if reg and len(reg) == 9 and reg.isdigit() else None
 
+LIMITE_RESTAM = 5  # com 1 a 5 unidades o site mostra "Resta N"
+
+def chave_publica(nome, lab):
+    return norm(nome) + "|" + norm(lab)
+
+def publicados_antes(dados):
+    """Chaves (nome|laboratório) de tudo que já estava publicado: é o que continua com página mesmo esgotado."""
+    vistos = set()
+    for arq in ("catalogo-nacoes.json", "receita-nacoes.json"):
+        caminho = os.path.join(dados, arq)
+        if not os.path.exists(caminho):
+            continue
+        try:
+            d = json.load(open(caminho, encoding="utf-8"))
+        except ValueError:
+            continue
+        listas = [d.get("itens", [])] + [d.get(k, []) for k in ("receita", "controlados", "consulte")]
+        for lista in listas:
+            for i in lista:
+                vistos.add(chave_publica(i.get("nome", ""), i.get("lab", "")))
+    return vistos
+
 NAO_PRODUTO = re.compile(r"TAXA DE ENTREGA|APLICACAO|AFERIMENTO|XEROX|MANIPULACAO")
 
 def achar_controlado(n):
@@ -63,6 +86,8 @@ def main(path, escrever_csv=True):
     pub, rec, ctl, cons, rel = [], [], [], [], []
     cont = collections.Counter()
     vistos = set()
+    dados_dir = os.path.join(RAIZ, "app", "nacoes-unidas", "produtos", "dados")
+    antes = publicados_antes(dados_dir)
     for it in d["itens"]:
         nome = re.sub(r"\s+", " ", it["Produto"]).strip()
         n = norm(nome)
@@ -139,10 +164,18 @@ def main(path, escrever_csv=True):
         if tipo == "controlado" and v and v.get("ativo") and not ativo: ativo = v["ativo"]
         # sem estoque: itens do carrinho só saem com estoque; as listas de preço (sem cesta) mantêm os 972 que o Thiago pediu
         sem_cesta = tipo in ("receita", "receita_retencao", "controlado", "duvidoso")
-        if it["Estoque"] <= 0 and not (era_duvidoso and sem_cesta):
+        lab_item = "" if re.fullmatch(r"(?i)diversos|china", base["Laboratorio"]) else base["Laboratorio"]
+        unidades = math.floor(it["Estoque"]) if isinstance(it["Estoque"], (int, float)) else 0
+        esgotado = unidades <= 0
+        # Esgotado: só segue no site o que já tinha sido publicado (a página fica aberta; as listas escondem). O resto nunca entra.
+        if esgotado and not (era_duvidoso and sem_cesta) and chave_publica(nome, lab_item) not in antes:
             rep("sem_estoque", f"sem estoque no export ({tipo})", ativo, lista); continue
         preco = it["Pvenda"] if it["Pvenda"] and it["Pvenda"] > 0 else None
-        item = {"nome": nome, "lab": "" if re.fullmatch(r"(?i)diversos|china", base["Laboratorio"]) else base["Laboratorio"], "preco": preco}
+        item = {"nome": nome, "lab": lab_item, "preco": preco}
+        if esgotado:
+            item["esgotado"] = True
+        elif unidades <= LIMITE_RESTAM:
+            item["restam"] = unidades
         gen = it["Classe"] == "GENERICO"  # só nas listas restritas: a ilustração da caixa (receita.ts) usa
         chave = (norm(nome), item["lab"], preco)
         if chave in vistos:

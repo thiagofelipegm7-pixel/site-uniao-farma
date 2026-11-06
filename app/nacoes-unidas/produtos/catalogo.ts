@@ -9,7 +9,8 @@ import catalogoEstatico from "./dados/catalogo-nacoes.json" with { type: "json" 
 export const CATALOGO_NACOES_URL =
   process.env.CATALOGO_NACOES_URL?.trim() || "https://dmaster-catalogo.thiagofelipegm7.workers.dev/loja/nacoes.json";
 
-export type CatalogoItem = { nome: string; lab: string; categoria: string; preco: number; isMIP: boolean };
+/** `esgotado`: estoque zero (sai das listas, a página segue aberta). `restam`: 1 a 5 unidades (aviso "Resta 2"). */
+export type CatalogoItem = { nome: string; lab: string; categoria: string; preco: number; isMIP: boolean; esgotado?: boolean; restam?: number };
 export type Catalogo = { loja: string; geradoEm?: string; total?: number; itens: CatalogoItem[] };
 export type CatalogoGrupo = { categoria: string; itens: CatalogoItem[] };
 
@@ -91,13 +92,31 @@ export function acharPorSlug(itens: readonly CatalogoItem[], slug: string): Cata
   return itens.find((item) => slugify(item.nome) === normal) ?? null;
 }
 
-/** Catálogo estático (sem receita) já filtrado: só itens com nome e preço válidos. Sem rede, sem token. */
-export function carregarCatalogoNacoes(): Catalogo {
+/** Catálogo estático completo (inclui esgotados, que mantêm a página aberta): só itens com nome e preço válidos. Sem rede, sem token. */
+export function carregarCatalogoCompleto(): Catalogo {
   const bruto = catalogoEstatico as unknown as Partial<Catalogo>;
   const itens = (Array.isArray(bruto.itens) ? bruto.itens : [])
     .filter(isItem)
-    .map((i) => ({ nome: i.nome, lab: typeof i.lab === "string" ? i.lab : "", categoria: i.categoria, preco: i.preco, isMIP: i.isMIP === true }));
+    .map((i) => {
+      const extra = i as CatalogoItem;
+      return {
+        nome: i.nome,
+        lab: typeof i.lab === "string" ? i.lab : "",
+        categoria: i.categoria,
+        preco: i.preco,
+        isMIP: i.isMIP === true,
+        ...(extra.esgotado === true ? { esgotado: true } : {}),
+        ...(typeof extra.restam === "number" && extra.restam > 0 ? { restam: extra.restam } : {}),
+      };
+    });
   return { loja: "nacoes", geradoEm: typeof bruto.geradoEm === "string" ? bruto.geradoEm : undefined, total: itens.length, itens };
+}
+
+/** Catálogo das listas, da busca e das vitrines: sem os esgotados. */
+export function carregarCatalogoNacoes(): Catalogo {
+  const completo = carregarCatalogoCompleto();
+  const itens = completo.itens.filter((i) => i.esgotado !== true);
+  return { ...completo, total: itens.length, itens };
 }
 
 /** "2026-10-31T20:00:04" → "31/10/2026 às 20:00". */
