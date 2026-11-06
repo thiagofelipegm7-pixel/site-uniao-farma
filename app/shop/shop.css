@@ -47,7 +47,7 @@
   grid-area: busca;
   display: flex;
   align-items: center;
-  height: 2.75rem;
+  height: calc(2.75rem + 2px);
   margin: 0 0.75rem 0.75rem;
   padding: 0 0.25rem 0 0.875rem;
   border: 1px solid #6b8b86;
@@ -71,8 +71,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
+  width: 2.75rem;
+  height: 2.75rem;
   border: 0;
   border-radius: 4px;
   background: var(--uf-action);
@@ -998,12 +998,12 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   }
   .shop-marca { color: var(--uf-action-ink); }
   .shop-marca img { width: 2.75rem; height: 2.75rem; padding: 4px; border-radius: 10px; background: #ffffff; }
-  .shop-whats { grid-area: whats; display: inline-flex; align-items: center; gap: 0.5rem; color: var(--uf-action-ink); text-decoration: none; }
+  .shop-whats { grid-area: whats; display: inline-flex; align-items: center; min-height: 2.75rem; gap: 0.5rem; color: var(--uf-action-ink); text-decoration: none; }
   .shop-whats span { display: grid; font-size: 0.875rem; font-weight: 700; line-height: 1.2; }
   .shop-whats strong { font-size: 1rem; }
   .shop-busca { grid-area: busca; height: 3rem; border: 0; border-radius: 8px; padding: 0 0.75rem; }
   .shop-busca input { order: 1; font-size: 0.9375rem; }
-  .shop-busca button { order: 0; width: 1.75rem; height: 1.75rem; margin-right: 0.5rem; background: transparent; color: var(--uf-navy); }
+  .shop-busca button { order: 0; width: 2.75rem; height: 2.75rem; margin-right: 0.25rem; background: transparent; color: var(--uf-navy); }
   .shop-vazio { display: block; }
   .shop-vazio-sino { grid-area: sino; }
   .shop-vazio-usuario { grid-area: usuario; }
@@ -1015,8 +1015,8 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   /* barra de acessos: Departamentos | Enviar para | 5 espaços iguais */
   .shop-submenu { display: block; border-bottom: 1px solid #e3ecea; background: #ffffff; }
   .shop-submenu-conteudo { display: flex; align-items: center; gap: 2rem; box-sizing: border-box; max-width: 82rem; min-height: 3.25rem; margin: 0 auto; padding: 0.25rem 1.25rem; }
-  .shop-submenu-dep { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0; background: transparent; color: var(--uf-navy); font-size: 0.875rem; font-weight: 800; text-decoration: none; }
-  .shop-submenu-loja { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0; border: 0; background: transparent; color: var(--uf-navy); font: inherit; text-align: left; cursor: pointer; }
+  .shop-submenu-dep { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; padding: 0; background: transparent; color: var(--uf-navy); font-size: 0.875rem; font-weight: 800; text-decoration: none; }
+  .shop-submenu-loja { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; padding: 0; border: 0; background: transparent; color: var(--uf-navy); font: inherit; text-align: left; cursor: pointer; }
   .shop-submenu-loja span { display: grid; line-height: 1.2; }
   .shop-submenu-loja small { color: #5b6b68; font-size: 0.75rem; }
   .shop-submenu-loja strong { font-size: 0.875rem; font-weight: 800; }
@@ -1122,7 +1122,7 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .shop-categorias li { flex: 0 0 var(--cat-tile); }
   .shop-categorias a { width: var(--cat-tile); }
   .shop-cat-copia { display: block; }
-  .shop-cat-seta { display: grid; place-items: center; flex: none; width: 2.25rem; height: 2.25rem; margin-top: calc(var(--cat-tile) / 2 - 1.125rem); padding: 0; border: 0; border-radius: 4px; background: #c9d8d5; color: var(--uf-navy); cursor: pointer; transition: background-color 0.2s ease; }
+  .shop-cat-seta { display: grid; place-items: center; flex: none; width: 2.75rem; height: 2.75rem; margin-top: calc(var(--cat-tile) / 2 - 1.375rem); padding: 0; border: 0; border-radius: 4px; background: #c9d8d5; color: var(--uf-navy); cursor: pointer; transition: background-color 0.2s ease; }
   .shop-cat-seta:hover, .shop-cat-seta:focus-visible { background: var(--uf-panel); color: var(--uf-action-ink); }
 }
 @media (min-width: 992px) {
@@ -1282,14 +1282,14 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 
 /* Paginação no padrão da Panvel: setas e quadrados de 42 px com borda clara; a página atual tem borda e número na cor da marca. */
 .pv-paginas { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; margin: 24px 0 8px; }
-.pv-pag-num, .pv-pag-seta { display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 4px; font-size: 16px; font-weight: 700; text-decoration: none; }
+.pv-pag-num, .pv-pag-seta { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 4px; font-size: 16px; font-weight: 700; text-decoration: none; }
 .pv-pag-num { border: 1px solid #e3e8ee; background: #f8fafc; color: #6b7280; }
 .pv-pag-num.is-on { border-color: var(--uf-navy); background: #ffffff; color: var(--uf-navy); }
 .pv-pag-num:hover { border-color: var(--uf-navy); color: var(--uf-navy); }
 .pv-pag-seta { background: transparent; color: var(--uf-navy); }
 .pv-pag-seta.is-off { color: #9aa7b2; }
 @layer design {
-  .pv-paginas a { min-height: 42px !important; min-width: 42px !important; }
+  .pv-paginas a { min-height: 44px !important; min-width: 44px !important; }
 }
 
 /* Estoque baixo ("Resta 2") e produto esgotado (página aberta, sem cesta). */
