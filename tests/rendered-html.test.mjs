@@ -132,8 +132,9 @@ test("connects offers with every public section and route", async () => {
 
 test("keeps every public page connected to the complete site directory", async () => {
   // Links que o cabeçalho e o rodapé do protótipo levam em toda página. /novidades e /institucional seguem publicadas e no sitemap.
-  const siteDirectory = ["/", "/ofertas", "/receita", "/perguntas", "/privacidade", "/termos"];
-  const pages = [...siteDirectory, "/novidades", "/institucional", "/novidades/bem-vindo-area-novidades", "/nao-existe"];
+  const siteDirectory = ["/", "/ofertas", "/perguntas", "/privacidade", "/termos"];
+  // /receita segue publicada, mas sem link no site (a opção de enviar receita foi retirada).
+  const pages = [...siteDirectory, "/receita", "/novidades", "/institucional", "/novidades/bem-vindo-area-novidades", "/nao-existe"];
 
   for (const pathname of pages) {
     const response = await render(pathname);

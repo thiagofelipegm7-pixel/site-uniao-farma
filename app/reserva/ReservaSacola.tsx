@@ -8,8 +8,6 @@ import { UNITS } from "../site-config";
 import { IconFechar, IconLixeira, IconMais, IconMenos, IconCesta } from "./ReservaIcons";
 import { atualizarReserva, definirQtd, tetoDoItem, formatarCentavos, limpar, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
-import LerReceita from "../receita-foto/LerReceita";
-import BotaoReceita from "../receita-foto/BotaoReceita";
 import CestaSugestoes from "./CestaSugestoes";
 
 const nomeLoja = (unitId: string) => UNITS.find((u) => u.id === unitId)?.shortName ?? "";
@@ -114,7 +112,6 @@ export default function ReservaSacola() {
               <strong>Sua cesta está vazia.</strong>
               <p>Escolha seus produtos e pague só quando retirar.</p>
               <a className="reserva-botao" href="/nacoes-unidas/produtos" onClick={fechar}>Ver produtos</a>
-              <BotaoReceita aoAbrir={fechar} classe="receita-gatilho-bloco" />
             </div>
           ) : (
             <>
@@ -180,7 +177,6 @@ export default function ReservaSacola() {
       </button>
 
       {aberta ? createPortal(gaveta, document.body) : null}
-      <LerReceita />
     </>
   );
 }

@@ -3,7 +3,6 @@ const SITE_DIRECTORY_LINKS = [
   { href: "/ofertas", label: "Ofertas" },
   { href: "/encarte", label: "Encarte" },
   { href: "/perguntas", label: "Perguntas" },
-  { href: "/receita", label: "Enviar receita" },
   { href: "/novidades", label: "Novidades" },
   { href: "/fatima", label: "Farmácia em Fátima" },
   { href: "/nacoes-unidas", label: "Farmácia em Nações Unidas" },
