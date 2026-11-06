@@ -329,3 +329,11 @@ test("funil da cesta: etapas fixas, sem dados pessoais, porcentagens e gatilhos 
   assert.doesNotMatch(api, /nome|endereco|telefone|produto/i, "o funil não guarda dados pessoais");
   assert.match(await readFile(new URL("../middleware.ts", import.meta.url), "utf8"), /staffPath = [^;]*"\/api\/interno\/funil"/);
 });
+
+test("celular com letra grande: logo e ícones do topo em vw (pino não cobre o nome), abas e cartão marinho sem estourar", async () => {
+  const css = await readFile(new URL("../app/shop/shop.css", import.meta.url), "utf8");
+  assert.match(css, /\.shop-marca \.marca-uf \.marca-uf-nome \{ font-size: min\(1\.75rem, 7vw\); \}/);
+  assert.match(css, /\.shop-header \{ grid-template-columns: min\(2\.75rem, 12vw\) minmax\(0, 1fr\) auto; \}/);
+  assert.match(css, /\.shop-abas a \{ flex: 1 1 auto;/);
+  assert.match(css, /\.shop-hero \{ flex-wrap: wrap; \}/);
+});
