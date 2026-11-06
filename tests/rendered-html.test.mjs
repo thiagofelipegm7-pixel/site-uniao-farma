@@ -36,7 +36,7 @@ test("renders the local SEO home page with conversion and schema signals", async
   // A entrada para o WhatsApp é a cesta (cartão marinho -> catálogo -> /reserva) e o botão flutuante.
   assert.match(html, /Peça pelo WhatsApp/);
   assert.match(html, /href="\/nacoes-unidas\/produtos"/);
-  assert.match(html, /href="\/reserva"/);
+  assert.match(html, /aria-label="[^"]*[Cc]esta/); // a cesta fica no cabeçalho (sem barra fixa de baixo)
   // Por enquanto o site mostra só a loja Nações Unidas.
   assert.match(html, /Nações Unidas/);
   assert.doesNotMatch(html, /Nossa Senhora de Fátima/);
