@@ -327,3 +327,10 @@ test("NBCAL: chupeta, bico e mamadeira levam o aviso do Ministério da Saúde e 
   const rota = await readFile(new URL("../app/api/destaques/route.ts", import.meta.url), "utf8");
   assert.match(rota, /ehNbcal\(item\.nome\)/);
 });
+
+test("aviso NBCAL fica só na imagem: sem texto no cartão nem na página, mas sem destaque/descrição para esses itens", async () => {
+  const { readFileSync } = await import("node:fs");
+  const lista = readFileSync(new URL("../app/nacoes-unidas/produtos/CatalogoLista.tsx", import.meta.url), "utf8");
+  const pagina = readFileSync(new URL("../app/nacoes-unidas/produtos/[slug]/page.tsx", import.meta.url), "utf8");
+  assert.ok(!lista.includes("AVISO_NBCAL") && !pagina.includes("AVISO_NBCAL"));
+});

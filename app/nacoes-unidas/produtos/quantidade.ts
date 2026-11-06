@@ -9,7 +9,7 @@ const UNIDADES: Array<[RegExp, string]> = [
   [/^(?:ampolas?|amp)$/i, "ampola(s)"],
   [/^(?:doses?)$/i, "dose(s)"],
   [/^(?:ml)$/i, "mililitro(s)"],
-  [/^(?:g|gr)$/i, "grama(s)"],
+  [/^(?:g|gr|grs)$/i, "grama(s)"],
   [/^(?:mg)$/i, "miligrama(s)"],
   [/^(?:unid|unids|und|un|unidades?)$/i, "unidade(s)"],
 ];
@@ -45,12 +45,14 @@ export function quantidadeLegivel(apresentacao: string | null | undefined): stri
 
 // Para produtos comuns a quantidade vem dentro do nome ("Acetona Farmax 100 ml", "Fralda G 30 unidades").
 // Prefere contagem (comprimidos, unidades...) a volume/peso, e volume/peso a miligramas (concentração).
-const PALAVRA_NOME = "(comprimidos?|comp|cprs?|c[aá]psulas?|caps?|cps|dr[aá]geas?|drgs?|envelopes?|env|sach[eê]s?|ampolas?|amp|doses?|unidades?|unids?|und|un|p[aá]res?|pe[cç]as?|pcs?|ml|litros?|l|kg|gr|g|mg)";
-const NOME_RX = new RegExp(`(?<![\\d.,\\w])${NUM}\\s*${PALAVRA_NOME}(?![a-zà-ú\\d])`, "gi");
+const PALAVRA_NOME = "(comprimidos?|comp|cprs?|c[aá]psulas?|caps?|cps|dr[aá]geas?|drgs?|envelopes?|env|sach[eê]s?|ampolas?|amp|doses?|unidades?|unids?|und|un|p[aá]res?|pe[cç]as?|pcs?|folhas?|tiras?|ml|litros?|l|kg|grs?|g|mg)";
+const NOME_RX = new RegExp(`(?<![\\d.,])${NUM}\\s*${PALAVRA_NOME}(?![a-zà-ú\\d])`, "gi");
 const EXTRAS: Array<[RegExp, string]> = [
   [/^(?:p[aá]res?)$/i, "par(es)"],
   [/^(?:pe[cç]as?|pcs?)$/i, "peça(s)"],
   [/^(?:litros?|l)$/i, "litro(s)"],
+  [/^(?:folhas?)$/i, "folha(s)"],
+  [/^(?:tiras?)$/i, "tira(s)"],
   [/^(?:kg)$/i, "quilo(s)"],
 ];
 
@@ -76,5 +78,14 @@ export function quantidadeDoNome(nome: string | null | undefined): string | null
   }
   if (melhor) return melhor.texto;
   const c = /(?:^|\s)c\/\s?(\d{1,4})(?![\d/])/i.exec(t);
-  return c ? `${c[1]} unidade(s)` : null;
+  if (c) return `${c[1]} unidade(s)`;
+  // "CAPS 20", "CPR 30": unidade antes do número.
+  const u = new RegExp(`(?:^|[^a-zà-ú])${PALAVRA_NOME}\\s*(\\d{1,4})(?![\\d.,]|\\s*(?:ml|g|mg|kg|l)\\b)`, "i").exec(t);
+  if (u) {
+    const nome = nomeUnidadeNome(u[1]);
+    if (nome && prioridade(nome) === 0) return `${u[2]} ${nome}`;
+  }
+  // "... UNIDADE" / "... UNID" no fim do nome: uma unidade.
+  if (/(?:^|\s)(?:unidade|unid|und)\.?$/i.test(t.trim())) return "1 unidade(s)";
+  return null;
 }

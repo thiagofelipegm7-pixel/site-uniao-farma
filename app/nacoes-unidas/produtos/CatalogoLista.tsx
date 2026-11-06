@@ -31,7 +31,6 @@ import { slugify } from "./catalogo";
 import CartaoPanvel from "./CartaoPanvel";
 import { quantidadeDoNome } from "./quantidade";
 import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./Paginacao";
-import { AVISO_NBCAL, ehNbcal } from "./produto";
 import { useBuscaTolerante } from "./useBuscaTolerante";
 
 type Props = {
@@ -388,11 +387,6 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
                   apresentacao={quantidadeDoNome(item.nome)}
                   precoFmt={item.precoFmt}
                   cesta={centavos ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cesta" compacto /> : null}
-                  avisos={
-                    <>
-                      {ehNbcal(item.nome) ? <p className="catalogo-nbcal">{AVISO_NBCAL}</p> : null}
-                    </>
-                  }
                 />
               );
             }),
