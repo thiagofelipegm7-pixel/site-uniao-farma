@@ -48,3 +48,5 @@
   .painel-fotos td.pf-prod { display: block; font-weight: 700; text-align: left; padding-bottom: 0.5rem; }
   .painel-fotos td.pf-prod small { font-weight: 400; }
 }
+.painel-fotos tr.pf-arrastando td { background: #e3f4ee; }
+.painel-fotos tr.pf-arrastando { outline: 3px dashed #0e7370; outline-offset: -3px; }

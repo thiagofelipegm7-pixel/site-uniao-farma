@@ -2,18 +2,37 @@
 const LADO = 400;
 const OCUPA = 0.98;
 
+type Fonte = { fonte: CanvasImageSource; w: number; h: number; fechar: () => void };
+
+/** Abre o arquivo como imagem. Não usa blob: (a política de segurança do site só deixa 'self', data: e https:). */
+async function abrir(arquivo: File): Promise<Fonte> {
+  if (typeof createImageBitmap === "function") {
+    try {
+      const bmp = await createImageBitmap(arquivo);
+      return { fonte: bmp, w: bmp.width, h: bmp.height, fechar: () => bmp.close() };
+    } catch {
+      // formato que o createImageBitmap não abre: tenta pelo data:
+    }
+  }
+  const url = await new Promise<string>((ok, falha) => {
+    const leitor = new FileReader();
+    leitor.onload = () => ok(String(leitor.result));
+    leitor.onerror = () => falha(new Error("ler"));
+    leitor.readAsDataURL(arquivo);
+  });
+  const img = await new Promise<HTMLImageElement>((ok, falha) => {
+    const i = new Image();
+    i.onload = () => ok(i);
+    i.onerror = () => falha(new Error("abrir"));
+    i.src = url;
+  });
+  return { fonte: img, w: img.naturalWidth, h: img.naturalHeight, fechar: () => undefined };
+}
+
 export async function prepararFoto(arquivo: File): Promise<string> {
-  const url = URL.createObjectURL(arquivo);
+  const origem = await abrir(arquivo);
   try {
-    const img = await new Promise<HTMLImageElement>((ok, falha) => {
-      const i = new Image();
-      i.onload = () => ok(i);
-      i.onerror = () => falha(new Error("abrir"));
-      i.src = url;
-    });
-    const w = img.naturalWidth;
-    const h = img.naturalHeight;
-    if (!w || !h) throw new Error("abrir");
+    if (!origem.w || !origem.h) throw new Error("abrir");
     const canvas = document.createElement("canvas");
     canvas.width = LADO;
     canvas.height = LADO;
@@ -21,11 +40,11 @@ export async function prepararFoto(arquivo: File): Promise<string> {
     if (!ctx) throw new Error("canvas");
     ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, LADO, LADO);
-    const escala = Math.min((LADO * OCUPA) / w, (LADO * OCUPA) / h);
-    const dw = w * escala;
-    const dh = h * escala;
+    const escala = Math.min((LADO * OCUPA) / origem.w, (LADO * OCUPA) / origem.h);
+    const dw = origem.w * escala;
+    const dh = origem.h * escala;
     ctx.imageSmoothingQuality = "high";
-    ctx.drawImage(img, (LADO - dw) / 2, (LADO - dh) / 2, dw, dh);
+    ctx.drawImage(origem.fonte, (LADO - dw) / 2, (LADO - dh) / 2, dw, dh);
     const blob = await new Promise<Blob | null>((ok) => canvas.toBlob(ok, "image/webp", 0.88));
     if (!blob) throw new Error("gerar");
     const texto = await new Promise<string>((ok, falha) => {
@@ -36,6 +55,6 @@ export async function prepararFoto(arquivo: File): Promise<string> {
     });
     return texto.replace(/^data:[^,]*,/, "");
   } finally {
-    URL.revokeObjectURL(url);
+    origem.fechar();
   }
 }
