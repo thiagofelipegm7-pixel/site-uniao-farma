@@ -26,3 +26,25 @@
 .painel-fotos input[type="checkbox"] { width: 1.375rem; height: 1.375rem; }
 .painel-fotos .pf-paginas { display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin: 1rem 0; }
 .painel-fotos .pf-paginas button:disabled { opacity: 0.5; cursor: not-allowed; }
+.painel-fotos .pf-enviar { position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0 0.875rem; border-radius: 8px; background: #0a3548; color: #ffffff; font-size: 0.875rem; font-weight: 700; cursor: pointer; text-align: center; }
+.painel-fotos .pf-enviar input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; font-size: 16px; }
+.painel-fotos .pf-enviar.pf-erro { background: #b3261e; }
+.painel-fotos .pf-enviada { display: inline-block; color: #1f8a4c; font-size: 0.8125rem; font-weight: 700; }
+
+/* Celular: cada produto vira um cartão (a tabela larga cortava o texto). */
+@media (max-width: 720px) {
+  .painel-fotos .pf-tabela { overflow: visible; border: 0; background: transparent; }
+  .painel-fotos table, .painel-fotos tbody, .painel-fotos tr, .painel-fotos td { display: block; width: 100%; min-width: 0; }
+  .painel-fotos thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .painel-fotos tr { margin: 0 0 0.75rem; padding: 0.75rem; border: 1px solid #d3e2df; border-radius: 12px; background: #ffffff; }
+  .painel-fotos td { display: flex; justify-content: space-between; gap: 0.75rem; padding: 0.25rem 0; border: 0; text-align: left; }
+  .painel-fotos td::before { content: attr(data-r); flex: none; color: #5b6b68; font-size: 0.8125rem; }
+  .painel-fotos td.pf-foto { order: -1; padding-bottom: 0.5rem; }
+  .painel-fotos td.pf-foto::before { content: none; }
+  .painel-fotos td.pf-n { text-align: right; }
+  .painel-fotos tr { display: flex; flex-direction: column; }
+}
+@media (max-width: 720px) {
+  .painel-fotos td.pf-prod { display: block; font-weight: 700; text-align: left; padding-bottom: 0.5rem; }
+  .painel-fotos td.pf-prod small { font-weight: 400; }
+}

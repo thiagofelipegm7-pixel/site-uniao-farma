@@ -52,8 +52,16 @@ jobs:
           FORCAR: ${{ inputs.forcar && '--forcar' || '' }}
         run: python3 ops/catalogo-nacoes/sincronizar.py $FORCAR
 
+      - name: Fotos enviadas pelo painel (/interno/fotos)
+        id: fotos
+        env:
+          CATALOGO_READ_TOKEN: ${{ secrets.CATALOGO_READ_TOKEN }}
+        run: |
+          pip install --quiet pillow
+          python3 ops/catalogo-nacoes/baixar_fotos.py baixar
+
       - name: Instalar dependências
-        if: steps.sync.outputs.mudou == 'true'
+        if: steps.sync.outputs.mudou == 'true' || steps.fotos.outputs.fotos == 'true'
         run: npm ci
 
       - name: Podar textos e pares de IA que deixaram de valer
@@ -61,29 +69,39 @@ jobs:
         run: node --experimental-strip-types --import ./tests/ts-resolve-hook.mjs scripts/podar-dados-ia.mjs
 
       - name: Testes unitários
-        if: steps.sync.outputs.mudou == 'true'
+        if: steps.sync.outputs.mudou == 'true' || steps.fotos.outputs.fotos == 'true'
         run: npm test
 
       - name: Build
-        if: steps.sync.outputs.mudou == 'true'
+        if: steps.sync.outputs.mudou == 'true' || steps.fotos.outputs.fotos == 'true'
         run: npm run build
 
       - name: Testes de HTML renderizado
-        if: steps.sync.outputs.mudou == 'true'
+        if: steps.sync.outputs.mudou == 'true' || steps.fotos.outputs.fotos == 'true'
         run: node --test tests/rendered-html.test.mjs
 
       - name: Commit na main
-        if: steps.sync.outputs.mudou == 'true'
+        id: commit
+        if: steps.sync.outputs.mudou == 'true' || steps.fotos.outputs.fotos == 'true'
         env:
           DADOS_DE: ${{ steps.sync.outputs.dados_de }}
+          FOTOS: ${{ steps.fotos.outputs.eans }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add app/nacoes-unidas/produtos/dados/catalogo-nacoes.json app/nacoes-unidas/produtos/dados/receita-nacoes.json app/nacoes-unidas/produtos/dados/descricoes-ia.json app/nacoes-unidas/produtos/dados/relacionados-ia.json public/dados/nacoes
+          git add app/nacoes-unidas/produtos/dados/catalogo-nacoes.json app/nacoes-unidas/produtos/dados/receita-nacoes.json app/nacoes-unidas/produtos/dados/descricoes-ia.json app/nacoes-unidas/produtos/dados/relacionados-ia.json public/dados/nacoes public/produtos app/nacoes-unidas/produtos/imagens.ts
           git diff --cached --quiet && exit 0
-          git commit -m "Catálogo: dados da loja de ${DADOS_DE} (sincronização automática)"
+          if [ -n "$FOTOS" ] && [ -z "$DADOS_DE" ]; then MSG="Fotos de produtos enviadas pelo painel (${FOTOS})"; else MSG="Catálogo: dados da loja de ${DADOS_DE} (sincronização automática)"; fi
+          git commit -m "$MSG"
           git pull --rebase origin main
           git push origin HEAD:main
+
+      - name: Apagar do painel as fotos já publicadas
+        if: steps.fotos.outputs.fotos == 'true'
+        env:
+          CATALOGO_READ_TOKEN: ${{ secrets.CATALOGO_READ_TOKEN }}
+          EANS: ${{ steps.fotos.outputs.eans }}
+        run: python3 ops/catalogo-nacoes/baixar_fotos.py apagar $EANS
 
       - name: Anotar a falha para o painel
         if: failure()

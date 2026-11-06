@@ -1,0 +1,21 @@
+import { banco } from "../../../../estoque-fonte";
+import { guardarFoto, validarEnvio } from "../../../../fotos-enviadas";
+
+export const dynamic = "force-dynamic";
+const SEM_CACHE = { "cache-control": "no-store" };
+
+/** Recebe a foto de um produto enviada pelo painel interno (a senha da equipe é pedida pelo middleware). */
+export async function POST(request: Request) {
+  let corpo: unknown;
+  try {
+    corpo = await request.json();
+  } catch {
+    return Response.json({ ok: false, erro: "corpo_invalido" }, { status: 400, headers: SEM_CACHE });
+  }
+  const conferido = validarEnvio(corpo);
+  if (!conferido.ok) return Response.json({ ok: false, erro: conferido.erro }, { status: 400, headers: SEM_CACHE });
+  const db = banco();
+  if (!db) return Response.json({ ok: false, erro: "sem_banco" }, { status: 501, headers: SEM_CACHE });
+  await guardarFoto(db, conferido.envio);
+  return Response.json({ ok: true }, { headers: SEM_CACHE });
+}
