@@ -1379,3 +1379,25 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
     .catalogo-caminho, .produto-pagina .catalogo-caminho.produto-caminho { flex-wrap: wrap !important; }
   }
 }
+
+/* ---- Letra ampliada: rótulos do menu de baixo, categorias, tabelas e nomes de produto não se encostam nem saem da caixa ---- */
+@media (max-width: 991px) {
+  .mobile-quick-nav a { min-width: 0; padding-inline: 0.125rem; }
+  .mobile-quick-nav a .mqn-label { font-size: min(13px, 3.3vw) !important; letter-spacing: 0; line-height: 1.15; white-space: normal !important; overflow-wrap: anywhere; text-align: center; }
+  .shop-cat-rotulo { max-width: 100%; overflow-wrap: anywhere; hyphens: auto; text-align: center; }
+  .pv-nome, .pv-marca, .pv-apres { min-width: 0; max-width: 100%; overflow-wrap: anywhere; }
+  .hours-table td, .hours-table td a, .hours-table th { min-width: 0; overflow-wrap: anywhere; white-space: normal; }
+}
+
+/* Sugestões da busca com letra ampliada: o preço desce para baixo do nome em vez de espremer a palavra até quebrar no meio. */
+@media (max-width: 991px) {
+  .shop-sugestoes li a { flex-wrap: wrap; row-gap: 0.125rem; }
+  .shop-sugestoes li a span:not(.shop-sug-sem-foto) { flex: 1 1 8rem; overflow-wrap: break-word; }
+  .shop-sugestoes li a strong:last-child { margin-left: auto; }
+}
+/* Menu de baixo: cada coluna tem pelo menos a largura do próprio rótulo (nada de "CategoriasCesta"). */
+@layer design {
+  @media (max-width: 991px) {
+    .mobile-quick-nav .mobile-quick-nav-inner.is-shop { grid-template-columns: repeat(4, minmax(min-content, 1fr)) !important; }
+  }
+}

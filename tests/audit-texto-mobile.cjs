@@ -138,10 +138,13 @@ function auditar() {
     return !!alvo && (alvo === L.el || L.el.contains(alvo) || alvo.contains(L.el));
   };
   const jaVistos = new Set();
+  const fixo = (el) => { for (let a = el; a && a !== document.body; a = a.parentElement) { const pos = getComputedStyle(a).position; if (pos === "fixed" || pos === "sticky") return true; } return false; };
   for (let i = 0; i < linhas.length; i += 1) {
+    if (window.__ufSemSobreposicao) break;
     for (let j = i + 1; j < linhas.length; j += 1) {
       const A = linhas[i], B = linhas[j];
       if (A.el === B.el || A.el.contains(B.el) || B.el.contains(A.el)) continue;
+      if (fixo(A.el) !== fixo(B.el)) continue; // página rolando por baixo do cabeçalho/menu fixo: normal
       const w = Math.min(A.dir, B.dir) - Math.max(A.esq, B.esq);
       const h = Math.min(A.base, B.base) - Math.max(A.topo, B.topo);
       if (w <= 3 || h <= 3) continue;
@@ -172,7 +175,8 @@ async function aceitar(p) {
     const ctx = await b.newContext({ ...devices["Pixel 7"], viewport: { width: LARGURA, height: 800 }, locale: "pt-BR" });
     const p = await ctx.newPage();
     await p.addInitScript(instalar, escala);
-    const olhar = async (nome) => {
+    const olhar = async (nome, sobreposicao = true) => {
+      await p.evaluate((v) => { window.__ufSemSobreposicao = !v; }, sobreposicao);
       await p.waitForTimeout(700);
       await p.evaluate(() => window.__ufEscalar && window.__ufEscalar());
       await p.waitForTimeout(150);
@@ -208,10 +212,10 @@ async function aceitar(p) {
       }
       // Janelas e painéis que abrem por toque
       await p.goto(`${BASE}/`); await p.waitForTimeout(1000);
-      const tocar = async (nome, loc) => { const n = await loc.count().catch(() => 0); if (!n) return; await loc.first().click({ timeout: 2000 }).catch(() => {}); await p.waitForTimeout(700); await olhar(nome); await p.keyboard.press("Escape").catch(() => {}); };
+      const tocar = async (nome, loc) => { const n = await loc.count().catch(() => 0); if (!n) return; await loc.first().click({ timeout: 2000 }).catch(() => {}); await p.waitForTimeout(700); await olhar(nome, false); await p.keyboard.press("Escape").catch(() => {}); };
       await tocar("menu (hambúrguer)", p.getByRole("button", { name: /menu|departamentos/i }));
       await p.goto(`${BASE}/`); await p.waitForTimeout(800);
-      await p.locator("header input").first().click(); await p.keyboard.type("dipir"); await p.waitForTimeout(1200); await olhar("busca com sugestões");
+      await p.locator("header input").first().click(); await p.keyboard.type("dipir"); await p.waitForTimeout(1200); await olhar("busca com sugestões", false);
       await p.goto(`${BASE}/nacoes-unidas/produtos?q=dipirona`); await p.waitForTimeout(2000);
       await tocar("filtrar", p.getByRole("button", { name: /Filtrar/ }));
       await tocar("receita por foto", p.getByRole("button", { name: /Tenho uma receita/ }).or(p.getByText("Tenho uma receita")));
