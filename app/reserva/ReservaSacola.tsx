@@ -176,7 +176,7 @@ export default function ReservaSacola() {
         onClick={() => setAberta(true)}
       >
         <IconCesta size={26} />
-        <span className="reserva-contador-bolha" aria-hidden="true">{total}</span>
+        {total > 0 ? <span className="reserva-contador-bolha" aria-hidden="true">{total}</span> : null}
       </button>
 
       {aberta ? createPortal(gaveta, document.body) : null}

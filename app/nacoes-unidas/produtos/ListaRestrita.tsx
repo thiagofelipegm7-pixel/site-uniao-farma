@@ -168,15 +168,16 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
           </form>
           <p className="catalogo-contagem" aria-live="polite">
             {filtrados.length} {filtrados.length === 1 ? "item" : "itens"}
-            {consulta ? ` para “${consulta}”` : ""}. {(Object.keys(LINKS) as TipoRestrito[])
+            {consulta ? ` para “${consulta}”` : ""}.
+          </p>
+          <nav className="catalogo-contagem-links" aria-label="Outras listas">
+            {(Object.keys(LINKS) as TipoRestrito[])
               .filter((k) => k !== tipo)
               .map((k) => (
-                <span key={k}>
-                  <a href={LINKS[k].href}>{LINKS[k].rotulo}</a> ·{" "}
-                </span>
+                <a key={k} href={LINKS[k].href}>{LINKS[k].rotulo}</a>
               ))}
             <a href="/nacoes-unidas/produtos">Voltar aos produtos sem receita</a>
-          </p>
+          </nav>
           {pag.itens.length === 0 ? (
             <p className="catalogo-vazio">{t.vazio}</p>
           ) : (

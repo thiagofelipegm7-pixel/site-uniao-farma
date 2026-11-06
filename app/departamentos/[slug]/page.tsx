@@ -104,8 +104,9 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
             <p>
               <strong>Medicamentos com receita e controlados:</strong> pedido pelo WhatsApp, sem pagamento no site. Retire na loja com a receita (retida pela farmácia quando a lei exigir).
             </p>
-            <p>
-              <a href="/nacoes-unidas/produtos/receita">Ver medicamentos com receita</a> · <a href="/nacoes-unidas/produtos/controlados">Ver medicamentos controlados</a>
+            <p className="catalogo-aviso-links">
+              <a href="/nacoes-unidas/produtos/receita">Ver medicamentos com receita</a>
+              <a href="/nacoes-unidas/produtos/controlados">Ver medicamentos controlados</a>
             </p>
           </aside>
           <p className="catalogo-nota">Preços do sistema da loja Nações Unidas. Preço e disponibilidade podem ter mudado: a loja confirma pelo WhatsApp antes da separação.</p>

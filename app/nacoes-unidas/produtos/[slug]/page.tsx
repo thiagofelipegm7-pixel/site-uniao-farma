@@ -5,6 +5,8 @@ import { ContentSiteFooter } from "../../../ContentSiteChrome";
 import ShopTopo from "../../../shop/ShopTopo";
 import { SITE_URL, UNITS } from "../../../site-config";
 import { IconSetaDireita } from "../../../reserva/ReservaIcons";
+import Preco from "../Preco";
+import SemFoto from "../SemFoto";
 import { acharPorSlug, carregarCatalogoCompleto, carregarCatalogoNacoes, formatBRL, slugify } from "../catalogo";
 import { acharDepartamento } from "../departamentos";
 import { fotoDoProduto } from "../imagens";
@@ -84,34 +86,37 @@ export default async function ProdutoNacoesPage({ params }: Props) {
           <span>{nomeExibido}</span>
         </nav>
 
-        <div className="produto-foto">
-          {foto ? (
-            <img src={foto} alt={nomeExibido} width="300" height="300" />
-          ) : (
-            <span className="produto-foto-vazia">Sem foto</span>
-          )}
-        </div>
-
-        <article className="produto-card section-inner">
-          <h1>{nomeExibido}</h1>
-          {textos.descricao ? (
-            <p className="produto-descricao" data-descricao-origem={descricaoIA?.origem}>
-              {textos.descricao}
-            </p>
-          ) : null}
-          <div className="produto-marca-linha">
-            {item.lab.trim() ? (
-              <p className="produto-marca">
-                <strong>Marca:</strong> {item.lab.trim()}
-              </p>
-            ) : <span />}
-            <ProdutoAcoes slug={slugItem} titulo={nomeExibido} />
+        <div className="produto-topo section-inner">
+          <div className={foto ? "produto-foto" : "produto-foto produto-foto--vazia"}>
+            {foto ? (
+              <img src={foto} alt={nomeExibido} width="300" height="300" />
+            ) : (
+              <SemFoto className="produto-sem-foto" legenda="Sem foto" />
+            )}
           </div>
-          <hr className="produto-divisor" />
-          <p className="produto-preco">{formatBRL(item.preco)}</p>
-          {item.esgotado ? <p className="produto-esgotado" role="status">Indisponível no momento. Fale com a loja pelo WhatsApp para saber quando chega.</p> : null}
-          <p className="produto-nota">{NOTA_PRECO}</p>
-        </article>
+
+          <article className="produto-card">
+            <h1>{nomeExibido}</h1>
+            {textos.descricao ? (
+              <p className="produto-descricao" data-descricao-origem={descricaoIA?.origem}>
+                {textos.descricao}
+              </p>
+            ) : null}
+            <div className="produto-marca-linha">
+              {item.lab.trim() ? (
+                <p className="produto-marca">
+                  <strong>Marca:</strong> {item.lab.trim()}
+                </p>
+              ) : <span />}
+              <ProdutoAcoes slug={slugItem} titulo={nomeExibido} />
+            </div>
+            <hr className="produto-divisor" />
+            <p className="produto-preco"><Preco precoFmt={formatBRL(item.preco)} variante="grande" /></p>
+            {item.esgotado ? <p className="produto-esgotado" role="status">Indisponível no momento. Fale com a loja pelo WhatsApp para saber quando chega.</p> : null}
+            <p className="produto-nota">{NOTA_PRECO}</p>
+            {item.esgotado ? null : <ProdutoBarra unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} max={item.restam} />}
+          </article>
+        </div>
 
         {textos.paraQueServe ? (
           <section className="produto-secao section-inner" aria-labelledby="para-que-serve">
@@ -158,7 +163,6 @@ export default async function ProdutoNacoesPage({ params }: Props) {
         <p className="produto-aviso section-inner">Aqui só itens sem receita. Leia a bula ou o rótulo. Em caso de dúvida, procure o farmacêutico.</p>
       </div>
       <ContentSiteFooter />
-      {item.esgotado ? null : <ProdutoBarra unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} max={item.restam} />}
     </>
   );
 }

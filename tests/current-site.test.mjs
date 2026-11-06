@@ -31,7 +31,7 @@ test("home: cabeçalho que encolhe ao rolar e pílula de abas fixa, só no deskt
   assert.match(home, /<CabecalhoInteligente>[\s\S]*<ShopHeader \/>[\s\S]*<SubmenuHome \/>[\s\S]*<\/CabecalhoInteligente>/);
   assert.match(comp, /dataset\.cabRolado/);
   assert.match(comp, /passive: true/);
-  assert.match(css, /html\[data-cab-rolado="sim"\] \.cab-fixo \.shop-faixa-topo/);
+  assert.doesNotMatch(css, /shop-faixa-topo/);
   assert.match(css, /html\[data-cab-rolado="sim"\] \.cab-fixo \.shop-submenu/);
   assert.match(css, /\.shop-abas \{ position: sticky;/);
   assert.match(css, /\.cab-espaco, \.cab-fixo \{ display: contents; \}/);

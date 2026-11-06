@@ -7,6 +7,7 @@ import { BUSCAS_POPULARES, normalizarBusca, termosDeBusca } from "../nacoes-unid
 import { analisarConsulta, casaConsulta, contarCasos, criarVocabulario } from "../nacoes-unidas/produtos/busca-tolerante";
 import { buildWhatsAppUrl, UNITS } from "../site-config";
 import { formatarCentavos } from "../reserva/reserva-store";
+import SemFoto from "../nacoes-unidas/produtos/SemFoto";
 import MarcaUniao from "./MarcaUniao";
 import BotaoVoz from "./BotaoVoz";
 import BotaoReceita from "../receita-foto/BotaoReceita";
@@ -95,7 +96,6 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
 
   return (
     <>
-      <div className="shop-faixa-topo" aria-hidden="true" />
       <header className="shop-header">
         <button type="button" className="shop-icone shop-menu" aria-label="Abrir menu" aria-expanded={menu} aria-controls="shop-menu-painel" onClick={() => setMenu(true)}>
           <IconMenu size={26} />
@@ -188,7 +188,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                     {resultados.map((item) => (
                       <li key={item.slug}>
                         <a href={`/nacoes-unidas/produtos/${item.slug}`}>
-                          {item.foto ? <img src={item.foto} alt="" width="44" height="44" /> : <span className="shop-sug-sem-foto" aria-hidden="true" />}
+                          {item.foto ? <img src={item.foto} alt="" width="44" height="44" /> : <SemFoto className="shop-sug-sem-foto" />}
                           <span>{item.nome}</span>
                           <strong>{formatarCentavos(item.precoCentavos)}</strong>
                         </a>

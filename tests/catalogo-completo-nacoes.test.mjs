@@ -99,7 +99,7 @@ test("lista restrita: sem oferta, % OFF, preço riscado ou destaque; cesta só p
     assert.equal(i.aviso, AVISO_CONSULTE, i.nome);
     assert.equal(i.controlado, false);
   }
-  assert.match(await read("app/nacoes-unidas/produtos/CartaoPanvel.tsx"), /Consultar/);
+  assert.match(await read("app/nacoes-unidas/produtos/Preco.tsx"), /Consultar/);
   assert.match(await read("app/nacoes-unidas/produtos/restritos-meta.ts"), /index: false/);
   const rxPage = await read("app/nacoes-unidas/produtos/receita/page.tsx");
   const ctPage = await read("app/nacoes-unidas/produtos/controlados/page.tsx");
@@ -289,14 +289,15 @@ test("medicamentos: o departamento reúne sem receita, com receita, controlados 
 
 test("cartão de produto no padrão da Panvel: um componente só, com as medidas do cards.htm", async () => {
   const comp = await read("app/nacoes-unidas/produtos/CartaoPanvel.tsx");
-  for (const c of ["pv-cesta", "pv-corpo", "pv-img", "pv-nome", "pv-marca", "pv-apres", "pv-preco"]) assert.ok(comp.includes(c), c);
+  for (const c of ["pv-cesta", "pv-corpo", "pv-img", "pv-nome", "pv-marca", "pv-apres"]) assert.ok(comp.includes(c), c);
+  assert.ok((await read("app/nacoes-unidas/produtos/Preco.tsx")).includes("pv-preco"));
   const { partesPreco } = await import("../app/nacoes-unidas/produtos/preco.ts");
   assert.deepEqual(partesPreco("R$ 19,49"), { reais: "19", centavos: "49" });
   assert.deepEqual(partesPreco("R$ 1.234,50"), { reais: "1.234", centavos: "50" });
   assert.equal(partesPreco("Consultar"), null);
   const css = await read("app/shop/shop.css");
-  assert.match(css, /grid-template-columns: repeat\(auto-fill, 229px\); gap: 20px/);
-  assert.match(css, /\.pv-preco b \{ font-size: 26px; font-weight: 900/);
+  assert.match(css, /grid-template-columns: repeat\(auto-fill, minmax\(10\.5rem, 1fr\)\); gap: 20px/);
+  assert.match(await read("app/nacoes-unidas/produtos/preco.css"), /\.pv-preco b \{ font-size: 26px; font-weight: 900/);
   for (const f of ["app/nacoes-unidas/produtos/CatalogoLista.tsx", "app/nacoes-unidas/produtos/MedicamentosTodos.tsx", "app/nacoes-unidas/produtos/ListaRestrita.tsx", "app/shop/DestaquesSemana.tsx"]) {
     assert.match(await read(f), /CartaoPanvel|<Cartao /, f);
   }
@@ -411,4 +412,15 @@ test("nomes legíveis: o gerador e o site expandem abreviações do mesmo jeito,
     }
   }
   assert.ok(conferidos > 100);
+});
+
+test("formatarQuantidade: unidades de medida abreviadas e plural correto na exibição", async () => {
+  const { formatarQuantidade: f } = await import("../app/nacoes-unidas/produtos/quantidade.ts");
+  assert.equal(f("150 mililitro(s)"), "150 ml");
+  assert.equal(f("1 grama(s)"), "1 g");
+  assert.equal(f("10 grama(s)"), "10 g");
+  assert.equal(f("30 comprimido(s)"), "30 comprimidos");
+  assert.equal(f("1 comprimido(s)"), "1 comprimido");
+  assert.equal(f("2 par(es)"), "2 pares");
+  assert.equal(f(null), null);
 });
