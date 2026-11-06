@@ -1412,3 +1412,11 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
     .mobile-quick-nav .mobile-quick-nav-inner { grid-template-columns: none !important; grid-auto-flow: column; grid-auto-columns: minmax(min-content, 1fr); }
   }
 }
+
+/* iPhone: o Safari amplia a página inteira quando o campo tocado tem letra menor que 16 px (foi o "pulo" para o lado ao abrir a
+   busca). Campos de texto e seletores ficam com 16 px; o resto do texto não muda. */
+.shop-busca input, .pv-ordenar select, .shop-busca input::placeholder { font-size: 16px; }
+.shop-busca input, .pv-ordenar select, select, input[type="search"], input[type="text"] { font-size: 16px !important; }
+@layer design {
+  .shop-busca input, .pv-ordenar select, select, input[type="search"], input[type="text"] { font-size: 16px !important; }
+}

@@ -344,3 +344,10 @@ test("texto no celular nunca passa da caixa: botões quebram a linha e a trilha 
   assert.match(css, /@layer design \{\s*@media \(max-width: 991px\) \{\s*\.catalogo-caminho, \.produto-pagina \.catalogo-caminho\.produto-caminho \{ flex-wrap: wrap !important; \}/);
   assert.ok((await readFile(new URL("../tests/audit-texto-mobile.cjs", import.meta.url), "utf8")).includes("passa da caixa"), "auditoria presente");
 });
+
+test("iPhone: campos de texto e seletores com 16 px para o Safari não ampliar a página ao tocar", async () => {
+  const css = await readFile(new URL("../app/shop/shop.css", import.meta.url), "utf8");
+  assert.match(css, /\.shop-busca input, \.pv-ordenar select, select, input\[type="search"\], input\[type="text"\] \{ font-size: 16px !important; \}/);
+  assert.match(css, /@layer design \{\s*\.shop-busca input, \.pv-ordenar select, select, input\[type="search"\], input\[type="text"\] \{ font-size: 16px !important; \}/);
+  assert.ok((await readFile(new URL("../tests/audit-campos-ios.cjs", import.meta.url), "utf8")).includes("fs<16"));
+});
