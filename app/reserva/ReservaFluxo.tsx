@@ -10,6 +10,7 @@ import { readPreferredUnitId } from "../preferred-unit";
 import { buildWhatsAppUrl, PUBLIC_UNITS, type Unit } from "../site-config";
 import UnitStatusBadge, { getUnitOpenStatus } from "../UnitStatusBadge";
 import { carregarDadosCliente, esquecerDadosCliente, guardarDadosCliente } from "./dados-cliente";
+import { carregarUltimoPedido, guardarUltimoPedido, repetirPedido, type ItemCatalogo, type ItemUltimoPedido } from "./ultimo-pedido";
 import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats, IconCesta, IconCaminhao, IconConfirmado } from "./ReservaIcons";
 import CestaSugestoes from "./CestaSugestoes";
 import DestaquesSemana from "../shop/DestaquesSemana";
@@ -51,10 +52,15 @@ export default function ReservaFluxo() {
   const [agora, setAgora] = useState<Date | null>(null);
   // Nome e endereço do último pedido, guardados só neste aparelho.
   const [lembrado, setLembrado] = useState(false);
+  // Último pedido enviado neste aparelho (nomes e quantidades), para "Repetir meu último pedido".
+  const [ultimo, setUltimo] = useState<ItemUltimoPedido[]>([]);
+  const [repetindo, setRepetindo] = useState(false);
+  const [faltaram, setFaltaram] = useState<string[]>([]);
   useEffect(() => {
     const salvo = carregarDadosCliente();
     /* eslint-disable react-hooks/set-state-in-effect -- lê o armazenamento do navegador uma vez, depois que a página abre */
     setAgora(new Date());
+    setUltimo(carregarUltimoPedido());
     if (salvo) {
       setNome(salvo.nome);
       setRua(salvo.rua);
@@ -110,6 +116,29 @@ export default function ReservaFluxo() {
 
   const titulo = passo === 1 ? "Minha cesta" : passo === 2 ? "Entrega ou retirada" : "Revisar e enviar";
 
+  async function repetir() {
+    setRepetindo(true);
+    try {
+      const [comuns, restritos] = await Promise.all([
+        fetch("/dados/nacoes/catalogo-busca.json").then((r) => r.json()) as Promise<Array<{ nome: string; precoCentavos: number; foto: string | null }>>,
+        fetch("/dados/nacoes/restritos-busca.json").then((r) => r.json()) as Promise<Array<{ nome: string; precoCentavos: number | null; tipo: "receita" | "controlados" }>>,
+      ]);
+      const catalogo: ItemCatalogo[] = [...comuns.map((c) => ({ nome: c.nome, precoCentavos: c.precoCentavos, foto: c.foto })), ...restritos.map((c) => ({ nome: c.nome, precoCentavos: c.precoCentavos, tipo: c.tipo }))];
+      let faltou: string[] = [];
+      atualizarReserva((s) => {
+        const r = repetirPedido(s, ultimo, catalogo, "nacoes");
+        faltou = r.faltaram;
+        return r.estado;
+      });
+      setFaltaram(faltou);
+      trackEvent("reserva_repetir", { itens: ultimo.length, faltaram: faltou.length });
+    } catch {
+      setFaltaram(ultimo.map((i) => i.nome));
+    } finally {
+      setRepetindo(false);
+    }
+  }
+
   if (estado.itens.length === 0) {
     return (
       <div className="fluxo-reserva">
@@ -120,6 +149,12 @@ export default function ReservaFluxo() {
         <div className="fluxo-vazio">
           <strong>Sua cesta ainda está vazia. Bora escolher?</strong>
           <p>Escolha seus produtos e pague só quando retirar.</p>
+          {ultimo.length > 0 ? (
+            <button type="button" className="fluxo-botao fluxo-botao-repetir" disabled={repetindo} onClick={repetir}>
+              {repetindo ? "Procurando seus produtos…" : `Repetir meu último pedido (${ultimo.reduce((n, i) => n + i.qtd, 0)} ${ultimo.reduce((n, i) => n + i.qtd, 0) === 1 ? "item" : "itens"})`}
+            </button>
+          ) : null}
+          {faltaram.length > 0 ? <p className="fluxo-faltaram" role="status">Não achamos hoje: {faltaram.join(", ")}. Procure na loja ou pelo WhatsApp.</p> : null}
           <a className="fluxo-botao" href="/nacoes-unidas/produtos">Ver produtos</a>
           <BotaoReceita classe="receita-gatilho-bloco" />
         </div>
@@ -148,7 +183,7 @@ export default function ReservaFluxo() {
   );
 
   const enviarWhats = (classe: string) => pagamento ? (
-    <a className={classe} href={href} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unidade.id} data-track-source="reserva_envio" onClick={() => setEnviado(true)}>
+    <a className={classe} href={href} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unidade.id} data-track-source="reserva_envio" onClick={() => { guardarUltimoPedido(estado.itens.filter(itemAtivo)); setEnviado(true); }}>
       <IconWhats size={24} /> Enviar pedido pelo WhatsApp
     </a>
   ) : (
@@ -212,6 +247,7 @@ export default function ReservaFluxo() {
               </label>
               <p>{total} {total === 1 ? "item" : "itens"} na cesta</p>
             </div>
+            {faltaram.length > 0 ? <p className="fluxo-faltaram" role="status">Não achamos hoje: {faltaram.join(", ")}. Procure na loja ou pelo WhatsApp.</p> : null}
             <div className="fluxo-tabela">
               <p className="fluxo-colunas" aria-hidden="true"><span>Produto</span><span>Preço</span><span>Quantidade</span><span>Total</span><span /></p>
               <ul className="fluxo-itens">

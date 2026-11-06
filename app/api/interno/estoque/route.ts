@@ -1,5 +1,7 @@
 import { gerarAlertas, resumoWhatsApp } from "../../../estoque-alertas";
-import { banco, lerEstoqueAtual } from "../../../estoque-fonte";
+import { avaliarPc } from "../../../estoque-pc";
+import { PUBLIC_UNITS } from "../../../site-config";
+import { banco, lerBatimentoPc, lerEstoqueAtual } from "../../../estoque-fonte";
 import { lerHistorico, salvarSnapshot } from "../../../estoque-historico";
 
 export const dynamic = "force-dynamic";
@@ -17,9 +19,11 @@ export async function GET() {
   const db = banco();
   const hist = db ? await lerHistorico(db, atual.dia).catch(() => null) : null;
   const alertas = gerarAlertas(atual.itens, hist?.porItem ?? new Map(), atual.dia);
+  const pc = avaliarPc(PUBLIC_UNITS[0], await lerBatimentoPc(), new Date());
   return Response.json(
     {
       ok: true,
+      pc,
       dia: atual.dia,
       geradoEm: atual.geradoEm,
       diasRegistrados: hist?.diasRegistrados ?? 0,

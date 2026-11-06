@@ -12,6 +12,7 @@ type Resposta = {
   geradoEm: string | null;
   diasRegistrados: number;
   semBanco: boolean;
+  pc?: { idadeHoras: number | null; parado: boolean };
   totais: Record<TipoAlerta, number>;
   alertas: Alerta[];
   resumo: string;
@@ -73,6 +74,7 @@ export default function PainelEstoque() {
       {!dados && !erro ? <p>Carregando…</p> : null}
       {dados ? (
         <>
+          {dados.pc?.parado ? <p role="alert"><strong>O PC da loja não envia o estoque há {String(dados.pc.idadeHoras).replace(".", ",")} h.</strong> Veja se o programa do catálogo está aberto no PC.</p> : null}
           <p>
             Dados de {dados.geradoEm ?? "—"}. Histórico guardado: {dados.diasRegistrados} {dados.diasRegistrados === 1 ? "dia" : "dias"}.
             {dados.diasRegistrados < 7 ? " A previsão de \"vende X por semana\" aparece depois de uns 7 dias de histórico; até lá valem só os avisos de estoque baixo e de item que acabou." : ""}

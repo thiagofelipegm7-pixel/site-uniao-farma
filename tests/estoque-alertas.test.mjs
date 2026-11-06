@@ -91,3 +91,31 @@ test("export do DMaster vira itens; dia de Brasília; só o painel protegido e o
   assert.match(snap, /nao_autorizado/);
   assert.doesNotMatch(readFileSync("scripts/gerar-assets-catalogo.mjs", "utf8"), /estoque_dia/);
 });
+
+test("vigia do PC: só avisa com a loja aberta, uma vez ao parar, a cada 6 h e ao voltar", async () => {
+  const pc = await import("../app/estoque-pc.ts");
+  const { PUBLIC_UNITS } = await import("../app/site-config.ts");
+  const loja = PUBLIC_UNITS[0]; // Nações Unidas: seg a sáb 8h–21h, dom 8h–12h
+  const brt = (iso) => new Date(`${iso}-03:00`); // hora de Brasília
+  // Quarta 14h, último envio 11h: 3 h sem envio com a loja aberta = parado.
+  assert.deepEqual(pc.avaliarPc(loja, brt("2026-11-04T11:00:00").getTime(), brt("2026-11-04T14:00:00")), { idadeHoras: 3, parado: true });
+  // 1 h sem envio: normal.
+  assert.equal(pc.avaliarPc(loja, brt("2026-11-04T13:00:00").getTime(), brt("2026-11-04T14:00:00")).parado, false);
+  // Loja fechada (23h) ou recém-aberta (8h10, o PC ainda liga): não avisa, mesmo com envio antigo.
+  assert.equal(pc.avaliarPc(loja, brt("2026-11-04T18:00:00").getTime(), brt("2026-11-04T23:00:00")).parado, false);
+  assert.equal(pc.avaliarPc(loja, brt("2026-11-03T20:00:00").getTime(), brt("2026-11-04T08:10:00")).parado, false);
+  assert.equal(pc.avaliarPc(loja, brt("2026-11-03T20:00:00").getTime(), brt("2026-11-04T09:00:00")).parado, true);
+  assert.equal(pc.avaliarPc(loja, null, brt("2026-11-04T14:00:00")).parado, false, "sem leitura não alarma");
+
+  const t0 = brt("2026-11-04T14:00:00").getTime();
+  let d = pc.decidirAviso({ estado: "ok", avisadoEm: null }, true, t0);
+  assert.equal(d.enviar, "parou");
+  d = pc.decidirAviso(d.proximo, true, t0 + 30 * 60_000);
+  assert.equal(d.enviar, null, "não repete a cada checagem");
+  d = pc.decidirAviso(d.proximo, true, t0 + 6 * 3_600_000);
+  assert.equal(d.enviar, "continua");
+  d = pc.decidirAviso(d.proximo, false, t0 + 7 * 3_600_000);
+  assert.equal(d.enviar, "voltou");
+  assert.equal(pc.decidirAviso(d.proximo, false, t0 + 8 * 3_600_000).enviar, null);
+  assert.match(pc.textoDoAviso("parou", 3).corpo, /nao envia o estoque há 3 h|nao envia o estoque ha 3 h|há 3 h/);
+});

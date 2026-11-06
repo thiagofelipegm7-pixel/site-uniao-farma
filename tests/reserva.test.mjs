@@ -295,3 +295,20 @@ test("loja fechada avisa na hora de enviar; título das buscas e aba da loja sem
   assert.match(pagina, /<h1 className="catalogo-titulo section-inner">Todos os produtos<\/h1>/);
   assert.match(await readFile(new URL("../app/MobileQuickNav.tsx", import.meta.url), "utf8"), /label: "A loja"/);
 });
+
+test("repetir pedido: usa o preço de hoje, mantém quantidade e receita e avisa o que não existe mais", async () => {
+  const { repetirPedido, lerUltimoPedido } = await import("../app/reserva/ultimo-pedido.ts");
+  const { qtdDoItem, idDoItem, ESTADO_VAZIO } = await mod();
+  const anterior = [{ nome: "Dipirona 1g Cx 10CPR Medley", qtd: 2 }, { nome: "Item que acabou", qtd: 1 }, { nome: "Clonazepam 2mg", qtd: 1 }];
+  const catalogo = [
+    { nome: "dipirona 1g cx 10cpr medley", precoCentavos: 1300, foto: "/produtos/1.webp" },
+    { nome: "Clonazepam 2mg", precoCentavos: 900, tipo: "controlados" },
+  ];
+  const r = repetirPedido(ESTADO_VAZIO, anterior, catalogo, "nacoes");
+  assert.equal(qtdDoItem(r.estado, idDoItem("nacoes", "Dipirona 1g Cx 10CPR Medley")), 2);
+  assert.equal(r.estado.itens.find((i) => i.nome.startsWith("Dipirona")).precoCentavos, 1300, "preço de hoje");
+  assert.equal(r.estado.itens.find((i) => i.nome.startsWith("Clonazepam")).receita, "controlado");
+  assert.deepEqual(r.faltaram, ["Item que acabou"]);
+  assert.deepEqual(lerUltimoPedido("lixo"), []);
+  assert.deepEqual(lerUltimoPedido(JSON.stringify([{ nome: "A", qtd: 99 }, { nome: "B", qtd: 1 }])), [{ nome: "B", qtd: 1 }]);
+});

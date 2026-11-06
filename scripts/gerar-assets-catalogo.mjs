@@ -46,33 +46,32 @@ function fotoDoProduto(nome) {
 }
 
 // Replicado de nome-exibicao.ts (simplificado, suficiente para pré-computar)
-const PALAVRAS = {
-  "roll-on": "roll-on", gr: "g", g: "g", ml: "ml", des: "Desodorante", desod: "Desodorante", cr: "Creme", sab: "Sabonete", prot: "Protetor", hidrat: "Hidratante",
-  locao: "Loção", shamp: "Shampoo", cond: "Condicionador", enx: "Enxaguante", esc: "Escova", cap: "cápsulas", caps: "cápsulas",
-  comp: "comprimidos", cpr: "comprimidos", mastigavel: "mastigável", glic: "Glicerinado", trad: "Tradicional", bebe: "bebê",
-  "s/frag": "sem fragrância", "c/": "com", "s/": "sem", maca: "Maçã", peruana: "Peruana", po: "pó", omega: "Ômega",
-  vitamina: "Vitamina", dental: "dental", aero: "Aerosol", hidratante: "Hidratante", corporal: "corporal", facial: "facial",
-  oleosidade: "oleosidade", controle: "controle", refil: "refil", granado: "Granado", rosa: "rosa", radiant: "Radiant", glow: "Glow",
-};
+const PALAVRAS = JSON.parse(fs.readFileSync(path.join(RAIZ, "app", "nome-exibicao-palavras.json"), "utf8"));
 const MINUSCULAS = new Set(["de", "da", "do", "e", "com", "sem", "para", "em", "na", "no", "a", "o"]);
 
 function nomeDeExibicao(nomeBruto) {
   const limpo = nomeBruto.replace(/[*]+$/g, "").replace(/\s+/g, " ").trim();
   if (!limpo) return nomeBruto;
-  return limpo
-    .split(/\s+/)
-    .map((bruta) => {
-      const p = bruta.toLowerCase();
-      const med = /^(\d+(?:[.,]\d+)?)(ml|mg|g|gr|kg|l|mcg|mts|mt)$/.exec(p);
-      if (med) return `${med[1]}${med[2] === "gr" ? "g" : med[2] === "mts" || med[2] === "mt" ? "m" : med[2]}`;
-      const comPre = /^c\/(\d+)$/.exec(p);
-      if (comPre) return `com ${comPre[1]}`;
-      if (PALAVRAS[p]) return PALAVRAS[p];
-      if (MINUSCULAS.has(p)) return p;
-      if (/^\d/.test(p) || /^fps\d*$/.test(p)) return p.toUpperCase().replace(/^FPS/, "FPS");
-      return p.charAt(0).toUpperCase() + p.slice(1);
-    })
-    .join(" ");
+  // Mesma regra de app/nome-exibicao.ts (um teste confere que as duas saem iguais).
+  const juntado = limpo.replace(/\broll on\b/gi, "roll-on");
+  const brutas = juntado.split(" ");
+  const partes = brutas.map((bruta, i) => {
+    const anterior = brutas[i - 1] ?? "";
+    const p = bruta.toLowerCase();
+    if ((p === "g" || p === "gr") && !/^\d/.test(anterior)) return "G";
+    const colada = /^(\d+)(cpr|comp|caps|cap|cps|drg|env)$/.exec(p);
+    if (colada) return `${colada[1]} ${PALAVRAS[colada[2]] ?? colada[2]}`;
+    const med = /^(\d+(?:[.,]\d+)?)(ml|mg|g|gr|kg|l|mcg|mts|mt)$/.exec(p);
+    if (med) return `${med[1]}${med[2] === "gr" ? "g" : med[2] === "mts" || med[2] === "mt" ? "m" : med[2]}`;
+    const comPre = /^c\/(\d+)$/.exec(p);
+    if (comPre) return `com ${comPre[1]}`;
+    if (PALAVRAS[p]) return PALAVRAS[p];
+    if (MINUSCULAS.has(p)) return p;
+    if (/^\d/.test(p) || /^fps\d*$/.test(p)) return p.toUpperCase().replace(/^FPS/, "FPS");
+    return p.charAt(0).toUpperCase() + p.slice(1);
+  });
+  const texto = partes.join(" ").replace(/\s+/g, " ").trim();
+  return texto.charAt(0).toUpperCase() + texto.slice(1);
 }
 
 // Replicado de receita.ts
