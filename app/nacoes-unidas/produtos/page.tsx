@@ -91,7 +91,7 @@ export default async function ProdutosNacoesPage() {
             />
           <aside className="catalogo-aviso" aria-label="Medicamentos com receita e controlados">
             <p>
-              <strong>Medicamentos com receita e controlados:</strong> pedido pelo WhatsApp, sem pagamento no site. Retire na loja com a receita (retida pela farmácia quando a lei exigir).
+              <strong>Com receita e controlados:</strong> retire na loja com a receita (retida pela farmácia quando a lei exigir).
             </p>
             <p className="catalogo-aviso-links">
               <a href="/nacoes-unidas/produtos/receita">Ver medicamentos com receita</a>
@@ -99,7 +99,7 @@ export default async function ProdutosNacoesPage() {
             </p>
           </aside>
           <p className="catalogo-nota">
-            Preços do sistema da loja Nações Unidas, com dados de {dataDosDados ?? "data não informada"}{atualizadoEm ? ` (${atualizadoEm})` : ""}. Preço e disponibilidade podem ter mudado: a loja confirma pelo WhatsApp antes da separação. Nesta lista, com cesta, só itens sem receita: medicamentos isentos de prescrição (MIPs), higiene e dermocosméticos. Leia a bula. Em caso de dúvida, procure o farmacêutico.
+            Preços de {dataDosDados ?? "data não informada"}{atualizadoEm ? ` (${atualizadoEm})` : ""}. Preço e estoque podem mudar: a loja confirma pelo WhatsApp antes de separar. Nesta lista, com cesta, só itens sem receita: medicamentos isentos de prescrição (MIPs), higiene e dermocosméticos. Leia a bula. Em caso de dúvida, procure o farmacêutico.
           </p>
         </div>
       </div>

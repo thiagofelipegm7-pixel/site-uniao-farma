@@ -36,7 +36,7 @@ const TEXTOS: Record<TipoRestrito, { titulo: string; h1: string; intro: string; 
     titulo: "Medicamentos com receita: lista de preços | União Farma Nações Unidas",
     h1: "Medicamentos com receita: lista de preços",
     intro:
-      "Lista de preços informativa dos medicamentos de venda sob prescrição médica da loja Nações Unidas. Pedido pelo WhatsApp, sem pagamento no site: monte a cesta e retire na loja apresentando a receita.",
+      "Lista de preços informativa de medicamentos de venda sob prescrição médica. Retire na loja apresentando a receita.",
     rota: "/nacoes-unidas/produtos/receita",
     vazio: "Nenhum medicamento encontrado nesta lista.",
     caminho: "Com receita",
@@ -45,7 +45,7 @@ const TEXTOS: Record<TipoRestrito, { titulo: string; h1: string; intro: string; 
     titulo: "Medicamentos controlados: lista de preços | União Farma Nações Unidas",
     h1: "Medicamentos controlados: lista de preços",
     intro:
-      "Lista de preços informativa dos medicamentos controlados (Portaria SVS/MS 344/98) da loja Nações Unidas. Pedido pelo WhatsApp, sem pagamento no site: monte a cesta e retire na loja; a receita fica retida pela farmácia.",
+      "Lista de preços informativa de medicamentos controlados (Portaria SVS/MS 344/98). Retire na loja; a receita fica retida pela farmácia.",
     rota: "/nacoes-unidas/produtos/controlados",
     vazio: "Nenhum medicamento controlado encontrado nesta lista.",
     caminho: "Controlados",
@@ -54,7 +54,7 @@ const TEXTOS: Record<TipoRestrito, { titulo: string; h1: string; intro: string; 
     titulo: "Consulte o farmacêutico: lista de preços | União Farma Nações Unidas",
     h1: "Consulte o farmacêutico: lista de preços",
     intro:
-      "Itens da loja Nações Unidas cujo enquadramento (com ou sem receita) ainda está sendo confirmado. Os preços são informativos. Não há cesta para estes itens: antes de comprar, converse com o farmacêutico na loja ou pelo WhatsApp.",
+      "Itens com enquadramento (com ou sem receita) em confirmação. Preços informativos, sem cesta: antes de comprar, converse com o farmacêutico.",
     rota: "/nacoes-unidas/produtos/consulte-o-farmaceutico",
     vazio: "Nenhum item encontrado nesta lista.",
     caminho: "Consulte o farmacêutico",
@@ -150,7 +150,7 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
           <div className="catalogo-aviso" role="note">
             <p>{t.intro}</p>
             <p>
-              Preços do sistema da loja Nações Unidas, com dados de {data ?? "data não informada"}. Preço e disponibilidade podem ter mudado: confirme com a loja pelo{" "}
+              Preços de {data ?? "data não informada"}. Confirme preço e estoque pelo{" "}
               <a href={wa} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={nacoes.id} data-track-source={`produtos_nacoes_${tipo}`}>
                 WhatsApp {nacoes.whatsapp}
               </a>

@@ -80,13 +80,7 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
           <span>{dep.nome}</span>
         </nav>
         <h1 className="catalogo-titulo section-inner">{dep.nome}</h1>
-        <p className="departamento-resumo section-inner">{dep.resumo}</p>
-        {dep.slug === "medicamentos" ? (
-          <nav className="departamento-receita section-inner" aria-label="Medicamentos com receita">
-            <a href="/nacoes-unidas/produtos/receita">Medicamentos com receita</a>
-            <a href="/nacoes-unidas/produtos/controlados">Medicamentos controlados</a>
-          </nav>
-        ) : null}
+        {dep.slug === "medicamentos" ? <p className="departamento-resumo section-inner">Leia a bula; em caso de dúvida, fale com o farmacêutico.</p> : null}
         <nav className="departamento-outros section-inner" aria-label="Departamentos">
           {departamentosPublicos().map((d) => (
             <a key={d.slug} href={`/departamentos/${d.slug}`} aria-current={d.slug === dep.slug ? "page" : undefined}>
@@ -100,16 +94,18 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
           ) : (
             <CatalogoLista paginaInicial={paginaPedida} grupos={grupos} departamento={dep.slug} whatsappHref={whatsappHref} unitId={nacoes.id} />
           )}
-          <aside className="catalogo-aviso" aria-label="Medicamentos com receita e controlados">
-            <p>
-              <strong>Medicamentos com receita e controlados:</strong> pedido pelo WhatsApp, sem pagamento no site. Retire na loja com a receita (retida pela farmácia quando a lei exigir).
-            </p>
-            <p className="catalogo-aviso-links">
-              <a href="/nacoes-unidas/produtos/receita">Ver medicamentos com receita</a>
-              <a href="/nacoes-unidas/produtos/controlados">Ver medicamentos controlados</a>
-            </p>
-          </aside>
-          <p className="catalogo-nota">Preços do sistema da loja Nações Unidas. Preço e disponibilidade podem ter mudado: a loja confirma pelo WhatsApp antes da separação.</p>
+          {dep.slug === "medicamentos" ? (
+            <aside className="catalogo-aviso" aria-label="Medicamentos com receita e controlados">
+              <p>
+                <strong>Com receita e controlados:</strong> retire na loja com a receita (retida pela farmácia quando a lei exigir).
+              </p>
+              <p className="catalogo-aviso-links">
+                <a href="/nacoes-unidas/produtos/receita">Ver medicamentos com receita</a>
+                <a href="/nacoes-unidas/produtos/controlados">Ver medicamentos controlados</a>
+              </p>
+            </aside>
+          ) : null}
+          <p className="catalogo-nota">Preço e estoque podem mudar: a loja confirma pelo WhatsApp antes de separar.</p>
         </div>
       </div>
       <ContentSiteFooter />
