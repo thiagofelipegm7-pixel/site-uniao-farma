@@ -171,12 +171,13 @@ const RX_NASAL = palavra("NASAL|NAS|SPR NAS|NASONEX|AVAMYS|DYMISTA|AMOME|MOMETAS
 const RX_INJ = palavra("INJ[A-Z]*|AMP[A-Z]*|CANETA?|SERINGA|LIOF[A-Z]*|REFIL");
 const RX_SPR = palavra("SPRAY|NASAL|SOL NAS[A-Z]*|JATO");
 const RX_GOT = palavra("GOTAS?|GTS?|COLIRIO|OFT[A-Z]*|OTO[A-Z]*");
-const RX_CAP = palavra("CAPS?|CAPSULAS?");
-const RX_CPR = palavra("CPR|COMP[A-Z]*|DRG|DRAGEAS?");
-const RX_TUB = palavra("CR|CREME|POM|POMADA|GEL|BG|DERM|LOCAO|PAST");
-const RX_LIQ = palavra("XPE|XAROPE|SUSP[A-Z]*|SOL|SOLUCAO|LIQ|EMULS[A-Z]*|ELIXIR|\\d+ ?ML");
+const RX_CAP = palavra("CAPS?|CPS|CAPSULAS?");
+const RX_CPR = palavra("CPRS?|CP|COMP[A-Z]*|DRG|DRAGEAS?|CARTELA");
+const RX_TUB = palavra("CR|CREME|CREM|POM|POMADA|GEL|BG|BISNAGAS?|DERM|LOCAO|PAST|VAG|APLIC?");
+const RX_LIQ = palavra("XPE|XAROPE|SUS|SUSP[A-Z]*|SOL|SOLUCAO|LIQ|EMULS[A-Z]*|ELIXIR|\\d+ ?ML");
 
-export function formaDoMedicamento(nome: string, apresentacao: string | null, ativo?: string | null): FormaIlustracao {
+/** Forma reconhecida pelo nome, ou null quando nada indica a forma (sachê, pó, supositório...): sem chute. */
+export function formaReconhecida(nome: string, apresentacao: string | null, ativo?: string | null): FormaIlustracao | null {
   const t = ` ${nome} ${apresentacao ?? ""} `.toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   if (RX_INAL.test(t)) return "inal";
   if (ativo && RX_INAL_ATIVO.test(ativo) && !RX_NASAL.test(t) && /(DOSES?|SPRAY|JATOS?|REFIL|CAPS?|MCG|AER|INAL)/.test(t)) return "inal";
@@ -189,7 +190,20 @@ export function formaDoMedicamento(nome: string, apresentacao: string | null, at
   if (RX_CPR.test(t)) return "cpr";
   if (RX_TUB.test(t)) return "tub";
   if (RX_LIQ.test(t)) return "liq";
-  return "cpr";
+  return null;
+}
+
+export function formaDoMedicamento(nome: string, apresentacao: string | null, ativo?: string | null): FormaIlustracao {
+  return formaReconhecida(nome, apresentacao, ativo) ?? "cpr";
+}
+
+/** Ilustrações de medicamento SEM faixa de prescrição (caixa lisa + a forma do produto), para o que ainda não tem foto. */
+const FORMAS_SEM_RECEITA: ReadonlySet<FormaIlustracao> = new Set<FormaIlustracao>(["cpr", "cap", "liq", "got", "tub", "spr"]);
+export function ilustracaoSemReceita(nome: string): string {
+  const forma = formaReconhecida(nome, null, null);
+  // "Aerosol" sem receita é spray de uso na pele ou na garganta; o inalador de asma só existe com receita.
+  const usada = forma === "inal" ? "spr" : forma;
+  return usada && FORMAS_SEM_RECEITA.has(usada) ? `/ilustrativas/otc-${usada}.webp` : IMAGEM_GENERICA;
 }
 
 /** Caminho da ilustração mais próxima do item (receita e controlados). "Consulte o farmacêutico" usa a imagem genérica. */

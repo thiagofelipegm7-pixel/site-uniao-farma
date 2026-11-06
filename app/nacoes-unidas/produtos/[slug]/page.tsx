@@ -10,6 +10,7 @@ import SemFoto from "../SemFoto";
 import { acharPorSlug, carregarCatalogoCompleto, carregarCatalogoNacoes, formatBRL, slugify } from "../catalogo";
 import { acharDepartamento } from "../departamentos";
 import { fotoDoProduto } from "../imagens";
+import { fotoExibida } from "../foto-exibida";
 import ProdutoAcoes from "../ProdutoAcoes";
 import ProdutoBarra from "../ProdutoBarra";
 import { nomeDeExibicao } from "../../../nome-exibicao";
@@ -48,10 +49,11 @@ export default async function ProdutoNacoesPage({ params }: Props) {
   const nomeExibido = nomeDeExibicao(item.nome);
   const slugItem = slugify(item.nome);
   const pagina = `${SITE_URL}/nacoes-unidas/produtos/${slugItem}`;
-  const foto = fotoDoProduto(item.nome);
+  const fotoReal = fotoDoProduto(item.nome); // só a foto aprovada vai para o Google (JSON-LD) e para o código de barras
+  const foto = fotoExibida(item.nome, item.categoria);
   const conteudo = conteudoDoNome(item.nome);
   // O arquivo da foto oficial é nomeado pelo código de barras (EAN) do produto.
-  const ean = foto?.match(/(\d{8,14})\.webp$/)?.[1] ?? null;
+  const ean = fotoReal?.match(/(\d{8,14})\.webp$/)?.[1] ?? null;
   const descricaoIA = ehNbcal(item.nome) ? null : descricaoPublica(slugItem, item.isMIP);
   const textos = textosPublicaveis({ descricao: descricaoIA?.texto });
   const combinaCom = itensCombinaCom(carregarCatalogoNacoes().itens, item);
@@ -65,7 +67,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
     lab: item.lab,
     categoria: item.categoria,
     url: pagina,
-    image: foto ? `${SITE_URL}${foto}` : null,
+    image: fotoReal ? `${SITE_URL}${fotoReal}` : null,
     descricao: descricaoIA?.texto,
   });
   const depCat = acharDepartamento(slugify(item.categoria));

@@ -202,7 +202,8 @@ test("catálogo Nações: busca e páginas trazem todas as fotos do mapa de imag
   const { FOTOS_NACOES } = await import("../app/nacoes-unidas/produtos/imagens.ts");
   const busca = await json("public/dados/nacoes/catalogo-busca.json");
   // O catálogo muda com o estoque (sincronização automática): item sem estoque sai da busca, mas a foto continua no mapa.
-  const comFoto = busca.filter((i) => i.foto);
+  // Ilustrações de caixa (/ilustrativas/) de medicamento sem foto não são foto do produto: ficam de fora desta conta.
+  const comFoto = busca.filter((i) => i.foto && i.foto.startsWith("/produtos/"));
   const eansDoMapa = new Set(Object.values(FOTOS_NACOES));
   assert.ok(comFoto.length <= Object.keys(FOTOS_NACOES).length);
   assert.ok(comFoto.length >= Object.keys(FOTOS_NACOES).length * 0.7, "a maioria das fotos do mapa tem de aparecer na busca");
@@ -423,4 +424,31 @@ test("formatarQuantidade: unidades de medida abreviadas e plural correto na exib
   assert.equal(f("1 comprimido(s)"), "1 comprimido");
   assert.equal(f("2 par(es)"), "2 pares");
   assert.equal(f(null), null);
+});
+
+
+test("ilustração de medicamento sem foto: gerador e site escolhem a mesma caixa, só em Medicamentos, e os arquivos existem", async () => {
+  const { ilustracaoSemReceita } = await import("../app/nacoes-unidas/produtos/receita.ts");
+  const { existsSync } = await import("node:fs");
+  assert.equal(ilustracaoSemReceita("DIPIRONA 500MG CX 10CPR"), "/ilustrativas/otc-cpr.webp");
+  assert.equal(ilustracaoSemReceita("BERBERINA 500MG C/60 CPS"), "/ilustrativas/otc-cap.webp");
+  assert.equal(ilustracaoSemReceita("ALLEGRA PEDIATRICO 6mg/ml sus or fr 60m"), "/ilustrativas/otc-liq.webp");
+  assert.equal(ilustracaoSemReceita("CLOTRIMAZOL 20MG CREM VAG C/3 APLI"), "/ilustrativas/otc-tub.webp");
+  assert.equal(ilustracaoSemReceita("NEOCOFLAN AEROSOL 85ML"), "/ilustrativas/otc-spr.webp", "aerosol sem receita = spray");
+  assert.equal(ilustracaoSemReceita("PEGLAX 17 GR C/14 SACHES"), "/ilustrativas/neutra.webp", "forma não reconhecida: caixa neutra, sem chute");
+  const idx = await json("public/dados/nacoes/catalogo-index.json");
+  let conferidos = 0;
+  for (const g of idx.grupos) {
+    for (let p = 1; p <= g.paginas; p += 1) {
+      for (const i of await json(`public/dados/nacoes/catalogo/${g.slug}/p${p}.json`)) {
+        if (i.foto && i.foto.startsWith("/ilustrativas/")) {
+          assert.equal(g.categoria, "Medicamentos", `ilustração fora de Medicamentos: ${i.nome}`);
+          assert.equal(i.foto, ilustracaoSemReceita(i.nome), i.nome);
+          assert.ok(existsSync(new URL(`../public${i.foto}`, import.meta.url)), i.foto);
+          conferidos += 1;
+        }
+      }
+    }
+  }
+  assert.ok(conferidos > 100, "esperava centenas de medicamentos com ilustração");
 });
