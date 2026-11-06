@@ -68,7 +68,7 @@ export default function PainelEstoque() {
     <main className="painel-catalogo">
       <h1>Alertas de estoque</h1>
       <p>
-        <a href="/interno/catalogo">Estoque da loja (saúde da sincronização)</a> · <a href="/interno/metricas">Métricas</a>
+        <a href="/interno/catalogo">Estoque da loja (saúde da sincronização)</a> · <a href="/interno/fotos">Fotos dos produtos</a> · <a href="/interno/metricas">Métricas</a>
       </p>
       {erro ? <p role="alert">{erro}</p> : null}
       {!dados && !erro ? <p>Carregando…</p> : null}

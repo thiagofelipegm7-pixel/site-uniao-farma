@@ -79,3 +79,21 @@ export async function enviarPush(titulo: string, corpo: string, prioridade: "hig
     return false;
   }
 }
+
+/** Export completo do DMaster (todos os itens, com código de barras, estoque e preço). Só para o painel interno. */
+export async function lerExportBruto(): Promise<{ itens: Array<Record<string, unknown>>; geradoEm: string | null } | null> {
+  const token = segredo("CATALOGO_READ_TOKEN");
+  if (!token) return null;
+  try {
+    const r = await fetch(URL_EXPORT, {
+      headers: { authorization: `Bearer ${token}`, accept: "application/json", "user-agent": "uniao-farma-fotos" },
+      signal: AbortSignal.timeout(20_000),
+    });
+    if (!r.ok) return null;
+    const dados = (await r.json()) as { itens?: unknown; geradoEm?: string };
+    if (!Array.isArray(dados.itens) || dados.itens.length < 100) return null;
+    return { itens: dados.itens as Array<Record<string, unknown>>, geradoEm: typeof dados.geradoEm === "string" ? dados.geradoEm : null };
+  } catch {
+    return null;
+  }
+}

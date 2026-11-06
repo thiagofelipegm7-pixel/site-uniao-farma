@@ -1,0 +1,112 @@
+/**
+ * Painel interno "Fotos dos produtos": junta o estoque de agora (export do DMaster) com o que já tem foto no site,
+ * para ver o que está pronto e o que falta, começando pelo que mais vale parado no estoque. Funções puras (sem rede).
+ */
+export type LinhaFoto = {
+  ean: string;
+  nome: string;
+  lab: string;
+  classe: string;
+  estoque: number;
+  preco: number;
+  /** estoque x preço (0 se estoque <= 0) */
+  valor: number;
+  controlado: boolean;
+  antimicrobiano: boolean;
+  categoria: string;
+  noSite: boolean;
+};
+
+export const SEM_CATEGORIA = "Fora do site (sem estoque)";
+
+/** Nome sem acento, em maiúsculas e sem espaço repetido: chave para cruzar o estoque com o catálogo do site. */
+export function chaveDeNome(nome: string): string {
+  return nome.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/\s+/g, " ").trim().toUpperCase();
+}
+
+const LAB_VAZIO = /^(diversos|china|)$/i;
+
+type ExportItem = Record<string, unknown>;
+
+/** Converte o export do DMaster nas linhas do painel. `categorias` vai de chave de nome -> categoria do site. */
+export function montarLinhas(itens: readonly ExportItem[], eansComFoto: ReadonlySet<string>, categorias: ReadonlyMap<string, string>): LinhaFoto[] {
+  const linhas: LinhaFoto[] = [];
+  const vistos = new Set<string>();
+  for (const it of itens) {
+    const nome = typeof it.Produto === "string" ? it.Produto.replace(/\s+/g, " ").trim() : "";
+    const ean = String(it.CodigoDeBarras ?? "").trim();
+    if (!nome || !ean || vistos.has(ean)) continue;
+    if (/TAXA DE ENTREGA|APLICACAO|AFERIMENTO|XEROX|MANIPULACAO/i.test(nome)) continue;
+    vistos.add(ean);
+    const estoque = typeof it.Estoque === "number" && Number.isFinite(it.Estoque) ? Math.floor(it.Estoque) : 0;
+    const preco = typeof it.Pvenda === "number" && it.Pvenda > 0 ? it.Pvenda : 0;
+    const lab = typeof it.Laboratorio === "string" ? it.Laboratorio.trim() : "";
+    linhas.push({
+      ean,
+      nome,
+      lab: LAB_VAZIO.test(lab) ? "" : lab,
+      classe: typeof it.Classe === "string" ? it.Classe.trim() : "",
+      estoque,
+      preco,
+      valor: estoque > 0 ? Math.round(estoque * preco * 100) / 100 : 0,
+      controlado: it.ProdutoControlado === true || it.ProdutoControlado === 1,
+      antimicrobiano: it.ProdutoAntimicrobiano === true || it.ProdutoAntimicrobiano === 1,
+      categoria: categorias.get(chaveDeNome(nome)) ?? SEM_CATEGORIA,
+      noSite: eansComFoto.has(ean),
+    });
+  }
+  return linhas;
+}
+
+export type ResumoFotos = { total: number; comFoto: number; faltam: number; faltamComEstoque: number; valorSemFoto: number; comEstoque: number; comEstoqueComFoto: number };
+
+export function resumirFotos(linhas: readonly LinhaFoto[]): ResumoFotos {
+  const comEstoque = linhas.filter((l) => l.estoque > 0);
+  const faltam = linhas.filter((l) => !l.noSite);
+  const faltamComEstoque = faltam.filter((l) => l.estoque > 0);
+  return {
+    total: linhas.length,
+    comFoto: linhas.length - faltam.length,
+    faltam: faltam.length,
+    faltamComEstoque: faltamComEstoque.length,
+    valorSemFoto: Math.round(faltamComEstoque.reduce((s, l) => s + l.valor, 0) * 100) / 100,
+    comEstoque: comEstoque.length,
+    comEstoqueComFoto: comEstoque.filter((l) => l.noSite).length,
+  };
+}
+
+export type FiltroFotos = {
+  busca?: string;
+  categoria?: string;
+  estoque?: "" | "com" | "zero";
+  fotos?: "" | "faltam" | "site" | "pc";
+  tipo?: "" | "controlado" | "antimicrobiano";
+  /** EANs que o usuário marcou como "tenho a foto no PC" (guardado só no navegador dele). */
+  marcados?: ReadonlySet<string>;
+};
+
+export function filtrarLinhas(linhas: readonly LinhaFoto[], f: FiltroFotos): LinhaFoto[] {
+  const q = f.busca ? chaveDeNome(f.busca) : "";
+  return linhas.filter((l) => {
+    if (q && !chaveDeNome(`${l.ean} ${l.nome} ${l.lab}`).includes(q)) return false;
+    if (f.categoria && l.categoria !== f.categoria) return false;
+    if (f.estoque === "com" && l.estoque <= 0) return false;
+    if (f.estoque === "zero" && l.estoque > 0) return false;
+    if (f.fotos === "faltam" && l.noSite) return false;
+    if (f.fotos === "site" && !l.noSite) return false;
+    if (f.fotos === "pc" && !(f.marcados?.has(l.ean) && !l.noSite)) return false;
+    if (f.tipo === "controlado" && !l.controlado) return false;
+    if (f.tipo === "antimicrobiano" && !l.antimicrobiano) return false;
+    return true;
+  });
+}
+
+const reais = (n: number) => n.toFixed(2).replace(".", ",");
+
+/** CSV (separador ;) com BOM para abrir certo no Excel. */
+export function csvDasLinhas(linhas: readonly LinhaFoto[], marcados?: ReadonlySet<string>): string {
+  const cab = ["Código de barras", "Produto", "Laboratório", "Categoria", "Estoque", "Preço", "Valor em estoque", "Foto no site", "Marcado (tenho no PC)"];
+  const aspas = (t: string) => `"${t.replace(/"/g, '""')}"`;
+  const corpo = linhas.map((l) => [l.ean, aspas(l.nome), aspas(l.lab), aspas(l.categoria), l.estoque, reais(l.preco), reais(l.valor), l.noSite ? "sim" : "não", marcados?.has(l.ean) ? "sim" : "não"].join(";"));
+  return "﻿" + [cab.join(";"), ...corpo].join("\n");
+}

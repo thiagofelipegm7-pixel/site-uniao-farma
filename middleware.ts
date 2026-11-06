@@ -55,9 +55,10 @@ export async function middleware(request: NextRequest) {
     pathname === "/api/interno/catalogo" ||
     pathname === "/api/interno/estoque" ||
     pathname === "/api/interno/funil" ||
+    pathname === "/api/interno/fotos" ||
     pathname === "/api/interno/login" ||
     pathname === "/api/whatsapp/webhook";
-  const staffPath = pathname.startsWith("/interno") || pathname === "/api/metricas" || pathname === "/api/interno/catalogo" || pathname === "/api/interno/estoque" || pathname === "/api/interno/funil";
+  const staffPath = pathname.startsWith("/interno") || pathname === "/api/metricas" || pathname === "/api/interno/catalogo" || pathname === "/api/interno/estoque" || pathname === "/api/interno/funil" || pathname === "/api/interno/fotos";
   if (!staffPath) return withSecurityHeaders(NextResponse.next(), noStore);
   if (pathname === "/interno/entrar" || pathname === "/interno/sair") {
     return withSecurityHeaders(NextResponse.next(), noStore);
