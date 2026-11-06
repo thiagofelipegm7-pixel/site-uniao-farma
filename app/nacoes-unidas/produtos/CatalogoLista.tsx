@@ -69,11 +69,12 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     (async () => {
       try {
         const idx = await fetch("/dados/nacoes/catalogo-index.json").then(r => r.json());
-        type ItemPagina = { slug?: string; nomeExibicao?: string; nome: string; lab: string; isMIP: boolean; precoFmt: string; preco: number; foto: string | null };
+        type ItemPagina = { slug?: string; nomeExibicao?: string; nome: string; lab: string; isMIP: boolean; restam?: number; precoFmt: string; preco: number; foto: string | null };
         const paraItem = (item: ItemPagina) => ({
           nome: item.nomeExibicao || item.nome,
           lab: item.lab,
           isMIP: item.isMIP,
+          restam: item.restam,
           precoFmt: item.precoFmt,
           preco: item.preco,
           foto: item.foto,
@@ -386,6 +387,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
                   marca={item.lab}
                   apresentacao={quantidadeDoNome(item.nome)}
                   precoFmt={item.precoFmt}
+                  restam={item.restam}
                   cesta={centavos ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cesta" compacto /> : null}
                 />
               );

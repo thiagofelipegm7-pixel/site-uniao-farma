@@ -13,7 +13,7 @@ import { Cartao } from "./ListaRestrita";
 import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./Paginacao";
 import type { ItemRestrito } from "./receita";
 
-export type MedicamentoSemReceita = { nome: string; slug: string; lab: string; precoFmt: string; foto: string | null; isMIP: boolean };
+export type MedicamentoSemReceita = { nome: string; slug: string; lab: string; precoFmt: string; foto: string | null; isMIP: boolean; restam?: number };
 type Aba = "todos" | "sem-receita" | "receita" | "controlados";
 type Linha = { chave: string; nome: string; busca: string; aba: Exclude<Aba, "todos">; otc?: MedicamentoSemReceita; restrito?: ItemRestrito };
 
@@ -138,6 +138,7 @@ export default function MedicamentosTodos({ otcInicial, unitId, paginaInicial = 
               marca={i.lab}
               apresentacao={quantidadeDoNome(i.nome)}
               precoFmt={i.precoFmt}
+              restam={i.restam}
               cesta={centavos ? <ReservarBotao unitId={unitId} nome={i.nome} precoCentavos={centavos} foto={i.foto} variante="cesta" compacto /> : null}
             />
           );

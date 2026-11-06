@@ -5,7 +5,7 @@ import { ContentSiteFooter } from "../../../ContentSiteChrome";
 import ShopTopo from "../../../shop/ShopTopo";
 import { SITE_URL, UNITS } from "../../../site-config";
 import { IconSetaDireita } from "../../../reserva/ReservaIcons";
-import { acharPorSlug, carregarCatalogoNacoes, formatBRL, slugify } from "../catalogo";
+import { acharPorSlug, carregarCatalogoCompleto, carregarCatalogoNacoes, formatBRL, slugify } from "../catalogo";
 import { acharDepartamento } from "../departamentos";
 import { fotoDoProduto } from "../imagens";
 import ProdutoAcoes from "../ProdutoAcoes";
@@ -24,7 +24,7 @@ type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const catalogo = carregarCatalogoNacoes();
+  const catalogo = carregarCatalogoCompleto();
   const item = catalogo ? acharPorSlug(catalogo.itens, slug) : null;
   const titulo = item ? `${item.nome} | União Farma Nações Unidas` : "Produto | União Farma Nações Unidas";
   const descricao = item ? descricaoMetadata(item.nome, (ehNbcal(item.nome) ? null : descricaoPublica(slugify(item.nome), item.isMIP))?.texto) : "Produto da União Farma Nações Unidas, em Sabará.";
@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProdutoNacoesPage({ params }: Props) {
   const { slug } = await params;
-  const catalogo = carregarCatalogoNacoes();
+  const catalogo = carregarCatalogoCompleto();
   const item = catalogo ? acharPorSlug(catalogo.itens, slug) : null;
   if (!item) notFound();
 
@@ -52,7 +52,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
   const ean = foto?.match(/(\d{8,14})\.webp$/)?.[1] ?? null;
   const descricaoIA = ehNbcal(item.nome) ? null : descricaoPublica(slugItem, item.isMIP);
   const textos = textosPublicaveis({ descricao: descricaoIA?.texto });
-  const combinaCom = itensCombinaCom(catalogo!.itens, item);
+  const combinaCom = itensCombinaCom(carregarCatalogoNacoes().itens, item);
   const ficha = [
     item.lab.trim() ? { rotulo: "Marca", valor: item.lab.trim() } : null,
     { rotulo: "Categoria", valor: item.categoria },
@@ -109,6 +109,8 @@ export default async function ProdutoNacoesPage({ params }: Props) {
           </div>
           <hr className="produto-divisor" />
           <p className="produto-preco">{formatBRL(item.preco)}</p>
+          {item.esgotado ? <p className="produto-esgotado" role="status">Indisponível no momento. Fale com a loja pelo WhatsApp para saber quando chega.</p> : null}
+          {!item.esgotado && item.restam ? <p className="produto-restam" role="status">{item.restam === 1 ? "Resta 1" : `Restam ${item.restam}`}</p> : null}
           <p className="produto-nota">{NOTA_PRECO}</p>
         </article>
 
@@ -157,7 +159,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
         <p className="produto-aviso section-inner">Aqui só itens sem receita. Leia a bula ou o rótulo. Em caso de dúvida, procure o farmacêutico.</p>
       </div>
       <ContentSiteFooter />
-      <ProdutoBarra unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} />
+      {item.esgotado ? null : <ProdutoBarra unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} />}
     </>
   );
 }

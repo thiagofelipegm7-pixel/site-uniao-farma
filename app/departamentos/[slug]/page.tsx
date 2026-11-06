@@ -53,7 +53,7 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
   const itens = carregarCatalogoNacoes()
     .itens.filter((i) => slugify(i.categoria) === dep.slug)
     .sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"))
-    .map((i) => ({ nome: nomeDeExibicao(i.nome), lab: i.lab, isMIP: i.isMIP, precoFmt: formatBRL(i.preco), preco: i.preco, foto: fotoDoProduto(i.nome), slug: slugify(i.nome) }));
+    .map((i) => ({ nome: nomeDeExibicao(i.nome), lab: i.lab, isMIP: i.isMIP, restam: i.restam, precoFmt: formatBRL(i.preco), preco: i.preco, foto: fotoDoProduto(i.nome), slug: slugify(i.nome) }));
   const grupos: GrupoBusca[] = [{ categoria: dep.nome, id: dep.slug, itens }];
   const pagina = `${SITE_URL}/departamentos/${dep.slug}`;
   const structuredData = getPageStructuredData({

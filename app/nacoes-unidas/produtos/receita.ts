@@ -47,6 +47,8 @@ export type ItemRestrito = {
   retencao: boolean | null;
   concentracao: string | null;
   apresentacao: string | null;
+  /** 1 a 5 unidades em estoque ("Resta 2"). */
+  restam?: number;
   aviso: string;
   controlado: boolean;
   /** Campos pré-calculados nos dados gerados (nome de exibição e endereço). */

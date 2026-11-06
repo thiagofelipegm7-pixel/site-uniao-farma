@@ -7,6 +7,8 @@ export type ItemBusca = {
   /** Preço em reais. Se faltar, a faixa e a ordenação leem `precoFmt`. */
   preco?: number;
   isMIP: boolean;
+  /** Unidades que restam (1 a 5). */
+  restam?: number;
   foto: string | null;
   /** Âncora estável (`slugify` do nome). A página do produto ainda não existe: a sugestão rola até o item. */
   id?: string;
