@@ -5091,6 +5091,9 @@ html[data-theme="light"] .news-contact-units span {
 }
 
 .legal-site-map a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   color: var(--teal-deep);
   font-size: 12px;
   font-weight: 700;
@@ -5105,7 +5108,7 @@ html[data-theme="light"] .news-contact-units span {
 }
 
 .not-found-site-map a {
-  min-height: 40px;
+  min-height: 44px;
   display: inline-flex;
   align-items: center;
   color: var(--teal);

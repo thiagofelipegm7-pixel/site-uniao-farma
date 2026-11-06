@@ -18,8 +18,7 @@ export default function Preco({ precoFmt, vazio = "Consultar", variante }: Props
   const classe = `pv-preco${variante ? ` pv-preco--${variante}` : ""}`;
   if (!partes) return <span className={`${classe} pv-preco-vazio`}>{vazio}</span>;
   return (
-    <span className={classe}>
-      <span className="sr-only">{precoFmt}</span>
+    <span className={classe} aria-label={precoFmt ?? undefined}>
       <span aria-hidden="true">
         R$ <b>{partes.reais}</b>,{partes.centavos}
       </span>

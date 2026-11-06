@@ -129,6 +129,11 @@
   margin: 0 0 var(--space-5, 1.5rem);
 }
 
+.catalogo-nacoes .catalogo-busca button[type="submit"] {
+  min-height: 2.75rem;
+  padding: 0 1rem;
+}
+
 .catalogo-nacoes .catalogo-busca label {
   display: block;
   margin: 0 0 6px;
