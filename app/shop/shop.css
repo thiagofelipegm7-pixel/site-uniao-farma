@@ -1332,3 +1332,7 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .pv-card:not(.pv-card--v) .pv-cesta:has(.reservar-contador) { top: auto; bottom: 12px; }
 }
 .fluxo-pagamento-nota { margin: 0.75rem 0 0; color: #3e4b49; font-size: 0.875rem; line-height: 1.5; }
+
+/* Loja fechada na hora de enviar; dados lembrados neste aparelho. */
+.fluxo-fechada { margin: 0 0 1rem; padding: 0.875rem 1rem; border: 1px solid #e3b341; border-radius: 12px; background: #fff8e6; color: #5a4300; font-size: 0.9375rem; line-height: 1.5; }
+.fluxo-lembrado { margin: 0.5rem 0 0; color: #3e4b49; font-size: 0.8125rem; line-height: 1.5; }
