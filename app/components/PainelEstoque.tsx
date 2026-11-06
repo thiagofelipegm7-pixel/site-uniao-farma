@@ -65,10 +65,10 @@ export default function PainelEstoque() {
   }
 
   return (
-    <main className="painel-catalogo">
+    <section className="painel-catalogo">
       <h1>Alertas de estoque</h1>
       <p>
-        <a href="/interno/catalogo">Estoque da loja (saúde da sincronização)</a> · <a href="/interno/metricas">Métricas</a>
+        <a href="/interno/catalogo">Estoque da loja (saúde da sincronização)</a> · <a href="/interno/fotos">Fotos dos produtos</a> · <a href="/interno/metricas">Métricas</a>
       </p>
       {erro ? <p role="alert">{erro}</p> : null}
       {!dados && !erro ? <p>Carregando…</p> : null}
@@ -105,6 +105,6 @@ export default function PainelEstoque() {
           <pre style={{ whiteSpace: "pre-wrap" }}>{dados.resumo}</pre>
         </>
       ) : null}
-    </main>
+    </section>
   );
 }
