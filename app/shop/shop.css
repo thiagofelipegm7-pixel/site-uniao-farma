@@ -1326,3 +1326,9 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 @media (max-width: 400px) {
   .entrega-btn { padding: 0 1rem; letter-spacing: 0.02em; }
 }
+
+/* Celular: com o contador (− 1 +) ativo, ele desce para o canto de baixo e não cobre o nome do produto. */
+@media (max-width: 991px) {
+  .pv-card:not(.pv-card--v) .pv-cesta:has(.reservar-contador) { top: auto; bottom: 12px; }
+}
+.fluxo-pagamento-nota { margin: 0.75rem 0 0; color: #3e4b49; font-size: 0.875rem; line-height: 1.5; }
