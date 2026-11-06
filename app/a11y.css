@@ -274,7 +274,8 @@
   }
 
   .mobile-quick-nav .mqn-label {
-    font-size: 13px !important;
+    /* min(): com a letra do aparelho ampliada o rótulo cresce junto; o teto em vw mantém "Categorias" e "Cesta" separados. */
+    font-size: min(13px, 3.3vw) !important;
   }
 
   .hero-home,
