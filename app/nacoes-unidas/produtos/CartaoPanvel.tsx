@@ -2,6 +2,7 @@
 /* eslint-disable @next/next/no-img-element -- Imagem estática pequena, igual ao restante do catálogo. */
 import type { ReactNode } from "react";
 import { partesPreco } from "./preco";
+import { formatarQuantidade } from "./quantidade";
 
 /** Preço no padrão do cartão: "R$" pequeno, reais grandes e centavos pequenos. */
 export function Preco({ precoFmt, vazio = "Consultar" }: { precoFmt?: string | null; vazio?: string }) {
@@ -45,13 +46,14 @@ type Props = {
  * o catálogo não tem preço de antes: o que a União não tem fica em branco.
  */
 export default function CartaoPanvel({ href, nome, foto, marca, apresentacao, precoFmt, cesta, avisos, extra, vertical = false, classe = "", tipo }: Props) {
+  const apresentacaoLegivel = formatarQuantidade(apresentacao);
   const corpo = (
     <>
       <span className="pv-img">{foto ? <img src={foto} alt="" width="160" height="160" loading="lazy" decoding="async" /> : <span className="pv-sem-foto" aria-hidden="true" />}</span>
       <span className="pv-texto">
         <span className="pv-nome">{nome}</span>
         {marca?.trim() ? <span className="pv-marca">{marca.trim()}</span> : null}
-        {apresentacao?.trim() ? <span className="pv-apres">{apresentacao.trim()}</span> : null}
+        {apresentacaoLegivel ? <span className="pv-apres">{apresentacaoLegivel}</span> : null}
       </span>
       <Preco precoFmt={precoFmt} />
     </>

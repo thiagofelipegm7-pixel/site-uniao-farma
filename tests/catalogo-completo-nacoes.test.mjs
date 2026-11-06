@@ -412,3 +412,14 @@ test("nomes legíveis: o gerador e o site expandem abreviações do mesmo jeito,
   }
   assert.ok(conferidos > 100);
 });
+
+test("formatarQuantidade: unidades de medida abreviadas e plural correto na exibição", async () => {
+  const { formatarQuantidade: f } = await import("../app/nacoes-unidas/produtos/quantidade.ts");
+  assert.equal(f("150 mililitro(s)"), "150 ml");
+  assert.equal(f("1 grama(s)"), "1 g");
+  assert.equal(f("10 grama(s)"), "10 g");
+  assert.equal(f("30 comprimido(s)"), "30 comprimidos");
+  assert.equal(f("1 comprimido(s)"), "1 comprimido");
+  assert.equal(f("2 par(es)"), "2 pares");
+  assert.equal(f(null), null);
+});

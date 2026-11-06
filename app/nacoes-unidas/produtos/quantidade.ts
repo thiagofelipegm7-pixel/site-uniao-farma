@@ -89,3 +89,20 @@ export function quantidadeDoNome(nome: string | null | undefined): string | null
   if (/(?:^|\s)(?:unidade|unid|und)\.?$/i.test(t.trim())) return "1 unidade(s)";
   return null;
 }
+
+// Formatação de exibição: "150 mililitro(s)" → "150 ml", "30 comprimido(s)" → "30 comprimidos", "1 cápsula(s)" → "1 cápsula".
+// Não altera o dado de origem; só o texto mostrado ao cliente.
+const ABREVIADAS: Record<string, string> = { "mililitro(s)": "ml", "grama(s)": "g", "miligrama(s)": "mg", "litro(s)": "L", "quilo(s)": "kg" };
+
+export function formatarQuantidade(texto: string | null | undefined): string | null {
+  const t = (texto ?? "").trim();
+  if (!t) return null;
+  const m = /^(\d+(?:,\d+)?)\s+(\S+)$/.exec(t);
+  if (!m) return t;
+  const [, numero, unidade] = m;
+  if (ABREVIADAS[unidade]) return `${numero} ${ABREVIADAS[unidade]}`;
+  const singular = numero === "1";
+  if (unidade === "par(es)") return `${numero} ${singular ? "par" : "pares"}`;
+  const base = /^(.+)\(s\)$/.exec(unidade);
+  return base ? `${numero} ${base[1]}${singular ? "" : "s"}` : t;
+}
