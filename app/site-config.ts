@@ -120,7 +120,7 @@ export const UNITS: Unit[] = [
     whatsapp: "(31) 98762-9909",
     whatsappDigits: "5531987629909",
     amenities: { freeParking: true },
-    deliveryAreas: ["Nações Unidas", "General Carneiro", "Vila Rica", "Itacolomi", "Coqueiros", "Ipê Amarelo", "Vale Paraíso", "Vila São José"],
+    deliveryAreas: ["Nações Unidas", "General Carneiro", "Vila Rica", "Itacolomi", "Coqueiros", "Ipê Amarelo", "Valparaíso", "Vila São José"],
     deliveryFees: {
       "Nações Unidas": 100,
       "General Carneiro": 200,
@@ -128,12 +128,12 @@ export const UNITS: Unit[] = [
       Itacolomi: 200,
       Coqueiros: 400,
       "Ipê Amarelo": 500,
-      "Vale Paraíso": 300,
+      "Valparaíso": 300,
       "Vila São José": 200,
     },
     ifoodUrl:
       "https://www.ifood.com.br/delivery/sabara-mg/drogaria-uniao-farma-nacoes-unidas/97697e48-2712-4a41-9e59-29eca10d912a",
-    deliveryScope: "nos bairros Nações Unidas, General Carneiro, Vila Rica, Itacolomi, Coqueiros, Ipê Amarelo, Vale Paraíso e Vila São José",
+    deliveryScope: "nos bairros Nações Unidas, General Carneiro, Vila Rica, Itacolomi, Coqueiros, Ipê Amarelo, Valparaíso e Vila São José",
     deliveryExclusive: true,
     map: "https://maps.app.goo.gl/V3S7ZFeZKwRQ2sm47",
     mapEmbed:

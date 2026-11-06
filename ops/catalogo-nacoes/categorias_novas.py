@@ -22,6 +22,14 @@ AJUSTES: dict[str, str] = {
     # Correlatos e utilidades (antes em "Categoria a conferir"), definidos em 05/11.
     "AGUA OXIGENADA 30 VOL FARMAX 1000ML": "Bem Estar",
     "AGUA OXIGENADA 40 VOL FARMAX 1 LITRO": "Bem Estar",
+    "AGUA OXIGENADA 40 VOL FARMAX 900ML": "Bem Estar",
+    # Linha Fisio (gel/creme de massagem e alívio muscular): tudo em Bem Estar. Definido em 06/11.
+    "FISIO FORTE": "Bem Estar",
+    "FISIOFORTE 150G VERDE": "Bem Estar",
+    # Esparadrapo, fita micropore e pilhas ficam com os itens de uso diário (como esparadrapo e baterias já estavam).
+    "FITA MICROPORE MISSNER 10CMX4 5M BRANCA": "Cuidado Diário",
+    "FITA MICROPORE MISSNER 2 5CMX4 5M BEJE": "Cuidado Diário",
+    "PILHA DURACELL ALCALINA 3A C 2 UND": "Cuidado Diário",
     "AGULHA BD 30 X 7": "Bem Estar",
     "AGULHA DE INSULINA 4MM": "Bem Estar",
     "BATERIA CR 2032 DURACEL UNIDADE": "Cuidado Diário",
