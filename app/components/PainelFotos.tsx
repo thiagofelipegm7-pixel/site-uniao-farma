@@ -33,6 +33,8 @@ export default function PainelFotos() {
   const [pagina, setPagina] = useState(1);
   const [marcados, setMarcados] = useState<Set<string>>(new Set());
   const [envios, setEnvios] = useState<Record<string, Envio>>({});
+  // Linha sobre a qual o arquivo está sendo arrastado (computador).
+  const [arrastando, setArrastando] = useState<string | null>(null);
 
   const carregar = useCallback(async () => {
     setErro(false);
@@ -57,6 +59,19 @@ export default function PainelFotos() {
     }
     /* eslint-enable react-hooks/set-state-in-effect */
   }, [carregar]);
+
+  useEffect(() => {
+    // Soltar um arquivo fora de uma linha não pode abrir a foto no navegador e sair do painel.
+    const segurar = (e: DragEvent) => {
+      if (e.dataTransfer?.types.includes("Files")) e.preventDefault();
+    };
+    window.addEventListener("dragover", segurar);
+    window.addEventListener("drop", segurar);
+    return () => {
+      window.removeEventListener("dragover", segurar);
+      window.removeEventListener("drop", segurar);
+    };
+  }, []);
 
   const linhas = useMemo(() => (dados ? dados.linhas.map(paraLinha) : []), [dados]);
   const pendentes = useMemo(() => new Set(dados?.pendentes ?? []), [dados]);
@@ -92,6 +107,10 @@ export default function PainelFotos() {
 
   async function enviarFoto(l: LinhaFoto, arquivo: File | undefined) {
     if (!arquivo) return;
+    if (!arquivo.type.startsWith("image/")) {
+      setEnvios((e) => ({ ...e, [l.ean]: "erro" }));
+      return;
+    }
     setEnvios((e) => ({ ...e, [l.ean]: "enviando" }));
     try {
       const imagem = await prepararFoto(arquivo);
@@ -133,7 +152,7 @@ export default function PainelFotos() {
             <div><strong>{REAIS.format(resumo.valorSemFoto)}</strong><span>em estoque sem foto</span></div>
             <div><strong>{resumo.comEstoque > 0 ? Math.round((resumo.comEstoqueComFoto / resumo.comEstoque) * 100) : 0}%</strong><span>dos itens com estoque já têm foto</span></div>
           </section>
-          <p className="pf-dados">Estoque de {dados.geradoEm ?? "—"}. Toque em &ldquo;Enviar foto&rdquo; no produto que falta: a foto entra no site em até 15 minutos e sai de &ldquo;faltam&rdquo; sozinha.</p>
+          <p className="pf-dados">Estoque de {dados.geradoEm ?? "—"}. No computador, arraste o arquivo da foto para a linha do produto; no celular, toque em &ldquo;Enviar foto&rdquo;. Depois a foto entra no site em até 15 minutos e sai de &ldquo;faltam&rdquo; sozinha.</p>
 
           <div className="pf-filtros">
             <input type="search" value={busca} onChange={(e) => mudar(setBusca)(e.target.value)} placeholder="Buscar produto, laboratório ou código de barras" aria-label="Buscar" />
@@ -174,7 +193,13 @@ export default function PainelFotos() {
               </thead>
               <tbody>
                 {visiveis.map((l) => (
-                  <tr key={l.ean} className={l.estoque <= 0 ? "pf-zero" : undefined}>
+                  <tr
+                    key={l.ean}
+                    className={[l.estoque <= 0 ? "pf-zero" : "", arrastando === l.ean ? "pf-arrastando" : ""].filter(Boolean).join(" ") || undefined}
+                    onDragOver={l.noSite ? undefined : (e) => { if (e.dataTransfer.types.includes("Files")) { e.preventDefault(); setArrastando(l.ean); } }}
+                    onDragLeave={l.noSite ? undefined : (e) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setArrastando((a) => (a === l.ean ? null : a)); }}
+                    onDrop={l.noSite ? undefined : (e) => { e.preventDefault(); setArrastando(null); void enviarFoto(l, e.dataTransfer.files?.[0]); }}
+                  >
                     <td className="pf-foto">
                       {l.noSite ? (
                         <img src={`/produtos/${l.ean}.webp`} alt="" width="40" height="40" loading="lazy" decoding="async" />
