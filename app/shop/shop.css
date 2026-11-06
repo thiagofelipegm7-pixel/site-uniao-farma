@@ -799,7 +799,7 @@ body.cookie-banner-visible .fluxo-rodape { bottom: 9rem; }
   .fluxo-conteudo-cesta .fluxo-vitrine { grid-column: 1 / -1; }
   .fluxo-conteudo-cesta .fluxo-rodape-total { display: none; }
   .fluxo-botao-resumo { display: flex; }
-  .fluxo-colunas { display: grid; grid-template-columns: minmax(0, 1fr) 6rem 8rem 5.5rem 2.5rem; gap: 0.75rem; margin: 0; padding: 1.125rem 1rem; border-bottom: 1px solid #e3ecea; color: #3e4b49; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .fluxo-colunas { display: grid; grid-template-columns: minmax(0, 1fr) 7rem 9rem 6rem 2.5rem; gap: 0.75rem; margin: 0; padding: 1.125rem 1rem; border-bottom: 1px solid #e3ecea; color: #3e4b49; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
   .fluxo-itens li { grid-template-columns: minmax(0, 1fr) 7rem 9rem 6rem 2.5rem; grid-template-areas: "prod preco qtd total remover"; gap: 0.75rem; padding: 1.25rem 1rem; }
   .cel-preco { display: grid; justify-items: start; gap: 0.125rem; }
   .cel-total { justify-items: start; }
