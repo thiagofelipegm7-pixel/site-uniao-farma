@@ -72,6 +72,13 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
     if (analise.sintoma || !analise.corrigida || contarCasos(vocab, analise.corrigida) === 0) return null;
     return analise.corrigida;
   }, [vocab, normal, termo, exatos.length, exatosRestritos.length]);
+  // Parecida demais com outro produto para trocar sozinho: só pergunta.
+  const sugerida = useMemo(() => {
+    if (!vocab || normal.length < 3 || exatos.length > 0 || exatosRestritos.length > 0) return null;
+    const analise = analisarConsulta(vocab, termo);
+    if (analise.sintoma || !analise.sugerida || contarCasos(vocab, analise.sugerida) === 0) return null;
+    return analise.sugerida;
+  }, [vocab, normal, termo, exatos.length, exatosRestritos.length]);
   const resultados = (corrigida ? (itens ?? []).filter((item) => casaConsulta(item.busca, corrigida)) : exatos).slice(0, 6);
   // Medicamentos com receita e controlados também aparecem na busca (lista de preços, sem cesta).
   const resultadosRestritos = (corrigida ? restritos.filter((item) => casaConsulta(item.busca, corrigida)) : exatosRestritos).slice(0, 4);
@@ -213,7 +220,11 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
               ) : semResultado ? (
                 <div className="shop-sugestoes-vazio">
                   <strong>Não encontramos “{termo.trim()}”</strong>
-                  <p>Confira a digitação, use termos mais amplos ou navegue pelas categorias.</p>
+                  {sugerida ? (
+                    <p>Você quis dizer <a href={`/nacoes-unidas/produtos?q=${encodeURIComponent(sugerida)}`}><strong>{sugerida}</strong></a>?</p>
+                  ) : (
+                    <p>Confira a digitação, use termos mais amplos ou navegue pelas categorias.</p>
+                  )}
                   {nacoes ? (
                     <a href={buildWhatsAppUrl(nacoes, "Oi, União Farma Nações Unidas! Não achei um produto no site. Pode me ajudar?", { campaign: "busca_vazia", content: "cabecalho" })} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="busca_vazia_cabecalho">
                       Perguntar à loja pelo WhatsApp
