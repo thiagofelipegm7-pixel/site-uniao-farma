@@ -103,3 +103,23 @@ test("busca com alternativas: OU entre consultas, E dentro de cada uma", async (
   assert.equal(aplicarCatalogo(grupos, { consulta: "diprona", consultasAlternativas: ["dipirona"] }).reduce((n, g) => n + g.itens.length, 0), 1);
   assert.equal(aplicarCatalogo(grupos, { consulta: "diprona" }).length, 0);
 });
+
+test("nome parecido com OUTRO produto não é trocado sozinho: o site pergunta", async () => {
+  const { analisarConsulta, ehErroDeDigitacao } = await tolerante();
+  const vocab = await vocabulario(true);
+  // Erros claros de digitação continuam corrigidos sem perguntar.
+  assert.ok(ehErroDeDigitacao("diprona", "dipirona"));
+  assert.ok(ehErroDeDigitacao("dipriona", "dipirona"));
+  assert.ok(ehErroDeDigitacao("losartna", "losartana"));
+  // Produtos diferentes que só se parecem.
+  for (const [digitado, outro] of [["prednisolona", "prednisona"], ["cereja", "cerveja"], ["acido", "amido"], ["verde", "verme"]]) {
+    assert.equal(ehErroDeDigitacao(digitado, outro), false, `${digitado} x ${outro}`);
+  }
+  const semProduto = new Set(["prednisolona"]);
+  for (const palavra of semProduto) {
+    const sem = { ...vocab, palavras: vocab.palavras.filter((p) => p.w !== palavra), porPalavra: new Map(vocab.palavras.filter((p) => p.w !== palavra).map((p) => [p.w, p])), corpus: vocab.corpus.split(palavra).join("#") , textos: vocab.textos.map((t) => t.split(palavra).join("#")) };
+    const analise = analisarConsulta(sem, palavra);
+    assert.equal(analise.corrigida, null, `${palavra}: não pode trocar sozinho`);
+    assert.ok(analise.sugerida?.includes("prednisona"), `${palavra}: deveria sugerir prednisona (${analise.sugerida})`);
+  }
+});

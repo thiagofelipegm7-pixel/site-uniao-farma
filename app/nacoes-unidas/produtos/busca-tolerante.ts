@@ -112,13 +112,42 @@ function pontuar(vocab: Vocabulario, token: string, limite: (tamanho: number) =>
   return saida.sort((x, y) => x.nota - y.nota || y.f - x.f || x.w.length - y.w.length);
 }
 
-/** Melhor palavra do catálogo para uma palavra que não existe nele, ou null. */
-export function corrigirPalavra(vocab: Vocabulario, token: string): string | null {
+/** Melhor palavra do catálogo para uma palavra que não existe nele, ou null (com `segura`: dá para trocar sem perguntar). */
+export function melhorParecida(vocab: Vocabulario, token: string): { w: string; segura: boolean } | null {
   if (token.length < 4 || !/^[a-z]+$/.test(token)) return null;
   const melhor = pontuar(vocab, token, limiteDeEdicao)[0];
-  // Correção automática só quando é quase certa: 1 letra de diferença (ou palavra longa). Dúvida maior fica para a IA escolher entre candidatos.
+  // Só entra quando é quase certa: 1 letra de diferença (ou palavra longa). Dúvida maior fica para a IA escolher entre candidatos.
   if (!melhor || (melhor.nota > 1.25 && !(melhor.nota <= 2 && token.length >= 10))) return null;
-  return melhor.w;
+  return { w: melhor.w, segura: ehErroDeDigitacao(token, melhor.w) };
+}
+
+/**
+ * Erro de digitação claro: mesmo som, duas letras trocadas de lugar, ou uma letra a mais/a menos em palavra de 7+ letras.
+ * Qualquer outra diferença pode ser outro produto ("prednisolona" x "prednisona", "acido" x "amido"): o site pergunta antes.
+ */
+export function ehErroDeDigitacao(digitado: string, achado: string): boolean {
+  const a = digitado.replace(/cs/g, "x");
+  const b = achado.replace(/cs/g, "x");
+  if (a === b || chaveFonetica(a) === chaveFonetica(b)) return true;
+  if (a.length === b.length) {
+    if ([...a].sort().join("") === [...b].sort().join("") && distancia(a, b, 1) === 1) return true; // duas letras trocadas de lugar
+    // Uma letra no lugar de outra: erro de digitação só entre letras que se confundem (vogal por vogal, l/u no fim, m/n, x/s...).
+    // Consoante comum por outra ("acido" x "amido", "verde" x "verme") costuma ser outro produto.
+    if (distancia(a, b, 1) === 1) {
+      const k = [...a].findIndex((c, n) => c !== b[n]);
+      return PAR_CONFUNDIVEL.has(a[k] + b[k]) || (VOGAL.test(a[k]) && VOGAL.test(b[k]));
+    }
+    return false;
+  }
+  // Uma letra a mais ou a menos, em palavra de 7+ letras.
+  return Math.abs(a.length - b.length) === 1 && Math.min(a.length, b.length) >= 7 && distancia(a, b, 1) === 1;
+}
+
+const PAR_CONFUNDIVEL = new Set(["lu", "ul", "mn", "nm", "xs", "sx", "xz", "zx", "xc", "cx", "sz", "zs", "sc", "cs", "kc", "ck", "bv", "vb", "gj", "jg", "tc", "ct"]);
+
+/** Melhor palavra do catálogo para uma palavra que não existe nele, ou null. */
+export function corrigirPalavra(vocab: Vocabulario, token: string): string | null {
+  return melhorParecida(vocab, token)?.w ?? null;
 }
 
 /** Palavras do catálogo que se parecem com o texto (régua mais folgada), para a IA escolher entre elas. */
@@ -152,6 +181,8 @@ export type Analise = {
   desconhecidas: string[];
   /** Busca com as palavras erradas trocadas pelas do catálogo; null se nada foi trocado. */
   corrigida: string | null;
+  /** Busca parecida que pode ser OUTRO produto: o site pergunta "Você quis dizer…?" em vez de trocar sozinho. */
+  sugerida: string | null;
   sintoma: boolean;
 };
 
@@ -165,7 +196,7 @@ export function analisarConsulta(vocab: Vocabulario, consulta: string): Analise 
   const todos = termosDeBusca(trocada);
   const tokens = todos.filter((t) => !PALAVRAS_DE_LIGACAO.has(t));
   const sintoma = pareceSintoma(consulta);
-  if (tokens.length === 0) return { tokens, desconhecidas: [], corrigida: null, sintoma };
+  if (tokens.length === 0) return { tokens, desconhecidas: [], corrigida: null, sugerida: null, sintoma };
   // "dor flex" → "dorflex": duas palavras vizinhas que, coladas, existem no catálogo.
   const juntos: string[] = [];
   for (let i = 0; i < tokens.length; i += 1) {
@@ -179,13 +210,17 @@ export function analisarConsulta(vocab: Vocabulario, consulta: string): Analise 
   }
   const desconhecidas = juntos.filter((t) => !casa(vocab, t));
   let mudou = juntos.length !== tokens.length || trocada !== normalizarBusca(consulta);
+  let duvida = false;
   const final = juntos.map((t) => {
     if (casa(vocab, t)) return t;
-    const certa = corrigirPalavra(vocab, t);
-    if (certa) mudou = true;
-    return certa ?? t;
+    const achada = melhorParecida(vocab, t);
+    if (!achada) return t;
+    mudou = true;
+    if (!achada.segura) duvida = true;
+    return achada.w;
   });
-  return { tokens, desconhecidas, corrigida: mudou ? final.join(" ") : null, sintoma };
+  const texto = final.join(" ");
+  return { tokens, desconhecidas, corrigida: mudou && !duvida ? texto : null, sugerida: mudou && duvida ? texto : null, sintoma };
 }
 
 /** Produto casa com a busca se tiver todas as palavras (mesma regra da busca normal). */

@@ -14,6 +14,8 @@ export type BuscaTolerante =
   | { tipo: "nenhum"; procurando: boolean }
   /** Buscas alternativas que existem no catálogo; `rotulo` é o texto de "Mostrando resultados para: …". */
   | { tipo: "corrigida"; rotulo: string; consultas: string[]; procurando: false }
+  /** Palavra parecida que pode ser outro produto: só pergunta "Você quis dizer…?", sem mostrar resultados. */
+  | { tipo: "sugestao"; sugestao: string; procurando: false }
   /** Pedido de remédio para um problema de saúde: o site não indica produto, quem orienta é o farmacêutico. */
   | { tipo: "sintoma"; procurando: false };
 
@@ -64,10 +66,15 @@ export function useBuscaTolerante({ textos, consulta, totalExato, usarIA = true 
     return contarCasos(vocab, local.corrigida) > 0 ? local.corrigida : null;
   }, [vocab, local]);
 
-  const candidatos = useMemo(() => {
-    if (!vocab || !local || local.sintoma || corrigidaLocal) return [];
-    return candidatosValidos(candidatosParaIA(vocab, local.desconhecidas).join(","));
+  const sugestaoLocal = useMemo(() => {
+    if (!vocab || !local || local.sintoma || corrigidaLocal || !local.sugerida) return null;
+    return contarCasos(vocab, local.sugerida) > 0 ? local.sugerida : null;
   }, [vocab, local, corrigidaLocal]);
+
+  const candidatos = useMemo(() => {
+    if (!vocab || !local || local.sintoma || corrigidaLocal || sugestaoLocal) return [];
+    return candidatosValidos(candidatosParaIA(vocab, local.desconhecidas).join(","));
+  }, [vocab, local, corrigidaLocal, sugestaoLocal]);
 
   const textoIA = consultaValida(texto);
   const chaveIA = usarIA && textoIA && candidatos.length > 0 ? `${textoIA}|${candidatos.join(",")}` : "";
@@ -121,6 +128,7 @@ export function useBuscaTolerante({ textos, consulta, totalExato, usarIA = true 
 
   if (sintomaLocal || respostaIA?.sintoma) return { tipo: "sintoma", procurando: false };
   if (corrigidaLocal) return { tipo: "corrigida", rotulo: corrigidaLocal, consultas: [corrigidaLocal], procurando: false };
+  if (sugestaoLocal) return { tipo: "sugestao", sugestao: sugestaoLocal, procurando: false };
   if (uteis.length > 0) return { tipo: "corrigida", rotulo: uteis.join(", "), consultas: uteis, procurando: false };
   return { tipo: "nenhum", procurando: chaveIA !== "" && respostaIA === null };
 }

@@ -348,6 +348,12 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
           </div>
           <p className="pv-receita-atalho"><BotaoReceita /></p>
 
+      {tolerante.tipo === "sugestao" ? (
+        <p className="pv-corrigida" role="status">
+          Não encontramos “{consulta.trim()}”. Você quis dizer <a href={`/nacoes-unidas/produtos?q=${encodeURIComponent(tolerante.sugestao)}`}><strong>{tolerante.sugestao}</strong></a>?
+        </p>
+      ) : null}
+
       {tolerante.tipo === "corrigida" ? (
         <p className="pv-corrigida" role="status">
           Mostrando resultados para: <strong>{tolerante.rotulo}</strong>
