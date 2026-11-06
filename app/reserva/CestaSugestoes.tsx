@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { trackEvent } from "../analytics";
+import { registrarEtapa } from "../funil";
 import { sugestoesDaCesta, type Pares } from "../nacoes-unidas/produtos/relacionados";
 import { IconMais } from "./ReservaIcons";
 import { adicionar, atualizarReserva, formatarCentavos, type ReservaItem } from "./reserva-store";
@@ -90,6 +91,7 @@ export default function CestaSugestoes({ itens, max = 3, variante }: { itens: re
               onClick={() => {
                 atualizarReserva((s) => adicionar(s, { unitId: "nacoes", nome: p.nome, precoCentavos: p.precoCentavos, foto: p.foto }));
                 trackEvent("reserva_add", { unit: "nacoes", source: "leve_tambem" });
+                registrarEtapa("add");
               }}
             >
               <IconMais size={20} />

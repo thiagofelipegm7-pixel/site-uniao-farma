@@ -1,6 +1,7 @@
 "use client";
 
 import { trackEvent } from "../../analytics";
+import { registrarEtapa } from "../../funil";
 import { abrirReserva } from "../../reserva/abrir-reserva";
 import { IconLixeira, IconMais, IconMenos } from "../../reserva/ReservaIcons";
 import { adicionar, atualizarReserva, definirQtd, idDoItem, qtdDoItem, tetoDoItem } from "../../reserva/reserva-store";
@@ -30,6 +31,7 @@ export default function ProdutoBarra({ unitId, nome, precoCentavos, foto, max }:
           onClick={() => {
             atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, foto, ...(max ? { max } : {}) }));
             trackEvent("reserva_add", { unit: unitId, source: "produto_nacoes" });
+            registrarEtapa("add");
           }}
         >
           <IconMais size={22} />
