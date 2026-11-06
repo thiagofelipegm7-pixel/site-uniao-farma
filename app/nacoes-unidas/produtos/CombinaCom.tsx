@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
 import { acharPorSlug, formatBRL, slugify, type CatalogoItem } from "./catalogo";
 import paresJson from "./dados/relacionados-ia.json" with { type: "json" };
-import { fotoDoProduto } from "./imagens";
+import { fotoExibida } from "./foto-exibida";
 import { elegivelParaPares, MIN_SUGESTOES, sugestoesDoProduto, type Pares } from "./relacionados";
 import { nomeDeExibicao } from "../../nome-exibicao";
 
@@ -26,7 +26,7 @@ export default function CombinaCom({ itens }: { itens: readonly CatalogoItem[] }
       <ul className="combina-com-lista">
         {itens.map((alvo) => {
           const nome = nomeDeExibicao(alvo.nome);
-          const foto = fotoDoProduto(alvo.nome);
+          const foto = fotoExibida(alvo.nome, alvo.categoria);
           return (
             <li key={alvo.nome}>
               <a href={`/nacoes-unidas/produtos/${slugify(alvo.nome)}`} className="combina-com-card">

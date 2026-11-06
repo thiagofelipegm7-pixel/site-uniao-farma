@@ -39,6 +39,25 @@ const FOTOS_NACOES = Object.fromEntries(
 );
 if (Object.keys(FOTOS_NACOES).length < 20) throw new Error("Mapa de fotos de imagens.ts não encontrado.");
 
+// Réplica de formaReconhecida/ilustracaoSemReceita de receita.ts (sem ativo nem apresentação); um teste confere que as duas saem iguais.
+const pal = (alt) => new RegExp(`(?<![A-Z])(?:${alt})(?![A-Z])`);
+const OTC_RX = [
+  ["inal", pal("INAL[A-Z]*|AEROSS?OL|AER|HFA|DISCUS|TURBUHALER|SPRAY ORAL|AERODIN[A-Z]*|AEROLIN|BEROTEC|FOSTAIR|SPIOLTO|TRIMBOW|SYMBICORT|SERETIDE|SPIRIVA|ONBRIZE|CLENIL|ALENIA|LUGANO|FORASEQ|FLUIR|ATROVENT")],
+  ["inj", pal("INJ[A-Z]*|AMP[A-Z]*|CANETA?|SERINGA|LIOF[A-Z]*|REFIL")],
+  ["spr", pal("SPRAY|NASAL|SOL NAS[A-Z]*|JATO")],
+  ["got", pal("GOTAS?|GTS?|COLIRIO|OFT[A-Z]*|OTO[A-Z]*")],
+  ["cap", pal("CAPS?|CPS|CAPSULAS?")],
+  ["cpr", pal("CPRS?|CP|COMP[A-Z]*|DRG|DRAGEAS?|CARTELA")],
+  ["tub", pal("CR|CREME|CREM|POM|POMADA|GEL|BG|BISNAGAS?|DERM|LOCAO|PAST|VAG|APLIC?")],
+  ["liq", pal("XPE|XAROPE|SUS|SUSP[A-Z]*|SOL|SOLUCAO|LIQ|EMULS[A-Z]*|ELIXIR|\\d+ ?ML")],
+];
+function ilustracaoSemReceita(nome) {
+  const t = ` ${nome} `.toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const achada = OTC_RX.find(([, rx]) => rx.test(t));
+  const forma = achada ? (achada[0] === "inal" ? "spr" : achada[0]) : null;
+  return forma && ["cpr", "cap", "liq", "got", "tub", "spr"].includes(forma) ? `/ilustrativas/otc-${forma}.webp` : "/ilustrativas/neutra.webp";
+}
+
 function fotoDoProduto(nome) {
   const n = nome.trim().replace(/\s+/g, " ");
   const ean = FOTOS_NACOES[n];
@@ -195,7 +214,7 @@ for (const g of grupos) {
     const precoFmt = formatBRL(item.preco);
     const nomeEx = nomeDeExibicao(item.nome);
     const slug = slugify(item.nome);
-    const foto = fotoDoProduto(item.nome);
+    const foto = fotoDoProduto(item.nome) ?? (item.categoria === "Medicamentos" ? ilustracaoSemReceita(item.nome) : null);
     const busca = normalizarBusca(`${nomeEx} ${item.nome} ${item.lab} ${item.categoria}`);
     const fmt = {
       nome: item.nome,
