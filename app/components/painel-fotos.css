@@ -50,3 +50,4 @@
 }
 .painel-fotos tr.pf-arrastando td { background: #e3f4ee; }
 .painel-fotos tr.pf-arrastando { outline: 3px dashed #0e7370; outline-offset: -3px; }
+.painel-fotos .pf-aviso { margin: 0 0 0.75rem; padding: 0.625rem 0.875rem; border: 1px solid #e3b341; border-radius: 10px; background: #fff8e6; color: #5a4300; font-size: 0.9375rem; }

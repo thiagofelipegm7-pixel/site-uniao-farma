@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { candidatosDoArraste } from "../fotos-arrastar";
 import { prepararFoto } from "./preparar-foto";
 import { csvDasLinhas, filtrarLinhas, resumirFotos, type FiltroFotos, type LinhaFoto, type ResumoFotos } from "../fotos-painel";
@@ -48,6 +48,11 @@ export default function PainelFotos() {
   const [envios, setEnvios] = useState<Record<string, Envio>>({});
   // Linha sobre a qual o arquivo está sendo arrastado (computador).
   const [arrastando, setArrastando] = useState<string | null>(null);
+  const [aviso, setAviso] = useState("");
+  // Linha escolhida com um toque: recebe a imagem colada (Ctrl+V).
+  const [alvoColar, setAlvoColar] = useState<string | null>(null);
+  const colarRef = useRef<(dt: DataTransfer) => void>(() => undefined);
+  const soltarRef = useRef<(ean: string | null, dt: DataTransfer) => void>(() => undefined);
 
   const carregar = useCallback(async () => {
     setErro(false);
@@ -74,15 +79,37 @@ export default function PainelFotos() {
   }, [carregar]);
 
   useEffect(() => {
-    // Soltar um arquivo fora de uma linha não pode abrir a foto no navegador e sair do painel.
-    const segurar = (e: DragEvent) => {
-      if (e.dataTransfer && arrastoDeImagem(e.dataTransfer)) e.preventDefault();
+    // Ouve o arraste na página inteira, já na fase de captura: assim o navegador nunca abre a imagem (nem sai do painel),
+    // seja qual for o elemento sob o mouse. A linha do produto é achada pelo ponto onde o arquivo foi solto.
+    const linhaDe = (alvo: EventTarget | null) => (alvo instanceof Element ? (alvo.closest<HTMLElement>("tr[data-ean]")?.dataset.ean ?? null) : null);
+    const sobre = (e: DragEvent) => {
+      e.preventDefault();
+      if (e.dataTransfer) e.dataTransfer.dropEffect = "copy";
+      setArrastando(linhaDe(e.target));
     };
-    window.addEventListener("dragover", segurar);
-    window.addEventListener("drop", segurar);
+    const saiu = (e: DragEvent) => {
+      if (!e.relatedTarget) setArrastando(null);
+    };
+    const solta = (e: DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setArrastando(null);
+      if (e.dataTransfer) soltarRef.current(linhaDe(e.target), e.dataTransfer);
+    };
+    window.addEventListener("dragover", sobre, true);
+    window.addEventListener("dragleave", saiu, true);
+    window.addEventListener("drop", solta, true);
+    const cola = (e: ClipboardEvent) => {
+      if (!e.clipboardData || (e.target instanceof HTMLElement && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName))) return;
+      e.preventDefault();
+      colarRef.current(e.clipboardData);
+    };
+    window.addEventListener("paste", cola);
     return () => {
-      window.removeEventListener("dragover", segurar);
-      window.removeEventListener("drop", segurar);
+      window.removeEventListener("paste", cola);
+      window.removeEventListener("dragover", sobre, true);
+      window.removeEventListener("dragleave", saiu, true);
+      window.removeEventListener("drop", solta, true);
     };
   }, []);
 
@@ -149,8 +176,44 @@ export default function PainelFotos() {
       setEnvios((e) => ({ ...e, [l.ean]: "enviada" }));
     } catch {
       setEnvios((e) => ({ ...e, [l.ean]: "erro" }));
+      setAviso(Array.isArray(origem) ? "Não consegui baixar essa imagem do site (alguns sites bloqueiam). Salve a imagem no computador e arraste o arquivo, ou use \"Enviar foto\"." : "Não consegui enviar essa foto. Tente de novo ou use outra imagem (JPG, PNG ou WebP).");
     }
   }
+
+  useEffect(() => {
+    soltarRef.current = (ean, dt) => {
+      if (!ean) {
+        setAviso("Solte a imagem em cima da linha do produto que falta foto.");
+        return;
+      }
+      const l = linhas.find((x) => x.ean === ean);
+      if (!l) return;
+      const origem = origemDoArraste(dt);
+      if (!origem) {
+        setAviso(`Não consegui ler essa imagem (o navegador mandou: ${[...dt.types].join(", ") || "nada"}). Salve a imagem no computador e arraste o arquivo, ou use "Enviar foto".`);
+        return;
+      }
+      setAviso("");
+      void enviarFoto(l, origem);
+    };
+  });
+
+  useEffect(() => {
+    colarRef.current = (dt) => {
+      const l = alvoColar ? linhas.find((x) => x.ean === alvoColar) : undefined;
+      if (!l || l.noSite) {
+        setAviso("Para colar, toque primeiro na linha do produto e depois use Ctrl+V.");
+        return;
+      }
+      const origem = origemDoArraste(dt);
+      if (!origem) {
+        setAviso("Não achei imagem para colar. Clique com o botão direito na imagem, escolha \"Copiar imagem\" e cole aqui com Ctrl+V.");
+        return;
+      }
+      setAviso("");
+      void enviarFoto(l, origem);
+    };
+  });
 
   function baixarCsv() {
     const a = document.createElement("a");
@@ -181,7 +244,9 @@ export default function PainelFotos() {
             <div><strong>{REAIS.format(resumo.valorSemFoto)}</strong><span>em estoque sem foto</span></div>
             <div><strong>{resumo.comEstoque > 0 ? Math.round((resumo.comEstoqueComFoto / resumo.comEstoque) * 100) : 0}%</strong><span>dos itens com estoque já têm foto</span></div>
           </section>
-          <p className="pf-dados">Estoque de {dados.geradoEm ?? "—"}. No computador, arraste o arquivo da foto (ou a imagem de outro site, como o Google Imagens) para a linha do produto; no celular, toque em &ldquo;Enviar foto&rdquo;. Depois a foto entra no site em até 15 minutos e sai de &ldquo;faltam&rdquo; sozinha.</p>
+          <p className="pf-dados">Estoque de {dados.geradoEm ?? "—"}. No computador, arraste o arquivo da foto (ou a imagem de outro site, como o Google Imagens) para a linha do produto, ou toque na linha e cole com Ctrl+V uma imagem copiada; no celular, toque em &ldquo;Enviar foto&rdquo;. Depois a foto entra no site em até 15 minutos e sai de &ldquo;faltam&rdquo; sozinha.</p>
+
+          {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
 
           <div className="pf-filtros">
             <input type="search" value={busca} onChange={(e) => mudar(setBusca)(e.target.value)} placeholder="Buscar produto, laboratório ou código de barras" aria-label="Buscar" />
@@ -224,10 +289,10 @@ export default function PainelFotos() {
                 {visiveis.map((l) => (
                   <tr
                     key={l.ean}
+                    data-ean={l.noSite ? undefined : l.ean}
+                    tabIndex={l.noSite ? undefined : 0}
+                    onFocus={l.noSite ? undefined : () => setAlvoColar(l.ean)}
                     className={[l.estoque <= 0 ? "pf-zero" : "", arrastando === l.ean ? "pf-arrastando" : ""].filter(Boolean).join(" ") || undefined}
-                    onDragOver={l.noSite ? undefined : (e) => { if (arrastoDeImagem(e.dataTransfer)) { e.preventDefault(); setArrastando(l.ean); } }}
-                    onDragLeave={l.noSite ? undefined : (e) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setArrastando((a) => (a === l.ean ? null : a)); }}
-                    onDrop={l.noSite ? undefined : (e) => { e.preventDefault(); setArrastando(null); void enviarFoto(l, origemDoArraste(e.dataTransfer)); }}
                   >
                     <td className="pf-foto">
                       {l.noSite ? (
