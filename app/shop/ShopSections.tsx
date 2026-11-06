@@ -109,7 +109,6 @@ export function HeroReserva() {
           <br />
           Pague só na loja.
         </h1>
-        <p>Loja Nações Unidas, em Sabará · retirada ou entrega no bairro.</p>
       </div>
       <a href="/nacoes-unidas/produtos">Ver produtos</a>
     </section>

@@ -10,7 +10,7 @@ import LojaBar from "./shop/LojaBar";
 import CabecalhoInteligente from "./shop/CabecalhoInteligente";
 import ShopHeader from "./shop/ShopHeader";
 import DestaquesSemana from "./shop/DestaquesSemana";
-import { AbasHome, BarraInfo, ComoContato, ComoQuiser, SubmenuHome } from "./shop/HomeBlocos";
+import { AbasHome, BarraInfo, SubmenuHome } from "./shop/HomeBlocos";
 import { CategoriasLinha, HeroReserva } from "./shop/ShopSections";
 
 /**
@@ -47,9 +47,7 @@ export default function HomePage() {
       <DestaquesSemana id="vitrine-farmax" titulo="Farmax" lab="FARMAX" n={12} verTodas={false} source="home_farmax" />
       <DestaquesSemana id="vitrine-cimed" titulo="Cimed" lab="CIMED" n={12} verTodas={false} source="home_cimed" />
       <DestaquesSemana id="vitrine-nivea" titulo="Nivea" lab="NIVEA" n={12} verTodas={false} source="home_nivea" />
-      <ComoQuiser />
       <LojasCartoes />
-      <ComoContato />
       {/* Invisível: mantém a página de novidades ligada à home sem mudar o visual. */}
       <a className="sr-only" href="/novidades">Novidades da União Farma</a>
     </>
