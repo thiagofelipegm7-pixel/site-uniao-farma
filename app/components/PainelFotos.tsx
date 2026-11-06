@@ -1,12 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { prepararFoto } from "./preparar-foto";
 import { csvDasLinhas, filtrarLinhas, resumirFotos, type FiltroFotos, type LinhaFoto, type ResumoFotos } from "../fotos-painel";
 import "../metrics-polish.css";
 import "./painel-fotos.css";
 
 type Linha = [string, string, string, string, number, number, number, number, number, string, number];
-type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; categorias: string[]; linhas: Linha[] };
+type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; categorias: string[]; pendentes?: string[]; linhas: Linha[] };
 
 const CHAVE_MARCAS = "uf_fotos_ok";
 const REAIS = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -15,6 +16,8 @@ const POR_PAGINA = 100;
 function paraLinha(l: Linha): LinhaFoto {
   return { ean: l[0], nome: l[1], lab: l[2], classe: l[3], estoque: l[4], preco: l[5], valor: l[6], controlado: l[7] === 1, antimicrobiano: l[8] === 1, categoria: l[9], noSite: l[10] === 1 };
 }
+
+type Envio = "enviando" | "enviada" | "erro";
 
 type Ordem = "valor" | "nome" | "estoque" | "categoria";
 
@@ -29,6 +32,7 @@ export default function PainelFotos() {
   const [ordem, setOrdem] = useState<Ordem>("valor");
   const [pagina, setPagina] = useState(1);
   const [marcados, setMarcados] = useState<Set<string>>(new Set());
+  const [envios, setEnvios] = useState<Record<string, Envio>>({});
 
   const carregar = useCallback(async () => {
     setErro(false);
@@ -55,6 +59,7 @@ export default function PainelFotos() {
   }, [carregar]);
 
   const linhas = useMemo(() => (dados ? dados.linhas.map(paraLinha) : []), [dados]);
+  const pendentes = useMemo(() => new Set(dados?.pendentes ?? []), [dados]);
   const resumo = useMemo(() => resumirFotos(linhas), [linhas]);
   const filtradas = useMemo(() => {
     const lista = filtrarLinhas(linhas, { busca, categoria, estoque, fotos, tipo, marcados });
@@ -83,6 +88,20 @@ export default function PainelFotos() {
       }
       return novo;
     });
+  }
+
+  async function enviarFoto(l: LinhaFoto, arquivo: File | undefined) {
+    if (!arquivo) return;
+    setEnvios((e) => ({ ...e, [l.ean]: "enviando" }));
+    try {
+      const imagem = await prepararFoto(arquivo);
+      const r = await fetch("/api/interno/fotos/enviar", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ean: l.ean, nome: l.nome, imagem }) });
+      const j = (await r.json().catch(() => null)) as { ok?: boolean } | null;
+      if (!r.ok || !j?.ok) throw new Error("envio");
+      setEnvios((e) => ({ ...e, [l.ean]: "enviada" }));
+    } catch {
+      setEnvios((e) => ({ ...e, [l.ean]: "erro" }));
+    }
   }
 
   function baixarCsv() {
@@ -114,7 +133,7 @@ export default function PainelFotos() {
             <div><strong>{REAIS.format(resumo.valorSemFoto)}</strong><span>em estoque sem foto</span></div>
             <div><strong>{resumo.comEstoque > 0 ? Math.round((resumo.comEstoqueComFoto / resumo.comEstoque) * 100) : 0}%</strong><span>dos itens com estoque já têm foto</span></div>
           </section>
-          <p className="pf-dados">Estoque de {dados.geradoEm ?? "—"}. A lista se atualiza sozinha: foto nova no site sai de &ldquo;faltam&rdquo; assim que for publicada.</p>
+          <p className="pf-dados">Estoque de {dados.geradoEm ?? "—"}. Toque em &ldquo;Enviar foto&rdquo; no produto que falta: a foto entra no site em até 15 minutos e sai de &ldquo;faltam&rdquo; sozinha.</p>
 
           <div className="pf-filtros">
             <input type="search" value={busca} onChange={(e) => mudar(setBusca)(e.target.value)} placeholder="Buscar produto, laboratório ou código de barras" aria-label="Buscar" />
@@ -156,19 +175,30 @@ export default function PainelFotos() {
               <tbody>
                 {visiveis.map((l) => (
                   <tr key={l.ean} className={l.estoque <= 0 ? "pf-zero" : undefined}>
-                    <td>{l.noSite ? <img src={`/produtos/${l.ean}.webp`} alt="" width="40" height="40" loading="lazy" decoding="async" /> : <span className="pf-sem">falta</span>}</td>
-                    <td>{l.ean}</td>
-                    <td>
+                    <td className="pf-foto">
+                      {l.noSite ? (
+                        <img src={`/produtos/${l.ean}.webp`} alt="" width="40" height="40" loading="lazy" decoding="async" />
+                      ) : envios[l.ean] === "enviada" || pendentes.has(l.ean) ? (
+                        <span className="pf-enviada">enviada: entra no site em até 15 min</span>
+                      ) : (
+                        <label className={`pf-enviar${envios[l.ean] === "erro" ? " pf-erro" : ""}`}>
+                          <input type="file" accept="image/*" disabled={envios[l.ean] === "enviando"} onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} aria-label={`Enviar foto de ${l.nome}`} />
+                          {envios[l.ean] === "enviando" ? "Enviando…" : envios[l.ean] === "erro" ? "Falhou: tentar de novo" : "Enviar foto"}
+                        </label>
+                      )}
+                    </td>
+                    <td data-r="Código">{l.ean}</td>
+                    <td className="pf-prod">
                       {l.nome}
                       {l.lab ? <small>{l.lab}</small> : null}
                       {l.controlado ? <em className="pf-tag">Controlado</em> : null}
                       {l.antimicrobiano ? <em className="pf-tag pf-tag-a">Antimicrob.</em> : null}
                     </td>
-                    <td>{l.categoria}</td>
-                    <td className="pf-n">{l.estoque}</td>
-                    <td className="pf-n">{REAIS.format(l.preco)}</td>
-                    <td className="pf-n">{REAIS.format(l.valor)}</td>
-                    <td>{l.noSite ? <span className="pf-ok">no site</span> : <input type="checkbox" checked={marcados.has(l.ean)} onChange={(e) => marcar(l.ean, e.target.checked)} aria-label={`Tenho a foto de ${l.nome} no PC`} />}</td>
+                    <td data-r="Categoria">{l.categoria}</td>
+                    <td data-r="Estoque" className="pf-n">{l.estoque}</td>
+                    <td data-r="Preço" className="pf-n">{REAIS.format(l.preco)}</td>
+                    <td data-r="Valor" className="pf-n">{REAIS.format(l.valor)}</td>
+                    <td data-r="Tenho no PC">{l.noSite ? <span className="pf-ok">no site</span> : <input type="checkbox" checked={marcados.has(l.ean)} onChange={(e) => marcar(l.ean, e.target.checked)} aria-label={`Tenho a foto de ${l.nome} no PC`} />}</td>
                   </tr>
                 ))}
               </tbody>
