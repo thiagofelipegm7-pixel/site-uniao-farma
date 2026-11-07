@@ -945,6 +945,8 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "ENO SAL DE FRUTA 100GR LARANJA": "7896015560331",
   "HIDRAPLEX 1 ENVELOPE NATURAL": "7898133137310",
   "ENTEROGERMINA 2 bcfu/5ml cx 20 fr": "7891058017002",
+  "ARNICA WELEDA D3 C/80 CPR": "7893093067134",
+  "MATERNA DHA C 30 CAPS": "7891000359426",
 };
 
 function normalizarNome(nome: string): string {
