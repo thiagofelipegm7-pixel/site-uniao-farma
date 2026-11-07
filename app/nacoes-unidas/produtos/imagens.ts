@@ -918,6 +918,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "PERILAC LACTITOL SOLUCAO ORAL 240 ML": "7898277713845",
   "DORDENTE 3ML": "7896888500120",
   "SORO FISIOLOGICO 500ML FARMAX": "7896902206441",
+  "REPELEX LOCAO REPEL 200 ML": "7891035024214",
 };
 
 function normalizarNome(nome: string): string {
