@@ -49,6 +49,7 @@ export default function PainelFotos() {
   // Linha sobre a qual o arquivo está sendo arrastado (computador).
   const [arrastando, setArrastando] = useState<string | null>(null);
   const [aviso, setAviso] = useState("");
+  const [copiado, setCopiado] = useState<string | null>(null);
   // Linha escolhida com um toque: recebe a imagem colada (Ctrl+V).
   const [alvoColar, setAlvoColar] = useState<string | null>(null);
   const colarRef = useRef<(dt: DataTransfer) => void>(() => undefined);
@@ -215,6 +216,36 @@ export default function PainelFotos() {
     };
   });
 
+  async function copiarCodigo(ean: string) {
+    try {
+      await navigator.clipboard.writeText(ean);
+    } catch {
+      // Sem permissão da área de transferência: seleciona num campo temporário e copia.
+      const campo = document.createElement("textarea");
+      campo.value = ean;
+      campo.style.position = "fixed";
+      campo.style.opacity = "0";
+      document.body.appendChild(campo);
+      campo.select();
+      document.execCommand("copy");
+      campo.remove();
+    }
+    setCopiado(ean);
+    window.setTimeout(() => setCopiado((atual) => (atual === ean ? null : atual)), 1500);
+  }
+
+  async function colarNaBusca() {
+    try {
+      const texto = (await navigator.clipboard.readText()).trim();
+      if (texto) {
+        setBusca(texto);
+        setPagina(1);
+      }
+    } catch {
+      setAviso("O navegador não deixou ler o que foi copiado. Clique no campo de busca e use Ctrl+V.");
+    }
+  }
+
   function baixarCsv() {
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([csvDasLinhas(filtradas, marcados)], { type: "text/csv;charset=utf-8" }));
@@ -250,6 +281,7 @@ export default function PainelFotos() {
 
           <div className="pf-filtros">
             <input type="search" value={busca} onChange={(e) => mudar(setBusca)(e.target.value)} placeholder="Buscar produto, laboratório ou código de barras" aria-label="Buscar" />
+            <button type="button" onClick={() => void colarNaBusca()}>Colar código</button>
             <select value={categoria} onChange={(e) => mudar(setCategoria)(e.target.value)} aria-label="Categoria">
               <option value="">Todas as categorias</option>
               {dados.categorias.map((c) => <option key={c}>{c}</option>)}
@@ -306,7 +338,10 @@ export default function PainelFotos() {
                         </label>
                       )}
                     </td>
-                    <td data-r="Código">{l.ean}</td>
+                    <td data-r="Código" className="pf-codigo">
+                      <span>{l.ean}</span>
+                      <button type="button" className="pf-copiar" onClick={() => void copiarCodigo(l.ean)} aria-label={`Copiar o código de barras ${l.ean}`}>{copiado === l.ean ? "Copiado!" : "Copiar"}</button>
+                    </td>
                     <td className="pf-prod">
                       {l.nome}
                       {l.lab ? <small>{l.lab}</small> : null}
