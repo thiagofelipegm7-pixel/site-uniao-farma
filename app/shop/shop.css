@@ -1421,3 +1421,6 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .shop-busca input, .pv-ordenar select, select, input[type="search"], input[type="text"] { font-size: 16px !important; }
 }
 .shop-sugestoes { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+/* Segurar o dedo numa foto do produto não abre o menu "salvar imagem" do iPhone: o toque abre o produto. */
+.shop-sugestoes img, .pv-img img, .produto-foto img { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+.shop-sugestoes li a img, .pv-corpo img { pointer-events: none; }
