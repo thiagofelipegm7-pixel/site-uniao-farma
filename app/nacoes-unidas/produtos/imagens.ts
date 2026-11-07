@@ -1000,6 +1000,10 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "BISMU-JET Gts c/20ml": "7896004810140",
   "ACETILCISTEINA 200 MG 16 SACHES EUROFARMA": "7891317001063",
   "COREGA MAX CREME 70G UND": "7896015525804",
+  "RAPILAX GTS 30 ML": "7896331704808",
+  "CUTISANOL GEL 100G": "7897406119879",
+  "Creme De Barbear Bozzano 65g Sensivel": "7891350011623",
+  "SALONPAS ADESIVO PEQUENO 4 UNIDADES": "7896227800799",
 };
 
 function normalizarNome(nome: string): string {
