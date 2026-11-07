@@ -954,6 +954,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "TILEMAXY BABY 100MG/ML 15ML (P": "7899470808314",
   "PERMENATI 5% LOCAO 60 ML": "7897848502840",
   "ECOS XAROPE 120ML": "7896006216308",
+  "ADEFORTE TURBO AMPOLA C 3ML": "7892828002303",
 };
 
 function normalizarNome(nome: string): string {
