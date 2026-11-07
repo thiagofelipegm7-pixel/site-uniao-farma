@@ -234,18 +234,6 @@ export default function PainelFotos() {
     window.setTimeout(() => setCopiado((atual) => (atual === ean ? null : atual)), 1500);
   }
 
-  async function colarNaBusca() {
-    try {
-      const texto = (await navigator.clipboard.readText()).trim();
-      if (texto) {
-        setBusca(texto);
-        setPagina(1);
-      }
-    } catch {
-      setAviso("O navegador não deixou ler o que foi copiado. Clique no campo de busca e use Ctrl+V.");
-    }
-  }
-
   function baixarCsv() {
     const a = document.createElement("a");
     a.href = URL.createObjectURL(new Blob([csvDasLinhas(filtradas, marcados)], { type: "text/csv;charset=utf-8" }));
@@ -281,7 +269,6 @@ export default function PainelFotos() {
 
           <div className="pf-filtros">
             <input type="search" value={busca} onChange={(e) => mudar(setBusca)(e.target.value)} placeholder="Buscar produto, laboratório ou código de barras" aria-label="Buscar" />
-            <button type="button" onClick={() => void colarNaBusca()}>Colar código</button>
             <select value={categoria} onChange={(e) => mudar(setCategoria)(e.target.value)} aria-label="Categoria">
               <option value="">Todas as categorias</option>
               {dados.categorias.map((c) => <option key={c}>{c}</option>)}
