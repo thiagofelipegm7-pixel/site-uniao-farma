@@ -1,4 +1,5 @@
 import { banco } from "../../../../estoque-fonte";
+import { carregarCatalogoCompleto, slugify } from "../../../../nacoes-unidas/produtos/catalogo";
 import { guardarFoto, validarEnvio } from "../../../../fotos-enviadas";
 
 export const dynamic = "force-dynamic";
@@ -16,6 +17,9 @@ export async function POST(request: Request) {
   if (!conferido.ok) return Response.json({ ok: false, erro: conferido.erro }, { status: 400, headers: SEM_CACHE });
   const db = banco();
   if (!db) return Response.json({ ok: false, erro: "sem_banco" }, { status: 501, headers: SEM_CACHE });
-  await guardarFoto(db, conferido.envio);
+  // Página do produto (se existir) para a foto já aparecer no site antes da publicação.
+  const slug = slugify(conferido.envio.nome);
+  const temPagina = carregarCatalogoCompleto().itens.some((i) => slugify(i.nome) === slug);
+  await guardarFoto(db, conferido.envio, temPagina ? slug : null);
   return Response.json({ ok: true }, { headers: SEM_CACHE });
 }

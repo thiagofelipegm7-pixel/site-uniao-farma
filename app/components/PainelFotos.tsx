@@ -244,7 +244,7 @@ export default function PainelFotos() {
             <div><strong>{REAIS.format(resumo.valorSemFoto)}</strong><span>em estoque sem foto</span></div>
             <div><strong>{resumo.comEstoque > 0 ? Math.round((resumo.comEstoqueComFoto / resumo.comEstoque) * 100) : 0}%</strong><span>dos itens com estoque já têm foto</span></div>
           </section>
-          <p className="pf-dados">Estoque de {dados.geradoEm ?? "—"}. No computador, arraste o arquivo da foto (ou a imagem de outro site, como o Google Imagens) para a linha do produto, ou toque na linha e cole com Ctrl+V uma imagem copiada; no celular, toque em &ldquo;Enviar foto&rdquo;. Depois a foto entra no site em até 15 minutos e sai de &ldquo;faltam&rdquo; sozinha.</p>
+          <p className="pf-dados">Estoque de {dados.geradoEm ?? "—"}. No computador, arraste o arquivo da foto (ou a imagem de outro site, como o Google Imagens) para a linha do produto, ou toque na linha e cole com Ctrl+V uma imagem copiada; no celular, toque em &ldquo;Enviar foto&rdquo;. A foto aparece no site na hora e, em até 15 minutos, vira arquivo fixo e sai de &ldquo;faltam&rdquo; sozinha.</p>
 
           {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
 
@@ -298,7 +298,7 @@ export default function PainelFotos() {
                       {l.noSite ? (
                         <img src={`/produtos/${l.ean}.webp`} alt="" width="40" height="40" loading="lazy" decoding="async" />
                       ) : envios[l.ean] === "enviada" || pendentes.has(l.ean) ? (
-                        <span className="pf-enviada">enviada: entra no site em até 15 min</span>
+                        <span className="pf-enviada">enviada: já aparece no site</span>
                       ) : (
                         <label className={`pf-enviar${envios[l.ean] === "erro" ? " pf-erro" : ""}`}>
                           <input type="file" accept="image/*" disabled={envios[l.ean] === "enviando"} onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} aria-label={`Enviar foto de ${l.nome}`} />
