@@ -1181,6 +1181,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "QUETIAPINA 25MG CX 30CPR EMS": "7896004748214",
   "GLIFAGE XR 500mg cx 30 comp": "7891721201806",
   "PINCEL P/ TINTURA GRANDE": "7898280403825",
+  "NORESTIN 0.35MG CX 35 CPRS": "7896241274903",
 };
 
 function normalizarNome(nome: string): string {
