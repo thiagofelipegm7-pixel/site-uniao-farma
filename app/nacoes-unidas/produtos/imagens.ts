@@ -999,6 +999,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "DORFLEX 36 COMPRS": "7891058017507",
   "BISMU-JET Gts c/20ml": "7896004810140",
   "ACETILCISTEINA 200 MG 16 SACHES EUROFARMA": "7891317001063",
+  "COREGA MAX CREME 70G UND": "7896015525804",
 };
 
 function normalizarNome(nome: string): string {
