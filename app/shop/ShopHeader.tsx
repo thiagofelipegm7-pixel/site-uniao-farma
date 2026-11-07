@@ -11,6 +11,7 @@ import SemFoto from "../nacoes-unidas/produtos/SemFoto";
 import MarcaUniao from "./MarcaUniao";
 import BotaoVoz from "./BotaoVoz";
 import ReservaSacola from "../reserva/ReservaSacola";
+import FotosNovas from "./FotosNovas";
 import { IconLupa, IconMenu, IconPino, IconWhats } from "../reserva/ReservaIcons";
 import LojaPicker from "./LojaPicker";
 import "./shop.css";
@@ -244,6 +245,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
             <IconPino size={28} />
           </button>
           <ReservaSacola />
+          <FotosNovas />
         </div>
       </header>
 
