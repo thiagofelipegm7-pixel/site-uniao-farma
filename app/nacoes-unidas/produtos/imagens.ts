@@ -1309,6 +1309,8 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "FLAVONID 450 MG CPR 30": "7896714203768",
   "OLMECOR 20MG CX 60 COMP REV": "8902220115569",
   "PICOPREP 10MG+35+12G PO PREP CX 2 SACH": "7896165600727",
+  "FLEBODIA 600mg cx 30 comp rev": "3400970002146",
+  "TADALAFILA 5mg cx 30cpr NOVA QUIMICA": "7895296240031",
 };
 
 function normalizarNome(nome: string): string {
