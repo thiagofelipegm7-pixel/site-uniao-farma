@@ -1052,6 +1052,8 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "ACNEZIL GEL 20 G TRATAMENTO 2": "7896523208282",
   "NESTOGENO 2 800 G": "7891000062760",
   "MARACUGINA PI 840mg cx 20 CPR": "7896094918894",
+  "MINILAX C/7 BISNAGAS": "7891317015176",
+  "BUSCOPAN COMPOSTO GOTAS 20ML": "7896094931299",
 };
 
 function normalizarNome(nome: string): string {
