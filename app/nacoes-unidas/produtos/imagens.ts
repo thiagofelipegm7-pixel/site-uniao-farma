@@ -1233,6 +1233,9 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "ALENIA 12/400MCG 60CAP REFIL": "7896181918943",
   "CLOTRIMAZOL 20MG CREM VAG C/3 APLI GERMED": "7896004711409",
   "DEXCLORFENIRAMINA + BETAMET XPE 120 ML TEUTO": "7896112127437",
+  "ZOLPIDEM 10 mg CX 30CPR SANDOZ": "7897595608161",
+  "CONTRACEP sus inj fa x 1ml@": "7894916502900",
+  "FOSTAIR HFA spray aer bucal+disp": "7896672203336",
 };
 
 function normalizarNome(nome: string): string {
