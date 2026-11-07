@@ -58,13 +58,45 @@ export function montarLinhas(itens: readonly ExportItem[], eansComFoto: Readonly
   return linhas;
 }
 
-export type ResumoFotos = { total: number; comFoto: number; faltam: number; faltamComEstoque: number; valorSemFoto: number; comEstoque: number; comEstoqueComFoto: number };
+export type ResumoFotos = {
+  total: number;
+  comFoto: number;
+  faltam: number;
+  faltamComEstoque: number;
+  valorSemFoto: number;
+  comEstoque: number;
+  comEstoqueComFoto: number;
+  /** Só o que o cliente vê com foto no site: fora medicamentos com receita, controlados e itens que não estão no site. */
+  aVenda: number;
+  aVendaComFoto: number;
+  aVendaFaltamComEstoque: number;
+  aVendaValorSemFoto: number;
+  aVendaComEstoque: number;
+  aVendaComEstoqueComFoto: number;
+  /** Itens que não entram na conta de foto (receita, controlados, fora do site). */
+  fora: number;
+};
+
+/** Item que aparece com foto na loja: está no catálogo do site e não é medicamento de receita ou controlado (esses só mostram preço). */
+export function ehAVenda(l: Pick<LinhaFoto, "categoria">): boolean {
+  return l.categoria !== SEM_CATEGORIA && l.categoria !== "Com receita" && l.categoria !== "Controlados";
+}
 
 export function resumirFotos(linhas: readonly LinhaFoto[]): ResumoFotos {
   const comEstoque = linhas.filter((l) => l.estoque > 0);
   const faltam = linhas.filter((l) => !l.noSite);
   const faltamComEstoque = faltam.filter((l) => l.estoque > 0);
+  const venda = linhas.filter(ehAVenda);
+  const vendaComEstoque = venda.filter((l) => l.estoque > 0);
+  const vendaFaltam = vendaComEstoque.filter((l) => !l.noSite);
   return {
+    aVenda: venda.length,
+    aVendaComFoto: venda.filter((l) => l.noSite).length,
+    aVendaFaltamComEstoque: vendaFaltam.length,
+    aVendaValorSemFoto: Math.round(vendaFaltam.reduce((s, l) => s + l.valor, 0) * 100) / 100,
+    aVendaComEstoque: vendaComEstoque.length,
+    aVendaComEstoqueComFoto: vendaComEstoque.filter((l) => l.noSite).length,
+    fora: linhas.length - venda.length,
     total: linhas.length,
     comFoto: linhas.length - faltam.length,
     faltam: faltam.length,
