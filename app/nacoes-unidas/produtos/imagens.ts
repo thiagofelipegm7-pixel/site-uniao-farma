@@ -947,6 +947,8 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "ENTEROGERMINA 2 bcfu/5ml cx 20 fr": "7891058017002",
   "ARNICA WELEDA D3 C/80 CPR": "7893093067134",
   "MATERNA DHA C 30 CAPS": "7891000359426",
+  "ZEROLAC 10.000 FCC C/30 CAPS": "7896006216520",
+  "SAB NIVEA LIQ NATURAL OIL 200ML": "4005808808281",
 };
 
 function normalizarNome(nome: string): string {
