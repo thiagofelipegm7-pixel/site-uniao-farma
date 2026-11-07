@@ -1,4 +1,4 @@
-/** Prepara a foto escolhida no celular/PC: quadrada 400x400, fundo branco, produto inteiro, em WebP (PNG onde o navegador não gera WebP). Devolve base64 sem o prefixo. */
+/** Prepara a foto escolhida no celular/PC: quadrada 400x400, fundo branco, produto inteiro, em WebP (JPEG onde o navegador não gera WebP, como o Safari do iPhone). Devolve base64 sem o prefixo. */
 const LADO = 400;
 const OCUPA = 0.98;
 
@@ -45,7 +45,9 @@ export async function prepararFoto(arquivo: Blob): Promise<string> {
     const dh = origem.h * escala;
     ctx.imageSmoothingQuality = "high";
     ctx.drawImage(origem.fonte, (LADO - dw) / 2, (LADO - dh) / 2, dw, dh);
-    const blob = await new Promise<Blob | null>((ok) => canvas.toBlob(ok, "image/webp", 0.88));
+    let blob = await new Promise<Blob | null>((ok) => canvas.toBlob(ok, "image/webp", 0.88));
+    // Safari (iPhone) não gera WebP e devolve PNG, que numa foto de produto passa de 400 KB e o servidor recusa. JPEG fica em ~40 KB.
+    if (!blob || blob.type !== "image/webp") blob = await new Promise<Blob | null>((ok) => canvas.toBlob(ok, "image/jpeg", 0.9));
     if (!blob) throw new Error("gerar");
     const texto = await new Promise<string>((ok, falha) => {
       const leitor = new FileReader();
