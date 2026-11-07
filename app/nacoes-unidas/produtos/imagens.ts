@@ -1094,6 +1094,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "LUNAH 1mg /ml sol oft fr g": "7896676435658",
   "ARLIVRY 7MG/ML 100ML SABOR MEL": "7898133136757",
   "LAKESIA (ANTIMICOTICO) SPRAY": "7898949409458",
+  "MARACUGINA PI 150ML+COPO": "7896094918924",
 };
 
 function normalizarNome(nome: string): string {
