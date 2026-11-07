@@ -1101,6 +1101,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "SINTOCALMY 300MG CX 20 COMP REV": "7896658012341",
   "LUFTAL MAX 150MG/ML GTS 15ML SAB. CEREJA": "7891035003035",
   "DESOD AER DOVE ORIGINAL 48H L+": "7891150081239",
+  "ESPACADOR INALAR BABY": "7898306210024",
 };
 
 function normalizarNome(nome: string): string {
