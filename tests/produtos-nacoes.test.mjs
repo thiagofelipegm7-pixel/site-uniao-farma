@@ -60,8 +60,9 @@ test("fotos Nações: só EANs aprovados, arquivo existe e item sem foto devolve
   assert.ok(Object.keys(FOTOS_NACOES).length >= 381); // cresce com as fotos enviadas pelo painel
   assert.equal(fotoDoProduto("DES REXONA COTTON DRY 150 ML"), "/produtos/7791293032467.webp");
   assert.equal(fotoDoProduto("  DES REXONA   COTTON DRY 150 ML "), "/produtos/7791293032467.webp");
-  assert.equal(fotoDoProduto("PROT LABIAL NIVEA FRUIT"), null);
-  assert.equal(fotoDoProduto("DIPIRONA 1G cx 10cpr PRATI DONADUZZI"), null);
+  // Nomes inventados: produtos de verdade ganham foto com o tempo (envio pelo painel), então não servem para provar "sem foto".
+  assert.equal(fotoDoProduto("PRODUTO QUE NAO EXISTE NA LOJA 123"), null);
+  assert.equal(fotoDoProduto(""), null);
 });
 
 test("busca do catálogo: ignora acento e caixa, exige todos os termos e esconde grupos vazios", async () => {
