@@ -851,6 +851,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "ESM COLORAMA CL 8ML AMANHECER": "7899026408326",
   "HELIORAL 60 CAPSULAS": "7898040328313",
   "NEOCOPAN COMPOSTO CX 20CPR": "7896006217459",
+  "TOSSEXPEC XP 5MG/ML XPE 120ML-": "7896094931534",
 };
 
 function normalizarNome(nome: string): string {
