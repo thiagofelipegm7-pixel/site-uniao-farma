@@ -8,7 +8,7 @@ import "../metrics-polish.css";
 import "./painel-fotos.css";
 
 type Linha = [string, string, string, string, number, number, number, number, number, string, number];
-type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; categorias: string[]; pendentes?: string[]; linhas: Linha[] };
+type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; categorias: string[]; pendentes?: string[]; publicacaoRapida?: boolean; linhas: Linha[] };
 
 const CHAVE_MARCAS = "uf_fotos_ok";
 const REAIS = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -269,8 +269,11 @@ export default function PainelFotos() {
             <div><strong>{resumo.aVendaComEstoque > 0 ? Math.round((resumo.aVendaComEstoqueComFoto / resumo.aVendaComEstoque) * 100) : 0}%</strong><span>dos itens à venda com estoque já têm foto</span></div>
           </section>
           <p className="pf-dados">Não entram nessa conta {resumo.fora} itens que não mostram foto na loja: medicamentos com receita, controlados e itens que não estão no site. A lista abaixo mostra todos.</p>
-          <p className="pf-dados">Estoque de {dados.geradoEm ?? "—"}. No computador, arraste o arquivo da foto (ou a imagem de outro site, como o Google Imagens) para a linha do produto, ou toque na linha e cole com Ctrl+V uma imagem copiada; no celular, toque em &ldquo;Enviar foto&rdquo;. A foto aparece no site na hora e, em até 15 minutos, vira arquivo fixo e sai de &ldquo;faltam&rdquo; sozinha.</p>
+          <p className="pf-dados">Estoque de {dados.geradoEm ?? "—"}. No computador, arraste o arquivo da foto (ou a imagem de outro site, como o Google Imagens) para a linha do produto, ou toque na linha e cole com Ctrl+V uma imagem copiada; no celular, toque em &ldquo;Enviar foto&rdquo;. A foto aparece no site na hora; a publicação do arquivo fixo começa logo em seguida e leva alguns minutos.</p>
 
+          {dados.publicacaoRapida === false ? (
+            <p className="pf-aviso" role="note">A publicação rápida está desligada (falta a chave do GitHub no Cloudflare). As fotos funcionam no site, mas o arquivo fixo só sai quando o GitHub rodar a sincronização, o que pode levar horas.</p>
+          ) : null}
           {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
 
           <div className="pf-filtros">

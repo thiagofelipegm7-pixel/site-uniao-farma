@@ -1,5 +1,6 @@
 import { banco } from "../../../../estoque-fonte";
 import { carregarCatalogoCompleto, slugify } from "../../../../nacoes-unidas/produtos/catalogo";
+import { dispararSincronizacao } from "../../../../disparar-sync";
 import { guardarFoto, validarEnvio } from "../../../../fotos-enviadas";
 
 export const dynamic = "force-dynamic";
@@ -21,5 +22,7 @@ export async function POST(request: Request) {
   const slug = slugify(conferido.envio.nome);
   const temPagina = carregarCatalogoCompleto().itens.some((i) => slugify(i.nome) === slug);
   await guardarFoto(db, conferido.envio, temPagina ? slug : null);
-  return Response.json({ ok: true }, { headers: SEM_CACHE });
+  // A foto já vale no site; isto só apressa o arquivo fixo (a publicação roda em alguns minutos).
+  const publicando = await dispararSincronizacao();
+  return Response.json({ ok: true, publicando }, { headers: SEM_CACHE });
 }
