@@ -852,6 +852,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "HELIORAL 60 CAPSULAS": "7898040328313",
   "NEOCOPAN COMPOSTO CX 20CPR": "7896006217459",
   "TOSSEXPEC XP 5MG/ML XPE 120ML-": "7896094931534",
+  "RAID REFIL COM 3": "7894650007761",
 };
 
 function normalizarNome(nome: string): string {
