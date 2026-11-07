@@ -965,6 +965,8 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "NAPROXENO 500 MG CX 10CR TEUTO": "7896112121831",
   "SALONPAS ADESIVO GRANDE 2 UNIDADES": "7896227800812",
   "IBUPRIL 400 MG 10 CAPS GEL": "7896112160298",
+  "LACDAY (LACTASE) 10000 CARTELA COM 10 CP": "7896004755519",
+  "EBASTEL xarope fco c/60ml": "7891317000547",
 };
 
 function normalizarNome(nome: string): string {
