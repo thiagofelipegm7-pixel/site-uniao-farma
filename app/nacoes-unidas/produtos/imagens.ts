@@ -967,6 +967,9 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "IBUPRIL 400 MG 10 CAPS GEL": "7896112160298",
   "LACDAY (LACTASE) 10000 CARTELA COM 10 CP": "7896004755519",
   "EBASTEL xarope fco c/60ml": "7891317000547",
+  "MARACUGINA PI 420MG": "7896094907119",
+  "FUMAGUM MENTA 4MG C 36 GOMAS": "7898244721231",
+  "EBASTEL 10mg cx 10 comp": "7891317005351",
 };
 
 function normalizarNome(nome: string): string {
