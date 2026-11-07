@@ -1004,6 +1004,9 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "CUTISANOL GEL 100G": "7897406119879",
   "Creme De Barbear Bozzano 65g Sensivel": "7891350011623",
   "SALONPAS ADESIVO PEQUENO 4 UNIDADES": "7896227800799",
+  "ESC DENT COLGATE CLASSIC MACIA": "7891024184509",
+  "EXTRA BRILHO COLORAMA * ROXO": "7899026422315",
+  "Aparelho Gillette Prestobarba MOVEL - 2UND": "7500435154437",
 };
 
 function normalizarNome(nome: string): string {
