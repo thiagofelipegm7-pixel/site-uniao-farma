@@ -1182,6 +1182,8 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "GLIFAGE XR 500mg cx 30 comp": "7891721201806",
   "PINCEL P/ TINTURA GRANDE": "7898280403825",
   "NORESTIN 0.35MG CX 35 CPRS": "7896241274903",
+  "FENTIZOL 600mg ovl + bl aplic": "7896658007309",
+  "AMOX+CLAVU 875+125MG CX 20CPR RANBAXY": "7897076923813",
 };
 
 function normalizarNome(nome: string): string {
