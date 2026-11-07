@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { BUSCAS_POPULARES, normalizarBusca, termosDeBusca } from "../nacoes-unidas/produtos/busca";
 import { analisarConsulta, casaConsulta, contarCasos, criarVocabulario } from "../nacoes-unidas/produtos/busca-tolerante";
 import { buildWhatsAppUrl, UNITS } from "../site-config";
@@ -34,6 +34,28 @@ const ROTA_RESTRITA = { receita: "/nacoes-unidas/produtos/receita", controlados:
 const ORDINAIS = ["1º", "2º", "3º"];
 const nacoes = UNITS.find((unit) => unit.id === "nacoes");
 
+let vocabEmMemoria: { itens: Sugestao[]; restritos: SugestaoRestrita[]; vocab: ReturnType<typeof criarVocabulario> } | null = null;
+
+/** Vocabulário da correção de digitação, montado só quando precisa e guardado enquanto os dados forem os mesmos. */
+function vocabularioDe(itens: Sugestao[], restritos: SugestaoRestrita[]) {
+  if (!vocabEmMemoria || vocabEmMemoria.itens !== itens || vocabEmMemoria.restritos !== restritos) {
+    vocabEmMemoria = { itens, restritos, vocab: criarVocabulario([...itens.map((i) => i.busca), ...restritos.map((i) => i.busca)]) };
+  }
+  return vocabEmMemoria.vocab;
+}
+
+/** Primeiros `n` itens que passam no teste (para de percorrer a lista ao achar). */
+function primeiros<T>(lista: readonly T[], passa: (item: T) => boolean, n: number): T[] {
+  const saida: T[] = [];
+  for (const item of lista) {
+    if (passa(item)) {
+      saida.push(item);
+      if (saida.length >= n) break;
+    }
+  }
+  return saida;
+}
+
 export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?: string }) {
   const [menu, setMenu] = useState(false);
   const [termo, setTermo] = useState(consultaInicial);
@@ -59,30 +81,45 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
       .catch(() => setRestritos([]));
   }
 
-  const normal = normalizarBusca(termo);
-  const termos = termosDeBusca(termo);
-  const exatos = normal.length >= 2 && itens ? itens.filter((item) => termos.every((t) => item.busca.includes(t))) : [];
-  const exatosRestritos = normal.length >= 2 ? restritos.filter((item) => termos.every((t) => item.busca.includes(t))) : [];
-  // Digitou errado e nada casou? Corrige com o vocabulário do catálogo (local e instantâneo, sem IA no painel).
-  const vocab = useMemo(() => (itens && itens.length > 0 ? criarVocabulario([...itens.map((i) => i.busca), ...restritos.map((i) => i.busca)]) : null), [itens, restritos]);
-  const corrigida = useMemo(() => {
-    if (!vocab || normal.length < 3 || exatos.length > 0 || exatosRestritos.length > 0) return null;
-    const analise = analisarConsulta(vocab, termo);
-    if (analise.sintoma || !analise.corrigida || contarCasos(vocab, analise.corrigida) === 0) return null;
-    return analise.corrigida;
-  }, [vocab, normal, termo, exatos.length, exatosRestritos.length]);
-  // Parecida demais com outro produto para trocar sozinho: só pergunta.
-  const sugerida = useMemo(() => {
-    if (!vocab || normal.length < 3 || exatos.length > 0 || exatosRestritos.length > 0) return null;
-    const analise = analisarConsulta(vocab, termo);
-    if (analise.sintoma || !analise.sugerida || contarCasos(vocab, analise.sugerida) === 0) return null;
-    return analise.sugerida;
-  }, [vocab, normal, termo, exatos.length, exatosRestritos.length]);
-  const resultados = (corrigida ? (itens ?? []).filter((item) => casaConsulta(item.busca, corrigida)) : exatos).slice(0, 6);
+  // O campo responde na hora; a busca nos produtos acompanha logo atrás (não trava a digitação no celular).
+  const termoBusca = useDeferredValue(termo);
+  const normal = normalizarBusca(termoBusca);
+  const termos = termosDeBusca(termoBusca);
+  // Só os primeiros resultados são mostrados: para de procurar ao achar o suficiente.
+  const exatos = useMemo(() => (normal.length >= 2 && itens ? primeiros(itens, (item) => termos.every((t) => item.busca.includes(t)), 6) : []), [normal, itens]); // eslint-disable-line react-hooks/exhaustive-deps -- `termos` vem de `normal`
+  const exatosRestritos = useMemo(() => (normal.length >= 2 ? primeiros(restritos, (item) => termos.every((t) => item.busca.includes(t)), 4) : []), [normal, restritos]); // eslint-disable-line react-hooks/exhaustive-deps -- `termos` vem de `normal`
+  // Digitou errado e nada casou? Corrige com o vocabulário do catálogo (local, sem IA no painel). O vocabulário só é montado na primeira vez que precisa.
+  const analise = useMemo(() => {
+    if (!itens || itens.length === 0 || normal.length < 3 || exatos.length > 0 || exatosRestritos.length > 0) return null;
+    const vocab = vocabularioDe(itens, restritos);
+    const a = analisarConsulta(vocab, termoBusca);
+    if (a.sintoma) return null;
+    return {
+      corrigida: a.corrigida && contarCasos(vocab, a.corrigida) > 0 ? a.corrigida : null,
+      // Parecida demais com outro produto para trocar sozinho: só pergunta.
+      sugerida: a.sugerida && contarCasos(vocab, a.sugerida) > 0 ? a.sugerida : null,
+    };
+  }, [itens, restritos, normal, termoBusca, exatos.length, exatosRestritos.length]);
+  const corrigida = analise?.corrigida ?? null;
+  const sugerida = analise?.sugerida ?? null;
+  const resultados = corrigida ? primeiros(itens ?? [], (item) => casaConsulta(item.busca, corrigida), 6) : exatos;
   // Medicamentos com receita e controlados também aparecem na busca (lista de preços, sem cesta).
-  const resultadosRestritos = (corrigida ? restritos.filter((item) => casaConsulta(item.busca, corrigida)) : exatosRestritos).slice(0, 4);
+  const resultadosRestritos = corrigida ? primeiros(restritos, (item) => casaConsulta(item.busca, corrigida), 4) : exatosRestritos;
   const mostrarPainel = foco && !vozAtiva && (normal.length === 0 || normal.length >= 2);
   const semResultado = normal.length >= 2 && itens !== null && resultados.length === 0 && resultadosRestritos.length === 0;
+
+  // Baixa os produtos da busca assim que a página sossega, para a primeira digitação já achar (antes só começava ao tocar no campo).
+  useEffect(() => {
+    const pedir = () => carregar();
+    const ocioso = (window as unknown as { requestIdleCallback?: (f: () => void, o?: { timeout: number }) => number }).requestIdleCallback;
+    const id = ocioso ? ocioso(pedir, { timeout: 4000 }) : window.setTimeout(pedir, 2000);
+    return () => {
+      const cancelar = (window as unknown as { cancelIdleCallback?: (i: number) => void }).cancelIdleCallback;
+      if (ocioso && cancelar) cancelar(id);
+      else window.clearTimeout(id);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- roda uma vez; `carregar` só age se ainda não carregou
+  }, []);
 
   // Na página de produtos, a caixa já abre com o termo buscado (?q=fralda).
   useEffect(() => {
