@@ -1021,6 +1021,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "NEO FRESH COLIRIO 15 ML(CARMELOSE)": "7896714224053",
   "BIOTINA DOSE MAX 500MG 60CPS": "7898714761088",
   "PROCTOSAN CREME 20G C/1 APLIC": "7896331700459",
+  "MAXIDRATE 6MG/G GEL NASAL FR 30GR": "7896094208407",
 };
 
 function normalizarNome(nome: string): string {
