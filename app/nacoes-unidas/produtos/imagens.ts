@@ -834,6 +834,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "TINT ALTA MODA 91": "7898468503613",
   "TINT ALTA MODA 10.1 LOURO": "7898468503620",
   "TINT ALTA MODA 12.21 LOUR": "7899884213407",
+  "NEOLEFRIN 400+20+400+4mg cx 20": "7896714265933",
 };
 
 function normalizarNome(nome: string): string {
