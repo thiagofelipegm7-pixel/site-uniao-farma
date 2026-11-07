@@ -970,6 +970,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "MARACUGINA PI 420MG": "7896094907119",
   "FUMAGUM MENTA 4MG C 36 GOMAS": "7898244721231",
   "EBASTEL 10mg cx 10 comp": "7891317005351",
+  "DIPIRONA 500MG/ml gts 20ml NEO QUIMICA": "7896714296074",
 };
 
 function normalizarNome(nome: string): string {
