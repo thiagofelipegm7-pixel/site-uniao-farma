@@ -1062,6 +1062,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "CURATIVO CREMER 10 UNIDADES BEGE": "7891800342000",
   "VICK PYRENA 500mg po prep env": "78911246",
   "IBUPROFENO 50MG GOTAS 30ML GEOLAB": "7899095233546",
+  "CURATIVOS CREMER C/ 40 TRANSPARENTE": "7891800341942",
 };
 
 function normalizarNome(nome: string): string {
