@@ -858,6 +858,12 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "ABSORVENTE ALWAYS SUAVE COM 16 UNID": "7500435127257",
   "DELTAMETRIL D 4% emu capi fr 100ml": "7896862993795",
   "BENEGRIP MULTI NOITE COM 4CPR": "7896094918603",
+  "Aparelho Gillette Prestobarba FIXA - 2UND": "7500435154420",
+  "NEOLEFRIN xpe fr 60ml": "7896714214573",
+  "NAC 600MG C/30 CAPS QUALY": "7898767762995",
+  "AMBROXMEL 6mg/ML xpe fr 120ml ADULTO": "7896523207681",
+  "MANITOL 20% 250ML": "7896137607730",
+  "DECONGEX PLUS xpe 120 ml": "7896658001918",
 };
 
 function normalizarNome(nome: string): string {
