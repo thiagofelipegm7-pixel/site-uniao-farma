@@ -961,6 +961,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "PILHA DURACELL ALCALINA 2A C/2 UND": "041333014630",
   "BUSCOPAN CX 20CPR": "7896094921429",
   "TINT SOFT COLOR 40 CAST MED": "726669007371",
+  "TEKBOND SUPER COLA 2G 24X1 -SM": "7898904869105",
 };
 
 function normalizarNome(nome: string): string {
