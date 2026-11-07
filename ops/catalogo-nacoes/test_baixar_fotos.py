@@ -21,6 +21,13 @@ class TestMapa(unittest.TestCase):
         r = b.inserir_no_mapa(BASE, 'CREME "X" 50G', "7891234567890")
         self.assertIn('"CREME \\"X\\" 50G": "7891234567890"', r)
 
+    def test_remove_a_linha_do_ean(self):
+        base = BASE.replace('"A B": "1111111111111",', '"A B": "1111111111111",\n  "COM \\"ASPAS\\"": "2222222222222",')
+        r = b.remover_do_mapa(base, "2222222222222")
+        self.assertNotIn("2222222222222", r)
+        self.assertIn('"A B": "1111111111111"', r)
+        self.assertEqual(b.remover_do_mapa(BASE, "9999999999999"), BASE)
+
     def test_converte_png_para_webp_quadrado(self):
         from PIL import Image
 
