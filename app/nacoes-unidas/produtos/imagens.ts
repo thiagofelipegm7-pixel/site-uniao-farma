@@ -1222,6 +1222,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "METOPROLOL 25mg 30 COMP MEDLEY": "7891058000950",
   "FENOBARBITAL 40MG SOL OR FR GTS 20ML UNIAO QUIMICA": "7896006237167",
   "DOISKA 180mcg cx 30 cap": "7896112403371",
+  "VITAMINA D3 50.000 UI CX 4 CAPS NEO QUIMICA": "7896714292687",
 };
 
 function normalizarNome(nome: string): string {
