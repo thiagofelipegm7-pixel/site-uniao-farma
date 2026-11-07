@@ -1,7 +1,7 @@
 import { lerExportBruto } from "../../../estoque-fonte";
 import { chaveDeNome, montarLinhas, resumirFotos, SEM_CATEGORIA } from "../../../fotos-painel";
 import { carregarCatalogoCompleto } from "../../../nacoes-unidas/produtos/catalogo";
-import { banco } from "../../../estoque-fonte";
+import { banco, segredo } from "../../../estoque-fonte";
 import { listarPendentes } from "../../../fotos-enviadas";
 import { FOTOS_NACOES } from "../../../nacoes-unidas/produtos/imagens";
 import { carregarRestritos } from "../../../nacoes-unidas/produtos/receita";
@@ -33,6 +33,7 @@ export async function GET() {
       resumo: resumirFotos(linhas),
       categorias: listaCategorias,
       pendentes,
+      publicacaoRapida: Boolean(segredo("GITHUB_DISPATCH_TOKEN")),
       // Linhas em lista (não objetos) para a resposta ficar pequena: [ean, nome, lab, classe, estoque, preco, valor, controlado, antimicrobiano, categoria, noSite]
       linhas: linhas.map((l) => [l.ean, l.nome, l.lab, l.classe, l.estoque, l.preco, l.valor, l.controlado ? 1 : 0, l.antimicrobiano ? 1 : 0, l.categoria, l.noSite ? 1 : 0]),
     },
