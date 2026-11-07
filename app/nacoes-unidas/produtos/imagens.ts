@@ -1060,6 +1060,8 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "REHIDRALIN SACHES UVA 28G": "7898593052147",
   "CORTADOR DE UNHAS UNHEX PEQUENO": "7896075701019",
   "CURATIVO CREMER 10 UNIDADES BEGE": "7891800342000",
+  "VICK PYRENA 500mg po prep env": "78911246",
+  "IBUPROFENO 50MG GOTAS 30ML GEOLAB": "7899095233546",
 };
 
 function normalizarNome(nome: string): string {
