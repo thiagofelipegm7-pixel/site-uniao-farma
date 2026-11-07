@@ -66,6 +66,9 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   const carregando = useRef(false);
   const formRef = useRef<HTMLFormElement>(null);
   const painelRef = useRef<HTMLDivElement>(null);
+  // Dedo (ou mouse) no painel de sugestões: no iPhone tocar num link tira o foco do campo antes do clique e o painel sumia sem abrir o produto.
+  const tocandoPainel = useRef(false);
+  const fimToque = useRef<number | undefined>(undefined);
 
   // Busca o catálogo uma vez, só quando o cliente toca no campo.
   function carregar() {
@@ -107,6 +110,26 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   const resultadosRestritos = corrigida ? primeiros(restritos, (item) => casaConsulta(item.busca, corrigida), 4) : exatosRestritos;
   const mostrarPainel = foco && !vozAtiva && (normal.length === 0 || normal.length >= 2);
   const semResultado = normal.length >= 2 && itens !== null && resultados.length === 0 && resultadosRestritos.length === 0;
+
+  // Com o teclado aberto (iPhone), a lista não pode passar por baixo dele: limita a altura ao que sobra na tela visível, com rolagem.
+  useEffect(() => {
+    if (!mostrarPainel) return;
+    const vv = window.visualViewport;
+    const ajustar = () => {
+      const painel = painelRef.current;
+      if (!painel || !vv) return;
+      const topo = painel.getBoundingClientRect().top - vv.offsetTop;
+      painel.style.maxHeight = `${Math.max(140, Math.floor(vv.height - topo - 12))}px`;
+    };
+    ajustar();
+    vv?.addEventListener("resize", ajustar);
+    vv?.addEventListener("scroll", ajustar);
+    return () => {
+      vv?.removeEventListener("resize", ajustar);
+      vv?.removeEventListener("scroll", ajustar);
+      if (painelRef.current) painelRef.current.style.maxHeight = "";
+    };
+  }, [mostrarPainel, itens]);
 
   // Baixa os produtos da busca assim que a página sossega, para a primeira digitação já achar (antes só começava ao tocar no campo).
   useEffect(() => {
@@ -159,7 +182,12 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
           action="/nacoes-unidas/produtos"
           method="get"
           onBlur={(event) => {
-            if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFoco(false);
+            if (event.currentTarget.contains(event.relatedTarget as Node | null)) return;
+            // Dá tempo do toque virar clique; só fecha se o foco realmente saiu da busca e ninguém está tocando no painel.
+            window.setTimeout(() => {
+              if (tocandoPainel.current || formRef.current?.contains(document.activeElement)) return;
+              setFoco(false);
+            }, 200);
           }}
         >
           <label className="sr-only" htmlFor="shop-busca-q">Buscar produto</label>
@@ -202,7 +230,22 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
             <IconLupa size={22} />
           </button>
           {mostrarPainel ? (
-            <div className="shop-sugestoes" id="shop-sugestoes" ref={painelRef}>
+            <div
+              className="shop-sugestoes"
+              id="shop-sugestoes"
+              ref={painelRef}
+              onPointerDown={() => {
+                tocandoPainel.current = true;
+                window.clearTimeout(fimToque.current);
+              }}
+              onPointerUp={() => {
+                window.clearTimeout(fimToque.current);
+                fimToque.current = window.setTimeout(() => { tocandoPainel.current = false; }, 600);
+              }}
+              onPointerCancel={() => {
+                tocandoPainel.current = false;
+              }}
+            >
               {normal.length === 0 ? (
                 <>
                   <p className="shop-sugestoes-titulo">Buscas populares</p>
