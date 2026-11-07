@@ -1420,3 +1420,4 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 @layer design {
   .shop-busca input, .pv-ordenar select, select, input[type="search"], input[type="text"] { font-size: 16px !important; }
 }
+.shop-sugestoes { overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
