@@ -1088,6 +1088,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "FEXOFENADINA 120MG CX 10CPR CIMED": "7896523220291",
   "BALSAMO BENGUE Pomada bg* 20GR": "7896004817569",
   "HIDROGEL COM ALGINATO 85G": "7898415441326",
+  "LOCAO NIVEA PELE E SECA 400 ML": "4005808315697",
 };
 
 function normalizarNome(nome: string): string {
