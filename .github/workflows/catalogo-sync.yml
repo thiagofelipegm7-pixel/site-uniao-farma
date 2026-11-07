@@ -64,6 +64,10 @@ jobs:
         if: steps.sync.outputs.mudou == 'true' || steps.fotos.outputs.fotos == 'true'
         run: npm ci
 
+      - name: Refazer os arquivos da busca com as fotos novas
+        if: steps.fotos.outputs.fotos == 'true'
+        run: node scripts/gerar-assets-catalogo.mjs
+
       - name: Podar textos e pares de IA que deixaram de valer
         if: steps.sync.outputs.mudou == 'true'
         run: node --experimental-strip-types --import ./tests/ts-resolve-hook.mjs scripts/podar-dados-ia.mjs
