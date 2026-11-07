@@ -898,6 +898,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "MOBILITY OSCAL D 500mg+400ui cx 60 co": "7891058002336",
   "DECONGEX PLUS 12+15MG CX 25BL X 4 COMP": "7896658007996",
   "FLORASTOR 1BI COM 6 SACHES": "7896006222668",
+  "MAGNESIA BISURADA CARTELA COM 10 PAST": "7895858017422",
 };
 
 function normalizarNome(nome: string): string {
