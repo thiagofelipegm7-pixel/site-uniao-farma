@@ -43,6 +43,7 @@ export function validarEnvio(corpo: unknown): { ok: true; envio: Envio } | { ok:
 }
 
 async function garantirTabela(db: Banco) {
+  await db.exec("CREATE TABLE IF NOT EXISTS foto_removida (ean TEXT PRIMARY KEY, nome TEXT NOT NULL, slug TEXT, criado TEXT NOT NULL)");
   await db.exec("CREATE TABLE IF NOT EXISTS foto_enviada (ean TEXT PRIMARY KEY, nome TEXT NOT NULL, mime TEXT NOT NULL, dados TEXT NOT NULL, criado TEXT NOT NULL)");
   // Tabela criada antes de existir a coluna "slug" (página do produto): acrescenta uma vez; erro de coluna repetida é esperado.
   try {
@@ -54,6 +55,7 @@ async function garantirTabela(db: Banco) {
 
 export async function guardarFoto(db: Banco, envio: Envio, slug: string | null, agora = new Date()): Promise<void> {
   await garantirTabela(db);
+  await db.prepare("DELETE FROM foto_removida WHERE ean = ?").bind(envio.ean).run(); // nova foto cancela um pedido de remoção anterior
   await db.prepare("INSERT OR REPLACE INTO foto_enviada (ean, nome, mime, dados, criado, slug) VALUES (?, ?, ?, ?, ?, ?)").bind(envio.ean, envio.nome, envio.mime, envio.base64, agora.toISOString(), slug).run();
 }
 
@@ -68,9 +70,24 @@ export async function lerFoto(db: Banco, ean: string): Promise<{ mime: string; b
   return db.prepare("SELECT mime, dados AS base64 FROM foto_enviada WHERE ean = ?").bind(ean).first<{ mime: string; base64: string }>();
 }
 
+/** Tira a foto de um produto: apaga o envio ainda não publicado e deixa o pedido para a sincronização remover o arquivo. */
+export async function pedirRemocao(db: Banco, ean: string, nome: string, slug: string | null, agora = new Date()): Promise<void> {
+  await garantirTabela(db);
+  await db.prepare("DELETE FROM foto_enviada WHERE ean = ?").bind(ean).run();
+  await db.prepare("INSERT OR REPLACE INTO foto_removida (ean, nome, slug, criado) VALUES (?, ?, ?, ?)").bind(ean, nome, slug, agora.toISOString()).run();
+}
+
+export async function listarRemocoes(db: Banco): Promise<{ ean: string; nome: string; slug: string | null }[]> {
+  await garantirTabela(db);
+  const { results } = await db.prepare("SELECT ean, nome, slug FROM foto_removida ORDER BY criado").bind().all<{ ean: string; nome: string; slug: string | null }>();
+  return results;
+}
+
+/** Pedido atendido (foto publicada ou removida do site): limpa as duas filas. */
 export async function apagarFoto(db: Banco, ean: string): Promise<void> {
   await garantirTabela(db);
   await db.prepare("DELETE FROM foto_enviada WHERE ean = ?").bind(ean).run();
+  await db.prepare("DELETE FROM foto_removida WHERE ean = ?").bind(ean).run();
 }
 
 /** Endereços que o painel pode mandar o servidor baixar: https, com nome de site (nunca IP, localhost ou rede interna), sem usuário/senha. */

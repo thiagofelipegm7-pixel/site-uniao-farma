@@ -38,6 +38,14 @@ def inserir_no_mapa(codigo: str, nome: str, ean: str) -> str:
     return codigo[:inicio] + corpo + codigo[fim:]
 
 
+def remover_do_mapa(codigo: str, ean: str) -> str:
+    """Tira de FOTOS_NACOES toda linha que aponta para esse EAN."""
+    inicio = codigo.index("export const FOTOS_NACOES")
+    fim = codigo.index("\n};", inicio)
+    corpo = re.sub(r"\n  \"(?:[^\"\\]|\\.)*\": \"" + re.escape(ean) + r"\",", "", codigo[inicio:fim])
+    return codigo[:inicio] + corpo + codigo[fim:]
+
+
 def para_webp(dados: bytes) -> bytes:
     from PIL import Image
 
@@ -75,7 +83,9 @@ def baixar() -> int:
         saida_github(fotos="false")
         return 0
     try:
-        lista = json.loads(chamar("/api/fotos-pendentes", token)).get("fotos", [])
+        resposta = json.loads(chamar("/api/fotos-pendentes", token))
+        lista = resposta.get("fotos", [])
+        remover = resposta.get("remover", [])
     except (urllib.error.URLError, TimeoutError, json.JSONDecodeError, OSError) as e:
         print(f"Fotos enviadas: não consegui consultar ({e}). Nada a fazer.")
         saida_github(fotos="false")
@@ -96,6 +106,16 @@ def baixar() -> int:
         codigo = inserir_no_mapa(codigo, nome, ean)
         eans.append(ean)
         print(f"Fotos enviadas: {ean} {nome}")
+    for r in remover:
+        ean = str(r.get("ean", ""))
+        if not re.fullmatch(r"\d{8,14}", ean):
+            continue
+        codigo = remover_do_mapa(codigo, ean)
+        arquivo = PASTA / f"{ean}.webp"
+        if arquivo.exists():
+            arquivo.unlink()
+        eans.append(ean)
+        print(f"Fotos removidas: {ean} {r.get('nome', '')}")
     if eans:
         MAPA.write_text(codigo, encoding="utf-8")
     saida_github(fotos="true" if eans else "false", eans=" ".join(eans))

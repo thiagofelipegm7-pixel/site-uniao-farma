@@ -8,7 +8,7 @@ import "../metrics-polish.css";
 import "./painel-fotos.css";
 
 type Linha = [string, string, string, string, number, number, number, number, number, string, number];
-type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; categorias: string[]; pendentes?: string[]; publicacaoRapida?: boolean; linhas: Linha[] };
+type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; linhas: Linha[] };
 
 const CHAVE_MARCAS = "uf_fotos_ok";
 const REAIS = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -49,6 +49,7 @@ export default function PainelFotos() {
   // Linha sobre a qual o arquivo está sendo arrastado (computador).
   const [arrastando, setArrastando] = useState<string | null>(null);
   const [aviso, setAviso] = useState("");
+  const [removidasAgora, setRemovidasAgora] = useState<Set<string>>(new Set());
   const [copiado, setCopiado] = useState<string | null>(null);
   // Linha escolhida com um toque: recebe a imagem colada (Ctrl+V).
   const [alvoColar, setAlvoColar] = useState<string | null>(null);
@@ -119,8 +120,13 @@ export default function PainelFotos() {
   const publicadas = useMemo(() => new Set((dados?.linhas ?? []).filter((l) => l[10] === 1).map((l) => l[0])), [dados]);
   const linhas = useMemo(() => {
     const feitas = new Set([...pendentes, ...Object.entries(envios).filter(([, v]) => v === "enviada").map(([k]) => k)]);
-    return (dados ? dados.linhas.map(paraLinha) : []).map((l) => (feitas.has(l.ean) ? { ...l, noSite: true } : l));
-  }, [dados, pendentes, envios]);
+    // Foto tirada pelo painel e ainda não removida do arquivo do site: já não vale (volta a "falta foto"), a não ser que tenha mandado outra depois.
+    const tiradas = new Set([...(dados?.removidas ?? []), ...removidasAgora]);
+    return (dados ? dados.linhas.map(paraLinha) : []).map((l) => {
+      if (feitas.has(l.ean)) return { ...l, noSite: true };
+      return tiradas.has(l.ean) ? { ...l, noSite: false } : l;
+    });
+  }, [dados, pendentes, envios, removidasAgora]);
   const resumo = useMemo(() => resumirFotos(linhas), [linhas]);
   const filtradas = useMemo(() => {
     // Buscando por nome ou código: mostra o produto mesmo que já tenha foto (para trocar).
@@ -221,6 +227,24 @@ export default function PainelFotos() {
       void enviarFoto(l, origem);
     };
   });
+
+  async function removerFoto(l: LinhaFoto) {
+    if (!window.confirm(`Tirar a foto de "${l.nome}"? A loja volta a mostrar a imagem neutra.`)) return;
+    try {
+      const r = await fetch("/api/interno/fotos/remover", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ean: l.ean, nome: l.nome }) });
+      const j = (await r.json().catch(() => null)) as { ok?: boolean } | null;
+      if (!r.ok || !j?.ok) throw new Error("remover");
+      setRemovidasAgora((antes) => new Set(antes).add(l.ean));
+      setEnvios((e) => {
+        const novo = { ...e };
+        delete novo[l.ean];
+        return novo;
+      });
+      setAviso("");
+    } catch {
+      setAviso("Não consegui tirar a foto agora. Tente de novo.");
+    }
+  }
 
   async function copiarCodigo(ean: string) {
     try {
@@ -331,6 +355,7 @@ export default function PainelFotos() {
                             <input type="file" accept="image/*" disabled={envios[l.ean] === "enviando"} onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} aria-label={`Trocar a foto de ${l.nome}`} />
                             {envios[l.ean] === "enviando" ? "Enviando…" : envios[l.ean] === "erro" ? "Falhou: tentar de novo" : envios[l.ean] === "enviada" ? "Trocada: já aparece no site" : pendentes.has(l.ean) ? "Enviada: trocar de novo" : "Trocar foto"}
                           </label>
+                          <button type="button" className="pf-remover" onClick={() => void removerFoto(l)} aria-label={`Tirar a foto de ${l.nome}`}>Tirar foto</button>
                         </span>
                       ) : (
                         <label className={`pf-enviar${envios[l.ean] === "erro" ? " pf-erro" : ""}`}>

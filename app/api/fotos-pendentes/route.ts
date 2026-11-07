@@ -1,5 +1,5 @@
 import { banco, segredo } from "../../estoque-fonte";
-import { apagarFoto, lerFoto, listarPendentes } from "../../fotos-enviadas";
+import { apagarFoto, lerFoto, listarPendentes, listarRemocoes } from "../../fotos-enviadas";
 
 export const dynamic = "force-dynamic";
 const SEM_CACHE = { "cache-control": "no-store" };
@@ -23,7 +23,7 @@ export async function GET(request: Request) {
   const db = banco();
   if (!db) return Response.json({ ok: false, erro: "sem_banco" }, { status: 501, headers: SEM_CACHE });
   const ean = new URL(request.url).searchParams.get("ean");
-  if (!ean) return Response.json({ ok: true, fotos: await listarPendentes(db) }, { headers: SEM_CACHE });
+  if (!ean) return Response.json({ ok: true, fotos: await listarPendentes(db), remover: await listarRemocoes(db) }, { headers: SEM_CACHE });
   if (!/^\d{8,14}$/.test(ean)) return Response.json({ ok: false, erro: "codigo_invalido" }, { status: 400, headers: SEM_CACHE });
   const foto = await lerFoto(db, ean);
   if (!foto) return Response.json({ ok: false, erro: "nao_encontrada" }, { status: 404, headers: SEM_CACHE });
