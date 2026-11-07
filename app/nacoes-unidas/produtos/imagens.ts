@@ -1095,6 +1095,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "ARLIVRY 7MG/ML 100ML SABOR MEL": "7898133136757",
   "LAKESIA (ANTIMICOTICO) SPRAY": "7898949409458",
   "MARACUGINA PI 150ML+COPO": "7896094918924",
+  "VICK INALADOR TUBO": "78911239",
 };
 
 function normalizarNome(nome: string): string {
