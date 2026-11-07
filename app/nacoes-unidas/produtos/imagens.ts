@@ -870,6 +870,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "LISADOR DIP 1 g 10 COMPRIMIDOS": "7896094916227",
   "NAN CONFOR 2 800 G": "7891000079515",
   "SIMETICONA 125mg cx 15 cap BIOLAB": "7896112406778",
+  "COMPRESSA DE GAZE ESTERIL AMED 11 FIOS": "7898488470315",
 };
 
 function normalizarNome(nome: string): string {
