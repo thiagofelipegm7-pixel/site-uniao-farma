@@ -864,6 +864,9 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "AMBROXMEL 6mg/ML xpe fr 120ml ADULTO": "7896523207681",
   "MANITOL 20% 250ML": "7896137607730",
   "DECONGEX PLUS xpe 120 ml": "7896658001918",
+  "ALMEIDA PRADO 46 CX 60CPR": "7896026173018",
+  "ENTEROGERMINA PLUS C/5 FR 5 ML": "7891058020286",
+  "ENO SAL DE FRUTA LARANJA 2 ENV": "7896015511166",
 };
 
 function normalizarNome(nome: string): string {
