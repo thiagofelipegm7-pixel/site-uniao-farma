@@ -58,3 +58,4 @@
   .painel-fotos .pf-codigo { flex-wrap: wrap; align-items: center; }
   .painel-fotos .pf-copiar { min-height: 2.75rem; }
 }
+.painel-fotos .pf-enviada { display: inline-flex; align-items: center; gap: 0.5rem; }

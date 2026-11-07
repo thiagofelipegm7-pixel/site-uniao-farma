@@ -114,8 +114,13 @@ export default function PainelFotos() {
     };
   }, []);
 
-  const linhas = useMemo(() => (dados ? dados.linhas.map(paraLinha) : []), [dados]);
   const pendentes = useMemo(() => new Set(dados?.pendentes ?? []), [dados]);
+  // Fotos já publicadas no site (arquivo fixo). As enviadas e ainda não publicadas já aparecem na loja, então contam como "com foto".
+  const publicadas = useMemo(() => new Set((dados?.linhas ?? []).filter((l) => l[10] === 1).map((l) => l[0])), [dados]);
+  const linhas = useMemo(() => {
+    const feitas = new Set([...pendentes, ...Object.entries(envios).filter(([, v]) => v === "enviada").map(([k]) => k)]);
+    return (dados ? dados.linhas.map(paraLinha) : []).map((l) => (feitas.has(l.ean) ? { ...l, noSite: true } : l));
+  }, [dados, pendentes, envios]);
   const resumo = useMemo(() => resumirFotos(linhas), [linhas]);
   const filtradas = useMemo(() => {
     const lista = filtrarLinhas(linhas, { busca, categoria, estoque, fotos, tipo, marcados });
@@ -202,7 +207,7 @@ export default function PainelFotos() {
   useEffect(() => {
     colarRef.current = (dt) => {
       const l = alvoColar ? linhas.find((x) => x.ean === alvoColar) : undefined;
-      if (!l || l.noSite) {
+      if (!l || publicadas.has(l.ean)) {
         setAviso("Para colar, toque primeiro na linha do produto e depois use Ctrl+V.");
         return;
       }
@@ -309,16 +314,16 @@ export default function PainelFotos() {
                 {visiveis.map((l) => (
                   <tr
                     key={l.ean}
-                    data-ean={l.noSite ? undefined : l.ean}
-                    tabIndex={l.noSite ? undefined : 0}
-                    onFocus={l.noSite ? undefined : () => setAlvoColar(l.ean)}
+                    data-ean={publicadas.has(l.ean) ? undefined : l.ean}
+                    tabIndex={publicadas.has(l.ean) ? undefined : 0}
+                    onFocus={publicadas.has(l.ean) ? undefined : () => setAlvoColar(l.ean)}
                     className={[l.estoque <= 0 ? "pf-zero" : "", arrastando === l.ean ? "pf-arrastando" : ""].filter(Boolean).join(" ") || undefined}
                   >
                     <td className="pf-foto">
-                      {l.noSite ? (
+                      {publicadas.has(l.ean) ? (
                         <img src={`/produtos/${l.ean}.webp`} alt="" width="40" height="40" loading="lazy" decoding="async" />
-                      ) : envios[l.ean] === "enviada" || pendentes.has(l.ean) ? (
-                        <span className="pf-enviada">enviada: já aparece no site</span>
+                      ) : l.noSite ? (
+                        <span className="pf-enviada"><img src={`/api/foto-nova?ean=${l.ean}`} alt="" width="40" height="40" loading="lazy" decoding="async" /> enviada: já aparece no site</span>
                       ) : (
                         <label className={`pf-enviar${envios[l.ean] === "erro" ? " pf-erro" : ""}`}>
                           <input type="file" accept="image/*" disabled={envios[l.ean] === "enviando"} onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} aria-label={`Enviar foto de ${l.nome}`} />
