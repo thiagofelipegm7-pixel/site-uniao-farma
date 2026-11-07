@@ -1236,6 +1236,9 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "ZOLPIDEM 10 mg CX 30CPR SANDOZ": "7897595608161",
   "CONTRACEP sus inj fa x 1ml@": "7894916502900",
   "FOSTAIR HFA spray aer bucal+disp": "7896672203336",
+  "TOBRACORT POM OFTALMICA 3.5 GR": "7896006290537",
+  "DUTASTERIDA 0.5MG CX 30 CAP MOLE BIOSSINTETICA": "7896181925996",
+  "DEXILANT 30 mg cap lib ret C/30 CPR": "7896641808982",
 };
 
 function normalizarNome(nome: string): string {
