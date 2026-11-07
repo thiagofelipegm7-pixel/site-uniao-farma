@@ -143,6 +143,8 @@ test("painel de fotos: cruza estoque x fotos do site, resume, filtra e gera CSV"
   assert.equal(linhas[1].valor, 50);
   const r = f.resumirFotos(linhas);
   assert.deepEqual([r.total, r.comFoto, r.faltam, r.faltamComEstoque, r.valorSemFoto], [4, 1, 3, 2, 110]);
+  // À venda no site com foto: só o item 111 (222 é controlado; 333 e 444 não estão no catálogo do site).
+  assert.deepEqual([r.aVenda, r.aVendaComFoto, r.aVendaFaltamComEstoque, r.aVendaValorSemFoto, r.fora], [1, 1, 0, 0, 3]);
   assert.deepEqual(f.filtrarLinhas(linhas, { fotos: "faltam", estoque: "com" }).map((l) => l.ean), ["222", "444"]);
   assert.deepEqual(f.filtrarLinhas(linhas, { tipo: "controlado" }).map((l) => l.ean), ["222"]);
   assert.deepEqual(f.filtrarLinhas(linhas, { busca: "amoxi" }).map((l) => l.ean), ["444"]);

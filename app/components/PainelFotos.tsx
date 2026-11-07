@@ -258,11 +258,12 @@ export default function PainelFotos() {
       {dados ? (
         <>
           <section className="pf-resumo" aria-label="Resumo">
-            <div><strong>{resumo.comFoto}</strong><span>com foto no site (de {resumo.total} itens)</span></div>
-            <div><strong>{resumo.faltamComEstoque}</strong><span>faltam foto e têm estoque</span></div>
-            <div><strong>{REAIS.format(resumo.valorSemFoto)}</strong><span>em estoque sem foto</span></div>
-            <div><strong>{resumo.comEstoque > 0 ? Math.round((resumo.comEstoqueComFoto / resumo.comEstoque) * 100) : 0}%</strong><span>dos itens com estoque já têm foto</span></div>
+            <div><strong>{resumo.aVendaComFoto}</strong><span>com foto, de {resumo.aVenda} itens à venda no site</span></div>
+            <div><strong>{resumo.aVendaFaltamComEstoque}</strong><span>faltam foto e têm estoque</span></div>
+            <div><strong>{REAIS.format(resumo.aVendaValorSemFoto)}</strong><span>em estoque (preço de venda) sem foto</span></div>
+            <div><strong>{resumo.aVendaComEstoque > 0 ? Math.round((resumo.aVendaComEstoqueComFoto / resumo.aVendaComEstoque) * 100) : 0}%</strong><span>dos itens à venda com estoque já têm foto</span></div>
           </section>
+          <p className="pf-dados">Não entram nessa conta {resumo.fora} itens que não mostram foto na loja: medicamentos com receita, controlados e itens que não estão no site. A lista abaixo mostra todos.</p>
           <p className="pf-dados">Estoque de {dados.geradoEm ?? "—"}. No computador, arraste o arquivo da foto (ou a imagem de outro site, como o Google Imagens) para a linha do produto, ou toque na linha e cole com Ctrl+V uma imagem copiada; no celular, toque em &ldquo;Enviar foto&rdquo;. A foto aparece no site na hora e, em até 15 minutos, vira arquivo fixo e sai de &ldquo;faltam&rdquo; sozinha.</p>
 
           {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
