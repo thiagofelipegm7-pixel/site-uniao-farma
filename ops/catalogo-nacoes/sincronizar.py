@@ -271,6 +271,8 @@ def main(argv):
         f"{total_restritos(rx_antigo)} → {total_restritos(rx_novo)} nas listas de receita/controlados/consulte; "
         f"{sum(1 for k in antes if k in depois and antes[k] != depois[k])} preços alterados, {len(set(depois) - set(antes))} itens novos, {len(set(antes) - set(depois))} fora."
     )
+    sem_marca = sum(1 for i in cat_novo["itens"] if not i.get("lab"))
+    resumo(f"Produtos sem marca/laboratório: {sem_marca} de {len(cat_novo['itens'])} ({sem_marca * 100 // max(1, len(cat_novo['itens']))}%).")
     conferir = [i["nome"] for i in cat_novo["itens"] if i.get("categoria") == "Categoria a conferir"]
     if conferir:
         resumo(f"{len(conferir)} item(ns) novo(s) sem categoria definida (ficam só na busca até entrarem em AJUSTES de categorias_novas.py): " + "; ".join(conferir[:20]))

@@ -207,3 +207,16 @@ test("fotos: produto sem código de barras entra na lista com um código gerado 
   // Foto marcada para esse nome aparece como "com foto".
   assert.equal(f.montarLinhas(itens, new Set([pincel.ean]), new Map())[0].noSite, true);
 });
+
+test("camada 4: o site avisa a idade do estoque só quando passa de 3 horas", async () => {
+  const d = await import("../app/disponibilidade.ts");
+  const agora = Date.parse("2026-11-08T18:00:00-03:00");
+  assert.equal(d.idadeEmMinutos("2026-11-08T17:50:00", agora), 10, "sem fuso vale o horário de Brasília");
+  assert.equal(d.idadeEmMinutos("2026-11-08T20:50:00Z", agora), 10, "com fuso respeita o fuso");
+  assert.equal(d.idadeEmMinutos("2026-11-08T14:00:00", agora), 240);
+  assert.equal(d.idadeEmMinutos("lixo", agora), null);
+  assert.equal(d.idadeEmMinutos(null, agora), null);
+  assert.equal(d.idadeEmMinutos("2026-11-09T09:00:00", agora), 0, "data do futuro não vira número negativo");
+  assert.equal(d.MINUTOS_PARA_AVISAR, 180);
+  assert.deepEqual([45, 150, 300, 3000].map(d.textoIdade), ["45 minutos", "3 horas", "5 horas", "2 dias"]);
+});

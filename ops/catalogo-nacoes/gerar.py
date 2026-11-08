@@ -43,6 +43,18 @@ def fmt_rms(reg):
 
 LIMITE_RESTAM = 5  # com 1 a 5 unidades o site mostra "Resta N"
 
+SUFIXO_LAB = re.compile(r"(?<![A-Z0-9])(LTDA|S/?A|EIRELI|ME|EPP|CIA|LABORATORIOS?|INDUSTRIAS?|IND|COMERCIO|COM|FARMACEUTICAS?|FARMACEUTICOS?|DO BRASIL|E|&)(?![A-Z0-9])")
+
+
+def marca_da_cmed(cmed_lab):
+    """Nome curto do laboratório que a CMED/Anvisa traz ("EUROFARMA LABORATÓRIOS S.A." -> "EUROFARMA"). Vazio se não sobrar nada útil."""
+    n = SUFIXO_LAB.sub(" ", norm(cmed_lab or "").replace(".", ""))
+    n = re.sub(r"[^A-Z0-9 ]", " ", n)
+    palavras = n.split()[:3]
+    marca = " ".join(palavras)
+    return marca if len(marca) >= 3 else ""
+
+
 def chave_publica(nome, lab):
     return norm(nome) + "|" + norm(lab)
 
@@ -166,6 +178,9 @@ def main(path, escrever_csv=True):
         # sem estoque: itens do carrinho só saem com estoque; as listas de preço (sem cesta) mantêm os 972 que o Thiago pediu
         sem_cesta = tipo in ("receita", "receita_retencao", "controlado", "duvidoso")
         lab_item = "" if re.fullmatch(r"(?i)diversos|china", base["Laboratorio"]) else base["Laboratorio"]
+        if not lab_item and v and v.get("cmed_lab"):
+            lab_item = marca_da_cmed(v["cmed_lab"])  # marca em todos: o que o export não traz vem do vínculo com a CMED
+            if lab_item: cont["marca_da_cmed"] += 1
         unidades = math.floor(it["Estoque"]) if isinstance(it["Estoque"], (int, float)) else 0
         esgotado = unidades <= 0
         # Esgotado: só segue no site o que já tinha sido publicado (a página fica aberta; as listas escondem). O resto nunca entra.

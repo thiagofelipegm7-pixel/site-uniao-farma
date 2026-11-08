@@ -80,6 +80,22 @@ class TestRetencao(unittest.TestCase):
         for r in ret:
             self.assertFalse({"ean", "EAN", "CodigoDeBarras", "estoque", "Estoque"} & set(r))
 
+    def test_aprovacao_antiga_sem_laboratorio_continua_valendo_depois_que_o_produto_ganha_marca(self):
+        antiga = R.chave("MED A", "")
+        novo = rx(consulte=[item("MED A", 9, lab="EUROFARMA", cat=None)])
+        _, r, ret = rodar([], novo, aprov={antiga: {"enquadramento": {"valor": "consulte", "por": "Thiago"}}})
+        self.assertEqual(len(r["consulte"]), 1)
+        self.assertEqual(ret, [])
+
+    def test_marca_da_cmed_fica_curta(self):
+        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "motor"))
+        import gerar as G
+        self.assertEqual(G.marca_da_cmed("EUROFARMA LABORATÓRIOS S.A."), "EUROFARMA")
+        self.assertEqual(G.marca_da_cmed("MINÂNCORA & CIA LTDA"), "MINANCORA")
+        self.assertEqual(G.marca_da_cmed("NEO QUÍMICA COMÉRCIO E INDÚSTRIA LTDA"), "NEO QUIMICA")
+        self.assertEqual(G.marca_da_cmed(None), "")
+        self.assertEqual(G.marca_da_cmed("LTDA"), "")
+
     def test_juntar_aprovacoes_painel_vale_por_cima(self):
         j = S.juntar_aprovacoes({"A": {"enquadramento": {"valor": "consulte"}}}, {"A": {"variacao": {"valor": 1}}, "B": {"pmc": {"valor": 2}}})
         self.assertEqual(sorted(j["A"]), ["enquadramento", "variacao"])

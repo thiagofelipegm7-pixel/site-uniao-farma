@@ -48,9 +48,19 @@ def _preco(i):
     return float(p) if isinstance(p, (int, float)) and p > 0 else None
 
 
+def _sem_lab(k):
+    return k.split("|", 1)[0] + "|"
+
+
+def _aprov(aprovacoes, k, tipo):
+    """Aprovação da chave nome|laboratório; vale também a feita antes de o produto ganhar laboratório (chave só com o nome)."""
+    a = (aprovacoes or {}).get(k, {}).get(tipo)
+    return a or (aprovacoes or {}).get(_sem_lab(k), {}).get(tipo)
+
+
 def aprovado(aprovacoes, k, tipo, valor=None):
     """Há aprovação registrada para essa chave e esse tipo? Para preço/PMC, vale só para o preço aprovado."""
-    a = (aprovacoes or {}).get(k, {}).get(tipo)
+    a = _aprov(aprovacoes, k, tipo)
     if not a:
         return False
     if tipo in ("variacao", "pmc"):
@@ -95,14 +105,14 @@ def aplicar(cat_novo, rx_novo, cat_antigo, rx_antigo, pmc_teto, aprovacoes, agor
                 reter(i, "pmc", f"Preço R$ {preco:.2f} acima do teto da CMED (R$ {teto:.2f}).", antes.get(k))
                 continue
             if catalogo:
-                cat_aprov = (aprovacoes or {}).get(k, {}).get("categoria")
+                cat_aprov = _aprov(aprovacoes, k, "categoria")
                 if i.get("categoria") in SEM_CATEGORIA:
                     if cat_aprov and cat_aprov.get("valor") in CATEGORIAS_VALIDAS:
                         i["categoria"] = cat_aprov["valor"]
                     else:
                         reter(i, "sem_categoria", "O motor não achou categoria para este produto.")
                         continue
-            antigo = antes.get(k)
+            antigo = antes.get(k) or antes.get(_sem_lab(k))
             if antigo and abs(preco - antigo) / antigo > LIMITE_VARIACAO and not aprovado(aprovacoes, k, "variacao", preco):
                 reter(i, "variacao", f"Preço foi de R$ {antigo:.2f} para R$ {preco:.2f} ({(preco - antigo) / antigo * 100:+.0f}%). Mantido R$ {antigo:.2f} no site.", antigo)
                 i["preco"] = antigo

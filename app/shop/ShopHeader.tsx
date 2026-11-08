@@ -12,6 +12,7 @@ import MarcaUniao from "./MarcaUniao";
 import BotaoVoz from "./BotaoVoz";
 import ReservaSacola from "../reserva/ReservaSacola";
 import FotosNovas from "./FotosNovas";
+import AvisoDadosAntigos from "./AvisoDadosAntigos";
 import { IconLupa, IconMenu, IconPino, IconWhats } from "../reserva/ReservaIcons";
 import LojaPicker from "./LojaPicker";
 import "./shop.css";
@@ -328,6 +329,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
           <FotosNovas />
         </div>
       </header>
+      <AvisoDadosAntigos />
 
       <DepartamentosGaveta aberto={menu} onFechar={() => setMenu(false)} />
       <LojaPicker />
