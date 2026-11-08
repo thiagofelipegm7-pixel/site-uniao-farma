@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import type { Mudancas } from "../disponibilidade";
 
-const VALIDADE_MS = 45_000;
+const VALIDADE_MS = 30_000;
 let ultimo: { quando: number; mudou: Mudancas } | null = null;
 let emVoo: Promise<Mudancas | null> | null = null;
 
