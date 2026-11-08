@@ -15,8 +15,10 @@ import { carregarUltimoPedido, guardarUltimoPedido, repetirPedido, type ItemCata
 import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats, IconCesta, IconCaminhao, IconConfirmado } from "./ReservaIcons";
 import CestaSugestoes from "./CestaSugestoes";
 import DestaquesSemana from "../shop/DestaquesSemana";
-import { atualizarReserva, definirQtd, tetoDoItem, exigeReceita, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
+import { ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, exigeReceita, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
+import { useDisponibilidade } from "./useDisponibilidade";
+import { avisosDaCesta } from "../disponibilidade";
 
 type Passo = 1 | 2 | 3;
 const BAIRROS = listarBairros(PUBLIC_UNITS);
@@ -27,6 +29,14 @@ const BAIRROS = listarBairros(PUBLIC_UNITS);
  */
 export default function ReservaFluxo() {
   const estado = useReserva();
+  // Disponibilidade ao vivo: o catálogo publicado pode estar alguns minutos atrás do estoque da loja.
+  const vivo = useDisponibilidade(estado.itens.length > 0);
+  const avisos = avisosDaCesta(estado.itens, vivo);
+  const avisoDe = (id: string) => avisos.find((a) => a.id === id);
+  const acabaram = avisos.filter((a) => a.tipo === "acabou");
+  useEffect(() => {
+    if (vivo) atualizarReserva((s) => ajustarLimitesAoVivo(s, vivo));
+  }, [vivo]);
   const [passo, setPasso] = useState<Passo>(1);
   const preferida = useSyncExternalStore(
     (fn) => {
@@ -175,6 +185,7 @@ export default function ReservaFluxo() {
               <div className="entrega-item-prod">
                 <span className="fluxo-item-foto">{item.foto ? <img src={item.foto} alt="" width="52" height="52" /> : null}<b className="fluxo-item-qtd" aria-hidden="true">{item.qtd}</b></span>
                 <strong className="fluxo-item-nome">{item.nome}{item.receita ? <span className="fluxo-item-receita">{item.receita === "controlado" ? "Controlado · receita retida" : "Exige receita"}</span> : null}</strong>
+                {avisoDe(item.id)?.tipo === "acabou" ? <span className="fluxo-aviso-estoque" role="alert">Acabou na loja agora. Volte e tire este item da cesta.</span> : null}
               </div>
               <span className="entrega-item-preco">{formatarCentavos(item.precoCentavos)}</span>
               <span className="entrega-item-qtd">{item.qtd} {item.qtd === 1 ? "unidade" : "unidades"}</span>
@@ -185,7 +196,9 @@ export default function ReservaFluxo() {
     </>
   );
 
-  const enviarWhats = (classe: string) => pagamento ? (
+  const enviarWhats = (classe: string) => acabaram.length > 0 ? (
+    <button type="button" className={classe} disabled><IconWhats size={24} /> Tire o que acabou para enviar</button>
+  ) : pagamento ? (
     <a className={classe} href={href} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unidade.id} data-track-source="reserva_envio" onClick={() => { guardarUltimoPedido(estado.itens.filter(itemAtivo)); registrarEtapa("enviar"); setEnviado(true); }}>
       <IconWhats size={24} /> Enviar pedido pelo WhatsApp
     </a>
@@ -263,6 +276,8 @@ export default function ReservaFluxo() {
                         <span className="fluxo-item-foto">{item.foto ? <img src={item.foto} alt="" width="64" height="64" /> : null}<b className="fluxo-item-qtd" aria-hidden="true">{item.qtd}</b></span>
                         <div>
                           <strong className="fluxo-item-nome">{item.nome}</strong>
+                          {avisoDe(item.id)?.tipo === "acabou" ? <p className="fluxo-aviso-estoque" role="alert">Acabou na loja agora. Tire este item da cesta (a lixeira ao lado) para continuar.</p> : null}
+                          {avisoDe(item.id)?.tipo === "poucas" ? <p className="fluxo-aviso-estoque" role="status">Só restam {avisoDe(item.id)?.restam} na loja.</p> : null}
                           {item.receita ? <p className="fluxo-item-receita">{item.receita === "controlado" ? "Controlado: retirada na loja, com a receita retida pela farmácia." : "Exige receita: retirada na loja, apresentando a receita."}</p> : null}
                         </div>
                       </div>

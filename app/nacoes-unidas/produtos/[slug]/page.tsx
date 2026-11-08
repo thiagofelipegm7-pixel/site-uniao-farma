@@ -115,7 +115,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
             <p className="produto-preco"><Preco precoFmt={formatBRL(item.preco)} variante="grande" /></p>
             {item.esgotado ? <p className="produto-esgotado" role="status">Indisponível no momento. Fale com a loja pelo WhatsApp para saber quando chega.</p> : null}
             <p className="produto-nota">{NOTA_PRECO}</p>
-            {item.esgotado ? null : <ProdutoBarra unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} max={item.restam} />}
+            {item.esgotado ? null : <ProdutoBarra unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} max={item.restam} slug={slugify(item.nome)} />}
           </article>
         </div>
 

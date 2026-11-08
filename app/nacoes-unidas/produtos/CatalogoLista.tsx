@@ -392,7 +392,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
                   apresentacao={quantidadeDoNome(item.nome)}
                   precoFmt={item.precoFmt}
                   restam={item.restam}
-                  cesta={centavos ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cesta" compacto max={item.restam} /> : null}
+                  cesta={centavos ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cesta" compacto max={item.restam} slug={item.slug} /> : null}
                 />
               );
             }),

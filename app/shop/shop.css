@@ -1424,3 +1424,7 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 /* Segurar o dedo numa foto do produto não abre o menu "salvar imagem" do iPhone: o toque abre o produto. */
 .shop-sugestoes img, .pv-img img, .produto-foto img { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 .shop-sugestoes li a img, .pv-corpo img { pointer-events: none; }
+
+/* Aviso de estoque ao vivo na cesta: o item acabou na loja depois da última publicação. */
+.fluxo-aviso-estoque { display: block; margin: 0.25rem 0 0; color: #a3200f; font-size: 0.8125rem; font-weight: 700; line-height: 1.4; }
+.produto-adicionar:disabled { opacity: 0.6; cursor: not-allowed; }
