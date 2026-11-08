@@ -23,6 +23,6 @@ export async function POST(request: Request) {
   const temPagina = carregarCatalogoCompleto().itens.some((i) => slugify(i.nome) === slug);
   await guardarFoto(db, conferido.envio, temPagina ? slug : null);
   // A foto já vale no site; isto só apressa o arquivo fixo (a publicação roda em alguns minutos).
-  const publicando = await dispararSincronizacao();
+  const publicando = await dispararSincronizacao(db);
   return Response.json({ ok: true, publicando }, { headers: SEM_CACHE });
 }

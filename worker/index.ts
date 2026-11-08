@@ -57,6 +57,14 @@ const worker = {
       headers: { authorization: `Bearer ${env.CATALOGO_READ_TOKEN}` },
     });
     ctx.waitUntil(handler.fetch(pedido, env, ctx).then(() => undefined));
+    // A cada 30 min: se há fotos enviadas pelo painel esperando, pede a publicação em lote (poupa os minutos grátis do GitHub).
+    if (evento.cron !== "30 0 * * *") {
+      const publicar = new Request("https://xn--uniofarmasabar-8gbu.com.br/api/fotos-publicar", {
+        method: "POST",
+        headers: { authorization: `Bearer ${env.CATALOGO_READ_TOKEN}` },
+      });
+      ctx.waitUntil(handler.fetch(publicar, env, ctx).then(() => undefined));
+    }
   },
 };
 

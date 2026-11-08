@@ -21,6 +21,8 @@ concurrency:
 
 jobs:
   monitor:
+    # Execução da sincronização que foi só cancelada por outra mais nova (várias fotos seguidas) não precisa de conferência: poupa minutos.
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion != 'cancelled' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
     env:

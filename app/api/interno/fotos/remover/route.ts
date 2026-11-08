@@ -23,6 +23,6 @@ export async function POST(request: Request) {
   const slug = slugify(nome);
   const temPagina = carregarCatalogoCompleto().itens.some((i) => slugify(i.nome) === slug);
   await pedirRemocao(db, ean, nome, temPagina ? slug : null);
-  const publicando = await dispararSincronizacao();
+  const publicando = await dispararSincronizacao(db);
   return Response.json({ ok: true, publicando }, { headers: SEM_CACHE });
 }

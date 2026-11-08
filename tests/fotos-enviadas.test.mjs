@@ -43,3 +43,24 @@ test("imagem arrastada de outro site: acha o endereço da imagem e só deixa o s
     assert.equal(urlPermitida(ruim), null, ruim);
   }
 });
+
+test("publicação das fotos: no máximo uma a cada 10 minutos (poupa os minutos grátis do GitHub)", async () => {
+  const { reservarPublicacao, MINUTOS_ENTRE_PUBLICACOES } = await import("../app/disparar-sync.ts");
+  let quando = null;
+  const db = {
+    exec: async () => undefined,
+    prepare: (sql) => ({
+      bind: (...v) => ({
+        first: async () => (quando === null ? null : { quando }),
+        run: async () => {
+          if (/INSERT/.test(sql)) quando = v[0];
+        },
+      }),
+    }),
+  };
+  const t0 = Date.UTC(2026, 10, 8, 12, 0, 0);
+  assert.equal(await reservarPublicacao(db, t0), true, "primeira vai");
+  assert.equal(await reservarPublicacao(db, t0 + 2 * 60_000), false, "2 min depois espera o lote");
+  assert.equal(await reservarPublicacao(db, t0 + (MINUTOS_ENTRE_PUBLICACOES + 1) * 60_000), true, "depois da janela vai de novo");
+  assert.equal(await reservarPublicacao(null, t0), true, "sem banco não bloqueia");
+});
