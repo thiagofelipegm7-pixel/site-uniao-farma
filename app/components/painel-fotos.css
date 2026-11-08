@@ -66,3 +66,6 @@
 .painel-fotos .pf-remover { min-height: 2.75rem; padding: 0 0.75rem; border: 1px solid #b3261e; border-radius: 8px; background: #ffffff; color: #b3261e; font: inherit; font-size: 0.8125rem; font-weight: 700; cursor: pointer; }
 .painel-fotos .pf-foto-atual { flex-wrap: wrap; }
 .painel-fotos .pf-solte { position: sticky; top: 0.5rem; z-index: 5; margin: 0 0 0.75rem; padding: 0.625rem 0.875rem; border: 2px dashed #0e7370; border-radius: 10px; background: #e3f4ee; color: #0a3548; font-weight: 700; }
+/* iPhone amplia a página ao tocar em campo com letra menor que 16 px; botões e campos do painel ficam com 16 px. */
+.painel-fotos .pf-filtros input, .painel-fotos .pf-filtros select, .painel-fotos .pf-filtros button, .painel-fotos .pf-paginas button { font-size: 16px !important; }
+.painel-fotos label, .painel-fotos button { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
