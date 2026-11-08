@@ -60,6 +60,11 @@ export default function PainelFotos() {
     setErro(false);
     try {
       const r = await fetch("/api/interno/fotos", { cache: "no-store" });
+      // Sessão vencida: o servidor responde com a tela de entrada (HTML). Leva para entrar de novo e volta para cá.
+      if (r.redirected || (r.headers.get("content-type") ?? "").includes("text/html")) {
+        window.location.assign("/interno/entrar?next=%2Finterno%2Ffotos");
+        return;
+      }
       const j = (await r.json()) as Resposta;
       if (!r.ok || !j.ok) throw new Error("falha");
       setDados(j);
@@ -118,6 +123,25 @@ export default function PainelFotos() {
   const pendentes = useMemo(() => new Set(dados?.pendentes ?? []), [dados]);
   // Fotos já publicadas no site (arquivo fixo). As enviadas e ainda não publicadas já aparecem na loja, então contam como "com foto".
   const publicadas = useMemo(() => new Set((dados?.linhas ?? []).filter((l) => l[10] === 1).map((l) => l[0])), [dados]);
+  // Voltou para a aba (ou o iPhone restaurou a página): atualiza a lista, que mudou enquanto estava fora (fotos publicadas, estoque).
+  useEffect(() => {
+    let ultimo = Date.now();
+    const atualizar = () => {
+      if (Date.now() - ultimo < 30_000) return;
+      ultimo = Date.now();
+      void carregar();
+    };
+    const visivel = () => {
+      if (document.visibilityState === "visible") atualizar();
+    };
+    document.addEventListener("visibilitychange", visivel);
+    window.addEventListener("pageshow", atualizar);
+    return () => {
+      document.removeEventListener("visibilitychange", visivel);
+      window.removeEventListener("pageshow", atualizar);
+    };
+  }, [carregar]);
+
   const linhas = useMemo(() => {
     const feitas = new Set([...pendentes, ...Object.entries(envios).filter(([, v]) => v === "enviada").map(([k]) => k)]);
     // Foto tirada pelo painel e ainda não removida do arquivo do site: já não vale (volta a "falta foto"), a não ser que tenha mandado outra depois.
@@ -167,7 +191,7 @@ export default function PainelFotos() {
           const bytes = Uint8Array.from(atob(dados), (c) => c.charCodeAt(0));
           return new Blob([bytes], { type: cab.slice(5).split(";")[0] });
         }
-        const r = await fetch("/api/interno/fotos/baixar", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ url }) });
+        const r = await fetch("/api/interno/fotos/baixar", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ url }), signal: AbortSignal.timeout(20_000) });
         if (r.ok) return await r.blob();
       } catch {
         // tenta o próximo endereço
@@ -186,7 +210,7 @@ export default function PainelFotos() {
       etapa = "preparar";
       const imagem = await prepararFoto(arquivo);
       etapa = "envio";
-      const r = await fetch("/api/interno/fotos/enviar", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ean: l.ean, nome: l.nome, imagem }) });
+      const r = await fetch("/api/interno/fotos/enviar", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ean: l.ean, nome: l.nome, imagem }), signal: AbortSignal.timeout(45_000) });
       // Sessão vencida: o servidor manda para a tela de entrada (HTML) em vez de responder o envio.
       if (r.redirected || (r.headers.get("content-type") ?? "").includes("text/html")) {
         etapa = "sessao";
@@ -199,8 +223,9 @@ export default function PainelFotos() {
       }
       setEnvios((e) => ({ ...e, [l.ean]: "enviada" }));
       setAviso("");
-    } catch {
+    } catch (erro) {
       setEnvios((e) => ({ ...e, [l.ean]: "erro" }));
+      if (etapa === "envio" && erro instanceof Error && (erro.name === "TimeoutError" || erro.name === "TypeError")) etapa = "TimeoutError"; // sem rede ou lento demais
       const motivo: Record<string, string> = {
         origem: Array.isArray(origem) ? "Não consegui baixar essa imagem do site (alguns sites bloqueiam). Salve a imagem no computador e arraste o arquivo, ou use \"Enviar foto\"." : "Esse arquivo não parece ser uma imagem. Use JPG, PNG ou WebP.",
         preparar: "O navegador não conseguiu abrir essa imagem. Salve de novo como JPG ou PNG e tente outra vez.",
@@ -208,6 +233,7 @@ export default function PainelFotos() {
         imagem_invalida: "A imagem ficou grande demais para enviar. Tente uma foto menor.",
         formato_invalido: "Formato de imagem não aceito. Use JPG, PNG ou WebP.",
         sem_banco: "O banco do site não respondeu. Tente de novo em instantes.",
+        TimeoutError: "A conexão está lenta ou caiu. Confira a internet e tente de novo.",
       };
       setAviso(motivo[etapa] ?? `Não consegui enviar a foto (${etapa}). Tente de novo; se repetir, me avise com esse código.`);
     }
@@ -226,7 +252,7 @@ export default function PainelFotos() {
         setAviso(`Não consegui ler essa imagem (o navegador mandou: ${[...dt.types].join(", ") || "nada"}). Salve a imagem no computador e arraste o arquivo, ou use "Enviar foto".`);
         return;
       }
-      setAviso("");
+      setAviso(dt.files && [...dt.files].filter((f) => f.type.startsWith("image/")).length > 1 ? "Você soltou mais de uma foto: enviei só a primeira. Solte uma foto por produto." : "");
       void enviarFoto(l, origem);
     };
   });
