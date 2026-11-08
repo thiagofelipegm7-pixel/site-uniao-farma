@@ -56,9 +56,7 @@ jobs:
         id: fotos
         env:
           CATALOGO_READ_TOKEN: ${{ secrets.CATALOGO_READ_TOKEN }}
-        run: |
-          pip install --quiet pillow
-          python3 ops/catalogo-nacoes/baixar_fotos.py baixar
+        run: python3 ops/catalogo-nacoes/baixar_fotos.py baixar
 
       - name: Instalar dependências
         if: steps.sync.outputs.mudou == 'true' || steps.fotos.outputs.fotos == 'true'

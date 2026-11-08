@@ -47,7 +47,13 @@ def remover_do_mapa(codigo: str, ean: str) -> str:
 
 
 def para_webp(dados: bytes) -> bytes:
-    from PIL import Image
+    try:
+        from PIL import Image
+    except ImportError:  # só instala quando há foto para converter (poupa ~10 s em toda execução)
+        import subprocess
+
+        subprocess.run([sys.executable, "-m", "pip", "install", "--quiet", "pillow"], check=True)
+        from PIL import Image
 
     img = Image.open(io.BytesIO(dados)).convert("RGBA")
     fundo = Image.new("RGBA", img.size, (255, 255, 255, 255))
