@@ -1,15 +1,15 @@
 # Plano de volta — voltar à versão anterior em minutos
 
 **Data:** 8 de novembro de 2026  
-**Plataforma:** Cloudflare Pages / Workers
+**Plataforma:** Cloudflare Workers (o site publica pelo Workers Builds a cada mudança aprovada no GitHub)
 
 ## Atalho (mais rápido)
 
-1. Acesse o painel do Cloudflare → Workers & Pages → projeto do site.
-2. Vá em **Deployments**.
-3. Encontre o deploy anterior estável.
-4. Clique nos três pontos → **Rollback to this deployment** (ou equivalente).
-5. Confirme. O tráfego volta para essa versão em segundos/minutos.
+1. Acesse o painel do Cloudflare → Workers & Pages → **site-uniao-farma**.
+2. Abra a aba **Deployments** (versões).
+3. Encontre a versão anterior estável (a última que funcionava bem).
+4. Nos três pontos dessa versão, escolha **Rollback** (voltar para esta versão) e confirme.
+5. O tráfego volta para essa versão em segundos. Os arquivos de dados do estoque também voltam junto: depois da volta, a sincronização do PC traz o estoque de novo na próxima rodada.
 
 ## Procedimento manual (se o atalho não estiver disponível)
 
@@ -19,11 +19,12 @@
    git checkout -b rollback-YYYYMMDD <commit-sha>
    ```
 3. Faça push e abra um PR (ou force o deploy se o fluxo permitir).
-4. Ou, via Wrangler (se configurado):
+4. Ou, via Wrangler (precisa de login no Cloudflare):
    ```bash
-   wrangler pages deployment list --project-name=<nome-do-projeto>
-   wrangler pages deployment rollback <deployment-id>
+   npx wrangler deployments list --name site-uniao-farma
+   npx wrangler rollback <version-id> --name site-uniao-farma
    ```
+5. Atenção: o Workers Builds publica de novo a cada commit na `main`. Para a volta valer, reverta o commit ruim na `main` (`git revert <sha>` e merge) logo depois, senão a próxima publicação traz o problema de volta.
 
 ## Checklist antes de voltar
 
