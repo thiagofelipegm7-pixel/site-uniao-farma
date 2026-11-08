@@ -179,17 +179,37 @@ export default function PainelFotos() {
   async function enviarFoto(l: LinhaFoto, origem: File | Blob | string[] | undefined) {
     if (!origem) return;
     setEnvios((e) => ({ ...e, [l.ean]: "enviando" }));
+    let etapa = "origem";
     try {
       const arquivo = Array.isArray(origem) ? await imagemDaWeb(origem) : origem;
       if (!arquivo || (arquivo.type && !arquivo.type.startsWith("image/"))) throw new Error("origem");
+      etapa = "preparar";
       const imagem = await prepararFoto(arquivo);
+      etapa = "envio";
       const r = await fetch("/api/interno/fotos/enviar", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ean: l.ean, nome: l.nome, imagem }) });
-      const j = (await r.json().catch(() => null)) as { ok?: boolean } | null;
-      if (!r.ok || !j?.ok) throw new Error("envio");
+      // Sessão vencida: o servidor manda para a tela de entrada (HTML) em vez de responder o envio.
+      if (r.redirected || (r.headers.get("content-type") ?? "").includes("text/html")) {
+        etapa = "sessao";
+        throw new Error("sessao");
+      }
+      const j = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string } | null;
+      if (!r.ok || !j?.ok) {
+        etapa = j?.erro ?? `http_${r.status}`;
+        throw new Error("envio");
+      }
       setEnvios((e) => ({ ...e, [l.ean]: "enviada" }));
+      setAviso("");
     } catch {
       setEnvios((e) => ({ ...e, [l.ean]: "erro" }));
-      setAviso(Array.isArray(origem) ? "Não consegui baixar essa imagem do site (alguns sites bloqueiam). Salve a imagem no computador e arraste o arquivo, ou use \"Enviar foto\"." : "Não consegui enviar essa foto. Tente de novo ou use outra imagem (JPG, PNG ou WebP).");
+      const motivo: Record<string, string> = {
+        origem: Array.isArray(origem) ? "Não consegui baixar essa imagem do site (alguns sites bloqueiam). Salve a imagem no computador e arraste o arquivo, ou use \"Enviar foto\"." : "Esse arquivo não parece ser uma imagem. Use JPG, PNG ou WebP.",
+        preparar: "O navegador não conseguiu abrir essa imagem. Salve de novo como JPG ou PNG e tente outra vez.",
+        sessao: "Sua sessão no painel venceu. Recarregue a página (F5), entre de novo e envie a foto outra vez.",
+        imagem_invalida: "A imagem ficou grande demais para enviar. Tente uma foto menor.",
+        formato_invalido: "Formato de imagem não aceito. Use JPG, PNG ou WebP.",
+        sem_banco: "O banco do site não respondeu. Tente de novo em instantes.",
+      };
+      setAviso(motivo[etapa] ?? `Não consegui enviar a foto (${etapa}). Tente de novo; se repetir, me avise com esse código.`);
     }
   }
 
@@ -299,6 +319,7 @@ export default function PainelFotos() {
           {dados.publicacaoRapida === false ? (
             <p className="pf-aviso" role="note">A publicação rápida está desligada (falta a chave do GitHub no Cloudflare). As fotos funcionam no site, mas o arquivo fixo só sai quando o GitHub rodar a sincronização, o que pode levar horas.</p>
           ) : null}
+          {arrastando ? <p className="pf-solte" role="status">Solte aqui para enviar a foto de &ldquo;{linhas.find((x) => x.ean === arrastando)?.nome}&rdquo;</p> : null}
           {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
 
           <div className="pf-filtros">
