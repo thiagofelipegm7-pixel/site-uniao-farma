@@ -106,7 +106,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
             <div className="produto-marca-linha">
               {item.lab.trim() ? (
                 <p className="produto-marca">
-                  <strong>Marca:</strong> {item.lab.trim()}
+                  <strong>{item.categoria === "Medicamentos" ? "Laboratório" : "Marca"}:</strong> {item.lab.trim()}
                 </p>
               ) : <span />}
               <ProdutoAcoes slug={slugItem} titulo={nomeExibido} />

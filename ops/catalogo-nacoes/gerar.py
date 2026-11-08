@@ -35,6 +35,9 @@ ANTIMICROB = re.compile(r"(?<![A-Z])(AMOXICILINA|AMOX|CLAVULAN|NOVAMOX|CLAVULIN|
 TOPICO = re.compile(r"(?<![A-Z])(CREME|CR|POM|POMADA|GEL|SPRAY|COLIRIO|OFT|OFTALM\w*|VAG|VAGINAL|OVULO|OVL|SOL TOP|LOCAO)(?![A-Z])")
 ANTIB_TOP = re.compile(r"TOBRAMICINA|TOBREX|TOBRACORT|TOBRADEX|SULFADIAZINA|MUPIROCINA|MAXIFLOX|MAXITROL|MAXINOM|OTOSPORIN|GENTAMICINA|NEOMICINA|CLORANFENICOL|MONURIL")
 VINC = json.load(open(os.path.join(AQUI, "anvisa-cmed-vinculos.json"), encoding="utf-8"))
+# Laboratório/marca preenchido à mão (por código de barras) para os itens que o DMaster traz como DIVERSOS ou em branco.
+# Fica versionado aqui para a sincronização não apagar; o código de barras nunca vai para os dados públicos.
+OVR_LAB = json.load(open(os.path.join(AQUI, "overrides-laboratorio.json"), encoding="utf-8"))
 LISTAS_344 = {"A1", "A2", "A3", "B1", "B2", "C1", "C2", "C3", "C4", "C5"}
 TARJA_SITE = {"preta": "preta", "restricao": "vermelha-retencao", "vermelha": "vermelha"}
 
@@ -181,6 +184,9 @@ def main(path, escrever_csv=True):
         if not lab_item and v and v.get("cmed_lab"):
             lab_item = marca_da_cmed(v["cmed_lab"])  # marca em todos: o que o export não traz vem do vínculo com a CMED
             if lab_item: cont["marca_da_cmed"] += 1
+        if not lab_item and OVR_LAB.get(str(base["CodigoDeBarras"]).strip()):
+            lab_item = OVR_LAB[str(base["CodigoDeBarras"]).strip()]
+            cont["lab_override"] += 1
         unidades = math.floor(it["Estoque"]) if isinstance(it["Estoque"], (int, float)) else 0
         esgotado = unidades <= 0
         # Esgotado: só segue no site o que já tinha sido publicado (a página fica aberta; as listas escondem). O resto nunca entra.
