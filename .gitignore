@@ -43,3 +43,12 @@ next-env.d.ts
 __pycache__/
 *.pyc
 ops/catalogo-nacoes/.pmc-teto.json
+
+# Planilhas e exports internos (estoque, revisão, DMaster): nunca versionar
+ops/**/*.csv
+*.xlsx
+*.xls
+.tmp-*
+.env
+.env.*
+!.env.example

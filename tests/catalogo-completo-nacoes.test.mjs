@@ -136,42 +136,10 @@ test("paginar e filtrarRestritos", async () => {
   assert.equal(filtrarRestritos(itens, "item 7").length >= 1, true);
 });
 
-test("CSV de controlados e duvidosos existe, sem barras vazias e sem segredos", async () => {
-  const csv = await read("ops/catalogo-nacoes/relatorio-controlados-e-duvidosos.csv");
-  const linhas = csv.trim().split(/\r?\n/);
-  assert.match(linhas[0], /categoria;Produto;Laboratorio;Classe;Pvenda;ativo;lista;motivo;CodigoDeBarras/);
-  assert.ok(linhas.some((l) => l.startsWith("controlado_publicado;")));
-  assert.ok(linhas.some((l) => l.startsWith("duvidoso;")));
-  assert.doesNotMatch(csv, /token|senha|password/i);
-});
-
-test("CSV de revisão do Thiago: 972 duvidosos originais, coluna categoria_final em branco, sem segredos", async () => {
-  const csv = await read("ops/catalogo-nacoes/revisao-thiago.csv");
-  const linhas = [];
-  let campo = "", linha = [], aspas = false;
-  for (const ch of csv.replace(/^\uFEFF/, "")) {
-    if (ch === '"') aspas = !aspas;
-    else if (ch === ";" && !aspas) {
-      linha.push(campo);
-      campo = "";
-    } else if (ch === "\n" && !aspas) {
-      linha.push(campo.replace(/\r$/, ""));
-      linhas.push(linha);
-      linha = [];
-      campo = "";
-    } else campo += ch;
-  }
-  const cab = linhas[0];
-  for (const c of ["Produto", "origem", "onde_esta_no_site", "confianca", "evidencia", "categoria_final", "observacao"]) assert.ok(cab.includes(c), c);
-  const iFinal = cab.indexOf("categoria_final");
-  const iOrig = cab.indexOf("origem");
-  const dados = linhas.slice(1).filter((l) => l.length > 1);
-  assert.equal(dados.filter((l) => l[iOrig] === "um dos 972 duvidosos").length, 972);
-  for (const l of dados) {
-    assert.equal(l.length, cab.length);
-    assert.equal(l[iFinal], "");
-  }
-  assert.doesNotMatch(csv, /token|senha|password/i);
+test("planilhas internas de revisão não ficam no repositório (geradas só localmente)", async () => {
+  const { execFileSync } = await import("node:child_process");
+  const versionados = execFileSync("git", ["ls-files", "ops"], { encoding: "utf8" });
+  assert.doesNotMatch(versionados, /\.csv$/m);
 });
 
 test("selo/etiqueta 'Sem receita' removido de todos os cards de produto e ofertas", async () => {
