@@ -60,13 +60,15 @@ export async function middleware(request: NextRequest) {
     pathname === "/api/interno/fotos/baixar" ||
     pathname === "/api/interno/fotos/remover" ||
     pathname === "/api/interno/revisao" ||
+    pathname === "/api/interno/produto/nome" ||
+    pathname === "/api/interno/produto/nome/desfazer" ||
     pathname === "/api/interno/revisao/aprovar" ||
     pathname === "/api/interno/revisao/desfazer" ||
     pathname === "/api/catalogo-aprovacoes" ||
     pathname === "/api/fotos-pendentes" ||
     pathname === "/api/interno/login" ||
     pathname === "/api/whatsapp/webhook";
-  const staffPath = pathname.startsWith("/interno") || pathname === "/api/metricas" || pathname === "/api/interno/catalogo" || pathname === "/api/interno/estoque" || pathname === "/api/interno/funil" || pathname === "/api/interno/fotos" || pathname === "/api/interno/fotos/enviar" || pathname === "/api/interno/fotos/baixar" || pathname === "/api/interno/fotos/remover" || pathname === "/api/interno/revisao" || pathname === "/api/interno/revisao/aprovar" || pathname === "/api/interno/revisao/desfazer";
+  const staffPath = pathname.startsWith("/interno") || pathname === "/api/metricas" || pathname === "/api/interno/catalogo" || pathname === "/api/interno/estoque" || pathname === "/api/interno/funil" || pathname === "/api/interno/fotos" || pathname === "/api/interno/fotos/enviar" || pathname === "/api/interno/fotos/baixar" || pathname === "/api/interno/fotos/remover" || pathname === "/api/interno/revisao" || pathname === "/api/interno/revisao/aprovar" || pathname === "/api/interno/revisao/desfazer" || pathname === "/api/interno/produto/nome" || pathname === "/api/interno/produto/nome/desfazer";
   if (!staffPath) return withSecurityHeaders(NextResponse.next(), noStore);
   if (pathname === "/interno/entrar" || pathname === "/interno/sair") {
     return withSecurityHeaders(NextResponse.next(), noStore);

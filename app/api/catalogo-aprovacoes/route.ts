@@ -1,4 +1,5 @@
 import { banco, segredo } from "../../estoque-fonte";
+import { mapaDeNomes } from "../../nomes-corrigidos";
 import { mapaDeAprovacoes } from "../../revisao";
 
 export const dynamic = "force-dynamic";
@@ -17,6 +18,7 @@ export async function GET(request: Request) {
   const enviado = (request.headers.get("authorization") ?? "").replace(/^Bearer\s+/i, "").trim();
   if (!token || !enviado || !iguais(token, enviado)) return Response.json({ ok: false, erro: "nao_autorizado" }, { status: 401, headers: SEM_CACHE });
   const db = banco();
-  if (!db) return Response.json({ ok: true, aprovacoes: {} }, { headers: SEM_CACHE });
-  return Response.json({ ok: true, aprovacoes: await mapaDeAprovacoes(db) }, { headers: SEM_CACHE });
+  if (!db) return Response.json({ ok: true, aprovacoes: {}, nomes: {} }, { headers: SEM_CACHE });
+  const nomes = await mapaDeNomes(db).catch(() => ({}));
+  return Response.json({ ok: true, aprovacoes: await mapaDeAprovacoes(db), nomes: Object.fromEntries(Object.entries(nomes).map(([k, v]) => [k, v.nome])) }, { headers: SEM_CACHE });
 }

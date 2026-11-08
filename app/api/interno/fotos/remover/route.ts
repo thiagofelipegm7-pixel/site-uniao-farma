@@ -1,6 +1,7 @@
 import { banco } from "../../../../estoque-fonte";
 import { dispararSincronizacao } from "../../../../disparar-sync";
 import { pedirRemocao } from "../../../../fotos-enviadas";
+import { registrar } from "../../../../nomes-corrigidos";
 import { carregarCatalogoCompleto, slugify } from "../../../../nacoes-unidas/produtos/catalogo";
 
 export const dynamic = "force-dynamic";
@@ -10,10 +11,12 @@ const SEM_CACHE = { "cache-control": "no-store" };
 export async function POST(request: Request) {
   let ean = "";
   let nome = "";
+  let por = "";
   try {
     const c = (await request.json()) as { ean?: unknown; nome?: unknown };
     ean = typeof c.ean === "string" ? c.ean.trim() : "";
     nome = typeof c.nome === "string" ? c.nome.replace(/\s+/g, " ").trim() : "";
+    por = typeof (c as { por?: unknown }).por === "string" ? String((c as { por: string }).por).replace(/\s+/g, " ").trim().slice(0, 60) : "";
   } catch {
     // corpo inválido
   }
@@ -23,6 +26,7 @@ export async function POST(request: Request) {
   const slug = slugify(nome);
   const temPagina = carregarCatalogoCompleto().itens.some((i) => slugify(i.nome) === slug);
   await pedirRemocao(db, ean, nome, temPagina ? slug : null);
+  await registrar(db, { tipo: "foto", chave: ean, titulo: nome, acao: "tirou a foto", por: por || "não informado" }).catch(() => undefined);
   const publicando = await dispararSincronizacao(db);
   return Response.json({ ok: true, publicando }, { headers: SEM_CACHE });
 }

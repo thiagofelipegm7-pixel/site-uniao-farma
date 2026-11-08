@@ -4,8 +4,15 @@
  * Só expande abreviações conhecidas e ajusta caixa e unidades. Não inventa informação.
  */
 import PALAVRAS_JSON from "./nome-exibicao-palavras.json" with { type: "json" };
+import CORRIGIDOS_JSON from "./nacoes-unidas/produtos/dados/nomes-corrigidos.json" with { type: "json" };
 
 const PALAVRAS = PALAVRAS_JSON as Record<string, string>;
+/** Nomes corrigidos à mão no painel interno (chave = nome do sistema da loja, sem acento e em maiúsculas). Têm prioridade sobre a regra automática. */
+const CORRIGIDOS = CORRIGIDOS_JSON as Record<string, string>;
+
+export function chaveDoNome(nome: string): string {
+  return nome.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").trim().toUpperCase();
+}
 const MINUSCULAS = new Set(["de", "da", "do", "e", "com", "sem", "para", "em", "na", "no", "a", "o"]);
 function formatarPalavra(bruta: string, anterior = ""): string {
   const p = bruta.toLowerCase();
@@ -24,6 +31,8 @@ function formatarPalavra(bruta: string, anterior = ""): string {
 }
 
 export function nomeDeExibicao(nomeBruto: string): string {
+  const corrigido = CORRIGIDOS[chaveDoNome(nomeBruto)];
+  if (corrigido) return corrigido;
   const limpo = nomeBruto.replace(/[*]+$/g, "").replace(/\s+/g, " ").trim();
   if (!limpo) return nomeBruto;
   // "ROLL ON" vira "roll-on" (como o rótulo escreve).
