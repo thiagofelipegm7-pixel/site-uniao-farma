@@ -64,7 +64,7 @@ export default function OffersPageClient({
         <section className="section offers-group-band" aria-labelledby="offers-group-band-title">
           <div className="section-inner">
             <h2 id="offers-group-band-title">Receba as próximas ofertas</h2>
-            <p>As ofertas da semana das 3 lojas no seu celular.</p>
+            <p>As ofertas da semana da loja Nações Unidas no seu celular.</p>
             <p>
               <OffersGroupCta placement="ofertas_top" />
             </p>

@@ -1,1 +1,1 @@
-export const TEXTO_RESPONSAVEL = "Responsável técnico das 3 lojas: João · CRF/MG 31958.";
+export const TEXTO_RESPONSAVEL = "Responsável técnico da loja Nações Unidas: João · CRF/MG 31958.";

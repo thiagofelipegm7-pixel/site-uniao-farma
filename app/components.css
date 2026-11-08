@@ -1613,3 +1613,13 @@ a.brand img {
   .hours-table td { display: flex; justify-content: space-between; gap: 12px; border-bottom: 0; padding: 8px 14px; }
   .hours-table td::before { content: attr(data-label); font-weight: 700; color: var(--uf-muted); }
 }
+
+/* Registros sanitários no rodapé (Alvará e AFE). */
+.uf-footer-registros {
+  display: block;
+  margin: 0;
+  color: #ffffff !important;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}

@@ -343,3 +343,11 @@ test("cookie banner is mounted (not dynamic ssr:false) and CSP lets GA4 send con
     }
   }
 });
+
+test("rodapé de todas as páginas traz o Alvará Sanitário e a AFE da Anvisa", async () => {
+  for (const pathname of ["/", "/ofertas", "/perguntas", "/nacoes-unidas/produtos"]) {
+    const html = await (await render(pathname)).text();
+    assert.match(html, /Alvará Sanitário nº 207\/2026/, pathname);
+    assert.match(html, /AFE Anvisa nº 7\.61823-1/, pathname);
+  }
+});

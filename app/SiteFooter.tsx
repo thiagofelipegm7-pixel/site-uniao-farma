@@ -29,6 +29,9 @@ export default function SiteFooter() {
         <p className="uf-footer-legal-name">
           {COMPANY.legalName} · CNPJ {COMPANY.cnpj}
         </p>
+        <p className="uf-footer-registros">
+          {COMPANY.alvara} · {COMPANY.afe}
+        </p>
         <nav className="uf-footer-links" aria-label="Links do rodapé">
           <a href="/privacidade">Privacidade</a>
           <a href="/termos">Termos</a>
