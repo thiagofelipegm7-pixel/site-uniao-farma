@@ -443,3 +443,28 @@
     .button-group-offers { width: auto !important; max-width: max-content !important; align-self: flex-start !important; justify-self: start !important; padding-inline: var(--spacing-xl) !important; }
   }
 }
+
+/* Cores e animações como guia (plano de finalização, item 3).
+   Cores com significado fixo: VERDE = ação (adicionar, enviar, confirmar); VERMELHO = só preço e oferta; AMARELO = alerta (interno e avisos).
+   Animação: uma só, curta, onde guia o olhar (item entrou na cesta). O resto fica parado; quem pede menos movimento não vê nenhuma. */
+:root {
+  --cor-acao: #0e7370;
+  --cor-acao-forte: #0a5a58;
+  --cor-preco: #c53131;
+  --cor-alerta: #e3b341;
+}
+@layer design {
+  /* Sem entrada de cartões, sem esmaecer, sem pulsar: movimento sem função cansa e atrasa aparelho fraco. */
+  .direct-unit-link, .offer-consult-card, .question-card, .neighborhood-grid article, .unit-map, .neighborhood-photo,
+  .open-status.is-open::before { animation: none !important; opacity: 1 !important; transform: none !important; }
+  /* O número da cesta é ação, não preço: verde (o vermelho fica só para preço e oferta). */
+  .reserva-contador-bolha { background: var(--cor-acao) !important; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes uf-entrou-na-cesta {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.45); }
+    100% { transform: scale(1); }
+  }
+  .reserva-contador-bolha { animation: uf-entrou-na-cesta 0.32s ease-out 1; }
+}
