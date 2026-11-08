@@ -5,7 +5,7 @@ import { carregarCatalogoCompleto, slugify } from "../../nacoes-unidas/produtos/
 export const dynamic = "force-dynamic";
 
 const VALIDADE_MS = 30_000;
-let guardado: { quando: number; geradoEm: string | null; mudou: Mudancas } | null = null;
+let guardado: { quando: number; contatoEm: string | null; mudou: Mudancas } | null = null;
 
 /** O que mudou no estoque desde a última publicação do catálogo (só níveis: 0 acabou, 1 a 5 restam, 6 seis ou mais). Público, sem quantidades exatas. */
 export async function GET() {
@@ -20,7 +20,7 @@ export async function GET() {
     for (const i of atual.itens) vivo.set(slugify(i.nome), i.estoque);
     const publicado = new Map<string, { esgotado?: boolean; restam?: number }>();
     for (const i of carregarCatalogoCompleto().itens) publicado.set(slugify(i.nome), i);
-    guardado = { quando: agora, geradoEm: atual.geradoEm, mudou: diferencasDeEstoque(vivo, publicado) };
+    guardado = { quando: agora, contatoEm: atual.contatoEm, mudou: diferencasDeEstoque(vivo, publicado) };
   }
-  return Response.json({ ok: true, geradoEm: guardado.geradoEm, mudou: guardado.mudou }, { headers: { "cache-control": "public, max-age=15" } });
+  return Response.json({ ok: true, geradoEm: guardado.contatoEm, mudou: guardado.mudou }, { headers: { "cache-control": "public, max-age=15" } });
 }
