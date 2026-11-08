@@ -120,16 +120,7 @@ export default function MetricsPage() {
             <p className="metrics-lead">
               {RANGE_LABEL[range]} · {CHANNEL_LABEL[channel]}. Clique não é pedido.
             </p>
-          </div>
-          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "flex-end" }}>
-            <a className="metrics-exit" href="/interno/catalogo">
-              Catálogo
-            </a>
-            <a className="metrics-exit" href="/interno/sair">
-              Sair
-            </a>
-          </div>
-        </div>
+          </div>        </div>
 
         {error ? <p className="metrics-error">{error}</p> : null}
 
