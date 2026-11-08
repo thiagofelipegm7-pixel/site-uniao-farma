@@ -157,7 +157,7 @@ test("página de produto: estrutura, noindex, sem texto de saúde inventado e ba
   assert.match(pagina, /slugify\(item\.nome\)/);
   assert.match(pagina, />União Farma</);
   assert.doesNotMatch(pagina, /Sem receita|IconSelo/);
-  assert.match(pagina, /<strong>Marca:<\/strong>/);
+  assert.match(pagina, /"Laboratório" : "Marca"\}:<\/strong>/);
   assert.match(pagina, /NOTA_PRECO/);
   assert.match(pagina, /textos\.paraQueServe \?/);
   assert.match(pagina, /textos\.destaques \?/);
