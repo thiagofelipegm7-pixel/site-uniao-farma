@@ -38,11 +38,21 @@ def nums(s):
             for n in re.findall(r"\d+(?:[.,]\d+)?", norm(s))}
 
 
+def _num(v):
+    try:
+        x = float(str(v).replace(",", "."))
+        return x if x > 0 else None
+    except (TypeError, ValueError):
+        return None
+
+
 def main(export, xlsx):
     wb = openpyxl.load_workbook(xlsx, read_only=True)
     it = wb["Lista PMC"].iter_rows(values_only=True)
     h = next(it)
     ix = {n: i for i, n in enumerate(h)}
+    # Teto de preço da CMED para Minas Gerais (ICMS 18%): coluna "PMC 18 %" (o nome varia um pouco entre as edições da lista).
+    col_pmc = next((i for n, i in ix.items() if re.sub(r"[\s]", "", str(n or "")).upper() in ("PMC18%", "PMC18", "PMC18%(PMC)")), None)
     recs = []
     for r in it:
         if not r[ix["PRODUTO"]]:
@@ -51,6 +61,7 @@ def main(export, xlsx):
             "ativo": r[ix["SUBSTÂNCIA"]], "lab": r[ix["LABORATÓRIO"]], "reg": str(r[ix["REGISTRO"]] or ""),
             "eans": [re.sub(r"\D", "", str(r[ix[k]] or "")).lstrip("0") for k in ("EAN 1", "EAN 2", "EAN 3")],
             "prod": r[ix["PRODUTO"]], "apr": r[ix["APRESENTAÇÃO"]], "tarja": tarja_cod(r[ix["TARJA"]]),
+            "pmc": _num(r[col_pmc]) if col_pmc is not None else None,
         })
     by_ean, by_prod, by_ativo = collections.defaultdict(list), collections.defaultdict(list), collections.defaultdict(list)
     for r in recs:
@@ -80,7 +91,8 @@ def main(export, xlsx):
         regs = sorted({r["reg"][:9] for r in rs if len(r["reg"]) >= 9})
         t = pior(rs)
         tarjas = {r["tarja"] for r in rs if r["tarja"]}
-        return {"tarja": t, "tarja_unanime": len(tarjas) <= 1, "ativo": " + ".join(a.lower() for a in ativos[:3]) if len(ativos) <= 3 else None,
+        pmcs = [r["pmc"] for r in rs if r.get("pmc")]
+        return {**({"pmc": max(pmcs)} if pmcs else {}), "tarja": t, "tarja_unanime": len(tarjas) <= 1, "ativo": " + ".join(a.lower() for a in ativos[:3]) if len(ativos) <= 3 else None,
                 "registro": regs[0] if len(regs) == 1 else None, "metodo": metodo,
                 "cmed_produto": rs[0]["prod"], "cmed_lab": rs[0]["lab"]}
 

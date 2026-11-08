@@ -11,7 +11,7 @@
     "start": "vinext start",
     "audit:ios": "node tests/audit-campos-ios.cjs http://localhost:4173",
     "audit:mobile": "node tests/audit-texto-mobile.cjs http://localhost:4173 1,1.3,1.5,1.8 360",
-    "test": "node --experimental-strip-types --import ./tests/ts-resolve-hook.mjs --test tests/a11y-static.test.mjs tests/offers.test.mjs tests/news.test.mjs tests/staff-auth.test.mjs tests/current-site.test.mjs tests/hours-exceptions.test.mjs tests/seo-conventions.test.mjs tests/produtos-nacoes.test.mjs tests/catalogo-completo-nacoes.test.mjs tests/entrega-bairro.test.mjs tests/reserva.test.mjs tests/estoque-alertas.test.mjs tests/fotos-enviadas.test.mjs tests/busca-tolerante.test.mjs tests/receita-foto.test.mjs tests/relacionados-descricoes.test.mjs tests/catalogo-sync.test.mjs",
+    "test": "node --experimental-strip-types --import ./tests/ts-resolve-hook.mjs --test tests/a11y-static.test.mjs tests/offers.test.mjs tests/news.test.mjs tests/staff-auth.test.mjs tests/current-site.test.mjs tests/hours-exceptions.test.mjs tests/seo-conventions.test.mjs tests/produtos-nacoes.test.mjs tests/catalogo-completo-nacoes.test.mjs tests/entrega-bairro.test.mjs tests/reserva.test.mjs tests/estoque-alertas.test.mjs tests/fotos-enviadas.test.mjs tests/revisao.test.mjs tests/busca-tolerante.test.mjs tests/receita-foto.test.mjs tests/relacionados-descricoes.test.mjs tests/catalogo-sync.test.mjs",
     "test:html": "node --test tests/rendered-html.test.mjs tests/a11y-rendered.test.mjs",
     "lint": "eslint app tests scripts worker db --ignore-pattern dist --ignore-pattern .next --ignore-pattern build --ignore-pattern work --ignore-pattern outputs --ignore-pattern .wrangler",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",

@@ -1,0 +1,22 @@
+.painel-revisao { max-width: 56rem; margin: 0 auto; padding: 1rem; color: #0d1413; }
+.painel-revisao h1 { margin: 0 0 0.25rem; font-size: 1.5rem; }
+.painel-revisao h2 { margin: 1.25rem 0 0.5rem; font-size: 1.125rem; }
+.painel-revisao .pr-nav { margin: 0 0 0.75rem; font-size: 0.9375rem; }
+.painel-revisao .pr-ajuda { margin: 0 0 1rem; color: #3e4b49; font-size: 0.9375rem; line-height: 1.5; }
+.painel-revisao .pr-quem { display: grid; gap: 0.25rem; margin: 0 0 0.75rem; font-weight: 700; font-size: 0.9375rem; }
+.painel-revisao input, .painel-revisao select { min-height: 2.75rem; padding: 0 0.75rem; border: 1px solid #6b8b86; border-radius: 8px; background: #ffffff; font: inherit; font-size: 16px; max-width: 100%; }
+.painel-revisao .pr-aviso { margin: 0 0 0.75rem; padding: 0.625rem 0.875rem; border: 1px solid #e3b341; border-radius: 10px; background: #fff8e6; color: #5a4300; }
+.painel-revisao .pr-resumo { font-weight: 700; }
+.painel-revisao ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.625rem; }
+.painel-revisao .pr-item { display: grid; gap: 0.25rem; padding: 0.75rem; border: 1px solid #d3e2df; border-radius: 12px; background: #ffffff; overflow-wrap: anywhere; }
+.painel-revisao .pr-item p { margin: 0; font-size: 0.9375rem; line-height: 1.45; }
+.painel-revisao .pr-item small { color: #5b6b68; }
+.painel-revisao .pr-precos { display: flex; flex-wrap: wrap; gap: 0.75rem; font-weight: 700; }
+.painel-revisao .pr-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.25rem; }
+.painel-revisao .pr-acoes input { flex: 1 1 14rem; }
+.painel-revisao button { min-height: 2.75rem; padding: 0 1rem; border-radius: 8px; font: inherit; font-size: 16px; font-weight: 700; cursor: pointer; }
+.painel-revisao .pr-aprovar { border: 0; background: #0a3548; color: #ffffff; }
+.painel-revisao .pr-desfazer { border: 1px solid #b3261e; background: #ffffff; color: #b3261e; justify-self: start; }
+.painel-revisao .pr-ok { color: #1f8a4c; font-weight: 700; }
+.painel-revisao .pr-origem { color: #7a5a00; }
+.painel-revisao button:disabled { opacity: 0.6; cursor: not-allowed; }

@@ -88,6 +88,7 @@ def main(path, escrever_csv=True):
     vistos = set()
     dados_dir = os.path.join(RAIZ, "app", "nacoes-unidas", "produtos", "dados")
     antes = publicados_antes(dados_dir)
+    pmc_teto = {}  # chave pública -> teto de preço da CMED (PMC), só quando o vínculo traz o PMC; lido por retencao.py
     for it in d["itens"]:
         nome = re.sub(r"\s+", " ", it["Produto"]).strip()
         n = norm(nome)
@@ -171,6 +172,8 @@ def main(path, escrever_csv=True):
         if esgotado and not (era_duvidoso and sem_cesta) and chave_publica(nome, lab_item) not in antes:
             rep("sem_estoque", f"sem estoque no export ({tipo})", ativo, lista); continue
         preco = it["Pvenda"] if it["Pvenda"] and it["Pvenda"] > 0 else None
+        if v and isinstance(v.get("pmc"), (int, float)) and v["pmc"] > 0:
+            pmc_teto[chave_publica(nome, lab_item)] = float(v["pmc"])
         item = {"nome": nome, "lab": lab_item, "preco": preco}
         if esgotado:
             item["esgotado"] = True
@@ -219,6 +222,8 @@ def main(path, escrever_csv=True):
         with open(out, "w", newline="", encoding="utf-8-sig") as f:
             w = csv.DictWriter(f, fieldnames=campos, delimiter=";", extrasaction="ignore"); w.writeheader()
             for r in sorted(rel_pub, key=lambda r: (r["categoria"], r["Produto"])): w.writerow(r)
+    with open(os.path.join(AQUI, ".pmc-teto.json"), "w", encoding="utf-8") as f:
+        json.dump(pmc_teto, f, ensure_ascii=False)  # só preço público da CMED por nome; sem código de barras nem estoque
     print(dict(cont))
     return pub, rec, ctl, rel
 
