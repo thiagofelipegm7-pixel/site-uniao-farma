@@ -327,7 +327,7 @@ export default function PainelFotos() {
     <section className="painel-fotos">
       <h1>Fotos dos produtos</h1>
       <p className="pf-nav">
-        <a href="/interno/estoque">Alertas de estoque</a> · <a href="/interno/catalogo">Saúde do catálogo</a> · <a href="/interno/metricas">Métricas</a>
+        <a href="/interno/revisao">Fila de revisão</a> · <a href="/interno/estoque">Alertas de estoque</a> · <a href="/interno/catalogo">Saúde do catálogo</a> · <a href="/interno/metricas">Métricas</a>
       </p>
       {erro ? <p role="alert">Não consegui ler o estoque agora. O PC da loja ou o acesso aos dados pode estar parado. <button type="button" onClick={() => void carregar()}>Tentar de novo</button></p> : null}
       {!dados && !erro ? <p>Carregando o estoque…</p> : null}

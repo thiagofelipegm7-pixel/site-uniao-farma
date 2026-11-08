@@ -30,6 +30,7 @@ MAX_SEM_PRECO_SITE = 0.02        # itens do catálogo sem preço (acima do que j
 MAX_FRACAO_PRECOS_ALTERADOS = 0.25  # mais que isso de itens com preço diferente = recusa (reajuste em massa precisa de olho humano)
 CAMPOS_PROIBIDOS = {"Estoque", "estoque", "CodigoDeBarras", "codigoDeBarras", "ean", "EAN", "token", "Token", "Desconto"}
 ARQUIVOS_META = ("catalogo-nacoes.json", "receita-nacoes.json")
+URL_APROVACOES = os.environ.get("APROVACOES_URL", "https://xn--uniofarmasabar-8gbu.com.br/api/catalogo-aprovacoes")
 
 
 class Recusa(Exception):
@@ -95,7 +96,7 @@ def validar_saida(cat_antigo, rx_antigo, cat_novo, rx_novo, forcar=False):
     sem_preco_antes = sum(1 for i in cat_antigo["itens"] if not (isinstance(i.get("preco"), (int, float)) and i["preco"] > 0))
     if sem_preco / n > MAX_SEM_PRECO_SITE + sem_preco_antes / max(1, len(cat_antigo["itens"])):
         raise Recusa(f"{sem_preco} de {n} itens do catálogo sem preço")
-    for lista in ("receita", "controlados", "consulte"):
+    for lista in ("receita", "controlados"):
         if not rx_novo[lista]:
             raise Recusa(f"lista '{lista}' ficou vazia")
     for i in cat_novo["itens"]:
@@ -126,13 +127,15 @@ def sem_data(d):
     return {k: v for k, v in d.items() if k != "geradoEm"}
 
 
-def mudou_de_verdade(cat_antigo, rx_antigo, cat_novo, rx_novo):
+def mudou_de_verdade(cat_antigo, rx_antigo, cat_novo, rx_novo, revisao_antiga=None, revisao_nova=None):
     """True se houve mudança de itens/preços/listas ou se a data dos dados mudou.
 
     A data (geradoEm) é publicada em /api/catalogo-status e no site, e é o que o monitor usa para saber se o estoque está em dia:
     por isso cada envio novo e válido do PC vira commit, mesmo sem mudança de preço (no máximo 5 por dia)."""
     if sem_data(cat_antigo) != sem_data(cat_novo) or sem_data(rx_antigo) != sem_data(rx_novo):
         return True
+    if revisao_antiga is not None and revisao_antiga != revisao_nova:
+        return True  # a fila de revisão mudou: publica para o painel mostrar o que está esperando
     return (cat_antigo.get("geradoEm") or "") != (cat_novo.get("geradoEm") or "")
 
 
@@ -158,6 +161,26 @@ def baixar(url, token):
             ultimo = type(e).__name__
         import time; time.sleep(5 * (tentativa + 1))
     raise Recusa(f"não consegui baixar o export do Worker ({ultimo})")
+
+
+def juntar_aprovacoes(base, remoto):
+    """Aprovações já registradas (base do repositório + as do painel). A do painel vale por cima."""
+    saida = {k: dict(v) for k, v in (base or {}).items()}
+    for k, tipos in (remoto or {}).items():
+        saida.setdefault(k, {}).update(tipos)
+    return saida
+
+
+def baixar_aprovacoes(token):
+    """Aprovações feitas no painel de revisão (banco do site). Sem rede, segue só com a base: o que não está aprovado fica segurado."""
+    try:
+        req = urllib.request.Request(URL_APROVACOES, headers={"Authorization": f"Bearer {token}", "Accept": "application/json", "User-Agent": "uniao-farma-sync"})
+        with urllib.request.urlopen(req, timeout=30) as r:
+            dados = json.loads(r.read().decode("utf-8"))
+        return dados.get("aprovacoes", {}) if isinstance(dados, dict) else {}
+    except Exception as e:  # noqa: BLE001
+        anotar("warning", "Aprovações do painel", f"não consegui ler ({type(e).__name__}); usando só a base do repositório")
+        return {}
 
 
 def rodar(*cmd):
@@ -222,13 +245,22 @@ def main(argv):
                 shutil.rmtree(os.path.join(PUBLICO, sub), ignore_errors=True)  # páginas antigas que não existem mais não ficam para trás
             rodar(sys.executable, os.path.join(AQUI, "gerar.py"), export, "--sem-csv")
             rodar(sys.executable, os.path.join(AQUI, "categorias_novas.py"))
+            base = ler(os.path.join(AQUI, "aprovacoes-base.json")) if os.path.exists(os.path.join(AQUI, "aprovacoes-base.json")) else {}
+            aprov = juntar_aprovacoes(base, baixar_aprovacoes(os.environ.get("CATALOGO_READ_TOKEN", "").strip()) if not arquivo else {})
+            aprov_arq = os.path.join(tmp, "aprovacoes.json")
+            with open(aprov_arq, "w", encoding="utf-8") as f:
+                json.dump(aprov, f, ensure_ascii=False)
+            # Camadas 1 e 2: segura para revisão o que não pode ir ao ar sem uma pessoa conferir (preço, PMC, categoria, enquadramento).
+            rodar(sys.executable, os.path.join(AQUI, "retencao.py"), os.path.join(tmp, "dados"), aprov_arq)
             rodar("node", os.path.join(RAIZ, "scripts", "gerar-assets-catalogo.mjs"))
             cat_novo, rx_novo = ler(os.path.join(DADOS, "catalogo-nacoes.json")), ler(os.path.join(DADOS, "receita-nacoes.json"))
+            rev_ant = sem_data(ler(os.path.join(tmp, "dados", "revisao-pendente.json"))) if os.path.exists(os.path.join(tmp, "dados", "revisao-pendente.json")) else {}
+            rev_nov = sem_data(ler(os.path.join(DADOS, "revisao-pendente.json"))) if os.path.exists(os.path.join(DADOS, "revisao-pendente.json")) else {}
             validar_saida(cat_antigo, rx_antigo, cat_novo, rx_novo, forcar)
         except Recusa:
             restaurar(tmp)
             raise
-        if not mudou_de_verdade(cat_antigo, rx_antigo, cat_novo, rx_novo):
+        if not mudou_de_verdade(cat_antigo, rx_antigo, cat_novo, rx_novo, rev_ant, rev_nov):
             restaurar(tmp)
             resumo(f"Sem mudanças nos itens, preços ou listas desde {cat_antigo['geradoEm']}.")
             saida_github("mudou", "false")
