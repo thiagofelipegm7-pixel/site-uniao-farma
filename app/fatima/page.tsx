@@ -16,6 +16,8 @@ export const metadata: Metadata = {
   title: { absolute: "Farmácia em Fátima, Sabará: entrega e WhatsApp | União Farma" },
   description:
     "Rua Cláudio, 902. Seg a sex das 7h às 21h, sábado até 20h e domingo até 12h. Peça pelo WhatsApp (31) 98738-1786 e consulte a entrega.",
+  // Página institucional escondida até a loja estar pronta (plano de finalização): fora dos buscadores e do mapa do site.
+  robots: { index: false, follow: false },
   alternates: { canonical: "/fatima" },
   keywords: ["farmácia Fátima Sabará", "União Farma Fátima", "drogaria Nossa Senhora de Fátima"],
   openGraph: {

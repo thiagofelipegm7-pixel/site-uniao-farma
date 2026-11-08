@@ -3,7 +3,7 @@ import InteractiveUnitMap from "./InteractiveUnitMap";
 import OffersGroupCta from "./OffersGroupCta";
 import UnitStatusBadge from "./UnitStatusBadge";
 import WebImage from "./WebImage";
-import { buildWhatsAppUrl, getHoursSentence, getShortHoursPhrase, SITE_URL, PUBLIC_UNITS, type Unit } from "./site-config";
+import { buildWhatsAppUrl, getHoursSentence, getShortHoursPhrase, LOJAS_PUBLICAS, SITE_URL, PUBLIC_UNITS, type Unit } from "./site-config";
 import { getStoreContent } from "./store-content";
 import { getPageStructuredData } from "./structured-data";
 import { UNIT_PHOTOS } from "./unit-photos";
@@ -31,6 +31,8 @@ const PAGE_HREF: Record<Unit["id"], string> = {
 
 export default function NeighborhoodPage({ unit }: { unit: Unit }) {
   const label = SHORT_LABEL[unit.id];
+  // Loja que ainda não vende pelo site (Fátima e Itacolomi): só endereço, horário, telefone, fotos, WhatsApp geral e o grupo de ofertas. Sem mapa, entrega nem cesta.
+  const institucional = !LOJAS_PUBLICAS.includes(unit.id);
   const product = WHATSAPP_MESSAGES.product.replaceAll("{unidade}", unit.shortName);
   const delivery = WHATSAPP_MESSAGES.delivery.replaceAll("{unidade}", unit.shortName);
   const pageUrl = `${SITE_URL}${PAGE_HREF[unit.id]}`;
@@ -71,9 +73,13 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
         <UnitStatusBadge unit={unit} />
         <NotaEFaixaLoja unitId={unit.id} />
         <div className="neighborhood-actions">
-          <a className="button button-whatsapp" href={buildWhatsAppUrl(unit, product, { campaign: "bairro", content: `${unit.id}_pedir` })} target="_blank" rel="noreferrer">Pedir no WhatsApp</a>
+          {institucional ? (
+            <a className="button button-whatsapp" href={buildWhatsAppUrl(unit, "Oi, União Farma!", { campaign: "bairro", content: `${unit.id}_contato` })} target="_blank" rel="noreferrer">Falar no WhatsApp</a>
+          ) : (
+            <a className="button button-whatsapp" href={buildWhatsAppUrl(unit, product, { campaign: "bairro", content: `${unit.id}_pedir` })} target="_blank" rel="noreferrer">Pedir no WhatsApp</a>
+          )}
           <div className="neighborhood-secondary">
-            <a className="button button-outline" href={unit.map} target="_blank" rel="noreferrer">Como chegar</a>
+            {institucional ? null : <a className="button button-outline" href={unit.map} target="_blank" rel="noreferrer">Como chegar</a>}
             <a className="button button-outline" href={unit.phoneLink}>Ligar {unit.phone}</a>
           </div>
         </div>
@@ -89,15 +95,17 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
           </ul>
           <p>{getHoursSentence(unit)}</p>
         </article>
-        <article>
-          <h2>Entrega</h2>
-          <p>A loja de {label} entrega {unit.deliveryScope}.</p>
-          <a href={buildWhatsAppUrl(unit, delivery, { campaign: "bairro", content: `${unit.id}_entrega` })} target="_blank" rel="noreferrer">Pedir entrega</a>
-          {unit.ifoodUrl ? <a href="/ifood">Pedir pelo iFood</a> : null}
-        </article>
+        {institucional ? null : (
+          <article>
+            <h2>Entrega</h2>
+            <p>A loja de {label} entrega {unit.deliveryScope}.</p>
+            <a href={buildWhatsAppUrl(unit, delivery, { campaign: "bairro", content: `${unit.id}_entrega` })} target="_blank" rel="noreferrer">Pedir entrega</a>
+            {unit.ifoodUrl ? <a href="/ifood">Pedir pelo iFood</a> : null}
+          </article>
+        )}
       </section>
 
-      <DeliverySlot unitName={label} href={buildWhatsAppUrl(unit, delivery, { campaign: "bairro", content: `${unit.id}_entrega_faixa` })} external ifood={Boolean(unit.ifoodUrl)} />
+      {institucional ? null : <DeliverySlot unitName={label} href={buildWhatsAppUrl(unit, delivery, { campaign: "bairro", content: `${unit.id}_entrega_faixa` })} external ifood={Boolean(unit.ifoodUrl)} />}
 
       <section className="section-inner store-about">
         <h2>Sobre a loja de {label}</h2>
@@ -107,6 +115,8 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
         ) : null}
         {unit.amenities?.freeParking ? <p><strong>Estacionamento gratuito</strong> para clientes da loja.</p> : null}
 
+        {institucional ? null : (
+          <>
         <h3>Bairros atendidos na entrega</h3>
         <div className="hours-table-wrap">
           <table className="hours-table">
@@ -136,17 +146,21 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
           <li>Informe o seu endereço, se quiser receber em casa.</li>
           <li>A loja confirma o pedido com você.</li>
         </ol>
+          </>
+        )}
       </section>
 
-      <section className="section-inner store-faq">
-        <h2>Perguntas frequentes da loja de {label}</h2>
-        {content.faqs.map((faq) => (
-          <div key={faq.q}>
-            <h3>{faq.q}</h3>
-            <p>{faq.a}</p>
-          </div>
-        ))}
-      </section>
+      {institucional ? null : (
+        <section className="section-inner store-faq">
+          <h2>Perguntas frequentes da loja de {label}</h2>
+          {content.faqs.map((faq) => (
+            <div key={faq.q}>
+              <h3>{faq.q}</h3>
+              <p>{faq.a}</p>
+            </div>
+          ))}
+        </section>
+      )}
 
       <section className="section-inner store-others">
         <h2>Outras lojas</h2>
@@ -168,10 +182,12 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
         <OffersGroupCta placement={`unit_${unit.id}`} />
       </section>
 
-      <section className="section-inner">
-        <h2>Mapa interativo</h2>
-        <InteractiveUnitMap initialUnitId={unit.id} />
-      </section>
+      {institucional ? null : (
+        <section className="section-inner">
+          <h2>Mapa interativo</h2>
+          <InteractiveUnitMap initialUnitId={unit.id} />
+        </section>
+      )}
     </div>
   );
 }

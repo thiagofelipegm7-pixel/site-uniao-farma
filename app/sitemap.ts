@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { getPublishedNews } from "./news-content";
-import { SITE_URL, UNITS } from "./site-config";
+import { PUBLIC_UNITS, SITE_URL, UNITS } from "./site-config";
 import { PAGE_LAST_UPDATED, sitemapDate } from "./sitemap-dates";
 import { departamentosPublicos } from "./nacoes-unidas/produtos/departamentos";
 import { getUnitPublicPath } from "./structured-data";
@@ -24,7 +24,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1,
     },
-    ...UNITS.map((unit) => ({
+    // Só as lojas públicas: Fátima e Itacolomi ficam escondidas até estarem prontas.
+    ...PUBLIC_UNITS.map((unit) => ({
       url: `${SITE_URL}${getUnitPublicPath(unit)}`,
       lastModified: sitemapDate(unitDates[unit.id]),
       changeFrequency: "weekly" as const,

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { buildWhatsAppUrl, getUnitBySlug, UNITS } from "./site-config";
+import { buildWhatsAppUrl, getUnitBySlug, LOJAS_PUBLICAS, UNITS } from "./site-config";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
 import "./whatsapp-fab.css";
 
@@ -24,8 +24,11 @@ function fabTarget(pathname: string) {
     (slug ? getUnitBySlug(slug) : undefined);
 
   if (unit) {
+    // Loja que ainda não vende pelo site: contato geral, sem "pedir".
+    const geral = !LOJAS_PUBLICAS.includes(unit.id);
     return {
-      href: buildWhatsAppUrl(unit, WHATSAPP_MESSAGES.product.replaceAll("{unidade}", unit.shortName), {
+      geral,
+      href: buildWhatsAppUrl(unit, geral ? "Oi, União Farma!" : WHATSAPP_MESSAGES.product.replaceAll("{unidade}", unit.shortName), {
         campaign: "fab",
         content: `fab_${unit.id}`,
       }),
@@ -43,6 +46,7 @@ export default function WhatsAppFab() {
   const target = fabTarget(pathname);
 
   const unitName = "unitName" in target ? target.unitName : undefined;
+  const geral = "geral" in target ? target.geral : false;
   // Nas páginas de loja, a barra fixa só aparece depois que o botão da própria página sai da tela.
   const [inPageCtaVisible, setInPageCtaVisible] = useState(Boolean(unitName));
 
@@ -68,11 +72,11 @@ export default function WhatsAppFab() {
       aria-hidden={hidden || undefined}
       tabIndex={hidden ? -1 : undefined}
       href={target.href}
-      aria-label={unitName ? `Pedir no WhatsApp da loja ${unitName}` : "Falar no WhatsApp"}
+      aria-label={unitName ? `${geral ? "Falar" : "Pedir"} no WhatsApp da loja ${unitName}` : "Falar no WhatsApp"}
       {...(target.external ? { target: "_blank", rel: "noreferrer" } : {})}
     >
       <WhatsAppIcon />
-      {unitName ? <span className="whatsapp-fab-label">Pedir no WhatsApp da loja</span> : null}
+      {unitName ? <span className="whatsapp-fab-label">{geral ? "Falar no WhatsApp da loja" : "Pedir no WhatsApp da loja"}</span> : null}
     </a>
   );
 }

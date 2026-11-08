@@ -351,3 +351,17 @@ test("rodapé de todas as páginas traz o Alvará Sanitário e a AFE da Anvisa",
     assert.match(html, /AFE Anvisa nº 7\.61823-1/, pathname);
   }
 });
+
+test("Fátima e Itacolomi: só informações institucionais, sem mapa, entrega nem cesta, e escondidas dos buscadores", async () => {
+  for (const pathname of ["/fatima", "/itacolomi"]) {
+    const html = await (await render(pathname)).text();
+    assert.match(html, /<meta name="robots" content="noindex/i, `${pathname} fora dos buscadores`);
+    assert.doesNotMatch(html, /Mapa interativo|Como chegar|Pedir entrega|Pedir no WhatsApp|Bairros atendidos|iFood/i, `${pathname} sem mapa, entrega nem pedido`);
+    assert.match(html, /Grupo de Ofertas no WhatsApp/, `${pathname} mantém o grupo de ofertas`);
+    assert.match(html, /Falar no WhatsApp/, `${pathname} WhatsApp de contato geral`);
+    assert.match(html, /Ligar[\s\S]{0,30}\(31\)/, `${pathname} telefone`);
+  }
+  const mapa = await (await render("/sitemap.xml")).text();
+  assert.doesNotMatch(mapa, /\/fatima<|\/itacolomi</, "fora do mapa do site");
+  assert.match(mapa, /\/nacoes-unidas</, "Nações Unidas segue no mapa do site");
+});
