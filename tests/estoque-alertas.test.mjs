@@ -184,3 +184,26 @@ test("disponibilidade ao vivo: só o que mudou, em níveis, e avisos da cesta", 
   const rota = await (await import("node:fs/promises")).readFile(new URL("../app/api/disponibilidade/route.ts", import.meta.url), "utf8");
   assert.doesNotMatch(rota, /Estoque\b[^\n]*Response|estoque:\s*i\.estoque\s*\}/, "a rota não devolve quantidade exata");
 });
+
+test("fotos: produto sem código de barras entra na lista com um código gerado do nome", async () => {
+  const f = await import("../app/fotos-painel.ts");
+  const itens = [
+    { CodigoDeBarras: "", Produto: "PINCEL SEM CODIGO", Estoque: 4, Pvenda: 5 },
+    { Produto: "ESCOVA   SEM  CODIGO", Estoque: 2, Pvenda: 8 },
+    { CodigoDeBarras: "7890000000001", Produto: "COM CODIGO", Estoque: 1, Pvenda: 3 },
+    { CodigoDeBarras: "", Produto: "TAXA DE ENTREGA", Estoque: 1, Pvenda: 1 },
+  ];
+  const linhas = f.montarLinhas(itens, new Set(), new Map());
+  assert.deepEqual(linhas.map((l) => l.nome), ["PINCEL SEM CODIGO", "ESCOVA SEM CODIGO", "COM CODIGO"], "taxa de entrega continua de fora");
+  const [pincel, escova, com] = linhas;
+  assert.equal(pincel.semCodigo, true);
+  assert.equal(com.semCodigo, undefined);
+  assert.match(pincel.ean, /^99\d{11}$/, "13 dígitos, começa com 99");
+  assert.notEqual(pincel.ean, escova.ean);
+  assert.equal(f.codigoDoNome("pincel sem código"), f.codigoDoNome("PINCEL   SEM CODIGO"), "mesmo nome (sem acento/caixa) = mesmo código");
+  assert.deepEqual(f.filtrarLinhas(linhas, { tipo: "semcodigo" }).map((l) => l.nome), ["PINCEL SEM CODIGO", "ESCOVA SEM CODIGO"]);
+  const csv = f.csvDasLinhas([pincel, com]);
+  assert.ok(csv.includes(`;"PINCEL SEM CODIGO"`) && csv.split("\n")[1].startsWith(`;"PINCEL`), "código vazio no CSV");
+  // Foto marcada para esse nome aparece como "com foto".
+  assert.equal(f.montarLinhas(itens, new Set([pincel.ean]), new Map())[0].noSite, true);
+});

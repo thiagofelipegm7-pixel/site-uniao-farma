@@ -37,7 +37,7 @@ export async function GET() {
       removidas,
       publicacaoRapida: Boolean(segredo("GITHUB_DISPATCH_TOKEN")),
       // Linhas em lista (não objetos) para a resposta ficar pequena: [ean, nome, lab, classe, estoque, preco, valor, controlado, antimicrobiano, categoria, noSite]
-      linhas: linhas.map((l) => [l.ean, l.nome, l.lab, l.classe, l.estoque, l.preco, l.valor, l.controlado ? 1 : 0, l.antimicrobiano ? 1 : 0, l.categoria, l.noSite ? 1 : 0]),
+      linhas: linhas.map((l) => [l.ean, l.nome, l.lab, l.classe, l.estoque, l.preco, l.valor, l.controlado ? 1 : 0, l.antimicrobiano ? 1 : 0, l.categoria, l.noSite ? 1 : 0, l.semCodigo ? 1 : 0]),
     },
     { headers: SEM_CACHE },
   );

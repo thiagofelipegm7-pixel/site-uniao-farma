@@ -69,3 +69,4 @@
 /* iPhone amplia a página ao tocar em campo com letra menor que 16 px; botões e campos do painel ficam com 16 px. */
 .painel-fotos .pf-filtros input, .painel-fotos .pf-filtros select, .painel-fotos .pf-filtros button, .painel-fotos .pf-paginas button { font-size: 16px !important; }
 .painel-fotos label, .painel-fotos button { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.painel-fotos .pf-sem-codigo { color: #7a5a00; font-size: 0.8125rem; font-style: italic; }

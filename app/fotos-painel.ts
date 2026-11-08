@@ -15,6 +15,8 @@ export type LinhaFoto = {
   antimicrobiano: boolean;
   categoria: string;
   noSite: boolean;
+  /** O estoque não tem código de barras: o código acima é gerado do nome (começa com 99) só para guardar a foto. */
+  semCodigo?: boolean;
 };
 
 export const SEM_CATEGORIA = "Fora do site (sem estoque)";
@@ -28,15 +30,33 @@ const LAB_VAZIO = /^(diversos|china|)$/i;
 
 type ExportItem = Record<string, unknown>;
 
+/**
+ * Item sem código de barras no estoque: gera um código numérico fixo a partir do nome (13 dígitos, começa com 99, prefixo que
+ * nenhum produto real usa) para a foto ter onde ficar (public/produtos/<código>.webp). O mesmo nome sempre dá o mesmo código.
+ */
+export function codigoDoNome(nome: string): string {
+  const base = chaveDeNome(nome);
+  let a = 0x811c9dc5;
+  let b = 0x01000193;
+  for (let i = 0; i < base.length; i += 1) {
+    const c = base.charCodeAt(i);
+    a = Math.imul(a ^ c, 0x01000193) >>> 0;
+    b = Math.imul(b ^ c ^ (i & 0xff), 0x85ebca6b) >>> 0;
+  }
+  return `99${String(a).padStart(10, "0").slice(-6)}${String(b).padStart(10, "0").slice(-5)}`;
+}
+
 /** Converte o export do DMaster nas linhas do painel. `categorias` vai de chave de nome -> categoria do site. */
 export function montarLinhas(itens: readonly ExportItem[], eansComFoto: ReadonlySet<string>, categorias: ReadonlyMap<string, string>): LinhaFoto[] {
   const linhas: LinhaFoto[] = [];
   const vistos = new Set<string>();
   for (const it of itens) {
     const nome = typeof it.Produto === "string" ? it.Produto.replace(/\s+/g, " ").trim() : "";
-    const ean = String(it.CodigoDeBarras ?? "").trim();
-    if (!nome || !ean || vistos.has(ean)) continue;
+    const eanReal = String(it.CodigoDeBarras ?? "").trim();
+    if (!nome) continue;
     if (/TAXA DE ENTREGA|APLICACAO|AFERIMENTO|XEROX|MANIPULACAO/i.test(nome)) continue;
+    const ean = eanReal || codigoDoNome(nome);
+    if (vistos.has(ean)) continue;
     vistos.add(ean);
     const estoque = typeof it.Estoque === "number" && Number.isFinite(it.Estoque) ? Math.floor(it.Estoque) : 0;
     const preco = typeof it.Pvenda === "number" && it.Pvenda > 0 ? it.Pvenda : 0;
@@ -53,6 +73,7 @@ export function montarLinhas(itens: readonly ExportItem[], eansComFoto: Readonly
       antimicrobiano: it.ProdutoAntimicrobiano === true || it.ProdutoAntimicrobiano === 1,
       categoria: categorias.get(chaveDeNome(nome)) ?? SEM_CATEGORIA,
       noSite: eansComFoto.has(ean),
+      ...(eanReal ? {} : { semCodigo: true }),
     });
   }
   return linhas;
@@ -112,7 +133,7 @@ export type FiltroFotos = {
   categoria?: string;
   estoque?: "" | "com" | "zero";
   fotos?: "" | "faltam" | "site" | "pc";
-  tipo?: "" | "controlado" | "antimicrobiano";
+  tipo?: "" | "controlado" | "antimicrobiano" | "semcodigo";
   /** EANs que o usuário marcou como "tenho a foto no PC" (guardado só no navegador dele). */
   marcados?: ReadonlySet<string>;
 };
@@ -129,6 +150,7 @@ export function filtrarLinhas(linhas: readonly LinhaFoto[], f: FiltroFotos): Lin
     if (f.fotos === "pc" && !(f.marcados?.has(l.ean) && !l.noSite)) return false;
     if (f.tipo === "controlado" && !l.controlado) return false;
     if (f.tipo === "antimicrobiano" && !l.antimicrobiano) return false;
+    if (f.tipo === "semcodigo" && !l.semCodigo) return false;
     return true;
   });
 }
@@ -139,6 +161,6 @@ const reais = (n: number) => n.toFixed(2).replace(".", ",");
 export function csvDasLinhas(linhas: readonly LinhaFoto[], marcados?: ReadonlySet<string>): string {
   const cab = ["Código de barras", "Produto", "Laboratório", "Categoria", "Estoque", "Preço", "Valor em estoque", "Foto no site", "Marcado (tenho no PC)"];
   const aspas = (t: string) => `"${t.replace(/"/g, '""')}"`;
-  const corpo = linhas.map((l) => [l.ean, aspas(l.nome), aspas(l.lab), aspas(l.categoria), l.estoque, reais(l.preco), reais(l.valor), l.noSite ? "sim" : "não", marcados?.has(l.ean) ? "sim" : "não"].join(";"));
+  const corpo = linhas.map((l) => [l.semCodigo ? "" : l.ean, aspas(l.nome), aspas(l.lab), aspas(l.categoria), l.estoque, reais(l.preco), reais(l.valor), l.noSite ? "sim" : "não", marcados?.has(l.ean) ? "sim" : "não"].join(";"));
   return "﻿" + [cab.join(";"), ...corpo].join("\n");
 }
