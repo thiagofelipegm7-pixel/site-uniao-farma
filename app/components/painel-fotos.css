@@ -70,3 +70,9 @@
 .painel-fotos .pf-filtros input, .painel-fotos .pf-filtros select, .painel-fotos .pf-filtros button, .painel-fotos .pf-paginas button { font-size: 16px !important; }
 .painel-fotos label, .painel-fotos button { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 .painel-fotos .pf-sem-codigo { color: #7a5a00; font-size: 0.8125rem; font-style: italic; }
+
+/* Quantidade em evidência (plano, item 2): grande e colorida por faixa. A cor nunca é o único sinal: o número e o texto do title acompanham. */
+.painel-fotos .pf-qtd { display: inline-block; min-width: 2.25rem; padding: 0.125rem 0.5rem; border-radius: 8px; font-size: 1.125rem; font-weight: 800; line-height: 1.4; text-align: center; }
+.painel-fotos .pf-qtd-zero { background: #fdecea; color: #a3200f; }
+.painel-fotos .pf-qtd-baixo { background: #fff3c4; color: #5a4300; }
+.painel-fotos .pf-qtd-normal { background: #e3f4ee; color: #0b4f46; }

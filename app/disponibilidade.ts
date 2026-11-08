@@ -47,3 +47,20 @@ export function avisosDaCesta(itens: readonly ItemDaCesta[], mudou: Mudancas | n
   }
   return avisos;
 }
+
+/** Idade, em minutos, do último estoque que o PC da loja enviou. `geradoEm` do DMaster vem sem fuso: vale o horário de Brasília (UTC-3). */
+export function idadeEmMinutos(geradoEm: string | null | undefined, agora: number = Date.now()): number | null {
+  if (!geradoEm) return null;
+  const temFuso = /(Z|[+-]\d{2}:?\d{2})$/.test(geradoEm);
+  const t = Date.parse(temFuso ? geradoEm : `${geradoEm}-03:00`);
+  return Number.isFinite(t) ? Math.max(0, Math.round((agora - t) / 60_000)) : null;
+}
+
+/** A partir de quantos minutos o site avisa que o estoque está desatualizado (plano de finalização, camada 4). */
+export const MINUTOS_PARA_AVISAR = 180;
+
+export function textoIdade(minutos: number): string {
+  if (minutos < 120) return `${minutos} minutos`;
+  const h = Math.round(minutos / 60);
+  return h >= 48 ? `${Math.round(h / 24)} dias` : `${h} horas`;
+}

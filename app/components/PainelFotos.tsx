@@ -429,7 +429,7 @@ export default function PainelFotos() {
                       {l.antimicrobiano ? <em className="pf-tag pf-tag-a">Antimicrob.</em> : null}
                     </td>
                     <td data-r="Categoria">{l.categoria}</td>
-                    <td data-r="Estoque" className="pf-n">{l.estoque}</td>
+                    <td data-r="Estoque" className="pf-n"><span className={`pf-qtd pf-qtd-${l.estoque <= 0 ? "zero" : l.estoque <= 5 ? "baixo" : "normal"}`} title={l.estoque <= 0 ? "Zerado" : l.estoque <= 5 ? "Estoque baixo" : "Estoque normal"}>{l.estoque}</span></td>
                     <td data-r="Preço" className="pf-n">{REAIS.format(l.preco)}</td>
                     <td data-r="Valor" className="pf-n">{REAIS.format(l.valor)}</td>
                     <td data-r="Tenho no PC">{l.noSite ? <span className="pf-ok">no site</span> : <input type="checkbox" checked={marcados.has(l.ean)} onChange={(e) => marcar(l.ean, e.target.checked)} aria-label={`Tenho a foto de ${l.nome} no PC`} />}</td>
