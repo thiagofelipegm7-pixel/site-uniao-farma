@@ -172,15 +172,19 @@ def juntar_aprovacoes(base, remoto):
 
 
 def baixar_aprovacoes(token):
-    """Aprovações feitas no painel de revisão (banco do site). Sem rede, segue só com a base: o que não está aprovado fica segurado."""
+    """Aprovações e nomes corrigidos no painel (banco do site). Sem rede, segue só com a base: o que não está aprovado fica segurado
+    e os nomes corrigidos continuam como estão no repositório (None = não consegui ler: não apaga nada)."""
     try:
         req = urllib.request.Request(URL_APROVACOES, headers={"Authorization": f"Bearer {token}", "Accept": "application/json", "User-Agent": "uniao-farma-sync"})
         with urllib.request.urlopen(req, timeout=30) as r:
             dados = json.loads(r.read().decode("utf-8"))
-        return dados.get("aprovacoes", {}) if isinstance(dados, dict) else {}
+        if not isinstance(dados, dict):
+            return {}, None
+        nomes = dados.get("nomes")
+        return dados.get("aprovacoes", {}), (nomes if isinstance(nomes, dict) else None)
     except Exception as e:  # noqa: BLE001
         anotar("warning", "Aprovações do painel", f"não consegui ler ({type(e).__name__}); usando só a base do repositório")
-        return {}
+        return {}, None
 
 
 def rodar(*cmd):
@@ -246,7 +250,11 @@ def main(argv):
             rodar(sys.executable, os.path.join(AQUI, "gerar.py"), export, "--sem-csv")
             rodar(sys.executable, os.path.join(AQUI, "categorias_novas.py"))
             base = ler(os.path.join(AQUI, "aprovacoes-base.json")) if os.path.exists(os.path.join(AQUI, "aprovacoes-base.json")) else {}
-            aprov = juntar_aprovacoes(base, baixar_aprovacoes(os.environ.get("CATALOGO_READ_TOKEN", "").strip()) if not arquivo else {})
+            remoto, nomes = baixar_aprovacoes(os.environ.get("CATALOGO_READ_TOKEN", "").strip()) if not arquivo else ({}, None)
+            aprov = juntar_aprovacoes(base, remoto)
+            if nomes is not None:  # nomes que o painel corrigiu: valem a partir desta publicação (os asset e as páginas leem este arquivo)
+                with open(os.path.join(DADOS, "nomes-corrigidos.json"), "w", encoding="utf-8") as f:
+                    json.dump(nomes, f, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
             aprov_arq = os.path.join(tmp, "aprovacoes.json")
             with open(aprov_arq, "w", encoding="utf-8") as f:
                 json.dump(aprov, f, ensure_ascii=False)
@@ -254,8 +262,12 @@ def main(argv):
             rodar(sys.executable, os.path.join(AQUI, "retencao.py"), os.path.join(tmp, "dados"), aprov_arq)
             rodar("node", os.path.join(RAIZ, "scripts", "gerar-assets-catalogo.mjs"))
             cat_novo, rx_novo = ler(os.path.join(DADOS, "catalogo-nacoes.json")), ler(os.path.join(DADOS, "receita-nacoes.json"))
-            rev_ant = sem_data(ler(os.path.join(tmp, "dados", "revisao-pendente.json"))) if os.path.exists(os.path.join(tmp, "dados", "revisao-pendente.json")) else {}
-            rev_nov = sem_data(ler(os.path.join(DADOS, "revisao-pendente.json"))) if os.path.exists(os.path.join(DADOS, "revisao-pendente.json")) else {}
+            def _extras(pasta):
+                def arq(n):
+                    p = os.path.join(pasta, n)
+                    return ler(p) if os.path.exists(p) else {}
+                return {"revisao": sem_data(arq("revisao-pendente.json")), "nomes": arq("nomes-corrigidos.json")}
+            rev_ant, rev_nov = _extras(os.path.join(tmp, "dados")), _extras(DADOS)
             validar_saida(cat_antigo, rx_antigo, cat_novo, rx_novo, forcar)
         except Recusa:
             restaurar(tmp)

@@ -67,8 +67,12 @@ function fotoDoProduto(nome) {
 // Replicado de nome-exibicao.ts (simplificado, suficiente para pré-computar)
 const PALAVRAS = JSON.parse(fs.readFileSync(path.join(RAIZ, "app", "nome-exibicao-palavras.json"), "utf8"));
 const MINUSCULAS = new Set(["de", "da", "do", "e", "com", "sem", "para", "em", "na", "no", "a", "o"]);
+// Nomes corrigidos à mão no painel interno (mesma regra de app/nome-exibicao.ts).
+const CORRIGIDOS = JSON.parse(fs.readFileSync(path.join(RAIZ, "app", "nacoes-unidas", "produtos", "dados", "nomes-corrigidos.json"), "utf8"));
+const chaveDoNome = (n) => n.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").trim().toUpperCase();
 
 function nomeDeExibicao(nomeBruto) {
+  if (CORRIGIDOS[chaveDoNome(nomeBruto)]) return CORRIGIDOS[chaveDoNome(nomeBruto)];
   const limpo = nomeBruto.replace(/[*]+$/g, "").replace(/\s+/g, " ").trim();
   if (!limpo) return nomeBruto;
   // Mesma regra de app/nome-exibicao.ts (um teste confere que as duas saem iguais).

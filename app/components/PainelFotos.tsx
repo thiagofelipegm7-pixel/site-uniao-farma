@@ -2,13 +2,15 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { candidatosDoArraste } from "../fotos-arrastar";
+import { chaveDoNome } from "../nomes-corrigidos";
+import { nomeDeExibicao } from "../nome-exibicao";
 import { prepararFoto } from "./preparar-foto";
 import { csvDasLinhas, filtrarLinhas, resumirFotos, type FiltroFotos, type LinhaFoto, type ResumoFotos } from "../fotos-painel";
 import "../metrics-polish.css";
 import "./painel-fotos.css";
 
 type Linha = [string, string, string, string, number, number, number, number, number, string, number, number?];
-type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; linhas: Linha[] };
+type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; nomes?: Record<string, { nome: string; por: string; quando: string }>; alteracoes?: { tipo: string; titulo: string; acao: string; anterior: string | null; novo: string | null; por: string; quando: string }[]; linhas: Linha[] };
 
 const CHAVE_MARCAS = "uf_fotos_ok";
 const REAIS = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -49,6 +51,11 @@ export default function PainelFotos() {
   // Linha sobre a qual o arquivo está sendo arrastado (computador).
   const [arrastando, setArrastando] = useState<string | null>(null);
   const [aviso, setAviso] = useState("");
+  // Quem está mexendo: fica registrado no histórico (foto e nome). Guardado só neste aparelho.
+  const [por, setPor] = useState("");
+  const [editandoNome, setEditandoNome] = useState<string | null>(null);
+  const [textoNome, setTextoNome] = useState("");
+  const [nomesAgora, setNomesAgora] = useState<Record<string, string | null>>({});
   const [removidasAgora, setRemovidasAgora] = useState<Set<string>>(new Set());
   const [copiado, setCopiado] = useState<string | null>(null);
   // Linha escolhida com um toque: recebe a imagem colada (Ctrl+V).
@@ -76,6 +83,11 @@ export default function PainelFotos() {
   useEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect -- carga inicial do painel e das marcações guardadas neste navegador */
     void carregar();
+    try {
+      setPor(window.localStorage.getItem("uf_revisao_nome") ?? "");
+    } catch {
+      // sem armazenamento
+    }
     try {
       const salvo = JSON.parse(window.localStorage.getItem(CHAVE_MARCAS) || "[]");
       if (Array.isArray(salvo)) setMarcados(new Set(salvo.filter((x): x is string => typeof x === "string")));
@@ -210,7 +222,7 @@ export default function PainelFotos() {
       etapa = "preparar";
       const imagem = await prepararFoto(arquivo);
       etapa = "envio";
-      const r = await fetch("/api/interno/fotos/enviar", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ean: l.ean, nome: l.nome, imagem }), signal: AbortSignal.timeout(45_000) });
+      const r = await fetch("/api/interno/fotos/enviar", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ean: l.ean, nome: l.nome, imagem, por: por.trim() }), signal: AbortSignal.timeout(45_000) });
       // Sessão vencida: o servidor manda para a tela de entrada (HTML) em vez de responder o envio.
       if (r.redirected || (r.headers.get("content-type") ?? "").includes("text/html")) {
         etapa = "sessao";
@@ -277,7 +289,7 @@ export default function PainelFotos() {
   async function removerFoto(l: LinhaFoto) {
     if (!window.confirm(`Tirar a foto de "${l.nome}"? A loja volta a mostrar a imagem neutra.`)) return;
     try {
-      const r = await fetch("/api/interno/fotos/remover", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ean: l.ean, nome: l.nome }) });
+      const r = await fetch("/api/interno/fotos/remover", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ean: l.ean, nome: l.nome, por: por.trim() }) });
       const j = (await r.json().catch(() => null)) as { ok?: boolean } | null;
       if (!r.ok || !j?.ok) throw new Error("remover");
       setRemovidasAgora((antes) => new Set(antes).add(l.ean));
@@ -289,6 +301,53 @@ export default function PainelFotos() {
       setAviso("");
     } catch {
       setAviso("Não consegui tirar a foto agora. Tente de novo.");
+    }
+  }
+
+  function guardarPor(v: string) {
+    setPor(v);
+    try {
+      window.localStorage.setItem("uf_revisao_nome", v);
+    } catch {
+      // sem armazenamento
+    }
+  }
+
+  /** Nome que o cliente lê hoje: o corrigido no painel (se houver) ou o automático. */
+  function nomeAtual(l: LinhaFoto): { texto: string; corrigido: boolean } {
+    const k = chaveDoNome(l.nome);
+    const local = nomesAgora[k];
+    if (local !== undefined) return local ? { texto: local, corrigido: true } : { texto: nomeDeExibicao(l.nome), corrigido: false };
+    const salvo = dados?.nomes?.[k];
+    return salvo ? { texto: salvo.nome, corrigido: true } : { texto: nomeDeExibicao(l.nome), corrigido: false };
+  }
+
+  async function salvarNome(l: LinhaFoto, voltar = false) {
+    if (por.trim().length < 2) {
+      setAviso("Escreva seu nome no topo antes de mexer no nome do produto: fica registrado quem mexeu.");
+      return;
+    }
+    try {
+      const r = await fetch(voltar ? "/api/interno/produto/nome/desfazer" : "/api/interno/produto/nome", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ original: l.nome, nome: textoNome, por: por.trim() }),
+      });
+      if (r.redirected || (r.headers.get("content-type") ?? "").includes("text/html")) {
+        setAviso("Sua sessão venceu. Recarregue a página (F5), entre de novo e tente outra vez.");
+        return;
+      }
+      const j = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string } | null;
+      if (!r.ok || !j?.ok) {
+        const msg: Record<string, string> = { tamanho: "O nome precisa ter de 3 a 120 letras.", tudo_maiusculo: "Escreva do jeito que o cliente fala (não use só letras maiúsculas).", caracteres: "Tire os sinais < e > do nome." };
+        setAviso(msg[j?.erro ?? ""] ?? "Não consegui salvar o nome agora. Tente de novo.");
+        return;
+      }
+      setNomesAgora((n) => ({ ...n, [chaveDoNome(l.nome)]: voltar ? null : textoNome.replace(/\s+/g, " ").trim() }));
+      setEditandoNome(null);
+      setAviso(voltar ? "Voltou ao nome automático. Vale na próxima publicação (em alguns minutos)." : "Nome salvo no histórico. Vale na próxima publicação (em alguns minutos).");
+    } catch {
+      setAviso("Sem conexão. Tente de novo.");
     }
   }
 
@@ -326,6 +385,10 @@ export default function PainelFotos() {
   return (
     <section className="painel-fotos">
       <h1>Fotos dos produtos</h1>
+      <label className="pf-quem">
+        Quem está mexendo?
+        <input type="text" value={por} onChange={(e) => guardarPor(e.target.value)} placeholder="Seu nome (fica no histórico)" maxLength={60} autoComplete="name" />
+      </label>
       <p className="pf-nav">
         <a href="/interno/revisao">Fila de revisão</a> · <a href="/interno/estoque">Alertas de estoque</a> · <a href="/interno/catalogo">Saúde do catálogo</a> · <a href="/interno/metricas">Métricas</a>
       </p>
@@ -423,7 +486,21 @@ export default function PainelFotos() {
                       )}
                     </td>
                     <td className="pf-prod">
-                      {l.nome}
+                      {editandoNome === l.ean ? (
+                        <span className="pf-nome-edicao">
+                          <input type="text" value={textoNome} onChange={(e) => setTextoNome(e.target.value)} maxLength={120} aria-label={`Novo nome de ${l.nome}`} />
+                          <button type="button" className="pf-nome-salvar" onClick={() => void salvarNome(l)}>Salvar nome</button>
+                          <button type="button" onClick={() => setEditandoNome(null)}>Cancelar</button>
+                          {nomeAtual(l).corrigido ? <button type="button" onClick={() => void salvarNome(l, true)}>Voltar ao automático</button> : null}
+                        </span>
+                      ) : (
+                        <>
+                          {nomeAtual(l).texto}
+                          <button type="button" className="pf-nome-editar" onClick={() => { setEditandoNome(l.ean); setTextoNome(nomeAtual(l).texto); }} aria-label={`Editar o nome de ${l.nome}`}>Editar nome</button>
+                          {nomeAtual(l).corrigido ? <em className="pf-tag pf-tag-n">Nome corrigido</em> : null}
+                          <small className="pf-original">No sistema: {l.nome}</small>
+                        </>
+                      )}
                       {l.lab ? <small>{l.lab}</small> : null}
                       {l.controlado ? <em className="pf-tag">Controlado</em> : null}
                       {l.antimicrobiano ? <em className="pf-tag pf-tag-a">Antimicrob.</em> : null}
@@ -438,6 +515,20 @@ export default function PainelFotos() {
               </tbody>
             </table>
           </div>
+          {dados.alteracoes && dados.alteracoes.length > 0 ? (
+            <section className="pf-historico" aria-label="Últimas alterações">
+              <h2>Últimas alterações</h2>
+              <ul>
+                {dados.alteracoes.map((a, i) => (
+                  <li key={`${a.quando}-${i}`}>
+                    <strong>{a.por}</strong> {a.acao}: {a.titulo}
+                    {a.tipo === "nome" && a.novo ? <> → “{a.novo}”{a.anterior ? <> (antes “{a.anterior}”)</> : null}</> : null}
+                    <small> · {new Date(a.quando).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" })}</small>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
           {totalPaginas > 1 ? (
             <p className="pf-paginas">
               <button type="button" disabled={paginaAtual <= 1} onClick={() => setPagina(paginaAtual - 1)}>Anterior</button>
