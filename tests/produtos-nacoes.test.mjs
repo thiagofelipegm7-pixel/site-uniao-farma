@@ -258,7 +258,10 @@ test("analytics do filtro: só contagens, sem texto, categoria ou marca", async 
   assert.equal(eventoFiltro({ categorias: [], marcas: [], faixas: [] }, 4), null);
   const evento = eventoFiltro({ categorias: ["Medicamentos isentos de prescrição"], marcas: ["Nivea"], faixas: ["ate_15"] }, 2);
   assert.equal(evento.event, "catalog_filter");
-  assert.deepEqual(evento.params, { source: "produtos_nacoes", unit: "nacoes", categories: 1, brands: 1, ranges: 1, results: 2 });
+  assert.deepEqual(evento.params, { source: "produtos_nacoes", unit: "nacoes", categories: 1, brands: 1, ranges: 1, types: 0, results: 2 });
+  const comTipo = eventoFiltro({ categorias: [], marcas: [], faixas: [], tipos: ["Desodorantes"] }, 3);
+  assert.deepEqual(comTipo.params, { source: "produtos_nacoes", unit: "nacoes", categories: 0, brands: 0, ranges: 0, types: 1, results: 3 });
+  assert.doesNotMatch(JSON.stringify(comTipo), /desodorante/i, "o nome do tipo nunca vai para o analytics");
   assert.equal(eventoBusca("dipirona", 1).event, "catalog_search");
   assert.doesNotMatch(JSON.stringify(evento), /nivea|dipirona|medicamento|ate_15/i);
 });
