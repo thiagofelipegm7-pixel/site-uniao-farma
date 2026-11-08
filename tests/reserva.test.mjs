@@ -351,3 +351,13 @@ test("iPhone: campos de texto e seletores com 16 px para o Safari não ampliar a
   assert.match(css, /@layer design \{\s*\.shop-busca input, \.pv-ordenar select, select, input\[type="search"\], input\[type="text"\] \{ font-size: 16px !important; \}/);
   assert.ok((await readFile(new URL("../tests/audit-campos-ios.cjs", import.meta.url), "utf8")).includes("fs<16"));
 });
+
+test("pedido com receita: a mensagem diz se a foto vai na conversa ou se a receita vai na loja", async () => {
+  const { mensagemReserva } = await import("../app/reserva/reserva-store.ts");
+  const itens = [{ id: "nacoes:x", unitId: "nacoes", nome: "MED X", precoCentavos: 1000, qtd: 1, receita: "receita" }];
+  const base = { modo: "retirar", nome: "Ana", pagamento: "Pix" };
+  assert.match(mensagemReserva("Nações Unidas", itens, { ...base, receita: "foto" }), /vou enviar a foto da receita aqui na conversa/);
+  assert.match(mensagemReserva("Nações Unidas", itens, { ...base, receita: "loja" }), /retiro na loja e apresento a receita/);
+  assert.match(mensagemReserva("Nações Unidas", itens, base), /retiro na loja e apresento a receita/);
+  assert.doesNotMatch(mensagemReserva("Nações Unidas", [{ ...itens[0], receita: undefined }], { ...base, receita: "foto" }), /receita/i, "sem medicamento de receita a frase não aparece");
+});

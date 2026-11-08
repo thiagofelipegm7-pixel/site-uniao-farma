@@ -1428,3 +1428,14 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 /* Aviso de estoque ao vivo na cesta: o item acabou na loja depois da última publicação. */
 .fluxo-aviso-estoque { display: block; margin: 0.25rem 0 0; color: #a3200f; font-size: 0.8125rem; font-weight: 700; line-height: 1.4; }
 .produto-adicionar:disabled { opacity: 0.6; cursor: not-allowed; }
+
+/* Foto da receita na cesta (medicamento com receita ou controlado). */
+.fluxo-receita { display: grid; gap: 0.625rem; margin: 0 0 1rem; padding: 1rem; border: 1px solid #e3b341; border-radius: 12px; background: #fff8e6; color: #3d3000; }
+.fluxo-receita p { margin: 0; font-size: 0.9375rem; line-height: 1.5; }
+.fluxo-receita-botao { position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0 1rem; border: 1px solid #0a3548; border-radius: 10px; background: #ffffff; color: #0a3548; font-size: 1rem; font-weight: 700; cursor: pointer; text-align: center; }
+.fluxo-receita-principal { background: #0a3548; color: #ffffff; }
+.fluxo-receita-botao input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; font-size: 16px; }
+.fluxo-receita-previa { display: flex; align-items: center; gap: 0.75rem; }
+.fluxo-receita-previa img { width: 96px; height: 96px; object-fit: cover; border-radius: 8px; border: 1px solid #d3e2df; }
+.fluxo-receita-levo { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9375rem; }
+.fluxo-receita-levo input { width: 1.25rem; height: 1.25rem; }
