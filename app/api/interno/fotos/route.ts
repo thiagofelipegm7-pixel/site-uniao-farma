@@ -10,10 +10,29 @@ import { carregarRestritos } from "../../../nacoes-unidas/produtos/receita";
 export const dynamic = "force-dynamic";
 const SEM_CACHE = { "cache-control": "no-store" };
 
+/** Itens de bijuteria que não devem aparecer no painel nem no site. */
+const BIJUTERIAS = /^(BRINCO |PIERCING |ANEL |COLAR |PULSEIRA |PINGENTE )/i;
+
+/** Códigos de barras conhecidos que o export do PC ainda não traz. */
+const EAN_OVERRIDE: Record<string, string> = {
+  "LACTO PURGA C/6 CARTELA": "7896094912472",
+};
+
 /** Estoque de agora cruzado com as fotos que já estão no site (painel interno; a senha é pedida pelo middleware). */
 export async function GET() {
   const exportado = await lerExportBruto();
   if (!exportado) return Response.json({ ok: false, erro: "sem_dados" }, { status: 502, headers: SEM_CACHE });
+
+  // Remove bijuterias e aplica códigos de barras conhecidos.
+  const itens = exportado.itens.filter((it) => {
+    const nome = typeof it.Produto === "string" ? it.Produto : "";
+    return !BIJUTERIAS.test(nome);
+  }).map((it) => {
+    const nome = typeof it.Produto === "string" ? it.Produto.replace(/\s+/g, " ").trim() : "";
+    const override = EAN_OVERRIDE[nome.toUpperCase()];
+    if (override) return { ...it, CodigoDeBarras: override };
+    return it;
+  });
 
   const categorias = new Map<string, string>();
   for (const i of carregarCatalogoCompleto().itens) categorias.set(chaveDeNome(i.nome), i.categoria);
@@ -22,7 +41,7 @@ export async function GET() {
   for (const i of restritos.controlados) if (!categorias.has(chaveDeNome(i.nome))) categorias.set(chaveDeNome(i.nome), "Controlados");
 
   const eansComFoto = new Set(Object.values(FOTOS_NACOES));
-  const linhas = montarLinhas(exportado.itens, eansComFoto, categorias);
+  const linhas = montarLinhas(itens, eansComFoto, categorias);
   // Fotos já enviadas pelo painel e ainda não publicadas no site.
   const db = banco();
   const pendentes = db ? (await listarPendentes(db).catch(() => [])).map((f) => f.ean) : [];
