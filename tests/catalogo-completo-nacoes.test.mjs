@@ -422,3 +422,30 @@ test("ilustração de medicamento sem foto: gerador e site escolhem a mesma caix
   // Quanto mais medicamentos ganham foto de verdade (painel de fotos), menos ilustrações sobram: o que vale é cada uma estar certa.
   assert.ok(conferidos >= 0);
 });
+
+test("árvore de categorias: o site e o gerador da busca classificam igual, e a maior parte dos produtos cai numa categoria", async () => {
+  const { tipoDoProduto, arvoreDeCategorias, OUTROS } = await import("../app/nacoes-unidas/produtos/arvore-categorias.ts");
+  const arvore = arvoreDeCategorias();
+  assert.ok(arvore.length >= 5 && arvore.every((d) => d.categorias.length >= 1), "departamentos com categorias");
+  assert.equal(tipoDoProduto("DES ROLL ON NIVEA PROTECT 50ML", "Cuidado Diário"), "Desodorantes");
+  assert.equal(tipoDoProduto("FRALDA PAMPERS XG", "Infantil e Gestante"), "Fraldas");
+  assert.equal(tipoDoProduto("ALGO SEM REGRA NENHUMA XYZ", "Cuidado Diário"), OUTROS);
+  assert.equal(tipoDoProduto("DES ROLL ON NIVEA", "Medicamentos"), OUTROS, "só departamentos com regras");
+  const idx = await json("public/dados/nacoes/catalogo-index.json");
+  const comRegra = new Set(arvore.map((d) => d.departamento));
+  let total = 0;
+  let classificados = 0;
+  for (const g of idx.grupos) {
+    for (let p = 1; p <= g.paginas; p += 1) {
+      for (const i of await json(`public/dados/nacoes/catalogo/${g.slug}/p${p}.json`)) {
+        assert.equal(i.tipo, tipoDoProduto(i.nome, i.categoria), `gerador e site discordam: ${i.nome}`);
+        if (comRegra.has(i.categoria)) {
+          total += 1;
+          if (i.tipo !== OUTROS) classificados += 1;
+        }
+      }
+    }
+  }
+  assert.ok(total > 500);
+  assert.ok(classificados / total >= 0.7, `só ${classificados} de ${total} produtos caíram numa categoria`);
+});

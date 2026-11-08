@@ -1,0 +1,167 @@
+[
+ {
+  "departamento": "Cuidado Diário",
+  "categoria": "Barbear e depilação",
+  "padrao": "APARELHO (DE )?BARBEAR|^AP B|^AP BARB|GILLETTE|PRESTOBARBA|PRESTO|BARBEAR|DEPILA|CERA\\b|LAMINA|GILETE|CARGA (BOZANO|MACH)|CARGA"
+ },
+ {
+  "departamento": "Cuidado Diário",
+  "categoria": "Desodorantes",
+  "padrao": "^(DES|DESOD|DEO|DESODORANTE|ANTITRANSP)\\b|ROLL[ -]?ON|\\bREXONA\\b|\\bDOVE (STICK|ROLL)"
+ },
+ {
+  "departamento": "Cuidado Diário",
+  "categoria": "Sabonetes",
+  "padrao": "^(SAB|SABONETE)\\b|SABONETE|\\bSAB\\b"
+ },
+ {
+  "departamento": "Cuidado Diário",
+  "categoria": "Higiene bucal",
+  "padrao": "^(ESC|ESCOVA)\\b.*(DENT|CURTIS|COLGATE|ORAL)|FIO DENTAL|^FIO\\b|CR DENT|CREME DENTAL|ENXAGUANTE|PASTA DE DENTE|ORAL[ -]?B|LISTERINE|COLGATE|BUCAL|DENTIFRICIO|COREGA|DENTALFIX|CAPA PROT ESCOVA|CHICLE|BALA|PASTILHA"
+ },
+ {
+  "departamento": "Cuidado Diário",
+  "categoria": "Absorventes e proteção íntima",
+  "padrao": "ABSORVENTE|^ABS\\b|PROTETOR DIARIO|TAMPAO|COLETOR MENSTRUAL|INTIMO|FRALDA GERIATRICA|PLENITUD|DERMACYD|SABONETE INTIMO"
+ },
+ {
+  "departamento": "Cuidado Diário",
+  "categoria": "Curativos e primeiros socorros",
+  "padrao": "CURATIVO|ESPARADRAPO|ATADURA|\\bATAD\\b|ALGODAO|GAZE|MICROPORE|ALCOOL|AGUA OXIG|AGUA BORICADA|AMONIA|ADESIVO|BAND[ -]?AID|COMPRESSA|TALA|FAIXA|SORO FISIO|ASSEPSIA|IODO|POVIDINE|MERTHIOLATE|CURATEC|COTONETE|HASTE FLEXIVEL|FISIOLOGICO|CICADEEP|BALSAMO"
+ },
+ {
+  "departamento": "Cuidado Diário",
+  "categoria": "Seringas, agulhas e materiais",
+  "padrao": "SERINGA|AGULHA|CATETER|LUVA|TOUCA|MASC(ARA)? (DESC|CIRURG|TRIPLA)|LANCET|ESCALP|SONDA|GLICEM|COLETOR|GLICOSIMETRO|TERMOMETRO|NEBULIZ|INALADOR|APARELHO DE PRESSAO|PROPE|BOLSA T|ACCU|TIRAS|MASCARA PROTECAO"
+ },
+ {
+  "departamento": "Cuidado Diário",
+  "categoria": "Preservativos e intimidade",
+  "padrao": "PRESERV|CAMISINHA|LUBRIFICANTE|GEL LUBRIF|JONTEX|PRUDENCE|OLLA|BLOWTEX|K[ -]?MED|VIBRADOR"
+ },
+ {
+  "departamento": "Cuidado Diário",
+  "categoria": "Repelentes e inseticidas",
+  "padrao": "REPELENTE|RAID|INSETICIDA|BAYGON|EXPOSIS|REPELEX|BARATA|MOSQUITO"
+ },
+ {
+  "departamento": "Cuidado Diário",
+  "categoria": "Cabelos",
+  "padrao": "SHAMPOO|^SH\\b|CONDICIONADOR|CONDICIONADO|^COND\\b|^CD\\b|CREME (PARA )?(PENTEAR|SKALA)|SKALA|AMACIHAIR|DEFRIZANTE|MASCARA CAPILAR|\\bCABELO|HAIR|LISS|TINTA|TONALIZANTE|DESCOLORANTE|\\bDESC\\b|COLORACAO|ATIVADOR|OXIGENADA|SALON LINE|ARGAN|OLEO DE ARGAN|QUERATINA|RELAX|ALISANTE"
+ },
+ {
+  "departamento": "Cuidado Diário",
+  "categoria": "Casa e utilidades",
+  "padrao": "PILHA|BATERIA|ROUPA|AMACIANTE|SABAO|DETERGENTE|LIMPA|DESINFETANTE|AGUA SANITARIA|PANO|ISQUEIRO|LAMPADA|COLA\\b|COLA (THREE|UNHAS)|ACESSORIOS"
+ },
+ {
+  "departamento": "Cuidado Diário",
+  "categoria": "Unhas e pés",
+  "padrao": "PEDRA POMES|LIXA|ALICATE|CORTADOR|TESOURA|PINCA|PALMILHA|CALO|JOANETE|ESMALTE|AMOLECEDOR|CUTICULA|BASE (BOMBA|CLARA|FORTAL|COSMET)|\\bBASE\\b|\\bESM\\b|REMOVEDOR|ACETONA|CASCO|UNHA"
+ },
+ {
+  "departamento": "Cuidado Diário",
+  "categoria": "Lábios e rosto",
+  "padrao": "\\bLIP\\b|LABIAL|CARMED|BATOM|ARGILA|CREME DE CACAU|CHUQUINHA|SEBO|NUTRIDERM|CANELA DE VELHO|POMADA"
+ },
+ {
+  "departamento": "Cuidado Diário",
+  "categoria": "Banho e cuidados com o corpo",
+  "padrao": "HIDRATANTE|\\bHID\\b|LOCAO|OLEO|TALCO|BANHO|ESFOLIANTE|ESPONJA|BUCHA|CREME CORPORAL|^CR\\b|^CREME\\b|^GEL\\b|SPRAY|BODY|COLONIA|ESCOVA|\\bAGUA\\b"
+ },
+ {
+  "departamento": "Beleza",
+  "categoria": "Coloração e tintas",
+  "padrao": "^TINTA|^TINT\\b|TONALIZANTE|COLORACAO|DESCOLORANTE|\\bDESC\\b|ATIVADOR|\\bATIV\\b|OXIGENADA|HENNA|PO DESCOLORANTE|MATIZADOR"
+ },
+ {
+  "departamento": "Beleza",
+  "categoria": "Esmaltes e unhas",
+  "padrao": "ESMALTE|\\bESM\\b|ACETONA|REMOVEDOR|LIXA|BASE (PARA|BOMBA|CLARA)|BASE\\b|UNHA|CUTICULA|CUTIC"
+ },
+ {
+  "departamento": "Beleza",
+  "categoria": "Condicionadores",
+  "padrao": "^COND\\b|CONDICIONADOR|CONDICIONADO|\\bCD\\b|CREME (DE )?PENTEAR"
+ },
+ {
+  "departamento": "Beleza",
+  "categoria": "Shampoos",
+  "padrao": "^SH\\b|SHAMPOO|^XAMPU"
+ },
+ {
+  "departamento": "Beleza",
+  "categoria": "Tratamento capilar",
+  "padrao": "MASCARA (CAPILAR|P/ CABELO)|^CR\\b|CREME|OLEO|SERUM|ALIS|DEFRIZ|QUERATINA|RELAX|BRILHO|GELATINA|FINALIZADOR|LEAVE|AMPOLA|TRATAMENTO|BANHO DE CREME|BANHO|HAIR|LISS|ARGAN|SEDA|SALON"
+ },
+ {
+  "departamento": "Beleza",
+  "categoria": "Maquiagem",
+  "padrao": "MASCARA (PARA )?CILIOS|^MASCARA\\b|^MASC\\b|BATOM|BASE FACIAL|LAPIS|DELINEADOR|SOMBRA|PO COMPACTO|BLUSH|CILIOS|PINCEL|COLA CILIOS|CORRETIVO|GLOSS"
+ },
+ {
+  "departamento": "Beleza",
+  "categoria": "Acessórios",
+  "padrao": "PENTE|BRINCO|FOLHAS|ESCOVA|PRENDEDOR|ELASTICO|TIARA|PRESILHA|TOUCA|ESPELHO|ALICATE"
+ },
+ {
+  "departamento": "Infantil e Gestante",
+  "categoria": "Fraldas",
+  "padrao": "^FRALDA|FRALDAS|HUGGIES|PAMPERS|BABYSEC|MAMYPOKO|TURMA DA MONICA|PANTS"
+ },
+ {
+  "departamento": "Infantil e Gestante",
+  "categoria": "Higiene do bebê",
+  "padrao": "LENC|LENCO|SABONETE|^SAB\\b|SHAMPOO|^SH\\b|^COND\\b|TALCO|COTONETE|ESCOVA|DENTIL|FIO|DESODORANTE|^DES\\b|CREME|^CR\\b|LOCAO|HIDRAT|TOALHAS|BANHO|OLEO|PROT\\b|PROTETOR|ASSADURA|BEPANTOL|BIOZINC|ADESIVO"
+ },
+ {
+  "departamento": "Infantil e Gestante",
+  "categoria": "Alimentação e acessórios",
+  "padrao": "CHUPETA|MAMADEIRA|BICO|MORDEDOR|PRENDEDOR|PREDNDEDOR|CANECA|NAN\\b|NESTOGENO|AGIL|FORMULA|LEITE|PAPINHA|COPO|PRATO|BABADOR"
+ },
+ {
+  "departamento": "Infantil e Gestante",
+  "categoria": "Gravidez e gestação",
+  "padrao": "TESTE (DE )?GRAVIDEZ|^TESTE|^TEST\\b|GESTANTE|ESTRIA|ANTI ?ESTRIAS|CINTA"
+ },
+ {
+  "departamento": "Infantil e Gestante",
+  "categoria": "Repelentes e proteção",
+  "padrao": "REPELENTE|PROTETOR SOLAR|PROT SOLAR|\\bFPS\\b|SKALINHA|BYE BYE"
+ },
+ {
+  "departamento": "Bem Estar",
+  "categoria": "Vitaminas e suplementos",
+  "padrao": "VITAMIN|VITAMINE|OMEGA|COENZIMA|COLAGENO|BIOTINA|MELATONINA|TRIBULUS|CREATINA|MACA PERUANA|GUARANA|MULTI|ZINCO|MAGNESIO|CALCIO|FERRO|CONDRIGEN|CONDROFLAN|ARTRIFLEX|FLEX\\b|LAVITAN|CENTRUM|PROTEINA|WHEY|AMORA|SPIRULINA|ACIDO|CAPS|COMPRIMIDO|COGNON|APTANUTRI|REDUX|MAXI|\\bK\\b|BIO\\b"
+ },
+ {
+  "departamento": "Bem Estar",
+  "categoria": "Chás e alimentos",
+  "padrao": "^CHA\\b|CHA DE|CHAS|ADOCANTE|MEL\\b|BISCOITO|CHICLE|BALA|FINI|BEB\\b|BEBIDA|SUCO|ISOTONICO|BARRA|CEREAL|GELEIA|AGUA DE COCO|AGUA MINERAL|LEITE|CAFE|ACUCAR|SAL\\b|OLEO DE COCO|SEMENTE"
+ },
+ {
+  "departamento": "Bem Estar",
+  "categoria": "Materiais e saúde",
+  "padrao": "SERINGA|AGULHA|CATETER|COLETOR|CORTADOR|PORTA|PRESERVATIVO|BOLSA|CONE|TERMOMETRO|DEBRIGEL|PRES\\b|METIL"
+ },
+ {
+  "departamento": "Dermocosméticos",
+  "categoria": "Protetores solares",
+  "padrao": "PROT(ETOR)? SOLAR|\\bFPS\\b|BLOQ|SUNLESS|SUNSCREEN|SOLAR"
+ },
+ {
+  "departamento": "Dermocosméticos",
+  "categoria": "Hidratantes",
+  "padrao": "HID|HIDRAT|CERAVE|CERIDRAT|EPIDRAT|CETAPHIL|NEUTROGENA|NEUTROG|VASENOL|LOCAO|CREME|^CR\\b|FISIOGEL|GARNIER"
+ },
+ {
+  "departamento": "Dermocosméticos",
+  "categoria": "Séruns e tratamento facial",
+  "padrao": "SERUM|OLEO|SEBO|CICATRICURE|MASC|AGUA MICELAR|ADESIVO|SABONETE|^SAB\\b|CARMED|KIT"
+ },
+ {
+  "departamento": "Perfumes",
+  "categoria": "Colônias e perfumes",
+  "padrao": "COLONIA|PERFUME|DEO COLONIA|BODY SPLASH|SPLASH|EAU|FRAGRANCIA|ESSENCIA"
+ }
+]

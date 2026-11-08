@@ -14,6 +14,8 @@ export type ItemBusca = {
   id?: string;
   /** Slug da página do produto (do nome original do catálogo; o nome de exibição pode gerar outro). */
   slug?: string;
+  /** Categoria dentro do departamento (árvore de categorias), ex.: "Desodorantes". */
+  tipo?: string;
 };
 export type GrupoBusca = { categoria: string; id: string; itens: ItemBusca[] };
 
@@ -44,6 +46,8 @@ export type FiltroCatalogo = {
   categorias?: readonly string[];
   marcas?: readonly string[];
   faixas?: readonly FaixaPreco[];
+  /** Categoria dentro do departamento (nível 2 da árvore). */
+  tipos?: readonly string[];
 };
 
 export function normalizarBusca(value: string): string {
@@ -152,22 +156,26 @@ export function sugerirProdutos(grupos: readonly GrupoBusca[], consulta: string,
 }
 
 /** Categorias na ordem dos grupos; marcas únicas, em ordem alfabética, sem laboratório vazio. */
-export function opcoesFiltro(grupos: readonly GrupoBusca[]): { categorias: string[]; marcas: string[] } {
+export function opcoesFiltro(grupos: readonly GrupoBusca[]): { categorias: string[]; marcas: string[]; tipos: string[] } {
   const marcas = new Set<string>();
+  const tipos = new Set<string>();
   for (const grupo of grupos) {
     for (const item of grupo.itens) {
       const lab = item.lab.trim();
       if (lab) marcas.add(lab);
+      if (item.tipo) tipos.add(item.tipo);
     }
   }
   return {
     categorias: grupos.map((grupo) => grupo.categoria),
     marcas: [...marcas].sort((a, b) => a.localeCompare(b, "pt-BR")),
+    // "Outros" sempre por último; só há filtro de tipo quando existe mais de um.
+    tipos: tipos.size > 1 ? [...tipos].sort((a, b) => (a === "Outros" ? 1 : b === "Outros" ? -1 : a.localeCompare(b, "pt-BR"))) : [],
   };
 }
 
-export function contarFiltrosAtivos(filtro: Pick<FiltroCatalogo, "categorias" | "marcas" | "faixas">): number {
-  return (filtro.categorias?.length ?? 0) + (filtro.marcas?.length ?? 0) + (filtro.faixas?.length ?? 0);
+export function contarFiltrosAtivos(filtro: Pick<FiltroCatalogo, "categorias" | "marcas" | "faixas" | "tipos">): number {
+  return (filtro.categorias?.length ?? 0) + (filtro.marcas?.length ?? 0) + (filtro.faixas?.length ?? 0) + (filtro.tipos?.length ?? 0);
 }
 
 function ordenarItens(itens: readonly ItemBusca[], ordem: OrdemCatalogo): ItemBusca[] {
@@ -187,6 +195,7 @@ export function aplicarCatalogo(grupos: readonly GrupoBusca[], filtro: FiltroCat
   const cats = new Set((filtro.categorias ?? []).map(normalizarBusca).filter(Boolean));
   const marcas = new Set((filtro.marcas ?? []).map(normalizarBusca).filter(Boolean));
   const faixas = new Set(filtro.faixas ?? []);
+  const tipos = new Set((filtro.tipos ?? []).map(normalizarBusca).filter(Boolean));
   const porTexto = filtro.consultasAlternativas?.length ? filtrarGruposAlternativos(grupos, filtro.consultasAlternativas) : filtrarGrupos(grupos, filtro.consulta ?? "");
   const filtrados = porTexto
     .filter((grupo) => cats.size === 0 || cats.has(normalizarBusca(grupo.categoria)))
@@ -194,6 +203,7 @@ export function aplicarCatalogo(grupos: readonly GrupoBusca[], filtro: FiltroCat
       ...grupo,
       itens: grupo.itens.filter((item) => {
         if (marcas.size > 0 && !marcas.has(normalizarBusca(item.lab))) return false;
+        if (tipos.size > 0 && !tipos.has(normalizarBusca(item.tipo ?? ""))) return false;
         if (faixas.size > 0 && !faixas.has(faixaDoPreco(precoDoItem(item)))) return false;
         return true;
       }),
@@ -234,15 +244,16 @@ export function eventoBusca(consulta: string, resultados: number): { event: "cat
  * Sem nenhum filtro marcado, não há evento.
  */
 export function eventoFiltro(
-  filtro: Pick<FiltroCatalogo, "categorias" | "marcas" | "faixas">,
+  filtro: Pick<FiltroCatalogo, "categorias" | "marcas" | "faixas" | "tipos">,
   resultados: number,
 ): { event: "catalog_filter"; params: Record<string, unknown> } | null {
   const categories = filtro.categorias?.length ?? 0;
   const brands = filtro.marcas?.length ?? 0;
   const ranges = filtro.faixas?.length ?? 0;
-  if (categories + brands + ranges === 0) return null;
+  const types = filtro.tipos?.length ?? 0;
+  if (categories + brands + ranges + types === 0) return null;
   return {
     event: "catalog_filter",
-    params: { source: "produtos_nacoes", unit: "nacoes", categories, brands, ranges, results: resultados },
+    params: { source: "produtos_nacoes", unit: "nacoes", categories, brands, ranges, types, results: resultados },
   };
 }

@@ -13,6 +13,7 @@ import CatalogoLista from "../../nacoes-unidas/produtos/CatalogoLista";
 import MedicamentosTodos from "../../nacoes-unidas/produtos/MedicamentosTodos";
 import { carregarCatalogoNacoes, formatBRL, slugify } from "../../nacoes-unidas/produtos/catalogo";
 import { acharDepartamento, departamentosPublicos } from "../../nacoes-unidas/produtos/departamentos";
+import { tipoDoProduto } from "../../nacoes-unidas/produtos/arvore-categorias";
 import { fotoExibida } from "../../nacoes-unidas/produtos/foto-exibida";
 import "../../nacoes-unidas/produtos/produtos.css";
 
@@ -53,7 +54,7 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
   const itens = carregarCatalogoNacoes()
     .itens.filter((i) => slugify(i.categoria) === dep.slug)
     .sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"))
-    .map((i) => ({ nome: nomeDeExibicao(i.nome), lab: i.lab, isMIP: i.isMIP, restam: i.restam, precoFmt: formatBRL(i.preco), preco: i.preco, foto: fotoExibida(i.nome, i.categoria), slug: slugify(i.nome) }));
+    .map((i) => ({ nome: nomeDeExibicao(i.nome), lab: i.lab, isMIP: i.isMIP, restam: i.restam, precoFmt: formatBRL(i.preco), preco: i.preco, foto: fotoExibida(i.nome, i.categoria), slug: slugify(i.nome), tipo: tipoDoProduto(i.nome, i.categoria) }));
   const grupos: GrupoBusca[] = [{ categoria: dep.nome, id: dep.slug, itens }];
   const pagina = `${SITE_URL}/departamentos/${dep.slug}`;
   const structuredData = getPageStructuredData({
