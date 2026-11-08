@@ -134,16 +134,7 @@ export default function PainelCatalogo() {
             <p className="eyebrow">Uso interno</p>
             <h1>Estoque da loja</h1>
             <p className="metrics-lead">Acompanha o PC da Nações Unidas que manda o estoque para o site.</p>
-          </div>
-          <div className="painel-links">
-            <a className="metrics-exit" href="/interno/metricas">
-              Métricas
-            </a>
-            <a className="metrics-exit" href="/interno/sair">
-              Sair
-            </a>
-          </div>
-        </div>
+          </div>        </div>
 
         {erro ? <p className="metrics-error">{erro}</p> : null}
         {!dados && !erro ? <p className="metrics-lead">Carregando…</p> : null}

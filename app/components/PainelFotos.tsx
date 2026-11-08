@@ -83,6 +83,13 @@ export default function PainelFotos() {
   useEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect -- carga inicial do painel e das marcações guardadas neste navegador */
     void carregar();
+    // Vindo da tela inicial (?q=nome ou código): já abre buscando, entre todos os produtos.
+    const q = new URLSearchParams(window.location.search).get("q");
+    if (q) {
+      setBusca(q.slice(0, 80));
+      setFotos("");
+      setEstoque("");
+    }
     try {
       setPor(window.localStorage.getItem("uf_revisao_nome") ?? "");
     } catch {
@@ -389,9 +396,6 @@ export default function PainelFotos() {
         Quem está mexendo?
         <input type="text" value={por} onChange={(e) => guardarPor(e.target.value)} placeholder="Seu nome (fica no histórico)" maxLength={60} autoComplete="name" />
       </label>
-      <p className="pf-nav">
-        <a href="/interno/revisao">Fila de revisão</a> · <a href="/interno/erros">Erros no celular</a> · <a href="/interno/estoque">Alertas de estoque</a> · <a href="/interno/catalogo">Saúde do catálogo</a> · <a href="/interno/metricas">Métricas</a>
-      </p>
       {erro ? <p role="alert">Não consegui ler o estoque agora. O PC da loja ou o acesso aos dados pode estar parado. <button type="button" onClick={() => void carregar()}>Tentar de novo</button></p> : null}
       {!dados && !erro ? <p>Carregando o estoque…</p> : null}
       {dados ? (

@@ -52,9 +52,6 @@ export default function PainelErros() {
   return (
     <section className="painel-revisao">
       <h1>Erros no celular dos clientes</h1>
-      <p className="pr-nav">
-        <a href="/interno/fotos">Fotos</a> · <a href="/interno/revisao">Fila de revisão</a> · <a href="/interno/estoque">Alertas de estoque</a>
-      </p>
       <p className="pr-ajuda">
         Erros de JavaScript que acontecem nos aparelhos dos clientes, dos últimos 7 dias. Não guardamos nome, telefone, endereço nem o que a pessoa digitou:
         só a mensagem, o arquivo, a página e o tipo de aparelho. Se um erro aparece muito, me mande a linha.
