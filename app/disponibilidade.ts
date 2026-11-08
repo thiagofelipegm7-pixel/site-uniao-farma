@@ -48,7 +48,7 @@ export function avisosDaCesta(itens: readonly ItemDaCesta[], mudou: Mudancas | n
   return avisos;
 }
 
-/** Idade, em minutos, do último estoque que o PC da loja enviou. `geradoEm` do DMaster vem sem fuso: vale o horário de Brasília (UTC-3). */
+/** Idade, em minutos, do último contato do PC da loja (batimento ou envio; não a última mudança de preço). `geradoEm` do DMaster vem sem fuso: vale o horário de Brasília (UTC-3). */
 export function idadeEmMinutos(geradoEm: string | null | undefined, agora: number = Date.now()): number | null {
   if (!geradoEm) return null;
   const temFuso = /(Z|[+-]\d{2}:?\d{2})$/.test(geradoEm);

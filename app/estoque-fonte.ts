@@ -21,7 +21,7 @@ export function banco() {
 }
 
 /** Estoque atual lido do Worker do PC da loja. Devolve null se o token faltar ou o Worker não responder. */
-export async function lerEstoqueAtual(): Promise<{ itens: ItemEstoque[]; geradoEm: string | null; dia: string } | null> {
+export async function lerEstoqueAtual(): Promise<{ itens: ItemEstoque[]; geradoEm: string | null; /** Último contato do PC da loja (batimento ou envio): o que mostra se o PC está vivo. */ contatoEm: string | null; dia: string } | null> {
   const token = segredo("CATALOGO_READ_TOKEN");
   if (!token) return null;
   try {
@@ -30,10 +30,11 @@ export async function lerEstoqueAtual(): Promise<{ itens: ItemEstoque[]; geradoE
       signal: AbortSignal.timeout(15_000),
     });
     if (!r.ok) return null;
-    const dados = (await r.json()) as { geradoEm?: string };
+    const dados = (await r.json()) as { geradoEm?: string; batimentoEm?: string; recebidoEm?: string };
     const itens = itensDoExport(dados);
     if (itens.length < 100) return null; // export truncado: melhor não registrar
-    return { itens, geradoEm: typeof dados.geradoEm === "string" ? dados.geradoEm : null, dia: diaBrasilia() };
+    const contato = dados.batimentoEm ?? dados.recebidoEm ?? dados.geradoEm;
+    return { itens, geradoEm: typeof dados.geradoEm === "string" ? dados.geradoEm : null, contatoEm: typeof contato === "string" ? contato : null, dia: diaBrasilia() };
   } catch {
     return null;
   }
