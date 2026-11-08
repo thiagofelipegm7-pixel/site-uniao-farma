@@ -19,6 +19,7 @@ import { ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, exigeRe
 import { useReserva } from "./useReserva";
 import { useDisponibilidade } from "./useDisponibilidade";
 import { avisosDaCesta } from "../disponibilidade";
+import { podeCompartilhar, prepararReceita, type ReceitaPronta } from "./preparar-receita";
 
 type Passo = 1 | 2 | 3;
 const BAIRROS = listarBairros(PUBLIC_UNITS);
@@ -56,6 +57,20 @@ export default function ReservaFluxo() {
   const [editando, setEditando] = useState(true);
   // Depois do toque em "Enviar pedido pelo WhatsApp": lembra o cliente de tocar em enviar dentro do WhatsApp.
   const [enviado, setEnviado] = useState(false);
+  // Foto da receita (medicamento com receita ou controlado): fica só neste aparelho, nunca vai para o servidor do site.
+  const [receita, setReceita] = useState<ReceitaPronta | null>(null);
+  const [levoReceita, setLevoReceita] = useState(false);
+  const [erroReceita, setErroReceita] = useState("");
+  async function escolherReceita(arquivo: File | undefined) {
+    if (!arquivo) return;
+    setErroReceita("");
+    try {
+      setReceita(await prepararReceita(arquivo));
+      setLevoReceita(false);
+    } catch {
+      setErroReceita("Não consegui abrir essa foto. Tire outra foto da receita ou escolha uma imagem (JPG ou PNG).");
+    }
+  }
   // Funil: a visita abriu a cesta com itens (conta uma vez por visita).
   const temItens = estado.itens.length > 0;
   useEffect(() => {
@@ -196,8 +211,11 @@ export default function ReservaFluxo() {
     </>
   );
 
+  const faltaReceita = soRetirada && !receita && !levoReceita;
   const enviarWhats = (classe: string) => acabaram.length > 0 ? (
     <button type="button" className={classe} disabled><IconWhats size={24} /> Tire o que acabou para enviar</button>
+  ) : faltaReceita ? (
+    <button type="button" className={classe} disabled><IconWhats size={24} /> Anexe a foto da receita para enviar</button>
   ) : pagamento ? (
     <a className={classe} href={href} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unidade.id} data-track-source="reserva_envio" onClick={() => { guardarUltimoPedido(estado.itens.filter(itemAtivo)); registrarEtapa("enviar"); setEnviado(true); }}>
       <IconWhats size={24} /> Enviar pedido pelo WhatsApp
@@ -209,7 +227,7 @@ export default function ReservaFluxo() {
   const statusLoja = agora ? getUnitOpenStatus(unidade, agora) : null;
   const aberta = statusLoja ? statusLoja.isOpen : null;
 
-  const mensagem = mensagemReserva(unidade.shortName, estado.itens, { modo, nome, bairro, rua, pagamento, taxaEntregaCentavos: taxaEntrega });
+  const mensagem = mensagemReserva(unidade.shortName, estado.itens, { modo, nome, bairro, rua, pagamento, taxaEntregaCentavos: taxaEntrega, receita: receita ? "foto" : "loja" });
   const href = buildWhatsAppUrl(unidade, mensagem, { campaign: "reserva", content: `reserva_${unidade.id}` });
 
   return (
@@ -451,6 +469,16 @@ export default function ReservaFluxo() {
               <section className="fluxo-enviado" role="status" aria-live="polite">
                 <strong>Falta só um passo: toque em enviar no WhatsApp</strong>
                 <p>O WhatsApp abriu com o seu pedido escrito. O pedido só chega para a loja depois que você toca no botão verde de enviar.</p>
+                {receita ? (
+                  <p>
+                    <strong>Receita:</strong> na conversa, toque no clipe (📎) e anexe a foto da receita, que está na sua galeria ou câmera.
+                    {podeCompartilhar(receita.arquivo) ? (
+                      <>
+                        {" "}Ou <button type="button" className="fluxo-link" onClick={() => { void navigator.share({ files: [receita.arquivo], title: "Receita" }).catch(() => undefined); }}>compartilhe a foto agora</button> e escolha a conversa da loja.
+                      </>
+                    ) : null}
+                  </p>
+                ) : null}
                 <p>Não abriu? <a href={href} target="_blank" rel="noreferrer">Abrir o WhatsApp de novo</a>. Já enviou? <button type="button" className="fluxo-link" onClick={() => { atualizarReserva(limpar); setEnviado(false); window.location.assign("/"); }}>Esvaziar a cesta e voltar ao início</button>.</p>
               </section>
             ) : null}
@@ -464,6 +492,34 @@ export default function ReservaFluxo() {
                 <button type="button" className="entrega-btn entrega-btn-alterar" onClick={() => { setEditando(true); ir(2); }}>Alterar</button>
               </div>
             </section>
+
+            {soRetirada ? (
+              <section className="fluxo-receita" aria-label="Foto da receita">
+                <strong>Foto da receita</strong>
+                <p>Sua cesta tem medicamento com receita ou controlado. Anexe a foto da receita: ela fica só no seu celular e você a envia na conversa do WhatsApp junto com o pedido. A loja confere a receita na retirada.</p>
+                {receita ? (
+                  <div className="fluxo-receita-previa">
+                    <img src={receita.previa} alt="Foto da receita anexada" width="96" height="96" />
+                    <label className="fluxo-receita-botao">
+                      Trocar a foto
+                      <input type="file" accept="image/*" onChange={(e) => { void escolherReceita(e.target.files?.[0]); e.target.value = ""; }} />
+                    </label>
+                  </div>
+                ) : (
+                  <label className="fluxo-receita-botao fluxo-receita-principal">
+                    Tirar ou escolher a foto da receita
+                    <input type="file" accept="image/*" onChange={(e) => { void escolherReceita(e.target.files?.[0]); e.target.value = ""; }} />
+                  </label>
+                )}
+                {erroReceita ? <p className="fluxo-aviso-estoque" role="alert">{erroReceita}</p> : null}
+                {!receita ? (
+                  <label className="fluxo-receita-levo">
+                    <input type="checkbox" checked={levoReceita} onChange={(e) => setLevoReceita(e.target.checked)} />
+                    Não tenho a foto agora: levo a receita na loja
+                  </label>
+                ) : null}
+              </section>
+            ) : null}
 
             <p className="entrega-titulo" role="heading" aria-level={2}>Revise seu pedido</p>
             <div className="entrega-pacote">

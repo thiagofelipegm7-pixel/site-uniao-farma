@@ -176,6 +176,8 @@ export type DadosPedido = {
   pagamento?: string;
   /** Taxa de entrega em centavos (0 se retirada ou não informada). */
   taxaEntregaCentavos?: number;
+  /** Como a receita chega à loja: "foto" = o cliente manda a foto na conversa; "loja" (padrão) = leva a receita ao retirar. */
+  receita?: "foto" | "loja";
 };
 
 /**
@@ -206,7 +208,7 @@ export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: D
     taxa > 0 ? `Taxa de entrega: ${formatarCentavos(taxa)}` : null,
     `Total estimado: ${formatarCentavos(total)}`,
     "",
-    ...(exigeReceita(itens) ? ["Tem medicamento com receita: retiro na loja e apresento a receita.", ""] : []),
+    ...(exigeReceita(itens) ? [dados.receita === "foto" ? "Tem medicamento com receita: vou enviar a foto da receita aqui na conversa e retiro na loja com a receita." : "Tem medicamento com receita: retiro na loja e apresento a receita.", ""] : []),
     "Podem confirmar preço e estoque? Obrigado!",
   ].filter(Boolean).join("\n");
 }
