@@ -21,6 +21,8 @@ type Props = {
   receita?: "receita" | "controlado";
   /** "cesta": botão redondo com sacola e "+" no canto do cartão de produto (padrão da listagem). */
   variante?: "cesta";
+  /** Página do produto: a cesta confere a disponibilidade ao vivo por ela. */
+  slug?: string;
   /** Texto do botão grande (padrão "Adicionar"). */
   rotulo?: string;
   /** Unidades que restam na loja (1 a 5): a cesta não passa disso. */
@@ -28,7 +30,7 @@ type Props = {
 };
 
 /** Botão "+" que vira contador depois do primeiro toque (como no protótipo). Sem texto do produto no analytics. */
-export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos, foto, source = "catalogo", compacto = false, receita, variante, rotulo = "Adicionar", max }: Props) {
+export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos, foto, source = "catalogo", compacto = false, receita, variante, rotulo = "Adicionar", max, slug }: Props) {
   const estado = useReserva();
   const id = idDoItem(unitId, nome);
   const qtd = qtdDoItem(estado, id);
@@ -40,7 +42,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
         className={variante === "cesta" ? "reservar-mais pv-cesta-botao" : compacto ? "reservar-mais reservar-mais-icone" : "reservar-mais"}
         aria-label={`Adicionar ${nome} à cesta`}
         onClick={() => {
-          atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, deCentavos, foto, ...(receita ? { receita } : {}), ...(max ? { max } : {}) }));
+          atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, deCentavos, foto, ...(receita ? { receita } : {}), ...(max ? { max } : {}), ...(slug ? { slug } : {}) }));
           trackEvent("reserva_add", { unit: unitId, source });
           registrarEtapa("add");
         }}

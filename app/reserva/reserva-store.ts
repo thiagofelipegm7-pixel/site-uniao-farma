@@ -26,6 +26,8 @@ export type ReservaItem = {
   receita?: "receita" | "controlado";
   /** Unidades que restam na loja (1 a 5): a quantidade da cesta não passa disso. Ausente = sem limite além de MAX_POR_ITEM. */
   max?: number;
+  /** Página do produto no catálogo (para conferir a disponibilidade ao vivo). Ausente em itens sem página. */
+  slug?: string;
 };
 
 export type ReservaEstado = { itens: ReservaItem[]; modo: ModoReserva };
@@ -68,7 +70,7 @@ export function adicionar(estado: ReservaEstado, item: Omit<ReservaItem, "qtd" |
   const existente = estado.itens.find((i) => i.id === id);
   if (existente) {
     // O limite vem do último "Resta N" que o cliente viu; sem limite agora, o antigo cai.
-    const comLimite: ReservaEstado = { ...estado, itens: estado.itens.map((i) => (i.id === id ? limiteDoItem({ ...i, max: item.max }) : i)) };
+    const comLimite: ReservaEstado = { ...estado, itens: estado.itens.map((i) => (i.id === id ? limiteDoItem({ ...i, max: item.max, slug: item.slug ?? i.slug }) : i)) };
     return definirSelecao(definirQtd(comLimite, id, existente.qtd + qtd), id, true);
   }
   if (!(item.precoCentavos > 0)) return estado;
@@ -102,6 +104,23 @@ function limiteDoItem<T extends Pick<ReservaItem, "max">>(item: T): T {
 /** Limite de unidades do item na cesta (undefined = sem limite próprio). */
 export function maxDoItem(estado: ReservaEstado, id: string): number | undefined {
   return estado.itens.find((i) => i.id === id)?.max;
+}
+
+/** Com o estoque de agora: item com "restam N" passa a limitar a N unidades; item que voltou a ter 6 ou mais perde o limite. Quem acabou fica (o aviso aparece na cesta). */
+export function ajustarLimitesAoVivo(estado: ReservaEstado, mudou: Record<string, number> | null): ReservaEstado {
+  if (!mudou) return estado;
+  let alterou = false;
+  const itens = estado.itens.map((i) => {
+    const nivel = i.slug ? mudou[i.slug] : undefined;
+    if (nivel === undefined || nivel === 0) return i;
+    const max = nivel >= 1 && nivel <= 5 ? nivel : undefined;
+    if (i.max === max && (max === undefined || i.qtd <= max)) return i;
+    alterou = true;
+    const { max: _antes, ...resto } = i;
+    void _antes;
+    return { ...resto, ...(max !== undefined ? { max } : {}), qtd: max !== undefined ? Math.min(i.qtd, max) : i.qtd };
+  });
+  return alterou ? { ...estado, itens } : estado;
 }
 
 /** qtd <= 0 remove o item. A quantidade nunca passa do que resta na loja (`max`). */

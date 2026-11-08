@@ -6,8 +6,10 @@ import { createPortal } from "react-dom";
 import { EVENTO_ABRIR_RESERVA } from "./abrir-reserva";
 import { UNITS } from "../site-config";
 import { IconFechar, IconLixeira, IconMais, IconMenos, IconCesta } from "./ReservaIcons";
-import { atualizarReserva, definirQtd, tetoDoItem, formatarCentavos, limpar, subtotalCentavos, totalItens } from "./reserva-store";
+import { ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, formatarCentavos, limpar, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
+import { useDisponibilidade } from "./useDisponibilidade";
+import { avisosDaCesta } from "../disponibilidade";
 import CestaSugestoes from "./CestaSugestoes";
 
 const nomeLoja = (unitId: string) => UNITS.find((u) => u.id === unitId)?.shortName ?? "";
@@ -17,6 +19,11 @@ const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]), [tabin
 /** Sacola com contador e a gaveta "Minha cesta" (mini-carrinho). Fica na faixa de identidade, sob o cabeçalho. */
 export default function ReservaSacola() {
   const estado = useReserva();
+  const vivo = useDisponibilidade(estado.itens.length > 0);
+  const avisos = avisosDaCesta(estado.itens, vivo);
+  useEffect(() => {
+    if (vivo) atualizarReserva((s) => ajustarLimitesAoVivo(s, vivo));
+  }, [vivo]);
   const [aberta, setAberta] = useState(false);
   const [confirmando, setConfirmando] = useState(false);
   const fecharRef = useRef<HTMLButtonElement>(null);
@@ -122,6 +129,7 @@ export default function ReservaSacola() {
                     <div className="reserva-item-info">
                       <span className="reserva-item-nome">{item.nome}</span>
                       <small>{nomeLoja(item.unitId)}</small>
+                      {avisos.some((a) => a.id === item.id && a.tipo === "acabou") ? <small className="fluxo-aviso-estoque" role="alert">Acabou na loja agora</small> : null}
                       <strong>{formatarCentavos(item.precoCentavos * item.qtd)}</strong>
                       <div className="reservar-contador reservar-contador-pequeno" role="group" aria-label={`Quantidade de ${item.nome}`}>
                         <button type="button" aria-label={item.qtd === 1 ? `Remover ${item.nome}` : `Diminuir ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, item.qtd - 1))}>

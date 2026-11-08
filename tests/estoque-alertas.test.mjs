@@ -157,3 +157,30 @@ test("painel de fotos: cruza estoque x fotos do site, resume, filtra e gera CSV"
   const mw = await (await import("node:fs/promises")).readFile(new URL("../middleware.ts", import.meta.url), "utf8");
   assert.match(mw, /staffPath = [^;]*"\/api\/interno\/fotos"/);
 });
+
+test("disponibilidade ao vivo: só o que mudou, em níveis, e avisos da cesta", async () => {
+  const d = await import("../app/disponibilidade.ts");
+  assert.deepEqual([0, -2, 1, 5, 6, 40].map(d.nivelDeEstoque), [0, 0, 1, 5, 6, 6]);
+  const publicado = new Map([
+    ["a", {}], // 6+
+    ["b", { restam: 2 }],
+    ["c", { esgotado: true }],
+    ["d", { restam: 1 }],
+  ]);
+  const vivo = new Map([["a", 0], ["b", 2], ["c", 3], ["d", 0], ["fora-do-site", 0]]);
+  assert.deepEqual(d.diferencasDeEstoque(vivo, publicado), { a: 0, c: 3, d: 0 }, "b não mudou; item fora do catálogo é ignorado");
+  const itens = [
+    { id: "1", slug: "a", qtd: 1 },
+    { id: "2", slug: "c", qtd: 5 },
+    { id: "3", slug: "d", qtd: 1, selecionado: false },
+    { id: "4", qtd: 1 },
+    { id: "5", slug: "b", qtd: 1 },
+  ];
+  assert.deepEqual(d.avisosDaCesta(itens, { a: 0, c: 3, d: 0 }), [
+    { id: "1", tipo: "acabou", restam: 0 },
+    { id: "2", tipo: "poucas", restam: 3 },
+  ]);
+  assert.deepEqual(d.avisosDaCesta(itens, null), []);
+  const rota = await (await import("node:fs/promises")).readFile(new URL("../app/api/disponibilidade/route.ts", import.meta.url), "utf8");
+  assert.doesNotMatch(rota, /Estoque\b[^\n]*Response|estoque:\s*i\.estoque\s*\}/, "a rota não devolve quantidade exata");
+});
