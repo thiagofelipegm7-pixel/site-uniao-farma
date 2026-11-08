@@ -2740,6 +2740,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "ABSORVENTE INTIMUS ABAS C/32 SUAVE": "7896007544042",
   "ABSORVENTE INTIMUS SUAVE GEL NOTURNO C/16": "7896007550883",
   "ABSORVENTE ALWAYS SECA COM 16 UNID": "7500435127233",
+  "ATROVENT N 20mcg aer fr 10ml": "7896026302432",
 };
 
 function normalizarNome(nome: string): string {
