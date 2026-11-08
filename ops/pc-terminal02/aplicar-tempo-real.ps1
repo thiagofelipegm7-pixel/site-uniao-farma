@@ -3,9 +3,9 @@
 <#
   aplicar-tempo-real.ps1 - TERMINAL02
 
-  Instala o sync.ps1 de tempo quase real (delta + batimento a cada 10 min) e
+  Instala o sync.ps1 de tempo quase real (delta + batimento a cada 5 min; use -Minutos para mudar) e
   reconfigura a tarefa UniaoFarma_Catalogo_Sync:
-    - gatilho: a cada 10 minutos, o dia todo (leve: sem mudanca so manda heartbeat ~100 bytes)
+    - gatilho: a cada $Minutos minutos (padrao 5), o dia todo (leve: sem mudanca so manda heartbeat ~100 bytes)
     - mantem "rodar com ou sem sessao", StartWhenAvailable, reinicio em falha
   NAO agenda upload completo diario. Completo so manual:
       powershell -File C:\ProgramData\UniaoFarmaSync\sync.ps1 -Completo
@@ -16,6 +16,9 @@
 #>
 param(
     [string]$Tarefa = 'UniaoFarma_Catalogo_Sync',
+    # Intervalo do envio, em minutos. 5 (padrao) deixa o estoque do site com ~3 min de idade media sem estourar a cota gratuita de
+    # gravacoes do Cloudflare KV (1.000 por dia). Abaixo de 5 so com plano pago do Workers.
+    [ValidateRange(2, 30)][int]$Minutos = 5,
     [switch]$SoVerificar
 )
 
@@ -74,12 +77,12 @@ if (-not (Test-Path $Wrapper)) {
     Write-Warning "sync-monitorado.ps1 ausente: rode antes aplicar-endurecimento.ps1, ou a tarefa chamara sync.ps1 direto."
 }
 
-Titulo 'Tarefa a cada 10 minutos'
+Titulo "Tarefa a cada $Minutos minutos"
 $alvo = if (Test-Path $Wrapper) { $Wrapper } else { $SyncDest }
 $acao = New-ScheduledTaskAction -Execute 'powershell.exe' -Argument ('-NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass -File "' + $alvo + '"')
-# Repeticao infinita a cada 10 min, a partir de agora
-$trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).Date.AddMinutes( ([math]::Ceiling((Get-Date).TimeOfDay.TotalMinutes / 10) * 10) )
-$trigger.Repetition = (New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes 10) -RepetitionDuration ([TimeSpan]::MaxValue)).Repetition
+# Repeticao infinita a cada $Minutos min, a partir de agora
+$trigger = New-ScheduledTaskTrigger -Once -At (Get-Date).Date.AddMinutes( ([math]::Ceiling((Get-Date).TimeOfDay.TotalMinutes / $Minutos) * $Minutos) )
+$trigger.Repetition = (New-ScheduledTaskTrigger -Once -At (Get-Date) -RepetitionInterval (New-TimeSpan -Minutes $Minutos) -RepetitionDuration ([TimeSpan]::MaxValue)).Repetition
 $config = New-ScheduledTaskSettingsSet -StartWhenAvailable -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries `
     -RestartCount 2 -RestartInterval (New-TimeSpan -Minutes 5) -ExecutionTimeLimit (New-TimeSpan -Minutes 20) -MultipleInstances IgnoreNew
 Set-ScheduledTask -TaskName $Tarefa -TaskPath $task.TaskPath -Action $acao -Trigger $trigger -Settings $config | Out-Null
@@ -103,4 +106,4 @@ if ($r -match '^[sSyY]') {
     Get-Content (Join-Path $Dir 'sync.log') -Tail 3 -Encoding UTF8 | ForEach-Object { "  $_" }
 }
 Write-Host ''
-Write-Host 'Pronto. A cada 10 min: delta se mudou preco/estoque, senao so batimento. Completo manual: sync.ps1 -Completo' -ForegroundColor Green
+Write-Host "Pronto. A cada $Minutos min: delta se mudou preco/estoque, senao so batimento. Completo manual: sync.ps1 -Completo" -ForegroundColor Green
