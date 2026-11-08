@@ -27,6 +27,7 @@ import { GA_MEASUREMENT_ID, getGtagBootstrapScript } from "./ga-bootstrap";
 // Importado direto (componente "use client"): com dynamic({ssr:false}) o vinext não montava o banner,
 // ninguém conseguia aceitar os cookies e o GA4 só recebia pings sem consentimento.
 import AnalyticsConsent from "./AnalyticsConsent";
+import RegistroDeErros from "./shop/RegistroDeErros";
 import PwaRegister from "./PwaRegister";
 import OfferAlerts from "./OfferAlerts";
 
@@ -186,6 +187,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <SkipLink />
         <AnalyticsConsent />
+        <RegistroDeErros />
         <PwaRegister />
         <OfferAlerts />
         <script

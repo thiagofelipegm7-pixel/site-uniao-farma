@@ -106,7 +106,7 @@ export default function PainelRevisao() {
     <section className="painel-revisao">
       <h1>Fila de revisão</h1>
       <p className="pr-nav">
-        <a href="/interno/fotos">Fotos</a> · <a href="/interno/estoque">Alertas de estoque</a> · <a href="/interno/catalogo">Saúde do catálogo</a>
+        <a href="/interno/fotos">Fotos</a> · <a href="/interno/erros">Erros no celular</a> · <a href="/interno/estoque">Alertas de estoque</a> · <a href="/interno/catalogo">Saúde do catálogo</a>
       </p>
       <p className="pr-ajuda">
         Aqui ficam os produtos que a sincronização <strong>segurou</strong> por parecerem errados: preço que mudou mais de 20%, preço acima do teto da CMED, sem categoria
