@@ -7,7 +7,7 @@ import { csvDasLinhas, filtrarLinhas, resumirFotos, type FiltroFotos, type Linha
 import "../metrics-polish.css";
 import "./painel-fotos.css";
 
-type Linha = [string, string, string, string, number, number, number, number, number, string, number];
+type Linha = [string, string, string, string, number, number, number, number, number, string, number, number?];
 type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; linhas: Linha[] };
 
 const CHAVE_MARCAS = "uf_fotos_ok";
@@ -15,7 +15,7 @@ const REAIS = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL
 const POR_PAGINA = 100;
 
 function paraLinha(l: Linha): LinhaFoto {
-  return { ean: l[0], nome: l[1], lab: l[2], classe: l[3], estoque: l[4], preco: l[5], valor: l[6], controlado: l[7] === 1, antimicrobiano: l[8] === 1, categoria: l[9], noSite: l[10] === 1 };
+  return { ean: l[0], nome: l[1], lab: l[2], classe: l[3], estoque: l[4], preco: l[5], valor: l[6], controlado: l[7] === 1, antimicrobiano: l[8] === 1, categoria: l[9], noSite: l[10] === 1, ...(l[11] === 1 ? { semCodigo: true } : {}) };
 }
 
 /** Arquivo do computador ou imagem arrastada de outro site (o navegador só manda o endereço e o HTML dela). */
@@ -369,6 +369,7 @@ export default function PainelFotos() {
               <option value="">Todos os tipos</option>
               <option value="controlado">Controlados</option>
               <option value="antimicrobiano">Antimicrobianos</option>
+              <option value="semcodigo">Sem código de barras</option>
             </select>
             <select value={ordem} onChange={(e) => setOrdem(e.target.value as Ordem)} aria-label="Ordenar por">
               <option value="valor">Maior valor em estoque primeiro</option>
@@ -412,8 +413,14 @@ export default function PainelFotos() {
                       )}
                     </td>
                     <td data-r="Código" className="pf-codigo">
-                      <span>{l.ean}</span>
-                      <button type="button" className="pf-copiar" onClick={() => void copiarCodigo(l.ean)} aria-label={`Copiar o código de barras ${l.ean}`}>{copiado === l.ean ? "Copiado!" : "Copiar"}</button>
+                      {l.semCodigo ? (
+                        <span className="pf-sem-codigo">sem código de barras</span>
+                      ) : (
+                        <>
+                          <span>{l.ean}</span>
+                          <button type="button" className="pf-copiar" onClick={() => void copiarCodigo(l.ean)} aria-label={`Copiar o código de barras ${l.ean}`}>{copiado === l.ean ? "Copiado!" : "Copiar"}</button>
+                        </>
+                      )}
                     </td>
                     <td className="pf-prod">
                       {l.nome}
