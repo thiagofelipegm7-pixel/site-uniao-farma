@@ -45,7 +45,7 @@ test("imagem arrastada de outro site: acha o endereço da imagem e só deixa o s
 });
 
 test("publicação das fotos: no máximo uma a cada 10 minutos (poupa os minutos grátis do GitHub)", async () => {
-  const { reservarPublicacao, MINUTOS_ENTRE_PUBLICACOES } = await import("../app/disparar-sync.ts");
+  const { reservarPublicacao, MINUTOS_ENTRE_PUBLICACOES } = await import("../app/limite-publicacao.ts");
   let quando = null;
   const db = {
     exec: async () => undefined,
