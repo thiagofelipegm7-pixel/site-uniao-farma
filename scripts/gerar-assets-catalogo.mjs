@@ -97,6 +97,14 @@ function nomeDeExibicao(nomeBruto) {
   return texto.charAt(0).toUpperCase() + texto.slice(1);
 }
 
+// Árvore de categorias (mesma regra de app/nacoes-unidas/produtos/arvore-categorias.ts; um teste confere que saem iguais).
+const REGRAS_ARVORE = JSON.parse(fs.readFileSync(path.join(RAIZ, "app", "nacoes-unidas", "produtos", "arvore-categorias.json"), "utf8")).map((r) => ({ ...r, rx: new RegExp(r.padrao) }));
+function tipoDoProduto(nome, departamento) {
+  const n = nome.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").trim().toUpperCase();
+  for (const r of REGRAS_ARVORE) if (r.departamento === departamento && r.rx.test(n)) return r.categoria;
+  return "Outros";
+}
+
 // Replicado de receita.ts
 const CONCENTRACAO = /\d+(?:[.,]\d+)?(?:\s?[+/]\s?\d+(?:[.,]\d+)?)*\s?(?:mg|mcg|g|ml|ui|%)(?:\s?\/\s?(?:ml|g|dose))?/i;
 
@@ -225,6 +233,7 @@ for (const g of grupos) {
       nomeExibicao: nomeEx,
       lab: item.lab,
       categoria: item.categoria,
+      tipo: tipoDoProduto(item.nome, item.categoria),
       preco: item.preco,
       precoFmt,
       isMIP: item.isMIP === true,

@@ -44,9 +44,9 @@ type Props = {
   unitId: string;
 };
 
-type Selecao = Pick<FiltroCatalogo, "categorias" | "marcas" | "faixas">;
+type Selecao = Pick<FiltroCatalogo, "categorias" | "marcas" | "faixas" | "tipos">;
 
-const SELECAO_VAZIA: Selecao = { categorias: [], marcas: [], faixas: [] };
+const SELECAO_VAZIA: Selecao = { categorias: [], marcas: [], faixas: [], tipos: [] };
 const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 function alternar<T extends string>(lista: readonly T[] | undefined, valor: T): T[] {
@@ -68,7 +68,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     (async () => {
       try {
         const idx = await fetch("/dados/nacoes/catalogo-index.json").then(r => r.json());
-        type ItemPagina = { slug?: string; nomeExibicao?: string; nome: string; lab: string; isMIP: boolean; restam?: number; precoFmt: string; preco: number; foto: string | null };
+        type ItemPagina = { slug?: string; nomeExibicao?: string; nome: string; lab: string; isMIP: boolean; restam?: number; precoFmt: string; preco: number; foto: string | null; tipo?: string };
         const paraItem = (item: ItemPagina) => ({
           nome: item.nomeExibicao || item.nome,
           lab: item.lab,
@@ -78,6 +78,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
           preco: item.preco,
           foto: item.foto,
           slug: item.slug,
+          tipo: item.tipo,
         });
         const lerPagina = (slug: string, n: number): Promise<ItemPagina[]> => fetch(`/dados/nacoes/catalogo/${slug}/p${n}.json`).then((r) => r.json());
         const lista: { slug: string; categoria: string; paginas?: number }[] = (idx.grupos || []).filter((g: { slug: string }) => !departamento || g.slug === departamento);
@@ -228,6 +229,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
       categories: selecao.categorias ?? [],
       brands: selecao.marcas ?? [],
       ranges: selecao.faixas ?? [],
+      types: selecao.tipos ?? [],
     });
     if (filtroEnviado.current === assinatura) return;
     filtroEnviado.current = assinatura;
@@ -249,6 +251,21 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
             </label>
           ))}
         </fieldset>
+        {opcoes.tipos.length > 0 ? (
+          <fieldset>
+            <legend>Tipo de produto</legend>
+            {opcoes.tipos.map((tipo) => (
+              <label key={tipo} className="catalogo-filtro-opcao">
+                <input
+                  type="checkbox"
+                  checked={selecao.tipos?.includes(tipo) ?? false}
+                  onChange={() => setSelecao((atual) => ({ ...atual, tipos: alternar(atual.tipos, tipo) }))}
+                />
+                <span>{tipo}</span>
+              </label>
+            ))}
+          </fieldset>
+        ) : null}
         <fieldset>
           <legend>Marca</legend>
           {opcoes.marcas.map((marca) => (
