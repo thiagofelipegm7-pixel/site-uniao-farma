@@ -46,6 +46,10 @@ test("home: 'Navegue por categoria' é faixa horizontal com cards grandes e scro
   assert.match(sec, /shop-categorias-trilho/);
   assert.match(sec, /Navegue por categoria/);
   assert.match(sec, /icons\/categorias\/medicamentos\.webp/);
+  // Pedido da loja: sem card "Ofertas" na faixa (página /ofertas permanece).
+  assert.doesNotMatch(sec, /rotulo: "Ofertas"/);
+  assert.doesNotMatch(sec, /href: "\/ofertas"/);
+  assert.doesNotMatch(sec, /is-oferta/);
   assert.doesNotMatch(sec, /const VISIVEIS/);
   assert.doesNotMatch(sec, /shop-cat-seta/);
   // Cards ~130px no mobile, snap e scrollbar oculta.

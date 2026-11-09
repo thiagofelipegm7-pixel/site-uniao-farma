@@ -186,14 +186,16 @@ test("painel da semana: no máximo 3 ofertas, sem receita, e De só com preço a
   assert.equal(lojaDaOferta({ ...baseOffer, units: [] }), null);
 });
 
-test("painel da semana na home: estrutura, no máximo o componente pede 3, sem De inventado", async () => {
+test("componente OfertasSemana: estrutura, no máximo 3, sem De inventado; home não monta o painel", async () => {
   const read = (arquivo) => readFile(new URL(`../${arquivo}`, import.meta.url), "utf8");
   const [painel, home, ofertas] = await Promise.all([
     read("app/OfertasSemana.tsx"),
     read("app/HomePage.tsx"),
     read("app/offers.ts"),
   ]);
-  assert.match(home, /<OfertasSemana/);
+  // Pedido da loja: tirar o painel da home (página /ofertas e dados permanecem).
+  assert.doesNotMatch(home, /<OfertasSemana/);
+  assert.doesNotMatch(home, /ofertas-da-semana/);
   assert.match(painel, /OFERTAS DA SEMANA/);
   assert.match(painel, /Ofertas válidas enquanto durar o estoque em cada loja\./);
   // O painel do protótipo não tem "Ver todas as ofertas"; /ofertas continua no cabeçalho.
