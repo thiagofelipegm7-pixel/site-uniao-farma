@@ -104,7 +104,8 @@ test("lista restrita: sem oferta, % OFF, preço riscado ou destaque; cesta só p
   const rxPage = await read("app/nacoes-unidas/produtos/receita/page.tsx");
   const ctPage = await read("app/nacoes-unidas/produtos/controlados/page.tsx");
   assert.match(rxPage, /ListaRestrita/);
-  assert.match(ctPage, /ListaRestrita/);
+  // Controlados entrou no departamento Medicamentos (lista única); a rota antiga só redireciona.
+  assert.match(ctPage, /redirect\("\/departamentos\/medicamentos"\)/);
   // O cartão não traz mais o bloco "Detalhes" (ficha com princípio ativo, RMS, tarja e retenção): só nome, marca, preço, aviso de venda sob prescrição e cesta.
   for (const campo of ["Princípio ativo", "Registro MS (RMS)", "Retenção da receita", "pv-detalhes"]) assert.ok(!lista.includes(campo), campo);
 });
@@ -236,11 +237,13 @@ test("acesso livre: a busca do cabeçalho e o menu levam aos medicamentos com re
   assert.ok(busca.every((i) => ["receita", "controlados", "consulte"].includes(i.tipo) && typeof i.busca === "string"));
   const header = await read("app/shop/ShopHeader.tsx");
   assert.match(header, /restritos-busca\.json/);
-  assert.match(header, /ROTA_RESTRITA\[item\.tipo\]/);
+  // A busca lista restritos e aponta para a ficha do produto (não mais para listas ROTA_RESTRITA[tipo]).
+  assert.match(header, /resultadosRestritos/);
+  // Menu/gaveta e o departamento Medicamentos concentram receita e controlados na lista única.
   const gaveta = await read("app/shop/DepartamentosGaveta.tsx");
-  assert.ok(gaveta.includes("/nacoes-unidas/produtos/receita") && gaveta.includes("/nacoes-unidas/produtos/controlados"));
+  assert.match(gaveta, /departamentos\/medicamentos|Medicamentos/);
   const pagina = await read("app/departamentos/[slug]/page.tsx");
-  assert.ok(pagina.includes('dep.slug === "medicamentos"') && pagina.includes("/nacoes-unidas/produtos/receita"));
+  assert.ok(pagina.includes('dep.slug === "medicamentos"') && pagina.includes("<MedicamentosTodos"));
 });
 
 test("medicamentos: o departamento reúne sem receita, com receita, controlados e consulte numa lista só", async () => {
