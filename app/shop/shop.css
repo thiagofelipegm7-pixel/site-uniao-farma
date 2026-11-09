@@ -1602,3 +1602,16 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .painel-seta { display: grid; }
 }
 @media (prefers-reduced-motion: reduce) { .painel-seta { transition: none; } .painel-faixa { scroll-behavior: auto; } }
+
+/* =====================================================================
+   Rodapé no formato da Droga Raia: fundo claro, parágrafo legal corrido em cinza, linha "segue as determinações da ANVISA".
+   ===================================================================== */
+.rodape { background: #ffffff; color: #5c6664; border-top: 1px solid #e3e8e7; margin-top: 2.5rem; }
+.rodape-miolo { box-sizing: border-box; max-width: 82rem; margin: 0 auto; padding: 2rem 1.25rem 2.5rem; }
+.rodape-legal { margin: 0; max-width: 108rem; font-size: 0.875rem; line-height: 1.55; color: #5c6664; }
+.rodape-legal a, .rodape-links a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.rodape-anvisa { display: flex; flex-wrap: wrap; align-items: center; gap: 0.625rem; margin: 1.5rem 0 0; font-size: 0.875rem; color: #5c6664; }
+.rodape-anvisa-marca { font-weight: 800; font-size: 1.125rem; letter-spacing: 0.06em; color: #1c4f9c; }
+.rodape-links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; margin-top: 1rem; }
+.rodape-links a, .rodape-links button { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0; border: 0; background: none; font: inherit; font-size: 0.875rem; color: #5c6664; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+.rodape-links a:focus-visible, .rodape-links button:focus-visible, .rodape-legal a:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }

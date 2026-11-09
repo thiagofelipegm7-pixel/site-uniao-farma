@@ -47,7 +47,7 @@ test("página de produtos da Nações: canonical relativo, noindex, avisos Anvis
   assert.ok(page.includes("canonical: `/${SLUG}`"));
   assert.match(page, /robots: \{ index: false, follow: false \}/);
   // O aviso da Anvisa fica no rodapé global (SiteFooter), como no protótipo.
-  assert.match(await read("app/SiteFooter.tsx"), /COMPANY\.anvisaWarnings\[3\]/);
+  assert.match(await read("app/SiteFooter.tsx"), /automedicação[\s\S]*profissional da área médica/);
   // whatsapp tracking moved to client components
   assert.match(page, /buildWhatsAppUrl/);
   assert.equal((page.match(/<h1\b/g) ?? []).length, 1);
