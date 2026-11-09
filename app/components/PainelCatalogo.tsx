@@ -185,24 +185,6 @@ export default function PainelCatalogo() {
             </div>
 
             <section className="metrics-block">
-              <h2>Forçar atualização do site</h2>
-              <p>
-                Republica no site o catálogo que o PC já enviou (o envio completo que está guardado). Não faz o PC ler o Dmaster de novo — isso o PC já faz sozinho a cada 10 minutos.
-              </p>
-              <div className="metrics-actions">
-                <button type="button" disabled={ocupado || !dados.forcar.configurado} onClick={forcar}>
-                  {ocupado ? "Pedindo…" : "Forçar atualização"}
-                </button>
-              </div>
-              {!dados.forcar.configurado ? <p className="painel-nota">Botão desligado: falta configurar o segredo no site.</p> : null}
-              {aviso ? (
-                <div className="metrics-feedback-success" role="status">
-                  {aviso}
-                </div>
-              ) : null}
-            </section>
-
-            <section className="metrics-block">
               <h2>Últimas atualizações</h2>
               <p>Só mudanças de estoque ou preço. Quando nada muda, o PC só avisa que está ligado — isso não aparece aqui.</p>
               {!pc ? (
