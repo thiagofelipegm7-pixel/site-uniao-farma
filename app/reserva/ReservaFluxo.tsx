@@ -402,12 +402,6 @@ export default function ReservaFluxo() {
                   <button type="button" className="entrega-btn entrega-btn-alterar" onClick={() => setEditando(true)}>Alterar</button>
                 </div>
               )}
-              {lembrado ? (
-                <p className="fluxo-lembrado">
-                  Seus dados ficam só neste aparelho, para o próximo pedido.{" "}
-                  <button type="button" className="fluxo-link" onClick={() => { esquecerDadosCliente(); setNome(""); setRua(""); setBairro(""); setLembrado(false); setEditando(true); }}>Esquecer meus dados</button>
-                </p>
-              ) : null}
             </section>
 
             <p className="entrega-titulo" role="heading" aria-level={2}>Retire ou receba sua compra</p>
