@@ -57,6 +57,7 @@ export default function ReservaFluxo() {
   const [editando, setEditando] = useState(true);
   // Depois do toque em "Enviar pedido pelo WhatsApp": lembra o cliente de tocar em enviar dentro do WhatsApp.
   const [enviado, setEnviado] = useState(false);
+  const [avisoReceita, setAvisoReceita] = useState(false);
   // Foto da receita (medicamento com receita ou controlado): fica só neste aparelho, nunca vai para o servidor do site.
   const [receita, setReceita] = useState<ReceitaPronta | null>(null);
   const [levoReceita, setLevoReceita] = useState(false);
@@ -212,10 +213,11 @@ export default function ReservaFluxo() {
   );
 
   const faltaReceita = soRetirada && !receita && !levoReceita;
+  const temReceita = estado.itens.some((i) => i.receita);
   const enviarWhats = (classe: string) => acabaram.length > 0 ? (
     <button type="button" className={classe} disabled><IconWhats size={24} /> Tire o que acabou para enviar</button>
   ) : pagamento ? (
-    <a className={classe} href={href} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unidade.id} data-track-source="reserva_envio" onClick={() => { guardarUltimoPedido(estado.itens.filter(itemAtivo)); registrarEtapa("enviar"); setEnviado(true); }}>
+    <a className={classe} href={href} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unidade.id} data-track-source="reserva_envio" onClick={() => { guardarUltimoPedido(estado.itens.filter(itemAtivo)); registrarEtapa("enviar"); setEnviado(true); if (temReceita) setAvisoReceita(true); }}>
       <IconWhats size={24} /> Enviar pedido pelo WhatsApp
     </a>
   ) : (
@@ -544,6 +546,15 @@ export default function ReservaFluxo() {
           <div className="fluxo-rodape fluxo-rodape-total">
             <p className="fluxo-barra-total"><span>Total estimado</span><strong>{totalComTaxa}</strong></p>
             {enviarWhats("fluxo-botao")}
+          </div>
+        </div>
+      ) : null}
+      {avisoReceita ? (
+        <div className="fluxo-aviso-receita-modal" role="alertdialog" aria-modal="true" aria-label="Envie a foto da receita">
+          <div className="fluxo-aviso-receita-card">
+            <strong>Envie a foto da receita</strong>
+            <p>Sua cesta tem medicamento com receita. No WhatsApp, toque no clipe (📎) e envie a foto da receita junto com o pedido. A loja confere antes de separar.</p>
+            <button type="button" onClick={() => setAvisoReceita(false)}>Entendi</button>
           </div>
         </div>
       ) : null}
