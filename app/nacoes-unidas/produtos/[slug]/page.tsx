@@ -2,6 +2,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ContentSiteFooter } from "../../../ContentSiteChrome";
+import PainelBanners from "../../../shop/PainelBanners";
 import ShopTopo from "../../../shop/ShopTopo";
 import { SITE_URL, UNITS } from "../../../site-config";
 import { IconSetaDireita } from "../../../reserva/ReservaIcons";
@@ -92,6 +93,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <ShopTopo />
+      <PainelBanners />
       <div className="unit-page landing-page catalogo-nacoes produto-pagina">
         <nav className="catalogo-caminho section-inner produto-caminho" aria-label="Breadcrumb">
           <a href="/">União Farma</a>
