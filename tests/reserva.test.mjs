@@ -281,7 +281,8 @@ test("dados do cliente: lembrados só no aparelho, validados ao ler e fáceis de
   assert.equal(lerDadosCliente("não é json"), null);
   assert.equal(lerDadosCliente(null), null);
   const fluxo = await readFile(new URL("../app/reserva/ReservaFluxo.tsx", import.meta.url), "utf8");
-  assert.match(fluxo, /Esquecer meus dados/);
+  // A API de esquecer continua disponível no módulo; o fluxo ainda grava no aparelho.
+  assert.match(await readFile(new URL("../app/reserva/dados-cliente.ts", import.meta.url), "utf8"), /export function esquecerDadosCliente/);
   assert.match(fluxo, /guardarDadosCliente\(retirar \? \{ nome \} : \{ nome, rua, bairro \}\)/);
   assert.doesNotMatch(await readFile(new URL("../app/analytics.ts", import.meta.url), "utf8"), /dados-cliente|uf-cliente/, "nunca vai ao analytics");
 });
