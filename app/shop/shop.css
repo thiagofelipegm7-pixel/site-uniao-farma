@@ -146,6 +146,15 @@
   color: var(--uf-ink);
 }
 .shop-cat-icone.is-oferta { border-color: #f3c8c8; background: #fee6e6; color: #c53131; }
+/* Ícones da prancha: preenchem ~72% do tile (peso visual da referência), sem esticar. */
+.shop-cat-icone img {
+  width: 72%;
+  height: 72%;
+  max-width: 4.5rem;
+  max-height: 4.5rem;
+  object-fit: contain;
+  pointer-events: none;
+}
 
 /* ---- Cartão marinho (h1) ---- */
 .shop-hero {
@@ -1064,6 +1073,7 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .shop-categorias h2 { margin-bottom: 1.5rem; }
   .shop-cat-icone { width: var(--cat-tile) !important; height: var(--cat-tile) !important; }
   .shop-cat-icone svg { width: 3.5rem; height: 3.5rem; }
+  .shop-cat-icone img { width: 72%; height: 72%; max-width: 6.5rem; max-height: 6.5rem; }
   .shop-categorias ul { gap: var(--cat-gap); }
 }
 @layer design {
