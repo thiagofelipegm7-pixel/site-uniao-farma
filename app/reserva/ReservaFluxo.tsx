@@ -213,7 +213,7 @@ export default function ReservaFluxo() {
   );
 
   const faltaReceita = soRetirada && !receita && !levoReceita;
-  const temReceita = estado.itens.some((i) => i.receita);
+  const temReceita = estado.itens.some((i) => i.receita) || estado.itens.some((i) => /ritalina|controlado|receita/i.test(i.nome));
   function confirmarEnvio() {
     setAvisoReceita(false);
     guardarUltimoPedido(estado.itens.filter(itemAtivo));
