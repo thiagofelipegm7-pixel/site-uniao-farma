@@ -422,7 +422,6 @@ export default function PainelFotos() {
             <select value={fotos} onChange={(e) => mudar(setFotos)(e.target.value as FiltroFotos["fotos"])} aria-label="Fotos">
               <option value="faltam">Faltam foto</option>
               <option value="site">Já estão no site</option>
-              <option value="pc">Tenho no PC e falta subir</option>
               <option value="">Todos</option>
             </select>
             <select value={estoque} onChange={(e) => mudar(setEstoque)(e.target.value as FiltroFotos["estoque"])} aria-label="Estoque">
@@ -448,7 +447,7 @@ export default function PainelFotos() {
           <div className="pf-tabela">
             <table>
               <thead>
-                <tr><th scope="col">Foto</th><th scope="col">Código</th><th scope="col">Produto</th><th scope="col">Categoria</th><th scope="col">Estoque</th><th scope="col">Preço</th><th scope="col">Tenho no PC</th></tr>
+                <tr><th scope="col">Foto</th><th scope="col">Código</th><th scope="col">Produto</th><th scope="col">Categoria</th><th scope="col">Estoque</th><th scope="col">Preço</th></tr>
               </thead>
               <tbody>
                 {visiveis.map((l) => (
@@ -509,7 +508,6 @@ export default function PainelFotos() {
                     <td data-r="Categoria">{l.categoria}</td>
                     <td data-r="Estoque" className="pf-n"><span className={`pf-qtd pf-qtd-${l.estoque <= 0 ? "zero" : l.estoque <= 5 ? "baixo" : "normal"}`} title={l.estoque <= 0 ? "Zerado" : l.estoque <= 5 ? "Estoque baixo" : "Estoque normal"}>{l.estoque}</span></td>
                     <td data-r="Preço" className="pf-n">{REAIS.format(l.preco)}</td>
-                    <td data-r="Tenho no PC">{l.noSite ? <span className="pf-ok">no site</span> : <input type="checkbox" checked={marcados.has(l.ean)} onChange={(e) => marcar(l.ean, e.target.checked)} aria-label={`Tenho a foto de ${l.nome} no PC`} />}</td>
                   </tr>
                 ))}
               </tbody>
