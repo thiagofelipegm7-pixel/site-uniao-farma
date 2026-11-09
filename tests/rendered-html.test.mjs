@@ -177,8 +177,8 @@ test("renders the news index and the approved article with complete SEO", async 
   assert.match(articleHtml, /"publisher":\{"@id":"https:\/\/xn--uniofarmasabar-8gbu\.com\.br\/#organization"\}/);
   assert.doesNotMatch(articleHtml, /"author":/);
   assert.doesNotMatch(articleHtml, /"image":/);
-  // Um botão de WhatsApp no cabeçalho único da loja e um no artigo.
-  assert.equal((articleHtml.match(/data-track-event="whatsapp_click"/g) ?? []).length, 2);
+  // O cabeçalho da loja não tem mais botão de WhatsApp; fica o do artigo.
+  assert.equal((articleHtml.match(/data-track-event="whatsapp_click"/g) ?? []).length, 1);
   assert.equal((articleHtml.match(/<h1\b/gi) ?? []).length, 1);
 
   const missingResponse = await render("/novidades/nao-existe");
