@@ -6,6 +6,7 @@ import { CATEGORIAS_VALIDAS } from "../categoria-override";
 import { chaveDoNome } from "../nomes-corrigidos";
 import { nomeDeExibicao } from "../nome-exibicao";
 import { prepararFoto } from "./preparar-foto";
+import PainelCatalogo from "./PainelCatalogo";
 import { filtrarLinhas, resumirFotos, type FiltroFotos, type LinhaFoto, type ResumoFotos } from "../fotos-painel";
 import "../metrics-polish.css";
 import "./painel-fotos.css";
