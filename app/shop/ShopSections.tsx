@@ -1,5 +1,7 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
 /** Ícones das 7 categorias: extratos da prancha aprovada. */
