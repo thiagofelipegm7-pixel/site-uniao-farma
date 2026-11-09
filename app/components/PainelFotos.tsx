@@ -645,6 +645,10 @@ export default function PainelFotos() {
               <h2 style={{ margin: "0 0 1rem" }}>{nomeAtual(l).texto}</h2>
               <div style={{ display: "grid", gap: "0.75rem" }}>
                 <label style={{ display: "grid", gap: "0.25rem" }}>
+                  <span>Foto</span>
+                  <input type="file" accept="image/*" onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} style={{ padding: "0.5rem" }} />
+                </label>
+                <label style={{ display: "grid", gap: "0.25rem" }}>
                   <span>Nome</span>
                   <input type="text" defaultValue={nomeAtual(l).texto} onBlur={(e) => void salvarNome(l, e.target.value)} style={{ padding: "0.5rem", borderRadius: "8px", border: "1px solid #d3e2df" }} />
                 </label>
