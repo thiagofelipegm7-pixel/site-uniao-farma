@@ -45,11 +45,17 @@ export default async function ProdutoNacoesPage({ params }: Props) {
   const { slug } = await params;
   const catalogo = carregarCatalogoCompleto();
   let item = catalogo ? acharPorSlug(catalogo.itens, slug) : null;
+  // Busca mais flexível se não achou (slug pode vir de nome de exibição).
+  if (!item && catalogo) {
+    const normal = slugify(slug);
+    item = catalogo.itens.find((i) => slugify(i.nome) === normal || slugify(nomeDeExibicao(i.nome)) === normal) ?? null;
+  }
   // Também busca em restritos (receita/controlados) para abrir página do produto.
   if (!item) {
     const restritos = carregarRestritos();
     const todos = [...restritos.receita, ...restritos.controlados, ...restritos.consulte];
-    const achado = todos.find((i) => slugify(i.nome) === slug || slugify(i.nomeExibicao || i.nome) === slug || (i.slug && i.slug === slug));
+    const normal = slugify(slug);
+    const achado = todos.find((i) => slugify(i.nome) === normal || slugify(i.nomeExibicao || i.nome) === normal || (i.slug && slugify(i.slug) === normal));
     if (achado) item = { nome: achado.nome, lab: achado.lab, categoria: "Medicamentos", preco: achado.preco ?? 0, isMIP: false };
   }
   if (!item) notFound();
