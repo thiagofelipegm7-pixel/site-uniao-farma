@@ -2,43 +2,22 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
-import { useEffect, useState } from "react";
-import { readPreferredUnitId } from "../preferred-unit";
-import { IconCartao, IconLoja, IconMenu, IconMoto, IconPino, IconWhats } from "../reserva/ReservaIcons";
+import { IconCartao, IconLoja, IconMenu, IconMoto, IconWhats } from "../reserva/ReservaIcons";
 import { formatarCentavos, TAXA_ENTREGA_CENTAVOS } from "../reserva/reserva-store";
 import { buildWhatsAppUrl, PUBLIC_UNITS } from "../site-config";
-import { abrirDepartamentos, abrirSeletorDeLoja } from "./loja-evento";
+import { abrirDepartamentos } from "./loja-evento";
 
 const nacoes = PUBLIC_UNITS.find((unit) => unit.id === "nacoes");
 
 /**
- * Barra de acessos do desktop, com os mesmos 7 espaços da Panvel: Departamentos, Enviar para, Meus Cupons, Kits e Combos,
- * Ofertas Exclusivas, Combine e Ganhe e Desconto de Laboratório. O que a União não tem fica em branco. Some no celular.
+ * Barra de acessos do desktop: Departamentos. Some no celular.
+ * Pedido da loja: só Departamentos nesta barra; /ofertas permanece no site.
  */
 export function SubmenuHome() {
-  const [id, setId] = useState<string | null>(null);
-  useEffect(() => {
-    const sincronizar = () => setId(readPreferredUnitId());
-    sincronizar();
-    window.addEventListener("uf-preferred-unit", sincronizar);
-    return () => window.removeEventListener("uf-preferred-unit", sincronizar);
-  }, []);
-  const unit = PUBLIC_UNITS.find((item) => item.id === id) ?? (PUBLIC_UNITS.length === 1 ? PUBLIC_UNITS[0] : undefined);
   return (
     <nav className="shop-submenu" aria-label="Acessos rápidos">
       <div className="shop-submenu-conteudo">
         <button type="button" className="shop-submenu-dep" onClick={abrirDepartamentos}><IconMenu size={20} /><span>Departamentos</span></button>
-        <button type="button" className="shop-submenu-loja" onClick={abrirSeletorDeLoja}>
-          <IconPino size={20} />
-          <span><small>Enviar para</small><strong>{unit ? unit.shortName : "Escolha sua loja"}</strong></span>
-        </button>
-        <ul>
-          <li className="shop-submenu-vazio" aria-hidden="true" />
-          <li className="shop-submenu-vazio" aria-hidden="true" />
-          <li><a href="/ofertas">Ofertas Exclusivas</a></li>
-          <li className="shop-submenu-vazio" aria-hidden="true" />
-          <li className="shop-submenu-vazio" aria-hidden="true" />
-        </ul>
       </div>
     </nav>
   );

@@ -1113,7 +1113,7 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .shop-acoes > .shop-icone { display: none; }
   .shop-acoes .reserva-sacola { width: 2.75rem; height: 2.75rem; border-radius: 50%; background: transparent !important; color: #ffffff !important; }
 
-  /* barra de acessos: Departamentos | Enviar para | 5 espaços iguais */
+  /* barra de acessos: Departamentos */
   .shop-submenu { display: block; border-bottom: 1px solid #e3ecea; background: #ffffff; }
   .shop-submenu-conteudo { display: flex; align-items: center; gap: 2rem; box-sizing: border-box; max-width: 82rem; min-height: 3.25rem; margin: 0 auto; padding: 0.25rem 1.25rem; }
   .shop-submenu-dep { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; padding: 0; background: transparent; color: var(--uf-navy); font-size: 0.875rem; font-weight: 800; text-decoration: none; }
