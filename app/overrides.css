@@ -939,3 +939,8 @@ h3 {
 .cesta-sugestoes-gaveta { margin-bottom: 0.5rem; }
 @media (max-width: 400px) { .cesta-sugestao-add span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } }
 .semana-link { display: flex; align-items: center; gap: 1rem; text-decoration: none; color: inherit; flex: 1; min-width: 0; }
+.fluxo-aviso-receita-modal { position: fixed; inset: 0; z-index: 5000; display: flex; align-items: center; justify-content: center; padding: 1rem; background: rgba(10, 20, 19, 0.5); }
+.fluxo-aviso-receita-card { max-width: 22rem; padding: 1.25rem; border-radius: 16px; background: #ffffff; text-align: center; }
+.fluxo-aviso-receita-card strong { display: block; margin-bottom: 0.5rem; font-size: 1.125rem; }
+.fluxo-aviso-receita-card p { margin: 0 0 1rem; color: #3e4b49; font-size: 0.9375rem; line-height: 1.45; }
+.fluxo-aviso-receita-card button { min-height: 2.75rem; padding: 0 1.5rem; border: 0; border-radius: 10px; background: #0e7370; color: #ffffff; font: inherit; font-weight: 700; cursor: pointer; }
