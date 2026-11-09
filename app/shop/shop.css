@@ -1113,7 +1113,7 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .shop-links { display: none; }
   .shop-acoes { grid-area: acoes; }
   .shop-acoes > .shop-icone { display: none; }
-  .shop-acoes .reserva-sacola { width: 2.75rem; height: 2.75rem; border-radius: 50%; background: #ffffff; color: var(--uf-action-ink); }
+  .shop-acoes .reserva-sacola { width: 2.75rem; height: 2.75rem; border-radius: 50%; background: transparent !important; color: #ffffff !important; }
 
   /* barra de acessos: Departamentos | Enviar para | 5 espaços iguais */
   .shop-submenu { display: block; border-bottom: 1px solid #e3ecea; background: #ffffff; }
@@ -1251,7 +1251,7 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 @media (max-width: 991.98px) {
   .shop-header { background: var(--uf-panel); border-bottom-color: var(--uf-panel); }
   .shop-header .shop-marca { justify-self: start; padding-block: 0.5rem; }
-  .shop-header .shop-icone, .shop-header .shop-acoes .reserva-sacola { color: var(--uf-action-ink); }
+  .shop-header .shop-icone, .shop-header .shop-acoes .reserva-sacola { color: #ffffff !important; }
 }
 
 /* Foto do produto ocupando o quadrado inteiro do cartão (as fotos já vêm recortadas rente ao produto). */

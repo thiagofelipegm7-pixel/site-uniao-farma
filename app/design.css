@@ -458,7 +458,7 @@
   .direct-unit-link, .offer-consult-card, .question-card, .neighborhood-grid article, .unit-map, .neighborhood-photo,
   .open-status.is-open::before { animation: none !important; opacity: 1 !important; transform: none !important; }
   /* O número da cesta é ação, não preço: verde (o vermelho fica só para preço e oferta). */
-  .reserva-contador-bolha { background: var(--cor-acao) !important; }
+  .reserva-contador-bolha { background: var(--uf-offer, #d94641) !important; }
 }
 @media (prefers-reduced-motion: no-preference) {
   @keyframes uf-entrou-na-cesta {

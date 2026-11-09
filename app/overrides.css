@@ -495,7 +495,7 @@ h3 {
 }
 /* --- reserva: sacola, gaveta, contador e página /reserva --- */
 .reserva-sacola {
-  position: static;
+  position: relative;
   justify-self: end;
   display: inline-flex;
   align-items: center;
@@ -511,18 +511,25 @@ h3 {
 
 .reserva-contador-bolha {
   position: absolute;
-  top: 0.125rem;
-  right: 0;
+  top: -0.125rem;
+  right: -0.125rem;
+  z-index: 1;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   min-width: 1.125rem;
   height: 1.125rem;
   padding: 0 0.25rem !important;
-  border-radius: 0.25rem;
-  background: #c53131;
+  border-radius: 999px;
+  background: var(--uf-offer, #d94641) !important;
   color: #ffffff;
-  font-size: 0.75rem;
+  font-size: 0.6875rem;
   font-weight: 700;
-  line-height: 1.125rem;
+  line-height: 1;
   text-align: center;
+  transform: translate(30%, -20%);
+  pointer-events: none;
 }
 
 .reserva-gaveta-raiz { position: fixed; inset: 0; z-index: 4800; display: flex; justify-content: flex-end; }
@@ -652,7 +659,7 @@ h3 {
 .reservar-contador { border: 1.5px solid var(--uf-ink) !important; border-radius: 0.375rem !important; }
 .reservar-contador button { background: transparent !important; color: var(--uf-ink) !important; }
 .reserva-link, .reserva-icone { background: transparent !important; color: var(--uf-ink) !important; }
-.reserva-sacola { background: transparent !important; color: var(--uf-action-ink) !important; }
+.reserva-sacola { background: transparent !important; color: var(--uf-action-ink); }
 .reserva-gaveta-fundo { background: rgba(5, 13, 12, 0.5) !important; }
 .reserva-gaveta-topo { border-bottom: 1px solid #d3e2df !important; }
 .reserva-gaveta-pe { border-top: 1px solid #d3e2df !important; }
