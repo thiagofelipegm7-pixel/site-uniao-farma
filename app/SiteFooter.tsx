@@ -1,6 +1,7 @@
 "use client";
 
 /* eslint-disable @next/next/no-html-link-for-pages */
+import AnvisaLogo from "./AnvisaLogo";
 import { COMPANY } from "./company";
 import { PUBLIC_UNITS } from "./site-config";
 import { openCookiePreferences } from "./cookie-preferences";
@@ -25,7 +26,7 @@ export default function SiteFooter() {
           <a href="/privacidade">Política de privacidade</a>. Todos os pedidos estão sujeitos à confirmação da disponibilidade de produto em nosso estoque.
         </p>
         <p className="rodape-anvisa">
-          A União Farma segue as determinações da <span className="rodape-anvisa-marca" aria-label="Anvisa">ANVISA</span>
+          A União Farma segue as determinações da <AnvisaLogo />
         </p>
         <nav className="rodape-links" aria-label="Links do rodapé">
           <a href="/privacidade">Privacidade</a>
