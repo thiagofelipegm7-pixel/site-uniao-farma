@@ -5,7 +5,6 @@
 import { SITE_URL, PUBLIC_UNITS } from "./site-config";
 import { getPageStructuredData } from "./structured-data";
 import OfertasSemana from "./OfertasSemana";
-import LojaBar from "./shop/LojaBar";
 import CabecalhoInteligente from "./shop/CabecalhoInteligente";
 import ShopHeader from "./shop/ShopHeader";
 import DestaquesSemana from "./shop/DestaquesSemana";
@@ -31,7 +30,6 @@ export default function HomePage() {
         <ShopHeader />
         <SubmenuHome />
       </CabecalhoInteligente>
-      <LojaBar />
       <AbasHome />
       <HeroReserva />
       <CategoriasLinha />
