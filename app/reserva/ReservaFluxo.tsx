@@ -296,7 +296,6 @@ export default function ReservaFluxo() {
                           <strong className="fluxo-item-nome">{item.nome}</strong>
                           {avisoDe(item.id)?.tipo === "acabou" ? <p className="fluxo-aviso-estoque" role="alert">Acabou na loja agora. Tire este item da cesta (a lixeira ao lado) para continuar.</p> : null}
                           {avisoDe(item.id)?.tipo === "poucas" ? <p className="fluxo-aviso-estoque" role="status">Só restam {avisoDe(item.id)?.restam} na loja.</p> : null}
-                          {item.receita ? <p className="fluxo-item-receita">{item.receita === "controlado" ? "Controlado: retirada na loja, com a receita retida pela farmácia." : "Exige receita: retirada na loja, apresentando a receita."}</p> : null}
                         </div>
                       </div>
                       <div className="cel-preco">
