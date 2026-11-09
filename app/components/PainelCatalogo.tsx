@@ -183,34 +183,6 @@ export default function PainelCatalogo() {
                 <small>{formatarQuandoBRT(pc?.batimentoEm || c.geradoEm)}</small>
               </article>
             </div>
-
-            <section className="metrics-block">
-              <h2>Últimas atualizações</h2>
-              <p>Só mudanças de estoque ou preço. Quando nada muda, o PC só avisa que está ligado — isso não aparece aqui.</p>
-              {!pc ? (
-                <p className="painel-nota">Ainda sem leitura ao vivo do PC. O batimento passa a aparecer assim que o site estiver ligado ao Worker.</p>
-              ) : pc.historico.length === 0 ? (
-                <p className="painel-nota">Nenhuma mudança registrada ainda. O próximo envio com alteração aparece aqui.</p>
-              ) : (
-                <ul className="painel-runs">
-                  {pc.historico.map((e, i) => {
-                    const t = textoEvento(e);
-                    return (
-                      <li key={`${e.quando}-${i}`} className="painel-run">
-                        <div className="painel-run-top">
-                          <strong>{formatarQuandoBRT(e.quando)}</strong>
-                          <span className="painel-chip">{e.tipo === "completo" ? "Completo" : "Mudança"}</span>
-                        </div>
-                        <p className="painel-msg">
-                          <strong>{t.titulo}.</strong> {t.detalhe}
-                        </p>
-                        {e.nomes.length > 0 ? <p className="painel-msg painel-nomes">Ex.: {e.nomes.join(" · ")}</p> : null}
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
-            </section>
           </>
         ) : null}
       </div>
