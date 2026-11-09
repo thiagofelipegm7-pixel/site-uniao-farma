@@ -3472,6 +3472,8 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "LAVITAN CRANBERRY 30 CAPS 500 MG": "7897947615090",
   "AMOLECEDOR DE CUTICULA FARMAX 100ML OLEO DE KARITE": "7896902205246",
   "NEOLEFRIN DIA 800+20mg cx 20 comp": "7896714273822",
+  "CONDICIONADOR ERVA DOCE AGATA 2 LITROS": "7898151050851",
+  "Tonico Capilar Gota Dourada Fortalecimento Alho 30": "7897158700011",
 };
 
 function normalizarNome(nome: string): string {
