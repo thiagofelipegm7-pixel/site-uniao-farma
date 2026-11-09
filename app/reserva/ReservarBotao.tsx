@@ -48,10 +48,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
         }}
       >
         {variante === "cartao" ? (
-          <>
-            <IconMais size={20} />
-            <span>{rotulo}</span>
-          </>
+          <IconMais size={24} />
         ) : variante === "cesta" ? (
           <>
             <IconCesta size={26} />
