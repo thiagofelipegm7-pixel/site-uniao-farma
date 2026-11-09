@@ -18,8 +18,8 @@ const CATEGORIAS: readonly Categoria[] = [
 ];
 
 /**
- * Faixa horizontal de categorias (cards grandes, scroll-snap).
- * No celular ~2,7 cards visíveis; no desktop cards maiores em linha com rolagem lateral se não couber.
+ * Faixa horizontal de categorias (cards menores, scroll-snap).
+ * No celular ~3,6 cards visíveis; no desktop cards ~26% menores, rolagem lateral se não couber.
  */
 export function CategoriasLinha() {
   return (
@@ -31,7 +31,7 @@ export function CategoriasLinha() {
             <a href={item.href}>
               <span className="shop-cat-icone">
                 {/* alt vazio: o rótulo visível abaixo já nomeia a categoria. */}
-                <img src={item.iconeSrc} alt="" width={96} height={96} decoding="async" draggable={false} />
+                <img src={item.iconeSrc} alt="" width={72} height={72} decoding="async" draggable={false} />
               </span>
               <span className="shop-cat-rotulo">{item.rotulo}</span>
             </a>

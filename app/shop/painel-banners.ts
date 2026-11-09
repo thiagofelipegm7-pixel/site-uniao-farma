@@ -6,7 +6,7 @@ export type BannerPainel = {
   id: string;
   /** Descrição da arte para leitores de tela. Sem imagem, descreve o espaço reservado. */
   alt: string;
-  /** Imagem do computador (três banners lado a lado). Proporção 1,9 : 1, ex.: 960 x 505. */
+  /** Imagem do computador (dois banners lado a lado). Proporção 1,9 : 1, ex.: 960 x 505. */
   imagem?: string;
   /** Imagem do celular e do tablet (um banner por vez). Proporção 2 : 1, ex.: 800 x 400. Sem ela, usa a do computador. */
   imagemCelular?: string;

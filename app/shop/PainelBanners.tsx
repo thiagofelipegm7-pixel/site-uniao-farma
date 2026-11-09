@@ -18,7 +18,7 @@ function Arte({ banner }: { banner: BannerPainel }) {
 const INTERVALO_MS = 5000;
 
 /**
- * Painel de banners: três banners lado a lado no computador (um no celular), faixa que rola de lado e trava em cada banner (scroll-snap), com a animação do carrossel da Pague Menos:
+ * Painel de banners: dois banners lado a lado no computador (um no celular), faixa que rola de lado e trava em cada banner (scroll-snap), com a animação do carrossel da Pague Menos:
  * troca sozinha a cada 5 s, para enquanto o mouse ou o foco está em cima ou a aba está escondida, volta ao primeiro sem corte
  * (clones dos primeiros banners fecham a volta) e o ponto ativo vira uma pílula. Sem movimento automático para quem pede menos movimento.
  * `titulo` cria o h1 da página (só a home usa). Funciona com toque, mouse, teclado e leitor de tela.
@@ -42,7 +42,7 @@ export default function PainelBanners({ banners = BANNERS_PAINEL, titulo }: { ba
   const n = lista.length;
   const loop = n > 1;
 
-  /** Largura de um passo (um banner mais o espaço entre eles). No computador cabem três banners; no celular, um. */
+  /** Largura de um passo (um banner mais o espaço entre eles). No computador cabem dois banners; no celular, um. */
   const passo = useCallback((el: HTMLElement) => {
     const a = el.children[0] as HTMLElement | undefined;
     const b = el.children[1] as HTMLElement | undefined;
@@ -151,7 +151,7 @@ export default function PainelBanners({ banners = BANNERS_PAINEL, titulo }: { ba
             </li>
           ))}
           {loop
-            ? banners.slice(0, Math.min(3, n)).map((banner) => (
+            ? banners.slice(0, Math.min(2, n)).map((banner) => (
                 <li className="painel-slide" key={`clone-${banner.id}`} aria-hidden="true" inert>
                   <div className="painel-arte">
                     <Arte banner={banner} />
