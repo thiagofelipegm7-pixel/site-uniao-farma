@@ -412,7 +412,7 @@ export default function PainelFotos() {
   return (
     <section className="painel-fotos">
       <h1>Produtos</h1>
-      <p className="pf-sync"><a href="/interno/catalogo">Sincronizar estoque</a> · envia o catálogo do PC da loja para o site</p>
+      <PainelCatalogo />
       {erro ? <p role="alert">Não consegui ler o estoque agora. O PC da loja ou o acesso aos dados pode estar parado. <button type="button" onClick={() => void carregar()}>Tentar de novo</button></p> : null}
       {!dados && !erro ? <p>Carregando o estoque…</p> : null}
       {dados ? (
