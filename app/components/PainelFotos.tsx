@@ -464,6 +464,7 @@ export default function PainelFotos() {
   };
 
   return (
+    <>
     <section className="painel-fotos">
       <h1>Produtos</h1>
       <PainelCatalogo />
@@ -645,5 +646,6 @@ export default function PainelFotos() {
           </div>
         </div>
       ) : null}
+    </>
   );
 }
