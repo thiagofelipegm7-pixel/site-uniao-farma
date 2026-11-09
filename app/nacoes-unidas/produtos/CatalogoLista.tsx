@@ -88,6 +88,23 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
           const p1 = await lerPagina(g.slug, 1);
           gruposCarregados.push({ categoria: g.categoria, id: g.slug, itens: p1.map(paraItem) });
         }
+        // Também carrega produtos com receita e controlados (estão no estoque).
+        try {
+          const rx = await fetch("/dados/nacoes/receita-nacoes.json").then(r => r.json());
+          const restritos = [...(rx.receita || []), ...(rx.controlados || [])];
+          if (restritos.length > 0) {
+            const itensRx = restritos.map((i: { nome: string; lab?: string; preco?: number }) => ({
+              nome: i.nome,
+              lab: i.lab || "",
+              isMIP: false,
+              precoFmt: i.preco ? `R$ ${i.preco.toFixed(2).replace(".", ",")}` : "",
+              preco: i.preco || 0,
+              foto: null,
+              slug: i.nome.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+            }));
+            gruposCarregados.push({ categoria: "Medicamentos", id: "medicamentos-restritos", itens: itensRx });
+          }
+        } catch {}
         if (cancel) return;
         setGrupos([...gruposCarregados]);
         for (let k = 0; k < gruposCarregados.length; k += 1) {
