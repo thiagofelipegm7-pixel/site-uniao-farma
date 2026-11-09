@@ -138,7 +138,7 @@ export default function PainelFotos() {
       colarRef.current(e.clipboardData);
     };
     window.addEventListener("paste", cola);
-    return () => {
+    return (<>) => {
       window.removeEventListener("paste", cola);
       window.removeEventListener("dragover", sobre, true);
       window.removeEventListener("dragleave", saiu, true);
@@ -162,7 +162,7 @@ export default function PainelFotos() {
     };
     document.addEventListener("visibilitychange", visivel);
     window.addEventListener("pageshow", atualizar);
-    return () => {
+    return (<>) => {
       document.removeEventListener("visibilitychange", visivel);
       window.removeEventListener("pageshow", atualizar);
     };
@@ -172,7 +172,7 @@ export default function PainelFotos() {
     const feitas = new Set([...pendentes, ...Object.entries(envios).filter(([, v]) => v === "enviada").map(([k]) => k)]);
     // Foto tirada pelo painel e ainda não removida do arquivo do site: já não vale (volta a "falta foto"), a não ser que tenha mandado outra depois.
     const tiradas = new Set([...(dados?.removidas ?? []), ...removidasAgora]);
-    return (dados ? dados.linhas.map(paraLinha) : []).map((l) => {
+    return (<>dados ? dados.linhas.map(paraLinha) : []).map((l) => {
       if (feitas.has(l.ean)) return { ...l, noSite: true };
       return tiradas.has(l.ean) ? { ...l, noSite: false } : l;
     });
@@ -463,7 +463,7 @@ export default function PainelFotos() {
     setPagina(1);
   };
 
-  return (
+  return (<>
     <section className="painel-fotos">
       <h1>Produtos</h1>
       <PainelCatalogo />
@@ -645,5 +645,6 @@ export default function PainelFotos() {
           </div>
         </div>
       ) : null}
+    </>
   );
 }
