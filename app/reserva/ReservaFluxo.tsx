@@ -214,12 +214,25 @@ export default function ReservaFluxo() {
 
   const faltaReceita = soRetirada && !receita && !levoReceita;
   const temReceita = estado.itens.some((i) => i.receita);
+  function confirmarEnvio() {
+    setAvisoReceita(false);
+    guardarUltimoPedido(estado.itens.filter(itemAtivo));
+    registrarEtapa("enviar");
+    setEnviado(true);
+    window.open(href, "_blank");
+  }
   const enviarWhats = (classe: string) => acabaram.length > 0 ? (
     <button type="button" className={classe} disabled><IconWhats size={24} /> Tire o que acabou para enviar</button>
   ) : pagamento ? (
-    <a className={classe} href={href} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unidade.id} data-track-source="reserva_envio" onClick={() => { guardarUltimoPedido(estado.itens.filter(itemAtivo)); registrarEtapa("enviar"); setEnviado(true); if (temReceita) setAvisoReceita(true); }}>
-      <IconWhats size={24} /> Enviar pedido pelo WhatsApp
-    </a>
+    temReceita ? (
+      <button type="button" className={classe} onClick={() => setAvisoReceita(true)}>
+        <IconWhats size={24} /> Enviar pedido pelo WhatsApp
+      </button>
+    ) : (
+      <a className={classe} href={href} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unidade.id} data-track-source="reserva_envio" onClick={() => { guardarUltimoPedido(estado.itens.filter(itemAtivo)); registrarEtapa("enviar"); setEnviado(true); }}>
+        <IconWhats size={24} /> Enviar pedido pelo WhatsApp
+      </a>
+    )
   ) : (
     <button type="button" className={classe} disabled><IconWhats size={24} /> Escolha o pagamento</button>
   );
@@ -554,7 +567,7 @@ export default function ReservaFluxo() {
           <div className="fluxo-aviso-receita-card">
             <strong>Envie a foto da receita</strong>
             <p>Sua cesta tem medicamento com receita. No WhatsApp, toque no clipe (📎) e envie a foto da receita junto com o pedido. A loja confere antes de separar.</p>
-            <button type="button" onClick={() => setAvisoReceita(false)}>Entendi</button>
+            <button type="button" onClick={confirmarEnvio}>Entendi, ir para o WhatsApp</button>
           </div>
         </div>
       ) : null}
