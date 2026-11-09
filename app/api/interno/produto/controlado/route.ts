@@ -39,7 +39,7 @@ export async function POST(request: Request) {
   if (!db) return Response.json({ ok: false, erro: "sem_banco" }, { status: 501, headers: SEM_CACHE });
   // Limpar (auto) sempre pode; marcar sim/não só com categoria efetiva Medicamentos (override conta).
   if (v.estado !== "auto") {
-    const ovr = db ? await mapaDeCategorias(db).catch(() => ({})) : {};
+    const ovr = db ? await mapaDeCategorias(db).catch(() => ({} as Awaited<ReturnType<typeof mapaDeCategorias>>)) : {};
     const efetiva = ovr[chaveDoNome(original)]?.categoria ?? categoriaDoProduto(original);
     if (!ehCategoriaComControlado(efetiva)) {
       return Response.json({ ok: false, erro: "so_medicamentos" }, { status: 400, headers: SEM_CACHE });

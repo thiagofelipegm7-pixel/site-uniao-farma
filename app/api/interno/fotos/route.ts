@@ -44,7 +44,7 @@ export async function GET() {
   for (const i of restritos.controlados) categorias.set(chaveDeNome(i.nome), "Medicamentos");
 
   const db = banco();
-  const categoriasOvr = db ? await mapaDeCategorias(db).catch(() => ({})) : {};
+  const categoriasOvr = db ? await mapaDeCategorias(db).catch(() => ({} as Awaited<ReturnType<typeof mapaDeCategorias>>)) : {};
   for (const [k, v] of Object.entries(categoriasOvr)) categorias.set(k, v.categoria);
 
   const eansComFoto = new Set(Object.values(FOTOS_NACOES));
