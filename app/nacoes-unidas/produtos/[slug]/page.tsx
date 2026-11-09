@@ -49,7 +49,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
   if (!item) {
     const restritos = carregarRestritos();
     const todos = [...restritos.receita, ...restritos.controlados, ...restritos.consulte];
-    const achado = todos.find((i) => slugify(i.nome) === slug || (i.slug && i.slug === slug));
+    const achado = todos.find((i) => slugify(i.nome) === slug || slugify(i.nomeExibicao || i.nome) === slug || (i.slug && i.slug === slug));
     if (achado) item = { nome: achado.nome, lab: achado.lab, categoria: "Medicamentos", preco: achado.preco ?? 0, isMIP: false };
   }
   if (!item) notFound();
