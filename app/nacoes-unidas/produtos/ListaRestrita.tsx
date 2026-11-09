@@ -85,9 +85,8 @@ export function Cartao({ item }: { item: ItemRestrito }) {
             foto={imagemIlustrativa(item)}
             source={`produtos_nacoes_${item.tipo}`}
             receita={item.controlado ? "controlado" : "receita"}
-            variante="cesta"
+            variante="cartao"
             max={item.restam}
-            compacto
           />
         ) : null
       }

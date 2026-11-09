@@ -19,8 +19,8 @@ type Props = {
   compacto?: boolean;
   /** Medicamento com receita ou controlado: a cesta marca o item e só deixa retirar na loja. */
   receita?: "receita" | "controlado";
-  /** "cesta": botão redondo com sacola e "+" no canto do cartão de produto (padrão da listagem). */
-  variante?: "cesta";
+  /** "cesta": botão redondo com sacola e "+" no canto do cartão. "cartao": botão largo e arredondado "Adicionar" no pé do cartão (padrão da Araujo). */
+  variante?: "cesta" | "cartao";
   /** Página do produto: a cesta confere a disponibilidade ao vivo por ela. */
   slug?: string;
   /** Texto do botão grande (padrão "Adicionar"). */
@@ -39,7 +39,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
     return (
       <button
         type="button"
-        className={variante === "cesta" ? "reservar-mais pv-cesta-botao" : compacto ? "reservar-mais reservar-mais-icone" : "reservar-mais"}
+        className={variante === "cartao" ? "pv-adicionar" : variante === "cesta" ? "reservar-mais pv-cesta-botao" : compacto ? "reservar-mais reservar-mais-icone" : "reservar-mais"}
         aria-label={`Adicionar ${nome} à cesta`}
         onClick={() => {
           atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, deCentavos, foto, ...(receita ? { receita } : {}), ...(max ? { max } : {}), ...(slug ? { slug } : {}) }));
@@ -47,7 +47,12 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
           registrarEtapa("add");
         }}
       >
-        {variante === "cesta" ? (
+        {variante === "cartao" ? (
+          <>
+            <IconCesta size={20} />
+            <span>{rotulo}</span>
+          </>
+        ) : variante === "cesta" ? (
           <>
             <IconCesta size={26} />
             <span className="pv-cesta-mais" aria-hidden="true"><IconMais size={12} /></span>
@@ -63,7 +68,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
   }
 
   return (
-    <div className="reservar-contador" role="group" aria-label={`Quantidade de ${nome} na cesta`}>
+    <div className={variante === "cartao" ? "reservar-contador pv-contador" : "reservar-contador"} role="group" aria-label={`Quantidade de ${nome} na cesta`}>
       <button type="button" aria-label={qtd === 1 ? `Remover ${nome} da cesta` : `Diminuir ${nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, id, qtd - 1))}>
         {qtd === 1 && !compacto ? <IconLixeira size={20} /> : <IconMenos size={20} />}
       </button>
