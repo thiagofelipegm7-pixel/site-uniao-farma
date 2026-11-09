@@ -322,9 +322,6 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
         <span className="shop-vazio shop-vazio-sino" aria-hidden="true" />
         <span className="shop-vazio shop-vazio-usuario" aria-hidden="true" />
         <div className="shop-acoes">
-          <button type="button" className="shop-icone" aria-label="Escolher loja" onClick={abrirSeletorDeLoja}>
-            <IconPino size={28} />
-          </button>
           <ReservaSacola />
           <FotosNovas />
         </div>
