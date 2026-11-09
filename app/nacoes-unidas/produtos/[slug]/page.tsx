@@ -177,7 +177,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
           </div>
         </section>
 
-        <p className="produto-aviso section-inner">Aqui só itens sem receita. Leia a bula ou o rótulo. Em caso de dúvida, procure o farmacêutico.</p>
+        
       </div>
       <ContentSiteFooter />
     </>
