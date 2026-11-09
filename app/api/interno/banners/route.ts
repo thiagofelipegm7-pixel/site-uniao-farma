@@ -7,7 +7,7 @@ type Banner = { id: string; url: string; atualizado: string };
 
 /** Lista os banners atuais. */
 export async function GET() {
-  const db = banco();
+  const db = banco() as { prepare: (sql: string) => { all: <T>() => Promise<{ results: T[] }>; run: () => Promise<unknown>; bind: (...args: unknown[]) => { run: () => Promise<unknown> } } } | null;
   if (!db) return Response.json({ banners: [] }, { headers: SEM_CACHE });
   try {
     const rows = await db.prepare("SELECT id, url, atualizado FROM banners").all<Banner>();
@@ -19,7 +19,7 @@ export async function GET() {
 
 /** Grava um banner (id + url da imagem). */
 export async function POST(req: Request) {
-  const db = banco();
+  const db = banco() as { prepare: (sql: string) => { all: <T>() => Promise<{ results: T[] }>; run: () => Promise<unknown>; bind: (...args: unknown[]) => { run: () => Promise<unknown> } } } | null;
   if (!db) return Response.json({ ok: false, erro: "sem_banco" }, { status: 503, headers: SEM_CACHE });
   const body = (await req.json().catch(() => ({}))) as { id?: string; url?: string };
   if (!body.id || !body.url) return Response.json({ ok: false, erro: "faltando" }, { status: 400, headers: SEM_CACHE });
