@@ -375,7 +375,7 @@ export default function PainelFotos() {
       }
       const j = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string } | null;
       if (!r.ok || !j?.ok) {
-        setAviso("Não consegui salvar o enquadramento controlado. Tente de novo.");
+        setAviso(j?.erro === "so_medicamentos" ? "Só dá para marcar controlado em produtos da categoria Medicamentos." : "Não consegui salvar o enquadramento controlado. Tente de novo.");
         return;
       }
       setControladosAgora((n) => ({ ...n, [chaveDoNome(l.nome)]: estado }));
@@ -518,19 +518,25 @@ export default function PainelFotos() {
                       {l.lab ? <small>{l.lab}</small> : null}
                       {l.controlado ? <em className="pf-tag">Controlado (sistema)</em> : null}
                       {l.antimicrobiano ? <em className="pf-tag pf-tag-a">Antimicrob.</em> : null}
-                      <label className="pf-controlado">
-                        <span>Controlado (Portaria 344)</span>
-                        <select
-                          value={estadoControlado(l)}
-                          aria-label={`Controlado Portaria 344 de ${l.nome}`}
-                          onChange={(e) => void salvarControlado(l, e.target.value as "auto" | "sim" | "nao")}
-                        >
-                          <option value="auto">Automático</option>
-                          <option value="sim">Marcar controlado</option>
-                          <option value="nao">Marcar não controlado</option>
-                        </select>
-                      </label>
-                      {estadoControlado(l) !== "auto" ? <em className="pf-tag pf-tag-n">Override: {estadoControlado(l) === "sim" ? "controlado" : "não controlado"}</em> : null}
+                      {l.categoria === "Medicamentos" ? (
+                        <>
+                          <label className="pf-controlado">
+                            <span>Controlado (Portaria 344)</span>
+                            <select
+                              value={estadoControlado(l)}
+                              aria-label={`Controlado Portaria 344 de ${l.nome}`}
+                              onChange={(e) => void salvarControlado(l, e.target.value as "auto" | "sim" | "nao")}
+                            >
+                              <option value="auto">Automático</option>
+                              <option value="sim">Marcar controlado</option>
+                              <option value="nao">Marcar não controlado</option>
+                            </select>
+                          </label>
+                          {estadoControlado(l) !== "auto" ? <em className="pf-tag pf-tag-n">Override: {estadoControlado(l) === "sim" ? "controlado" : "não controlado"}</em> : null}
+                        </>
+                      ) : estadoControlado(l) === "sim" ? (
+                        <em className="pf-tag pf-tag-n" title="Override antigo; o seletor só aparece em Medicamentos">Marcado como controlado</em>
+                      ) : null}
                     </td>
                     <td data-r="Categoria">{l.categoria}</td>
                     <td data-r="Estoque" className="pf-n"><span className={`pf-qtd pf-qtd-${l.estoque <= 0 ? "zero" : l.estoque <= 5 ? "baixo" : "normal"}`} title={l.estoque <= 0 ? "Zerado" : l.estoque <= 5 ? "Estoque baixo" : "Estoque normal"}>{l.estoque}</span></td>
