@@ -1660,7 +1660,7 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
    ===================================================================== */
 .painel { max-width: 82rem; margin: 0.875rem auto 0; padding: 0 1.25rem; box-sizing: border-box; }
 .painel-moldura { position: relative; }
-.painel-faixa { display: flex; scroll-behavior: auto; margin: 0; padding: 0; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: 16px; overscroll-behavior-x: contain; }
+.painel-faixa { display: flex; gap: 0.75rem; scroll-behavior: auto; margin: 0; padding: 0; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: 16px; overscroll-behavior-x: contain; }
 .painel-faixa::-webkit-scrollbar { display: none; }
 .painel-faixa:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
 .painel-slide { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; }
@@ -1681,8 +1681,12 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .painel-pontos button.is-ativo::before { width: 1.625rem; background: var(--uf-action-hover, #35a89e); }
 .painel-pontos button:focus-visible { outline: 3px solid var(--uf-action); outline-offset: -2px; border-radius: 6px; }
 @media (min-width: 768px) {
-  .painel-arte { aspect-ratio: 4.4 / 1; }
   .painel-seta { display: grid; }
+}
+/* computador: três banners lado a lado (como na Pague Menos), cada um com 1,9 : 1 */
+@media (min-width: 992px) {
+  .painel-slide { flex-basis: calc((100% - 1.5rem) / 3); }
+  .painel-arte { aspect-ratio: 1.9 / 1; }
 }
 @media (prefers-reduced-motion: reduce) { .painel-seta, .painel .painel-pontos button, .painel-pontos button::before { transition: none; } }
 

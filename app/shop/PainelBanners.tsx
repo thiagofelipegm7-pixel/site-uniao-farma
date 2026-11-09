@@ -8,7 +8,7 @@ function Arte({ banner }: { banner: BannerPainel }) {
   if (!banner.imagem) return <span className="painel-vazio" role="img" aria-label={banner.alt} />;
   return (
     <picture>
-      {banner.imagemCelular ? <source media="(max-width: 767px)" srcSet={banner.imagemCelular} /> : null}
+      {banner.imagemCelular ? <source media="(max-width: 991px)" srcSet={banner.imagemCelular} /> : null}
       <img src={banner.imagem} alt={banner.alt} decoding="async" draggable={false} />
     </picture>
   );
@@ -18,9 +18,9 @@ function Arte({ banner }: { banner: BannerPainel }) {
 const INTERVALO_MS = 5000;
 
 /**
- * Painel de banners: faixa que rola de lado e trava em cada banner (scroll-snap), com a animação do carrossel da Pague Menos:
+ * Painel de banners: três banners lado a lado no computador (um no celular), faixa que rola de lado e trava em cada banner (scroll-snap), com a animação do carrossel da Pague Menos:
  * troca sozinha a cada 5 s, para enquanto o mouse ou o foco está em cima ou a aba está escondida, volta ao primeiro sem corte
- * (um clone do primeiro fecha a volta) e o ponto ativo vira uma pílula. Sem movimento automático para quem pede menos movimento.
+ * (clones dos primeiros banners fecham a volta) e o ponto ativo vira uma pílula. Sem movimento automático para quem pede menos movimento.
  * `titulo` cria o h1 da página (só a home usa). Funciona com toque, mouse, teclado e leitor de tela.
  */
 export default function PainelBanners({ banners = BANNERS_PAINEL, titulo }: { banners?: BannerPainel[]; titulo?: string }) {
@@ -31,21 +31,30 @@ export default function PainelBanners({ banners = BANNERS_PAINEL, titulo }: { ba
   const n = banners.length;
   const loop = n > 1;
 
+  /** Largura de um passo (um banner mais o espaço entre eles). No computador cabem três banners; no celular, um. */
+  const passo = useCallback((el: HTMLElement) => {
+    const a = el.children[0] as HTMLElement | undefined;
+    const b = el.children[1] as HTMLElement | undefined;
+    return a && b ? b.offsetLeft - a.offsetLeft : el.clientWidth;
+  }, []);
+
   const sincronizar = useCallback(() => {
     const el = faixa.current;
     if (!el || el.clientWidth === 0) return;
-    const bruto = Math.round(el.scrollLeft / el.clientWidth);
-    setAtual(bruto >= n ? 0 : Math.max(0, bruto));
+    const p = passo(el);
+    const bruto = Math.round(el.scrollLeft / p);
+    setAtual(bruto >= n ? bruto - n : Math.max(0, bruto));
     // Chegou no clone do primeiro: quando a rolagem assenta, volta ao primeiro de verdade sem ninguém notar.
     if (parou.current) clearTimeout(parou.current);
     parou.current = setTimeout(() => {
-      if (el.scrollLeft >= (n - 0.5) * el.clientWidth && n > 0) {
+      const p = passo(el);
+      if (el.scrollLeft >= (n - 0.5) * p && n > 0) {
         el.style.scrollSnapType = "none";
-        el.scrollLeft = el.scrollLeft - n * el.clientWidth;
+        el.scrollLeft = el.scrollLeft - n * p;
         el.style.scrollSnapType = "";
       }
     }, 120);
-  }, [n]);
+  }, [n, passo]);
 
   useEffect(() => {
     const el = faixa.current;
@@ -69,14 +78,14 @@ export default function PainelBanners({ banners = BANNERS_PAINEL, titulo }: { ba
         if (!loop) return;
         // Voltar do primeiro: pula (sem animar) para o clone do primeiro, no fim, e desliza para o último.
         el.style.scrollSnapType = "none";
-        el.scrollLeft = n * el.clientWidth;
+        el.scrollLeft = n * passo(el);
         el.style.scrollSnapType = "";
         alvo = n - 1;
       }
       alvo = Math.min(loop ? n : n - 1, alvo);
-      el.scrollTo({ left: alvo * el.clientWidth, behavior: reduzir ? "auto" : "smooth" });
+      el.scrollTo({ left: alvo * passo(el), behavior: reduzir ? "auto" : "smooth" });
     },
-    [loop, n],
+    [loop, n, passo],
   );
 
   // Troca automática. Só roda com mais de um banner, sem pedido de menos movimento, com a aba visível e sem mouse/foco em cima.
@@ -130,13 +139,15 @@ export default function PainelBanners({ banners = BANNERS_PAINEL, titulo }: { ba
               )}
             </li>
           ))}
-          {loop ? (
-            <li className="painel-slide" key="clone" aria-hidden="true" inert>
-              <div className="painel-arte">
-                <Arte banner={banners[0]} />
-              </div>
-            </li>
-          ) : null}
+          {loop
+            ? banners.slice(0, Math.min(3, n)).map((banner) => (
+                <li className="painel-slide" key={`clone-${banner.id}`} aria-hidden="true" inert>
+                  <div className="painel-arte">
+                    <Arte banner={banner} />
+                  </div>
+                </li>
+              ))
+            : null}
         </ul>
         <button type="button" className="painel-seta painel-seta-esq" aria-label="Banner anterior" disabled={!loop} onClick={() => ir(atual - 1)}>
           <IconVoltar size={20} />
