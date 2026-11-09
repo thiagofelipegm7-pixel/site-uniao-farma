@@ -34,7 +34,7 @@ export function CategoriasLinha() {
             <a href={item.href}>
               <span className={item.destaque ? "shop-cat-icone is-oferta" : "shop-cat-icone"}>
                 {item.destaque ? (
-                  <item.Icone size={48} />
+                  <item.Icone size={72} />
                 ) : (
                   // alt vazio: o rótulo visível abaixo já nomeia a categoria.
                   <img src={item.iconeSrc} alt="" width={96} height={96} decoding="async" draggable={false} />
