@@ -10,7 +10,7 @@ type Props = {
 };
 
 /**
- * Preço no padrão único do site: "R$" pequeno, reais grandes e centavos pequenos, mesma família, peso e cor
+ * Preço no padrão único do site: R$, reais e centavos no mesmo tamanho (bold, navy),
  * no catálogo, na página do produto e nas ofertas. O texto lido por leitor de tela é o preço inteiro.
  */
 export default function Preco({ precoFmt, vazio = "Consultar", variante }: Props) {

@@ -1,4 +1,4 @@
-/* Preço no padrão único (componente Preco.tsx): mesma família, peso, cor e tratamento dos centavos em todo o site. */
+/* Preço no padrão único (componente Preco.tsx): R$, reais e centavos no mesmo tamanho em todo o site. */
 .pv-preco {
   display: inline-block;
   color: var(--uf-navy);
@@ -9,18 +9,22 @@
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
 }
-.pv-preco b { font-size: 26px; font-weight: 900; line-height: 1; }
+.pv-preco b {
+  font-size: inherit;
+  font-weight: 800;
+  line-height: 1;
+}
 .pv-preco-vazio { font-size: 14px; font-weight: 700; }
 
-/* Página do produto: mesmo desenho, em escala maior. */
+/* Página do produto: mesmo desenho uniforme, em escala um pouco maior. */
 .pv-preco--grande { font-size: 1.125rem; }
-.pv-preco--grande b { font-size: 2.25rem; }
+.pv-preco--grande b { font-size: inherit; font-weight: inherit; }
 
-/* Cartões de oferta: mesma tipografia, com o destaque de oferta (fundo vermelho do selo). */
+/* Cartões de oferta: tipografia uniforme, com o destaque de oferta (fundo vermelho do selo). */
 .pv-preco--selo {
   padding: 0.375rem 0.75rem;
   border-radius: 8px;
   background: var(--uf-offer);
   color: #ffffff;
 }
-.pv-preco--selo b { font-size: 1.875rem; }
+.pv-preco--selo b { font-size: inherit; font-weight: inherit; }
