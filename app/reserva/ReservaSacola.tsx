@@ -180,8 +180,10 @@ export default function ReservaSacola() {
         aria-expanded={aberta}
         onClick={() => setAberta(true)}
       >
-        <IconCestaLinha size={26} />
-        {total > 0 ? <span key={total} className="reserva-contador-bolha" aria-hidden="true">{total}</span> : null}
+        <span className="reserva-sacola-icone">
+          <IconCestaLinha size={34} />
+          {total > 0 ? <span key={total} className="reserva-contador-bolha" aria-hidden="true">{total}</span> : null}
+        </span>
       </button>
 
       {aberta ? createPortal(gaveta, document.body) : null}
