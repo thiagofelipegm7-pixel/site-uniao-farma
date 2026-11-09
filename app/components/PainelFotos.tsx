@@ -329,10 +329,6 @@ export default function PainelFotos() {
   }
 
   async function salvarNome(l: LinhaFoto, voltar = false) {
-    if (por.trim().length < 2) {
-      setAviso("Escreva seu nome no topo antes de mexer no nome do produto: fica registrado quem mexeu.");
-      return;
-    }
     try {
       const r = await fetch(voltar ? "/api/interno/produto/nome/desfazer" : "/api/interno/produto/nome", {
         method: "POST",
@@ -391,10 +387,6 @@ export default function PainelFotos() {
   return (
     <section className="painel-fotos">
       <h1>Fotos dos produtos</h1>
-      <label className="pf-quem">
-        Quem está mexendo?
-        <input type="text" value={por} onChange={(e) => guardarPor(e.target.value)} placeholder="Seu nome (fica no histórico)" maxLength={60} autoComplete="name" />
-      </label>
       {erro ? <p role="alert">Não consegui ler o estoque agora. O PC da loja ou o acesso aos dados pode estar parado. <button type="button" onClick={() => void carregar()}>Tentar de novo</button></p> : null}
       {!dados && !erro ? <p>Carregando o estoque…</p> : null}
       {dados ? (
