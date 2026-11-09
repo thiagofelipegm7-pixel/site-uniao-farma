@@ -3,6 +3,7 @@ import { chaveDeNome, montarLinhas, resumirFotos, SEM_CATEGORIA } from "../../..
 import { carregarCatalogoCompleto } from "../../../nacoes-unidas/produtos/catalogo";
 import { banco, segredo } from "../../../estoque-fonte";
 import { listarPendentes, listarRemocoes } from "../../../fotos-enviadas";
+import { mapaDeControlados } from "../../../controlado-override";
 import { mapaDeNomes, ultimasAlteracoes } from "../../../nomes-corrigidos";
 import { FOTOS_NACOES } from "../../../nacoes-unidas/produtos/imagens";
 import { carregarRestritos } from "../../../nacoes-unidas/produtos/receita";
@@ -48,6 +49,7 @@ export async function GET() {
   const pendentes = db ? (await listarPendentes(db).catch(() => [])).map((f) => f.ean) : [];
   const removidas = db ? (await listarRemocoes(db).catch(() => [])).map((r) => r.ean) : [];
   const nomes = db ? await mapaDeNomes(db).catch(() => ({})) : {};
+  const controlados = db ? await mapaDeControlados(db).catch(() => ({})) : {};
   const alteracoes = db ? await ultimasAlteracoes(db).catch(() => []) : [];
   const listaCategorias = [...new Set(linhas.map((l) => l.categoria))].sort((a, b) => (a === SEM_CATEGORIA ? 1 : b === SEM_CATEGORIA ? -1 : a.localeCompare(b, "pt-BR")));
   return Response.json(
@@ -58,6 +60,7 @@ export async function GET() {
       categorias: listaCategorias,
       pendentes,
       nomes,
+      controlados,
       alteracoes,
       removidas,
       publicacaoRapida: Boolean(segredo("GITHUB_DISPATCH_TOKEN")),

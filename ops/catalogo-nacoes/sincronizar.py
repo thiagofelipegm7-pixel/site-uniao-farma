@@ -181,10 +181,11 @@ def baixar_aprovacoes(token):
         if not isinstance(dados, dict):
             return {}, None
         nomes = dados.get("nomes")
-        return dados.get("aprovacoes", {}), (nomes if isinstance(nomes, dict) else None)
+        controlados = dados.get("controlados")
+        return dados.get("aprovacoes", {}), (nomes if isinstance(nomes, dict) else None), (controlados if isinstance(controlados, dict) else None)
     except Exception as e:  # noqa: BLE001
         anotar("warning", "Aprovações do painel", f"não consegui ler ({type(e).__name__}); usando só a base do repositório")
-        return {}, None
+        return {}, None, None
 
 
 def rodar(*cmd):
@@ -250,11 +251,15 @@ def main(argv):
             rodar(sys.executable, os.path.join(AQUI, "gerar.py"), export, "--sem-csv")
             rodar(sys.executable, os.path.join(AQUI, "categorias_novas.py"))
             base = ler(os.path.join(AQUI, "aprovacoes-base.json")) if os.path.exists(os.path.join(AQUI, "aprovacoes-base.json")) else {}
-            remoto, nomes = baixar_aprovacoes(os.environ.get("CATALOGO_READ_TOKEN", "").strip()) if not arquivo else ({}, None)
+            remoto, nomes, controlados = baixar_aprovacoes(os.environ.get("CATALOGO_READ_TOKEN", "").strip()) if not arquivo else ({}, None, None)
             aprov = juntar_aprovacoes(base, remoto)
             if nomes is not None:  # nomes que o painel corrigiu: valem a partir desta publicação (os asset e as páginas leem este arquivo)
                 with open(os.path.join(DADOS, "nomes-corrigidos.json"), "w", encoding="utf-8") as f:
                     json.dump(nomes, f, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+            if controlados is not None:
+                with open(os.path.join(DADOS, "controlados-overrides.json"), "w", encoding="utf-8") as f:
+                    json.dump(controlados, f, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+                rodar(sys.executable, os.path.join(AQUI, "aplicar_controlado.py"), DADOS)
             aprov_arq = os.path.join(tmp, "aprovacoes.json")
             with open(aprov_arq, "w", encoding="utf-8") as f:
                 json.dump(aprov, f, ensure_ascii=False)
@@ -266,7 +271,7 @@ def main(argv):
                 def arq(n):
                     p = os.path.join(pasta, n)
                     return ler(p) if os.path.exists(p) else {}
-                return {"revisao": sem_data(arq("revisao-pendente.json")), "nomes": arq("nomes-corrigidos.json")}
+                return {"revisao": sem_data(arq("revisao-pendente.json")), "nomes": arq("nomes-corrigidos.json"), "controlados": arq("controlados-overrides.json")}
             rev_ant, rev_nov = _extras(os.path.join(tmp, "dados")), _extras(DADOS)
             validar_saida(cat_antigo, rx_antigo, cat_novo, rx_novo, forcar)
         except Recusa:
