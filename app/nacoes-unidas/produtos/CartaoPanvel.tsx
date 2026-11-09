@@ -31,8 +31,8 @@ type Props = {
 };
 
 /**
- * Cartão de produto no padrão da listagem da Panvel (medido no cards.htm salvo): cesta redonda no canto, imagem,
- * nome, marca, apresentação e preço com o inteiro em destaque. Sem selo de programa, sem "De/Por" e sem % OFF quando
+ * Cartão de produto no padrão da Araujo (medido no print e no HTML salvo): vertical, imagem grande, nome em duas linhas,
+ * preço e botão largo "Adicionar" no pé. Marca e apresentação ficam no HTML (busca e leitor de tela), mas não aparecem no cartão. Sem selo de programa, sem "De/Por" e sem % OFF quando
  * o catálogo não tem preço de antes: o que a União não tem fica em branco.
  */
 export default function CartaoPanvel({ href, nome, foto, marca, apresentacao, precoFmt, cesta, avisos, extra, vertical = false, classe = "", tipo }: Props) {
@@ -50,7 +50,6 @@ export default function CartaoPanvel({ href, nome, foto, marca, apresentacao, pr
   );
   return (
     <li className={`pv-card${vertical ? " pv-card--v" : ""}${classe ? ` ${classe}` : ""}`} data-tipo={tipo}>
-      {cesta ? <div className="pv-cesta">{cesta}</div> : null}
       {href ? (
         <a className="pv-corpo" href={href} aria-label={`Ver ${nome}`}>
           {corpo}
@@ -59,6 +58,7 @@ export default function CartaoPanvel({ href, nome, foto, marca, apresentacao, pr
         <div className="pv-corpo">{corpo}</div>
       )}
       {avisos ? <div className="pv-avisos">{avisos}</div> : null}
+      {cesta ? <div className="pv-cesta">{cesta}</div> : null}
       {extra}
     </li>
   );

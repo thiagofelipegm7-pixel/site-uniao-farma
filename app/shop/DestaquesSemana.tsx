@@ -74,7 +74,7 @@ export default function DestaquesSemana({ titulo = "Destaques da semana", grupo,
               marca={item.lab}
               apresentacao={quantidadeDoNome(item.nome)}
               precoFmt={formatarCentavos(item.precoCentavos)}
-              cesta={<ReservarBotao unitId="nacoes" nome={item.nome} precoCentavos={item.precoCentavos} foto={item.foto} source={source} variante="cesta" compacto slug={item.slug} />}
+              cesta={<ReservarBotao unitId="nacoes" nome={item.nome} precoCentavos={item.precoCentavos} foto={item.foto} source={source} variante="cartao" slug={item.slug} />}
             />
           ))}
         </ul>

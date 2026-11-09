@@ -1456,19 +1456,22 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 
 /* As camadas "design" e "overrides" usam !important (ex.: "main li > a" vira inline-flex); o cartão precisa vencer nelas. */
 @layer design {
-  .pv-card .pv-corpo { display: grid !important; grid-template-columns: 76px minmax(0, 1fr) !important; align-items: start !important; padding: 0 12px !important; min-height: 0 !important; text-align: left !important; }
-  .pv-card .pv-cesta-botao { display: grid !important; place-items: center !important; width: 44px !important; height: 44px !important; min-width: 44px !important; min-height: 44px !important; padding: 0 !important; border: 1.5px solid var(--uf-navy) !important; border-radius: 50% !important; background: #ffffff !important; color: var(--uf-navy) !important; box-shadow: none !important; }
-  .pv-card .reservar-contador { width: auto !important; min-width: 104px !important; height: 44px !important; background: #ffffff !important; }
-  .pv-card--v .pv-corpo { display: flex !important; flex-direction: column !important; align-items: center !important; padding: 0 8px !important; text-align: center !important; }
+  /* cartão vertical da Araujo: o corpo é uma coluna alinhada à esquerda em qualquer largura */
+  .pv-card .pv-corpo { display: flex !important; flex-direction: column !important; align-items: stretch !important; padding: 0 12px !important; min-height: 0 !important; text-align: left !important; }
+  .pv-card .pv-adicionar { display: flex !important; align-items: center !important; justify-content: center !important; width: 100% !important; min-height: 44px !important; padding: 0 12px !important; border: 0 !important; border-radius: 999px !important; background: var(--uf-action) !important; color: var(--uf-action-ink) !important; }
+  .pv-card .pv-adicionar:hover { background: var(--uf-action-hover) !important; }
+  .pv-card .reservar-contador { width: 100% !important; min-width: 0 !important; height: 44px !important; background: #ffffff !important; border-radius: 999px !important; }
+  .pv-card .pv-texto, .pv-card .pv-nome, .pv-card .pv-preco { text-align: left !important; justify-items: start !important; }
   .pv-filtros input[type="checkbox"] { width: 18px !important; height: 18px !important; }
   .pv-filtros .catalogo-filtro-opcao { min-height: 44px !important; padding: 0 !important; border: 0 !important; }
   .departamento-outros { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; overflow-x: auto !important; scrollbar-width: none; }
   .departamento-outros a { flex: none !important; width: auto !important; }
 }
+@media (min-width: 768px) {
+  @layer design { .pv-card .pv-corpo { padding: 0 16px !important; } }
+}
 @media (min-width: 992px) {
   @layer design {
-    .pv-card .pv-corpo { display: flex !important; flex-direction: column !important; align-items: center !important; padding: 0 !important; text-align: center !important; }
-    .pv-card--v .pv-corpo { padding: 0 8px !important; }
     .catalogo-loja .section-inner { max-width: 86.75rem !important; }
     .departamento-outros { flex-wrap: wrap !important; overflow: visible !important; }
   }
@@ -1704,3 +1707,41 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .rodape-links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; margin-top: 1rem; }
 .rodape-links a, .rodape-links button { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0; border: 0; background: none; font: inherit; font-size: 0.875rem; color: #5c6664; cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
 .rodape-links a:focus-visible, .rodape-links button:focus-visible, .rodape-legal a:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
+
+/* =====================================================================
+   Cartão de produto no padrão da Araujo (medido no print e no HTML salvo): vertical em qualquer largura, borda fina de 1px,
+   cantos de 8px, imagem grande, nome em duas linhas (16px), preço em negrito (18px) e botão largo arredondado "Adicionar" no pé.
+   Marca e apresentação ficam no HTML mas não aparecem. Verde da marca no botão, como no resto do site.
+   ===================================================================== */
+.pv-grade, .catalogo-nacoes .catalogo-lista.pv-grade { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+@media (min-width: 768px) { .pv-grade, .catalogo-nacoes .catalogo-lista.pv-grade { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; } }
+@media (min-width: 992px) { .pv-grade, .catalogo-nacoes .catalogo-lista.pv-grade { grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 12px; } }
+.pv-card { padding: 0 0 12px; border: 1px solid #e1e5e4; border-radius: 8px; background: #ffffff; transition: border-color 0.15s ease; }
+.pv-card:hover, .pv-card:focus-within { border-color: var(--uf-action); }
+.pv-card .pv-corpo { display: flex; flex-direction: column; align-items: stretch; flex: 1; padding: 0 12px; text-align: left; }
+.pv-card .pv-img { grid-row: auto; display: block; width: 100%; height: auto; margin: 0; padding: 16px 0 0; aspect-ratio: 1; max-height: 13.75rem; box-sizing: content-box; }
+.pv-card .pv-img img, .pv-card .pv-sem-foto { display: block; width: 100%; height: 100%; max-height: 13.75rem; margin: 0 auto; object-fit: contain; }
+.pv-card .pv-texto { display: block; width: 100%; padding: 8px 0 0; }
+.pv-card .pv-nome { -webkit-line-clamp: 2; min-height: 2.5rem; font-size: 0.875rem; line-height: 1.25rem; text-align: left; }
+.pv-card .pv-marca, .pv-card .pv-apres { display: none; }
+.pv-card .pv-preco { grid-column: auto; margin-top: auto; padding: 10px 0 0; text-align: left; font-size: 1.125rem; font-weight: 700; line-height: 1.5rem; }
+.pv-card .pv-preco b { font-size: inherit; }
+.pv-card .pv-avisos { padding: 8px 12px 0; text-align: left; }
+.pv-card .pv-cesta { position: static; padding: 12px 12px 0; }
+.pv-adicionar { display: flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box; width: 100%; min-height: 2.75rem; padding: 0 12px; border: 0; border-radius: 999px; background: var(--uf-action); color: var(--uf-action-ink); font: inherit; font-size: 1rem; font-weight: 500; line-height: 1.2; cursor: pointer; transition: background-color 0.15s ease; }
+.pv-adicionar:hover { background: var(--uf-action-hover); }
+.pv-adicionar:active { background: var(--uf-action-active); }
+.pv-adicionar:focus-visible, .pv-contador button:focus-visible { outline: 3px solid var(--uf-action-ink); outline-offset: 2px; }
+.pv-card .pv-cesta .reservar-contador { display: flex; align-items: center; justify-content: space-between; box-sizing: border-box; width: 100%; min-width: 0; height: 2.75rem; margin: 0; border: 1.5px solid var(--uf-action); border-radius: 999px; background: #ffffff; }
+.pv-card .pv-cesta .reservar-contador output { min-width: 2ch; text-align: center; font-weight: 700; }
+@media (min-width: 768px) {
+  .pv-card .pv-corpo { padding: 0 16px; }
+  .pv-card .pv-img { padding-top: 24px; }
+  .pv-card .pv-nome { font-size: 1rem; }
+  .pv-card .pv-avisos { padding: 8px 16px 0; }
+  .pv-card .pv-cesta { padding: 12px 16px 0; }
+}
+/* vitrines em carrossel: mesmo cartão; cinco por vez no computador */
+.shop-destaques-lista > .pv-card--v { flex: 0 0 11.5rem; }
+@media (min-width: 992px) { .shop-destaques-lista > .pv-card--v { flex: 0 0 15.75rem; } }
+@media (prefers-reduced-motion: reduce) { .pv-card, .pv-adicionar { transition: none; } }
