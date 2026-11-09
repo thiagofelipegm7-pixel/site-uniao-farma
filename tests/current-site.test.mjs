@@ -38,7 +38,7 @@ test("home: cabeçalho que encolhe ao rolar e pílula de abas fixa, só no deskt
   assert.match(css, /@media \(min-width: 992px\) and \(prefers-reduced-motion: reduce\)/);
 });
 
-test("home: 'Navegue por categoria' é faixa horizontal com cards grandes e scroll-snap", async () => {
+test("home: 'Navegue por categoria' é faixa horizontal com cards menores e scroll-snap", async () => {
   const [sec, css] = await Promise.all([
     readFile(new URL("../app/shop/ShopSections.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/shop/shop.css", import.meta.url), "utf8"),
@@ -52,12 +52,12 @@ test("home: 'Navegue por categoria' é faixa horizontal com cards grandes e scro
   assert.doesNotMatch(sec, /is-oferta/);
   assert.doesNotMatch(sec, /const VISIVEIS/);
   assert.doesNotMatch(sec, /shop-cat-seta/);
-  // Cards ~130px no mobile, snap e scrollbar oculta.
-  assert.match(css, /--cat-tile: 8\.125rem/);
+  // Cards ~92px no mobile (~29% menores), snap e scrollbar oculta.
+  assert.match(css, /--cat-tile: 5\.75rem/);
   assert.match(css, /scroll-snap-type: x mandatory/);
   assert.match(css, /scrollbar-width: none/);
   assert.match(css, /\.shop-categorias-trilho::-webkit-scrollbar \{ display: none; \}/);
-  assert.match(css, /border-radius: 1\.25rem/);
+  assert.match(css, /border-radius: 1rem/);
   // Protege contra "main li > a { display: inline-flex !important }" de design.css.
   assert.match(css, /main \.shop-categorias li > a/);
   assert.match(css, /display: grid !important/);
