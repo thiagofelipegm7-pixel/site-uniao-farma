@@ -89,9 +89,6 @@ export default async function ProdutosNacoesPage() {
               whatsappHref={whatsappHref}
               unitId={nacoes.id}
             />
-          <p className="catalogo-nota">
-            Preços de {dataDosDados ?? "data não informada"}{atualizadoEm ? ` (${atualizadoEm})` : ""}. Preço e estoque podem mudar: a loja confirma pelo WhatsApp antes de separar. Nesta lista, com cesta, só itens sem receita: medicamentos isentos de prescrição (MIPs), higiene e dermocosméticos. Leia a bula. Em caso de dúvida, procure o farmacêutico.
-          </p>
         </div>
       </div>
       <ContentSiteFooter />
