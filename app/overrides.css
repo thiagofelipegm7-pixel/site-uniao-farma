@@ -938,3 +938,4 @@ h3 {
 .cesta-sugestao-add { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 0.25rem; min-height: 2.75rem; min-width: 2.75rem; padding: 0 0.625rem; border: 1px solid #0a3548; border-radius: 6px; background: #ffffff; color: #0a3548; font: inherit; font-size: 0.8125rem; font-weight: 700; cursor: pointer; }
 .cesta-sugestoes-gaveta { margin-bottom: 0.5rem; }
 @media (max-width: 400px) { .cesta-sugestao-add span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } }
+.semana-link { display: flex; align-items: center; gap: 1rem; text-decoration: none; color: inherit; flex: 1; min-width: 0; }
