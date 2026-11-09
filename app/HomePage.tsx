@@ -4,7 +4,6 @@
 
 import { SITE_URL, PUBLIC_UNITS } from "./site-config";
 import { getPageStructuredData } from "./structured-data";
-import LojasCartoes from "./shop/LojasCartoes";
 import OfertasSemana from "./OfertasSemana";
 import LojaBar from "./shop/LojaBar";
 import CabecalhoInteligente from "./shop/CabecalhoInteligente";
@@ -46,7 +45,6 @@ export default function HomePage() {
       <DestaquesSemana id="vitrine-farmax" titulo="Farmax" lab="FARMAX" n={12} verTodas={false} source="home_farmax" />
       <DestaquesSemana id="vitrine-cimed" titulo="Cimed" lab="CIMED" n={12} verTodas={false} source="home_cimed" />
       <DestaquesSemana id="vitrine-nivea" titulo="Nivea" lab="NIVEA" n={12} verTodas={false} source="home_nivea" />
-      <LojasCartoes />
       {/* Invisível: mantém a página de novidades ligada à home sem mudar o visual. */}
       <a className="sr-only" href="/novidades">Novidades da União Farma</a>
     </>
