@@ -8,11 +8,11 @@ import CabecalhoInteligente from "./shop/CabecalhoInteligente";
 import ShopHeader from "./shop/ShopHeader";
 import DestaquesSemana from "./shop/DestaquesSemana";
 import PainelBanners from "./shop/PainelBanners";
-import { AbasHome, SubmenuHome } from "./shop/HomeBlocos";
+import { SubmenuHome } from "./shop/HomeBlocos";
 import { CategoriasLinha } from "./shop/ShopSections";
 
 /**
- * Home na estrutura da home da Panvel: cabeçalho e submenu, abas, banner (único h1), cartões de benefícios,
+ * Home na estrutura da home da Panvel: cabeçalho e submenu, banner (único h1), cartões de benefícios,
  * categorias, vitrines por categoria, "como você quiser", lojas e contato. Sem FAQ no schema: não há FAQ visível.
  */
 export default function HomePage() {
@@ -30,7 +30,6 @@ export default function HomePage() {
         <ShopHeader />
         <SubmenuHome />
       </CabecalhoInteligente>
-      <AbasHome />
       <PainelBanners titulo="Farmácia em Sabará: União Farma Nações Unidas" />
       <CategoriasLinha />
       <DestaquesSemana id="vitrine-higiene" titulo="Cuidado Diário" grupo="cuidado-diario" n={12} verTodas={false} source="home_higiene" />

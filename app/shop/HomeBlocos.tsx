@@ -23,17 +23,6 @@ export function SubmenuHome() {
   );
 }
 
-/** Pílula de seções do topo. O texto "Para você" é o contexto do único h1 da página (o título do banner). */
-export function AbasHome() {
-  return (
-    <nav className="shop-abas" aria-label="Seções da página">
-      <a className="is-ativa" href="#inicio" aria-current="true"><span>Para você</span></a>
-      <a href="/departamentos/medicamentos"><span>Saúde</span></a>
-      <a href="/departamentos/beleza"><span>Beleza</span></a>
-    </nav>
-  );
-}
-
 /** Cartões de benefícios logo abaixo do banner (a "info bar" da Panvel). Só dados reais do site. */
 export function BarraInfo() {
   return (
