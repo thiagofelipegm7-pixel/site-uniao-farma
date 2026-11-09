@@ -15,7 +15,7 @@ import { carregarUltimoPedido, guardarUltimoPedido, repetirPedido, type ItemCata
 import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats, IconCesta, IconCaminhao, IconConfirmado } from "./ReservaIcons";
 import CestaSugestoes from "./CestaSugestoes";
 import DestaquesSemana from "../shop/DestaquesSemana";
-import { ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, exigeReceita, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
+import { ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
 import { useDisponibilidade } from "./useDisponibilidade";
 import { avisosDaCesta } from "../disponibilidade";
@@ -101,7 +101,6 @@ export default function ReservaFluxo() {
   }, []);
 
   // Entrega liberada mesmo com receita/controlado (dono autorizou).
-  const soRetirada = false;
   const modo = estado.modo;
   const retirar = modo === "retirar";
   const unidadeEntrega = bairro ? lojaDoBairro(PUBLIC_UNITS, bairro) : null;
@@ -212,7 +211,6 @@ export default function ReservaFluxo() {
     </>
   );
 
-  const faltaReceita = soRetirada && !receita && !levoReceita;
   const temReceita = estado.itens.some((i) => i.receita) || estado.itens.some((i) => /ritalina|controlado|receita/i.test(i.nome));
   function confirmarEnvio() {
     setAvisoReceita(false);
