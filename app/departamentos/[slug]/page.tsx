@@ -95,8 +95,6 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
           ) : (
             <CatalogoLista paginaInicial={paginaPedida} grupos={grupos} departamento={dep.slug} whatsappHref={whatsappHref} unitId={nacoes.id} />
           )}
-          {dep.slug === "medicamentos" ? (
-          ) : null}
         </div>
       </div>
       <ContentSiteFooter />
