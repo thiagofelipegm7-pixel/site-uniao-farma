@@ -252,6 +252,8 @@ test("medicamentos: o departamento reúne sem receita, com receita, controlados 
   const comp = await read("app/nacoes-unidas/produtos/MedicamentosTodos.tsx");
   for (const tipo of ["receita", "controlados"]) assert.ok(comp.includes(`"${tipo}"`), tipo);
   assert.ok(!comp.includes("Consulte o farmacêutico"), "a aba Consulte foi extinta");
+  assert.doesNotMatch(comp, /medicamentos-abas|role="tablist"|rotulo: "Todos"|rotulo: "Sem receita"/);
+  assert.match(comp, /params\.has\("filtro"\)/);
   assert.match(comp, /restritos-index\.json/);
   assert.match(comp, /restritos\/\$\{tipo\}\/p\$\{p\}\.json/);
   const idx = await json("public/dados/nacoes/restritos-index.json");
