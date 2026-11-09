@@ -31,7 +31,7 @@ export default function HomePage() {
         <SubmenuHome />
       </CabecalhoInteligente>
       <AbasHome />
-      <PainelBanners />
+      <PainelBanners titulo="Farmácia em Sabará: União Farma Nações Unidas" />
       <CategoriasLinha />
       <DestaquesSemana id="vitrine-higiene" titulo="Cuidado Diário" grupo="cuidado-diario" n={12} verTodas={false} source="home_higiene" />
       <DestaquesSemana id="vitrine-pele" titulo="Dermocosméticos" grupo="dermocosmeticos" n={12} verTodas={false} source="home_pele" />
