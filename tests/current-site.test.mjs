@@ -90,6 +90,18 @@ test("header: cesta em contorno no estilo das categorias, badge coral circular",
 });
 
 
+
+test("submenu desktop: sem Enviar para e sem Ofertas Exclusivas; Departamentos permanece", async () => {
+  const src = await readFile(new URL("../app/shop/HomeBlocos.tsx", import.meta.url), "utf8");
+  assert.match(src, /export function SubmenuHome/);
+  assert.match(src, /Departamentos/);
+  assert.doesNotMatch(src, /Enviar para/);
+  assert.doesNotMatch(src, /Ofertas Exclusivas/);
+  assert.doesNotMatch(src, /shop-submenu-loja/);
+  // Página /ofertas continua no site (não removemos a rota).
+  assert.match(await readFile(new URL("../app/ofertas/page.tsx", import.meta.url), "utf8"), /ofertas/i);
+});
+
 test("header desktop: sem bloco WhatsApp com número no cabeçalho teal", async () => {
   const [header, css] = await Promise.all([
     readFile(new URL("../app/shop/ShopHeader.tsx", import.meta.url), "utf8"),
