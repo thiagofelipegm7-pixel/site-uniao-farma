@@ -46,7 +46,7 @@ export function CategoriasLinha() {
 export function HeroReserva() {
   const [banner, setBanner] = useState<string | null>(null);
   useEffect(() => {
-    fetch("/api/interno/banners", { cache: "no-store" })
+    fetch("/api/banners-publico", { cache: "no-store" })
       .then((r) => r.json())
       .then((d: { banners?: { id: string; url: string }[] }) => {
         const hero = d.banners?.find((b) => b.id === "hero");
