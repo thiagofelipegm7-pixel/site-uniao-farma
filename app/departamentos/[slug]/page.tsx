@@ -96,15 +96,6 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
             <CatalogoLista paginaInicial={paginaPedida} grupos={grupos} departamento={dep.slug} whatsappHref={whatsappHref} unitId={nacoes.id} />
           )}
           {dep.slug === "medicamentos" ? (
-            <aside className="catalogo-aviso" aria-label="Medicamentos com receita e controlados">
-              <p>
-                <strong>Com receita e controlados:</strong> retire na loja com a receita (retida pela farmácia quando a lei exigir).
-              </p>
-              <p className="catalogo-aviso-links">
-                <a href="/nacoes-unidas/produtos/receita">Ver medicamentos com receita</a>
-                <a href="/nacoes-unidas/produtos/controlados">Ver medicamentos controlados</a>
-              </p>
-            </aside>
           ) : null}
           <p className="catalogo-nota">Preço e estoque podem mudar: a loja confirma pelo WhatsApp antes de separar.</p>
         </div>
