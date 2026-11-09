@@ -270,7 +270,7 @@ test("cartão de produto no padrão da Panvel: um componente só, com as medidas
   assert.equal(partesPreco("Consultar"), null);
   const css = await read("app/shop/shop.css");
   assert.match(css, /grid-template-columns: repeat\(auto-fill, minmax\(10\.5rem, 1fr\)\); gap: 20px/);
-  assert.match(await read("app/nacoes-unidas/produtos/preco.css"), /\.pv-preco b \{ font-size: 26px; font-weight: 900/);
+  assert.match(await read("app/nacoes-unidas/produtos/preco.css"), /\.pv-preco b \{\s*font-size: inherit;\s*font-weight: 800/);
   for (const f of ["app/nacoes-unidas/produtos/CatalogoLista.tsx", "app/nacoes-unidas/produtos/MedicamentosTodos.tsx", "app/nacoes-unidas/produtos/ListaRestrita.tsx", "app/shop/DestaquesSemana.tsx"]) {
     assert.match(await read(f), /CartaoPanvel|<Cartao /, f);
   }
