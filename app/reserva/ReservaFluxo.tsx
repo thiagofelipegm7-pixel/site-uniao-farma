@@ -214,8 +214,6 @@ export default function ReservaFluxo() {
   const faltaReceita = soRetirada && !receita && !levoReceita;
   const enviarWhats = (classe: string) => acabaram.length > 0 ? (
     <button type="button" className={classe} disabled><IconWhats size={24} /> Tire o que acabou para enviar</button>
-  ) : faltaReceita ? (
-    <button type="button" className={classe} disabled><IconWhats size={24} /> Anexe a foto da receita para enviar</button>
   ) : pagamento ? (
     <a className={classe} href={href} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unidade.id} data-track-source="reserva_envio" onClick={() => { guardarUltimoPedido(estado.itens.filter(itemAtivo)); registrarEtapa("enviar"); setEnviado(true); }}>
       <IconWhats size={24} /> Enviar pedido pelo WhatsApp
@@ -490,34 +488,6 @@ export default function ReservaFluxo() {
                 <button type="button" className="entrega-btn entrega-btn-alterar" onClick={() => { setEditando(true); ir(2); }}>Alterar</button>
               </div>
             </section>
-
-            {soRetirada ? (
-              <section className="fluxo-receita" aria-label="Foto da receita">
-                <strong>Foto da receita</strong>
-                <p>Sua cesta tem medicamento com receita ou controlado. Anexe a foto da receita: ela fica só no seu celular e você a envia na conversa do WhatsApp junto com o pedido. A loja confere a receita na retirada.</p>
-                {receita ? (
-                  <div className="fluxo-receita-previa">
-                    <img src={receita.previa} alt="Foto da receita anexada" width="96" height="96" />
-                    <label className="fluxo-receita-botao">
-                      Trocar a foto
-                      <input type="file" accept="image/*" onChange={(e) => { void escolherReceita(e.target.files?.[0]); e.target.value = ""; }} />
-                    </label>
-                  </div>
-                ) : (
-                  <label className="fluxo-receita-botao fluxo-receita-principal">
-                    Tirar ou escolher a foto da receita
-                    <input type="file" accept="image/*" onChange={(e) => { void escolherReceita(e.target.files?.[0]); e.target.value = ""; }} />
-                  </label>
-                )}
-                {erroReceita ? <p className="fluxo-aviso-estoque" role="alert">{erroReceita}</p> : null}
-                {!receita ? (
-                  <label className="fluxo-receita-levo">
-                    <input type="checkbox" checked={levoReceita} onChange={(e) => setLevoReceita(e.target.checked)} />
-                    Não tenho a foto agora: levo a receita na loja
-                  </label>
-                ) : null}
-              </section>
-            ) : null}
 
             <p className="entrega-titulo" role="heading" aria-level={2}>Revise seu pedido</p>
             <div className="entrega-pacote">
