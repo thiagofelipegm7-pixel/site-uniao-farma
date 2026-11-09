@@ -7,6 +7,7 @@ import { getPageStructuredData } from "./structured-data";
 import CabecalhoInteligente from "./shop/CabecalhoInteligente";
 import ShopHeader from "./shop/ShopHeader";
 import DestaquesSemana from "./shop/DestaquesSemana";
+import PainelBanners from "./shop/PainelBanners";
 import { AbasHome, SubmenuHome } from "./shop/HomeBlocos";
 import { CategoriasLinha } from "./shop/ShopSections";
 
@@ -30,6 +31,7 @@ export default function HomePage() {
         <SubmenuHome />
       </CabecalhoInteligente>
       <AbasHome />
+      <PainelBanners />
       <CategoriasLinha />
       <DestaquesSemana id="vitrine-higiene" titulo="Cuidado Diário" grupo="cuidado-diario" n={12} verTodas={false} source="home_higiene" />
       <DestaquesSemana id="vitrine-pele" titulo="Dermocosméticos" grupo="dermocosmeticos" n={12} verTodas={false} source="home_pele" />
