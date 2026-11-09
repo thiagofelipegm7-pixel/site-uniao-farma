@@ -88,21 +88,24 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
           const p1 = await lerPagina(g.slug, 1);
           gruposCarregados.push({ categoria: g.categoria, id: g.slug, itens: p1.map(paraItem) });
         }
-        // Também carrega produtos com receita e controlados (estão no estoque).
+        // Carrega todo o estoque do PC (produtos com estoque > 0).
         try {
-          const rx = await fetch("/dados/nacoes/receita-nacoes.json").then(r => r.json());
-          const restritos = [...(rx.receita || []), ...(rx.controlados || [])];
-          if (restritos.length > 0) {
-            const itensRx = restritos.map((i: { nome: string; lab?: string; preco?: number }) => ({
-              nome: i.nome,
-              lab: i.lab || "",
-              isMIP: false,
-              precoFmt: i.preco ? `R$ ${i.preco.toFixed(2).replace(".", ",")}` : "",
-              preco: i.preco || 0,
-              foto: null,
-              slug: i.nome.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
-            }));
-            gruposCarregados.push({ categoria: "Medicamentos", id: "medicamentos-restritos", itens: itensRx });
+          const estoque = await fetch("/api/estoque-publico", { cache: "no-store" }).then(r => r.json());
+          if (estoque.ok && estoque.itens?.length > 0) {
+            const jaTem = new Set(gruposCarregados.flatMap(g => g.itens.map(i => i.nome.toLowerCase())));
+            const novos = estoque.itens.filter((i: { nome: string }) => !jaTem.has(i.nome.toLowerCase()));
+            if (novos.length > 0) {
+              const itensNovos = novos.map((i: { nome: string; lab?: string; preco: number }) => ({
+                nome: i.nome,
+                lab: i.lab || "",
+                isMIP: false,
+                precoFmt: `R$ ${i.preco.toFixed(2).replace(".", ",")}`,
+                preco: i.preco,
+                foto: null,
+                slug: i.nome.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+              }));
+              gruposCarregados.push({ categoria: "Medicamentos", id: "estoque-completo", itens: itensNovos });
+            }
           }
         } catch {}
         if (cancel) return;
