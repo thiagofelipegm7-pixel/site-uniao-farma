@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import ReservarBotao from "./reserva/ReservarBotao";
 import Preco from "./nacoes-unidas/produtos/Preco";
+import { slugify } from "./nacoes-unidas/produtos/catalogo";
 import { readPreferredUnitId } from "./preferred-unit";
 import { IconCoracao } from "./reserva/ReservaIcons";
 import {
@@ -54,6 +55,7 @@ export default function OfertasSemana() {
           return (
             <li key={offer.id}>
               <article className="semana-card">
+                <a href={`/nacoes-unidas/produtos/${slugify(offer.name)}`} className="semana-link">
                 {offer.image ? (
                   <img className="semana-foto" src={offer.image} alt="" width="112" height="112" />
                 ) : (
@@ -63,6 +65,7 @@ export default function OfertasSemana() {
                   <h3 className="semana-nome">{offer.name}</h3>
                   {anterior !== null ? <p className="semana-de">De {formatOfferPrice(anterior)}</p> : <p className="semana-de semana-de-vazio" aria-hidden="true" />}
                   <EtiquetaPreco valor={preco} />
+                </a>
                   <ReservarBotao
                     unitId={loja}
                     nome={offer.name}
