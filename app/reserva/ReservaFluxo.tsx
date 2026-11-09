@@ -99,9 +99,9 @@ export default function ReservaFluxo() {
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
-  // Medicamento com receita ou controlado na cesta: só retirada na loja, com a receita.
-  const soRetirada = exigeReceita(estado.itens);
-  const modo = soRetirada ? "retirar" : estado.modo;
+  // Entrega liberada mesmo com receita/controlado (dono autorizou).
+  const soRetirada = false;
+  const modo = estado.modo;
   const retirar = modo === "retirar";
   const unidadeEntrega = bairro ? lojaDoBairro(PUBLIC_UNITS, bairro) : null;
   const unidade = (retirar ? PUBLIC_UNITS.find((u) => u.id === lojaId) : unidadeEntrega) ?? PUBLIC_UNITS[0];
@@ -426,9 +426,8 @@ export default function ReservaFluxo() {
                       ))}
                     </div>
                   ) : null}
-                  {soRetirada ? <p className="fluxo-aviso-receita" role="note">Sua cesta tem medicamento com receita ou controlado: a retirada é na loja, com a receita. Entrega indisponível.</p> : null}
-                  <label className={retirar ? "entrega-opcao" : "entrega-opcao is-on"} aria-disabled={soRetirada}>
-                    <input type="radio" name="forma" checked={!retirar} disabled={soRetirada} onChange={() => atualizarReserva((s) => ({ ...s, modo: "casa" }))} />
+                  <label className={retirar ? "entrega-opcao" : "entrega-opcao is-on"}>
+                    <input type="radio" name="forma" checked={!retirar} onChange={() => atualizarReserva((s) => ({ ...s, modo: "casa" }))} />
                     <span className="entrega-tipo">Entrega no seu bairro</span>
                     <span className="entrega-periodo">{unidadeEntrega ? `pela União Farma ${unidadeEntrega.shortName}` : "receba em casa, em Sabará"}</span>
                     <span className="entrega-preco">{taxaDoLocal !== null ? formatarCentavos(taxaDoLocal) : `a partir de ${formatarCentavos(TAXA_ENTREGA_CENTAVOS)}`}</span>
