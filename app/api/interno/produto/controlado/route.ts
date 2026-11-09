@@ -1,3 +1,4 @@
+import { mapaDeCategorias } from "../../../../categoria-override";
 import { chaveDoNome, definirControlado, ehCategoriaComControlado, validarEstado } from "../../../../controlado-override";
 import { dispararSincronizacao } from "../../../../disparar-sync";
 import { banco } from "../../../../estoque-fonte";
@@ -34,12 +35,16 @@ export async function POST(request: Request) {
   const v = validarEstado(c.estado);
   if (!original || original.length > 200 || quem.length > 60) return Response.json({ ok: false, erro: "pedido_invalido" }, { status: 400, headers: SEM_CACHE });
   if (!v.ok) return Response.json({ ok: false, erro: v.erro }, { status: 400, headers: SEM_CACHE });
-  // Limpar (auto) sempre pode; marcar sim/não só em Medicamentos.
-  if (v.estado !== "auto" && !ehCategoriaComControlado(categoriaDoProduto(original))) {
-    return Response.json({ ok: false, erro: "so_medicamentos" }, { status: 400, headers: SEM_CACHE });
-  }
   const db = banco();
   if (!db) return Response.json({ ok: false, erro: "sem_banco" }, { status: 501, headers: SEM_CACHE });
+  // Limpar (auto) sempre pode; marcar sim/não só com categoria efetiva Medicamentos (override conta).
+  if (v.estado !== "auto") {
+    const ovr = db ? await mapaDeCategorias(db).catch(() => ({})) : {};
+    const efetiva = ovr[chaveDoNome(original)]?.categoria ?? categoriaDoProduto(original);
+    if (!ehCategoriaComControlado(efetiva)) {
+      return Response.json({ ok: false, erro: "so_medicamentos" }, { status: 400, headers: SEM_CACHE });
+    }
+  }
   await definirControlado(db, original, v.estado, quem);
   const publicando = await dispararSincronizacao(db);
   return Response.json({ ok: true, estado: v.estado, publicando }, { headers: SEM_CACHE });

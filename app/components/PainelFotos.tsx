@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { candidatosDoArraste } from "../fotos-arrastar";
+import { CATEGORIAS_VALIDAS } from "../categoria-override";
 import { chaveDoNome } from "../nomes-corrigidos";
 import { nomeDeExibicao } from "../nome-exibicao";
 import { prepararFoto } from "./preparar-foto";
@@ -9,15 +10,16 @@ import { filtrarLinhas, resumirFotos, type FiltroFotos, type LinhaFoto, type Res
 import "../metrics-polish.css";
 import "./painel-fotos.css";
 
-type Linha = [string, string, string, string, number, number, number, number, number, string, number, number?];
-type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; nomes?: Record<string, { nome: string; por: string; quando: string }>; controlados?: Record<string, { estado: "sim" | "nao"; por: string; quando: string }>; alteracoes?: { tipo: string; titulo: string; acao: string; anterior: string | null; novo: string | null; por: string; quando: string }[]; linhas: Linha[] };
+type Linha = [string, string, string, string, number, number, number, number, number, string, number, number?, number?];
+type LinhaPainel = LinhaFoto & { sistemaRestrito?: boolean };
+type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; nomes?: Record<string, { nome: string; por: string; quando: string }>; controlados?: Record<string, { estado: "sim" | "nao"; por: string; quando: string }>; categoriasOverride?: Record<string, { categoria: string; por: string; quando: string }>; alteracoes?: { tipo: string; titulo: string; acao: string; anterior: string | null; novo: string | null; por: string; quando: string }[]; linhas: Linha[] };
 
 const CHAVE_MARCAS = "uf_fotos_ok";
 const REAIS = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
 const POR_PAGINA = 100;
 
-function paraLinha(l: Linha): LinhaFoto {
-  return { ean: l[0], nome: l[1], lab: l[2], classe: l[3], estoque: l[4], preco: l[5], valor: l[6], controlado: l[7] === 1, antimicrobiano: l[8] === 1, categoria: l[9], noSite: l[10] === 1, ...(l[11] === 1 ? { semCodigo: true } : {}) };
+function paraLinha(l: Linha): LinhaPainel {
+  return { ean: l[0], nome: l[1], lab: l[2], classe: l[3], estoque: l[4], preco: l[5], valor: l[6], controlado: l[7] === 1, antimicrobiano: l[8] === 1, categoria: l[9], noSite: l[10] === 1, ...(l[11] === 1 ? { semCodigo: true } : {}), ...(l[12] === 1 ? { sistemaRestrito: true } : {}) };
 }
 
 /** Arquivo do computador ou imagem arrastada de outro site (o navegador só manda o endereço e o HTML dela). */
@@ -57,6 +59,7 @@ export default function PainelFotos() {
   const [textoNome, setTextoNome] = useState("");
   const [nomesAgora, setNomesAgora] = useState<Record<string, string | null>>({});
   const [controladosAgora, setControladosAgora] = useState<Record<string, "auto" | "sim" | "nao">>({});
+  const [categoriasAgora, setCategoriasAgora] = useState<Record<string, string>>({});
   const [removidasAgora, setRemovidasAgora] = useState<Set<string>>(new Set());
   const [copiado, setCopiado] = useState<string | null>(null);
   // Linha escolhida com um toque: recebe a imagem colada (Ctrl+V).
@@ -355,14 +358,27 @@ export default function PainelFotos() {
   }
 
 
-  function estadoControlado(l: LinhaFoto): "auto" | "sim" | "nao" {
+  function categoriaEfetiva(l: LinhaPainel): string {
+    const k = chaveDoNome(l.nome);
+    if (categoriasAgora[k]) return categoriasAgora[k];
+    const salvo = dados?.categoriasOverride?.[k];
+    return salvo?.categoria ?? l.categoria;
+  }
+
+  function estadoCategoria(l: LinhaPainel): string {
+    const k = chaveDoNome(l.nome);
+    if (Object.prototype.hasOwnProperty.call(categoriasAgora, k)) return categoriasAgora[k] === "" ? "auto" : categoriasAgora[k];
+    return dados?.categoriasOverride?.[k]?.categoria ? dados.categoriasOverride[k].categoria : "auto";
+  }
+
+  function estadoControlado(l: LinhaPainel): "auto" | "sim" | "nao" {
     const k = chaveDoNome(l.nome);
     if (controladosAgora[k]) return controladosAgora[k];
     const salvo = dados?.controlados?.[k];
     return salvo?.estado ?? "auto";
   }
 
-  async function salvarControlado(l: LinhaFoto, estado: "auto" | "sim" | "nao") {
+  async function salvarControlado(l: LinhaPainel, estado: "auto" | "sim" | "nao") {
     try {
       const r = await fetch("/api/interno/produto/controlado", {
         method: "POST",
@@ -383,6 +399,41 @@ export default function PainelFotos() {
       setAviso(`Enquadramento (${rotulo}) salvo. Vale na próxima publicação (em alguns minutos).`);
     } catch {
       setAviso("Não consegui salvar o enquadramento controlado. Tente de novo.");
+    }
+  }
+
+  async function salvarCategoria(l: LinhaPainel, categoria: string) {
+    if (categoria !== "auto" && categoria !== "Medicamentos" && l.sistemaRestrito) {
+      setAviso("Este item é receita ou controlado no sistema (Portaria 344). Não pode sair de Medicamentos.");
+      return;
+    }
+    try {
+      const r = await fetch("/api/interno/produto/categoria", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ original: l.nome, categoria, por: por.trim() }),
+      });
+      if (r.redirected || (r.headers.get("content-type") ?? "").includes("text/html")) {
+        setAviso("Sua sessão venceu. Recarregue a página (F5), entre de novo e tente outra vez.");
+        return;
+      }
+      const j = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string } | null;
+      if (!r.ok || !j?.ok) {
+        const msg: Record<string, string> = {
+          sistema_restrito: "Este item é receita ou controlado no sistema (Portaria 344). Não pode sair de Medicamentos.",
+          categoria_invalida: "Categoria inválida.",
+        };
+        setAviso(msg[j?.erro ?? ""] ?? "Não consegui salvar a categoria. Tente de novo.");
+        return;
+      }
+      const k = chaveDoNome(l.nome);
+      setCategoriasAgora((n) => ({ ...n, [k]: categoria === "auto" ? "" : categoria }));
+      if (categoria !== "auto" && categoria !== "Medicamentos") {
+        setControladosAgora((n) => ({ ...n, [k]: "auto" }));
+      }
+      setAviso(categoria === "auto" ? "Categoria automática. Vale na próxima publicação (em alguns minutos)." : `Categoria “${categoria}” salva. Vale na próxima publicação (em alguns minutos).`);
+    } catch {
+      setAviso("Não consegui salvar a categoria. Tente de novo.");
     }
   }
 
@@ -519,7 +570,24 @@ export default function PainelFotos() {
                       {l.lab ? <small>{l.lab}</small> : null}
                       {l.controlado ? <em className="pf-tag">Controlado (sistema)</em> : null}
                       {l.antimicrobiano ? <em className="pf-tag pf-tag-a">Antimicrob.</em> : null}
-                      {l.categoria === "Medicamentos" ? (
+                      <label className="pf-controlado">
+                        <span>Categoria</span>
+                        <select
+                          value={estadoCategoria(l)}
+                          aria-label={`Categoria de ${l.nome}`}
+                          onChange={(e) => void salvarCategoria(l, e.target.value)}
+                        >
+                          <option value="auto">Automático</option>
+                          {CATEGORIAS_VALIDAS.map((c) => (
+                            <option key={c} value={c} disabled={Boolean(l.sistemaRestrito && c !== "Medicamentos")}>
+                              {c}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      {estadoCategoria(l) !== "auto" ? <em className="pf-tag pf-tag-n">Override: {estadoCategoria(l)}</em> : null}
+                      {l.sistemaRestrito ? <small className="pf-original">Receita/controlado do sistema: só Medicamentos</small> : null}
+                      {categoriaEfetiva(l) === "Medicamentos" ? (
                         <>
                           <label className="pf-controlado">
                             <span>Controlado (Portaria 344)</span>
@@ -539,7 +607,7 @@ export default function PainelFotos() {
                         <em className="pf-tag pf-tag-n" title="Override antigo; o seletor só aparece em Medicamentos">Marcado como controlado</em>
                       ) : null}
                     </td>
-                    <td data-r="Categoria">{l.categoria}</td>
+                    <td data-r="Categoria">{categoriaEfetiva(l)}</td>
                     <td data-r="Estoque" className="pf-n"><span className={`pf-qtd pf-qtd-${l.estoque <= 0 ? "zero" : l.estoque <= 5 ? "baixo" : "normal"}`} title={l.estoque <= 0 ? "Zerado" : l.estoque <= 5 ? "Estoque baixo" : "Estoque normal"}>{l.estoque}</span></td>
                     <td data-r="Preço" className="pf-n">{REAIS.format(l.preco)}</td>
                   </tr>
@@ -556,6 +624,7 @@ export default function PainelFotos() {
                     <strong>{a.por}</strong> {a.acao}: {a.titulo}
                     {a.tipo === "nome" && a.novo ? <> → “{a.novo}”{a.anterior ? <> (antes “{a.anterior}”)</> : null}</> : null}
                     {a.tipo === "controlado" ? <> → {a.novo}{a.anterior ? <> (antes {a.anterior})</> : null}</> : null}
+                    {a.tipo === "categoria" ? <> → {a.novo}{a.anterior ? <> (antes {a.anterior})</> : null}</> : null}
                     <small> · {new Date(a.quando).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" })}</small>
                   </li>
                 ))}
