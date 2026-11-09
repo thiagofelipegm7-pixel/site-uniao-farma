@@ -8,6 +8,7 @@ import { IconSetaDireita } from "../../../reserva/ReservaIcons";
 import Preco from "../Preco";
 import SemFoto from "../SemFoto";
 import { acharPorSlug, carregarCatalogoCompleto, carregarCatalogoNacoes, formatBRL, slugify } from "../catalogo";
+import { carregarRestritos } from "../receita";
 import { acharDepartamento } from "../departamentos";
 import { fotoDoProduto } from "../imagens";
 import { fotoExibida } from "../foto-exibida";
@@ -43,7 +44,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProdutoNacoesPage({ params }: Props) {
   const { slug } = await params;
   const catalogo = carregarCatalogoCompleto();
-  const item = catalogo ? acharPorSlug(catalogo.itens, slug) : null;
+  let item = catalogo ? acharPorSlug(catalogo.itens, slug) : null;
+  // Também busca em restritos (receita/controlados) para abrir página do produto.
+  if (!item) {
+    const restritos = carregarRestritos();
+    const todos = [...restritos.receita, ...restritos.controlados, ...restritos.consulte];
+    const achado = todos.find((i) => slugify(i.nome) === slug || (i.slug && i.slug === slug));
+    if (achado) item = { nome: achado.nome, lab: achado.lab, categoria: "Medicamentos", preco: achado.preco ?? 0, isMIP: false };
+  }
   if (!item) notFound();
 
   const nomeExibido = nomeDeExibicao(item.nome);
