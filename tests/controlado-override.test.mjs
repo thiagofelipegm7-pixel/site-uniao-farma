@@ -10,6 +10,9 @@ test("controlado override: validação dos 3 estados e chave", () => {
   assert.deepEqual(C.validarEstado("sim"), { ok: true, estado: "sim" });
   assert.deepEqual(C.validarEstado("nao"), { ok: true, estado: "nao" });
   assert.equal(C.validarEstado("talvez").erro, "estado_invalido");
+  assert.equal(C.ehCategoriaComControlado("Medicamentos"), true);
+  assert.equal(C.ehCategoriaComControlado("Bem Estar"), false);
+  assert.equal(C.ehCategoriaComControlado("Beleza"), false);
 });
 
 test("controlado override: grava sim/não, volta ao automático e registra quem/quando", async () => {
@@ -54,8 +57,12 @@ test("controlado override: painel, API, sync e middleware ligados", async () => 
   ]);
   assert.match(painel, /Controlado \(Portaria 344\)/);
   assert.match(painel, /Marcar controlado/);
+  assert.match(painel, /l\.categoria === "Medicamentos"/);
+  assert.match(painel, /Marcado como controlado/);
   assert.match(painel, /\/api\/interno\/produto\/controlado/);
   assert.match(api, /definirControlado/);
+  assert.match(api, /so_medicamentos/);
+  assert.match(api, /ehCategoriaComControlado/);
   assert.match(sync, /controlados-overrides\.json/);
   assert.match(sync, /aplicar_controlado\.py/);
   assert.match(mid, /\/api\/interno\/produto\/controlado/);

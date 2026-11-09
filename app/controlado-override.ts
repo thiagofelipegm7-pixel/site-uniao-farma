@@ -8,6 +8,13 @@ import { chaveDoNome, type Banco } from "./nomes-corrigidos";
 export type EstadoControlado = "auto" | "sim" | "nao";
 export const ESTADOS_CONTROLADO = ["auto", "sim", "nao"] as const;
 
+/** Só Medicamentos mostram o seletor no painel; override sim/não só é aceito nessa categoria. */
+export const CATEGORIA_COM_CONTROLADO = "Medicamentos";
+
+export function ehCategoriaComControlado(categoria: string | null | undefined): boolean {
+  return (categoria ?? "").trim() === CATEGORIA_COM_CONTROLADO;
+}
+
 export { chaveDoNome };
 
 export function validarEstado(v: unknown): { ok: true; estado: EstadoControlado } | { ok: false; erro: string } {
