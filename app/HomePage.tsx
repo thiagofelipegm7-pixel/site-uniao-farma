@@ -9,7 +9,7 @@ import CabecalhoInteligente from "./shop/CabecalhoInteligente";
 import ShopHeader from "./shop/ShopHeader";
 import DestaquesSemana from "./shop/DestaquesSemana";
 import { AbasHome, SubmenuHome } from "./shop/HomeBlocos";
-import { CategoriasLinha, HeroReserva } from "./shop/ShopSections";
+import { CategoriasLinha } from "./shop/ShopSections";
 
 /**
  * Home na estrutura da home da Panvel: cabeçalho e submenu, abas, banner (único h1), cartões de benefícios, categorias,
@@ -31,7 +31,6 @@ export default function HomePage() {
         <SubmenuHome />
       </CabecalhoInteligente>
       <AbasHome />
-      <HeroReserva />
       <CategoriasLinha />
       <OfertasSemana />
       <DestaquesSemana id="vitrine-higiene" titulo="Cuidado Diário" grupo="cuidado-diario" n={12} verTodas={false} source="home_higiene" />
