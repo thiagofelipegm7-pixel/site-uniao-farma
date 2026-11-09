@@ -19,8 +19,23 @@ export type ItemBusca = {
 };
 export type GrupoBusca = { categoria: string; id: string; itens: ItemBusca[] };
 
-/** Termos provisórios do painel com o campo vazio. Troque aqui quando houver dados reais. */
-export const BUSCAS_POPULARES = ["nivea", "listerine", "protetor solar"] as const;
+/**
+ * Termos do painel "Termos mais buscados" (campo de busca vazio).
+ * Lista curada manualmente pela loja — não é ranking real de buscas do site.
+ * Edite aqui para trocar a ordem ou os termos (até 10).
+ */
+export const BUSCAS_POPULARES = [
+  "fralda",
+  "protetor solar",
+  "desodorante",
+  "sabonete líquido",
+  "dove",
+  "fralda xg",
+  "shampoo",
+  "dipirona",
+  "valda",
+  "lenço umedecido",
+] as const;
 
 export const ORDENS_CATALOGO = [
   { id: "recomendados", label: "Recomendados" },

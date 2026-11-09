@@ -589,15 +589,28 @@ body:has(.barra-reserva) { padding-bottom: calc(10.5rem + env(safe-area-inset-bo
   right: 0;
   left: 0;
   z-index: 4500;
-  max-height: 60vh;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: min(100%, calc(100vw - 1rem));
+  max-height: min(60vh, 24rem);
+  overflow-x: hidden;
   overflow-y: auto;
   border: 1px solid #d3e2df;
-  border-radius: 8px;
+  border-radius: 12px;
   background: #ffffff;
   box-shadow: 0 8px 24px rgba(13, 20, 19, 0.12);
 }
 .shop-sugestoes ul { margin: 0; padding: 0; list-style: none; }
-.shop-sugestoes-titulo { margin: 0; padding: 0.75rem 0.75rem 0.25rem; color: #3e4b49; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.shop-sugestoes-titulo {
+  margin: 0;
+  padding: 0.875rem 1rem 0.5rem;
+  color: #0a3548;
+  font-family: var(--font-body, Inter, system-ui, sans-serif);
+  font-size: 0.9375rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: none;
+}
 .shop-sugestoes li a {
   display: flex;
   align-items: center;
@@ -606,11 +619,20 @@ body:has(.barra-reserva) { padding-bottom: calc(10.5rem + env(safe-area-inset-bo
   padding: 0.375rem 0.75rem;
   border-bottom: 1px solid #e8f7f5;
   color: var(--uf-ink);
+  font-family: var(--font-body, Inter, system-ui, sans-serif);
   font-size: 0.9375rem;
   text-decoration: none;
 }
-.shop-sugestoes li a strong:first-child { width: 1.75rem; color: var(--uf-navy); font-size: 1rem; }
-.shop-sugestoes li a span { flex: 1; min-width: 0; font-size: 0.875rem; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+.shop-sugestoes li a:hover,
+.shop-sugestoes li a:focus-visible { background: #e4f6f3; }
+.shop-sugestoes li a strong:first-child { width: 2rem; color: #0c9b90; font-size: 1rem; font-weight: 800; }
+.shop-sugestoes li a span { flex: 1; min-width: 0; font-size: 0.875rem; font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; color: var(--uf-ink, #3e4b49); }
+/* Lista curada do campo vazio: tipografia alinhada ao padrão União Farma. */
+.shop-sugestoes-termos li a { flex-wrap: nowrap; padding-inline: 1rem; }
+.shop-sugestoes-termos li:last-child a { border-bottom: 0; }
+@media (max-width: 991px) {
+  .shop-sugestoes-termos li a { flex-wrap: nowrap !important; }
+}
 .shop-sugestoes li a img, .shop-sug-sem-foto { flex: none; width: 2.75rem; height: 2.75rem; border-radius: 4px; object-fit: contain; background: #ffffff; }
 .shop-sug-sem-foto { border: 1px solid #d3e2df; }
 .shop-sugestoes li a span.shop-sug-sem-foto { flex: none; }

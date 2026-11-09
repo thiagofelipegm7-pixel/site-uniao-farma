@@ -92,6 +92,23 @@ test("header: cesta em contorno no estilo das categorias, badge coral circular",
 
 
 
+
+test("busca: painel Termos mais buscados no campo vazio (1º–10º)", async () => {
+  const [header, busca, css] = await Promise.all([
+    readFile(new URL("../app/shop/ShopHeader.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/nacoes-unidas/produtos/busca.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/shop/shop.css", import.meta.url), "utf8"),
+  ]);
+  assert.match(header, /Termos mais buscados/);
+  assert.match(header, /shop-sugestoes-termos/);
+  assert.match(header, /role="listbox"/);
+  assert.match(header, /10º/);
+  assert.match(busca, /Lista curada manualmente/);
+  assert.match(busca, /"dipirona"/);
+  assert.match(css, /#0c9b90/);
+  assert.match(css, /#e4f6f3/);
+});
+
 test("home: sem painel de abas Para você / Saúde / Beleza", async () => {
   const [home, blocos] = await Promise.all([
     readFile(new URL("../app/HomePage.tsx", import.meta.url), "utf8"),
