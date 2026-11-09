@@ -280,7 +280,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                     ))}
                     {resultadosRestritos.map((item) => (
                       <li key={`${item.tipo}-${item.nome}`}>
-                        <a href={`${ROTA_RESTRITA[item.tipo]}?q=${encodeURIComponent(item.q)}`}>
+                        <a href={`/nacoes-unidas/produtos/${item.nome.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}>
                           <img src={imagemIlustrativa({ ...item, nome: item.nomeOriginal })} alt="" width="44" height="44" />
                           <span>
                             {item.nome}
