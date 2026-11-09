@@ -81,7 +81,7 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
           <span>{dep.nome}</span>
         </nav>
         <h1 className="catalogo-titulo section-inner">{dep.nome}</h1>
-        {dep.slug === "medicamentos" ? <p className="departamento-resumo section-inner">Leia a bula; em caso de dúvida, fale com o farmacêutico.</p> : null}
+        
         <nav className="departamento-outros section-inner" aria-label="Departamentos">
           {departamentosPublicos().map((d) => (
             <a key={d.slug} href={`/departamentos/${d.slug}`} aria-current={d.slug === dep.slug ? "page" : undefined}>
@@ -97,7 +97,6 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
           )}
           {dep.slug === "medicamentos" ? (
           ) : null}
-          <p className="catalogo-nota">Preço e estoque podem mudar: a loja confirma pelo WhatsApp antes de separar.</p>
         </div>
       </div>
       <ContentSiteFooter />
