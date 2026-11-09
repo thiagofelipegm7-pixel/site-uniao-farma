@@ -38,22 +38,22 @@ test("home: cabeçalho que encolhe ao rolar e pílula de abas fixa, só no deskt
   assert.match(css, /@media \(min-width: 992px\) and \(prefers-reduced-motion: reduce\)/);
 });
 
-test("home: 'Navegue por categoria' é um carrossel como o da Panvel (setas, 2 quadros por clique, volta infinita) e rola no celular", async () => {
+test("home: 'Navegue por categoria' é faixa horizontal com cards grandes e scroll-snap", async () => {
   const [sec, css] = await Promise.all([
     readFile(new URL("../app/shop/ShopSections.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/shop/shop.css", import.meta.url), "utf8"),
   ]);
-  assert.match(sec, /const VISIVEIS = 7/);
-  assert.match(sec, /const PASSO = 2/);
-  assert.match(sec, /aria-label="Categorias anteriores"/);
-  assert.match(sec, /aria-label="Próximas categorias"/);
-  assert.match(sec, /prefers-reduced-motion: reduce/);
-  assert.match(sec, /aria-hidden=\{copia \? true : undefined\}/);
-  // No celular: sem setas e sem cópias; no desktop: janela de --cat-n quadros (5; 7 a partir de 1440 px).
-  assert.match(css, /\.shop-cat-seta, \.shop-cat-copia \{ display: none; \}/);
-  assert.match(css, /\.shop-categorias-janela \{ overflow: hidden; width: calc\(var\(--cat-n\) \* var\(--cat-tile\) \+ \(var\(--cat-n\) - 1\) \* var\(--cat-gap\)\); \}/);
-  assert.match(css, /--cat-tile: calc\(\(100cqw - 7\.75rem/);
-  assert.match(css, /--cat-n: 7/);
+  assert.match(sec, /shop-categorias-trilho/);
+  assert.match(sec, /Navegue por categoria/);
+  assert.match(sec, /icons\/categorias\/medicamentos\.webp/);
+  assert.doesNotMatch(sec, /const VISIVEIS/);
+  assert.doesNotMatch(sec, /shop-cat-seta/);
+  // Cards ~130px no mobile, snap e scrollbar oculta.
+  assert.match(css, /--cat-tile: 8\.125rem/);
+  assert.match(css, /scroll-snap-type: x mandatory/);
+  assert.match(css, /scrollbar-width: none/);
+  assert.match(css, /\.shop-categorias-trilho::-webkit-scrollbar \{ display: none; \}/);
+  assert.match(css, /border-radius: 1\.25rem/);
 });
 
 test("celular: a barra de atalhos da loja tem 4 colunas e não cobre o aviso de cookies", async () => {
