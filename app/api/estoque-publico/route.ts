@@ -24,3 +24,4 @@ export async function GET() {
 
   return Response.json({ ok: true, total: itens.length, itens }, { headers: SEM_CACHE });
 }
+// ok
