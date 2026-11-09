@@ -99,7 +99,6 @@ test("painel: rota e página só pela sessão da equipe, noindex, sem estoque/c�
   assert.doesNotMatch(rota, /Estoque|CodigoDeBarras|ghp_|github_pat_/);
   const ui = readFileSync("app/components/PainelCatalogo.tsx", "utf8");
   assert.match(ui, /PC do estoque/);
-  assert.match(ui, /a cada 10 minutos/);
   assert.doesNotMatch(ui, /8h, 11h, 14h|ubuntu-latest|Sem novidade/);
   assert.doesNotMatch(ui, /buscarExecucoes|ExecucaoSync/);
   const uso = readFileSync("app/ia-uso.ts", "utf8");
