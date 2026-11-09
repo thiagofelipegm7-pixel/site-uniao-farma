@@ -126,6 +126,7 @@
 }
 .shop-categorias-trilho {
   display: flex;
+  align-items: flex-start;
   gap: var(--cat-gap);
   margin: 0;
   padding: 0 1.25rem 0.5rem;
@@ -141,13 +142,19 @@
 .shop-categorias-trilho::-webkit-scrollbar { display: none; } /* Chromium/Safari */
 .shop-categorias-trilho > li {
   flex: 0 0 var(--cat-tile);
+  width: var(--cat-tile);
+  align-self: flex-start;
   scroll-snap-align: start;
 }
 .shop-categorias a {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   justify-items: center;
+  align-content: start;
   gap: 0.5rem;
   width: var(--cat-tile);
+  min-width: var(--cat-tile);
+  box-sizing: border-box;
   color: var(--uf-muted);
   font-size: 0.8125rem;
   font-weight: 600;
@@ -193,9 +200,14 @@
   height: 58%;
 }
 .shop-cat-rotulo {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
   max-width: 100%;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
+  word-break: normal;
   hyphens: auto;
+  white-space: normal;
   text-align: center;
   color: var(--uf-muted, #3e4b49);
 }
@@ -367,8 +379,59 @@
 
 /* A camada "design" força h1/h2/h3 com !important e, por vir primeiro, esse !important vence. */
 @layer design {
-  /* "main li > a" do design.css força inline-flex; aqui o link da categoria é uma coluna (ícone sobre o rótulo). */
-  /* categorias: largura via --cat-tile (faixa scroll) */
+  /* Vence "main li > a { display: inline-flex !important }" de design.css — senão o rótulo vira coluna de 10px. */
+  .shop-categorias-trilho {
+    align-items: flex-start !important;
+  }
+  .shop-categorias-trilho > li {
+    display: block !important;
+    flex: 0 0 var(--cat-tile) !important;
+    width: var(--cat-tile) !important;
+    max-width: var(--cat-tile) !important;
+    align-self: flex-start !important;
+    height: auto !important;
+  }
+  main .shop-categorias li > a,
+  .shop-categorias a {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) !important;
+    grid-auto-rows: auto !important;
+    justify-items: center !important;
+    align-items: start !important;
+    align-content: start !important;
+    gap: 0.5rem !important;
+    width: var(--cat-tile) !important;
+    min-width: var(--cat-tile) !important;
+    max-width: var(--cat-tile) !important;
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    flex-direction: column !important;
+    box-sizing: border-box !important;
+  }
+  .shop-categorias .shop-cat-icone {
+    width: var(--cat-tile) !important;
+    height: var(--cat-tile) !important;
+    min-width: var(--cat-tile) !important;
+    min-height: var(--cat-tile) !important;
+    flex: none !important;
+  }
+  .shop-categorias .shop-cat-rotulo {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    text-align: center !important;
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    word-break: normal !important;
+  }
+  .shop-categorias h2 {
+    width: 100% !important;
+    max-width: none !important;
+    padding-inline: 1.25rem !important;
+    box-sizing: border-box !important;
+  }
   .shop-hero h1 { margin: 0 !important; color: #ffffff !important; font-size: 1.125rem !important; font-weight: 700 !important; line-height: 1.35 !important; text-align: left !important; }
   .shop-destaques h2, .shop-passos h2, .seo-intro h2 { margin: 0 !important; color: var(--uf-ink) !important; font-size: 1.375rem !important; font-weight: 700 !important; line-height: 1.3 !important; }
   .shop-card h3 { margin: 0.75rem 0 !important; color: #3e4b49 !important; font-size: 0.875rem !important; font-weight: 400 !important; line-height: 1.2 !important; }
