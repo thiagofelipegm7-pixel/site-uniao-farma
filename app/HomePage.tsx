@@ -10,7 +10,7 @@ import LojaBar from "./shop/LojaBar";
 import CabecalhoInteligente from "./shop/CabecalhoInteligente";
 import ShopHeader from "./shop/ShopHeader";
 import DestaquesSemana from "./shop/DestaquesSemana";
-import { AbasHome, BarraInfo, SubmenuHome } from "./shop/HomeBlocos";
+import { AbasHome, SubmenuHome } from "./shop/HomeBlocos";
 import { CategoriasLinha, HeroReserva } from "./shop/ShopSections";
 
 /**
@@ -35,7 +35,6 @@ export default function HomePage() {
       <LojaBar />
       <AbasHome />
       <HeroReserva />
-      <BarraInfo />
       <CategoriasLinha />
       <OfertasSemana />
       <DestaquesSemana id="vitrine-higiene" titulo="Cuidado Diário" grupo="cuidado-diario" n={12} verTodas={false} source="home_higiene" />
