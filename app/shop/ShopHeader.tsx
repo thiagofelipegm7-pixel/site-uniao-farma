@@ -32,7 +32,7 @@ const LINKS = [
 type Sugestao = { nome: string; slug: string; precoCentavos: number; foto: string | null; busca: string };
 type SugestaoRestrita = { nome: string; nomeOriginal: string; tipo: "receita" | "controlados" | "consulte"; precoCentavos: number | null; busca: string; q: string; apresentacao: string | null; tarja: "vermelha" | "vermelha-retencao" | "preta" | null; retencao: boolean | null; controlado: boolean; generico?: boolean; ativo?: string | null };
 const ROTA_RESTRITA = { receita: "/nacoes-unidas/produtos/receita", controlados: "/nacoes-unidas/produtos/controlados", consulte: "/nacoes-unidas/produtos/consulte-o-farmaceutico" } as const;
-const ORDINAIS = ["1º", "2º", "3º"];
+const ORDINAIS = ["1º", "2º", "3º", "4º", "5º", "6º", "7º", "8º", "9º", "10º"] as const;
 const nacoes = UNITS.find((unit) => unit.id === "nacoes");
 
 let vocabEmMemoria: { itens: Sugestao[]; restritos: SugestaoRestrita[]; vocab: ReturnType<typeof criarVocabulario> } | null = null;
@@ -243,12 +243,12 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
             >
               {normal.length === 0 ? (
                 <>
-                  <p className="shop-sugestoes-titulo">Buscas populares</p>
-                  <ul>
+                  <p className="shop-sugestoes-titulo" id="termos-mais-buscados-titulo">Termos mais buscados</p>
+                  <ul className="shop-sugestoes-termos" role="listbox" aria-labelledby="termos-mais-buscados-titulo">
                     {BUSCAS_POPULARES.map((valor, i) => (
-                      <li key={valor}>
+                      <li key={valor} role="option">
                         <a href={`/nacoes-unidas/produtos?q=${encodeURIComponent(valor)}`}>
-                          <strong>{ORDINAIS[i]}</strong>
+                          <strong aria-hidden="true">{ORDINAIS[i]}</strong>
                           <span>{valor}</span>
                         </a>
                       </li>

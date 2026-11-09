@@ -212,7 +212,7 @@ test("catálogo: ordena por preço, filtra categoria/marca/faixa e combina com o
     },
   ];
 
-  assert.deepEqual(BUSCAS_POPULARES, ["nivea", "listerine", "protetor solar"]);
+  assert.deepEqual(BUSCAS_POPULARES, ["fralda", "protetor solar", "desodorante", "sabonete líquido", "dove", "fralda xg", "shampoo", "dipirona", "valda", "lenço umedecido"]);
   assert.deepEqual(FAIXAS_PRECO.map((faixa) => faixa.label), ["Até R$ 15", "R$ 15 a 25", "Acima de R$ 25"]);
   assert.equal(faixaDoPreco(15), "ate_15");
   assert.equal(faixaDoPreco(15.01), "de_15_a_25");
@@ -277,7 +277,7 @@ test("busca da Nações: sugestões, filtro e ordenação no componente, lista c
   assert.match(lista, /const \[consulta, setConsulta\] = useState\(consultaInicial\);/);
   const header = await read("app/shop/ShopHeader.tsx");
   assert.match(header, /BUSCAS_POPULARES/);
-  assert.match(header, /Buscas populares/);
+  assert.match(header, /Termos mais buscados/);
   assert.match(header, /1º/);
   assert.match(header, /Não encontramos “/);
   assert.doesNotMatch(header, /trackEvent\(/);
@@ -291,7 +291,10 @@ test("busca da Nações: sugestões, filtro e ordenação no componente, lista c
   assert.match(busca, /label: "Recomendados"/);
   assert.match(busca, /label: "Menor preço"/);
   assert.match(busca, /label: "Maior preço"/);
-  assert.match(busca, /BUSCAS_POPULARES = \["nivea", "listerine", "protetor solar"\]/);
+  assert.match(busca, /Lista curada manualmente/);
+  assert.match(busca, /"fralda"/);
+  assert.match(busca, /"lenço umedecido"/);
+  assert.match(header, /shop-sugestoes-termos/);
   assert.match(lista, /aria-modal="true"/);
   assert.match(lista, /eventoFiltro/);
   assert.match(lista, /data-track-source="produtos_nacoes_busca_vazia"/);
