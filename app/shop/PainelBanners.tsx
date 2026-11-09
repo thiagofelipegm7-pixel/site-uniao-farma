@@ -26,9 +26,20 @@ const INTERVALO_MS = 5000;
 export default function PainelBanners({ banners = BANNERS_PAINEL, titulo }: { banners?: BannerPainel[]; titulo?: string }) {
   const faixa = useRef<HTMLUListElement>(null);
   const [atual, setAtual] = useState(0);
+  const [custom, setCustom] = useState<BannerPainel[] | null>(null);
+  useEffect(() => {
+    fetch("/api/banners-publico", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((d: { banners?: { id: string; url: string }[] }) => {
+        const hero = d.banners?.find((b) => b.id === "hero");
+        if (hero) setCustom([{ id: "hero", imagem: hero.url, alt: "Oferta da União Farma", href: "/nacoes-unidas/produtos" }]);
+      })
+      .catch(() => {});
+  }, []);
+  const lista = custom ?? banners;
   const pausado = useRef(false);
   const parou = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const n = banners.length;
+  const n = lista.length;
   const loop = n > 1;
 
   /** Largura de um passo (um banner mais o espaço entre eles). No computador cabem três banners; no celular, um. */
@@ -126,7 +137,7 @@ export default function PainelBanners({ banners = BANNERS_PAINEL, titulo }: { ba
       {titulo ? <h1 className="sr-only">{titulo}</h1> : null}
       <div className="painel-moldura">
         <ul className="painel-faixa" ref={faixa} tabIndex={0} aria-label="Banners em destaque" aria-live="off">
-          {banners.map((banner, i) => (
+          {lista.map((banner, i) => (
             <li className="painel-slide" key={banner.id} aria-roledescription="slide" aria-label={`${i + 1} de ${n}`}>
               {banner.href ? (
                 <a className="painel-arte" href={banner.href}>
@@ -157,7 +168,7 @@ export default function PainelBanners({ banners = BANNERS_PAINEL, titulo }: { ba
         </button>
       </div>
       <div className="painel-pontos" role="group" aria-label="Escolher banner">
-        {banners.map((banner, i) => (
+        {lista.map((banner, i) => (
           <button
             type="button"
             key={banner.id}
