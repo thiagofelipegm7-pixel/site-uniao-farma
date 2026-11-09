@@ -42,6 +42,23 @@ export function CategoriasLinha() {
 
 /** Cartão azul-marinho do topo. É o único h1 da home. */
 export function HeroReserva() {
+  const [banner, setBanner] = useState<string | null>(null);
+  useEffect(() => {
+    fetch("/api/interno/banners", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((d: { banners?: { id: string; url: string }[] }) => {
+        const hero = d.banners?.find((b) => b.id === "hero");
+        if (hero) setBanner(hero.url);
+      })
+      .catch(() => {});
+  }, []);
+  if (banner) {
+    return (
+      <section className="shop-hero" id="inicio">
+        <a href="/nacoes-unidas/produtos"><img src={banner} alt="Oferta da União Farma" style={{ width: "100%", height: "auto", borderRadius: "8px" }} /></a>
+      </section>
+    );
+  }
   return (
     <section className="shop-hero" id="inicio" aria-labelledby="hero-title">
       <div>
