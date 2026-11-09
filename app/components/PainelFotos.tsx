@@ -476,7 +476,7 @@ export default function PainelFotos() {
                         </span>
                       ) : (
                         <>
-                          {nomeAtual(l).texto}
+                          <span className="pf-nome">{nomeAtual(l).texto}</span>
                           <button type="button" className="pf-nome-editar" onClick={() => { setEditandoNome(l.ean); setTextoNome(nomeAtual(l).texto); }} aria-label={`Editar o nome de ${l.nome}`}>Editar nome</button>
                           {nomeAtual(l).corrigido ? <em className="pf-tag pf-tag-n">Nome corrigido</em> : null}
                           <small className="pf-original">No sistema: {l.nome}</small>
