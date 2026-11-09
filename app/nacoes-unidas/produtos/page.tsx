@@ -89,13 +89,12 @@ export default async function ProdutosNacoesPage() {
               whatsappHref={whatsappHref}
               unitId={nacoes.id}
             />
-          <aside className="catalogo-aviso" aria-label="Medicamentos com receita e controlados">
+          <aside className="catalogo-aviso" aria-label="Medicamentos com receita">
             <p>
-              <strong>Com receita e controlados:</strong> retire na loja com a receita (retida pela farmácia quando a lei exigir).
+              <strong>Com receita:</strong> retire na loja com a receita.
             </p>
             <p className="catalogo-aviso-links">
               <a href="/nacoes-unidas/produtos/receita">Ver medicamentos com receita</a>
-              <a href="/nacoes-unidas/produtos/controlados">Ver medicamentos controlados</a>
             </p>
           </aside>
           <p className="catalogo-nota">
