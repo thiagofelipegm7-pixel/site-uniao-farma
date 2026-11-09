@@ -1576,7 +1576,7 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
    ===================================================================== */
 .painel { max-width: 82rem; margin: 0.875rem auto 0; padding: 0 1.25rem; box-sizing: border-box; }
 .painel-moldura { position: relative; }
-.painel-faixa { display: flex; margin: 0; padding: 0; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: 16px; overscroll-behavior-x: contain; }
+.painel-faixa { display: flex; scroll-behavior: auto; margin: 0; padding: 0; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: 16px; overscroll-behavior-x: contain; }
 .painel-faixa::-webkit-scrollbar { display: none; }
 .painel-faixa:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
 .painel-slide { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; }
@@ -1591,14 +1591,16 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .painel-seta-dir { right: -0.75rem; }
 .painel-pontos { display: flex; justify-content: center; gap: 0; margin-top: 0.25rem; }
 .painel .painel-pontos button { position: relative; box-sizing: border-box; width: 1.25rem; height: 2rem; min-width: 0; min-height: 0; padding: 0; border: 0; background: none; cursor: pointer; }
-.painel-pontos button::before { content: ""; position: absolute; top: 50%; left: 50%; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #c3c9c8; transform: translate(-50%, -50%); }
-.painel-pontos button.is-ativo::before { background: #3d4846; }
+.painel .painel-pontos button { transition: width 0.3s ease; }
+.painel .painel-pontos button.is-ativo { width: 2.25rem; }
+.painel-pontos button::before { content: ""; position: absolute; top: 50%; left: 50%; width: 0.5rem; height: 0.5rem; border-radius: 999px; background: #c3c9c8; transform: translate(-50%, -50%); transition: width 0.3s ease, background-color 0.3s ease; }
+.painel-pontos button.is-ativo::before { width: 1.625rem; background: var(--uf-action-hover, #35a89e); }
 .painel-pontos button:focus-visible { outline: 3px solid var(--uf-action); outline-offset: -2px; border-radius: 6px; }
 @media (min-width: 768px) {
   .painel-arte { aspect-ratio: 4.4 / 1; }
   .painel-seta { display: grid; }
 }
-@media (prefers-reduced-motion: reduce) { .painel-seta { transition: none; } .painel-faixa { scroll-behavior: auto; } }
+@media (prefers-reduced-motion: reduce) { .painel-seta, .painel .painel-pontos button, .painel-pontos button::before { transition: none; } }
 
 /* =====================================================================
    Rodapé no formato da Droga Raia: fundo claro, parágrafo legal corrido em cinza, linha "segue as determinações da ANVISA".

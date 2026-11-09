@@ -14,19 +14,38 @@ function Arte({ banner }: { banner: BannerPainel }) {
   );
 }
 
+/** Tempo entre trocas automáticas (igual ao carrossel principal da Pague Menos). */
+const INTERVALO_MS = 5000;
+
 /**
- * Painel de banners da home: faixa que rola de lado e trava em cada banner (scroll-snap), setas redondas nas laterais
- * (a da ponta fica desativada, sem loop) e um ponto por banner. `titulo` cria o h1 da página (só a home usa). Funciona com toque, mouse, teclado e leitor de tela.
+ * Painel de banners: faixa que rola de lado e trava em cada banner (scroll-snap), com a animação do carrossel da Pague Menos:
+ * troca sozinha a cada 5 s, para enquanto o mouse ou o foco está em cima ou a aba está escondida, volta ao primeiro sem corte
+ * (um clone do primeiro fecha a volta) e o ponto ativo vira uma pílula. Sem movimento automático para quem pede menos movimento.
+ * `titulo` cria o h1 da página (só a home usa). Funciona com toque, mouse, teclado e leitor de tela.
  */
 export default function PainelBanners({ banners = BANNERS_PAINEL, titulo }: { banners?: BannerPainel[]; titulo?: string }) {
   const faixa = useRef<HTMLUListElement>(null);
   const [atual, setAtual] = useState(0);
+  const pausado = useRef(false);
+  const parou = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const n = banners.length;
+  const loop = n > 1;
 
   const sincronizar = useCallback(() => {
     const el = faixa.current;
     if (!el || el.clientWidth === 0) return;
-    setAtual(Math.min(banners.length - 1, Math.max(0, Math.round(el.scrollLeft / el.clientWidth))));
-  }, [banners.length]);
+    const bruto = Math.round(el.scrollLeft / el.clientWidth);
+    setAtual(bruto >= n ? 0 : Math.max(0, bruto));
+    // Chegou no clone do primeiro: quando a rolagem assenta, volta ao primeiro de verdade sem ninguém notar.
+    if (parou.current) clearTimeout(parou.current);
+    parou.current = setTimeout(() => {
+      if (el.scrollLeft >= (n - 0.5) * el.clientWidth && n > 0) {
+        el.style.scrollSnapType = "none";
+        el.scrollLeft = el.scrollLeft - n * el.clientWidth;
+        el.style.scrollSnapType = "";
+      }
+    }, 120);
+  }, [n]);
 
   useEffect(() => {
     const el = faixa.current;
@@ -36,26 +55,70 @@ export default function PainelBanners({ banners = BANNERS_PAINEL, titulo }: { ba
     return () => {
       el.removeEventListener("scroll", sincronizar);
       window.removeEventListener("resize", sincronizar);
+      if (parou.current) clearTimeout(parou.current);
     };
   }, [sincronizar]);
 
-  const ir = (indice: number) => {
-    const el = faixa.current;
-    if (!el) return;
-    const alvo = Math.min(banners.length - 1, Math.max(0, indice));
-    const reduzir = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    el.scrollTo({ left: alvo * el.clientWidth, behavior: reduzir ? "auto" : "smooth" });
+  const ir = useCallback(
+    (indice: number) => {
+      const el = faixa.current;
+      if (!el) return;
+      const reduzir = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      let alvo = indice;
+      if (alvo < 0) {
+        if (!loop) return;
+        // Voltar do primeiro: pula (sem animar) para o clone do primeiro, no fim, e desliza para o último.
+        el.style.scrollSnapType = "none";
+        el.scrollLeft = n * el.clientWidth;
+        el.style.scrollSnapType = "";
+        alvo = n - 1;
+      }
+      alvo = Math.min(loop ? n : n - 1, alvo);
+      el.scrollTo({ left: alvo * el.clientWidth, behavior: reduzir ? "auto" : "smooth" });
+    },
+    [loop, n],
+  );
+
+  // Troca automática. Só roda com mais de um banner, sem pedido de menos movimento, com a aba visível e sem mouse/foco em cima.
+  const atualRef = useRef(0);
+  useEffect(() => {
+    atualRef.current = atual;
+  }, [atual]);
+  useEffect(() => {
+    if (!loop || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => {
+      if (pausado.current || document.hidden) return;
+      ir(atualRef.current + 1);
+    }, INTERVALO_MS);
+    return () => window.clearInterval(id);
+  }, [loop, ir]);
+
+  if (n === 0) return null;
+
+  const pausar = () => {
+    pausado.current = true;
+  };
+  const retomar = () => {
+    pausado.current = false;
   };
 
-  if (banners.length === 0) return null;
-
   return (
-    <section className="painel" aria-roledescription="carrossel" aria-label="Destaques">
+    <section
+      className="painel"
+      aria-roledescription="carrossel"
+      aria-label="Destaques"
+      onMouseEnter={pausar}
+      onMouseLeave={retomar}
+      onFocus={pausar}
+      onBlur={retomar}
+      onTouchStart={pausar}
+      onTouchEnd={retomar}
+    >
       {titulo ? <h1 className="sr-only">{titulo}</h1> : null}
       <div className="painel-moldura">
-        <ul className="painel-faixa" ref={faixa} tabIndex={0} aria-label="Banners em destaque">
+        <ul className="painel-faixa" ref={faixa} tabIndex={0} aria-label="Banners em destaque" aria-live="off">
           {banners.map((banner, i) => (
-            <li className="painel-slide" key={banner.id} aria-roledescription="slide" aria-label={`${i + 1} de ${banners.length}`}>
+            <li className="painel-slide" key={banner.id} aria-roledescription="slide" aria-label={`${i + 1} de ${n}`}>
               {banner.href ? (
                 <a className="painel-arte" href={banner.href}>
                   <Arte banner={banner} />
@@ -67,11 +130,18 @@ export default function PainelBanners({ banners = BANNERS_PAINEL, titulo }: { ba
               )}
             </li>
           ))}
+          {loop ? (
+            <li className="painel-slide" key="clone" aria-hidden="true" inert>
+              <div className="painel-arte">
+                <Arte banner={banners[0]} />
+              </div>
+            </li>
+          ) : null}
         </ul>
-        <button type="button" className="painel-seta painel-seta-esq" aria-label="Banner anterior" disabled={atual === 0} onClick={() => ir(atual - 1)}>
+        <button type="button" className="painel-seta painel-seta-esq" aria-label="Banner anterior" disabled={!loop} onClick={() => ir(atual - 1)}>
           <IconVoltar size={20} />
         </button>
-        <button type="button" className="painel-seta painel-seta-dir" aria-label="Próximo banner" disabled={atual === banners.length - 1} onClick={() => ir(atual + 1)}>
+        <button type="button" className="painel-seta painel-seta-dir" aria-label="Próximo banner" disabled={!loop} onClick={() => ir(atual + 1)}>
           <IconSetaDireita size={20} />
         </button>
       </div>
