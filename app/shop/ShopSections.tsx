@@ -4,18 +4,23 @@
 
 import { useRef, useState } from "react";
 import { flushSync } from "react-dom";
-import { IconBrilho, IconComprimido, IconCoracao, IconCoracaoLinha, IconEstrela, IconEtiqueta, IconGota, IconSabonete, IconSetaDireita, IconVoltar } from "../reserva/ReservaIcons";
+import { IconEtiqueta, IconSetaDireita, IconVoltar } from "../reserva/ReservaIcons";
 
-const CATEGORIAS = [
+/** Ícones das 7 categorias: extratos da prancha aprovada, recoloridos com tokens União Farma. Ofertas mantém o ícone Phosphor. */
+type Categoria =
+  | { href: string; rotulo: string; destaque: true; Icone: typeof IconEtiqueta }
+  | { href: string; rotulo: string; destaque: false; iconeSrc: string };
+
+const CATEGORIAS: readonly Categoria[] = [
   { href: "/ofertas", rotulo: "Ofertas", Icone: IconEtiqueta, destaque: true },
-  { href: "/departamentos/medicamentos", rotulo: "Medicamentos", Icone: IconComprimido, destaque: false },
-  { href: "/departamentos/dermocosmeticos", rotulo: "Dermo­cosméticos", Icone: IconGota, destaque: false },
-  { href: "/departamentos/perfumes", rotulo: "Perfumes", Icone: IconBrilho, destaque: false },
-  { href: "/departamentos/infantil-e-gestante", rotulo: "Infantil e Gestante", Icone: IconCoracao, destaque: false },
-  { href: "/departamentos/beleza", rotulo: "Beleza", Icone: IconEstrela, destaque: false },
-  { href: "/departamentos/cuidado-diario", rotulo: "Cuidado Diário", Icone: IconSabonete, destaque: false },
-  { href: "/departamentos/bem-estar", rotulo: "Bem Estar", Icone: IconCoracaoLinha, destaque: false },
-] as const;
+  { href: "/departamentos/medicamentos", rotulo: "Medicamentos", iconeSrc: "/icons/categorias/medicamentos.webp", destaque: false },
+  { href: "/departamentos/dermocosmeticos", rotulo: "Dermo­cosméticos", iconeSrc: "/icons/categorias/dermocosmeticos.webp", destaque: false },
+  { href: "/departamentos/perfumes", rotulo: "Perfumes", iconeSrc: "/icons/categorias/perfumes.webp", destaque: false },
+  { href: "/departamentos/infantil-e-gestante", rotulo: "Infantil e Gestante", iconeSrc: "/icons/categorias/infantil-gestante.webp", destaque: false },
+  { href: "/departamentos/beleza", rotulo: "Beleza", iconeSrc: "/icons/categorias/beleza.webp", destaque: false },
+  { href: "/departamentos/cuidado-diario", rotulo: "Cuidado Diário", iconeSrc: "/icons/categorias/cuidado-diario.webp", destaque: false },
+  { href: "/departamentos/bem-estar", rotulo: "Bem Estar", iconeSrc: "/icons/categorias/bem-estar.webp", destaque: false },
+];
 
 const VISIVEIS = 7; // quadros à vista no desktop largo (5 abaixo de 1440 px); a fila tem cópias para os dois casos
 const PASSO = 2; // quadros por clique (como o carrossel da Panvel)
@@ -79,13 +84,18 @@ export function CategoriasLinha() {
         </button>
         <div className="shop-categorias-janela">
           <ul ref={trilho}>
-            {fila.map(({ item: { href, rotulo, Icone, destaque }, copia }, k) => (
-              <li key={`${rotulo}-${k}`} className={copia ? "shop-cat-copia" : undefined} aria-hidden={copia ? true : undefined}>
-                <a href={href} tabIndex={copia ? -1 : undefined}>
-                  <span className={destaque ? "shop-cat-icone is-oferta" : "shop-cat-icone"}>
-                    <Icone size={30} />
+            {fila.map(({ item, copia }, k) => (
+              <li key={`${item.rotulo}-${k}`} className={copia ? "shop-cat-copia" : undefined} aria-hidden={copia ? true : undefined}>
+                <a href={item.href} tabIndex={copia ? -1 : undefined}>
+                  <span className={item.destaque ? "shop-cat-icone is-oferta" : "shop-cat-icone"}>
+                    {item.destaque ? (
+                      <item.Icone size={30} />
+                    ) : (
+                      // alt vazio: o rótulo visível ao lado já nomeia a categoria (evita eco no leitor de tela).
+                      <img src={item.iconeSrc} alt="" width={96} height={96} decoding="async" draggable={false} />
+                    )}
                   </span>
-                  <span className="shop-cat-rotulo">{rotulo}</span>
+                  <span className="shop-cat-rotulo">{item.rotulo}</span>
                 </a>
               </li>
             ))}
