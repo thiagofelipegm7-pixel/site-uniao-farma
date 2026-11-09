@@ -89,14 +89,6 @@ export default async function ProdutosNacoesPage() {
               whatsappHref={whatsappHref}
               unitId={nacoes.id}
             />
-          <aside className="catalogo-aviso" aria-label="Medicamentos com receita">
-            <p>
-              <strong>Com receita:</strong> retire na loja com a receita.
-            </p>
-            <p className="catalogo-aviso-links">
-              <a href="/nacoes-unidas/produtos/receita">Ver medicamentos com receita</a>
-            </p>
-          </aside>
           <p className="catalogo-nota">
             Preços de {dataDosDados ?? "data não informada"}{atualizadoEm ? ` (${atualizadoEm})` : ""}. Preço e estoque podem mudar: a loja confirma pelo WhatsApp antes de separar. Nesta lista, com cesta, só itens sem receita: medicamentos isentos de prescrição (MIPs), higiene e dermocosméticos. Leia a bula. Em caso de dúvida, procure o farmacêutico.
           </p>
