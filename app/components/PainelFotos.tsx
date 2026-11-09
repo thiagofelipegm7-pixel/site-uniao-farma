@@ -471,18 +471,20 @@ export default function PainelFotos() {
       {dados ? (
         <>
           <section className="pf-resumo" aria-label="Resumo">
-            <div>
+            <div style={{ position: "relative" }}>
               <strong>{resumo.aVendaComFoto}</strong>
               <span>com foto, de {resumo.aVenda} itens à venda no site</span>
-              <button type="button" onClick={() => setConfigAberto(true)} aria-label="Configurar" style={{ position: "absolute", top: "0.5rem", right: "0.5rem", background: "none", border: "none", cursor: "pointer", fontSize: "1.1rem" }}>⚙️</button>
+              <button type="button" onClick={() => setConfigAberto(true)} aria-label="Configurar" style={{ position: "absolute", top: "0.25rem", right: "0.25rem", background: "none", border: "none", cursor: "pointer", fontSize: "1.1rem" }}>⚙️</button>
             </div>
-            <div>
+            <div style={{ position: "relative" }}>
               <strong>{resumo.aVendaFaltamComEstoque}</strong>
               <span>faltam foto e têm estoque</span>
+              <button type="button" onClick={() => setConfigAberto(true)} aria-label="Configurar" style={{ position: "absolute", top: "0.25rem", right: "0.25rem", background: "none", border: "none", cursor: "pointer", fontSize: "1.1rem" }}>⚙️</button>
             </div>
-            <div>
+            <div style={{ position: "relative" }}>
               <strong>{resumo.aVendaComEstoque > 0 ? Math.round((resumo.aVendaComEstoqueComFoto / resumo.aVendaComEstoque) * 100) : 0}%</strong>
               <span>dos itens à venda com estoque já têm foto</span>
+              <button type="button" onClick={() => setConfigAberto(true)} aria-label="Configurar" style={{ position: "absolute", top: "0.25rem", right: "0.25rem", background: "none", border: "none", cursor: "pointer", fontSize: "1.1rem" }}>⚙️</button>
             </div>
           </section>
           {configAberto ? (
