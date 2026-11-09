@@ -229,19 +229,6 @@ export default function PainelCatalogo() {
                 </ul>
               )}
             </section>
-
-            <section className="metrics-block">
-              <h2>Uso da IA</h2>
-              <p>Só números. Nada do que foi digitado ou enviado é guardado.</p>
-              {dados.ia === null ? (
-                <p className="painel-nota">Contador indisponível agora.</p>
-              ) : (
-                <div className="painel-ia">
-                  <TabelaIA titulo="Hoje" uso={dados.ia.hoje} />
-                  <TabelaIA titulo="Últimos 7 dias" uso={dados.ia.seteDias} />
-                </div>
-              )}
-            </section>
           </>
         ) : null}
       </div>
