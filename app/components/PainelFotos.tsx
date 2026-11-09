@@ -55,6 +55,7 @@ export default function PainelFotos() {
   const [arrastando, setArrastando] = useState<string | null>(null);
   const [aviso, setAviso] = useState("");
   const [configAberto, setConfigAberto] = useState(false);
+  const [produtoConfig, setProdutoConfig] = useState<string | null>(null);
   // Quem está mexendo: fica registrado no histórico (foto e nome). Guardado só neste aparelho.
   const [por, setPor] = useState("");
   const [editandoNome, setEditandoNome] = useState<string | null>(null);
@@ -633,6 +634,16 @@ export default function PainelFotos() {
             </p>
           ) : null}
         </>
+      ) : null}
+    </section>
+      {produtoConfig ? (
+        <div role="dialog" aria-modal="true" style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", display: "grid", placeItems: "center", zIndex: 100 }}>
+          <div style={{ background: "#fff", borderRadius: "12px", padding: "1.5rem", maxWidth: "28rem", width: "90%", maxHeight: "80vh", overflow: "auto" }}>
+            <h2 style={{ margin: "0 0 1rem" }}>Configurar produto</h2>
+            <p style={{ color: "#3e4b49", marginBottom: "1rem" }}>Opções de edição para este produto.</p>
+            <button type="button" onClick={() => setProdutoConfig(null)} style={{ padding: "0.5rem 1rem", background: "#0e7370", color: "#fff", border: "none", borderRadius: "8px", fontWeight: 600 }}>Fechar</button>
+          </div>
+        </div>
       ) : null}
     </section>
   );
