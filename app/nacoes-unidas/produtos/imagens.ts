@@ -3439,6 +3439,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "CLORETO DE MAGNESIO po 33g": "7898031310365",
   "SH PALMOLIVE MACIEZ PROLONGADA": "7896235353348",
   "BRILHO LABIAL ROLL-ON 5 5ML FRUTAS": "7898459151069",
+  "COLAGENO TIPO II + AC HIALU 40MG": "7898734860679",
 };
 
 function normalizarNome(nome: string): string {
