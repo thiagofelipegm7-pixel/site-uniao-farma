@@ -636,7 +636,6 @@ export default function PainelFotos() {
         </>
       ) : null}
     </section>
-    </section>
       {produtoConfig ? (
         <div role="dialog" aria-modal="true" style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", display: "grid", placeItems: "center", zIndex: 100 }}>
           <div style={{ background: "#fff", borderRadius: "12px", padding: "1.5rem", maxWidth: "28rem", width: "90%" }}>
