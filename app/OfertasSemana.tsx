@@ -75,7 +75,6 @@ export default function OfertasSemana() {
                     foto={offer.image}
                     source="ofertas_semana"
                   />
-                </div>
               </article>
             </li>
           );
