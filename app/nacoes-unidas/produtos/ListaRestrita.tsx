@@ -12,7 +12,7 @@ import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./
 import ShopTopo from "../../shop/ShopTopo";
 import BotaoVoz from "../../shop/BotaoVoz";
 import { buildWhatsAppUrl, getHoursSentence, UNITS } from "../../site-config";
-import { formatBRL } from "./catalogo";
+import { formatBRL, slugify } from "./catalogo";
 import {
   imagemIlustrativa,
   type ItemRestrito,
@@ -68,6 +68,7 @@ export function Cartao({ item }: { item: ItemRestrito }) {
   return (
     <CartaoPanvel
       tipo={item.tipo}
+      href={`/nacoes-unidas/produtos/${slugify(item.nome)}`}
       classe={`restrito-item${item.controlado ? " restrito-controlado" : ""}`}
       nome={nome}
       marca={item.lab}
