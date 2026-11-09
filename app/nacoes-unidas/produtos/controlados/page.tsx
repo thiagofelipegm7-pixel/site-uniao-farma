@@ -1,9 +1,5 @@
-import type { Metadata } from "next";
-import ListaRestrita from "../ListaRestrita";
-import { metadadosRestrita } from "../restritos-meta";
-
-export const metadata: Metadata = metadadosRestrita("controlados");
+import { redirect } from "next/navigation";
 
 export default function Page() {
-  return <ListaRestrita tipo="controlados" />;
+  redirect("/departamentos/medicamentos");
 }
