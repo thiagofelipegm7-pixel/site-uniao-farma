@@ -1,5 +1,7 @@
 "use client";
 
+import { usePathname } from "next/navigation";
+
 /* eslint-disable @next/next/no-html-link-for-pages */
 import AnvisaLogo from "./AnvisaLogo";
 import MarcaUniao from "./shop/MarcaUniao";
@@ -15,6 +17,8 @@ const nacoes = PUBLIC_UNITS.find((unit) => unit.id === "nacoes") ?? PUBLIC_UNITS
  * Só dados reais da União Farma. Privacidade, Termos, Perguntas e Cookies ficam numa linha pequena (LGPD exige rever o consentimento).
  */
 export default function SiteFooter() {
+  const caminho = usePathname() || "";
+  if (caminho.startsWith("/interno")) return null;
   return (
     <footer className="rodape">
       <div className="rodape-miolo">
