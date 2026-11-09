@@ -91,7 +91,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add app/nacoes-unidas/produtos/dados/catalogo-nacoes.json app/nacoes-unidas/produtos/dados/receita-nacoes.json app/nacoes-unidas/produtos/dados/descricoes-ia.json app/nacoes-unidas/produtos/dados/relacionados-ia.json app/nacoes-unidas/produtos/dados/revisao-pendente.json app/nacoes-unidas/produtos/dados/nomes-corrigidos.json app/nacoes-unidas/produtos/dados/controlados-overrides.json public/dados/nacoes public/produtos app/nacoes-unidas/produtos/imagens.ts
+          git add app/nacoes-unidas/produtos/dados/catalogo-nacoes.json app/nacoes-unidas/produtos/dados/receita-nacoes.json app/nacoes-unidas/produtos/dados/descricoes-ia.json app/nacoes-unidas/produtos/dados/relacionados-ia.json app/nacoes-unidas/produtos/dados/revisao-pendente.json app/nacoes-unidas/produtos/dados/nomes-corrigidos.json app/nacoes-unidas/produtos/dados/controlados-overrides.json app/nacoes-unidas/produtos/dados/categorias-overrides.json public/dados/nacoes public/produtos app/nacoes-unidas/produtos/imagens.ts
           git diff --cached --quiet && exit 0
           if [ -n "$FOTOS" ] && [ -z "$DADOS_DE" ]; then MSG="Fotos de produtos enviadas pelo painel (${FOTOS})"; else MSG="Catálogo: dados da loja de ${DADOS_DE} (sincronização automática)"; fi
           git commit -m "$MSG"

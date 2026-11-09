@@ -57,7 +57,7 @@ test("controlado override: painel, API, sync e middleware ligados", async () => 
   ]);
   assert.match(painel, /Controlado \(Portaria 344\)/);
   assert.match(painel, /Marcar controlado/);
-  assert.match(painel, /l\.categoria === "Medicamentos"/);
+  assert.match(painel, /categoriaEfetiva\(l\) === "Medicamentos"/);
   assert.match(painel, /Marcado como controlado/);
   assert.match(painel, /\/api\/interno\/produto\/controlado/);
   assert.match(api, /definirControlado/);

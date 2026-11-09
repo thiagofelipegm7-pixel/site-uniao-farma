@@ -3,6 +3,7 @@ import { chaveDeNome, montarLinhas, resumirFotos, SEM_CATEGORIA } from "../../..
 import { carregarCatalogoCompleto } from "../../../nacoes-unidas/produtos/catalogo";
 import { banco, segredo } from "../../../estoque-fonte";
 import { listarPendentes, listarRemocoes } from "../../../fotos-enviadas";
+import { mapaDeCategorias } from "../../../categoria-override";
 import { mapaDeControlados } from "../../../controlado-override";
 import { mapaDeNomes, ultimasAlteracoes } from "../../../nomes-corrigidos";
 import { FOTOS_NACOES } from "../../../nacoes-unidas/produtos/imagens";
@@ -42,15 +43,20 @@ export async function GET() {
   for (const i of restritos.receita) categorias.set(chaveDeNome(i.nome), "Medicamentos");
   for (const i of restritos.controlados) categorias.set(chaveDeNome(i.nome), "Medicamentos");
 
+  const db = banco();
+  const categoriasOvr = db ? await mapaDeCategorias(db).catch(() => ({})) : {};
+  for (const [k, v] of Object.entries(categoriasOvr)) categorias.set(k, v.categoria);
+
   const eansComFoto = new Set(Object.values(FOTOS_NACOES));
   const linhas = montarLinhas(itens, eansComFoto, categorias);
   // Fotos já enviadas pelo painel e ainda não publicadas no site.
-  const db = banco();
   const pendentes = db ? (await listarPendentes(db).catch(() => [])).map((f) => f.ean) : [];
   const removidas = db ? (await listarRemocoes(db).catch(() => [])).map((r) => r.ean) : [];
   const nomes = db ? await mapaDeNomes(db).catch(() => ({})) : {};
   const controlados = db ? await mapaDeControlados(db).catch(() => ({})) : {};
   const alteracoes = db ? await ultimasAlteracoes(db).catch(() => []) : [];
+  const sistemaRestrito = new Set<string>();
+  for (const i of [...restritos.receita, ...restritos.controlados]) sistemaRestrito.add(chaveDeNome(i.nome));
   const listaCategorias = [...new Set(linhas.map((l) => l.categoria))].sort((a, b) => (a === SEM_CATEGORIA ? 1 : b === SEM_CATEGORIA ? -1 : a.localeCompare(b, "pt-BR")));
   return Response.json(
     {
@@ -61,11 +67,12 @@ export async function GET() {
       pendentes,
       nomes,
       controlados,
+      categoriasOverride: categoriasOvr,
       alteracoes,
       removidas,
       publicacaoRapida: Boolean(segredo("GITHUB_DISPATCH_TOKEN")),
-      // Linhas em lista (não objetos) para a resposta ficar pequena: [ean, nome, lab, classe, estoque, preco, valor, controlado, antimicrobiano, categoria, noSite]
-      linhas: linhas.map((l) => [l.ean, l.nome, l.lab, l.classe, l.estoque, l.preco, l.valor, l.controlado ? 1 : 0, l.antimicrobiano ? 1 : 0, l.categoria, l.noSite ? 1 : 0, l.semCodigo ? 1 : 0]),
+      // Linhas: [..., semCodigo, sistemaRestrito] — sistemaRestrito = receita/controlado do sync (não consulte)
+      linhas: linhas.map((l) => [l.ean, l.nome, l.lab, l.classe, l.estoque, l.preco, l.valor, l.controlado ? 1 : 0, l.antimicrobiano ? 1 : 0, l.categoria, l.noSite ? 1 : 0, l.semCodigo ? 1 : 0, sistemaRestrito.has(chaveDeNome(l.nome)) ? 1 : 0]),
     },
     { headers: SEM_CACHE },
   );
