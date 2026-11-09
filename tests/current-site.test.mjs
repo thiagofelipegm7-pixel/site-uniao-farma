@@ -54,6 +54,9 @@ test("home: 'Navegue por categoria' é faixa horizontal com cards grandes e scro
   assert.match(css, /scrollbar-width: none/);
   assert.match(css, /\.shop-categorias-trilho::-webkit-scrollbar \{ display: none; \}/);
   assert.match(css, /border-radius: 1\.25rem/);
+  // Protege contra "main li > a { display: inline-flex !important }" de design.css.
+  assert.match(css, /main \.shop-categorias li > a/);
+  assert.match(css, /display: grid !important/);
 });
 
 test("celular: a barra de atalhos da loja tem 4 colunas e não cobre o aviso de cookies", async () => {
