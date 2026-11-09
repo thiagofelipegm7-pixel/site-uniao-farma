@@ -2,6 +2,7 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages */
 import AnvisaLogo from "./AnvisaLogo";
+import MarcaUniao from "./shop/MarcaUniao";
 import { COMPANY } from "./company";
 import { PUBLIC_UNITS } from "./site-config";
 import { openCookiePreferences } from "./cookie-preferences";
@@ -17,6 +18,9 @@ export default function SiteFooter() {
   return (
     <footer className="rodape">
       <div className="rodape-miolo">
+        <a className="rodape-logo" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial">
+          <MarcaUniao claro />
+        </a>
         <p className="rodape-legal">
           {COMPANY.legalName} | União Farma | CNPJ {COMPANY.cnpj} | {nacoes.address} | CEP {nacoes.cep} | Para dúvidas, elogios e reclamações fale com a loja pelo WhatsApp{" "}
           {nacoes.whatsapp} ou pelo telefone <a href={nacoes.phoneLink}>{nacoes.phone}</a> | Farmacêutico responsável: João | CRF/MG 31958 | {COMPANY.alvara} | {COMPANY.afe}. As informações contidas neste site não devem ser

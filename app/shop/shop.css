@@ -1605,6 +1605,8 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
    ===================================================================== */
 .rodape { background: #ffffff; color: #5c6664; border-top: 1px solid #e3e8e7; margin-top: 2.5rem; }
 .rodape-miolo { box-sizing: border-box; max-width: 82rem; margin: 0 auto; padding: 2rem 1.25rem 2.5rem; }
+.rodape-logo { display: inline-flex; align-items: center; min-height: 2.75rem; margin-bottom: 1rem; text-decoration: none; }
+.rodape-logo:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
 .rodape-legal { margin: 0; max-width: 108rem; font-size: 0.875rem; line-height: 1.55; color: #5c6664; }
 .rodape-legal a, .rodape-links a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 .rodape-anvisa { display: flex; flex-wrap: wrap; align-items: center; gap: 0.625rem; margin: 1.5rem 0 0; font-size: 0.875rem; color: #5c6664; }
