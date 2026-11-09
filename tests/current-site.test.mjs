@@ -89,6 +89,19 @@ test("header: cesta em contorno no estilo das categorias, badge coral circular",
   assert.match(overrides, /border: 1\.5px solid #ffffff !important/);
 });
 
+
+test("header desktop: sem bloco WhatsApp com número no cabeçalho teal", async () => {
+  const [header, css] = await Promise.all([
+    readFile(new URL("../app/shop/ShopHeader.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/shop/shop.css", import.meta.url), "utf8"),
+  ]);
+  assert.doesNotMatch(header, /shop-whats/);
+  assert.doesNotMatch(header, /data-track-source="cabecalho"/);
+  assert.doesNotMatch(css, /grid-area: whats/);
+  // A busca vazia ainda pode oferecer WhatsApp; a cesta e o FAB permanecem.
+  assert.match(header, /busca_vazia_cabecalho/);
+});
+
 test("celular: a barra de atalhos da loja tem 4 colunas e não cobre o aviso de cookies", async () => {
   const css = await readFile(new URL("../app/design.css", import.meta.url), "utf8");
   assert.match(css, /\.mobile-quick-nav-inner\.is-shop \{ grid-template-columns: repeat\(4, minmax\(min-content, 1fr\)\) !important; \}/);

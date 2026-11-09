@@ -170,12 +170,6 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
         <a className="shop-marca" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial">
           <MarcaUniao />
         </a>
-        {nacoes ? (
-          <a className="shop-whats" href={buildWhatsAppUrl(nacoes, "Oi, União Farma!", { campaign: "cabecalho", content: "nacoes" })} data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="cabecalho" target="_blank" rel="noreferrer">
-            <IconWhats size={26} />
-            <span>WhatsApp<strong>{nacoes.whatsapp}</strong></span>
-          </a>
-        ) : null}
         <form
           ref={formRef}
           className="shop-busca"
