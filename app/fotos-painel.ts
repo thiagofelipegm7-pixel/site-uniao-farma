@@ -3,6 +3,7 @@
  * para ver o que está pronto e o que falta, começando pelo que mais vale parado no estoque. Funções puras (sem rede).
  */
 export type LinhaFoto = {
+  sistemaRestrito?: boolean;
   ean: string;
   nome: string;
   lab: string;
