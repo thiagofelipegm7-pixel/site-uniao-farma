@@ -10,7 +10,7 @@ import "../metrics-polish.css";
 import "./painel-fotos.css";
 
 type Linha = [string, string, string, string, number, number, number, number, number, string, number, number?];
-type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; nomes?: Record<string, { nome: string; por: string; quando: string }>; alteracoes?: { tipo: string; titulo: string; acao: string; anterior: string | null; novo: string | null; por: string; quando: string }[]; linhas: Linha[] };
+type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; nomes?: Record<string, { nome: string; por: string; quando: string }>; controlados?: Record<string, { estado: "sim" | "nao"; por: string; quando: string }>; alteracoes?: { tipo: string; titulo: string; acao: string; anterior: string | null; novo: string | null; por: string; quando: string }[]; linhas: Linha[] };
 
 const CHAVE_MARCAS = "uf_fotos_ok";
 const REAIS = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -56,6 +56,7 @@ export default function PainelFotos() {
   const [editandoNome, setEditandoNome] = useState<string | null>(null);
   const [textoNome, setTextoNome] = useState("");
   const [nomesAgora, setNomesAgora] = useState<Record<string, string | null>>({});
+  const [controladosAgora, setControladosAgora] = useState<Record<string, "auto" | "sim" | "nao">>({});
   const [removidasAgora, setRemovidasAgora] = useState<Set<string>>(new Set());
   const [copiado, setCopiado] = useState<string | null>(null);
   // Linha escolhida com um toque: recebe a imagem colada (Ctrl+V).
@@ -353,6 +354,38 @@ export default function PainelFotos() {
     }
   }
 
+
+  function estadoControlado(l: LinhaFoto): "auto" | "sim" | "nao" {
+    const k = chaveDoNome(l.nome);
+    if (controladosAgora[k]) return controladosAgora[k];
+    const salvo = dados?.controlados?.[k];
+    return salvo?.estado ?? "auto";
+  }
+
+  async function salvarControlado(l: LinhaFoto, estado: "auto" | "sim" | "nao") {
+    try {
+      const r = await fetch("/api/interno/produto/controlado", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ original: l.nome, estado, por: por.trim() }),
+      });
+      if (r.redirected || (r.headers.get("content-type") ?? "").includes("text/html")) {
+        setAviso("Sua sessão venceu. Recarregue a página (F5), entre de novo e tente outra vez.");
+        return;
+      }
+      const j = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string } | null;
+      if (!r.ok || !j?.ok) {
+        setAviso("Não consegui salvar o enquadramento controlado. Tente de novo.");
+        return;
+      }
+      setControladosAgora((n) => ({ ...n, [chaveDoNome(l.nome)]: estado }));
+      const rotulo = estado === "auto" ? "automático" : estado === "sim" ? "controlado" : "não controlado";
+      setAviso(`Enquadramento (${rotulo}) salvo. Vale na próxima publicação (em alguns minutos).`);
+    } catch {
+      setAviso("Não consegui salvar o enquadramento controlado. Tente de novo.");
+    }
+  }
+
   async function copiarCodigo(ean: string) {
     try {
       await navigator.clipboard.writeText(ean);
@@ -483,8 +516,21 @@ export default function PainelFotos() {
                         </>
                       )}
                       {l.lab ? <small>{l.lab}</small> : null}
-                      {l.controlado ? <em className="pf-tag">Controlado</em> : null}
+                      {l.controlado ? <em className="pf-tag">Controlado (sistema)</em> : null}
                       {l.antimicrobiano ? <em className="pf-tag pf-tag-a">Antimicrob.</em> : null}
+                      <label className="pf-controlado">
+                        <span>Controlado (Portaria 344)</span>
+                        <select
+                          value={estadoControlado(l)}
+                          aria-label={`Controlado Portaria 344 de ${l.nome}`}
+                          onChange={(e) => void salvarControlado(l, e.target.value as "auto" | "sim" | "nao")}
+                        >
+                          <option value="auto">Automático</option>
+                          <option value="sim">Marcar controlado</option>
+                          <option value="nao">Marcar não controlado</option>
+                        </select>
+                      </label>
+                      {estadoControlado(l) !== "auto" ? <em className="pf-tag pf-tag-n">Override: {estadoControlado(l) === "sim" ? "controlado" : "não controlado"}</em> : null}
                     </td>
                     <td data-r="Categoria">{l.categoria}</td>
                     <td data-r="Estoque" className="pf-n"><span className={`pf-qtd pf-qtd-${l.estoque <= 0 ? "zero" : l.estoque <= 5 ? "baixo" : "normal"}`} title={l.estoque <= 0 ? "Zerado" : l.estoque <= 5 ? "Estoque baixo" : "Estoque normal"}>{l.estoque}</span></td>
@@ -502,6 +548,7 @@ export default function PainelFotos() {
                   <li key={`${a.quando}-${i}`}>
                     <strong>{a.por}</strong> {a.acao}: {a.titulo}
                     {a.tipo === "nome" && a.novo ? <> → “{a.novo}”{a.anterior ? <> (antes “{a.anterior}”)</> : null}</> : null}
+                    {a.tipo === "controlado" ? <> → {a.novo}{a.anterior ? <> (antes {a.anterior})</> : null}</> : null}
                     <small> · {new Date(a.quando).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" })}</small>
                   </li>
                 ))}
