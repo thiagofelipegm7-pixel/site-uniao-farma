@@ -16,9 +16,9 @@ function Arte({ banner }: { banner: BannerPainel }) {
 
 /**
  * Painel de banners da home: faixa que rola de lado e trava em cada banner (scroll-snap), setas redondas nas laterais
- * (a da ponta fica desativada, sem loop) e um ponto por banner. Funciona com toque, mouse, teclado e leitor de tela.
+ * (a da ponta fica desativada, sem loop) e um ponto por banner. `titulo` cria o h1 da página (só a home usa). Funciona com toque, mouse, teclado e leitor de tela.
  */
-export default function PainelBanners({ banners = BANNERS_PAINEL }: { banners?: BannerPainel[] }) {
+export default function PainelBanners({ banners = BANNERS_PAINEL, titulo }: { banners?: BannerPainel[]; titulo?: string }) {
   const faixa = useRef<HTMLUListElement>(null);
   const [atual, setAtual] = useState(0);
 
@@ -51,7 +51,7 @@ export default function PainelBanners({ banners = BANNERS_PAINEL }: { banners?: 
 
   return (
     <section className="painel" aria-roledescription="carrossel" aria-label="Destaques">
-      <h1 className="sr-only">Farmácia em Sabará: União Farma Nações Unidas</h1>
+      {titulo ? <h1 className="sr-only">{titulo}</h1> : null}
       <div className="painel-moldura">
         <ul className="painel-faixa" ref={faixa} tabIndex={0} aria-label="Banners em destaque">
           {banners.map((banner, i) => (

@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ContentSiteFooter } from "../../ContentSiteChrome";
 import { IconSetaDireita } from "../../reserva/ReservaIcons";
 import BarraReserva from "../../shop/BarraReserva";
+import PainelBanners from "../../shop/PainelBanners";
 import ShopTopo from "../../shop/ShopTopo";
 import { nomeDeExibicao } from "../../nome-exibicao";
 import { buildWhatsAppUrl, SITE_URL, PUBLIC_UNITS } from "../../site-config";
@@ -72,6 +73,7 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <ShopTopo />
+      <PainelBanners />
       <div className="unit-page landing-page catalogo-nacoes catalogo-loja">
         <nav className="catalogo-caminho section-inner" aria-label="Breadcrumb">
           <a href="/">União Farma</a>
