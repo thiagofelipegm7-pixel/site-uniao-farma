@@ -402,7 +402,6 @@ export default function PainelFotos() {
           <section className="pf-resumo" aria-label="Resumo">
             <div><strong>{resumo.aVendaComFoto}</strong><span>com foto, de {resumo.aVenda} itens à venda no site</span></div>
             <div><strong>{resumo.aVendaFaltamComEstoque}</strong><span>faltam foto e têm estoque</span></div>
-            <div><strong>{REAIS.format(resumo.aVendaValorSemFoto)}</strong><span>em estoque (preço de venda) sem foto</span></div>
             <div><strong>{resumo.aVendaComEstoque > 0 ? Math.round((resumo.aVendaComEstoqueComFoto / resumo.aVendaComEstoque) * 100) : 0}%</strong><span>dos itens à venda com estoque já têm foto</span></div>
           </section>
           <p className="pf-dados">Não entram nessa conta {resumo.fora} itens que não mostram foto na loja: medicamentos com receita, controlados e itens que não estão no site. A lista abaixo mostra todos.</p>
