@@ -2,22 +2,17 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
-import { IconEtiqueta } from "../reserva/ReservaIcons";
-
-/** Ícones das 7 categorias: extratos da prancha aprovada. Ofertas mantém o ícone Phosphor. */
-type Categoria =
-  | { href: string; rotulo: string; destaque: true; Icone: typeof IconEtiqueta }
-  | { href: string; rotulo: string; destaque: false; iconeSrc: string };
+/** Ícones das 7 categorias: extratos da prancha aprovada. */
+type Categoria = { href: string; rotulo: string; iconeSrc: string };
 
 const CATEGORIAS: readonly Categoria[] = [
-  { href: "/ofertas", rotulo: "Ofertas", Icone: IconEtiqueta, destaque: true },
-  { href: "/departamentos/medicamentos", rotulo: "Medicamentos", iconeSrc: "/icons/categorias/medicamentos.webp", destaque: false },
-  { href: "/departamentos/dermocosmeticos", rotulo: "Dermo­cosméticos", iconeSrc: "/icons/categorias/dermocosmeticos.webp", destaque: false },
-  { href: "/departamentos/perfumes", rotulo: "Perfumes", iconeSrc: "/icons/categorias/perfumes.webp", destaque: false },
-  { href: "/departamentos/infantil-e-gestante", rotulo: "Infantil e Gestante", iconeSrc: "/icons/categorias/infantil-gestante.webp", destaque: false },
-  { href: "/departamentos/beleza", rotulo: "Beleza", iconeSrc: "/icons/categorias/beleza.webp", destaque: false },
-  { href: "/departamentos/cuidado-diario", rotulo: "Cuidado Diário", iconeSrc: "/icons/categorias/cuidado-diario.webp", destaque: false },
-  { href: "/departamentos/bem-estar", rotulo: "Bem Estar", iconeSrc: "/icons/categorias/bem-estar.webp", destaque: false },
+  { href: "/departamentos/medicamentos", rotulo: "Medicamentos", iconeSrc: "/icons/categorias/medicamentos.webp" },
+  { href: "/departamentos/dermocosmeticos", rotulo: "Dermo­cosméticos", iconeSrc: "/icons/categorias/dermocosmeticos.webp" },
+  { href: "/departamentos/perfumes", rotulo: "Perfumes", iconeSrc: "/icons/categorias/perfumes.webp" },
+  { href: "/departamentos/infantil-e-gestante", rotulo: "Infantil e Gestante", iconeSrc: "/icons/categorias/infantil-gestante.webp" },
+  { href: "/departamentos/beleza", rotulo: "Beleza", iconeSrc: "/icons/categorias/beleza.webp" },
+  { href: "/departamentos/cuidado-diario", rotulo: "Cuidado Diário", iconeSrc: "/icons/categorias/cuidado-diario.webp" },
+  { href: "/departamentos/bem-estar", rotulo: "Bem Estar", iconeSrc: "/icons/categorias/bem-estar.webp" },
 ];
 
 /**
@@ -32,13 +27,9 @@ export function CategoriasLinha() {
         {CATEGORIAS.map((item) => (
           <li key={item.rotulo}>
             <a href={item.href}>
-              <span className={item.destaque ? "shop-cat-icone is-oferta" : "shop-cat-icone"}>
-                {item.destaque ? (
-                  <item.Icone size={72} />
-                ) : (
-                  // alt vazio: o rótulo visível abaixo já nomeia a categoria.
-                  <img src={item.iconeSrc} alt="" width={96} height={96} decoding="async" draggable={false} />
-                )}
+              <span className="shop-cat-icone">
+                {/* alt vazio: o rótulo visível abaixo já nomeia a categoria. */}
+                <img src={item.iconeSrc} alt="" width={96} height={96} decoding="async" draggable={false} />
               </span>
               <span className="shop-cat-rotulo">{item.rotulo}</span>
             </a>
