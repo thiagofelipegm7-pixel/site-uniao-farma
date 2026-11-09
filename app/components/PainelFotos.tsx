@@ -616,22 +616,6 @@ export default function PainelFotos() {
               </tbody>
             </table>
           </div>
-          {dados.alteracoes && dados.alteracoes.length > 0 ? (
-            <section className="pf-historico" aria-label="Últimas alterações">
-              <h2>Últimas alterações</h2>
-              <ul>
-                {dados.alteracoes.map((a, i) => (
-                  <li key={`${a.quando}-${i}`}>
-                    <strong>{a.por}</strong> {a.acao}: {a.titulo}
-                    {a.tipo === "nome" && a.novo ? <> → “{a.novo}”{a.anterior ? <> (antes “{a.anterior}”)</> : null}</> : null}
-                    {a.tipo === "controlado" ? <> → {a.novo}{a.anterior ? <> (antes {a.anterior})</> : null}</> : null}
-                    {a.tipo === "categoria" ? <> → {a.novo}{a.anterior ? <> (antes {a.anterior})</> : null}</> : null}
-                    <small> · {new Date(a.quando).toLocaleString("pt-BR", { dateStyle: "short", timeStyle: "short" })}</small>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ) : null}
           {totalPaginas > 1 ? (
             <p className="pf-paginas">
               <button type="button" disabled={paginaAtual <= 1} onClick={() => setPagina(paginaAtual - 1)}>Anterior</button>
