@@ -91,6 +91,20 @@ test("header: cesta em contorno no estilo das categorias, badge coral circular",
 
 
 
+
+test("home: sem painel de abas Para você / Saúde / Beleza", async () => {
+  const [home, blocos] = await Promise.all([
+    readFile(new URL("../app/HomePage.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/shop/HomeBlocos.tsx", import.meta.url), "utf8"),
+  ]);
+  assert.doesNotMatch(home, /AbasHome/);
+  assert.doesNotMatch(home, /shop-abas/);
+  assert.doesNotMatch(blocos, /export function AbasHome/);
+  // Departamentos Saúde/Beleza continuam acessíveis pela faixa de categorias / gaveta.
+  assert.match(await readFile(new URL("../app/shop/ShopSections.tsx", import.meta.url), "utf8"), /departamentos\/medicamentos/);
+  assert.match(await readFile(new URL("../app/shop/ShopSections.tsx", import.meta.url), "utf8"), /departamentos\/beleza/);
+});
+
 test("submenu desktop: sem Enviar para e sem Ofertas Exclusivas; Departamentos permanece", async () => {
   const src = await readFile(new URL("../app/shop/HomeBlocos.tsx", import.meta.url), "utf8");
   assert.match(src, /export function SubmenuHome/);
