@@ -5,7 +5,7 @@ import { candidatosDoArraste } from "../fotos-arrastar";
 import { chaveDoNome } from "../nomes-corrigidos";
 import { nomeDeExibicao } from "../nome-exibicao";
 import { prepararFoto } from "./preparar-foto";
-import { csvDasLinhas, filtrarLinhas, resumirFotos, type FiltroFotos, type LinhaFoto, type ResumoFotos } from "../fotos-painel";
+import { filtrarLinhas, resumirFotos, type FiltroFotos, type LinhaFoto, type ResumoFotos } from "../fotos-painel";
 import "../metrics-polish.css";
 import "./painel-fotos.css";
 
@@ -371,14 +371,6 @@ export default function PainelFotos() {
     window.setTimeout(() => setCopiado((atual) => (atual === ean ? null : atual)), 1500);
   }
 
-  function baixarCsv() {
-    const a = document.createElement("a");
-    a.href = URL.createObjectURL(new Blob([csvDasLinhas(filtradas, marcados)], { type: "text/csv;charset=utf-8" }));
-    a.download = "fotos-filtro.csv";
-    a.click();
-    URL.revokeObjectURL(a.href);
-  }
-
   const mudar = <T,>(set: (v: T) => void) => (v: T) => {
     set(v);
     setPagina(1);
@@ -432,7 +424,6 @@ export default function PainelFotos() {
               <option value="nome">Nome (A a Z)</option>
               <option value="categoria">Categoria</option>
             </select>
-            <button type="button" onClick={baixarCsv}>Baixar lista do filtro (CSV)</button>
           </div>
 
           <p className="pf-contagem" role="status">{filtradas.length} {filtradas.length === 1 ? "item" : "itens"} no filtro</p>
