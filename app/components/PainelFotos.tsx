@@ -636,42 +636,6 @@ export default function PainelFotos() {
         </>
       ) : null}
     </section>
-      {produtoConfig ? (() => {
-        const l = linhas.find((x) => x.ean === produtoConfig);
-        if (!l) return null;
-        return (
-          <div role="dialog" aria-modal="true" style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", display: "grid", placeItems: "center", zIndex: 100 }}>
-            <div style={{ background: "#fff", borderRadius: "12px", padding: "1.5rem", maxWidth: "28rem", width: "90%", maxHeight: "80vh", overflow: "auto" }}>
-              <h2 style={{ margin: "0 0 1rem" }}>{nomeAtual(l).texto}</h2>
-              <div style={{ display: "grid", gap: "0.75rem" }}>
-                <label style={{ display: "grid", gap: "0.25rem" }}>
-                  <span>Nome</span>
-                  <input type="text" defaultValue={nomeAtual(l).texto} onBlur={(e) => void salvarNome(l, e.target.value)} style={{ padding: "0.5rem", borderRadius: "8px", border: "1px solid #d3e2df" }} />
-                </label>
-                <label style={{ display: "grid", gap: "0.25rem" }}>
-                  <span>Categoria</span>
-                  <select value={estadoCategoria(l)} onChange={(e) => void salvarCategoria(l, e.target.value)} style={{ padding: "0.5rem", borderRadius: "8px", border: "1px solid #d3e2df" }}>
-                    <option value="auto">Automático</option>
-                    {CATEGORIAS_VALIDAS.map((c) => <option key={c} value={c}>{c}</option>)}
-                  </select>
-                </label>
-                {categoriaEfetiva(l) === "Medicamentos" ? (
-                  <label style={{ display: "grid", gap: "0.25rem" }}>
-                    <span>Controlado (Portaria 344)</span>
-                    <select value={estadoControlado(l)} onChange={(e) => void salvarControlado(l, e.target.value as "auto" | "sim" | "nao")} style={{ padding: "0.5rem", borderRadius: "8px", border: "1px solid #d3e2df" }}>
-                      <option value="auto">Automático</option>
-                      <option value="sim">Marcar controlado</option>
-                      <option value="nao">Marcar não controlado</option>
-                    </select>
-                  </label>
-                ) : null}
-              </div>
-              <button type="button" onClick={() => setProdutoConfig(null)} style={{ marginTop: "1rem", padding: "0.5rem 1rem", background: "#0e7370", color: "#fff", border: "none", borderRadius: "8px", fontWeight: 600 }}>Fechar</button>
-            </div>
-          </div>
-        );
-      })() : null}
-    </section>
       {produtoConfig ? (
         <div role="dialog" aria-modal="true" style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", display: "grid", placeItems: "center", zIndex: 100 }}>
           <div style={{ background: "#fff", borderRadius: "12px", padding: "1.5rem", maxWidth: "28rem", width: "90%" }}>
