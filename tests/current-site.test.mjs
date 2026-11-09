@@ -107,6 +107,9 @@ test("busca: painel Termos mais buscados no campo vazio (1º–10º)", async () 
   assert.match(busca, /"dipirona"/);
   assert.match(css, /#0c9b90/);
   assert.match(css, /#e4f6f3/);
+  assert.match(css, /main \.shop-sugestoes li > a/);
+  assert.match(css, /font-variant-numeric: tabular-nums/);
+  assert.match(css, /\.shop-busca input:focus-visible/);
 });
 
 test("home: sem painel de abas Para você / Saúde / Beleza", async () => {
