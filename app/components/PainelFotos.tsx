@@ -489,10 +489,26 @@ export default function PainelFotos() {
           </section>
           {configAberto ? (
             <div role="dialog" aria-modal="true" style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", display: "grid", placeItems: "center", zIndex: 100 }}>
-              <div style={{ background: "#fff", borderRadius: "12px", padding: "1.5rem", maxWidth: "24rem", width: "90%" }}>
-                <h2 style={{ margin: "0 0 1rem" }}>Configuração</h2>
-                <p style={{ color: "#3e4b49", marginBottom: "1rem" }}>Ajustes do painel de produtos.</p>
-                <button type="button" onClick={() => setConfigAberto(false)} style={{ padding: "0.5rem 1rem", background: "#0e7370", color: "#fff", border: "none", borderRadius: "8px", fontWeight: 600 }}>Fechar</button>
+              <div style={{ background: "#fff", borderRadius: "12px", padding: "1.5rem", maxWidth: "28rem", width: "90%", maxHeight: "80vh", overflow: "auto" }}>
+                <h2 style={{ margin: "0 0 1rem" }}>Filtros e configuração</h2>
+                <div style={{ display: "grid", gap: "0.75rem" }}>
+                  <input type="search" value={busca} onChange={(e) => mudar(setBusca)(e.target.value)} placeholder="Buscar produto, laboratório ou código" aria-label="Buscar" style={{ padding: "0.5rem", borderRadius: "8px", border: "1px solid #d3e2df" }} />
+                  <select value={categoria} onChange={(e) => mudar(setCategoria)(e.target.value)} aria-label="Categoria" style={{ padding: "0.5rem", borderRadius: "8px", border: "1px solid #d3e2df" }}>
+                    <option value="">Todas as categorias</option>
+                    {dados.categorias.map((c) => <option key={c}>{c}</option>)}
+                  </select>
+                  <select value={fotos} onChange={(e) => mudar(setFotos)(e.target.value as FiltroFotos["fotos"])} aria-label="Fotos" style={{ padding: "0.5rem", borderRadius: "8px", border: "1px solid #d3e2df" }}>
+                    <option value="faltam">Faltam foto</option>
+                    <option value="site">Já estão no site</option>
+                    <option value="">Todos</option>
+                  </select>
+                  <select value={estoque} onChange={(e) => mudar(setEstoque)(e.target.value as FiltroFotos["estoque"])} aria-label="Estoque" style={{ padding: "0.5rem", borderRadius: "8px", border: "1px solid #d3e2df" }}>
+                    <option value="com">Só com estoque</option>
+                    <option value="zero">Zerado ou negativo</option>
+                    <option value="">Todo estoque</option>
+                  </select>
+                </div>
+                <button type="button" onClick={() => setConfigAberto(false)} style={{ marginTop: "1rem", padding: "0.5rem 1rem", background: "#0e7370", color: "#fff", border: "none", borderRadius: "8px", fontWeight: 600 }}>Fechar</button>
               </div>
             </div>
           ) : null}
@@ -502,35 +518,6 @@ export default function PainelFotos() {
           ) : null}
           {arrastando ? <p className="pf-solte" role="status">Solte aqui para enviar a foto de &ldquo;{linhas.find((x) => x.ean === arrastando)?.nome}&rdquo;</p> : null}
           {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
-
-          <div className="pf-filtros">
-            <input type="search" value={busca} onChange={(e) => mudar(setBusca)(e.target.value)} placeholder="Buscar produto, laboratório ou código de barras" aria-label="Buscar" />
-            <select value={categoria} onChange={(e) => mudar(setCategoria)(e.target.value)} aria-label="Categoria">
-              <option value="">Todas as categorias</option>
-              {dados.categorias.map((c) => <option key={c}>{c}</option>)}
-            </select>
-            <select value={fotos} onChange={(e) => mudar(setFotos)(e.target.value as FiltroFotos["fotos"])} aria-label="Fotos">
-              <option value="faltam">Faltam foto</option>
-              <option value="site">Já estão no site</option>
-              <option value="">Todos</option>
-            </select>
-            <select value={estoque} onChange={(e) => mudar(setEstoque)(e.target.value as FiltroFotos["estoque"])} aria-label="Estoque">
-              <option value="com">Só com estoque</option>
-              <option value="zero">Zerado ou negativo</option>
-              <option value="">Todo estoque</option>
-            </select>
-            <select value={tipo} onChange={(e) => mudar(setTipo)(e.target.value as FiltroFotos["tipo"])} aria-label="Tipo">
-              <option value="">Todos os tipos</option>
-              <option value="controlado">Controlados</option>
-              <option value="antimicrobiano">Antimicrobianos</option>
-              <option value="semcodigo">Sem código de barras</option>
-            </select>
-            <select value={ordem} onChange={(e) => setOrdem(e.target.value as Ordem)} aria-label="Ordenar por">
-              <option value="estoque">Mais unidades primeiro</option>
-              <option value="nome">Nome (A a Z)</option>
-              <option value="categoria">Categoria</option>
-            </select>
-          </div>
 
           <p className="pf-contagem" role="status">{filtradas.length} {filtradas.length === 1 ? "item" : "itens"} no filtro</p>
           <div className="pf-tabela">
