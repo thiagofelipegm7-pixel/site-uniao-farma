@@ -25,7 +25,7 @@ export function ehNbcal(nome: string): boolean {
   return /\b(CHUPETA|MAMADEIRA|CHUQUINHA)\b|^BICO\b|\bBICO (MAMAD|CHUPETA|PEPETA|MAMITA)|PRENDEDOR DE (BICO|CHUPETA)|PREDNDEDOR DE (BICO|CHUPETA)/.test(n);
 }
 
-export const AVISO_MIP = "Medicamento isento de prescrição. Leia a bula. Se persistirem os sintomas, o médico deverá ser consultado.";
+export const AVISO_MIP = "Medicamento isento de prescrição. Se persistirem os sintomas, o médico deverá ser consultado.";
 
 export const NOTA_PRECO = "A loja confirma preço e estoque pelo WhatsApp.";
 
