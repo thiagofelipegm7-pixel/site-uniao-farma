@@ -54,6 +54,7 @@ export default function PainelFotos() {
   // Linha sobre a qual o arquivo está sendo arrastado (computador).
   const [arrastando, setArrastando] = useState<string | null>(null);
   const [aviso, setAviso] = useState("");
+  const [configAberto, setConfigAberto] = useState(false);
   // Quem está mexendo: fica registrado no histórico (foto e nome). Guardado só neste aparelho.
   const [por, setPor] = useState("");
   const [editandoNome, setEditandoNome] = useState<string | null>(null);
@@ -470,10 +471,29 @@ export default function PainelFotos() {
       {dados ? (
         <>
           <section className="pf-resumo" aria-label="Resumo">
-            <div><strong>{resumo.aVendaComFoto}</strong><span>com foto, de {resumo.aVenda} itens à venda no site</span></div>
-            <div><strong>{resumo.aVendaFaltamComEstoque}</strong><span>faltam foto e têm estoque</span></div>
-            <div><strong>{resumo.aVendaComEstoque > 0 ? Math.round((resumo.aVendaComEstoqueComFoto / resumo.aVendaComEstoque) * 100) : 0}%</strong><span>dos itens à venda com estoque já têm foto</span></div>
+            <div>
+              <strong>{resumo.aVendaComFoto}</strong>
+              <span>com foto, de {resumo.aVenda} itens à venda no site</span>
+              <button type="button" onClick={() => setConfigAberto(true)} aria-label="Configurar" style={{ position: "absolute", top: "0.5rem", right: "0.5rem", background: "none", border: "none", cursor: "pointer", fontSize: "1.1rem" }}>⚙️</button>
+            </div>
+            <div>
+              <strong>{resumo.aVendaFaltamComEstoque}</strong>
+              <span>faltam foto e têm estoque</span>
+            </div>
+            <div>
+              <strong>{resumo.aVendaComEstoque > 0 ? Math.round((resumo.aVendaComEstoqueComFoto / resumo.aVendaComEstoque) * 100) : 0}%</strong>
+              <span>dos itens à venda com estoque já têm foto</span>
+            </div>
           </section>
+          {configAberto ? (
+            <div role="dialog" aria-modal="true" style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", display: "grid", placeItems: "center", zIndex: 100 }}>
+              <div style={{ background: "#fff", borderRadius: "12px", padding: "1.5rem", maxWidth: "24rem", width: "90%" }}>
+                <h2 style={{ margin: "0 0 1rem" }}>Configuração</h2>
+                <p style={{ color: "#3e4b49", marginBottom: "1rem" }}>Ajustes do painel de produtos.</p>
+                <button type="button" onClick={() => setConfigAberto(false)} style={{ padding: "0.5rem 1rem", background: "#0e7370", color: "#fff", border: "none", borderRadius: "8px", fontWeight: 600 }}>Fechar</button>
+              </div>
+            </div>
+          ) : null}
 
           {dados.publicacaoRapida === false ? (
             <p className="pf-aviso" role="note">A publicação rápida está desligada (falta a chave do GitHub no Cloudflare). As fotos funcionam no site, mas o arquivo fixo só sai quando o GitHub rodar a sincronização, o que pode levar horas.</p>
