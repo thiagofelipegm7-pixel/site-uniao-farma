@@ -636,7 +636,7 @@ export default function PainelFotos() {
         </>
       ) : null}
     </section>
-      {produtoConfig ? (() => {
+      {produtoConfig && (() => {
         const l = linhas.find((x) => x.ean === produtoConfig);
         if (!l) return null;
         return (
