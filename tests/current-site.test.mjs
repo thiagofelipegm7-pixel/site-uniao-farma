@@ -63,6 +63,32 @@ test("home: 'Navegue por categoria' é faixa horizontal com cards grandes e scro
   assert.match(css, /display: grid !important/);
 });
 
+
+test("header: cesta em contorno no estilo das categorias, badge coral circular", async () => {
+  const [icons, sacola, overrides] = await Promise.all([
+    readFile(new URL("../app/reserva/ReservaIcons.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/reserva/ReservaSacola.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/overrides.css", import.meta.url), "utf8"),
+  ]);
+  assert.match(icons, /export function IconCestaLinha/);
+  assert.match(icons, /strokeLinecap="round"/);
+  assert.match(icons, /strokeLinejoin="round"/);
+  assert.match(icons, /strokeWidth="16"/);
+  assert.match(sacola, /IconCestaLinha/);
+  assert.match(sacola, /reserva-sacola-icone/);
+  assert.match(sacola, /size=\{34\}/);
+  assert.doesNotMatch(sacola, /<IconCesta /);
+  // Botões de adicionar dos cards continuam com a cesta preenchida.
+  const botao = await readFile(new URL("../app/reserva/ReservarBotao.tsx", import.meta.url), "utf8");
+  assert.match(botao, /IconCesta/);
+  assert.match(overrides, /border-radius: 999px/);
+  assert.match(overrides, /--uf-offer/);
+  assert.match(overrides, /reserva-sacola-icone/);
+  assert.match(overrides, /top: -0\.375rem/);
+  assert.match(overrides, /right: -0\.5rem/);
+  assert.match(overrides, /border: 1\.5px solid #ffffff !important/);
+});
+
 test("celular: a barra de atalhos da loja tem 4 colunas e não cobre o aviso de cookies", async () => {
   const css = await readFile(new URL("../app/design.css", import.meta.url), "utf8");
   assert.match(css, /\.mobile-quick-nav-inner\.is-shop \{ grid-template-columns: repeat\(4, minmax\(min-content, 1fr\)\) !important; \}/);

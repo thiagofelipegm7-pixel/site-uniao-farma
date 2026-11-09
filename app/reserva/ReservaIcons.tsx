@@ -273,6 +273,34 @@ export function IconCesta({ size = 24 }: P) {
   );
 }
 
+/** Cesta em contorno no estilo da iconografia de categorias (traço grosso, caps arredondados). Só o header. */
+export function IconCestaLinha({ size = 24 }: P) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 256 256"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="16"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {/* Alça triangular arredondada */}
+      <path d="M92 96 L128 40 L164 96" />
+      {/* Borda superior da cesta */}
+      <path d="M40 96 H216" />
+      {/* Corpo trapezoidal */}
+      <path d="M52 96 L68 208 H188 L204 96" />
+      {/* Costelas internas */}
+      <path d="M96 120 V184" />
+      <path d="M128 120 V184" />
+      <path d="M160 120 V184" />
+    </svg>
+  );
+}
+
 /** Phosphor truck, fill. */
 export function IconCaminhao({ size = 24 }: P) {
   return (

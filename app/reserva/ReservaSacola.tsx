@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { EVENTO_ABRIR_RESERVA } from "./abrir-reserva";
 import { UNITS } from "../site-config";
-import { IconFechar, IconLixeira, IconMais, IconMenos, IconCesta } from "./ReservaIcons";
+import { IconFechar, IconLixeira, IconMais, IconMenos, IconCestaLinha } from "./ReservaIcons";
 import { ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, formatarCentavos, limpar, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
 import { useDisponibilidade } from "./useDisponibilidade";
@@ -180,8 +180,10 @@ export default function ReservaSacola() {
         aria-expanded={aberta}
         onClick={() => setAberta(true)}
       >
-        <IconCesta size={26} />
-        {total > 0 ? <span key={total} className="reserva-contador-bolha" aria-hidden="true">{total}</span> : null}
+        <span className="reserva-sacola-icone">
+          <IconCestaLinha size={34} />
+          {total > 0 ? <span key={total} className="reserva-contador-bolha" aria-hidden="true">{total}</span> : null}
+        </span>
       </button>
 
       {aberta ? createPortal(gaveta, document.body) : null}
