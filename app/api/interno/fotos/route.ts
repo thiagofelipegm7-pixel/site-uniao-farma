@@ -37,8 +37,8 @@ export async function GET() {
   const categorias = new Map<string, string>();
   for (const i of carregarCatalogoCompleto().itens) categorias.set(chaveDeNome(i.nome), i.categoria);
   const restritos = carregarRestritos();
-  for (const i of restritos.receita) if (!categorias.has(chaveDeNome(i.nome))) categorias.set(chaveDeNome(i.nome), "Com receita");
-  for (const i of restritos.controlados) if (!categorias.has(chaveDeNome(i.nome))) categorias.set(chaveDeNome(i.nome), "Controlados");
+  for (const i of restritos.receita) if (!categorias.has(chaveDeNome(i.nome))) categorias.set(chaveDeNome(i.nome), "Medicamentos");
+  for (const i of restritos.controlados) if (!categorias.has(chaveDeNome(i.nome))) categorias.set(chaveDeNome(i.nome), "Medicamentos");
 
   const eansComFoto = new Set(Object.values(FOTOS_NACOES));
   const linhas = montarLinhas(itens, eansComFoto, categorias);
