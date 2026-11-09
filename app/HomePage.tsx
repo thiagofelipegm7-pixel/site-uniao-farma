@@ -4,7 +4,6 @@
 
 import { SITE_URL, PUBLIC_UNITS } from "./site-config";
 import { getPageStructuredData } from "./structured-data";
-import OfertasSemana from "./OfertasSemana";
 import CabecalhoInteligente from "./shop/CabecalhoInteligente";
 import ShopHeader from "./shop/ShopHeader";
 import DestaquesSemana from "./shop/DestaquesSemana";
@@ -12,8 +11,8 @@ import { AbasHome, SubmenuHome } from "./shop/HomeBlocos";
 import { CategoriasLinha } from "./shop/ShopSections";
 
 /**
- * Home na estrutura da home da Panvel: cabeçalho e submenu, abas, banner (único h1), cartões de benefícios, categorias,
- * Ofertas da semana, vitrines por categoria, "como você quiser", lojas e contato. Sem FAQ no schema: não há FAQ visível.
+ * Home na estrutura da home da Panvel: cabeçalho e submenu, abas, banner (único h1), cartões de benefícios,
+ * categorias, vitrines por categoria, "como você quiser", lojas e contato. Sem FAQ no schema: não há FAQ visível.
  */
 export default function HomePage() {
   const homeStructuredData = getPageStructuredData({
@@ -32,7 +31,6 @@ export default function HomePage() {
       </CabecalhoInteligente>
       <AbasHome />
       <CategoriasLinha />
-      <OfertasSemana />
       <DestaquesSemana id="vitrine-higiene" titulo="Cuidado Diário" grupo="cuidado-diario" n={12} verTodas={false} source="home_higiene" />
       <DestaquesSemana id="vitrine-pele" titulo="Dermocosméticos" grupo="dermocosmeticos" n={12} verTodas={false} source="home_pele" />
       <DestaquesSemana id="vitrine-sem-receita" titulo="Medicamentos" grupo="medicamentos" n={12} verTodas={false} source="home_mips" />
