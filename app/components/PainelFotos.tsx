@@ -425,7 +425,7 @@ export default function PainelFotos() {
 
   async function salvarCategoria(l: LinhaPainel, categoria: string) {
     if (categoria !== "auto" && categoria !== "Medicamentos" && l.sistemaRestrito) {
-      setAviso("Este item é receita ou controlado no sistema (Portaria 344). Não pode sair de Medicamentos.");
+      setAviso("Este item é receita ou controlado no sistema. Não pode sair de Medicamentos.");
       return;
     }
     try {
@@ -441,7 +441,7 @@ export default function PainelFotos() {
       const j = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string } | null;
       if (!r.ok || !j?.ok) {
         const msg: Record<string, string> = {
-          sistema_restrito: "Este item é receita ou controlado no sistema (Portaria 344). Não pode sair de Medicamentos.",
+          sistema_restrito: "Este item é receita ou controlado no sistema. Não pode sair de Medicamentos.",
           categoria_invalida: "Categoria inválida.",
         };
         setAviso(msg[j?.erro ?? ""] ?? "Não consegui salvar a categoria. Tente de novo.");
