@@ -55,7 +55,7 @@ test("controlado override: painel, API, sync e middleware ligados", async () => 
     readFile(new URL("../app/api/interno/fotos/route.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/api/catalogo-aprovacoes/route.ts", import.meta.url), "utf8"),
   ]);
-  assert.match(painel, /<span>Controlado<\/span>/);
+  assert.match(painel, />Controlado<\/span>/);
   assert.match(painel, /categoriaEfetiva\(l\) === "Medicamentos"/);
   assert.match(painel, /\/api\/interno\/produto\/controlado/);
   assert.match(api, /definirControlado/);

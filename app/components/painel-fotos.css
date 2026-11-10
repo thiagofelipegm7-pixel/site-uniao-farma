@@ -174,3 +174,128 @@
 .pf-contas { margin: 0.75rem 0; padding: 0.75rem 1rem; border: 1px solid var(--color-line, #d5e3e1); border-radius: 12px; background: #ffffff; }
 .pf-contas summary { cursor: pointer; font-weight: 700; }
 .pf-contas ul { margin: 0.5rem 0 0; padding-left: 1.25rem; line-height: 1.6; }
+
+/* =====================================================================
+   Painel interno, visual novo: cabeçalho simples, faixa de status compacta, barra de filtros, cartões de produto
+   legíveis e popup limpo. Cores: verde = ação, amarelo = alerta, vermelho = zerado/perigo (docs/cores-e-animacoes.md).
+   ===================================================================== */
+body:has(.nav-interna) { background: #f2f6f5; }
+.painel-fotos { --pf-ink: #0d1413; --pf-ink2: #3e4b49; --pf-mudo: #66756f; --pf-linha: #dbe6e3; --pf-fundo: #f2f6f5; --pf-navy: #0a3548; --pf-verde: #0e7370; --pf-verde-claro: #e3f4ee; --pf-ambar: #fff3c4; --pf-ambar-tx: #5a4300; --pf-verm: #fdecea; --pf-verm-tx: #a3200f; max-width: 82rem; padding: 1.5rem 1.25rem 3rem; }
+.pf-cabeca { margin: 0 0 1rem; }
+.painel-fotos .pf-cabeca h1 { margin: 0; font-size: 1.625rem; font-weight: 800; letter-spacing: -0.02em; }
+.pf-cabeca p { margin: 0.25rem 0 0; color: var(--pf-ink2); font-size: 0.9375rem; }
+
+/* Faixa de status do PC (PainelCatalogo): sem o cabeçalho próprio, sem fundo gigante, métricas lado a lado. */
+.painel-fotos .painel-catalogo.metrics-page { min-height: 0; padding: 0; background: transparent; }
+.painel-fotos .painel-catalogo .metrics-wrap { max-width: none; padding: 0; margin: 0; }
+.painel-fotos .painel-catalogo .metrics-top { display: none; }
+.painel-fotos .painel-catalogo .painel-saude { margin: 0 0 0.75rem; padding: 0.75rem 1rem; border-radius: 14px; }
+.painel-fotos .painel-catalogo .painel-saude p { margin: 0.125rem 0 0; font-size: 0.875rem; }
+.painel-fotos .painel-catalogo .painel-nota { display: none; }
+.painel-fotos .painel-catalogo .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); gap: 0.75rem; margin: 0 0 1.25rem; }
+.painel-fotos .painel-catalogo .metrics-card { padding: 0.875rem 1rem; border: 1px solid var(--pf-linha); border-radius: 14px; background: #ffffff; box-shadow: none; }
+.painel-fotos .painel-catalogo .metrics-card strong { font-size: 0.8125rem; font-weight: 700; color: var(--pf-mudo); text-transform: uppercase; letter-spacing: 0.04em; }
+.painel-fotos .painel-catalogo .metrics-card .painel-valor { display: block; margin: 0.25rem 0; font-size: 1.75rem; font-weight: 800; line-height: 1.15; letter-spacing: -0.02em; color: var(--pf-ink); }
+.painel-fotos .painel-catalogo .metrics-card small { color: var(--pf-ink2); font-size: 0.8125rem; }
+
+/* Barra de filtros */
+.pf-barra { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.5rem; margin: 0 0 0.75rem; padding: 0.625rem; border: 1px solid var(--pf-linha); border-radius: 14px; background: #ffffff; }
+.pf-busca { display: flex; align-items: center; gap: 0.5rem; min-height: 2.75rem; padding: 0 0.75rem; border: 1px solid var(--pf-linha); border-radius: 10px; background: var(--pf-fundo); color: var(--pf-mudo); }
+.pf-busca:focus-within { border-color: var(--pf-verde); box-shadow: 0 0 0 3px rgba(14, 115, 112, 0.18); background: #ffffff; }
+.pf-busca input { flex: 1; min-width: 0; min-height: 2.5rem; padding: 0; border: 0; background: transparent; color: var(--pf-ink); font: inherit; font-size: 16px; outline: none; }
+.pf-select { min-height: 2.75rem; padding: 0 0.75rem; border: 1px solid var(--pf-linha); border-radius: 10px; background: #ffffff; color: var(--pf-ink); font: inherit; font-size: 16px; cursor: pointer; }
+.pf-select:focus-visible { outline: 3px solid var(--pf-verde); outline-offset: 1px; }
+@media (min-width: 900px) { .pf-barra { grid-template-columns: minmax(16rem, 1fr) repeat(3, minmax(11rem, auto)); } }
+.painel-fotos .pf-contagem { margin: 0 0 0.75rem; color: var(--pf-ink2); font-size: 0.9375rem; font-weight: 400; }
+.painel-fotos .pf-contagem b { color: var(--pf-ink); font-size: 1.0625rem; }
+
+/* Cartões de produto */
+.pf-grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 1rem; }
+.pf-card { display: flex; flex-direction: column; gap: 0.5rem; padding: 0.75rem; border: 1px solid var(--pf-linha); border-radius: 16px; background: #ffffff; transition: border-color 0.15s ease, box-shadow 0.15s ease; }
+.pf-card:hover { border-color: #b9ccc8; box-shadow: 0 6px 18px rgba(10, 53, 72, 0.08); }
+.pf-card:focus-visible { outline: 3px solid var(--pf-verde); outline-offset: 2px; }
+.pf-card--zero .pf-card-nome, .pf-card--zero .pf-card-foto img { opacity: 0.7; }
+.pf-card-topo { display: flex; align-items: center; gap: 0.375rem; min-height: 2.25rem; }
+.painel-fotos .pf-card .pf-qtd { min-width: 0; padding: 0.125rem 0.625rem; border-radius: 999px; font-size: 0.8125rem; font-weight: 800; line-height: 1.5; }
+.pf-chip { display: inline-flex; align-items: center; padding: 0.125rem 0.5rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700; line-height: 1.5; }
+.pf-chip-ctl { background: var(--pf-verm); color: var(--pf-verm-tx); }
+.pf-engrenagem { display: inline-grid; place-items: center; width: 2.25rem; height: 2.25rem; margin-left: auto; padding: 0; border: 1px solid transparent; border-radius: 10px; background: transparent; color: var(--pf-ink2); cursor: pointer; }
+.pf-engrenagem:hover { background: var(--pf-fundo); border-color: var(--pf-linha); color: var(--pf-ink); }
+.pf-engrenagem:focus-visible { outline: 3px solid var(--pf-verde); outline-offset: 1px; }
+.pf-card-foto { display: grid; place-items: center; height: 7.5rem; border-radius: 12px; background: var(--pf-fundo); overflow: hidden; }
+.painel-fotos .pf-card-foto img { width: 6rem; height: 6rem; object-fit: contain; border-radius: 0; background: transparent; }
+.pf-envio { position: relative; display: grid; justify-items: center; gap: 0.25rem; width: 100%; height: 100%; align-content: center; border: 2px dashed #9dbcb6; border-radius: 12px; color: var(--pf-verde); font-size: 0.875rem; font-weight: 700; cursor: pointer; transition: background-color 0.15s ease, border-color 0.15s ease; }
+.pf-envio:hover { background: var(--pf-verde-claro); border-color: var(--pf-verde); }
+.pf-envio:focus-within { outline: 3px solid var(--pf-verde); outline-offset: 1px; }
+.pf-envio input, .pf-botao input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; font-size: 16px; }
+.painel-fotos .pf-card-nome { margin: 0.25rem 0 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.5em; color: var(--pf-ink); font-size: 0.9375rem; font-weight: 700; line-height: 1.25; }
+.pf-card-lab { margin: 0; color: var(--pf-mudo); font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.03em; }
+.pf-card-dados { display: grid; gap: 0.25rem; margin: 0.25rem 0 0; padding-top: 0.5rem; border-top: 1px solid var(--pf-linha); font-size: 0.8125rem; }
+.pf-card-dados > div { display: flex; justify-content: space-between; gap: 0.75rem; min-width: 0; }
+.pf-card-dados dt { color: var(--pf-mudo); }
+.pf-card-dados dd { margin: 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--pf-ink); text-align: right; }
+.pf-mono { font-variant-numeric: tabular-nums; letter-spacing: 0.01em; }
+.pf-card-dados .pf-preco { font-size: 1rem; font-weight: 800; }
+
+/* Páginas */
+.painel-fotos .pf-paginas { margin: 1.5rem 0 0; }
+.painel-fotos .pf-paginas button { border-color: var(--pf-linha); border-radius: 10px; background: #ffffff; }
+
+/* Popup */
+.pf-modal-fundo { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 1rem; background: rgba(10, 53, 72, 0.55); backdrop-filter: blur(3px); }
+.pf-modal { box-sizing: border-box; width: 100%; max-width: 30rem; max-height: 92vh; overflow-y: auto; padding: 1.25rem; border-radius: 18px; background: #ffffff; color: #0d1413; box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25); }
+.pf-modal-topo { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; margin: 0 0 1rem; }
+.pf-modal-topo h2 { margin: 0; font-size: 1.1875rem; font-weight: 800; line-height: 1.25; }
+.pf-modal-topo p { margin: 0.25rem 0 0; color: #66756f; font-size: 0.8125rem; }
+.pf-modal-fechar { flex: none; display: grid; place-items: center; width: 2.5rem; height: 2.5rem; padding: 0; border: 0; border-radius: 10px; background: #f2f6f5; color: #3e4b49; font-size: 1.5rem; line-height: 1; cursor: pointer; }
+.pf-modal-fechar:hover { background: #e3ecea; }
+.pf-modal-corpo { display: grid; gap: 1rem; }
+.pf-campo { display: grid; gap: 0.375rem; margin: 0; padding: 0; border: 0; }
+.pf-campo--linha { display: flex; align-items: center; justify-content: space-between; padding: 0.625rem 0.75rem; border: 1px solid #dbe6e3; border-radius: 12px; }
+.pf-campo-rotulo { color: #3e4b49; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
+.pf-entrada { box-sizing: border-box; width: 100%; min-height: 2.75rem; padding: 0 0.75rem; border: 1px solid #c9d8d4; border-radius: 10px; background: #ffffff; color: #0d1413; font: inherit; font-size: 16px; }
+.pf-entrada:focus-visible { outline: 3px solid #0e7370; outline-offset: 1px; border-color: #0e7370; }
+.pf-foto-linha { display: flex; align-items: center; gap: 0.875rem; padding: 0.75rem; border: 1px solid #dbe6e3; border-radius: 12px; background: #f7faf9; }
+.pf-foto-linha img { width: 5rem; height: 5rem; object-fit: contain; border-radius: 10px; background: #ffffff; }
+.pf-foto-vazia { display: grid; place-items: center; width: 5rem; height: 5rem; border-radius: 10px; background: #e3ecea; color: #66756f; font-size: 0.8125rem; }
+.pf-botao { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 0.375rem; box-sizing: border-box; min-height: 2.75rem; padding: 0 1.125rem; border: 1px solid #c9d8d4; border-radius: 10px; background: #ffffff; color: #0a3548; font: inherit; font-size: 0.9375rem; font-weight: 700; cursor: pointer; transition: background-color 0.15s ease; }
+.pf-botao:hover { background: #f2f6f5; }
+.pf-botao:focus-visible { outline: 3px solid #0e7370; outline-offset: 2px; }
+.pf-botao--primario { border-color: #0e7370; background: #0e7370; color: #ffffff; }
+.pf-botao--primario:hover { background: #0a5f5c; }
+.pf-botao--cheio { flex: 1; }
+.pf-botao--perigo { border-color: #c62828; background: #c62828; color: #ffffff; }
+.pf-botao--perigo:hover { background: #a81f1f; }
+.pf-botao--contorno-perigo { margin-top: 1rem; border-color: #e5a29c; color: #b3261e; }
+.pf-botao--contorno-perigo:hover { background: #fdecea; }
+.pf-chave { position: relative; flex: none; width: 3rem; height: 1.75rem; padding: 0; border: 0; border-radius: 999px; background: #c9d8d4; cursor: pointer; transition: background-color 0.2s ease; }
+.pf-chave::after { content: ""; position: absolute; top: 0.1875rem; left: 0.1875rem; width: 1.375rem; height: 1.375rem; border-radius: 50%; background: #ffffff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25); transition: transform 0.2s ease; }
+.pf-chave[aria-checked="true"] { background: #0e7370; }
+.pf-chave[aria-checked="true"]::after { transform: translateX(1.25rem); }
+.pf-chave:focus-visible { outline: 3px solid #0e7370; outline-offset: 2px; }
+.pf-perigo { margin-top: 1rem; padding: 0.875rem 1rem; border: 1px solid #e5a29c; border-radius: 12px; background: #fff5f5; }
+.pf-perigo p { margin: 0 0 0.75rem; line-height: 1.4; }
+.pf-modal-acoes { display: flex; gap: 0.5rem; }
+.pf-modal-rodape { margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid #dbe6e3; }
+@media (prefers-reduced-motion: reduce) { .pf-card, .pf-envio, .pf-botao, .pf-chave, .pf-chave::after { transition: none; } }
+
+/* O estilo global do site (camada "design", com !important) fixa o tamanho dos títulos; aqui o painel interno vence nela. */
+@layer design {
+  .painel-fotos .pf-cabeca h1 { font-size: 1.625rem !important; line-height: 1.2 !important; letter-spacing: -0.02em !important; margin: 0 !important; }
+  .painel-fotos .pf-card .pf-card-nome { font-size: 0.9375rem !important; line-height: 1.25 !important; font-weight: 700 !important; letter-spacing: 0 !important; margin: 0.25rem 0 0 !important; }
+  .pf-modal .pf-modal-topo h2 { font-size: 1.1875rem !important; line-height: 1.25 !important; margin: 0 !important; }
+}
+
+/* Celular: métricas compactas em 2 colunas e filtros em duas colunas. */
+@media (max-width: 720px) {
+  .painel-fotos { padding: 1rem 0.875rem 2.5rem; }
+  .painel-fotos .painel-catalogo .metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; margin-bottom: 1rem; }
+  .painel-fotos .painel-catalogo .metrics-card:first-child { grid-column: 1 / -1; }
+  .painel-fotos .painel-catalogo .metrics-card { padding: 0.625rem 0.75rem; }
+  .painel-fotos .painel-catalogo .metrics-card .painel-valor { font-size: 1.375rem; }
+  .pf-barra { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pf-busca, .pf-barra .pf-select:nth-of-type(1) { grid-column: 1 / -1; }
+  .pf-grade { grid-template-columns: minmax(0, 1fr); }
+  .pf-modal-fundo { align-items: end; padding: 0; }
+  .pf-modal { max-width: none; border-radius: 18px 18px 0 0; }
+}
