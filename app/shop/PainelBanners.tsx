@@ -31,8 +31,8 @@ export default function PainelBanners({ banners = BANNERS_PAINEL, titulo }: { ba
     fetch("/api/banners-publico", { cache: "no-store" })
       .then((r) => r.json())
       .then((d: { banners?: { id: string; url: string }[] }) => {
-        const hero = d.banners?.find((b) => b.id === "hero");
-        if (hero) setCustom([{ id: "hero", imagem: hero.url, alt: "Oferta da União Farma", href: "/nacoes-unidas/produtos" }]);
+        const lista = d.banners?.filter((b) => b.id.startsWith("hero-")).map((b) => ({ id: b.id, imagem: b.url, alt: "Oferta da União Farma", href: "/nacoes-unidas/produtos" })) ?? [];
+        if (lista.length) setCustom(lista);
       })
       .catch(() => {});
   }, []);
