@@ -1857,3 +1857,14 @@ html body .reserva-gaveta .reservar-contador, html body .reserva-gaveta .reserva
 @layer design {
   html body .reserva-gaveta .reservar-contador, html body .reserva-gaveta .reserva-botao, html body .reserva-gaveta-pe .reserva-botao, html body .reserva-gaveta-pe a { border-radius: 999px !important; }
 }
+
+/* Entrega e Finalizar no mesmo desenho: campos e opções com cantos de 10 a 12px, botões em pílula e sem caixa alta. */
+.fluxo-campo input, .fluxo-campo select { border: 1px solid #c9d8d4; border-radius: 10px; }
+.fluxo-campo input:focus-visible, .fluxo-campo select:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 1px; }
+html body .entrega-btn { border-radius: 999px; text-transform: none; letter-spacing: 0; font-weight: 700; }
+html body .entrega-pacote { border: 1px solid #dbe6e3; border-radius: 16px; box-shadow: none; }
+html body .entrega-topbar { border-radius: 0; }
+html body .entrega-opcao { border-radius: 12px; }
+html body .entrega-loja, html body .entrega-end { border-radius: 12px; }
+html body .entrega-colunas, html body .fluxo-conteudo .fluxo-colunas { text-transform: none; letter-spacing: 0; font-size: 0.8125rem; font-weight: 600; color: #5b6b68; }
+html body .fluxo-pagamento .fluxo-botao, html body .fluxo-rodape .fluxo-botao { border-radius: 999px; text-transform: none; letter-spacing: 0; }
