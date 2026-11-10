@@ -505,7 +505,10 @@ export default function PainelFotos() {
   return (
     <>
     <section className="painel-fotos">
-      <h1>Produtos</h1>
+      <header className="pf-cabeca">
+        <h1>Produtos</h1>
+        <p>Estoque do PC, fotos e ajustes do que aparece no site.</p>
+      </header>
       <PainelCatalogo />
       {erro ? <p role="alert">Não consegui ler o estoque agora. O PC da loja ou o acesso aos dados pode estar parado. <button type="button" onClick={() => void carregar()}>Tentar de novo</button></p> : null}
       {!dados && !erro ? <p>Carregando o estoque…</p> : null}
@@ -521,61 +524,62 @@ export default function PainelFotos() {
           {arrastando ? <p className="pf-solte" role="status">Solte aqui para enviar a foto de &ldquo;{linhas.find((x) => x.ean === arrastando)?.nome}&rdquo;</p> : null}
           {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
 
-                    <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginBottom: "1rem" }}>
-            <input type="search" value={busca} onChange={(e) => mudar(setBusca)(e.target.value)} placeholder="Buscar produto, laboratório ou código" aria-label="Buscar" style={{ padding: "0.5rem 0.75rem", borderRadius: "8px", border: "1px solid #d3e2df", fontSize: "0.9rem", flex: "1", minWidth: "200px" }} />
-            <select value={categoria} onChange={(e) => mudar(setCategoria)(e.target.value)} aria-label="Categoria" style={{ padding: "0.5rem 0.75rem", borderRadius: "8px", border: "1px solid #d3e2df", fontSize: "0.9rem" }}>
+          <div className="pf-barra" role="search">
+            <label className="pf-busca">
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" strokeWidth="2" /><path d="m20 20-4.4-4.4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
+              <input type="search" value={busca} onChange={(e) => mudar(setBusca)(e.target.value)} placeholder="Buscar produto, laboratório ou código" aria-label="Buscar" />
+            </label>
+            <select className="pf-select" value={categoria} onChange={(e) => mudar(setCategoria)(e.target.value)} aria-label="Categoria">
               <option value="">Todas as categorias</option>
               <option value="__corrigir">A corrigir</option>
               {dados.categorias.map((c) => <option key={c}>{c}</option>)}
             </select>
-            <select value={fotos} onChange={(e) => mudar(setFotos)(e.target.value as FiltroFotos["fotos"])} aria-label="Fotos" style={{ padding: "0.5rem 0.75rem", borderRadius: "8px", border: "1px solid #d3e2df", fontSize: "0.9rem" }}>
+            <select className="pf-select" value={fotos} onChange={(e) => mudar(setFotos)(e.target.value as FiltroFotos["fotos"])} aria-label="Fotos">
               <option value="faltam">Faltam foto</option>
               <option value="site">Já estão no site</option>
               <option value="">Todos</option>
             </select>
-            <select value={estoque} onChange={(e) => mudar(setEstoque)(e.target.value as FiltroFotos["estoque"])} aria-label="Estoque" style={{ padding: "0.5rem 0.75rem", borderRadius: "8px", border: "1px solid #d3e2df", fontSize: "0.9rem" }}>
+            <select className="pf-select" value={estoque} onChange={(e) => mudar(setEstoque)(e.target.value as FiltroFotos["estoque"])} aria-label="Estoque">
               <option value="com">Só com estoque</option>
               <option value="zero">Zerado ou negativo</option>
               <option value="">Todo estoque</option>
             </select>
           </div>
-          <p className="pf-contagem" role="status">{filtradas.length} {filtradas.length === 1 ? "item" : "itens"} no filtro</p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: "1.5rem", justifyContent: "center" }}>
-            {visiveis.map((l) => (
-              <div
-                key={l.ean}
-                data-ean={l.ean}
-                tabIndex={0}
-                onFocus={() => setAlvoColar(l.ean)}
-                style={{ background: "#fff", borderRadius: "12px", padding: "0.75rem", border: "1px solid #d3e2df", boxShadow: "0 1px 3px rgba(0,0,0,0.06)", position: "relative", width: "100%", height: "200px", display: "flex", flexDirection: "column", justifyContent: "space-between", overflow: "hidden", transition: "transform 0.2s, box-shadow 0.2s", cursor: "pointer" }}
-                onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.12)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.06)"; }}
-              >
-                {estadoControlado(l) === "sim" ? <span style={{ position: "absolute", top: "0.75rem", left: "0.75rem", width: "12px", height: "12px", background: "#e53935", borderRadius: "50%", zIndex: 1, boxShadow: "0 0 0 2px #fff" }} title="Controlado" /> : null}
-                <button type="button" onClick={() => setProdutoConfig(l.ean)} aria-label="Configurar produto" style={{ position: "absolute", top: "0.5rem", right: "0.5rem", background: "none", border: "none", cursor: "pointer", fontSize: "1rem", zIndex: 1 }}>⚙️</button>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "60px", flexShrink: 0 }}>
-                  {l.noSite ? (
-                    <img src={pendentes.has(l.ean) || envios[l.ean] === "enviada" ? `/api/foto-nova?ean=${l.ean}&v=${envios[l.ean] === "enviada" ? "n" : "p"}` : `/produtos/${l.ean}.webp`} alt="" width="50" height="50" style={{ objectFit: "contain", maxWidth: "50px", maxHeight: "50px" }} />
-                  ) : (
-                    <label style={{ cursor: "pointer" }}>
-                      <input type="file" accept="image/*" disabled={envios[l.ean] === "enviando"} onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} style={{ display: "none" }} />
-                      <span style={{ background: "#0e7370", color: "#fff", padding: "0.5rem 1rem", borderRadius: "8px", fontSize: "0.8rem" }}>
-                        {envios[l.ean] === "enviando" ? "Enviando…" : "Enviar foto"}
-                      </span>
-                    </label>
-                  )}
-                </div>
-                <div style={{ fontWeight: 600, fontSize: "0.75rem", textAlign: "center", lineHeight: 1.2, height: "2.4em", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", textOverflow: "ellipsis" }} title={nomeAtual(l).texto}>
-                  {nomeAtual(l).texto}
-                </div>
-                <div style={{ display: "grid", gap: "0.15rem", fontSize: "0.7rem", color: "#3e4b49" }}>
-                  <div><span style={{ color: "#6b7c79" }}>Qtd:</span> {l.estoque}</div>
-                  <div><span style={{ color: "#6b7c79" }}>Cat:</span> {categoriaEfetiva(l)}</div>
-                  <div style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} title={l.ean}><span style={{ color: "#6b7c79" }}>Cód:</span> {l.semCodigo ? "-" : l.ean}</div>
-                  <div><span style={{ color: "#6b7c79" }}>R$:</span> {REAIS.format(l.preco)}</div>
-                </div>
-              </div>
-            ))}
+          <p className="pf-contagem" role="status"><b>{filtradas.length}</b> {filtradas.length === 1 ? "item" : "itens"} no filtro</p>
+          <div className="pf-grade">
+            {visiveis.map((l) => {
+              const faixa = l.estoque <= 0 ? "zero" : l.estoque <= 5 ? "baixo" : "normal";
+              const urlFoto = pendentes.has(l.ean) || envios[l.ean] === "enviada" ? `/api/foto-nova?ean=${l.ean}&v=${envios[l.ean] === "enviada" ? "n" : "p"}` : `/produtos/${l.ean}.webp`;
+              return (
+                <article key={l.ean} data-ean={l.ean} tabIndex={0} onFocus={() => setAlvoColar(l.ean)} className={`pf-card${faixa === "zero" ? " pf-card--zero" : ""}`}>
+                  <div className="pf-card-topo">
+                    <span className={`pf-qtd pf-qtd-${faixa}`} title={faixa === "zero" ? "Sem estoque" : faixa === "baixo" ? "Estoque baixo" : "Estoque normal"}>{l.estoque} un.</span>
+                    {estadoControlado(l) === "sim" ? <span className="pf-chip pf-chip-ctl">Controlado</span> : null}
+                    <button type="button" className="pf-engrenagem" onClick={() => setProdutoConfig(l.ean)} aria-label={`Configurar ${nomeAtual(l).texto}`}>
+                      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /><circle cx="15" cy="7" r="2" fill="none" stroke="currentColor" strokeWidth="2" /><circle cx="9" cy="17" r="2" fill="none" stroke="currentColor" strokeWidth="2" /></svg>
+                    </button>
+                  </div>
+                  <div className="pf-card-foto">
+                    {l.noSite ? (
+                      <img src={urlFoto} alt="" width="96" height="96" />
+                    ) : (
+                      <label className="pf-envio">
+                        <input type="file" accept="image/*" disabled={envios[l.ean] === "enviando"} onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} />
+                        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 16V5m0 0-4 4m4-4 4 4M5 15v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                        <span>{envios[l.ean] === "enviando" ? "Enviando…" : "Enviar foto"}</span>
+                      </label>
+                    )}
+                  </div>
+                  <h3 className="pf-card-nome" title={nomeAtual(l).texto}>{nomeAtual(l).texto}</h3>
+                  {l.lab ? <p className="pf-card-lab">{l.lab}</p> : null}
+                  <dl className="pf-card-dados">
+                    <div><dt>Categoria</dt><dd>{categoriaEfetiva(l)}</dd></div>
+                    <div><dt>Código</dt><dd className="pf-mono" title={l.ean}>{l.semCodigo ? "sem código" : l.ean}</dd></div>
+                    <div><dt>Preço</dt><dd className="pf-preco">{REAIS.format(l.preco)}</dd></div>
+                  </dl>
+                </article>
+              );
+            })}
           </div>
           {totalPaginas > 1 ? (
             <p className="pf-paginas">
@@ -590,77 +594,87 @@ export default function PainelFotos() {
       {produtoConfig ? (() => {
         const l = linhas.find((x) => x.ean === produtoConfig);
         if (!l) return null;
+        const urlFoto = pendentes.has(l.ean) || envios[l.ean] === "enviada" ? `/api/foto-nova?ean=${l.ean}&v=${envios[l.ean] === "enviada" ? "n" : "p"}` : `/produtos/${l.ean}.webp`;
         return (
-          <div role="dialog" aria-modal="true" style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", display: "grid", placeItems: "center", zIndex: 100, backdropFilter: "blur(4px)" }}>
-            <div style={{ background: "#fff", borderRadius: "12px", padding: "1.75rem", maxWidth: "32rem", width: "92%", maxHeight: "85vh", overflow: "auto", boxShadow: "0 20px 40px rgba(0,0,0,0.15)" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.25rem" }}>
-                <h2 style={{ margin: 0, fontSize: "1.25rem", fontWeight: 600 }}>{nomeAtual(l).texto}</h2>
-                <button type="button" onClick={() => setProdutoConfig(null)} aria-label="Fechar" style={{ background: "none", border: "none", fontSize: "1.5rem", cursor: "pointer", color: "#6b7c79", lineHeight: 1 }}>×</button>
+          <div className="pf-modal-fundo" onClick={(e) => { if (e.target === e.currentTarget) setProdutoConfig(null); }}>
+            <div className="pf-modal" role="dialog" aria-modal="true" aria-label={`Configurar ${nomeAtual(l).texto}`}>
+              <div className="pf-modal-topo">
+                <div>
+                  <h2>{nomeAtual(l).texto}</h2>
+                  <p className="pf-mono">{l.semCodigo ? "sem código de barras" : l.ean} · {REAIS.format(l.preco)} · {l.estoque} un.</p>
+                </div>
+                <button type="button" className="pf-modal-fechar" onClick={() => setProdutoConfig(null)} aria-label="Fechar">×</button>
               </div>
-              <div style={{ display: "grid", gap: "1rem" }}>
-                <div style={{ display: "grid", gap: "0.5rem" }}>
-                  <span style={{ fontWeight: 600 }}>Foto</span>
-                  <div style={{ display: "flex", alignItems: "center", gap: "1rem", padding: "1rem", background: "#f8faf9", borderRadius: "12px", border: "1px solid #d3e2df" }}>
-                    {l.noSite ? (
-                      <img src={pendentes.has(l.ean) || envios[l.ean] === "enviada" ? `/api/foto-nova?ean=${l.ean}&v=${envios[l.ean] === "enviada" ? "n" : "p"}` : `/produtos/${l.ean}.webp`} alt="" width="80" height="80" style={{ borderRadius: "8px", objectFit: "cover" }} />
-                    ) : (
-                      <div style={{ width: "80px", height: "80px", background: "#e8eeec", borderRadius: "8px", display: "grid", placeItems: "center", color: "#6b7c79", fontSize: "0.8rem" }}>Sem foto</div>
-                    )}
-                    <label style={{ flex: 1, padding: "0.75rem 1rem", background: "#0e7370", color: "#fff", borderRadius: "10px", textAlign: "center", cursor: "pointer", fontWeight: 600 }}>
-                      <input type="file" accept="image/*" onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} style={{ display: "none" }} />
+              <div className="pf-modal-corpo">
+                <section className="pf-campo">
+                  <span className="pf-campo-rotulo">Foto</span>
+                  <div className="pf-foto-linha">
+                    {l.noSite ? <img src={urlFoto} alt="" width="80" height="80" /> : <div className="pf-foto-vazia">Sem foto</div>}
+                    <label className="pf-botao pf-botao--primario pf-botao--cheio">
+                      <input type="file" accept="image/*" onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} />
                       {l.noSite ? "Trocar foto" : "Enviar foto"}
                     </label>
                   </div>
-                </div>
-                <label style={{ display: "grid", gap: "0.4rem" }}>
-                  <span>Nome</span>
-                  <input type="text" defaultValue={nomeAtual(l).texto} onBlur={(e) => void salvarNome(l, false, e.target.value)} style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }} />
+                </section>
+                <label className="pf-campo">
+                  <span className="pf-campo-rotulo">Nome</span>
+                  <input className="pf-entrada" name="pf-nome" type="text" defaultValue={nomeAtual(l).texto} onBlur={(e) => void salvarNome(l, false, e.target.value)} />
                 </label>
-                <label style={{ display: "grid", gap: "0.4rem" }}>
-                  <span>Categoria</span>
-                  <select value={estadoCategoria(l)} onChange={(e) => void salvarCategoria(l, e.target.value)} style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }}>
+                <label className="pf-campo">
+                  <span className="pf-campo-rotulo">Categoria</span>
+                  <select className="pf-entrada" name="pf-categoria" value={estadoCategoria(l)} onChange={(e) => void salvarCategoria(l, e.target.value)}>
                     <option value="auto">Automático</option>
                     {CATEGORIAS_VALIDAS.map((c) => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </label>
                 {categoriaEfetiva(l) === "Medicamentos" ? (
-                  <label style={{ display: "grid", gap: "0.4rem" }}>
-                    <span>Controlado</span>
-                    <button type="button" onClick={() => {
-                      const novo = estadoControlado(l) === "sim" ? "nao" : "sim";
-                      setControladosAgora((c) => ({ ...c, [chaveDoNome(l.nome)]: novo }));
-                      void salvarControlado(l, novo);
-                    }} style={{ width: "44px", height: "24px", borderRadius: "12px", border: "none", background: estadoControlado(l) === "sim" ? "#0e7370" : "#d3e2df", position: "relative", cursor: "pointer", transition: "background 0.2s" }}>
-                      <span style={{ position: "absolute", top: "2px", left: estadoControlado(l) === "sim" ? "22px" : "2px", width: "20px", height: "20px", borderRadius: "50%", background: "#fff", transition: "left 0.2s", boxShadow: "0 1px 3px rgba(0,0,0,0.2)" }} />
-                    </button>
-                  </label>
+                  <div className="pf-campo pf-campo--linha">
+                    <span className="pf-campo-rotulo" id="pf-rotulo-ctl">Controlado</span>
+                    <button
+                      type="button"
+                      role="switch"
+                      aria-checked={estadoControlado(l) === "sim"}
+                      aria-labelledby="pf-rotulo-ctl"
+                      className="pf-chave"
+                      onClick={() => {
+                        const novo = estadoControlado(l) === "sim" ? "nao" : "sim";
+                        setControladosAgora((c) => ({ ...c, [chaveDoNome(l.nome)]: novo }));
+                        void salvarControlado(l, novo);
+                      }}
+                    />
+                  </div>
                 ) : null}
               </div>
               {excluindo === l.ean ? (
-                <div role="alertdialog" aria-label="Confirmar exclusão" style={{ marginTop: "1rem", padding: "0.85rem 1rem", border: "1px solid #e53935", borderRadius: "10px", background: "#fff5f5" }}>
-                  <p style={{ margin: "0 0 0.75rem", lineHeight: 1.4 }}>Excluir <b>{nomeAtual(l).texto}</b> do site? Ele continua no sistema da loja e só deixa de aparecer para o cliente.</p>
-                  <div style={{ display: "flex", gap: "0.5rem" }}>
-                    <button type="button" onClick={() => void excluirProduto(l)} style={{ padding: "0.5rem 1rem", background: "#e53935", color: "#fff", border: "none", borderRadius: "8px", fontWeight: 700, cursor: "pointer" }}>Sim, excluir</button>
-                    <button type="button" onClick={() => setExcluindo(null)} style={{ padding: "0.5rem 1rem", background: "#fff", border: "1px solid #d3e2df", borderRadius: "8px", fontWeight: 600, cursor: "pointer" }}>Não</button>
+                <div role="alertdialog" aria-label="Confirmar exclusão" className="pf-perigo">
+                  <p>Excluir <b>{nomeAtual(l).texto}</b> do site? Ele continua no sistema da loja e só deixa de aparecer para o cliente.</p>
+                  <div className="pf-modal-acoes">
+                    <button type="button" className="pf-botao pf-botao--perigo" onClick={() => void excluirProduto(l)}>Sim, excluir</button>
+                    <button type="button" className="pf-botao" onClick={() => setExcluindo(null)}>Não</button>
                   </div>
                 </div>
               ) : (
-              <button type="button" onClick={() => setExcluindo(l.ean)} style={{ marginTop: "1rem", padding: "0.5rem 1rem", background: "#fff", color: "#e53935", border: "1px solid #e53935", borderRadius: "8px", fontWeight: 600, cursor: "pointer" }}>Excluir produto</button>
+                <button type="button" className="pf-botao pf-botao--contorno-perigo" onClick={() => setExcluindo(l.ean)}>Excluir produto</button>
               )}
-              <div style={{ display: "flex", gap: "0.75rem", marginTop: "1.25rem" }}>
-                <button type="button" onClick={async () => {
-                  const nomeInput = document.querySelector<HTMLInputElement>('input[type="text"]');
-                  const catSelect = document.querySelector<HTMLSelectElement>('select');
-                  const ctrlSelect = document.querySelectorAll<HTMLSelectElement>('select')[1];
-                  if (nomeInput && nomeInput.value.trim()) {
-                    setTextoNome(nomeInput.value.trim());
-                    await salvarNome(l);
-                  }
-                  if (catSelect && catSelect.value !== estadoCategoria(l)) await salvarCategoria(l, catSelect.value);
-                  if (ctrlSelect && ctrlSelect.value !== estadoControlado(l)) await salvarControlado(l, ctrlSelect.value as "auto" | "sim" | "nao");
-                  setProdutoConfig(null);
-                }} style={{ flex: 1, padding: "0.7rem 1.25rem", background: "#0e7370", color: "#fff", border: "none", borderRadius: "10px", fontWeight: 600, cursor: "pointer" }}>Confirmar</button>
-                <button type="button" onClick={() => setProdutoConfig(null)} style={{ padding: "0.7rem 1.25rem", background: "#f0f4f3", color: "#3e4b49", border: "none", borderRadius: "10px", fontWeight: 600, cursor: "pointer" }}>Cancelar</button>
+              <div className="pf-modal-acoes pf-modal-rodape">
+                <button
+                  type="button"
+                  className="pf-botao pf-botao--primario pf-botao--cheio"
+                  onClick={async (e) => {
+                    // Só os campos deste popup (a página tem outros campos de texto e listas).
+                    const popup = e.currentTarget.closest('[role="dialog"]');
+                    const nomeInput = popup?.querySelector<HTMLInputElement>('input[name="pf-nome"]');
+                    const catSelect = popup?.querySelector<HTMLSelectElement>('select[name="pf-categoria"]');
+                    if (nomeInput && nomeInput.value.trim() && nomeInput.value.trim() !== nomeAtual(l).texto) {
+                      await salvarNome(l, false, nomeInput.value.trim());
+                    }
+                    if (catSelect && catSelect.value !== estadoCategoria(l)) await salvarCategoria(l, catSelect.value);
+                    setProdutoConfig(null);
+                  }}
+                >
+                  Confirmar
+                </button>
+                <button type="button" className="pf-botao" onClick={() => setProdutoConfig(null)}>Cancelar</button>
               </div>
             </div>
           </div>
