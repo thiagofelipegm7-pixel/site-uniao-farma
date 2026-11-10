@@ -542,14 +542,14 @@ export default function PainelFotos() {
           {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
 
           <p className="pf-contagem" role="status">{filtradas.length} {filtradas.length === 1 ? "item" : "itens"} no filtro</p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 228px)", gap: "1.5rem", justifyContent: "center" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 280px)", gap: "1.5rem", justifyContent: "center" }}>
             {visiveis.map((l) => (
               <div
                 key={l.ean}
                 data-ean={l.ean}
                 tabIndex={0}
                 onFocus={() => setAlvoColar(l.ean)}
-                style={{ background: "#fff", borderRadius: "16px", padding: "1rem", border: "1px solid #e8eeec", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", position: "relative", width: "228px", height: "224px", display: "flex", flexDirection: "column", gap: "0.5rem", overflow: "hidden" }}
+                style={{ background: "#fff", borderRadius: "16px", padding: "1rem", border: "1px solid #e8eeec", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", position: "relative", width: "280px", height: "320px", display: "flex", flexDirection: "column", gap: "0.5rem", overflow: "hidden" }}
               >
                 <button type="button" onClick={() => setProdutoConfig(l.ean)} aria-label="Configurar produto" style={{ position: "absolute", top: "0.5rem", right: "0.5rem", background: "none", border: "none", cursor: "pointer", fontSize: "1rem", zIndex: 1 }}>⚙️</button>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "80px" }}>
@@ -564,16 +564,14 @@ export default function PainelFotos() {
                     </label>
                   )}
                 </div>
-                <div style={{ fontSize: "0.75rem", color: "#6b7c79", textAlign: "center" }}>
-                  {l.semCodigo ? "sem código" : l.ean}
-                </div>
-                <div style={{ fontWeight: 600, fontSize: "0.85rem", textAlign: "center", lineHeight: 1.2, flex: 1, overflow: "hidden" }}>
+                <div style={{ fontWeight: 600, fontSize: "0.9rem", textAlign: "center", lineHeight: 1.2, marginBottom: "0.5rem" }}>
                   {nomeAtual(l).texto}
                 </div>
-                <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", color: "#3e4b49" }}>
-                  <span>{categoriaEfetiva(l)}</span>
-                  <span style={{ fontWeight: 600 }}>{l.estoque}</span>
-                  <span>{REAIS.format(l.preco)}</span>
+                <div style={{ display: "grid", gap: "0.25rem", fontSize: "0.8rem", color: "#3e4b49" }}>
+                  <div><span style={{ color: "#6b7c79" }}>Quantidade:</span> {l.estoque}</div>
+                  <div><span style={{ color: "#6b7c79" }}>Categoria:</span> {categoriaEfetiva(l)}</div>
+                  <div><span style={{ color: "#6b7c79" }}>Código:</span> {l.semCodigo ? "sem código" : l.ean}</div>
+                  <div><span style={{ color: "#6b7c79" }}>Preço:</span> {REAIS.format(l.preco)}</div>
                 </div>
               </div>
             ))}
