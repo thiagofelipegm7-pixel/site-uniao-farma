@@ -1,6 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import PainelBanners from "../shop/PainelBanners";
+import { BANNERS_PAINEL, type BannerPainel } from "../shop/painel-banners";
 
 const BANNERS_PRINCIPAIS = Array.from({ length: 14 }, (_, i) => ({
   id: `hero-${i + 1}`,
@@ -20,6 +22,13 @@ export default function PainelPromocoes() {
       .then((d: { banners?: Banner[] }) => setAtuais(d.banners ?? []))
       .catch(() => {});
   }, []);
+
+  // Prévia: o mesmo carrossel da home, com as artes enviadas (na ordem 1 a 14). Sem nenhuma arte, mostra os espaços em branco como o site.
+  const previa = useMemo<BannerPainel[]>(() => {
+    const ordem = (id: string) => Number(id.replace("hero-", "")) || 0;
+    const lista = atuais.filter((a) => a.id.startsWith("hero-")).sort((a, b) => ordem(a.id) - ordem(b.id));
+    return lista.length ? lista.map((a) => ({ id: a.id, imagem: a.url, alt: "Oferta da União Farma" })) : BANNERS_PAINEL;
+  }, [atuais]);
 
   async function enviar(id: string, arquivo: File | undefined) {
     if (!arquivo) return;
@@ -49,6 +58,12 @@ export default function PainelPromocoes() {
         <p>Banners do carrossel principal da página inicial. Toque no cartão para enviar ou trocar a arte.</p>
       </header>
       {aviso ? <p className="pm-aviso" role="status">{aviso}</p> : null}
+      <section className="pm-previa" aria-label="Prévia da página inicial">
+        <h2>Como vai ficar na página inicial</h2>
+        <p>É o mesmo carrossel do site, com as artes enviadas abaixo. Troca sozinho a cada 5 segundos.</p>
+        <PainelBanners fonte={previa} />
+      </section>
+      <h2 className="pm-secao">Artes dos banners</h2>
       <div className="pm-grade">
         {BANNERS_PRINCIPAIS.map((b) => {
           const atual = atuais.find((a) => a.id === b.id);
