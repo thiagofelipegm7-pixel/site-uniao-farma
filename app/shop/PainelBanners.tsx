@@ -166,11 +166,11 @@ export default function PainelBanners({ titulo, fonte, aoEnviar }: { titulo?: st
           {lista.map((banner, i) => (
             <li className="painel-slide" key={banner.id} aria-roledescription="slide" aria-label={`${i + 1} de ${n}`}>
               {banner.href && !aoEnviar ? (
-                <a className="painel-arte" href={banner.href}>
+                <a className={`painel-arte${banner.imagem ? " painel-arte--img" : ""}`} href={banner.href}>
                   <Arte banner={banner} />
                 </a>
               ) : (
-                <div className="painel-arte">
+                <div className={`painel-arte${banner.imagem ? " painel-arte--img" : ""}`}>
                   <Arte banner={banner} />
                   {aoEnviar ? (
                     <label className={`painel-editar${banner.imagem ? "" : " painel-editar--vazio"}`}>
@@ -186,7 +186,7 @@ export default function PainelBanners({ titulo, fonte, aoEnviar }: { titulo?: st
           {loop
             ? lista.slice(0, 1).map((banner) => (
                 <li className="painel-slide" key={`clone-${banner.id}`} aria-hidden="true" inert>
-                  <div className="painel-arte">
+                  <div className={`painel-arte${banner.imagem ? " painel-arte--img" : ""}`}>
                     <Arte banner={banner} />
                   </div>
                 </li>
