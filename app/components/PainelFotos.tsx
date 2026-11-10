@@ -606,11 +606,7 @@ export default function PainelFotos() {
                 {categoriaEfetiva(l) === "Medicamentos" ? (
                   <label style={{ display: "grid", gap: "0.4rem" }}>
                     <span>Controlado (Portaria 344)</span>
-                    <select value={estadoControlado(l)} onChange={(e) => void salvarControlado(l, e.target.value as "auto" | "sim" | "nao")} style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }}>
-                      <option value="auto">Automático</option>
-                      <option value="sim">Marcar controlado</option>
-                      <option value="nao">Marcar não controlado</option>
-                    </select>
+                    <input type="checkbox" checked={estadoControlado(l) === "sim"} onChange={(e) => void salvarControlado(l, e.target.checked ? "sim" : "nao")} style={{ width: "40px", height: "22px", accentColor: "#0e7370", cursor: "pointer" }} />
                   </label>
                 ) : null}
               </div>
