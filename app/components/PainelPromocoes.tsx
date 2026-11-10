@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 
 const BANNERS = [
-  { id: "hero", nome: "Banner principal (home)", descricao: "Aparece no topo da página inicial" },
-  { id: "ofertas", nome: "Banner de ofertas", descricao: "Aparece na seção de ofertas" },
+  { id: "hero", nome: "Banner principal", descricao: "Topo da página inicial" },
+  { id: "ofertas", nome: "Ofertas", descricao: "Seção de ofertas" },
   { id: "banner3", nome: "Banner 3", descricao: "Espaço para arte" },
   { id: "banner4", nome: "Banner 4", descricao: "Espaço para arte" },
   { id: "banner5", nome: "Banner 5", descricao: "Espaço para arte" },
@@ -47,7 +47,7 @@ export default function PainelPromocoes() {
       body: JSON.stringify({ id, url }),
     });
     if (r.ok) {
-      setAviso("Arte enviada. O banner atualiza no site em instantes.");
+      setAviso("Arte enviada.");
       setAtuais((prev) => [...prev.filter((b) => b.id !== id), { id, url }]);
     } else {
       setAviso("Não consegui gravar. Tente de novo.");
@@ -55,26 +55,33 @@ export default function PainelPromocoes() {
   }
 
   return (
-    <section className="painel-promocoes" style={{ maxWidth: "40rem", margin: "1.5rem auto", padding: "0 1rem" }}>
-      <h1>Promoções</h1>
-      <p style={{ color: "#3e4b49", marginBottom: "1.5rem" }}>Troque as artes dos banners do site. Envie uma imagem (JPG ou PNG).</p>
-      {aviso ? <p role="status" style={{ padding: "0.75rem", background: "#e8f7f5", borderRadius: "8px" }}>{aviso}</p> : null}
-      <ul style={{ listStyle: "none", padding: 0, display: "grid", gap: "1rem" }}>
+    <section style={{ maxWidth: "72rem", margin: "1.5rem auto", padding: "0 1rem" }}>
+      <h1 style={{ marginBottom: "0.5rem" }}>Promoções</h1>
+      <p style={{ color: "#5a6b68", marginBottom: "1.5rem" }}>Envie as artes dos banners. Clique no card para adicionar ou trocar a imagem.</p>
+      {aviso ? <p role="status" style={{ padding: "0.75rem 1rem", background: "#e8f7f5", borderRadius: "10px", marginBottom: "1rem" }}>{aviso}</p> : null}
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1.25rem" }}>
         {BANNERS.map((b) => {
           const atual = atuais.find((a) => a.id === b.id);
           return (
-            <li key={b.id} style={{ padding: "1rem", border: "1px solid #d3e2df", borderRadius: "12px", background: "#fff" }}>
-              <strong>{b.nome}</strong>
-              <p style={{ margin: "0.25rem 0 0.75rem", color: "#5a6b68", fontSize: "0.875rem" }}>{b.descricao}</p>
-              {atual ? <img src={atual.url} alt="" style={{ maxWidth: "100%", maxHeight: "8rem", objectFit: "contain", marginBottom: "0.75rem", borderRadius: "8px" }} /> : null}
-              <label style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", cursor: "pointer" }}>
+            <label key={b.id} style={{ display: "block", background: "#fff", borderRadius: "16px", border: "1px solid #e8eeec", overflow: "hidden", cursor: "pointer", transition: "box-shadow 0.2s, transform 0.2s" }}
+              onMouseEnter={(e) => { e.currentTarget.style.boxShadow = "0 8px 24px rgba(0,0,0,0.08)"; e.currentTarget.style.transform = "translateY(-2px)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.transform = "translateY(0)"; }}>
+              <div style={{ height: "140px", background: atual ? "#f8faf9" : "#f0f4f3", display: "grid", placeItems: "center", position: "relative" }}>
+                {atual ? (
+                  <img src={atual.url} alt="" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }} />
+                ) : (
+                  <span style={{ color: "#8a9a97", fontSize: "0.85rem" }}>Sem arte</span>
+                )}
                 <input type="file" accept="image/*" onChange={(e) => enviar(b.id, e.target.files?.[0])} style={{ display: "none" }} />
-                <span style={{ padding: "0.5rem 1rem", background: "#0e7370", color: "#fff", borderRadius: "8px", fontWeight: 600 }}>{atual ? "Trocar arte" : "Enviar arte"}</span>
-              </label>
-            </li>
+              </div>
+              <div style={{ padding: "1rem" }}>
+                <strong style={{ display: "block", marginBottom: "0.25rem" }}>{b.nome}</strong>
+                <span style={{ color: "#6b7c79", fontSize: "0.8rem" }}>{b.descricao}</span>
+              </div>
+            </label>
           );
         })}
-      </ul>
+      </div>
     </section>
   );
 }
