@@ -5,7 +5,8 @@ import { banco, segredo } from "../../../estoque-fonte";
 import { listarPendentes, listarRemocoes } from "../../../fotos-enviadas";
 import { mapaDeCategorias } from "../../../categoria-override";
 import { mapaDeControlados } from "../../../controlado-override";
-import { mapaDeNomes, ultimasAlteracoes } from "../../../nomes-corrigidos";
+import { mapaDeNomes, ultimasAlteracoes, type Banco } from "../../../nomes-corrigidos";
+import { mapaDeRemovidos } from "../../../produtos-removidos";
 import { FOTOS_NACOES } from "../../../nacoes-unidas/produtos/imagens";
 import { carregarRestritos } from "../../../nacoes-unidas/produtos/receita";
 
@@ -28,16 +29,19 @@ export async function GET() {
   // Remove bijuterias e aplica códigos de barras conhecidos.
   const db = banco();
   const removidos = new Set<string>();
+  // Excluídos pelo painel (por nome): somem do painel na hora e a sincronização os tira do site.
+  const removidosNomes = db ? new Set(Object.keys(await mapaDeRemovidos(db).catch(() => ({})))) : new Set<string>();
   if (db) {
     try {
-      const { results } = await db.prepare("SELECT ean FROM produtos_removidos").bind().all();
+      // Tabela antiga (por código de barras), de antes da exclusão por nome: só some do painel, não saía do site.
+      const { results } = await (db as Banco).prepare("SELECT ean FROM produtos_removidos").bind().all<{ ean: string }>();
       for (const r of results) if (typeof r.ean === "string") removidos.add(r.ean);
     } catch {}
   }
   const itens = exportado.itens.filter((it) => {
     const nome = typeof it.Produto === "string" ? it.Produto : "";
     const ean = typeof it.CodigoDeBarras === "string" ? it.CodigoDeBarras : "";
-    return !BIJUTERIAS.test(nome) && !removidos.has(ean);
+    return !BIJUTERIAS.test(nome) && !removidos.has(ean) && !removidosNomes.has(chaveDeNome(nome));
   }).map((it) => {
     const nome = typeof it.Produto === "string" ? it.Produto.replace(/\s+/g, " ").trim() : "";
     const override = EAN_OVERRIDE[nome.toUpperCase()];

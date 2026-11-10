@@ -76,7 +76,6 @@ export default function PainelFotos() {
   const [configAberto, setConfigAberto] = useState(false);
   const [produtoConfig, setProdutoConfig] = useState<string | null>(null);
   const [excluindo, setExcluindo] = useState<string | null>(null);
-  const [senhaExcluir, setSenhaExcluir] = useState("");
   // Quem está mexendo: fica registrado no histórico (foto e nome). Guardado só neste aparelho.
   const [por, setPor] = useState("");
   const [editandoNome, setEditandoNome] = useState<string | null>(null);
@@ -401,20 +400,24 @@ export default function PainelFotos() {
     return salvo?.estado ?? "auto";
   }
 
-  async function excluirProduto(ean: string, senha: string) {
-    if (senha !== "uniao") { setAviso("Senha incorreta."); return; }
+  /** Tira o produto do site (ele continua no PC). A equipe já está logada; a API registra quem e quando. */
+  async function excluirProduto(l: LinhaPainel) {
     try {
       const r = await fetch("/api/interno/produto/excluir", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ ean, senha }),
+        body: JSON.stringify({ nome: l.nome, por: por.trim() }),
       });
+      if (r.redirected || (r.headers.get("content-type") ?? "").includes("text/html")) {
+        setAviso("Sua sessão venceu. Recarregue a página (F5), entre de novo e tente outra vez.");
+        return;
+      }
       const j = await r.json().catch(() => null);
       if (!r.ok || !j?.ok) { setAviso("Não consegui excluir. Tente de novo."); return; }
-      setRemovidasAgora((s) => new Set(s).add(ean));
       setExcluindo(null);
       setProdutoConfig(null);
-      setAviso("Produto excluído.");
+      setAviso(j.publicando ? "Produto excluído. Sai do site em poucos minutos." : "Produto excluído. Sai do site na próxima atualização.");
+      await carregar();
     } catch { setAviso("Não consegui excluir. Tente de novo."); }
   }
 
@@ -633,7 +636,17 @@ export default function PainelFotos() {
                   </label>
                 ) : null}
               </div>
+              {excluindo === l.ean ? (
+                <div role="alertdialog" aria-label="Confirmar exclusão" style={{ marginTop: "1rem", padding: "0.85rem 1rem", border: "1px solid #e53935", borderRadius: "10px", background: "#fff5f5" }}>
+                  <p style={{ margin: "0 0 0.75rem", lineHeight: 1.4 }}>Excluir <b>{nomeAtual(l).texto}</b> do site? Ele continua no sistema da loja e só deixa de aparecer para o cliente.</p>
+                  <div style={{ display: "flex", gap: "0.5rem" }}>
+                    <button type="button" onClick={() => void excluirProduto(l)} style={{ padding: "0.5rem 1rem", background: "#e53935", color: "#fff", border: "none", borderRadius: "8px", fontWeight: 700, cursor: "pointer" }}>Sim, excluir</button>
+                    <button type="button" onClick={() => setExcluindo(null)} style={{ padding: "0.5rem 1rem", background: "#fff", border: "1px solid #d3e2df", borderRadius: "8px", fontWeight: 600, cursor: "pointer" }}>Não</button>
+                  </div>
+                </div>
+              ) : (
               <button type="button" onClick={() => setExcluindo(l.ean)} style={{ marginTop: "1rem", padding: "0.5rem 1rem", background: "#fff", color: "#e53935", border: "1px solid #e53935", borderRadius: "8px", fontWeight: 600, cursor: "pointer" }}>Excluir produto</button>
+              )}
               <div style={{ display: "flex", gap: "0.75rem", marginTop: "1.25rem" }}>
                 <button type="button" onClick={async () => {
                   const nomeInput = document.querySelector<HTMLInputElement>('input[type="text"]');

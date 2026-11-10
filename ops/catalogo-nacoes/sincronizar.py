@@ -179,19 +179,21 @@ def baixar_aprovacoes(token):
         with urllib.request.urlopen(req, timeout=30) as r:
             dados = json.loads(r.read().decode("utf-8"))
         if not isinstance(dados, dict):
-            return {}, None
+            return {}, None, None, None, None
         nomes = dados.get("nomes")
         controlados = dados.get("controlados")
         categorias = dados.get("categorias")
+        removidos = dados.get("removidos")
         return (
             dados.get("aprovacoes", {}),
             (nomes if isinstance(nomes, dict) else None),
             (controlados if isinstance(controlados, dict) else None),
             (categorias if isinstance(categorias, dict) else None),
+            (removidos if isinstance(removidos, list) else None),
         )
     except Exception as e:  # noqa: BLE001
         anotar("warning", "Aprovações do painel", f"não consegui ler ({type(e).__name__}); usando só a base do repositório")
-        return {}, None, None, None
+        return {}, None, None, None, None
 
 
 def rodar(*cmd):
@@ -257,7 +259,7 @@ def main(argv):
             rodar(sys.executable, os.path.join(AQUI, "gerar.py"), export, "--sem-csv")
             rodar(sys.executable, os.path.join(AQUI, "categorias_novas.py"))
             base = ler(os.path.join(AQUI, "aprovacoes-base.json")) if os.path.exists(os.path.join(AQUI, "aprovacoes-base.json")) else {}
-            remoto, nomes, controlados, categorias = baixar_aprovacoes(os.environ.get("CATALOGO_READ_TOKEN", "").strip()) if not arquivo else ({}, None, None, None)
+            remoto, nomes, controlados, categorias, removidos = baixar_aprovacoes(os.environ.get("CATALOGO_READ_TOKEN", "").strip()) if not arquivo else ({}, None, None, None, None)
             aprov = juntar_aprovacoes(base, remoto)
             if nomes is not None:  # nomes que o painel corrigiu: valem a partir desta publicação (os asset e as páginas leem este arquivo)
                 with open(os.path.join(DADOS, "nomes-corrigidos.json"), "w", encoding="utf-8") as f:
@@ -270,6 +272,11 @@ def main(argv):
                 with open(os.path.join(DADOS, "controlados-overrides.json"), "w", encoding="utf-8") as f:
                     json.dump(controlados, f, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
                 rodar(sys.executable, os.path.join(AQUI, "aplicar_controlado.py"), DADOS)
+            if removidos is not None:  # produtos que a equipe excluiu no painel: saem do site (continuam no PC)
+                with open(os.path.join(DADOS, "produtos-removidos.json"), "w", encoding="utf-8") as f:
+                    json.dump(sorted(removidos), f, ensure_ascii=False, separators=(",", ":"))
+            if os.path.exists(os.path.join(DADOS, "produtos-removidos.json")):
+                rodar(sys.executable, os.path.join(AQUI, "aplicar_removidos.py"), DADOS)
             aprov_arq = os.path.join(tmp, "aprovacoes.json")
             with open(aprov_arq, "w", encoding="utf-8") as f:
                 json.dump(aprov, f, ensure_ascii=False)
