@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { Fragment, useEffect, useState, useSyncExternalStore } from "react";
 import MarcaUniao from "../shop/MarcaUniao";
 import { trackEvent } from "../analytics";
 import { registrarEtapa } from "../funil";
@@ -515,7 +515,7 @@ export default function ReservaFluxo() {
               <div className="entrega-miolo">
                 <p className="fluxo-destino">Vai para o WhatsApp da União Farma {unidade.shortName}: <strong>{unidade.whatsapp}</strong></p>
                 <div className="fluxo-bolha">
-                  <pre>{mensagem}</pre>
+                  <pre>{mensagem.split("\n").map((linha, i) => (<Fragment key={i}>{i > 0 ? "\n" : null}{linha.split(/(\*[^*]+\*)/).map((parte, j) => (/^\*[^*]+\*$/.test(parte) ? <strong key={j}>{parte.slice(1, -1)}</strong> : parte))}</Fragment>))}</pre>
                   <time>agora</time>
                 </div>
               </div>

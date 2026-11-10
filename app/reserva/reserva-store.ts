@@ -185,7 +185,7 @@ export type DadosPedido = {
  * Pede confirmação de preço e estoque (não promete nada). Nome e endereço vão só no texto da mensagem, nunca ao analytics.
  */
 export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: DadosPedido): string {
-  const linhas = itens.filter(itemAtivo).map((i) => `\u2022 ${i.qtd}x ${i.nome.replace(/\s+/g, " ").trim()}${i.receita === "controlado" ? " (controlado: receita retida na loja)" : i.receita ? " (exige receita)" : ""}`);
+  const linhas = itens.filter(itemAtivo).map((i) => `\u2022 ${i.qtd}x ${i.nome.replace(/\s+/g, " ").trim()}${i.receita === "controlado" ? " (controlado: receita retida na loja)" : i.receita ? " (exige receita)" : ""} \u2014 ${formatarCentavos(i.precoCentavos * i.qtd)}`);
   const retirar = dados.modo === "retirar";
   const nome = dados.nome.replace(/\s+/g, " ").trim();
   const sub = subtotalCentavos(itens);
@@ -195,22 +195,28 @@ export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: D
   const escolhido = dados.pagamento?.trim();
   const quandoForma = escolhido === "Pix" ? "pelo WhatsApp" : quando;
   const pag = escolhido ? `${escolhido} (${quandoForma})` : "a escolher";
+  // Linhas em branco separam os blocos (itens, entrega, pagamento); só null/false são descartados.
   return [
     `Olá, União Farma ${unitNome}! Quero pedir:`,
+    "",
+    "*Itens*",
     ...linhas,
     "",
-    `Loja: ${unitNome}`,
+    `*${retirar ? "Retirada" : "Entrega"}*`,
     `Forma: ${retirar ? "Retirar na loja" : "Entrega"}`,
     ...(!retirar && dados.bairro ? [`Bairro: ${dados.bairro}`] : []),
     ...(!retirar && dados.rua?.trim() ? [`Endereço: ${dados.rua.replace(/\s+/g, " ").trim()}`] : []),
     `Nome: ${nome || "[nome do cliente]"}`,
+    "",
+    "*Pagamento e total*",
     `Pagamento: ${pag}`,
-    taxa > 0 ? `Taxa de entrega: ${formatarCentavos(taxa)}` : null,
-    `Total estimado: ${formatarCentavos(total)}`,
+    ...(taxa > 0 ? [`Produtos: ${formatarCentavos(sub)}`, `Taxa de entrega: ${formatarCentavos(taxa)}`] : []),
+    `*Total estimado: ${formatarCentavos(total)}*`,
     "",
     ...(exigeReceita(itens) ? [dados.receita === "foto" ? "Tem medicamento com receita: vou enviar a foto da receita aqui na conversa e retiro na loja com a receita." : "Tem medicamento com receita: retiro na loja e apresento a receita.", ""] : []),
+    "Se faltar algum item, podem sugerir outro parecido?",
     "Podem confirmar preço e estoque? Obrigado!",
-  ].filter(Boolean).join("\n");
+  ].join("\n");
 }
 
 /** Lê e valida o que veio do navegador; qualquer coisa estranha vira reserva vazia. */

@@ -55,7 +55,11 @@ test("mensagem do WhatsApp lista itens, loja, forma, nome, pagamento e subtotal,
   const retirar = mensagemReserva("Nações Unidas", s.itens, { modo: "retirar", nome: "  Maria  Souza " });
   assert.match(retirar, /^Olá, União Farma Nações Unidas! Quero pedir:/);
   assert.match(retirar, /\u2022 2x Loção Nivea Soft Milk 200ml/);
-  assert.match(retirar, /Loja: Nações Unidas/);
+  assert.doesNotMatch(retirar, /Loja: /, "a loja já está na saudação");
+  assert.match(retirar, /\u2022 2x Loção Nivea Soft Milk 200ml \u2014 R\$ 39,80/, "cada item traz o valor da linha");
+  assert.match(retirar, /\n\n\*Itens\*\n/, "blocos separados por linha em branco");
+  assert.match(retirar, /Se faltar algum item, podem sugerir outro parecido\?/);
+  assert.doesNotMatch(retirar, /Produtos: /, "sem taxa não repete o subtotal");
   assert.match(retirar, /Forma: Retirar na loja/);
   assert.match(retirar, /Nome: Maria Souza/);
   assert.match(retirar, /Pagamento: a escolher/, "sem forma escolhida a prévia não promete balcão");
@@ -70,6 +74,7 @@ test("mensagem do WhatsApp lista itens, loja, forma, nome, pagamento e subtotal,
   const comPix = mensagemReserva("Nações Unidas", s.itens, { modo: "casa", nome: "Maria", bairro: "Nações Unidas", rua: "Rua Inglaterra, 100", pagamento: "Pix" });
   assert.match(comPix, /Pagamento: Pix \(pelo WhatsApp\)/);
   assert.match(mensagemReserva("Nações Unidas", s.itens, { modo: "retirar", nome: "Maria", pagamento: "Cartão de débito" }), /Pagamento: Cartão de débito \(no balcão\)/);
+  assert.match(casa, /Produtos: R\$ 39,80/);
   assert.match(casa, /Taxa de entrega: R\$ 1,00/);
   assert.match(casa, /Total estimado: R\$ 40,80/);
   assert.match(mensagemReserva("Fátima", s.itens, { modo: "retirar", nome: "" }), /Nome: \[nome do cliente\]/);
