@@ -1824,3 +1824,36 @@ html body .produto-pagina .reservar-mais:not(.reservar-mais-icone), html body .p
   html body .pdp-painel h2 { font-size: 1rem !important; line-height: 1.3 !important; font-weight: 700 !important; margin: 0 0 0.75rem !important; }
   html body .combina-com h2 { font-size: 1.375rem !important; line-height: 1.25 !important; }
 }
+
+/* =====================================================================
+   Cesta e reserva no mesmo desenho da página de produto: contêiner de 82rem, coluna lateral de 340px (fixa ao rolar),
+   cartões de 16px com borda fina, títulos em frase normal (sem caixa alta) e botões em pílula.
+   ===================================================================== */
+.fluxo-botao { border-radius: 999px; }
+.fluxo-resumo { border: 1px solid #dbe6e3; border-radius: 16px; box-shadow: none; }
+.fluxo-tabela, .fluxo-titulo-cesta { border: 1px solid #dbe6e3; border-radius: 16px; }
+.fluxo-resumo .fluxo-resumo-titulo { color: var(--uf-ink); font-size: 1rem; font-weight: 700; letter-spacing: 0; text-transform: none; }
+.fluxo-botao-resumo { text-transform: none; letter-spacing: 0; min-height: 3rem; }
+@media (min-width: 992px) {
+  html body .fluxo-topo { max-width: 82rem; padding: 1.5rem 1.25rem 0; }
+  html body .fluxo-continuar-comprando { text-transform: none; letter-spacing: 0; font-size: 0.9375rem; font-weight: 700; color: #0a3548; text-decoration: underline; text-underline-offset: 3px; }
+  html body .fluxo-continuar-comprando::before { content: ""; }
+  html body .fluxo-topo h1 { margin: 0.5rem 0 0; font-size: 1.75rem; letter-spacing: -0.015em; text-transform: none; }
+  html body .fluxo-conteudo-cesta { max-width: 82rem; grid-template-columns: minmax(0, 1fr) 21.25rem; gap: 0 2rem; }
+  html body .fluxo-colunas { text-transform: none; letter-spacing: 0; font-size: 0.8125rem; font-weight: 600; color: #5b6b68; }
+}
+@layer design {
+  @media (min-width: 992px) {
+    html body .fluxo-reserva .fluxo-topo h1 { font-size: 1.75rem !important; line-height: 1.2 !important; letter-spacing: -0.015em !important; text-transform: none !important; }
+  }
+  html body .fluxo-conteudo h2 { font-size: 1.375rem !important; line-height: 1.25 !important; }
+  html body #reserva-gaveta-titulo { font-size: 1.25rem !important; line-height: 1.3 !important; letter-spacing: -0.01em !important; }
+}
+/* Mini cesta (gaveta): botões e contador em pílula, como nos cartões de produto. */
+html body .reserva-gaveta .reservar-contador, html body .reserva-gaveta .reserva-botao, html body .reserva-gaveta-pe .reserva-botao { border-radius: 999px; }
+@layer overrides {
+  html body .reserva-gaveta .reservar-contador, html body .reserva-gaveta .reserva-botao, html body .reserva-gaveta-pe .reserva-botao, html body .reserva-gaveta-pe a { border-radius: 999px !important; }
+}
+@layer design {
+  html body .reserva-gaveta .reservar-contador, html body .reserva-gaveta .reserva-botao, html body .reserva-gaveta-pe .reserva-botao, html body .reserva-gaveta-pe a { border-radius: 999px !important; }
+}
