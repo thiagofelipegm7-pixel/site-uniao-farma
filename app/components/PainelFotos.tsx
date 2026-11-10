@@ -542,14 +542,14 @@ export default function PainelFotos() {
           {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
 
           <p className="pf-contagem" role="status">{filtradas.length} {filtradas.length === 1 ? "item" : "itens"} no filtro</p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 200px)", gap: "1.5rem", justifyContent: "center" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: "1.5rem", justifyContent: "center" }}>
             {visiveis.map((l) => (
               <div
                 key={l.ean}
                 data-ean={l.ean}
                 tabIndex={0}
                 onFocus={() => setAlvoColar(l.ean)}
-                style={{ background: "#fff", borderRadius: "12px", padding: "1rem", border: "1px solid #d3e2df", boxShadow: "0 1px 3px rgba(0,0,0,0.06)", borderRadius: "12px", position: "relative", width: "200px", height: "200px", display: "flex", flexDirection: "column", gap: "0.5rem", overflow: "hidden" }}
+                style={{ background: "#fff", borderRadius: "12px", padding: "1rem", border: "1px solid #d3e2df", boxShadow: "0 1px 3px rgba(0,0,0,0.06)", borderRadius: "12px", position: "relative", width: "100%", minHeight: "180px", maxWidth: "200px", display: "flex", flexDirection: "column", gap: "0.5rem", overflow: "hidden" }}
               >
                 <button type="button" onClick={() => setProdutoConfig(l.ean)} aria-label="Configurar produto" style={{ position: "absolute", top: "0.5rem", right: "0.5rem", background: "none", border: "none", cursor: "pointer", fontSize: "1rem", zIndex: 1 }}>⚙️</button>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "60px", flexShrink: 0 }}>
