@@ -33,6 +33,7 @@ import type { ItemRestrito } from "./receita";
 import { quantidadeDoNome } from "./quantidade";
 import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./Paginacao";
 import { useBuscaTolerante } from "./useBuscaTolerante";
+import { FaixaLista, LateralTopo } from "./ListaDrogasil";
 
 type Props = {
   /** Texto vindo do campo de busca do cabeçalho (?q=). */
@@ -171,9 +172,10 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   const visiveis = aplicarCatalogo(base, { consulta, consultasAlternativas, ordem, ...selecao });
   const total = contarItens(visiveis);
   const [pagina, setPagina] = useState(paginaInicial);
-  const totalPaginas = Math.max(1, Math.ceil(total / POR_PAGINA));
+  const [porPagina, setPorPagina] = useState<number>(POR_PAGINA);
+  const totalPaginas = Math.max(1, Math.ceil(total / porPagina));
   const paginaAtual = Math.min(pagina, totalPaginas);
-  const itensDaPagina = visiveis.flatMap((g) => g.itens).slice((paginaAtual - 1) * POR_PAGINA, paginaAtual * POR_PAGINA);
+  const itensDaPagina = visiveis.flatMap((g) => g.itens).slice((paginaAtual - 1) * porPagina, paginaAtual * porPagina);
   const primeiraBusca = useRef(true);
   // Mudou a busca, o filtro ou a ordem: volta para a página 1 (menos na primeira carga, que respeita o endereço).
   useEffect(() => {
@@ -188,7 +190,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
       u.searchParams.delete("pagina");
       window.history.replaceState(null, "", u);
     }
-  }, [ordem, selecao]);
+  }, [ordem, selecao, porPagina]);
   // Voltar e avançar do navegador.
   useEffect(() => {
     const ler = () => setPagina(paginaDaUrl(window.location.search));
@@ -355,6 +357,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     <>
       <div className="pv-layout">
         <aside className="pv-filtros" aria-label="Filtros">
+          <LateralTopo total={total} rotulo="produto" atual={departamento} />
           <div className="pv-filtros-topo">
             <p className="pv-filtros-titulo">Filtros</p>
             {ativos > 0 ? (
@@ -385,17 +388,16 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
               Filtrar
               {ativos > 0 ? <span className="catalogo-filtro-contagem">{ativos}</span> : null}
             </button>
-            <label className="pv-ordenar">
-              <span>Ordenar por</span>
-              <select value={ordem} onChange={(e) => setOrdem(e.target.value as OrdemCatalogo)}>
-                {ORDENS_CATALOGO.map((opcao) => (
-                  <option key={opcao.id} value={opcao.id}>
-                    {opcao.id === "recomendados" ? "Mais relevantes" : opcao.label}
-                  </option>
-                ))}
-              </select>
-            </label>
+
           </div>
+          <FaixaLista
+            porPagina={porPagina}
+            aoMudarPorPagina={setPorPagina}
+            ordem={ordem}
+            opcoesOrdem={ORDENS_CATALOGO.map((o) => ({ id: o.id, label: o.id === "recomendados" ? "Mais relevantes" : o.label }))}
+            aoMudarOrdem={(id) => setOrdem(id as OrdemCatalogo)}
+            paginacao={<Paginacao variante="barra" atual={paginaAtual} total={totalPaginas} href={(n) => hrefPagina(n, consulta)} onIr={(n) => { setPagina(n); irParaPagina(n, consulta); }} />}
+          />
 
       {tolerante.tipo === "sugestao" ? (
         <p className="pv-corrigida" role="status">

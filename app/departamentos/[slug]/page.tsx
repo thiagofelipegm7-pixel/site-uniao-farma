@@ -13,7 +13,7 @@ import type { GrupoBusca } from "../../nacoes-unidas/produtos/busca";
 import CatalogoLista from "../../nacoes-unidas/produtos/CatalogoLista";
 import MedicamentosTodos from "../../nacoes-unidas/produtos/MedicamentosTodos";
 import { carregarCatalogoCompleto, formatBRL, slugify } from "../../nacoes-unidas/produtos/catalogo";
-import { acharDepartamento, departamentosPublicos } from "../../nacoes-unidas/produtos/departamentos";
+import { acharDepartamento } from "../../nacoes-unidas/produtos/departamentos";
 import { tipoDoProduto } from "../../nacoes-unidas/produtos/arvore-categorias";
 import { fotoExibida } from "../../nacoes-unidas/produtos/foto-exibida";
 import "../../nacoes-unidas/produtos/produtos.css";
@@ -85,13 +85,6 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
         </nav>
         <h1 className="catalogo-titulo section-inner">{dep.nome}</h1>
         
-        <nav className="departamento-outros section-inner" aria-label="Departamentos">
-          {departamentosPublicos().map((d) => (
-            <a key={d.slug} href={`/departamentos/${d.slug}`} aria-current={d.slug === dep.slug ? "page" : undefined}>
-              {d.nome}
-            </a>
-          ))}
-        </nav>
         <div className="section-inner" id="lista">
           {dep.slug === "medicamentos" ? (
             <MedicamentosTodos paginaInicial={paginaPedida} otcInicial={itens.map((i) => ({ nome: i.nome, slug: i.slug, lab: i.lab, precoFmt: i.precoFmt, foto: i.foto, isMIP: i.isMIP, esgotado: i.esgotado }))} unitId={nacoes.id} />

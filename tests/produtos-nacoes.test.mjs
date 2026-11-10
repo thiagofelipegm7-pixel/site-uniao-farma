@@ -285,8 +285,10 @@ test("busca da Nações: sugestões, filtro e ordenação no componente, lista c
   assert.match(lista, /Confira a digitação, use termos mais amplos ou navegue pelas categorias\./);
   assert.match(lista, /Perguntar à loja pelo WhatsApp/);
   // "Ordenar por" como a Panvel: caixa de seleção com as mesmas ordens.
-  assert.match(lista, /<select value=\{ordem\}/);
-  assert.match(lista, /Ordenar por/);
+  const faixa = await read("app/nacoes-unidas/produtos/ListaDrogasil.tsx");
+  assert.match(faixa, /<select value=\{ordem\}/);
+  assert.match(faixa, /Ordenado por/);
+  assert.match(faixa, /Itens por página/);
   assert.match(lista, /Mais relevantes/);
   assert.match(busca, /label: "Recomendados"/);
   assert.match(busca, /label: "Menor preço"/);
