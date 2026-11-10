@@ -1976,7 +1976,7 @@ html body .shop-marcas h2 { margin: 0 0 0.75rem; padding-inline: 1.25rem; }
 .shop-marcas-trilho a { display: grid; place-items: center; box-sizing: border-box; width: 6.5rem; height: 6.5rem; padding: 0.875rem; border-radius: 12px; background: #eef1f2; text-decoration: none; }
 .shop-marcas-trilho a:hover { background: #e3e8ea; }
 .shop-marcas-trilho a:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
-.shop-marcas-trilho img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; mix-blend-mode: multiply; }
+.shop-marcas-trilho img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
 .shop-marca-nome { color: var(--uf-navy); font-size: 0.9375rem; font-weight: 800; line-height: 1.15; text-align: center; overflow-wrap: anywhere; }
 .shop-marcas-seta { display: none; flex: none; place-items: center; width: 2rem; height: 2rem; padding: 0; border: 0; border-radius: 6px; background: #c5cfd3; color: #ffffff; cursor: pointer; }
 .shop-marcas-seta:hover { background: #a9b6bb; }
@@ -1988,3 +1988,5 @@ html body .shop-marcas h2 { margin: 0 0 0.75rem; padding-inline: 1.25rem; }
 }
 @media (prefers-reduced-motion: reduce) { .shop-marcas-trilho { scroll-behavior: auto; } }
 @layer design { html body .shop-marcas-trilho a { display: flex !important; align-items: center !important; justify-content: center !important; width: 6.5rem !important; height: 6.5rem !important; min-height: 0 !important; padding: 0.875rem !important; } html body .shop-marca-nome { display: block !important; width: 100% !important; text-align: center !important; } }
+
+@layer design { html body .shop-marcas-trilho a.is-cheia { padding: 0 !important; overflow: hidden !important; } html body .shop-marcas-trilho a.is-cheia img { width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; object-fit: cover !important; } }
