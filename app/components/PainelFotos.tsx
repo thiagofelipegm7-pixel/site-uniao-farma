@@ -354,12 +354,12 @@ export default function PainelFotos() {
     return salvo ? { texto: salvo.nome, corrigido: true } : { texto: nomeDeExibicao(l.nome), corrigido: false };
   }
 
-  async function salvarNome(l: LinhaFoto, voltar = false) {
+  async function salvarNome(l: LinhaFoto, voltar = false, texto?: string) {
     try {
       const r = await fetch(voltar ? "/api/interno/produto/nome/desfazer" : "/api/interno/produto/nome", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ original: l.nome, nome: textoNome, por: por.trim() }),
+        body: JSON.stringify({ original: l.nome, nome: texto ?? textoNome, por: por.trim() }),
       });
       if (r.redirected || (r.headers.get("content-type") ?? "").includes("text/html")) {
         setAviso("Sua sessão venceu. Recarregue a página (F5), entre de novo e tente outra vez.");
@@ -589,7 +589,6 @@ export default function PainelFotos() {
                           <span className="pf-nome">{nomeAtual(l).texto}</span>
                           <button type="button" className="pf-nome-editar" style={{ display: "none" }} onClick={() => { setEditandoNome(l.ean); setTextoNome(nomeAtual(l).texto); }} aria-label={`Editar o nome de ${l.nome}`}>Editar nome</button>
                           {nomeAtual(l).corrigido ? <em className="pf-tag pf-tag-n">Nome corrigido</em> : null}
-                          
                         </>
                       )}
                       {l.lab ? <small>{l.lab}</small> : null}
@@ -611,7 +610,6 @@ export default function PainelFotos() {
                         </select>
                       </label>
                       {estadoCategoria(l) !== "auto" ? <em className="pf-tag pf-tag-n">Override: {estadoCategoria(l)}</em> : null}
-                      
                       {categoriaEfetiva(l) === "Medicamentos" ? (
                         <>
                           <label className="pf-controlado" style={{ display: "none" }}>
@@ -675,7 +673,7 @@ export default function PainelFotos() {
                 </div>
                 <label style={{ display: "grid", gap: "0.4rem" }}>
                   <span>Nome</span>
-                  <input type="text" defaultValue={nomeAtual(l).texto} onBlur={(e) => void salvarNome(l, e.target.value)} style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }} />
+                  <input type="text" defaultValue={nomeAtual(l).texto} onBlur={(e) => void salvarNome(l, false, e.target.value)} style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }} />
                 </label>
                 <label style={{ display: "grid", gap: "0.4rem" }}>
                   <span>Categoria</span>
