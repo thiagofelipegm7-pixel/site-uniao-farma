@@ -22,3 +22,9 @@ export const webhookEvents = sqliteTable("webhook_events", {
   type: text("type").notNull(),
   source: text("source").notNull(),
 });
+
+export const banners = sqliteTable("banners", {
+  id: text("id").primaryKey(),
+  url: text("url").notNull(),
+  atualizado: text("atualizado").notNull(),
+});
