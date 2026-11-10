@@ -495,45 +495,21 @@ export default function PainelFotos() {
             <div style={{ position: "relative" }}>
               <strong>{resumo.aVendaComFoto}</strong>
               <span>com foto, de {resumo.aVenda} itens à venda no site</span>
-              <button type="button" onClick={() => setConfigAberto(true)} aria-label="Configurar" style={{ position: "absolute", top: "0.25rem", right: "0.25rem", background: "none", border: "none", cursor: "pointer", fontSize: "1.1rem" }}>⚙️</button>
+
             </div>
             <div style={{ position: "relative" }}>
               <strong>{resumo.aVendaFaltamComEstoque}</strong>
               <span>faltam foto e têm estoque</span>
-              <button type="button" onClick={() => setConfigAberto(true)} aria-label="Configurar" style={{ position: "absolute", top: "0.25rem", right: "0.25rem", background: "none", border: "none", cursor: "pointer", fontSize: "1.1rem" }}>⚙️</button>
+
             </div>
             <div style={{ position: "relative" }}>
               <strong>{resumo.aVendaComEstoque > 0 ? Math.round((resumo.aVendaComEstoqueComFoto / resumo.aVendaComEstoque) * 100) : 0}%</strong>
               <span>dos itens à venda com estoque já têm foto</span>
-              <button type="button" onClick={() => setConfigAberto(true)} aria-label="Configurar" style={{ position: "absolute", top: "0.25rem", right: "0.25rem", background: "none", border: "none", cursor: "pointer", fontSize: "1.1rem" }}>⚙️</button>
+
             </div>
           </section>
           {dados.reconciliacao ? <ContasFecham c={dados.reconciliacao} /> : null}
-          {configAberto ? (
-            <div role="dialog" aria-modal="true" style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", display: "grid", placeItems: "center", zIndex: 100 }}>
-              <div style={{ background: "#fff", borderRadius: "12px", padding: "1.5rem", maxWidth: "28rem", width: "90%", maxHeight: "80vh", overflow: "auto" }}>
-                <h2 style={{ margin: "0 0 1rem" }}>Filtros e configuração</h2>
-                <div style={{ display: "grid", gap: "1rem" }}>
-                  <input type="search" value={busca} onChange={(e) => mudar(setBusca)(e.target.value)} placeholder="Buscar produto, laboratório ou código" aria-label="Buscar" style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }} />
-                  <select value={categoria} onChange={(e) => mudar(setCategoria)(e.target.value)} aria-label="Categoria" style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }}>
-                    <option value="">Todas as categorias</option>
-                    {dados.categorias.map((c) => <option key={c}>{c}</option>)}
-                  </select>
-                  <select value={fotos} onChange={(e) => mudar(setFotos)(e.target.value as FiltroFotos["fotos"])} aria-label="Fotos" style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }}>
-                    <option value="faltam">Faltam foto</option>
-                    <option value="site">Já estão no site</option>
-                    <option value="">Todos</option>
-                  </select>
-                  <select value={estoque} onChange={(e) => mudar(setEstoque)(e.target.value as FiltroFotos["estoque"])} aria-label="Estoque" style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }}>
-                    <option value="com">Só com estoque</option>
-                    <option value="zero">Zerado ou negativo</option>
-                    <option value="">Todo estoque</option>
-                  </select>
-                </div>
-                <button type="button" onClick={() => setConfigAberto(false)} style={{ marginTop: "1.25rem", padding: "0.7rem 1.25rem", background: "#0e7370", color: "#fff", border: "none", borderRadius: "10px", fontWeight: 600, width: "100%", cursor: "pointer" }}>Fechar</button>
-              </div>
-            </div>
-          ) : null}
+          
 
           {dados.publicacaoRapida === false ? (
             <p className="pf-aviso" role="note">A publicação rápida está desligada (falta a chave do GitHub no Cloudflare). As fotos funcionam no site, mas o arquivo fixo só sai quando o GitHub rodar a sincronização, o que pode levar horas.</p>
@@ -541,6 +517,23 @@ export default function PainelFotos() {
           {arrastando ? <p className="pf-solte" role="status">Solte aqui para enviar a foto de &ldquo;{linhas.find((x) => x.ean === arrastando)?.nome}&rdquo;</p> : null}
           {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
 
+                    <div style={{ display: "flex", gap: "0.75rem", flexWrap: "wrap", marginBottom: "1rem" }}>
+            <input type="search" value={busca} onChange={(e) => mudar(setBusca)(e.target.value)} placeholder="Buscar produto, laboratório ou código" aria-label="Buscar" style={{ padding: "0.5rem 0.75rem", borderRadius: "8px", border: "1px solid #d3e2df", fontSize: "0.9rem", flex: "1", minWidth: "200px" }} />
+            <select value={categoria} onChange={(e) => mudar(setCategoria)(e.target.value)} aria-label="Categoria" style={{ padding: "0.5rem 0.75rem", borderRadius: "8px", border: "1px solid #d3e2df", fontSize: "0.9rem" }}>
+              <option value="">Todas as categorias</option>
+              {dados.categorias.map((c) => <option key={c}>{c}</option>)}
+            </select>
+            <select value={fotos} onChange={(e) => mudar(setFotos)(e.target.value as FiltroFotos["fotos"])} aria-label="Fotos" style={{ padding: "0.5rem 0.75rem", borderRadius: "8px", border: "1px solid #d3e2df", fontSize: "0.9rem" }}>
+              <option value="faltam">Faltam foto</option>
+              <option value="site">Já estão no site</option>
+              <option value="">Todos</option>
+            </select>
+            <select value={estoque} onChange={(e) => mudar(setEstoque)(e.target.value as FiltroFotos["estoque"])} aria-label="Estoque" style={{ padding: "0.5rem 0.75rem", borderRadius: "8px", border: "1px solid #d3e2df", fontSize: "0.9rem" }}>
+              <option value="com">Só com estoque</option>
+              <option value="zero">Zerado ou negativo</option>
+              <option value="">Todo estoque</option>
+            </select>
+          </div>
           <p className="pf-contagem" role="status">{filtradas.length} {filtradas.length === 1 ? "item" : "itens"} no filtro</p>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: "1.5rem", justifyContent: "center" }}>
             {visiveis.map((l) => (
