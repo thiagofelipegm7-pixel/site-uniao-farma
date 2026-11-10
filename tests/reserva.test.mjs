@@ -367,3 +367,30 @@ test("pedido com receita: a mensagem diz se a foto vai na conversa ou se a recei
   assert.match(mensagemReserva("Nações Unidas", itens, base), /retiro na loja e apresento a receita/);
   assert.doesNotMatch(mensagemReserva("Nações Unidas", [{ ...itens[0], receita: undefined }], { ...base, receita: "foto" }), /receita/i, "sem medicamento de receita a frase não aparece");
 });
+
+test("número do pedido: 4 caracteres legíveis, sem dado do cliente, e aparece na mensagem", async () => {
+  const { gerarCodigoPedido, mensagemReserva } = await mod();
+  for (let i = 0; i < 50; i += 1) assert.match(gerarCodigoPedido(), /^[A-HJ-NP-Z2-9]{4}$/);
+  const itens = [{ id: "n:x", unitId: "nacoes", nome: "X", precoCentavos: 1000, qtd: 1 }];
+  const msg = mensagemReserva("Nações Unidas", itens, { modo: "retirar", nome: "Ana", codigo: "K7P3" });
+  assert.match(msg, /\nPedido: #K7P3\n/);
+  assert.doesNotMatch(mensagemReserva("Nações Unidas", itens, { modo: "retirar", nome: "Ana" }), /Pedido: #/);
+});
+
+test("troco: só na entrega em dinheiro, 'sem troco' ou 'troco para', e o valor precisa passar do total", async () => {
+  const { mensagemReserva, trocoValido } = await mod();
+  const itens = [{ id: "n:x", unitId: "nacoes", nome: "X", precoCentavos: 8070, qtd: 1 }];
+  const base = { modo: "casa", nome: "Ana", bairro: "Coqueiros", rua: "Rua Sabará, 102", taxaEntregaCentavos: 400, pagamento: "Dinheiro" };
+  assert.match(mensagemReserva("Nações Unidas", itens, { ...base, trocoCentavos: 10000 }), /Pagamento: Dinheiro \(na entrega\) — troco para R\$ 100,00/);
+  assert.match(mensagemReserva("Nações Unidas", itens, { ...base, trocoCentavos: 0 }), /Pagamento: Dinheiro \(na entrega\) — sem troco/);
+  assert.doesNotMatch(mensagemReserva("Nações Unidas", itens, base), /troco/);
+  assert.doesNotMatch(mensagemReserva("Nações Unidas", itens, { ...base, modo: "retirar", trocoCentavos: 10000 }), /troco/, "na retirada o balcão resolve");
+  assert.doesNotMatch(mensagemReserva("Nações Unidas", itens, { ...base, pagamento: "Pix", trocoCentavos: 10000 }), /troco/);
+  assert.equal(trocoValido("100", 8470), 10000);
+  assert.equal(trocoValido("R$ 100,50", 8470), 10050);
+  assert.equal(trocoValido("84,70", 8470), null, "igual ao total não é troco");
+  assert.equal(trocoValido("50", 8470), null);
+  assert.equal(trocoValido("abc", 8470), null);
+  const fluxo = await readFile(new URL("../app/reserva/ReservaFluxo.tsx", import.meta.url), "utf8");
+  assert.match(fluxo, /Informe o troco/, "o envio espera a resposta do troco");
+});
