@@ -5,6 +5,19 @@ import { useEffect, useState } from "react";
 const BANNERS = [
   { id: "hero", nome: "Banner principal (home)", descricao: "Aparece no topo da página inicial" },
   { id: "ofertas", nome: "Banner de ofertas", descricao: "Aparece na seção de ofertas" },
+  { id: "banner3", nome: "Banner 3", descricao: "Espaço para arte" },
+  { id: "banner4", nome: "Banner 4", descricao: "Espaço para arte" },
+  { id: "banner5", nome: "Banner 5", descricao: "Espaço para arte" },
+  { id: "banner6", nome: "Banner 6", descricao: "Espaço para arte" },
+  { id: "banner7", nome: "Banner 7", descricao: "Espaço para arte" },
+  { id: "banner8", nome: "Banner 8", descricao: "Espaço para arte" },
+  { id: "banner9", nome: "Banner 9", descricao: "Espaço para arte" },
+  { id: "banner10", nome: "Banner 10", descricao: "Espaço para arte" },
+  { id: "banner11", nome: "Banner 11", descricao: "Espaço para arte" },
+  { id: "banner12", nome: "Banner 12", descricao: "Espaço para arte" },
+  { id: "banner13", nome: "Banner 13", descricao: "Espaço para arte" },
+  { id: "banner14", nome: "Banner 14", descricao: "Espaço para arte" },
+  { id: "banner15", nome: "Banner 15", descricao: "Espaço para arte" },
 ];
 
 type Banner = { id: string; url: string };
