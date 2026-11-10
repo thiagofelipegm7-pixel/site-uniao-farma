@@ -14,7 +14,7 @@ export const MARCAS_DESTAQUE: readonly MarcaDestaque[] = [
   { slug: "loreal", nome: "L'Oréal", busca: "loreal" },
   { slug: "wella", nome: "Wella", busca: "wella", cheia: true },
   { slug: "embelleze", nome: "Embelleze", busca: "embelleze", cheia: true },
-  { slug: "salon-line", nome: "Salon Line", busca: "salon line" },
+  { slug: "salon-line", nome: "Salon Line", busca: "salon line", cheia: true },
   { slug: "granado", nome: "Granado", busca: "granado" },
   { slug: "skala", nome: "Skala", busca: "skala" },
   { slug: "monange", nome: "Monange", busca: "monange", cheia: true },
