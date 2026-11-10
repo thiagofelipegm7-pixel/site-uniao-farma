@@ -564,7 +564,7 @@ export default function PainelFotos() {
                     </label>
                   )}
                 </div>
-                <div style={{ fontWeight: 600, fontSize: "0.9rem", textAlign: "center", lineHeight: 1.2, marginBottom: "0.5rem" }}>
+                <div style={{ fontWeight: 600, fontSize: "0.8rem", textAlign: "center", lineHeight: 1.2, marginBottom: "0.25rem", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", textOverflow: "ellipsis" }} title={nomeAtual(l).texto}>
                   {nomeAtual(l).texto}
                 </div>
                 <div style={{ display: "grid", gap: "0.25rem", fontSize: "0.8rem", color: "#3e4b49" }}>
