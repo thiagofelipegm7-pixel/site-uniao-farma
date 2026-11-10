@@ -559,12 +559,8 @@ export default function PainelFotos() {
                     <td className="pf-foto">
                       {l.noSite ? (
                         <span className="pf-foto-atual">
-                          <img src={pendentes.has(l.ean) || envios[l.ean] === "enviada" ? `/api/foto-nova?ean=${l.ean}&v=${envios[l.ean] === "enviada" ? "n" : "p"}` : `/produtos/${l.ean}.webp`} alt="" width="40" height="40" loading="lazy" decoding="async" />
-                          <label className={`pf-trocar${envios[l.ean] === "erro" ? " pf-erro" : ""}`}>
-                            <input type="file" accept="image/*" disabled={envios[l.ean] === "enviando"} onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} aria-label={`Trocar a foto de ${l.nome}`} />
-                            {envios[l.ean] === "enviando" ? "Enviando…" : envios[l.ean] === "erro" ? "Falhou: tentar de novo" : envios[l.ean] === "enviada" ? "Trocada: já aparece no site" : pendentes.has(l.ean) ? "Enviada: trocar de novo" : "Trocar foto"}
-                          </label>
-                          <button type="button" className="pf-remover" onClick={() => void removerFoto(l)} aria-label={`Tirar a foto de ${l.nome}`}>Tirar foto</button>
+                          <img src={pendentes.has(l.ean) || envios[l.ean] === "enviada" ? `/api/foto-nova?ean=${l.ean}&v=${envios[l.ean] === "enviada" ? "n" : "p"}` : `/produtos/${l.ean}.webp`} alt="" width="80" height="80" loading="lazy" decoding="async" />
+                          
                         </span>
                       ) : (
                         <label className={`pf-enviar${envios[l.ean] === "erro" ? " pf-erro" : ""}`}>
