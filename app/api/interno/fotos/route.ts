@@ -26,9 +26,18 @@ export async function GET() {
   if (!exportado) return Response.json({ ok: false, erro: "sem_dados" }, { status: 502, headers: SEM_CACHE });
 
   // Remove bijuterias e aplica códigos de barras conhecidos.
+  const db = banco();
+  const removidos = new Set<string>();
+  if (db) {
+    try {
+      const rows = await db.execute("SELECT ean FROM produtos_removidos");
+      for (const r of rows.rows) if (typeof r.ean === "string") removidos.add(r.ean);
+    } catch {}
+  }
   const itens = exportado.itens.filter((it) => {
     const nome = typeof it.Produto === "string" ? it.Produto : "";
-    return !BIJUTERIAS.test(nome);
+    const ean = typeof it.CodigoDeBarras === "string" ? it.CodigoDeBarras : "";
+    return !BIJUTERIAS.test(nome) && !removidos.has(ean);
   }).map((it) => {
     const nome = typeof it.Produto === "string" ? it.Produto.replace(/\s+/g, " ").trim() : "";
     const override = EAN_OVERRIDE[nome.toUpperCase()];
