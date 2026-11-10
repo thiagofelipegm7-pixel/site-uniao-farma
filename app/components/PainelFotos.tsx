@@ -492,7 +492,7 @@ export default function PainelFotos() {
       {dados ? (
         <>
           
-          {dados.reconciliacao ? <ContasFecham c={dados.reconciliacao} /> : null}
+          
           
 
           {dados.publicacaoRapida === false ? (
