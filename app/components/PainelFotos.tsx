@@ -567,11 +567,11 @@ export default function PainelFotos() {
                 <div style={{ fontWeight: 600, fontSize: "0.8rem", textAlign: "center", lineHeight: 1.2, marginBottom: "0.25rem", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", textOverflow: "ellipsis" }} title={nomeAtual(l).texto}>
                   {nomeAtual(l).texto}
                 </div>
-                <div style={{ display: "grid", gap: "0.25rem", fontSize: "0.8rem", color: "#3e4b49" }}>
-                  <div><span style={{ color: "#6b7c79" }}>Quantidade:</span> {l.estoque}</div>
-                  <div><span style={{ color: "#6b7c79" }}>Categoria:</span> {categoriaEfetiva(l)}</div>
-                  <div><span style={{ color: "#6b7c79" }}>Código:</span> {l.semCodigo ? "sem código" : l.ean}</div>
-                  <div><span style={{ color: "#6b7c79" }}>Preço:</span> {REAIS.format(l.preco)}</div>
+                <div style={{ display: "grid", gap: "0.15rem", fontSize: "0.7rem", color: "#3e4b49" }}>
+                  <div><span style={{ color: "#6b7c79" }}>Qtd:</span> {l.estoque}</div>
+                  <div><span style={{ color: "#6b7c79" }}>Cat:</span> {categoriaEfetiva(l)}</div>
+                  <div style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }} title={l.ean}><span style={{ color: "#6b7c79" }}>Cód:</span> {l.semCodigo ? "-" : l.ean}</div>
+                  <div><span style={{ color: "#6b7c79" }}>R$:</span> {REAIS.format(l.preco)}</div>
                 </div>
               </div>
             ))}
