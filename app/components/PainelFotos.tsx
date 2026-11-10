@@ -552,9 +552,9 @@ export default function PainelFotos() {
                 style={{ background: "#fff", borderRadius: "12px", padding: "1rem", border: "1px solid #d3e2df", boxShadow: "0 1px 3px rgba(0,0,0,0.06)", borderRadius: "12px", position: "relative", width: "200px", height: "200px", display: "flex", flexDirection: "column", gap: "0.5rem", overflow: "hidden" }}
               >
                 <button type="button" onClick={() => setProdutoConfig(l.ean)} aria-label="Configurar produto" style={{ position: "absolute", top: "0.5rem", right: "0.5rem", background: "none", border: "none", cursor: "pointer", fontSize: "1rem", zIndex: 1 }}>⚙️</button>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "80px" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "60px", flexShrink: 0 }}>
                   {l.noSite ? (
-                    <img src={pendentes.has(l.ean) || envios[l.ean] === "enviada" ? `/api/foto-nova?ean=${l.ean}&v=${envios[l.ean] === "enviada" ? "n" : "p"}` : `/produtos/${l.ean}.webp`} alt="" width="60" height="60" style={{ objectFit: "contain" }} />
+                    <img src={pendentes.has(l.ean) || envios[l.ean] === "enviada" ? `/api/foto-nova?ean=${l.ean}&v=${envios[l.ean] === "enviada" ? "n" : "p"}` : `/produtos/${l.ean}.webp`} alt="" width="50" height="50" style={{ objectFit: "contain", maxWidth: "50px", maxHeight: "50px" }} />
                   ) : (
                     <label style={{ cursor: "pointer" }}>
                       <input type="file" accept="image/*" disabled={envios[l.ean] === "enviando"} onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} style={{ display: "none" }} />
