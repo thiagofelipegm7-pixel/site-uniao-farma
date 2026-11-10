@@ -4,7 +4,7 @@ import { trackEvent } from "../../analytics";
 import { registrarEtapa } from "../../funil";
 import { abrirReserva } from "../../reserva/abrir-reserva";
 import { IconLixeira, IconMais, IconMenos } from "../../reserva/ReservaIcons";
-import { adicionar, atualizarReserva, definirQtd, idDoItem, qtdDoItem, tetoDoItem } from "../../reserva/reserva-store";
+import { formatarCentavos, adicionar, atualizarReserva, definirQtd, idDoItem, qtdDoItem, tetoDoItem } from "../../reserva/reserva-store";
 import { useReserva } from "../../reserva/useReserva";
 import { useDisponibilidade } from "../../reserva/useDisponibilidade";
 
@@ -43,6 +43,7 @@ export default function ProdutoBarra({ unitId, nome, precoCentavos, foto, max: m
   if (qtd === 0) {
     return (
       <div className="produto-barra">
+        <p className="produto-barra-preco"><small>Preço</small><strong>{formatarCentavos(precoCentavos)}</strong></p>
         <button
           type="button"
           className="produto-adicionar"

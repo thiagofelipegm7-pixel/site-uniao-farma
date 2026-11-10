@@ -9,6 +9,7 @@ export const dynamic = "force-dynamic";
  * Vitrines da home e da cesta: itens do catálogo da Nações, preferindo os que têm foto.
  * `?grupo=<slug da categoria>` filtra por categoria, `?lab=<marca>` por marca (igual, sem diferenciar caixa),
  * `?ate=<centavos>` por preço máximo e `?n=<1..12>` limita a quantidade (padrão 6).
+ * `?fotos=1` devolve só itens com foto (a home não mostra cartão com o espaço da imagem vazio).
  * Preço sempre do dia (cache de 5 min).
  */
 export async function GET(request: Request) {
@@ -16,6 +17,7 @@ export async function GET(request: Request) {
   const grupo = (params.get("grupo") ?? "").slice(0, 80);
   const lab = (params.get("lab") ?? "").slice(0, 80).trim().toLowerCase();
   const ate = Math.floor(Number(params.get("ate"))) || 0;
+  const soComFoto = params.get("fotos") === "1";
   const n = Math.min(12, Math.max(1, Math.floor(Number(params.get("n"))) || 6));
   const catalogo = carregarCatalogoNacoes();
   const itens = (catalogo?.itens ?? [])
@@ -30,6 +32,7 @@ export async function GET(request: Request) {
       precoCentavos: Math.round(item.preco * 100),
       foto: fotoDoProduto(item.nome),
     }))
+    .filter((item) => !soComFoto || item.foto !== null)
     .sort((a, b) => Number(b.foto !== null) - Number(a.foto !== null))
     .slice(0, n);
   return Response.json({ itens }, { headers: { "cache-control": "public, max-age=300" } });

@@ -31,7 +31,7 @@ type Props = {
 /**
  * Vitrine de produtos: título à esquerda, "Ver tudo" à direita e fileira rolável (setas no desktop).
  * Busca no navegador em /api/destaques (cache de 5 min) para a home continuar estática e o preço nunca ficar congelado.
- * Se a busca falhar, a seção some.
+ * Só entram produtos com foto (cartão com o espaço da imagem vazio parece site quebrado). Se a busca falhar ou não houver nenhum, a seção some.
  */
 export default function DestaquesSemana({ titulo = "Destaques da semana", grupo, lab, ate, n = 8, verTodasHref = "/nacoes-unidas/produtos", verTodas = true, source = "destaques_home", id = "destaques" }: Props = {}) {
   const [itens, setItens] = useState<Destaque[]>([]);
@@ -39,7 +39,7 @@ export default function DestaquesSemana({ titulo = "Destaques da semana", grupo,
 
   useEffect(() => {
     let ativo = true;
-    const consulta = new URLSearchParams({ n: String(n), ...(grupo ? { grupo } : {}), ...(lab ? { lab } : {}), ...(ate ? { ate: String(ate) } : {}) });
+    const consulta = new URLSearchParams({ n: String(n), fotos: "1", ...(grupo ? { grupo } : {}), ...(lab ? { lab } : {}), ...(ate ? { ate: String(ate) } : {}) });
     fetch(`/api/destaques?${consulta}`, { headers: { accept: "application/json" } })
       .then((resposta) => (resposta.ok ? resposta.json() : null))
       .then((dados: { itens?: Destaque[] } | null) => {
