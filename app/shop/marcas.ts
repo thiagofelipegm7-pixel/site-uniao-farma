@@ -28,7 +28,7 @@ export const EXTENSOES_LOGO = ["png", "svg", "webp", "jpg"] as const;
 
 /**
  * Laboratórios da faixa do departamento Medicamentos, em ordem de volume de estoque (contagem de produtos não esgotados).
- * Entram só os que já têm logo em /public/marcas; os demais (União Química, Geolab, Eurofarma, Teuto, Medley) entram quando o logo chegar.
+ * Entram só os que já têm logo em /public/marcas; a União Química entra quando o logo chegar.
  * O clique abre a lista de Medicamentos já filtrada pelo laboratório.
  */
 const emMedicamentos = (termo: string) => `/departamentos/medicamentos?q=${encodeURIComponent(termo)}`;
@@ -39,5 +39,9 @@ export const MARCAS_MEDICAMENTOS: readonly MarcaDestaque[] = [
   { slug: "neo-quimica", nome: "Neo Química", busca: "neo quimic", href: emMedicamentos("neo quimic") },
   { slug: "natulab", nome: "Natulab", busca: "natulab", href: emMedicamentos("natulab") },
   { slug: "cosmed", nome: "Cosmed", busca: "cosmed", href: emMedicamentos("cosmed") },
+  { slug: "eurofarma", nome: "Eurofarma", busca: "eurofarma", cheia: true, href: emMedicamentos("eurofarma") },
+  { slug: "teuto", nome: "Teuto", busca: "teuto", href: emMedicamentos("teuto") },
+  { slug: "geolab", nome: "Geolab", busca: "geolab", cheia: true, href: emMedicamentos("geolab") },
+  { slug: "medley", nome: "Medley", busca: "medley", href: emMedicamentos("medley") },
   { slug: "bayer", nome: "Bayer", busca: "bayer", href: emMedicamentos("bayer") },
 ];
