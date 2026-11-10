@@ -165,3 +165,74 @@ export function csvDasLinhas(linhas: readonly LinhaFoto[], marcados?: ReadonlySe
   const corpo = linhas.map((l) => [l.semCodigo ? "" : l.ean, aspas(l.nome), aspas(l.lab), aspas(l.categoria), l.estoque, reais(l.preco), reais(l.valor), l.noSite ? "sim" : "não", marcados?.has(l.ean) ? "sim" : "não"].join(";"));
   return "﻿" + [cab.join(";"), ...corpo].join("\n");
 }
+
+/** Serviços que o PC vende mas não são produto (igual a NAO_PRODUTO em ops/catalogo-nacoes/gerar.py). */
+const SERVICOS = /TAXA DE ENTREGA|APLICACAO|AFERIMENTO|XEROX|MANIPULACAO/;
+const BIJUTERIAS_PAINEL = /^(BRINCO |PIERCING |ANEL |COLAR |PULSEIRA |PINGENTE )/i;
+
+export type Reconciliacao = {
+  /** Linhas do export do PC. */
+  pc: number;
+  /** Serviços (taxa de entrega, aferição, xerox...): não são produto e não vão ao site. */
+  servicos: number;
+  /** Mesmo nome, laboratório e preço de outro item: o site mostra um só. */
+  repetidos: number;
+  /** Produtos que o site lista (pc − serviços − repetidos), calculado agora com as regras do sincronizador. */
+  noSite: number;
+  /** Quantos produtos o site lista de fato nos arquivos publicados (receita, controlados e comuns). Sem valor quando não foi informado. */
+  listadosNoSite: number | null;
+  /** Bijuterias que o painel de fotos não conta. */
+  bijuterias: number;
+  /** Itens com o mesmo código de barras (ou sem código e mesmo nome): o painel de fotos conta uma linha só. */
+  codigosRepetidos: number;
+  /** O que o painel de fotos conta como "itens à venda". */
+  noPainel: number;
+};
+
+/**
+ * Faz as três contagens (PC, site, painel de fotos) fecharem: cada linha do PC cai em uma só conta.
+ * Aproximação das regras do sincronizador (nome, laboratório e preço); `listadosNoSite` traz o número real publicado para comparar.
+ */
+export function reconciliarContagens(itens: readonly ExportItem[], listadosNoSite: number | null = null): Reconciliacao {
+  let servicos = 0;
+  let noSite = 0;
+  let bijuterias = 0;
+  const chavesSite = new Set<string>();
+  const codigos = new Set<string>();
+  let noPainel = 0;
+  for (const it of itens) {
+    const nome = typeof it.Produto === "string" ? it.Produto.replace(/\s+/g, " ").trim() : "";
+    const classe = typeof it.Classe === "string" ? it.Classe.trim() : "";
+    if (!nome || classe === "SERVICOS" || SERVICOS.test(chaveDeNome(nome))) {
+      servicos += 1;
+      continue;
+    }
+    const lab = typeof it.Laboratorio === "string" ? it.Laboratorio.trim() : "";
+    const preco = typeof it.Pvenda === "number" && it.Pvenda > 0 ? it.Pvenda : 0;
+    const chave = `${chaveDeNome(nome)}|${LAB_VAZIO.test(lab) ? "" : lab.toUpperCase()}|${preco}`;
+    if (!chavesSite.has(chave)) {
+      chavesSite.add(chave);
+      noSite += 1;
+    }
+    if (BIJUTERIAS_PAINEL.test(nome)) {
+      bijuterias += 1;
+      continue;
+    }
+    const codigo = String(it.CodigoDeBarras ?? "").trim() || codigoDoNome(nome);
+    if (!codigos.has(codigo)) {
+      codigos.add(codigo);
+      noPainel += 1;
+    }
+  }
+  const naoServico = itens.length - servicos;
+  return {
+    pc: itens.length,
+    servicos,
+    repetidos: naoServico - noSite,
+    noSite,
+    listadosNoSite,
+    bijuterias,
+    codigosRepetidos: naoServico - bijuterias - noPainel,
+    noPainel,
+  };
+}

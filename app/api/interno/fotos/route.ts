@@ -1,5 +1,5 @@
 import { lerExportBruto } from "../../../estoque-fonte";
-import { chaveDeNome, montarLinhas, resumirFotos, SEM_CATEGORIA } from "../../../fotos-painel";
+import { chaveDeNome, montarLinhas, reconciliarContagens, resumirFotos, SEM_CATEGORIA } from "../../../fotos-painel";
 import { carregarCatalogoCompleto } from "../../../nacoes-unidas/produtos/catalogo";
 import { banco, segredo } from "../../../estoque-fonte";
 import { listarPendentes, listarRemocoes } from "../../../fotos-enviadas";
@@ -63,6 +63,8 @@ export async function GET() {
       ok: true,
       geradoEm: exportado.geradoEm,
       resumo: resumirFotos(linhas),
+      // Como os números fecham: PC, o que o site lista e o que o painel conta (sem quantidades em estoque).
+      reconciliacao: reconciliarContagens(exportado.itens, carregarCatalogoCompleto().itens.length + restritos.receita.length + restritos.controlados.length),
       categorias: listaCategorias,
       pendentes,
       nomes,

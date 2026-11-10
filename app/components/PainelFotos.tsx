@@ -7,13 +7,13 @@ import { chaveDoNome } from "../nomes-corrigidos";
 import { nomeDeExibicao } from "../nome-exibicao";
 import { prepararFoto } from "./preparar-foto";
 import PainelCatalogo from "./PainelCatalogo";
-import { filtrarLinhas, resumirFotos, type FiltroFotos, type LinhaFoto, type ResumoFotos } from "../fotos-painel";
+import { filtrarLinhas, resumirFotos, type FiltroFotos, type LinhaFoto, type Reconciliacao, type ResumoFotos } from "../fotos-painel";
 import "../metrics-polish.css";
 import "./painel-fotos.css";
 
 type Linha = [string, string, string, string, number, number, number, number, number, string, number, number?, number?];
 type LinhaPainel = LinhaFoto & { sistemaRestrito?: boolean };
-type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; nomes?: Record<string, { nome: string; por: string; quando: string }>; controlados?: Record<string, { estado: "sim" | "nao"; por: string; quando: string }>; categoriasOverride?: Record<string, { categoria: string; por: string; quando: string }>; alteracoes?: { tipo: string; titulo: string; acao: string; anterior: string | null; novo: string | null; por: string; quando: string }[]; linhas: Linha[] };
+type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; reconciliacao?: Reconciliacao; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; nomes?: Record<string, { nome: string; por: string; quando: string }>; controlados?: Record<string, { estado: "sim" | "nao"; por: string; quando: string }>; categoriasOverride?: Record<string, { categoria: string; por: string; quando: string }>; alteracoes?: { tipo: string; titulo: string; acao: string; anterior: string | null; novo: string | null; por: string; quando: string }[]; linhas: Linha[] };
 
 const CHAVE_MARCAS = "uf_fotos_ok";
 const REAIS = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -38,6 +38,24 @@ function origemDoArraste(dt: DataTransfer): File | string[] | undefined {
 type Envio = "enviando" | "enviada" | "erro";
 
 type Ordem = "nome" | "estoque" | "categoria";
+
+/** Mostra como as contagens fecham: o que o PC tem, o que o site lista e o que este painel conta. */
+function ContasFecham({ c }: { c: Reconciliacao }) {
+  const pt = (n: number) => n.toLocaleString("pt-BR");
+  const diferenca = c.listadosNoSite !== null ? c.noSite - c.listadosNoSite : 0;
+  return (
+    <details className="pf-contas">
+      <summary>Por que {pt(c.pc)} no PC, {pt(c.listadosNoSite ?? c.noSite)} no site e {pt(c.noPainel)} aqui?</summary>
+      <ul>
+        <li><b>{pt(c.pc)}</b> linhas no PC.</li>
+        <li>− <b>{pt(c.servicos)}</b> serviços (taxa de entrega, aferição, xerox, manipulação): não são produto.</li>
+        <li>− <b>{pt(c.repetidos)}</b> repetidos (mesmo nome, laboratório e preço): o site mostra um só.</li>
+        <li>= <b>{pt(c.noSite)}</b> produtos no site{c.listadosNoSite !== null ? <> (a lista do site mostra <b>{pt(c.listadosNoSite)}</b>{diferenca !== 0 ? `, diferença de ${pt(Math.abs(diferenca))} por regras de nome e laboratório` : ""})</> : null}.</li>
+        <li>Este painel conta <b>{pt(c.noPainel)}</b>: tira {pt(c.bijuterias)} bijuterias e junta {pt(c.codigosRepetidos)} itens que repetem o código de barras (a foto é guardada por código).</li>
+      </ul>
+    </details>
+  );
+}
 
 export default function PainelFotos() {
   const [dados, setDados] = useState<Resposta | null>(null);
@@ -489,6 +507,7 @@ export default function PainelFotos() {
               <button type="button" onClick={() => setConfigAberto(true)} aria-label="Configurar" style={{ position: "absolute", top: "0.25rem", right: "0.25rem", background: "none", border: "none", cursor: "pointer", fontSize: "1.1rem" }}>⚙️</button>
             </div>
           </section>
+          {dados.reconciliacao ? <ContasFecham c={dados.reconciliacao} /> : null}
           {configAberto ? (
             <div role="dialog" aria-modal="true" style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", display: "grid", placeItems: "center", zIndex: 100 }}>
               <div style={{ background: "#fff", borderRadius: "12px", padding: "1.5rem", maxWidth: "28rem", width: "90%", maxHeight: "80vh", overflow: "auto" }}>
