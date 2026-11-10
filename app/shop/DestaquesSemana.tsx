@@ -11,7 +11,15 @@ import { formatarCentavos } from "../reserva/reserva-store";
 
 type Destaque = { nome: string; slug: string; lab?: string; precoCentavos: number; foto: string | null };
 
+/**
+ * Encadeia as vitrines da home pela ordem (`posicao`): cada uma espera a anterior e não repete produto que já apareceu acima.
+ * Cada elemento resolve com todos os produtos mostrados até aquela vitrine.
+ */
+const cadeia: Array<Promise<Set<string>>> = [];
+
 type Props = {
+  /** Ordem da vitrine na página (0, 1, 2…). Com ela, a vitrine não repete produtos das anteriores. */
+  posicao?: number;
   titulo?: string;
   /** Slug da categoria do catálogo (ex.: "cuidado-diario"). Sem ele, traz itens variados. */
   grupo?: string;
@@ -33,23 +41,29 @@ type Props = {
  * Busca no navegador em /api/destaques (cache de 5 min) para a home continuar estática e o preço nunca ficar congelado.
  * Só entram produtos com foto (cartão com o espaço da imagem vazio parece site quebrado). Se a busca falhar ou não houver nenhum, a seção some.
  */
-export default function DestaquesSemana({ titulo = "Destaques da semana", grupo, lab, ate, n = 8, verTodasHref = "/nacoes-unidas/produtos", verTodas = true, source = "destaques_home", id = "destaques" }: Props = {}) {
+export default function DestaquesSemana({ posicao, titulo = "Destaques da semana", grupo, lab, ate, n = 8, verTodasHref = "/nacoes-unidas/produtos", verTodas = true, source = "destaques_home", id = "destaques" }: Props = {}) {
   const [itens, setItens] = useState<Destaque[]>([]);
   const lista = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     let ativo = true;
-    const consulta = new URLSearchParams({ n: String(n), fotos: "1", ...(grupo ? { grupo } : {}), ...(lab ? { lab } : {}), ...(ate ? { ate: String(ate) } : {}) });
-    fetch(`/api/destaques?${consulta}`, { headers: { accept: "application/json" } })
+    // Pede mais itens que o necessário para sobrar o bastante depois de tirar os que já apareceram em outra vitrine.
+    const pedir = posicao === undefined ? n : Math.min(36, n * 3);
+    const consulta = new URLSearchParams({ n: String(pedir), fotos: "1", ...(grupo ? { grupo } : {}), ...(lab ? { lab } : {}), ...(ate ? { ate: String(ate) } : {}) });
+    const anterior: Promise<Set<string>> = posicao ? (cadeia[posicao - 1] ?? Promise.resolve(new Set<string>())) : Promise.resolve(new Set<string>());
+    const busca = fetch(`/api/destaques?${consulta}`, { headers: { accept: "application/json" } })
       .then((resposta) => (resposta.ok ? resposta.json() : null))
-      .then((dados: { itens?: Destaque[] } | null) => {
-        if (ativo && dados?.itens?.length) setItens(dados.itens);
-      })
-      .catch(() => undefined);
+      .catch(() => null) as Promise<{ itens?: Destaque[] } | null>;
+    const minha = Promise.all([anterior, busca]).then(([usados, dados]) => {
+      const livres = (dados?.itens ?? []).filter((item) => !usados.has(item.slug)).slice(0, n);
+      if (ativo && livres.length) setItens(livres);
+      return new Set([...usados, ...livres.map((item) => item.slug)]);
+    });
+    if (posicao !== undefined) cadeia[posicao] = minha;
     return () => {
       ativo = false;
     };
-  }, [grupo, lab, ate, n]);
+  }, [grupo, lab, ate, n, posicao]);
 
   if (itens.length === 0) return null;
 
