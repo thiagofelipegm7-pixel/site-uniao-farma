@@ -2015,3 +2015,10 @@ html body .shop-busca:focus-within { outline: 0; outline-offset: 0; }
 html body .shop-busca button[type="submit"] { order: 2; width: 2.5rem; height: 2.5rem; margin: 0 0.25rem 0 0.5rem; background: var(--uf-action); color: var(--uf-action-ink); border-radius: 50%; }
 html body .shop-busca input { order: 1; }
 @layer design { html body .shop-busca:focus-within { outline: 0 !important; outline-offset: 0 !important; } html body .shop-busca button[type="submit"] { order: 2 !important; background: var(--uf-action) !important; color: var(--uf-action-ink) !important; margin: 0 0.25rem 0 0.5rem !important; } }
+
+/* Troco (entrega em dinheiro). */
+.fluxo-troco { margin: 0.75rem 0 0; padding: 0; border: 0; }
+.fluxo-troco legend { margin: 0 0 0.5rem; padding: 0; color: var(--uf-ink); font-size: 1rem; font-weight: 700; }
+.fluxo-troco-valor { margin: 0.5rem 0 0; }
+.fluxo-troco-valor small { color: #3e4b49; font-size: 0.8125rem; }
+.fluxo-troco-valor input[aria-invalid="true"] ~ small { color: #972524; font-weight: 600; }

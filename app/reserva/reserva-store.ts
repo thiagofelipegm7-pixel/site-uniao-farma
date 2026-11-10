@@ -176,9 +176,28 @@ export type DadosPedido = {
   pagamento?: string;
   /** Taxa de entrega em centavos (0 se retirada ou não informada). */
   taxaEntregaCentavos?: number;
+  /** Número curto do pedido (ex.: K7P3), para achar a conversa. Sem dado pessoal. */
+  codigo?: string;
+  /** Só entrega em dinheiro: 0 = não precisa de troco; valor em centavos = troco para esse valor; indefinido = não perguntado. */
+  trocoCentavos?: number;
   /** Como a receita chega à loja: "foto" = o cliente manda a foto na conversa; "loja" (padrão) = leva a receita ao retirar. */
   receita?: "foto" | "loja";
 };
+
+const ALFABETO_CODIGO = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // sem 0/O, 1/I/L: não se confunde ao ler
+
+/** Código curto do pedido (4 caracteres, ex.: K7P3). Só serve para achar a conversa; não leva dado do cliente. */
+export function gerarCodigoPedido(): string {
+  const bytes = new Uint8Array(4);
+  crypto.getRandomValues(bytes);
+  return Array.from(bytes, (b) => ALFABETO_CODIGO[b % ALFABETO_CODIGO.length]).join("");
+}
+
+/** Valor digitado no "troco para": só vale se for maior que o total a pagar. Devolve centavos ou null. */
+export function trocoValido(texto: string, totalCentavos: number): number | null {
+  const centavos = precoParaCentavos(texto);
+  return centavos !== null && centavos > totalCentavos ? centavos : null;
+}
 
 /**
  * Mensagem pronta do WhatsApp (passo 3 do protótipo): itens, loja, forma, nome, pagamento e subtotal.
@@ -194,10 +213,12 @@ export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: D
   const quando = retirar ? "no balcão" : "na entrega";
   const escolhido = dados.pagamento?.trim();
   const quandoForma = escolhido === "Pix" ? "pelo WhatsApp" : quando;
-  const pag = escolhido ? `${escolhido} (${quandoForma})` : "a escolher";
+  const troco = !retirar && escolhido === "Dinheiro" && dados.trocoCentavos !== undefined ? (dados.trocoCentavos > 0 ? ` \u2014 troco para ${formatarCentavos(dados.trocoCentavos)}` : " \u2014 sem troco") : "";
+  const pag = escolhido ? `${escolhido} (${quandoForma})${troco}` : "a escolher";
   // Linhas em branco separam os blocos (itens, entrega, pagamento); só null/false são descartados.
   return [
     `Olá, União Farma ${unitNome}! Quero pedir:`,
+    ...(dados.codigo ? [`Pedido: #${dados.codigo}`] : []),
     "",
     "*Itens*",
     ...linhas,

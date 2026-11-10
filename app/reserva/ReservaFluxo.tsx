@@ -15,7 +15,7 @@ import { carregarUltimoPedido, guardarUltimoPedido, repetirPedido, type ItemCata
 import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats, IconCesta, IconCaminhao, IconConfirmado } from "./ReservaIcons";
 import CestaSugestoes from "./CestaSugestoes";
 import DestaquesSemana from "../shop/DestaquesSemana";
-import { ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
+import { gerarCodigoPedido, trocoValido, ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
 import { useDisponibilidade } from "./useDisponibilidade";
 import { avisosDaCesta } from "../disponibilidade";
@@ -53,6 +53,11 @@ export default function ReservaFluxo() {
   const [rua, setRua] = useState("");
   const [bairro, setBairro] = useState("");
   const [pagamento, setPagamento] = useState("");
+  // Entrega em dinheiro: pergunta se precisa de troco. "" = ainda não respondeu; "sem" = não precisa; "para" = precisa, com o valor digitado.
+  const [troco, setTroco] = useState<"" | "sem" | "para">("");
+  const [trocoTexto, setTrocoTexto] = useState("");
+  // Código curto do pedido, criado uma vez por visita ao fluxo (aparece na mensagem para a loja achar a conversa).
+  const [codigoPedido] = useState(gerarCodigoPedido);
   const [tentou, setTentou] = useState(false);
   const [editando, setEditando] = useState(true);
   // Depois do toque em "Enviar pedido pelo WhatsApp": lembra o cliente de tocar em enviar dentro do WhatsApp.
@@ -111,7 +116,13 @@ export default function ReservaFluxo() {
   const subtotal = formatarCentavos(subtotalCentavos(estado.itens));
   const taxaDoLocal = taxaDoBairro(bairro);
   const taxaEntrega = retirar ? 0 : (taxaDoLocal ?? 0);
-  const totalComTaxa = formatarCentavos(subtotalCentavos(estado.itens) + taxaEntrega);
+  const totalCentavos = subtotalCentavos(estado.itens) + taxaEntrega;
+  const totalComTaxa = formatarCentavos(totalCentavos);
+  const perguntaTroco = !retirar && pagamento === "Dinheiro";
+  const valorTroco = troco === "para" ? trocoValido(trocoTexto, totalCentavos) : null;
+  // 0 = sem troco; centavos = troco para; undefined = não se aplica ou ainda sem resposta válida.
+  const trocoCentavos = !perguntaTroco ? undefined : troco === "sem" ? 0 : valorTroco ?? undefined;
+  const trocoPendente = perguntaTroco && trocoCentavos === undefined;
   const descontos = descontoCentavos(estado.itens);
   const subtotalTabela = formatarCentavos(subtotalDeTabelaCentavos(estado.itens));
 
@@ -221,6 +232,8 @@ export default function ReservaFluxo() {
   }
   const enviarWhats = (classe: string) => acabaram.length > 0 ? (
     <button type="button" className={classe} disabled><IconWhats size={24} /> Tire o que acabou para enviar</button>
+  ) : pagamento && trocoPendente ? (
+    <button type="button" className={classe} disabled><IconWhats size={24} /> Informe o troco</button>
   ) : pagamento ? (
     temReceita ? (
       <button type="button" className={classe} onClick={() => setAvisoReceita(true)}>
@@ -238,7 +251,7 @@ export default function ReservaFluxo() {
   const statusLoja = agora ? getUnitOpenStatus(unidade, agora) : null;
   const aberta = statusLoja ? statusLoja.isOpen : null;
 
-  const mensagem = mensagemReserva(unidade.shortName, estado.itens, { modo, nome, bairro, rua, pagamento, taxaEntregaCentavos: taxaEntrega, receita: receita ? "foto" : "loja" });
+  const mensagem = mensagemReserva(unidade.shortName, estado.itens, { modo, nome, bairro, rua, pagamento, taxaEntregaCentavos: taxaEntrega, receita: receita ? "foto" : "loja", codigo: codigoPedido, trocoCentavos });
   const href = buildWhatsAppUrl(unidade, mensagem, { campaign: "reserva", content: `reserva_${unidade.id}` });
 
   return (
@@ -505,6 +518,37 @@ export default function ReservaFluxo() {
                     </label>
                   ))}
                 </div>
+                {perguntaTroco ? (
+                  <fieldset className="fluxo-troco">
+                    <legend>Precisa de troco?</legend>
+                    <label className="entrega-opcao entrega-opcao-simples">
+                      <input type="radio" name="troco" checked={troco === "sem"} onChange={() => setTroco("sem")} />
+                      <span className="entrega-tipo">Não preciso de troco</span>
+                    </label>
+                    <label className="entrega-opcao entrega-opcao-simples">
+                      <input type="radio" name="troco" checked={troco === "para"} onChange={() => setTroco("para")} />
+                      <span className="entrega-tipo">Preciso de troco</span>
+                    </label>
+                    {troco === "para" ? (
+                      <label className="fluxo-campo fluxo-troco-valor">
+                        <span>Troco para quanto? (valor da nota)</span>
+                        <input
+                          inputMode="decimal"
+                          autoComplete="off"
+                          placeholder="Ex.: 100"
+                          value={trocoTexto}
+                          maxLength={9}
+                          aria-invalid={trocoTexto.trim() !== "" && valorTroco === null}
+                          aria-describedby="troco-ajuda"
+                          onChange={(e) => setTrocoTexto(e.target.value)}
+                        />
+                        <small id="troco-ajuda" role="status">
+                          {trocoTexto.trim() !== "" && valorTroco === null ? `O valor precisa ser maior que o total (${totalComTaxa}).` : `Total do pedido: ${totalComTaxa}.`}
+                        </small>
+                      </label>
+                    ) : null}
+                  </fieldset>
+                ) : null}
               </div>
             </div>
 
