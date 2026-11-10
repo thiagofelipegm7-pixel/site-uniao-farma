@@ -542,7 +542,7 @@ export default function PainelFotos() {
           {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
 
           <p className="pf-contagem" role="status">{filtradas.length} {filtradas.length === 1 ? "item" : "itens"} no filtro</p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, 228px)", gap: "1.5rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 228px)", gap: "1.5rem" }}>
 
                 {visiveis.map((l) => (
                   <div
@@ -550,9 +550,10 @@ export default function PainelFotos() {
                     data-ean={l.ean}
                     tabIndex={0}
                     onFocus={() => setAlvoColar(l.ean)}
-                    style={{ background: "#fff", borderRadius: "16px", padding: "1rem", border: "1px solid #e8eeec", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", position: "relative", width: "228px", height: "224px" }}
+                    style={{ background: "#fff", borderRadius: "16px", padding: "1rem", border: "1px solid #e8eeec", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", position: "relative", width: "228px", height: "224px", display: "flex", flexDirection: "column", gap: "0.5rem", overflow: "hidden" }}
                   >
-                    <td className="pf-foto" style={{ padding: "1rem 0.5rem" }}>
+                    <button type="button" onClick={() => setProdutoConfig(l.ean)} aria-label="Configurar produto" style={{ position: "absolute", top: "0.5rem", right: "0.5rem", background: "none", border: "none", cursor: "pointer", fontSize: "1rem" }}>⚙️</button>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
                       {l.noSite ? (
                         <span className="pf-foto-atual">
                           <img src={pendentes.has(l.ean) || envios[l.ean] === "enviada" ? `/api/foto-nova?ean=${l.ean}&v=${envios[l.ean] === "enviada" ? "n" : "p"}` : `/produtos/${l.ean}.webp`} alt="" width="80" height="80" loading="lazy" decoding="async" />
@@ -564,8 +565,8 @@ export default function PainelFotos() {
                           {envios[l.ean] === "enviando" ? "Enviando…" : envios[l.ean] === "erro" ? "Falhou: tentar de novo" : "Enviar foto"}
                         </label>
                       )}
-                    </td>
-                    <td data-r="Código" className="pf-codigo">
+                    </div>
+                    <div style={{ fontSize: "0.75rem", color: "#6b7c79" }}>
                       {l.semCodigo ? (
                         <span className="pf-sem-codigo">sem código de barras</span>
                       ) : (
@@ -574,7 +575,7 @@ export default function PainelFotos() {
                           <button type="button" className="pf-copiar" onClick={() => void copiarCodigo(l.ean)} aria-label={`Copiar o código de barras ${l.ean}`}>{copiado === l.ean ? "Copiado!" : "Copiar"}</button>
                         </>
                       )}
-                    </td>
+                    </div>
                     <td className="pf-prod" style={{ padding: "1rem 0.5rem", position: "relative" }}>
                       <button type="button" onClick={() => setProdutoConfig(l.ean)} aria-label="Configurar produto" style={{ position: "absolute", top: "0.25rem", right: "0.25rem", background: "none", border: "none", cursor: "pointer", fontSize: "1.1rem" }}>⚙️</button>
                       {editandoNome === l.ean ? (
@@ -629,10 +630,10 @@ export default function PainelFotos() {
                       ) : estadoControlado(l) === "sim" ? (
                         <em className="pf-tag pf-tag-n" title="Override antigo; o seletor só aparece em Medicamentos">Marcado como controlado</em>
                       ) : null}
-                    </td>
-                    <td data-r="Categoria">{categoriaEfetiva(l)}</td>
-                    <td data-r="Estoque" className="pf-n"><span className={`pf-qtd pf-qtd-${l.estoque <= 0 ? "zero" : l.estoque <= 5 ? "baixo" : "normal"}`} title={l.estoque <= 0 ? "Zerado" : l.estoque <= 5 ? "Estoque baixo" : "Estoque normal"}>{l.estoque}</span></td>
-                    <td data-r="Preço" className="pf-n">{REAIS.format(l.preco)}</td>
+                    </div>
+                    <td data-r="Categoria">{categoriaEfetiva(l)}</div>
+                    <td data-r="Estoque" className="pf-n"><span className={`pf-qtd pf-qtd-${l.estoque <= 0 ? "zero" : l.estoque <= 5 ? "baixo" : "normal"}`} title={l.estoque <= 0 ? "Zerado" : l.estoque <= 5 ? "Estoque baixo" : "Estoque normal"}>{l.estoque}</span></div>
+                    <td data-r="Preço" className="pf-n">{REAIS.format(l.preco)}</div>
                   </div>
                 ))}
           </div>
