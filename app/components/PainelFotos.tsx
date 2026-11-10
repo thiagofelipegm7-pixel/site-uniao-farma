@@ -75,6 +75,8 @@ export default function PainelFotos() {
   const [aviso, setAviso] = useState("");
   const [configAberto, setConfigAberto] = useState(false);
   const [produtoConfig, setProdutoConfig] = useState<string | null>(null);
+  const [excluindo, setExcluindo] = useState<string | null>(null);
+  const [senhaExcluir, setSenhaExcluir] = useState("");
   // Quem está mexendo: fica registrado no histórico (foto e nome). Guardado só neste aparelho.
   const [por, setPor] = useState("");
   const [editandoNome, setEditandoNome] = useState<string | null>(null);
@@ -399,6 +401,23 @@ export default function PainelFotos() {
     return salvo?.estado ?? "auto";
   }
 
+  async function excluirProduto(ean: string, senha: string) {
+    if (senha !== "uniao") { setAviso("Senha incorreta."); return; }
+    try {
+      const r = await fetch("/api/interno/produto/excluir", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ ean, senha }),
+      });
+      const j = await r.json().catch(() => null);
+      if (!r.ok || !j?.ok) { setAviso("Não consegui excluir. Tente de novo."); return; }
+      setRemovidasAgora((s) => new Set(s).add(ean));
+      setExcluindo(null);
+      setProdutoConfig(null);
+      setAviso("Produto excluído.");
+    } catch { setAviso("Não consegui excluir. Tente de novo."); }
+  }
+
   async function salvarControlado(l: LinhaPainel, estado: "auto" | "sim" | "nao") {
     try {
       const r = await fetch("/api/interno/produto/controlado", {
@@ -614,6 +633,7 @@ export default function PainelFotos() {
                   </label>
                 ) : null}
               </div>
+              <button type="button" onClick={() => setExcluindo(l.ean)} style={{ marginTop: "1rem", padding: "0.5rem 1rem", background: "#fff", color: "#e53935", border: "1px solid #e53935", borderRadius: "8px", fontWeight: 600, cursor: "pointer" }}>Excluir produto</button>
               <div style={{ display: "flex", gap: "0.75rem", marginTop: "1.25rem" }}>
                 <button type="button" onClick={async () => {
                   const nomeInput = document.querySelector<HTMLInputElement>('input[type="text"]');
