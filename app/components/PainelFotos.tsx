@@ -45,13 +45,14 @@ function ContasFecham({ c }: { c: Reconciliacao }) {
   const diferenca = c.listadosNoSite !== null ? c.noSite - c.listadosNoSite : 0;
   return (
     <details className="pf-contas">
-      <summary>Por que {pt(c.pc)} no PC, {pt(c.listadosNoSite ?? c.noSite)} no site e {pt(c.noPainel)} aqui?</summary>
+      <summary>Por que {pt(c.pc)} no PC, {pt(c.listadosNoSite ?? c.noSite)} no site e {pt(c.aVendaNoPainel)} aqui?</summary>
       <ul>
         <li><b>{pt(c.pc)}</b> linhas no PC.</li>
         <li>− <b>{pt(c.servicos)}</b> serviços (taxa de entrega, aferição, xerox, manipulação): não são produto.</li>
+        <li>− <b>{pt(c.semPreco)}</b> sem preço de venda no PC: não vão ao site até ganharem preço.</li>
         <li>− <b>{pt(c.repetidos)}</b> repetidos (mesmo nome, laboratório e preço): o site mostra um só.</li>
         <li>= <b>{pt(c.noSite)}</b> produtos no site{c.listadosNoSite !== null ? <> (a lista do site mostra <b>{pt(c.listadosNoSite)}</b>{diferenca !== 0 ? `, diferença de ${pt(Math.abs(diferenca))} por regras de nome e laboratório` : ""})</> : null}.</li>
-        <li>Este painel conta <b>{pt(c.noPainel)}</b>: tira {pt(c.bijuterias)} bijuterias e junta {pt(c.codigosRepetidos)} itens que repetem o código de barras (a foto é guardada por código).</li>
+        <li>Este painel conta <b>{pt(c.noPainel)}</b> linhas: tira {pt(c.bijuterias)} bijuterias e junta {pt(c.codigosRepetidos)} itens que repetem o código de barras (a foto é guardada por código). Dessas, {pt(c.semPrecoNoPainel)} estão sem preço no PC e ficam em &ldquo;Fora do site&rdquo;. Sobram <b>{pt(c.aVendaNoPainel)}</b> &ldquo;à venda no site&rdquo;.</li>
       </ul>
     </details>
   );
