@@ -63,8 +63,23 @@ export const MARCAS_DERMOCOSMETICOS: readonly MarcaDestaque[] = [
   { slug: "monange", nome: "Monange", busca: "monange", cheia: true, href: emDermocosmeticos("monange") },
 ];
 
+/**
+ * Marcas da faixa do departamento Infantil e Gestante (produtos não esgotados: Isababy 11, Granado 7, Johnson's 6, Babysec 6, Skalinha 6, Pampers 4).
+ * Faltam logos de Personal, Dentil, Kuka e Buba, que entram quando chegarem. O clique filtra a lista do próprio departamento.
+ */
+const emInfantil = (termo: string) => `/departamentos/infantil-e-gestante?q=${encodeURIComponent(termo)}`;
+export const MARCAS_INFANTIL: readonly MarcaDestaque[] = [
+  { slug: "isababy", nome: "Isababy", busca: "isabab", href: emInfantil("isabab") },
+  { slug: "granado", nome: "Granado", busca: "granado", href: emInfantil("granado") },
+  { slug: "johnsons", nome: "Johnson's", busca: "j&j", href: emInfantil("j&j") },
+  { slug: "babysec", nome: "Babysec", busca: "babysec", href: emInfantil("babysec") },
+  { slug: "pampers", nome: "Pampers", busca: "pampers", href: emInfantil("pampers") },
+  { slug: "skalinha", nome: "Skalinha", busca: "skalinha", href: emInfantil("skalinha") },
+];
+
 /** Faixa de cada departamento. Sem entrada aqui, a página usa a faixa geral (MARCAS_DESTAQUE). */
 export const MARCAS_POR_DEPARTAMENTO: Readonly<Record<string, readonly MarcaDestaque[]>> = {
   medicamentos: MARCAS_MEDICAMENTOS,
   dermocosmeticos: MARCAS_DERMOCOSMETICOS,
+  "infantil-e-gestante": MARCAS_INFANTIL,
 };
