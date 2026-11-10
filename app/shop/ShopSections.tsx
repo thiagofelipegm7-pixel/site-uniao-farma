@@ -4,17 +4,17 @@ import { useEffect, useState } from "react";
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
-/** Ícones das 7 categorias: extratos da prancha aprovada. */
+/** Fotos das 7 categorias (public/categorias), separadas da prancha aprovada. */
 type Categoria = { href: string; rotulo: string; iconeSrc: string };
 
 const CATEGORIAS: readonly Categoria[] = [
-  { href: "/departamentos/medicamentos", rotulo: "Medicamentos", iconeSrc: "/icons/categorias/medicamentos.webp" },
-  { href: "/departamentos/dermocosmeticos", rotulo: "Dermo­cosméticos", iconeSrc: "/icons/categorias/dermocosmeticos.webp" },
-  { href: "/departamentos/perfumes", rotulo: "Perfumes", iconeSrc: "/icons/categorias/perfumes.webp" },
-  { href: "/departamentos/infantil-e-gestante", rotulo: "Infantil e Gestante", iconeSrc: "/icons/categorias/infantil-gestante.webp" },
-  { href: "/departamentos/beleza", rotulo: "Beleza", iconeSrc: "/icons/categorias/beleza.webp" },
-  { href: "/departamentos/cuidado-diario", rotulo: "Cuidado Diário", iconeSrc: "/icons/categorias/cuidado-diario.webp" },
-  { href: "/departamentos/bem-estar", rotulo: "Bem Estar", iconeSrc: "/icons/categorias/bem-estar.webp" },
+  { href: "/departamentos/medicamentos", rotulo: "Medicamentos", iconeSrc: "/categorias/medicamentos.jpg" },
+  { href: "/departamentos/dermocosmeticos", rotulo: "Dermo­cosméticos", iconeSrc: "/categorias/dermocosmeticos.jpg" },
+  { href: "/departamentos/perfumes", rotulo: "Perfumes", iconeSrc: "/categorias/perfumes.jpg" },
+  { href: "/departamentos/infantil-e-gestante", rotulo: "Infantil e Gestante", iconeSrc: "/categorias/infantil-e-gestante.jpg" },
+  { href: "/departamentos/beleza", rotulo: "Beleza", iconeSrc: "/categorias/beleza.jpg" },
+  { href: "/departamentos/cuidado-diario", rotulo: "Cuidado Diário", iconeSrc: "/categorias/cuidado-diario.jpg" },
+  { href: "/departamentos/bem-estar", rotulo: "Bem Estar", iconeSrc: "/categorias/bem-estar.jpg" },
 ];
 
 /**
@@ -29,9 +29,9 @@ export function CategoriasLinha() {
         {CATEGORIAS.map((item) => (
           <li key={item.rotulo}>
             <a href={item.href}>
-              <span className="shop-cat-icone">
+              <span className="shop-cat-icone shop-cat-foto">
                 {/* alt vazio: o rótulo visível abaixo já nomeia a categoria. */}
-                <img src={item.iconeSrc} alt="" width={72} height={72} decoding="async" draggable={false} />
+                <img src={item.iconeSrc} alt="" width={265} height={477} loading="lazy" decoding="async" draggable={false} />
               </span>
               <span className="shop-cat-rotulo">{item.rotulo}</span>
             </a>

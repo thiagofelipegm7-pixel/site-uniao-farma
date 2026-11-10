@@ -1939,3 +1939,29 @@ a.dg-pag-num:hover { background: #eef2f1; }
   .dg-faixa-pag { justify-content: center; }
   .dg-pag ol li:not(:has(.is-on)) { display: none; }
 }
+
+/* Categorias com foto (retrato 265 x 477): cartão arredondado com a foto e o nome embaixo. */
+@layer design {
+  html body .shop-categorias .shop-cat-foto { display: block !important; width: 100% !important; height: auto !important; min-width: 0 !important; min-height: 0 !important; aspect-ratio: 265 / 477 !important; overflow: hidden !important; border-radius: 16px !important; background: #dff4ef !important; }
+  html body .shop-categorias .shop-cat-foto img { display: block !important; width: 100% !important; height: 100% !important; object-fit: cover !important; }
+  html body .shop-categorias .shop-cat-rotulo { color: var(--uf-navy) !important; font-size: 0.9375rem !important; font-weight: 700 !important; line-height: 1.25 !important; }
+}
+@media (max-width: 991.98px) {
+  @layer design {
+    html body .shop-categorias { --cat-tile: 7rem; }
+    html body .shop-categorias .shop-cat-foto { width: var(--cat-tile) !important; }
+  }
+}
+@media (min-width: 992px) {
+  @layer design {
+    html body .shop-categorias .shop-categorias-trilho > li, html body .shop-categorias li > a { width: 100% !important; min-width: 0 !important; max-width: none !important; flex: none !important; }
+  }
+}
+@media (max-width: 991.98px) {
+  @layer design {
+    html body .shop-categorias { --cat-tile: 7.5rem; }
+    html body .shop-categorias .shop-cat-rotulo { font-size: 0.875rem !important; hyphens: none !important; }
+  }
+}
+@media (max-width: 991.98px) { html body .shop-categorias { --cat-tile: 7.5rem; } }
+@media (max-width: 991.98px) { @layer design { html body .shop-categorias .shop-cat-rotulo { font-size: 0.78125rem !important; } } }
