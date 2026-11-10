@@ -597,7 +597,7 @@ export default function PainelFotos() {
                           <span className="pf-nome">{nomeAtual(l).texto}</span>
                           <button type="button" className="pf-nome-editar" style={{ display: "none" }} onClick={() => { setEditandoNome(l.ean); setTextoNome(nomeAtual(l).texto); }} aria-label={`Editar o nome de ${l.nome}`}>Editar nome</button>
                           {nomeAtual(l).corrigido ? <em className="pf-tag pf-tag-n">Nome corrigido</em> : null}
-                          <small className="pf-original">No sistema: {l.nome}</small>
+                          
                         </>
                       )}
                       {l.lab ? <small>{l.lab}</small> : null}
@@ -619,7 +619,7 @@ export default function PainelFotos() {
                         </select>
                       </label>
                       {estadoCategoria(l) !== "auto" ? <em className="pf-tag pf-tag-n">Override: {estadoCategoria(l)}</em> : null}
-                      {l.sistemaRestrito ? <small className="pf-original">Receita/controlado do sistema: só Medicamentos</small> : null}
+                      
                       {categoriaEfetiva(l) === "Medicamentos" ? (
                         <>
                           <label className="pf-controlado" style={{ display: "none" }}>
