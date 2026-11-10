@@ -542,7 +542,7 @@ export default function PainelFotos() {
           {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
 
           <p className="pf-contagem" role="status">{filtradas.length} {filtradas.length === 1 ? "item" : "itens"} no filtro</p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: "1.5rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, 228px)", gap: "1.5rem" }}>
 
                 {visiveis.map((l) => (
                   <div
@@ -550,7 +550,7 @@ export default function PainelFotos() {
                     data-ean={l.ean}
                     tabIndex={0}
                     onFocus={() => setAlvoColar(l.ean)}
-                    style={{ background: "#fff", borderRadius: "16px", padding: "1rem", border: "1px solid #e8eeec", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", position: "relative", minHeight: "140px" }}
+                    style={{ background: "#fff", borderRadius: "16px", padding: "1rem", border: "1px solid #e8eeec", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", position: "relative", width: "228px", height: "224px" }}
                   >
                     <td className="pf-foto" style={{ padding: "1rem 0.5rem" }}>
                       {l.noSite ? (
