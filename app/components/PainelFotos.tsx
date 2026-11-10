@@ -604,7 +604,7 @@ export default function PainelFotos() {
                 </label>
                 {categoriaEfetiva(l) === "Medicamentos" ? (
                   <label style={{ display: "grid", gap: "0.4rem" }}>
-                    <span>Controlado (Portaria 344)</span>
+                    <span>Controlado</span>
                     <button type="button" onClick={() => {
                       const novo = estadoControlado(l) === "sim" ? "nao" : "sim";
                       setControladosAgora((c) => ({ ...c, [chaveDoNome(l.nome)]: novo }));
