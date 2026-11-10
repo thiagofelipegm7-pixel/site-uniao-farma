@@ -3475,6 +3475,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "Tonico Capilar Gota Dourada Fortalecimento Alho 30": "7897158700011",
   "NEOLEFRIN NOITE CARTELA 10CPR": "07896714214566",
   "SPRAY MEL/PRO/GEN/ROM/EUC 35ML": "7897535410496",
+  "TOALHAS UMED BABY DU 120UN FLIPTOP": "7898972620837",
 };
 
 function normalizarNome(nome: string): string {
