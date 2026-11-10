@@ -1965,3 +1965,26 @@ a.dg-pag-num:hover { background: #eef2f1; }
 }
 @media (max-width: 991.98px) { html body .shop-categorias { --cat-tile: 7.5rem; } }
 @media (max-width: 991.98px) { @layer design { html body .shop-categorias .shop-cat-rotulo { font-size: 0.78125rem !important; } } }
+
+/* Faixa "Navegue por marcas": quadrados cinza-claros com o logo, setas nas pontas (computador) e rolagem de lado (celular). */
+html body .shop-marcas { box-sizing: border-box; max-width: 82rem; margin: 1.5rem auto 0; padding: 0; }
+html body .shop-marcas h2 { margin: 0 0 0.75rem; padding-inline: 1.25rem; }
+.shop-marcas-moldura { display: flex; align-items: center; gap: 0.5rem; padding-inline: 0.75rem; }
+.shop-marcas-trilho { display: flex; flex: 1; gap: 0.75rem; min-width: 0; margin: 0; padding: 0 0.5rem; list-style: none; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; }
+.shop-marcas-trilho::-webkit-scrollbar { display: none; }
+.shop-marcas-trilho > li { flex: 0 0 auto; scroll-snap-align: start; }
+.shop-marcas-trilho a { display: grid; place-items: center; box-sizing: border-box; width: 6.5rem; height: 6.5rem; padding: 0.875rem; border-radius: 12px; background: #eef1f2; text-decoration: none; }
+.shop-marcas-trilho a:hover { background: #e3e8ea; }
+.shop-marcas-trilho a:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
+.shop-marcas-trilho img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; mix-blend-mode: multiply; }
+.shop-marca-nome { color: var(--uf-navy); font-size: 0.9375rem; font-weight: 800; line-height: 1.15; text-align: center; overflow-wrap: anywhere; }
+.shop-marcas-seta { display: none; flex: none; place-items: center; width: 2rem; height: 2rem; padding: 0; border: 0; border-radius: 6px; background: #c5cfd3; color: #ffffff; cursor: pointer; }
+.shop-marcas-seta:hover { background: #a9b6bb; }
+.shop-marcas-seta:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
+@media (min-width: 992px) {
+  .shop-marcas-moldura { padding-inline: 1.25rem; }
+  .shop-marcas-seta { display: grid; }
+  .shop-marcas-trilho { padding-inline: 0; scroll-snap-type: x mandatory; }
+}
+@media (prefers-reduced-motion: reduce) { .shop-marcas-trilho { scroll-behavior: auto; } }
+@layer design { html body .shop-marcas-trilho a { display: flex !important; align-items: center !important; justify-content: center !important; width: 6.5rem !important; height: 6.5rem !important; min-height: 0 !important; padding: 0.875rem !important; } html body .shop-marca-nome { display: block !important; width: 100% !important; text-align: center !important; } }
