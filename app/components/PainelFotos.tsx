@@ -575,7 +575,7 @@ export default function PainelFotos() {
                         </>
                       )}
                     </td>
-                    <td className="pf-prod" style={{ padding: "1rem 0.5rem" }} style={{ position: "relative" }}>
+                    <td className="pf-prod" style={{ padding: "1rem 0.5rem", position: "relative" }}>
                       <button type="button" onClick={() => setProdutoConfig(l.ean)} aria-label="Configurar produto" style={{ position: "absolute", top: "0.25rem", right: "0.25rem", background: "none", border: "none", cursor: "pointer", fontSize: "1.1rem" }}>⚙️</button>
                       {editandoNome === l.ean ? (
                         <span className="pf-nome-edicao">
