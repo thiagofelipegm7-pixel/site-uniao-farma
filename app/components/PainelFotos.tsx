@@ -413,7 +413,6 @@ export default function PainelFotos() {
       }
       const j = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string } | null;
       if (!r.ok || !j?.ok) {
-        setAviso(j?.erro === "so_medicamentos" ? "Só dá para marcar controlado em produtos da categoria Medicamentos." : "Não consegui salvar o enquadramento controlado. Tente de novo.");
         return;
       }
       setControladosAgora((n) => ({ ...n, [chaveDoNome(l.nome)]: estado }));
