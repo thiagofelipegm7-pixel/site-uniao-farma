@@ -24,7 +24,7 @@ const INTERVALO_MS = 5000;
  * (clones dos primeiros banners fecham a volta) e o ponto ativo vira uma pílula. Sem movimento automático para quem pede menos movimento.
  * `titulo` cria o h1 da página (só a home usa). Funciona com toque, mouse, teclado e leitor de tela.
  */
-export default function PainelBanners({ banners = BANNERS_PAINEL, titulo, fonte }: { banners?: BannerPainel[]; titulo?: string; /** Lista pronta (prévia no painel interno): usada no lugar da busca dos banners publicados. */ fonte?: BannerPainel[] }) {
+export default function PainelBanners({ banners = BANNERS_PAINEL, titulo, fonte, aoEnviar }: { banners?: BannerPainel[]; titulo?: string; /** Lista pronta (prévia no painel interno): usada no lugar da busca dos banners publicados. */ fonte?: BannerPainel[]; /** Modo de edição do painel interno: tocar no banner escolhe um arquivo para enviar ou trocar a arte dele. */ aoEnviar?: (banner: BannerPainel, arquivo: File) => void }) {
   const faixa = useRef<HTMLUListElement>(null);
   const [atual, setAtual] = useState(0);
   const [custom, setCustom] = useState<BannerPainel[] | null>(null);
@@ -141,13 +141,20 @@ export default function PainelBanners({ banners = BANNERS_PAINEL, titulo, fonte 
         <ul className="painel-faixa" ref={faixa} tabIndex={0} aria-label="Banners em destaque" aria-live="off">
           {lista.map((banner, i) => (
             <li className="painel-slide" key={banner.id} aria-roledescription="slide" aria-label={`${i + 1} de ${n}`}>
-              {banner.href ? (
+              {banner.href && !aoEnviar ? (
                 <a className="painel-arte" href={banner.href}>
                   <Arte banner={banner} />
                 </a>
               ) : (
                 <div className="painel-arte">
                   <Arte banner={banner} />
+                  {aoEnviar ? (
+                    <label className={`painel-editar${banner.imagem ? "" : " painel-editar--vazio"}`}>
+                      <input type="file" accept="image/*" aria-label={`${banner.imagem ? "Trocar" : "Enviar"} a arte do banner ${i + 1} de ${n}`} onChange={(e) => { const f = e.target.files?.[0]; if (f) aoEnviar(banner, f); e.target.value = ""; }} />
+                      <span className="painel-editar-num">Banner {i + 1} de {n}</span>
+                      <span className="painel-editar-dica">{banner.imagem ? "Trocar arte" : "Enviar arte"}</span>
+                    </label>
+                  ) : null}
                 </div>
               )}
             </li>
