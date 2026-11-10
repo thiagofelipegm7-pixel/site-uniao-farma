@@ -30,8 +30,8 @@ export async function GET() {
   const removidos = new Set<string>();
   if (db) {
     try {
-      const rows = await db.execute("SELECT ean FROM produtos_removidos");
-      for (const r of rows.rows) if (typeof r.ean === "string") removidos.add(r.ean);
+      const { results } = await db.prepare("SELECT ean FROM produtos_removidos").bind().all();
+      for (const r of results) if (typeof r.ean === "string") removidos.add(r.ean);
     } catch {}
   }
   const itens = exportado.itens.filter((it) => {
