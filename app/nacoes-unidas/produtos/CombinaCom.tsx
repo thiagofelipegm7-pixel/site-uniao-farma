@@ -21,7 +21,7 @@ export default function CombinaCom({ itens }: { itens: readonly CatalogoItem[] }
   if (itens.length < MIN_SUGESTOES) return null;
   return (
     <section className="produto-secao section-inner combina-com" aria-labelledby="combina-com-titulo">
-      <h2 id="combina-com-titulo">Combina com</h2>
+      <h2 id="combina-com-titulo">Combina com este produto</h2>
       <p className="combina-com-nota">Sugestões da loja entre os produtos do catálogo.</p>
       <ul className="combina-com-lista">
         {itens.map((alvo) => {

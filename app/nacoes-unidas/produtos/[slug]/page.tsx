@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { ContentSiteFooter } from "../../../ContentSiteChrome";
 import PainelBanners from "../../../shop/PainelBanners";
 import ShopTopo from "../../../shop/ShopTopo";
-import { SITE_URL, UNITS } from "../../../site-config";
+import { buildWhatsAppUrl, SITE_URL, UNITS } from "../../../site-config";
 import { IconSetaDireita } from "../../../reserva/ReservaIcons";
 import Preco from "../Preco";
 import SemFoto from "../SemFoto";
@@ -72,11 +72,6 @@ export default async function ProdutoNacoesPage({ params }: Props) {
   const descricaoIA = ehNbcal(item.nome) ? null : descricaoPublica(slugItem, item.isMIP);
   const textos = textosPublicaveis({ descricao: descricaoIA?.texto });
   const combinaCom = itensCombinaCom(carregarCatalogoNacoes().itens, item);
-  // Marca já aparece ao lado do nome e a categoria na trilha do topo: a ficha só traz o que é novo.
-  const ficha = [
-    conteudo ? { rotulo: "Conteúdo", valor: conteudo } : null,
-    ean ? { rotulo: "Código de barras", valor: ean } : null,
-  ].filter((linha): linha is { rotulo: string; valor: string } => linha !== null);
   const jsonLd = jsonLdProduto({
     nome: nomeExibido,
     lab: item.lab,
@@ -85,6 +80,8 @@ export default async function ProdutoNacoesPage({ params }: Props) {
     image: fotoReal ? `${SITE_URL}${fotoReal}` : null,
     descricao: descricaoIA?.texto,
   });
+  // No lugar das avaliações de clientes (a União não tem): atalho para tirar dúvida do produto com a farmacêutica, no WhatsApp da loja.
+  const duvidaHref = buildWhatsAppUrl(nacoes, `Oi, União Farma Nações Unidas! Tenho uma dúvida sobre "${nomeExibido}". Pode me ajudar?`, { campaign: "produto_duvida", content: slugItem });
   const depCat = acharDepartamento(slugify(item.categoria));
   const categoriaHref = depCat && !depCat.provisorio ? `/departamentos/${depCat.slug}` : "/nacoes-unidas/produtos";
   const categoriaRotulo = depCat && !depCat.provisorio ? depCat.nome : "Produtos";
@@ -103,67 +100,112 @@ export default async function ProdutoNacoesPage({ params }: Props) {
           <span>{nomeExibido}</span>
         </nav>
 
-        <div className="produto-topo section-inner">
-          <div className={foto ? "produto-foto" : "produto-foto produto-foto--vazia"}>
+        {/* Estrutura da página de produto da Drogasil: galeria, informações e cartão de compra no topo; depois os painéis
+            "Descrição do produto" e "Características" lado a lado e o carrossel de sugestões. O que a União não tem fica de fora. */}
+        <div className="pdp-topo section-inner">
+          <div className={foto ? "pdp-galeria" : "pdp-galeria pdp-galeria--vazia"}>
             {foto ? (
-              <img src={foto} alt={nomeExibido} width="300" height="300" />
+              <img src={foto} alt={nomeExibido} width="420" height="420" />
             ) : (
               <SemFoto className="produto-sem-foto" legenda="Sem foto" />
             )}
           </div>
 
-          <article className="produto-card">
+          <article className="pdp-info">
             <h1>{nomeExibido}</h1>
+            <div className="pdp-meta">
+              <p>
+                {item.lab.trim() ? <span>{item.lab.trim()}</span> : null}
+                {item.lab.trim() && conteudo ? <span aria-hidden="true" className="pdp-ponto">•</span> : null}
+                {conteudo ? <span>{conteudo}</span> : null}
+              </p>
+              <ProdutoAcoes slug={slugItem} titulo={nomeExibido} />
+            </div>
+            <p className="pdp-vendido">Vendido e entregue por <strong>União Farma</strong></p>
             {textos.descricao ? (
-              <p className="produto-descricao" data-descricao-origem={descricaoIA?.origem}>
+              <p className="pdp-resumo" data-descricao-origem={descricaoIA?.origem}>
                 {textos.descricao}
               </p>
             ) : null}
-            <div className="produto-marca-linha">
-              {item.lab.trim() ? (
-                <p className="produto-marca">
-                  <strong>{item.categoria === "Medicamentos" ? "Laboratório" : "Marca"}:</strong> {item.lab.trim()}
-                </p>
-              ) : <span />}
-              <ProdutoAcoes slug={slugItem} titulo={nomeExibido} />
-            </div>
-            <hr className="produto-divisor" />
+            <p className="pdp-links">
+              <a href="#descricao">Descrição completa</a>
+              <a href="#faq-produto">Perguntas frequentes</a>
+              <a href={duvidaHref} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="produto_duvida">Tirar dúvida no WhatsApp</a>
+            </p>
+          </article>
+
+          <aside className="pdp-compra" aria-label="Comprar">
             <p className="produto-preco"><Preco precoFmt={formatBRL(item.preco)} variante="grande" /></p>
             {item.esgotado ? <p className="produto-esgotado" role="status">Indisponível no momento. Fale com a loja pelo WhatsApp para saber quando chega.</p> : null}
             <p className="produto-nota">{NOTA_PRECO}</p>
             {item.esgotado ? null : <ProdutoBarra unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} max={item.restam} slug={slugify(item.nome)} />}
-          </article>
+            {/* No lugar do cálculo de frete por CEP da Drogasil: como a União entrega e recebe, sem inventar prazo nem taxa. */}
+            <ul className="pdp-receber" aria-label="Como receber">
+              <li><strong>Retire na loja</strong><span>Nações Unidas, em Sabará</span></li>
+              <li><strong>Entrega no bairro</strong><span><a href="/entrega-de-medicamentos-em-sabara">Veja como funciona</a></span></li>
+              <li><strong>Pagamento</strong><span>Na retirada ou na entrega</span></li>
+            </ul>
+          </aside>
         </div>
 
-        {textos.paraQueServe ? (
-          <section className="produto-secao section-inner" aria-labelledby="para-que-serve">
-            <h2 id="para-que-serve">Para que serve</h2>
-            <p>{textos.paraQueServe}</p>
+        <div className="pdp-paineis section-inner">
+          <section className="pdp-painel" id="descricao" aria-labelledby="descricao-titulo">
+            <h2 id="descricao-titulo">Descrição do produto</h2>
+            {textos.descricao || textos.paraQueServe || textos.destaques ? (
+              <>
+                {textos.descricao ? <p>{textos.descricao}</p> : null}
+                {textos.paraQueServe ? (
+                  <>
+                    <h3>Para que serve</h3>
+                    <p>{textos.paraQueServe}</p>
+                  </>
+                ) : null}
+                {textos.destaques ? (
+                  <>
+                    <h3>Destaques do rótulo</h3>
+                    <p>{textos.destaques}</p>
+                  </>
+                ) : null}
+              </>
+            ) : (
+              // Sem texto aprovado para este produto: não inventamos descrição; a farmacêutica da loja explica.
+              <p>
+                Ainda não temos a descrição deste produto aqui. A farmacêutica da loja pode explicar para que serve e como usar:{" "}
+                <a href={duvidaHref} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="produto_descricao">
+                  tirar dúvida no WhatsApp
+                </a>
+                .
+              </p>
+            )}
           </section>
-        ) : null}
-
-        {textos.destaques ? (
-          <section className="produto-secao section-inner" aria-labelledby="destaques-rotulo">
-            <h2 id="destaques-rotulo">Destaques do rótulo</h2>
-            <p>{textos.destaques}</p>
+          <section className="pdp-painel" aria-labelledby="caracteristicas-titulo">
+            <h2 id="caracteristicas-titulo">Características</h2>
+            <dl className="pdp-carac">
+              {item.lab.trim() ? (
+                <div>
+                  <dt>{item.categoria === "Medicamentos" ? "Laboratório" : "Marca"}</dt>
+                  <dd><a href={`/nacoes-unidas/produtos?q=${encodeURIComponent(item.lab.trim())}`}>{item.lab.trim()}</a></dd>
+                </div>
+              ) : null}
+              <div>
+                <dt>Categoria</dt>
+                <dd><a href={categoriaHref}>{categoriaRotulo}</a></dd>
+              </div>
+              {conteudo ? (
+                <div>
+                  <dt>Conteúdo</dt>
+                  <dd>{conteudo}</dd>
+                </div>
+              ) : null}
+              {ean ? (
+                <div>
+                  <dt>Código de barras</dt>
+                  <dd>{ean}</dd>
+                </div>
+              ) : null}
+            </dl>
           </section>
-        ) : null}
-
-        {ficha.length ? (
-        <section className="produto-secao section-inner" aria-labelledby="ficha-tecnica">
-          <h2 id="ficha-tecnica">Ficha técnica</h2>
-          <table className="produto-ficha">
-            <tbody>
-              {ficha.map((linha) => (
-                <tr key={linha.rotulo}>
-                  <th scope="row">{linha.rotulo}</th>
-                  <td>{linha.valor}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </section>
-        ) : null}
+        </div>
 
         <CombinaCom itens={combinaCom} />
 
