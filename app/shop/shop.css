@@ -1657,48 +1657,36 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .shop-aviso-dados { margin: 0; padding: 0.5rem 1rem; background: #fff3c4; color: #5a4300; font-size: 0.875rem; font-weight: 700; line-height: 1.4; text-align: center; border-bottom: 1px solid #e3b341; }
 
 /* =====================================================================
-   Painel de banners da home (estrutura do carrossel da Droga Raia, arte em branco)
-   Proporção 2:1 no celular e 1,9:1 no computador, cantos de 16px, setas redondas de 48px que invadem a lateral,
-   pontos de 8px embaixo (ativo escuro). No desktop dois banners lado a lado (antes três) para artes maiores.
-   Faixa com scroll-snap, sem biblioteca.
+   Painel de banners da home: copia o carrossel principal da Droga Raia (medido no HTML e na tela salvos).
+   14 banners, um por vez; arte de 1318 x 300 px com a página em 1366 px (4,39 : 1), cantos de 12px, setas redondas de 48px,
+   pontos de 8px com 16px de passo (ativo mais escuro, mesmo tamanho). No celular 2 : 1. Faixa com scroll-snap, sem biblioteca.
    ===================================================================== */
-.painel { max-width: 82rem; margin: 0.75rem auto 0; padding: 0 0.75rem; box-sizing: border-box; }
+.painel { max-width: 85.375rem; margin: 0.75rem auto 0; padding: 0 0.75rem; box-sizing: border-box; }
 .painel-moldura { position: relative; }
-.painel-faixa { display: flex; gap: 1rem; scroll-behavior: auto; margin: 0; padding: 0; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: 16px; overscroll-behavior-x: contain; }
+.painel-faixa { display: flex; gap: 0; scroll-behavior: auto; margin: 0; padding: 0; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: 12px; overscroll-behavior-x: contain; }
 .painel-faixa::-webkit-scrollbar { display: none; }
 .painel-faixa:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
 .painel-slide { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; }
-.painel-arte { display: block; position: relative; width: 100%; aspect-ratio: 2 / 1; border-radius: 16px; overflow: hidden; background: #f1f5f4; color: inherit; text-decoration: none; }
+.painel-arte { display: block; position: relative; width: 100%; aspect-ratio: 2 / 1; border-radius: 12px; overflow: hidden; background: #f1f5f4; color: inherit; text-decoration: none; }
 .painel-arte img, .painel-arte picture { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
 .painel-vazio { position: absolute; inset: 0; display: block; }
 .painel-seta { position: absolute; top: 50%; z-index: 2; display: none; place-items: center; width: 3rem; height: 3rem; padding: 0; border: 0; border-radius: 50%; background: #e6e9e8; color: var(--uf-navy, #0d1413); cursor: pointer; transform: translateY(-50%); transition: background-color 0.2s ease; }
 .painel-seta:hover:not(:disabled) { background: #d4d9d8; }
 .painel-seta:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
 .painel-seta:disabled { color: #9aa3a1; cursor: default; }
-.painel-seta-esq { left: -0.75rem; }
-.painel-seta-dir { right: -0.75rem; }
-.painel-pontos { display: flex; justify-content: center; gap: 0; margin-top: 0.25rem; }
-.painel .painel-pontos button { position: relative; box-sizing: border-box; width: 1.25rem; height: 2rem; min-width: 0; min-height: 0; padding: 0; border: 0; background: none; cursor: pointer; }
-.painel .painel-pontos button { transition: width 0.3s ease; }
-.painel .painel-pontos button.is-ativo { width: 2.25rem; }
-.painel-pontos button::before { content: ""; position: absolute; top: 50%; left: 50%; width: 0.5rem; height: 0.5rem; border-radius: 999px; background: #c3c9c8; transform: translate(-50%, -50%); transition: width 0.3s ease, background-color 0.3s ease; }
-.painel-pontos button.is-ativo::before { width: 1.625rem; background: var(--uf-action-hover, #35a89e); }
+.painel-seta-esq { left: -0.25rem; }
+.painel-seta-dir { right: -0.25rem; }
+.painel-pontos { display: flex; justify-content: center; gap: 0; margin-top: 0; }
+.painel .painel-pontos button { position: relative; box-sizing: border-box; width: 1rem; height: 1.625rem; min-width: 0; min-height: 0; padding: 0; border: 0; background: none; cursor: pointer; }
+.painel-pontos button::before { content: ""; position: absolute; top: 50%; left: 50%; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #b3b3b3; transform: translate(-50%, -50%); transition: background-color 0.3s ease; }
+.painel-pontos button.is-ativo::before { background: #4d4d4d; }
 .painel-pontos button:focus-visible { outline: 3px solid var(--uf-action); outline-offset: -2px; border-radius: 6px; }
 @media (min-width: 768px) {
+  .painel { padding: 0 1.5rem; }
   .painel-seta { display: grid; }
+  .painel-arte { aspect-ratio: 1318 / 300; }
 }
-/* computador: dois banners lado a lado (antes três) — cada arte ~50% maior, proporção 1,9 : 1.
-   Banner único (ex.: hero do painel) ocupa 100% da largura. */
-@media (min-width: 992px) {
-  .painel { padding: 0 1.25rem; }
-  .painel-slide { flex-basis: calc((100% - 1rem) / 2); }
-  .painel-slide:only-child { flex-basis: 100%; }
-  .painel-arte { aspect-ratio: 1.9 / 1; }
-}
-@media (min-width: 1280px) {
-  .painel { max-width: 90rem; padding: 0 1.5rem; }
-}
-@media (prefers-reduced-motion: reduce) { .painel-seta, .painel .painel-pontos button, .painel-pontos button::before { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .painel-seta, .painel-pontos button::before { transition: none; } }
 
 /* =====================================================================
    Rodapé no formato da Droga Raia: fundo claro, parágrafo legal corrido em cinza, linha "segue as determinações da ANVISA".

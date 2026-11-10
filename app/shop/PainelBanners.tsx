@@ -8,7 +8,7 @@ function Arte({ banner }: { banner: BannerPainel }) {
   if (!banner.imagem) return <span className="painel-vazio" role="img" aria-label={banner.alt} />;
   return (
     <picture>
-      {banner.imagemCelular ? <source media="(max-width: 991px)" srcSet={banner.imagemCelular} /> : null}
+      {banner.imagemCelular ? <source media="(max-width: 767px)" srcSet={banner.imagemCelular} /> : null}
       <img src={banner.imagem} alt={banner.alt} decoding="async" draggable={false} />
     </picture>
   );
@@ -151,7 +151,7 @@ export default function PainelBanners({ banners = BANNERS_PAINEL, titulo }: { ba
             </li>
           ))}
           {loop
-            ? banners.slice(0, Math.min(2, n)).map((banner) => (
+            ? banners.slice(0, 1).map((banner) => (
                 <li className="painel-slide" key={`clone-${banner.id}`} aria-hidden="true" inert>
                   <div className="painel-arte">
                     <Arte banner={banner} />
