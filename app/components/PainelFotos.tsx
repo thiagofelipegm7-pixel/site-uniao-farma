@@ -665,10 +665,20 @@ export default function PainelFotos() {
                 <button type="button" onClick={() => setProdutoConfig(null)} aria-label="Fechar" style={{ background: "none", border: "none", fontSize: "1.5rem", cursor: "pointer", color: "#6b7c79", lineHeight: 1 }}>×</button>
               </div>
               <div style={{ display: "grid", gap: "1rem" }}>
-                <label style={{ display: "grid", gap: "0.4rem" }}>
-                  <span>Foto</span>
-                  <input type="file" accept="image/*" onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} style={{ padding: "0.5rem", borderRadius: "10px", border: "1px solid #d3e2df" }} />
-                </label>
+                <div style={{ display: "grid", gap: "0.5rem" }}>
+                  <span style={{ fontWeight: 600 }}>Foto</span>
+                  <div style={{ display: "flex", alignItems: "center", gap: "1rem", padding: "1rem", background: "#f8faf9", borderRadius: "12px", border: "1px solid #d3e2df" }}>
+                    {l.noSite ? (
+                      <img src={pendentes.has(l.ean) || envios[l.ean] === "enviada" ? `/api/foto-nova?ean=${l.ean}&v=${envios[l.ean] === "enviada" ? "n" : "p"}` : `/produtos/${l.ean}.webp`} alt="" width="80" height="80" style={{ borderRadius: "8px", objectFit: "cover" }} />
+                    ) : (
+                      <div style={{ width: "80px", height: "80px", background: "#e8eeec", borderRadius: "8px", display: "grid", placeItems: "center", color: "#6b7c79", fontSize: "0.8rem" }}>Sem foto</div>
+                    )}
+                    <label style={{ flex: 1, padding: "0.75rem 1rem", background: "#0e7370", color: "#fff", borderRadius: "10px", textAlign: "center", cursor: "pointer", fontWeight: 600 }}>
+                      <input type="file" accept="image/*" onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} style={{ display: "none" }} />
+                      {l.noSite ? "Trocar foto" : "Enviar foto"}
+                    </label>
+                  </div>
+                </div>
                 <label style={{ display: "grid", gap: "0.4rem" }}>
                   <span>Nome</span>
                   <input type="text" defaultValue={nomeAtual(l).texto} onBlur={(e) => void salvarNome(l, e.target.value)} style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }} />
