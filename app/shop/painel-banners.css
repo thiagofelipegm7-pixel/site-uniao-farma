@@ -43,3 +43,9 @@
 .painel-editar--vazio .painel-editar-dica { position: static; opacity: 1; background: transparent; color: #0e7370; font-size: 1.0625rem; }
 @media (hover: none) { .painel-editar-dica { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .painel-editar-dica { transition: none; } }
+
+/* Com arte enviada, a moldura segue a proporção da própria imagem: nada é cortado (a proporção fixa só vale para o espaço vazio). */
+.painel-arte--img, .painel .painel-arte--img { aspect-ratio: auto; }
+.painel-arte--img picture { position: static; display: block; width: 100%; height: auto; }
+.painel-arte--img img { position: static; display: block; width: 100%; height: auto; object-fit: contain; }
+.painel-slide { align-self: flex-start; }
