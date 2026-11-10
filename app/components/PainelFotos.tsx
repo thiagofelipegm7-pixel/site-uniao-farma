@@ -550,13 +550,14 @@ export default function PainelFotos() {
               <tbody>
                 {visiveis.map((l) => (
                   <tr
+                    style={{ height: "100px" }}
                     key={l.ean}
                     data-ean={l.ean}
                     tabIndex={0}
                     onFocus={() => setAlvoColar(l.ean)}
                     className={[l.estoque <= 0 ? "pf-zero" : "", arrastando === l.ean ? "pf-arrastando" : ""].filter(Boolean).join(" ") || undefined}
                   >
-                    <td className="pf-foto">
+                    <td className="pf-foto" style={{ padding: "1rem 0.5rem" }}>
                       {l.noSite ? (
                         <span className="pf-foto-atual">
                           <img src={pendentes.has(l.ean) || envios[l.ean] === "enviada" ? `/api/foto-nova?ean=${l.ean}&v=${envios[l.ean] === "enviada" ? "n" : "p"}` : `/produtos/${l.ean}.webp`} alt="" width="80" height="80" loading="lazy" decoding="async" />
@@ -579,7 +580,7 @@ export default function PainelFotos() {
                         </>
                       )}
                     </td>
-                    <td className="pf-prod" style={{ position: "relative" }}>
+                    <td className="pf-prod" style={{ padding: "1rem 0.5rem" }} style={{ position: "relative" }}>
                       <button type="button" onClick={() => setProdutoConfig(l.ean)} aria-label="Configurar produto" style={{ position: "absolute", top: "0.25rem", right: "0.25rem", background: "none", border: "none", cursor: "pointer", fontSize: "1.1rem" }}>⚙️</button>
                       {editandoNome === l.ean ? (
                         <span className="pf-nome-edicao">
