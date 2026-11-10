@@ -491,23 +491,7 @@ export default function PainelFotos() {
       {!dados && !erro ? <p>Carregando o estoque…</p> : null}
       {dados ? (
         <>
-          <section className="pf-resumo" aria-label="Resumo">
-            <div style={{ position: "relative" }}>
-              <strong>{resumo.aVendaComFoto}</strong>
-              <span>com foto, de {resumo.aVenda} itens à venda no site</span>
-
-            </div>
-            <div style={{ position: "relative" }}>
-              <strong>{resumo.aVendaFaltamComEstoque}</strong>
-              <span>faltam foto e têm estoque</span>
-
-            </div>
-            <div style={{ position: "relative" }}>
-              <strong>{resumo.aVendaComEstoque > 0 ? Math.round((resumo.aVendaComEstoqueComFoto / resumo.aVendaComEstoque) * 100) : 0}%</strong>
-              <span>dos itens à venda com estoque já têm foto</span>
-
-            </div>
-          </section>
+          
           {dados.reconciliacao ? <ContasFecham c={dados.reconciliacao} /> : null}
           
 
