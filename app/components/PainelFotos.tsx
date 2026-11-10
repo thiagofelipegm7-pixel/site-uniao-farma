@@ -542,14 +542,14 @@ export default function PainelFotos() {
           {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
 
           <p className="pf-contagem" role="status">{filtradas.length} {filtradas.length === 1 ? "item" : "itens"} no filtro</p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 280px)", gap: "1.5rem", justifyContent: "center" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 253px)", gap: "1.5rem", justifyContent: "center" }}>
             {visiveis.map((l) => (
               <div
                 key={l.ean}
                 data-ean={l.ean}
                 tabIndex={0}
                 onFocus={() => setAlvoColar(l.ean)}
-                style={{ background: "#fff", borderRadius: "16px", padding: "1rem", border: "1px solid #e8eeec", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", position: "relative", width: "280px", height: "320px", display: "flex", flexDirection: "column", gap: "0.5rem", overflow: "hidden" }}
+                style={{ background: "#fff", borderRadius: "12px", padding: "1rem", border: "1px solid #d3e2df", boxShadow: "0 1px 3px rgba(0,0,0,0.06)", borderRadius: "12px", position: "relative", width: "253px", height: "241px", display: "flex", flexDirection: "column", gap: "0.5rem", overflow: "hidden" }}
               >
                 <button type="button" onClick={() => setProdutoConfig(l.ean)} aria-label="Configurar produto" style={{ position: "absolute", top: "0.5rem", right: "0.5rem", background: "none", border: "none", cursor: "pointer", fontSize: "1rem", zIndex: 1 }}>⚙️</button>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "80px" }}>
@@ -591,7 +591,7 @@ export default function PainelFotos() {
         if (!l) return null;
         return (
           <div role="dialog" aria-modal="true" style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", display: "grid", placeItems: "center", zIndex: 100, backdropFilter: "blur(4px)" }}>
-            <div style={{ background: "#fff", borderRadius: "16px", padding: "1.75rem", maxWidth: "32rem", width: "92%", maxHeight: "85vh", overflow: "auto", boxShadow: "0 20px 40px rgba(0,0,0,0.15)" }}>
+            <div style={{ background: "#fff", borderRadius: "12px", padding: "1.75rem", maxWidth: "32rem", width: "92%", maxHeight: "85vh", overflow: "auto", boxShadow: "0 20px 40px rgba(0,0,0,0.15)" }}>
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.25rem" }}>
                 <h2 style={{ margin: 0, fontSize: "1.25rem", fontWeight: 600 }}>{nomeAtual(l).texto}</h2>
                 <button type="button" onClick={() => setProdutoConfig(null)} aria-label="Fechar" style={{ background: "none", border: "none", fontSize: "1.5rem", cursor: "pointer", color: "#6b7c79", lineHeight: 1 }}>×</button>
