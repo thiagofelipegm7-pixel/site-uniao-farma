@@ -542,20 +542,15 @@ export default function PainelFotos() {
           {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
 
           <p className="pf-contagem" role="status">{filtradas.length} {filtradas.length === 1 ? "item" : "itens"} no filtro</p>
-          <div className="pf-tabela">
-            <table>
-              <thead>
-                <tr><th scope="col">Foto</th><th scope="col">Código</th><th scope="col">Produto</th><th scope="col">Categoria</th><th scope="col">Estoque</th><th scope="col">Preço</th></tr>
-              </thead>
-              <tbody>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "1.5rem" }}>
+
                 {visiveis.map((l) => (
-                  <tr
-                    style={{ height: "100px" }}
+                  <div
                     key={l.ean}
                     data-ean={l.ean}
                     tabIndex={0}
                     onFocus={() => setAlvoColar(l.ean)}
-                    className={[l.estoque <= 0 ? "pf-zero" : "", arrastando === l.ean ? "pf-arrastando" : ""].filter(Boolean).join(" ") || undefined}
+                    style={{ background: "#fff", borderRadius: "16px", padding: "1.25rem", border: "1px solid #e8eeec", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", position: "relative", minHeight: "200px" }}
                   >
                     <td className="pf-foto" style={{ padding: "1rem 0.5rem" }}>
                       {l.noSite ? (
@@ -640,10 +635,8 @@ export default function PainelFotos() {
                     <td data-r="Categoria">{categoriaEfetiva(l)}</td>
                     <td data-r="Estoque" className="pf-n"><span className={`pf-qtd pf-qtd-${l.estoque <= 0 ? "zero" : l.estoque <= 5 ? "baixo" : "normal"}`} title={l.estoque <= 0 ? "Zerado" : l.estoque <= 5 ? "Estoque baixo" : "Estoque normal"}>{l.estoque}</span></td>
                     <td data-r="Preço" className="pf-n">{REAIS.format(l.preco)}</td>
-                  </tr>
+                  </div>
                 ))}
-              </tbody>
-            </table>
           </div>
           {totalPaginas > 1 ? (
             <p className="pf-paginas">
