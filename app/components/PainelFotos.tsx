@@ -695,7 +695,14 @@ export default function PainelFotos() {
                   </label>
                 ) : null}
               </div>
-              <button type="button" onClick={() => setProdutoConfig(null)} style={{ marginTop: "1.25rem", padding: "0.7rem 1.25rem", background: "#0e7370", color: "#fff", border: "none", borderRadius: "10px", fontWeight: 600, width: "100%", cursor: "pointer" }}>Fechar</button>
+              <div style={{ display: "flex", gap: "0.75rem", marginTop: "1.25rem" }}>
+                <button type="button" onClick={() => {
+                  const nomeInput = document.querySelector<HTMLInputElement>('input[type="text"]');
+                  if (nomeInput && nomeInput.value.trim()) void salvarNome(l, nomeInput.value.trim());
+                  setProdutoConfig(null);
+                }} style={{ flex: 1, padding: "0.7rem 1.25rem", background: "#0e7370", color: "#fff", border: "none", borderRadius: "10px", fontWeight: 600, cursor: "pointer" }}>Confirmar</button>
+                <button type="button" onClick={() => setProdutoConfig(null)} style={{ padding: "0.7rem 1.25rem", background: "#f0f4f3", color: "#3e4b49", border: "none", borderRadius: "10px", fontWeight: 600, cursor: "pointer" }}>Cancelar</button>
+              </div>
             </div>
           </div>
         );
