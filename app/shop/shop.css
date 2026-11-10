@@ -1713,3 +1713,60 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 /* Esgotado: foto e nome mais apagados e um selo cinza no lugar do botão da cesta (sem ação, sem estoque no PC). */
 .pv-card--esgotado .pv-img, .pv-card--esgotado .pv-nome, .pv-card--esgotado .pv-preco { opacity: 0.55; }
 .pv-esgotado { display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: 100%; min-height: 2.75rem; padding: 0 12px; border: 1.5px solid #c5cecc; border-radius: 999px; background: #f1f4f3; color: #4a5654; font-size: 1rem; font-weight: 600; }
+
+/* =====================================================================
+   Acabamento do site público: um contêiner só (82rem com 1,25rem de margem), uma escala de títulos e a faixa de categorias
+   alinhada. Antes cada bloco tinha a sua largura (1200, 1312, 1366, 1388 px) e a borda esquerda mudava a cada seção.
+   ===================================================================== */
+html body .painel { max-width: 82rem; padding-inline: 1.25rem; }
+html body .shop-categorias { max-width: 82rem; margin-inline: auto; }
+html body .shop-destaques { max-width: 82rem; padding-left: 1.25rem; padding-right: 0; }
+html body .shop-destaques-topo { padding-right: 1.25rem; }
+html body .unit-page.catalogo-loja .section-inner, html body .unit-page.produto-pagina .section-inner { max-width: 82rem; }
+html body .produto-pagina .catalogo-caminho, html body .produto-pagina .produto-layout, html body .produto-pagina > .section-inner { max-width: 82rem; }
+
+/* Categorias: no computador as peças dividem a largura por igual (antes ficavam coladas à esquerda com metade da linha vazia). */
+@media (min-width: 992px) {
+  html body .shop-categorias-trilho { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 1rem; overflow: visible; }
+  html body .shop-categorias-trilho > li { width: auto; flex: none; }
+  html body .shop-categorias a { width: 100%; min-width: 0; font-size: 0.875rem; }
+  html body .shop-cat-icone { width: 100%; height: auto; aspect-ratio: 1.45 / 1; }
+  html body .shop-cat-icone img, html body .shop-cat-icone svg { width: 46%; height: 46%; }
+}
+
+/* Escala de títulos: seção 22px, página de categoria 28px, produto 28px (antes 32 a 40px, grande demais ao lado do conteúdo de 12 a 16px). */
+@layer design {
+  html body .shop-categorias h2, html body .shop-destaques h2, html body .shop-destaques-topo h2 { font-size: 1.375rem !important; line-height: 1.25 !important; font-weight: 700 !important; letter-spacing: -0.01em !important; }
+  html body .catalogo-titulo { font-size: 1.75rem !important; line-height: 1.2 !important; letter-spacing: -0.015em !important; }
+  html body .produto-pagina h1 { font-size: 1.75rem !important; line-height: 1.2 !important; letter-spacing: -0.015em !important; }
+  html body .unit-page.catalogo-loja .section-inner, html body .unit-page.produto-pagina .section-inner { max-width: 82rem !important; }
+}
+@media (max-width: 767px) {
+  @layer design { html body .shop-categorias h2, html body .shop-destaques h2 { font-size: 1.1875rem !important; } html body .catalogo-titulo, html body .produto-pagina h1 { font-size: 1.5rem !important; } }
+}
+.painel-arte--reserva { background: #f1f5f4; }
+
+/* Categorias: uma só margem lateral (antes somava 26 + 20 px e o título ficava deslocado dos cartões). */
+html body .shop-categorias { padding-inline: 0; box-sizing: border-box; }
+html body .shop-categorias h2 { padding-inline: 1.25rem; }
+html body .shop-categorias-trilho { padding-inline: 1.25rem; }
+
+/* Botão principal do produto no mesmo formato dos botões dos cartões (pílula). */
+html body .produto-pagina .reservar-mais:not(.reservar-mais-icone), html body .produto-pagina .produto-acoes .reservar-mais { border-radius: 999px; min-height: 3rem; }
+
+/* Aviso de cookies no computador: cartão discreto no canto, em vez de uma faixa larga cobrindo o rodapé da tela.
+   (O CSS antigo do aviso estava espalhado em cinco arquivos; esta é a regra final.) */
+@media (min-width: 768px) {
+  html body section.cookie-banner {
+    position: fixed !important; left: 1rem !important; right: auto !important; bottom: 1rem !important; top: auto !important;
+    width: min(24rem, calc(100vw - 2rem)) !important; max-width: none !important; height: auto !important; min-height: 0 !important; max-height: none !important; overflow: visible !important; margin: 0 !important; box-sizing: border-box !important;
+    display: flex !important; flex-direction: column !important; align-items: stretch !important; justify-content: flex-start !important; gap: 0.75rem !important;
+    padding: 1rem 1.125rem !important; border: 1px solid #dbe6e3 !important; border-radius: 16px !important; background: #ffffff !important; color: #0d1413 !important;
+    box-shadow: 0 12px 32px rgba(10, 53, 72, 0.18) !important;
+  }
+  html body section.cookie-banner .cookie-copy { margin: 0 !important; max-width: none !important; color: #3e4b49 !important; font-size: 0.875rem !important; line-height: 1.45 !important; }
+  html body section.cookie-banner .cookie-copy strong { display: block !important; margin: 0 0 0.125rem !important; color: #0d1413 !important; font-size: 0.9375rem !important; }
+  html body section.cookie-banner .cookie-actions { display: flex !important; flex-direction: row !important; gap: 0.5rem !important; }
+  html body section.cookie-banner .cookie-actions button { flex: 1 !important; min-height: 2.5rem !important; border-radius: 999px !important; font-size: 0.875rem !important; }
+  html body.cookie-banner-visible { padding-bottom: 0 !important; }
+}
