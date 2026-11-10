@@ -521,6 +521,7 @@ export default function PainelFotos() {
             <input type="search" value={busca} onChange={(e) => mudar(setBusca)(e.target.value)} placeholder="Buscar produto, laboratório ou código" aria-label="Buscar" style={{ padding: "0.5rem 0.75rem", borderRadius: "8px", border: "1px solid #d3e2df", fontSize: "0.9rem", flex: "1", minWidth: "200px" }} />
             <select value={categoria} onChange={(e) => mudar(setCategoria)(e.target.value)} aria-label="Categoria" style={{ padding: "0.5rem 0.75rem", borderRadius: "8px", border: "1px solid #d3e2df", fontSize: "0.9rem" }}>
               <option value="">Todas as categorias</option>
+              <option value="__corrigir">A corrigir</option>
               {dados.categorias.map((c) => <option key={c}>{c}</option>)}
             </select>
             <select value={fotos} onChange={(e) => mudar(setFotos)(e.target.value as FiltroFotos["fotos"])} aria-label="Fotos" style={{ padding: "0.5rem 0.75rem", borderRadius: "8px", border: "1px solid #d3e2df", fontSize: "0.9rem" }}>
