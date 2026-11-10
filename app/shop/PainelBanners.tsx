@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { IconSetaDireita, IconVoltar } from "../reserva/ReservaIcons";
 import { BANNERS_PAINEL, type BannerPainel } from "./painel-banners";
+import "./painel-banners.css";
 
 function Arte({ banner }: { banner: BannerPainel }) {
   if (!banner.imagem) return <span className="painel-vazio" role="img" aria-label={banner.alt} />;
@@ -23,11 +24,12 @@ const INTERVALO_MS = 5000;
  * (clones dos primeiros banners fecham a volta) e o ponto ativo vira uma pílula. Sem movimento automático para quem pede menos movimento.
  * `titulo` cria o h1 da página (só a home usa). Funciona com toque, mouse, teclado e leitor de tela.
  */
-export default function PainelBanners({ banners = BANNERS_PAINEL, titulo }: { banners?: BannerPainel[]; titulo?: string }) {
+export default function PainelBanners({ banners = BANNERS_PAINEL, titulo, fonte }: { banners?: BannerPainel[]; titulo?: string; /** Lista pronta (prévia no painel interno): usada no lugar da busca dos banners publicados. */ fonte?: BannerPainel[] }) {
   const faixa = useRef<HTMLUListElement>(null);
   const [atual, setAtual] = useState(0);
   const [custom, setCustom] = useState<BannerPainel[] | null>(null);
   useEffect(() => {
+    if (fonte) return;
     fetch("/api/banners-publico", { cache: "no-store" })
       .then((r) => r.json())
       .then((d: { banners?: { id: string; url: string }[] }) => {
@@ -35,8 +37,8 @@ export default function PainelBanners({ banners = BANNERS_PAINEL, titulo }: { ba
         if (lista.length) setCustom(lista);
       })
       .catch(() => {});
-  }, []);
-  const lista = custom ?? banners;
+  }, [fonte]);
+  const lista = fonte ?? custom ?? banners;
   const pausado = useRef(false);
   const parou = useRef<ReturnType<typeof setTimeout> | null>(null);
   const n = lista.length;
@@ -151,7 +153,7 @@ export default function PainelBanners({ banners = BANNERS_PAINEL, titulo }: { ba
             </li>
           ))}
           {loop
-            ? banners.slice(0, 1).map((banner) => (
+            ? lista.slice(0, 1).map((banner) => (
                 <li className="painel-slide" key={`clone-${banner.id}`} aria-hidden="true" inert>
                   <div className="painel-arte">
                     <Arte banner={banner} />

@@ -1,0 +1,31 @@
+/* =====================================================================
+   Painel de banners da home: copia o carrossel principal da Droga Raia (medido no HTML e na tela salvos).
+   14 banners, um por vez; arte de 1318 x 300 px com a página em 1366 px (4,39 : 1), cantos de 12px, setas redondas de 48px,
+   pontos de 8px com 16px de passo (ativo mais escuro, mesmo tamanho). No celular 2 : 1. Faixa com scroll-snap, sem biblioteca.
+   ===================================================================== */
+.painel { max-width: 85.375rem; margin: 0.75rem auto 0; padding: 0 0.75rem; box-sizing: border-box; }
+.painel-moldura { position: relative; }
+.painel-faixa { display: flex; gap: 0; scroll-behavior: auto; margin: 0; padding: 0; list-style: none; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: 12px; overscroll-behavior-x: contain; }
+.painel-faixa::-webkit-scrollbar { display: none; }
+.painel-faixa:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
+.painel-slide { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; }
+.painel-arte { display: block; position: relative; width: 100%; aspect-ratio: 2 / 1; border-radius: 12px; overflow: hidden; background: #f1f5f4; color: inherit; text-decoration: none; }
+.painel-arte img, .painel-arte picture { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.painel-vazio { position: absolute; inset: 0; display: block; }
+.painel-seta { position: absolute; top: 50%; z-index: 2; display: none; place-items: center; width: 3rem; height: 3rem; padding: 0; border: 0; border-radius: 50%; background: #e6e9e8; color: var(--uf-navy, #0d1413); cursor: pointer; transform: translateY(-50%); transition: background-color 0.2s ease; }
+.painel-seta:hover:not(:disabled) { background: #d4d9d8; }
+.painel-seta:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
+.painel-seta:disabled { color: #9aa3a1; cursor: default; }
+.painel-seta-esq { left: -0.25rem; }
+.painel-seta-dir { right: -0.25rem; }
+.painel-pontos { display: flex; justify-content: center; gap: 0; margin-top: 0; }
+.painel .painel-pontos button { position: relative; box-sizing: border-box; width: 1rem; height: 1.625rem; min-width: 0; min-height: 0; padding: 0; border: 0; background: none; cursor: pointer; }
+.painel-pontos button::before { content: ""; position: absolute; top: 50%; left: 50%; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #b3b3b3; transform: translate(-50%, -50%); transition: background-color 0.3s ease; }
+.painel-pontos button.is-ativo::before { background: #4d4d4d; }
+.painel-pontos button:focus-visible { outline: 3px solid var(--uf-action); outline-offset: -2px; border-radius: 6px; }
+@media (min-width: 768px) {
+  .painel { padding: 0 1.5rem; }
+  .painel-seta { display: grid; }
+  .painel-arte { aspect-ratio: 1318 / 300; }
+}
+@media (prefers-reduced-motion: reduce) { .painel-seta, .painel-pontos button::before { transition: none; } }
