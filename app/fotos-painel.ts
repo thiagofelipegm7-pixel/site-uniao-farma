@@ -20,7 +20,7 @@ export type LinhaFoto = {
   semCodigo?: boolean;
 };
 
-export const SEM_CATEGORIA = "Fora do site (sem estoque)";
+export const SEM_CATEGORIA = "Fora do site";
 
 /** Nome sem acento, em maiúsculas e sem espaço repetido: chave para cruzar o estoque com o catálogo do site. */
 export function chaveDeNome(nome: string): string {
@@ -175,9 +175,11 @@ export type Reconciliacao = {
   pc: number;
   /** Serviços (taxa de entrega, aferição, xerox...): não são produto e não vão ao site. */
   servicos: number;
+  /** Sem preço de venda no PC (zero ou vazio): a sincronização não publica até ter preço. */
+  semPreco: number;
   /** Mesmo nome, laboratório e preço de outro item: o site mostra um só. */
   repetidos: number;
-  /** Produtos que o site lista (pc − serviços − repetidos), calculado agora com as regras do sincronizador. */
+  /** Produtos que o site lista (pc − serviços − sem preço − repetidos), calculado agora com as regras do sincronizador. */
   noSite: number;
   /** Quantos produtos o site lista de fato nos arquivos publicados (receita, controlados e comuns). Sem valor quando não foi informado. */
   listadosNoSite: number | null;
@@ -185,8 +187,12 @@ export type Reconciliacao = {
   bijuterias: number;
   /** Itens com o mesmo código de barras (ou sem código e mesmo nome): o painel de fotos conta uma linha só. */
   codigosRepetidos: number;
-  /** O que o painel de fotos conta como "itens à venda". */
+  /** Linhas que o painel de fotos conta (depois de tirar bijuterias e juntar códigos repetidos). */
   noPainel: number;
+  /** Dessas, as sem preço de venda: ficam em "Fora do site" no painel. */
+  semPrecoNoPainel: number;
+  /** O que o painel mostra como "itens à venda no site" (noPainel − semPrecoNoPainel). */
+  aVendaNoPainel: number;
 };
 
 /**
@@ -195,6 +201,8 @@ export type Reconciliacao = {
  */
 export function reconciliarContagens(itens: readonly ExportItem[], listadosNoSite: number | null = null): Reconciliacao {
   let servicos = 0;
+  let semPreco = 0;
+  let semPrecoNoPainel = 0;
   let noSite = 0;
   let bijuterias = 0;
   const chavesSite = new Set<string>();
@@ -210,7 +218,8 @@ export function reconciliarContagens(itens: readonly ExportItem[], listadosNoSit
     const lab = typeof it.Laboratorio === "string" ? it.Laboratorio.trim() : "";
     const preco = typeof it.Pvenda === "number" && it.Pvenda > 0 ? it.Pvenda : 0;
     const chave = `${chaveDeNome(nome)}|${LAB_VAZIO.test(lab) ? "" : lab.toUpperCase()}|${preco}`;
-    if (!chavesSite.has(chave)) {
+    if (preco <= 0) semPreco += 1;
+    else if (!chavesSite.has(chave)) {
       chavesSite.add(chave);
       noSite += 1;
     }
@@ -222,17 +231,21 @@ export function reconciliarContagens(itens: readonly ExportItem[], listadosNoSit
     if (!codigos.has(codigo)) {
       codigos.add(codigo);
       noPainel += 1;
+      if (preco <= 0) semPrecoNoPainel += 1;
     }
   }
   const naoServico = itens.length - servicos;
   return {
     pc: itens.length,
     servicos,
-    repetidos: naoServico - noSite,
+    semPreco,
+    repetidos: naoServico - semPreco - noSite,
     noSite,
     listadosNoSite,
     bijuterias,
     codigosRepetidos: naoServico - bijuterias - noPainel,
     noPainel,
+    semPrecoNoPainel,
+    aVendaNoPainel: noPainel - semPrecoNoPainel,
   };
 }

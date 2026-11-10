@@ -14,15 +14,19 @@ test("as contagens fecham: cada linha do PC cai em uma só conta", () => {
     it("Taxa de entrega"), // serviço
     it("Aferimento de pressão"), // serviço
     it("Xerox", { Classe: "SERVICOS" }), // serviço
+    it("Produto D", { CodigoDeBarras: "555", Pvenda: 0 }), // sem preço: não vai ao site
   ];
   const r = reconciliarContagens(itens, 5);
-  assert.equal(r.pc, 8);
+  assert.equal(r.pc, 9);
   assert.equal(r.servicos, 3);
+  assert.equal(r.semPreco, 1);
   assert.equal(r.repetidos, 1);
   assert.equal(r.noSite, 4);
-  assert.equal(r.pc, r.servicos + r.repetidos + r.noSite);
+  assert.equal(r.pc, r.servicos + r.semPreco + r.repetidos + r.noSite);
   assert.equal(r.bijuterias, 1);
   assert.equal(r.codigosRepetidos, 1);
-  assert.equal(r.noPainel, 3);
+  assert.equal(r.noPainel, 4);
+  assert.equal(r.semPrecoNoPainel, 1);
+  assert.equal(r.aVendaNoPainel, 3);
   assert.equal(r.listadosNoSite, 5);
 });
