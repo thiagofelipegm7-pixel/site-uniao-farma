@@ -45,7 +45,7 @@ export function MarcasLinha() {
         <ul className="shop-marcas-trilho" ref={trilho}>
           {MARCAS_DESTAQUE.map((marca) => (
             <li key={marca.slug}>
-              <a href={`/nacoes-unidas/produtos?q=${encodeURIComponent(marca.busca)}`} aria-label={`Ver produtos ${marca.nome}`}>
+              <a className={marca.cheia ? "is-cheia" : undefined} href={`/nacoes-unidas/produtos?q=${encodeURIComponent(marca.busca)}`} aria-label={`Ver produtos ${marca.nome}`}>
                 <Logo marca={marca} />
               </a>
             </li>
