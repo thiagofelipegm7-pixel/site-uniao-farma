@@ -549,7 +549,9 @@ export default function PainelFotos() {
                 data-ean={l.ean}
                 tabIndex={0}
                 onFocus={() => setAlvoColar(l.ean)}
-                style={{ background: "#fff", borderRadius: "12px", padding: "0.75rem", border: "1px solid #d3e2df", boxShadow: "0 1px 3px rgba(0,0,0,0.06)", position: "relative", width: "100%", height: "200px", display: "flex", flexDirection: "column", justifyContent: "space-between", overflow: "hidden" }}
+                style={{ background: "#fff", borderRadius: "12px", padding: "0.75rem", border: "1px solid #d3e2df", boxShadow: "0 1px 3px rgba(0,0,0,0.06)", position: "relative", width: "100%", height: "200px", display: "flex", flexDirection: "column", justifyContent: "space-between", overflow: "hidden", transition: "transform 0.2s, box-shadow 0.2s", cursor: "pointer" }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.12)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.06)"; }}
               >
                 <button type="button" onClick={() => setProdutoConfig(l.ean)} aria-label="Configurar produto" style={{ position: "absolute", top: "0.5rem", right: "0.5rem", background: "none", border: "none", cursor: "pointer", fontSize: "1rem", zIndex: 1 }}>⚙️</button>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "60px", flexShrink: 0 }}>
