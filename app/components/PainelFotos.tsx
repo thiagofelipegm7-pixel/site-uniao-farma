@@ -577,7 +577,7 @@ export default function PainelFotos() {
                 </div>
               </div>
             ))}
-          </div></div>
+          </div>
           {totalPaginas > 1 ? (
             <p className="pf-paginas">
               <button type="button" disabled={paginaAtual <= 1} onClick={() => setPagina(paginaAtual - 1)}>Anterior</button>
