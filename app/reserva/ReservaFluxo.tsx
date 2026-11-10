@@ -413,7 +413,6 @@ export default function ReservaFluxo() {
                   <label className={retirar ? "entrega-opcao is-on" : "entrega-opcao"}>
                     <input type="radio" name="forma" checked={retirar} onChange={() => atualizarReserva((s) => ({ ...s, modo: "retirar" }))} />
                     <span className="entrega-tipo">Retirada em loja</span>
-                    <span className="entrega-periodo">retire na loja Nações Unidas</span>
                     <span className="entrega-preco entrega-preco-gratis">Grátis</span>
                   </label>
                   {retirar ? (
@@ -434,7 +433,6 @@ export default function ReservaFluxo() {
                   <label className={retirar ? "entrega-opcao" : "entrega-opcao is-on"}>
                     <input type="radio" name="forma" checked={!retirar} onChange={() => atualizarReserva((s) => ({ ...s, modo: "casa" }))} />
                     <span className="entrega-tipo">Entrega no seu bairro</span>
-                    <span className="entrega-periodo">{unidadeEntrega ? `pela União Farma ${unidadeEntrega.shortName}` : "receba em casa, em Sabará"}</span>
                     <span className="entrega-preco">{taxaDoLocal !== null ? formatarCentavos(taxaDoLocal) : `a partir de ${formatarCentavos(TAXA_ENTREGA_CENTAVOS)}`}</span>
                   </label>
                 </div>
