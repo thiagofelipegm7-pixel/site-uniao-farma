@@ -9,7 +9,6 @@ import { buildWhatsAppUrl, UNITS } from "../site-config";
 import { formatarCentavos } from "../reserva/reserva-store";
 import SemFoto from "../nacoes-unidas/produtos/SemFoto";
 import MarcaUniao from "./MarcaUniao";
-import BotaoVoz from "./BotaoVoz";
 import ReservaSacola from "../reserva/ReservaSacola";
 import FotosNovas from "./FotosNovas";
 import AvisoDadosAntigos from "./AvisoDadosAntigos";
@@ -63,7 +62,6 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   const [foco, setFoco] = useState(false);
   const [itens, setItens] = useState<Sugestao[] | null>(null);
   const [restritos, setRestritos] = useState<SugestaoRestrita[]>([]);
-  const [vozAtiva, setVozAtiva] = useState(false);
   const carregando = useRef(false);
   const formRef = useRef<HTMLFormElement>(null);
   const painelRef = useRef<HTMLDivElement>(null);
@@ -109,7 +107,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   const resultados = corrigida ? primeiros(itens ?? [], (item) => casaConsulta(item.busca, corrigida), 6) : exatos;
   // Medicamentos com receita e controlados também aparecem na busca (lista de preços, sem cesta).
   const resultadosRestritos = corrigida ? primeiros(restritos, (item) => casaConsulta(item.busca, corrigida), 4) : exatosRestritos;
-  const mostrarPainel = foco && !vozAtiva && (normal.length === 0 || normal.length >= 2);
+  const mostrarPainel = foco && (normal.length === 0 || normal.length >= 2);
   const semResultado = normal.length >= 2 && itens !== null && resultados.length === 0 && resultadosRestritos.length === 0;
 
   // Com o teclado aberto (iPhone), a lista não pode passar por baixo dele: limita a altura ao que sobra na tela visível, com rolagem.
@@ -210,16 +208,6 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
             placeholder="Buscar na União Farma"
             autoComplete="off"
             enterKeyHint="search"
-          />
-          <BotaoVoz
-            contexto="cabecalho"
-            onAtividade={setVozAtiva}
-            onTexto={(texto) => {
-              setTermo(texto);
-              carregar();
-              // Deixa o cliente ver o que foi entendido por um instante e então busca (a busca tolerante e a IA ajudam a achar).
-              window.setTimeout(() => formRef.current?.requestSubmit(), 450);
-            }}
           />
           <button type="submit" aria-label="Buscar">
             <IconLupa size={22} />

@@ -2009,3 +2009,9 @@ html body .shop-busca { border-radius: 999px; padding-left: 1.25rem; }
 html body .shop-busca button { border-radius: 50%; }
 @layer design { html body .shop-busca { border-radius: 999px !important; } html body .shop-busca button { border-radius: 50% !important; } }
 @media (min-width: 992px) { html body .shop-busca { padding-left: 1.5rem; } }
+
+/* Busca do cabeçalho: sem anel de foco e sem microfone; a lupa fica no canto direito da barra, em círculo. */
+html body .shop-busca:focus-within { outline: 0; outline-offset: 0; }
+html body .shop-busca button[type="submit"] { order: 2; width: 2.5rem; height: 2.5rem; margin: 0 0.25rem 0 0.5rem; background: var(--uf-action); color: var(--uf-action-ink); border-radius: 50%; }
+html body .shop-busca input { order: 1; }
+@layer design { html body .shop-busca:focus-within { outline: 0 !important; outline-offset: 0 !important; } html body .shop-busca button[type="submit"] { order: 2 !important; background: var(--uf-action) !important; color: var(--uf-action-ink) !important; margin: 0 0.25rem 0 0.5rem !important; } }
