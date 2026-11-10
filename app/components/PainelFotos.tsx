@@ -513,24 +513,24 @@ export default function PainelFotos() {
             <div role="dialog" aria-modal="true" style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", display: "grid", placeItems: "center", zIndex: 100 }}>
               <div style={{ background: "#fff", borderRadius: "12px", padding: "1.5rem", maxWidth: "28rem", width: "90%", maxHeight: "80vh", overflow: "auto" }}>
                 <h2 style={{ margin: "0 0 1rem" }}>Filtros e configuração</h2>
-                <div style={{ display: "grid", gap: "0.75rem" }}>
-                  <input type="search" value={busca} onChange={(e) => mudar(setBusca)(e.target.value)} placeholder="Buscar produto, laboratório ou código" aria-label="Buscar" style={{ padding: "0.5rem", borderRadius: "8px", border: "1px solid #d3e2df" }} />
-                  <select value={categoria} onChange={(e) => mudar(setCategoria)(e.target.value)} aria-label="Categoria" style={{ padding: "0.5rem", borderRadius: "8px", border: "1px solid #d3e2df" }}>
+                <div style={{ display: "grid", gap: "1rem" }}>
+                  <input type="search" value={busca} onChange={(e) => mudar(setBusca)(e.target.value)} placeholder="Buscar produto, laboratório ou código" aria-label="Buscar" style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }} />
+                  <select value={categoria} onChange={(e) => mudar(setCategoria)(e.target.value)} aria-label="Categoria" style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }}>
                     <option value="">Todas as categorias</option>
                     {dados.categorias.map((c) => <option key={c}>{c}</option>)}
                   </select>
-                  <select value={fotos} onChange={(e) => mudar(setFotos)(e.target.value as FiltroFotos["fotos"])} aria-label="Fotos" style={{ padding: "0.5rem", borderRadius: "8px", border: "1px solid #d3e2df" }}>
+                  <select value={fotos} onChange={(e) => mudar(setFotos)(e.target.value as FiltroFotos["fotos"])} aria-label="Fotos" style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }}>
                     <option value="faltam">Faltam foto</option>
                     <option value="site">Já estão no site</option>
                     <option value="">Todos</option>
                   </select>
-                  <select value={estoque} onChange={(e) => mudar(setEstoque)(e.target.value as FiltroFotos["estoque"])} aria-label="Estoque" style={{ padding: "0.5rem", borderRadius: "8px", border: "1px solid #d3e2df" }}>
+                  <select value={estoque} onChange={(e) => mudar(setEstoque)(e.target.value as FiltroFotos["estoque"])} aria-label="Estoque" style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }}>
                     <option value="com">Só com estoque</option>
                     <option value="zero">Zerado ou negativo</option>
                     <option value="">Todo estoque</option>
                   </select>
                 </div>
-                <button type="button" onClick={() => setConfigAberto(false)} style={{ marginTop: "1rem", padding: "0.5rem 1rem", background: "#0e7370", color: "#fff", border: "none", borderRadius: "8px", fontWeight: 600 }}>Fechar</button>
+                <button type="button" onClick={() => setConfigAberto(false)} style={{ marginTop: "1.25rem", padding: "0.7rem 1.25rem", background: "#0e7370", color: "#fff", border: "none", borderRadius: "10px", fontWeight: 600, width: "100%", cursor: "pointer" }}>Fechar</button>
               </div>
             </div>
           ) : null}
@@ -662,29 +662,32 @@ export default function PainelFotos() {
         const l = linhas.find((x) => x.ean === produtoConfig);
         if (!l) return null;
         return (
-          <div role="dialog" aria-modal="true" style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", display: "grid", placeItems: "center", zIndex: 100 }}>
-            <div style={{ background: "#fff", borderRadius: "12px", padding: "1.5rem", maxWidth: "28rem", width: "90%", maxHeight: "80vh", overflow: "auto" }}>
-              <h2 style={{ margin: "0 0 1rem" }}>{nomeAtual(l).texto}</h2>
-              <div style={{ display: "grid", gap: "0.75rem" }}>
-                <label style={{ display: "grid", gap: "0.25rem" }}>
+          <div role="dialog" aria-modal="true" style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", display: "grid", placeItems: "center", zIndex: 100, backdropFilter: "blur(4px)" }}>
+            <div style={{ background: "#fff", borderRadius: "16px", padding: "1.75rem", maxWidth: "32rem", width: "92%", maxHeight: "85vh", overflow: "auto", boxShadow: "0 20px 40px rgba(0,0,0,0.15)" }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.25rem" }}>
+                <h2 style={{ margin: 0, fontSize: "1.25rem", fontWeight: 600 }}>{nomeAtual(l).texto}</h2>
+                <button type="button" onClick={() => setProdutoConfig(null)} aria-label="Fechar" style={{ background: "none", border: "none", fontSize: "1.5rem", cursor: "pointer", color: "#6b7c79", lineHeight: 1 }}>×</button>
+              </div>
+              <div style={{ display: "grid", gap: "1rem" }}>
+                <label style={{ display: "grid", gap: "0.4rem" }}>
                   <span>Foto</span>
-                  <input type="file" accept="image/*" onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} style={{ padding: "0.5rem" }} />
+                  <input type="file" accept="image/*" onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} style={{ padding: "0.5rem", borderRadius: "10px", border: "1px solid #d3e2df" }} />
                 </label>
-                <label style={{ display: "grid", gap: "0.25rem" }}>
+                <label style={{ display: "grid", gap: "0.4rem" }}>
                   <span>Nome</span>
-                  <input type="text" defaultValue={nomeAtual(l).texto} onBlur={(e) => void salvarNome(l, e.target.value)} style={{ padding: "0.5rem", borderRadius: "8px", border: "1px solid #d3e2df" }} />
+                  <input type="text" defaultValue={nomeAtual(l).texto} onBlur={(e) => void salvarNome(l, e.target.value)} style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }} />
                 </label>
-                <label style={{ display: "grid", gap: "0.25rem" }}>
+                <label style={{ display: "grid", gap: "0.4rem" }}>
                   <span>Categoria</span>
-                  <select value={estadoCategoria(l)} onChange={(e) => void salvarCategoria(l, e.target.value)} style={{ padding: "0.5rem", borderRadius: "8px", border: "1px solid #d3e2df" }}>
+                  <select value={estadoCategoria(l)} onChange={(e) => void salvarCategoria(l, e.target.value)} style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }}>
                     <option value="auto">Automático</option>
                     {CATEGORIAS_VALIDAS.map((c) => <option key={c} value={c}>{c}</option>)}
                   </select>
                 </label>
                 {categoriaEfetiva(l) === "Medicamentos" ? (
-                  <label style={{ display: "grid", gap: "0.25rem" }}>
+                  <label style={{ display: "grid", gap: "0.4rem" }}>
                     <span>Controlado (Portaria 344)</span>
-                    <select value={estadoControlado(l)} onChange={(e) => void salvarControlado(l, e.target.value as "auto" | "sim" | "nao")} style={{ padding: "0.5rem", borderRadius: "8px", border: "1px solid #d3e2df" }}>
+                    <select value={estadoControlado(l)} onChange={(e) => void salvarControlado(l, e.target.value as "auto" | "sim" | "nao")} style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }}>
                       <option value="auto">Automático</option>
                       <option value="sim">Marcar controlado</option>
                       <option value="nao">Marcar não controlado</option>
@@ -692,7 +695,7 @@ export default function PainelFotos() {
                   </label>
                 ) : null}
               </div>
-              <button type="button" onClick={() => setProdutoConfig(null)} style={{ marginTop: "1rem", padding: "0.5rem 1rem", background: "#0e7370", color: "#fff", border: "none", borderRadius: "8px", fontWeight: 600 }}>Fechar</button>
+              <button type="button" onClick={() => setProdutoConfig(null)} style={{ marginTop: "1.25rem", padding: "0.7rem 1.25rem", background: "#0e7370", color: "#fff", border: "none", borderRadius: "10px", fontWeight: 600, width: "100%", cursor: "pointer" }}>Fechar</button>
             </div>
           </div>
         );
