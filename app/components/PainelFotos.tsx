@@ -367,8 +367,7 @@ export default function PainelFotos() {
       }
       const j = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string } | null;
       if (!r.ok || !j?.ok) {
-        const msg: Record<string, string> = { tamanho: "O nome precisa ter de 3 a 120 letras.", tudo_maiusculo: "Escreva do jeito que o cliente fala (não use só letras maiúsculas).", caracteres: "Tire os sinais < e > do nome." };
-        setAviso(msg[j?.erro ?? ""] ?? "Não consegui salvar o nome agora. Tente de novo.");
+        return;
         return;
       }
       setNomesAgora((n) => ({ ...n, [chaveDoNome(l.nome)]: voltar ? null : textoNome.replace(/\s+/g, " ").trim() }));
