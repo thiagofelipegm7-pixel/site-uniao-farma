@@ -12,7 +12,7 @@ export default function NavInterna() {
     <nav className="nav-interna" aria-label="Área interna">
       <ul>
         {ITENS_NAV_INTERNO.map((i) => {
-          const ativo = i.href === "/interno" ? caminho === "/interno" : caminho === i.href || caminho.startsWith(`${i.href}/`);
+          const ativo = caminho === i.href || caminho.startsWith(`${i.href}/`);
           return (
             <li key={i.href}>
               <a href={i.href} aria-current={ativo ? "page" : undefined}>{i.rotulo}</a>
