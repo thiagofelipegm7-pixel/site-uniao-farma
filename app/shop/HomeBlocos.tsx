@@ -2,6 +2,8 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
+import { useEffect, useState } from "react";
+import { getUnitOpenStatus } from "../unit-hours";
 import { IconCartao, IconLoja, IconMenu, IconMoto, IconWhats } from "../reserva/ReservaIcons";
 import { formatarCentavos, TAXA_ENTREGA_CENTAVOS } from "../reserva/reserva-store";
 import { buildWhatsAppUrl, PUBLIC_UNITS } from "../site-config";
@@ -20,6 +22,30 @@ export function SubmenuHome() {
         <button type="button" className="shop-submenu-dep" onClick={abrirDepartamentos}><IconMenu size={20} /><span>Departamentos</span></button>
       </div>
     </nav>
+  );
+}
+
+/**
+ * Faixa fina sob o cabeçalho com o que o cliente mais pergunta: a loja está aberta agora, quanto custa a entrega e como paga.
+ * O horário vem do mesmo cálculo da cesta; antes de carregar no navegador, aparece só o resto.
+ */
+export function FaixaInfo() {
+  const [agora, setAgora] = useState<Date | null>(null);
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- a hora só existe no navegador (a página é estática)
+  useEffect(() => setAgora(new Date()), []);
+  const status = nacoes && agora ? getUnitOpenStatus(nacoes, agora) : null;
+  return (
+    <ul className="shop-faixa-info" aria-label="Informações da loja">
+      {status ? (
+        <li className={status.isOpen ? "is-aberta" : "is-fechada"}>
+          <span className="shop-faixa-ponto" aria-hidden="true" />
+          {status.label}
+        </li>
+      ) : null}
+      <li>Retire grátis na loja</li>
+      <li>Entrega a partir de {formatarCentavos(TAXA_ENTREGA_CENTAVOS)}</li>
+      <li>Pague na entrega ou no balcão</li>
+    </ul>
   );
 }
 

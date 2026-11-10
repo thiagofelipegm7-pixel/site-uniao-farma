@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 /**
  * Vitrines da home e da cesta: itens do catálogo da Nações, preferindo os que têm foto.
  * `?grupo=<slug da categoria>` filtra por categoria, `?lab=<marca>` por marca (igual, sem diferenciar caixa),
- * `?ate=<centavos>` por preço máximo e `?n=<1..12>` limita a quantidade (padrão 6).
+ * `?ate=<centavos>` por preço máximo e `?n=<1..36>` limita a quantidade (padrão 6).
  * `?fotos=1` devolve só itens com foto (a home não mostra cartão com o espaço da imagem vazio).
  * Preço sempre do dia (cache de 5 min).
  */
@@ -18,7 +18,7 @@ export async function GET(request: Request) {
   const lab = (params.get("lab") ?? "").slice(0, 80).trim().toLowerCase();
   const ate = Math.floor(Number(params.get("ate"))) || 0;
   const soComFoto = params.get("fotos") === "1";
-  const n = Math.min(12, Math.max(1, Math.floor(Number(params.get("n"))) || 6));
+  const n = Math.min(36, Math.max(1, Math.floor(Number(params.get("n"))) || 6));
   const catalogo = carregarCatalogoNacoes();
   const itens = (catalogo?.itens ?? [])
     .filter((item) => !ehNbcal(item.nome)) // NBCAL: sem vitrine nem destaque
