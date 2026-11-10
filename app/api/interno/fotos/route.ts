@@ -26,7 +26,6 @@ export async function GET() {
   if (!exportado) return Response.json({ ok: false, erro: "sem_dados" }, { status: 502, headers: SEM_CACHE });
 
   // Remove bijuterias e aplica códigos de barras conhecidos.
-  const db = banco();
   const removidos = new Set<string>();
   if (db) {
     try {
