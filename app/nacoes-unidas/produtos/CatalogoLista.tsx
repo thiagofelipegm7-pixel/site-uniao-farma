@@ -28,6 +28,8 @@ import {
 } from "./busca";
 import { slugify } from "./catalogo";
 import CartaoPanvel from "./CartaoPanvel";
+import { Cartao as CartaoRestrito } from "./ListaRestrita";
+import type { ItemRestrito } from "./receita";
 import { quantidadeDoNome } from "./quantidade";
 import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./Paginacao";
 import { useBuscaTolerante } from "./useBuscaTolerante";
@@ -68,12 +70,13 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     (async () => {
       try {
         const idx = await fetch("/dados/nacoes/catalogo-index.json").then(r => r.json());
-        type ItemPagina = { slug?: string; nomeExibicao?: string; nome: string; lab: string; isMIP: boolean; restam?: number; precoFmt: string; preco: number; foto: string | null; tipo?: string };
+        type ItemPagina = { slug?: string; nomeExibicao?: string; nome: string; lab: string; isMIP: boolean; restam?: number; esgotado?: boolean; precoFmt: string; preco: number; foto: string | null; tipo?: string };
         const paraItem = (item: ItemPagina) => ({
           nome: item.nomeExibicao || item.nome,
           lab: item.lab,
           isMIP: item.isMIP,
           restam: item.restam,
+          esgotado: item.esgotado,
           precoFmt: item.precoFmt,
           preco: item.preco,
           foto: item.foto,
@@ -88,26 +91,6 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
           const p1 = await lerPagina(g.slug, 1);
           gruposCarregados.push({ categoria: g.categoria, id: g.slug, itens: p1.map(paraItem) });
         }
-        // Carrega todo o estoque do PC (produtos com estoque > 0).
-        try {
-          const estoque = await fetch("/api/estoque-publico", { cache: "no-store" }).then(r => r.json());
-          if (estoque.ok && estoque.itens?.length > 0) {
-            const jaTem = new Set(gruposCarregados.flatMap(g => g.itens.map(i => i.nome.toLowerCase())));
-            const novos = estoque.itens.filter((i: { nome: string }) => !jaTem.has(i.nome.toLowerCase()));
-            if (novos.length > 0) {
-              const itensNovos = novos.map((i: { nome: string; lab?: string; preco: number }) => ({
-                nome: i.nome,
-                lab: i.lab || "",
-                isMIP: false,
-                precoFmt: `R$ ${i.preco.toFixed(2).replace(".", ",")}`,
-                preco: i.preco,
-                foto: null,
-                slug: i.nome.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
-              }));
-              gruposCarregados.push({ categoria: "Medicamentos", id: "estoque-completo", itens: itensNovos });
-            }
-          }
-        } catch {}
         if (cancel) return;
         setGrupos([...gruposCarregados]);
         for (let k = 0; k < gruposCarregados.length; k += 1) {
@@ -118,6 +101,37 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
             gruposCarregados[k] = { ...gruposCarregados[k], itens: [...gruposCarregados[k].itens, ...pagina.map(paraItem)] };
           }
           setGrupos([...gruposCarregados]);
+        }
+        // Lista geral: soma os medicamentos com receita e controlados (cartão e cesta próprios), para a página mostrar todo o catálogo.
+        if (!departamento) {
+          try {
+            const rIdx = await fetch("/dados/nacoes/restritos-index.json").then((r) => r.json());
+            const restritos: ItemRestrito[] = [];
+            for (const tipo of ["receita", "controlados"] as const) {
+              for (let n = 1; n <= (rIdx[tipo]?.paginas ?? 0); n += 1) {
+                const pagina: ItemRestrito[] = await fetch(`/dados/nacoes/restritos/${tipo}/p${n}.json`).then((r) => r.json());
+                if (cancel) return;
+                restritos.push(...pagina);
+              }
+            }
+            restritos.sort((a, b) => Number(a.esgotado === true) - Number(b.esgotado === true) || (a.nomeExibicao ?? a.nome).localeCompare(b.nomeExibicao ?? b.nome, "pt-BR"));
+            gruposCarregados.push({
+              categoria: "Medicamentos",
+              id: "restritos",
+              itens: restritos.map((i) => ({
+                nome: i.nomeExibicao ?? i.nome,
+                lab: i.lab,
+                isMIP: false,
+                precoFmt: typeof i.preco === "number" ? `R$ ${i.preco.toFixed(2).replace(".", ",")}` : "Consulte",
+                ...(typeof i.preco === "number" ? { preco: i.preco } : {}),
+                foto: null,
+                slug: i.slug,
+                ...(i.esgotado ? { esgotado: true } : {}),
+                restrito: i,
+              })),
+            });
+            setGrupos([...gruposCarregados]);
+          } catch {}
         }
         if (!cancel) setCarregado(true);
       } catch (e) {
@@ -416,6 +430,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
         <ul className="catalogo-lista pv-grade">
           {[itensDaPagina].flatMap((lista) =>
             lista.map((item) => {
+              if (item.restrito) return <CartaoRestrito key={item.id ?? item.nome} item={item.restrito} />;
               const nome = nomeDeExibicao(item.nome);
               const href = `/nacoes-unidas/produtos/${item.slug ?? slugify(item.nome)}`;
               const centavos = precoParaCentavos(item.precoFmt);
@@ -429,7 +444,8 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
                   apresentacao={quantidadeDoNome(item.nome)}
                   precoFmt={item.precoFmt}
                   restam={item.restam}
-                  cesta={centavos ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cartao" max={item.restam} slug={item.slug} /> : null}
+                  esgotado={item.esgotado}
+                  cesta={centavos && !item.esgotado ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cartao" max={item.restam} slug={item.slug} /> : null}
                 />
               );
             }),

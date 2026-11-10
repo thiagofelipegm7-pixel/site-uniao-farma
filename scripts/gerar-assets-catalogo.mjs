@@ -169,6 +169,7 @@ function paraRestrito(base, tipo) {
     nomeExibicao: nomeDeExibicao(base.nome),
     slug: slugify(base.nome),
     ...(typeof base.restam === "number" ? { restam: base.restam } : {}),
+    ...(base.esgotado === true ? { esgotado: true } : {}),
   };
 }
 
@@ -183,9 +184,9 @@ function writeJson(rel, data) {
 
 // ---- Catálogo sem receita ----
 const cat = JSON.parse(fs.readFileSync(path.join(DADOS, "catalogo-nacoes.json"), "utf8"));
-// Esgotado (estoque zero): sai das listas e da busca; a página do produto continua aberta (ver gerar.py).
-const itensTodos = cat.itens || [];
-const itens = itensTodos.filter((i) => i.esgotado !== true);
+// Esgotado (estoque zero): aparece nas listas com o selo "Esgotado" e sem botão de cesta, depois dos que têm estoque.
+// Fica fora das sugestões da busca do cabeçalho e da cesta (catalogo-busca.json), que só oferecem o que dá para reservar.
+const itens = cat.itens || [];
 
 const CATEGORIAS_ORDEM = [
   "Medicamentos",
@@ -213,7 +214,7 @@ const grupos = [...gruposMap.entries()]
   .sort(([a], [b]) => rank(a) - rank(b) || a.localeCompare(b, "pt-BR"))
   .map(([categoria, list]) => ({
     categoria,
-    itens: list.sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR")),
+    itens: list.sort((a, b) => Number(a.esgotado === true) - Number(b.esgotado === true) || a.nome.localeCompare(b.nome, "pt-BR")),
   }));
 
 const POR_PAGINA = 48;
@@ -238,17 +239,20 @@ for (const g of grupos) {
       precoFmt,
       isMIP: item.isMIP === true,
       ...(typeof item.restam === "number" ? { restam: item.restam } : {}),
+      ...(item.esgotado === true ? { esgotado: true } : {}),
       slug,
       foto,
       busca,
     };
-    buscaIndex.push({
-      nome: nomeEx,
-      slug,
-      precoCentavos: Math.round(item.preco * 100),
-      foto,
-      busca,
-    });
+    if (item.esgotado !== true) {
+      buscaIndex.push({
+        nome: nomeEx,
+        slug,
+        precoCentavos: Math.round(item.preco * 100),
+        foto,
+        busca,
+      });
+    }
     return fmt;
   });
 
@@ -272,7 +276,8 @@ writeJson("catalogo-index.json", { geradoEm: cat.geradoEm, grupos: paginasIndex,
 const rec = JSON.parse(fs.readFileSync(path.join(DADOS, "receita-nacoes.json"), "utf8"));
 
 function gerarRestrito(lista, tipo) {
-  return (lista || []).filter((base) => base.esgotado !== true).map((base) => paraRestrito(base, tipo));
+  // Esgotados ficam na lista (selo "Esgotado"), depois dos que têm estoque; só saem da busca do cabeçalho.
+  return (lista || []).map((base) => paraRestrito(base, tipo)).sort((a, b) => Number(a.esgotado === true) - Number(b.esgotado === true));
 }
 
 const receitaFmt = gerarRestrito(rec.receita, "receita");
@@ -296,7 +301,7 @@ const conInfo = { total: 0, paginas: 0 };
 // Índice leve para a busca do cabeçalho achar também os medicamentos com receita, os controlados e os "consulte o farmacêutico".
 writeJson(
   "restritos-busca.json",
-  [...receitaFmt, ...controladosFmt, ...consulteFmt].map((i) => ({
+  [...receitaFmt, ...controladosFmt, ...consulteFmt].filter((i) => i.esgotado !== true).map((i) => ({
     nome: i.nomeExibicao,
     tipo: i.tipo,
     precoCentavos: i.preco === null ? null : Math.round(i.preco * 100),

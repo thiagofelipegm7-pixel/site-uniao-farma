@@ -13,11 +13,13 @@ import { Cartao } from "./ListaRestrita";
 import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./Paginacao";
 import type { ItemRestrito } from "./receita";
 
-export type MedicamentoSemReceita = { nome: string; slug: string; lab: string; precoFmt: string; foto: string | null; isMIP: boolean; restam?: number };
+export type MedicamentoSemReceita = { nome: string; slug: string; lab: string; precoFmt: string; foto: string | null; isMIP: boolean; restam?: number; esgotado?: boolean };
 type Origem = "sem-receita" | "receita" | "controlados";
 type Linha = { chave: string; nome: string; busca: string; origem: Origem; otc?: MedicamentoSemReceita; restrito?: ItemRestrito };
 
-const comparar = (a: Linha, b: Linha) => a.nome.localeCompare(b.nome, "pt-BR");
+const esgotada = (l: Linha) => Number(l.otc?.esgotado === true || l.restrito?.esgotado === true);
+/** Alfabética, com os esgotados no fim. */
+const comparar = (a: Linha, b: Linha) => esgotada(a) - esgotada(b) || a.nome.localeCompare(b.nome, "pt-BR");
 const linhaOtc = (i: MedicamentoSemReceita): Linha => ({ chave: `o-${i.slug}`, nome: i.nome, busca: normalizarBusca(`${i.nome} ${i.lab}`), origem: "sem-receita", otc: i });
 const linhaRestrita = (i: ItemRestrito): Linha => ({
   chave: `${i.tipo}-${i.slug ?? i.nome}`,
@@ -125,7 +127,8 @@ export default function MedicamentosTodos({ otcInicial, unitId, paginaInicial = 
               apresentacao={quantidadeDoNome(i.nome)}
               precoFmt={i.precoFmt}
               restam={i.restam}
-              cesta={centavos ? <ReservarBotao unitId={unitId} nome={i.nome} precoCentavos={centavos} foto={i.foto} variante="cartao" max={i.restam} slug={i.slug} /> : null}
+              esgotado={i.esgotado}
+              cesta={centavos && !i.esgotado ? <ReservarBotao unitId={unitId} nome={i.nome} precoCentavos={centavos} foto={i.foto} variante="cartao" max={i.restam} slug={i.slug} /> : null}
             />
           );
         })}

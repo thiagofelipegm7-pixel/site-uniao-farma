@@ -189,9 +189,7 @@ def main(path, escrever_csv=True):
             cont["lab_override"] += 1
         unidades = math.floor(it["Estoque"]) if isinstance(it["Estoque"], (int, float)) else 0
         esgotado = unidades <= 0
-        # Esgotado: só segue no site o que já tinha sido publicado (a página fica aberta; as listas escondem). O resto nunca entra.
-        if esgotado and not (era_duvidoso and sem_cesta) and chave_publica(nome, lab_item) not in antes:
-            rep("sem_estoque", f"sem estoque no export ({tipo})", ativo, lista); continue
+        # Esgotado entra no site com o selo "Esgotado" (sem botão de cesta): o site mostra todo o catálogo do PC, menos serviços e duplicados.
         preco = it["Pvenda"] if it["Pvenda"] and it["Pvenda"] > 0 else None
         if v and isinstance(v.get("pmc"), (int, float)) and v["pmc"] > 0:
             pmc_teto[chave_publica(nome, lab_item)] = float(v["pmc"])

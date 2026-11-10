@@ -17,6 +17,8 @@ type Props = {
   precoFmt?: string | null;
   /** Unidades que restam (1 a 5). O aviso "Resta N" está desligado (quase todo produto tem 1 ou 2); só a trava da cesta usa o dado. */
   restam?: number | null;
+  /** Estoque zero: selo "Esgotado" no pé do cartão, no lugar do botão da cesta. */
+  esgotado?: boolean;
   /** Botão da cesta (canto superior direito). */
   cesta?: ReactNode;
   /** Avisos legais logo abaixo do preço (medicamento isento, venda sob prescrição, NBCAL). */
@@ -35,7 +37,7 @@ type Props = {
  * preço e botão largo "Adicionar" no pé. Marca e apresentação ficam no HTML (busca e leitor de tela), mas não aparecem no cartão. Sem selo de programa, sem "De/Por" e sem % OFF quando
  * o catálogo não tem preço de antes: o que a União não tem fica em branco.
  */
-export default function CartaoPanvel({ href, nome, foto, marca, apresentacao, precoFmt, cesta, avisos, extra, vertical = false, classe = "", tipo }: Props) {
+export default function CartaoPanvel({ href, nome, foto, marca, apresentacao, precoFmt, cesta, esgotado = false, avisos, extra, vertical = false, classe = "", tipo }: Props) {
   const apresentacaoLegivel = formatarQuantidade(apresentacao);
   const corpo = (
     <>
@@ -49,7 +51,7 @@ export default function CartaoPanvel({ href, nome, foto, marca, apresentacao, pr
     </>
   );
   return (
-    <li className={`pv-card${vertical ? " pv-card--v" : ""}${classe ? ` ${classe}` : ""}`} data-tipo={tipo}>
+    <li className={`pv-card${vertical ? " pv-card--v" : ""}${esgotado ? " pv-card--esgotado" : ""}${classe ? ` ${classe}` : ""}`} data-tipo={tipo}>
       {href ? (
         <a className="pv-corpo" href={href} aria-label={`Ver ${nome}`}>
           {corpo}
@@ -58,7 +60,7 @@ export default function CartaoPanvel({ href, nome, foto, marca, apresentacao, pr
         <div className="pv-corpo">{corpo}</div>
       )}
       {avisos ? <div className="pv-avisos">{avisos}</div> : null}
-      {cesta ? <div className="pv-cesta">{cesta}</div> : null}
+      {esgotado ? <div className="pv-cesta"><span className="pv-esgotado">Esgotado</span></div> : cesta ? <div className="pv-cesta">{cesta}</div> : null}
       {extra}
     </li>
   );
