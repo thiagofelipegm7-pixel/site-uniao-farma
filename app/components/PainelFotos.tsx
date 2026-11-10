@@ -696,13 +696,16 @@ export default function PainelFotos() {
                 ) : null}
               </div>
               <div style={{ display: "flex", gap: "0.75rem", marginTop: "1.25rem" }}>
-                <button type="button" onClick={() => {
+                <button type="button" onClick={async () => {
                   const nomeInput = document.querySelector<HTMLInputElement>('input[type="text"]');
                   const catSelect = document.querySelector<HTMLSelectElement>('select');
                   const ctrlSelect = document.querySelectorAll<HTMLSelectElement>('select')[1];
-                  if (nomeInput && nomeInput.value.trim()) void salvarNome(l, nomeInput.value.trim());
-                  if (catSelect && catSelect.value !== estadoCategoria(l)) void salvarCategoria(l, catSelect.value);
-                  if (ctrlSelect && ctrlSelect.value !== estadoControlado(l)) void salvarControlado(l, ctrlSelect.value as "auto" | "sim" | "nao");
+                  if (nomeInput && nomeInput.value.trim()) {
+                    setTextoNome(nomeInput.value.trim());
+                    await salvarNome(l);
+                  }
+                  if (catSelect && catSelect.value !== estadoCategoria(l)) await salvarCategoria(l, catSelect.value);
+                  if (ctrlSelect && ctrlSelect.value !== estadoControlado(l)) await salvarControlado(l, ctrlSelect.value as "auto" | "sim" | "nao");
                   setProdutoConfig(null);
                 }} style={{ flex: 1, padding: "0.7rem 1.25rem", background: "#0e7370", color: "#fff", border: "none", borderRadius: "10px", fontWeight: 600, cursor: "pointer" }}>Confirmar</button>
                 <button type="button" onClick={() => setProdutoConfig(null)} style={{ padding: "0.7rem 1.25rem", background: "#f0f4f3", color: "#3e4b49", border: "none", borderRadius: "10px", fontWeight: 600, cursor: "pointer" }}>Cancelar</button>
