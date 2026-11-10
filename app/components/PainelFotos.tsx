@@ -595,7 +595,7 @@ export default function PainelFotos() {
                       ) : (
                         <>
                           <span className="pf-nome">{nomeAtual(l).texto}</span>
-                          <button type="button" className="pf-nome-editar" onClick={() => { setEditandoNome(l.ean); setTextoNome(nomeAtual(l).texto); }} aria-label={`Editar o nome de ${l.nome}`}>Editar nome</button>
+                          <button type="button" className="pf-nome-editar" style={{ display: "none" }} onClick={() => { setEditandoNome(l.ean); setTextoNome(nomeAtual(l).texto); }} aria-label={`Editar o nome de ${l.nome}`}>Editar nome</button>
                           {nomeAtual(l).corrigido ? <em className="pf-tag pf-tag-n">Nome corrigido</em> : null}
                           <small className="pf-original">No sistema: {l.nome}</small>
                         </>
@@ -603,7 +603,7 @@ export default function PainelFotos() {
                       {l.lab ? <small>{l.lab}</small> : null}
                       {l.controlado ? <em className="pf-tag">Controlado (sistema)</em> : null}
                       {l.antimicrobiano ? <em className="pf-tag pf-tag-a">Antimicrob.</em> : null}
-                      <label className="pf-controlado">
+                      <label className="pf-controlado" style={{ display: "none" }}>
                         <span>Categoria</span>
                         <select
                           value={estadoCategoria(l)}
@@ -622,7 +622,7 @@ export default function PainelFotos() {
                       {l.sistemaRestrito ? <small className="pf-original">Receita/controlado do sistema: só Medicamentos</small> : null}
                       {categoriaEfetiva(l) === "Medicamentos" ? (
                         <>
-                          <label className="pf-controlado">
+                          <label className="pf-controlado" style={{ display: "none" }}>
                             <span>Controlado (Portaria 344)</span>
                             <select
                               value={estadoControlado(l)}
