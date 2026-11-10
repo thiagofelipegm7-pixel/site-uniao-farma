@@ -259,7 +259,7 @@ test("fluxo do pedido fácil: textos sem 'escolher loja', pagamento pendente exp
   const fluxo = await readFile(new URL("../app/reserva/ReservaFluxo.tsx", import.meta.url), "utf8");
   assert.doesNotMatch(fluxo, /escolher loja|loja que escolher/);
   assert.match(fluxo, /Escolha o pagamento/);
-  assert.match(fluxo, /Falta só um passo: toque em enviar no WhatsApp/);
+  assert.doesNotMatch(fluxo, /Falta só um passo/); // aviso removido a pedido da loja; só o lembrete da receita permanece
   assert.match(fluxo, /Confirmar nome/);
   assert.match(fluxo, /PUBLIC_UNITS\.length > 1 \? <input type="radio" name="loja"/);
 });

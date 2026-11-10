@@ -468,21 +468,17 @@ export default function ReservaFluxo() {
                 A loja está fechada agora ({statusLoja?.label.replace(/^Fechado · /, "").replace(/^[A-ZÀ-Ú]/, (c) => c.toLowerCase())}). Pode enviar o pedido mesmo assim: a loja responde quando abrir.
               </p>
             ) : null}
-            {enviado ? (
+            {/* Só o lembrete da receita fica: sem ele o cliente não sabe que precisa anexar a foto na conversa. */}
+            {enviado && receita ? (
               <section className="fluxo-enviado" role="status" aria-live="polite">
-                <strong>Falta só um passo: toque em enviar no WhatsApp</strong>
-                <p>O WhatsApp abriu com o seu pedido escrito. O pedido só chega para a loja depois que você toca no botão verde de enviar.</p>
-                {receita ? (
-                  <p>
-                    <strong>Receita:</strong> na conversa, toque no clipe (📎) e anexe a foto da receita, que está na sua galeria ou câmera.
-                    {podeCompartilhar(receita.arquivo) ? (
-                      <>
-                        {" "}Ou <button type="button" className="fluxo-link" onClick={() => { void navigator.share({ files: [receita.arquivo], title: "Receita" }).catch(() => undefined); }}>compartilhe a foto agora</button> e escolha a conversa da loja.
-                      </>
-                    ) : null}
-                  </p>
-                ) : null}
-                <p>Não abriu? <a href={href} target="_blank" rel="noreferrer">Abrir o WhatsApp de novo</a>. Já enviou? <button type="button" className="fluxo-link" onClick={() => { atualizarReserva(limpar); setEnviado(false); window.location.assign("/"); }}>Esvaziar a cesta e voltar ao início</button>.</p>
+                <p>
+                  <strong>Receita:</strong> na conversa, toque no clipe (📎) e anexe a foto da receita, que está na sua galeria ou câmera.
+                  {podeCompartilhar(receita.arquivo) ? (
+                    <>
+                      {" "}Ou <button type="button" className="fluxo-link" onClick={() => { void navigator.share({ files: [receita.arquivo], title: "Receita" }).catch(() => undefined); }}>compartilhe a foto agora</button> e escolha a conversa da loja.
+                    </>
+                  ) : null}
+                </p>
               </section>
             ) : null}
             <section className="entrega-endereco" aria-label="Dados do pedido">
