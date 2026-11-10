@@ -1770,3 +1770,57 @@ html body .produto-pagina .reservar-mais:not(.reservar-mais-icone), html body .p
   html body section.cookie-banner .cookie-actions button { flex: 1 !important; min-height: 2.5rem !important; border-radius: 999px !important; font-size: 0.875rem !important; }
   html body.cookie-banner-visible { padding-bottom: 0 !important; }
 }
+
+/* =====================================================================
+   Página de produto na estrutura da Drogasil (medida no HTML salvo): 3 colunas no topo (galeria, informações, cartão de compra
+   fixo de 340px), painéis cinza "Descrição do produto" e "Características" lado a lado e carrossel de sugestões.
+   Sem avaliações, kits nem cálculo de frete (a União não tem): no lugar, dúvida no WhatsApp e "Como receber".
+   ===================================================================== */
+.pdp-topo { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.25rem; margin-top: 0.75rem; }
+.pdp-galeria { display: grid; place-items: center; box-sizing: border-box; width: 100%; aspect-ratio: 1 / 1; max-height: 28rem; padding: 1.5rem; border: 1px solid #dbe6e3; border-radius: 16px; background: #ffffff; }
+.pdp-galeria img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+.pdp-galeria--vazia { aspect-ratio: auto; min-height: 12rem; }
+.pdp-info { display: grid; align-content: start; gap: 0.625rem; min-width: 0; }
+.pdp-meta { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+.pdp-meta p { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 0; color: #5b6b68; font-size: 0.9375rem; }
+.pdp-ponto { color: #9aa8a5; }
+.pdp-vendido { margin: 0; color: #3e4b49; font-size: 0.9375rem; }
+.pdp-resumo { margin: 0.25rem 0 0; color: #3e4b49; font-size: 0.9375rem; line-height: 1.55; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+.pdp-links { display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; margin: 0.5rem 0 0; }
+.pdp-links a { display: inline-flex; align-items: center; min-height: 2.75rem; color: #0a3548; font-size: 0.9375rem; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.pdp-compra { box-sizing: border-box; padding: 1.25rem; border: 1px solid #dbe6e3; border-radius: 16px; background: #ffffff; }
+.pdp-compra .produto-preco { margin: 0 0 0.25rem; }
+.pdp-compra .produto-nota { margin: 0 0 0.875rem; color: #5b6b68; font-size: 0.8125rem; line-height: 1.45; }
+.pdp-receber { display: grid; gap: 0.625rem; margin: 1rem 0 0; padding: 1rem 0 0; border-top: 1px solid #e3ecea; list-style: none; }
+.pdp-receber li { display: grid; gap: 0.125rem; font-size: 0.875rem; }
+.pdp-receber strong { color: #0d1413; font-size: 0.875rem; }
+.pdp-receber span, .pdp-receber a { color: #5b6b68; }
+.pdp-receber a { text-decoration: underline; text-underline-offset: 2px; }
+
+.pdp-paineis { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; margin-top: 1.75rem; }
+.pdp-painel { box-sizing: border-box; padding: 1.25rem; border-radius: 16px; background: #f2f6f5; }
+.pdp-painel h2 { margin: 0 0 0.75rem; }
+.pdp-painel h3 { margin: 1rem 0 0.375rem; color: #0d1413; font-size: 0.9375rem; font-weight: 700; }
+.pdp-painel p { margin: 0 0 0.5rem; color: #3e4b49; font-size: 0.9375rem; line-height: 1.6; }
+.pdp-carac { display: grid; gap: 0; margin: 0; }
+.pdp-carac > div { display: flex; justify-content: space-between; gap: 1rem; padding: 0.625rem 0; border-bottom: 1px solid #dbe6e3; font-size: 0.9375rem; }
+.pdp-carac > div:last-child { border-bottom: 0; }
+.pdp-carac dt { color: #5b6b68; }
+.pdp-carac dd { margin: 0; color: #0d1413; font-variant-numeric: tabular-nums; text-align: right; overflow-wrap: anywhere; }
+.pdp-carac a, .pdp-painel p a { color: #0a3548; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+
+/* Combina com: carrossel que rola de lado (como "Quem comprou, também se interessou"). */
+.combina-com .combina-com-lista { display: flex; gap: 0.75rem; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: thin; padding-bottom: 0.5rem; }
+.combina-com .combina-com-lista > li { flex: 0 0 11rem; scroll-snap-align: start; }
+
+@media (min-width: 992px) {
+  .pdp-topo { grid-template-columns: minmax(0, 26rem) minmax(0, 1fr) 21.25rem; gap: 2rem; align-items: start; }
+  .pdp-compra { position: sticky; top: 1rem; }
+  .pdp-paineis { grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); align-items: start; }
+  .combina-com .combina-com-lista > li { flex-basis: 12.5rem; }
+}
+@layer design {
+  html body .pdp-info h1 { font-size: 1.375rem !important; line-height: 1.3 !important; letter-spacing: -0.01em !important; margin: 0 !important; }
+  html body .pdp-painel h2 { font-size: 1rem !important; line-height: 1.3 !important; font-weight: 700 !important; margin: 0 0 0.75rem !important; }
+  html body .combina-com h2 { font-size: 1.375rem !important; line-height: 1.25 !important; }
+}
