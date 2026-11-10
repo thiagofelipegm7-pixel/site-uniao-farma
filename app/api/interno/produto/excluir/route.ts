@@ -13,10 +13,10 @@ export async function POST(request: Request) {
   const db = banco();
   if (!db) return Response.json({ ok: false, erro: "sem_banco" }, { status: 501, headers: SEM_CACHE });
   try {
-    await db.execute({ sql: "CREATE TABLE IF NOT EXISTS produtos_removidos (ean TEXT PRIMARY KEY, removido_em TEXT)" });
-    await db.execute({ sql: "INSERT OR REPLACE INTO produtos_removidos (ean, removido_em) VALUES (?, datetime('now'))", args: [ean] });
+    await db.execute("CREATE TABLE IF NOT EXISTS produtos_removidos (ean TEXT PRIMARY KEY, removido_em TEXT)");
+    await db.execute("INSERT OR REPLACE INTO produtos_removidos (ean, removido_em) VALUES (?, datetime('now'))", [ean]);
     return Response.json({ ok: true }, { headers: SEM_CACHE });
-  } catch {
-    return Response.json({ ok: false, erro: "falha" }, { status: 500, headers: SEM_CACHE });
+  } catch (e) {
+    return Response.json({ ok: false, erro: "falha", detalhe: String(e) }, { status: 500, headers: SEM_CACHE });
   }
 }
