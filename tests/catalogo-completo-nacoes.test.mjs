@@ -201,7 +201,7 @@ test("departamentos: cada categoria do catálogo tem a sua página e o menu apon
     assert.equal(gaveta.includes(`/departamentos/${d.slug}`), false, `gaveta não deve ter ${d.slug}`);
     assert.equal(tiles.includes(`/departamentos/${d.slug}`), false, `carrossel não deve ter ${d.slug}`);
   }
-  assert.match(paginaDep, /departamentosPublicos\(\)\.map/);
+  assert.match(await read("app/nacoes-unidas/produtos/ListaDrogasil.tsx"), /departamentosPublicos\(\)\.map/); // a lista de departamentos agora fica na lateral da lista
   assert.match(paginaDep, /dep\.provisorio\) notFound/);
 });
 
