@@ -513,130 +513,42 @@ export default function PainelFotos() {
             <div role="dialog" aria-modal="true" style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.4)", display: "grid", placeItems: "center", zIndex: 100 }}>
               <div style={{ background: "#fff", borderRadius: "12px", padding: "1.5rem", maxWidth: "28rem", width: "90%", maxHeight: "80vh", overflow: "auto" }}>
                 <h2 style={{ margin: "0 0 1rem" }}>Filtros e configuração</h2>
-                <div style={{ display: "grid", gap: "1rem" }}>
-                  <input type="search" value={busca} onChange={(e) => mudar(setBusca)(e.target.value)} placeholder="Buscar produto, laboratório ou código" aria-label="Buscar" style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }} />
-                  <select value={categoria} onChange={(e) => mudar(setCategoria)(e.target.value)} aria-label="Categoria" style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }}>
-                    <option value="">Todas as categorias</option>
-                    {dados.categorias.map((c) => <option key={c}>{c}</option>)}
-                  </select>
-                  <select value={fotos} onChange={(e) => mudar(setFotos)(e.target.value as FiltroFotos["fotos"])} aria-label="Fotos" style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }}>
-                    <option value="faltam">Faltam foto</option>
-                    <option value="site">Já estão no site</option>
-                    <option value="">Todos</option>
-                  </select>
-                  <select value={estoque} onChange={(e) => mudar(setEstoque)(e.target.value as FiltroFotos["estoque"])} aria-label="Estoque" style={{ padding: "0.65rem 0.75rem", borderRadius: "10px", border: "1px solid #d3e2df", fontSize: "0.95rem" }}>
-                    <option value="com">Só com estoque</option>
-                    <option value="zero">Zerado ou negativo</option>
-                    <option value="">Todo estoque</option>
-                  </select>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 228px)", gap: "1.5rem", justifyContent: "center" }}>
+            {visiveis.map((l) => (
+              <div
+                key={l.ean}
+                data-ean={l.ean}
+                tabIndex={0}
+                onFocus={() => setAlvoColar(l.ean)}
+                style={{ background: "#fff", borderRadius: "16px", padding: "1rem", border: "1px solid #e8eeec", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", position: "relative", width: "228px", height: "224px", display: "flex", flexDirection: "column", gap: "0.5rem", overflow: "hidden" }}
+              >
+                <button type="button" onClick={() => setProdutoConfig(l.ean)} aria-label="Configurar produto" style={{ position: "absolute", top: "0.5rem", right: "0.5rem", background: "none", border: "none", cursor: "pointer", fontSize: "1rem", zIndex: 1 }}>⚙️</button>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "80px" }}>
+                  {l.noSite ? (
+                    <img src={pendentes.has(l.ean) || envios[l.ean] === "enviada" ? `/api/foto-nova?ean=${l.ean}&v=${envios[l.ean] === "enviada" ? "n" : "p"}` : `/produtos/${l.ean}.webp`} alt="" width="60" height="60" style={{ objectFit: "contain" }} />
+                  ) : (
+                    <label className={`pf-enviar${envios[l.ean] === "erro" ? " pf-erro" : ""}`} style={{ cursor: "pointer" }}>
+                      <input type="file" accept="image/*" disabled={envios[l.ean] === "enviando"} onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} style={{ display: "none" }} />
+                      <span style={{ background: "#0e7370", color: "#fff", padding: "0.5rem 1rem", borderRadius: "8px", fontSize: "0.8rem" }}>
+                        {envios[l.ean] === "enviando" ? "Enviando…" : "Enviar foto"}
+                      </span>
+                    </label>
+                  )}
                 </div>
-                <button type="button" onClick={() => setConfigAberto(false)} style={{ marginTop: "1.25rem", padding: "0.7rem 1.25rem", background: "#0e7370", color: "#fff", border: "none", borderRadius: "10px", fontWeight: 600, width: "100%", cursor: "pointer" }}>Fechar</button>
+                <div style={{ fontSize: "0.75rem", color: "#6b7c79", textAlign: "center" }}>
+                  {l.semCodigo ? "sem código" : l.ean}
+                </div>
+                <div style={{ fontWeight: 600, fontSize: "0.85rem", textAlign: "center", lineHeight: 1.2, flex: 1, overflow: "hidden" }}>
+                  {nomeAtual(l).texto}
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.75rem", color: "#3e4b49" }}>
+                  <span>{categoriaEfetiva(l)}</span>
+                  <span style={{ fontWeight: 600 }}>{l.estoque}</span>
+                  <span>{REAIS.format(l.preco)}</span>
+                </div>
               </div>
-            </div>
-          ) : null}
-
-          {dados.publicacaoRapida === false ? (
-            <p className="pf-aviso" role="note">A publicação rápida está desligada (falta a chave do GitHub no Cloudflare). As fotos funcionam no site, mas o arquivo fixo só sai quando o GitHub rodar a sincronização, o que pode levar horas.</p>
-          ) : null}
-          {arrastando ? <p className="pf-solte" role="status">Solte aqui para enviar a foto de &ldquo;{linhas.find((x) => x.ean === arrastando)?.nome}&rdquo;</p> : null}
-          {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
-
-          <p className="pf-contagem" role="status">{filtradas.length} {filtradas.length === 1 ? "item" : "itens"} no filtro</p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 228px)", gap: "1.5rem" }}>
-
-                {visiveis.map((l) => (
-                  <div
-                    key={l.ean}
-                    data-ean={l.ean}
-                    tabIndex={0}
-                    onFocus={() => setAlvoColar(l.ean)}
-                    style={{ background: "#fff", borderRadius: "16px", padding: "1rem", border: "1px solid #e8eeec", boxShadow: "0 2px 8px rgba(0,0,0,0.04)", position: "relative", width: "228px", height: "224px", display: "flex", flexDirection: "column", gap: "0.5rem", overflow: "hidden" }}
-                  >
-                    <button type="button" onClick={() => setProdutoConfig(l.ean)} aria-label="Configurar produto" style={{ position: "absolute", top: "0.5rem", right: "0.5rem", background: "none", border: "none", cursor: "pointer", fontSize: "1rem" }}>⚙️</button>
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                      {l.noSite ? (
-                        <span className="pf-foto-atual">
-                          <img src={pendentes.has(l.ean) || envios[l.ean] === "enviada" ? `/api/foto-nova?ean=${l.ean}&v=${envios[l.ean] === "enviada" ? "n" : "p"}` : `/produtos/${l.ean}.webp`} alt="" width="80" height="80" loading="lazy" decoding="async" />
-                          
-                        </span>
-                      ) : (
-                        <label className={`pf-enviar${envios[l.ean] === "erro" ? " pf-erro" : ""}`}>
-                          <input type="file" accept="image/*" disabled={envios[l.ean] === "enviando"} onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} aria-label={`Enviar foto de ${l.nome}`} />
-                          {envios[l.ean] === "enviando" ? "Enviando…" : envios[l.ean] === "erro" ? "Falhou: tentar de novo" : "Enviar foto"}
-                        </label>
-                      )}
-                    </div>
-                    <div style={{ fontSize: "0.75rem", color: "#6b7c79" }}>
-                      {l.semCodigo ? (
-                        <span className="pf-sem-codigo">sem código de barras</span>
-                      ) : (
-                        <>
-                          <span>{l.ean}</span>
-                          <button type="button" className="pf-copiar" onClick={() => void copiarCodigo(l.ean)} aria-label={`Copiar o código de barras ${l.ean}`}>{copiado === l.ean ? "Copiado!" : "Copiar"}</button>
-                        </>
-                      )}
-                    </div>
-                    <td className="pf-prod" style={{ padding: "1rem 0.5rem", position: "relative" }}>
-                      <button type="button" onClick={() => setProdutoConfig(l.ean)} aria-label="Configurar produto" style={{ position: "absolute", top: "0.25rem", right: "0.25rem", background: "none", border: "none", cursor: "pointer", fontSize: "1.1rem" }}>⚙️</button>
-                      {editandoNome === l.ean ? (
-                        <span className="pf-nome-edicao">
-                          <input type="text" value={textoNome} onChange={(e) => setTextoNome(e.target.value)} maxLength={120} aria-label={`Novo nome de ${l.nome}`} />
-                          <button type="button" className="pf-nome-salvar" onClick={() => void salvarNome(l)}>Salvar nome</button>
-                          <button type="button" onClick={() => setEditandoNome(null)}>Cancelar</button>
-                          {nomeAtual(l).corrigido ? <button type="button" onClick={() => void salvarNome(l, true)}>Voltar ao automático</button> : null}
-                        </span>
-                      ) : (
-                        <>
-                          <span className="pf-nome">{nomeAtual(l).texto}</span>
-                          <button type="button" className="pf-nome-editar" style={{ display: "none" }} onClick={() => { setEditandoNome(l.ean); setTextoNome(nomeAtual(l).texto); }} aria-label={`Editar o nome de ${l.nome}`}>Editar nome</button>
-                          {nomeAtual(l).corrigido ? <em className="pf-tag pf-tag-n">Nome corrigido</em> : null}
-                        </>
-                      )}
-                      {l.lab ? <small>{l.lab}</small> : null}
-                      {l.controlado ? <em className="pf-tag">Controlado (sistema)</em> : null}
-                      {l.antimicrobiano ? <em className="pf-tag pf-tag-a">Antimicrob.</em> : null}
-                      <label className="pf-controlado" style={{ display: "none" }}>
-                        <span>Categoria</span>
-                        <select
-                          value={estadoCategoria(l)}
-                          aria-label={`Categoria de ${l.nome}`}
-                          onChange={(e) => void salvarCategoria(l, e.target.value)}
-                        >
-                          <option value="auto">Automático</option>
-                          {CATEGORIAS_VALIDAS.map((c) => (
-                            <option key={c} value={c} disabled={Boolean(l.sistemaRestrito && c !== "Medicamentos")}>
-                              {c}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                      {estadoCategoria(l) !== "auto" ? <em className="pf-tag pf-tag-n">Override: {estadoCategoria(l)}</em> : null}
-                      {categoriaEfetiva(l) === "Medicamentos" ? (
-                        <>
-                          <label className="pf-controlado" style={{ display: "none" }}>
-                            <span>Controlado (Portaria 344)</span>
-                            <select
-                              value={estadoControlado(l)}
-                              aria-label={`Controlado Portaria 344 de ${l.nome}`}
-                              onChange={(e) => void salvarControlado(l, e.target.value as "auto" | "sim" | "nao")}
-                            >
-                              <option value="auto">Automático</option>
-                              <option value="sim">Marcar controlado</option>
-                              <option value="nao">Marcar não controlado</option>
-                            </select>
-                          </label>
-                          {estadoControlado(l) !== "auto" ? <em className="pf-tag pf-tag-n">Override: {estadoControlado(l) === "sim" ? "controlado" : "não controlado"}</em> : null}
-                        </>
-                      ) : estadoControlado(l) === "sim" ? (
-                        <em className="pf-tag pf-tag-n" title="Override antigo; o seletor só aparece em Medicamentos">Marcado como controlado</em>
-                      ) : null}
-                    </div>
-                    <td data-r="Categoria">{categoriaEfetiva(l)}</div>
-                    <td data-r="Estoque" className="pf-n"><span className={`pf-qtd pf-qtd-${l.estoque <= 0 ? "zero" : l.estoque <= 5 ? "baixo" : "normal"}`} title={l.estoque <= 0 ? "Zerado" : l.estoque <= 5 ? "Estoque baixo" : "Estoque normal"}>{l.estoque}</span></div>
-                    <td data-r="Preço" className="pf-n">{REAIS.format(l.preco)}</div>
-                  </div>
-                ))}
-          </div>
+            ))}
+          </div></div>
           {totalPaginas > 1 ? (
             <p className="pf-paginas">
               <button type="button" disabled={paginaAtual <= 1} onClick={() => setPagina(paginaAtual - 1)}>Anterior</button>
