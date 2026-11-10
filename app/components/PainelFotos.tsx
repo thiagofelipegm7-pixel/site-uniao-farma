@@ -606,7 +606,9 @@ export default function PainelFotos() {
                 {categoriaEfetiva(l) === "Medicamentos" ? (
                   <label style={{ display: "grid", gap: "0.4rem" }}>
                     <span>Controlado (Portaria 344)</span>
-                    <input type="checkbox" checked={estadoControlado(l) === "sim"} onChange={(e) => void salvarControlado(l, e.target.checked ? "sim" : "nao")} style={{ width: "40px", height: "22px", accentColor: "#0e7370", cursor: "pointer" }} />
+                    <button type="button" onClick={() => void salvarControlado(l, estadoControlado(l) === "sim" ? "nao" : "sim")} style={{ width: "44px", height: "24px", borderRadius: "12px", border: "none", background: estadoControlado(l) === "sim" ? "#0e7370" : "#d3e2df", position: "relative", cursor: "pointer", transition: "background 0.2s" }}>
+                      <span style={{ position: "absolute", top: "2px", left: estadoControlado(l) === "sim" ? "22px" : "2px", width: "20px", height: "20px", borderRadius: "50%", background: "#fff", transition: "left 0.2s", boxShadow: "0 1px 3px rgba(0,0,0,0.2)" }} />
+                    </button>
                   </label>
                 ) : null}
               </div>
