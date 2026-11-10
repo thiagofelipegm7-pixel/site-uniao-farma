@@ -3,15 +3,28 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 /* eslint-disable @next/next/no-img-element -- Imagem estática pequena, igual ao restante do catálogo. */
 import { useEffect, useMemo, useState } from "react";
-import BotaoVoz from "../../shop/BotaoVoz";
 import ReservarBotao from "../../reserva/ReservarBotao";
 import { precoParaCentavos } from "../../reserva/reserva-store";
-import { normalizarBusca, termosDeBusca } from "./busca";
+import { FAIXAS_PRECO, normalizarBusca, termosDeBusca, type FaixaPreco } from "./busca";
 import CartaoPanvel from "./CartaoPanvel";
 import { quantidadeDoNome } from "./quantidade";
 import { Cartao } from "./ListaRestrita";
+import { FaixaLista, GrupoLateral, LateralTopo } from "./ListaDrogasil";
 import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./Paginacao";
 import type { ItemRestrito } from "./receita";
+
+type OrdemMed = "relevancia" | "menor_preco" | "maior_preco";
+const ORDENS_MED = [
+  { id: "relevancia", label: "Mais relevantes" },
+  { id: "menor_preco", label: "Menor preço" },
+  { id: "maior_preco", label: "Maior preço" },
+] as const;
+const centavosDe = (l: Linha): number | null => (l.otc ? precoParaCentavos(l.otc.precoFmt) : typeof l.restrito?.preco === "number" ? Math.round(l.restrito.preco * 100) : null);
+const labDe = (l: Linha) => (l.otc?.lab ?? l.restrito?.lab ?? "").trim();
+const noFaixa = (c: number | null, f: FaixaPreco) => c !== null && (f === "ate_15" ? c <= 1500 : f === "de_15_a_25" ? c > 1500 && c <= 2500 : c > 2500);
+function alternarItem<T>(lista: T[], v: T): T[] {
+  return lista.includes(v) ? lista.filter((x) => x !== v) : [...lista, v];
+}
 
 export type MedicamentoSemReceita = { nome: string; slug: string; lab: string; precoFmt: string; foto: string | null; isMIP: boolean; restam?: number; esgotado?: boolean };
 type Origem = "sem-receita" | "receita" | "controlados";
@@ -37,6 +50,10 @@ const linhaRestrita = (i: ItemRestrito): Linha => ({
 export default function MedicamentosTodos({ otcInicial, unitId, paginaInicial = 1 }: { otcInicial: MedicamentoSemReceita[]; unitId: string; paginaInicial?: number }) {
   const [consulta, setConsulta] = useState("");
   const [pagina, setPagina] = useState(paginaInicial);
+  const [porPagina, setPorPagina] = useState<number>(POR_PAGINA);
+  const [ordem, setOrdem] = useState<OrdemMed>("relevancia");
+  const [marcas, setMarcas] = useState<string[]>([]);
+  const [faixas, setFaixas] = useState<FaixaPreco[]>([]);
   const [restritos, setRestritos] = useState<Linha[]>([]);
   const [carregando, setCarregando] = useState(true);
 
@@ -78,11 +95,19 @@ export default function MedicamentosTodos({ otcInicial, unitId, paginaInicial = 
 
   const todas = useMemo(() => [...otcInicial.map(linhaOtc), ...restritos].sort(comparar), [otcInicial, restritos]);
   const termos = termosDeBusca(consulta);
-  const visiveis = useMemo(
+  const porBusca = useMemo(
     () => todas.filter((l) => termos.every((t) => l.busca.includes(t))),
     [todas, consulta], // eslint-disable-line react-hooks/exhaustive-deps -- termos deriva de consulta
   );
-  const totalPaginas = Math.max(1, Math.ceil(visiveis.length / POR_PAGINA));
+  const opcoesMarca = useMemo(() => [...new Set(porBusca.map(labDe).filter(Boolean))].sort((a, b) => a.localeCompare(b, "pt-BR")), [porBusca]);
+  const visiveis = useMemo(() => {
+    const lista = porBusca.filter((l) => (marcas.length === 0 || marcas.includes(labDe(l))) && (faixas.length === 0 || faixas.some((f) => noFaixa(centavosDe(l), f))));
+    if (ordem === "relevancia") return lista;
+    const sinal = ordem === "menor_preco" ? 1 : -1;
+    // Esgotados e sem preço sempre no fim.
+    return [...lista].sort((a, b) => esgotada(a) - esgotada(b) || (centavosDe(a) === null ? 1 : 0) - (centavosDe(b) === null ? 1 : 0) || sinal * ((centavosDe(a) ?? 0) - (centavosDe(b) ?? 0)));
+  }, [porBusca, marcas, faixas, ordem]);
+  const totalPaginas = Math.max(1, Math.ceil(visiveis.length / porPagina));
   const paginaAtual = Math.min(pagina, totalPaginas);
   // Troca de busca volta à página 1 (e tira ?pagina= do endereço).
   function irParaPaginaLocal(n: number) {
@@ -100,20 +125,44 @@ export default function MedicamentosTodos({ otcInicial, unitId, paginaInicial = 
   }, []);
 
   return (
-    <section aria-label="Todos os medicamentos">
-      <form className="medicamentos-busca" role="search" onSubmit={(e) => e.preventDefault()}>
-        <label htmlFor="medicamentos-q">Buscar nos medicamentos</label>
-        <div className="voz-campo">
-          <input id="medicamentos-q" type="search" value={consulta} maxLength={80} placeholder="Nome ou princípio ativo" onChange={(e) => { setConsulta(e.target.value); irParaPaginaLocal(1); }} />
-          <BotaoVoz contexto="medicamentos" onTexto={(texto) => { setConsulta(texto); irParaPaginaLocal(1); }} />
-        </div>
-      </form>
-      <p className="medicamentos-contagem" aria-live="polite">
-        {visiveis.length.toLocaleString("pt-BR")} {visiveis.length === 1 ? "medicamento" : "medicamentos"}
-        {carregando ? " · carregando as listas de receita e controlados…" : ""}
-      </p>
+    <section aria-label="Todos os medicamentos" className="pv-layout">
+      <aside className="pv-filtros" aria-label="Filtros">
+        <LateralTopo total={visiveis.length} rotulo="medicamento" atual="medicamentos" />
+        <GrupoLateral titulo="Preço">
+          <div className="dg-opcoes">
+            {FAIXAS_PRECO.map((f) => (
+              <label key={f.id} className="catalogo-filtro-opcao">
+                <input type="checkbox" checked={faixas.includes(f.id)} onChange={() => { setFaixas((a) => alternarItem(a, f.id)); irParaPaginaLocal(1); }} />
+                <span>{f.label}</span>
+              </label>
+            ))}
+          </div>
+        </GrupoLateral>
+        {opcoesMarca.length > 0 ? (
+          <GrupoLateral titulo="Marca">
+            <div className="dg-opcoes dg-opcoes--rolar">
+              {opcoesMarca.map((m) => (
+                <label key={m} className="catalogo-filtro-opcao">
+                  <input type="checkbox" checked={marcas.includes(m)} onChange={() => { setMarcas((a) => alternarItem(a, m)); irParaPaginaLocal(1); }} />
+                  <span>{m}</span>
+                </label>
+              ))}
+            </div>
+          </GrupoLateral>
+        ) : null}
+      </aside>
+      <div className="pv-conteudo">
+      {carregando ? <p className="medicamentos-contagem" aria-live="polite">Carregando as listas de receita e controlados…</p> : null}
+      <FaixaLista
+        porPagina={porPagina}
+        aoMudarPorPagina={(n) => { setPorPagina(n); irParaPaginaLocal(1); }}
+        ordem={ordem}
+        opcoesOrdem={ORDENS_MED}
+        aoMudarOrdem={(id) => { setOrdem(id as OrdemMed); irParaPaginaLocal(1); }}
+        paginacao={<Paginacao variante="barra" atual={paginaAtual} total={totalPaginas} href={(n) => hrefPagina(n, consulta)} onIr={(n) => { setPagina(n); irParaPagina(n, consulta); }} />}
+      />
       <ul className="catalogo-lista pv-grade">
-        {visiveis.slice((paginaAtual - 1) * POR_PAGINA, paginaAtual * POR_PAGINA).map((l) => {
+        {visiveis.slice((paginaAtual - 1) * porPagina, paginaAtual * porPagina).map((l) => {
           if (l.restrito) return <Cartao key={l.chave} item={l.restrito} />;
           const i = l.otc!;
           const centavos = precoParaCentavos(i.precoFmt);
@@ -135,6 +184,7 @@ export default function MedicamentosTodos({ otcInicial, unitId, paginaInicial = 
       </ul>
       <Paginacao atual={paginaAtual} total={totalPaginas} href={(n) => hrefPagina(n, consulta)} onIr={(n) => { setPagina(n); irParaPagina(n, consulta); }} />
       {!carregando && visiveis.length === 0 ? <p className="catalogo-vazio">Não encontramos medicamentos com esse nome. Fale com a loja pelo WhatsApp.</p> : null}
+      </div>
     </section>
   );
 }

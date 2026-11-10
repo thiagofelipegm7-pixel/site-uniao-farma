@@ -211,7 +211,7 @@ test("departamentos: cada página entra no sitemap, é indexável e traz a lista
   assert.match(pagina, /robots: \{ index: Boolean\(dep\), follow: true \}/);
   assert.match(pagina, /canonical: dep \? `\/departamentos\/\$\{dep\.slug\}`/);
   assert.match(pagina, /!dep \|\| dep\.provisorio\) notFound/);
-  assert.match(pagina, /departamentosPublicos\(\)\.map/);
+  assert.match(await read("app/nacoes-unidas/produtos/ListaDrogasil.tsx"), /departamentosPublicos\(\)\.map/); // a lista de departamentos agora fica na lateral da lista
   assert.match(pagina, /grupos=\{grupos\}/);
   assert.match(pagina, /application\/ld\+json/);
 });

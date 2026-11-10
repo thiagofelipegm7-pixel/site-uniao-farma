@@ -19,6 +19,8 @@ type Props = {
   href: (pagina: number) => string;
   /** Troca de página sem recarregar. Sem ele, os links funcionam normalmente. */
   onIr?: (pagina: number) => void;
+  /** "barra": versão da faixa de cima (botões "Anterior" e "Próximo" em pílula, como a Drogasil). */
+  variante?: "barra";
 };
 
 const Seta = ({ lado }: { lado: "esq" | "dir" }) => (
@@ -28,13 +30,32 @@ const Seta = ({ lado }: { lado: "esq" | "dir" }) => (
 );
 
 /** Paginação no padrão da Panvel: seta, números (1 2 3 4 … última) e seta. */
-export default function Paginacao({ atual, total, href, onIr }: Props) {
+export default function Paginacao({ atual, total, href, onIr, variante }: Props) {
   if (total <= 1) return null;
   const ir = (n: number) => (e: React.MouseEvent) => {
     if (!onIr || e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
     e.preventDefault();
     onIr(n);
   };
+  if (variante === "barra") {
+    const nums = paginasVisiveis(atual, total);
+    return (
+      <nav className="dg-pag" aria-label="Paginação">
+        {atual > 1 ? <a className="dg-pag-btn" href={href(atual - 1)} onClick={ir(atual - 1)}>Anterior</a> : <span className="dg-pag-btn is-off" aria-disabled="true">Anterior</span>}
+        <ol>
+          {nums.map((n, i) => (
+            <Fragment key={n}>
+              {i > 0 && n - nums[i - 1] > 1 ? <li className="dg-pag-sep" aria-hidden="true">…</li> : null}
+              <li>
+                <a className={n === atual ? "dg-pag-num is-on" : "dg-pag-num"} href={href(n)} aria-label={`Página ${n}`} aria-current={n === atual ? "page" : undefined} onClick={ir(n)}>{n}</a>
+              </li>
+            </Fragment>
+          ))}
+        </ol>
+        {atual < total ? <a className="dg-pag-btn" href={href(atual + 1)} onClick={ir(atual + 1)}>Próximo</a> : <span className="dg-pag-btn is-off" aria-disabled="true">Próximo</span>}
+      </nav>
+    );
+  }
   return (
     <nav className="pv-paginas" aria-label="Paginação">
       {atual > 1 ? (
