@@ -26,6 +26,7 @@ export async function GET() {
   if (!exportado) return Response.json({ ok: false, erro: "sem_dados" }, { status: 502, headers: SEM_CACHE });
 
   // Remove bijuterias e aplica códigos de barras conhecidos.
+  const db = banco();
   const removidos = new Set<string>();
   if (db) {
     try {
@@ -51,7 +52,6 @@ export async function GET() {
   for (const i of restritos.receita) categorias.set(chaveDeNome(i.nome), "Medicamentos");
   for (const i of restritos.controlados) categorias.set(chaveDeNome(i.nome), "Medicamentos");
 
-  const db = banco();
   const categoriasOvr = db ? await mapaDeCategorias(db).catch(() => ({} as Awaited<ReturnType<typeof mapaDeCategorias>>)) : {};
   for (const [k, v] of Object.entries(categoriasOvr)) categorias.set(k, v.categoria);
 
