@@ -504,17 +504,9 @@ export default function ReservaFluxo() {
                     <label key={forma} className={pagamento === forma ? "entrega-opcao entrega-opcao-simples is-on" : "entrega-opcao entrega-opcao-simples"}>
                       <input type="radio" name="pagamento" checked={pagamento === forma} onChange={() => setPagamento(forma)} />
                       <span className="entrega-tipo">{forma}</span>
-                      <span className="entrega-periodo">{forma === "Pix" ? "código no WhatsApp" : retirar ? "no balcão" : "na entrega"}</span>
                     </label>
                   ))}
                 </div>
-                <p className="fluxo-pagamento-nota" role="note">
-                  {pagamento === "Pix"
-                    ? "Você não paga nada pelo site. Quando a loja confirmar o pedido, ela manda o código Pix (copia e cola) na conversa do WhatsApp."
-                    : pagamento
-                      ? `Você não paga nada pelo site. Você paga ${retirar ? "no balcão, ao retirar" : "ao receber em casa"}.`
-                      : "Você não paga nada pelo site. A loja confirma tudo pelo WhatsApp."}
-                </p>
               </div>
             </div>
 

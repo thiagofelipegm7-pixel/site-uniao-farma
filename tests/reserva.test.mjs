@@ -264,13 +264,13 @@ test("fluxo do pedido fácil: textos sem 'escolher loja', pagamento pendente exp
   assert.match(fluxo, /PUBLIC_UNITS\.length > 1 \? <input type="radio" name="loja"/);
 });
 
-test("pagamento: a prévia diz 'a escolher' até haver escolha e o passo 3 explica o Pix", async () => {
+test("pagamento: a prévia diz 'a escolher' até haver escolha", async () => {
   const { mensagemReserva } = await mod();
   const itens = [{ id: "n:x", unitId: "nacoes", nome: "X", precoCentavos: 1000, qtd: 1 }];
   assert.match(mensagemReserva("Nações Unidas", itens, { modo: "retirar", nome: "Ana" }), /Pagamento: a escolher/);
   assert.match(mensagemReserva("Nações Unidas", itens, { modo: "retirar", nome: "Ana", pagamento: "Pix" }), /Pagamento: Pix \(pelo WhatsApp\)/);
   const fluxo = await readFile(new URL("../app/reserva/ReservaFluxo.tsx", import.meta.url), "utf8");
-  assert.match(fluxo, /manda o código Pix \(copia e cola\) na conversa do WhatsApp/);
+  assert.doesNotMatch(fluxo, /Você não paga nada pelo site/); // explicação removida a pedido da loja
 });
 
 test("dados do cliente: lembrados só no aparelho, validados ao ler e fáceis de esquecer", async () => {
