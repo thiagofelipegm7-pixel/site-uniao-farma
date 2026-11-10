@@ -531,7 +531,7 @@ export default function PainelFotos() {
                 onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.12)"; }}
                 onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 1px 3px rgba(0,0,0,0.06)"; }}
               >
-                {l.controlado || l.sistemaRestrito ? <span style={{ position: "absolute", top: "0.5rem", left: "0.5rem", width: "10px", height: "10px", background: "#e53935", borderRadius: "50%", zIndex: 1 }} title="Controlado" /> : null}
+                {estadoControlado(l) === "sim" ? <span style={{ position: "absolute", top: "0.5rem", left: "0.5rem", width: "10px", height: "10px", background: "#e53935", borderRadius: "50%", zIndex: 1 }} title="Controlado" /> : null}
                 <button type="button" onClick={() => setProdutoConfig(l.ean)} aria-label="Configurar produto" style={{ position: "absolute", top: "0.5rem", right: "0.5rem", background: "none", border: "none", cursor: "pointer", fontSize: "1rem", zIndex: 1 }}>⚙️</button>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "60px", flexShrink: 0 }}>
                   {l.noSite ? (
