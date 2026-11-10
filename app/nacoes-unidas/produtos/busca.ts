@@ -1,4 +1,5 @@
 /** Filtro local do catálogo de produtos (sem rede): ignora acento e caixa, todos os termos precisam aparecer. */
+import type { ItemRestrito } from "./receita";
 
 export type ItemBusca = {
   nome: string;
@@ -9,6 +10,8 @@ export type ItemBusca = {
   isMIP: boolean;
   /** Unidades que restam (1 a 5). */
   restam?: number;
+  /** Estoque zero: aparece com o selo "Esgotado" e sem botão de cesta. */
+  esgotado?: boolean;
   foto: string | null;
   /** Âncora estável (`slugify` do nome). A página do produto ainda não existe: a sugestão rola até o item. */
   id?: string;
@@ -16,6 +19,8 @@ export type ItemBusca = {
   slug?: string;
   /** Categoria dentro do departamento (árvore de categorias), ex.: "Desodorantes". */
   tipo?: string;
+  /** Medicamento com receita ou controlado: o cartão usa a ficha restrita (receita, retenção, cesta só para retirada). */
+  restrito?: ItemRestrito;
 };
 export type GrupoBusca = { categoria: string; id: string; itens: ItemBusca[] };
 
@@ -197,6 +202,9 @@ function ordenarItens(itens: readonly ItemBusca[], ordem: OrdemCatalogo): ItemBu
   if (ordem === "recomendados") return [...itens];
   const dir = ordem === "menor_preco" ? 1 : -1;
   return [...itens].sort((a, b) => {
+    // Esgotados vão para o fim, qualquer que seja a ordem.
+    const fim = Number(a.esgotado === true) - Number(b.esgotado === true);
+    if (fim !== 0) return fim;
     const delta = (precoDoItem(a) - precoDoItem(b)) * dir;
     return delta !== 0 ? delta : a.nome.localeCompare(b.nome, "pt-BR");
   });

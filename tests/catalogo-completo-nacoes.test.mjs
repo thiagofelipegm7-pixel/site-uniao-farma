@@ -233,7 +233,11 @@ test("receita e controlados: cada medicamento recebe a ilustração da sua forma
 test("acesso livre: a busca do cabeçalho e o menu levam aos medicamentos com receita e controlados", async () => {
   const idx = await json("public/dados/nacoes/restritos-index.json");
   const busca = await json("public/dados/nacoes/restritos-busca.json");
-  assert.equal(busca.length, idx.receita.total + idx.controlados.total + idx.consulte.total);
+  // Esgotados ficam nas listas (com selo) mas fora da busca do cabeçalho, que só sugere o que dá para reservar.
+  const lista = await json("public/dados/nacoes/restritos/receita/p1.json");
+  assert.ok(Array.isArray(lista));
+  const esgotadosRestritos = (await json("app/nacoes-unidas/produtos/dados/receita-nacoes.json")).receita.concat((await json("app/nacoes-unidas/produtos/dados/receita-nacoes.json")).controlados).filter((i) => i.esgotado === true).length;
+  assert.equal(busca.length, idx.receita.total + idx.controlados.total + idx.consulte.total - esgotadosRestritos);
   assert.ok(busca.every((i) => ["receita", "controlados", "consulte"].includes(i.tipo) && typeof i.busca === "string"));
   const header = await read("app/shop/ShopHeader.tsx");
   assert.match(header, /restritos-busca\.json/);
@@ -351,9 +355,15 @@ test("itens 'consulte o farmacêutico' viraram produtos comuns, achados na busca
   assert.match(await read("next.config.ts"), /consulte-o-farmaceutico", destination: "\/departamentos\/medicamentos", permanent: true/);
 });
 
-test("estoque: esgotado some das listas e da busca mas a página segue aberta; sem texto 'Resta N'", async () => {
+test("estoque: esgotado aparece nas listas com selo, sem cesta, e fica fora das sugestões; sem texto 'Resta N'", async () => {
   const gen = await read("scripts/gerar-assets-catalogo.mjs");
   assert.match(gen, /esgotado !== true/);
+  assert.match(gen, /\.\.\.\(item\.esgotado === true \? \{ esgotado: true \} : \{\}\)/);
+  const lista = await read("app/nacoes-unidas/produtos/CatalogoLista.tsx");
+  assert.match(lista, /esgotado=\{item\.esgotado\}/);
+  assert.doesNotMatch(lista, /estoque-publico/, "a lista não soma o estoque cru do PC: dupla contagem e quantidade exposta");
+  const cartaoEsg = await read("app/nacoes-unidas/produtos/CartaoPanvel.tsx");
+  assert.match(cartaoEsg, /pv-esgotado/);
   const cat = await read("app/nacoes-unidas/produtos/catalogo.ts");
   assert.match(cat, /export function carregarCatalogoCompleto/);
   assert.match(cat, /filter\(\(i\) => i\.esgotado !== true\)/);

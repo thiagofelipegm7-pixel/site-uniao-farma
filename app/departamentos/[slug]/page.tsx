@@ -12,7 +12,7 @@ import { getPageStructuredData } from "../../structured-data";
 import type { GrupoBusca } from "../../nacoes-unidas/produtos/busca";
 import CatalogoLista from "../../nacoes-unidas/produtos/CatalogoLista";
 import MedicamentosTodos from "../../nacoes-unidas/produtos/MedicamentosTodos";
-import { carregarCatalogoNacoes, formatBRL, slugify } from "../../nacoes-unidas/produtos/catalogo";
+import { carregarCatalogoCompleto, formatBRL, slugify } from "../../nacoes-unidas/produtos/catalogo";
 import { acharDepartamento, departamentosPublicos } from "../../nacoes-unidas/produtos/departamentos";
 import { tipoDoProduto } from "../../nacoes-unidas/produtos/arvore-categorias";
 import { fotoExibida } from "../../nacoes-unidas/produtos/foto-exibida";
@@ -52,10 +52,11 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
   });
 
   // A lista já vai no HTML (o Google lê sem precisar rodar JavaScript); o navegador continua filtrando e ordenando.
-  const itens = carregarCatalogoNacoes()
+  // Esgotados aparecem depois dos que têm estoque, com o selo "Esgotado".
+  const itens = carregarCatalogoCompleto()
     .itens.filter((i) => slugify(i.categoria) === dep.slug)
-    .sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"))
-    .map((i) => ({ nome: nomeDeExibicao(i.nome), lab: i.lab, isMIP: i.isMIP, restam: i.restam, precoFmt: formatBRL(i.preco), preco: i.preco, foto: fotoExibida(i.nome, i.categoria), slug: slugify(i.nome), tipo: tipoDoProduto(i.nome, i.categoria) }));
+    .sort((a, b) => Number(a.esgotado === true) - Number(b.esgotado === true) || a.nome.localeCompare(b.nome, "pt-BR"))
+    .map((i) => ({ nome: nomeDeExibicao(i.nome), lab: i.lab, isMIP: i.isMIP, restam: i.restam, ...(i.esgotado ? { esgotado: true } : {}), precoFmt: formatBRL(i.preco), preco: i.preco, foto: fotoExibida(i.nome, i.categoria), slug: slugify(i.nome), tipo: tipoDoProduto(i.nome, i.categoria) }));
   const grupos: GrupoBusca[] = [{ categoria: dep.nome, id: dep.slug, itens }];
   const pagina = `${SITE_URL}/departamentos/${dep.slug}`;
   const structuredData = getPageStructuredData({
@@ -93,7 +94,7 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
         </nav>
         <div className="section-inner" id="lista">
           {dep.slug === "medicamentos" ? (
-            <MedicamentosTodos paginaInicial={paginaPedida} otcInicial={itens.map((i) => ({ nome: i.nome, slug: i.slug, lab: i.lab, precoFmt: i.precoFmt, foto: i.foto, isMIP: i.isMIP }))} unitId={nacoes.id} />
+            <MedicamentosTodos paginaInicial={paginaPedida} otcInicial={itens.map((i) => ({ nome: i.nome, slug: i.slug, lab: i.lab, precoFmt: i.precoFmt, foto: i.foto, isMIP: i.isMIP, esgotado: i.esgotado }))} unitId={nacoes.id} />
           ) : (
             <CatalogoLista paginaInicial={paginaPedida} grupos={grupos} departamento={dep.slug} whatsappHref={whatsappHref} unitId={nacoes.id} />
           )}

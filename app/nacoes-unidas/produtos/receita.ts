@@ -49,6 +49,8 @@ export type ItemRestrito = {
   apresentacao: string | null;
   /** 1 a 5 unidades em estoque ("Resta 2"). */
   restam?: number;
+  /** Estoque zero: aparece com o selo "Esgotado" e sem botão de cesta. */
+  esgotado?: boolean;
   aviso: string;
   controlado: boolean;
   /** Campos pré-calculados nos dados gerados (nome de exibição e endereço). */

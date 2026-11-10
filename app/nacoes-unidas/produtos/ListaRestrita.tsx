@@ -64,7 +64,7 @@ const TEXTOS: Record<TipoRestrito, { titulo: string; h1: string; intro: string; 
 
 export function Cartao({ item }: { item: ItemRestrito }) {
   const nome = item.nomeExibicao ?? item.nome;
-  const pedeCesta = item.tipo !== "consulte" && item.preco !== null && item.preco > 0;
+  const pedeCesta = item.tipo !== "consulte" && item.preco !== null && item.preco > 0 && !item.esgotado;
   return (
     <CartaoPanvel
       tipo={item.tipo}
@@ -76,6 +76,7 @@ export function Cartao({ item }: { item: ItemRestrito }) {
       foto={imagemIlustrativa(item)}
       precoFmt={item.preco !== null ? formatBRL(item.preco) : null}
       restam={item.restam}
+      esgotado={item.esgotado}
       cesta={
         pedeCesta ? (
           <ReservarBotao

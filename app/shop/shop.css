@@ -1752,3 +1752,7 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .shop-destaques-lista > .pv-card--v { flex: 0 0 11.5rem; }
 @media (min-width: 992px) { .shop-destaques-lista > .pv-card--v { flex: 0 0 15.75rem; } }
 @media (prefers-reduced-motion: reduce) { .pv-card, .pv-adicionar { transition: none; } }
+
+/* Esgotado: foto e nome mais apagados e um selo cinza no lugar do botão da cesta (sem ação, sem estoque no PC). */
+.pv-card--esgotado .pv-img, .pv-card--esgotado .pv-nome, .pv-card--esgotado .pv-preco { opacity: 0.55; }
+.pv-esgotado { display: flex; align-items: center; justify-content: center; box-sizing: border-box; width: 100%; min-height: 2.75rem; padding: 0 12px; border: 1.5px solid #c5cecc; border-radius: 999px; background: #f1f4f3; color: #4a5654; font-size: 1rem; font-weight: 600; }
