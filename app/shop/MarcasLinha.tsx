@@ -27,7 +27,7 @@ function Logo({ marca }: { marca: MarcaDestaque }) {
 }
 
 /** Faixa de logos das marcas com mais produtos em estoque. Cada logo abre a busca da marca. */
-export function MarcasLinha() {
+export function MarcasLinha({ marcas = MARCAS_DESTAQUE }: { marcas?: readonly MarcaDestaque[] } = {}) {
   const trilho = useRef<HTMLUListElement>(null);
   const rolar = (sentido: 1 | -1) => {
     const el = trilho.current;
@@ -43,9 +43,9 @@ export function MarcasLinha() {
           <IconVoltar size={18} />
         </button>
         <ul className="shop-marcas-trilho" ref={trilho}>
-          {MARCAS_DESTAQUE.map((marca) => (
+          {marcas.map((marca) => (
             <li key={marca.slug}>
-              <a className={marca.cheia ? "is-cheia" : undefined} href={`/nacoes-unidas/produtos?q=${encodeURIComponent(marca.busca)}`} aria-label={`Ver produtos ${marca.nome}`}>
+              <a className={marca.cheia ? "is-cheia" : undefined} href={marca.href ?? `/nacoes-unidas/produtos?q=${encodeURIComponent(marca.busca)}`} aria-label={`Ver produtos ${marca.nome}`}>
                 <Logo marca={marca} />
               </a>
             </li>
