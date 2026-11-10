@@ -2003,3 +2003,9 @@ html body .marcas-pagina .shop-marcas-trilho { padding-inline: 0; }
   html body .marcas-pagina .shop-marcas-trilho a { width: 5.5rem !important; height: 5.5rem !important; padding: 0.9375rem !important; }
   html body .marcas-pagina .shop-marcas-trilho a.is-cheia { padding: 0 !important; }
 }
+
+/* Barra de busca do cabeçalho: totalmente arredondada (pílula), com o botão da lupa redondo. */
+html body .shop-busca { border-radius: 999px; padding-left: 1.25rem; }
+html body .shop-busca button { border-radius: 50%; }
+@layer design { html body .shop-busca { border-radius: 999px !important; } html body .shop-busca button { border-radius: 50% !important; } }
+@media (min-width: 992px) { html body .shop-busca { padding-left: 1.5rem; } }
