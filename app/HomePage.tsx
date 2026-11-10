@@ -10,6 +10,7 @@ import DestaquesSemana from "./shop/DestaquesSemana";
 import PainelBanners from "./shop/PainelBanners";
 import { SubmenuHome } from "./shop/HomeBlocos";
 import { CategoriasLinha } from "./shop/ShopSections";
+import { MarcasLinha } from "./shop/MarcasLinha";
 
 /**
  * Home na estrutura da home da Panvel: cabeçalho e submenu, banner (único h1), cartões de benefícios,
@@ -37,6 +38,7 @@ export default function HomePage() {
       <DestaquesSemana id="vitrine-sem-receita" titulo="Medicamentos" grupo="medicamentos" n={12} verTodas={false} source="home_mips" />
       <DestaquesSemana id="vitrine-suplementos" titulo="Bem Estar" grupo="bem-estar" n={12} verTodas={false} source="home_suplementos" />
       <DestaquesSemana id="vitrine-ate-10" titulo="Até R$ 10,00" ate={1000} n={12} verTodas={false} source="home_ate_10" />
+      <MarcasLinha />
       <DestaquesSemana id="vitrine-unilever" titulo="Unilever" lab="UNILEVER" n={12} verTodas={false} source="home_unilever" />
       <DestaquesSemana id="vitrine-farmax" titulo="Farmax" lab="FARMAX" n={12} verTodas={false} source="home_farmax" />
       <DestaquesSemana id="vitrine-cimed" titulo="Cimed" lab="CIMED" n={12} verTodas={false} source="home_cimed" />

@@ -1,0 +1,2 @@
+Coloque aqui o logo de cada marca com o nome do arquivo igual ao slug (ex.: dove.png, nivea.svg, salon-line.webp). Aceita png, svg, webp ou jpg.
+Enquanto o logo nao existir, o site mostra o nome da marca em texto.
