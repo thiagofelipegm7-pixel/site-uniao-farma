@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { IconSetaDireita, IconVoltar } from "../reserva/ReservaIcons";
-import { BANNERS_PAINEL, type BannerPainel } from "./painel-banners";
+import type { BannerPainel } from "./painel-banners";
 import "./painel-banners.css";
 
 function Arte({ banner }: { banner: BannerPainel }) {
@@ -24,21 +24,41 @@ const INTERVALO_MS = 5000;
  * (clones dos primeiros banners fecham a volta) e o ponto ativo vira uma pílula. Sem movimento automático para quem pede menos movimento.
  * `titulo` cria o h1 da página (só a home usa). Funciona com toque, mouse, teclado e leitor de tela.
  */
-export default function PainelBanners({ banners = BANNERS_PAINEL, titulo, fonte, aoEnviar }: { banners?: BannerPainel[]; titulo?: string; /** Lista pronta (prévia no painel interno): usada no lugar da busca dos banners publicados. */ fonte?: BannerPainel[]; /** Modo de edição do painel interno: tocar no banner escolhe um arquivo para enviar ou trocar a arte dele. */ aoEnviar?: (banner: BannerPainel, arquivo: File) => void }) {
+export default function PainelBanners({ titulo, fonte, aoEnviar }: { titulo?: string; /** Lista pronta (prévia no painel interno): usada no lugar da busca dos banners publicados. */ fonte?: BannerPainel[]; /** Modo de edição do painel interno: tocar no banner escolhe um arquivo para enviar ou trocar a arte dele. */ aoEnviar?: (banner: BannerPainel, arquivo: File) => void }) {
   const faixa = useRef<HTMLUListElement>(null);
   const [atual, setAtual] = useState(0);
   const [custom, setCustom] = useState<BannerPainel[] | null>(null);
+  // No site, o carrossel só existe quando há arte enviada: sem arte não aparece nenhum espaço em branco.
+  const [carregado, setCarregado] = useState(false);
+  // Se da última vez havia banners, reserva o espaço enquanto busca (a página não "pula" quando a arte chega).
+  const [reservar, setReservar] = useState(false);
   useEffect(() => {
     if (fonte) return;
+    try {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- lê a preferência guardada neste aparelho (só existe no navegador)
+      setReservar(window.localStorage.getItem("uf_banners") === "1");
+    } catch {
+      // sem armazenamento: só não reserva o espaço
+    }
     fetch("/api/banners-publico", { cache: "no-store" })
       .then((r) => r.json())
       .then((d: { banners?: { id: string; url: string }[] }) => {
-        const lista = d.banners?.filter((b) => b.id.startsWith("hero-")).map((b) => ({ id: b.id, imagem: b.url, alt: "Oferta da União Farma", href: "/nacoes-unidas/produtos" })) ?? [];
+        const lista = (d.banners ?? [])
+          .filter((b) => b.id.startsWith("hero-"))
+          .sort((a, b) => (Number(a.id.replace("hero-", "")) || 0) - (Number(b.id.replace("hero-", "")) || 0))
+          .map((b) => ({ id: b.id, imagem: b.url, alt: "Oferta da União Farma", href: "/nacoes-unidas/produtos" }));
         if (lista.length) setCustom(lista);
+        try {
+          window.localStorage.setItem("uf_banners", lista.length ? "1" : "0");
+        } catch {
+          // sem armazenamento
+        }
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setCarregado(true));
   }, [fonte]);
-  const lista = fonte ?? custom ?? banners;
+  const publico = !fonte;
+  const lista = fonte ?? custom ?? [];
   const pausado = useRef(false);
   const parou = useRef<ReturnType<typeof setTimeout> | null>(null);
   const n = lista.length;
@@ -115,7 +135,11 @@ export default function PainelBanners({ banners = BANNERS_PAINEL, titulo, fonte,
     return () => window.clearInterval(id);
   }, [loop, ir]);
 
-  if (n === 0) return null;
+  if (n === 0) {
+    // Sem arte no site: nada de faixa vazia. O título da página (só a home) continua para leitores de tela.
+    if (publico && !carregado && reservar) return <section className="painel" aria-hidden="true"><div className="painel-arte painel-arte--reserva" /></section>;
+    return titulo ? <h1 className="sr-only">{titulo}</h1> : null;
+  }
 
   const pausar = () => {
     pausado.current = true;
