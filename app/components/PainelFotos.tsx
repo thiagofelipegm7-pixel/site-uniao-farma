@@ -549,7 +549,7 @@ export default function PainelFotos() {
                 data-ean={l.ean}
                 tabIndex={0}
                 onFocus={() => setAlvoColar(l.ean)}
-                style={{ background: "#fff", borderRadius: "12px", padding: "1rem", border: "1px solid #d3e2df", boxShadow: "0 1px 3px rgba(0,0,0,0.06)", borderRadius: "12px", position: "relative", width: "100%", minHeight: "180px", maxWidth: "200px", display: "flex", flexDirection: "column", gap: "0.5rem", overflow: "hidden" }}
+                style={{ background: "#fff", borderRadius: "12px", padding: "0.75rem", border: "1px solid #d3e2df", boxShadow: "0 1px 3px rgba(0,0,0,0.06)", position: "relative", width: "100%", height: "200px", display: "flex", flexDirection: "column", justifyContent: "space-between", overflow: "hidden" }}
               >
                 <button type="button" onClick={() => setProdutoConfig(l.ean)} aria-label="Configurar produto" style={{ position: "absolute", top: "0.5rem", right: "0.5rem", background: "none", border: "none", cursor: "pointer", fontSize: "1rem", zIndex: 1 }}>⚙️</button>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "60px", flexShrink: 0 }}>
@@ -564,7 +564,7 @@ export default function PainelFotos() {
                     </label>
                   )}
                 </div>
-                <div style={{ fontWeight: 600, fontSize: "0.8rem", textAlign: "center", lineHeight: 1.2, marginBottom: "0.25rem", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", textOverflow: "ellipsis" }} title={nomeAtual(l).texto}>
+                <div style={{ fontWeight: 600, fontSize: "0.75rem", textAlign: "center", lineHeight: 1.2, height: "2.4em", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", overflow: "hidden", textOverflow: "ellipsis" }} title={nomeAtual(l).texto}>
                   {nomeAtual(l).texto}
                 </div>
                 <div style={{ display: "grid", gap: "0.15rem", fontSize: "0.7rem", color: "#3e4b49" }}>
