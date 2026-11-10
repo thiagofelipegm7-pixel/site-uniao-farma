@@ -158,7 +158,6 @@ export default function PainelCatalogo() {
               </div>
             </section>
 
-            <p className="painel-nota painel-ritmo">{dados.ajuda.ritmo}</p>
 
             <div className="metrics-grid">
               <article className="metrics-card">
