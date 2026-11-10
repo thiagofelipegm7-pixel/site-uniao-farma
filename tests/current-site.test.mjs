@@ -45,7 +45,7 @@ test("home: 'Navegue por categoria' é faixa horizontal com cards menores e scro
   ]);
   assert.match(sec, /shop-categorias-trilho/);
   assert.match(sec, /Navegue por categoria/);
-  assert.match(sec, /icons\/categorias\/medicamentos\.webp/);
+  assert.match(sec, /\/categorias\/medicamentos\.jpg/);
   // Pedido da loja: sem card "Ofertas" na faixa (página /ofertas permanece).
   assert.doesNotMatch(sec, /rotulo: "Ofertas"/);
   assert.doesNotMatch(sec, /href: "\/ofertas"/);
