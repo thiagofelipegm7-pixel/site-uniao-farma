@@ -45,3 +45,26 @@ export const MARCAS_MEDICAMENTOS: readonly MarcaDestaque[] = [
   { slug: "medley", nome: "Medley", busca: "medley", href: emMedicamentos("medley") },
   { slug: "bayer", nome: "Bayer", busca: "bayer", href: emMedicamentos("bayer") },
 ];
+
+/**
+ * Marcas da faixa do departamento Dermocosméticos (contagem de produtos não esgotados: Farmax 12, Nivea 8, Dove 7, Cetaphil 3,
+ * CeraVe, Neutrogena, Sundown, Cicatricure e Monange 2 cada). O clique filtra a lista do próprio departamento.
+ */
+const emDermocosmeticos = (termo: string) => `/departamentos/dermocosmeticos?q=${encodeURIComponent(termo)}`;
+export const MARCAS_DERMOCOSMETICOS: readonly MarcaDestaque[] = [
+  { slug: "farmax", nome: "Farmax", busca: "farmax", href: emDermocosmeticos("farmax") },
+  { slug: "nivea", nome: "Nivea", busca: "nivea", href: emDermocosmeticos("nivea") },
+  { slug: "dove", nome: "Dove", busca: "dove", href: emDermocosmeticos("dove") },
+  { slug: "cetaphil", nome: "Cetaphil", busca: "cetaphil", href: emDermocosmeticos("cetaphil") },
+  { slug: "cerave", nome: "CeraVe", busca: "cerave", href: emDermocosmeticos("cerave") },
+  { slug: "neutrogena", nome: "Neutrogena", busca: "neutrog", cheia: true, href: emDermocosmeticos("neutrog") },
+  { slug: "sundown", nome: "Sundown", busca: "sundown", href: emDermocosmeticos("sundown") },
+  { slug: "cicatricure", nome: "Cicatricure", busca: "cicatricure", href: emDermocosmeticos("cicatricure") },
+  { slug: "monange", nome: "Monange", busca: "monange", cheia: true, href: emDermocosmeticos("monange") },
+];
+
+/** Faixa de cada departamento. Sem entrada aqui, a página usa a faixa geral (MARCAS_DESTAQUE). */
+export const MARCAS_POR_DEPARTAMENTO: Readonly<Record<string, readonly MarcaDestaque[]>> = {
+  medicamentos: MARCAS_MEDICAMENTOS,
+  dermocosmeticos: MARCAS_DERMOCOSMETICOS,
+};
