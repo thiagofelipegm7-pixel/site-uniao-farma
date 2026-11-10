@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { ContentSiteFooter } from "../../ContentSiteChrome";
 import { IconSetaDireita } from "../../reserva/ReservaIcons";
 import BarraReserva from "../../shop/BarraReserva";
+import { MarcasLinha } from "../../shop/MarcasLinha";
 import PainelBanners from "../../shop/PainelBanners";
 import ShopTopo from "../../shop/ShopTopo";
 import { COMPANY } from "../../company";
@@ -84,6 +85,9 @@ export default async function ProdutosNacoesPage() {
           <span>Todos os produtos</span>
         </nav>
         <h1 className="catalogo-titulo section-inner">Todos os produtos</h1>
+        <div className="section-inner marcas-pagina">
+          <MarcasLinha />
+        </div>
         <div className="section-inner" id="lista">
           <CatalogoLista
               consultaInicial={consultaInicial}
