@@ -5,7 +5,7 @@ import { ContentSiteFooter } from "../../ContentSiteChrome";
 import { IconSetaDireita } from "../../reserva/ReservaIcons";
 import BarraReserva from "../../shop/BarraReserva";
 import { MarcasLinha } from "../../shop/MarcasLinha";
-import { MARCAS_MEDICAMENTOS } from "../../shop/marcas";
+import { MARCAS_POR_DEPARTAMENTO } from "../../shop/marcas";
 import PainelBanners from "../../shop/PainelBanners";
 import ShopTopo from "../../shop/ShopTopo";
 import { nomeDeExibicao } from "../../nome-exibicao";
@@ -87,7 +87,7 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
         </nav>
         <h1 className="catalogo-titulo section-inner">{dep.nome}</h1>
         <div className="section-inner marcas-pagina">
-          <MarcasLinha marcas={dep.slug === "medicamentos" ? MARCAS_MEDICAMENTOS : undefined} />
+          <MarcasLinha marcas={MARCAS_POR_DEPARTAMENTO[dep.slug]} />
         </div>
         
         <div className="section-inner" id="lista">
