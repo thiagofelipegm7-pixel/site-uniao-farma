@@ -131,7 +131,7 @@ test("descrições: medicamento ganha o aviso da bula; os demais não; NBCAL nã
   if (slugMed) assert.ok(descricaoPublica(slugMed, true).texto.endsWith(AVISO_BULA));
   assert.ok(!descricaoPublica(slugComum, false).texto.includes("bula"));
   assert.equal(descricaoDoProduto("slug-que-nao-existe"), null);
-  assert.ok(["ia", "modelo"].includes(descricaoDoProduto(slugComum).origem));
+  assert.ok(["ia", "modelo", "pesquisa"].includes(descricaoDoProduto(slugComum).origem));
   const pagina = await lerTexto("app/nacoes-unidas/produtos/[slug]/page.tsx");
   assert.match(pagina, /data-descricao-origem/);
   assert.match(pagina, /ehNbcal\(item\.nome\) \? null : descricaoPublica/);
@@ -143,4 +143,36 @@ test("descrições: metadados usam a descrição quando existe e mantêm o texto
   assert.match(descricaoMetadata("Shampoo X"), /^Shampoo X na União Farma/);
   const ld = jsonLdProduto({ nome: "Shampoo X", lab: "Y", categoria: "Beleza", url: "https://exemplo/p", image: null, descricao: "Texto curto." });
   assert.match(ld.description, /^Texto curto\./);
+});
+
+test("descrições pesquisadas: arquivo próprio, só produto comum, sem promessa de efeito, com fonte, e vale mais que a de IA", async () => {
+  const { descricaoDoProduto, descricaoPublica } = await import("../app/nacoes-unidas/produtos/descricoes.ts");
+  const { ehNbcal } = await import("../app/nacoes-unidas/produtos/produto.ts");
+  const { ehFormulaInfantil } = await rel();
+  const pesquisadas = await lerJson("app/nacoes-unidas/produtos/dados/descricoes-pesquisa.json");
+  const ia = await lerJson("app/nacoes-unidas/produtos/dados/descricoes-ia.json");
+  const catalogo = await porSlug();
+  const PROMESSAS = /\bcura\w*|\btrata\w*|\btratamento|\balivia\w*|\bprev[eé]m\w*|\bcombat\w*|\bclinicamente|\bcomprovad\w*|\beficaz\w*|\bgarant\w*|\bhipoalerg\w*|\bdermatologicamente|\bsem efeitos?\b|\b\d+ ?horas\b|\bpara que serve\b|R\$|[!?]/i;
+  const slugs = Object.keys(pesquisadas);
+  assert.ok(slugs.length >= 10);
+  for (const slug of slugs) {
+    const d = pesquisadas[slug];
+    assert.ok(typeof d.t === "string" && d.t.length >= 20 && d.t.length <= 600, slug);
+    assert.match(d.fonte, /^https:\/\//, `${slug}: fonte precisa ser um link https`);
+    assert.match(d.quando, /^\d{4}-\d{2}-\d{2}$/, slug);
+    assert.doesNotMatch(d.t, PROMESSAS, `${slug}: promessa de efeito no texto: ${d.t}`);
+    const item = catalogo.get(slug);
+    if (!item) continue; // saiu do catálogo: o texto fica guardado para quando voltar
+    assert.ok(!item.isMIP, `medicamento não entra na pesquisa sem decisão do responsável técnico: ${slug}`);
+    assert.ok(!ehNbcal(item.nome) && !ehFormulaInfantil(item.nome), `NBCAL/fórmula infantil com texto pesquisado: ${slug}`);
+    const publica = descricaoPublica(slug, false);
+    assert.equal(publica.origem, "pesquisa");
+    assert.equal(publica.fonte, d.fonte);
+    if (ia[slug]) assert.equal(publica.texto, d.t.trim(), "o texto pesquisado vale mais que o de IA");
+  }
+  assert.equal(descricaoDoProduto("slug-que-nao-existe"), null);
+  const pagina = await lerTexto("app/nacoes-unidas/produtos/[slug]/page.tsx");
+  assert.match(pagina, /pdp-fonte/, "a página mostra a fonte");
+  const podar = await lerTexto("scripts/podar-dados-ia.mjs");
+  assert.doesNotMatch(podar, /descricoes-pesquisa/, "a poda de IA não mexe nas descrições pesquisadas");
 });

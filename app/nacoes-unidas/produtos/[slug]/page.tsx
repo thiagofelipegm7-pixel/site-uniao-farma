@@ -154,6 +154,11 @@ export default async function ProdutoNacoesPage({ params }: Props) {
             {textos.descricao || textos.paraQueServe || textos.destaques ? (
               <>
                 {textos.descricao ? <p>{textos.descricao}</p> : null}
+                {descricaoIA?.fonte ? (
+                  <p className="pdp-fonte">
+                    Fonte: <a href={descricaoIA.fonte} target="_blank" rel="noreferrer noopener">{new URL(descricaoIA.fonte).hostname.replace(/^www\./, "")}</a>
+                  </p>
+                ) : null}
                 {textos.paraQueServe ? (
                   <>
                     <h3>Para que serve</h3>
