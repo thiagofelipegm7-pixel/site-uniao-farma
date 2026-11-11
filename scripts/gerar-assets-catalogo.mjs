@@ -219,6 +219,7 @@ const grupos = [...gruposMap.entries()]
 
 const POR_PAGINA = 48;
 const buscaIndex = [];
+const esgotadosBusca = [];
 const paginasIndex = []; // for client to know pages
 
 for (const g of grupos) {
@@ -244,6 +245,10 @@ for (const g of grupos) {
       foto,
       busca,
     };
+    if (item.esgotado === true) {
+      // Só o painel de busca do cabeçalho lê esta lista (mostra "Esgotado"); a cesta e a leitura de receita continuam sem esgotados.
+      esgotadosBusca.push({ nome: nomeEx, slug, foto, busca });
+    }
     if (item.esgotado !== true) {
       buscaIndex.push({
         nome: nomeEx,
@@ -293,6 +298,12 @@ function paginarEEscrever(itensFmt, prefixo) {
   }
   return { total: itensFmt.length, paginas };
 }
+
+// Esgotados (sem receita, receita e controlados) para o painel de busca avisar "Esgotado". Arquivo separado: não entra na cesta nem na leitura de receita.
+for (const i of [...receitaFmt, ...controladosFmt]) {
+  if (i.esgotado === true) esgotadosBusca.push({ nome: i.nomeExibicao, slug: i.slug, foto: null, busca: i.busca });
+}
+writeJson("esgotados-busca.json", esgotadosBusca);
 
 const recInfo = paginarEEscrever(receitaFmt, "receita");
 const ctlInfo = paginarEEscrever(controladosFmt, "controlados");

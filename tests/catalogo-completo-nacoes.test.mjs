@@ -464,3 +464,22 @@ test("árvore de categorias: o site e o gerador da busca classificam igual, e a 
   assert.ok(total > 500);
   assert.ok(classificados / total >= 0.7, `só ${classificados} de ${total} produtos caíram numa categoria`);
 });
+
+test("esgotados na busca do cabeçalho: arquivo próprio, sem misturar com a cesta nem com a leitura de receita", async () => {
+  const esg = await json("public/dados/nacoes/esgotados-busca.json");
+  const catalogo = await json("app/nacoes-unidas/produtos/dados/catalogo-nacoes.json");
+  const receita = await json("app/nacoes-unidas/produtos/dados/receita-nacoes.json");
+  const totalEsgotados = catalogo.itens.filter((i) => i.esgotado === true).length + [...receita.receita, ...receita.controlados].filter((i) => i.esgotado === true).length;
+  assert.equal(esg.length, totalEsgotados);
+  assert.ok(esg.every((i) => typeof i.nome === "string" && typeof i.slug === "string" && i.slug && typeof i.busca === "string"));
+  // Quem está em estoque continua só em catalogo-busca.json: nenhum slug nos dois.
+  const emEstoque = new Set((await json("public/dados/nacoes/catalogo-busca.json")).map((i) => i.slug));
+  assert.equal(esg.filter((i) => emEstoque.has(i.slug)).length, 0);
+  // Só o painel de busca lê o arquivo; a cesta, a leitura de receita e o fluxo do pedido seguem sem esgotados.
+  const header = await read("app/shop/ShopHeader.tsx");
+  assert.match(header, /esgotados-busca\.json/);
+  assert.match(header, /<em>Esgotado<\/em>/);
+  for (const outro of ["app/reserva/CestaSugestoes.tsx", "app/reserva/ReservaFluxo.tsx", "app/receita-foto/LerReceita.tsx"]) {
+    assert.doesNotMatch(await read(outro), /esgotados-busca/, outro);
+  }
+});
