@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
-import { BUSCAS_POPULARES, normalizarBusca, termosDeBusca } from "../nacoes-unidas/produtos/busca";
+import { BUSCAS_POPULARES, normalizarBusca, termosDaConsulta } from "../nacoes-unidas/produtos/busca";
 import { carregarBuscasRecentes, guardarBuscasRecentes, registrarBusca, removerBusca } from "./buscas-recentes";
 import { atalhosDaBusca, destacarTrechos, melhoresResultados } from "./busca-painel";
 import { analisarConsulta, casaConsulta, contarCasos, criarVocabulario } from "../nacoes-unidas/produtos/busca-tolerante";
@@ -115,7 +115,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   // O campo responde na hora; a busca nos produtos acompanha logo atrás (não trava a digitação no celular).
   const termoBusca = useDeferredValue(termo);
   const normal = normalizarBusca(termoBusca);
-  const termos = termosDeBusca(termoBusca);
+  const termos = termosDaConsulta(termoBusca);
   // Só os primeiros resultados são mostrados: para de procurar ao achar o suficiente.
   const exatos = useMemo(() => (normal.length >= 2 && itens ? melhoresResultados(itens, (item) => termos.every((t) => item.busca.includes(t)), termos, (item) => item.nome, (item) => item.foto !== null, 6) : []), [normal, itens]); // eslint-disable-line react-hooks/exhaustive-deps -- `termos` vem de `normal`
   const exatosRestritos = useMemo(() => (normal.length >= 2 ? melhoresResultados(restritos, (item) => termos.every((t) => item.busca.split(" ").some((palavra) => palavra.startsWith(t))), termos, (item) => item.nome, () => false, 4) : []), [normal, restritos]); // eslint-disable-line react-hooks/exhaustive-deps -- `termos` vem de `normal`
@@ -134,7 +134,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   }, [itens, restritos, normal, termoBusca, exatos.length, exatosRestritos.length, exatosEsgotados.length]);
   const corrigida = analise?.corrigida ?? null;
   const sugerida = analise?.sugerida ?? null;
-  const termosCorrigidos = useMemo(() => (corrigida ? termosDeBusca(corrigida) : []), [corrigida]);
+  const termosCorrigidos = useMemo(() => (corrigida ? termosDaConsulta(corrigida) : []), [corrigida]);
   const resultados = corrigida ? melhoresResultados(itens ?? [], (item) => casaConsulta(item.busca, corrigida), termosCorrigidos, (item) => item.nome, (item) => item.foto !== null, 6) : exatos;
   // Medicamentos com receita e controlados também aparecem na busca (lista de preços, sem cesta).
   const resultadosRestritos = corrigida ? melhoresResultados(restritos, (item) => casaConsulta(item.busca, corrigida), termosCorrigidos, (item) => item.nome, () => false, 4) : exatosRestritos;

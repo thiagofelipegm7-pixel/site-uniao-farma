@@ -92,21 +92,44 @@ function combina(termos: string[], ...campos: string[]): boolean {
   return termos.every((termo) => alvo.includes(termo));
 }
 
+const PALAVRAS_DE_LIGACAO = new Set(["de", "da", "do", "das", "dos", "para", "pra", "com", "em", "no", "na"]);
+
+/**
+ * Palavras da busca como o cliente digita: sem as de ligação ("teste de covid" busca "teste" e "covid"), desde que sobre alguma palavra.
+ * Só a busca do cliente usa; `termosDeBusca` continua igual para quem casa nomes de medicamento (receita).
+ */
+export function termosDaConsulta(consulta: string): string[] {
+  // Hífen e barra separam palavras ("covid-19" vira "covid" e "19"), como nos arquivos de busca.
+  const todos = termosDeBusca(consulta.replace(/[-/]/g, " "));
+  const uteis = todos.filter((t) => !PALAVRAS_DE_LIGACAO.has(t));
+  return uteis.length > 0 ? uteis : todos;
+}
+
+/**
+ * Palavras que o cliente usa e que não estão no nome do produto (o nome vem do sistema da loja). Entram só na busca, nunca na tela.
+ * O gerador dos arquivos de busca (scripts/gerar-assets-catalogo.mjs) tem a mesma tabela; um teste confere que as duas saem iguais.
+ */
+export const SINONIMOS_BUSCA: ReadonlyArray<readonly [RegExp, string]> = [[/covid|sars/i, "teste rapido antigeno coronavirus sars cov 2 autoteste"]];
+
+export function sinonimosDe(nome: string): string {
+  return SINONIMOS_BUSCA.filter(([rx]) => rx.test(nome)).map(([, extra]) => extra).join(" ");
+}
+
 /** Como `filtrarGrupos`, mas o produto pode casar com qualquer uma das buscas (OU entre elas, E entre as palavras de cada uma). */
 export function filtrarGruposAlternativos(grupos: readonly GrupoBusca[], consultas: readonly string[]): GrupoBusca[] {
-  const listas = consultas.map(termosDeBusca).filter((termos) => termos.length > 0);
+  const listas = consultas.map(termosDaConsulta).filter((termos) => termos.length > 0);
   if (listas.length === 0) return grupos.map((grupo) => ({ ...grupo, itens: [...grupo.itens] }));
   return grupos
-    .map((grupo) => ({ ...grupo, itens: grupo.itens.filter((item) => listas.some((termos) => combina(termos, item.nome, item.lab, grupo.categoria))) }))
+    .map((grupo) => ({ ...grupo, itens: grupo.itens.filter((item) => listas.some((termos) => combina(termos, item.nome, item.lab, grupo.categoria, sinonimosDe(item.nome)))) }))
     .filter((grupo) => grupo.itens.length > 0);
 }
 
 /** Sem termo devolve tudo. Com termo, procura em nome, laboratório e categoria; grupos sem resultado somem. */
 export function filtrarGrupos(grupos: readonly GrupoBusca[], consulta: string): GrupoBusca[] {
-  const termos = termosDeBusca(consulta);
+  const termos = termosDaConsulta(consulta);
   if (termos.length === 0) return grupos.map((grupo) => ({ ...grupo, itens: [...grupo.itens] }));
   return grupos
-    .map((grupo) => ({ ...grupo, itens: grupo.itens.filter((item) => combina(termos, item.nome, item.lab, grupo.categoria)) }))
+    .map((grupo) => ({ ...grupo, itens: grupo.itens.filter((item) => combina(termos, item.nome, item.lab, grupo.categoria, sinonimosDe(item.nome))) }))
     .filter((grupo) => grupo.itens.length > 0);
 }
 

@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFile } from "node:fs/promises";
 import { atalhosDaBusca, melhoresResultados, pontuarRelevancia } from "../app/shop/busca-painel.ts";
 import { termosDeBusca } from "../app/nacoes-unidas/produtos/busca.ts";
 
@@ -97,4 +98,30 @@ test("faixa de marcas por departamento: Perfumes não tem faixa; os demais têm 
   assert.ok(MARCAS_POR_DEPARTAMENTO.beleza.length > 0, "Beleza tem lista própria");
   assert.equal(MARCAS_POR_DEPARTAMENTO["cuidado-diario"], undefined, "sem entrada: usa a faixa geral");
   assert.ok(MARCAS_DESTAQUE.length > 0);
+});
+
+test("busca do cliente: palavras de ligação não atrapalham e o teste de covid é achado pelos nomes que as pessoas usam", async () => {
+  const { termosDaConsulta, termosDeBusca, filtrarGrupos, sinonimosDe, SINONIMOS_BUSCA } = await import("../app/nacoes-unidas/produtos/busca.ts");
+  assert.deepEqual(termosDaConsulta("teste de covid"), ["teste", "covid"]);
+  assert.deepEqual(termosDaConsulta("Shampoo para cabelo"), ["shampoo", "cabelo"]);
+  assert.deepEqual(termosDaConsulta("teste de covid-19"), ["teste", "covid", "19"], "hífen separa palavras");
+  assert.deepEqual(termosDaConsulta("de"), ["de"], "se só sobrar palavra de ligação, mantém");
+  assert.deepEqual(termosDaConsulta("vitamina e"), ["vitamina", "e"], "'e' sozinho pode ser a vitamina E");
+  assert.deepEqual(termosDeBusca("teste de covid"), ["teste", "de", "covid"], "termosDeBusca (receita) não muda");
+  const grupos = [{ categoria: "Bem Estar", id: "bem-estar", itens: [
+    { nome: "AUTOTESTE COVID-19 SWAB NASAL CX C/01 UN", lab: "3M", isMIP: false, precoFmt: "R$ 19,90" },
+    { nome: "Teste de Gravidez Babysure", lab: "BABYSURE", isMIP: false, precoFmt: "R$ 25,00" },
+  ] }];
+  const acha = (q) => filtrarGrupos(grupos, q).flatMap((g) => g.itens).map((i) => i.nome);
+  for (const q of ["covid", "teste covid", "teste de covid", "teste de covid-19", "teste rápido", "teste rapido covid", "antígeno", "antigeno covid", "autoteste", "coronavirus"]) {
+    assert.deepEqual(acha(q), ["AUTOTESTE COVID-19 SWAB NASAL CX C/01 UN"], q);
+  }
+  assert.deepEqual(acha("teste de gravidez"), ["Teste de Gravidez Babysure"]);
+  // o gerador dos arquivos de busca tem a mesma tabela de sinônimos
+  const gerador = await readFile(new URL("../scripts/gerar-assets-catalogo.mjs", import.meta.url), "utf8");
+  for (const [rx, extra] of SINONIMOS_BUSCA) assert.ok(gerador.includes(`[${rx}, "${extra}"]`), `gerador sem o sinônimo ${rx}`);
+  assert.equal(sinonimosDe("Shampoo Dove"), "");
+  const busca = JSON.parse(await readFile(new URL("../public/dados/nacoes/catalogo-busca.json", import.meta.url), "utf8"));
+  const covid = busca.find((i) => /covid/i.test(i.nome));
+  assert.ok(covid && /antigeno/.test(covid.busca), "o arquivo de busca traz os sinônimos do teste de covid");
 });
