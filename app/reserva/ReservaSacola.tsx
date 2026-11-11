@@ -5,8 +5,10 @@ import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { EVENTO_ABRIR_RESERVA } from "./abrir-reserva";
 import { UNITS } from "../site-config";
-import { IconFechar, IconLixeira, IconMais, IconMenos, IconCestaLinha } from "./ReservaIcons";
-import { ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, formatarCentavos, limpar, subtotalCentavos, totalItens } from "./reserva-store";
+import { IconFechar, IconLixeira, IconSetaBaixo, IconCestaLinha } from "./ReservaIcons";
+import SemFoto from "../nacoes-unidas/produtos/SemFoto";
+import "./cesta-modal.css";
+import { ajustarLimitesAoVivo, atualizarReserva, definirQtd, itemAtivo, tetoDoItem, formatarCentavos, limpar, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
 import { useDisponibilidade } from "./useDisponibilidade";
 import { avisosDaCesta } from "../disponibilidade";
@@ -14,9 +16,9 @@ import CestaSugestoes from "./CestaSugestoes";
 
 const nomeLoja = (unitId: string) => UNITS.find((u) => u.id === unitId)?.shortName ?? "";
 
-const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
+const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-/** Sacola com contador e a gaveta "Minha cesta" (mini-carrinho). Fica na faixa de identidade, sob o cabeçalho. */
+/** Sacola com contador e o modal "Cesta" (mini-carrinho): bottom sheet no celular, cartão flutuante à direita no computador. */
 export default function ReservaSacola() {
   const estado = useReserva();
   const vivo = useDisponibilidade(estado.itens.length > 0);
@@ -102,67 +104,96 @@ export default function ReservaSacola() {
     setConfirmando(false);
   };
 
+  const semPreco = estado.itens.some((i) => itemAtivo(i) && !(i.precoCentavos > 0));
   const gaveta = (
-    <div className="reserva-gaveta-raiz" role="dialog" aria-modal="true" aria-labelledby="reserva-gaveta-titulo">
-      <button type="button" className="reserva-gaveta-fundo" aria-label="Fechar a cesta" tabIndex={-1} onClick={fechar} />
-      <div className="reserva-gaveta" ref={painelRef}>
-        <div className="reserva-gaveta-topo">
-          <h2 id="reserva-gaveta-titulo">Cesta · {total} {total === 1 ? "item" : "itens"}</h2>
-          <button ref={fecharRef} type="button" className="reserva-icone" aria-label="Fechar" onClick={fechar}>
-            <IconFechar size={24} />
+    <div className="reserva-gaveta-raiz cm-raiz" role="dialog" aria-modal="true" aria-labelledby="reserva-gaveta-titulo">
+      <button type="button" className="reserva-gaveta-fundo cm-fundo" aria-label="Fechar a cesta" tabIndex={-1} onClick={fechar} />
+      <div className="cm-card" ref={painelRef}>
+        <span className="cm-puxador" aria-hidden="true" />
+        <div className="cm-topo">
+          <div className="cm-titulos">
+            <h2 id="reserva-gaveta-titulo">Cesta</h2>
+            <p className="cm-contagem">{total} {total === 1 ? "item" : "itens"}</p>
+          </div>
+          <button ref={fecharRef} type="button" className="cm-fechar" aria-label="Fechar" onClick={fechar}>
+            <IconFechar size={22} />
           </button>
         </div>
 
-        <div className="reserva-gaveta-corpo">
+        <div className="cm-corpo">
           {estado.itens.length === 0 ? (
-            <div className="reserva-vazia">
+            <div className="reserva-vazia cm-vazia">
               <strong>Sua cesta está vazia.</strong>
               <p>Escolha seus produtos e pague só quando retirar.</p>
-              <a className="reserva-botao" href="/nacoes-unidas/produtos" onClick={fechar}>Ver produtos</a>
+              <a className="cm-botao cm-botao-cheio" href="/nacoes-unidas/produtos" onClick={fechar}>Ver produtos</a>
             </div>
           ) : (
             <>
-              <ul className="reserva-itens">
-                {estado.itens.map((item) => (
-                  <li key={item.id}>
-                    {item.foto ? <img src={item.foto} alt="" width="44" height="44" loading="lazy" decoding="async" /> : null}
-                    <div className="reserva-item-info">
-                      <span className="reserva-item-nome">{item.nome}</span>
-                      <small>{nomeLoja(item.unitId)}</small>
-                      {avisos.some((a) => a.id === item.id && a.tipo === "acabou") ? <small className="fluxo-aviso-estoque" role="alert">Acabou na loja agora</small> : null}
-                      <strong>{formatarCentavos(item.precoCentavos * item.qtd)}</strong>
-                      <div className="reservar-contador reservar-contador-pequeno" role="group" aria-label={`Quantidade de ${item.nome}`}>
-                        <button type="button" aria-label={item.qtd === 1 ? `Remover ${item.nome}` : `Diminuir ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, item.qtd - 1))}>
-                          {item.qtd === 1 ? <IconLixeira size={18} /> : <IconMenos size={18} />}
-                        </button>
-                        <output aria-live="polite">{item.qtd}</output>
-                        <button type="button" aria-label={`Aumentar ${item.nome}`} disabled={item.qtd >= tetoDoItem(item)} title={item.max && item.qtd >= item.max ? `Só restam ${item.max}` : undefined} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, item.qtd + 1))}>
-                          <IconMais size={18} />
-                        </button>
+              <ul className="cm-itens">
+                {estado.itens.map((item) => {
+                  const temPreco = item.precoCentavos > 0;
+                  // Preço "De" riscado só quando já veio confirmado no dado, e nunca em medicamento com receita ou controlado (Anvisa).
+                  const riscado = temPreco && !item.receita && item.deCentavos && item.deCentavos > item.precoCentavos ? item.deCentavos * item.qtd : null;
+                  const teto = Math.max(tetoDoItem(item), item.qtd);
+                  return (
+                    <li key={item.id} className="cm-item">
+                      <span className="cm-foto">
+                        {item.foto ? <img src={item.foto} alt="" width="64" height="64" loading="lazy" decoding="async" /> : <SemFoto className="cm-sem-foto" />}
+                      </span>
+                      <div className="cm-info">
+                        <div className="cm-linha-nome">
+                          <span className="cm-nome">{item.nome}</span>
+                          <button type="button" className="cm-lixeira" aria-label={`Remover ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, 0))}>
+                            <IconLixeira size={20} />
+                          </button>
+                        </div>
+                        <small className="cm-loja">{nomeLoja(item.unitId) ? `União Farma ${nomeLoja(item.unitId)}` : "União Farma"}</small>
+                        {item.receita ? <small className="cm-receita">{item.receita === "controlado" ? "Controlado: retirada na loja com receita" : "Exige receita: retirada na loja"}</small> : null}
+                        {avisos.some((a) => a.id === item.id && a.tipo === "acabou") ? <small className="fluxo-aviso-estoque" role="alert">Acabou na loja agora</small> : null}
+                        <div className="cm-linha-preco">
+                          <span className="cm-preco">
+                            {riscado ? <s>{formatarCentavos(riscado)}</s> : null}
+                            <strong>{temPreco ? formatarCentavos(item.precoCentavos * item.qtd) : "Consultar"}</strong>
+                          </span>
+                          <label className="cm-qtd" title={item.max && item.qtd >= item.max ? `Só restam ${item.max}` : undefined}>
+                            <span className="cm-sr">Quantidade de {item.nome}</span>
+                            <select value={item.qtd} onChange={(e) => { const qtd = Number(e.target.value); atualizarReserva((s) => definirQtd(s, item.id, qtd)); }}>
+                              {Array.from({ length: teto }, (_, n) => n + 1).map((n) => (
+                                <option key={n} value={n}>{n}</option>
+                              ))}
+                            </select>
+                            <IconSetaBaixo size={14} />
+                          </label>
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                ))}
+                    </li>
+                  );
+                })}
               </ul>
-              <CestaSugestoes itens={estado.itens} max={3} variante="gaveta" />
               {confirmando ? (
-                <div className="reserva-confirma" role="alertdialog" aria-label="Limpar a cesta?">
+                <div className="reserva-confirma cm-confirma" role="alertdialog" aria-label="Limpar a cesta?">
                   <strong>Limpar a cesta?</strong>
                   <div>
-                    <button type="button" className="reserva-botao reserva-botao-vazado" onClick={() => { atualizarReserva(limpar); setConfirmando(false); }}>Sim</button>
-                    <button type="button" className="reserva-botao" onClick={() => setConfirmando(false)}>Não</button>
+                    <button type="button" className="cm-botao cm-botao-vazado" onClick={() => { atualizarReserva(limpar); setConfirmando(false); }}>Sim</button>
+                    <button type="button" className="cm-botao cm-botao-cheio" onClick={() => setConfirmando(false)}>Não</button>
                   </div>
                 </div>
-              ) : null}
+              ) : (
+                <button type="button" className="cm-limpar" onClick={() => setConfirmando(true)}>Limpar cesta</button>
+              )}
+              <CestaSugestoes itens={estado.itens} max={3} variante="gaveta" />
             </>
           )}
         </div>
 
         {estado.itens.length > 0 ? (
-          <div className="reserva-gaveta-pe">
-            <button type="button" className="reserva-link" onClick={() => setConfirmando(true)}>Limpar cesta</button>
-            <p className="reserva-subtotal"><span>Subtotal estimado</span><strong>{formatarCentavos(subtotalCentavos(estado.itens))}</strong></p>
-            <a className="reserva-botao" href="/reserva" onClick={fechar}>Continuar para a cesta</a>
+          <div className="cm-pe">
+            <p className="cm-subtotal">
+              <span>Subtotal{semPreco ? " (sem os itens a consultar)" : ""}</span>
+              <strong>{formatarCentavos(subtotalCentavos(estado.itens.filter((i) => i.precoCentavos > 0)))}</strong>
+            </p>
+            <a className="cm-botao cm-botao-cheio" href="/reserva" onClick={fechar}>Ir para a cesta</a>
+            <button type="button" className="cm-botao cm-botao-vazado" onClick={fechar}>Continuar comprando</button>
           </div>
         ) : null}
       </div>
