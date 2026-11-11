@@ -1,0 +1,49 @@
+import assert from "node:assert/strict";
+import test from "node:test";
+import { atalhosDaBusca, melhoresResultados, pontuarRelevancia } from "../app/shop/busca-painel.ts";
+import { termosDeBusca } from "../app/nacoes-unidas/produtos/busca.ts";
+
+const itens = [
+  { nome: "Fita Fralda Cremer Azul", foto: "/a.webp" },
+  { nome: "Cetoconazol 20MG/ML Shampoo 100ml Nativita", foto: "/b.webp" },
+  { nome: "Fralda Babysec Mega G 32UND", foto: "/c.webp" },
+  { nome: "Shampoo Camomila Skalinha bebê 200Ml", foto: "/d.webp" },
+  { nome: "Fralda Pampers Supersec M 40UN", foto: null },
+];
+const busca = (consulta, n = 5) => {
+  const termos = termosDeBusca(consulta);
+  return melhoresResultados(itens, (i) => termos.every((t) => i.nome.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").includes(t)), termos, (i) => i.nome, (i) => i.foto !== null, n).map((i) => i.nome);
+};
+
+test("relevância: nome que começa pela palavra buscada vem antes de acessório com a palavra no meio", () => {
+  const r = busca("fralda");
+  assert.equal(r[0], "Fralda Babysec Mega G 32UND");
+  assert.ok(r.indexOf("Fralda Pampers Supersec M 40UN") < r.indexOf("Fita Fralda Cremer Azul"), "fralda sem foto ainda vence a fita");
+  assert.equal(r.at(-1), "Fita Fralda Cremer Azul");
+});
+
+test("relevância: shampoo de uso comum antes do medicamentoso com a palavra no fim do nome", () => {
+  const r = busca("shampoo");
+  assert.equal(r[0], "Shampoo Camomila Skalinha bebê 200Ml");
+});
+
+test("relevância: foto desempata, o corte respeita n e a ordem original vale em empate total", () => {
+  assert.ok(pontuarRelevancia("Fralda X", ["fralda"], true) > pontuarRelevancia("Fralda X", ["fralda"], false));
+  assert.equal(busca("fralda", 2).length, 2);
+  const iguais = [{ nome: "Fralda A" }, { nome: "Fralda B" }];
+  assert.deepEqual(melhoresResultados(iguais, () => true, ["fralda"], (i) => i.nome, () => false, 2).map((i) => i.nome), ["Fralda A", "Fralda B"]);
+});
+
+test("atalhos: departamento e marca pelo começo do nome, só a partir de 3 letras, no máximo 1 + 2", () => {
+  assert.deepEqual(atalhosDaBusca("be"), []);
+  const bel = atalhosDaBusca("bel");
+  assert.equal(bel[0].tipo, "departamento");
+  assert.equal(bel[0].href, "/departamentos/beleza");
+  const dove = atalhosDaBusca("dove");
+  assert.deepEqual(dove.map((a) => [a.tipo, a.nome]), [["marca", "Dove"]]);
+  assert.match(dove[0].href, /^\/nacoes-unidas\/produtos\?q=dove$/);
+  assert.ok(atalhosDaBusca("ne").length === 0);
+  const ne = atalhosDaBusca("neo");
+  assert.ok(ne.length <= 3);
+  assert.deepEqual(atalhosDaBusca("zzzz"), []);
+});
