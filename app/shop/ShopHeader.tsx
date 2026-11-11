@@ -13,7 +13,7 @@ import MarcaUniao from "./MarcaUniao";
 import ReservaSacola from "../reserva/ReservaSacola";
 import FotosNovas from "./FotosNovas";
 import AvisoDadosAntigos from "./AvisoDadosAntigos";
-import { IconLupa, IconMenu, IconPino, IconWhats } from "../reserva/ReservaIcons";
+import { IconMenu, IconPino, IconWhats } from "../reserva/ReservaIcons";
 import LojaPicker from "./LojaPicker";
 import "./shop.css";
 import { imagemIlustrativa } from "../nacoes-unidas/produtos/receita";
@@ -213,7 +213,10 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
             enterKeyHint="search"
           />
           <button type="submit" aria-label="Buscar">
-            <IconLupa size={22} />
+            {/* Lupa de contorno, sem o preenchimento claro do ícone padrão; traço de 2 px (10 em 256) e 24 px, metade da área de toque de 48 px. */}
+            <svg width="24" height="24" viewBox="0 0 256 256" fill="currentColor" stroke="currentColor" strokeWidth="10" strokeLinejoin="round" aria-hidden="true">
+              <path d="M229.66,218.34,179.6,168.28a88.21,88.21,0,1,0-11.32,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z" />
+            </svg>
           </button>
           {mostrarPainel ? (
             <div
