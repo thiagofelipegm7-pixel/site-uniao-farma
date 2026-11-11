@@ -78,6 +78,20 @@ export const MARCAS_INFANTIL: readonly MarcaDestaque[] = [
 ];
 
 /**
+ * Marcas da faixa do departamento Beleza (produtos não esgotados: Salon Line 32, Wella 24, Embelleze 24, L'Oréal 20, Seda 17, Bio Extratus 17).
+ * Faltam logos de Impala, Niely, Risqué e Alta Moda (esmaltes e tintas), que entram quando chegarem. O clique filtra a lista do próprio departamento.
+ */
+const emBeleza = (termo: string) => `/departamentos/beleza?q=${encodeURIComponent(termo)}`;
+export const MARCAS_BELEZA: readonly MarcaDestaque[] = [
+  { slug: "salon-line", nome: "Salon Line", busca: "salon line", cheia: true, href: emBeleza("salon line") },
+  { slug: "wella", nome: "Wella", busca: "wella", cheia: true, href: emBeleza("wella") },
+  { slug: "embelleze", nome: "Embelleze", busca: "embelleze", cheia: true, href: emBeleza("embelleze") },
+  { slug: "loreal", nome: "L'Oréal", busca: "loreal", href: emBeleza("loreal") },
+  { slug: "seda", nome: "Seda", busca: "seda", href: emBeleza("seda") },
+  { slug: "bio-extratus", nome: "Bio Extratus", busca: "extrat", href: emBeleza("extrat") },
+];
+
+/**
  * Faixa de cada departamento. Sem entrada aqui, a página usa a faixa geral (MARCAS_DESTAQUE). Lista vazia = a página não mostra faixa.
  * Perfumes está vazia: o departamento tem 3 produtos em estoque e as marcas gerais (Dove, Nivea…) não levam a nada ali.
  */
@@ -85,5 +99,6 @@ export const MARCAS_POR_DEPARTAMENTO: Readonly<Record<string, readonly MarcaDest
   medicamentos: MARCAS_MEDICAMENTOS,
   dermocosmeticos: MARCAS_DERMOCOSMETICOS,
   "infantil-e-gestante": MARCAS_INFANTIL,
+  beleza: MARCAS_BELEZA,
   perfumes: [],
 };
