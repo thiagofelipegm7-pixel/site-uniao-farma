@@ -35,9 +35,57 @@
   "quando": "2026-11-11",
   "conf": "alta"
  },
+ "cond-dove-repair-ferulico-150ml": {
+  "t": "Condicionador Dove UV Repair & Glow + Ferúlico, 150 ml. Aplique em todo o comprimento do cabelo lavado, deixe agir cerca de 1 minuto e enxágue.",
+  "fonte": "https://www.dove.com/br/p/condicionador-uv-repair-glow-ferulico-150ml.html/07891150102743",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
  "cond-j-j-baby-regular-200ml": {
   "t": "Condicionador Johnson's Baby de glicerina, frasco de 200 mL, para uso diário.",
   "fonte": "https://www.johnsonsbaby.com.br/produtos/condicionador/johnsons-baby-condicionador-de-glicerina",
+  "quando": "2026-11-11",
+  "conf": "media"
+ },
+ "cond-monange-cachos-325ml": {
+  "t": "Condicionador Monange Cachos Definidos, 325 mL, com óleo de coco na fórmula. Vegano. Depois do shampoo, aplique uniformemente nos cabelos úmidos e enxágue.",
+  "fonte": "https://monange.com.br/produto/condicionador-monange-cachos-definidos-325ml/",
+  "quando": "2026-11-11",
+  "conf": "media"
+ },
+ "cond-seda-liso-perfeito-325-ml": {
+  "t": "Condicionador Seda Liso Perfeito, 325 ml, com vitamina C, óleo de macadâmia e proteína da seda na fórmula, para uso diário.",
+  "fonte": "https://www.seda.com.br/p/condicionador-seda-liso-perfeito.html/07891150037328",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "cr-dent-closeup-liquifresh-redhot": {
+  "t": "Gel dental Close Up Liquifresh Red Hot, com sabor de cravo e hortelã. Pode ser usado direto na boca ou na escova, sem molhá-la.",
+  "fonte": "https://www.closeup.com.br/products/closeup-liquifresh-red-hot",
+  "quando": "2026-11-11",
+  "conf": "media"
+ },
+ "cr-dent-colgate-max-prot-90gr": {
+  "t": "Creme dental Colgate Máxima Proteção Anticáries, 90 g, com monofluorfosfato de sódio. Pode ser usado diariamente.",
+  "fonte": "https://www.colgate.com.br/products/toothpaste/colgate-maximum-cavity-protection",
+  "quando": "2026-11-11",
+  "conf": "media"
+ },
+ "cr-dent-sensodyne-bran-ex-fr-9": {
+  "t": "Creme dental Sensodyne Branqueador Extra Fresh, com fluoreto de sódio e nitrato de potássio na fórmula.",
+  "fonte": "https://www.sensodyne.com.br/produtos/creme-dental/branqueador-extra-fresh.html",
+  "quando": "2026-11-11",
+  "conf": "media"
+ },
+ "cr-nivea-56-gr-lata": {
+  "t": "Creme hidratante Nivea, lata de 56 g.",
+  "fonte": "https://careshop.nivea.com.br/nivea-creme-80104-78906617",
+  "quando": "2026-11-11",
+  "conf": "media"
+ },
+ "creme-de-barbear-bozzano-65g-sensivel": {
+  "t": "Creme de barbear Bozzano Pele Sensível, 65 g, com glicerina, óleo de babaçu e óleo de girassol na fórmula.",
+  "fonte": "https://www.bozzano.com.br/produtos/creme-de-barbear-pele-sensivel-6c0f/",
   "quando": "2026-11-11",
   "conf": "media"
  },
@@ -53,11 +101,23 @@
   "quando": "2026-11-11",
   "conf": "media"
  },
+ "des-aero-rexona-impacto-fresh-150ml": {
+  "t": "Antitranspirante em aerossol Rexona Impacto, 150 ml, de fragrância herbal. Agite antes de usar e aplique somente nas axilas, a pelo menos 15 cm da pele. Suspenda o uso se houver irritação ou alergia.",
+  "fonte": "https://www.rexona.com/br/p/antitranspirante-rexona-aerosol-impacto.html/07891150054646",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
  "fio-dentj-j-menta-100m": {
   "t": "Fio dental Reach Essencial Menta, 100 m.",
   "fonte": "https://promo.kenvue.com/produtos",
   "quando": "2026-11-11",
   "conf": "media"
+ },
+ "hidratante-vasenol-geleia-de-v": {
+  "t": "Geleia de vaselina Original Vasenol, 100 g, de vaselina pura triplamente purificada.",
+  "fonte": "https://www.vasenol.com.br/p/geleia-vaselina-original.html/07891150029323",
+  "quando": "2026-11-11",
+  "conf": "alta"
  },
  "listerine-cool-mint-250ml": {
   "t": "Enxaguante bucal Listerine Cool Mint Intenso, frasco de 250 mL.",
@@ -95,6 +155,12 @@
   "quando": "2026-11-11",
   "conf": "media"
  },
+ "protetor-solar-sundown-kids-fps60-100ml": {
+  "t": "Protetor solar infantil Sundown Kids FPS 60, para corpo e rosto. Aplique generosamente antes da exposição ao sol e reaplique após suar muito, nadar ou se secar com toalha. A aplicação deve ser feita por um adulto ou com supervisão.",
+  "fonte": "https://www.sundown.com.br/sundownr-praia-e-piscina-kids-fps60",
+  "quando": "2026-11-11",
+  "conf": "media"
+ },
  "protetor-sundown-fps-50-120-ml": {
   "t": "Protetor solar Sundown Tripla Proteção FPS 50, para corpo e rosto, 120 mL. Aplique generosamente antes da exposição ao sol e reaplique após suar muito, nadar ou se secar com toalha.",
   "fonte": "https://www.sundown.com.br/produtos",
@@ -112,6 +178,24 @@
   "fonte": "https://www.granado.com.br/granado/sabonete-em-barra-de-glicerina-granado-bebe-calendula-90g",
   "quando": "2026-11-11",
   "conf": "alta"
+ },
+ "sab-granado-bebe-sab-gliceri-90g": {
+  "t": "Sabonete em barra de glicerina Granado Bebê Tradicional, 90 g, com glicerina vegetal. Vegano e livre de conservantes e de ingredientes de origem animal.",
+  "fonte": "https://www.granado.com.br/granado/sabonete-em-barra-de-glicerina-granado-bebe-tradicional-90g",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "sab-j-j-hora-do-sono-80g": {
+  "t": "Sabonete em barra Johnson's Baby Hora do Sono, 80 g, com a fragrância NaturalCalm.",
+  "fonte": "https://www.johnsonsbaby.com.br/produtos/sabonete-barra/johnsons-baby-sabonete-em-barra-hora-do-sono",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "sab-liq-j-j-glicerinado-200-ml": {
+  "t": "Sabonete líquido de glicerina Johnson's Baby, 200 mL, para uso da cabeça aos pés.",
+  "fonte": "https://www.johnsonsbaby.com.br/produtos/sabonete-liquido/johnsons-baby-sabonete-liquido-de-glicerina",
+  "quando": "2026-11-11",
+  "conf": "media"
  },
  "sab-liq-lux-gard-e-oleo-rf-200ml": {
   "t": "Refil de sabonete líquido Lux Botanicals Gardênia e Óleo de Amêndoas, 200 ml, sem parabenos.",
