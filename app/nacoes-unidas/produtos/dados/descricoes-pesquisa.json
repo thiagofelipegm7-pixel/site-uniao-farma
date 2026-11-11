@@ -83,6 +83,12 @@
   "quando": "2026-11-11",
   "conf": "media"
  },
+ "cr-pent-seda-luminous-uv-300ml": {
+  "t": "Creme de pentear Seda Luminous UV, 300 ml, sem enxágue. Uso: aplique nos cabelos molhados ou secos, do meio dos fios às pontas, evitando a raiz. O fabricante informa que a fórmula contém pantenol, biotina e filtro UV.",
+  "fonte": "https://www.seda.com.br/p/creme-de-pentear-seda-luminous-uv.html/07891150099852",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
  "creme-de-barbear-bozzano-65g-sensivel": {
   "t": "Creme de barbear Bozzano Pele Sensível, 65 g, com glicerina, óleo de babaçu e óleo de girassol na fórmula.",
   "fonte": "https://www.bozzano.com.br/produtos/creme-de-barbear-pele-sensivel-6c0f/",
@@ -110,6 +116,18 @@
  "des-aero-rexona-impacto-fresh-150ml": {
   "t": "Antitranspirante em aerossol Rexona Impacto, 150 ml, de fragrância herbal. Agite antes de usar e aplique somente nas axilas, a pelo menos 15 cm da pele. Suspenda o uso se houver irritação ou alergia.",
   "fonte": "https://www.rexona.com/br/p/antitranspirante-rexona-aerosol-impacto.html/07891150054646",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "des-roll-on-nivea-protect-50ml": {
+  "t": "Desodorante antitranspirante roll-on Nivea Protect & Care, 50 ml. O fabricante informa cloridrato de alumínio como ativo. Aplique nas axilas limpas e secas; suspenda o uso em caso de irritação.",
+  "fonte": "https://www.nivea.com.br/produtos/nivea-desodorante-roll-on-protect-and-care-50ml-40059001307850033.html",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "desodorante-axe-aerossol-152ml-musk": {
+  "t": "Antitranspirante em aerossol Axe Musk, fragrância Musk. Aplique somente nas axilas, mantendo a lata a cerca de 15 cm da pele; mantenha longe do calor e de chamas e suspenda o uso em caso de irritação.",
+  "fonte": "https://www.axe.com/br/p/antitranspirante-musk.html/07891150080973",
   "quando": "2026-11-11",
   "conf": "alta"
  },
@@ -275,9 +293,21 @@
   "quando": "2026-11-11",
   "conf": "alta"
  },
+ "sab-lux-rosas-francesas-c-6-85g": {
+  "t": "Pacote com 6 sabonetes glicerinados em barra Lux Botanicals Rosas Francesas (85 g cada, conforme o cadastro da loja). Uso: faça espuma na pele úmida e enxágue.",
+  "fonte": "https://www.lux.com/br/p/rosas-francesas.html/07891150097674",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
  "sabonete-lux-85-g": {
   "t": "Sabonete glicerinado em barra Lux Botanicals Lavanda, 85 g. A lista do fabricante inclui glicerina e extratos botânicos, como flor de jasmim e rosa, e óleo de amêndoas doces. Uso: faça espuma na pele úmida e enxágue.",
   "fonte": "https://www.lux.com/br/p/lavanda.html/07891150059887",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "sabonete-nivea-erva-doce-90gr": {
+  "t": "Sabonete em barra Nivea Erva-Doce & Óleos. Uso: faça espuma na pele úmida e enxágue. Confira o peso no rótulo: a página oficial indica 85 g.",
+  "fonte": "https://www.nivea.com.br/produtos/nivea-sabonete-em-barra-erva-doce-and-oleos-40059005219340033.html",
   "quando": "2026-11-11",
   "conf": "alta"
  },
