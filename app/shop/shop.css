@@ -2128,3 +2128,7 @@ html body .shop-busca .shop-recente button { width: 2.75rem; height: 2.75rem; ma
 .shop-sugestoes li.shop-sug-esgotado a img, .shop-sugestoes li.shop-sug-esgotado a .shop-sug-sem-foto { opacity: 0.5; filter: grayscale(1); }
 .shop-sugestoes li.shop-sug-esgotado a span { color: #5b6b68; font-weight: 500; }
 .shop-sugestoes li.shop-sug-esgotado a em { flex: none; padding: 0.125rem 0.625rem; border-radius: 999px; background: #eef1f2; color: #3e4b49; font-size: 0.75rem; font-style: normal; font-weight: 700; }
+
+/* Fonte da descrição pesquisada (página oficial da marca), logo abaixo do texto. */
+.pdp-fonte { margin: 0.5rem 0 0; color: #5b6b68; font-size: 0.8125rem; }
+.pdp-fonte a { color: #0a3548; text-decoration: underline; }
