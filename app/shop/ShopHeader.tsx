@@ -74,6 +74,9 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   const [recentes, setRecentes] = useState<string[]>([]);
   const [itens, setItens] = useState<Sugestao[] | null>(null);
   const [restritos, setRestritos] = useState<SugestaoRestrita[]>([]);
+  // Produtos esgotados: só o painel de busca usa (mostra "Esgotado"). Baixa na primeira digitação; null = ainda não carregou.
+  const [esgotados, setEsgotados] = useState<Sugestao[] | null>(null);
+  const carregandoEsgotados = useRef(false);
   const carregando = useRef(false);
   const formRef = useRef<HTMLFormElement>(null);
   const painelRef = useRef<HTMLDivElement>(null);
@@ -116,9 +119,10 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   // Só os primeiros resultados são mostrados: para de procurar ao achar o suficiente.
   const exatos = useMemo(() => (normal.length >= 2 && itens ? melhoresResultados(itens, (item) => termos.every((t) => item.busca.includes(t)), termos, (item) => item.nome, (item) => item.foto !== null, 6) : []), [normal, itens]); // eslint-disable-line react-hooks/exhaustive-deps -- `termos` vem de `normal`
   const exatosRestritos = useMemo(() => (normal.length >= 2 ? melhoresResultados(restritos, (item) => termos.every((t) => item.busca.split(" ").some((palavra) => palavra.startsWith(t))), termos, (item) => item.nome, () => false, 4) : []), [normal, restritos]); // eslint-disable-line react-hooks/exhaustive-deps -- `termos` vem de `normal`
+  const exatosEsgotados = useMemo(() => (normal.length >= 2 && esgotados ? melhoresResultados(esgotados, (item) => termos.every((t) => item.busca.includes(t)), termos, (item) => item.nome, (item) => item.foto !== null, 1) : []), [normal, esgotados]); // eslint-disable-line react-hooks/exhaustive-deps -- `termos` vem de `normal`
   // Digitou errado e nada casou? Corrige com o vocabulário do catálogo (local, sem IA no painel). O vocabulário só é montado na primeira vez que precisa.
   const analise = useMemo(() => {
-    if (!itens || itens.length === 0 || normal.length < 3 || exatos.length > 0 || exatosRestritos.length > 0) return null;
+    if (!itens || itens.length === 0 || normal.length < 3 || exatos.length > 0 || exatosRestritos.length > 0 || exatosEsgotados.length > 0) return null;
     const vocab = vocabularioDe(itens, restritos);
     const a = analisarConsulta(vocab, termoBusca);
     if (a.sintoma) return null;
@@ -127,17 +131,22 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
       // Parecida demais com outro produto para trocar sozinho: só pergunta.
       sugerida: a.sugerida && contarCasos(vocab, a.sugerida) > 0 ? a.sugerida : null,
     };
-  }, [itens, restritos, normal, termoBusca, exatos.length, exatosRestritos.length]);
+  }, [itens, restritos, normal, termoBusca, exatos.length, exatosRestritos.length, exatosEsgotados.length]);
   const corrigida = analise?.corrigida ?? null;
   const sugerida = analise?.sugerida ?? null;
   const termosCorrigidos = useMemo(() => (corrigida ? termosDeBusca(corrigida) : []), [corrigida]);
   const resultados = corrigida ? melhoresResultados(itens ?? [], (item) => casaConsulta(item.busca, corrigida), termosCorrigidos, (item) => item.nome, (item) => item.foto !== null, 6) : exatos;
   // Medicamentos com receita e controlados também aparecem na busca (lista de preços, sem cesta).
   const resultadosRestritos = corrigida ? melhoresResultados(restritos, (item) => casaConsulta(item.busca, corrigida), termosCorrigidos, (item) => item.nome, () => false, 4) : exatosRestritos;
+  // Esgotados que casam com a busca: aparecem depois dos que têm estoque, para o cliente saber que o produto existe mas acabou.
+  const resultadosEsgotados = useMemo(
+    () => (normal.length >= 2 && esgotados ? melhoresResultados(esgotados, (item) => (corrigida ? casaConsulta(item.busca, corrigida) : termos.every((t) => item.busca.includes(t))), corrigida ? termosCorrigidos : termos, (item) => item.nome, (item) => item.foto !== null, 3) : []),
+    [normal, esgotados, corrigida], // eslint-disable-line react-hooks/exhaustive-deps -- `termos` vem de `normal`
+  );
   const atalhos = useMemo(() => atalhosDaBusca(termoBusca), [termoBusca]);
   const termosDestaque = corrigida ? termosCorrigidos : termos;
   const mostrarPainel = foco && (normal.length === 0 || normal.length >= 2);
-  const semResultado = normal.length >= 2 && itens !== null && resultados.length === 0 && resultadosRestritos.length === 0;
+  const semResultado = normal.length >= 2 && itens !== null && esgotados !== null && resultados.length === 0 && resultadosRestritos.length === 0 && resultadosEsgotados.length === 0;
 
   // Com o teclado aberto (iPhone), a lista não pode passar por baixo dele: limita a altura ao que sobra na tela visível, com rolagem.
   useEffect(() => {
@@ -171,6 +180,16 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- roda uma vez; `carregar` só age se ainda não carregou
   }, []);
+
+  // A lista de esgotados só baixa quando o cliente começa a digitar (arquivo de ~30 KB comprimido).
+  useEffect(() => {
+    if (normal.length < 2 || esgotados !== null || carregandoEsgotados.current) return;
+    carregandoEsgotados.current = true;
+    fetch("/dados/nacoes/esgotados-busca.json", { headers: { accept: "application/json" } })
+      .then((resposta) => (resposta.ok ? resposta.json() : null))
+      .then((dados: Sugestao[] | null) => setEsgotados(Array.isArray(dados) ? dados : []))
+      .catch(() => setEsgotados([]));
+  }, [normal, esgotados]);
 
   // Na página de produtos, a caixa já abre com o termo buscado (?q=fralda).
   useEffect(() => {
@@ -316,7 +335,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                     ))}
                   </ul>
                 </>
-              ) : resultados.length > 0 || resultadosRestritos.length > 0 ? (
+              ) : resultados.length > 0 || resultadosRestritos.length > 0 || resultadosEsgotados.length > 0 ? (
                 <>
                   {corrigida ? (
                     <p className="shop-sugestoes-corrigida" role="status">
@@ -341,6 +360,15 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                             <NomeDestacado nome={item.nome} termos={termosDestaque} />
                           </span>
                           <strong>{item.precoCentavos === null ? "" : formatarCentavos(item.precoCentavos)}</strong>
+                        </a>
+                      </li>
+                    ))}
+                    {resultadosEsgotados.map((item) => (
+                      <li key={`esgotado-${item.slug}`} className="shop-sug-esgotado">
+                        <a href={`/nacoes-unidas/produtos/${item.slug}`}>
+                          {item.foto ? <img src={item.foto} alt="" width="44" height="44" /> : <SemFoto className="shop-sug-sem-foto" />}
+                          <span><NomeDestacado nome={item.nome} termos={termosDestaque} /></span>
+                          <em>Esgotado</em>
                         </a>
                       </li>
                     ))}

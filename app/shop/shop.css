@@ -2123,3 +2123,8 @@ html body .shop-busca .shop-recente button { width: 2.75rem; height: 2.75rem; ma
   html body .shop-busca .shop-sugestoes-limpar { width: auto !important; height: auto !important; margin: 0 !important; background: none !important; color: #0a3548 !important; border-radius: 6px !important; }
   html body .shop-busca .shop-recente button { width: 2.75rem !important; height: 2.75rem !important; margin: 0 !important; background: none !important; color: #6b8b86 !important; border-radius: 6px !important; }
 }
+
+/* Esgotado no painel de busca: aparece depois dos que têm estoque, esmaecido e com a etiqueta no lugar do preço. */
+.shop-sugestoes li.shop-sug-esgotado a img, .shop-sugestoes li.shop-sug-esgotado a .shop-sug-sem-foto { opacity: 0.5; filter: grayscale(1); }
+.shop-sugestoes li.shop-sug-esgotado a span { color: #5b6b68; font-weight: 500; }
+.shop-sugestoes li.shop-sug-esgotado a em { flex: none; padding: 0.125rem 0.625rem; border-radius: 999px; background: #eef1f2; color: #3e4b49; font-size: 0.75rem; font-style: normal; font-weight: 700; }
