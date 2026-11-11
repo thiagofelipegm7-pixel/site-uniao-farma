@@ -101,6 +101,12 @@
   "quando": "2026-11-11",
   "conf": "media"
  },
+ "des-aero-nivea-men-invisible": {
+  "t": "Desodorante antitranspirante em aerossol Nivea Men Invisible for Black & White, versão Original, 150 ml. Uso nas axilas, conforme as instruções do rótulo. Mantenha longe do calor e de chamas e suspenda o uso em caso de irritação.",
+  "fonte": "https://www.nivea.com.br/produtos/nivea-men-desodorante-antitranspirante-aerossol-invisible-black-and-white-40059000367280033.html",
+  "quando": "2026-11-11",
+  "conf": "media"
+ },
  "des-aero-rexona-impacto-fresh-150ml": {
   "t": "Antitranspirante em aerossol Rexona Impacto, 150 ml, de fragrância herbal. Agite antes de usar e aplique somente nas axilas, a pelo menos 15 cm da pele. Suspenda o uso se houver irritação ou alergia.",
   "fonte": "https://www.rexona.com/br/p/antitranspirante-rexona-aerosol-impacto.html/07891150054646",
@@ -137,6 +143,18 @@
   "quando": "2026-11-11",
   "conf": "alta"
  },
+ "locao-nivea-soft-milk-200ml": {
+  "t": "Loção deo-hidratante corporal Nivea Soft Milk em frasco de 200 ml. Segundo o fabricante, a fórmula contém glicerina e manteiga de karité. Para uso corporal; consulte o rótulo para modo de uso e lista completa de ingredientes.",
+  "fonte": "https://www.nivea.com.br/produtos/nivea-lo%C3%A7%C3%A3o-deo-hidratante-soft-milk-200ml-40058083354350033.html",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "masc-dove-nutricao-tri-oleo-500g": {
+  "t": "Máscara capilar 2 em 1 Dove Nutrição + Tri-Óleos, 500 g, para cabelos ressecados. Pode ser usada como máscara, com enxágue, ou como finalizador sem enxágue, no cabelo úmido. A lista de ingredientes do fabricante inclui óleos de argan, de coco e de girassol.",
+  "fonte": "https://www.dove.com/br/p/mascara-2em1-nutricao-tri-oleos.html/07891150096752",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
  "oleo-e-serum-dove-bifasico-110ml": {
   "t": "Óleo sérum bifásico Dove Bond Intense Repair com peptídeo, frasco de 110 ml, para uso nos cabelos.",
   "fonte": "https://www.dove.com/br/p/oleo-serum-bifasico-bond-intense-repair.html/07891150095540",
@@ -167,15 +185,39 @@
   "quando": "2026-11-11",
   "conf": "alta"
  },
+ "rexona-clinical-sport-150ml": {
+  "t": "Antitranspirante masculino em aerossol Rexona Clinical Sports, 150 ml. O ativo informado pelo fabricante é o cloridrato de alumínio. Agite antes de usar, aplique somente nas axilas a cerca de 15 cm de distância, mantenha longe do calor e de chamas e suspenda o uso em caso de irritação.",
+  "fonte": "https://www.rexona.com/br/p/antitranspirante-rexona-aerosol-clinical-sports-150ml.html/07891150068735",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
  "sab-barra-lux-85g-lirio-azul": {
   "t": "Sabonete em barra glicerinado Lux Botanicals Lírio Azul, 85 g, de fragrância floral. Tem extratos e óleos botânicos como jasmim, rosa, lótus e amêndoa doce.",
   "fonte": "https://www.lux.com/br/p/lirio-azul.html/07891150059917",
   "quando": "2026-11-11",
   "conf": "alta"
  },
+ "sab-dove-radiant-glow-135g": {
+  "t": "Sabonete em barra Dove Sérum Radiant Glow, com vitamina C e partículas esfoliantes suaves, de acordo com o fabricante. Uso: molhe o corpo, faça espuma com a barra e enxágue.",
+  "fonte": "https://www.dove.com/br/p/sabonete-serum-barra-radiant-glow.html/07891150103672",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
  "sab-granado-bebe-090g-glicerina-calendul": {
   "t": "Sabonete em barra de glicerina Granado Bebê, fragrância calêndula, 90 g. Base vegetal com glicerina, sem parabenos e com extrato de calêndula. Vegano e não testado em animais.",
   "fonte": "https://www.granado.com.br/granado/sabonete-em-barra-de-glicerina-granado-bebe-calendula-90g",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "sab-granado-bebe-camo-90g": {
+  "t": "Sabonete em barra de glicerina Granado Bebê Camomila, 90 g, com extrato de camomila. Aplique na pele úmida do bebê, faça espuma e enxágue. O fabricante recomenda testar em pequena área da pele antes do uso regular.",
+  "fonte": "https://www.granado.com.br/granado/sabonete-em-barra-de-glicerina-granado-bebe-camomila-90g",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "sab-granado-bebe-lavanda": {
+  "t": "Sabonete em barra de glicerina Granado Bebê Lavanda, 90 g. Aplique na pele úmida do bebê, faça espuma e enxágue. O fabricante recomenda testar em pequena área da pele antes do uso regular.",
+  "fonte": "https://www.granado.com.br/granado/sabonete-em-barra-de-glicerina-granado-bebe-lavanda-90g",
   "quando": "2026-11-11",
   "conf": "alta"
  },
@@ -200,6 +242,30 @@
  "sab-liq-lux-gard-e-oleo-rf-200ml": {
   "t": "Refil de sabonete líquido Lux Botanicals Gardênia e Óleo de Amêndoas, 200 ml, sem parabenos.",
   "fonte": "https://www.lux.com/br/p/gardenia-e-oleo-de-amendoas.html/07891150095328",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "sab-lux-buque-de-jasmim-85g": {
+  "t": "Sabonete glicerinado em barra Lux Botanicals Buquê de Jasmim, 85 g. A lista do fabricante inclui extratos botânicos, como flor de jasmim e rosa, e óleo de amêndoas doces. Uso: faça espuma na pele úmida e enxágue.",
+  "fonte": "https://www.lux.com/br/p/buque-de-jasmim.html/07891150059849",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "sabonete-lux-85-g": {
+  "t": "Sabonete glicerinado em barra Lux Botanicals Lavanda, 85 g. A lista do fabricante inclui glicerina e extratos botânicos, como flor de jasmim e rosa, e óleo de amêndoas doces. Uso: faça espuma na pele úmida e enxágue.",
+  "fonte": "https://www.lux.com/br/p/lavanda.html/07891150059887",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "serum-dove-corpo-pro-ceram-180ml": {
+  "t": "Sérum corporal Dove Pró-Ceramidas, 180 ml, para pele seca. O fabricante informa pró-ceramidas, colágeno vegetal e glicerina na composição. Uso: aplique em todo o corpo após o banho, com movimentos circulares.",
+  "fonte": "https://www.dove.com/br/p/serum-corporal-pro-ceramidas-180ml.html/07891150095861",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "sh-dove-reconst-aminoacido-190ml": {
+  "t": "Shampoo Dove Reconstrução + Aminoácido, 190 ml, indicado pelo fabricante para cabelos danificados e ressecados. Uso: aplique nos cabelos molhados, massageie o couro cabeludo e os comprimentos e enxágue.",
+  "fonte": "https://www.dove.com/br/p/shampoo-reconstrucao-aminoacido-190ml.html/07891150102347",
   "quando": "2026-11-11",
   "conf": "alta"
  },
