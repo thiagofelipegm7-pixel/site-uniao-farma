@@ -4,7 +4,7 @@
 
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { BUSCAS_POPULARES, normalizarBusca, termosDeBusca } from "../nacoes-unidas/produtos/busca";
-import { atalhosDaBusca, melhoresResultados } from "./busca-painel";
+import { atalhosDaBusca, destacarTrechos, melhoresResultados } from "./busca-painel";
 import { analisarConsulta, casaConsulta, contarCasos, criarVocabulario } from "../nacoes-unidas/produtos/busca-tolerante";
 import { buildWhatsAppUrl, UNITS } from "../site-config";
 import { formatarCentavos } from "../reserva/reserva-store";
@@ -55,6 +55,15 @@ function primeiros<T>(lista: readonly T[], passa: (item: T) => boolean, n: numbe
     }
   }
   return saida;
+}
+
+/** Nome do produto com o trecho digitado em destaque (<mark>). */
+function NomeDestacado({ nome, termos }: { nome: string; termos: readonly string[] }) {
+  return (
+    <>
+      {destacarTrechos(nome, termos).map((trecho, i) => (trecho.destaque ? <mark key={i}>{trecho.texto}</mark> : trecho.texto))}
+    </>
+  );
 }
 
 export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?: string }) {
@@ -110,6 +119,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   // Medicamentos com receita e controlados também aparecem na busca (lista de preços, sem cesta).
   const resultadosRestritos = corrigida ? melhoresResultados(restritos, (item) => casaConsulta(item.busca, corrigida), termosCorrigidos, (item) => item.nome, () => false, 4) : exatosRestritos;
   const atalhos = useMemo(() => atalhosDaBusca(termoBusca), [termoBusca]);
+  const termosDestaque = corrigida ? termosCorrigidos : termos;
   const mostrarPainel = foco && (normal.length === 0 || normal.length >= 2);
   const semResultado = normal.length >= 2 && itens !== null && resultados.length === 0 && resultadosRestritos.length === 0;
 
@@ -272,7 +282,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                       <li key={item.slug}>
                         <a href={`/nacoes-unidas/produtos/${item.slug}`}>
                           {item.foto ? <img src={item.foto} alt="" width="44" height="44" /> : <SemFoto className="shop-sug-sem-foto" />}
-                          <span>{item.nome}</span>
+                          <span><NomeDestacado nome={item.nome} termos={termosDestaque} /></span>
                           <strong>{formatarCentavos(item.precoCentavos)}</strong>
                         </a>
                       </li>
@@ -282,7 +292,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                         <a href={`/nacoes-unidas/produtos/${(item.nomeOriginal || item.nome).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}>
                           <img src={imagemIlustrativa({ ...item, nome: item.nomeOriginal })} alt="" width="44" height="44" />
                           <span>
-                            {item.nome}
+                            <NomeDestacado nome={item.nome} termos={termosDestaque} />
                           </span>
                           <strong>{item.precoCentavos === null ? "" : formatarCentavos(item.precoCentavos)}</strong>
                         </a>
