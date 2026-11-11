@@ -89,3 +89,11 @@ test("buscas recentes: sobe repetida sem diferenciar acento, guarda no máximo 5
   assert.deepEqual(lerBuscasRecentes('{"a":1}'), []);
   assert.deepEqual(lerBuscasRecentes(JSON.stringify(["dove", 5, "x", "Dove", "fralda"])), ["dove", "fralda"]);
 });
+
+test("faixa de marcas por departamento: Perfumes não tem faixa; os demais têm lista própria ou usam a geral", async () => {
+  const { MARCAS_POR_DEPARTAMENTO, MARCAS_DESTAQUE } = await import("../app/shop/marcas.ts");
+  assert.deepEqual(MARCAS_POR_DEPARTAMENTO.perfumes, []);
+  for (const slug of ["medicamentos", "dermocosmeticos", "infantil-e-gestante"]) assert.ok(MARCAS_POR_DEPARTAMENTO[slug].length > 0, slug);
+  assert.equal(MARCAS_POR_DEPARTAMENTO.beleza, undefined, "sem entrada: usa a faixa geral");
+  assert.ok(MARCAS_DESTAQUE.length > 0);
+});
