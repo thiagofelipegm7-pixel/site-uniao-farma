@@ -95,6 +95,12 @@
   "quando": "2026-11-11",
   "conf": "media"
  },
+ "deo-dove-stick-original-45g": {
+  "t": "Desodorante antitranspirante em bastão Dove Original, 45 g, com ¼ de creme hidratante e vitamina E e sem álcool, segundo o fabricante. Aplique nas axilas limpas e secas; suspenda o uso em caso de irritação.",
+  "fonte": "https://www.dove.com/br/p/stick-dove-original.html/00000075062835",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
  "deo-rexona-aero-fruta-verm-150ml": {
   "t": "Antitranspirante em aerossol Rexona Feminino Frutas Vermelhas, 150 ml, de fragrância frutada. Aplique somente nas axilas, a pelo menos 15 cm da pele.",
   "fonte": "https://www.rexona.com/br/p/antitranspirante-rexona-frutas-vermelhas-aerosol.html/07891150064737",
@@ -113,9 +119,39 @@
   "quando": "2026-11-11",
   "conf": "media"
  },
+ "des-aero-rexona-active": {
+  "t": "Antitranspirante masculino em aerossol Rexona Active Dry, 150 ml, sem álcool etílico segundo o fabricante. Ativo informado: cloridrato de alumínio. Agite antes de usar, aplique somente nas axilas a pelo menos 15 cm da pele, mantenha longe do calor e de chamas e suspenda o uso em caso de irritação.",
+  "fonte": "https://www.rexona.com/br/p/antitranspirante-rexona-masculino-aerosol-active-dry.html/07791293022598",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
  "des-aero-rexona-impacto-fresh-150ml": {
   "t": "Antitranspirante em aerossol Rexona Impacto, 150 ml, de fragrância herbal. Agite antes de usar e aplique somente nas axilas, a pelo menos 15 cm da pele. Suspenda o uso se houver irritação ou alergia.",
   "fonte": "https://www.rexona.com/br/p/antitranspirante-rexona-aerosol-impacto.html/07891150054646",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "des-aero-rexona-motion-150-ml": {
+  "t": "Antitranspirante feminino em aerossol Rexona Active Emotion, 150 ml, sem álcool etílico segundo o fabricante. Ativo informado: cloridrato de alumínio. Agite antes de usar, aplique somente nas axilas a pelo menos 15 cm da pele, mantenha longe do calor e de chamas e suspenda o uso em caso de irritação.",
+  "fonte": "https://www.rexona.com/br/p/antitranspirante-rexona-feminino-aerosol-active-emotion.html/07791293032443",
+  "quando": "2026-11-11",
+  "conf": "media"
+ },
+ "des-aero-rexona-v8": {
+  "t": "Antitranspirante masculino em aerossol Rexona V8, 150 ml, com fragrância amadeirada e sem álcool etílico, segundo o fabricante. Ativo informado: cloridrato de alumínio. Agite antes de usar, aplique somente nas axilas a pelo menos 15 cm da pele, mantenha longe do calor e de chamas e suspenda o uso em caso de irritação.",
+  "fonte": "https://www.rexona.com/br/p/antitranspirante-rexona-masculino-aerosol-v8.html/07791293022567",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "des-aero-rexona-xtracool": {
+  "t": "Antitranspirante masculino em aerossol Rexona Xtracool, 150 ml, com fragrância de mentol natural, segundo o fabricante. Ativo informado: cloridrato de alumínio. Agite antes de usar, aplique somente nas axilas a pelo menos 15 cm da pele, mantenha longe do calor e de chamas e suspenda o uso em caso de irritação.",
+  "fonte": "https://www.rexona.com/br/p/antitranspirante-rexona-masculino-aerosol-xtracool.html/07791293022581",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "des-rexona-cotton-dry-150-ml": {
+  "t": "Antitranspirante feminino em aerossol Rexona Cotton Dry, 150 ml, sem álcool etílico segundo o fabricante. Ativo informado: cloridrato de alumínio. Agite antes de usar, aplique somente nas axilas a pelo menos 15 cm da pele, mantenha longe do calor e de chamas e suspenda o uso em caso de irritação.",
+  "fonte": "https://www.rexona.com/br/p/antitranspirante-rexona-feminino-aerosol-cotton-dry.html/07791293032467",
   "quando": "2026-11-11",
   "conf": "alta"
  },
