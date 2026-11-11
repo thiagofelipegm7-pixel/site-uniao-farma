@@ -66,3 +66,45 @@ export function atalhosDaBusca(consulta: string): AtalhoBusca[] {
   }
   return saida;
 }
+
+export type TrechoNome = { texto: string; destaque: boolean };
+
+/**
+ * Parte o nome do produto em trechos, marcando o que o cliente digitou. Ignora acento e maiúscula ("mascara" marca "Máscara").
+ * Cada termo marca a primeira ocorrência no começo de uma palavra; sem ela, a primeira ocorrência em qualquer ponto.
+ * O texto original nunca é alterado: os trechos, juntos, formam exatamente o nome.
+ */
+export function destacarTrechos(nome: string, termos: readonly string[]): TrechoNome[] {
+  // Nome normalizado caractere a caractere, com o índice do caractere original de cada posição.
+  let normal = "";
+  const origem: number[] = [];
+  Array.from(nome).reduce((indice, caractere) => {
+    const base = caractere.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+    for (let k = 0; k < base.length; k += 1) origem.push(indice);
+    normal += base;
+    return indice + caractere.length;
+  }, 0);
+  const marcado = new Array<boolean>(nome.length).fill(false);
+  for (const termo of termos) {
+    if (termo.length < 2) continue;
+    let achado = -1;
+    for (let de = normal.indexOf(termo); de !== -1; de = normal.indexOf(termo, de + 1)) {
+      if (achado === -1) achado = de;
+      if (de === 0 || /[^a-z0-9]/.test(normal[de - 1])) {
+        achado = de;
+        break;
+      }
+    }
+    if (achado === -1) continue;
+    const inicio = origem[achado];
+    const fim = (origem[achado + termo.length - 1] ?? nome.length - 1) + 1;
+    for (let i = inicio; i < fim; i += 1) marcado[i] = true;
+  }
+  const trechos: TrechoNome[] = [];
+  for (let i = 0; i < nome.length; i += 1) {
+    const ultimo = trechos[trechos.length - 1];
+    if (ultimo && ultimo.destaque === marcado[i]) ultimo.texto += nome[i];
+    else trechos.push({ texto: nome[i], destaque: marcado[i] });
+  }
+  return trechos;
+}

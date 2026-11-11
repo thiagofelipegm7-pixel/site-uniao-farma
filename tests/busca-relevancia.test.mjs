@@ -47,3 +47,26 @@ test("atalhos: departamento e marca pelo começo do nome, só a partir de 3 letr
   assert.ok(ne.length <= 3);
   assert.deepEqual(atalhosDaBusca("zzzz"), []);
 });
+
+test("destaque: marca o trecho digitado sem diferenciar acento ou maiúscula e sem alterar o texto", async () => {
+  const { destacarTrechos } = await import("../app/shop/busca-painel.ts");
+  const junto = (t) => t.map((x) => x.texto).join("");
+  const nome = "Máscara Dove Hidratante Hialuron 500g";
+  const t = destacarTrechos(nome, ["mascara"]);
+  assert.deepEqual(t[0], { texto: "Máscara", destaque: true });
+  assert.equal(junto(t), nome);
+  assert.deepEqual(destacarTrechos("Fralda Isababy G 28UN", ["fralda"]), [{ texto: "Fralda", destaque: true }, { texto: " Isababy G 28UN", destaque: false }]);
+  // começo de palavra vence ocorrência no meio ("endovenosa" tem "dove")
+  const meio = destacarTrechos("Endovenosa Dove 5ml", ["dove"]);
+  assert.deepEqual(meio.filter((x) => x.destaque).map((x) => x.texto), ["Dove"]);
+  // vários termos, sem marcar o que não foi digitado
+  const dois = destacarTrechos("Shampoo Dove Man Care 200ml", ["shampoo", "dove"]);
+  assert.deepEqual(dois.filter((x) => x.destaque).map((x) => x.texto), ["Shampoo", "Dove"]);
+  assert.equal(junto(dois), "Shampoo Dove Man Care 200ml");
+  // sem ocorrência: um trecho só, sem destaque; termo de 1 letra é ignorado
+  assert.deepEqual(destacarTrechos("Fita Cremer", ["xyz"]), [{ texto: "Fita Cremer", destaque: false }]);
+  assert.deepEqual(destacarTrechos("Fita Cremer", ["f"]), [{ texto: "Fita Cremer", destaque: false }]);
+  // fora da lista: acento composto e tamanho do texto preservados
+  const cond = destacarTrechos("Condicionador Seda Cachos", ["condição"]);
+  assert.equal(junto(cond), "Condicionador Seda Cachos");
+});
