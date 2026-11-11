@@ -86,9 +86,11 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
           <span>{dep.nome}</span>
         </nav>
         <h1 className="catalogo-titulo section-inner">{dep.nome}</h1>
-        <div className="section-inner marcas-pagina">
-          <MarcasLinha marcas={MARCAS_POR_DEPARTAMENTO[dep.slug]} />
-        </div>
+        {MARCAS_POR_DEPARTAMENTO[dep.slug]?.length === 0 ? null : (
+          <div className="section-inner marcas-pagina">
+            <MarcasLinha marcas={MARCAS_POR_DEPARTAMENTO[dep.slug]} />
+          </div>
+        )}
         
         <div className="section-inner" id="lista">
           {dep.slug === "medicamentos" ? (

@@ -77,9 +77,13 @@ export const MARCAS_INFANTIL: readonly MarcaDestaque[] = [
   { slug: "skalinha", nome: "Skalinha", busca: "skalinha", href: emInfantil("skalinha") },
 ];
 
-/** Faixa de cada departamento. Sem entrada aqui, a página usa a faixa geral (MARCAS_DESTAQUE). */
+/**
+ * Faixa de cada departamento. Sem entrada aqui, a página usa a faixa geral (MARCAS_DESTAQUE). Lista vazia = a página não mostra faixa.
+ * Perfumes está vazia: o departamento tem 3 produtos em estoque e as marcas gerais (Dove, Nivea…) não levam a nada ali.
+ */
 export const MARCAS_POR_DEPARTAMENTO: Readonly<Record<string, readonly MarcaDestaque[]>> = {
   medicamentos: MARCAS_MEDICAMENTOS,
   dermocosmeticos: MARCAS_DERMOCOSMETICOS,
   "infantil-e-gestante": MARCAS_INFANTIL,
+  perfumes: [],
 };
