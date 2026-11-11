@@ -23,6 +23,12 @@ function normalizarBusca(value) {
     .trim();
 }
 
+// Réplica de SINONIMOS_BUSCA/sinonimosDe de busca.ts (palavras que o cliente usa e que não estão no nome); um teste confere que as duas saem iguais.
+const SINONIMOS_BUSCA = [[/covid|sars/i, "teste rapido antigeno coronavirus sars cov 2 autoteste"]];
+function sinonimosDe(nome) {
+  return SINONIMOS_BUSCA.filter(([rx]) => rx.test(nome)).map(([, extra]) => extra).join(" ");
+}
+
 function slugify(value) {
   return normalizarBusca(value).replace(/\s+/g, "-");
 }
@@ -229,7 +235,7 @@ for (const g of grupos) {
     const nomeEx = nomeDeExibicao(item.nome);
     const slug = slugify(item.nome);
     const foto = fotoDoProduto(item.nome) ?? (item.categoria === "Medicamentos" ? ilustracaoSemReceita(item.nome) : null);
-    const busca = normalizarBusca(`${nomeEx} ${item.nome} ${item.lab} ${item.categoria}`);
+    const busca = normalizarBusca(`${nomeEx} ${item.nome} ${item.lab} ${item.categoria} ${sinonimosDe(item.nome)}`);
     const fmt = {
       nome: item.nome,
       nomeExibicao: nomeEx,

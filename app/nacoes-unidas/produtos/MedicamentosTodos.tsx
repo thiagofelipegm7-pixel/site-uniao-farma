@@ -5,7 +5,7 @@
 import { useEffect, useMemo, useState } from "react";
 import ReservarBotao from "../../reserva/ReservarBotao";
 import { precoParaCentavos } from "../../reserva/reserva-store";
-import { FAIXAS_PRECO, normalizarBusca, termosDeBusca, type FaixaPreco } from "./busca";
+import { FAIXAS_PRECO, normalizarBusca, termosDaConsulta, type FaixaPreco } from "./busca";
 import CartaoPanvel from "./CartaoPanvel";
 import { quantidadeDoNome } from "./quantidade";
 import { Cartao } from "./ListaRestrita";
@@ -94,7 +94,7 @@ export default function MedicamentosTodos({ otcInicial, unitId, paginaInicial = 
   }, []);
 
   const todas = useMemo(() => [...otcInicial.map(linhaOtc), ...restritos].sort(comparar), [otcInicial, restritos]);
-  const termos = termosDeBusca(consulta);
+  const termos = termosDaConsulta(consulta);
   const porBusca = useMemo(
     () => todas.filter((l) => termos.every((t) => l.busca.includes(t))),
     [todas, consulta], // eslint-disable-line react-hooks/exhaustive-deps -- termos deriva de consulta
