@@ -2091,3 +2091,15 @@ html body .marcas-pagina .shop-marcas { margin: 0 0 1.25rem; }
 .shop-sugestoes-atalhos small { color: #3e4b49; font-size: 0.75rem; font-weight: 600; }
 .shop-sugestoes-atalhos strong { font-size: 0.875rem; font-weight: 800; }
 .shop-sugestoes-atalhos span { font-size: 1.125rem; line-height: 1; }
+
+/* Busca do cabeçalho, versão final: lupa sem botão. Mesmo sistema de medidas no computador e no celular (grade de 4 px):
+   barra 48, recuo do texto 24 (metade da altura, acompanha a curva da ponta), área de toque da lupa 48 x 48 colada na ponta, ícone 24. */
+html body .shop-busca { height: 3rem; padding: 0 0 0 1.5rem; }
+html body .shop-busca button[type="submit"] { order: 2; width: 3rem; height: 3rem; min-width: 0; margin: 0; padding: 0; border: 0; border-radius: 50%; background: transparent; color: #0e7370; }
+html body .shop-busca button[type="submit"]:hover { background: rgba(14, 115, 112, 0.08); }
+html body .shop-busca button[type="submit"]:focus-visible { outline: 3px solid var(--uf-action); outline-offset: -3px; }
+@layer design {
+  html body .shop-busca { height: 3rem !important; padding: 0 0 0 1.5rem !important; }
+  html body .shop-busca button[type="submit"] { width: 3rem !important; height: 3rem !important; margin: 0 !important; background: transparent !important; color: #0e7370 !important; border-radius: 50% !important; }
+  html body .shop-busca button[type="submit"]:hover { background: rgba(14, 115, 112, 0.08) !important; }
+}
