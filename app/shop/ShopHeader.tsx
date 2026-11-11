@@ -4,6 +4,7 @@
 
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { BUSCAS_POPULARES, normalizarBusca, termosDeBusca } from "../nacoes-unidas/produtos/busca";
+import { atalhosDaBusca, melhoresResultados } from "./busca-painel";
 import { analisarConsulta, casaConsulta, contarCasos, criarVocabulario } from "../nacoes-unidas/produtos/busca-tolerante";
 import { buildWhatsAppUrl, UNITS } from "../site-config";
 import { formatarCentavos } from "../reserva/reserva-store";
@@ -88,8 +89,8 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   const normal = normalizarBusca(termoBusca);
   const termos = termosDeBusca(termoBusca);
   // Só os primeiros resultados são mostrados: para de procurar ao achar o suficiente.
-  const exatos = useMemo(() => (normal.length >= 2 && itens ? primeiros(itens, (item) => termos.every((t) => item.busca.includes(t)), 6) : []), [normal, itens]); // eslint-disable-line react-hooks/exhaustive-deps -- `termos` vem de `normal`
-  const exatosRestritos = useMemo(() => (normal.length >= 2 ? primeiros(restritos, (item) => termos.every((t) => item.busca.includes(t)), 4) : []), [normal, restritos]); // eslint-disable-line react-hooks/exhaustive-deps -- `termos` vem de `normal`
+  const exatos = useMemo(() => (normal.length >= 2 && itens ? melhoresResultados(itens, (item) => termos.every((t) => item.busca.includes(t)), termos, (item) => item.nome, (item) => item.foto !== null, 6) : []), [normal, itens]); // eslint-disable-line react-hooks/exhaustive-deps -- `termos` vem de `normal`
+  const exatosRestritos = useMemo(() => (normal.length >= 2 ? melhoresResultados(restritos, (item) => termos.every((t) => item.busca.split(" ").some((palavra) => palavra.startsWith(t))), termos, (item) => item.nome, () => false, 4) : []), [normal, restritos]); // eslint-disable-line react-hooks/exhaustive-deps -- `termos` vem de `normal`
   // Digitou errado e nada casou? Corrige com o vocabulário do catálogo (local, sem IA no painel). O vocabulário só é montado na primeira vez que precisa.
   const analise = useMemo(() => {
     if (!itens || itens.length === 0 || normal.length < 3 || exatos.length > 0 || exatosRestritos.length > 0) return null;
@@ -104,9 +105,11 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   }, [itens, restritos, normal, termoBusca, exatos.length, exatosRestritos.length]);
   const corrigida = analise?.corrigida ?? null;
   const sugerida = analise?.sugerida ?? null;
-  const resultados = corrigida ? primeiros(itens ?? [], (item) => casaConsulta(item.busca, corrigida), 6) : exatos;
+  const termosCorrigidos = useMemo(() => (corrigida ? termosDeBusca(corrigida) : []), [corrigida]);
+  const resultados = corrigida ? melhoresResultados(itens ?? [], (item) => casaConsulta(item.busca, corrigida), termosCorrigidos, (item) => item.nome, (item) => item.foto !== null, 6) : exatos;
   // Medicamentos com receita e controlados também aparecem na busca (lista de preços, sem cesta).
-  const resultadosRestritos = corrigida ? primeiros(restritos, (item) => casaConsulta(item.busca, corrigida), 4) : exatosRestritos;
+  const resultadosRestritos = corrigida ? melhoresResultados(restritos, (item) => casaConsulta(item.busca, corrigida), termosCorrigidos, (item) => item.nome, () => false, 4) : exatosRestritos;
+  const atalhos = useMemo(() => atalhosDaBusca(termoBusca), [termoBusca]);
   const mostrarPainel = foco && (normal.length === 0 || normal.length >= 2);
   const semResultado = normal.length >= 2 && itens !== null && resultados.length === 0 && resultadosRestritos.length === 0;
 
@@ -229,6 +232,17 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                 tocandoPainel.current = false;
               }}
             >
+              {atalhos.length > 0 ? (
+                <nav className="shop-sugestoes-atalhos" aria-label="Ir direto">
+                  {atalhos.map((atalho) => (
+                    <a key={`${atalho.tipo}-${atalho.nome}`} href={atalho.href}>
+                      <small>{atalho.tipo === "marca" ? "Marca" : "Departamento"}</small>
+                      <strong>{atalho.nome}</strong>
+                      <span aria-hidden="true">›</span>
+                    </a>
+                  ))}
+                </nav>
+              ) : null}
               {normal.length === 0 ? (
                 <>
                   <p className="shop-sugestoes-titulo" id="termos-mais-buscados-titulo">Termos mais buscados</p>

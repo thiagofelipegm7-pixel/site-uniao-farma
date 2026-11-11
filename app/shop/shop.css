@@ -2082,3 +2082,12 @@ html body .shop-marcas { margin: 2rem auto 2rem; }
 @media (max-width: 767px) { @layer design { html body .shop-marcas h2 { font-size: 1.1875rem !important; } } }
 html body .marcas-pagina .shop-marcas { margin: 0 0 1.25rem; }
 @layer design { html body .marcas-pagina .shop-marcas h2 { font-size: 1.125rem !important; margin-bottom: 0.5rem !important; } }
+
+/* Atalhos no topo do painel de busca: marca e departamento que batem com o que foi digitado. */
+.shop-sugestoes-atalhos { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0.625rem 0.75rem 0.25rem; }
+.shop-sugestoes-atalhos a { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 2.25rem; padding: 0 0.875rem; border-radius: 999px; background: #eef7f4; color: var(--uf-navy); text-decoration: none; }
+.shop-sugestoes-atalhos a:hover { background: #dcefe9; }
+.shop-sugestoes-atalhos a:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 1px; }
+.shop-sugestoes-atalhos small { color: #3e4b49; font-size: 0.75rem; font-weight: 600; }
+.shop-sugestoes-atalhos strong { font-size: 0.875rem; font-weight: 800; }
+.shop-sugestoes-atalhos span { font-size: 1.125rem; line-height: 1; }
