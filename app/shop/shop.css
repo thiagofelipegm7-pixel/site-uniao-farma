@@ -2106,3 +2106,20 @@ html body .shop-busca button[type="submit"]:focus-visible { outline: 3px solid v
 
 /* Trecho digitado em destaque nos nomes do painel de busca. */
 .shop-sugestoes mark { padding: 0 0.0625rem; border-radius: 3px; background: #cfeee5; color: inherit; font-weight: inherit; }
+
+/* Buscas recentes no painel (campo vazio). */
+.shop-sugestoes-cabeca { display: flex; align-items: center; justify-content: space-between; padding-right: 0.5rem; }
+.shop-sugestoes-limpar { min-height: 2.75rem; padding: 0 0.75rem; border: 0; background: none; color: #0a3548; font: inherit; font-size: 0.8125rem; font-weight: 700; text-decoration: underline; cursor: pointer; }
+.shop-sugestoes-limpar:focus-visible, .shop-recente button:focus-visible { outline: 3px solid var(--uf-action); outline-offset: -3px; }
+.shop-sugestoes li.shop-recente { display: flex; align-items: center; }
+.shop-recente a { flex: 1 1 auto; min-width: 0; color: #3e4b49; }
+.shop-recente a svg { flex: none; color: #6b8b86; }
+.shop-recente button { flex: none; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; padding: 0; border: 0; background: none; color: #6b8b86; cursor: pointer; }
+.shop-recente button:hover { color: #0a3548; }
+/* Os botões do painel (Limpar, remover busca) não herdam o estilo de botão da barra de busca. */
+html body .shop-busca .shop-sugestoes-limpar { width: auto; height: auto; min-height: 2.75rem; margin: 0; padding: 0 0.75rem; border: 0; border-radius: 6px; background: none; color: #0a3548; }
+html body .shop-busca .shop-recente button { width: 2.75rem; height: 2.75rem; margin: 0; padding: 0; border: 0; border-radius: 6px; background: none; color: #6b8b86; }
+@layer design {
+  html body .shop-busca .shop-sugestoes-limpar { width: auto !important; height: auto !important; margin: 0 !important; background: none !important; color: #0a3548 !important; border-radius: 6px !important; }
+  html body .shop-busca .shop-recente button { width: 2.75rem !important; height: 2.75rem !important; margin: 0 !important; background: none !important; color: #6b8b86 !important; border-radius: 6px !important; }
+}

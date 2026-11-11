@@ -70,3 +70,22 @@ test("destaque: marca o trecho digitado sem diferenciar acento ou maiúscula e s
   const cond = destacarTrechos("Condicionador Seda Cachos", ["condição"]);
   assert.equal(junto(cond), "Condicionador Seda Cachos");
 });
+
+test("buscas recentes: sobe repetida sem diferenciar acento, guarda no máximo 5, ignora termo curto e lixo", async () => {
+  const { registrarBusca, removerBusca, lerBuscasRecentes, MAX_BUSCAS_RECENTES } = await import("../app/shop/buscas-recentes.ts");
+  let l = [];
+  for (const t of ["dove", "fralda", "shampoo", "dipirona", "protetor solar", "sabonete"]) l = registrarBusca(l, t);
+  assert.equal(l.length, MAX_BUSCAS_RECENTES);
+  assert.equal(l[0], "sabonete");
+  assert.ok(!l.includes("dove"), "a mais antiga saiu");
+  l = registrarBusca(l, "  FRALDA  ");
+  assert.equal(l[0], "FRALDA");
+  assert.equal(l.filter((x) => x.toLowerCase() === "fralda").length, 1, "sem repetir");
+  assert.deepEqual(registrarBusca(["a b"], "x"), ["a b"], "1 letra não entra");
+  assert.deepEqual(registrarBusca(["máscara"], "Mascara"), ["Mascara"], "acento não duplica");
+  assert.deepEqual(removerBusca(["dove", "fralda"], "DOVE"), ["fralda"]);
+  assert.deepEqual(lerBuscasRecentes(null), []);
+  assert.deepEqual(lerBuscasRecentes("não é json"), []);
+  assert.deepEqual(lerBuscasRecentes('{"a":1}'), []);
+  assert.deepEqual(lerBuscasRecentes(JSON.stringify(["dove", 5, "x", "Dove", "fralda"])), ["dove", "fralda"]);
+});

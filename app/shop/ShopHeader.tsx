@@ -4,6 +4,7 @@
 
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { BUSCAS_POPULARES, normalizarBusca, termosDeBusca } from "../nacoes-unidas/produtos/busca";
+import { carregarBuscasRecentes, guardarBuscasRecentes, registrarBusca, removerBusca } from "./buscas-recentes";
 import { atalhosDaBusca, destacarTrechos, melhoresResultados } from "./busca-painel";
 import { analisarConsulta, casaConsulta, contarCasos, criarVocabulario } from "../nacoes-unidas/produtos/busca-tolerante";
 import { buildWhatsAppUrl, UNITS } from "../site-config";
@@ -70,6 +71,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   const [menu, setMenu] = useState(false);
   const [termo, setTermo] = useState(consultaInicial);
   const [foco, setFoco] = useState(false);
+  const [recentes, setRecentes] = useState<string[]>([]);
   const [itens, setItens] = useState<Sugestao[] | null>(null);
   const [restritos, setRestritos] = useState<SugestaoRestrita[]>([]);
   const carregando = useRef(false);
@@ -78,6 +80,20 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   // Dedo (ou mouse) no painel de sugestões: no iPhone tocar num link tira o foco do campo antes do clique e o painel sumia sem abrir o produto.
   const tocandoPainel = useRef(false);
   const fimToque = useRef<number | undefined>(undefined);
+
+  // Buscas recentes: só neste aparelho. Lê ao montar (o armazenamento só existe no navegador).
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- lê o armazenamento do navegador depois que a página abre
+  useEffect(() => setRecentes(carregarBuscasRecentes()), []);
+  function lembrarBusca(texto: string) {
+    const nova = registrarBusca(recentes, texto);
+    setRecentes(nova);
+    guardarBuscasRecentes(nova);
+  }
+  function esquecerBusca(texto: string | null) {
+    const nova = texto === null ? [] : removerBusca(recentes, texto);
+    setRecentes(nova);
+    guardarBuscasRecentes(nova);
+  }
 
   // Busca o catálogo uma vez, só quando o cliente toca no campo.
   function carregar() {
@@ -187,6 +203,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
           role="search"
           action="/nacoes-unidas/produtos"
           method="get"
+          onSubmit={() => lembrarBusca(termo)}
           onBlur={(event) => {
             if (event.currentTarget.contains(event.relatedTarget as Node | null)) return;
             // Dá tempo do toque virar clique; só fecha se o foco realmente saiu da busca e ninguém está tocando no painel.
@@ -233,6 +250,14 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
               className="shop-sugestoes"
               id="shop-sugestoes"
               ref={painelRef}
+              onClick={(event) => {
+                // Abrir um produto ou "ver todos" a partir do que foi digitado, ou repetir uma busca recente, guarda a busca.
+                const link = (event.target as HTMLElement).closest("a");
+                if (!link) return;
+                const repetida = link.getAttribute("data-busca");
+                const texto = repetida ?? (normal.length >= 2 ? termo : "");
+                if (texto) lembrarBusca(texto);
+              }}
               onPointerDown={() => {
                 tocandoPainel.current = true;
                 window.clearTimeout(fimToque.current);
@@ -258,6 +283,27 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
               ) : null}
               {normal.length === 0 ? (
                 <>
+                  {recentes.length > 0 ? (
+                    <>
+                      <div className="shop-sugestoes-cabeca">
+                        <p className="shop-sugestoes-titulo" id="buscas-recentes-titulo">Buscas recentes</p>
+                        <button type="button" className="shop-sugestoes-limpar" onClick={() => esquecerBusca(null)}>Limpar</button>
+                      </div>
+                      <ul className="shop-sugestoes-recentes" aria-labelledby="buscas-recentes-titulo">
+                        {recentes.map((busca) => (
+                          <li key={busca} className="shop-recente">
+                            <a href={`/nacoes-unidas/produtos?q=${encodeURIComponent(busca)}`} data-busca={busca}>
+                              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+                              <span>{busca}</span>
+                            </a>
+                            <button type="button" aria-label={`Remover a busca ${busca}`} onClick={() => esquecerBusca(busca)}>
+                              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  ) : null}
                   <p className="shop-sugestoes-titulo" id="termos-mais-buscados-titulo">Termos mais buscados</p>
                   <ul className="shop-sugestoes-termos" role="listbox" aria-labelledby="termos-mais-buscados-titulo">
                     {BUSCAS_POPULARES.map((valor, i) => (
