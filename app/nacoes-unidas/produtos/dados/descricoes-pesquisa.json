@@ -131,6 +131,12 @@
   "quando": "2026-11-11",
   "conf": "media"
  },
+ "listerine-cool-mint-500ml": {
+  "t": "Enxaguante bucal Listerine Cool Mint Refrescância Intensa, 500 ml. Uso conforme as instruções do rótulo; não engolir. Mantenha fora do alcance de crianças.",
+  "fonte": "https://www.listerine.com.br/products/cuidado-essencial/listerine-cool-mint-refrescancia-intensa",
+  "quando": "2026-11-11",
+  "conf": "media"
+ },
  "locao-de-limpeza-cetaphil-120ml": {
   "t": "Loção de limpeza Cetaphil, sem fragrância e sem parabenos.",
   "fonte": "https://www.cetaphil.com.br/produtos/limpeza/lo%C3%A7%C3%A3o-de-limpeza-cetaphil-120ml/7897930777705.html",
@@ -149,9 +155,27 @@
   "quando": "2026-11-11",
   "conf": "alta"
  },
+ "masc-cap-trat-dove-500g-reconst-queratin": {
+  "t": "Máscara capilar 2 em 1 Dove Reconstrução + Aminoácido, 500 g, para cabelos danificados, ressecados ou com química, segundo o fabricante. Pode ser usada como máscara, com enxágue, deixando agir por pelo menos 1 minuto, ou como finalizador sem enxágue no cabelo úmido.",
+  "fonte": "https://www.dove.com/br/p/mascara-2em1-reconstrucao%20aminoacido.html/07891150096745",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "masc-dove-hidrat-hialuron-500g": {
+  "t": "Máscara capilar 2 em 1 Dove Hidratação + Hialuron-Vit, 500 g, indicada pelo fabricante para todos os tipos de cabelo, principalmente os ressecados. Com enxágue: aplique nos cabelos úmidos, do comprimento às pontas, e deixe agir por pelo menos 1 minuto. Sem enxágue: use como finalizador.",
+  "fonte": "https://www.dove.com/br/p/mascara-2em1-hidratacao-hialuron-vit-500g.html/07891150096738",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
  "masc-dove-nutricao-tri-oleo-500g": {
   "t": "Máscara capilar 2 em 1 Dove Nutrição + Tri-Óleos, 500 g, para cabelos ressecados. Pode ser usada como máscara, com enxágue, ou como finalizador sem enxágue, no cabelo úmido. A lista de ingredientes do fabricante inclui óleos de argan, de coco e de girassol.",
   "fonte": "https://www.dove.com/br/p/mascara-2em1-nutricao-tri-oleos.html/07891150096752",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "oleo-dove-banho-glicerina-240ml": {
+  "t": "Sabonete líquido Dove Óleo de Banho, com alto teor de glicerina segundo o fabricante, que o apresenta como sabonete e óleo de banho em um só produto. Uso: faça espuma no corpo e enxágue com água morna.",
+  "fonte": "https://www.dove.com/br/p/sabonete-liquido-oleo-de-banho.html/07891150098442",
   "quando": "2026-11-11",
   "conf": "alta"
  },
@@ -257,15 +281,39 @@
   "quando": "2026-11-11",
   "conf": "alta"
  },
+ "serum-dove-corp-niacinamid-180ml": {
+  "t": "Sérum corporal Dove com Niacinamida, 180 ml. O fabricante informa niacinamida, colágeno vegetal e vitamina C na fórmula, de textura leve e não oleosa. Uso: aplique em todo o corpo com movimentos circulares, como alternativa às loções hidratantes.",
+  "fonte": "https://www.dove.com/br/p/serum-corporal-niacinamida-180ml.html/07891150095816",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
  "serum-dove-corpo-pro-ceram-180ml": {
   "t": "Sérum corporal Dove Pró-Ceramidas, 180 ml, para pele seca. O fabricante informa pró-ceramidas, colágeno vegetal e glicerina na composição. Uso: aplique em todo o corpo após o banho, com movimentos circulares.",
   "fonte": "https://www.dove.com/br/p/serum-corporal-pro-ceramidas-180ml.html/07891150095861",
   "quando": "2026-11-11",
   "conf": "alta"
  },
+ "sh-dove-man-care-200ml": {
+  "t": "Shampoo anticaspa Dove Men+Care, 200 ml. O fabricante informa piritionato de zinco e cafeína na fórmula. Para uso nos cabelos molhados, conforme instruções do rótulo.",
+  "fonte": "https://www.dove.com/br/p/men-care-shampoo-protecao-anticaspa.html/07891150021709-men-product-detail-page",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
  "sh-dove-reconst-aminoacido-190ml": {
   "t": "Shampoo Dove Reconstrução + Aminoácido, 190 ml, indicado pelo fabricante para cabelos danificados e ressecados. Uso: aplique nos cabelos molhados, massageie o couro cabeludo e os comprimentos e enxágue.",
   "fonte": "https://www.dove.com/br/p/shampoo-reconstrucao-aminoacido-190ml.html/07891150102347",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "sh-dove-reconst-aminoacido-600ml": {
+  "t": "Shampoo Dove Reconstrução + Aminoácido, 600 ml, indicado pelo fabricante para cabelos danificados e ressecados. Uso: aplique nos cabelos molhados, massageie o couro cabeludo e os comprimentos e enxágue.",
+  "fonte": "https://www.dove.com/br/p/shampoo-reconstrucao-aminoacido-600ml.html/07891150102644",
+  "quando": "2026-11-11",
+  "conf": "alta"
+ },
+ "sh-dove-umectacao-coco-ant-370ml": {
+  "t": "Shampoo Dove Umectação + Coco Antioxi, 370 ml, de uso diário para cabelos secos, com óleo de coco segundo o fabricante. Uso: massageie nos cabelos molhados até formar espuma e enxágue; repita se necessário.",
+  "fonte": "https://www.dove.com/br/p/shampoo-umectacao-coco-antioxi-370ml.html/07891150102620",
   "quando": "2026-11-11",
   "conf": "alta"
  },
