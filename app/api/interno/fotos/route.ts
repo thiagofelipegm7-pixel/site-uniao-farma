@@ -8,6 +8,7 @@ import { listarPendentes, listarRemocoes } from "../../../fotos-enviadas";
 import { mapaDeCategorias } from "../../../categoria-override";
 import { mapaDeControlados } from "../../../controlado-override";
 import { mapaDeMarcas } from "../../../marca-override";
+import { mapaDeDescricoes } from "../../../descricao-override";
 import { mapaDeNomes, ultimasAlteracoes, type Banco } from "../../../nomes-corrigidos";
 import { mapaDeRemovidos } from "../../../produtos-removidos";
 import { FOTOS_NACOES } from "../../../nacoes-unidas/produtos/imagens";
@@ -79,11 +80,19 @@ export async function GET() {
   const nomes = db ? await mapaDeNomes(db).catch(() => ({})) : {};
   const controlados = db ? await mapaDeControlados(db).catch(() => ({})) : {};
   const marcasOverride = db ? await mapaDeMarcas(db).catch(() => ({})) : {};
+  const descricoesOverride = db ? await mapaDeDescricoes(db).catch(() => ({})) : {};
   const alteracoes = db ? await ultimasAlteracoes(db).catch(() => []) : [];
   const sistemaRestrito = new Set<string>();
   for (const i of [...restritos.receita, ...restritos.controlados]) sistemaRestrito.add(chaveDeNome(i.nome));
   // Produtos que já têm texto de pesquisa ou de IA na página (para o filtro "Sem descrição"; sem o texto em si, só o código).
-  const comDescricao = linhas.filter((l) => { const d = descricaoDoProduto(slugify(l.nome)); return d !== null && d.origem !== "modelo"; }).map((l) => l.ean);
+  const comDescricao: string[] = [];
+  const descricoes: Record<string, { t: string; o: string; f?: string }> = {};
+  for (const l of linhas) {
+    const d = descricaoDoProduto(slugify(l.nome));
+    if (!d) continue;
+    descricoes[l.ean] = { t: d.texto, o: d.origem, ...(d.fonte ? { f: d.fonte } : {}) };
+    if (d.origem !== "modelo") comDescricao.push(l.ean);
+  }
   const listaCategorias = [...new Set(linhas.map((l) => l.categoria))].sort((a, b) => (a === SEM_CATEGORIA ? 1 : b === SEM_CATEGORIA ? -1 : a.localeCompare(b, "pt-BR")));
   return Response.json(
     {
@@ -99,6 +108,8 @@ export async function GET() {
       categoriasOverride: categoriasOvr,
       marcasOverride,
       comDescricao,
+      descricoes,
+      descricoesOverride,
       mudancas: mudancasRecentes(),
       alteracoes,
       removidas,

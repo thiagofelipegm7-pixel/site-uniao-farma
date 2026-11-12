@@ -180,12 +180,13 @@ def baixar_aprovacoes(token):
         with urllib.request.urlopen(req, timeout=30) as r:
             dados = json.loads(r.read().decode("utf-8"))
         if not isinstance(dados, dict):
-            return {}, None, None, None, None, None
+            return {}, None, None, None, None, None, None
         nomes = dados.get("nomes")
         controlados = dados.get("controlados")
         categorias = dados.get("categorias")
         removidos = dados.get("removidos")
         marcas = dados.get("marcas")
+        descricoes = dados.get("descricoes")
         return (
             dados.get("aprovacoes", {}),
             (nomes if isinstance(nomes, dict) else None),
@@ -193,10 +194,11 @@ def baixar_aprovacoes(token):
             (categorias if isinstance(categorias, dict) else None),
             (removidos if isinstance(removidos, list) else None),
             (marcas if isinstance(marcas, dict) else None),
+            (descricoes if isinstance(descricoes, dict) else None),
         )
     except Exception as e:  # noqa: BLE001
         anotar("warning", "Aprovações do painel", f"não consegui ler ({type(e).__name__}); usando só a base do repositório")
-        return {}, None, None, None, None, None
+        return {}, None, None, None, None, None, None
 
 
 def rodar(*cmd):
@@ -262,7 +264,7 @@ def main(argv):
             rodar(sys.executable, os.path.join(AQUI, "gerar.py"), export, "--sem-csv")
             rodar(sys.executable, os.path.join(AQUI, "categorias_novas.py"))
             base = ler(os.path.join(AQUI, "aprovacoes-base.json")) if os.path.exists(os.path.join(AQUI, "aprovacoes-base.json")) else {}
-            remoto, nomes, controlados, categorias, removidos, marcas = baixar_aprovacoes(os.environ.get("CATALOGO_READ_TOKEN", "").strip()) if not arquivo else ({}, None, None, None, None, None)
+            remoto, nomes, controlados, categorias, removidos, marcas, descricoes = baixar_aprovacoes(os.environ.get("CATALOGO_READ_TOKEN", "").strip()) if not arquivo else ({}, None, None, None, None, None, None)
             aprov = juntar_aprovacoes(base, remoto)
             if nomes is not None:  # nomes que o painel corrigiu: valem a partir desta publicação (os asset e as páginas leem este arquivo)
                 with open(os.path.join(DADOS, "nomes-corrigidos.json"), "w", encoding="utf-8") as f:
@@ -270,6 +272,9 @@ def main(argv):
             if marcas is not None:  # marcas que a equipe preencheu no painel: o site e a busca leem este arquivo
                 with open(os.path.join(DADOS, "marcas-corrigidas.json"), "w", encoding="utf-8") as f:
                     json.dump(marcas, f, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+            if descricoes is not None:  # descrições que a equipe escreveu no painel: a página do produto lê este arquivo
+                with open(os.path.join(DADOS, "descricoes-painel.json"), "w", encoding="utf-8") as f:
+                    json.dump(descricoes, f, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
             if categorias is not None:
                 with open(os.path.join(DADOS, "categorias-overrides.json"), "w", encoding="utf-8") as f:
                     json.dump(categorias, f, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
@@ -294,7 +299,7 @@ def main(argv):
                 def arq(n):
                     p = os.path.join(pasta, n)
                     return ler(p) if os.path.exists(p) else {}
-                return {"revisao": sem_data(arq("revisao-pendente.json")), "nomes": arq("nomes-corrigidos.json"), "controlados": arq("controlados-overrides.json"), "categorias": arq("categorias-overrides.json"), "marcas": arq("marcas-corrigidas.json")}
+                return {"revisao": sem_data(arq("revisao-pendente.json")), "nomes": arq("nomes-corrigidos.json"), "controlados": arq("controlados-overrides.json"), "categorias": arq("categorias-overrides.json"), "marcas": arq("marcas-corrigidas.json"), "descricoes": arq("descricoes-painel.json")}
             rev_ant, rev_nov = _extras(os.path.join(tmp, "dados")), _extras(DADOS)
             validar_saida(cat_antigo, rx_antigo, cat_novo, rx_novo, forcar)
         except Recusa:

@@ -323,3 +323,5 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 .pf-mudanca-nome { padding: 0; border: 0; background: transparent; color: var(--pf-ink); font: inherit; font-size: 0.9375rem; font-weight: 600; text-align: left; text-decoration: underline; text-decoration-color: var(--pf-linha); cursor: pointer; }
 .pf-mudanca-info { color: var(--pf-mudo); font-size: 0.8125rem; }
 .pf-mudancas-nota { margin: 0.5rem 0 0; color: var(--pf-mudo); font-size: 0.8125rem; }
+.pf-area { min-height: 6rem; padding: 0.625rem 0.75rem; resize: vertical; line-height: 1.4; font-family: inherit; }
+.pf-dica { display: block; margin-top: 0.25rem; color: var(--pf-mudo); font-size: 0.8125rem; }
