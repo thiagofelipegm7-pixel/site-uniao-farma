@@ -2,6 +2,7 @@ import { lerExportBruto } from "../../../estoque-fonte";
 import { chaveDeNome, montarLinhas, reconciliarContagens, resumirFotos, SEM_CATEGORIA } from "../../../fotos-painel";
 import { carregarCatalogoCompleto, slugify } from "../../../nacoes-unidas/produtos/catalogo";
 import { descricaoDoProduto } from "../../../nacoes-unidas/produtos/descricoes";
+import mudancasJson from "../../../nacoes-unidas/produtos/dados/mudancas-recentes.json" with { type: "json" };
 import { banco, segredo } from "../../../estoque-fonte";
 import { listarPendentes, listarRemocoes } from "../../../fotos-enviadas";
 import { mapaDeCategorias } from "../../../categoria-override";
@@ -22,6 +23,15 @@ const BIJUTERIAS = /^(BRINCO |PIERCING |ANEL |COLAR |PULSEIRA |PINGENTE )/i;
 const EAN_OVERRIDE: Record<string, string> = {
   "LACTO PURGA C/6 CARTELA": "7896094912472",
 };
+
+type Mudanca = { q: string; t: string; n: string; c: string; de?: number; para?: number };
+
+/** O que mudou no catálogo nos últimos 7 dias (novo, esgotou, voltou, preço), do mais novo para o mais antigo. Escrito pela sincronização; sem estoque nem código de barras. */
+function mudancasRecentes(agora = Date.now()): Mudanca[] {
+  const lista = Array.isArray((mudancasJson as { eventos?: unknown }).eventos) ? ((mudancasJson as { eventos: Mudanca[] }).eventos) : [];
+  const desde = agora - 7 * 24 * 3600 * 1000;
+  return lista.filter((e) => typeof e?.q === "string" && Date.parse(e.q) >= desde).slice(-600).reverse();
+}
 
 /** Estoque de agora cruzado com as fotos que já estão no site (painel interno; a senha é pedida pelo middleware). */
 export async function GET() {
@@ -89,6 +99,7 @@ export async function GET() {
       categoriasOverride: categoriasOvr,
       marcasOverride,
       comDescricao,
+      mudancas: mudancasRecentes(),
       alteracoes,
       removidas,
       publicacaoRapida: Boolean(segredo("GITHUB_DISPATCH_TOKEN")),
