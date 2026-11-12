@@ -224,7 +224,6 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
       mudouPelaUrl.current = false;
       return;
     }
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- volta à primeira página quando a lista muda
     setPagina(1);
     if (new URLSearchParams(window.location.search).has("pagina")) {
       const u = new URL(window.location.href);
