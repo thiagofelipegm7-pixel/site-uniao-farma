@@ -158,6 +158,38 @@ export function filtrarLinhas(linhas: readonly LinhaFoto[], f: FiltroFotos): Lin
   });
 }
 
+/** Pendências que a equipe pode filtrar para trabalhar uma lista de cada vez. */
+export type Pendencia = "" | "semmarca" | "semcodigo" | "semdescricao" | "nomerevisar";
+
+export const ROTULOS_PENDENCIA: Readonly<Record<Exclude<Pendencia, "">, string>> = {
+  semmarca: "Sem marca",
+  semcodigo: "Sem código de barras",
+  semdescricao: "Sem descrição",
+  nomerevisar: "Nome a revisar",
+};
+
+/** Nome do sistema com cara de cortado ou com resto de cadastro: "(E)*", asterisco, ou terminando em / \\ & -. */
+export function nomeSuspeito(nome: string): boolean {
+  return /\(E\)|\*|[\/\\&-]\s*$/.test(nome.trim());
+}
+
+export type ContextoPendencia = {
+  /** Marca que vale hoje (a preenchida no painel, o laboratório do sistema ou a que o nome cita). */
+  marca: string;
+  /** O nome já foi corrigido no painel: deixa de ser suspeito. */
+  nomeCorrigido: boolean;
+  /** Já tem texto de pesquisa ou de IA na página do produto. */
+  temDescricao: boolean;
+};
+
+export function temPendencia(l: Pick<LinhaFoto, "nome" | "semCodigo" | "categoria">, p: Pendencia, c: ContextoPendencia): boolean {
+  if (p === "semmarca") return !c.marca.trim();
+  if (p === "semcodigo") return l.semCodigo === true;
+  if (p === "semdescricao") return ehAVenda(l) && l.categoria !== "Medicamentos" && !c.temDescricao;
+  if (p === "nomerevisar") return !c.nomeCorrigido && nomeSuspeito(l.nome);
+  return true;
+}
+
 const reais = (n: number) => n.toFixed(2).replace(".", ",");
 
 /** CSV (separador ;) com BOM para abrir certo no Excel. */
