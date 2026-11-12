@@ -394,3 +394,35 @@ test("troco: só na entrega em dinheiro, 'sem troco' ou 'troco para', e o valor 
   const fluxo = await readFile(new URL("../app/reserva/ReservaFluxo.tsx", import.meta.url), "utf8");
   assert.match(fluxo, /Informe o troco/, "o envio espera a resposta do troco");
 });
+
+test("card: círculo + permanente adiciona, abre a cesta e não vira pílula; preço 0 não abre", async () => {
+  const [botao, css, icons, abrir, sacola] = await Promise.all([
+    readFile(new URL("../app/reserva/ReservarBotao.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/shop/shop.css", import.meta.url), "utf8"),
+    readFile(new URL("../app/reserva/ReservaIcons.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/reserva/abrir-reserva.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/reserva/ReservaSacola.tsx", import.meta.url), "utf8"),
+  ]);
+  const blocoCartao = botao.split('variante === "cartao"')[1]?.split("if (qtd === 0)")[0] ?? "";
+  assert.ok(blocoCartao.length > 100, "o ramo do card precisa existir");
+  assert.match(blocoCartao, /pv-adicionar/);
+  assert.match(blocoCartao, /IconMaisFino/);
+  assert.match(blocoCartao, /Adicionar \$\{nome\} à cesta/);
+  assert.match(blocoCartao, /acrescentar\(\{ abrirCesta: true, gatilho: maisRef\.current \}\)/);
+  assert.doesNotMatch(blocoCartao, /IconLixeira|IconMenos|pv-seletor|is-aberto|output/);
+  assert.doesNotMatch(css, /pv-seletor/);
+  assert.doesNotMatch(icons, /IconMenosFino/);
+  assert.match(css, /--pv-add-bg, #0c9b90/);
+  assert.match(botao, /if \(!\(precoCentavos > 0\)\) return/);
+  assert.match(botao, /import \{ abrirReserva \} from "\.\/abrir-reserva"/);
+  assert.match(abrir, /detail: \{ gatilho: origem \}/);
+  assert.match(sacola, /origemExternaRef\.current \?\? gatilhoRef\.current/);
+  assert.match(sacola, /gatilho\?\.focus\(\)/);
+
+  const { ESTADO_VAZIO, adicionar, qtdDoItem, idDoItem } = await mod();
+  const id = idDoItem(nivea.unitId, nivea.nome);
+  assert.equal(adicionar(ESTADO_VAZIO, { ...nivea, precoCentavos: 0 }).itens.length, 0);
+  const um = adicionar(ESTADO_VAZIO, nivea);
+  assert.equal(qtdDoItem(um, id), 1);
+  assert.equal(qtdDoItem(adicionar(um, nivea), id), 2, "cada + soma mais uma unidade");
+});
