@@ -28,7 +28,7 @@ export const EXTENSOES_LOGO = ["png", "svg", "webp", "jpg"] as const;
 
 /**
  * Laboratórios da faixa do departamento Medicamentos, em ordem de volume de estoque (contagem de produtos não esgotados).
- * Entram só os que já têm logo em /public/marcas; a União Química entra quando o logo chegar.
+ * Entram só os que já têm logo em /public/marcas.
  * O clique abre a lista de Medicamentos já filtrada pelo laboratório.
  */
 const emMedicamentos = (termo: string) => `/departamentos/medicamentos?q=${encodeURIComponent(termo)}`;
@@ -44,6 +44,7 @@ export const MARCAS_MEDICAMENTOS: readonly MarcaDestaque[] = [
   { slug: "geolab", nome: "Geolab", busca: "geolab", cheia: true, href: emMedicamentos("geolab") },
   { slug: "medley", nome: "Medley", busca: "medley", href: emMedicamentos("medley") },
   { slug: "bayer", nome: "Bayer", busca: "bayer", href: emMedicamentos("bayer") },
+  { slug: "uniao-quimica", nome: "União Química", busca: "uniao quim", href: emMedicamentos("uniao quim") },
 ];
 
 /**
@@ -65,7 +66,7 @@ export const MARCAS_DERMOCOSMETICOS: readonly MarcaDestaque[] = [
 
 /**
  * Marcas da faixa do departamento Infantil e Gestante (produtos não esgotados: Isababy 11, Granado 7, Johnson's 6, Babysec 6, Skalinha 6, Pampers 4).
- * Falta o logo da Dentil, que entra quando chegar. O clique filtra a lista do próprio departamento.
+ * O clique filtra a lista do próprio departamento.
  */
 const emInfantil = (termo: string) => `/departamentos/infantil-e-gestante?q=${encodeURIComponent(termo)}`;
 export const MARCAS_INFANTIL: readonly MarcaDestaque[] = [
@@ -79,6 +80,7 @@ export const MARCAS_INFANTIL: readonly MarcaDestaque[] = [
   { slug: "buba", nome: "Buba", busca: "buba", href: emInfantil("buba") },
   { slug: "cremer", nome: "Cremer", busca: "cremer", href: emInfantil("cremer") },
   { slug: "personal", nome: "Personal", busca: "personal", href: emInfantil("personal") },
+  { slug: "dentil", nome: "Dentil", busca: "dentil", href: emInfantil("dentil") },
 ];
 
 /**
@@ -101,7 +103,7 @@ export const MARCAS_CUIDADO_DIARIO: readonly MarcaDestaque[] = [
 
 /**
  * Marcas da faixa do departamento Beleza (produtos não esgotados: Salon Line 32, Wella 24, Embelleze 24, L'Oréal 20, Seda 17, Bio Extratus 17).
- * Faltam os logos de Niely e Risqué (tintas e esmaltes), que entram quando chegarem (Impala 26, Risqué 15, Alta Moda 15, Niely 13). O clique filtra a lista do próprio departamento.
+ * Impala 26, Risqué 15, Alta Moda 15 e Niely 13 (esmaltes e tintas). O clique filtra a lista do próprio departamento.
  */
 const emBeleza = (termo: string) => `/departamentos/beleza?q=${encodeURIComponent(termo)}`;
 export const MARCAS_BELEZA: readonly MarcaDestaque[] = [
@@ -113,6 +115,8 @@ export const MARCAS_BELEZA: readonly MarcaDestaque[] = [
   { slug: "bio-extratus", nome: "Bio Extratus", busca: "extrat", href: emBeleza("extrat") },
   { slug: "impala", nome: "Impala", busca: "impala", href: emBeleza("impala") },
   { slug: "alta-moda", nome: "Alta Moda", busca: "alta moda", href: emBeleza("alta moda") },
+  { slug: "risque", nome: "Risqué", busca: "risque", href: emBeleza("risque") },
+  { slug: "niely", nome: "Niely", busca: "niely", href: emBeleza("niely") },
 ];
 
 /**
