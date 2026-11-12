@@ -35,9 +35,5 @@
     html body .whatsapp-fab { display: none !important; }
   }
 
-  /* Setas dos carrosséis: quando a janela é só um pouco maior que o conteúdo (zoom de 110% a 175%), a seta do lado direito saía da tela. */
-  @media (max-width: 80rem) {
-    html body .shop-seta-esq { left: 0.25rem !important; }
-    html body .shop-seta-dir { right: 0.25rem !important; }
-  }
+  /* Setas dos carrosséis ficam no cabeçalho da seção (no fluxo), então não saem da janela no zoom. */
 }

@@ -2,8 +2,8 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 /* eslint-disable @next/next/no-img-element -- Logos pequenos e estáticos. */
-import { useRef, useState } from "react";
-import { IconSetaDireita, IconVoltar } from "../reserva/ReservaIcons";
+import { useState } from "react";
+import { SetasRolagem } from "./SetasRolagem";
 import { EXTENSOES_LOGO, MARCAS_DESTAQUE, type MarcaDestaque } from "./marcas";
 
 /** Logo da marca: tenta png, svg, webp e jpg; sem nenhum, mostra o nome em texto. */
@@ -28,21 +28,15 @@ function Logo({ marca }: { marca: MarcaDestaque }) {
 
 /** Faixa de logos das marcas com mais produtos em estoque. Cada logo abre a busca da marca. */
 export function MarcasLinha({ marcas = MARCAS_DESTAQUE }: { marcas?: readonly MarcaDestaque[] } = {}) {
-  const trilho = useRef<HTMLUListElement>(null);
-  const rolar = (sentido: 1 | -1) => {
-    const el = trilho.current;
-    if (!el) return;
-    const reduzir = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    el.scrollBy({ left: sentido * el.clientWidth * 0.8, behavior: reduzir ? "auto" : "smooth" });
-  };
+  const [trilho, setTrilho] = useState<HTMLUListElement | null>(null);
   return (
     <nav className="shop-marcas" aria-labelledby="marcas-titulo">
-      <h2 id="marcas-titulo">Navegue por marcas</h2>
+      <div className="shop-marcas-topo">
+        <h2 id="marcas-titulo">Navegue por marcas</h2>
+        <SetasRolagem alvo={trilho} rotulo="Navegue por marcas" />
+      </div>
       <div className="shop-marcas-moldura">
-        <button type="button" className="shop-marcas-seta" aria-label="Marcas anteriores" onClick={() => rolar(-1)}>
-          <IconVoltar size={18} />
-        </button>
-        <ul className="shop-marcas-trilho" ref={trilho}>
+        <ul className="shop-marcas-trilho" ref={setTrilho}>
           {marcas.map((marca) => (
             <li key={marca.slug}>
               <a className={marca.cheia ? "is-cheia" : undefined} href={marca.href ?? `/nacoes-unidas/produtos?q=${encodeURIComponent(marca.busca)}`} aria-label={`Ver produtos ${marca.nome}`}>
@@ -51,9 +45,6 @@ export function MarcasLinha({ marcas = MARCAS_DESTAQUE }: { marcas?: readonly Ma
             </li>
           ))}
         </ul>
-        <button type="button" className="shop-marcas-seta" aria-label="Próximas marcas" onClick={() => rolar(1)}>
-          <IconSetaDireita size={18} />
-        </button>
       </div>
     </nav>
   );
