@@ -13,6 +13,6 @@ test("zoom e janela baixa: nada fixo come a tela (cabeçalho, barra de compra, c
   for (const regra of [/\.cab-fixo \{ position: absolute !important/, /\.shop-header \{ position: static !important/, /\.pdp-compra[^{]*\{ position: static !important/, /\.produto-barra \{ display: none !important/, /section\.cookie-banner\.cookie-banner/]) assert.match(css, regra);
   // Janela bem baixa: o aviso entra no fluxo da página e o botão flutuante some.
   assert.match(css, /@media \(max-height: 420px\)[\s\S]*cookie-banner[\s\S]*position: relative !important/);
-  // Setas dos carrosséis dentro da tela quando a janela é só um pouco maior que o conteúdo.
-  assert.match(css, /@media \(max-width: 80rem\)[\s\S]*\.shop-seta-dir \{ right: 0\.25rem !important/);
+  // Setas dos carrosséis passaram para o cabeçalho da seção (no fluxo) e não precisam mais ser puxadas para dentro da janela.
+  assert.doesNotMatch(css, /\.shop-seta-dir \{ right:/);
 });

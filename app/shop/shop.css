@@ -262,12 +262,13 @@
 .shop-destaques-topo a {
   display: inline-flex;
   align-items: center;
-  min-height: 2.75rem;
+  min-height: 2.5rem;
   color: var(--uf-ink);
   font-size: 0.875rem;
   font-weight: 700;
   text-decoration: underline;
 }
+.shop-destaques-acoes { display: flex; align-items: center; gap: 0.75rem; flex: none; }
 .shop-destaques-sub { margin: 0.25rem 1.25rem 0.75rem 0; color: var(--uf-muted); font-size: 0.875rem; line-height: 1.5; }
 .shop-destaques-lista {
   display: flex;
@@ -1118,9 +1119,27 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 
 /* "Navegue por categoria" */
 /* título da faixa definido no bloco base .shop-categorias h2 */
-/* vitrines: cabeçalho, "Ver tudo" e setas */
+/* vitrines: cabeçalho, "Ver tudo" e setas no canto direito do título (desktop) */
 .shop-vitrine { position: relative; }
-.shop-seta { display: none; }
+.shop-setas { display: none; align-items: center; gap: 0.5rem; flex: none; }
+.shop-seta {
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid #94a3b8;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #0a3548;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.shop-seta:hover:not(:disabled) { background: #f8fafc; border-color: #0a3548; }
+.shop-seta:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
+.shop-seta:disabled { border-color: #e2e8f0; color: #cbd5e1; cursor: default; }
+@media (prefers-reduced-motion: reduce) { .shop-seta { transition: none; } }
 .shop-card-marca { margin: 0.5rem 0 0; color: #5b6b68; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.04em; text-align: center; text-transform: uppercase; }
 /* "Como você quiser" e "Como entrar em contato" */
 /* submenu do desktop: escondido no celular */
@@ -1140,12 +1159,9 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .shop-info { display: flex; justify-content: space-between; gap: 1.25rem; }
   .shop-info li { flex: 1 1 0; }
 /* superseded by faixa scroll-snap */
-  /* vitrines no desktop: cartão de 229px, setas laterais */
+  /* vitrines no desktop: cartão de 229px, setas no cabeçalho */
   .shop-vitrine { max-width: 82rem; margin: 0 auto; }
-  .shop-seta { position: absolute; top: 40%; z-index: 2; display: grid; place-items: center; width: 2.75rem; height: 2.75rem; padding: 0; border: 0; border-radius: 50%; background: var(--uf-pill); color: #ffffff; cursor: pointer; }
-  .shop-seta-esq { left: -0.5rem; }
-  .shop-seta-dir { right: -0.5rem; }
-  .shop-seta-dir svg { transform: none; }
+  .shop-setas { display: flex; }
   .shop-destaques-lista li { flex-basis: 14.3rem; }
 }
 
@@ -2031,7 +2047,8 @@ a.dg-pag-num:hover { background: #eef2f1; }
 
 /* Faixa "Navegue por marcas": quadrados cinza-claros com o logo, setas nas pontas (computador) e rolagem de lado (celular). */
 html body .shop-marcas { box-sizing: border-box; max-width: 82rem; margin: 1.5rem auto 0; padding: 0; }
-html body .shop-marcas h2 { margin: 0 0 0.75rem; padding-inline: 1.25rem; }
+.shop-marcas-topo { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 0 0 0.75rem; padding-inline: 1.25rem; }
+html body .shop-marcas h2, html body .shop-marcas-topo h2 { margin: 0; padding-inline: 0; }
 .shop-marcas-moldura { display: flex; align-items: center; gap: 0.5rem; padding-inline: 0.75rem; }
 .shop-marcas-trilho { display: flex; flex: 1; gap: 0.75rem; min-width: 0; margin: 0; padding: 0 0.5rem; list-style: none; overflow-x: auto; scroll-snap-type: x proximity; scrollbar-width: none; }
 .shop-marcas-trilho::-webkit-scrollbar { display: none; }
@@ -2041,12 +2058,8 @@ html body .shop-marcas h2 { margin: 0 0 0.75rem; padding-inline: 1.25rem; }
 .shop-marcas-trilho a:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
 .shop-marcas-trilho img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
 .shop-marca-nome { color: var(--uf-navy); font-size: 0.9375rem; font-weight: 800; line-height: 1.15; text-align: center; overflow-wrap: anywhere; }
-.shop-marcas-seta { display: none; flex: none; place-items: center; width: 2rem; height: 2rem; padding: 0; border: 0; border-radius: 6px; background: #c5cfd3; color: #ffffff; cursor: pointer; }
-.shop-marcas-seta:hover { background: #a9b6bb; }
-.shop-marcas-seta:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
 @media (min-width: 992px) {
   .shop-marcas-moldura { padding-inline: 1.25rem; }
-  .shop-marcas-seta { display: grid; }
   .shop-marcas-trilho { padding-inline: 0; scroll-snap-type: x mandatory; }
 }
 @media (prefers-reduced-motion: reduce) { .shop-marcas-trilho { scroll-behavior: auto; } }
@@ -2058,6 +2071,7 @@ html body .shop-marcas h2 { margin: 0 0 0.75rem; padding-inline: 1.25rem; }
 
 /* Faixa de marcas dentro das páginas de produtos: alinhada ao título (sem a margem lateral própria da home). */
 html body .marcas-pagina .shop-marcas { margin: 0 0 1.25rem; max-width: none; }
+html body .marcas-pagina .shop-marcas-topo { padding-inline: 0; }
 html body .marcas-pagina .shop-marcas h2 { padding-inline: 0; font-size: 1.125rem !important; }
 html body .marcas-pagina .shop-marcas-moldura { padding-inline: 0; }
 html body .marcas-pagina .shop-marcas-trilho { padding-inline: 0; }
@@ -2140,7 +2154,8 @@ html body .shop-busca input { order: 1; }
 /* Faixa de marcas: título na mesma escala dos títulos de vitrine e respiro antes da vitrine seguinte. */
 html body .shop-marcas { margin: 2rem auto 2rem; }
 @layer design {
-  html body .shop-marcas h2 { font-size: 1.375rem !important; line-height: 1.25 !important; font-weight: 700 !important; letter-spacing: -0.01em !important; margin: 0 0 1rem !important; }
+  html body .shop-marcas h2 { font-size: 1.375rem !important; line-height: 1.25 !important; font-weight: 700 !important; letter-spacing: -0.01em !important; margin: 0 !important; }
+  html body .shop-marcas-topo { margin: 0 0 1rem; }
 }
 @media (max-width: 767px) { @layer design { html body .shop-marcas h2 { font-size: 1.1875rem !important; } } }
 html body .marcas-pagina .shop-marcas { margin: 0 0 1.25rem; }

@@ -2,8 +2,8 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
-import { useEffect, useRef, useState } from "react";
-import { IconSetaDireita, IconVoltar } from "../reserva/ReservaIcons";
+import { useEffect, useState } from "react";
+import { SetasRolagem } from "./SetasRolagem";
 import ReservarBotao from "../reserva/ReservarBotao";
 import CartaoPanvel from "../nacoes-unidas/produtos/CartaoPanvel";
 import { quantidadeDoNome } from "../nacoes-unidas/produtos/quantidade";
@@ -37,13 +37,13 @@ type Props = {
 };
 
 /**
- * Vitrine de produtos: título à esquerda, "Ver tudo" à direita e fileira rolável (setas no desktop).
+ * Vitrine de produtos: título à esquerda, "Ver tudo" e setas de rolagem à direita no desktop, fileira rolável.
  * Busca no navegador em /api/destaques (cache de 5 min) para a home continuar estática e o preço nunca ficar congelado.
  * Só entram produtos com foto (cartão com o espaço da imagem vazio parece site quebrado). Se a busca falhar ou não houver nenhum, a seção some.
  */
 export default function DestaquesSemana({ posicao, titulo = "Destaques da semana", grupo, lab, ate, n = 8, verTodasHref = "/nacoes-unidas/produtos", verTodas = true, source = "destaques_home", id = "destaques" }: Props = {}) {
   const [itens, setItens] = useState<Destaque[]>([]);
-  const lista = useRef<HTMLUListElement>(null);
+  const [lista, setLista] = useState<HTMLUListElement | null>(null);
 
   useEffect(() => {
     let ativo = true;
@@ -67,17 +67,17 @@ export default function DestaquesSemana({ posicao, titulo = "Destaques da semana
 
   if (itens.length === 0) return null;
 
-  const rolar = (sentido: 1 | -1) => lista.current?.scrollBy({ left: sentido * Math.max(240, lista.current.clientWidth * 0.8), behavior: "smooth" });
-
   return (
     <section className="shop-destaques" id={id} aria-labelledby={`${id}-titulo`}>
       <div className="shop-destaques-topo">
         <h2 id={`${id}-titulo`}>{titulo}</h2>
-        {verTodas && verTodasHref ? <a href={verTodasHref}>Ver tudo</a> : null}
+        <div className="shop-destaques-acoes">
+          {verTodas && verTodasHref ? <a href={verTodasHref}>Ver tudo</a> : null}
+          <SetasRolagem alvo={lista} rotulo={titulo} />
+        </div>
       </div>
       <div className="shop-vitrine">
-        <button type="button" className="shop-seta shop-seta-esq" aria-label={`Anterior em ${titulo}`} onClick={() => rolar(-1)}><IconVoltar size={20} /></button>
-        <ul className="shop-destaques-lista" ref={lista}>
+        <ul className="shop-destaques-lista" ref={setLista}>
           {itens.map((item) => (
             <CartaoPanvel
               key={item.slug}
@@ -92,7 +92,6 @@ export default function DestaquesSemana({ posicao, titulo = "Destaques da semana
             />
           ))}
         </ul>
-        <button type="button" className="shop-seta shop-seta-dir" aria-label={`Próximo em ${titulo}`} onClick={() => rolar(1)}><IconSetaDireita size={20} /></button>
       </div>
     </section>
   );
