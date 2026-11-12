@@ -1,4 +1,5 @@
 import { banco } from "../../../estoque-fonte";
+import { MAX_ARQUIVO_TEXTO, MAX_DATA_URL, gravarBanner, validarBanner, type BancoBanner } from "../../../banners-gravacao";
 
 export const dynamic = "force-dynamic";
 const SEM_CACHE = { "cache-control": "no-store" };
@@ -18,14 +19,16 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const db = banco() as { prepare: (sql: string) => { bind: (...args: unknown[]) => { run: () => Promise<unknown> } } } | null;
+  const db = banco() as BancoBanner | null;
   if (!db) return Response.json({ ok: false, erro: "sem_banco" }, { status: 503, headers: SEM_CACHE });
-  const body = (await req.json().catch(() => ({}))) as { id?: string; url?: string };
-  if (!body.id || !body.url) return Response.json({ ok: false, erro: "faltando" }, { status: 400, headers: SEM_CACHE });
+  // Recusa antes de ler o corpo inteiro quando o tamanho declarado já passa do limite.
+  const declarado = Number(req.headers.get("content-length") || 0);
+  if (declarado > MAX_DATA_URL + 1_000) return Response.json({ ok: false, erro: "arte_grande", max: MAX_ARQUIVO_TEXTO }, { status: 413, headers: SEM_CACHE });
+  const v = validarBanner(await req.json().catch(() => ({})));
+  if (!v.ok) return Response.json({ ok: false, erro: v.erro, max: MAX_ARQUIVO_TEXTO }, { status: v.status, headers: SEM_CACHE });
   try {
-    // Remove o anterior e insere o novo
-    await db.prepare("DELETE FROM metric_hits WHERE stage = ? AND intent = ?").bind("banner", body.id).run();
-    await db.prepare("INSERT INTO metric_hits (day, stage, intent, source, created_at) VALUES (?, ?, ?, ?, ?)").bind(new Date().toISOString().slice(0, 10), "banner", body.id, body.url, new Date().toISOString()).run();
+    // Grava a nova e só então remove a antiga (transação): se falhar, a arte anterior continua no ar.
+    await gravarBanner(db, v.id, v.url);
     return Response.json({ ok: true }, { headers: SEM_CACHE });
   } catch (e) {
     return Response.json({ ok: false, erro: String(e) }, { status: 500, headers: SEM_CACHE });
