@@ -1,0 +1,43 @@
+/*
+ * Zoom e janelas baixas. Com zoom de 150% a 500% (ou notebook de tela pequena) a janela útil fica com 240 a 520 px de altura:
+ * cabeçalho colado, aviso de cookies, barra de compra e botão do WhatsApp, todos fixos, comiam quase toda a tela e o conteúdo
+ * ficava espremido num vão de poucas linhas. Nesses casos o que era fixo passa a rolar junto com a página, o aviso fica compacto
+ * e as colunas "coladas" deixam de ser (uma coluna colada mais alta que a janela não chega ao fim).
+ * Fica na camada "design" com !important porque as regras antigas do aviso e do cabeçalho estão espalhadas e também são !important.
+ */
+@layer design {
+  @media (max-height: 620px) {
+    html body .cab-fixo { position: absolute !important; }
+    html body .shop-header { position: static !important; }
+    html body .shop-abas { position: static !important; }
+    html body .pdp-compra, html body .fluxo-conteudo-cesta .fluxo-coluna-resumo { position: static !important; }
+    html body .produto-barra { display: none !important; }
+    html body .barra-reserva, html body .fluxo-rodape { position: static !important; margin: 0.75rem 0 !important; }
+    html body, html body.cookie-banner-visible, html body:has(.barra-reserva), html body:has(.produto-barra) { padding-bottom: 0 !important; }
+
+    /* Aviso de cookies compacto: uma linha curta com os dois botões, sem encher a janela. */
+    html body section.cookie-banner.cookie-banner {
+      position: fixed !important; left: 0.5rem !important; right: 0.5rem !important; bottom: 0.5rem !important; top: auto !important;
+      width: auto !important; max-width: none !important; margin: 0 !important; box-sizing: border-box !important;
+      display: flex !important; flex-direction: row !important; flex-wrap: wrap !important; align-items: center !important; justify-content: space-between !important; gap: 0.375rem 0.75rem !important;
+      padding: 0.375rem 0.625rem !important; border-radius: 12px !important;
+    }
+    html body section.cookie-banner.cookie-banner .cookie-copy, html body section.cookie-banner.cookie-banner p { margin: 0 !important; font-size: 0.8125rem !important; line-height: 1.25 !important; flex: 1 1 12rem !important; }
+    html body section.cookie-banner.cookie-banner strong { display: inline !important; font-size: 0.8125rem !important; }
+    html body section.cookie-banner.cookie-banner .cookie-actions { display: flex !important; gap: 0.375rem !important; flex: 0 0 auto !important; }
+    html body section.cookie-banner.cookie-banner button { min-height: 2.25rem !important; padding: 0 0.875rem !important; font-size: 0.8125rem !important; line-height: 1 !important; }
+    html body .whatsapp-fab { bottom: 4.25rem !important; }
+  }
+
+  /* Janela bem baixa (zoom de 300% ou mais): o aviso vira um bloco no começo da página e some o botão flutuante. */
+  @media (max-height: 420px) {
+    html body section.cookie-banner.cookie-banner { position: relative !important; left: auto !important; right: auto !important; bottom: auto !important; margin: 0.375rem !important; }
+    html body .whatsapp-fab { display: none !important; }
+  }
+
+  /* Setas dos carrosséis: quando a janela é só um pouco maior que o conteúdo (zoom de 110% a 175%), a seta do lado direito saía da tela. */
+  @media (max-width: 80rem) {
+    html body .shop-seta-esq { left: 0.25rem !important; }
+    html body .shop-seta-dir { right: 0.25rem !important; }
+  }
+}
