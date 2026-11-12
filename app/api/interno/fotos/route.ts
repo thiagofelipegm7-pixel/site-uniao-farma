@@ -5,6 +5,7 @@ import { banco, segredo } from "../../../estoque-fonte";
 import { listarPendentes, listarRemocoes } from "../../../fotos-enviadas";
 import { mapaDeCategorias } from "../../../categoria-override";
 import { mapaDeControlados } from "../../../controlado-override";
+import { mapaDeMarcas } from "../../../marca-override";
 import { mapaDeNomes, ultimasAlteracoes, type Banco } from "../../../nomes-corrigidos";
 import { mapaDeRemovidos } from "../../../produtos-removidos";
 import { FOTOS_NACOES } from "../../../nacoes-unidas/produtos/imagens";
@@ -66,6 +67,7 @@ export async function GET() {
   const removidas = db ? (await listarRemocoes(db).catch(() => [])).map((r) => r.ean) : [];
   const nomes = db ? await mapaDeNomes(db).catch(() => ({})) : {};
   const controlados = db ? await mapaDeControlados(db).catch(() => ({})) : {};
+  const marcasOverride = db ? await mapaDeMarcas(db).catch(() => ({})) : {};
   const alteracoes = db ? await ultimasAlteracoes(db).catch(() => []) : [];
   const sistemaRestrito = new Set<string>();
   for (const i of [...restritos.receita, ...restritos.controlados]) sistemaRestrito.add(chaveDeNome(i.nome));
@@ -82,6 +84,7 @@ export async function GET() {
       nomes,
       controlados,
       categoriasOverride: categoriasOvr,
+      marcasOverride,
       alteracoes,
       removidas,
       publicacaoRapida: Boolean(segredo("GITHUB_DISPATCH_TOKEN")),

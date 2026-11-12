@@ -13,7 +13,7 @@ import "./painel-fotos.css";
 
 type Linha = [string, string, string, string, number, number, number, number, number, string, number, number?, number?];
 type LinhaPainel = LinhaFoto & { sistemaRestrito?: boolean };
-type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; reconciliacao?: Reconciliacao; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; nomes?: Record<string, { nome: string; por: string; quando: string }>; controlados?: Record<string, { estado: "sim" | "nao"; por: string; quando: string }>; categoriasOverride?: Record<string, { categoria: string; por: string; quando: string }>; alteracoes?: { tipo: string; titulo: string; acao: string; anterior: string | null; novo: string | null; por: string; quando: string }[]; linhas: Linha[] };
+type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; reconciliacao?: Reconciliacao; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; nomes?: Record<string, { nome: string; por: string; quando: string }>; controlados?: Record<string, { estado: "sim" | "nao"; por: string; quando: string }>; categoriasOverride?: Record<string, { categoria: string; por: string; quando: string }>; marcasOverride?: Record<string, { marca: string; por: string; quando: string }>; alteracoes?: { tipo: string; titulo: string; acao: string; anterior: string | null; novo: string | null; por: string; quando: string }[]; linhas: Linha[] };
 
 const CHAVE_MARCAS = "uf_fotos_ok";
 const REAIS = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -81,6 +81,7 @@ export default function PainelFotos() {
   const [editandoNome, setEditandoNome] = useState<string | null>(null);
   const [textoNome, setTextoNome] = useState("");
   const [nomesAgora, setNomesAgora] = useState<Record<string, string | null>>({});
+  const [marcasAgora, setMarcasAgora] = useState<Record<string, string | null>>({});
   const [controladosAgora, setControladosAgora] = useState<Record<string, "auto" | "sim" | "nao">>({});
   const [categoriasAgora, setCategoriasAgora] = useState<Record<string, string>>({});
   const [removidasAgora, setRemovidasAgora] = useState<Set<string>>(new Set());
@@ -355,6 +356,40 @@ export default function PainelFotos() {
     return salvo ? { texto: salvo.nome, corrigido: true } : { texto: nomeDeExibicao(l.nome), corrigido: false };
   }
 
+  /** Marca que o cliente lê hoje: a preenchida no painel, senão o laboratório do sistema (ou a que o nome cita). */
+  function marcaAtual(l: LinhaFoto): { texto: string; preenchida: boolean } {
+    const k = chaveDoNome(l.nome);
+    const local = marcasAgora[k];
+    if (local !== undefined) return local ? { texto: local, preenchida: true } : { texto: l.lab, preenchida: false };
+    const salva = dados?.marcasOverride?.[k];
+    return salva ? { texto: salva.marca, preenchida: true } : { texto: l.lab, preenchida: false };
+  }
+
+  async function salvarMarca(l: LinhaFoto, texto: string) {
+    const nova = texto.replace(/\s+/g, " ").trim();
+    if (nova === marcaAtual(l).texto.trim() || (!nova && !marcaAtual(l).preenchida)) return;
+    try {
+      const r = await fetch("/api/interno/produto/marca", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ original: l.nome, marca: nova || null, por: por.trim() }),
+      });
+      if (r.redirected || (r.headers.get("content-type") ?? "").includes("text/html")) {
+        setAviso("Sua sessão venceu. Recarregue a página (F5), entre de novo e tente outra vez.");
+        return;
+      }
+      const j = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string } | null;
+      if (!r.ok || !j?.ok) {
+        setAviso(j?.erro === "marca_invalida" ? "Marca inválida: use de 2 a 60 letras, sem < nem >." : "Não consegui salvar a marca. Tente de novo.");
+        return;
+      }
+      setMarcasAgora((m) => ({ ...m, [chaveDoNome(l.nome)]: nova || null }));
+      setAviso(nova ? "Marca salva no histórico. Vale na próxima publicação (em alguns minutos)." : "Voltou à marca automática. Vale na próxima publicação (em alguns minutos).");
+    } catch {
+      setAviso("Sem conexão. Tente de novo.");
+    }
+  }
+
   async function salvarNome(l: LinhaFoto, voltar = false, texto?: string) {
     try {
       const r = await fetch(voltar ? "/api/interno/produto/nome/desfazer" : "/api/interno/produto/nome", {
@@ -571,7 +606,7 @@ export default function PainelFotos() {
                     )}
                   </div>
                   <h3 className="pf-card-nome" title={nomeAtual(l).texto}>{nomeAtual(l).texto}</h3>
-                  <p className={l.lab ? "pf-card-lab" : "pf-card-lab pf-card-lab-vazio"}>{l.lab || "Sem marca informada"}</p>
+                  <p className={marcaAtual(l).texto ? "pf-card-lab" : "pf-card-lab pf-card-lab-vazio"}>{marcaAtual(l).texto || "Sem marca informada"}</p>
                   <dl className="pf-card-dados">
                     <div><dt>Categoria</dt><dd>{categoriaEfetiva(l)}</dd></div>
                     <div><dt>Código</dt><dd className="pf-mono" title={l.ean}>{l.semCodigo ? "sem código" : l.ean}</dd></div>
@@ -621,6 +656,10 @@ export default function PainelFotos() {
                   <input className="pf-entrada" name="pf-nome" type="text" defaultValue={nomeAtual(l).texto} onBlur={(e) => void salvarNome(l, false, e.target.value)} />
                 </label>
                 <label className="pf-campo">
+                  <span className="pf-campo-rotulo">Marca ou laboratório</span>
+                  <input className="pf-entrada" name="pf-marca" type="text" maxLength={60} placeholder="Sem marca informada" defaultValue={marcaAtual(l).texto} />
+                </label>
+                <label className="pf-campo">
                   <span className="pf-campo-rotulo">Categoria</span>
                   <select className="pf-entrada" name="pf-categoria" value={estadoCategoria(l)} onChange={(e) => void salvarCategoria(l, e.target.value)}>
                     <option value="auto">Automático</option>
@@ -665,6 +704,8 @@ export default function PainelFotos() {
                     const popup = e.currentTarget.closest('[role="dialog"]');
                     const nomeInput = popup?.querySelector<HTMLInputElement>('input[name="pf-nome"]');
                     const catSelect = popup?.querySelector<HTMLSelectElement>('select[name="pf-categoria"]');
+                    const marcaInput = popup?.querySelector<HTMLInputElement>('input[name="pf-marca"]');
+                    if (marcaInput) await salvarMarca(l, marcaInput.value);
                     if (nomeInput && nomeInput.value.trim() && nomeInput.value.trim() !== nomeAtual(l).texto) {
                       await salvarNome(l, false, nomeInput.value.trim());
                     }
