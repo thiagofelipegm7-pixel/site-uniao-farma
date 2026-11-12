@@ -1,6 +1,7 @@
 "use client";
 
 /* eslint-disable @next/next/no-html-link-for-pages */
+import { usePathname } from "next/navigation";
 import AnvisaLogo from "./AnvisaLogo";
 import MarcaUniao from "./shop/MarcaUniao";
 import { COMPANY } from "./company";
@@ -15,6 +16,9 @@ const nacoes = PUBLIC_UNITS.find((unit) => unit.id === "nacoes") ?? PUBLIC_UNITS
  * Só dados reais da União Farma. "Cookies" fica porque o cliente precisa poder rever o consentimento (LGPD).
  */
 export default function SiteFooter() {
+  const pathname = usePathname() || "/";
+  // Telas internas da equipe não mostram o rodapé do site dos clientes.
+  if (pathname.startsWith("/interno")) return null;
   return (
     <footer className="rodape">
       <div className="rodape-miolo">
