@@ -1,5 +1,6 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useEffect, useState, useSyncExternalStore } from "react";
 import { getClickTrackingParams, trackEvent } from "./analytics";
 import { captureCampaignAttribution } from "./campaign-attribution";
@@ -86,6 +87,8 @@ function readStoredConsent(): ConsentValue | null {
 export default function AnalyticsConsent() {
   const [consent, setConsent] = useState<ConsentValue | null>(null);
   const [showPreferences, setShowPreferences] = useState(false);
+  // Telas internas da equipe não pedem consentimento de cookies (o aviso é para os clientes).
+  const interno = (usePathname() || "").startsWith("/interno");
   const hydrated = useSyncExternalStore(
     () => () => {},
     () => true,
@@ -103,7 +106,7 @@ export default function AnalyticsConsent() {
     if (consent === "accepted") startAnalytics();
   }, [consent]);
 
-  const showBanner = hydrated && (consent === null || showPreferences);
+  const showBanner = hydrated && !interno && (consent === null || showPreferences);
 
   useEffect(() => {
     document.body.classList.toggle("cookie-banner-visible", showBanner);
