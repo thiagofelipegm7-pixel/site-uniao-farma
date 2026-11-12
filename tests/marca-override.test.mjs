@@ -55,7 +55,12 @@ test("marca preenchida no painel: vale mais que o laboratório do sistema e cheg
   assert.match(flow, /marcas-corrigidas\.json/);
   assert.match(gerador, /marcas-corrigidas\.json/);
   assert.match(painel, /\/api\/interno\/produto\/marca/);
-  assert.deepEqual(JSON.parse(await lerTexto("app/nacoes-unidas/produtos/dados/marcas-corrigidas.json")), {});
+  // O arquivo é escrito pela sincronização com o que a equipe preencheu: só confere a forma (chave sem acento em maiúsculas -> marca).
+  const preenchidas = JSON.parse(await lerTexto("app/nacoes-unidas/produtos/dados/marcas-corrigidas.json"));
+  for (const [chave, marca] of Object.entries(preenchidas)) {
+    assert.equal(chave, chave.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").trim().toUpperCase(), chave);
+    assert.equal(M.validarMarca(marca).ok, true, `${chave}: ${marca}`);
+  }
   // A rota só pode ser chamada por quem está logado: precisa estar nas duas listas do middleware.
   assert.equal((await lerTexto("middleware.ts")).split("/api/interno/produto/marca").length - 1, 2);
 });
