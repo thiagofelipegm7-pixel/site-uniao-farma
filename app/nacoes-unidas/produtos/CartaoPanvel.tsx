@@ -6,23 +6,19 @@ import SemFoto from "./SemFoto";
 import { formatarQuantidade } from "./quantidade";
 import { marcaDeProduto, marcaLegivel } from "./marca";
 
-/** Classificação do medicamento mostrada na segunda linha ("Med. Genérico", "Sem receita"...). Vazio para produtos comuns. */
-export type ClassificacaoCartao = "generico" | "isento" | "receita" | "controlado";
+/** Classificação do medicamento mostrada na segunda linha ("Med. Genérico", "Controlado"). Sem "com/sem receita": isso já vai nos avisos legais. Vazio para produtos comuns. */
+export type ClassificacaoCartao = "generico" | "controlado";
 
 const ROTULO_CLASSIFICACAO: Record<ClassificacaoCartao, string> = {
   generico: "Med. Genérico",
-  isento: "Sem receita",
-  receita: "Sob receita",
   controlado: "Controlado",
 };
 
-function Icone({ tipo }: { tipo: "quantidade" | "isento" | "receita" | "controlado" | "lab" | "marca" }) {
+function Icone({ tipo }: { tipo: "quantidade" | "controlado" | "lab" | "marca" }) {
   const base = { width: 16, height: 16, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true, className: "pv-atrib-icone" };
   if (tipo === "quantidade") return <svg {...base}><rect x="4" y="9" width="16" height="11" rx="2" /><path d="M8 9V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v3M12 12.5v4M10 14.5h4" /></svg>;
   if (tipo === "lab") return <svg {...base}><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3" /><path d="M7.5 15h9" /></svg>;
   if (tipo === "marca") return <svg {...base}><path d="M20 12.6 12.6 20a2 2 0 0 1-2.8 0L3 13.2V4h9.2L20 11.8a1 1 0 0 1 0 .8Z" /><circle cx="8" cy="8" r="1.3" /></svg>;
-  if (tipo === "isento") return <svg {...base}><circle cx="12" cy="12" r="9" /><path d="m8 12.3 2.8 2.8L16 9.5" /></svg>;
-  if (tipo === "receita") return <svg {...base}><path d="M7 3h7l4 4v14H7V3Z" /><path d="M14 3v4h4M10 12h5M10 16h5" /></svg>;
   return <svg {...base}><rect x="5" y="11" width="14" height="9" rx="2" /><path d="M8 11V8a4 4 0 0 1 8 0v3" /></svg>;
 }
 
@@ -35,7 +31,7 @@ type Props = {
   marca?: string | null;
   /** Medicamento: a marca vira "Lab. X" em vez de "Marca X". */
   medicamento?: boolean;
-  /** Segunda linha do cartão: "Med. Genérico", "Sem receita"... Só quando o dado é conhecido. */
+  /** Segunda linha do cartão: "Med. Genérico" ou "Controlado". Só quando o dado é conhecido. */
   classificacao?: ClassificacaoCartao | null;
   /** Apresentação ("30 comprimidos"). Em branco quando o catálogo não tem. */
   apresentacao?: string | null;

@@ -87,7 +87,7 @@ export default function DestaquesSemana({ posicao, titulo = "Destaques da semana
               foto={item.foto}
               marca={item.lab}
               medicamento={item.isMIP}
-              classificacao={item.isMIP ? (/gen[eé]rico/i.test(item.nome) ? "generico" : "isento") : null}
+              classificacao={item.isMIP && /gen[eé]rico/i.test(item.nome) ? "generico" : null}
               apresentacao={quantidadeDoNome(item.nome)}
               precoFmt={formatarCentavos(item.precoCentavos)}
               cesta={<ReservarBotao unitId="nacoes" nome={item.nome} precoCentavos={item.precoCentavos} foto={item.foto} source={source} variante="cartao" slug={item.slug} />}
