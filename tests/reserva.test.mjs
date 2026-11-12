@@ -395,44 +395,34 @@ test("troco: só na entrega em dinheiro, 'sem troco' ou 'troco para', e o valor 
   assert.match(fluxo, /Informe o troco/, "o envio espera a resposta do troco");
 });
 
-test("seletor do card: o − em quantidade 1 remove o item da cesta", async () => {
-  const { ESTADO_VAZIO, adicionar, definirQtd, qtdDoItem, idDoItem } = await mod();
-  const id = idDoItem(nivea.unitId, nivea.nome);
-  let s = adicionar(ESTADO_VAZIO, nivea);
-  assert.equal(qtdDoItem(s, id), 1);
-  s = definirQtd(s, id, 1 - 1); // o botão − do card chama definirQtd(..., qtd - 1)
-  assert.equal(qtdDoItem(s, id), 0);
-  assert.equal(s.itens.length, 0);
-  s = adicionar(ESTADO_VAZIO, nivea);
-  s = definirQtd(s, id, 2);
-  s = definirQtd(s, id, 2 - 1);
-  assert.equal(qtdDoItem(s, id), 1);
-  assert.equal(s.itens.length, 1);
-});
-
-test("card: seletor estilo Drogasil com − (nunca lixeira), pílula e animações", async () => {
-  const [botao, css, icons] = await Promise.all([
+test("card: círculo + permanente adiciona, abre a cesta e não vira pílula; preço 0 não abre", async () => {
+  const [botao, css, icons, abrir, sacola] = await Promise.all([
     readFile(new URL("../app/reserva/ReservarBotao.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/shop/shop.css", import.meta.url), "utf8"),
     readFile(new URL("../app/reserva/ReservaIcons.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/reserva/abrir-reserva.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/reserva/ReservaSacola.tsx", import.meta.url), "utf8"),
   ]);
   const blocoCartao = botao.split('variante === "cartao"')[1]?.split("if (qtd === 0)")[0] ?? "";
-  assert.ok(blocoCartao.length > 200, "o ramo do card precisa existir");
-  assert.match(blocoCartao, /IconMenosFino/);
+  assert.ok(blocoCartao.length > 100, "o ramo do card precisa existir");
+  assert.match(blocoCartao, /pv-adicionar/);
   assert.match(blocoCartao, /IconMaisFino/);
-  assert.doesNotMatch(blocoCartao, /IconLixeira/);
-  assert.match(blocoCartao, /pv-seletor/);
-  assert.match(blocoCartao, /Remover \$\{nome\} da cesta/);
-  assert.match(blocoCartao, /Diminuir \$\{nome\}/);
-  assert.match(blocoCartao, /Aumentar \$\{nome\}/);
   assert.match(blocoCartao, /Adicionar \$\{nome\} à cesta/);
-  assert.match(blocoCartao, /definirQtd\(s, id, qtd - 1\)/);
-  assert.doesNotMatch(blocoCartao, /abrirReserva/);
-  assert.match(icons, /export function IconMenosFino/);
-  assert.match(css, /\.pv-seletor/);
-  assert.match(css, /transition: width 150ms ease/);
-  assert.match(css, /border: 1px solid #c5cecc/);
-  assert.match(css, /prefers-reduced-motion: reduce.*pv-seletor/s);
+  assert.match(blocoCartao, /acrescentar\(\{ abrirCesta: true, gatilho: maisRef\.current \}\)/);
+  assert.doesNotMatch(blocoCartao, /IconLixeira|IconMenos|pv-seletor|is-aberto|output/);
+  assert.doesNotMatch(css, /pv-seletor/);
+  assert.doesNotMatch(icons, /IconMenosFino/);
   assert.match(css, /--pv-add-bg, #0c9b90/);
-  assert.match(css, /main li > a/);
+  assert.match(botao, /if \(!\(precoCentavos > 0\)\) return/);
+  assert.match(botao, /import \{ abrirReserva \} from "\.\/abrir-reserva"/);
+  assert.match(abrir, /detail: \{ gatilho: origem \}/);
+  assert.match(sacola, /origemExternaRef\.current \?\? gatilhoRef\.current/);
+  assert.match(sacola, /gatilho\?\.focus\(\)/);
+
+  const { ESTADO_VAZIO, adicionar, qtdDoItem, idDoItem } = await mod();
+  const id = idDoItem(nivea.unitId, nivea.nome);
+  assert.equal(adicionar(ESTADO_VAZIO, { ...nivea, precoCentavos: 0 }).itens.length, 0);
+  const um = adicionar(ESTADO_VAZIO, nivea);
+  assert.equal(qtdDoItem(um, id), 1);
+  assert.equal(qtdDoItem(adicionar(um, nivea), id), 2, "cada + soma mais uma unidade");
 });

@@ -27,11 +27,16 @@ export default function ReservaSacola() {
   const [confirmando, setConfirmando] = useState(false);
   const fecharRef = useRef<HTMLButtonElement>(null);
   const gatilhoRef = useRef<HTMLButtonElement>(null);
+  const origemExternaRef = useRef<HTMLElement | null>(null);
   const painelRef = useRef<HTMLDivElement>(null);
   const total = totalItens(estado);
 
   useEffect(() => {
-    const abrir = () => setAberta(true);
+    const abrir = (event: Event) => {
+      const detalhe = (event as CustomEvent<{ gatilho?: HTMLElement | null }>).detail;
+      origemExternaRef.current = detalhe?.gatilho instanceof HTMLElement ? detalhe.gatilho : (document.activeElement instanceof HTMLElement ? document.activeElement : null);
+      setAberta(true);
+    };
     window.addEventListener(EVENTO_ABRIR_RESERVA, abrir);
     return () => window.removeEventListener(EVENTO_ABRIR_RESERVA, abrir);
   }, []);
@@ -51,7 +56,7 @@ export default function ReservaSacola() {
 
   useEffect(() => {
     if (!aberta) return;
-    const gatilho = gatilhoRef.current;
+    const gatilho = origemExternaRef.current ?? gatilhoRef.current;
     const fundo = [
       document.querySelector("header"),
       document.getElementById("conteudo"),
@@ -93,6 +98,7 @@ export default function ReservaSacola() {
       document.body.style.overflow = anterior;
       fundo.forEach((node) => node.removeAttribute("inert"));
       gatilho?.focus();
+      origemExternaRef.current = null;
     };
   }, [aberta]);
 
