@@ -13,6 +13,7 @@ Uso:  CATALOGO_READ_TOKEN=... python3 sincronizar.py            (baixa do Worker
 Saída: linha "mudou=true|false" (também em $GITHUB_OUTPUT) e resumo em $GITHUB_STEP_SUMMARY.
 """
 import json, os, shutil, subprocess, sys, tempfile, urllib.request, urllib.error
+import mudancas
 from datetime import datetime, timezone, timedelta
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
@@ -304,6 +305,9 @@ def main(argv):
             resumo(f"Sem mudanças nos itens, preços ou listas desde {cat_antigo['geradoEm']}.")
             saida_github("mudou", "false")
             return 0
+    eventos = mudancas.calcular(cat_antigo, rx_antigo, cat_novo, rx_novo, cat_novo["geradoEm"])
+    guardados = mudancas.gravar(os.path.join(DADOS, "mudancas-recentes.json"), eventos, cat_novo["geradoEm"])
+    resumo(f"Mudanças para o painel: {len(eventos)} novas ({guardados} guardadas dos últimos {mudancas.DIAS} dias).")
     antes, depois = _precos(cat_antigo), _precos(cat_novo)
     resumo(
         f"Catálogo atualizado com os dados de {cat_novo['geradoEm']}: {len(cat_antigo['itens'])} → {len(cat_novo['itens'])} itens sem receita, "

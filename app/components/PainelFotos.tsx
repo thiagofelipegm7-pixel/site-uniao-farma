@@ -13,7 +13,7 @@ import "./painel-fotos.css";
 
 type Linha = [string, string, string, string, number, number, number, number, number, string, number, number?, number?];
 type LinhaPainel = LinhaFoto & { sistemaRestrito?: boolean };
-type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; reconciliacao?: Reconciliacao; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; nomes?: Record<string, { nome: string; por: string; quando: string }>; controlados?: Record<string, { estado: "sim" | "nao"; por: string; quando: string }>; categoriasOverride?: Record<string, { categoria: string; por: string; quando: string }>; marcasOverride?: Record<string, { marca: string; por: string; quando: string }>; comDescricao?: string[]; alteracoes?: { tipo: string; titulo: string; acao: string; anterior: string | null; novo: string | null; por: string; quando: string }[]; linhas: Linha[] };
+type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; reconciliacao?: Reconciliacao; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; nomes?: Record<string, { nome: string; por: string; quando: string }>; controlados?: Record<string, { estado: "sim" | "nao"; por: string; quando: string }>; categoriasOverride?: Record<string, { categoria: string; por: string; quando: string }>; marcasOverride?: Record<string, { marca: string; por: string; quando: string }>; comDescricao?: string[]; mudancas?: { q: string; t: string; n: string; c: string; de?: number; para?: number }[]; alteracoes?: { tipo: string; titulo: string; acao: string; anterior: string | null; novo: string | null; por: string; quando: string }[]; linhas: Linha[] };
 
 const CHAVE_MARCAS = "uf_fotos_ok";
 const REAIS = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -67,6 +67,7 @@ export default function PainelFotos() {
   const [fotos, setFotos] = useState<FiltroFotos["fotos"]>("faltam");
   const [tipo, setTipo] = useState<FiltroFotos["tipo"]>("");
   const [pendencia, setPendencia] = useState<Pendencia>("");
+  const [filtroMudanca, setFiltroMudanca] = useState("");
   const [ordem, setOrdem] = useState<Ordem>("estoque");
   const [pagina, setPagina] = useState(1);
   const [marcados, setMarcados] = useState<Set<string>>(new Set());
@@ -499,6 +500,14 @@ export default function PainelFotos() {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- contextoPendencia lê dados, marcasAgora e nomesAgora, listados abaixo
   }, [linhas, busca, categoria, estoque, fotos, tipo, marcados, dados, marcasAgora, nomesAgora, comDescricao]);
 
+  const mudancas = dados?.mudancas ?? [];
+  const contagemMudancas = useMemo(() => {
+    const c: Record<string, number> = { novo: 0, esgotou: 0, voltou: 0, preco: 0 };
+    for (const m of mudancas) c[m.t] = (c[m.t] ?? 0) + 1;
+    return c;
+  }, [mudancas]);
+  const mudancasVisiveis = mudancas.filter((m) => !filtroMudanca || m.t === filtroMudanca).slice(0, 60);
+
   function alternarSelecao(ean: string) {
     setSelecionados((antes) => {
       const novo = new Set(antes);
@@ -638,6 +647,26 @@ export default function PainelFotos() {
           {arrastando ? <p className="pf-solte" role="status">Solte aqui para enviar a foto de &ldquo;{linhas.find((x) => x.ean === arrastando)?.nome}&rdquo;</p> : null}
           {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
 
+          {mudancas.length > 0 ? (
+            <details className="pf-mudancas">
+              <summary>O que mudou nos últimos dias <b>({mudancas.length})</b></summary>
+              <div className="pf-mudancas-chips" role="group" aria-label="Tipo de mudança">
+                {([["", "Tudo", mudancas.length], ["novo", "Novos", contagemMudancas.novo], ["esgotou", "Esgotaram", contagemMudancas.esgotou], ["voltou", "Voltaram", contagemMudancas.voltou], ["preco", "Preço mudou", contagemMudancas.preco]] as const).map(([valor, rotulo, total]) => (
+                  <button key={valor} type="button" className={`pf-chip-filtro${filtroMudanca === valor ? " pf-chip-filtro--ativo" : ""}`} aria-pressed={filtroMudanca === valor} onClick={() => setFiltroMudanca(valor)}>{rotulo} ({total})</button>
+                ))}
+              </div>
+              <ul className="pf-mudancas-lista">
+                {mudancasVisiveis.map((m, i) => (
+                  <li key={`${m.q}|${m.t}|${m.n}|${i}`}>
+                    <span className={`pf-mudanca-tipo pf-mudanca-tipo--${m.t}`}>{({ novo: "Novo", esgotou: "Esgotou", voltou: "Voltou", preco: "Preço" } as Record<string, string>)[m.t] ?? m.t}</span>
+                    <button type="button" className="pf-mudanca-nome" onClick={() => { setBusca(m.n); setEstoque(""); setCategoria(""); setPendencia(""); setPagina(1); }} title="Buscar este produto">{nomeDeExibicao(m.n)}</button>
+                    <span className="pf-mudanca-info">{m.c}{m.t === "preco" && typeof m.de === "number" && typeof m.para === "number" ? ` · ${REAIS.format(m.de)} → ${REAIS.format(m.para)}` : ""} · {`${m.q.slice(8, 10)}/${m.q.slice(5, 7)} ${m.q.slice(11, 16)}`}</span>
+                  </li>
+                ))}
+              </ul>
+              {mudancas.filter((m) => !filtroMudanca || m.t === filtroMudanca).length > 60 ? <p className="pf-mudancas-nota">Mostrando as 60 mais recentes.</p> : null}
+            </details>
+          ) : null}
           <div className="pf-barra" role="search">
             <label className="pf-busca">
               <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" strokeWidth="2" /><path d="m20 20-4.4-4.4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>

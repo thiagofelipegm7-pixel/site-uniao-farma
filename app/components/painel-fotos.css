@@ -309,3 +309,17 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 .pf-selecao-barra strong { flex: 1 1 100%; font-size: 0.9375rem; }
 .pf-selecao-barra .pf-select { flex: 1 1 12rem; min-width: 0; }
 @media (min-width: 560px) { .pf-selecao-barra strong { flex: none; margin-right: 0.25rem; } }
+.pf-mudancas { margin: 0 0 0.75rem; padding: 0.625rem 0.875rem; border: 1px solid var(--pf-linha); border-radius: 14px; background: #ffffff; }
+.pf-mudancas summary { gap: 0.375rem; cursor: pointer; font-weight: 700; font-size: 0.9375rem; min-height: 2.25rem; display: flex; align-items: center; }
+.pf-mudancas-chips { display: flex; flex-wrap: wrap; gap: 0.375rem; margin: 0.5rem 0; }
+.pf-chip-filtro { min-height: 2.25rem; padding: 0 0.75rem; border: 1px solid var(--pf-linha); border-radius: 999px; background: #ffffff; color: var(--pf-ink); font: inherit; font-size: 0.8125rem; font-weight: 600; cursor: pointer; }
+.pf-chip-filtro--ativo { border-color: var(--pf-verde); background: var(--pf-verde-claro); color: #0b3b36; }
+.pf-mudancas-lista { display: grid; gap: 0.25rem; margin: 0; padding: 0; list-style: none; max-height: 22rem; overflow-y: auto; }
+.pf-mudancas-lista li { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; padding: 0.375rem 0; border-top: 1px solid var(--pf-linha); }
+.pf-mudanca-tipo { flex: none; min-width: 4.25rem; padding: 0.125rem 0.5rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700; text-align: center; background: var(--pf-fundo); color: var(--pf-ink2); }
+.pf-mudanca-tipo--novo, .pf-mudanca-tipo--voltou { background: var(--pf-verde-claro); color: #0b3b36; }
+.pf-mudanca-tipo--esgotou { background: var(--pf-verm); color: var(--pf-verm-tx); }
+.pf-mudanca-tipo--preco { background: var(--pf-ambar); color: var(--pf-ambar-tx); }
+.pf-mudanca-nome { padding: 0; border: 0; background: transparent; color: var(--pf-ink); font: inherit; font-size: 0.9375rem; font-weight: 600; text-align: left; text-decoration: underline; text-decoration-color: var(--pf-linha); cursor: pointer; }
+.pf-mudanca-info { color: var(--pf-mudo); font-size: 0.8125rem; }
+.pf-mudancas-nota { margin: 0.5rem 0 0; color: var(--pf-mudo); font-size: 0.8125rem; }
