@@ -1,0 +1,12 @@
+/*
+ * Cesta do cabeçalho em um círculo branco, para dar destaque ao ícone sobre o fundo verde-água (desktop e celular).
+ * Na camada "design" com !important porque as regras antigas da sacola também são !important e estão em outras camadas.
+ */
+@layer design {
+  html body .shop-header .shop-acoes .reserva-sacola {
+    background: #ffffff !important;
+    border-radius: 50% !important;
+    box-shadow: 0 1px 0 rgba(10, 45, 41, 0.18) !important;
+  }
+  html body .shop-header .shop-acoes .reserva-sacola:hover { background: #effaf4 !important; }
+}

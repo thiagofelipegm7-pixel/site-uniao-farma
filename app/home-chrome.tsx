@@ -1,5 +1,6 @@
 "use client";
 
+import LogoWhatsApp from "./LogoWhatsApp";
 import { useEffect, useState, type ReactNode } from "react";
 import { trackEvent } from "./analytics";
 import { buildWhatsAppUrl, PUBLIC_UNITS } from "./site-config";
@@ -74,16 +75,7 @@ export const reviews = [
 ];
 
 export function WhatsAppIcon() {
-  return (
-    <img
-      className="inline-icon"
-      src="/whatsapp-icon.svg"
-      alt=""
-      width="24"
-      height="24"
-      aria-hidden="true"
-    />
-  );
+  return <LogoWhatsApp size={24} className="inline-icon" />;
 }
 
 export function PhoneIcon({ size = 24 }: { size?: number }) {

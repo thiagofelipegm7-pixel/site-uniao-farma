@@ -379,7 +379,7 @@ export default function LerReceita() {
               ) : null}
               {faltam.length > 0 && whatsapp ? (
                 <a className="reserva-botao reserva-botao-vazado receita-whats" href={whatsapp} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="receita_foto">
-                  <IconWhats size={22} /> <span>Falar com o farmacêutico sobre o que faltou</span>
+                  <IconWhats size={22} oficial /> <span>Falar com o farmacêutico sobre o que faltou</span>
                 </a>
               ) : null}
             </>
