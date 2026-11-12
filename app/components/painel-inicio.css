@@ -6,7 +6,6 @@
 .nav-interna a:hover { background: rgba(255, 255, 255, 0.12); }
 .nav-interna a[aria-current="page"] { background: #14736b; }
 .nav-interna a:focus-visible { outline: 3px solid #e3b341; outline-offset: -3px; }
-.nav-interna .nav-interna-sair { margin-left: auto; }
 
 .painel-inicio { max-width: 64rem; margin: 0 auto; padding: 1rem; color: #0d1413; }
 .painel-inicio h1 { margin: 0 0 0.25rem; font-size: 1.5rem; }
@@ -33,7 +32,6 @@
 .nav-interna a { border-radius: 10px; font-weight: 600; opacity: 0.88; }
 .nav-interna a:hover { opacity: 1; }
 .nav-interna a[aria-current="page"] { background: rgba(255, 255, 255, 0.16); opacity: 1; box-shadow: inset 0 -3px 0 #40baaf; border-radius: 10px 10px 0 0; }
-.nav-interna .nav-interna-sair a { font-weight: 600; opacity: 0.75; }
 @media (max-width: 520px) { .nav-interna-marca small { display: none; } }
 
 /* Mesmo padrão do site dos clientes: barra branca com linha verde-água, texto escuro, aba atual em menta, verde #14736b como cor de ação. */
@@ -44,7 +42,6 @@
 .nav-interna a:hover { background: #e4f6f3; color: #0b3b36; }
 .nav-interna a[aria-current="page"] { background: #e4f6f3; color: #0b3b36; box-shadow: inset 0 -3px 0 #14736b; border-radius: 10px 10px 0 0; font-weight: 700; }
 .nav-interna a:focus-visible { outline: 3px solid #14736b; outline-offset: -3px; }
-.nav-interna .nav-interna-sair a { color: #3e4b49; opacity: 1; }
 .nav-interna a.nav-interna-marca { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 3.25rem; padding: 0 0.5rem 0 0.25rem; border-radius: 10px; font-style: normal; }
 .nav-interna a.nav-interna-marca:hover { background: transparent; }
 .nav-interna a.nav-interna-marca small { margin: 0; }
