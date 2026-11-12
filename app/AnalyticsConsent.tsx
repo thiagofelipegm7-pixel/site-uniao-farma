@@ -99,12 +99,12 @@ export default function AnalyticsConsent() {
     // The consent value lives in browser storage and is intentionally hydrated after mount.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setConsent(readStoredConsent());
-    captureCampaignAttribution();
+    if (!window.location.pathname.startsWith("/interno")) captureCampaignAttribution();
   }, []);
 
   useEffect(() => {
-    if (consent === "accepted") startAnalytics();
-  }, [consent]);
+    if (consent === "accepted" && !interno) startAnalytics();
+  }, [consent, interno]);
 
   const showBanner = hydrated && !interno && (consent === null || showPreferences);
 
@@ -123,6 +123,7 @@ export default function AnalyticsConsent() {
 
   useEffect(() => {
     // Cliques são medidos sempre. Sem consentimento, o gtag só envia pings sem cookies.
+    if (interno) return; // equipe: nenhum clique é medido
     const onTrackedClick = (event: MouseEvent) => {
       const target = event.target as Element | null;
       const params = getClickTrackingParams(target);
@@ -130,7 +131,7 @@ export default function AnalyticsConsent() {
     };
     document.addEventListener("click", onTrackedClick);
     return () => document.removeEventListener("click", onTrackedClick);
-  }, []);
+  }, [interno]);
 
   const saveConsent = (value: ConsentValue) => {
     const hadAccepted = consent === "accepted";
