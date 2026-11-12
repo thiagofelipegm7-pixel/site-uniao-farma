@@ -561,7 +561,7 @@ export default function PainelFotos() {
                   </div>
                   <div className="pf-card-foto">
                     {l.noSite ? (
-                      <img src={urlFoto} alt="" width="96" height="96" />
+                      <img src={urlFoto} alt="" width="176" height="176" />
                     ) : (
                       <label className="pf-envio">
                         <input type="file" accept="image/*" disabled={envios[l.ean] === "enviando"} onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} />
