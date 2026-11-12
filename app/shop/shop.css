@@ -1714,19 +1714,19 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .pv-card .pv-img { grid-row: auto; display: block; width: 100%; height: auto; margin: 0 auto; padding: 12px 0 0; aspect-ratio: 1; max-height: none; box-sizing: content-box; }
 .pv-card .pv-img img, .pv-card .pv-sem-foto { display: block; width: 100%; height: 100%; max-height: none; margin: 0 auto; object-fit: contain; }
 .pv-card .pv-texto { display: block; width: 100%; padding: 8px 0 0; }
-.pv-card .pv-nome { -webkit-line-clamp: 2; min-height: 2.5rem; font-size: 0.875rem; line-height: 1.25rem; text-align: left; padding-right: calc(var(--pv-add-size, 2.75rem) / 2 + 6px); }
+.pv-card .pv-nome { -webkit-line-clamp: 2; min-height: 2.5rem; font-size: 0.875rem; line-height: 1.25rem; text-align: left; }
 .pv-card .pv-marca, .pv-card .pv-apres { display: none; }
 .pv-card .pv-preco { grid-column: auto; padding: 10px 0 0; text-align: left; font-size: 1.125rem; font-weight: 700; line-height: 1.5rem; }
 .pv-card .pv-preco b { font-size: inherit; }
 .pv-card .pv-avisos { padding: 8px 12px 0; text-align: left; }
-/* Círculo (e o contador depois do 1º toque) no canto inferior direito da foto, encostando no limite foto/texto. Fora do <a> do card. */
+/* Círculo (e o contador depois do 1º toque) totalmente dentro da foto: base rente à base da foto, 8 px da borda direita. O nome começa abaixo, sem sobreposição. */
 .pv-card .pv-cesta:has(.pv-adicionar),
 .pv-card .pv-cesta:has(.reservar-contador),
 .pv-card .pv-cesta:has(.pv-contador) {
   position: absolute; z-index: 2; margin: 0; padding: 0;
-  right: var(--pv-corpo-pad-x);
-  top: calc(var(--pv-foto-pad-top) + 100cqw - 2 * var(--pv-corpo-pad-x));
-  transform: translateY(-50%);
+  right: calc(var(--pv-corpo-pad-x) + 8px);
+  top: calc(var(--pv-foto-pad-top) + 100cqw - 2 * var(--pv-corpo-pad-x) - var(--pv-add-size));
+  transform: none;
 }
 .pv-card .pv-cesta:has(.pv-esgotado) { position: static; margin-top: auto; padding: 12px var(--pv-corpo-pad-x, 12px) 0; }
 .pv-adicionar {
