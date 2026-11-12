@@ -29,9 +29,9 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeStructuredData) }} />
       <CabecalhoInteligente>
         <ShopHeader />
+        <FaixaInfo />
         <SubmenuHome />
       </CabecalhoInteligente>
-      <FaixaInfo />
       <PainelBanners titulo="Farmácia em Sabará: União Farma Nações Unidas" />
       <CategoriasLinha />
       <DestaquesSemana posicao={0} id="vitrine-higiene" titulo="Cuidado Diário" grupo="cuidado-diario" n={12} verTodas={false} source="home_higiene" />

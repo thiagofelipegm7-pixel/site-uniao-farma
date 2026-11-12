@@ -1267,22 +1267,24 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 }
 
 /* =====================================================================
-   Cabeçalho que encolhe e expande ao rolar, como o da Panvel (vídeo): faixa de aviso e barra de acessos recolhem; a faixa
-   principal e a pílula de abas ficam fixas. Só no desktop; no celular o contêiner é transparente (display: contents).
+   Cabeçalho que encolhe e expande ao rolar: a faixa principal (logo, busca, cesta) e a faixa de informações
+   da loja ficam fixas e coladas; a barra de acessos (Departamentos) recolhe. Só no desktop; no celular o
+   contêiner é transparente (display: contents). --cab-faixa = padding 0.5rem×2 + line-height + borda de 1px.
    ===================================================================== */
 .cab-espaco, .cab-fixo { display: contents; }
 @media (min-width: 992px) {
-  :root { --cab-banda: 5.75rem; --cab-sub: 4.3125rem; }
-  html { scroll-padding-top: 8.5rem; }
-  .cab-espaco { display: block; height: calc(var(--cab-banda) + var(--cab-sub)); }
+  :root { --cab-banda: 5.75rem; --cab-sub: 4.3125rem; --cab-faixa: calc(1rem + (1.3 * 0.8125rem) + 1px); }
+  html { scroll-padding-top: calc(var(--cab-banda) + var(--cab-faixa) + var(--cab-sub)); }
+  .cab-espaco { display: block; height: calc(var(--cab-banda) + var(--cab-faixa) + var(--cab-sub)); }
   .cab-fixo { display: block; position: fixed; top: 0; left: 0; right: 0; z-index: 4000; }
   .cab-fixo .shop-header { position: static; }
   .cab-fixo .shop-submenu { overflow: hidden; max-height: var(--cab-sub); transition: max-height 0.22s ease, opacity 0.22s ease, padding 0.22s ease; }
   html[data-cab-rolado="sim"] .cab-fixo .shop-submenu { max-height: 0; opacity: 0; padding-block: 0; border-bottom-width: 0; pointer-events: none; }
-  html[data-cab-rolado="sim"] .cab-fixo .shop-header { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.14); }
+  /* A sombra ao rolar vai na faixa de informações, que permanece colada sob a busca. */
+  html[data-cab-rolado="sim"] .cab-fixo .shop-faixa-info { box-shadow: 0 4px 8px rgba(0, 0, 0, 0.14); }
   /* pílula de abas: fixa logo abaixo do cabeçalho e acompanha a altura dele */
-  .shop-abas { position: sticky; top: calc(var(--cab-banda) + var(--cab-sub) + 0.75rem); z-index: 3900; transition: top 0.22s ease; }
-  html[data-cab-rolado="sim"] .shop-abas { top: calc(var(--cab-banda) + 0.75rem); }
+  .shop-abas { position: sticky; top: calc(var(--cab-banda) + var(--cab-faixa) + var(--cab-sub) + 0.75rem); z-index: 3900; transition: top 0.22s ease; }
+  html[data-cab-rolado="sim"] .shop-abas { top: calc(var(--cab-banda) + var(--cab-faixa) + 0.75rem); }
 }
 @media (min-width: 992px) and (prefers-reduced-motion: reduce) {
   .cab-fixo .shop-submenu, .shop-abas { transition: none; }
