@@ -192,7 +192,15 @@ function writeJson(rel, data) {
 const cat = JSON.parse(fs.readFileSync(path.join(DADOS, "catalogo-nacoes.json"), "utf8"));
 // Esgotado (estoque zero): aparece nas listas com o selo "Esgotado" e sem botão de cesta, depois dos que têm estoque.
 // Fica fora das sugestões da busca do cabeçalho e da cesta (catalogo-busca.json), que só oferecem o que dá para reservar.
-const itens = cat.itens || [];
+// Réplica de marcaDoItem (marca.ts): laboratório vazio usa a marca que o próprio nome cita. Um teste confere as duas.
+const REGRAS_MARCA = JSON.parse(fs.readFileSync(path.join(DADOS, "marcas-pelo-nome.json"), "utf8")).map(([padrao, marca]) => ({ rx: new RegExp(padrao), marca }));
+function marcaDoItem(nome, lab) {
+  const l = String(lab ?? "").trim();
+  if (l) return l;
+  const n = String(nome).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
+  return REGRAS_MARCA.find((r) => r.rx.test(n))?.marca ?? "";
+}
+const itens = (cat.itens || []).map((i) => ({ ...i, lab: marcaDoItem(i.nome, i.lab) }));
 
 const CATEGORIAS_ORDEM = [
   "Medicamentos",

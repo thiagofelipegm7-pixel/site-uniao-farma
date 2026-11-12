@@ -571,7 +571,7 @@ export default function PainelFotos() {
                     )}
                   </div>
                   <h3 className="pf-card-nome" title={nomeAtual(l).texto}>{nomeAtual(l).texto}</h3>
-                  {l.lab ? <p className="pf-card-lab">{l.lab}</p> : null}
+                  <p className={l.lab ? "pf-card-lab" : "pf-card-lab pf-card-lab-vazio"}>{l.lab || "Sem marca informada"}</p>
                   <dl className="pf-card-dados">
                     <div><dt>Categoria</dt><dd>{categoriaEfetiva(l)}</dd></div>
                     <div><dt>Código</dt><dd className="pf-mono" title={l.ean}>{l.semCodigo ? "sem código" : l.ean}</dd></div>

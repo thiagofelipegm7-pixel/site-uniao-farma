@@ -176,3 +176,12 @@ test("descrições pesquisadas: arquivo próprio, só produto comum, sem promess
   const podar = await lerTexto("scripts/podar-dados-ia.mjs");
   assert.doesNotMatch(podar, /descricoes-pesquisa/, "a poda de IA não mexe nas descrições pesquisadas");
 });
+
+test("marca pelo nome: usa o laboratório do sistema e, sem ele, só a marca que o nome cita", async () => {
+  const { marcaDoItem, marcaPeloNome } = await import("../app/nacoes-unidas/produtos/marca.ts");
+  assert.equal(marcaDoItem("FIXODENT 68 G", ""), "Fixodent");
+  assert.equal(marcaDoItem("FIXODENT 68 G", "HALEON"), "HALEON");
+  assert.equal(marcaPeloNome("Pentes Diversos"), "");
+  assert.equal(marcaPeloNome("UNHA POSTICA MISS CHIC 24UND"), "Miss Chic");
+  assert.equal(marcaPeloNome("COND PALM 350ML HIALURONICO(E)*"), "Palmolive");
+});
