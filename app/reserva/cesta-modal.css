@@ -83,7 +83,20 @@ html body .cm-limpar {
 }
 html body .cm-confirma { border-radius: 1rem !important; border-color: #0a3548 !important; }
 html body .cm-confirma > div { display: flex; gap: 0.5rem; }
-html body .cm-vazia { margin: 1rem 0 1.5rem !important; }
+html body .cm-vazia {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin: 1rem 0 1.5rem !important;
+}
+html body .cm-vazia-icone {
+  display: block;
+  width: 6rem;
+  height: 6rem;
+  margin: 0 auto 0.75rem;
+  justify-self: center;
+}
 
 html body .cm-pe {
   flex: 0 0 auto; display: grid; gap: 0.5rem;
