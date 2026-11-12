@@ -1,10 +1,10 @@
 /* Barra única da área interna e tela inicial. Verde = ação, amarelo = alerta (docs/cores-e-animacoes.md). */
-.nav-interna { position: sticky; top: 0; z-index: 50; background: #0a3548; color: #ffffff; border-bottom: 3px solid #0e7370; }
+.nav-interna { position: sticky; top: 0; z-index: 50; background: #0a3548; color: #ffffff; border-bottom: 3px solid #14736b; }
 .nav-interna ul { display: flex; gap: 0.25rem; margin: 0; padding: 0.25rem 0.5rem; list-style: none; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: thin; }
 .nav-interna li { flex: none; }
 .nav-interna a { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 0.875rem; border-radius: 8px; color: #ffffff; font-size: 0.9375rem; font-weight: 700; text-decoration: none; white-space: nowrap; }
 .nav-interna a:hover { background: rgba(255, 255, 255, 0.12); }
-.nav-interna a[aria-current="page"] { background: #0e7370; }
+.nav-interna a[aria-current="page"] { background: #14736b; }
 .nav-interna a:focus-visible { outline: 3px solid #e3b341; outline-offset: -3px; }
 .nav-interna .nav-interna-sair { margin-left: auto; }
 
@@ -18,7 +18,7 @@
 .painel-inicio p { margin: 0; font-size: 0.9375rem; line-height: 1.5; }
 .painel-inicio .pi-busca { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .painel-inicio input { flex: 1 1 12rem; min-height: 2.75rem; padding: 0 0.75rem; border: 1px solid #6b8b86; border-radius: 8px; font: inherit; font-size: 16px; }
-.painel-inicio .pi-acao { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0 1rem; border: 0; border-radius: 8px; background: #0e7370; color: #ffffff; font: inherit; font-size: 1rem; font-weight: 700; text-decoration: none; cursor: pointer; }
+.painel-inicio .pi-acao { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0 1rem; border: 0; border-radius: 8px; background: #14736b; color: #ffffff; font: inherit; font-size: 1rem; font-weight: 700; text-decoration: none; cursor: pointer; }
 .painel-inicio .pi-alertas { display: grid; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
 .painel-inicio .pi-alertas li { display: grid; gap: 0.125rem; padding: 0.75rem; border-radius: 10px; border-left: 6px solid #6b8b86; background: #f3f7f6; overflow-wrap: anywhere; }
 .painel-inicio .pi-alertas li.pi-ok { border-left-color: #1f8a4c; background: #e9f6ee; }
@@ -35,3 +35,13 @@
 .nav-interna a[aria-current="page"] { background: rgba(255, 255, 255, 0.16); opacity: 1; box-shadow: inset 0 -3px 0 #40baaf; border-radius: 10px 10px 0 0; }
 .nav-interna .nav-interna-sair a { font-weight: 600; opacity: 0.75; }
 @media (max-width: 520px) { .nav-interna-marca small { display: none; } }
+
+/* Mesmo padrão do site dos clientes: barra branca com linha verde-água, texto escuro, aba atual em menta, verde #14736b como cor de ação. */
+.nav-interna { background: #ffffff; color: #0d1413; border-bottom: 1px solid #d3e2df; box-shadow: 0 1px 0 #ffffff inset, 0 4px 12px rgba(8, 58, 59, 0.06); }
+.nav-interna-marca { color: #14736b; font-style: italic; }
+.nav-interna-marca small { background: #e4f6f3; color: #0b3b36; font-style: normal; }
+.nav-interna a { color: #0d1413; opacity: 1; font-weight: 600; }
+.nav-interna a:hover { background: #e4f6f3; color: #0b3b36; }
+.nav-interna a[aria-current="page"] { background: #e4f6f3; color: #0b3b36; box-shadow: inset 0 -3px 0 #14736b; border-radius: 10px 10px 0 0; font-weight: 700; }
+.nav-interna a:focus-visible { outline: 3px solid #14736b; outline-offset: -3px; }
+.nav-interna .nav-interna-sair a { color: #3e4b49; opacity: 1; }
