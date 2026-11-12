@@ -2,6 +2,8 @@
  * Painel interno "Fotos dos produtos": junta o estoque de agora (export do DMaster) com o que já tem foto no site,
  * para ver o que está pronto e o que falta, começando pelo que mais vale parado no estoque. Funções puras (sem rede).
  */
+import { marcaDoItem } from "./nacoes-unidas/produtos/marca";
+
 export type LinhaFoto = {
   sistemaRestrito?: boolean;
   ean: string;
@@ -65,7 +67,7 @@ export function montarLinhas(itens: readonly ExportItem[], eansComFoto: Readonly
     linhas.push({
       ean,
       nome,
-      lab: LAB_VAZIO.test(lab) ? "" : lab,
+      lab: marcaDoItem(nome, LAB_VAZIO.test(lab) ? "" : lab),
       classe: typeof it.Classe === "string" ? it.Classe.trim() : "",
       estoque,
       preco,
