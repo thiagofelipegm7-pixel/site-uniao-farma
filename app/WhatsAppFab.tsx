@@ -66,6 +66,9 @@ export default function WhatsAppFab() {
 
   const hidden = Boolean(unitName) && inPageCtaVisible;
 
+  // Telas internas da equipe não mostram o botão dos clientes.
+  if (pathname.startsWith("/interno")) return null;
+
   return (
     <a
       className={`whatsapp-fab${unitName ? " whatsapp-fab-unit" : ""}${hidden ? " is-hidden" : ""}`}
