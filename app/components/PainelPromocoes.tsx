@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import PainelBanners from "../shop/PainelBanners";
 import type { BannerPainel } from "../shop/painel-banners";
+import { MAX_ARQUIVO_TEXTO } from "../banners-gravacao";
+import { mensagemErroEnvio, prepararArte } from "./preparar-arte";
 
 const BANNERS_PRINCIPAIS = Array.from({ length: 14 }, (_, i) => ({
   id: `hero-${i + 1}`,
@@ -36,12 +38,14 @@ export default function PainelPromocoes() {
 
   async function enviar(id: string, arquivo: File | undefined) {
     if (!arquivo) return;
-    setAviso("Enviando...");
-    const url = await new Promise<string>((resolve) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(String(reader.result));
-      reader.readAsDataURL(arquivo);
-    });
+    setAviso("Preparando a arte...");
+    const arte = await prepararArte(arquivo);
+    if (!arte.ok) {
+      setAviso(arte.mensagem);
+      return;
+    }
+    const url = arte.url;
+    setAviso(arte.reduzida ? "A arte era grande; diminuí para caber. Enviando..." : "Enviando...");
     const r = await fetch("/api/interno/banners", {
       method: "POST",
       headers: { "content-type": "application/json" },
@@ -51,7 +55,7 @@ export default function PainelPromocoes() {
       setAviso("Arte enviada.");
       setAtuais((prev) => [...prev.filter((b) => b.id !== id), { id, url }]);
     } else {
-      setAviso("Não consegui gravar. Tente de novo.");
+      setAviso(await mensagemErroEnvio(r));
     }
   }
 
@@ -59,7 +63,7 @@ export default function PainelPromocoes() {
     <section className="pm-pagina">
       <header className="pm-cabeca">
         <h1>Promoções</h1>
-        <p>É o carrossel da página inicial, do jeito que o cliente vê. Toque num banner para enviar ou trocar a arte dele e use as setas para ver os {BANNERS_PRINCIPAIS.length}. No site só aparecem os banners que têm arte.</p>
+        <p>É o carrossel da página inicial, do jeito que o cliente vê. Toque num banner para enviar ou trocar a arte dele e use as setas para ver os {BANNERS_PRINCIPAIS.length}. No site só aparecem os banners que têm arte. Tamanho máximo de cada arte: {MAX_ARQUIVO_TEXTO} (se passar, o painel tenta diminuir sozinho).</p>
       </header>
       {aviso ? <p className="pm-aviso" role="status">{aviso}</p> : null}
       <section className="pm-previa" aria-label="Carrossel da página inicial">
