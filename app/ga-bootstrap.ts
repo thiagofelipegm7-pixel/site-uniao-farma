@@ -10,6 +10,8 @@ const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || "";
 export function getGtagBootstrapScript(): string {
   const ads = GOOGLE_ADS_ID ? `gtag('config',${JSON.stringify(GOOGLE_ADS_ID)});` : "";
   return [
+    // Telas internas da equipe não entram na medição: o Google ignora todo envio com esta chave ligada.
+    `if(location.pathname.indexOf('/interno')===0){window[${JSON.stringify(`ga-disable-${GA_MEASUREMENT_ID}`)}]=true;}`,
     "window.dataLayer=window.dataLayer||[];",
     "function gtag(){dataLayer.push(arguments);}",
     "window.gtag=gtag;",
