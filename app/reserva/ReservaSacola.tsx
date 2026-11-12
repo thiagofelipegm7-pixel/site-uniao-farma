@@ -4,7 +4,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { EVENTO_ABRIR_RESERVA } from "./abrir-reserva";
-import { UNITS } from "../site-config";
 import { IconFechar, IconLixeira, IconSetaBaixo, IconCestaLinha } from "./ReservaIcons";
 import SemFoto from "../nacoes-unidas/produtos/SemFoto";
 import "./cesta-modal.css";
@@ -13,8 +12,6 @@ import { useReserva } from "./useReserva";
 import { useDisponibilidade } from "./useDisponibilidade";
 import { avisosDaCesta } from "../disponibilidade";
 import CestaSugestoes from "./CestaSugestoes";
-
-const nomeLoja = (unitId: string) => UNITS.find((u) => u.id === unitId)?.shortName ?? "";
 
 const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
@@ -147,7 +144,7 @@ export default function ReservaSacola() {
                             <IconLixeira size={20} />
                           </button>
                         </div>
-                        <small className="cm-loja">{nomeLoja(item.unitId) ? `União Farma ${nomeLoja(item.unitId)}` : "União Farma"}</small>
+                        <small className="cm-loja">União Farma</small>
                         {item.receita ? <small className="cm-receita">{item.receita === "controlado" ? "Controlado: retirada na loja com receita" : "Exige receita: retirada na loja"}</small> : null}
                         {avisos.some((a) => a.id === item.id && a.tipo === "acabou") ? <small className="fluxo-aviso-estoque" role="alert">Acabou na loja agora</small> : null}
                         <div className="cm-linha-preco">
