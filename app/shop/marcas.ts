@@ -65,7 +65,7 @@ export const MARCAS_DERMOCOSMETICOS: readonly MarcaDestaque[] = [
 
 /**
  * Marcas da faixa do departamento Infantil e Gestante (produtos não esgotados: Isababy 11, Granado 7, Johnson's 6, Babysec 6, Skalinha 6, Pampers 4).
- * Faltam logos de Personal e Dentil, que entram quando chegarem. O clique filtra a lista do próprio departamento.
+ * Falta o logo da Dentil, que entra quando chegar. O clique filtra a lista do próprio departamento.
  */
 const emInfantil = (termo: string) => `/departamentos/infantil-e-gestante?q=${encodeURIComponent(termo)}`;
 export const MARCAS_INFANTIL: readonly MarcaDestaque[] = [
@@ -78,10 +78,11 @@ export const MARCAS_INFANTIL: readonly MarcaDestaque[] = [
   { slug: "kuka", nome: "Kuka", busca: "kuka", href: emInfantil("kuka") },
   { slug: "buba", nome: "Buba", busca: "buba", href: emInfantil("buba") },
   { slug: "cremer", nome: "Cremer", busca: "cremer", href: emInfantil("cremer") },
+  { slug: "personal", nome: "Personal", busca: "personal", href: emInfantil("personal") },
 ];
 
 /**
- * Marcas da faixa do departamento Cuidado Diário (produtos não esgotados: Farmax 30, Missner 16, Cimed 12, Cremer 11, Granado 11, Colgate 10, Nivea 10, Gillette 9).
+ * Marcas da faixa do departamento Cuidado Diário (produtos não esgotados: Farmax 30, Missner 16, Cimed 12, Cremer 11, Granado 11, Colgate 10, Nivea 10, Gillette 9, Always 7, Intimus 5).
  * O clique filtra a lista do próprio departamento.
  */
 const emCuidadoDiario = (termo: string) => `/departamentos/cuidado-diario?q=${encodeURIComponent(termo)}`;
@@ -94,11 +95,13 @@ export const MARCAS_CUIDADO_DIARIO: readonly MarcaDestaque[] = [
   { slug: "colgate", nome: "Colgate", busca: "colgate", href: emCuidadoDiario("colgate") },
   { slug: "nivea", nome: "Nivea", busca: "nivea", href: emCuidadoDiario("nivea") },
   { slug: "gillette", nome: "Gillette", busca: "gillette", href: emCuidadoDiario("gillette") },
+  { slug: "always", nome: "Always", busca: "always", href: emCuidadoDiario("always") },
+  { slug: "intimus", nome: "Intimus", busca: "intimus", href: emCuidadoDiario("intimus") },
 ];
 
 /**
  * Marcas da faixa do departamento Beleza (produtos não esgotados: Salon Line 32, Wella 24, Embelleze 24, L'Oréal 20, Seda 17, Bio Extratus 17).
- * Faltam logos de Impala, Niely, Risqué e Alta Moda (esmaltes e tintas), que entram quando chegarem. O clique filtra a lista do próprio departamento.
+ * Faltam os logos de Niely e Risqué (tintas e esmaltes), que entram quando chegarem (Impala 26, Risqué 15, Alta Moda 15, Niely 13). O clique filtra a lista do próprio departamento.
  */
 const emBeleza = (termo: string) => `/departamentos/beleza?q=${encodeURIComponent(termo)}`;
 export const MARCAS_BELEZA: readonly MarcaDestaque[] = [
@@ -108,6 +111,8 @@ export const MARCAS_BELEZA: readonly MarcaDestaque[] = [
   { slug: "loreal", nome: "L'Oréal", busca: "loreal", href: emBeleza("loreal") },
   { slug: "seda", nome: "Seda", busca: "seda", href: emBeleza("seda") },
   { slug: "bio-extratus", nome: "Bio Extratus", busca: "extrat", href: emBeleza("extrat") },
+  { slug: "impala", nome: "Impala", busca: "impala", href: emBeleza("impala") },
+  { slug: "alta-moda", nome: "Alta Moda", busca: "alta moda", href: emBeleza("alta moda") },
 ];
 
 /**
