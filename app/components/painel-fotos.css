@@ -301,3 +301,11 @@ body:has(.nav-interna) { background: #f1fbfa; }
 }
 .pf-card-lab-vazio { text-transform: none; letter-spacing: 0; font-style: italic; opacity: 0.75; }
 html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outline: none !important; box-shadow: none; }
+.pf-selecao-controle { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 0 0 0.75rem; }
+.pf-selecao-nota { color: var(--pf-mudo); font-size: 0.8125rem; }
+.pf-selecao-caixa { display: inline-grid; place-items: center; width: 2.25rem; height: 2.25rem; margin-right: 0.25rem; cursor: pointer; }
+.painel-fotos .pf-selecao-caixa input { width: 1.375rem; height: 1.375rem; accent-color: var(--pf-verde); cursor: pointer; }
+.pf-selecao-barra { position: fixed; left: 50%; bottom: calc(1rem + env(safe-area-inset-bottom)); z-index: 60; display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; width: min(40rem, calc(100% - 1.5rem)); transform: translateX(-50%); padding: 0.75rem; border: 1px solid var(--pf-linha); border-radius: 16px; background: #ffffff; box-shadow: 0 10px 28px rgba(8, 58, 59, 0.18); }
+.pf-selecao-barra strong { flex: 1 1 100%; font-size: 0.9375rem; }
+.pf-selecao-barra .pf-select { flex: 1 1 12rem; min-width: 0; }
+@media (min-width: 560px) { .pf-selecao-barra strong { flex: none; margin-right: 0.25rem; } }
