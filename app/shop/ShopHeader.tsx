@@ -15,7 +15,8 @@ import MarcaUniao from "./MarcaUniao";
 import ReservaSacola from "../reserva/ReservaSacola";
 import FotosNovas from "./FotosNovas";
 import AvisoDadosAntigos from "./AvisoDadosAntigos";
-import { IconMenu, IconPino, IconWhats } from "../reserva/ReservaIcons";
+import { IconMenu, IconPino } from "../reserva/ReservaIcons";
+import LogoWhatsApp from "../LogoWhatsApp";
 import LojaPicker from "./LojaPicker";
 import "./shop.css";
 import { imagemIlustrativa } from "../nacoes-unidas/produtos/receita";
@@ -419,7 +420,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
             data-track-unit="nacoes"
             data-track-source="cabecalho"
           >
-            <IconWhats size={22} />
+            <LogoWhatsApp size={24} />
             <span>Pedir no WhatsApp</span>
           </a>
         ) : null}

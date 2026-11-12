@@ -1210,7 +1210,7 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .shop-whats { grid-area: whats; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 2.75rem; padding: 0 1.125rem; border-radius: 999px; background: #ffffff; color: #0b6b3a; font-size: 0.9375rem; font-weight: 700; text-decoration: none; white-space: nowrap; box-shadow: 0 1px 0 rgba(10, 45, 41, 0.18); }
   .shop-whats:hover { background: #effaf4; }
   .shop-whats:focus-visible { outline: 3px solid #ffffff; outline-offset: 2px; box-shadow: 0 0 0 5px #0a3548; }
-  .shop-whats svg { flex: none; color: #1f9e4b; }
+  .shop-whats svg { flex: none; }
   .shop-acoes { grid-area: acoes; }
   .shop-acoes > .shop-icone { display: none; }
   .shop-acoes .reserva-sacola { width: 2.75rem; height: 2.75rem; border-radius: 50%; background: transparent !important; color: #ffffff !important; }
