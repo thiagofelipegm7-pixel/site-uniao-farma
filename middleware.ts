@@ -49,8 +49,12 @@ export async function middleware(request: NextRequest) {
   if (canonical) return canonical;
 
   const { pathname } = request.nextUrl;
+  // Toda a API interna exige login da equipe (menos o próprio login). Assim uma rota nova em /api/interno
+  // não fica aberta por esquecimento, como aconteceu com /api/interno/banners.
+  const apiInterna = pathname.startsWith("/api/interno/") && pathname !== "/api/interno/login";
   const noStore =
     pathname.startsWith("/interno") ||
+    pathname.startsWith("/api/interno/") ||
     pathname === "/api/metricas" ||
     pathname === "/api/interno/catalogo" ||
     pathname === "/api/interno/estoque" ||
@@ -70,7 +74,7 @@ export async function middleware(request: NextRequest) {
     pathname === "/api/fotos-pendentes" ||
     pathname === "/api/interno/login" ||
     pathname === "/api/whatsapp/webhook";
-  const staffPath = pathname.startsWith("/interno") || pathname === "/api/metricas" || pathname === "/api/interno/catalogo" || pathname === "/api/interno/estoque" || pathname === "/api/interno/funil" || pathname === "/api/interno/fotos" || pathname === "/api/interno/fotos/enviar" || pathname === "/api/interno/fotos/baixar" || pathname === "/api/interno/fotos/remover" || pathname === "/api/interno/revisao" || pathname === "/api/interno/revisao/aprovar" || pathname === "/api/interno/revisao/desfazer" || pathname === "/api/interno/produto/nome" || pathname === "/api/interno/produto/nome/desfazer" || pathname === "/api/interno/produto/controlado" || pathname === "/api/interno/produto/categoria" || pathname === "/api/interno/produto/categoria/lote" || pathname === "/api/interno/produto/marca" || pathname === "/api/interno/produto/descricao" || pathname === "/api/interno/produto/excluir" || pathname === "/api/interno/erros";
+  const staffPath = apiInterna || pathname.startsWith("/interno") || pathname === "/api/metricas" || pathname === "/api/interno/catalogo" || pathname === "/api/interno/estoque" || pathname === "/api/interno/funil" || pathname === "/api/interno/fotos" || pathname === "/api/interno/fotos/enviar" || pathname === "/api/interno/fotos/baixar" || pathname === "/api/interno/fotos/remover" || pathname === "/api/interno/revisao" || pathname === "/api/interno/revisao/aprovar" || pathname === "/api/interno/revisao/desfazer" || pathname === "/api/interno/produto/nome" || pathname === "/api/interno/produto/nome/desfazer" || pathname === "/api/interno/produto/controlado" || pathname === "/api/interno/produto/categoria" || pathname === "/api/interno/produto/categoria/lote" || pathname === "/api/interno/produto/marca" || pathname === "/api/interno/produto/descricao" || pathname === "/api/interno/produto/excluir" || pathname === "/api/interno/erros";
   if (!staffPath) return withSecurityHeaders(NextResponse.next(), noStore);
   if (pathname === "/interno/entrar" || pathname === "/interno/sair") {
     return withSecurityHeaders(NextResponse.next(), noStore);
