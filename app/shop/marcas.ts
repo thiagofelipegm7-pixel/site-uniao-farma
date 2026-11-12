@@ -65,7 +65,7 @@ export const MARCAS_DERMOCOSMETICOS: readonly MarcaDestaque[] = [
 
 /**
  * Marcas da faixa do departamento Infantil e Gestante (produtos não esgotados: Isababy 11, Granado 7, Johnson's 6, Babysec 6, Skalinha 6, Pampers 4).
- * Faltam logos de Personal, Dentil, Kuka e Buba, que entram quando chegarem. O clique filtra a lista do próprio departamento.
+ * Faltam logos de Personal e Dentil, que entram quando chegarem. O clique filtra a lista do próprio departamento.
  */
 const emInfantil = (termo: string) => `/departamentos/infantil-e-gestante?q=${encodeURIComponent(termo)}`;
 export const MARCAS_INFANTIL: readonly MarcaDestaque[] = [
@@ -75,6 +75,25 @@ export const MARCAS_INFANTIL: readonly MarcaDestaque[] = [
   { slug: "babysec", nome: "Babysec", busca: "babysec", href: emInfantil("babysec") },
   { slug: "pampers", nome: "Pampers", busca: "pampers", href: emInfantil("pampers") },
   { slug: "skalinha", nome: "Skalinha", busca: "skalinha", href: emInfantil("skalinha") },
+  { slug: "kuka", nome: "Kuka", busca: "kuka", href: emInfantil("kuka") },
+  { slug: "buba", nome: "Buba", busca: "buba", href: emInfantil("buba") },
+  { slug: "cremer", nome: "Cremer", busca: "cremer", href: emInfantil("cremer") },
+];
+
+/**
+ * Marcas da faixa do departamento Cuidado Diário (produtos não esgotados: Farmax 30, Missner 16, Cimed 12, Cremer 11, Granado 11, Colgate 10, Nivea 10, Gillette 9).
+ * O clique filtra a lista do próprio departamento.
+ */
+const emCuidadoDiario = (termo: string) => `/departamentos/cuidado-diario?q=${encodeURIComponent(termo)}`;
+export const MARCAS_CUIDADO_DIARIO: readonly MarcaDestaque[] = [
+  { slug: "farmax", nome: "Farmax", busca: "farmax", href: emCuidadoDiario("farmax") },
+  { slug: "missner", nome: "Missner", busca: "missner", href: emCuidadoDiario("missner") },
+  { slug: "cimed", nome: "Cimed", busca: "cimed", href: emCuidadoDiario("cimed") },
+  { slug: "cremer", nome: "Cremer", busca: "cremer", href: emCuidadoDiario("cremer") },
+  { slug: "granado", nome: "Granado", busca: "granado", href: emCuidadoDiario("granado") },
+  { slug: "colgate", nome: "Colgate", busca: "colgate", href: emCuidadoDiario("colgate") },
+  { slug: "nivea", nome: "Nivea", busca: "nivea", href: emCuidadoDiario("nivea") },
+  { slug: "gillette", nome: "Gillette", busca: "gillette", href: emCuidadoDiario("gillette") },
 ];
 
 /**
@@ -100,5 +119,6 @@ export const MARCAS_POR_DEPARTAMENTO: Readonly<Record<string, readonly MarcaDest
   dermocosmeticos: MARCAS_DERMOCOSMETICOS,
   "infantil-e-gestante": MARCAS_INFANTIL,
   beleza: MARCAS_BELEZA,
+  "cuidado-diario": MARCAS_CUIDADO_DIARIO,
   perfumes: [],
 };
