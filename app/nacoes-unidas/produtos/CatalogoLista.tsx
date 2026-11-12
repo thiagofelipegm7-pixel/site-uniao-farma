@@ -11,21 +11,32 @@ import ReservarBotao from "../../reserva/ReservarBotao";
 import { precoParaCentavos } from "../../reserva/reserva-store";
 import {
   aplicarCatalogo,
-  contarFiltrosAtivos,
   contarItens,
   eventoBusca,
   eventoFiltro,
   filtrarGrupos,
-  FAIXAS_PRECO,
+  filtrarGruposAlternativos,
   identificarItens,
   normalizarBusca,
-  opcoesFiltro,
   ORDENS_CATALOGO,
-  type FaixaPreco,
-  type FiltroCatalogo,
   type GrupoBusca,
   type OrdemCatalogo,
 } from "./busca";
+import {
+  assinaturaFiltros,
+  atalhosDaBusca,
+  calcularFacetas,
+  contarSelecionados,
+  faixaDePrecos,
+  filtrosDaUrl,
+  formatarReais,
+  predicadoFiltros,
+  tituloDaFaceta,
+  urlComFiltros,
+  type FacetaId,
+  type FiltrosLista,
+} from "./facetas";
+import Facetas, { AtalhosBusca, FiltrosAtivos, type ChipAtivo } from "./Facetas";
 import { slugify } from "./catalogo";
 import CartaoPanvel from "./CartaoPanvel";
 import { Cartao as CartaoRestrito } from "./ListaRestrita";
@@ -49,14 +60,13 @@ type Props = {
   unitId: string;
 };
 
-type Selecao = Pick<FiltroCatalogo, "categorias" | "marcas" | "faixas" | "tipos">;
-
-const SELECAO_VAZIA: Selecao = { categorias: [], marcas: [], faixas: [], tipos: [] };
+const FILTROS_VAZIOS: FiltrosLista = { selecoes: {} };
 const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-function alternar<T extends string>(lista: readonly T[] | undefined, valor: T): T[] {
+function alternar(lista: readonly string[] | undefined, valor: string): string[] {
   const atual = lista ?? [];
-  return atual.includes(valor) ? atual.filter((item) => item !== valor) : [...atual, valor];
+  const chave = normalizarBusca(valor);
+  return atual.some((item) => normalizarBusca(item) === chave) ? atual.filter((item) => normalizarBusca(item) !== chave) : [...atual, valor];
 }
 
 /**
@@ -142,7 +152,6 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     return () => { cancel = true; };
   }, [gruposProps, departamento]);
   const base = useMemo(() => identificarItens(grupos), [grupos]);
-  const opcoes = opcoesFiltro(base);
   // A página é estática: o termo vem da barra de endereço (?q=fralda) depois que a página abre.
   const [consulta, setConsulta] = useState(consultaInicial);
   useEffect(() => {
@@ -152,7 +161,28 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     return () => window.removeEventListener("popstate", ler);
   }, []);
   const [ordem, setOrdem] = useState<OrdemCatalogo>("recomendados");
-  const [selecao, setSelecao] = useState<Selecao>(SELECAO_VAZIA);
+  const [filtros, setFiltros] = useState<FiltrosLista>(FILTROS_VAZIOS);
+  // Filtros no endereço (?marca=Nivea&preco_max=30): o link compartilhado e o botão Voltar mostram a mesma lista.
+  const [urlLida, setUrlLida] = useState(false);
+  const mudouPelaUrl = useRef(false);
+  useEffect(() => {
+    const ler = () => {
+      const e = filtrosDaUrl(window.location.search);
+      mudouPelaUrl.current = true;
+      setFiltros({ selecoes: e.selecoes, precoMin: e.precoMin, precoMax: e.precoMax });
+      setOrdem(e.ordem);
+      setUrlLida(true);
+    };
+    ler();
+    window.addEventListener("popstate", ler);
+    return () => window.removeEventListener("popstate", ler);
+  }, []);
+  useEffect(() => {
+    if (!urlLida) return;
+    const estado = { ...filtros, ordem };
+    if (assinaturaFiltros(filtrosDaUrl(window.location.search)) === assinaturaFiltros(estado)) return;
+    window.history.pushState(null, "", urlComFiltros(window.location.href, estado));
+  }, [filtros, ordem, urlLida]);
   const [filtroAberto, setFiltroAberto] = useState(false);
   const filtroRef = useRef<HTMLDivElement>(null);
   const fecharFiltroRef = useRef<HTMLButtonElement>(null);
@@ -169,7 +199,13 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   const tolerante = useBuscaTolerante({ textos: textosBusca, consulta, totalExato });
   const consultasAlternativas = tolerante.tipo === "corrigida" ? tolerante.consultas : undefined;
 
-  const visiveis = aplicarCatalogo(base, { consulta, consultasAlternativas, ordem, ...selecao });
+  const porTexto = useMemo(
+    () => (consultasAlternativas?.length ? filtrarGruposAlternativos(base, consultasAlternativas) : filtrarGrupos(base, consulta)),
+    [base, consulta, consultasAlternativas],
+  );
+  const facetas = useMemo(() => calcularFacetas(porTexto, filtros), [porTexto, filtros]);
+  const faixa = useMemo(() => faixaDePrecos(porTexto, filtros), [porTexto, filtros]);
+  const visiveis = aplicarCatalogo(porTexto, { ordem, predicado: predicadoFiltros(filtros) });
   const total = contarItens(visiveis);
   const [pagina, setPagina] = useState(paginaInicial);
   const [porPagina, setPorPagina] = useState<number>(POR_PAGINA);
@@ -183,14 +219,18 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
       primeiraBusca.current = false;
       return;
     }
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- volta à primeira página quando a lista muda
+    // Filtros vindos do endereço (abrir link, Voltar) respeitam a ?pagina= que já está lá.
+    if (mudouPelaUrl.current) {
+      mudouPelaUrl.current = false;
+      return;
+    }
     setPagina(1);
     if (new URLSearchParams(window.location.search).has("pagina")) {
       const u = new URL(window.location.href);
       u.searchParams.delete("pagina");
       window.history.replaceState(null, "", u);
     }
-  }, [ordem, selecao, porPagina]);
+  }, [ordem, filtros, porPagina]);
   // Voltar e avançar do navegador.
   useEffect(() => {
     const ler = () => setPagina(paginaDaUrl(window.location.search));
@@ -198,7 +238,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     window.addEventListener("popstate", ler);
     return () => window.removeEventListener("popstate", ler);
   }, []);
-  const ativos = contarFiltrosAtivos(selecao);
+  const ativos = contarSelecionados(filtros);
   const buscando = consulta.trim().length > 0;
 
   // Enquanto o catálogo (ou a correção de digitação) não termina, a tela mostra "Buscando…", nunca "não encontramos".
@@ -263,80 +303,60 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
 
   useEffect(() => {
     if (filtroAberto) return;
-    const evento = eventoFiltro(selecao, total);
+    const sel = filtros.selecoes;
+    const resumo = { categorias: [...(sel.departamento ?? [])], marcas: [...(sel.marca ?? [])], faixas: [], tipos: [...(sel.categoria ?? [])] };
+    const outros = ativos - resumo.categorias.length - resumo.marcas.length - resumo.tipos.length;
+    const evento = eventoFiltro(resumo, total, outros);
     if (!evento) {
       filtroEnviado.current = "";
       return;
     }
-    const assinatura = JSON.stringify({
-      categories: selecao.categorias ?? [],
-      brands: selecao.marcas ?? [],
-      ranges: selecao.faixas ?? [],
-      types: selecao.tipos ?? [],
-    });
+    const assinatura = assinaturaFiltros({ ...filtros, ordem: "recomendados" });
     if (filtroEnviado.current === assinatura) return;
     filtroEnviado.current = assinatura;
     trackEvent(evento.event, evento.params);
-  }, [filtroAberto, selecao, total]);
+  }, [filtroAberto, filtros, total, ativos]);
 
-  const filtrosCampos = (
-    <>
-        <fieldset>
-          <legend>Categoria</legend>
-          {opcoes.categorias.map((categoria) => (
-            <label key={categoria} className="catalogo-filtro-opcao">
-              <input
-                type="checkbox"
-                checked={selecao.categorias?.includes(categoria) ?? false}
-                onChange={() => setSelecao((atual) => ({ ...atual, categorias: alternar(atual.categorias, categoria) }))}
-              />
-              <span>{categoria}</span>
-            </label>
-          ))}
-        </fieldset>
-        {opcoes.tipos.length > 0 ? (
-          <fieldset>
-            <legend>Tipo de produto</legend>
-            {opcoes.tipos.map((tipo) => (
-              <label key={tipo} className="catalogo-filtro-opcao">
-                <input
-                  type="checkbox"
-                  checked={selecao.tipos?.includes(tipo) ?? false}
-                  onChange={() => setSelecao((atual) => ({ ...atual, tipos: alternar(atual.tipos, tipo) }))}
-                />
-                <span>{tipo}</span>
-              </label>
-            ))}
-          </fieldset>
-        ) : null}
-        <fieldset>
-          <legend>Marca</legend>
-          {opcoes.marcas.map((marca) => (
-            <label key={marca} className="catalogo-filtro-opcao">
-              <input
-                type="checkbox"
-                checked={selecao.marcas?.includes(marca) ?? false}
-                onChange={() => setSelecao((atual) => ({ ...atual, marcas: alternar(atual.marcas, marca) }))}
-              />
-              <span>{marca}</span>
-            </label>
-          ))}
-        </fieldset>
-        <fieldset>
-          <legend>Faixa de preço</legend>
-          {FAIXAS_PRECO.map((faixa) => (
-            <label key={faixa.id} className="catalogo-filtro-opcao">
-              <input
-                type="checkbox"
-                checked={selecao.faixas?.includes(faixa.id) ?? false}
-                onChange={() => setSelecao((atual) => ({ ...atual, faixas: alternar(atual.faixas, faixa.id as FaixaPreco) }))}
-              />
-              <span>{faixa.label}</span>
-            </label>
-          ))}
-        </fieldset>
-    </>
-  );
+  const alternarFaceta = (id: FacetaId, valor: string) =>
+    setFiltros((atual) => {
+      const proximo = alternar(atual.selecoes[id], valor);
+      const selecoes = { ...atual.selecoes };
+      if (proximo.length > 0) selecoes[id] = proximo;
+      else delete selecoes[id];
+      return { ...atual, selecoes };
+    });
+  const aplicarPreco = (precoMin?: number, precoMax?: number) => setFiltros((atual) => ({ selecoes: atual.selecoes, precoMin, precoMax }));
+  const limparFiltros = () => setFiltros(FILTROS_VAZIOS);
+  const chips: ChipAtivo[] = [
+    ...Object.entries(filtros.selecoes).flatMap(([id, valores]) =>
+      (valores ?? []).map((valor) => ({ chave: `${id}:${valor}`, rotulo: `${tituloDaFaceta(id as FacetaId)}: ${valor}`, remover: () => alternarFaceta(id as FacetaId, valor) })),
+    ),
+    ...(filtros.precoMin !== undefined || filtros.precoMax !== undefined
+      ? [{
+          chave: "preco",
+          rotulo:
+            filtros.precoMin !== undefined && filtros.precoMax !== undefined
+              ? `Preço: ${formatarReais(filtros.precoMin)} a ${formatarReais(filtros.precoMax)}`
+              : filtros.precoMin !== undefined
+                ? `Preço: a partir de ${formatarReais(filtros.precoMin)}`
+                : `Preço: até ${formatarReais(filtros.precoMax ?? 0)}`,
+          remover: () => aplicarPreco(undefined, undefined),
+        }]
+      : []),
+  ];
+  const atalhos = buscando ? atalhosDaBusca(facetas) : [];
+  const filtrosCampos = (prefixo: string) =>
+    esperando ? (
+      <p className="fc-carregando">Carregando filtros…</p>
+    ) : (
+      <Facetas prefixo={prefixo} facetas={facetas} filtros={filtros} faixa={faixa} aoAlternar={alternarFaceta} aoPreco={aplicarPreco} />
+    );
+  const estadoUrl = { ...filtros, ordem };
+  const hrefComFiltros = (n: number) => {
+    const u = new URL(urlComFiltros(`https://x.invalid/${hrefPagina(1, consulta)}`, estadoUrl));
+    if (n > 1) u.searchParams.set("pagina", String(n));
+    return u.search || "?";
+  };
 
   const dialog = (
     <div className="catalogo-filtro-raiz" role="dialog" aria-modal="true" aria-labelledby="catalogo-filtro-titulo" ref={filtroRef}>
@@ -347,10 +367,11 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
         </button>
       </div>
       <div className="catalogo-filtro-corpo">
-        {filtrosCampos}
+        {atalhos.length > 1 ? <AtalhosBusca opcoes={atalhos} aoEscolher={(v) => alternarFaceta("categoria", v)} /> : null}
+        {filtrosCampos("gaveta")}
       </div>
       <div className="catalogo-filtro-rodape">
-        <button type="button" className="catalogo-filtro-limpar" onClick={() => setSelecao(SELECAO_VAZIA)}>
+        <button type="button" className="catalogo-filtro-limpar" onClick={limparFiltros}>
           Limpar
         </button>
         <button type="button" className="catalogo-filtro-ver" onClick={() => setFiltroAberto(false)}>
@@ -364,16 +385,18 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     <>
       <div className="pv-layout">
         <aside className="pv-filtros" aria-label="Filtros">
-          <LateralTopo total={total} rotulo="produto" atual={departamento} carregando={esperando} />
+          {buscando ? <h2 className="fc-termo">{tolerante.tipo === "corrigida" ? tolerante.rotulo : consulta.trim()}</h2> : null}
+          <LateralTopo total={total} rotulo={buscando ? "resultado" : "produto"} atual={departamento} carregando={esperando} departamentosAbertos={!buscando} />
+          {atalhos.length > 1 ? <AtalhosBusca opcoes={atalhos} aoEscolher={(v) => alternarFaceta("categoria", v)} /> : null}
           <div className="pv-filtros-topo">
             <p className="pv-filtros-titulo">Filtros</p>
             {ativos > 0 ? (
-              <button type="button" onClick={() => setSelecao(SELECAO_VAZIA)}>
+              <button type="button" onClick={limparFiltros}>
                 Limpar
               </button>
             ) : null}
           </div>
-          {filtrosCampos}
+          {filtrosCampos("lateral")}
         </aside>
         <div className="pv-conteudo">
           <div className="pv-topo" role="toolbar" aria-label="Filtrar e ordenar">
@@ -409,8 +432,9 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
             ordem={ordem}
             opcoesOrdem={ORDENS_CATALOGO.map((o) => ({ id: o.id, label: o.id === "recomendados" ? "Mais relevantes" : o.label }))}
             aoMudarOrdem={(id) => setOrdem(id as OrdemCatalogo)}
-            paginacao={<Paginacao variante="barra" atual={paginaAtual} total={totalPaginas} href={(n) => hrefPagina(n, consulta)} onIr={(n) => { setPagina(n); irParaPagina(n, consulta); }} />}
+            paginacao={<Paginacao variante="barra" atual={paginaAtual} total={totalPaginas} href={hrefComFiltros} onIr={(n) => { setPagina(n); irParaPagina(n, consulta); }} />}
           />
+          <FiltrosAtivos chips={chips} aoLimpar={limparFiltros} />
 
       {tolerante.tipo === "sugestao" ? (
         <p className="pv-corrigida" role="status">
@@ -431,7 +455,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
           <p>
             {buscando && tolerante.tipo === "sintoma"
               ? "Para escolher um remédio para o que você está sentindo, converse com o farmacêutico. Ele orienta com segurança e confirma o que a loja tem."
-              : consultasAlternativas
+              : consultasAlternativas || ativos > 0
                 ? "Não encontramos produtos com esses filtros. Limpe os filtros ou navegue pelas categorias."
                 : buscando
               ? `Não encontramos “${consulta.trim()}”. Confira a digitação, use termos mais amplos ou navegue pelas categorias.`
@@ -467,7 +491,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
           )}
         </ul>
       )}
-      <Paginacao atual={paginaAtual} total={totalPaginas} href={(n) => hrefPagina(n, consulta)} onIr={(n) => { setPagina(n); irParaPagina(n, consulta); }} />
+      <Paginacao atual={paginaAtual} total={totalPaginas} href={hrefComFiltros} onIr={(n) => { setPagina(n); irParaPagina(n, consulta); }} />
 
         </div>
       </div>

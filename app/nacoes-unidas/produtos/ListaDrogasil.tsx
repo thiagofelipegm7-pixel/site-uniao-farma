@@ -19,13 +19,13 @@ export function GrupoLateral({ titulo, children, aberto = true }: { titulo: stri
 }
 
 /** Topo da lateral: quantidade de resultados e a lista de departamentos (a "Subcategorias" da Drogasil). */
-export function LateralTopo({ total, rotulo, atual, carregando = false }: { total: number; rotulo: string; atual?: string; carregando?: boolean }) {
+export function LateralTopo({ total, rotulo, atual, carregando = false, departamentosAbertos = true }: { total: number; rotulo: string; atual?: string; carregando?: boolean; departamentosAbertos?: boolean }) {
   return (
     <>
       <p className="dg-resultados" aria-live="polite">
         {carregando ? "Buscando…" : <><strong>{total.toLocaleString("pt-BR")}</strong> {total === 1 ? `${rotulo} encontrado` : `${rotulo}s encontrados`}</>}
       </p>
-      <GrupoLateral titulo="Departamentos">
+      <GrupoLateral titulo="Departamentos" aberto={departamentosAbertos}>
         <ol className="dg-deps">
           {departamentosPublicos().map((d) => (
             <li key={d.slug}>
