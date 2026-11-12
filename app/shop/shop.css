@@ -1466,6 +1466,9 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
     min-width: var(--pv-add-size, 2.75rem) !important; min-height: var(--pv-add-size, 2.75rem) !important;
     padding: 0 !important; border: 0 !important; border-radius: 50% !important; flex-shrink: 0 !important;
     background: var(--pv-add-bg, #0c9b90) !important; color: var(--pv-add-ink, #ffffff) !important;
+    caret-color: transparent !important;
+    -webkit-user-select: none !important;
+    user-select: none !important;
   }
   .pv-card .pv-adicionar:hover { background: var(--pv-add-bg-hover, #0a8a80) !important; }
   .pv-card .reservar-contador { width: auto !important; min-width: 6.5rem !important; height: var(--pv-add-size, 2.75rem) !important; background: #ffffff !important; border-radius: 999px !important; }
@@ -1739,9 +1742,21 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   font: inherit; cursor: pointer;
   box-shadow: 0 2px 8px rgba(10, 53, 72, 0.22);
   transition: background-color 0.15s ease, box-shadow 0.15s ease;
+  /* O color branco do botão pintava o caret de texto (barra '|') à esquerda do + ao devolver o foco. */
+  caret-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.pv-adicionar svg {
+  display: block; flex-shrink: 0;
+  caret-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  pointer-events: none;
 }
 .pv-adicionar:hover { background: var(--pv-add-bg-hover, #0a8a80); }
 .pv-adicionar:active { background: #087a72; }
+.pv-adicionar:focus { outline: none; }
 .pv-adicionar:focus-visible { outline: 3px solid #0a2d29; outline-offset: 2px; }
 @media (min-width: 768px) {
   .pv-card .pv-corpo { padding: 0 16px; }
