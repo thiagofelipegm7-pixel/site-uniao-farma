@@ -12,13 +12,28 @@ const BANNERS_PRINCIPAIS = Array.from({ length: 14 }, (_, i) => ({
 
 type Banner = { id: string; url: string };
 
+// Sem login, a API interna manda para a tela de entrar; o fetch segue o redirecionamento e recebe HTML com status 200.
+function sessaoExpirou(r: Response) {
+  return r.redirected || (r.headers.get("content-type") ?? "").includes("text/html");
+}
+
+function irParaLogin() {
+  window.location.href = "/interno/entrar?next=%2Finterno%2Fpromocoes";
+}
+
 export default function PainelPromocoes() {
   const [aviso, setAviso] = useState("");
   const [atuais, setAtuais] = useState<Banner[]>([]);
 
   useEffect(() => {
     fetch("/api/interno/banners", { cache: "no-store" })
-      .then((r) => r.json())
+      .then((r) => {
+        if (sessaoExpirou(r)) {
+          irParaLogin();
+          return {};
+        }
+        return r.json();
+      })
       .then((d: { banners?: Banner[] }) => setAtuais(d.banners ?? []))
       .catch(() => {});
   }, []);
@@ -47,6 +62,11 @@ export default function PainelPromocoes() {
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ id, url }),
     });
+    if (sessaoExpirou(r)) {
+      setAviso("Sua sessão expirou. Entre de novo para enviar a arte.");
+      irParaLogin();
+      return;
+    }
     if (r.ok) {
       setAviso("Arte enviada.");
       setAtuais((prev) => [...prev.filter((b) => b.id !== id), { id, url }]);
