@@ -20,6 +20,7 @@ import "./visual-fixes.css";
 import "./marca.css";
 import "./design.css";
 import "./zoom.css";
+import "./destaque-cesta.css";
 import { INSTAGRAM_URL, PAYMENT_ACCEPTED, SITE_URL, PUBLIC_UNITS } from "./site-config";
 import { COMPANY } from "./company";
 import { getPostalAddress } from "./structured-data";

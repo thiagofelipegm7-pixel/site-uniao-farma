@@ -264,7 +264,7 @@ export default function ReservaFluxo() {
           ))}
         </ol>
         <div className="cesta-contato">
-          <a href={`https://wa.me/${PUBLIC_UNITS[0].whatsappDigits}`} aria-label="Falar com a União Farma no WhatsApp"><IconWhats size={22} /><span>WhatsApp<strong>{PUBLIC_UNITS.find((u) => u.id === "nacoes")?.whatsapp}</strong></span></a>
+          <a href={`https://wa.me/${PUBLIC_UNITS[0].whatsappDigits}`} aria-label="Falar com a União Farma no WhatsApp"><IconWhats size={22} oficial /><span>WhatsApp<strong>{PUBLIC_UNITS.find((u) => u.id === "nacoes")?.whatsapp}</strong></span></a>
         </div>
       </div>
       <header className="fluxo-topo">

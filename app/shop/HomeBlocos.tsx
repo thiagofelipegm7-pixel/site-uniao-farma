@@ -64,7 +64,7 @@ export function BarraInfo() {
       </li>
       <li>
         <a href={nacoes ? buildWhatsAppUrl(nacoes, "Oi, União Farma Nações Unidas!", { campaign: "home_info", content: "nacoes" }) : "#"} data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="home_info" target="_blank" rel="noreferrer">
-          <IconWhats size={22} /><span><strong>Fale no WhatsApp</strong><small>{nacoes?.whatsapp}</small></span>
+          <IconWhats size={22} oficial /><span><strong>Fale no WhatsApp</strong><small>{nacoes?.whatsapp}</small></span>
         </a>
       </li>
     </ul>

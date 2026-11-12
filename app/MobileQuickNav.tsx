@@ -1,5 +1,6 @@
 "use client";
 
+import LogoWhatsApp from "./LogoWhatsApp";
 import { usePathname } from "next/navigation";
 import { buildWhatsAppUrl, getUnitBySlug, UNITS, type Unit } from "./site-config";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
@@ -28,7 +29,7 @@ function Icon({ name }: { name: Slot["icon"] }) {
   if (name === "categorias") return <IconCategorias size={24} />;
   if (name === "reserva") return <IconCesta size={24} />;
   if (name === "loja") return <IconLoja size={24} />;
-  if (name === "whatsapp") return <img src="/whatsapp-icon.svg" alt="" width="22" height="22" />;
+  if (name === "whatsapp") return <LogoWhatsApp size={24} />;
   if (name === "ofertas") return <img src="/icons/nav/oferta.svg" alt="" width="22" height="22" />;
   if (name === "lojas") return <img src="/icons/nav/lojas.svg" alt="" width="22" height="22" />;
   if (name === "receita") return <img src="/icons/nav/receita.svg" alt="" width="22" height="22" />;
