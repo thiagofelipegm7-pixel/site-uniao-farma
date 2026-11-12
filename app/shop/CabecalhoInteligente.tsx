@@ -3,9 +3,9 @@
 import { useEffect, type ReactNode } from "react";
 
 /**
- * Cabeçalho do desktop que encolhe e expande como o da Panvel (vídeo de 03/11): só a faixa principal (logo, busca, cesta)
- * fica sempre fixa; a faixa de aviso e a barra de acessos deslizam para fora ao rolar e voltam quando a página chega
- * perto do topo. A pílula de abas fica fixa logo abaixo e acompanha a altura do cabeçalho.
+ * Cabeçalho do desktop que encolhe e expande: a faixa principal (logo, busca, cesta) e a faixa de informações
+ * da loja ficam sempre fixas, coladas; a barra de acessos (Departamentos) desliza para fora ao rolar e volta
+ * quando a página chega perto do topo. A pílula de abas fica fixa logo abaixo e acompanha a altura do cabeçalho.
  * Só mexe no atributo `data-cab-rolado` do <html>; o resto é CSS (e some com "movimento reduzido").
  * No celular o contêiner usa `display: contents` e nada muda.
  */
