@@ -2,7 +2,7 @@
 
 import { trackEvent } from "../analytics";
 import { registrarEtapa } from "../funil";
-import { IconLixeira, IconMais, IconMenos, IconCesta } from "./ReservaIcons";
+import { IconLixeira, IconMais, IconMaisFino, IconMenos, IconCesta } from "./ReservaIcons";
 import { adicionar, atualizarReserva, definirQtd, idDoItem, qtdDoItem, tetoDoItem } from "./reserva-store";
 import { useReserva } from "./useReserva";
 
@@ -19,7 +19,7 @@ type Props = {
   compacto?: boolean;
   /** Medicamento com receita ou controlado: a cesta marca o item e só deixa retirar na loja. */
   receita?: "receita" | "controlado";
-  /** "cesta": botão redondo com sacola e "+" no canto do cartão. "cartao": botão largo e arredondado "Adicionar" no pé do cartão (padrão da Araujo). */
+  /** "cesta": botão redondo com sacola e "+" no canto do cartão. "cartao": círculo com + no canto da foto. */
   variante?: "cesta" | "cartao";
   /** Página do produto: a cesta confere a disponibilidade ao vivo por ela. */
   slug?: string;
@@ -48,7 +48,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
         }}
       >
         {variante === "cartao" ? (
-          <IconMais size={24} />
+          <IconMaisFino size={28} strokeWidth={2} />
         ) : variante === "cesta" ? (
           <>
             <IconCesta size={26} />

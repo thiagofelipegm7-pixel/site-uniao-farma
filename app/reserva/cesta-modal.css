@@ -122,10 +122,11 @@ html body .cm-card .cesta-sugestao-add {
   padding: 0 !important;
   border: 0 !important;
   border-radius: 50% !important;
-  background: var(--uf-action, #40baaf) !important;
-  color: var(--uf-action-ink, #0a2d29) !important;
+  background: #0c9b90 !important;
+  color: #ffffff !important;
+  box-shadow: 0 2px 8px rgba(10, 53, 72, 0.22);
 }
-html body .cm-card .cesta-sugestao-add:hover { background: var(--uf-action-hover, #35a89e) !important; }
+html body .cm-card .cesta-sugestao-add:hover { background: #0a8a80 !important; }
 
 @media (min-width: 768px) {
   html body .cm-raiz { align-items: flex-start; justify-content: flex-end; padding: 0.75rem; box-sizing: border-box; }

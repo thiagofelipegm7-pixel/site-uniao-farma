@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { trackEvent } from "../analytics";
 import { registrarEtapa } from "../funil";
 import { sugestoesDaCesta, type Pares } from "../nacoes-unidas/produtos/relacionados";
-import { IconMais } from "./ReservaIcons";
+import { IconMaisFino } from "./ReservaIcons";
 import { adicionar, atualizarReserva, formatarCentavos, type ReservaItem } from "./reserva-store";
 
 type ProdutoBusca = { nome: string; slug: string; precoCentavos: number; foto: string | null };
@@ -95,7 +95,7 @@ export default function CestaSugestoes({ itens, max = 3, variante }: { itens: re
                 registrarEtapa("add");
               }}
             >
-              <IconMais size={20} />
+              <IconMaisFino size={22} strokeWidth={2} />
             </button>
           </li>
         ))}

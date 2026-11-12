@@ -973,13 +973,14 @@ h3 {
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: var(--uf-action, #40baaf);
-  color: var(--uf-action-ink, #0a2d29);
+  background: #0c9b90;
+  color: #ffffff;
   font: inherit;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(10, 53, 72, 0.22);
 }
-.cesta-sugestao-add:hover { background: var(--uf-action-hover, #35a89e); }
-.cesta-sugestao-add:focus-visible { outline: 3px solid #0c9b90; outline-offset: 2px; }
+.cesta-sugestao-add:hover { background: #0a8a80; }
+.cesta-sugestao-add:focus-visible { outline: 3px solid #0a2d29; outline-offset: 2px; }
 .cesta-sugestoes-gaveta { margin-bottom: 0.5rem; }
 .semana-link { display: flex; align-items: center; gap: 1rem; text-decoration: none; color: inherit; flex: 1; min-width: 0; }
 .fluxo-aviso-receita-modal { position: fixed; inset: 0; z-index: 5000; display: flex; align-items: center; justify-content: center; padding: 1rem; background: rgba(10, 20, 19, 0.5); }
