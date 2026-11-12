@@ -310,6 +310,24 @@ export function IconCestaLinha({ size = 24 }: P) {
   );
 }
 
+/** Cesta 3D recortada com fundo transparente. Cabeçalho e estado vazio da gaveta. */
+export function IconCestaArte({ size = 34, className }: P & { className?: string }) {
+  return (
+    // Ícone estático pequeno; o aviso do next/image não cabe aqui (como nos outros ícones).
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/icons/cesta.png"
+      alt=""
+      width={size}
+      height={size}
+      className={className}
+      draggable={false}
+      decoding="async"
+      aria-hidden="true"
+    />
+  );
+}
+
 /** Phosphor truck, fill. */
 export function IconCaminhao({ size = 24 }: P) {
   return (

@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { EVENTO_ABRIR_RESERVA } from "./abrir-reserva";
-import { IconFechar, IconLixeira, IconSetaBaixo, IconCestaLinha } from "./ReservaIcons";
+import { IconFechar, IconLixeira, IconSetaBaixo, IconCestaArte } from "./ReservaIcons";
 import SemFoto from "../nacoes-unidas/produtos/SemFoto";
 import "./cesta-modal.css";
 import { ajustarLimitesAoVivo, atualizarReserva, definirQtd, itemAtivo, tetoDoItem, formatarCentavos, limpar, subtotalCentavos, totalItens } from "./reserva-store";
@@ -126,6 +126,7 @@ export default function ReservaSacola() {
         <div className="cm-corpo">
           {estado.itens.length === 0 ? (
             <div className="reserva-vazia cm-vazia">
+              <IconCestaArte size={96} className="cm-vazia-icone" />
               <strong>Sua cesta está vazia.</strong>
               <p>Escolha seus produtos e pague só quando retirar.</p>
               <a className="cm-botao cm-botao-cheio" href="/nacoes-unidas/produtos" onClick={fechar}>Ver produtos</a>
@@ -215,7 +216,7 @@ export default function ReservaSacola() {
         onClick={() => setAberta(true)}
       >
         <span className="reserva-sacola-icone">
-          <IconCestaLinha size={34} />
+          <IconCestaArte size={34} />
           {total > 0 ? <span key={total} className="reserva-contador-bolha" aria-hidden="true">{total}</span> : null}
         </span>
       </button>

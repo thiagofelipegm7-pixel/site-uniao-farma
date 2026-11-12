@@ -64,20 +64,23 @@ test("home: 'Navegue por categoria' é faixa horizontal com cards menores e scro
 });
 
 
-test("header: cesta em contorno no estilo das categorias, badge coral circular", async () => {
-  const [icons, sacola, overrides] = await Promise.all([
+test("header: cesta 3D com fundo transparente e badge coral circular", async () => {
+  const [icons, sacola, overrides, modal] = await Promise.all([
     readFile(new URL("../app/reserva/ReservaIcons.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/reserva/ReservaSacola.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/overrides.css", import.meta.url), "utf8"),
+    readFile(new URL("../app/reserva/cesta-modal.css", import.meta.url), "utf8"),
   ]);
-  assert.match(icons, /export function IconCestaLinha/);
-  assert.match(icons, /strokeLinecap="round"/);
-  assert.match(icons, /strokeLinejoin="round"/);
-  assert.match(icons, /strokeWidth="16"/);
-  assert.match(sacola, /IconCestaLinha/);
+  assert.match(icons, /export function IconCestaArte/);
+  assert.match(icons, /\/icons\/cesta\.png/);
+  assert.match(sacola, /IconCestaArte/);
+  assert.match(sacola, /cm-vazia-icone/);
   assert.match(sacola, /reserva-sacola-icone/);
   assert.match(sacola, /size=\{34\}/);
   assert.doesNotMatch(sacola, /<IconCesta /);
+  const arte = await readFile(new URL("../public/icons/cesta.png", import.meta.url));
+  assert.ok(arte.length > 1000);
+  assert.equal(arte.subarray(0, 8).toString("binary"), "\x89PNG\r\n\x1a\n");
   // Botões de adicionar dos cards continuam com a cesta preenchida.
   const botao = await readFile(new URL("../app/reserva/ReservarBotao.tsx", import.meta.url), "utf8");
   assert.match(botao, /IconCesta/);
@@ -87,6 +90,8 @@ test("header: cesta em contorno no estilo das categorias, badge coral circular",
   assert.match(overrides, /top: -0\.375rem/);
   assert.match(overrides, /right: -0\.5rem/);
   assert.match(overrides, /border: 1\.5px solid #ffffff !important/);
+  assert.match(modal, /align-items: center/);
+  assert.match(modal, /cm-vazia-icone/);
 });
 
 
