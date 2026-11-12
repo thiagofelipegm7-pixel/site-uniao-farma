@@ -82,6 +82,10 @@ export default function PainelFotos() {
   const [textoNome, setTextoNome] = useState("");
   const [nomesAgora, setNomesAgora] = useState<Record<string, string | null>>({});
   const [marcasAgora, setMarcasAgora] = useState<Record<string, string | null>>({});
+  const [selecionando, setSelecionando] = useState(false);
+  const [selecionados, setSelecionados] = useState<Set<string>>(new Set());
+  const [destinoLote, setDestinoLote] = useState("");
+  const [movendoLote, setMovendoLote] = useState(false);
   const [controladosAgora, setControladosAgora] = useState<Record<string, "auto" | "sim" | "nao">>({});
   const [categoriasAgora, setCategoriasAgora] = useState<Record<string, string>>({});
   const [removidasAgora, setRemovidasAgora] = useState<Set<string>>(new Set());
@@ -479,6 +483,65 @@ export default function PainelFotos() {
     }
   }
 
+  function alternarSelecao(ean: string) {
+    setSelecionados((antes) => {
+      const novo = new Set(antes);
+      if (novo.has(ean)) novo.delete(ean);
+      else novo.add(ean);
+      return novo;
+    });
+  }
+
+  function sairDaSelecao() {
+    setSelecionando(false);
+    setSelecionados(new Set());
+    setDestinoLote("");
+  }
+
+  /** Move todos os selecionados para a categoria escolhida, numa chamada só (uma publicação no fim). */
+  async function moverSelecionados() {
+    if (!destinoLote || selecionados.size === 0 || movendoLote) return;
+    const escolhidos = linhas.filter((l) => selecionados.has(l.ean));
+    setMovendoLote(true);
+    try {
+      const r = await fetch("/api/interno/produto/categoria/lote", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ originais: escolhidos.map((l) => l.nome), categoria: destinoLote, por: por.trim() }),
+      });
+      if (r.redirected || (r.headers.get("content-type") ?? "").includes("text/html")) {
+        setAviso("Sua sessão venceu. Recarregue a página (F5), entre de novo e tente outra vez.");
+        return;
+      }
+      const j = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string; aplicados?: string[]; bloqueados?: string[] } | null;
+      if (!r.ok || !j?.ok) {
+        setAviso(j?.erro === "pedido_invalido" ? "Selecione de 1 a 300 produtos." : "Não consegui mover os produtos. Tente de novo.");
+        return;
+      }
+      const feitos = new Set((j.aplicados ?? []).map((n) => chaveDoNome(n)));
+      setCategoriasAgora((n) => {
+        const novo = { ...n };
+        for (const k of feitos) novo[k] = destinoLote === "auto" ? "" : destinoLote;
+        return novo;
+      });
+      if (destinoLote !== "auto" && destinoLote !== "Medicamentos") {
+        setControladosAgora((n) => {
+          const novo = { ...n };
+          for (const k of feitos) novo[k] = "auto";
+          return novo;
+        });
+      }
+      const bloqueados = j.bloqueados ?? [];
+      const destino = destinoLote === "auto" ? "a categoria automática" : destinoLote;
+      setAviso(`${feitos.size} ${feitos.size === 1 ? "produto movido" : "produtos movidos"} para ${destino}. Vale na próxima publicação (em alguns minutos).${bloqueados.length ? ` ${bloqueados.length} ficaram de fora por serem receita ou controlado do sistema (não saem de Medicamentos).` : ""}`);
+      sairDaSelecao();
+    } catch {
+      setAviso("Sem conexão. Tente de novo.");
+    } finally {
+      setMovendoLote(false);
+    }
+  }
+
   async function salvarCategoria(l: LinhaPainel, categoria: string) {
     if (categoria !== "auto" && categoria !== "Medicamentos" && l.sistemaRestrito) {
       setAviso("Este item é receita ou controlado no sistema. Não pode sair de Medicamentos.");
@@ -581,6 +644,19 @@ export default function PainelFotos() {
             </select>
           </div>
           <p className="pf-contagem" role="status"><b>{filtradas.length}</b> {filtradas.length === 1 ? "item" : "itens"} no filtro</p>
+          <div className="pf-selecao-controle">
+            <button type="button" className={`pf-botao${selecionando ? " pf-botao--primario" : ""}`} aria-pressed={selecionando} onClick={() => (selecionando ? sairDaSelecao() : setSelecionando(true))}>
+              {selecionando ? "Sair da seleção" : "Selecionar vários"}
+            </button>
+            {selecionando ? (
+              <>
+                <button type="button" className="pf-botao" onClick={() => setSelecionados(new Set(filtradas.slice(0, 300).map((l) => l.ean)))}>
+                  Selecionar os {Math.min(filtradas.length, 300)} do filtro
+                </button>
+                {filtradas.length > 300 ? <span className="pf-selecao-nota">Máximo de 300 por vez: refine o filtro.</span> : null}
+              </>
+            ) : null}
+          </div>
           <div className="pf-grade">
             {visiveis.map((l) => {
               const faixa = l.estoque <= 0 ? "zero" : l.estoque <= 5 ? "baixo" : "normal";
@@ -588,6 +664,11 @@ export default function PainelFotos() {
               return (
                 <article key={l.ean} data-ean={l.ean} tabIndex={0} onFocus={() => setAlvoColar(l.ean)} className={`pf-card${faixa === "zero" ? " pf-card--zero" : ""}`}>
                   <div className="pf-card-topo">
+                    {selecionando ? (
+                      <label className="pf-selecao-caixa">
+                        <input type="checkbox" checked={selecionados.has(l.ean)} onChange={() => alternarSelecao(l.ean)} aria-label={`Selecionar ${nomeAtual(l).texto}`} />
+                      </label>
+                    ) : null}
                     <span className={`pf-qtd pf-qtd-${faixa}`} title={faixa === "zero" ? "Sem estoque" : faixa === "baixo" ? "Estoque baixo" : "Estoque normal"}>{l.estoque} un.</span>
                     {estadoControlado(l) === "sim" ? <span className="pf-chip pf-chip-ctl">Controlado</span> : null}
                     <button type="button" className="pf-engrenagem" onClick={() => setProdutoConfig(l.ean)} aria-label={`Configurar ${nomeAtual(l).texto}`}>
@@ -626,6 +707,20 @@ export default function PainelFotos() {
         </>
       ) : null}
     </section>
+      {selecionando && selecionados.size > 0 ? (
+        <div className="pf-selecao-barra" role="region" aria-label="Mover os produtos selecionados">
+          <strong>{selecionados.size} {selecionados.size === 1 ? "selecionado" : "selecionados"}</strong>
+          <select className="pf-select" value={destinoLote} onChange={(e) => setDestinoLote(e.target.value)} aria-label="Mover para a categoria">
+            <option value="">Mover para…</option>
+            <option value="auto">Automática (a do sistema)</option>
+            {CATEGORIAS_VALIDAS.map((c) => <option key={c} value={c}>{c}</option>)}
+          </select>
+          <button type="button" className="pf-botao pf-botao--primario" disabled={!destinoLote || movendoLote} onClick={() => void moverSelecionados()}>
+            {movendoLote ? "Movendo…" : "Mover"}
+          </button>
+          <button type="button" className="pf-botao" onClick={() => setSelecionados(new Set())}>Limpar</button>
+        </div>
+      ) : null}
       {produtoConfig ? (() => {
         const l = linhas.find((x) => x.ean === produtoConfig);
         if (!l) return null;
