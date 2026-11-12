@@ -96,7 +96,6 @@ export default function CestaSugestoes({ itens, max = 3, variante }: { itens: re
               }}
             >
               <IconMais size={20} />
-              <span>Adicionar</span>
             </button>
           </li>
         ))}

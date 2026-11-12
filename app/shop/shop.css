@@ -1474,6 +1474,7 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   @layer design {
     .catalogo-loja .section-inner { max-width: 86.75rem !important; }
     .departamento-outros { flex-wrap: wrap !important; overflow: visible !important; }
+    .pv-card .pv-corpo { padding: 0 15px !important; }
   }
 }
 
@@ -1680,25 +1681,29 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 @media (min-width: 992px) { .rodape-colunas { grid-template-columns: 1.1fr 1.3fr 1.2fr 0.8fr; gap: 2rem; } }
 
 /* =====================================================================
-   Cartão de produto no padrão da Araujo (medido no print e no HTML salvo): vertical em qualquer largura, borda fina de 1px,
-   cantos de 8px, imagem grande, nome em duas linhas (16px), preço em negrito (18px) e botão largo arredondado "Adicionar" no pé.
-   Marca e apresentação ficam no HTML mas não aparecem. Verde da marca no botão, como no resto do site.
+   Cartão de produto: medidas públicas do carrossel de ofertas da Drogasil,
+   medidas em headless a 100% de zoom e DPR 1 (só geometria; sem copiar código, texto ou imagem).
+   Em 1280 e 1920 o card típico tem 213×409 CSS px (altura 384–409), foto 181×181, inset ~16 px, vão 8 px (1920).
+   A régua 217×403 a 80% de zoom coincide com isso — não com a conversão 271×504
+   (80% × escala 125% do Windows ≈ 100%). Desktop: 213×409. Celular: 2 colunas em 390, mesma proporção 213/409.
+   Borda e raio 8 px da identidade União Farma. Sem preço riscado no cartão (Anvisa: prescrição/controlado).
    ===================================================================== */
 .pv-grade, .catalogo-nacoes .catalogo-lista.pv-grade { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-@media (min-width: 768px) { .pv-grade, .catalogo-nacoes .catalogo-lista.pv-grade { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; } }
-@media (min-width: 992px) { .pv-grade, .catalogo-nacoes .catalogo-lista.pv-grade { grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 12px; } }
-.pv-card { padding: 0 0 12px; border: 1px solid #e1e5e4; border-radius: 8px; background: #ffffff; transition: border-color 0.15s ease; }
+@media (min-width: 768px) { .pv-grade, .catalogo-nacoes .catalogo-lista.pv-grade { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; } }
+@media (min-width: 992px) { .pv-grade, .catalogo-nacoes .catalogo-lista.pv-grade { grid-template-columns: repeat(auto-fill, 213px); gap: 8px; } }
+.pv-card { box-sizing: border-box; display: flex; flex-direction: column; padding: 0 0 12px; border: 1px solid #e1e5e4; border-radius: 8px; background: #ffffff; transition: border-color 0.15s ease; aspect-ratio: 213 / 409; }
+@media (min-width: 992px) { .pv-card { width: 213px; min-height: 409px; } }
 .pv-card:hover, .pv-card:focus-within { border-color: var(--uf-action); }
-.pv-card .pv-corpo { display: flex; flex-direction: column; align-items: stretch; flex: 1; padding: 0 12px; text-align: left; }
-.pv-card .pv-img { grid-row: auto; display: block; width: 100%; height: auto; margin: 0; padding: 16px 0 0; aspect-ratio: 1; max-height: 13.75rem; box-sizing: content-box; }
-.pv-card .pv-img img, .pv-card .pv-sem-foto { display: block; width: 100%; height: 100%; max-height: 13.75rem; margin: 0 auto; object-fit: contain; }
+.pv-card .pv-corpo { display: flex; flex-direction: column; align-items: stretch; flex: 1 1 auto; min-height: 0; padding: 0 12px; text-align: left; }
+.pv-card .pv-img { grid-row: auto; display: block; width: 100%; height: auto; margin: 0 auto; padding: 12px 0 0; aspect-ratio: 1; max-height: none; box-sizing: content-box; }
+.pv-card .pv-img img, .pv-card .pv-sem-foto { display: block; width: 100%; height: 100%; max-height: none; margin: 0 auto; object-fit: contain; }
 .pv-card .pv-texto { display: block; width: 100%; padding: 8px 0 0; }
 .pv-card .pv-nome { -webkit-line-clamp: 2; min-height: 2.5rem; font-size: 0.875rem; line-height: 1.25rem; text-align: left; }
 .pv-card .pv-marca, .pv-card .pv-apres { display: none; }
-.pv-card .pv-preco { grid-column: auto; margin-top: auto; padding: 10px 0 0; text-align: left; font-size: 1.125rem; font-weight: 700; line-height: 1.5rem; }
+.pv-card .pv-preco { grid-column: auto; padding: 10px 0 0; text-align: left; font-size: 1.125rem; font-weight: 700; line-height: 1.5rem; }
 .pv-card .pv-preco b { font-size: inherit; }
 .pv-card .pv-avisos { padding: 8px 12px 0; text-align: left; }
-.pv-card .pv-cesta { position: static; padding: 12px 12px 0; }
+.pv-card .pv-cesta { position: static; margin-top: auto; padding: 12px 12px 0; }
 .pv-adicionar { display: flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box; width: 100%; min-height: 2.75rem; padding: 0 12px; border: 0; border-radius: 999px; background: var(--uf-action); color: var(--uf-action-ink); font: inherit; font-size: 1rem; font-weight: 500; line-height: 1.2; cursor: pointer; transition: background-color 0.15s ease; }
 .pv-adicionar:hover { background: var(--uf-action-hover); }
 .pv-adicionar:active { background: var(--uf-action-active); }
@@ -1707,14 +1712,21 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .pv-card .pv-cesta .reservar-contador output { min-width: 2ch; text-align: center; font-weight: 700; }
 @media (min-width: 768px) {
   .pv-card .pv-corpo { padding: 0 16px; }
-  .pv-card .pv-img { padding-top: 24px; }
+  .pv-card .pv-img { padding-top: 16px; }
   .pv-card .pv-nome { font-size: 1rem; }
   .pv-card .pv-avisos { padding: 8px 16px 0; }
   .pv-card .pv-cesta { padding: 12px 16px 0; }
 }
-/* vitrines em carrossel: mesmo cartão; cinco por vez no computador */
-.shop-destaques-lista > .pv-card--v { flex: 0 0 11.5rem; }
-@media (min-width: 992px) { .shop-destaques-lista > .pv-card--v { flex: 0 0 15.75rem; } }
+@media (min-width: 992px) {
+  .pv-card .pv-corpo { padding: 0 15px; }
+  .pv-card .pv-avisos { padding: 8px 15px 0; }
+  .pv-card .pv-cesta { padding: 12px 15px 0; }
+  .pv-card .pv-img { width: 181px; height: 181px; max-width: 100%; padding-top: 16px; aspect-ratio: auto; box-sizing: content-box; }
+  .pv-card .pv-img img, .pv-card .pv-sem-foto { width: 181px; height: 181px; max-height: 181px; }
+}
+/* vitrines em carrossel: mesma medida 213×409 no computador; no celular, proporção equivalente */
+.shop-destaques-lista > .pv-card--v { flex: 0 0 auto; width: 11.5rem; aspect-ratio: 213 / 409; }
+@media (min-width: 992px) { .shop-destaques-lista > .pv-card--v { flex: 0 0 213px; width: 213px; min-height: 409px; } }
 @media (prefers-reduced-motion: reduce) { .pv-card, .pv-adicionar { transition: none; } }
 
 /* Esgotado: foto e nome mais apagados e um selo cinza no lugar do botão da cesta (sem ação, sem estoque no PC). */

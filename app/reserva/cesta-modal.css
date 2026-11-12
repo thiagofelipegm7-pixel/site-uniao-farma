@@ -107,6 +107,26 @@ html body .cm-botao-vazado { background: #ffffff !important; color: #0a3548 !imp
 html body .cm-botao-vazado:hover { background: #e4f6f3 !important; }
 html body .cm-card :focus-visible { outline: 3px solid #0c9b90; outline-offset: 2px; }
 
+/* Círculo de adicionar nas sugestões: vence estilos globais e mantém o botão redondo (width=height). */
+html body .cm-card .cesta-sugestao-add {
+  box-sizing: border-box !important;
+  flex: 0 0 auto !important;
+  flex-shrink: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 2.5rem !important;
+  height: 2.5rem !important;
+  min-width: 2.5rem !important;
+  min-height: 2.5rem !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: var(--uf-action, #40baaf) !important;
+  color: var(--uf-action-ink, #0a2d29) !important;
+}
+html body .cm-card .cesta-sugestao-add:hover { background: var(--uf-action-hover, #35a89e) !important; }
+
 @media (min-width: 768px) {
   html body .cm-raiz { align-items: flex-start; justify-content: flex-end; padding: 0.75rem; box-sizing: border-box; }
   html body .cm-card {
