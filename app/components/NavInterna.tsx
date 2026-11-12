@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { ITENS_NAV_INTERNO } from "../interno/itens-nav";
+import MarcaUniao from "../shop/MarcaUniao";
 import "./painel-inicio.css";
 
 /** Barra única no topo de todas as telas internas (some só na tela de entrar). Rola de lado no celular; a tela atual fica marcada. */
@@ -10,7 +11,7 @@ export default function NavInterna() {
   if (caminho.startsWith("/interno/entrar")) return null;
   return (
     <nav className="nav-interna" aria-label="Área interna">
-      <span className="nav-interna-marca">União Farma <small>Equipe</small></span>
+      <a className="nav-interna-marca" href="/interno/fotos" aria-label="União Farma, área da equipe"><MarcaUniao claro /><small>Equipe</small></a>
       <ul>
         {ITENS_NAV_INTERNO.map((i) => {
           const ativo = caminho === i.href || caminho.startsWith(`${i.href}/`);
