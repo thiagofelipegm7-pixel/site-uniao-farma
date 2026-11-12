@@ -978,11 +978,12 @@ body.cookie-banner-visible .fluxo-rodape { bottom: 9rem; }
   .cesta-logo { display: inline-flex; align-items: center; gap: 0.625rem; width: fit-content; color: var(--uf-action-ink); font-size: 1.25rem; font-weight: 800; text-decoration: none; }
   .cesta-logo img { padding: 4px; border-radius: 10px; background: #ffffff; }
   .cesta-passos { display: flex; align-items: flex-start; gap: 0; margin: 0; padding: 0; list-style: none; }
-  .cesta-passos li { position: relative; display: grid; justify-items: center; gap: 0.25rem; width: 5.5rem; opacity: 0.7; }
+  .cesta-passos li { position: relative; isolation: isolate; display: grid; justify-items: center; gap: 0.25rem; width: 5.5rem; opacity: 0.7; }
   .cesta-passos li.is-on { opacity: 1; }
-  .cesta-passos li + li::before { content: ""; position: absolute; top: 1.5rem; right: 50%; width: 100%; height: 2px; background: currentColor; opacity: 0.5; }
-  .cesta-passos li span { position: relative; z-index: 1; display: grid; place-items: center; width: 3rem; height: 3rem; border: 2px solid var(--uf-action-ink); border-radius: 50%; background: var(--uf-panel); color: var(--uf-action-ink); }
+  .cesta-passos li + li::before { content: ""; position: absolute; z-index: 0; top: 1.5rem; right: 50%; width: 100%; height: 2px; background: currentColor; opacity: 0.5; pointer-events: none; }
+  .cesta-passos li span { position: relative; z-index: 1; display: grid; place-items: center; width: 3rem; height: 3rem; border: 2px solid var(--uf-action-ink); border-radius: 50%; background: #ffffff; color: var(--uf-action-ink); }
   .cesta-passos li.is-on span { background: var(--uf-action-ink); color: #ffffff; }
+  .cesta-passos li span img { width: 1.75rem; height: 1.75rem; display: block; pointer-events: none; }
   .cesta-passos li em { font-size: 0.75rem; font-style: normal; font-weight: 600; }
   .cesta-contato { display: flex; align-items: center; justify-content: flex-end; gap: 1.5rem; }
   .cesta-contato a { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--uf-action-ink); text-decoration: none; }

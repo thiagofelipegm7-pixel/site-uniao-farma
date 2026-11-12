@@ -328,6 +328,24 @@ export function IconCestaArte({ size = 34, className }: P & { className?: string
   );
 }
 
+/** Caminhão 3D recortado com fundo transparente. Barra de etapas da reserva. */
+export function IconCaminhaoArte({ size = 28, className }: P & { className?: string }) {
+  return (
+    // Ícone estático pequeno; o aviso do next/image não cabe aqui (como nos outros ícones).
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/icons/entrega.png"
+      alt=""
+      width={size}
+      height={size}
+      className={className}
+      draggable={false}
+      decoding="async"
+      aria-hidden="true"
+    />
+  );
+}
+
 /** Phosphor truck, fill. */
 export function IconCaminhao({ size = 24 }: P) {
   return (
