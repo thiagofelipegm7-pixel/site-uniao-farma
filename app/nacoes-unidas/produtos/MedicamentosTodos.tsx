@@ -7,6 +7,7 @@ import ReservarBotao from "../../reserva/ReservarBotao";
 import { precoParaCentavos } from "../../reserva/reserva-store";
 import { FAIXAS_PRECO, normalizarBusca, termosDaConsulta, type FaixaPreco } from "./busca";
 import CartaoPanvel from "./CartaoPanvel";
+import EsqueletoGrade from "./EsqueletoGrade";
 import { quantidadeDoNome } from "./quantidade";
 import { Cartao } from "./ListaRestrita";
 import { FaixaLista, GrupoLateral, LateralTopo } from "./ListaDrogasil";
@@ -73,15 +74,11 @@ export default function MedicamentosTodos({ otcInicial, unitId, paginaInicial = 
       try {
         const idx = await fetch("/dados/nacoes/restritos-index.json").then((r) => r.json());
         if (cancelado) return;
-        const acumulado: Linha[] = [];
-        for (const tipo of ["receita", "controlados"] as const) {
-          for (let p = 1; p <= (idx[tipo]?.paginas ?? 0); p += 1) {
-            const pagina: ItemRestrito[] = await fetch(`/dados/nacoes/restritos/${tipo}/p${p}.json`).then((r) => r.json());
-            if (cancelado) return;
-            acumulado.push(...pagina.map(linhaRestrita));
-            setRestritos([...acumulado]);
-          }
-        }
+        // Todas as fatias ao mesmo tempo (antes era uma depois da outra), na mesma ordem: receita, depois controlados.
+        const enderecos = (["receita", "controlados"] as const).flatMap((tipo) => Array.from({ length: idx[tipo]?.paginas ?? 0 }, (_, k) => k + 1).map((p) => `/dados/nacoes/restritos/${tipo}/p${p}.json`));
+        const fatias: ItemRestrito[][] = await Promise.all(enderecos.map((u) => fetch(u).then((r) => (r.ok ? r.json() : []))));
+        if (cancelado) return;
+        setRestritos(fatias.flat().map(linhaRestrita));
       } catch (erro) {
         console.error(erro);
       } finally {
@@ -127,7 +124,7 @@ export default function MedicamentosTodos({ otcInicial, unitId, paginaInicial = 
   return (
     <section aria-label="Todos os medicamentos" className="pv-layout">
       <aside className="pv-filtros" aria-label="Filtros">
-        <LateralTopo total={visiveis.length} rotulo="medicamento" atual="medicamentos" />
+        <LateralTopo total={visiveis.length} rotulo="medicamento" atual="medicamentos" carregando={carregando && consulta.trim().length > 0} />
         <GrupoLateral titulo="Preço">
           <div className="dg-opcoes">
             {FAIXAS_PRECO.map((f) => (
@@ -161,6 +158,7 @@ export default function MedicamentosTodos({ otcInicial, unitId, paginaInicial = 
         aoMudarOrdem={(id) => { setOrdem(id as OrdemMed); irParaPaginaLocal(1); }}
         paginacao={<Paginacao variante="barra" atual={paginaAtual} total={totalPaginas} href={(n) => hrefPagina(n, consulta)} onIr={(n) => { setPagina(n); irParaPagina(n, consulta); }} />}
       />
+      {carregando && visiveis.length === 0 ? <EsqueletoGrade /> : null}
       <ul className="catalogo-lista pv-grade">
         {visiveis.slice((paginaAtual - 1) * porPagina, paginaAtual * porPagina).map((l) => {
           if (l.restrito) return <Cartao key={l.chave} item={l.restrito} />;

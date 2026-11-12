@@ -239,9 +239,48 @@ const grupos = [...gruposMap.entries()]
   }));
 
 const POR_PAGINA = 48;
+
+/** Cartão sem receita no índice da busca: mesmos campos das páginas, sem `busca`/`categoria` (a lista recalcula) e sem o nome bruto quando há nome de exibição. */
+function itemOtcCompacto(i) {
+  return {
+    nomeExibicao: i.nomeExibicao || i.nome,
+    lab: i.lab,
+    ...(i.tipo ? { tipo: i.tipo } : {}),
+    preco: i.preco,
+    precoFmt: i.precoFmt,
+    isMIP: i.isMIP,
+    ...(typeof i.restam === "number" ? { restam: i.restam } : {}),
+    ...(i.esgotado === true ? { esgotado: true } : {}),
+    slug: i.slug,
+    foto: i.foto,
+  };
+}
+
+/** Cartão com receita/controlado no índice da busca: o que o cartão restrito e a ilustração da caixa leem (sem RMS, concentração e texto de busca). */
+function itemRestritoCompacto(i) {
+  return {
+    nome: i.nome,
+    nomeExibicao: i.nomeExibicao,
+    slug: i.slug,
+    lab: i.lab,
+    preco: i.preco,
+    tipo: i.tipo,
+    ativo: i.ativo,
+    tarja: i.tarja,
+    retencao: i.retencao,
+    apresentacao: i.apresentacao,
+    aviso: i.aviso,
+    controlado: i.controlado,
+    generico: i.generico,
+    ...(typeof i.restam === "number" ? { restam: i.restam } : {}),
+    ...(i.esgotado === true ? { esgotado: true } : {}),
+  };
+}
 const buscaIndex = [];
 const esgotadosBusca = [];
 const paginasIndex = []; // for client to know pages
+// Índice único da página de produtos (busca-index.json): só o que a lista precisa para casar a busca e desenhar o cartão.
+const buscaGrupos = [];
 
 for (const g of grupos) {
   const slugCat = slugify(g.categoria);
@@ -287,6 +326,11 @@ for (const g of grupos) {
     const slice = itensFmt.slice(p * POR_PAGINA, (p + 1) * POR_PAGINA);
     writeJson(`catalogo/${slugCat}/p${p + 1}.json`, slice);
   }
+  buscaGrupos.push({
+    categoria: g.categoria,
+    slug: slugCat,
+    itens: itensFmt.map(itemOtcCompacto),
+  });
   paginasIndex.push({
     categoria: g.categoria,
     slug: slugCat,
@@ -356,6 +400,14 @@ writeJson("restritos-index.json", {
   receita: recInfo,
   controlados: ctlInfo,
   consulte: conInfo,
+});
+
+// Índice único da página de produtos: uma requisição em vez de todas as fatias (catálogo + receita + controlados).
+// Mesma ordem das fatias, para a lista sair igual; os restritos vêm na ordem receita → controlados (a lista reordena).
+writeJson("busca-index.json", {
+  geradoEm: cat.geradoEm,
+  grupos: buscaGrupos,
+  restritos: [...receitaFmt, ...controladosFmt].map(itemRestritoCompacto),
 });
 
 console.log("Assets gerados com sucesso.");

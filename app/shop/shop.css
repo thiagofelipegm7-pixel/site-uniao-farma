@@ -2190,3 +2190,23 @@ html body .shop-busca .shop-recente button { width: 2.75rem; height: 2.75rem; ma
 /* Fonte da descrição pesquisada (página oficial da marca), logo abaixo do texto. */
 .pdp-fonte { margin: 0.5rem 0 0; color: #5b6b68; font-size: 0.8125rem; }
 .pdp-fonte a { color: #0a3548; text-decoration: underline; }
+
+/* Esqueleto da lista (enquanto o catálogo chega): mesma caixa do .pv-card, só blocos cinzas. */
+.pv-esqueleto-aviso { margin: 0 0 12px; color: var(--uf-navy, #0a3548); font-size: 0.875rem; font-weight: 600; }
+.pv-card--esqueleto, .pv-card--esqueleto:hover { border-color: #e1e5e4; pointer-events: none; }
+.pv-card--esqueleto .pv-esq-bloco,
+.pv-card--esqueleto .pv-esq-linha {
+  display: block; border-radius: 6px;
+  background: linear-gradient(90deg, #e4e9ea 0%, #f2f5f5 50%, #e4e9ea 100%);
+  background-size: 200% 100%;
+  animation: pv-esq-brilho 1.2s ease-in-out infinite;
+}
+.pv-card--esqueleto .pv-img.pv-esq-bloco { width: 100%; padding: 0; margin-top: var(--pv-foto-pad-top, 12px); box-sizing: border-box; }
+.pv-card--esqueleto .pv-texto { padding-top: 12px; }
+.pv-card--esqueleto .pv-esq-linha { width: 100%; min-width: 0; height: 0.875rem; margin: 0 0 8px; }
+.pv-card--esqueleto .pv-esq-linha--curta { width: 60%; }
+.pv-card--esqueleto .pv-esq-preco { width: 45%; height: 1.25rem; margin-top: auto; }
+@keyframes pv-esq-brilho { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .pv-card--esqueleto .pv-esq-bloco, .pv-card--esqueleto .pv-esq-linha { animation: none; background: #e4e9ea; }
+}

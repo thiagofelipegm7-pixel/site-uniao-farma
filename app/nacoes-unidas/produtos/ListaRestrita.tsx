@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { ContentSiteFooter } from "../../ContentSiteChrome";
 import ReservarBotao from "../../reserva/ReservarBotao";
 import CartaoPanvel from "./CartaoPanvel";
+import EsqueletoGrade from "./EsqueletoGrade";
 import { termosDeBusca } from "./busca";
 import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./Paginacao";
 import ShopTopo from "../../shop/ShopTopo";
@@ -101,6 +102,8 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
   const [pagina, setPagina] = useState(1);
   const [todos, setTodos] = useState<ItemRestrito[]>([]);
   const [data, setData] = useState<string | null>(null);
+  // Falso até a lista inteira chegar: antes disso a tela mostra "Buscando…", nunca "0 itens" nem "nenhum encontrado".
+  const [carregado, setCarregado] = useState(false);
   useEffect(() => {
     const lerUrl = () => {
       const params = new URLSearchParams(window.location.search);
@@ -122,6 +125,8 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
         if (!cancelado) setTodos((fatias as ItemRestrito[][]).flat());
       } catch (e) {
         console.error(e);
+      } finally {
+        if (!cancelado) setCarregado(true);
       }
     })();
     return () => {
@@ -167,9 +172,13 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
             </div>
             <button type="submit">Buscar</button>
           </form>
-          <p className="catalogo-contagem" aria-live="polite">
-            {filtrados.length} {filtrados.length === 1 ? "item" : "itens"}
-            {consulta ? ` para “${consulta}”` : ""}.
+          <p className="catalogo-contagem" aria-live="polite" aria-busy={!carregado}>
+            {!carregado ? (consulta ? `Buscando “${consulta}”…` : "Carregando a lista…") : (
+              <>
+                {filtrados.length} {filtrados.length === 1 ? "item" : "itens"}
+                {consulta ? ` para “${consulta}”` : ""}.
+              </>
+            )}
           </p>
           <nav className="catalogo-contagem-links" aria-label="Outras listas">
             {(Object.keys(LINKS) as TipoRestrito[])
@@ -179,7 +188,9 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
               ))}
             <a href="/nacoes-unidas/produtos">Voltar aos produtos sem receita</a>
           </nav>
-          {pag.itens.length === 0 ? (
+          {!carregado ? (
+            <EsqueletoGrade />
+          ) : pag.itens.length === 0 ? (
             <p className="catalogo-vazio">{t.vazio}</p>
           ) : (
             <ul className="catalogo-lista pv-grade">

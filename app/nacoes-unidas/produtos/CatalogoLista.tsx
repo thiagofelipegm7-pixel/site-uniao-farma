@@ -33,6 +33,8 @@ import type { ItemRestrito } from "./receita";
 import { quantidadeDoNome } from "./quantidade";
 import Paginacao, { hrefPagina, irParaPagina, paginaDaUrl, POR_PAGINA } from "./Paginacao";
 import { useBuscaTolerante } from "./useBuscaTolerante";
+import { carregarBuscaIndex, estadoDaLista, grupoRestritos, gruposDoIndice } from "./busca-index";
+import EsqueletoGrade from "./EsqueletoGrade";
 import { FaixaLista, LateralTopo } from "./ListaDrogasil";
 
 type Props = {
@@ -69,6 +71,17 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     if (gruposProps.length > 0) return;
     let cancel = false;
     (async () => {
+      // Caminho rápido: um arquivo só com o catálogo inteiro (busca-index.json). Se faltar (deploy no meio do caminho), cai nas fatias.
+      try {
+        const indice = await carregarBuscaIndex();
+        if (cancel) return;
+        setGrupos(gruposDoIndice(indice, departamento));
+        setCarregado(true);
+        return;
+      } catch (e) {
+        if (cancel) return;
+        console.warn("Índice da busca indisponível; carregando o catálogo em partes.", e);
+      }
       try {
         const idx = await fetch("/dados/nacoes/catalogo-index.json").then(r => r.json());
         type ItemPagina = { slug?: string; nomeExibicao?: string; nome: string; lab: string; isMIP: boolean; restam?: number; esgotado?: boolean; precoFmt: string; preco: number; foto: string | null; tipo?: string };
@@ -115,28 +128,15 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
                 restritos.push(...pagina);
               }
             }
-            restritos.sort((a, b) => Number(a.esgotado === true) - Number(b.esgotado === true) || (a.nomeExibicao ?? a.nome).localeCompare(b.nomeExibicao ?? b.nome, "pt-BR"));
-            gruposCarregados.push({
-              categoria: "Medicamentos",
-              id: "restritos",
-              itens: restritos.map((i) => ({
-                nome: i.nomeExibicao ?? i.nome,
-                lab: i.lab,
-                isMIP: false,
-                precoFmt: typeof i.preco === "number" ? `R$ ${i.preco.toFixed(2).replace(".", ",")}` : "Consulte",
-                ...(typeof i.preco === "number" ? { preco: i.preco } : {}),
-                foto: null,
-                slug: i.slug,
-                ...(i.esgotado ? { esgotado: true } : {}),
-                restrito: i,
-              })),
-            });
+            gruposCarregados.push(grupoRestritos(restritos));
             setGrupos([...gruposCarregados]);
           } catch {}
         }
         if (!cancel) setCarregado(true);
       } catch (e) {
         console.error(e);
+        // Sem rede: para de mostrar "Buscando…" e deixa a mensagem de vazio com o WhatsApp.
+        if (!cancel) setCarregado(true);
       }
     })();
     return () => { cancel = true; };
@@ -201,12 +201,19 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   const ativos = contarFiltrosAtivos(selecao);
   const buscando = consulta.trim().length > 0;
 
-  // Mede a busca uma vez (sem o texto digitado, ver eventoBusca).
+  // Enquanto o catálogo (ou a correção de digitação) não termina, a tela mostra "Buscando…", nunca "não encontramos".
+  const estado = estadoDaLista({ completo, total, procurando: buscando && tolerante.procurando, buscando });
+  const esperando = estado === "carregando" || estado === "procurando";
+
+  // Mede a busca uma vez, só com o resultado final (sem o texto digitado, ver eventoBusca).
+  const buscaMedida = useRef<string | null>(null);
   useEffect(() => {
+    if (esperando || buscaMedida.current === consulta) return;
+    buscaMedida.current = consulta;
     const evento = eventoBusca(consulta, total);
     if (evento) trackEvent(evento.event, evento.params);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [consulta]);
+  }, [consulta, esperando]);
 
   useEffect(() => {
     if (!filtroAberto) return;
@@ -357,7 +364,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     <>
       <div className="pv-layout">
         <aside className="pv-filtros" aria-label="Filtros">
-          <LateralTopo total={total} rotulo="produto" atual={departamento} />
+          <LateralTopo total={total} rotulo="produto" atual={departamento} carregando={esperando} />
           <div className="pv-filtros-topo">
             <p className="pv-filtros-titulo">Filtros</p>
             {ativos > 0 ? (
@@ -370,10 +377,16 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
         </aside>
         <div className="pv-conteudo">
           <div className="pv-topo" role="toolbar" aria-label="Filtrar e ordenar">
-            <p className="pv-contagem">
-              <b>{total}</b> {total === 1 ? "produto" : "produtos"}
-              {buscando && !consultasAlternativas ? <> para “{consulta.trim()}” · <a href="/nacoes-unidas/produtos">Limpar busca</a></> : null}
-              {consultasAlternativas ? <> · <a href="/nacoes-unidas/produtos">Limpar busca</a></> : null}
+            <p className="pv-contagem" aria-live="polite" aria-busy={esperando}>
+              {esperando ? (
+                <>{estado === "procurando" ? "Procurando o que você quis dizer…" : buscando ? <>Buscando “{consulta.trim()}”…</> : "Carregando produtos…"}</>
+              ) : (
+                <>
+                  <b>{total}</b> {total === 1 ? "produto" : "produtos"}
+                  {buscando && !consultasAlternativas ? <> para “{consulta.trim()}” · <a href="/nacoes-unidas/produtos">Limpar busca</a></> : null}
+                  {consultasAlternativas ? <> · <a href="/nacoes-unidas/produtos">Limpar busca</a></> : null}
+                </>
+              )}
             </p>
             <button
               ref={gatilhoFiltroRef}
@@ -411,14 +424,14 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
         </p>
       ) : null}
 
-      {total === 0 ? (
+      {esperando ? (
+        <EsqueletoGrade />
+      ) : total === 0 ? (
         <div className="catalogo-vazio">
           <p>
             {buscando && tolerante.tipo === "sintoma"
               ? "Para escolher um remédio para o que você está sentindo, converse com o farmacêutico. Ele orienta com segurança e confirma o que a loja tem."
-              : buscando && tolerante.procurando
-                ? "Procurando o que você quis dizer…"
-                : consultasAlternativas
+              : consultasAlternativas
                 ? "Não encontramos produtos com esses filtros. Limpe os filtros ou navegue pelas categorias."
                 : buscando
               ? `Não encontramos “${consulta.trim()}”. Confira a digitação, use termos mais amplos ou navegue pelas categorias.`
