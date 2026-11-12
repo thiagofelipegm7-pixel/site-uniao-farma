@@ -74,6 +74,8 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   const [recentes, setRecentes] = useState<string[]>([]);
   const [itens, setItens] = useState<Sugestao[] | null>(null);
   const [restritos, setRestritos] = useState<SugestaoRestrita[]>([]);
+  // A lista de receita/controlados chega em outro arquivo: sem ela, "Não encontramos" pode ser falso (ex.: nome de controlado).
+  const [restritosCarregados, setRestritosCarregados] = useState(false);
   // Produtos esgotados: só o painel de busca usa (mostra "Esgotado"). Baixa na primeira digitação; null = ainda não carregou.
   const [esgotados, setEsgotados] = useState<Sugestao[] | null>(null);
   const carregandoEsgotados = useRef(false);
@@ -109,7 +111,8 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
     fetch("/dados/nacoes/restritos-busca.json", { headers: { accept: "application/json" } })
       .then((resposta) => (resposta.ok ? resposta.json() : null))
       .then((dados: SugestaoRestrita[] | null) => setRestritos(Array.isArray(dados) ? dados : []))
-      .catch(() => setRestritos([]));
+      .catch(() => setRestritos([]))
+      .finally(() => setRestritosCarregados(true));
   }
 
   // O campo responde na hora; a busca nos produtos acompanha logo atrás (não trava a digitação no celular).
@@ -146,7 +149,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   const atalhos = useMemo(() => atalhosDaBusca(termoBusca), [termoBusca]);
   const termosDestaque = corrigida ? termosCorrigidos : termos;
   const mostrarPainel = foco && (normal.length === 0 || normal.length >= 2);
-  const semResultado = normal.length >= 2 && itens !== null && esgotados !== null && resultados.length === 0 && resultadosRestritos.length === 0 && resultadosEsgotados.length === 0;
+  const semResultado = normal.length >= 2 && itens !== null && esgotados !== null && restritosCarregados && resultados.length === 0 && resultadosRestritos.length === 0 && resultadosEsgotados.length === 0;
 
   // Com o teclado aberto (iPhone), a lista não pode passar por baixo dele: limita a altura ao que sobra na tela visível, com rolagem.
   useEffect(() => {

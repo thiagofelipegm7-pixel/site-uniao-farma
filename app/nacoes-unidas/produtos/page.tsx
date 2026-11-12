@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
 import type { Metadata } from "next";
+import { preload } from "react-dom";
 import { ContentSiteFooter } from "../../ContentSiteChrome";
 import { IconSetaDireita } from "../../reserva/ReservaIcons";
 import BarraReserva from "../../shop/BarraReserva";
@@ -12,6 +13,7 @@ import { buildWhatsAppUrl, getHoursSentence, SITE_URL, UNITS } from "../../site-
 import { getPageStructuredData, getUnitPublicPath } from "../../structured-data";
 import CatalogoLista from "./CatalogoLista";
 import { carregarCatalogoNacoes, formatDataDosDados, formatGeradoEm } from "./catalogo";
+import { URL_BUSCA_INDEX } from "./busca-index";
 
 import "./produtos.css";
 
@@ -54,6 +56,8 @@ export const metadata: Metadata = {
 };
 
 export default async function ProdutosNacoesPage() {
+  // A lista lê o catálogo inteiro de um arquivo só: o navegador começa a baixar junto com o HTML, antes do JavaScript.
+  preload(URL_BUSCA_INDEX, { as: "fetch", crossOrigin: "anonymous" });
   const consultaInicial = "";
   const atualizadoEm = null;
   const dataDosDados = formatGeradoEm(geradoEmDosDados);
