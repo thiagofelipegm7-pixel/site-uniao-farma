@@ -1,12 +1,14 @@
 import descricoesJson from "./dados/descricoes-ia.json" with { type: "json" };
 import pesquisaJson from "./dados/descricoes-pesquisa.json" with { type: "json" };
+import painelJson from "./dados/descricoes-painel.json" with { type: "json" };
+import { slugify } from "./catalogo";
 
 /**
  * Descrições curtas geradas fora do site (ops/ia-catalogo), só a partir do nome, marca e categoria do item.
  * f = "ia": reescrita pelo Workers AI e aprovada pelas regras automáticas; f = "modelo": texto fixo, sem IA.
  * Nenhuma delas é texto de fabricante: servem como apoio e ficam marcadas para revisão (data-descricao-origem).
  */
-export type OrigemDescricao = "ia" | "modelo" | "pesquisa";
+export type OrigemDescricao = "ia" | "modelo" | "pesquisa" | "painel";
 export type DescricaoProduto = { texto: string; origem: OrigemDescricao; /** Só em "pesquisa": a página oficial de onde vieram os dados. */ fonte?: string };
 
 /**
@@ -16,12 +18,22 @@ export type DescricaoProduto = { texto: string; origem: OrigemDescricao; /** Só
  */
 const PESQUISA = pesquisaJson as Record<string, { t: string; fonte: string; quando: string }>;
 
+/**
+ * Descrições que a equipe escreveu no painel (sincronização grava descricoes-painel.json: nome do sistema normalizado -> texto e fonte opcional).
+ * Valem mais que a pesquisa e a IA. A chave vira o slug da página do produto.
+ */
+const PAINEL = new Map<string, { t: string; fonte?: string }>(
+  Object.entries(painelJson as Record<string, { t: string; fonte?: string }>).map(([chave, v]) => [slugify(chave), v]),
+);
+
 const DADOS = descricoesJson as Record<string, { t: string; f: string }>;
 
 /** Aviso fixo dos medicamentos (sem receita ou não): neutro, sem dizer para que serve nem como usar. */
 export const AVISO_BULA = "Leia a bula. Em caso de dúvida, consulte o farmacêutico.";
 
 export function descricaoDoProduto(slug: string): DescricaoProduto | null {
+  const daEquipe = PAINEL.get(slug);
+  if (daEquipe && typeof daEquipe.t === "string" && daEquipe.t.trim()) return { texto: daEquipe.t.trim(), origem: "painel", ...(daEquipe.fonte ? { fonte: daEquipe.fonte } : {}) };
   const pesquisada = PESQUISA[slug];
   if (pesquisada && typeof pesquisada.t === "string" && pesquisada.t.trim()) return { texto: pesquisada.t.trim(), origem: "pesquisa", fonte: pesquisada.fonte };
   const registro = DADOS[slug];
