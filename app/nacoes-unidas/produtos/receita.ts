@@ -1,3 +1,4 @@
+import { marcaDoItem } from "./marca";
 import receitaEstatica from "./dados/receita-nacoes.json" with { type: "json" };
 import { normalizarBusca } from "./busca";
 
@@ -82,7 +83,8 @@ export function lerNome(nome: string, lab: string): { concentracao: string | nul
 }
 
 function paraRestrito(base: BaseJson & { retencao?: boolean; lista?: string }, tipo: TipoRestrito): ItemRestrito {
-  const { concentracao, apresentacao } = lerNome(base.nome, base.lab);
+  const lab = marcaDoItem(base.nome, base.lab);
+  const { concentracao, apresentacao } = lerNome(base.nome, lab);
   const controlado = tipo === "controlados";
   const tarja: Tarja | null = base.tarja ?? (controlado && base.lista ? tarjaDaLista(base.lista) : null);
   let retencao: boolean | null;
@@ -92,7 +94,7 @@ function paraRestrito(base: BaseJson & { retencao?: boolean; lista?: string }, t
   const aviso = tipo === "consulte" ? AVISO_CONSULTE : controlado ? AVISO_CONTROLADO : retencao === true ? AVISO_RETENCAO : AVISO_RECEITA;
   return {
     nome: base.nome,
-    lab: base.lab,
+    lab,
     preco: typeof base.preco === "number" && base.preco > 0 ? base.preco : null,
     tipo,
     ativo: base.ativo ? base.ativo.trim() || null : null,

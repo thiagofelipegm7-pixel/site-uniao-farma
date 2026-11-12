@@ -149,7 +149,8 @@ function tarjaControlado(base) {
 }
 
 function paraRestrito(base, tipo) {
-  const { concentracao, apresentacao } = lerNome(base.nome, base.lab);
+  const lab = marcaDoItem(base.nome, base.lab);
+  const { concentracao, apresentacao } = lerNome(base.nome, lab);
   const controlado = tipo === "controlados";
   const tarja = controlado ? tarjaControlado(base) : (base.tarja ?? null);
   let retencao = null;
@@ -158,7 +159,7 @@ function paraRestrito(base, tipo) {
   const aviso = tipo === "consulte" ? AVISO_CONSULTE : controlado ? AVISO_CONTROLADO : retencao === true ? AVISO_RETENCAO : AVISO_RECEITA;
   return {
     nome: base.nome,
-    lab: base.lab,
+    lab,
     preco: typeof base.preco === "number" && base.preco > 0 ? base.preco : null,
     precoFmt: formatBRL(base.preco),
     tipo,
@@ -171,7 +172,7 @@ function paraRestrito(base, tipo) {
     aviso,
     controlado,
     generico: base.generico === true,
-    busca: normalizarBusca(`${base.nome} ${base.lab} ${base.ativo ?? ""}`),
+    busca: normalizarBusca(`${base.nome} ${lab} ${base.ativo ?? ""}`),
     nomeExibicao: nomeDeExibicao(base.nome),
     slug: slugify(base.nome),
     ...(typeof base.restam === "number" ? { restam: base.restam } : {}),
@@ -192,12 +193,18 @@ function writeJson(rel, data) {
 const cat = JSON.parse(fs.readFileSync(path.join(DADOS, "catalogo-nacoes.json"), "utf8"));
 // Esgotado (estoque zero): aparece nas listas com o selo "Esgotado" e sem botão de cesta, depois dos que têm estoque.
 // Fica fora das sugestões da busca do cabeçalho e da cesta (catalogo-busca.json), que só oferecem o que dá para reservar.
-// Réplica de marcaDoItem (marca.ts): laboratório vazio usa a marca que o próprio nome cita. Um teste confere as duas.
+// Réplica de marcaDoItem (marca.ts): marca preenchida no painel, senão o laboratório do sistema, senão a que o nome cita. Um teste confere as duas.
 const REGRAS_MARCA = JSON.parse(fs.readFileSync(path.join(DADOS, "marcas-pelo-nome.json"), "utf8")).map(([padrao, marca]) => ({ rx: new RegExp(padrao), marca }));
+const MARCAS_CORRIGIDAS = JSON.parse(fs.readFileSync(path.join(DADOS, "marcas-corrigidas.json"), "utf8"));
+function semAcentoMaiusculo(t) {
+  return String(t).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
+}
 function marcaDoItem(nome, lab) {
+  const preenchida = MARCAS_CORRIGIDAS[semAcentoMaiusculo(nome).replace(/\s+/g, " ").trim()];
+  if (preenchida) return preenchida;
   const l = String(lab ?? "").trim();
   if (l) return l;
-  const n = String(nome).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
+  const n = semAcentoMaiusculo(nome);
   return REGRAS_MARCA.find((r) => r.rx.test(n))?.marca ?? "";
 }
 const itens = (cat.itens || []).map((i) => ({ ...i, lab: marcaDoItem(i.nome, i.lab) }));
