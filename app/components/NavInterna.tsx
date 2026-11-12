@@ -21,7 +21,6 @@ export default function NavInterna() {
             </li>
           );
         })}
-        <li className="nav-interna-sair"><a href="/interno/sair">Sair</a></li>
       </ul>
     </nav>
   );
