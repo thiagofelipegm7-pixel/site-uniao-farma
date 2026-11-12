@@ -7,13 +7,13 @@ import { chaveDoNome } from "../nomes-corrigidos";
 import { nomeDeExibicao } from "../nome-exibicao";
 import { prepararFoto } from "./preparar-foto";
 import PainelCatalogo from "./PainelCatalogo";
-import { filtrarLinhas, resumirFotos, type FiltroFotos, type LinhaFoto, type Reconciliacao, type ResumoFotos } from "../fotos-painel";
+import { filtrarLinhas, resumirFotos, ROTULOS_PENDENCIA, temPendencia, type Pendencia, type FiltroFotos, type LinhaFoto, type Reconciliacao, type ResumoFotos } from "../fotos-painel";
 import "../metrics-polish.css";
 import "./painel-fotos.css";
 
 type Linha = [string, string, string, string, number, number, number, number, number, string, number, number?, number?];
 type LinhaPainel = LinhaFoto & { sistemaRestrito?: boolean };
-type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; reconciliacao?: Reconciliacao; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; nomes?: Record<string, { nome: string; por: string; quando: string }>; controlados?: Record<string, { estado: "sim" | "nao"; por: string; quando: string }>; categoriasOverride?: Record<string, { categoria: string; por: string; quando: string }>; marcasOverride?: Record<string, { marca: string; por: string; quando: string }>; alteracoes?: { tipo: string; titulo: string; acao: string; anterior: string | null; novo: string | null; por: string; quando: string }[]; linhas: Linha[] };
+type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; reconciliacao?: Reconciliacao; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; nomes?: Record<string, { nome: string; por: string; quando: string }>; controlados?: Record<string, { estado: "sim" | "nao"; por: string; quando: string }>; categoriasOverride?: Record<string, { categoria: string; por: string; quando: string }>; marcasOverride?: Record<string, { marca: string; por: string; quando: string }>; comDescricao?: string[]; alteracoes?: { tipo: string; titulo: string; acao: string; anterior: string | null; novo: string | null; por: string; quando: string }[]; linhas: Linha[] };
 
 const CHAVE_MARCAS = "uf_fotos_ok";
 const REAIS = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -66,6 +66,7 @@ export default function PainelFotos() {
   const [estoque, setEstoque] = useState<FiltroFotos["estoque"]>("com");
   const [fotos, setFotos] = useState<FiltroFotos["fotos"]>("faltam");
   const [tipo, setTipo] = useState<FiltroFotos["tipo"]>("");
+  const [pendencia, setPendencia] = useState<Pendencia>("");
   const [ordem, setOrdem] = useState<Ordem>("estoque");
   const [pagina, setPagina] = useState(1);
   const [marcados, setMarcados] = useState<Set<string>>(new Set());
@@ -202,17 +203,19 @@ export default function PainelFotos() {
       return tiradas.has(l.ean) ? { ...l, noSite: false } : l;
     });
   }, [dados, pendentes, envios, removidasAgora]);
+  const comDescricao = useMemo(() => new Set(dados?.comDescricao ?? []), [dados]);
   const resumo = useMemo(() => resumirFotos(linhas), [linhas]);
   const filtradas = useMemo(() => {
     // Buscando por nome ou código: mostra o produto mesmo que já tenha foto (para trocar).
-    const lista = filtrarLinhas(linhas, { busca, categoria, estoque, fotos: busca.trim() ? "" : fotos, tipo, marcados });
+    const lista = filtrarLinhas(linhas, { busca, categoria, estoque, fotos: busca.trim() || pendencia ? "" : fotos, tipo, marcados }).filter((l) => !pendencia || temPendencia(l, pendencia, contextoPendencia(l)));
     const comparar: Record<Ordem, (a: LinhaFoto, b: LinhaFoto) => number> = {
       estoque: (a, b) => b.estoque - a.estoque,
       nome: (a, b) => a.nome.localeCompare(b.nome, "pt-BR"),
       categoria: (a, b) => a.categoria.localeCompare(b.categoria, "pt-BR") || b.estoque - a.estoque,
     };
     return [...lista].sort(comparar[ordem]);
-  }, [linhas, busca, categoria, estoque, fotos, tipo, marcados, ordem]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- contextoPendencia lê dados, marcasAgora e nomesAgora, listados abaixo
+  }, [linhas, busca, categoria, estoque, fotos, tipo, marcados, ordem, pendencia, dados, marcasAgora, nomesAgora]);
 
   const totalPaginas = Math.max(1, Math.ceil(filtradas.length / POR_PAGINA));
   const paginaAtual = Math.min(pagina, totalPaginas);
@@ -483,6 +486,19 @@ export default function PainelFotos() {
     }
   }
 
+  function contextoPendencia(l: LinhaFoto) {
+    return { marca: marcaAtual(l).texto, nomeCorrigido: nomeAtual(l).corrigido, temDescricao: comDescricao.has(l.ean) };
+  }
+
+  /** Quantos itens do filtro atual (sem a própria pendência) caem em cada pendência: o número que aparece na lista. */
+  const contagemPendencias = useMemo(() => {
+    const base = filtrarLinhas(linhas, { busca, categoria, estoque, fotos: busca.trim() ? "" : fotos, tipo, marcados });
+    const total: Record<string, number> = {};
+    for (const p of Object.keys(ROTULOS_PENDENCIA) as Exclude<Pendencia, "">[]) total[p] = base.filter((l) => temPendencia(l, p, contextoPendencia(l))).length;
+    return total;
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- contextoPendencia lê dados, marcasAgora e nomesAgora, listados abaixo
+  }, [linhas, busca, categoria, estoque, fotos, tipo, marcados, dados, marcasAgora, nomesAgora, comDescricao]);
+
   function alternarSelecao(ean: string) {
     setSelecionados((antes) => {
       const novo = new Set(antes);
@@ -636,6 +652,10 @@ export default function PainelFotos() {
               <option value="faltam">Faltam foto</option>
               <option value="site">Já estão no site</option>
               <option value="">Todos</option>
+            </select>
+            <select className="pf-select" value={pendencia} onChange={(e) => mudar(setPendencia)(e.target.value as Pendencia)} aria-label="Pendências">
+              <option value="">Todas as pendências</option>
+              {(Object.keys(ROTULOS_PENDENCIA) as Exclude<Pendencia, "">[]).map((p) => <option key={p} value={p}>{ROTULOS_PENDENCIA[p]} ({contagemPendencias[p] ?? 0})</option>)}
             </select>
             <select className="pf-select" value={estoque} onChange={(e) => mudar(setEstoque)(e.target.value as FiltroFotos["estoque"])} aria-label="Estoque">
               <option value="com">Só com estoque</option>
