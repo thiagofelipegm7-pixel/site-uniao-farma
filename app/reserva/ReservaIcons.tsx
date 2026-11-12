@@ -27,6 +27,15 @@ export function IconMaisFino({ size = 24, strokeWidth = 2 }: P & { strokeWidth?:
   );
 }
 
+/** Menos no mesmo traço do mais fino, para o seletor de quantidade do card. */
+export function IconMenosFino({ size = 24, strokeWidth = 2 }: P & { strokeWidth?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={strokeWidth} strokeLinecap="round" aria-hidden="true">
+      <path d="M5 12h14" />
+    </svg>
+  );
+}
+
 export function IconMenos({ size = 24 }: P) {
   return (
     <svg width={size} height={size} viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
