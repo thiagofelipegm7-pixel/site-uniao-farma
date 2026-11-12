@@ -1184,14 +1184,15 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
    Cabeçalho do desktop copiando o da Panvel: faixa de aviso, faixa principal (logo, busca larga, sino,
    usuário e cesta) e barra de acessos. O que a União não tem fica em branco. Cores e fonte da União.
    ===================================================================== */
-.shop-vazio { display: none; }
+/* Botão de WhatsApp do cabeçalho: só no desktop (no celular o pedido sai pelo botão flutuante e pela cesta). */
+.shop-whats { display: none; }
 .shop-submenu-conteudo { display: contents; }
 
 @media (min-width: 992px) {
   .shop-header {
-    grid-template-columns: auto minmax(0, 1fr) 2.75rem 8.5rem auto;
-    grid-template-areas: "marca busca sino usuario acoes";
-    column-gap: 2rem;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    grid-template-areas: "marca busca whats acoes";
+    column-gap: 1.5rem;
     box-sizing: border-box;
     max-width: none;
     height: 5.75rem;
@@ -1205,13 +1206,17 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .shop-busca { grid-area: busca; height: 3rem; border: 0; border-radius: 8px; padding: 0 0.75rem; }
   .shop-busca input { order: 1; font-size: 0.9375rem; }
   .shop-busca button { order: 0; width: 2.75rem; height: 2.75rem; margin-right: 0.25rem; background: transparent; color: var(--uf-navy); }
-  .shop-vazio { display: block; }
-  .shop-vazio-sino { grid-area: sino; }
-  .shop-vazio-usuario { grid-area: usuario; }
   .shop-links { display: none; }
+  .shop-whats { grid-area: whats; display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 2.75rem; padding: 0 1.125rem; border-radius: 999px; background: #ffffff; color: #0b6b3a; font-size: 0.9375rem; font-weight: 700; text-decoration: none; white-space: nowrap; box-shadow: 0 1px 0 rgba(10, 45, 41, 0.18); }
+  .shop-whats:hover { background: #effaf4; }
+  .shop-whats:focus-visible { outline: 3px solid #ffffff; outline-offset: 2px; box-shadow: 0 0 0 5px #0a3548; }
+  .shop-whats svg { flex: none; color: #1f9e4b; }
   .shop-acoes { grid-area: acoes; }
   .shop-acoes > .shop-icone { display: none; }
   .shop-acoes .reserva-sacola { width: 2.75rem; height: 2.75rem; border-radius: 50%; background: transparent !important; color: #ffffff !important; }
+
+  /* Em janelas pouco acima de 992 px (zoom de 150% a 175%) fica só o ícone, para a busca não encolher demais. */
+  @media (max-width: 1179px) { .shop-whats { width: 2.75rem; padding: 0; } .shop-whats span { display: none; } }
 
   /* barra de acessos: Departamentos */
   .shop-submenu { display: block; border-bottom: 1px solid #e3ecea; background: #ffffff; }

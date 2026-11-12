@@ -2,6 +2,7 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
+import { usePathname } from "next/navigation";
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { BUSCAS_POPULARES, normalizarBusca, termosDaConsulta } from "../nacoes-unidas/produtos/busca";
 import { carregarBuscasRecentes, guardarBuscasRecentes, registrarBusca, removerBusca } from "./buscas-recentes";
@@ -69,6 +70,8 @@ function NomeDestacado({ nome, termos }: { nome: string; termos: readonly string
 
 export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?: string }) {
   const [menu, setMenu] = useState(false);
+  // Fátima e Itacolomi só têm informações institucionais (sem pedido): o botão de pedido pelo WhatsApp é da loja Nações Unidas.
+  const pedidoPeloWhats = !/^\/(fatima|itacolomi)(\/|$)/.test(usePathname() || "/");
   const [termo, setTermo] = useState(consultaInicial);
   const [foco, setFoco] = useState(false);
   const [recentes, setRecentes] = useState<string[]>([]);
@@ -405,8 +408,21 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
             <a key={link.href} href={link.href}>{link.label}</a>
           ))}
         </nav>
-        <span className="shop-vazio shop-vazio-sino" aria-hidden="true" />
-        <span className="shop-vazio shop-vazio-usuario" aria-hidden="true" />
+        {nacoes && pedidoPeloWhats ? (
+          <a
+            className="shop-whats"
+            href={buildWhatsAppUrl(nacoes, "Oi, União Farma Nações Unidas! Quero fazer um pedido.", { campaign: "cabecalho", content: "cabecalho_nacoes" })}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="Pedir pelo WhatsApp da loja Nações Unidas"
+            data-track-event="whatsapp_click"
+            data-track-unit="nacoes"
+            data-track-source="cabecalho"
+          >
+            <IconWhats size={22} />
+            <span>Pedir no WhatsApp</span>
+          </a>
+        ) : null}
         <div className="shop-acoes">
           <ReservaSacola />
           <FotosNovas />
