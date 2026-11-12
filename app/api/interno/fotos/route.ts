@@ -1,6 +1,7 @@
 import { lerExportBruto } from "../../../estoque-fonte";
 import { chaveDeNome, montarLinhas, reconciliarContagens, resumirFotos, SEM_CATEGORIA } from "../../../fotos-painel";
-import { carregarCatalogoCompleto } from "../../../nacoes-unidas/produtos/catalogo";
+import { carregarCatalogoCompleto, slugify } from "../../../nacoes-unidas/produtos/catalogo";
+import { descricaoDoProduto } from "../../../nacoes-unidas/produtos/descricoes";
 import { banco, segredo } from "../../../estoque-fonte";
 import { listarPendentes, listarRemocoes } from "../../../fotos-enviadas";
 import { mapaDeCategorias } from "../../../categoria-override";
@@ -71,6 +72,8 @@ export async function GET() {
   const alteracoes = db ? await ultimasAlteracoes(db).catch(() => []) : [];
   const sistemaRestrito = new Set<string>();
   for (const i of [...restritos.receita, ...restritos.controlados]) sistemaRestrito.add(chaveDeNome(i.nome));
+  // Produtos que já têm texto de pesquisa ou de IA na página (para o filtro "Sem descrição"; sem o texto em si, só o código).
+  const comDescricao = linhas.filter((l) => { const d = descricaoDoProduto(slugify(l.nome)); return d !== null && d.origem !== "modelo"; }).map((l) => l.ean);
   const listaCategorias = [...new Set(linhas.map((l) => l.categoria))].sort((a, b) => (a === SEM_CATEGORIA ? 1 : b === SEM_CATEGORIA ? -1 : a.localeCompare(b, "pt-BR")));
   return Response.json(
     {
@@ -85,6 +88,7 @@ export async function GET() {
       controlados,
       categoriasOverride: categoriasOvr,
       marcasOverride,
+      comDescricao,
       alteracoes,
       removidas,
       publicacaoRapida: Boolean(segredo("GITHUB_DISPATCH_TOKEN")),
