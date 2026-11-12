@@ -561,7 +561,7 @@ export default function PainelFotos() {
                   </div>
                   <div className="pf-card-foto">
                     {l.noSite ? (
-                      <img src={urlFoto} alt="" width="96" height="96" />
+                      <img src={urlFoto} alt="" width="176" height="176" />
                     ) : (
                       <label className="pf-envio">
                         <input type="file" accept="image/*" disabled={envios[l.ean] === "enviando"} onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} />
@@ -571,7 +571,7 @@ export default function PainelFotos() {
                     )}
                   </div>
                   <h3 className="pf-card-nome" title={nomeAtual(l).texto}>{nomeAtual(l).texto}</h3>
-                  {l.lab ? <p className="pf-card-lab">{l.lab}</p> : null}
+                  <p className={l.lab ? "pf-card-lab" : "pf-card-lab pf-card-lab-vazio"}>{l.lab || "Sem marca informada"}</p>
                   <dl className="pf-card-dados">
                     <div><dt>Categoria</dt><dd>{categoriaEfetiva(l)}</dd></div>
                     <div><dt>Código</dt><dd className="pf-mono" title={l.ean}>{l.semCodigo ? "sem código" : l.ean}</dd></div>

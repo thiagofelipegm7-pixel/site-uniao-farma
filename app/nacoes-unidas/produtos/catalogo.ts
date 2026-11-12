@@ -1,4 +1,5 @@
 import catalogoEstatico from "./dados/catalogo-nacoes.json" with { type: "json" };
+import { marcaDoItem } from "./marca";
 
 /**
  * Catálogo público da loja Nações Unidas. Fonte: JSON do repositório (export do DMaster, gerado por ops/catalogo-nacoes/gerar.py,
@@ -48,7 +49,7 @@ export async function fetchCatalogoNacoes(fetchImpl: typeof fetch = fetch): Prom
     if (!response.ok) return null;
     const data = (await response.json()) as Partial<Catalogo>;
     if (!data || !Array.isArray(data.itens)) return null;
-    const itens = data.itens.filter(isItem).map((i) => ({ nome: i.nome, lab: typeof i.lab === "string" ? i.lab : "", categoria: i.categoria, preco: i.preco, isMIP: i.isMIP === true }));
+    const itens = data.itens.filter(isItem).map((i) => ({ nome: i.nome, lab: marcaDoItem(i.nome, typeof i.lab === "string" ? i.lab : ""), categoria: i.categoria, preco: i.preco, isMIP: i.isMIP === true }));
     return { loja: String(data.loja ?? "nacoes"), geradoEm: typeof data.geradoEm === "string" ? data.geradoEm : undefined, total: itens.length, itens };
   } catch {
     return null;
@@ -101,7 +102,7 @@ export function carregarCatalogoCompleto(): Catalogo {
       const extra = i as CatalogoItem;
       return {
         nome: i.nome,
-        lab: typeof i.lab === "string" ? i.lab : "",
+        lab: marcaDoItem(i.nome, typeof i.lab === "string" ? i.lab : ""),
         categoria: i.categoria,
         preco: i.preco,
         isMIP: i.isMIP === true,
