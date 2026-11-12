@@ -13,7 +13,7 @@ import "./painel-fotos.css";
 
 type Linha = [string, string, string, string, number, number, number, number, number, string, number, number?, number?];
 type LinhaPainel = LinhaFoto & { sistemaRestrito?: boolean };
-type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; reconciliacao?: Reconciliacao; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; nomes?: Record<string, { nome: string; por: string; quando: string }>; controlados?: Record<string, { estado: "sim" | "nao"; por: string; quando: string }>; categoriasOverride?: Record<string, { categoria: string; por: string; quando: string }>; marcasOverride?: Record<string, { marca: string; por: string; quando: string }>; comDescricao?: string[]; mudancas?: { q: string; t: string; n: string; c: string; de?: number; para?: number }[]; alteracoes?: { tipo: string; titulo: string; acao: string; anterior: string | null; novo: string | null; por: string; quando: string }[]; linhas: Linha[] };
+type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; reconciliacao?: Reconciliacao; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; nomes?: Record<string, { nome: string; por: string; quando: string }>; controlados?: Record<string, { estado: "sim" | "nao"; por: string; quando: string }>; categoriasOverride?: Record<string, { categoria: string; por: string; quando: string }>; marcasOverride?: Record<string, { marca: string; por: string; quando: string }>; comDescricao?: string[]; descricoes?: Record<string, { t: string; o: string; f?: string }>; descricoesOverride?: Record<string, { texto: string; fonte: string | null; por: string; quando: string }>; mudancas?: { q: string; t: string; n: string; c: string; de?: number; para?: number }[]; alteracoes?: { tipo: string; titulo: string; acao: string; anterior: string | null; novo: string | null; por: string; quando: string }[]; linhas: Linha[] };
 
 const CHAVE_MARCAS = "uf_fotos_ok";
 const REAIS = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -68,6 +68,7 @@ export default function PainelFotos() {
   const [tipo, setTipo] = useState<FiltroFotos["tipo"]>("");
   const [pendencia, setPendencia] = useState<Pendencia>("");
   const [filtroMudanca, setFiltroMudanca] = useState("");
+  const [descricoesAgora, setDescricoesAgora] = useState<Record<string, { texto: string; fonte: string } | null>>({});
   const [ordem, setOrdem] = useState<Ordem>("estoque");
   const [pagina, setPagina] = useState(1);
   const [marcados, setMarcados] = useState<Set<string>>(new Set());
@@ -508,6 +509,54 @@ export default function PainelFotos() {
   }, [mudancas]);
   const mudancasVisiveis = mudancas.filter((m) => !filtroMudanca || m.t === filtroMudanca).slice(0, 60);
 
+  /** Descrição que o cliente lê hoje: a escrita no painel, senão a de pesquisa ou de IA (com a origem, para a equipe saber o que está editando). */
+  function descricaoAtual(l: LinhaFoto): { texto: string; fonte: string; origem: string } {
+    const k = chaveDoNome(l.nome);
+    const local = descricoesAgora[k];
+    if (local !== undefined) return local ? { ...local, origem: "painel" } : descricaoAutomatica(l);
+    const salva = dados?.descricoesOverride?.[k];
+    return salva ? { texto: salva.texto, fonte: salva.fonte ?? "", origem: "painel" } : descricaoAutomatica(l);
+  }
+
+  function descricaoAutomatica(l: LinhaFoto): { texto: string; fonte: string; origem: string } {
+    const d = dados?.descricoes?.[l.ean];
+    return d ? { texto: d.t, fonte: d.f ?? "", origem: d.o } : { texto: "", fonte: "", origem: "" };
+  }
+
+  async function salvarDescricao(l: LinhaFoto, texto: string, fonte: string) {
+    const novo = texto.replace(/\s+/g, " ").trim();
+    const atual = descricaoAtual(l);
+    if (novo === atual.texto.trim() && fonte.trim() === atual.fonte.trim()) return;
+    if (!novo && atual.origem !== "painel") return;
+    try {
+      const r = await fetch("/api/interno/produto/descricao", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ original: l.nome, texto: novo || null, fonte: fonte.trim() || null, por: por.trim() }),
+      });
+      if (r.redirected || (r.headers.get("content-type") ?? "").includes("text/html")) {
+        setAviso("Sua sessão venceu. Recarregue a página (F5), entre de novo e tente outra vez.");
+        return;
+      }
+      const j = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string } | null;
+      if (!r.ok || !j?.ok) {
+        const msg: Record<string, string> = {
+          promessa: "O texto tem promessa de efeito ou de resultado (cura, trata, alivia, \"48 horas\", \"clinicamente comprovado\", preço, ! ou ?). Reescreva só com fatos do produto.",
+          tamanho: "A descrição precisa ter de 20 a 600 caracteres.",
+          caracteres: "Não use < nem > na descrição.",
+          fonte: "A fonte precisa ser um link que começa com https://.",
+          restrito: "Medicamento, NBCAL e fórmula infantil não têm descrição escrita à mão: dependem do responsável técnico.",
+        };
+        setAviso(msg[j?.erro ?? ""] ?? "Não consegui salvar a descrição. Tente de novo.");
+        return;
+      }
+      setDescricoesAgora((m) => ({ ...m, [chaveDoNome(l.nome)]: novo ? { texto: novo, fonte: fonte.trim() } : null }));
+      setAviso(novo ? "Descrição salva no histórico. Vale na próxima publicação (em alguns minutos)." : "Voltou à descrição automática. Vale na próxima publicação (em alguns minutos).");
+    } catch {
+      setAviso("Sem conexão. Tente de novo.");
+    }
+  }
+
   function alternarSelecao(ean: string) {
     setSelecionados((antes) => {
       const novo = new Set(antes);
@@ -799,6 +848,16 @@ export default function PainelFotos() {
                   <span className="pf-campo-rotulo">Nome</span>
                   <input className="pf-entrada" name="pf-nome" type="text" defaultValue={nomeAtual(l).texto} onBlur={(e) => void salvarNome(l, false, e.target.value)} />
                 </label>
+                {categoriaEfetiva(l) !== "Medicamentos" && !l.sistemaRestrito ? (
+                  <div className="pf-campo">
+                    <label className="pf-campo-rotulo" htmlFor="pf-descricao">Descrição para o cliente</label>
+                    <textarea id="pf-descricao" className="pf-entrada pf-area" name="pf-descricao" rows={4} maxLength={600} placeholder="Ainda não temos descrição. Escreva só fatos do produto (tipo, tamanho, ingredientes do rótulo, modo de uso)." defaultValue={descricaoAtual(l).texto} />
+                    <input className="pf-entrada" name="pf-fonte" type="url" placeholder="Link da fonte, se houver (https://...)" defaultValue={descricaoAtual(l).fonte} />
+                    <small className="pf-dica">{({ painel: "Escrita pela equipe.", pesquisa: "Veio de pesquisa em página oficial: ao editar, vira da equipe.", ia: "Texto automático (IA): ao editar, vira da equipe.", modelo: "Texto padrão automático: ao editar, vira da equipe." } as Record<string, string>)[descricaoAtual(l).origem] ?? "Sem texto ainda."} Sem promessa de efeito.</small>
+                  </div>
+                ) : (
+                  <p className="pf-dica">Medicamentos não têm descrição editável aqui.</p>
+                )}
                 <label className="pf-campo">
                   <span className="pf-campo-rotulo">Marca ou laboratório</span>
                   <input className="pf-entrada" name="pf-marca" type="text" maxLength={60} placeholder="Sem marca informada" defaultValue={marcaAtual(l).texto} />
@@ -850,6 +909,9 @@ export default function PainelFotos() {
                     const catSelect = popup?.querySelector<HTMLSelectElement>('select[name="pf-categoria"]');
                     const marcaInput = popup?.querySelector<HTMLInputElement>('input[name="pf-marca"]');
                     if (marcaInput) await salvarMarca(l, marcaInput.value);
+                    const descInput = popup?.querySelector<HTMLTextAreaElement>('textarea[name="pf-descricao"]');
+                    const fonteInput = popup?.querySelector<HTMLInputElement>('input[name="pf-fonte"]');
+                    if (descInput) await salvarDescricao(l, descInput.value, fonteInput?.value ?? "");
                     if (nomeInput && nomeInput.value.trim() && nomeInput.value.trim() !== nomeAtual(l).texto) {
                       await salvarNome(l, false, nomeInput.value.trim());
                     }

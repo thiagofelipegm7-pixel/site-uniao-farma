@@ -1,6 +1,7 @@
 import { banco, segredo } from "../../estoque-fonte";
 import { mapaDeCategorias } from "../../categoria-override";
 import { mapaDeControlados } from "../../controlado-override";
+import { mapaDeDescricoes } from "../../descricao-override";
 import { mapaDeMarcas } from "../../marca-override";
 import { mapaDeNomes } from "../../nomes-corrigidos";
 import { mapaDeRemovidos } from "../../produtos-removidos";
@@ -22,11 +23,12 @@ export async function GET(request: Request) {
   const enviado = (request.headers.get("authorization") ?? "").replace(/^Bearer\s+/i, "").trim();
   if (!token || !enviado || !iguais(token, enviado)) return Response.json({ ok: false, erro: "nao_autorizado" }, { status: 401, headers: SEM_CACHE });
   const db = banco();
-  if (!db) return Response.json({ ok: true, aprovacoes: {}, nomes: {}, controlados: {}, categorias: {}, marcas: {}, removidos: [] }, { headers: SEM_CACHE });
+  if (!db) return Response.json({ ok: true, aprovacoes: {}, nomes: {}, controlados: {}, categorias: {}, marcas: {}, descricoes: {}, removidos: [] }, { headers: SEM_CACHE });
   const nomes = await mapaDeNomes(db).catch(() => ({}));
   const controlados = await mapaDeControlados(db).catch(() => ({}));
   const categorias = await mapaDeCategorias(db).catch(() => ({}));
   const marcas = await mapaDeMarcas(db).catch(() => null);
+  const descricoes = await mapaDeDescricoes(db).catch(() => null);
   const removidos = await mapaDeRemovidos(db).catch(() => null);
   return Response.json({
     ok: true,
@@ -34,6 +36,7 @@ export async function GET(request: Request) {
     nomes: Object.fromEntries(Object.entries(nomes).map(([k, v]) => [k, v.nome])),
     controlados: Object.fromEntries(Object.entries(controlados).map(([k, v]) => [k, v.estado])),
     categorias: Object.fromEntries(Object.entries(categorias).map(([k, v]) => [k, v.categoria])),
+    descricoes: descricoes ? Object.fromEntries(Object.entries(descricoes).map(([k, v]) => [k, { t: v.texto, ...(v.fonte ? { fonte: v.fonte } : {}) }])) : null,
     // null = não consegui ler: a sincronização mantém o arquivo como está.
     marcas: marcas ? Object.fromEntries(Object.entries(marcas).map(([k, v]) => [k, v.marca])) : null,
     // null = não consegui ler: a sincronização não apaga nada.
