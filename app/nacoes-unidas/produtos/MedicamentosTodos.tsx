@@ -172,7 +172,7 @@ export default function MedicamentosTodos({ otcInicial, unitId, paginaInicial = 
               foto={i.foto}
               marca={i.lab}
               medicamento
-              classificacao={/gen[eé]rico/i.test(i.nome) ? "generico" : "isento"}
+              classificacao={/gen[eé]rico/i.test(i.nome) ? "generico" : null}
               apresentacao={quantidadeDoNome(i.nome)}
               precoFmt={i.precoFmt}
               restam={i.restam}

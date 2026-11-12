@@ -74,7 +74,7 @@ export function Cartao({ item }: { item: ItemRestrito }) {
       nome={nome}
       marca={item.lab}
       medicamento
-      classificacao={item.tipo === "consulte" ? null : item.controlado ? "controlado" : item.generico ? "generico" : "receita"}
+      classificacao={item.controlado ? "controlado" : item.generico ? "generico" : null}
       apresentacao={quantidadeLegivel(item.apresentacao)}
       foto={imagemIlustrativa(item)}
       precoFmt={item.preco !== null ? formatBRL(item.preco) : null}

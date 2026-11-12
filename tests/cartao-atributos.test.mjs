@@ -15,7 +15,7 @@ test("cartão do produto: marca do produto comum só quando o nome cita a marca 
   assert.equal(M.marcaDeProduto("Pentes Diversos"), "");
 });
 
-test("cartão do produto: nome, depois quantidade, classificação (Med. Genérico, Sem receita...) e Lab./Marca/Fab., cada um com ícone", async () => {
+test("cartão do produto: nome, depois quantidade, classificação (Med. Genérico, Controlado) e Lab./Marca/Fab., cada um com ícone", async () => {
   const [cartao, css, lista, meds, restrita, destaques] = await Promise.all([
     ler("app/nacoes-unidas/produtos/CartaoPanvel.tsx"),
     ler("app/shop/shop.css"),
@@ -32,9 +32,12 @@ test("cartão do produto: nome, depois quantidade, classificação (Med. Genéri
   assert.doesNotMatch(css, /\.pv-card \.pv-marca, \.pv-card \.pv-apres \{ display: none; \}/, "as linhas deixaram de ficar escondidas");
   assert.match(css, /\.pv-card \.pv-atrib-linha \{ display: flex;/);
   // Todos os lugares que desenham o cartão passam o que sabem.
-  assert.match(lista, /classificacao=\{item\.isMIP \?/);
+  assert.match(lista, /classificacao=\{item\.isMIP && /);
   assert.match(meds, /medicamento\s+classificacao=/);
-  assert.match(restrita, /item\.controlado \? "controlado" : item\.generico \? "generico" : "receita"/);
+  assert.match(restrita, /item\.controlado \? "controlado" : item\.generico \? "generico" : null/);
+  // Sem "Sem receita" nem "Sob receita" nos cartões: isso já está nos avisos legais.
+  assert.doesNotMatch(cartao, /: "Sem receita"|: "Sob receita"|isento: |receita: "/);
+  for (const origem of [lista, meds, restrita, destaques]) for (const linha of origem.match(/classificacao=\{[^\n]*\}/g) ?? []) assert.doesNotMatch(linha, /isento|receita/, linha);
   assert.match(destaques, /medicamento=\{item\.isMIP\}/);
 });
 
