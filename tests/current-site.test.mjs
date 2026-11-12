@@ -136,14 +136,19 @@ test("submenu desktop: sem Enviar para e sem Ofertas Exclusivas; Departamentos p
   assert.match(await readFile(new URL("../app/ofertas/page.tsx", import.meta.url), "utf8"), /ofertas/i);
 });
 
-test("header desktop: sem bloco WhatsApp com número no cabeçalho teal", async () => {
+test("header desktop: botão \"Pedir no WhatsApp\" sem número, só da loja Nações Unidas, e sem o bloco antigo com número", async () => {
   const [header, css] = await Promise.all([
     readFile(new URL("../app/shop/ShopHeader.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/shop/shop.css", import.meta.url), "utf8"),
   ]);
-  assert.doesNotMatch(header, /shop-whats/);
-  assert.doesNotMatch(header, /data-track-source="cabecalho"/);
-  assert.doesNotMatch(css, /grid-area: whats/);
+  // Decisão atual: o cabeçalho tem um botão curto de pedido pelo WhatsApp (sem exibir o número), só no desktop.
+  assert.match(header, /className="shop-whats"/);
+  assert.match(header, /data-track-source="cabecalho"/);
+  assert.match(css, /grid-area: whats/);
+  const botao = header.slice(header.indexOf('className="shop-whats"'), header.indexOf("</a>", header.indexOf('className="shop-whats"')));
+  assert.doesNotMatch(botao, /\(31\)|98762|whatsapp\.number|\.whatsapp\b/, "o botão não mostra o número");
+  // Fátima e Itacolomi não oferecem pedido: o botão não aparece nelas.
+  assert.match(header, /\^\\\/\(fatima\|itacolomi\)/);
   // A busca vazia ainda pode oferecer WhatsApp; a cesta e o FAB permanecem.
   assert.match(header, /busca_vazia_cabecalho/);
 });
