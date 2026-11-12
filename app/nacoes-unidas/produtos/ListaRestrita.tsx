@@ -73,6 +73,8 @@ export function Cartao({ item }: { item: ItemRestrito }) {
       classe={`restrito-item${item.controlado ? " restrito-controlado" : ""}`}
       nome={nome}
       marca={item.lab}
+      medicamento
+      classificacao={item.tipo === "consulte" ? null : item.controlado ? "controlado" : item.generico ? "generico" : "receita"}
       apresentacao={quantidadeLegivel(item.apresentacao)}
       foto={imagemIlustrativa(item)}
       precoFmt={item.preco !== null ? formatBRL(item.preco) : null}
