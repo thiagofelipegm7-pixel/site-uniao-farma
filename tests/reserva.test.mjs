@@ -413,6 +413,13 @@ test("card: círculo + permanente adiciona, abre a cesta e não vira pílula; pr
   assert.doesNotMatch(css, /pv-seletor/);
   assert.doesNotMatch(icons, /IconMenosFino/);
   assert.match(css, /--pv-add-bg, #0c9b90/);
+  assert.match(css, /\.pv-adicionar[^{]*\{[^}]*caret-color:\s*transparent/s);
+  assert.match(css, /\.pv-adicionar[^{]*\{[^}]*user-select:\s*none/s);
+  assert.match(css, /\.pv-adicionar svg[^{]*\{[^}]*caret-color:\s*transparent/s);
+  assert.match(css, /\.pv-adicionar svg[^{]*\{[^}]*user-select:\s*none/s);
+  assert.match(css, /\.pv-adicionar:focus \{ outline: none; \}/);
+  assert.match(css, /\.pv-adicionar:focus-visible \{ outline: 3px solid #0a2d29/);
+  assert.match(blocoCartao, /><IconMaisFino size=\{28\} strokeWidth=\{2\} \/><\/button>/);
   assert.match(botao, /if \(!\(precoCentavos > 0\)\) return/);
   assert.match(botao, /import \{ abrirReserva \} from "\.\/abrir-reserva"/);
   assert.match(abrir, /detail: \{ gatilho: origem \}/);

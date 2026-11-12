@@ -57,9 +57,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
         className="pv-adicionar"
         aria-label={`Adicionar ${nome} à cesta`}
         onClick={() => acrescentar({ abrirCesta: true, gatilho: maisRef.current })}
-      >
-        <IconMaisFino size={28} strokeWidth={2} />
-      </button>
+      ><IconMaisFino size={28} strokeWidth={2} /></button>
     );
   }
 
