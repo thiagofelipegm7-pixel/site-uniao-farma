@@ -480,6 +480,8 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
                   nome={nome}
                   foto={item.foto}
                   marca={item.lab}
+                  medicamento={item.isMIP}
+                  classificacao={item.isMIP ? (/gen[eé]rico/i.test(item.nome) ? "generico" : "isento") : null}
                   apresentacao={quantidadeDoNome(item.nome)}
                   precoFmt={item.precoFmt}
                   restam={item.restam}

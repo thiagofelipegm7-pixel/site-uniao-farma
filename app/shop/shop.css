@@ -1741,7 +1741,6 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .pv-card .pv-img img, .pv-card .pv-sem-foto { display: block; width: 100%; height: 100%; max-height: none; margin: 0 auto; object-fit: contain; }
 .pv-card .pv-texto { display: block; width: 100%; padding: 8px 0 0; }
 .pv-card .pv-nome { -webkit-line-clamp: 2; min-height: 2.5rem; font-size: 0.875rem; line-height: 1.25rem; text-align: left; }
-.pv-card .pv-marca, .pv-card .pv-apres { display: none; }
 .pv-card .pv-preco { grid-column: auto; padding: 10px 0 0; text-align: left; font-size: 1.125rem; font-weight: 700; line-height: 1.5rem; }
 .pv-card .pv-preco b { font-size: inherit; }
 .pv-card .pv-avisos { padding: 8px 12px 0; text-align: left; }
@@ -2230,3 +2229,11 @@ html body .shop-busca .shop-recente button { width: 2.75rem; height: 2.75rem; ma
 @media (prefers-reduced-motion: reduce) {
   .pv-card--esqueleto .pv-esq-bloco, .pv-card--esqueleto .pv-esq-linha { animation: none; background: #e4e9ea; }
 }
+
+/* Atributos do cartão, como nas farmácias grandes: quantidade, "Med. Genérico" / "Sem receita" e "Lab. Cimed" / "Marca Dove", cada um com um ícone. */
+.pv-card .pv-atrib { display: grid; gap: 2px; margin-top: 6px; text-align: left; }
+.pv-card .pv-atrib-linha { display: flex; align-items: center; justify-content: flex-start; gap: 6px; min-width: 0; color: #3e4b49; font-size: 0.8125rem; font-weight: 500; line-height: 1.25rem; letter-spacing: 0; text-align: left; text-transform: none; overflow-wrap: anywhere; }
+.pv-card .pv-atrib-icone { flex: none; width: 16px; height: 16px; color: #14736b; }
+.pv-card .pv-g { flex: none; display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: #14736b; color: #ffffff; font-size: 0.6875rem; font-weight: 800; line-height: 1; }
+.pv-card .pv-atrib-controlado .pv-atrib-icone, .pv-card .pv-atrib-receita .pv-atrib-icone { color: #a3200f; }
+.pv-card--esgotado .pv-atrib { opacity: 0.55; }

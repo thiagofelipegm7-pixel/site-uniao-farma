@@ -49,6 +49,6 @@ export async function GET(request: Request) {
   const ordenados = params.get("ordem") === "catalogo"
     ? [...filtrados].sort((a, b) => Number(b.foto !== null) - Number(a.foto !== null)).slice(0, n)
     : escolherAtrativos(filtrados, n, dia, grupo === "medicamentos");
-  const itens = ordenados.map(({ nome, slug, lab: marca, precoCentavos, foto }) => ({ nome, slug, lab: marca, precoCentavos, foto }));
+  const itens = ordenados.map(({ nome, slug, lab: marca, precoCentavos, foto, isMIP }) => ({ nome, slug, lab: marca, precoCentavos, foto, ...(isMIP ? { isMIP: true } : {}) }));
   return Response.json({ itens }, { headers: { "cache-control": "public, max-age=300" } });
 }
