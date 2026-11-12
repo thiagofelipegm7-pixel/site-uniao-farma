@@ -49,4 +49,4 @@
 .nav-interna a.nav-interna-marca:hover { background: transparent; }
 .nav-interna a.nav-interna-marca small { margin: 0; }
 .nav-interna a.nav-interna-marca { padding-block: 0.5rem; }
-@media (max-width: 520px) { .nav-interna a.nav-interna-marca .marca-uf-pe { display: none; } .nav-interna a.nav-interna-marca .marca-uf.marca-uf--claro .marca-uf-nome { font-size: 1.25rem; } }
+@media (max-width: 520px) { .nav-interna a.nav-interna-marca .marca-uf.marca-uf--claro .marca-uf-nome { font-size: 1.25rem; } .nav-interna a.nav-interna-marca small { display: none; } }
