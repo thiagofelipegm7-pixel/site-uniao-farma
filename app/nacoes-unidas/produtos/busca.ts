@@ -68,6 +68,8 @@ export type FiltroCatalogo = {
   faixas?: readonly FaixaPreco[];
   /** Categoria dentro do departamento (nível 2 da árvore). */
   tipos?: readonly string[];
+  /** Filtros da lateral que mudam conforme a busca (facetas.ts): o produto só fica se o predicado aceitar. */
+  predicado?: (item: ItemBusca, departamento: string) => boolean;
 };
 
 export function normalizarBusca(value: string): string {
@@ -251,6 +253,7 @@ export function aplicarCatalogo(grupos: readonly GrupoBusca[], filtro: FiltroCat
         if (marcas.size > 0 && !marcas.has(normalizarBusca(item.lab))) return false;
         if (tipos.size > 0 && !tipos.has(normalizarBusca(item.tipo ?? ""))) return false;
         if (faixas.size > 0 && !faixas.has(faixaDoPreco(precoDoItem(item)))) return false;
+        if (filtro.predicado && !filtro.predicado(item, grupo.categoria)) return false;
         return true;
       }),
     }))
@@ -292,14 +295,16 @@ export function eventoBusca(consulta: string, resultados: number): { event: "cat
 export function eventoFiltro(
   filtro: Pick<FiltroCatalogo, "categorias" | "marcas" | "faixas" | "tipos">,
   resultados: number,
+  /** Quantos filtros das outras seções da lateral (tamanho, dosagem…) estão marcados. Só a contagem. */
+  outros = 0,
 ): { event: "catalog_filter"; params: Record<string, unknown> } | null {
   const categories = filtro.categorias?.length ?? 0;
   const brands = filtro.marcas?.length ?? 0;
   const ranges = filtro.faixas?.length ?? 0;
   const types = filtro.tipos?.length ?? 0;
-  if (categories + brands + ranges + types === 0) return null;
+  if (categories + brands + ranges + types + outros === 0) return null;
   return {
     event: "catalog_filter",
-    params: { source: "produtos_nacoes", unit: "nacoes", categories, brands, ranges, types, results: resultados },
+    params: { source: "produtos_nacoes", unit: "nacoes", categories, brands, ranges, types, ...(outros > 0 ? { others: outros } : {}), results: resultados },
   };
 }
