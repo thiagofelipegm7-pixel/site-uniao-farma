@@ -3525,6 +3525,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "CR TRAT NOVEX 400G CACHOS": "7896013557456",
   "ELASTICO DE CABELO (GOMINHA)": "7908072505887",
   "CURATIVO HIDROCOLOIDE 10X10": "7908119241341",
+  "BEPANTOL DERMA PROT LAB F50 4": "7891106914277",
 };
 
 function normalizarNome(nome: string): string {
