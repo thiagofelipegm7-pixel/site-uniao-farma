@@ -2238,3 +2238,7 @@ html body .shop-busca .shop-recente button { width: 2.75rem; height: 2.75rem; ma
 .pv-card .pv-g { flex: none; display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%; background: #14736b; color: #ffffff; font-size: 0.6875rem; font-weight: 800; line-height: 1; }
 .pv-card .pv-atrib-controlado .pv-atrib-icone, .pv-card .pv-atrib-receita .pv-atrib-icone { color: #a3200f; }
 .pv-card--esgotado .pv-atrib { opacity: 0.55; }
+
+/* Passo "Entrega" da cesta: o caminhão 3D claro sumia no fundo verde-água; o círculo dele fica branco para dar destaque (igual à cesta do cabeçalho). */
+html body .cesta-passos li span:has(> img) { background: #ffffff; border-color: #ffffff; box-shadow: 0 1px 0 rgba(10, 45, 41, 0.18); }
+html body .cesta-passos li span > img { display: block; width: 2.5rem; height: auto; }
