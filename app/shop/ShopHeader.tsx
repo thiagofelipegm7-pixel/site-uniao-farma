@@ -33,7 +33,7 @@ const LINKS = [
 
 /** Cabeçalho de loja virtual: menu, marca, pino de loja, sacola e busca. Sem JavaScript a busca é um formulário GET comum. */
 type Sugestao = { nome: string; slug: string; precoCentavos: number; foto: string | null; busca: string };
-type SugestaoRestrita = { nome: string; nomeOriginal: string; tipo: "receita" | "controlados" | "consulte"; precoCentavos: number | null; busca: string; q: string; apresentacao: string | null; tarja: "vermelha" | "vermelha-retencao" | "preta" | null; retencao: boolean | null; controlado: boolean; generico?: boolean; ativo?: string | null };
+type SugestaoRestrita = { nome: string; nomeOriginal: string; tipo: "receita" | "controlados" | "consulte"; precoCentavos: number | null; busca: string; q: string; apresentacao: string | null; tarja: "vermelha" | "vermelha-retencao" | "preta" | null; retencao: boolean | null; controlado: boolean; portaria344?: boolean; generico?: boolean; ativo?: string | null };
 const ROTA_RESTRITA = { receita: "/nacoes-unidas/produtos/receita", controlados: "/nacoes-unidas/produtos/controlados", consulte: "/nacoes-unidas/produtos/consulte-o-farmaceutico" } as const;
 const ORDINAIS = ["1º", "2º", "3º", "4º", "5º", "6º", "7º", "8º", "9º", "10º"] as const;
 const nacoes = UNITS.find((unit) => unit.id === "nacoes");
@@ -366,7 +366,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                           <span>
                             <NomeDestacado nome={item.nome} termos={termosDestaque} />
                           </span>
-                          <strong>{item.precoCentavos === null ? "" : formatarCentavos(item.precoCentavos)}</strong>
+                          <strong>{item.precoCentavos === null ? (item.portaria344 ? <small className="shop-sug-consulte">Consulte o farmacêutico</small> : "") : formatarCentavos(item.precoCentavos)}</strong>
                         </a>
                       </li>
                     ))}
