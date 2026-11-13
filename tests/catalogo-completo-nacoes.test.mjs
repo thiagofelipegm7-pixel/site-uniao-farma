@@ -369,7 +369,7 @@ test("estoque: esgotado aparece nas listas com selo, sem cesta, e fica fora das 
   assert.match(cat, /filter\(\(i\) => i\.esgotado !== true\)/);
   const pagina = await read("app/nacoes-unidas/produtos/[slug]/page.tsx");
   assert.match(pagina, /carregarCatalogoCompleto\(\)/);
-  assert.match(pagina, /item\.esgotado \? null : <ProdutoBarra/);
+  assert.match(pagina, /item\.esgotado \|\| controlado \? null : <ProdutoBarra/);
   const cartao = await read("app/nacoes-unidas/produtos/CartaoPanvel.tsx");
   assert.doesNotMatch(cartao, /Resta 1|Restam/, "aviso 'Resta N' desligado: quase todo produto tem 1 ou 2 unidades");
   assert.doesNotMatch(pagina, /produto-restam/);

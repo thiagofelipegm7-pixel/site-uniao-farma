@@ -54,6 +54,8 @@ export type ItemRestrito = {
   esgotado?: boolean;
   aviso: string;
   controlado: boolean;
+  /** Lista da Portaria 344/98 (A1 a A3, B1, B2, C1 a C5): sem preço e sem cesta no site. */
+  portaria344: boolean;
   /** Campos pré-calculados nos dados gerados (nome de exibição e endereço). */
   nomeExibicao?: string;
   slug?: string;
@@ -63,6 +65,14 @@ export type ItemRestrito = {
 };
 
 /** Pela Portaria 344/98: listas A e B levam tarja preta; lista C, tarja vermelha com retenção. */
+/**
+ * Controle especial da Portaria SVS/MS 344/98 (listas A1 a A3, B1, B2 e C1 a C5): não é vendido pela internet, então não tem preço nem cesta no site.
+ * A lista "controlados" do catálogo também traz antimicrobianos (receita retida, mas de outra norma, a RDC 20/2011): esses ficam como estavam (lista "A/B").
+ */
+export function ehPortaria344(controlado: boolean, lista: string | undefined | null): boolean {
+  return controlado && /^(A[1-3]|B[12]|C[1-5])$/i.test((lista ?? "").trim());
+}
+
 export function tarjaDaLista(lista: string): Tarja | null {
   if (/^[AB]/i.test(lista)) return "preta";
   if (/^C/i.test(lista)) return "vermelha-retencao";
@@ -86,6 +96,7 @@ function paraRestrito(base: BaseJson & { retencao?: boolean; lista?: string }, t
   const lab = marcaDoItem(base.nome, base.lab);
   const { concentracao, apresentacao } = lerNome(base.nome, lab);
   const controlado = tipo === "controlados";
+  const portaria344 = ehPortaria344(controlado, base.lista);
   const tarja: Tarja | null = base.tarja ?? (controlado && base.lista ? tarjaDaLista(base.lista) : null);
   let retencao: boolean | null;
   if (controlado || base.retencao === true || tarja === "preta" || tarja === "vermelha-retencao") retencao = true;
@@ -95,7 +106,8 @@ function paraRestrito(base: BaseJson & { retencao?: boolean; lista?: string }, t
   return {
     nome: base.nome,
     lab,
-    preco: typeof base.preco === "number" && base.preco > 0 ? base.preco : null,
+    // Controle especial (Portaria 344/98) não tem preço no site: não é vendido pela internet (RDC 812/2023, art. 34-B da Portaria 344). Fica só a informação.
+    preco: !portaria344 && typeof base.preco === "number" && base.preco > 0 ? base.preco : null,
     tipo,
     ativo: base.ativo ? base.ativo.trim() || null : null,
     rms: base.rms ?? null,
@@ -105,6 +117,7 @@ function paraRestrito(base: BaseJson & { retencao?: boolean; lista?: string }, t
     apresentacao,
     aviso,
     controlado,
+    portaria344,
   };
 }
 

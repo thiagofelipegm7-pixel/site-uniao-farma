@@ -152,6 +152,7 @@ function paraRestrito(base, tipo) {
   const lab = marcaDoItem(base.nome, base.lab);
   const { concentracao, apresentacao } = lerNome(base.nome, lab);
   const controlado = tipo === "controlados";
+  const portaria344 = controlado && /^(A[1-3]|B[12]|C[1-5])$/i.test(String(base.lista ?? "").trim()); // réplica de ehPortaria344 em receita.ts
   const tarja = controlado ? tarjaControlado(base) : (base.tarja ?? null);
   let retencao = null;
   if (controlado || base.retencao === true || tarja === "preta" || tarja === "vermelha-retencao") retencao = true;
@@ -160,8 +161,9 @@ function paraRestrito(base, tipo) {
   return {
     nome: base.nome,
     lab,
-    preco: typeof base.preco === "number" && base.preco > 0 ? base.preco : null,
-    precoFmt: formatBRL(base.preco),
+    // Controlado (Portaria 344/98) não tem preço no site: não é vendido pela internet. Réplica de paraRestrito em receita.ts.
+    preco: !portaria344 && typeof base.preco === "number" && base.preco > 0 ? base.preco : null,
+    precoFmt: portaria344 ? null : formatBRL(base.preco),
     tipo,
     ativo: base.ativo ? base.ativo.trim() || null : null,
     rms: base.rms ?? null,
@@ -171,6 +173,7 @@ function paraRestrito(base, tipo) {
     apresentacao,
     aviso,
     controlado,
+    portaria344,
     generico: base.generico === true,
     busca: normalizarBusca(`${base.nome} ${lab} ${base.ativo ?? ""}`),
     nomeExibicao: nomeDeExibicao(base.nome),
@@ -271,6 +274,7 @@ function itemRestritoCompacto(i) {
     apresentacao: i.apresentacao,
     aviso: i.aviso,
     controlado: i.controlado,
+    portaria344: i.portaria344,
     generico: i.generico,
     ...(typeof i.restam === "number" ? { restam: i.restam } : {}),
     ...(i.esgotado === true ? { esgotado: true } : {}),
@@ -389,6 +393,7 @@ writeJson(
     tarja: i.tarja,
     retencao: i.retencao,
     controlado: i.controlado,
+    portaria344: i.portaria344,
     generico: i.generico,
     ativo: i.ativo,
     nomeOriginal: i.nome,
