@@ -58,8 +58,10 @@ test("descrição escrita no painel: protegida por login, sem medicamento, vale 
     ler("app/components/PainelFotos.tsx"),
   ]);
   assert.equal(middleware.split("/api/interno/produto/descricao").length - 1, 2, "nas duas listas protegidas");
-  assert.match(rota, /item\.isMIP \|\| item\.categoria === "Medicamentos"/);
-  assert.match(rota, /ehNbcal\(original\) \|\| ehFormulaInfantil\(original\)/);
+  const permitida = await ler("app/descricao-permitida.ts");
+  assert.match(rota, /descricaoNaoPermitida\(original\)/);
+  assert.match(permitida, /item\.isMIP \|\| item\.categoria === "Medicamentos"/);
+  assert.match(permitida, /ehNbcal\(original\) \|\| ehFormulaInfantil\(original\)/);
   const corpo = descricoes.slice(descricoes.indexOf("export function descricaoDoProduto"));
   assert.ok(corpo.indexOf("PAINEL.get(slug)") < corpo.indexOf("PESQUISA[slug]"), "a da equipe vem antes da pesquisa");
   assert.match(sync, /descricoes-painel\.json/);
