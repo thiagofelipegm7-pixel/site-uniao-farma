@@ -66,6 +66,7 @@ export async function middleware(request: NextRequest) {
     pathname === "/api/interno/revisao" ||
     pathname === "/api/interno/erros" ||
     pathname === "/api/erro-cliente" ||
+    pathname === "/api/busca-sem-resultado" ||
     pathname === "/api/interno/produto/nome" ||
     pathname === "/api/interno/produto/nome/desfazer" || pathname === "/api/interno/produto/controlado" || pathname === "/api/interno/produto/categoria" || pathname === "/api/interno/produto/categoria/lote" || pathname === "/api/interno/produto/marca" || pathname === "/api/interno/produto/descricao" || pathname === "/api/interno/produto/excluir" ||
     pathname === "/api/interno/revisao/aprovar" ||

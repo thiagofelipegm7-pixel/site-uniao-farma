@@ -244,6 +244,40 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   const ativos = contarSelecionados(filtros);
   const buscando = consulta.trim().length > 0;
 
+  // WhatsApp com o que a pessoa procurou já escrito: a loja recebe a demanda pronta ("Procuro X, vocês têm?").
+  const whatsappBusca = useMemo(() => {
+    const termo = consulta.trim().slice(0, 80);
+    if (!termo) return whatsappHref;
+    try {
+      const u = new URL(whatsappHref);
+      u.searchParams.set("text", `Oi, União Farma Nações Unidas! Procurei “${termo}” no site e não encontrei. Vocês têm ou conseguem trazer?`);
+      return u.toString();
+    } catch {
+      return whatsappHref;
+    }
+  }, [whatsappHref, consulta]);
+
+  // Anônimo e sem cookie: conta as buscas em que a busca exata não achou nada, para a equipe ver o que falta (texto, dia e contagem; ver app/busca-sem-resultado.ts).
+  const buscasEnviadas = useRef(new Set<string>());
+  useEffect(() => {
+    if (!buscando || !completo || totalExato > 0 || tolerante.procurando || tolerante.tipo === "sintoma") return;
+    const termo = consulta.trim();
+    const resultado = tolerante.tipo === "nenhum" ? "vazia" : tolerante.tipo;
+    const chave = `${termo}|${resultado}`;
+    if (buscasEnviadas.current.has(chave)) return;
+    // Só conta se a pessoa ficou na tela (não a cada letra digitada).
+    const timer = window.setTimeout(() => {
+      buscasEnviadas.current.add(chave);
+      try {
+        const corpo = JSON.stringify({ q: termo, r: resultado });
+        if (!navigator.sendBeacon?.("/api/busca-sem-resultado", new Blob([corpo], { type: "application/json" }))) void fetch("/api/busca-sem-resultado", { method: "POST", headers: { "content-type": "application/json" }, body: corpo, keepalive: true });
+      } catch {
+        // o registro nunca atrapalha a busca
+      }
+    }, 2500);
+    return () => window.clearTimeout(timer);
+  }, [buscando, completo, totalExato, tolerante.procurando, tolerante.tipo, consulta]);
+
   // Enquanto o catálogo (ou a correção de digitação) não termina, a tela mostra "Buscando…", nunca "não encontramos".
   const estado = estadoDaLista({ completo, total, procurando: buscando && tolerante.procurando, buscando });
   const esperando = estado === "carregando" || estado === "procurando";
@@ -448,6 +482,8 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
       {tolerante.tipo === "parcial" ? (
         <p className="pv-corrigida" role="status">
           Não encontramos “{consulta.trim()}” completo{tolerante.ignoradas.length ? <> (sem produto para <strong>{tolerante.ignoradas.join(" ")}</strong>)</> : null}. Mostrando resultados para: <strong>{tolerante.rotulo}</strong>
+          {" · "}
+          <a href={whatsappBusca} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unitId} data-track-source="produtos_nacoes_busca_parcial">Não é o que procura? Pergunte à loja</a>
         </p>
       ) : null}
 
@@ -476,7 +512,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
               ? `Não encontramos “${consulta.trim()}”. Confira a digitação, use termos mais amplos ou navegue pelas categorias.`
               : "Não encontramos produtos com esses filtros. Limpe os filtros ou navegue pelas categorias."}
           </p>
-          <a className="catalogo-perguntar" href={whatsappHref} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unitId} data-track-source="produtos_nacoes_busca_vazia">
+          <a className="catalogo-perguntar" href={whatsappBusca} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unitId} data-track-source="produtos_nacoes_busca_vazia">
             Perguntar à loja pelo WhatsApp
           </a>
         </div>
