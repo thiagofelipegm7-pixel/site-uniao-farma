@@ -434,7 +434,7 @@ test("card: círculo + permanente adiciona, abre a cesta e não vira pílula; pr
   assert.equal(qtdDoItem(adicionar(um, nivea), id), 2, "cada + soma mais uma unidade");
 });
 
-test("passos da reserva: cesta e caminhão 3D, linha atrás do círculo sólido", async () => {
+test("passos da reserva: cesta, caminhão e check 3D, linha atrás do círculo sólido", async () => {
   const [icons, fluxo, css] = await Promise.all([
     readFile(new URL("../app/reserva/ReservaIcons.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/reserva/ReservaFluxo.tsx", import.meta.url), "utf8"),
@@ -442,23 +442,33 @@ test("passos da reserva: cesta e caminhão 3D, linha atrás do círculo sólido"
   ]);
   assert.match(icons, /export function IconCestaArte/);
   assert.match(icons, /export function IconCaminhaoArte/);
+  assert.match(icons, /export function IconFinalizarArte/);
   assert.match(icons, /\/icons\/cesta\.png/);
   assert.match(icons, /\/icons\/caminhao\.png/);
+  assert.match(icons, /\/icons\/finalizar\.png/);
   assert.match(fluxo, /IconCestaArte size=\{28\}/);
   assert.match(fluxo, /IconCaminhaoArte size=\{36\}/);
+  assert.match(fluxo, /IconFinalizarArte size=\{40\}/);
   assert.doesNotMatch(fluxo, /<IconCesta /);
   assert.doesNotMatch(fluxo, /<IconCaminhao /);
+  assert.doesNotMatch(fluxo, /<IconConfirmado /);
   assert.match(css, /\.cesta-passos li \{[^}]*isolation:\s*isolate/s);
   assert.match(css, /\.cesta-passos li \+ li::before \{[^}]*z-index:\s*0/s);
   assert.match(css, /\.cesta-passos li span \{[^}]*z-index:\s*1/s);
   assert.match(css, /\.cesta-passos li span \{[^}]*background:\s*#ffffff/s);
   assert.match(css, /\.cesta-passos li\.is-on span \{[^}]*background:\s*var\(--uf-action-ink\)/s);
-  const [cesta, caminhao] = await Promise.all([
+  assert.match(css, /\.cesta-passos li\.is-on span:has\(> img\) \{[^}]*background:\s*var\(--uf-action-ink/);
+  assert.match(css, /img\.cesta-passo-selo \{ width: 2\.75rem/);
+  const [cesta, caminhao, finalizar] = await Promise.all([
     readFile(new URL("../public/icons/cesta.png", import.meta.url)),
     readFile(new URL("../public/icons/caminhao.png", import.meta.url)),
+    readFile(new URL("../public/icons/finalizar.png", import.meta.url)),
   ]);
   assert.ok(cesta.length > 1000);
   assert.ok(caminhao.length > 1000);
+  assert.ok(finalizar.length > 1000);
   assert.equal(cesta.subarray(0, 8).toString("binary"), "\x89PNG\r\n\x1a\n");
   assert.equal(caminhao.subarray(0, 8).toString("binary"), "\x89PNG\r\n\x1a\n");
+  assert.equal(finalizar.subarray(0, 8).toString("binary"), "\x89PNG\r\n\x1a\n");
+  assert.equal(finalizar[25], 6, "finalizar.png tem transparência");
 });

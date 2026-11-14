@@ -344,6 +344,24 @@ export function IconCaminhaoArte({ size = 36, className }: P & { className?: str
   );
 }
 
+/** Selo 3D com check e estrelinhas, recortado com fundo transparente. Passo "Finalizar" da reserva. */
+export function IconFinalizarArte({ size = 40, className }: P & { className?: string }) {
+  return (
+    // Ícone estático pequeno; o aviso do next/image não cabe aqui (como nos outros ícones).
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/icons/finalizar.png"
+      alt=""
+      width={size}
+      height={size}
+      className={className}
+      draggable={false}
+      decoding="async"
+      aria-hidden="true"
+    />
+  );
+}
+
 /** Phosphor truck, fill. */
 export function IconCaminhao({ size = 24 }: P) {
   return (
