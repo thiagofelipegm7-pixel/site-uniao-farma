@@ -198,6 +198,16 @@ function paraRestrito(base, tipo) {
   };
 }
 
+function esgotadosPorUltimo(itens) {
+  const disponiveis = [];
+  const esgotados = [];
+  for (const item of itens) {
+    if (item.esgotado === true) esgotados.push(item);
+    else disponiveis.push(item);
+  }
+  return esgotados.length === 0 ? itens : [...disponiveis, ...esgotados];
+}
+
 function writeJson(rel, data) {
   const full = path.join(PUBLIC, rel);
   fs.mkdirSync(path.dirname(full), { recursive: true });
@@ -431,7 +441,7 @@ writeJson("restritos-index.json", {
 writeJson("busca-index.json", {
   geradoEm: cat.geradoEm,
   grupos: buscaGrupos,
-  restritos: [...receitaFmt, ...controladosFmt].map(itemRestritoCompacto),
+  restritos: esgotadosPorUltimo([...receitaFmt, ...controladosFmt]).map(itemRestritoCompacto),
 });
 
 console.log("Assets gerados com sucesso.");

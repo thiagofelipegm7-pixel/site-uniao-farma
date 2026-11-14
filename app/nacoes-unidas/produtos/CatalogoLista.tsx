@@ -12,6 +12,7 @@ import { precoParaCentavos } from "../../reserva/reserva-store";
 import {
   aplicarCatalogo,
   contarItens,
+  esgotadosPorUltimo,
   eventoBusca,
   eventoFiltro,
   filtrarGrupos,
@@ -214,7 +215,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   const [porPagina, setPorPagina] = useState<number>(POR_PAGINA);
   const totalPaginas = Math.max(1, Math.ceil(total / porPagina));
   const paginaAtual = Math.min(pagina, totalPaginas);
-  const itensDaPagina = visiveis.flatMap((g) => g.itens).slice((paginaAtual - 1) * porPagina, paginaAtual * porPagina);
+  const itensDaPagina = esgotadosPorUltimo(visiveis.flatMap((g) => g.itens)).slice((paginaAtual - 1) * porPagina, paginaAtual * porPagina);
   const primeiraBusca = useRef(true);
   // Mudou a busca, o filtro ou a ordem: volta para a página 1 (menos na primeira carga, que respeita o endereço).
   useEffect(() => {
