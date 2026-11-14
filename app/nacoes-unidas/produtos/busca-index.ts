@@ -21,6 +21,8 @@ export type ItemIndice = {
   esgotado?: boolean;
   slug?: string;
   foto: string | null;
+  /** Palavras de busca (nomes populares e marcas, IA ou equipe): só a busca usa. */
+  palavras?: string;
 };
 
 /** Medicamento com receita ou controlado, só com o que o cartão restrito e a ilustração da caixa leem. */
@@ -45,6 +47,7 @@ export function itemDaPagina(item: ItemIndice): ItemBusca {
     foto: item.foto,
     slug: item.slug,
     tipo: item.tipo,
+    ...(item.palavras ? { palavras: item.palavras } : {}),
   };
 }
 
