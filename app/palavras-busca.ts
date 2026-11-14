@@ -130,3 +130,19 @@ export async function mapaDePalavras(db: Banco): Promise<Record<string, { palavr
   for (const l of results) mapa[l.chave] = { palavras: l.palavras, fonte: l.fonte, por: l.por, quando: l.quando };
   return mapa;
 }
+
+async function garantirTentadas(db: Banco) {
+  await db.exec("CREATE TABLE IF NOT EXISTS palavras_tentadas (chave TEXT PRIMARY KEY, quando TEXT NOT NULL)");
+}
+
+/** Itens que a IA já analisou e não tinham palavras seguras: não voltam ao lote (senão "gerar tudo" repetiria os mesmos para sempre). */
+export async function chavesTentadas(db: Banco): Promise<Set<string>> {
+  await garantirTentadas(db);
+  const { results } = await db.prepare("SELECT chave FROM palavras_tentadas").bind().all<{ chave: string }>();
+  return new Set(results.map((r) => r.chave));
+}
+
+export async function marcarTentadas(db: Banco, nomes: readonly string[], agora = new Date()): Promise<void> {
+  await garantirTentadas(db);
+  for (const nome of nomes) await db.prepare("INSERT OR REPLACE INTO palavras_tentadas (chave, quando) VALUES (?, ?)").bind(chaveDoNome(nome), agora.toISOString()).run();
+}

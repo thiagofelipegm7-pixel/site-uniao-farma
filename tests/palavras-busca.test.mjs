@@ -75,3 +75,26 @@ test("palavras de remédio: só princípio ativo, marca equivalente e grafia; na
   assert.deepEqual(P.limparPalavras(["vitamina c"], "SUCO X", true), []);
   assert.match(P.PROMPT_PALAVRAS_MEDICAMENTO, /PROIBIDO: indicação/);
 });
+
+test("gerar tudo: itens sem palavras seguras não voltam ao lote e o botão tem Parar, limite de rodadas e parada por falha", async () => {
+  const linhas = new Set();
+  const db = {
+    async exec() {},
+    prepare(sql) {
+      return { bind: (...v) => ({ async run() { if (sql.startsWith("INSERT OR REPLACE INTO palavras_tentadas")) linhas.add(v[0]); }, async all() { return { results: [...linhas].map((chave) => ({ chave })) }; } }) };
+    },
+  };
+  await P.marcarTentadas(db, ["Sabonete  Sem Palavras", "OUTRO"]);
+  const t = await P.chavesTentadas(db);
+  assert.ok(t.has("SABONETE SEM PALAVRAS") && t.has("OUTRO"));
+  const rota = await ler("app/api/interno/ia/palavras/route.ts");
+  assert.match(rota, /tentadas\.has\(k\)/);
+  assert.match(rota, /marcarTentadas\(f\.db, semSeguras\)/);
+  assert.match(rota, /criarLimitador\(40, 600_000\)/);
+  const fila = await ler("app/components/FilaIA.tsx");
+  assert.match(fila, /Gerar tudo \(várias rodadas\)/);
+  assert.match(fila, />Parar</);
+  assert.match(fila, /pararRef\.current/);
+  assert.match(fila, /rodada < 80/);
+  assert.match(fila, /falhasSeguidas >= 2/);
+});
