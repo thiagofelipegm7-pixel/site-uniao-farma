@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import { IconFechar } from "../../reserva/ReservaIcons";
-import { formatarReais, validarFaixa, type Faceta, type FacetaId, type FiltrosLista, type OpcaoFaceta } from "./facetas";
+import { formatarReais, validarFaixa, type Faceta, type FacetaId, type FiltrosLista, type OpcaoFaceta } from "./facetas-calculo";
 
 /** Opções que aparecem antes do "Mostrar mais". */
 export const OPCOES_VISIVEIS = 6;

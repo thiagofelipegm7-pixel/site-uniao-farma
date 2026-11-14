@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
 
-const facetas = () => import("../app/nacoes-unidas/produtos/facetas.ts");
+const facetas = () => import("../app/nacoes-unidas/produtos/facetas-calculo.ts");
 const busca = () => import("../app/nacoes-unidas/produtos/busca.ts");
 
 const restrito = (extra) => ({ nome: "X", nomeExibicao: "X", slug: "x", lab: "L", preco: 10, tipo: "receita", ativo: "", tarja: "vermelha", retencao: false, apresentacao: "", aviso: "", controlado: false, generico: false, rms: null, concentracao: null, ...extra });
