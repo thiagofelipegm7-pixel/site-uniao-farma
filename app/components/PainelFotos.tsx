@@ -528,9 +528,9 @@ export default function PainelFotos() {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ original: l.nome, marca: marcaAtual(l).texto, categoria: categoriaEfetiva(l) }),
       });
-      const corpo = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string; sugestao?: { nome?: string; marca?: string; categoria?: string; descricao?: string } } | null;
+      const corpo = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string; motivo?: string; resposta?: string; sugestao?: { nome?: string; marca?: string; categoria?: string; descricao?: string } } | null;
       if (!r.ok || !corpo?.ok || !corpo.sugestao) {
-        setSugestaoIA({ ean: l.ean, carregando: false, msg: corpo?.erro === "sem_ia" ? "A IA ainda não está ligada (falta a chave do Gemini)." : corpo?.erro === "limite" ? "Muitos pedidos seguidos. Espere um minuto." : "A IA não tem sugestão segura para este produto." });
+        setSugestaoIA({ ean: l.ean, carregando: false, msg: corpo?.erro === "sem_ia" ? "A IA ainda não está ligada (falta a chave do Gemini)." : corpo?.erro === "limite" ? "Muitos pedidos seguidos. Espere um minuto." : `A IA não tem sugestão segura para este produto.${corpo?.motivo ? ` (Motivo técnico: ${corpo.motivo}${corpo.resposta ? ` — ${corpo.resposta}` : ""})` : ""}` });
         return;
       }
       const sg = corpo.sugestao;

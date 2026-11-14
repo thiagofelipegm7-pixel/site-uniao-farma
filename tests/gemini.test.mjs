@@ -58,3 +58,17 @@ test("gemini: rotas usam o segredo, caem na Cloudflare e nunca expõem a chave",
   const rec = await ler("app/api/receita-ia/route.ts");
   assert.match(rec, /MODELO_VISAO_RESERVA/);
 });
+
+test("gemini: motivo da falha aparece sem vazar a chave e modelo aposentado cai no -latest", async () => {
+  const erro = async () => new Response(JSON.stringify({ error: { message: "API key not valid" } }), { status: 400 });
+  const r = await G.chamarGeminiComMotivo({ modelo: "gemini-2.5-flash-lite", chave: "SEGREDO", texto: "t", maxTokens: 5, ms: 500 }, erro);
+  assert.equal(r.ok, false);
+  assert.match(r.motivo, /^http_400: API key not valid/);
+  assert.ok(!r.motivo.includes("SEGREDO"));
+  const vistos = [];
+  const f = async (url) => { vistos.push(url); return vistos.length === 1 ? new Response("{}", { status: 404 }) : new Response(JSON.stringify({ candidates: [{ finishReason: "STOP", content: { parts: [{ text: "{}" }] } }] })); };
+  const ok = await G.chamarGeminiComMotivo({ modelo: "gemini-2.5-flash-lite", chave: "k", texto: "t", maxTokens: 5, ms: 500 }, f);
+  assert.equal(ok.ok, true);
+  assert.match(vistos[1], /gemini-flash-lite-latest/);
+  assert.equal(G.modeloDeReserva("gemini-flash-latest"), null);
+});

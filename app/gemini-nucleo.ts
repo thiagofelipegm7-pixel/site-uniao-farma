@@ -69,27 +69,60 @@ export function esquemaParaGemini(esquema: unknown): Record<string, unknown> | u
   return limpar(s) as Record<string, unknown>;
 }
 
+export type ResultadoGemini = { ok: true; response: string } | { ok: false; motivo: string };
+
+/** Nome "-latest" que o Google mantém apontando para um modelo vivo, usado se o modelo fixo for aposentado (404). */
+export function modeloDeReserva(modelo: string): string | null {
+  if (modelo.endsWith("-latest")) return null;
+  return /flash-lite/.test(modelo) ? "gemini-flash-lite-latest" : /flash/.test(modelo) ? "gemini-flash-latest" : null;
+}
+
 /**
- * Chama o Gemini com tempo limite. Devolve `{ response: texto }` (mesmo formato que a IA da Cloudflare, para o resto do código não mudar)
- * ou null em qualquer problema. A chave vai no cabeçalho, nunca na URL, e nenhum erro devolve o corpo da resposta.
+ * Chama o Gemini com tempo limite e diz o motivo quando falha (código HTTP e mensagem curta do Google, nunca a chave).
+ * Se o modelo não existir mais (404), tenta o nome "-latest" uma vez.
  */
-export async function chamarGemini(p: PedidoGemini, buscar: typeof fetch = fetch): Promise<{ response: string } | null> {
-  if (!p.chave) return null;
+export async function chamarGeminiComMotivo(p: PedidoGemini, buscar: typeof fetch = fetch): Promise<ResultadoGemini> {
+  if (!p.chave) return { ok: false, motivo: "sem_chave" };
   const controle = new AbortController();
   const temporizador = setTimeout(() => controle.abort(), p.ms);
   try {
-    const r = await buscar(`${BASE}/${encodeURIComponent(p.modelo)}:generateContent`, {
-      method: "POST",
-      headers: { "content-type": "application/json", "x-goog-api-key": p.chave },
-      body: JSON.stringify(montarCorpoGemini(p)),
-      signal: controle.signal,
-    });
-    if (!r.ok) return null;
-    const texto = textoDaRespostaGemini(await r.json());
-    return texto ? { response: texto } : null;
-  } catch {
-    return null;
+    let modelo = p.modelo;
+    for (let tentativa = 0; tentativa < 2; tentativa++) {
+      const r = await buscar(`${BASE}/${encodeURIComponent(modelo)}:generateContent`, {
+        method: "POST",
+        headers: { "content-type": "application/json", "x-goog-api-key": p.chave },
+        body: JSON.stringify(montarCorpoGemini(p)),
+        signal: controle.signal,
+      });
+      if (r.status === 404 && tentativa === 0) {
+        const outro = modeloDeReserva(modelo);
+        if (outro) {
+          modelo = outro;
+          continue;
+        }
+      }
+      if (!r.ok) {
+        let msg = "";
+        try {
+          msg = String(((await r.json()) as { error?: { message?: string } })?.error?.message ?? "").replace(/\s+/g, " ").slice(0, 160);
+        } catch {
+          // sem corpo legível
+        }
+        return { ok: false, motivo: `http_${r.status}${msg ? `: ${msg}` : ""}` };
+      }
+      const texto = textoDaRespostaGemini(await r.json());
+      return texto ? { ok: true, response: texto } : { ok: false, motivo: "resposta_vazia_ou_bloqueada" };
+    }
+    return { ok: false, motivo: "sem_modelo" };
+  } catch (e) {
+    return { ok: false, motivo: (e as { name?: string })?.name === "AbortError" ? "tempo" : "rede" };
   } finally {
     clearTimeout(temporizador);
   }
+}
+
+/** Versão simples: devolve `{ response: texto }` (mesmo formato da IA da Cloudflare) ou null em qualquer problema. */
+export async function chamarGemini(p: PedidoGemini, buscar: typeof fetch = fetch): Promise<{ response: string } | null> {
+  const r = await chamarGeminiComMotivo(p, buscar);
+  return r.ok ? { response: r.response } : null;
 }
