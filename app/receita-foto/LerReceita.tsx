@@ -375,11 +375,11 @@ export default function LerReceita() {
                 {resultados.map((r, i) => <CartaoMedicamento key={`${r.lido.nome}-${i}`} r={r} />)}
               </div>
               {temRestrito ? (
-                <p className="receita-aviso">Medicamentos com receita e controlados são retirados na loja, com a receita original (nos controlados, a farmácia retém a receita).</p>
+                <p className="receita-aviso">Medicamentos com receita são retirados na loja, com a receita original. Medicamentos de controle especial (Portaria 344) e antimicrobianos não são vendidos pelo site: a venda é só na loja, com a receita (a farmácia retém a receita).</p>
               ) : null}
               {faltam.length > 0 && whatsapp ? (
                 <a className="reserva-botao reserva-botao-vazado receita-whats" href={whatsapp} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="receita_foto">
-                  <IconWhats size={22} /> <span>Falar com o farmacêutico sobre o que faltou</span>
+                  <IconWhats size={22} oficial /> <span>Falar com o farmacêutico sobre o que faltou</span>
                 </a>
               ) : null}
             </>

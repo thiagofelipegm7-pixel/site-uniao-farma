@@ -29,6 +29,8 @@ type Props = {
   foto?: string | null;
   /** Fabricante ou marca. Aparece como "Lab. Cimed" (medicamento) ou "Marca Dove" (produto comum). Em branco quando o catálogo não tem. */
   marca?: string | null;
+  /** Texto no lugar do preço quando não há (controlado: "Consulte o farmacêutico"). Padrão: "Consultar". */
+  precoVazio?: string;
   /** Medicamento: a marca vira "Lab. X" em vez de "Marca X". */
   medicamento?: boolean;
   /** Segunda linha do cartão: "Med. Genérico" ou "Controlado". Só quando o dado é conhecido. */
@@ -58,7 +60,7 @@ type Props = {
  * preço e botão largo "Adicionar" no pé. Abaixo do nome, até três linhas com ícone (quantidade, "Med. Genérico" e "Lab. Cimed"), como nas farmácias grandes. Sem selo de programa, sem "De/Por" e sem % OFF quando
  * o catálogo não tem preço de antes: o que a União não tem fica em branco.
  */
-export default function CartaoPanvel({ href, nome, foto, marca, medicamento = false, classificacao = null, apresentacao, precoFmt, cesta, esgotado = false, avisos, extra, vertical = false, classe = "", tipo }: Props) {
+export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medicamento = false, classificacao = null, apresentacao, precoFmt, cesta, esgotado = false, avisos, extra, vertical = false, classe = "", tipo }: Props) {
   const apresentacaoLegivel = formatarQuantidade(apresentacao);
   // Medicamento: "Lab. Cimed". Produto comum: "Marca Dove" se o nome cita a marca; senão o fabricante do cadastro ("Fab. Procter").
   const marcaDoNome = medicamento ? "" : marcaDeProduto(nome);
@@ -81,7 +83,7 @@ export default function CartaoPanvel({ href, nome, foto, marca, medicamento = fa
           </span>
         ) : null}
       </span>
-      <Preco precoFmt={precoFmt} />
+      <Preco precoFmt={precoFmt} vazio={precoVazio} />
     </>
   );
   return (

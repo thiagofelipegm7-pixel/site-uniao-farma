@@ -37,16 +37,16 @@ const TEXTOS: Record<TipoRestrito, { titulo: string; h1: string; intro: string; 
     titulo: "Medicamentos com receita: lista de preços | União Farma Nações Unidas",
     h1: "Medicamentos com receita: lista de preços",
     intro:
-      "Lista de preços informativa de medicamentos de venda sob prescrição médica. Retire na loja apresentando a receita.",
+      "Lista de preços informativa de medicamentos de venda sob prescrição médica. Retire na loja apresentando a receita. Antimicrobianos (receita retida) aparecem sem preço e só são vendidos na loja.",
     rota: "/nacoes-unidas/produtos/receita",
     vazio: "Nenhum medicamento encontrado nesta lista.",
     caminho: "Com receita",
   },
   controlados: {
-    titulo: "Medicamentos controlados: lista de preços | União Farma Nações Unidas",
-    h1: "Medicamentos controlados: lista de preços",
+    titulo: "Medicamentos controlados e antimicrobianos | União Farma Nações Unidas",
+    h1: "Medicamentos controlados e antimicrobianos",
     intro:
-      "Lista de preços informativa de medicamentos controlados (Portaria SVS/MS 344/98). Retire na loja; a receita fica retida pela farmácia.",
+      "Medicamentos controlados (Portaria SVS/MS 344/98) não são vendidos pelo site e aparecem sem preço: a venda é só na loja, com a receita (Notificação de Receita nos de controle especial), e a receita fica retida pela farmácia. Antimicrobianos (receita retida) também aparecem sem preço. Converse com o farmacêutico.",
     rota: "/nacoes-unidas/produtos/controlados",
     vazio: "Nenhum medicamento controlado encontrado nesta lista.",
     caminho: "Controlados",
@@ -78,6 +78,7 @@ export function Cartao({ item }: { item: ItemRestrito }) {
       apresentacao={quantidadeLegivel(item.apresentacao)}
       foto={imagemIlustrativa(item)}
       precoFmt={item.preco !== null ? formatBRL(item.preco) : null}
+      precoVazio={item.semVenda ? "Consulte o farmacêutico" : undefined}
       restam={item.restam}
       esgotado={item.esgotado}
       cesta={

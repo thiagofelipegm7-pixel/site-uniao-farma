@@ -148,6 +148,19 @@ function tarjaControlado(base) {
   return tarjaDaLista(lista);
 }
 
+// Réplica de sem-venda.ts (parte que o gerador precisa): o que não tem preço, cesta nem pedido no site. Um teste confere as duas.
+const ANTIMICROB = /(?<![A-Z])(AMOXICILINA|AMOX|CLAVULAN|NOVAMOX|CLAVULIN|AZITROMICINA|CLARITROMICINA|ERITROMICINA|CEFALEXINA|CEFADROXILA|CEFUROXIMA|AXETILCEFUROXIMA|CEFTRIAXONA|CIPROFLOXACINO|LEVOFLOXACINO|MOXIFLOXACINO|NORFLOXACINO|OFLOXACINO|DOXICICLINA|TETRACICLINA|MINOCICLINA|SULFAMETOXAZOL|BACTRIM|BELFACTRIM|METRONIDAZOL|TINIDAZOL|SECNIDAZOL|NITROFURANTOINA|MACRODANTINA|FOSFOMICINA|CLINDAMICINA|PENICILINA|NOVOCILIN|AMPICILINA|FLUCONAZOL|ITRACONAZOL|NITAZOXANIDA)/;
+const TOPICO = /(?<![A-Z])(CREME|CR|POM|POMADA|GEL|SPRAY|COLIRIO|OFT|OFTALM\w*|VAG|VAGINAL|OVULO|OVL|SOL TOP|LOCAO)(?![A-Z])/;
+function ehAntimicrobiano(nome) {
+  const n = String(nome).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
+  return ANTIMICROB.test(n) && !TOPICO.test(n);
+}
+function classificarSemVenda({ controlado, lista, nome, retencao }) {
+  const portaria344 = controlado && /^(A[1-3]|B[12]|C[1-5])$/i.test(String(lista ?? "").trim());
+  const antimicrobiano = !portaria344 && (controlado || (retencao === true && ehAntimicrobiano(nome)));
+  return { portaria344, antimicrobiano, semVenda: portaria344 || antimicrobiano };
+}
+
 function paraRestrito(base, tipo) {
   const lab = marcaDoItem(base.nome, base.lab);
   const { concentracao, apresentacao } = lerNome(base.nome, lab);
@@ -156,12 +169,14 @@ function paraRestrito(base, tipo) {
   let retencao = null;
   if (controlado || base.retencao === true || tarja === "preta" || tarja === "vermelha-retencao") retencao = true;
   else if (tarja === "vermelha") retencao = false;
+  const { portaria344, antimicrobiano, semVenda } = classificarSemVenda({ controlado, lista: base.lista, nome: base.nome, retencao });
   const aviso = tipo === "consulte" ? AVISO_CONSULTE : controlado ? AVISO_CONTROLADO : retencao === true ? AVISO_RETENCAO : AVISO_RECEITA;
   return {
     nome: base.nome,
     lab,
-    preco: typeof base.preco === "number" && base.preco > 0 ? base.preco : null,
-    precoFmt: formatBRL(base.preco),
+    // Controle especial (Portaria 344/98) e antimicrobianos não têm preço no site (ver sem-venda.ts). Réplica de paraRestrito em receita.ts.
+    preco: !semVenda && typeof base.preco === "number" && base.preco > 0 ? base.preco : null,
+    precoFmt: semVenda ? null : formatBRL(base.preco),
     tipo,
     ativo: base.ativo ? base.ativo.trim() || null : null,
     rms: base.rms ?? null,
@@ -171,6 +186,9 @@ function paraRestrito(base, tipo) {
     apresentacao,
     aviso,
     controlado,
+    portaria344,
+    antimicrobiano,
+    semVenda,
     generico: base.generico === true,
     busca: normalizarBusca(`${base.nome} ${lab} ${base.ativo ?? ""}`),
     nomeExibicao: nomeDeExibicao(base.nome),
@@ -271,6 +289,9 @@ function itemRestritoCompacto(i) {
     apresentacao: i.apresentacao,
     aviso: i.aviso,
     controlado: i.controlado,
+    portaria344: i.portaria344,
+    antimicrobiano: i.antimicrobiano,
+    semVenda: i.semVenda,
     generico: i.generico,
     ...(typeof i.restam === "number" ? { restam: i.restam } : {}),
     ...(i.esgotado === true ? { esgotado: true } : {}),
@@ -389,6 +410,9 @@ writeJson(
     tarja: i.tarja,
     retencao: i.retencao,
     controlado: i.controlado,
+    portaria344: i.portaria344,
+    antimicrobiano: i.antimicrobiano,
+    semVenda: i.semVenda,
     generico: i.generico,
     ativo: i.ativo,
     nomeOriginal: i.nome,

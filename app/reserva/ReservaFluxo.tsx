@@ -259,12 +259,12 @@ export default function ReservaFluxo() {
       <div className="cesta-faixa">
         <a className="cesta-logo" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial"><MarcaUniao /></a>
         <ol className="cesta-passos" role="img" aria-label={`Passo ${passo} de 3`}>
-          {[{ n: 1, r: "Cesta", i: <IconCestaArte size={28} /> }, { n: 2, r: "Entrega", i: <IconCaminhaoArte size={28} /> }, { n: 3, r: "Finalizar", i: <IconConfirmado size={26} /> }].map((e) => (
+          {[{ n: 1, r: "Cesta", i: <IconCestaArte size={28} /> }, { n: 2, r: "Entrega", i: <IconCaminhaoArte size={36} /> }, { n: 3, r: "Finalizar", i: <IconConfirmado size={26} /> }].map((e) => (
             <li key={e.n} className={e.n <= passo ? "is-on" : ""}><span aria-hidden="true">{e.i}</span><em>{e.r}</em></li>
           ))}
         </ol>
         <div className="cesta-contato">
-          <a href={`https://wa.me/${PUBLIC_UNITS[0].whatsappDigits}`} aria-label="Falar com a União Farma no WhatsApp"><IconWhats size={22} /><span>WhatsApp<strong>{PUBLIC_UNITS.find((u) => u.id === "nacoes")?.whatsapp}</strong></span></a>
+          <a href={`https://wa.me/${PUBLIC_UNITS[0].whatsappDigits}`} aria-label="Falar com a União Farma no WhatsApp"><IconWhats size={22} oficial /><span>WhatsApp<strong>{PUBLIC_UNITS.find((u) => u.id === "nacoes")?.whatsapp}</strong></span></a>
         </div>
       </div>
       <header className="fluxo-topo">

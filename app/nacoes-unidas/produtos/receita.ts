@@ -1,4 +1,7 @@
 import { marcaDoItem } from "./marca";
+import { classificarSemVenda, ehPortaria344 } from "./sem-venda";
+
+export { ehPortaria344 };
 import receitaEstatica from "./dados/receita-nacoes.json" with { type: "json" };
 import { normalizarBusca } from "./busca";
 
@@ -54,6 +57,12 @@ export type ItemRestrito = {
   esgotado?: boolean;
   aviso: string;
   controlado: boolean;
+  /** Lista da Portaria 344/98 (A1 a A3, B1, B2, C1 a C5): sem preço e sem cesta no site. */
+  portaria344: boolean;
+  /** Antimicrobiano (receita retida, RDC 20/2011), também sem preço e sem cesta. */
+  antimicrobiano: boolean;
+  /** Portaria 344 ou antimicrobiano: sem preço, cesta nem pedido no site. */
+  semVenda: boolean;
   /** Campos pré-calculados nos dados gerados (nome de exibição e endereço). */
   nomeExibicao?: string;
   slug?: string;
@@ -91,11 +100,13 @@ function paraRestrito(base: BaseJson & { retencao?: boolean; lista?: string }, t
   if (controlado || base.retencao === true || tarja === "preta" || tarja === "vermelha-retencao") retencao = true;
   else if (tarja === "vermelha") retencao = false;
   else retencao = null;
+  const { portaria344, antimicrobiano, semVenda } = classificarSemVenda({ controlado, lista: base.lista, nome: base.nome, retencao });
   const aviso = tipo === "consulte" ? AVISO_CONSULTE : controlado ? AVISO_CONTROLADO : retencao === true ? AVISO_RETENCAO : AVISO_RECEITA;
   return {
     nome: base.nome,
     lab,
-    preco: typeof base.preco === "number" && base.preco > 0 ? base.preco : null,
+    // Controle especial (Portaria 344/98) e antimicrobianos não têm preço no site (ver sem-venda.ts). Fica só a informação.
+    preco: !semVenda && typeof base.preco === "number" && base.preco > 0 ? base.preco : null,
     tipo,
     ativo: base.ativo ? base.ativo.trim() || null : null,
     rms: base.rms ?? null,
@@ -105,6 +116,9 @@ function paraRestrito(base: BaseJson & { retencao?: boolean; lista?: string }, t
     apresentacao,
     aviso,
     controlado,
+    portaria344,
+    antimicrobiano,
+    semVenda,
   };
 }
 

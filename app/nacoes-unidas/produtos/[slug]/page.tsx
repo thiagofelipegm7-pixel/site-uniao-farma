@@ -52,12 +52,18 @@ export default async function ProdutoNacoesPage({ params }: Props) {
     item = catalogo.itens.find((i) => slugify(i.nome) === normal || slugify(nomeDeExibicao(i.nome)) === normal) ?? null;
   }
   // Também busca em restritos (receita/controlados) para abrir página do produto.
+  let controlado = false; // sem preço, cesta nem pedido no site (controle especial ou antimicrobiano)
+  let controleEspecial = false;
   if (!item) {
     const restritos = carregarRestritos();
     const todos = [...restritos.receita, ...restritos.controlados, ...restritos.consulte];
     const normal = slugify(slug);
     const achado = todos.find((i) => slugify(i.nome) === normal || slugify(i.nomeExibicao || i.nome) === normal || (i.slug && slugify(i.slug) === normal));
-    if (achado) item = { nome: achado.nome, lab: achado.lab, categoria: "Medicamentos", preco: achado.preco ?? 0, isMIP: false };
+    if (achado) {
+      item = { nome: achado.nome, lab: achado.lab, categoria: "Medicamentos", preco: achado.preco ?? 0, isMIP: false };
+      controlado = achado.semVenda;
+      controleEspecial = achado.portaria344;
+    }
   }
   if (!item) notFound();
 
@@ -121,7 +127,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
               </p>
               <ProdutoAcoes slug={slugItem} titulo={nomeExibido} />
             </div>
-            <p className="pdp-vendido">Vendido e entregue por <strong>União Farma</strong></p>
+            {controlado ? null : <p className="pdp-vendido">Vendido e entregue por <strong>União Farma</strong></p>}
             {textos.descricao ? (
               <p className="pdp-resumo" data-descricao-origem={descricaoIA?.origem}>
                 {textos.descricao}
@@ -135,16 +141,23 @@ export default async function ProdutoNacoesPage({ params }: Props) {
           </article>
 
           <aside className="pdp-compra" aria-label="Comprar">
-            <p className="produto-preco"><Preco precoFmt={formatBRL(item.preco)} variante="grande" /></p>
+            {controlado ? (
+              <>
+                <p className="produto-preco"><Preco precoFmt={null} vazio="Consulte o farmacêutico" variante="grande" /></p>
+                <p className="produto-nota" role="note">{controleEspecial ? "Medicamento controlado (Portaria SVS/MS 344/98): não é vendido pelo site e não tem preço aqui. A venda é só na loja, com a Notificação de Receita, e a farmácia retém a receita." : "Medicamento de venda sob prescrição com retenção da receita, como os antimicrobianos: não é vendido pelo site e não tem preço aqui. A venda é só na loja, com a receita, e a farmácia retém a via."}</p>
+              </>
+            ) : (
+              <p className="produto-preco"><Preco precoFmt={formatBRL(item.preco)} variante="grande" /></p>
+            )}
             {item.esgotado ? <p className="produto-esgotado" role="status">Indisponível no momento. Fale com a loja pelo WhatsApp para saber quando chega.</p> : null}
-            <p className="produto-nota">{NOTA_PRECO}</p>
-            {item.esgotado ? null : <ProdutoBarra unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} max={item.restam} slug={slugify(item.nome)} />}
+            {controlado ? null : <p className="produto-nota">{NOTA_PRECO}</p>}
+            {item.esgotado || controlado ? null : <ProdutoBarra unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} max={item.restam} slug={slugify(item.nome)} />}
             {/* No lugar do cálculo de frete por CEP da Drogasil: como a União entrega e recebe, sem inventar prazo nem taxa. */}
-            <ul className="pdp-receber" aria-label="Como receber">
+            {controlado ? null : <ul className="pdp-receber" aria-label="Como receber">
               <li><strong>Retire na loja</strong><span>Nações Unidas, em Sabará</span></li>
               <li><strong>Entrega no bairro</strong><span><a href="/entrega-de-medicamentos-em-sabara">Veja como funciona</a></span></li>
               <li><strong>Pagamento</strong><span>Na retirada ou na entrega</span></li>
-            </ul>
+            </ul>}
           </aside>
         </div>
 

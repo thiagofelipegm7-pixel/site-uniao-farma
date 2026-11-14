@@ -10,6 +10,9 @@ test("cabeçalho do desktop: busca larga e botão de WhatsApp da loja no lugar d
   assert.match(tsx, /buildWhatsAppUrl\(nacoes, "Oi, União Farma Nações Unidas! Quero fazer um pedido\."/);
   assert.match(tsx, /data-track-event="whatsapp_click"[\s\S]*data-track-source="cabecalho"/);
   assert.match(tsx, /aria-label="Pedir pelo WhatsApp da loja Nações Unidas"/);
+  // Logo oficial do WhatsApp (verde #25D366), não o ícone genérico de balão.
+  assert.match(tsx, /<LogoWhatsApp size=\{24\} \/>/);
+  assert.match(await ler("app/LogoWhatsApp.tsx"), /"#25D366"/);
   assert.doesNotMatch(tsx + css, /shop-vazio/, "os dois espaços vazios do desktop saíram");
   assert.match(css, /grid-template-areas: "marca busca whats acoes"/);
   assert.match(css, /grid-template-columns: auto minmax\(0, 1fr\) auto auto;/);

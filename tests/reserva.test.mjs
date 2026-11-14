@@ -443,9 +443,9 @@ test("passos da reserva: cesta e caminhão 3D, linha atrás do círculo sólido"
   assert.match(icons, /export function IconCestaArte/);
   assert.match(icons, /export function IconCaminhaoArte/);
   assert.match(icons, /\/icons\/cesta\.png/);
-  assert.match(icons, /\/icons\/entrega\.png/);
+  assert.match(icons, /\/icons\/caminhao\.png/);
   assert.match(fluxo, /IconCestaArte size=\{28\}/);
-  assert.match(fluxo, /IconCaminhaoArte size=\{28\}/);
+  assert.match(fluxo, /IconCaminhaoArte size=\{36\}/);
   assert.doesNotMatch(fluxo, /<IconCesta /);
   assert.doesNotMatch(fluxo, /<IconCaminhao /);
   assert.match(css, /\.cesta-passos li \{[^}]*isolation:\s*isolate/s);
@@ -453,12 +453,12 @@ test("passos da reserva: cesta e caminhão 3D, linha atrás do círculo sólido"
   assert.match(css, /\.cesta-passos li span \{[^}]*z-index:\s*1/s);
   assert.match(css, /\.cesta-passos li span \{[^}]*background:\s*#ffffff/s);
   assert.match(css, /\.cesta-passos li\.is-on span \{[^}]*background:\s*var\(--uf-action-ink\)/s);
-  const [cesta, entrega] = await Promise.all([
+  const [cesta, caminhao] = await Promise.all([
     readFile(new URL("../public/icons/cesta.png", import.meta.url)),
-    readFile(new URL("../public/icons/entrega.png", import.meta.url)),
+    readFile(new URL("../public/icons/caminhao.png", import.meta.url)),
   ]);
   assert.ok(cesta.length > 1000);
-  assert.ok(entrega.length > 1000);
+  assert.ok(caminhao.length > 1000);
   assert.equal(cesta.subarray(0, 8).toString("binary"), "\x89PNG\r\n\x1a\n");
-  assert.equal(entrega.subarray(0, 8).toString("binary"), "\x89PNG\r\n\x1a\n");
+  assert.equal(caminhao.subarray(0, 8).toString("binary"), "\x89PNG\r\n\x1a\n");
 });
