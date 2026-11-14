@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { candidatosValidos, consultaValida, limparRespostaIA, type RespostaBuscaIA } from "../../busca-ia-nucleo";
+import { sintomaConhecido } from "./sintomas-otc";
 import { analisarConsulta, candidatosParaIA, contarCasos, criarVocabulario, interpretarCorrecaoIA, termosIAUteis } from "./busca-tolerante";
 
 /** Espera máxima pela IA. Passou disso, a busca segue como está (sem erro na tela). */
@@ -17,7 +18,7 @@ export type BuscaTolerante =
   /** Palavra parecida que pode ser outro produto: só pergunta "Você quis dizer…?", sem mostrar resultados. */
   | { tipo: "sugestao"; sugestao: string; procurando: false }
   /** Pedido de remédio para um problema de saúde: o site não indica produto, quem orienta é o farmacêutico. */
-  | { tipo: "sintoma"; procurando: false };
+  | { tipo: "sintoma"; procurando: false; /** Sintoma conhecido: medicamentos SEM receita que a loja tem para ele (lista fixa), com aviso de bula na tela. */ rotulo?: string; consultas?: string[]; comReceita?: boolean };
 
 type Entrada = {
   /** Texto de busca (sem acento, minúsculas) de cada produto. Null enquanto o catálogo ainda não carregou por inteiro. */
@@ -132,6 +133,10 @@ export function useBuscaTolerante({ textos, consulta, totalExato, usarIA = true 
   // Correção da IA: só vale se trocar palavra parecida, mantiver o resto da busca e achar produto; troca duvidosa vira pergunta.
   const interpretada = useMemo(() => (!intencao && vocab && local && respostaIA && !respostaIA.sintoma ? interpretarCorrecaoIA(vocab, local, respostaIA.termos) : null), [intencao, vocab, local, respostaIA]);
 
+  // Sintoma que a loja conhece (lista fixa de medicamentos sem receita): mostra esses produtos com aviso de bula, sem esperar a IA.
+  const conhecido = local ? sintomaConhecido(texto) : null;
+  const termosSintoma = conhecido && vocab ? conhecido.termos.filter((t) => contarCasos(vocab, t) > 0) : [];
+  if (conhecido && termosSintoma.length > 0) return { tipo: "sintoma", procurando: false, rotulo: conhecido.rotulo, consultas: termosSintoma, comReceita: conhecido.comReceita === true };
   if (sintomaLocal || respostaIA?.sintoma) return { tipo: "sintoma", procurando: false };
   if (corrigidaLocal) return { tipo: "corrigida", rotulo: corrigidaLocal, consultas: [corrigidaLocal], procurando: false };
   if (sugestaoLocal) return { tipo: "sugestao", sugestao: sugestaoLocal, procurando: false };

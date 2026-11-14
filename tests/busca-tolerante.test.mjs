@@ -124,24 +124,46 @@ test("nome parecido com OUTRO produto não é trocado sozinho: o site pergunta",
   }
 });
 
-test("IA: 'pílula do dia seguinte' nunca vira 'pilha'; troca duvidosa vira pergunta e erro claro corrige", async () => {
-  const { analisarConsulta, interpretarCorrecaoIA, pareceSintoma } = await tolerante();
+test("IA: 'pílula do dia seguinte' acha o produto (levonorgestrel) em vez de virar 'pilha'; troca duvidosa vira pergunta", async () => {
+  const { analisarConsulta, interpretarCorrecaoIA, pareceSintoma, contarCasos } = await tolerante();
   const vocab = await vocabulario(true);
-  // Pedido sensível: orienta falar com o farmacêutico, sem aproximar por palavra parecida.
-  for (const t of ["pilula do dia seguinte", "pílula do dia seguinte", "postinor", "cytotec"]) assert.ok(pareceSintoma(t), t);
-  assert.equal(pareceSintoma("pilha duracell"), false);
-  // Mesmo que a IA proponha "pilha", a busca com as outras palavras não acharia nada: descarta.
+  // Pílula não é mais pedido de orientação: a busca mostra o que existe.
+  for (const t of ["pilula do dia seguinte", "pílula", "postinor"]) assert.equal(pareceSintoma(t), false, t);
   const a = analisarConsulta(vocab, "pilula do dia seguinte");
-  assert.equal(interpretarCorrecaoIA(vocab, a, ["pilha"]), null);
+  assert.equal(a.corrigida, null, "sem troca automática por palavra parecida");
+  // Mesmo que a IA proponha "pilha", a busca com as outras palavras não acharia nada: descarta.
+  assert.equal(interpretarCorrecaoIA(vocab, { tokens: ["pilula", "dia", "seguinte"], desconhecidas: ["pilula", "seguinte"] }, ["pilha"]), null);
   // Palavra solta duvidosa vira pergunta, não troca automática.
-  const b = analisarConsulta(vocab, "pilula");
-  const r = interpretarCorrecaoIA(vocab, b, ["pilha"]);
+  const r = interpretarCorrecaoIA(vocab, analisarConsulta(vocab, "pilula"), ["pilha"]);
   assert.ok(r === null || r.tipo === "sugestao", JSON.stringify(r));
   // Termo da IA que não se parece com nada digitado é invenção: ignorado.
   assert.equal(interpretarCorrecaoIA(vocab, analisarConsulta(vocab, "xyzqwk"), ["shampoo"]), null);
-  // Erro de digitação claro com outra palavra junto mantém a outra palavra.
-  const c = analisarConsulta(vocab, "shampoo dovi");
-  const rc = interpretarCorrecaoIA(vocab, { tokens: ["shampoo", "dovee"], desconhecidas: ["dovee"] }, ["dove"]);
-  assert.ok(rc === null || rc.consulta?.startsWith("shampoo dove") || rc.sugestao?.startsWith("shampoo dove"), JSON.stringify(rc));
-  assert.ok(c);
+});
+
+test("pílula do dia seguinte abre os produtos de contracepção de emergência da loja", async () => {
+  const S = await import("../app/nacoes-unidas/produtos/sintomas-otc.ts");
+  const { contarCasos } = await tolerante();
+  const vocab = await vocabulario(true);
+  const s = S.sintomaConhecido("pílula do dia seguinte");
+  assert.equal(s.comReceita, true);
+  assert.ok(s.termos.filter((t) => contarCasos(vocab, t) > 0).length >= 2);
+  assert.equal(S.sintomaConhecido("pilula").rotulo, "pílula");
+  assert.equal(S.sintomaConhecido("anticoncepcional").rotulo, "pílula");
+  assert.equal(S.sintomaConhecido("pilula do dia seguinte").rotulo, "pílula do dia seguinte");
+});
+
+test("sintoma conhecido abre medicamentos sem receita da lista fixa que a loja tem", async () => {
+  const S = await import("../app/nacoes-unidas/produtos/sintomas-otc.ts");
+  const { contarCasos } = await tolerante();
+  const vocab = await vocabulario(false); // só o catálogo público, sem receita
+  const casos = { "dor de cabeça": "dor de cabeça", "estou com febre": "febre", "dor de garganta": "dor de garganta", "gases": "gases", "colica": "cólica" };
+  for (const [digitado, rotulo] of Object.entries(casos)) {
+    const s = S.sintomaConhecido(digitado);
+    assert.equal(s?.rotulo, rotulo, digitado);
+    assert.ok(s.termos.some((t) => contarCasos(vocab, t) > 0), `${digitado}: nenhum produto sem receita`);
+  }
+  assert.equal(S.sintomaConhecido("shampoo"), null);
+  // Nenhum termo da lista é antimicrobiano nem controlado.
+  const proibidos = /amoxicilina|azitromicina|cefalexina|ciprofloxacino|clonazepam|alprazolam|rivotril|ritalina|tramadol|codeina/;
+  for (const x of S.SINTOMAS_OTC.filter((y) => !y.comReceita)) for (const t of x.termos) assert.ok(!proibidos.test(t), t);
 });
