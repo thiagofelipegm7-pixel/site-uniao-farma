@@ -96,3 +96,7 @@
 /* A lista fica em coluna mesmo dentro da barra da loja (shop.css põe "ul" em linha com .shop-submenu ul). */
 .dm-slot .dm-links { display: block; gap: 0; margin: 0; padding: 4px 10px 10px; }
 .dm-slot .dm-links a { font-size: 17px; font-weight: 600; }
+
+/* No desktop, a barra da home fica dentro do cabeçalho fixo, que corta o conteúdo (overflow: hidden) na altura da barra.
+   Com o painel aberto, a barra deixa o painel aparecer por baixo. O recolhimento ao rolar continua (max-height e opacity do shop.css). */
+.cab-fixo .shop-submenu:has(.dm-slot--barra) { overflow: visible; }
