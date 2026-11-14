@@ -43,6 +43,17 @@ function textoDeBusca(value) {
     .trim();
 }
 
+/**
+ * Texto de busca de um produto: primeiro o que é dele (nome, marca, princípio ativo...), depois as palavras de busca do painel.
+ * `proprio` diz quantos caracteres do começo são do próprio produto: a leitura de receita casa só com essa parte
+ * (palavra gerada por IA não pode fazer um remédio aparecer no lugar de outro).
+ */
+function buscaComPalavras(base, palavras) {
+  const proprio = textoDeBusca(base);
+  const extra = textoDeBusca(palavras);
+  return extra ? { busca: `${proprio} ${extra}`, proprio: proprio.length } : { busca: proprio };
+}
+
 function slugify(value) {
   return normalizarBusca(value).replace(/\s+/g, "-");
 }
@@ -204,7 +215,9 @@ function paraRestrito(base, tipo) {
     antimicrobiano,
     semVenda,
     generico: base.generico === true,
-    busca: textoDeBusca(`${base.nome} ${lab} ${base.ativo ?? ""} ${palavrasDe(base.nome)}`),
+    ...buscaComPalavras(`${base.nome} ${lab} ${base.ativo ?? ""}`, palavrasDe(base.nome)),
+    // Também nas fatias: se o índice da busca não carregar, a lista cai nelas e precisa achar os mesmos produtos (tests/busca-index.test.mjs).
+    ...(palavrasDe(base.nome) ? { palavras: palavrasDe(base.nome) } : {}),
     nomeExibicao: nomeDeExibicao(base.nome),
     slug: slugify(base.nome),
     ...(typeof base.restam === "number" ? { restam: base.restam } : {}),
@@ -333,7 +346,7 @@ for (const g of grupos) {
     const nomeEx = nomeDeExibicao(item.nome);
     const slug = slugify(item.nome);
     const foto = fotoDoProduto(item.nome) ?? (item.categoria === "Medicamentos" ? ilustracaoSemReceita(item.nome) : null);
-    const busca = textoDeBusca(`${nomeEx} ${item.nome} ${item.lab} ${item.categoria} ${sinonimosDe(item.nome)} ${palavrasDe(item.nome)}`);
+    const { busca, proprio } = buscaComPalavras(`${nomeEx} ${item.nome} ${item.lab} ${item.categoria} ${sinonimosDe(item.nome)}`, palavrasDe(item.nome));
     const fmt = {
       nome: item.nome,
       nomeExibicao: nomeEx,
@@ -348,6 +361,8 @@ for (const g of grupos) {
       slug,
       foto,
       busca,
+      // Também nas fatias: se o índice da busca não carregar, a lista cai nelas e precisa achar os mesmos produtos.
+      ...(palavrasDe(item.nome) ? { palavras: palavrasDe(item.nome) } : {}),
     };
     if (item.esgotado === true) {
       // Só o painel de busca do cabeçalho lê esta lista (mostra "Esgotado"); a cesta e a leitura de receita continuam sem esgotados.
@@ -360,6 +375,7 @@ for (const g of grupos) {
         precoCentavos: Math.round(item.preco * 100),
         foto,
         busca,
+        ...(proprio === undefined ? {} : { proprio }),
       });
     }
     return fmt;
@@ -426,6 +442,7 @@ writeJson(
     tipo: i.tipo,
     precoCentavos: i.preco === null ? null : Math.round(i.preco * 100),
     busca: i.busca,
+    ...(i.proprio === undefined ? {} : { proprio: i.proprio }),
     // Palavras iniciais do nome original: levam à lista já filtrada neste medicamento.
     q: normalizarBusca(i.nome).split(" ").slice(0, 6).join(" "),
     // Dados da ilustração da caixa (ver imagemIlustrativa em receita.ts).

@@ -97,7 +97,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
       }
       try {
         const idx = await fetch("/dados/nacoes/catalogo-index.json").then(r => r.json());
-        type ItemPagina = { slug?: string; nomeExibicao?: string; nome: string; lab: string; isMIP: boolean; restam?: number; esgotado?: boolean; precoFmt: string; preco: number; foto: string | null; tipo?: string };
+        type ItemPagina = { slug?: string; nomeExibicao?: string; nome: string; lab: string; isMIP: boolean; restam?: number; esgotado?: boolean; precoFmt: string; preco: number; foto: string | null; tipo?: string; palavras?: string };
         const paraItem = (item: ItemPagina) => ({
           nome: item.nomeExibicao || item.nome,
           lab: item.lab,
@@ -109,6 +109,8 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
           foto: item.foto,
           slug: item.slug,
           tipo: item.tipo,
+          // Palavras de busca do painel: valem também quando a lista cai nas fatias (igual ao índice).
+          ...(item.palavras ? { palavras: item.palavras } : {}),
         });
         const lerPagina = (slug: string, n: number): Promise<ItemPagina[]> => fetch(`/dados/nacoes/catalogo/${slug}/p${n}.json`).then((r) => r.json());
         const lista: { slug: string; categoria: string; paginas?: number }[] = (idx.grupos || []).filter((g: { slug: string }) => !departamento || g.slug === departamento);
