@@ -127,3 +127,19 @@ test("workflow catalogo-sync: poda textos/pares de IA antes dos testes e version
   assert.match(y, /git add [^\n]*descricoes-ia\.json [^\n]*relacionados-ia\.json/);
   assert.match(y, /if: failure\(\)/);
 });
+
+test("workflow catalogo-sync: todo arquivo de dados que o sincronizar.py grava é versionado e já existe no repositório", () => {
+  // Cada execução começa de um checkout limpo. Um arquivo gravado e não versionado some: se o painel não responder na vez
+  // seguinte (a sincronização então "mantém o arquivo como está"), não há arquivo para manter. Foi o caso do
+  // produtos-removidos.json: os produtos excluídos pela equipe voltariam ao site.
+  const py = readFileSync("ops/catalogo-nacoes/sincronizar.py", "utf8");
+  const gravados = [...py.matchAll(/open\(os\.path\.join\(DADOS, "([\w-]+\.json)"\), "w"/g)].map((m) => m[1]);
+  assert.ok(gravados.includes("produtos-removidos.json") && gravados.length >= 7, `arquivos gravados: ${gravados.join(", ")}`);
+  const y = readFileSync(".github/workflows/catalogo-sync.yml", "utf8");
+  const adicionados = y.match(/git add ([^\n]+)/)?.[1] ?? "";
+  for (const nome of gravados) {
+    assert.ok(adicionados.includes(`app/nacoes-unidas/produtos/dados/${nome}`), `${nome} é gravado pela sincronização mas não entra no git add`);
+    // "git add" de um caminho que não existe falha e derruba a publicação: o arquivo precisa existir desde já.
+    assert.doesNotThrow(() => readFileSync(`app/nacoes-unidas/produtos/dados/${nome}`), `${nome} não existe no repositório`);
+  }
+});
