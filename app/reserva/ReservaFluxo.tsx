@@ -12,7 +12,7 @@ import { buildWhatsAppUrl, PUBLIC_UNITS, type Unit } from "../site-config";
 import UnitStatusBadge, { getUnitOpenStatus } from "../UnitStatusBadge";
 import { carregarDadosCliente, esquecerDadosCliente, guardarDadosCliente } from "./dados-cliente";
 import { carregarUltimoPedido, guardarUltimoPedido, repetirPedido, type ItemCatalogo, type ItemUltimoPedido } from "./ultimo-pedido";
-import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats, IconCesta, IconCaminhaoArte, IconConfirmado } from "./ReservaIcons";
+import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats, IconCestaArte, IconCaminhaoArte, IconFinalizarArte } from "./ReservaIcons";
 import CestaSugestoes from "./CestaSugestoes";
 import DestaquesSemana from "../shop/DestaquesSemana";
 import { gerarCodigoPedido, trocoValido, ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
@@ -259,7 +259,7 @@ export default function ReservaFluxo() {
       <div className="cesta-faixa">
         <a className="cesta-logo" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial"><MarcaUniao /></a>
         <ol className="cesta-passos" role="img" aria-label={`Passo ${passo} de 3`}>
-          {[{ n: 1, r: "Cesta", i: <IconCesta size={26} /> }, { n: 2, r: "Entrega", i: <IconCaminhaoArte size={36} /> }, { n: 3, r: "Finalizar", i: <IconConfirmado size={26} /> }].map((e) => (
+          {[{ n: 1, r: "Cesta", i: <IconCestaArte size={28} /> }, { n: 2, r: "Entrega", i: <IconCaminhaoArte size={36} /> }, { n: 3, r: "Finalizar", i: <IconFinalizarArte size={40} className="cesta-passo-selo" /> }].map((e) => (
             <li key={e.n} className={e.n <= passo ? "is-on" : ""}><span aria-hidden="true">{e.i}</span><em>{e.r}</em></li>
           ))}
         </ol>
