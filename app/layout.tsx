@@ -25,7 +25,7 @@ import { INSTAGRAM_URL, PAYMENT_ACCEPTED, SITE_URL, PUBLIC_UNITS } from "./site-
 import { COMPANY } from "./company";
 import { getPostalAddress } from "./structured-data";
 
-import { GA_MEASUREMENT_ID, getGtagBootstrapScript } from "./ga-bootstrap";
+import { getGtagBootstrapScript } from "./ga-bootstrap";
 // Importado direto (componente "use client"): com dynamic({ssr:false}) o vinext não montava o banner,
 // ninguém conseguia aceitar os cookies e o GA4 só recebia pings sem consentimento.
 import AnalyticsConsent from "./AnalyticsConsent";
@@ -178,13 +178,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           fetchPriority="high"
         />
         <script dangerouslySetInnerHTML={{ __html: getGtagBootstrapScript() }} />
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
-        <link rel="preconnect" href="https://www.googletagmanager.com" />
-        <link rel="preconnect" href="https://www.google-analytics.com" />
-        <link rel="preconnect" href="https://connect.facebook.net" />
-        <link rel="dns-prefetch" href="//www.googletagmanager.com" />
-        <link rel="dns-prefetch" href="//www.google-analytics.com" />
-        <link rel="dns-prefetch" href="//connect.facebook.net" />
+        {/* Sem <script src> nem preconnect para Google/Meta aqui: nada sai para terceiros antes do aceite no banner (ver ga-bootstrap.ts). */}
       </head>
       <body>
         <SkipLink />
