@@ -68,6 +68,7 @@ export default function PainelFotos() {
   const [tipo, setTipo] = useState<FiltroFotos["tipo"]>("");
   const [pendencia, setPendencia] = useState<Pendencia>("");
   const [filtroMudanca, setFiltroMudanca] = useState("");
+  const [sugestaoIA, setSugestaoIA] = useState<{ ean: string; carregando: boolean; msg: string; categoria?: string } | null>(null);
   const [descricoesAgora, setDescricoesAgora] = useState<Record<string, { texto: string; fonte: string } | null>>({});
   const [ordem, setOrdem] = useState<Ordem>("estoque");
   const [pagina, setPagina] = useState(1);
@@ -518,6 +519,36 @@ export default function PainelFotos() {
     return salva ? { texto: salva.texto, fonte: salva.fonte ?? "", origem: "painel" } : descricaoAutomatica(l);
   }
 
+  /** Pede ao Gemini uma sugestão e preenche os campos do popup. Nada é salvo: a equipe revisa e aperta Confirmar. */
+  async function sugerirComIA(l: LinhaFoto, popup: Element | null) {
+    setSugestaoIA({ ean: l.ean, carregando: true, msg: "" });
+    try {
+      const r = await fetch("/api/interno/ia/sugerir", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ original: l.nome, marca: marcaAtual(l).texto, categoria: categoriaEfetiva(l) }),
+      });
+      const corpo = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string; sugestao?: { nome?: string; marca?: string; categoria?: string; descricao?: string } } | null;
+      if (!r.ok || !corpo?.ok || !corpo.sugestao) {
+        setSugestaoIA({ ean: l.ean, carregando: false, msg: corpo?.erro === "sem_ia" ? "A IA ainda não está ligada (falta a chave do Gemini)." : corpo?.erro === "limite" ? "Muitos pedidos seguidos. Espere um minuto." : "A IA não tem sugestão segura para este produto." });
+        return;
+      }
+      const sg = corpo.sugestao;
+      const pr = (campo: string) => popup?.querySelector<HTMLInputElement | HTMLTextAreaElement>(`[name="${campo}"]`) ?? null;
+      const partes: string[] = [];
+      const nomeEl = pr("pf-nome");
+      if (sg.nome && nomeEl) { nomeEl.value = sg.nome; partes.push("nome"); }
+      const marcaEl = pr("pf-marca");
+      if (sg.marca && marcaEl && !marcaEl.value.trim()) { marcaEl.value = sg.marca; partes.push("marca"); }
+      const descEl = pr("pf-descricao");
+      if (sg.descricao && descEl) { descEl.value = sg.descricao; partes.push("descrição"); }
+      const categoriaDiferente = sg.categoria && sg.categoria !== categoriaEfetiva(l) ? sg.categoria : undefined;
+      setSugestaoIA({ ean: l.ean, carregando: false, msg: partes.length || categoriaDiferente ? `Sugestão da IA${partes.length ? ` preencheu: ${partes.join(", ")}` : ""}. Revise e aperte Confirmar para salvar.` : "A IA não achou o que mudar neste produto.", categoria: categoriaDiferente });
+    } catch {
+      setSugestaoIA({ ean: l.ean, carregando: false, msg: "Não consegui falar com a IA agora." });
+    }
+  }
+
   function descricaoAutomatica(l: LinhaFoto): { texto: string; fonte: string; origem: string } {
     const d = dados?.descricoes?.[l.ean];
     return d ? { texto: d.t, fonte: d.f ?? "", origem: d.o } : { texto: "", fonte: "", origem: "" };
@@ -844,6 +875,18 @@ export default function PainelFotos() {
                     </label>
                   </div>
                 </section>
+                <div className="pf-campo">
+                  <button type="button" className="pf-botao" disabled={sugestaoIA?.carregando === true} onClick={(e) => void sugerirComIA(l, e.currentTarget.closest('[role="dialog"]'))}>
+                    {sugestaoIA?.ean === l.ean && sugestaoIA.carregando ? "Pensando…" : "Sugerir com IA"}
+                  </button>
+                  {sugestaoIA?.ean === l.ean && sugestaoIA.msg ? <small className="pf-dica" role="status">{sugestaoIA.msg}</small> : null}
+                  {sugestaoIA?.ean === l.ean && sugestaoIA.categoria ? (
+                    <small className="pf-dica">
+                      A IA sugere a categoria <b>{sugestaoIA.categoria}</b>.{" "}
+                      <button type="button" className="pf-botao" onClick={() => { void salvarCategoria(l, sugestaoIA.categoria as string); setSugestaoIA({ ...sugestaoIA, categoria: undefined }); }}>Aplicar</button>
+                    </small>
+                  ) : null}
+                </div>
                 <label className="pf-campo">
                   <span className="pf-campo-rotulo">Nome</span>
                   <input className="pf-entrada" name="pf-nome" type="text" defaultValue={nomeAtual(l).texto} onBlur={(e) => void salvarNome(l, false, e.target.value)} />

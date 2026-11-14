@@ -5,10 +5,10 @@ import { candidatosValidos, consultaValida, limparRespostaIA, type RespostaBusca
 import { analisarConsulta, candidatosParaIA, contarCasos, criarVocabulario, termosIAUteis } from "./busca-tolerante";
 
 /** Espera máxima pela IA. Passou disso, a busca segue como está (sem erro na tela). */
-const ESPERA_IA_MS = 2500;
+const ESPERA_IA_MS = 3200;
 /** Pausa depois da última tecla antes de chamar a IA. */
 const PAUSA_DIGITACAO_MS = 600;
-const PREFIXO_CACHE = "buscaIA:v2:";
+const PREFIXO_CACHE = "buscaIA:v3:";
 
 export type BuscaTolerante =
   | { tipo: "nenhum"; procurando: boolean }
@@ -77,7 +77,9 @@ export function useBuscaTolerante({ textos, consulta, totalExato, usarIA = true 
   }, [vocab, local, corrigidaLocal, sugestaoLocal]);
 
   const textoIA = consultaValida(texto);
-  const chaveIA = usarIA && textoIA && candidatos.length > 0 ? `${textoIA}|${candidatos.join(",")}` : "";
+  // Sem nenhuma palavra parecida no catálogo, o pedido pode ser por TIPO de produto ("shampoo pra caspa"): o servidor traduz com o Gemini.
+  const intencao = usarIA && !!vocab && !!local && !local.sintoma && !corrigidaLocal && !sugestaoLocal && candidatos.length === 0 && textoIA.length >= 5;
+  const chaveIA = usarIA && textoIA && candidatos.length > 0 ? `${textoIA}|${candidatos.join(",")}` : intencao ? `i|${textoIA}` : "";
   const [ia, setIa] = useState<{ chave: string; resposta: RespostaBuscaIA } | null>(null);
 
   useEffect(() => {
@@ -96,10 +98,12 @@ export function useBuscaTolerante({ textos, consulta, totalExato, usarIA = true 
           controle.abort();
         }, ESPERA_IA_MS);
         try {
-          const resposta = await fetch(`/api/busca-ia?q=${encodeURIComponent(textoIA)}&c=${encodeURIComponent(candidatos.join(","))}`, { signal: controle.signal, headers: { accept: "application/json" } });
+          const resposta = await fetch(intencao ? `/api/busca-ia?q=${encodeURIComponent(textoIA)}&modo=intencao` : `/api/busca-ia?q=${encodeURIComponent(textoIA)}&c=${encodeURIComponent(candidatos.join(","))}`, { signal: controle.signal, headers: { accept: "application/json" } });
           const corpo: unknown = resposta.ok ? await resposta.json() : null;
           // Confere de novo no navegador: só vale palavra que estava na lista de candidatos.
-          const limpa = corpo ? limparRespostaIA(corpo, candidatos) : null;
+          // Na busca por intenção o servidor já conferiu a lista; aqui o catálogo confere de novo em termosIAUteis.
+          const termosIntencao = corpo && Array.isArray((corpo as { termos?: unknown }).termos) ? ((corpo as { termos: unknown[] }).termos.filter((t) => typeof t === "string") as string[]) : [];
+          const limpa = corpo ? limparRespostaIA(corpo, intencao ? termosIntencao : candidatos) : null;
           if (limpa) {
             // Só guarda no navegador o que a IA (ou o cache dela) de fato respondeu; vazio por limite ou tempo não vale guardar.
             if (["ia", "cache"].includes(resposta.headers.get("x-busca-ia") ?? "")) guardarCache(chaveIA, limpa);
