@@ -386,7 +386,7 @@ export default function LerReceita() {
           ) : null}
 
           <p className="receita-aviso receita-aviso-forte">O farmacêutico confere a receita antes da venda. A leitura é automática e pode errar: confira nomes e doses.</p>
-          <p className="receita-privacidade">A foto é lida na hora por inteligência artificial e não é guardada: não fica salva no site nem no servidor, e some quando você fecha esta janela.</p>
+          <p className="receita-privacidade">A foto é lida na hora por um serviço de inteligência artificial (Google Gemini ou Cloudflare) e não é guardada por nós: não fica salva no site nem no servidor, e some quando você fecha esta janela. <a href="/privacidade">Saiba mais</a>.</p>
         </div>
         {resultados ? (
           <div className="receita-pe">

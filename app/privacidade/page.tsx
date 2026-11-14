@@ -21,7 +21,7 @@ export default function PrivacyPage() {
 
         <p className="section-kicker">Privacidade e transparência</p>
         <h1>Política de Privacidade</h1>
-        <p className="legal-updated">Última atualização: 31 de julho de 2026.</p>
+        <p className="legal-updated">Última atualização: 14 de novembro de 2026.</p>
 
         <section>
           <h2>1. Quem é responsável pelo site</h2>
@@ -39,6 +39,22 @@ export default function PrivacyPage() {
             <li>Dados técnicos de navegação, quando você aceita cookies opcionais.</li>
             <li>Informações fornecidas voluntariamente ao iniciar uma conversa pelo WhatsApp.</li>
             <li>Dados necessários para responder consultas, pedidos e solicitações de atendimento.</li>
+            <li>
+              Dados que ficam só no seu aparelho: a cesta, a loja preferida, as buscas recentes, o
+              último pedido e, se você preencher, seu nome e endereço de entrega. Eles ficam
+              guardados no seu navegador para o próximo pedido vir preenchido e só saem dele dentro
+              da mensagem de WhatsApp que você mesmo envia. Para apagar, limpe os dados do site no
+              navegador.
+            </li>
+            <li>
+              A foto da receita, o texto de uma busca ou a sua fala, quando você usa os recursos
+              descritos no item 5.
+            </li>
+            <li>
+              Registros técnicos sem identificação: se o site der erro no seu aparelho, guardamos a
+              mensagem do erro, a página e o tipo de navegador; e contamos, por dia, quantas vezes
+              cada etapa da cesta foi usada. Sem cookie, sem IP e sem dado pessoal.
+            </li>
           </ul>
           <p>
             O conteúdo das mensagens enviadas pelo WhatsApp não é armazenado diretamente por este
@@ -70,16 +86,51 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2>5. Compartilhamento</h2>
+          <h2>5. Leitura de receita, busca e voz</h2>
           <p>
-            Os dados podem ser tratados por fornecedores necessários ao funcionamento do site e do
-            atendimento, como hospedagem, Google, Meta e WhatsApp, respeitando as finalidades
-            informadas e as configurações escolhidas pelo usuário.
+            Alguns recursos do site usam serviços de inteligência artificial de terceiros. Eles só
+            funcionam quando você decide usá-los:
+          </p>
+          <ul>
+            <li>
+              <strong>Leitura de receita por foto.</strong> A foto que você envia passa pelo nosso
+              servidor e é repassada a um serviço de inteligência artificial (Google Gemini ou, como
+              reserva, Cloudflare Workers AI) apenas para ler os nomes e as doses dos medicamentos.
+              Nós não gravamos a foto. A receita traz dados de saúde e pode trazer o seu nome e o do
+              médico: use este recurso só se concordar com esse envio. Você sempre pode mostrar a
+              receita diretamente ao farmacêutico, na loja ou pelo WhatsApp. Para evitar abuso,
+              guardamos por alguns minutos um contador ligado a um código derivado do seu endereço
+              de internet (IP), sem a foto.
+            </li>
+            <li>
+              <strong>Busca de produtos.</strong> Quando a busca não encontra o que foi digitado, o
+              texto pode ser enviado a esses mesmos serviços para corrigir a digitação. Vai só o
+              texto, sem identificar quem buscou.
+            </li>
+            <li>
+              <strong>Busca por voz.</strong> A fala é transformada em texto pelo reconhecimento de
+              voz do seu próprio navegador (por exemplo, do Google no Chrome ou da Apple no Safari),
+              conforme as regras desse fornecedor. O site recebe apenas o texto.
+            </li>
+          </ul>
+          <p>
+            A inteligência artificial do site não indica medicamentos. O farmacêutico confere a
+            receita e o pedido antes de qualquer venda.
           </p>
         </section>
 
         <section>
-          <h2>6. Seus direitos</h2>
+          <h2>6. Compartilhamento</h2>
+          <p>
+            Os dados podem ser tratados por fornecedores necessários ao funcionamento do site e do
+            atendimento: Cloudflare (hospedagem e banco de dados), Google (Analytics, quando
+            autorizado, e inteligência artificial), Meta (Pixel, quando autorizado) e WhatsApp,
+            respeitando as finalidades informadas e as configurações escolhidas pelo usuário.
+          </p>
+        </section>
+
+        <section>
+          <h2>7. Seus direitos</h2>
           <p>
             Você pode solicitar informações, correção, atualização, exclusão ou esclarecimentos
             sobre o tratamento de seus dados, observadas as obrigações legais aplicáveis. Entre em
@@ -88,7 +139,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2>7. Segurança e retenção</h2>
+          <h2>8. Segurança e retenção</h2>
           <p>
             São adotadas medidas razoáveis para proteger os dados e limitar o tratamento ao período
             necessário para atendimento, cumprimento de obrigações e defesa de direitos.
@@ -96,7 +147,7 @@ export default function PrivacyPage() {
         </section>
 
         <section>
-          <h2>8. Alterações nesta política</h2>
+          <h2>9. Alterações nesta política</h2>
           <p>
             Esta política pode ser atualizada para refletir mudanças no site, nos serviços ou nas
             regras aplicáveis. A data da versão mais recente será informada no início da página.
