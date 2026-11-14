@@ -1,5 +1,7 @@
 /* Dynamic Menu: pílula com duas linhas que vira painel ao abrir. Cores e fonte do projeto. */
 .dm-slot { position: relative; height: 430px; width: 100%; }
+/* na barra de acessos: só a altura da pílula; o painel aberto sobrepõe a página */
+.dm-slot--barra { height: 52px; width: 200px; flex: none; z-index: 30; }
 
 .dm-menu {
   position: absolute;

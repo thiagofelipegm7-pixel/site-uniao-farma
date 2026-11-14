@@ -37,7 +37,7 @@ const ALTURA_FECHADA = 52;
 const LARGURA_FECHADA = 200;
 const ALTURA_LINHA = 48;
 
-export default function DynamicMenu({ itens, titulo = "Departamentos" }: { itens: ItemMenu[]; titulo?: string }) {
+export default function DynamicMenu({ itens, titulo = "Departamentos", barra = false }: { itens: ItemMenu[]; titulo?: string; /** Na barra de acessos: ocupa só a altura da pílula; o painel abre por cima da página. */ barra?: boolean }) {
   const menuRef = useRef<HTMLDivElement>(null);
   const cabecaRef = useRef<HTMLButtonElement>(null);
   const linha1 = useRef<HTMLElement>(null);
@@ -66,7 +66,7 @@ export default function DynamicMenu({ itens, titulo = "Departamentos" }: { itens
     let rafId = 0;
 
     // Largura de abertura: até 320 px, cabendo no pai com 24 px de margem de cada lado.
-    const larguraAberta = () => Math.min(320, (menu.parentElement?.clientWidth ?? 320) - 48);
+    const larguraAberta = () => (barra ? 320 : Math.min(320, (menu.parentElement?.clientWidth ?? 320) - 48));
 
     const definir = (o: boolean) => {
       abertoRef.current = o;
@@ -123,10 +123,10 @@ export default function DynamicMenu({ itens, titulo = "Departamentos" }: { itens
       cancelAnimationFrame(rafId);
       timers.forEach((t) => window.clearTimeout(t));
     };
-  }, []);
+  }, [barra]);
 
   return (
-    <div className="dm-slot">
+    <div className={barra ? "dm-slot dm-slot--barra" : "dm-slot"}>
       <div className="dm-menu" ref={menuRef}>
         <button ref={cabecaRef} type="button" className="dm-cabeca" aria-expanded={aberto} aria-controls="dm-links">
           <span className="dm-titulo">{titulo}</span>
