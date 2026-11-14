@@ -72,3 +72,18 @@ test("gemini: motivo da falha aparece sem vazar a chave e modelo aposentado cai 
   assert.match(vistos[1], /gemini-flash-lite-latest/);
   assert.equal(G.modeloDeReserva("gemini-flash-latest"), null);
 });
+
+test("gemini: 400 do Google repete em versão mínima e thinkingBudget só vai a modelo 2.5", async () => {
+  const c25 = G.montarCorpoGemini({ modelo: "gemini-2.5-flash", texto: "t", maxTokens: 5, esquema: { type: "OBJECT" } });
+  assert.deepEqual(c25.generationConfig.thinkingConfig, { thinkingBudget: 0 });
+  const outro = G.montarCorpoGemini({ modelo: "gemini-3-flash", texto: "t", maxTokens: 5 });
+  assert.equal(outro.generationConfig.thinkingConfig, undefined);
+  const min = G.montarCorpoGemini({ modelo: "gemini-2.5-flash", texto: "t", maxTokens: 5, esquema: { type: "OBJECT" }, simples: true });
+  assert.equal(min.generationConfig.responseSchema, undefined);
+  assert.equal(min.safetySettings, undefined);
+  const corpos = [];
+  const f = async (_u, init) => { corpos.push(JSON.parse(init.body)); return corpos.length === 1 ? new Response(JSON.stringify({ error: { message: "Request contains an invalid argument." } }), { status: 400 }) : new Response(JSON.stringify({ candidates: [{ finishReason: "STOP", content: { parts: [{ text: "{}" }] } }] })); };
+  const r = await G.chamarGeminiComMotivo({ modelo: "gemini-2.5-flash-lite", chave: "k", texto: "t", maxTokens: 5, ms: 500, esquema: { type: "OBJECT" } }, f);
+  assert.equal(r.ok, true);
+  assert.ok(corpos[0].generationConfig.responseSchema && !corpos[1].generationConfig.responseSchema);
+});

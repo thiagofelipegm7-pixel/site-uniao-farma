@@ -25,9 +25,14 @@ export function modeloEscolhido(configurado: string | undefined, padrao: string)
   return /^gemini-[a-z0-9.\-]{2,40}$/.test(m) ? m : padrao;
 }
 
-export function montarCorpoGemini(p: Pick<PedidoGemini, "sistema" | "texto" | "imagem" | "maxTokens" | "esquema">): Record<string, unknown> {
+/**
+ * `simples` = pedido mínimo (sem esquema, sem filtros de segurança, sem controle de raciocínio): usado se o Google recusar o completo com 400.
+ * O controle de raciocínio (thinkingBudget) só existe nos modelos 2.5; mandá-lo a outro modelo dá "invalid argument".
+ */
+export function montarCorpoGemini(p: Pick<PedidoGemini, "sistema" | "texto" | "imagem" | "maxTokens" | "esquema"> & { modelo?: string; simples?: boolean }): Record<string, unknown> {
   const partes: Record<string, unknown>[] = [{ text: p.texto }];
   if (p.imagem) partes.push({ inlineData: { mimeType: p.imagem.tipo, data: p.imagem.base64 } });
+  const simples = p.simples === true;
   return {
     ...(p.sistema ? { systemInstruction: { parts: [{ text: p.sistema }] } } : {}),
     contents: [{ role: "user", parts: partes }],
@@ -35,11 +40,11 @@ export function montarCorpoGemini(p: Pick<PedidoGemini, "sistema" | "texto" | "i
       temperature: 0,
       maxOutputTokens: p.maxTokens,
       responseMimeType: "application/json",
-      ...(p.esquema ? { responseSchema: p.esquema } : {}),
-      thinkingConfig: { thinkingBudget: 0 },
+      ...(p.esquema && !simples ? { responseSchema: p.esquema } : {}),
+      ...(!simples && p.modelo && /gemini-2\.5/.test(p.modelo) ? { thinkingConfig: { thinkingBudget: 0 } } : {}),
     },
     // Receita pode citar remédio forte; o filtro padrão não deve cortar a transcrição.
-    safetySettings: ["HARM_CATEGORY_DANGEROUS_CONTENT", "HARM_CATEGORY_HARASSMENT", "HARM_CATEGORY_HATE_SPEECH", "HARM_CATEGORY_SEXUALLY_EXPLICIT"].map((category) => ({ category, threshold: "BLOCK_ONLY_HIGH" })),
+    ...(simples ? {} : { safetySettings: ["HARM_CATEGORY_DANGEROUS_CONTENT", "HARM_CATEGORY_HARASSMENT", "HARM_CATEGORY_HATE_SPEECH", "HARM_CATEGORY_SEXUALLY_EXPLICIT"].map((category) => ({ category, threshold: "BLOCK_ONLY_HIGH" })) }),
   };
 }
 
@@ -79,7 +84,7 @@ export function modeloDeReserva(modelo: string): string | null {
 
 /**
  * Chama o Gemini com tempo limite e diz o motivo quando falha (código HTTP e mensagem curta do Google, nunca a chave).
- * Se o modelo não existir mais (404), tenta o nome "-latest" uma vez.
+ * Se o Google recusar o pedido (400), repete em versão mínima; se o modelo não existir mais (404), tenta o nome "-latest" uma vez.
  */
 export async function chamarGeminiComMotivo(p: PedidoGemini, buscar: typeof fetch = fetch): Promise<ResultadoGemini> {
   if (!p.chave) return { ok: false, motivo: "sem_chave" };
@@ -87,14 +92,19 @@ export async function chamarGeminiComMotivo(p: PedidoGemini, buscar: typeof fetc
   const temporizador = setTimeout(() => controle.abort(), p.ms);
   try {
     let modelo = p.modelo;
-    for (let tentativa = 0; tentativa < 2; tentativa++) {
+    let simples = false;
+    for (let tentativa = 0; tentativa < 3; tentativa++) {
       const r = await buscar(`${BASE}/${encodeURIComponent(modelo)}:generateContent`, {
         method: "POST",
         headers: { "content-type": "application/json", "x-goog-api-key": p.chave },
-        body: JSON.stringify(montarCorpoGemini(p)),
+        body: JSON.stringify(montarCorpoGemini({ ...p, modelo, simples })),
         signal: controle.signal,
       });
-      if (r.status === 404 && tentativa === 0) {
+      if (r.status === 400 && !simples) {
+        simples = true;
+        continue;
+      }
+      if (r.status === 404 && modelo === p.modelo) {
         const outro = modeloDeReserva(modelo);
         if (outro) {
           modelo = outro;
