@@ -44,8 +44,4 @@
 @media (hover: none) { .painel-editar-dica { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .painel-editar-dica { transition: none; } }
 
-/* Com arte enviada, a moldura segue a proporção da própria imagem: nada é cortado (a proporção fixa só vale para o espaço vazio). */
-.painel-arte--img, .painel .painel-arte--img { aspect-ratio: auto; }
-.painel-arte--img picture { position: static; display: block; width: 100%; height: auto; }
-.painel-arte--img img { position: static; display: block; width: 100%; height: auto; object-fit: contain; }
-.painel-slide { align-self: flex-start; }
+/* Todos os banners (com ou sem arte) usam a mesma moldura: 2 : 1 no celular, 1318 : 300 no computador. A arte é cortada para caber (object-fit: cover), então nenhum banner fica mais alto ou mais baixo que os outros. */
