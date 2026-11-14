@@ -5,7 +5,7 @@
  */
 import { normalizarBusca, termosDeBusca } from "./busca";
 
-export type PalavraVocab = { w: string; pk: string; f: number };
+export type PalavraVocab = { w: string; pk: string; f: number; /** Palavra sem o plural (mesma regra de `termosDeBusca`) e o som dela: quem digita costuma errar a palavra já no singular. */ rad: string; pkr: string };
 export type Vocabulario = {
   /** Texto de busca de cada produto (já sem acento e em minúsculas). */
   textos: readonly string[];
@@ -81,7 +81,10 @@ export function criarVocabulario(textos: readonly string[]): Vocabulario {
       if (w.length >= 3) freq.set(w, (freq.get(w) ?? 0) + 1);
     }
   }
-  const palavras = [...freq].map(([w, f]) => ({ w, pk: chaveFonetica(w), f }));
+  const palavras = [...freq].map(([w, f]) => {
+    const rad = w.length > 5 && w.endsWith("es") ? w.slice(0, -2) : w.length > 3 && w.endsWith("s") ? w.slice(0, -1) : w;
+    return { w, pk: chaveFonetica(w), f, rad, pkr: chaveFonetica(rad) };
+  });
   return { textos, corpus: textos.join("\n"), palavras, porPalavra: new Map(palavras.map((p) => [p.w, p])) };
 }
 
@@ -101,9 +104,10 @@ function pontuar(vocab: Vocabulario, token: string, limite: (tamanho: number) =>
   const lim = limite(token.length);
   const saida: Candidato[] = [];
   for (const p of vocab.palavras) {
-    if (p.w === token || Math.abs(p.w.length - token.length) > lim + 1) continue;
-    const dp = distancia(token, p.w, lim);
-    const dk = distancia(pk, p.pk, lim);
+    if (p.w === token || p.rad === token || Math.abs(p.w.length - token.length) > lim + 2) continue;
+    // A busca já tira o plural da palavra digitada ("revetidos" vira "revetido"): compara com a palavra do catálogo inteira e sem plural.
+    const dp = Math.min(distancia(token, p.w, lim), p.rad !== p.w ? distancia(token, p.rad, lim) : lim + 1);
+    const dk = Math.min(distancia(pk, p.pk, lim), p.pkr !== p.pk ? distancia(pk, p.pkr, lim) : lim + 1);
     // A primeira letra (ou o primeiro som) precisa bater: evita "amoxilina" virar "camomilina". Vogal por vogal vale ("iscova" → "escova").
     const inicioIgual = p.w[0] === token[0] || p.pk[0] === pk[0] || (VOGAL.test(p.w[0]) && VOGAL.test(token[0]));
     if (!inicioIgual && !folgado) continue;
@@ -175,6 +179,62 @@ export function aplicarSinonimos(consulta: string): string {
   return SINONIMOS.reduce((texto, [regra, troca]) => texto.replace(regra, troca), normalizarBusca(consulta));
 }
 
+/**
+ * Jeitos de falar que a loja escreve de outro jeito no nome do produto (ex.: "fralda adulto" = "fralda geriátrica").
+ * Cada grupo troca o trecho reconhecido por cada alternativa (as outras palavras da busca ficam). Só entra quando a busca exata não achou nada,
+ * e só vale a alternativa que acha produto. Termos escolhidos olhando o catálogo da loja.
+ */
+const GRUPOS_SINONIMOS: readonly (readonly [RegExp, readonly string[]])[] = [
+  [/\bfraldas? (de |para )?(adultos?|idosos?)\b/, ["fralda geriatrica", "fralda senior"]],
+  [/\b(recem nascidos?|recem-nascidos?|rn)\b/, ["recem nascido", "rn", "newborn"]],
+  [/\b(tintas?|tinturas?|coloracao|coloracoes)( (de|para|do) cabelos?)?\b/, ["tinta", "tintura", "coloracao", "tonalizante"]],
+  [/\b(aparelhos?|laminas?) de barbear\b|\blaminas?\b/, ["barbear", "prestobarba", "aparelho de barbear"]],
+  [/\bfitas? dental\b|\bfios? dentais?\b/, ["fio dental", "fita dental"]],
+  [/\b(medidor|aparelho|monitor) de pressao( arterial)?\b|\btensiometro\b/, ["tensiometro", "pressao"]],
+  [/\b(glicosimetro|medidor de glicose|aparelho de glicose|medidor de glicemia)\b/, ["glicos"]],
+  [/\b(demaquilante|removedor de maquiagem|tira maquiagem)\b/, ["micelar", "demaquilante"]],
+  [/\b(mercurocromo|merthiolate|merturo)\b/, ["iodo", "povidine", "mercurocromo"]],
+  [/\bantitranspirantes?\b/, ["desodorante"]],
+  [/\b(suplementos?|polivitaminicos?|multivitaminicos?)\b/, ["vitamina", "lavitan", "centrum"]],
+  [/\bbicos? de (mamadeira|chupeta)\b/, ["bico", "chupeta", "mamadeira"]],
+];
+
+export function expandirSinonimos(consulta: string): string[] {
+  const t = normalizarBusca(consulta);
+  const saida: string[] = [];
+  for (const [padrao, alternativas] of GRUPOS_SINONIMOS) {
+    if (!padrao.test(t)) continue;
+    for (const alt of alternativas) {
+      const nova = t.replace(padrao, alt).replace(/\s+/g, " ").trim();
+      if (nova !== t && !saida.includes(nova)) saida.push(nova);
+    }
+  }
+  return saida;
+}
+
+/**
+ * Busca parcial: quando nada casa com todas as palavras, mostra o que casa com o maior número delas (começando pelas primeiras,
+ * que em português costumam ser o tipo do produto: "shampoo anticaspa" → "shampoo"). Devolve null se a busca já tem uma palavra só.
+ */
+export function buscaParcial(vocab: Vocabulario, consulta: string): { consulta: string; ignoradas: string[] } | null {
+  const tokens = termosDeBusca(aplicarSinonimos(consulta).replace(/[-/]/g, " ")).filter((t) => !PALAVRAS_DE_LIGACAO.has(t));
+  if (tokens.length < 2 || tokens.length > 5) return null;
+  // Subconjuntos do maior para o menor; entre do mesmo tamanho, os que mantêm as primeiras palavras.
+  const indices = tokens.map((_, i) => i);
+  const subconjuntos: number[][] = [];
+  for (let m = 1; m < 1 << tokens.length; m += 1) subconjuntos.push(indices.filter((i) => m & (1 << i)));
+  // Quem mantém a primeira palavra (o tipo do produto) vem antes; depois os maiores.
+  subconjuntos.sort((a, b) => Number(b.includes(0)) - Number(a.includes(0)) || b.length - a.length || a.reduce((x, y) => x + y, 0) - b.reduce((x, y) => x + y, 0));
+  for (const sub of subconjuntos) {
+    if (sub.length === tokens.length) continue;
+    const texto = sub.map((i) => tokens[i]).join(" ");
+    // Uma palavra sozinha só vale se não for genérica demais (casaria com a loja toda).
+    const n = contarCasos(vocab, texto);
+    if (n > 0 && (sub.length > 1 || n <= LIMITE_TERMO_IA * 3)) return { consulta: texto, ignoradas: indices.filter((i) => !sub.includes(i)).map((i) => tokens[i]) };
+  }
+  return null;
+}
+
 export type Analise = {
   /** Palavras da busca sem as de ligação. */
   tokens: string[];
@@ -185,10 +245,24 @@ export type Analise = {
   /** Busca parecida que pode ser OUTRO produto: o site pergunta "Você quis dizer…?" em vez de trocar sozinho. */
   sugerida: string | null;
   sintoma: boolean;
+  /** Jeitos de falar equivalentes que acham produto (ex.: "fralda adulto" → "fralda geriatrica"). */
+  alternativas: string[];
+  /** Mostra o que casa com parte das palavras (a palavra que sobrou sem produto fica de fora). */
+  parcial: { consulta: string; ignoradas: string[] } | null;
 };
 
 function casa(vocab: Vocabulario, token: string): boolean {
   return vocab.corpus.includes(token);
+}
+
+/** "fraldinha" → "fralda", "sabonetinho" → "sabonete": diminutivo vira a palavra que o catálogo tem. */
+export function semDiminutivo(vocab: Vocabulario, token: string): string | null {
+  const m = /^(.{3,}?)(zinh[oa]s?|inh[oa]s?)$/.exec(token);
+  if (!m) return null;
+  for (const base of [m[1], `${m[1]}a`, `${m[1]}o`, `${m[1]}e`, `${m[1]}ao`]) {
+    if (vocab.porPalavra.has(base)) return base;
+  }
+  return null;
 }
 
 /** Procura erro de escrita: troca cada palavra desconhecida pela mais parecida que existe no catálogo. */
@@ -197,7 +271,7 @@ export function analisarConsulta(vocab: Vocabulario, consulta: string): Analise 
   const todos = termosDeBusca(trocada);
   const tokens = todos.filter((t) => !PALAVRAS_DE_LIGACAO.has(t));
   const sintoma = pareceSintoma(consulta);
-  if (tokens.length === 0) return { tokens, desconhecidas: [], corrigida: null, sugerida: null, sintoma };
+  if (tokens.length === 0) return { tokens, desconhecidas: [], corrigida: null, sugerida: null, sintoma, alternativas: [], parcial: null };
   // "dor flex" → "dorflex": duas palavras vizinhas que, coladas, existem no catálogo.
   const juntos: string[] = [];
   for (let i = 0; i < tokens.length; i += 1) {
@@ -214,14 +288,25 @@ export function analisarConsulta(vocab: Vocabulario, consulta: string): Analise 
   let duvida = false;
   const final = juntos.map((t) => {
     if (casa(vocab, t)) return t;
+    const dim = semDiminutivo(vocab, t);
+    if (dim) {
+      mudou = true;
+      return dim;
+    }
     const achada = melhorParecida(vocab, t);
     if (!achada) return t;
     mudou = true;
-    if (!achada.segura) duvida = true;
+    // Troca que não é erro de digitação claro vira pergunta ("Você quis dizer…?"): só com palavra de 5+ letras, senão a pergunta é ruído ("font" por "fone").
+    if (!achada.segura) {
+      if (achada.w.length < 5) return t;
+      duvida = true;
+    }
     return achada.w;
   });
   const texto = final.join(" ");
-  return { tokens, desconhecidas, corrigida: mudou && !duvida ? texto : null, sugerida: mudou && duvida ? texto : null, sintoma };
+  const alternativas = expandirSinonimos(consulta).filter((c) => contarCasos(vocab, c) > 0);
+  const resolvida = (mudou && contarCasos(vocab, texto) > 0) || alternativas.length > 0;
+  return { tokens, desconhecidas, corrigida: mudou && !duvida ? texto : null, sugerida: mudou && duvida ? texto : null, sintoma, alternativas, parcial: resolvida ? null : buscaParcial(vocab, consulta) };
 }
 
 /** Produto casa com a busca se tiver todas as palavras (mesma regra da busca normal). */

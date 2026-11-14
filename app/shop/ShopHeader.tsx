@@ -132,8 +132,10 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
     const vocab = vocabularioDe(itens, restritos);
     const a = analisarConsulta(vocab, termoBusca);
     if (a.sintoma) return null;
+    // Sem correção de digitação: jeito de falar equivalente ("fralda adulto") ou, por último, parte das palavras ("shampoo anticaspa" → shampoo).
+    const corrigidaBase = a.corrigida && contarCasos(vocab, a.corrigida) > 0 ? a.corrigida : null;
     return {
-      corrigida: a.corrigida && contarCasos(vocab, a.corrigida) > 0 ? a.corrigida : null,
+      corrigida: corrigidaBase ?? a.alternativas[0] ?? (a.sugerida ? null : (a.parcial?.consulta ?? null)),
       // Parecida demais com outro produto para trocar sozinho: só pergunta.
       sugerida: a.sugerida && contarCasos(vocab, a.sugerida) > 0 ? a.sugerida : null,
     };

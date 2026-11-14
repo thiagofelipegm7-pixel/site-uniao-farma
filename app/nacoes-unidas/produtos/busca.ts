@@ -182,26 +182,22 @@ export function identificarItens(grupos: readonly GrupoBusca[]): GrupoBusca[] {
   }));
 }
 
-/** Sugestões do painel: só a partir de 2 letras, na ordem do catálogo, com os esgotados no fim. */
+/** Sugestões do painel: só a partir de 2 letras, na ordem do catálogo. */
 export function sugerirProdutos(grupos: readonly GrupoBusca[], consulta: string, limite = 8): ItemBusca[] {
   const termo = normalizarBusca(consulta);
   if (termo.length < 2) return [];
   const vistos = new Set<string>();
-  const disponiveis: ItemBusca[] = [];
-  const esgotados: ItemBusca[] = [];
+  const saida: ItemBusca[] = [];
   for (const grupo of filtrarGrupos(grupos, consulta)) {
     for (const item of grupo.itens) {
       const chave = normalizarBusca(item.nome);
       if (vistos.has(chave)) continue;
       vistos.add(chave);
-      if (item.esgotado === true) esgotados.push(item);
-      else {
-        disponiveis.push(item);
-        if (disponiveis.length >= limite) return disponiveis;
-      }
+      saida.push(item);
+      if (saida.length >= limite) return saida;
     }
   }
-  return [...disponiveis, ...esgotados].slice(0, limite);
+  return saida;
 }
 
 /** Categorias na ordem dos grupos; marcas únicas, em ordem alfabética, sem laboratório vazio. */
@@ -227,42 +223,16 @@ export function contarFiltrosAtivos(filtro: Pick<FiltroCatalogo, "categorias" | 
   return (filtro.categorias?.length ?? 0) + (filtro.marcas?.length ?? 0) + (filtro.faixas?.length ?? 0) + (filtro.tipos?.length ?? 0);
 }
 
-/** Mantém a ordem entre os disponíveis e entre os esgotados; os esgotados ficam sempre no fim. */
-export function esgotadosPorUltimo<T extends { esgotado?: boolean }>(itens: readonly T[]): T[] {
-  const disponiveis: T[] = [];
-  const esgotados: T[] = [];
-  for (const item of itens) {
-    if (item.esgotado === true) esgotados.push(item);
-    else disponiveis.push(item);
-  }
-  return esgotados.length === 0 ? [...itens] : [...disponiveis, ...esgotados];
-}
-
-/**
- * Reúne os disponíveis de todos os grupos e só depois os esgotados, sem misturar no meio da lista achatada.
- * A ordem entre os disponíveis e entre os esgotados (e a ordem dos grupos) permanece a mesma.
- */
-export function gruposComEsgotadosPorUltimo(grupos: readonly GrupoBusca[]): GrupoBusca[] {
-  const disponiveis: GrupoBusca[] = [];
-  const esgotados: GrupoBusca[] = [];
-  for (const grupo of grupos) {
-    const ok = grupo.itens.filter((item) => item.esgotado !== true);
-    const fim = grupo.itens.filter((item) => item.esgotado === true);
-    if (ok.length) disponiveis.push(ok.length === grupo.itens.length ? grupo : { ...grupo, itens: ok });
-    if (fim.length) esgotados.push({ ...grupo, itens: fim });
-  }
-  return esgotados.length === 0 ? [...grupos] : [...disponiveis, ...esgotados];
-}
-
 function ordenarItens(itens: readonly ItemBusca[], ordem: OrdemCatalogo): ItemBusca[] {
-  if (ordem === "recomendados") return esgotadosPorUltimo(itens);
+  if (ordem === "recomendados") return [...itens];
   const dir = ordem === "menor_preco" ? 1 : -1;
-  return esgotadosPorUltimo(
-    [...itens].sort((a, b) => {
-      const delta = (precoDoItem(a) - precoDoItem(b)) * dir;
-      return delta !== 0 ? delta : a.nome.localeCompare(b.nome, "pt-BR");
-    }),
-  );
+  return [...itens].sort((a, b) => {
+    // Esgotados vão para o fim, qualquer que seja a ordem.
+    const fim = Number(a.esgotado === true) - Number(b.esgotado === true);
+    if (fim !== 0) return fim;
+    const delta = (precoDoItem(a) - precoDoItem(b)) * dir;
+    return delta !== 0 ? delta : a.nome.localeCompare(b.nome, "pt-BR");
+  });
 }
 
 /**
@@ -290,7 +260,7 @@ export function aplicarCatalogo(grupos: readonly GrupoBusca[], filtro: FiltroCat
     .filter((grupo) => grupo.itens.length > 0);
 
   const ordem = filtro.ordem ?? "recomendados";
-  if (ordem === "recomendados") return gruposComEsgotadosPorUltimo(filtrados);
+  if (ordem === "recomendados") return filtrados;
   const itens = ordenarItens(
     filtrados.flatMap((grupo) => grupo.itens),
     ordem,

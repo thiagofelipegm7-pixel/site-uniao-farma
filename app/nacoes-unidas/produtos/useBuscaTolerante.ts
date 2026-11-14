@@ -18,6 +18,8 @@ export type BuscaTolerante =
   /** Palavra parecida que pode ser outro produto: só pergunta "Você quis dizer…?", sem mostrar resultados. */
   | { tipo: "sugestao"; sugestao: string; procurando: false }
   /** Pedido de remédio para um problema de saúde: o site não indica produto, quem orienta é o farmacêutico. */
+  /** Só parte das palavras acha produto: mostra esses e diz quais ficaram de fora. */
+  | { tipo: "parcial"; rotulo: string; consultas: string[]; ignoradas: string[]; procurando: false }
   | { tipo: "sintoma"; procurando: false; /** Sintoma conhecido: medicamentos SEM receita que a loja tem para ele (lista fixa), com aviso de bula na tela. */ rotulo?: string; consultas?: string[]; comReceita?: boolean };
 
 type Entrada = {
@@ -138,10 +140,14 @@ export function useBuscaTolerante({ textos, consulta, totalExato, usarIA = true 
   const termosSintoma = conhecido && vocab ? conhecido.termos.filter((t) => contarCasos(vocab, t) > 0) : [];
   if (conhecido && termosSintoma.length > 0) return { tipo: "sintoma", procurando: false, rotulo: conhecido.rotulo, consultas: termosSintoma, comReceita: conhecido.comReceita === true };
   if (sintomaLocal || respostaIA?.sintoma) return { tipo: "sintoma", procurando: false };
+  // Jeito de falar equivalente (ex.: "fralda adulto" = "fralda geriátrica"): troca direto, sem perguntar.
+  if (local && !local.sintoma && local.alternativas.length > 0) return { tipo: "corrigida", rotulo: local.alternativas.join(", "), consultas: local.alternativas, procurando: false };
   if (corrigidaLocal) return { tipo: "corrigida", rotulo: corrigidaLocal, consultas: [corrigidaLocal], procurando: false };
   if (sugestaoLocal) return { tipo: "sugestao", sugestao: sugestaoLocal, procurando: false };
   if (interpretada?.tipo === "corrigida") return { tipo: "corrigida", rotulo: interpretada.consulta, consultas: [interpretada.consulta], procurando: false };
   if (interpretada?.tipo === "sugestao") return { tipo: "sugestao", sugestao: interpretada.sugestao, procurando: false };
   if (uteis.length > 0) return { tipo: "corrigida", rotulo: uteis.join(", "), consultas: uteis, procurando: false };
-  return { tipo: "nenhum", procurando: chaveIA !== "" && respostaIA === null };
+  const esperandoIA = chaveIA !== "" && respostaIA === null;
+  if (!esperandoIA && local?.parcial && !local.sintoma) return { tipo: "parcial", rotulo: local.parcial.consulta, consultas: [local.parcial.consulta], ignoradas: local.parcial.ignoradas, procurando: false };
+  return { tipo: "nenhum", procurando: esperandoIA };
 }
