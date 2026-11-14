@@ -167,3 +167,27 @@ test("sintoma conhecido abre medicamentos sem receita da lista fixa que a loja t
   const proibidos = /amoxicilina|azitromicina|cefalexina|ciprofloxacino|clonazepam|alprazolam|rivotril|ritalina|tramadol|codeina/;
   for (const x of S.SINTOMAS_OTC.filter((y) => !y.comReceita)) for (const t of x.termos) assert.ok(!proibidos.test(t), t);
 });
+
+test("cobertura: jeitos de falar, palavra a mais e diminutivo sempre acham produto da loja", async () => {
+  const { analisarConsulta, contarCasos } = await tolerante();
+  const vocab = await vocabulario(true);
+  const alt = (q) => analisarConsulta(vocab, q).alternativas;
+  for (const [q, esperado] of [["fralda adulto", "fralda geriatrica"], ["tinta de cabelo", "tinta"], ["lamina de barbear", "barbear"], ["fita dental", "fio dental"], ["aparelho de pressao", "pressao"], ["glicosimetro", "glicos"]]) {
+    const a = alt(q);
+    assert.ok(a.some((x) => x.includes(esperado)), `${q} -> ${a.join(" | ")}`);
+    assert.ok(a.every((x) => contarCasos(vocab, x) > 0), q);
+  }
+  // Palavra que a loja não conhece: mostra o que existe para as outras ("shampoo anticaspa" → shampoo).
+  for (const [q, esperado, fora] of [["shampoo anticaspa", "shampoo", "anticaspa"], ["desodorante masculino", "desodorante", "masculino"], ["camisinha jontex", "preservativo", "jontex"], ["fralda recem nascido xyzw", "fralda", "xyzw"]]) {
+    const a = analisarConsulta(vocab, q);
+    assert.ok(a.parcial, q);
+    assert.ok(a.parcial.consulta.includes(esperado), `${q} -> ${a.parcial.consulta}`);
+    assert.ok(a.parcial.ignoradas.some((x) => x.includes(fora)), q);
+    assert.ok(contarCasos(vocab, a.parcial.consulta) > 0, q);
+  }
+  assert.equal(analisarConsulta(vocab, "fraldinha").corrigida, "fralda");
+  // Plural errado: "revetidos" volta a achar "revestidos" mesmo com a busca tirando o plural.
+  assert.ok(analisarConsulta(vocab, "revetidos").corrigida || analisarConsulta(vocab, "revetidos").sugerida);
+  // Busca de uma palavra só ou que já acha produto não ganha parcial.
+  assert.equal(analisarConsulta(vocab, "xyzqwk").parcial, null);
+});

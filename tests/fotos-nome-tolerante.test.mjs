@@ -19,6 +19,9 @@ test("fotoDoProduto: nome abreviado do mapa encontra a mesma foto do painel (TIN
   // Nome do catálogo às vezes cola o EAN no fim.
   assert.equal(eanDaFoto("ACNEZIL GEL SECATIVO 10 G7897947607392"), "7897947607392");
   assert.equal(eanDaFoto("ACNEZIL GEL SECATIVO 10 G"), "7897947607392");
+  assert.equal(eanDaFoto("RAID PROT PASTILHA REFIL C/12"), "7894650002032");
+  assert.equal(eanDaFoto("PRIMOSISTON 2+0.01mg cx 30 comp"), "7896006201731");
+  assert.equal(eanDaFoto("DIUPRESS 25+5mg cx 30 comp"), "7891317010065");
 });
 
 test("fotoDoProduto: não troca foto quando a assinatura é ambígua ou o produto não tem arte", async () => {

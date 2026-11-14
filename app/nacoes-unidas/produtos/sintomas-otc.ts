@@ -16,6 +16,7 @@ export const SINTOMAS_OTC: readonly SintomaOTC[] = [
   { rotulo: "gases", padrao: /\b(gases?|barriga inchada|estufamento)\b/, termos: ["simeticona", "luftal"] },
   { rotulo: "alergia", padrao: /\b(alergia|alergico|coceira|espirro)\b/, termos: ["loratadina"] },
   { rotulo: "gripe e resfriado", padrao: /\b(gripe|resfriado|coriza|nariz entupido)\b/, termos: ["cimegripe", "benegrip"] },
+  { rotulo: "assadura de bebê", padrao: /\bassaduras?\b/, termos: ["hipoglos", "bepantol"] },
   // Contracepção de emergência: a pessoa digita o nome popular; a loja tem estes produtos (cadastrados como sob receita).
   { rotulo: "pílula do dia seguinte", padrao: /\bpilulas?\s+(do\s+)?(dia\s+)?(seguinte|depois)\b|\bpilulas?\s+de\s+emergencia\b|\bdia\s+seguinte\b/, termos: ["hora h uno", "poslov", "neodia", "saya control", "pilem"], comReceita: true },
   { rotulo: "pílula", padrao: /\bpilulas?\b|\banticoncepcion(al|ais)\b/, termos: ["ciclo 21", "level", "microvlar", "neovlar", "nordette", "triquilar", "hora h uno", "poslov", "neodia", "saya control", "pilem"], comReceita: true },

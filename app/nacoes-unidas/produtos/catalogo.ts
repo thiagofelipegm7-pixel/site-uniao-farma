@@ -65,7 +65,7 @@ export function groupByCategoria(itens: CatalogoItem[]): CatalogoGrupo[] {
   };
   return [...map.entries()]
     .sort(([a], [b]) => rank(a) - rank(b) || a.localeCompare(b, "pt-BR"))
-    .map(([categoria, list]) => ({ categoria, itens: [...list].sort((a, b) => Number(a.esgotado === true) - Number(b.esgotado === true) || a.nome.localeCompare(b.nome, "pt-BR")) }));
+    .map(([categoria, list]) => ({ categoria, itens: [...list].sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR")) }));
 }
 
 export function formatBRL(value: number): string {
