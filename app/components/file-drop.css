@@ -1,0 +1,116 @@
+/* File drop: o botão "Enviar foto" do card. Cores e raio do painel de fotos (--pf-*, 12px). */
+.fd {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.875rem;
+  padding: 0 0.5rem;
+  border-radius: 12px;
+  background: transparent;
+  cursor: pointer;
+  overflow: hidden;
+  will-change: transform;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+/* sem borda tracejada: um arquivo sobre o card acende o fundo */
+.fd::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #e4f6f3;
+  opacity: var(--h, 0);
+  pointer-events: none;
+}
+.fd:focus-visible { outline: 3px solid var(--pf-verde); outline-offset: 2px; }
+.fd > * { position: relative; z-index: 1; }
+
+.fd-nucleo {
+  flex: none;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: 50%;
+  background: #d3ece7;
+  will-change: transform;
+}
+.fd-verde {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--pf-verde);
+  transform: scale(0);
+  will-change: transform;
+}
+.fd-anel {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  opacity: 0;
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.fd-trilho { stroke: #b9d9d3; }
+.fd-arco { stroke: var(--pf-verde); }
+.fd-icone {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--pf-verde);
+  will-change: transform, opacity;
+}
+.fd-icone svg { width: 26px; height: 26px; display: block; }
+.fd-ok {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.fd-ok svg { width: 30px; height: 30px; display: block; }
+.fd-ok path { stroke-dasharray: 24; stroke-dashoffset: 24; }
+
+.fd-linha {
+  position: relative;
+  width: 100%;
+  height: 1.5rem;
+  overflow: hidden;
+  text-align: center;
+  pointer-events: none;
+}
+.fd-linha span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--pf-ink);
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.5rem;
+  will-change: transform, opacity;
+}
+.fd-linha-s { height: 1.25rem; }
+.fd-linha-s span {
+  color: var(--pf-mudo);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fd::after { transition: none; }
+}
