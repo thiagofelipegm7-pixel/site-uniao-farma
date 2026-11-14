@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-type Item = { original: string; exibicao: string; descricao: string; marca: string };
+type Item = { original: string; exibicao: string; descricao: string; marca: string; fontes?: string };
 
 /**
  * Fila de revisão das sugestões da IA (descrição e marca). A IA só propõe: nada vale para o cliente até a equipe aprovar aqui.
@@ -41,11 +41,11 @@ export default function FilaIA({ por, onAviso, onDescricaoSalva }: { por: string
     };
   }, [recarga]);
 
-  async function gerar() {
+  async function gerar(refazer = false) {
     setGerando(true);
     setMsg("");
     try {
-      const r = await fetch("/api/interno/ia/lote", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ quantidade: 10 }), signal: AbortSignal.timeout(110_000) });
+      const r = await fetch("/api/interno/ia/lote", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ quantidade: 10, refazer }), signal: AbortSignal.timeout(170_000) });
       const j = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string; geradas?: number; semSugestao?: number; falhas?: number; motivo?: string } | null;
       if (!r.ok || !j?.ok) {
         setMsg(j?.erro === "sem_ia" ? "A IA ainda não está ligada (falta a chave do Gemini)." : j?.erro === "limite" ? "Muitos lotes seguidos. Espere alguns minutos." : "Não consegui gerar agora. Tente de novo.");
@@ -93,8 +93,9 @@ export default function FilaIA({ por, onAviso, onDescricaoSalva }: { por: string
       <p className="pf-dica">A IA só propõe. Nada vai para o cliente até você aprovar. Leia com atenção: só fatos do produto, sem promessa de efeito.</p>
       <div className="pf-modal-acoes">
         <button type="button" className="pf-botao pf-botao--primario" disabled={gerando || !iaLigada || restantes === 0} onClick={() => void gerar()}>
-          {gerando ? "Gerando… (pode levar 1 minuto)" : "Gerar mais 10 sugestões"}
+          {gerando ? "Pesquisando… (pode levar 1 ou 2 minutos)" : "Gerar mais 10 sugestões"}
         </button>
+        {itens.length > 0 ? <button type="button" className="pf-botao" disabled={gerando || !iaLigada} onClick={() => void gerar(true)}>Refazer as pendentes com pesquisa</button> : null}
         {!iaLigada ? <span className="pf-dica">A IA ainda não está ligada (falta a chave do Gemini).</span> : null}
         {msg ? <span className="pf-dica" role="status">{msg}</span> : null}
       </div>
@@ -103,6 +104,7 @@ export default function FilaIA({ por, onAviso, onDescricaoSalva }: { por: string
           <li key={i.original} className="pf-fila-item">
             <strong>{i.exibicao}</strong>
             <textarea className="pf-entrada pf-area" rows={3} maxLength={600} aria-label={`Descrição sugerida para ${i.exibicao}`} value={editados[i.original] ?? i.descricao} onChange={(e) => setEditados((m) => ({ ...m, [i.original]: e.target.value }))} />
+            {i.fontes ? <small className="pf-dica">Sites consultados pela IA: {i.fontes}. Confira antes de aprovar.</small> : null}
             {i.marca ? <small className="pf-dica">Marca sugerida: <b>{i.marca}</b> (preenchida junto ao aprovar)</small> : null}
             <div className="pf-modal-acoes">
               <button type="button" className="pf-botao pf-botao--primario" disabled={ocupado === i.original} onClick={() => void aprovar(i)}>Aprovar</button>

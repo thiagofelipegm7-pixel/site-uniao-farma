@@ -1,7 +1,7 @@
 import { criarLimitador } from "../../../../busca-ia-nucleo";
 import { banco, segredo } from "../../../../estoque-fonte";
 import { mapaDeDescricoes } from "../../../../descricao-override";
-import { chavesJaTratadas, guardarSugestao } from "../../../../ia-fila";
+import { chavesJaTratadas, guardarSugestao, paraRefazer } from "../../../../ia-fila";
 import { elegiveis } from "../../../../ia-lote-elegiveis";
 import { sugerirProduto } from "../../../../ia-sugestao-servidor";
 import { carregarCatalogoCompleto } from "../../../../nacoes-unidas/produtos/catalogo";
@@ -36,15 +36,18 @@ export async function POST(request: Request) {
   if (!segredo("GEMINI_API_KEY")) return Response.json({ ok: false, erro: "sem_ia" }, { status: 501, headers: SEM_CACHE });
   if (!limite(request.headers.get("cf-connecting-ip") ?? "equipe")) return Response.json({ ok: false, erro: "limite" }, { status: 429, headers: SEM_CACHE });
   let n = MAX_POR_LOTE;
+  let refazer = false;
   try {
-    const c = (await request.json()) as { quantidade?: unknown };
+    const c = (await request.json()) as { quantidade?: unknown; refazer?: unknown };
+    refazer = c.refazer === true;
     if (typeof c.quantidade === "number" && c.quantidade >= 1) n = Math.min(MAX_POR_LOTE, Math.floor(c.quantidade));
   } catch {
     // corpo vazio: usa o padrão
   }
   const s = await situacao();
   if (!s) return Response.json({ ok: false, erro: "sem_banco" }, { status: 501, headers: SEM_CACHE });
-  const escolhidos = s.lista.slice(0, n);
+  const lista = refazer ? await paraRefazer(s.db) : s.lista;
+  const escolhidos = lista.slice(0, n);
   const porNome = new Map(s.catalogo.itens.map((i) => [chaveDoNome(i.nome), i]));
   let geradas = 0;
   let semSugestao = 0;
@@ -57,7 +60,7 @@ export async function POST(request: Request) {
         const lab = (item?.lab ?? "").trim();
         const r = await sugerirProduto({ original, marca: lab, categoria: item?.categoria ?? "", permitirDescricao: true, ms: 15_000 });
         if (r.ok && r.sugestao.descricao) {
-          await guardarSugestao(s.db, original, r.sugestao.descricao, lab ? "" : (r.sugestao.marca ?? ""), "pendente");
+          await guardarSugestao(s.db, original, r.sugestao.descricao, lab ? "" : (r.sugestao.marca ?? ""), "pendente", (r.fontes ?? []).join(", "));
           geradas++;
         } else if (r.ok || r.erro === "sem_sugestao") {
           // A IA respondeu mas nada passou nas regras: marca como tratado para não tentar de novo e travar a fila.
@@ -70,7 +73,7 @@ export async function POST(request: Request) {
       }),
     );
   }
-  return Response.json({ ok: true, geradas, semSugestao, falhas, motivo: falhas ? motivo : undefined, restantes: Math.max(0, s.lista.length - geradas - semSugestao) }, { headers: SEM_CACHE });
+  return Response.json({ ok: true, geradas, semSugestao, falhas, motivo: falhas ? motivo : undefined, restantes: Math.max(0, lista.length - geradas - semSugestao) }, { headers: SEM_CACHE });
 }
 
 /** Quantos produtos ainda faltam receber sugestão. */

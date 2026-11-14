@@ -529,7 +529,7 @@ export default function PainelFotos() {
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ original: l.nome, marca: marcaAtual(l).texto, categoria: categoriaEfetiva(l) }),
       });
-      const corpo = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string; motivo?: string; resposta?: string; sugestao?: { nome?: string; marca?: string; categoria?: string; descricao?: string } } | null;
+      const corpo = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string; motivo?: string; resposta?: string; fontes?: string[]; sugestao?: { nome?: string; marca?: string; categoria?: string; descricao?: string } } | null;
       if (!r.ok || !corpo?.ok || !corpo.sugestao) {
         setSugestaoIA({ ean: l.ean, carregando: false, msg: corpo?.erro === "sem_ia" ? "A IA ainda não está ligada (falta a chave do Gemini)." : corpo?.erro === "limite" ? "Muitos pedidos seguidos. Espere um minuto." : `A IA não tem sugestão segura para este produto.${corpo?.motivo ? ` (Motivo técnico: ${corpo.motivo}${corpo.resposta ? ` — ${corpo.resposta}` : ""})` : ""}` });
         return;
@@ -544,7 +544,7 @@ export default function PainelFotos() {
       const descEl = pr("pf-descricao");
       if (sg.descricao && descEl) { descEl.value = sg.descricao; partes.push("descrição"); }
       const categoriaDiferente = sg.categoria && sg.categoria !== categoriaEfetiva(l) ? sg.categoria : undefined;
-      setSugestaoIA({ ean: l.ean, carregando: false, msg: partes.length || categoriaDiferente ? `Sugestão da IA${partes.length ? ` preencheu: ${partes.join(", ")}` : ""}. Revise e aperte Confirmar para salvar.` : "A IA não achou o que mudar neste produto.", categoria: categoriaDiferente });
+      setSugestaoIA({ ean: l.ean, carregando: false, msg: partes.length || categoriaDiferente ? `Sugestão da IA${partes.length ? ` preencheu: ${partes.join(", ")}` : ""}${corpo.fontes?.length ? ` (sites consultados: ${corpo.fontes.join(", ")})` : ""}. Revise e aperte Confirmar para salvar.` : "A IA não achou o que mudar neste produto.", categoria: categoriaDiferente });
     } catch {
       setSugestaoIA({ ean: l.ean, carregando: false, msg: "Não consegui falar com a IA agora." });
     }

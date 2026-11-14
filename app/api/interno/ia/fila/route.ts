@@ -10,7 +10,7 @@ export async function GET() {
   const db = banco();
   if (!db) return Response.json({ ok: false, erro: "sem_banco" }, { status: 501, headers: SEM_CACHE });
   const lista = await pendentes(db);
-  return Response.json({ ok: true, itens: lista.map((i) => ({ original: i.original, exibicao: nomeDeExibicao(i.original), descricao: i.descricao, marca: i.marca })) }, { headers: SEM_CACHE });
+  return Response.json({ ok: true, itens: lista.map((i) => ({ original: i.original, exibicao: nomeDeExibicao(i.original), descricao: i.descricao, marca: i.marca, fontes: i.fontes ?? "" })) }, { headers: SEM_CACHE });
 }
 
 /** Tira da fila: aprovada (o painel já salvou o texto pelo fluxo normal) ou descartada. */

@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
   const permitirDescricao = !descricaoNaoPermitida(original);
   const r = await sugerirProduto({ original, marca: typeof c.marca === "string" ? c.marca : "", categoria: typeof c.categoria === "string" ? c.categoria : "", permitirDescricao });
-  if (r.ok) return Response.json({ ok: true, sugestao: r.sugestao, descricaoPermitida: permitirDescricao }, { headers: SEM_CACHE });
+  if (r.ok) return Response.json({ ok: true, sugestao: r.sugestao, fontes: r.fontes ?? [], descricaoPermitida: permitirDescricao }, { headers: SEM_CACHE });
   // Rota só da equipe: o motivo técnico ajuda a achar o problema (chave inválida, cota, modelo). Nunca inclui a chave.
   return Response.json({ ok: false, erro: r.erro, motivo: r.motivo, resposta: r.resposta }, { status: r.erro === "sem_ia" ? 501 : 502, headers: SEM_CACHE });
 }
