@@ -67,6 +67,7 @@ export function grupoRestritos(lista: readonly RestritoIndice[]): GrupoBusca {
       foto: null,
       slug: i.slug,
       ...(i.esgotado ? { esgotado: true } : {}),
+      ...(i.palavras ? { palavras: i.palavras } : {}),
       restrito: i,
     })),
   };
