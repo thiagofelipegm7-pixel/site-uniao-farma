@@ -174,6 +174,14 @@ test("reserva_add, reserva_revisar e o clique do WhatsApp entram no dataLayer se
   try {
     await register(new URL("./resolve-ts.mjs", import.meta.url));
     const { trackEvent, getClickTrackingParams } = await import("../app/analytics.ts");
+    // Sem aceite no banner de cookies, nenhum evento é registrado (nem fica na fila para sair depois).
+    trackEvent("reserva_add", { unit: "nacoes", source: "catalogo" });
+    assert.deepEqual(dataLayer, []);
+    globalThis.window.localStorage = { getItem: () => "rejected" };
+    trackEvent("reserva_add", { unit: "nacoes", source: "catalogo" });
+    assert.deepEqual(dataLayer, []);
+    // Com o aceite guardado, os eventos entram.
+    globalThis.window.localStorage = { getItem: (chave) => (chave === "uniao_farma_cookie_consent_v1" ? "accepted" : null) };
     trackEvent("reserva_add", { unit: "nacoes", source: "catalogo" });
     trackEvent("reserva_revisar", { modo: "retirar", itens: 2 });
     const ancora = {

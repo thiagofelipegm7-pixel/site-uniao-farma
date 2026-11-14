@@ -269,7 +269,8 @@ test("keeps local contact data, dataLayer events, SEO files and accessibility ho
   assert.match(envExample, /NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION/);
   assert.match(envExample, /NEXT_PUBLIC_GOOGLE_ADS_ID/);
   assert.match(layout, /NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION/);
-  assert.match(layout, /gtag\/js\?id=\$\{GA_MEASUREMENT_ID\}/);
+  // O gtag.js não vai mais no <head>: só é carregado depois do aceite (tests/analytics-consentimento.test.mjs).
+  assert.doesNotMatch(layout, /<script[^>]*googletagmanager/);
   assert.match(analytics, /consent", "update"/);
   assert.match(layout, /chgP6OWdJAiM-yv_oPbit7Rf91vAsI7xDUWEuNQG1xk/);
   assert.match(sitemap, /entrega-de-medicamentos-em-sabara/);
