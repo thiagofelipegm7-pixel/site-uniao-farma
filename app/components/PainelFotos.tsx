@@ -1,6 +1,7 @@
 "use client";
 
 import FilaIA from "./FilaIA";
+import FileDrop from "./FileDrop";
 import BuscasSemResultado from "./BuscasSemResultado";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { candidatosDoArraste } from "../fotos-arrastar";
@@ -842,11 +843,11 @@ export default function PainelFotos() {
                     {l.noSite ? (
                       <img src={urlFoto} alt="" width="176" height="176" />
                     ) : (
-                      <label className="pf-envio">
-                        <input type="file" accept="image/*" disabled={envios[l.ean] === "enviando"} onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} />
-                        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 16V5m0 0-4 4m4-4 4 4M5 15v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                        <span>{envios[l.ean] === "enviando" ? "Enviando…" : "Enviar foto"}</span>
-                      </label>
+                      <FileDrop
+                        estado={envios[l.ean] === "enviando" ? "enviando" : envios[l.ean] === "enviada" ? "pronto" : "parado"}
+                        rotulo={`Enviar foto de ${nomeAtual(l).texto}`}
+                        onArquivo={(arquivo) => void enviarFoto(l, arquivo)}
+                      />
                     )}
                   </div>
                   <h3 className="pf-card-nome" title={nomeAtual(l).texto}>{nomeAtual(l).texto}</h3>
