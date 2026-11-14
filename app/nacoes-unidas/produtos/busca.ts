@@ -70,7 +70,7 @@ export type FiltroCatalogo = {
   faixas?: readonly FaixaPreco[];
   /** Categoria dentro do departamento (nível 2 da árvore). */
   tipos?: readonly string[];
-  /** Filtros da lateral que mudam conforme a busca (facetas.ts): o produto só fica se o predicado aceitar. */
+  /** Filtros da lateral que mudam conforme a busca (facetas-calculo.ts): o produto só fica se o predicado aceitar. */
   predicado?: (item: ItemBusca, departamento: string) => boolean;
 };
 
