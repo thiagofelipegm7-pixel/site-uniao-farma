@@ -26,9 +26,13 @@ export const LIMITE_TERMO_IA = 150;
 
 const SINTOMA = /\b(remedios?|medicamentos?)\s+(pra|para|de|do|da|contra|que|pro)\b|\bo que (tomar|tomo|posso tomar|usar)\b|\b(pra|para|contra)\s+(dor|febre|tosse|gripe|infeccao|alergia|enjoo|azia|diarreia|colica)\b|\b(dor|dores|febre|tosse|enjoo|azia|diarreia|colica|infeccao|gastrite|resfriado|coriza|enxaqueca|alergia)\s+(de|do|da|no|na|nas|nos|em|ao|forte|muita|muito)\b|\b(estou|to|tou|tenho|sinto|estar)\s+(com|sentindo|muito|passando)\b/;
 
+/** Contracepção de emergência e abortivos: o site não indica nem aproxima por parecido ("pílula do dia seguinte" jamais vira "pilha"). Só entra quando a busca normal não achou nada. */
+const SENSIVEL = /\b(pilulas?|comprimidos?)\s+(do\s+)?(dia\s+)?(seguinte|depois)\b|\bdia\s+seguinte\b|\bpostinor\b|\blevonorgestrel\b|\bcytotec\b|\bmisoprostol\b|\babortiv\w*/;
+
 /** Pedido de remédio para um problema de saúde: o site não indica produto, quem orienta é o farmacêutico. */
 export function pareceSintoma(consulta: string): boolean {
-  return SINTOMA.test(consulta.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase());
+  const t = consulta.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  return SINTOMA.test(t) || SENSIVEL.test(t);
 }
 
 /** Junta sons iguais: duas grafias que soam parecido geram a mesma chave. */
@@ -246,4 +250,38 @@ export function termosIAUteis(vocab: Vocabulario, termos: readonly string[]): st
     const n = contarCasos(vocab, termo);
     return n >= 1 && n <= LIMITE_TERMO_IA;
   });
+}
+
+export type InterpretacaoIA = { tipo: "corrigida"; consulta: string } | { tipo: "sugestao"; sugestao: string } | null;
+
+/**
+ * Decide o que fazer com as palavras que a IA escolheu para uma busca digitada errado.
+ * - Cada palavra da IA precisa substituir uma palavra desconhecida parecida (distância curta); se não, a IA inventou e nada aparece.
+ * - A busca nova mantém as outras palavras digitadas e precisa achar produto: "pílula do dia seguinte" não vira só "pilha".
+ * - Só troca sozinho quando é erro de digitação claro; qualquer outra troca vira a pergunta "Você quis dizer…?".
+ */
+export function interpretarCorrecaoIA(vocab: Vocabulario, local: Pick<Analise, "tokens" | "desconhecidas">, termosIA: readonly string[]): InterpretacaoIA {
+  const tokens = [...local.tokens];
+  const livres = new Set(local.desconhecidas);
+  const trocas: [string, string][] = [];
+  for (const termo of termosIA) {
+    let melhor: string | null = null;
+    let menor = Infinity;
+    for (const u of livres) {
+      const lim = Math.max(2, Math.floor(u.length * 0.4));
+      const d = Math.min(distancia(u, termo, lim), distancia(chaveFonetica(u), chaveFonetica(termo), lim));
+      if (d <= lim && d < menor) {
+        menor = d;
+        melhor = u;
+      }
+    }
+    if (melhor === null) return null;
+    livres.delete(melhor);
+    trocas.push([melhor, termo]);
+  }
+  if (trocas.length === 0) return null;
+  const texto = tokens.map((t) => trocas.find(([u]) => u === t)?.[1] ?? t).join(" ");
+  // Sobrou palavra que a loja não conhece: a busca nova não acharia nada.
+  if (texto.split(" ").some((t) => !casa(vocab, t)) || contarCasos(vocab, texto) === 0) return null;
+  return trocas.every(([u, t]) => ehErroDeDigitacao(u, t)) ? { tipo: "corrigida", consulta: texto } : { tipo: "sugestao", sugestao: texto };
 }

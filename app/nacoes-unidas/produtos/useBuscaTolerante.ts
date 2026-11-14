@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { candidatosValidos, consultaValida, limparRespostaIA, type RespostaBuscaIA } from "../../busca-ia-nucleo";
-import { analisarConsulta, candidatosParaIA, contarCasos, criarVocabulario, termosIAUteis } from "./busca-tolerante";
+import { analisarConsulta, candidatosParaIA, contarCasos, criarVocabulario, interpretarCorrecaoIA, termosIAUteis } from "./busca-tolerante";
 
 /** Espera máxima pela IA. Passou disso, a busca segue como está (sem erro na tela). */
 const ESPERA_IA_MS = 3200;
@@ -128,11 +128,15 @@ export function useBuscaTolerante({ textos, consulta, totalExato, usarIA = true 
   }, [chaveIA]);
 
   const respostaIA = ia && ia.chave === chaveIA ? ia.resposta : null;
-  const uteis = useMemo(() => (vocab && respostaIA && !respostaIA.sintoma ? termosIAUteis(vocab, respostaIA.termos) : []), [vocab, respostaIA]);
+  const uteis = useMemo(() => (intencao && vocab && respostaIA && !respostaIA.sintoma ? termosIAUteis(vocab, respostaIA.termos) : []), [intencao, vocab, respostaIA]);
+  // Correção da IA: só vale se trocar palavra parecida, mantiver o resto da busca e achar produto; troca duvidosa vira pergunta.
+  const interpretada = useMemo(() => (!intencao && vocab && local && respostaIA && !respostaIA.sintoma ? interpretarCorrecaoIA(vocab, local, respostaIA.termos) : null), [intencao, vocab, local, respostaIA]);
 
   if (sintomaLocal || respostaIA?.sintoma) return { tipo: "sintoma", procurando: false };
   if (corrigidaLocal) return { tipo: "corrigida", rotulo: corrigidaLocal, consultas: [corrigidaLocal], procurando: false };
   if (sugestaoLocal) return { tipo: "sugestao", sugestao: sugestaoLocal, procurando: false };
+  if (interpretada?.tipo === "corrigida") return { tipo: "corrigida", rotulo: interpretada.consulta, consultas: [interpretada.consulta], procurando: false };
+  if (interpretada?.tipo === "sugestao") return { tipo: "sugestao", sugestao: interpretada.sugestao, procurando: false };
   if (uteis.length > 0) return { tipo: "corrigida", rotulo: uteis.join(", "), consultas: uteis, procurando: false };
   return { tipo: "nenhum", procurando: chaveIA !== "" && respostaIA === null };
 }

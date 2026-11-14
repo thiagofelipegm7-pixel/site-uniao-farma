@@ -123,3 +123,25 @@ test("nome parecido com OUTRO produto não é trocado sozinho: o site pergunta",
     assert.ok(analise.sugerida?.includes("prednisona"), `${palavra}: deveria sugerir prednisona (${analise.sugerida})`);
   }
 });
+
+test("IA: 'pílula do dia seguinte' nunca vira 'pilha'; troca duvidosa vira pergunta e erro claro corrige", async () => {
+  const { analisarConsulta, interpretarCorrecaoIA, pareceSintoma } = await tolerante();
+  const vocab = await vocabulario(true);
+  // Pedido sensível: orienta falar com o farmacêutico, sem aproximar por palavra parecida.
+  for (const t of ["pilula do dia seguinte", "pílula do dia seguinte", "postinor", "cytotec"]) assert.ok(pareceSintoma(t), t);
+  assert.equal(pareceSintoma("pilha duracell"), false);
+  // Mesmo que a IA proponha "pilha", a busca com as outras palavras não acharia nada: descarta.
+  const a = analisarConsulta(vocab, "pilula do dia seguinte");
+  assert.equal(interpretarCorrecaoIA(vocab, a, ["pilha"]), null);
+  // Palavra solta duvidosa vira pergunta, não troca automática.
+  const b = analisarConsulta(vocab, "pilula");
+  const r = interpretarCorrecaoIA(vocab, b, ["pilha"]);
+  assert.ok(r === null || r.tipo === "sugestao", JSON.stringify(r));
+  // Termo da IA que não se parece com nada digitado é invenção: ignorado.
+  assert.equal(interpretarCorrecaoIA(vocab, analisarConsulta(vocab, "xyzqwk"), ["shampoo"]), null);
+  // Erro de digitação claro com outra palavra junto mantém a outra palavra.
+  const c = analisarConsulta(vocab, "shampoo dovi");
+  const rc = interpretarCorrecaoIA(vocab, { tokens: ["shampoo", "dovee"], desconhecidas: ["dovee"] }, ["dove"]);
+  assert.ok(rc === null || rc.consulta?.startsWith("shampoo dove") || rc.sugestao?.startsWith("shampoo dove"), JSON.stringify(rc));
+  assert.ok(c);
+});
