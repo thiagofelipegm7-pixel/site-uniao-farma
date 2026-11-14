@@ -12,7 +12,6 @@ import { precoParaCentavos } from "../../reserva/reserva-store";
 import {
   aplicarCatalogo,
   contarItens,
-  esgotadosPorUltimo,
   eventoBusca,
   eventoFiltro,
   filtrarGrupos,
@@ -199,7 +198,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   const totalExato = useMemo(() => (consulta.trim() ? filtrarGrupos(base, consulta).reduce((soma, g) => soma + g.itens.length, 0) : 1), [base, consulta]);
   const tolerante = useBuscaTolerante({ textos: textosBusca, consulta, totalExato });
   const sintomaComProdutos = tolerante.tipo === "sintoma" && tolerante.consultas?.length ? tolerante : null;
-  const consultasAlternativas = tolerante.tipo === "corrigida" ? tolerante.consultas : sintomaComProdutos?.consultas;
+  const consultasAlternativas = tolerante.tipo === "corrigida" || tolerante.tipo === "parcial" ? tolerante.consultas : sintomaComProdutos?.consultas;
 
   const porTexto = useMemo(() => {
     if (!consultasAlternativas?.length) return filtrarGrupos(base, consulta);
@@ -215,7 +214,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   const [porPagina, setPorPagina] = useState<number>(POR_PAGINA);
   const totalPaginas = Math.max(1, Math.ceil(total / porPagina));
   const paginaAtual = Math.min(pagina, totalPaginas);
-  const itensDaPagina = esgotadosPorUltimo(visiveis.flatMap((g) => g.itens)).slice((paginaAtual - 1) * porPagina, paginaAtual * porPagina);
+  const itensDaPagina = visiveis.flatMap((g) => g.itens).slice((paginaAtual - 1) * porPagina, paginaAtual * porPagina);
   const primeiraBusca = useRef(true);
   // Mudou a busca, o filtro ou a ordem: volta para a página 1 (menos na primeira carga, que respeita o endereço).
   useEffect(() => {
@@ -389,7 +388,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     <>
       <div className="pv-layout">
         <aside className="pv-filtros" aria-label="Filtros">
-          {buscando ? <h2 className="fc-termo">{tolerante.tipo === "corrigida" ? tolerante.rotulo : sintomaComProdutos ? sintomaComProdutos.rotulo : consulta.trim()}</h2> : null}
+          {buscando ? <h2 className="fc-termo">{tolerante.tipo === "corrigida" || tolerante.tipo === "parcial" ? tolerante.rotulo : sintomaComProdutos ? sintomaComProdutos.rotulo : consulta.trim()}</h2> : null}
           <LateralTopo total={total} rotulo={buscando ? "resultado" : "produto"} atual={departamento} carregando={esperando} departamentosAbertos={!buscando} />
           {atalhos.length > 1 ? <AtalhosBusca opcoes={atalhos} aoEscolher={(v) => alternarFaceta("categoria", v)} /> : null}
           <div className="pv-filtros-topo">
@@ -443,6 +442,12 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
       {tolerante.tipo === "sugestao" ? (
         <p className="pv-corrigida" role="status">
           Não encontramos “{consulta.trim()}”. Você quis dizer <a href={`/nacoes-unidas/produtos?q=${encodeURIComponent(tolerante.sugestao)}`}><strong>{tolerante.sugestao}</strong></a>?
+        </p>
+      ) : null}
+
+      {tolerante.tipo === "parcial" ? (
+        <p className="pv-corrigida" role="status">
+          Não encontramos “{consulta.trim()}” completo{tolerante.ignoradas.length ? <> (sem produto para <strong>{tolerante.ignoradas.join(" ")}</strong>)</> : null}. Mostrando resultados para: <strong>{tolerante.rotulo}</strong>
         </p>
       ) : null}
 
