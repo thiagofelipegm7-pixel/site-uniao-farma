@@ -20,6 +20,7 @@ async function gruposPelasFatias(departamento) {
     foto: item.foto,
     slug: item.slug,
     tipo: item.tipo,
+    ...(item.palavras ? { palavras: item.palavras } : {}),
   });
   const grupos = [];
   for (const g of idx.grupos.filter((g) => !departamento || g.slug === departamento)) {
@@ -46,6 +47,7 @@ async function gruposPelasFatias(departamento) {
         foto: null,
         slug: i.slug,
         ...(i.esgotado ? { esgotado: true } : {}),
+        ...(i.palavras ? { palavras: i.palavras } : {}),
         restrito: i,
       })),
     });

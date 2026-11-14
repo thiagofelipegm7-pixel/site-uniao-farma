@@ -175,3 +175,40 @@ test("voz: o botão é um botão de verdade, com nome acessível, estado e aviso
   assert.match(fonte, /rec\.lang = "pt-BR"/);
   assert.match(fonte, /if \(!suportado\) return null/);
 });
+
+test("receita: palavra de busca do painel não faz outro remédio aparecer no lugar do receitado", async () => {
+  // As palavras de busca (IA e equipe) entram no fim do texto de busca; `proprio` marca onde termina o que é do produto.
+  const { casarMedicamento, prepararCatalogo, textoProprio } = await import("../app/nacoes-unidas/produtos/receita-casar.ts");
+  const proprioAnador = "anador 1g c 10 comprimidos sanofi medicamentos";
+  const normais = [
+    { nome: "Anador 1g C 10 comprimidos", slug: "anador-1g", precoCentavos: 1700, foto: null, busca: `${proprioAnador} dipirona dor`, proprio: proprioAnador.length },
+    { nome: "Dipirona 1g Cx 10 comprimidos Medley", slug: "dipirona-1g", precoCentavos: 1200, foto: null, busca: "dipirona 1g cx 10 comprimidos medley medicamentos" },
+  ];
+  assert.equal(textoProprio(normais[0]), proprioAnador);
+  assert.equal(textoProprio(normais[1]), normais[1].busca, "sem palavras de busca, vale o texto inteiro");
+  const c = prepararCatalogo(normais, []);
+  const r = casarMedicamento(c, { nome: "Dipirona", dosagem: "1 g" });
+  assert.deepEqual(r.itens.map((i) => i.slug), ["dipirona-1g"]);
+  // O nome de verdade continua casando.
+  assert.deepEqual(casarMedicamento(c, { nome: "Anador", dosagem: "1 g" }).itens.map((i) => i.slug), ["anador-1g"]);
+});
+
+test("gerador: com palavras de busca, o texto leva a marca `proprio` e as fatias levam `palavras`", async () => {
+  // O arquivo do repositório ficou vazio ({}) até a primeira sincronização com palavras de verdade, que quebrou os testes
+  // e travou o catálogo. Aqui o gerador é conferido pelo código, sem depender de haver palavras nos dados do dia.
+  const g = (await readFile(new URL("../scripts/gerar-assets-catalogo.mjs", import.meta.url), "utf8")).replace(/\r\n/g, "\n");
+  const inicio = g.indexOf("function buscaComPalavras(base, palavras) {");
+  assert.ok(inicio >= 0, "buscaComPalavras existe no gerador");
+  const corpo = g.slice(inicio, g.indexOf("\n}\n", inicio) + 2);
+  const textoDeBusca = (v) => String(v || "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
+  const buscaComPalavras = new Function("textoDeBusca", `${corpo}; return buscaComPalavras;`)(textoDeBusca);
+  assert.deepEqual(buscaComPalavras("Anador 1g", ""), { busca: "anador 1g" });
+  const com = buscaComPalavras("Anador 1g", "Dipirona, dor");
+  assert.equal(com.busca, "anador 1g dipirona dor");
+  assert.equal(com.busca.slice(0, com.proprio), "anador 1g");
+  // As palavras só entram no texto de busca por buscaComPalavras (que marca onde elas começam)...
+  assert.ok(!/textoDeBusca\([^\n]*palavrasDe\(/.test(g), "palavrasDe não pode voltar a entrar direto em textoDeBusca");
+  // ...e os itens das fatias (catálogo e restritos) levam o campo `palavras`, como o índice da busca.
+  assert.ok(g.includes("...(palavrasDe(item.nome) ? { palavras: palavrasDe(item.nome) } : {})"), "fatias do catálogo levam as palavras");
+  assert.ok(g.includes("...(palavrasDe(base.nome) ? { palavras: palavrasDe(base.nome) } : {})"), "fatias dos restritos levam as palavras");
+});

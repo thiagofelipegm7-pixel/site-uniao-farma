@@ -8,13 +8,14 @@ import { normalizarBusca, termosDeBusca } from "./busca";
 
 export type MedicamentoLido = { nome: string; dosagem: string | null };
 
-export type ProdutoNormal = { nome: string; slug: string; precoCentavos: number; foto: string | null; busca: string };
+export type ProdutoNormal = { nome: string; slug: string; precoCentavos: number; foto: string | null; busca: string; /** Quantos caracteres do começo de `busca` são do próprio produto (o resto são palavras de busca do painel). */ proprio?: number };
 export type ProdutoRestrito = {
   nome: string;
   nomeOriginal?: string;
   tipo: "receita" | "controlados";
   precoCentavos: number | null;
   busca: string;
+  proprio?: number;
   q: string;
   apresentacao: string | null;
   tarja: "vermelha" | "vermelha-retencao" | "preta" | null;
@@ -47,8 +48,17 @@ export type CatalogoReceita = {
   vocabulario: Vocabulario;
 };
 
+/**
+ * Texto do próprio produto (nome, marca, princípio ativo), sem as palavras de busca do painel.
+ * As palavras são geradas por IA e servem só à busca: na leitura de receita, "dipirona" escrito como palavra de busca de outro
+ * remédio não pode fazer esse remédio aparecer no lugar do que o médico receitou.
+ */
+export function textoProprio(p: { busca: string; proprio?: number }): string {
+  return typeof p.proprio === "number" ? p.busca.slice(0, p.proprio) : p.busca;
+}
+
 export function prepararCatalogo(normais: readonly ProdutoNormal[], restritos: readonly ProdutoRestrito[]): CatalogoReceita {
-  return { normais, restritos, vocabulario: criarVocabulario([...normais.map((p) => p.busca), ...restritos.map((p) => p.busca)]) };
+  return { normais, restritos, vocabulario: criarVocabulario([...normais.map(textoProprio), ...restritos.map(textoProprio)]) };
 }
 
 // ---- dosagem -------------------------------------------------------------------------------------------------------
@@ -111,13 +121,13 @@ type Candidato = ItemCasado;
 function candidatos(catalogo: CatalogoReceita, palavras: readonly string[], dosesReceita: readonly Dose[]): Candidato[] {
   const saida: Candidato[] = [];
   for (const p of catalogo.normais) {
-    if (p.precoCentavos > 0 && casaTodas(p.busca, palavras)) {
+    if (p.precoCentavos > 0 && casaTodas(textoProprio(p), palavras)) {
       saida.push({ tipo: "normal", chave: `n:${p.slug}`, nome: p.nome, precoCentavos: p.precoCentavos, foto: p.foto, slug: p.slug, doseConfere: doseConfere(dosesReceita, p.nome) });
     }
   }
   for (const p of catalogo.restritos) {
     // Sem preço fica fora da cesta (regra da lista de preços da loja).
-    if (p.precoCentavos !== null && p.precoCentavos > 0 && casaTodas(p.busca, palavras)) {
+    if (p.precoCentavos !== null && p.precoCentavos > 0 && casaTodas(textoProprio(p), palavras)) {
       saida.push({ tipo: p.tipo, chave: `r:${p.tipo}:${p.nome}`, nome: p.nome, precoCentavos: p.precoCentavos, produto: p, doseConfere: doseConfere(dosesReceita, p.nomeOriginal ?? p.nome) });
     }
   }
