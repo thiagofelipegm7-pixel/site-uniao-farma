@@ -8,6 +8,7 @@ import { listarPendentes, listarRemocoes } from "../../../fotos-enviadas";
 import { mapaDeCategorias } from "../../../categoria-override";
 import { mapaDeControlados } from "../../../controlado-override";
 import { mapaDeMarcas } from "../../../marca-override";
+import { mapaDePalavras } from "../../../palavras-busca";
 import { mapaDeDescricoes } from "../../../descricao-override";
 import { mapaDeNomes, ultimasAlteracoes, type Banco } from "../../../nomes-corrigidos";
 import { mapaDeRemovidos } from "../../../produtos-removidos";
@@ -80,6 +81,7 @@ export async function GET() {
   const nomes = db ? await mapaDeNomes(db).catch(() => ({})) : {};
   const controlados = db ? await mapaDeControlados(db).catch(() => ({})) : {};
   const marcasOverride = db ? await mapaDeMarcas(db).catch(() => ({})) : {};
+  const palavrasOverride = db ? await mapaDePalavras(db).catch(() => ({})) : {};
   const descricoesOverride = db ? await mapaDeDescricoes(db).catch(() => ({})) : {};
   const alteracoes = db ? await ultimasAlteracoes(db).catch(() => []) : [];
   const sistemaRestrito = new Set<string>();
@@ -107,6 +109,7 @@ export async function GET() {
       controlados,
       categoriasOverride: categoriasOvr,
       marcasOverride,
+      palavrasOverride,
       comDescricao,
       descricoes,
       descricoesOverride,

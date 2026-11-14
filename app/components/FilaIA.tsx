@@ -16,6 +16,9 @@ export default function FilaIA({ por, onAviso, onDescricaoSalva }: { por: string
   const [msg, setMsg] = useState("");
   const [editados, setEditados] = useState<Record<string, string>>({});
   const [ocupado, setOcupado] = useState<string | null>(null);
+  const [palavras, setPalavras] = useState<{ comPalavras: number; faltam: number } | null>(null);
+  const [gerandoPalavras, setGerandoPalavras] = useState(false);
+  const [msgPalavras, setMsgPalavras] = useState("");
 
   const [recarga, setRecarga] = useState(0);
 
@@ -23,7 +26,9 @@ export default function FilaIA({ por, onAviso, onDescricaoSalva }: { por: string
     let vivo = true;
     (async () => {
       try {
-        const [f, st] = await Promise.all([fetch("/api/interno/ia/fila", { cache: "no-store" }), fetch("/api/interno/ia/lote", { cache: "no-store" })]);
+        const [f, st, pl] = await Promise.all([fetch("/api/interno/ia/fila", { cache: "no-store" }), fetch("/api/interno/ia/lote", { cache: "no-store" }), fetch("/api/interno/ia/palavras", { cache: "no-store" })]);
+        const pj = (await pl.json().catch(() => null)) as { ok?: boolean; comPalavras?: number; faltam?: number } | null;
+        if (vivo && pj?.ok) setPalavras({ comPalavras: pj.comPalavras ?? 0, faltam: pj.faltam ?? 0 });
         const fj = (await f.json().catch(() => null)) as { ok?: boolean; itens?: Item[] } | null;
         const sj = (await st.json().catch(() => null)) as { ok?: boolean; restantes?: number; ia?: boolean } | null;
         if (!vivo) return;
@@ -56,6 +61,21 @@ export default function FilaIA({ por, onAviso, onDescricaoSalva }: { por: string
       setMsg("Demorou demais ou a conexão caiu. Veja se as sugestões apareceram na lista.");
     }
     setGerando(false);
+    setRecarga((n) => n + 1);
+  }
+
+  async function gerarPalavras() {
+    setGerandoPalavras(true);
+    setMsgPalavras("");
+    try {
+      const r = await fetch("/api/interno/ia/palavras", { method: "POST", headers: { "content-type": "application/json" }, body: "{}", signal: AbortSignal.timeout(170_000) });
+      const j = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string; salvos?: number; semPalavras?: number; falhas?: number; motivo?: string } | null;
+      if (!r.ok || !j?.ok) setMsgPalavras(j?.erro === "sem_ia" ? "A IA ainda não está ligada (falta a chave do Gemini)." : j?.erro === "limite" ? "Muitos pedidos seguidos. Espere alguns minutos." : "Não consegui gerar agora. Tente de novo.");
+      else setMsgPalavras(`${j.salvos ?? 0} produtos ganharam palavras de busca${j.semPalavras ? `, ${j.semPalavras} sem palavras seguras` : ""}${j.falhas ? `, ${j.falhas} falharam (${j.motivo ?? "erro"})` : ""}. Valem na próxima publicação.`);
+    } catch {
+      setMsgPalavras("Demorou demais ou a conexão caiu. Atualize a página para ver o andamento.");
+    }
+    setGerandoPalavras(false);
     setRecarga((n) => n + 1);
   }
 
@@ -98,6 +118,17 @@ export default function FilaIA({ por, onAviso, onDescricaoSalva }: { por: string
         {itens.length > 0 ? <button type="button" className="pf-botao" disabled={gerando || !iaLigada} onClick={() => void gerar(true)}>Refazer as pendentes com pesquisa</button> : null}
         {!iaLigada ? <span className="pf-dica">A IA ainda não está ligada (falta a chave do Gemini).</span> : null}
         {msg ? <span className="pf-dica" role="status">{msg}</span> : null}
+      </div>
+      <div className="pf-fila-palavras">
+        <strong>Palavras de busca</strong>
+        <p className="pf-dica">A IA escreve nomes populares e marcas para a busca achar o produto (ex.: &quot;aparelho de barbear&quot; para o Prestobarba). O cliente não vê essas palavras. Remédios ficam de fora. Você pode editar no popup de cada produto.</p>
+        <div className="pf-modal-acoes">
+          <button type="button" className="pf-botao pf-botao--primario" disabled={gerandoPalavras || !iaLigada || palavras?.faltam === 0} onClick={() => void gerarPalavras()}>
+            {gerandoPalavras ? "Gerando… (1 a 2 minutos)" : "Gerar palavras para 60 produtos"}
+          </button>
+          {palavras ? <span className="pf-dica">{palavras.comPalavras} produtos já têm · {palavras.faltam} faltam</span> : null}
+          {msgPalavras ? <span className="pf-dica" role="status">{msgPalavras}</span> : null}
+        </div>
       </div>
       <ul className="pf-fila-lista">
         {itens.map((i) => (
