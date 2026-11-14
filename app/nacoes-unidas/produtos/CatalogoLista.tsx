@@ -197,12 +197,15 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   );
   const totalExato = useMemo(() => (consulta.trim() ? filtrarGrupos(base, consulta).reduce((soma, g) => soma + g.itens.length, 0) : 1), [base, consulta]);
   const tolerante = useBuscaTolerante({ textos: textosBusca, consulta, totalExato });
-  const consultasAlternativas = tolerante.tipo === "corrigida" ? tolerante.consultas : undefined;
+  const sintomaComProdutos = tolerante.tipo === "sintoma" && tolerante.consultas?.length ? tolerante : null;
+  const consultasAlternativas = tolerante.tipo === "corrigida" ? tolerante.consultas : sintomaComProdutos?.consultas;
 
-  const porTexto = useMemo(
-    () => (consultasAlternativas?.length ? filtrarGruposAlternativos(base, consultasAlternativas) : filtrarGrupos(base, consulta)),
-    [base, consulta, consultasAlternativas],
-  );
+  const porTexto = useMemo(() => {
+    if (!consultasAlternativas?.length) return filtrarGrupos(base, consulta);
+    const achados = filtrarGruposAlternativos(base, consultasAlternativas);
+    // Busca por sintoma: só medicamento sem receita (receita, controlado e antimicrobiano ficam de fora).
+    return sintomaComProdutos && !sintomaComProdutos.comReceita ? achados.map((g) => ({ ...g, itens: g.itens.filter((i) => !i.restrito) })).filter((g) => g.itens.length > 0) : achados;
+  }, [base, consulta, consultasAlternativas, sintomaComProdutos]);
   const facetas = useMemo(() => calcularFacetas(porTexto, filtros), [porTexto, filtros]);
   const faixa = useMemo(() => faixaDePrecos(porTexto, filtros), [porTexto, filtros]);
   const visiveis = aplicarCatalogo(porTexto, { ordem, predicado: predicadoFiltros(filtros) });
@@ -385,7 +388,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     <>
       <div className="pv-layout">
         <aside className="pv-filtros" aria-label="Filtros">
-          {buscando ? <h2 className="fc-termo">{tolerante.tipo === "corrigida" ? tolerante.rotulo : consulta.trim()}</h2> : null}
+          {buscando ? <h2 className="fc-termo">{tolerante.tipo === "corrigida" ? tolerante.rotulo : sintomaComProdutos ? sintomaComProdutos.rotulo : consulta.trim()}</h2> : null}
           <LateralTopo total={total} rotulo={buscando ? "resultado" : "produto"} atual={departamento} carregando={esperando} departamentosAbertos={!buscando} />
           {atalhos.length > 1 ? <AtalhosBusca opcoes={atalhos} aoEscolher={(v) => alternarFaceta("categoria", v)} /> : null}
           <div className="pv-filtros-topo">
@@ -445,6 +448,12 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
       {tolerante.tipo === "corrigida" ? (
         <p className="pv-corrigida" role="status">
           Mostrando resultados para: <strong>{tolerante.rotulo}</strong>
+        </p>
+      ) : null}
+
+      {sintomaComProdutos ? (
+        <p className="pv-corrigida" role="status">
+          {sintomaComProdutos.comReceita ? <>Produtos da loja para <strong>{sintomaComProdutos.rotulo}</strong>.</> : <>Medicamentos <strong>sem receita</strong> que a loja tem e que as pessoas costumam procurar para <strong>{sintomaComProdutos.rotulo}</strong>.</>} Isto não é indicação: leia a bula e, em caso de dúvida, fale com o farmacêutico.
         </p>
       ) : null}
 

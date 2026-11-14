@@ -26,13 +26,10 @@ export const LIMITE_TERMO_IA = 150;
 
 const SINTOMA = /\b(remedios?|medicamentos?)\s+(pra|para|de|do|da|contra|que|pro)\b|\bo que (tomar|tomo|posso tomar|usar)\b|\b(pra|para|contra)\s+(dor|febre|tosse|gripe|infeccao|alergia|enjoo|azia|diarreia|colica)\b|\b(dor|dores|febre|tosse|enjoo|azia|diarreia|colica|infeccao|gastrite|resfriado|coriza|enxaqueca|alergia)\s+(de|do|da|no|na|nas|nos|em|ao|forte|muita|muito)\b|\b(estou|to|tou|tenho|sinto|estar)\s+(com|sentindo|muito|passando)\b/;
 
-/** Contracepção de emergência e abortivos: o site não indica nem aproxima por parecido ("pílula do dia seguinte" jamais vira "pilha"). Só entra quando a busca normal não achou nada. */
-const SENSIVEL = /\b(pilulas?|comprimidos?)\s+(do\s+)?(dia\s+)?(seguinte|depois)\b|\bdia\s+seguinte\b|\bpostinor\b|\blevonorgestrel\b|\bcytotec\b|\bmisoprostol\b|\babortiv\w*/;
-
 /** Pedido de remédio para um problema de saúde: o site não indica produto, quem orienta é o farmacêutico. */
 export function pareceSintoma(consulta: string): boolean {
   const t = consulta.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
-  return SINTOMA.test(t) || SENSIVEL.test(t);
+  return SINTOMA.test(t);
 }
 
 /** Junta sons iguais: duas grafias que soam parecido geram a mesma chave. */
