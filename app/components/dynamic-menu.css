@@ -1,0 +1,82 @@
+/* Dynamic Menu: pílula com duas linhas que vira painel ao abrir. Cores e fonte do projeto. */
+.dm-slot { position: relative; height: 430px; width: 100%; }
+
+.dm-menu {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 200px;
+  height: 52px;
+  border-radius: 26px;
+  background: var(--uf-mint, #e4f6f3);
+  overflow: hidden;
+  font-family: var(--font-body, Inter, system-ui, sans-serif);
+  color: var(--uf-ink, #0d1413);
+}
+
+.dm-cabeca {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px 0 20px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.dm-cabeca:focus-visible { outline: 3px solid var(--uf-action, #40baaf); outline-offset: -3px; border-radius: 26px; }
+
+.dm-titulo { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
+
+/* as duas linhas do ícone */
+.dm-icone { position: relative; width: 24px; height: 24px; flex: none; }
+.dm-icone i {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  top: 11px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--uf-green-deep, #0b3b36);
+  will-change: transform;
+}
+
+.dm-links {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 52px;
+  list-style: none;
+  margin: 0;
+  padding: 4px 10px 10px;
+}
+.dm-links li {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 10px;
+  border-radius: 12px;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.dm-links li:hover { background: var(--uf-stone, #d4eeeb); }
+.dm-links a {
+  color: var(--uf-ink, #0d1413);
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  width: 100%;
+}
+.dm-links a:focus-visible { outline: 3px solid var(--uf-action, #40baaf); outline-offset: 2px; border-radius: 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dm-icone i, .dm-links li { will-change: auto; }
+}
