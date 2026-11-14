@@ -3538,6 +3538,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "MAGNAZIA HIDROX ALUM 240 ML": "7898075311854",
   "MUVINLAX 20 saches 14g": "7896094201637",
   "LAVITAN HAIR C/ 30CP": "7897947607996",
+  "ACNEZIL GEL SECATIVO 10 G7897947607392": "7897947607392",
 };
 
 function normalizarNome(nome: string): string {
