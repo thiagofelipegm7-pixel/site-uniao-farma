@@ -326,7 +326,7 @@ export function IconCestaArte({ size = 34, className }: P & { className?: string
   );
 }
 
-/** Caminhão de entrega 3D recortado com fundo transparente (passo "Entrega" da cesta). Proporção da arte: 480 x 344. */
+/** Caminhão de entrega 3D recortado com fundo transparente (passo "Entrega" da cesta). Proporção da arte: 466 x 330. */
 export function IconCaminhaoArte({ size = 36, className }: P & { className?: string }) {
   return (
     // Ícone estático pequeno; o aviso do next/image não cabe aqui (como nos outros ícones).
@@ -335,7 +335,7 @@ export function IconCaminhaoArte({ size = 36, className }: P & { className?: str
       src="/icons/caminhao.png"
       alt=""
       width={size}
-      height={Math.round((size * 344) / 480)}
+      height={Math.round((size * 330) / 466)}
       className={className}
       draggable={false}
       decoding="async"

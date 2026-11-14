@@ -15,7 +15,7 @@ test("passo Entrega da cesta: caminhão 3D com fundo transparente em círculo br
   assert.equal(png.subarray(1, 4).toString(), "PNG");
   assert.equal(png[25], 6, "o PNG tem transparência");
   assert.ok(png.length < 200 * 1024, `caminhao.png tem ${png.length} bytes`);
-  // Dimensões da arte: a proporção do componente (480 x 344) tem que bater com o arquivo.
-  assert.equal(png.readUInt32BE(16), 480);
-  assert.equal(png.readUInt32BE(20), 344);
+  // Dimensões da arte: a proporção do componente (466 x 330) tem que bater com o arquivo.
+  assert.equal(png.readUInt32BE(16), 466);
+  assert.equal(png.readUInt32BE(20), 330);
 });

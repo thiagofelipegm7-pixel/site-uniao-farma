@@ -2242,5 +2242,4 @@ html body .shop-busca .shop-recente button { width: 2.75rem; height: 2.75rem; ma
 /* Passo com arte 3D: o círculo inativo fica branco para o ciano não sumir no teal; o ativo volta ao verde-escuro. */
 html body .cesta-passos li span:has(> img) { background: #ffffff; border-color: #ffffff; box-shadow: 0 1px 0 rgba(10, 45, 41, 0.18); }
 html body .cesta-passos li.is-on span:has(> img) { background: var(--uf-action-ink, #0a2d29); border-color: var(--uf-action-ink, #0a2d29); box-shadow: none; }
-html body .cesta-passos li span > img { display: block; width: 2.5rem; height: auto; }
-html body .cesta-passos li span > img.cesta-passo-selo { width: 2.75rem; height: 2.75rem; }
+html body .cesta-passos li span > img { display: block; width: 2.125rem; height: 2.125rem; object-fit: contain; object-position: center; pointer-events: none; }

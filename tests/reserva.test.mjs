@@ -458,7 +458,10 @@ test("passos da reserva: cesta, caminhão e check 3D, linha atrás do círculo s
   assert.match(css, /\.cesta-passos li span \{[^}]*background:\s*#ffffff/s);
   assert.match(css, /\.cesta-passos li\.is-on span \{[^}]*background:\s*var\(--uf-action-ink\)/s);
   assert.match(css, /\.cesta-passos li\.is-on span:has\(> img\) \{[^}]*background:\s*var\(--uf-action-ink/);
-  assert.match(css, /img\.cesta-passo-selo \{ width: 2\.75rem/);
+  assert.match(css, /html body \.cesta-passos li span > img \{[^}]*width:\s*2\.125rem/s);
+  assert.match(css, /html body \.cesta-passos li span > img \{[^}]*height:\s*2\.125rem/s);
+  assert.match(css, /html body \.cesta-passos li span > img \{[^}]*object-fit:\s*contain/s);
+  assert.doesNotMatch(css, /img\.cesta-passo-selo \{ width: 2\.75rem/);
   const [cesta, caminhao, finalizar] = await Promise.all([
     readFile(new URL("../public/icons/cesta.png", import.meta.url)),
     readFile(new URL("../public/icons/caminhao.png", import.meta.url)),
