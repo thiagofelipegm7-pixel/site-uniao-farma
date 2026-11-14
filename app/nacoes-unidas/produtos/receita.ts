@@ -69,6 +69,8 @@ export type ItemRestrito = {
   /** Classe "genérico" no sistema da loja (define a faixa amarela "Medicamento Genérico" na ilustração). */
   generico?: boolean;
   busca?: string;
+  /** Palavras de busca (IA e equipe): só a busca usa. */
+  palavras?: string;
 };
 
 /** Pela Portaria 344/98: listas A e B levam tarja preta; lista C, tarja vermelha com retenção. */
