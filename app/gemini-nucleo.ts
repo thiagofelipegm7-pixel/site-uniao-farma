@@ -17,6 +17,8 @@ export type PedidoGemini = {
   maxTokens: number;
   ms: number;
   esquema?: Record<string, unknown>;
+  /** Pesquisa na web pelo Google (Search grounding). Nesse modo a resposta é texto livre (o Gemini não combina busca com JSON). */
+  pesquisar?: boolean;
 };
 
 /** Modelo escolhido pelo dono (segredo GEMINI_MODELO) só vale se tiver cara de nome de modelo; senão usa o padrão. */
@@ -29,18 +31,19 @@ export function modeloEscolhido(configurado: string | undefined, padrao: string)
  * `simples` = pedido mínimo (sem esquema, sem filtros de segurança, sem controle de raciocínio): usado se o Google recusar o completo com 400.
  * O controle de raciocínio (thinkingBudget) só existe nos modelos 2.5; mandá-lo a outro modelo dá "invalid argument".
  */
-export function montarCorpoGemini(p: Pick<PedidoGemini, "sistema" | "texto" | "imagem" | "maxTokens" | "esquema"> & { modelo?: string; simples?: boolean }): Record<string, unknown> {
+export function montarCorpoGemini(p: Pick<PedidoGemini, "sistema" | "texto" | "imagem" | "maxTokens" | "esquema" | "pesquisar"> & { modelo?: string; simples?: boolean }): Record<string, unknown> {
   const partes: Record<string, unknown>[] = [{ text: p.texto }];
   if (p.imagem) partes.push({ inlineData: { mimeType: p.imagem.tipo, data: p.imagem.base64 } });
   const simples = p.simples === true;
   return {
     ...(p.sistema ? { systemInstruction: { parts: [{ text: p.sistema }] } } : {}),
     contents: [{ role: "user", parts: partes }],
+    ...(p.pesquisar ? { tools: [{ google_search: {} }] } : {}),
     generationConfig: {
       temperature: 0,
       maxOutputTokens: p.maxTokens,
-      responseMimeType: "application/json",
-      ...(p.esquema && !simples ? { responseSchema: p.esquema } : {}),
+      ...(p.pesquisar ? {} : { responseMimeType: "application/json" }),
+      ...(p.esquema && !simples && !p.pesquisar ? { responseSchema: p.esquema } : {}),
       ...(!simples && p.modelo && /gemini-2\.5/.test(p.modelo) ? { thinkingConfig: { thinkingBudget: 0 } } : {}),
     },
     // Receita pode citar remédio forte; o filtro padrão não deve cortar a transcrição.
@@ -74,7 +77,14 @@ export function esquemaParaGemini(esquema: unknown): Record<string, unknown> | u
   return limpar(s) as Record<string, unknown>;
 }
 
-export type ResultadoGemini = { ok: true; response: string } | { ok: false; motivo: string };
+export type ResultadoGemini = { ok: true; response: string; fontes: string[] } | { ok: false; motivo: string };
+
+/** Sites que o Gemini consultou na pesquisa (só o endereço do site, para a equipe conferir). */
+export function fontesDaRespostaGemini(corpo: unknown): string[] {
+  const c = (corpo as { candidates?: { groundingMetadata?: { groundingChunks?: { web?: { title?: unknown } }[] } }[] } | null)?.candidates?.[0];
+  const nomes = (c?.groundingMetadata?.groundingChunks ?? []).map((x) => (typeof x.web?.title === "string" ? x.web.title.trim() : "")).filter((t) => /^[\w.-]+\.[a-z]{2,}$/i.test(t));
+  return [...new Set(nomes)].slice(0, 5);
+}
 
 /** Nome "-latest" que o Google mantém apontando para um modelo vivo, usado se o modelo fixo for aposentado (404). */
 export function modeloDeReserva(modelo: string): string | null {
@@ -120,8 +130,9 @@ export async function chamarGeminiComMotivo(p: PedidoGemini, buscar: typeof fetc
         }
         return { ok: false, motivo: `http_${r.status}${msg ? `: ${msg}` : ""}` };
       }
-      const texto = textoDaRespostaGemini(await r.json());
-      return texto ? { ok: true, response: texto } : { ok: false, motivo: "resposta_vazia_ou_bloqueada" };
+      const corpo = await r.json();
+      const texto = textoDaRespostaGemini(corpo);
+      return texto ? { ok: true, response: texto, fontes: fontesDaRespostaGemini(corpo) } : { ok: false, motivo: "resposta_vazia_ou_bloqueada" };
     }
     return { ok: false, motivo: "sem_modelo" };
   } catch (e) {
