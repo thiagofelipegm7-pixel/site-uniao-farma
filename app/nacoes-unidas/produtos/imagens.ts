@@ -3538,6 +3538,10 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "MAGNAZIA HIDROX ALUM 240 ML": "7898075311854",
   "MUVINLAX 20 saches 14g": "7896094201637",
   "LAVITAN HAIR C/ 30CP": "7897947607996",
+  "DAFORIN 20MG CX 30 COMP REV": "7894916203524",
+  "PONDERA XR 25mg cx 30 comp rev": "7891317002879",
+  "AZULFIN 500MG CX 60 COMP REV": "7896637022729",
+  "PRES JONTEX C/3": "7896222720030",
 };
 
 function normalizarNome(nome: string): string {
