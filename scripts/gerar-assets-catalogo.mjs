@@ -180,10 +180,12 @@ function ehAntimicrobiano(nome) {
   const n = String(nome).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
   return ANTIMICROB.test(n) && !TOPICO.test(n);
 }
+// Mesma chave de sem-venda.ts (SEM_VENDA_NO_SITE). Desligada: controlados e antimicrobianos têm preço e cesta.
+const SEM_VENDA_NO_SITE = false;
 function classificarSemVenda({ controlado, lista, nome, retencao }) {
   const portaria344 = controlado && /^(A[1-3]|B[12]|C[1-5])$/i.test(String(lista ?? "").trim());
   const antimicrobiano = !portaria344 && (controlado || (retencao === true && ehAntimicrobiano(nome)));
-  return { portaria344, antimicrobiano, semVenda: portaria344 || antimicrobiano };
+  return { portaria344, antimicrobiano, semVenda: SEM_VENDA_NO_SITE && (portaria344 || antimicrobiano) };
 }
 
 function paraRestrito(base, tipo) {
