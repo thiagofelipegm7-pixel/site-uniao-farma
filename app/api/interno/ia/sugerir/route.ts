@@ -1,6 +1,6 @@
 import { descricaoNaoPermitida } from "../../../../descricao-permitida";
 import { segredo } from "../../../../estoque-fonte";
-import { chamarGemini, esquemaParaGemini, MODELO_GEMINI_TEXTO, modeloEscolhido } from "../../../../gemini-nucleo";
+import { chamarGeminiComMotivo, esquemaParaGemini, MODELO_GEMINI_TEXTO, modeloEscolhido } from "../../../../gemini-nucleo";
 import { criarLimitador, conteudoDaRespostaIA } from "../../../../busca-ia-nucleo";
 import { ESQUEMA_SUGESTAO, limparSugestao, PROMPT_SUGESTAO } from "../../../../ia-sugestao-nucleo";
 import { nomeDeExibicao } from "../../../../nome-exibicao";
@@ -37,7 +37,7 @@ export async function POST(request: Request) {
     descricao: permitirDescricao,
     nome_atual_no_site: nomeDeExibicao(original),
   });
-  const r = await chamarGemini({
+  const r = await chamarGeminiComMotivo({
     modelo: modeloEscolhido(segredo("GEMINI_MODELO_PAINEL"), MODELO_GEMINI_TEXTO),
     chave,
     sistema: PROMPT_SUGESTAO,
@@ -46,7 +46,9 @@ export async function POST(request: Request) {
     ms: 12_000,
     esquema: esquemaParaGemini(ESQUEMA_SUGESTAO),
   });
-  const sugestao = r ? limparSugestao(conteudoDaRespostaIA(r), { original, categorias, permitirDescricao }) : null;
-  if (!sugestao) return Response.json({ ok: false, erro: "sem_sugestao" }, { status: 502, headers: SEM_CACHE });
+  // Rota só da equipe: o motivo técnico ajuda a achar o problema (chave inválida, cota, modelo). Nunca inclui a chave.
+  if (!r.ok) return Response.json({ ok: false, erro: "falha_ia", motivo: r.motivo }, { status: 502, headers: SEM_CACHE });
+  const sugestao = limparSugestao(conteudoDaRespostaIA({ response: r.response }), { original, categorias, permitirDescricao });
+  if (!sugestao) return Response.json({ ok: false, erro: "sem_sugestao", motivo: "resposta_reprovada", resposta: r.response.slice(0, 300) }, { status: 502, headers: SEM_CACHE });
   return Response.json({ ok: true, sugestao, descricaoPermitida: permitirDescricao }, { headers: SEM_CACHE });
 }
