@@ -939,13 +939,14 @@ export default function PainelFotos() {
                   <span className="pf-campo-rotulo">Marca ou laboratório</span>
                   <input className="pf-entrada" name="pf-marca" type="text" maxLength={60} placeholder="Sem marca informada" defaultValue={marcaAtual(l).texto} />
                 </label>
-                {categoriaEfetiva(l) !== "Medicamentos" && !l.sistemaRestrito ? (
+                {/* Todos os produtos, remédio incluído: só a busca usa estas palavras e o cliente nunca as lê. */}
+                {(
                   <label className="pf-campo">
                     <span className="pf-campo-rotulo">Palavras de busca</span>
                     <input className="pf-entrada" name="pf-palavras" type="text" maxLength={200} placeholder="Ex.: aparelho de barbear, lamina (separe por vírgula)" defaultValue={palavrasAtual(l).texto} />
-                    <small className="pf-dica">Só a busca usa: nomes populares, marca. {palavrasAtual(l).fonte === "ia" ? "Geradas pela IA: ao editar, passam a ser da equipe." : palavrasAtual(l).fonte === "equipe" ? "Escritas pela equipe." : "Ainda sem palavras."} Sem sintoma nem indicação de uso.</small>
+                    <small className="pf-dica">Só a busca usa: nomes populares, marca. {palavrasAtual(l).fonte === "ia" ? "Geradas pela IA: ao editar, passam a ser da equipe." : palavrasAtual(l).fonte === "equipe" ? "Escritas pela equipe." : "Ainda sem palavras."} Sem sintoma nem indicação de uso{categoriaEfetiva(l) === "Medicamentos" || l.sistemaRestrito ? " (remédio: princípio ativo, marca equivalente ou grafia comum)" : ""}.</small>
                   </label>
-                ) : null}
+                )}
                 <label className="pf-campo">
                   <span className="pf-campo-rotulo">Categoria</span>
                   <select className="pf-entrada" name="pf-categoria" value={estadoCategoria(l)} onChange={(e) => void salvarCategoria(l, e.target.value)}>
