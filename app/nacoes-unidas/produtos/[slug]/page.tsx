@@ -52,7 +52,8 @@ export default async function ProdutoNacoesPage({ params }: Props) {
     item = catalogo.itens.find((i) => slugify(i.nome) === normal || slugify(nomeDeExibicao(i.nome)) === normal) ?? null;
   }
   // Também busca em restritos (receita/controlados) para abrir página do produto.
-  let controlado = false;
+  let controlado = false; // sem preço, cesta nem pedido no site (controle especial ou antimicrobiano)
+  let controleEspecial = false;
   if (!item) {
     const restritos = carregarRestritos();
     const todos = [...restritos.receita, ...restritos.controlados, ...restritos.consulte];
@@ -60,7 +61,8 @@ export default async function ProdutoNacoesPage({ params }: Props) {
     const achado = todos.find((i) => slugify(i.nome) === normal || slugify(i.nomeExibicao || i.nome) === normal || (i.slug && slugify(i.slug) === normal));
     if (achado) {
       item = { nome: achado.nome, lab: achado.lab, categoria: "Medicamentos", preco: achado.preco ?? 0, isMIP: false };
-      controlado = achado.portaria344;
+      controlado = achado.semVenda;
+      controleEspecial = achado.portaria344;
     }
   }
   if (!item) notFound();
@@ -142,7 +144,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
             {controlado ? (
               <>
                 <p className="produto-preco"><Preco precoFmt={null} vazio="Consulte o farmacêutico" variante="grande" /></p>
-                <p className="produto-nota" role="note">Medicamento controlado (Portaria SVS/MS 344/98): não é vendido pelo site e não tem preço aqui. A venda é só na loja, com a Notificação de Receita, e a farmácia retém a receita.</p>
+                <p className="produto-nota" role="note">{controleEspecial ? "Medicamento controlado (Portaria SVS/MS 344/98): não é vendido pelo site e não tem preço aqui. A venda é só na loja, com a Notificação de Receita, e a farmácia retém a receita." : "Medicamento de venda sob prescrição com retenção da receita, como os antimicrobianos: não é vendido pelo site e não tem preço aqui. A venda é só na loja, com a receita, e a farmácia retém a via."}</p>
               </>
             ) : (
               <p className="produto-preco"><Preco precoFmt={formatBRL(item.preco)} variante="grande" /></p>

@@ -5,7 +5,7 @@ const TEXTOS: Record<TipoRestrito, { titulo: string; h1: string; intro: string; 
     titulo: "Medicamentos com receita: lista de preços | União Farma Nações Unidas",
     h1: "Medicamentos com receita: lista de preços",
     intro:
-      "Lista de preços informativa dos medicamentos de venda sob prescrição médica da loja Nações Unidas. Pedido pelo WhatsApp, sem pagamento no site: monte a cesta e retire na loja apresentando a receita.",
+      "Lista de preços informativa dos medicamentos de venda sob prescrição médica da loja Nações Unidas. Pedido pelo WhatsApp, sem pagamento no site: monte a cesta e retire na loja apresentando a receita. Antimicrobianos (receita retida) aparecem sem preço e só são vendidos na loja.",
     rota: "/nacoes-unidas/produtos/receita",
     vazio: "Nenhum medicamento encontrado nesta lista.",
     caminho: "Com receita",
@@ -14,7 +14,7 @@ const TEXTOS: Record<TipoRestrito, { titulo: string; h1: string; intro: string; 
     titulo: "Medicamentos controlados e antimicrobianos | União Farma Nações Unidas",
     h1: "Medicamentos controlados e antimicrobianos",
     intro:
-      "Medicamentos controlados (Portaria SVS/MS 344/98) não são vendidos pelo site e aparecem sem preço: a venda é só na loja, com a Notificação de Receita, e a receita fica retida pela farmácia. Os antimicrobianos (receita retida) seguem com preço e retirada na loja. Converse com o farmacêutico.",
+      "Medicamentos controlados (Portaria SVS/MS 344/98) não são vendidos pelo site e aparecem sem preço: a venda é só na loja, com a receita (Notificação de Receita nos de controle especial), e a receita fica retida pela farmácia. Antimicrobianos (receita retida) também aparecem sem preço. Converse com o farmacêutico.",
     rota: "/nacoes-unidas/produtos/controlados",
     vazio: "Nenhum medicamento controlado encontrado nesta lista.",
     caminho: "Controlados",
