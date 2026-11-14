@@ -1686,7 +1686,6 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 .fluxo-receita-levo input { width: 1.25rem; height: 1.25rem; }
 
 /* Estoque desatualizado (camada 4): faixa fina abaixo do cabeçalho, em amarelo de alerta. */
-.shop-aviso-dados { margin: 0; padding: 0.5rem 1rem; background: #fff3c4; color: #5a4300; font-size: 0.875rem; font-weight: 700; line-height: 1.4; text-align: center; border-bottom: 1px solid #e3b341; }
 
 
 /* =====================================================================

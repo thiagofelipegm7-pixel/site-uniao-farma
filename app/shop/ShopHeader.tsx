@@ -14,7 +14,6 @@ import SemFoto from "../nacoes-unidas/produtos/SemFoto";
 import MarcaUniao from "./MarcaUniao";
 import ReservaSacola from "../reserva/ReservaSacola";
 import FotosNovas from "./FotosNovas";
-import AvisoDadosAntigos from "./AvisoDadosAntigos";
 import { IconMenu, IconPino } from "../reserva/ReservaIcons";
 import LogoWhatsApp from "../LogoWhatsApp";
 import LojaPicker from "./LojaPicker";
@@ -429,7 +428,6 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
           <FotosNovas />
         </div>
       </header>
-      <AvisoDadosAntigos />
 
       <DepartamentosGaveta aberto={menu} onFechar={() => setMenu(false)} />
       <LojaPicker />
