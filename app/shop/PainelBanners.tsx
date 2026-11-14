@@ -184,7 +184,7 @@ export default function PainelBanners({ titulo, fonte, aoEnviar }: { titulo?: st
             </li>
           ))}
           {loop
-            ? lista.slice(0, 1).map((banner) => (
+            ? lista.slice(0, Math.min(n, 6)).map((banner) => (
                 <li className="painel-slide" key={`clone-${banner.id}`} aria-hidden="true" inert>
                   <div className={`painel-arte${banner.imagem ? " painel-arte--img" : ""}`}>
                     <Arte banner={banner} />
