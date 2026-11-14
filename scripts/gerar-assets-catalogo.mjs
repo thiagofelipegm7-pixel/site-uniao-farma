@@ -240,7 +240,7 @@ function paraRestrito(base, tipo) {
     antimicrobiano,
     semVenda,
     generico: base.generico === true,
-    busca: normalizarBusca(`${base.nome} ${lab} ${base.ativo ?? ""}`),
+    busca: normalizarBusca(`${base.nome} ${lab} ${base.ativo ?? ""} ${palavrasDe(base.nome)}`),
     nomeExibicao: nomeDeExibicao(base.nome),
     slug: slugify(base.nome),
     ...(typeof base.restam === "number" ? { restam: base.restam } : {}),
@@ -333,6 +333,7 @@ function itemOtcCompacto(i) {
 
 /** Cartão com receita/controlado no índice da busca: o que o cartão restrito e a ilustração da caixa leem (sem RMS, concentração e texto de busca). */
 function itemRestritoCompacto(i) {
+  const palavras = palavrasDe(i.nome);
   return {
     nome: i.nome,
     nomeExibicao: i.nomeExibicao,
@@ -352,6 +353,7 @@ function itemRestritoCompacto(i) {
     generico: i.generico,
     ...(typeof i.restam === "number" ? { restam: i.restam } : {}),
     ...(i.esgotado === true ? { esgotado: true } : {}),
+    ...(palavras ? { palavras } : {}),
   };
 }
 const buscaIndex = [];

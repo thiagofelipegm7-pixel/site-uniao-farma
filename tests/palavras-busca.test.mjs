@@ -48,7 +48,7 @@ test("palavras de busca: a lista de produtos acha pelo jeito popular de falar", 
   assert.deepEqual(r.flatMap((g) => g.itens.map((i) => i.nome)), ["Prestobarba 3 Sensitive"]);
 });
 
-test("palavras de busca: seguem o caminho do painel até o site e a rota é só da equipe e nunca dá palavra a remédio", async () => {
+test("palavras de busca: seguem o caminho do painel até o site e a rota é só da equipe", async () => {
   const [aprov, py, wf, gerador, ia, painel, mw] = await Promise.all([
     ler("app/api/catalogo-aprovacoes/route.ts"), ler("ops/catalogo-nacoes/sincronizar.py"), ler(".github/workflows/catalogo-sync.yml"),
     ler("scripts/gerar-assets-catalogo.mjs"), ler("app/api/interno/ia/palavras/route.ts"), ler("app/components/PainelFotos.tsx"), ler("middleware.ts"),
@@ -58,8 +58,20 @@ test("palavras de busca: seguem o caminho do painel até o site e a rota é só 
   assert.match(wf, /palavras-busca\.json/);
   assert.match(gerador, /palavrasDe\(item\.nome\)/);
   assert.match(gerador, /\.\.\.\(palavras \? \{ palavras \} : \{\}\)/);
-  assert.match(ia, /i\.isMIP \|\| i\.categoria === "Medicamentos" \|\| restritos\.has\(k\)/);
+  assert.match(ia, /PROMPT_PALAVRAS_MEDICAMENTO/);
+  assert.match(ia, /remedio \? PROMPT_PALAVRAS_MEDICAMENTO : PROMPT_PALAVRAS/);
   assert.match(painel, /Palavras de busca/);
   assert.match(mw, /pathname\.startsWith\("\/api\/interno\/"\)/);
   assert.equal(JSON.parse(await ler("app/nacoes-unidas/produtos/dados/palavras-busca.json")) instanceof Object, true);
+});
+
+test("palavras de remédio: só princípio ativo, marca equivalente e grafia; nada de classe, indicação ou sintoma", () => {
+  const nome = "NOVALGINA 500MG C/10 COMP";
+  const r = P.limparPalavras(["dipirona sodica", "dipirona", "analgesico", "antitermico", "dor de cabeca", "para gripe", "tylenol", "novalgina", "vitamina c", "relaxante muscular", "sono"], "DIPIRONA 500MG", true);
+  assert.deepEqual(r, ["dipirona sodica", "tylenol", "novalgina"]);
+  // o mesmo texto em produto comum (não remédio) só barra sintoma e afins
+  assert.deepEqual(P.limparPalavras(["analgesico"], nome, false), ["analgesico"]);
+  assert.deepEqual(P.limparPalavras(["vitamina c"], "SUCO X", false), ["vitamina c"]);
+  assert.deepEqual(P.limparPalavras(["vitamina c"], "SUCO X", true), []);
+  assert.match(P.PROMPT_PALAVRAS_MEDICAMENTO, /PROIBIDO: indicação/);
 });

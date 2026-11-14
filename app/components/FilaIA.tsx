@@ -121,10 +121,10 @@ export default function FilaIA({ por, onAviso, onDescricaoSalva }: { por: string
       </div>
       <div className="pf-fila-palavras">
         <strong>Palavras de busca</strong>
-        <p className="pf-dica">A IA escreve nomes populares e marcas para a busca achar o produto (ex.: &quot;aparelho de barbear&quot; para o Prestobarba). O cliente não vê essas palavras. Remédios ficam de fora. Você pode editar no popup de cada produto.</p>
+        <p className="pf-dica">A IA escreve nomes populares e marcas para a busca achar o produto (ex.: &quot;aparelho de barbear&quot; para o Prestobarba). O cliente não vê essas palavras. Nos remédios entram só o princípio ativo, marcas equivalentes e grafias comuns (nada de indicação). Você pode editar no popup dos produtos que não são remédio.</p>
         <div className="pf-modal-acoes">
           <button type="button" className="pf-botao pf-botao--primario" disabled={gerandoPalavras || !iaLigada || palavras?.faltam === 0} onClick={() => void gerarPalavras()}>
-            {gerandoPalavras ? "Gerando… (1 a 2 minutos)" : "Gerar palavras para 60 produtos"}
+            {gerandoPalavras ? "Gerando… (1 a 2 minutos)" : "Gerar palavras para 60 itens"}
           </button>
           {palavras ? <span className="pf-dica">{palavras.comPalavras} produtos já têm · {palavras.faltam} faltam</span> : null}
           {msgPalavras ? <span className="pf-dica" role="status">{msgPalavras}</span> : null}
