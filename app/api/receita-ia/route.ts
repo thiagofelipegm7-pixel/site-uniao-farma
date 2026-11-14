@@ -1,5 +1,7 @@
 import { env } from "cloudflare:workers";
 import { registrarUsoIA } from "../../ia-uso";
+import { segredo } from "../../estoque-fonte";
+import { chamarGemini, MODELO_GEMINI_VISAO, modeloEscolhido } from "../../gemini-nucleo";
 import { criarLimitador, conteudoDaRespostaIA } from "../../busca-ia-nucleo";
 import {
   limparRespostaReceita,
@@ -14,8 +16,11 @@ import {
 export const dynamic = "force-dynamic";
 
 /** Tempo esperando cada modelo. O reserva só entra se o principal falhar; juntos ficam abaixo dos 35 s que o navegador espera. */
-const TEMPO_PRINCIPAL_MS = 16_000;
+const TEMPO_PRINCIPAL_MS = 13_000;
 const TEMPO_RESERVA_MS = 12_000;
+/** Gemini tem 10 s; se falhar, sobra tempo para os modelos da Cloudflare dentro dos 35 s do navegador. */
+const TEMPO_GEMINI_MS = 10_000;
+const TEMPO_PRINCIPAL_CF_MS = TEMPO_PRINCIPAL_MS;
 /** Cada visitante: 6 receitas a cada 10 minutos. Todo o site: 300 por hora por instância (cada leitura custa uma fração de centavo). */
 const limitePorVisitante = criarLimitador(6, 600_000);
 const limiteGeral = criarLimitador(300, 3_600_000);
@@ -107,7 +112,8 @@ export async function POST(request: Request) {
   if (declarado > TAMANHO_MAX_IMAGEM) return responder({ erro: "grande" }, 413, "grande");
 
   const ia = (env as { AI?: Ia }).AI;
-  if (!ia) return responder({ erro: "indisponivel" }, 503, "sem-binding");
+  const chaveGemini = segredo("GEMINI_API_KEY");
+  if (!ia && !chaveGemini) return responder({ erro: "indisponivel" }, 503, "sem-binding");
 
   const visitante = request.headers.get("cf-connecting-ip") ?? "anonimo";
   if (!limitePorVisitante(visitante) || !limiteGeral("geral") || !(await dentroDoLimiteCompartilhado(visitante, 6, 600_000))) return responder({ erro: "limite" }, 429, "limite");
@@ -126,9 +132,26 @@ export async function POST(request: Request) {
   try {
     const imagem = paraDataUrl(bytes, tipo);
     let estado = "ia";
-    let resultado = await lerComLimite(ia, MODELO_VISAO, imagem, { chat_template_kwargs: { enable_thinking: false } }, TEMPO_PRINCIPAL_MS);
-    let limpa = resultado === null ? null : limparRespostaReceita(conteudoDaRespostaIA(resultado));
-    if (!limpa) {
+    let limpa: ReturnType<typeof limparRespostaReceita> = null;
+    // Gemini primeiro quando a chave está cadastrada; se falhar, cai nos modelos da Cloudflare como antes.
+    if (chaveGemini) {
+      const g = await chamarGemini({
+        modelo: modeloEscolhido(segredo("GEMINI_MODELO_VISAO"), MODELO_GEMINI_VISAO),
+        chave: chaveGemini,
+        texto: PROMPT_RECEITA,
+        imagem: { tipo, base64: imagem.slice(imagem.indexOf(",") + 1) },
+        maxTokens: 900,
+        ms: TEMPO_GEMINI_MS,
+      });
+      limpa = g === null ? null : limparRespostaReceita(conteudoDaRespostaIA(g));
+      if (limpa) estado = "gemini";
+    }
+    let resultado: unknown = null;
+    if (!limpa && ia) {
+      resultado = await lerComLimite(ia, MODELO_VISAO, imagem, { chat_template_kwargs: { enable_thinking: false } }, TEMPO_PRINCIPAL_CF_MS);
+      limpa = resultado === null ? null : limparRespostaReceita(conteudoDaRespostaIA(resultado));
+    }
+    if (!limpa && ia) {
       estado = "reserva";
       resultado = await lerComLimite(ia, MODELO_VISAO_RESERVA, imagem, {}, TEMPO_RESERVA_MS);
       limpa = resultado === null ? null : limparRespostaReceita(conteudoDaRespostaIA(resultado));
