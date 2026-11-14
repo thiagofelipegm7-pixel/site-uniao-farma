@@ -10,7 +10,7 @@
 .painel-faixa:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
 .painel-slide { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; }
 .painel-arte { display: block; position: relative; width: 100%; aspect-ratio: 2 / 1; border-radius: 12px; overflow: hidden; background: #f1f5f4; color: inherit; text-decoration: none; }
-.painel-arte img, .painel-arte picture { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.painel-arte img, .painel-arte picture { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; }
 .painel-vazio { position: absolute; inset: 0; display: block; }
 .painel-seta { position: absolute; top: 50%; z-index: 2; display: none; place-items: center; width: 3rem; height: 3rem; padding: 0; border: 0; border-radius: 50%; background: #e6e9e8; color: var(--uf-navy, #0d1413); cursor: pointer; transform: translateY(-50%); transition: background-color 0.2s ease; }
 .painel-seta:hover:not(:disabled) { background: #d4d9d8; }
@@ -44,4 +44,4 @@
 @media (hover: none) { .painel-editar-dica { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .painel-editar-dica { transition: none; } }
 
-/* Todos os banners (com ou sem arte) usam a mesma moldura: 2 : 1 no celular, 1318 : 300 no computador. A arte é cortada para caber (object-fit: cover), então nenhum banner fica mais alto ou mais baixo que os outros. */
+/* Todos os banners (com ou sem arte) usam a mesma moldura: 2 : 1 no celular, 1318 : 300 no computador. A arte cabe inteira dentro dessa moldura (object-fit: contain), sem cortes; as sobras ficam com o fundo claro, então nenhum banner fica mais alto ou mais baixo que os outros. */
