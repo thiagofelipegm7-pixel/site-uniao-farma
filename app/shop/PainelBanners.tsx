@@ -42,11 +42,11 @@ export default function PainelBanners({ titulo, fonte, aoEnviar }: { titulo?: st
     }
     fetch("/api/banners-publico", { cache: "no-store" })
       .then((r) => r.json())
-      .then((d: { banners?: { id: string; url: string }[] }) => {
+      .then((d: { banners?: { id: string; url: string; slug?: string | null }[] }) => {
         const lista = (d.banners ?? [])
           .filter((b) => b.id.startsWith("hero-"))
           .sort((a, b) => (Number(a.id.replace("hero-", "")) || 0) - (Number(b.id.replace("hero-", "")) || 0))
-          .map((b) => ({ id: b.id, imagem: b.url, alt: "Oferta da União Farma", href: "/nacoes-unidas/produtos" }));
+          .map((b) => ({ id: b.id, imagem: b.url, alt: "Oferta da União Farma", href: b.slug ? `/nacoes-unidas/produtos/${b.slug}` : "/nacoes-unidas/produtos" }));
         if (lista.length) setCustom(lista);
         try {
           window.localStorage.setItem("uf_banners", lista.length ? "1" : "0");

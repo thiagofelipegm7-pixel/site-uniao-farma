@@ -5,6 +5,85 @@ import PainelBanners from "../shop/PainelBanners";
 import type { BannerPainel } from "../shop/painel-banners";
 import { MAX_ARQUIVO_TEXTO } from "../banners-gravacao";
 import { mensagemErroEnvio, prepararArte } from "./preparar-arte";
+import { carregarBuscaIndex } from "../nacoes-unidas/produtos/busca-index";
+
+type ProdutoBusca = { slug: string; nome: string; lab: string };
+
+const normalizar = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+
+/** Busca de produto para um banner: digita o nome, escolhe um resultado e o destino é salvo na hora. */
+function BuscaProduto({ id, slug, aoSalvar }: { id: string; slug: string | null; aoSalvar: (id: string, slug: string) => void }) {
+  const numero = id.replace("hero-", "");
+  const [termo, setTermo] = useState("");
+  const [produtos, setProdutos] = useState<ProdutoBusca[]>([]);
+  const [salvando, setSalvando] = useState(false);
+  const [erro, setErro] = useState("");
+
+  useEffect(() => {
+    carregarBuscaIndex()
+      .then((ix) =>
+        setProdutos(
+          ix.grupos.flatMap((g) =>
+            g.itens.filter((i) => i.slug).map((i) => ({ slug: i.slug as string, nome: i.nomeExibicao ?? i.nome ?? (i.slug as string), lab: i.lab })),
+          ),
+        ),
+      )
+      .catch(() => setErro("Não consegui carregar a lista de produtos."));
+  }, []);
+
+  const t = normalizar(termo);
+  const achados = t.length >= 2 ? produtos.filter((p) => normalizar(p.nome).includes(t)).slice(0, 8) : [];
+  const atual = produtos.find((p) => p.slug === slug);
+
+  async function escolher(p: ProdutoBusca) {
+    setSalvando(true);
+    setErro("");
+    const r = await fetch("/api/interno/banners-destino", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ id, slug: p.slug }),
+    });
+    setSalvando(false);
+    if (sessaoExpirou(r)) {
+      irParaLogin();
+      return;
+    }
+    if (r.ok) {
+      aoSalvar(id, p.slug);
+      setTermo("");
+    } else {
+      setErro("Não consegui salvar o produto deste banner. Tente de novo.");
+    }
+  }
+
+  return (
+    <div className="pm-busca">
+      <p className="pm-busca-cab">
+        <strong>Banner {numero}</strong>
+        {slug ? <> · leva para: {atual ? atual.nome : slug}</> : <> · sem produto</>}
+      </p>
+      <input
+        type="search"
+        value={termo}
+        onChange={(e) => setTermo(e.target.value)}
+        placeholder="Buscar produto pelo nome (ex.: cimegripe)"
+        aria-label={`Buscar produto para o banner ${numero}`}
+      />
+      {achados.length ? (
+        <ul className="pm-busca-lista">
+          {achados.map((p) => (
+            <li key={p.slug}>
+              <button type="button" disabled={salvando} onClick={() => void escolher(p)}>
+                {p.nome} <span>{p.lab}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      {erro ? <p role="status">{erro}</p> : null}
+    </div>
+  );
+}
 
 const BANNERS_PRINCIPAIS = Array.from({ length: 14 }, (_, i) => ({
   id: `hero-${i + 1}`,
@@ -26,6 +105,19 @@ function irParaLogin() {
 export default function PainelPromocoes() {
   const [aviso, setAviso] = useState("");
   const [atuais, setAtuais] = useState<Banner[]>([]);
+  const [destinos, setDestinos] = useState<Record<string, string>>({});
+
+  // Produto atual de cada banner (o site já mostra esse mesmo destino).
+  useEffect(() => {
+    fetch("/api/banners-publico", { cache: "no-store" })
+      .then((r) => r.json())
+      .then((d: { banners?: { id: string; slug?: string | null }[] }) => {
+        const mapa: Record<string, string> = {};
+        for (const b of d.banners ?? []) if (b.slug) mapa[b.id] = b.slug;
+        setDestinos(mapa);
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     fetch("/api/interno/banners", { cache: "no-store" })
@@ -89,6 +181,18 @@ export default function PainelPromocoes() {
       <section className="pm-previa" aria-label="Carrossel da página inicial">
         <PainelBanners fonte={previa} aoEnviar={(b, arquivo) => void enviar(b.id, arquivo)} />
       </section>
+      {atuais.length ? (
+        <section className="pm-destinos" aria-label="Produto de cada banner">
+          <h2>Produto de cada banner</h2>
+          <p>Digite o nome do produto e escolha o resultado. O banner passa a levar para a página dele.</p>
+          {[...atuais]
+            .filter((b) => b.id.startsWith("hero-"))
+            .sort((a, b) => (Number(a.id.replace("hero-", "")) || 0) - (Number(b.id.replace("hero-", "")) || 0))
+            .map((b) => (
+              <BuscaProduto key={b.id} id={b.id} slug={destinos[b.id] ?? null} aoSalvar={(id, slug) => setDestinos((prev) => ({ ...prev, [id]: slug }))} />
+            ))}
+        </section>
+      ) : null}
     </section>
   );
 }
