@@ -1,5 +1,7 @@
 import { env } from "cloudflare:workers";
 import { registrarUsoIA } from "../../ia-uso";
+import { segredo } from "../../estoque-fonte";
+import { chamarGemini, esquemaParaGemini, MODELO_GEMINI_TEXTO, modeloEscolhido } from "../../gemini-nucleo";
 import {
   candidatosValidos,
   conteudoDaRespostaIA,
@@ -17,6 +19,8 @@ export const dynamic = "force-dynamic";
 
 /** Tempo máximo esperando o modelo. Passou disso, a resposta é vazia e a busca normal segue sozinha. */
 const TEMPO_LIMITE_MS = 2000;
+/** Quanto o Gemini pode levar antes de passar a vez para a IA da Cloudflare (o teto total de 2 s continua valendo). */
+const TEMPO_GEMINI_MS = 1500;
 /** Cada visitante: 12 pedidos por minuto. Todo o site: 600 por hora por instância (teto de custo, ~US$ 0,015/h). */
 const limitePorVisitante = criarLimitador(12, 60_000);
 const limiteGeral = criarLimitador(600, 3_600_000);
@@ -43,7 +47,8 @@ export async function GET(request: Request) {
   if (!texto || candidatos.length === 0) return responder(VAZIA);
 
   const ia = (env as { AI?: Ia }).AI;
-  if (!ia) return responder(VAZIA, { "x-busca-ia": "sem-binding" });
+  const chaveGemini = segredo("GEMINI_API_KEY");
+  if (!ia && !chaveGemini) return responder(VAZIA, { "x-busca-ia": "sem-binding" });
 
   // Mesmo texto + mesmos candidatos = mesma resposta: vem do cache da Cloudflare, sem gastar IA.
   const cache = typeof caches !== "undefined" ? (caches as unknown as { default?: Cache }).default : undefined;
@@ -64,20 +69,35 @@ export async function GET(request: Request) {
     const limite = new Promise<null>((resolve) => {
       temporizador = setTimeout(() => resolve(null), TEMPO_LIMITE_MS);
     });
-    const chamada = ia
-      .run(MODELO_IA, {
-        messages: [
-          { role: "system", content: PROMPT_SISTEMA },
-          { role: "user", content: montarEntrada(texto, candidatos) },
-        ],
-        max_tokens: 80,
-        temperature: 0,
-        response_format: ESQUEMA_RESPOSTA,
-      })
-      .catch(() => {
-        falhou = true;
-        return null;
-      });
+    // Com a chave do Gemini cadastrada, ele responde; se falhar, a IA da Cloudflare ainda tem o resto do tempo.
+    const viaCloudflare = () =>
+      ia
+        ? ia
+            .run(MODELO_IA, {
+              messages: [
+                { role: "system", content: PROMPT_SISTEMA },
+                { role: "user", content: montarEntrada(texto, candidatos) },
+              ],
+              max_tokens: 80,
+              temperature: 0,
+              response_format: ESQUEMA_RESPOSTA,
+            })
+            .catch(() => {
+              falhou = true;
+              return null;
+            })
+        : Promise.resolve(null);
+    const chamada: Promise<unknown> = chaveGemini
+      ? chamarGemini({
+          modelo: modeloEscolhido(segredo("GEMINI_MODELO"), MODELO_GEMINI_TEXTO),
+          chave: chaveGemini,
+          sistema: PROMPT_SISTEMA,
+          texto: montarEntrada(texto, candidatos),
+          maxTokens: 120,
+          ms: TEMPO_GEMINI_MS,
+          esquema: esquemaParaGemini(ESQUEMA_RESPOSTA),
+        }).then((r) => r ?? viaCloudflare())
+      : viaCloudflare();
     const resultado = await Promise.race([chamada, limite]);
     if (temporizador) clearTimeout(temporizador);
     if (resultado === null) return responder(VAZIA, { "x-busca-ia": falhou ? "erro-ia" : "tempo" });
