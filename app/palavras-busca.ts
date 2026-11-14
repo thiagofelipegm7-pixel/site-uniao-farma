@@ -146,3 +146,15 @@ export async function marcarTentadas(db: Banco, nomes: readonly string[], agora 
   await garantirTentadas(db);
   for (const nome of nomes) await db.prepare("INSERT OR REPLACE INTO palavras_tentadas (chave, quando) VALUES (?, ?)").bind(chaveDoNome(nome), agora.toISOString()).run();
 }
+
+export const MAX_PALAVRAS_COM_SINONIMOS = 14;
+
+/** Acrescenta um termo às palavras de busca de um produto (aprovação de sinônimo pela equipe). Mantém as que já existiam; vale como da equipe. */
+export async function acrescentarPalavra(db: Banco, original: string, termo: string, por: string): Promise<boolean> {
+  await garantir(db);
+  const chave = chaveDoNome(original);
+  const antes = await db.prepare("SELECT chave, original, palavras, fonte, por, quando FROM produto_palavras WHERE chave = ?").bind(chave).first<Linha>();
+  const atuais = antes ? antes.palavras.split(",").map((p) => p.trim()).filter(Boolean) : [];
+  if (atuais.includes(termo) || atuais.length >= MAX_PALAVRAS_COM_SINONIMOS) return false;
+  return definirPalavras(db, original, [...atuais, termo], "equipe", por);
+}

@@ -56,5 +56,5 @@ test("rota pública é anônima e a lista é só da equipe; busca manda o termo 
   assert.match(lista, /u\.searchParams\.set\("text"/);
   assert.match(lista, /href=\{whatsappBusca\}/);
   assert.match(priv, /apagamos depois de 90 dias/);
-  assert.match(painel, /<BuscasSemResultado \/>/);
+  assert.match(painel, /<BuscasSemResultado /);
 });
