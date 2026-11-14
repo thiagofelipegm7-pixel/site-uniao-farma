@@ -759,7 +759,7 @@ export default function PainelFotos() {
           {arrastando ? <p className="pf-solte" role="status">Solte aqui para enviar a foto de &ldquo;{linhas.find((x) => x.ean === arrastando)?.nome}&rdquo;</p> : null}
           {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
 
-          <BuscasSemResultado />
+          <BuscasSemResultado por={por} onAviso={setAviso} />
           <FilaIA por={por} onAviso={setAviso} onDescricaoSalva={(o, t) => setDescricoesAgora((m) => ({ ...m, [chaveDoNome(o)]: { texto: t, fonte: "" } }))} />
           {mudancas.length > 0 ? (
             <details className="pf-mudancas">
