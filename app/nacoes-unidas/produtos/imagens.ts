@@ -3542,6 +3542,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "PONDERA XR 25mg cx 30 comp rev": "7891317002879",
   "AZULFIN 500MG CX 60 COMP REV": "7896637022729",
   "PRES JONTEX C/3": "7896222720030",
+  "NOVALGINA 1G STR 10 COMP EFEV": "7891058015756",
 };
 
 function normalizarNome(nome: string): string {
