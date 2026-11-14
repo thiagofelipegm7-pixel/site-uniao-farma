@@ -1,10 +1,27 @@
-const CACHE_NAME = "uf-static-v25";
+// Mesma versão do CACHE_BUST em app/PwaRegister.tsx (tests/sw-offline.test.mjs confere): mudou um, muda o outro.
+const CACHE_NAME = "uf-static-v27";
 const PRECACHE = ["/offline.html", "/manifest.json", "/favicon.png"];
 
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE)).then(() => self.skipWaiting()),
+// A Cloudflare responde /offline.html com 307 para /offline. O navegador recusa (net::ERR_FAILED) uma resposta
+// marcada como redirecionada quando ela é entregue a uma navegação, então a cópia guardada é refeita sem a marca.
+async function semRedirecionamento(response) {
+  if (!response.redirected) return response;
+  return new Response(await response.blob(), { status: response.status, statusText: response.statusText, headers: response.headers });
+}
+
+async function guardarPrecache() {
+  const cache = await caches.open(CACHE_NAME);
+  await Promise.all(
+    PRECACHE.map(async (url) => {
+      const response = await fetch(url, { cache: "no-cache" });
+      if (!response.ok) throw new TypeError("precache falhou: " + url);
+      await cache.put(url, await semRedirecionamento(response));
+    }),
   );
+}
+
+self.addEventListener("install", (event) => {
+  event.waitUntil(guardarPrecache().then(() => self.skipWaiting()));
 });
 
 self.addEventListener("activate", (event) => {
