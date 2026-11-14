@@ -1,4 +1,4 @@
-import { ehAntimicrobiano } from "../nacoes-unidas/produtos/sem-venda";
+import { ehAntimicrobiano, SEM_VENDA_NO_SITE } from "../nacoes-unidas/produtos/sem-venda";
 import { UNITS } from "../site-config";
 /**
  * Reserva: lista de produtos que o cliente separa no site e fecha pelo WhatsApp da loja.
@@ -258,7 +258,7 @@ export function lerEstado(bruto: string | null): ReservaEstado {
             Number.isInteger(i.qtd) &&
             i.qtd > 0 &&
             i.qtd <= MAX_POR_ITEM &&
-            !(i.receita === "controlado" || (i.receita && ehAntimicrobiano(i.nome))), // sem venda pelo site: sai de qualquer cesta que o cliente já tinha guardada
+            !(SEM_VENDA_NO_SITE && (i.receita === "controlado" || (i.receita && ehAntimicrobiano(i.nome)))), // sem venda pelo site: sai de qualquer cesta que o cliente já tinha guardada
         ).map((i) => limiteDoItem(i)).map((i) => (i.qtd > tetoDoItem(i) ? { ...i, qtd: tetoDoItem(i) } : i))
       : [];
     return { itens, modo: dado.modo === "casa" ? "casa" : "retirar" };
