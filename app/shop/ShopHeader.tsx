@@ -4,7 +4,7 @@
 
 import { usePathname } from "next/navigation";
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
-import { BUSCAS_POPULARES, normalizarBusca, termosDaConsulta } from "../nacoes-unidas/produtos/busca";
+import { BUSCAS_POPULARES, casaTermo, normalizarBusca, termosDaConsulta } from "../nacoes-unidas/produtos/busca";
 import { carregarBuscasRecentes, guardarBuscasRecentes, registrarBusca, removerBusca } from "./buscas-recentes";
 import { atalhosDaBusca, destacarTrechos, melhoresResultados } from "./busca-painel";
 import { analisarConsulta, casaConsulta, contarCasos, criarVocabulario } from "../nacoes-unidas/produtos/busca-tolerante";
@@ -123,9 +123,9 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   const normal = normalizarBusca(termoBusca);
   const termos = termosDaConsulta(termoBusca);
   // Só os primeiros resultados são mostrados: para de procurar ao achar o suficiente.
-  const exatos = useMemo(() => (normal.length >= 2 && itens ? melhoresResultados(itens, (item) => termos.every((t) => item.busca.includes(t)), termos, (item) => item.nome, (item) => item.foto !== null, 6) : []), [normal, itens]); // eslint-disable-line react-hooks/exhaustive-deps -- `termos` vem de `normal`
+  const exatos = useMemo(() => (normal.length >= 2 && itens ? melhoresResultados(itens, (item) => termos.every((t) => casaTermo(item.busca, t)), termos, (item) => item.nome, (item) => item.foto !== null, 6) : []), [normal, itens]); // eslint-disable-line react-hooks/exhaustive-deps -- `termos` vem de `normal`
   const exatosRestritos = useMemo(() => (normal.length >= 2 ? melhoresResultados(restritos, (item) => termos.every((t) => item.busca.split(" ").some((palavra) => palavra.startsWith(t))), termos, (item) => item.nome, () => false, 4) : []), [normal, restritos]); // eslint-disable-line react-hooks/exhaustive-deps -- `termos` vem de `normal`
-  const exatosEsgotados = useMemo(() => (normal.length >= 2 && esgotados ? melhoresResultados(esgotados, (item) => termos.every((t) => item.busca.includes(t)), termos, (item) => item.nome, (item) => item.foto !== null, 1) : []), [normal, esgotados]); // eslint-disable-line react-hooks/exhaustive-deps -- `termos` vem de `normal`
+  const exatosEsgotados = useMemo(() => (normal.length >= 2 && esgotados ? melhoresResultados(esgotados, (item) => termos.every((t) => casaTermo(item.busca, t)), termos, (item) => item.nome, (item) => item.foto !== null, 1) : []), [normal, esgotados]); // eslint-disable-line react-hooks/exhaustive-deps -- `termos` vem de `normal`
   // Digitou errado e nada casou? Corrige com o vocabulário do catálogo (local, sem IA no painel). O vocabulário só é montado na primeira vez que precisa.
   const analise = useMemo(() => {
     if (!itens || itens.length === 0 || normal.length < 3 || exatos.length > 0 || exatosRestritos.length > 0 || exatosEsgotados.length > 0) return null;
@@ -148,7 +148,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   const resultadosRestritos = corrigida ? melhoresResultados(restritos, (item) => casaConsulta(item.busca, corrigida), termosCorrigidos, (item) => item.nome, () => false, 4) : exatosRestritos;
   // Esgotados que casam com a busca: aparecem depois dos que têm estoque, para o cliente saber que o produto existe mas acabou.
   const resultadosEsgotados = useMemo(
-    () => (normal.length >= 2 && esgotados ? melhoresResultados(esgotados, (item) => (corrigida ? casaConsulta(item.busca, corrigida) : termos.every((t) => item.busca.includes(t))), corrigida ? termosCorrigidos : termos, (item) => item.nome, (item) => item.foto !== null, 3) : []),
+    () => (normal.length >= 2 && esgotados ? melhoresResultados(esgotados, (item) => (corrigida ? casaConsulta(item.busca, corrigida) : termos.every((t) => casaTermo(item.busca, t))), corrigida ? termosCorrigidos : termos, (item) => item.nome, (item) => item.foto !== null, 3) : []),
     [normal, esgotados, corrigida], // eslint-disable-line react-hooks/exhaustive-deps -- `termos` vem de `normal`
   );
   const atalhos = useMemo(() => atalhosDaBusca(termoBusca), [termoBusca]);

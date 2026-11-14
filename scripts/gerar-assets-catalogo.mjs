@@ -29,6 +29,20 @@ function sinonimosDe(nome) {
   return SINONIMOS_BUSCA.filter(([rx]) => rx.test(nome)).map(([, extra]) => extra).join(" ");
 }
 
+// Réplica de textoDeBusca (busca.ts): sem acento, minúsculo, número e unidade juntos ("400 ml" = "400ml"), sem pontuação. Um teste confere que saem iguais.
+const UNIDADE = { unidade: "un", unidades: "un", unid: "un", unids: "un", und: "un", uni: "un", un: "un", litro: "l", litros: "l", lt: "l", lts: "l", l: "l", ml: "ml", mg: "mg", mcg: "mcg", kg: "kg", gr: "g", g: "g", cm: "cm", mm: "mm", fps: "fps" };
+function textoDeBusca(value) {
+  return (value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/(\d),(\d)/g, "$1.$2")
+    .replace(/(\d+(?:\.\d+)?)\s*(unidades?|unids?|unid|und|uni|un|litros?|lts?|lt|ml|mcg|mg|kg|gr|g|cm|mm|fps|l)\b/g, (_m, n, u) => n + (UNIDADE[u] ?? u))
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function slugify(value) {
   return normalizarBusca(value).replace(/\s+/g, "-");
 }
@@ -190,7 +204,7 @@ function paraRestrito(base, tipo) {
     antimicrobiano,
     semVenda,
     generico: base.generico === true,
-    busca: normalizarBusca(`${base.nome} ${lab} ${base.ativo ?? ""} ${palavrasDe(base.nome)}`),
+    busca: textoDeBusca(`${base.nome} ${lab} ${base.ativo ?? ""} ${palavrasDe(base.nome)}`),
     nomeExibicao: nomeDeExibicao(base.nome),
     slug: slugify(base.nome),
     ...(typeof base.restam === "number" ? { restam: base.restam } : {}),
@@ -319,7 +333,7 @@ for (const g of grupos) {
     const nomeEx = nomeDeExibicao(item.nome);
     const slug = slugify(item.nome);
     const foto = fotoDoProduto(item.nome) ?? (item.categoria === "Medicamentos" ? ilustracaoSemReceita(item.nome) : null);
-    const busca = normalizarBusca(`${nomeEx} ${item.nome} ${item.lab} ${item.categoria} ${sinonimosDe(item.nome)} ${palavrasDe(item.nome)}`);
+    const busca = textoDeBusca(`${nomeEx} ${item.nome} ${item.lab} ${item.categoria} ${sinonimosDe(item.nome)} ${palavrasDe(item.nome)}`);
     const fmt = {
       nome: item.nome,
       nomeExibicao: nomeEx,
