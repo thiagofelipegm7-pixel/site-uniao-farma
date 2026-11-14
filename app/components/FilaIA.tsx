@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Item = { original: string; exibicao: string; descricao: string; marca: string; fontes?: string };
 
@@ -19,6 +19,8 @@ export default function FilaIA({ por, onAviso, onDescricaoSalva }: { por: string
   const [palavras, setPalavras] = useState<{ comPalavras: number; faltam: number } | null>(null);
   const [gerandoPalavras, setGerandoPalavras] = useState(false);
   const [msgPalavras, setMsgPalavras] = useState("");
+  const pararRef = useRef(false);
+  const [andamento, setAndamento] = useState<{ rodada: number; salvos: number; restantes: number | null } | null>(null);
 
   const [recarga, setRecarga] = useState(0);
 
@@ -64,17 +66,66 @@ export default function FilaIA({ por, onAviso, onDescricaoSalva }: { por: string
     setRecarga((n) => n + 1);
   }
 
+  type RespostaPalavras = { ok?: boolean; erro?: string; salvos?: number; semPalavras?: number; falhas?: number; motivo?: string; restantes?: number };
+
+  async function pedirPalavras(): Promise<{ r: Response | null; j: RespostaPalavras | null }> {
+    try {
+      const r = await fetch("/api/interno/ia/palavras", { method: "POST", headers: { "content-type": "application/json" }, body: "{}", signal: AbortSignal.timeout(170_000) });
+      return { r, j: (await r.json().catch(() => null)) as RespostaPalavras | null };
+    } catch {
+      return { r: null, j: null };
+    }
+  }
+
+  const erroPalavras = (j: RespostaPalavras | null) => (j?.erro === "sem_ia" ? "A IA ainda não está ligada (falta a chave do Gemini)." : j?.erro === "limite" ? "Muitos pedidos seguidos. Espere alguns minutos." : "Não consegui gerar agora. Tente de novo.");
+
   async function gerarPalavras() {
     setGerandoPalavras(true);
     setMsgPalavras("");
-    try {
-      const r = await fetch("/api/interno/ia/palavras", { method: "POST", headers: { "content-type": "application/json" }, body: "{}", signal: AbortSignal.timeout(170_000) });
-      const j = (await r.json().catch(() => null)) as { ok?: boolean; erro?: string; salvos?: number; semPalavras?: number; falhas?: number; motivo?: string } | null;
-      if (!r.ok || !j?.ok) setMsgPalavras(j?.erro === "sem_ia" ? "A IA ainda não está ligada (falta a chave do Gemini)." : j?.erro === "limite" ? "Muitos pedidos seguidos. Espere alguns minutos." : "Não consegui gerar agora. Tente de novo.");
-      else setMsgPalavras(`${j.salvos ?? 0} produtos ganharam palavras de busca${j.semPalavras ? `, ${j.semPalavras} sem palavras seguras` : ""}${j.falhas ? `, ${j.falhas} falharam (${j.motivo ?? "erro"})` : ""}. Valem na próxima publicação.`);
-    } catch {
-      setMsgPalavras("Demorou demais ou a conexão caiu. Atualize a página para ver o andamento.");
+    const { r, j } = await pedirPalavras();
+    if (!r) setMsgPalavras("Demorou demais ou a conexão caiu. Atualize a página para ver o andamento.");
+    else if (!r.ok || !j?.ok) setMsgPalavras(erroPalavras(j));
+    else setMsgPalavras(`${j.salvos ?? 0} itens ganharam palavras de busca${j.semPalavras ? `, ${j.semPalavras} sem palavras seguras` : ""}${j.falhas ? `, ${j.falhas} falharam (${j.motivo ?? "erro"})` : ""}. Valem na próxima publicação.`);
+    setGerandoPalavras(false);
+    setRecarga((n) => n + 1);
+  }
+
+  /** Várias rodadas seguidas com um clique. Para sozinho quando acaba, quando o Google falha duas vezes seguidas ou quando você aperta Parar. */
+  async function gerarTudo() {
+    pararRef.current = false;
+    setGerandoPalavras(true);
+    setMsgPalavras("");
+    let rodada = 0;
+    let salvos = 0;
+    let falhasSeguidas = 0;
+    let restantes: number | null = palavras?.faltam ?? null;
+    let motivo = "";
+    while (!pararRef.current && rodada < 80) {
+      rodada += 1;
+      setAndamento({ rodada, salvos, restantes });
+      const { r, j } = await pedirPalavras();
+      if (!r || !r.ok || !j?.ok) {
+        // Falha de rede ou limite: tenta mais uma vez; a segunda seguida encerra.
+        falhasSeguidas += 1;
+        motivo = !r ? "Demorou demais ou a conexão caiu." : erroPalavras(j);
+        if (falhasSeguidas >= 2 || j?.erro === "sem_ia" || j?.erro === "limite") break;
+        continue;
+      }
+      salvos += j.salvos ?? 0;
+      restantes = j.restantes ?? restantes;
+      const semProgresso = (j.salvos ?? 0) === 0 && (j.semPalavras ?? 0) === 0;
+      falhasSeguidas = semProgresso && (j.falhas ?? 0) > 0 ? falhasSeguidas + 1 : 0;
+      if (falhasSeguidas > 0) motivo = `o Google respondeu com erro (${j.motivo ?? "erro"}).`;
+      if (falhasSeguidas >= 2 || (j.restantes ?? 1) <= 0) break;
     }
+    setAndamento(null);
+    setMsgPalavras(
+      pararRef.current
+        ? `Parado. ${salvos} itens ganharam palavras de busca nesta sessão.`
+        : (restantes ?? 1) <= 0
+          ? `Pronto! ${salvos} itens ganharam palavras de busca. Valem na próxima publicação.`
+          : `Encerrado em ${rodada} rodadas: ${salvos} itens com palavras. ${motivo} Clique de novo para continuar de onde parou.`,
+    );
     setGerandoPalavras(false);
     setRecarga((n) => n + 1);
   }
@@ -124,9 +175,14 @@ export default function FilaIA({ por, onAviso, onDescricaoSalva }: { por: string
         <p className="pf-dica">A IA escreve nomes populares e marcas para a busca achar o produto (ex.: &quot;aparelho de barbear&quot; para o Prestobarba). O cliente não vê essas palavras. Nos remédios entram só o princípio ativo, marcas equivalentes e grafias comuns (nada de indicação). Você pode editar no popup dos produtos que não são remédio.</p>
         <div className="pf-modal-acoes">
           <button type="button" className="pf-botao pf-botao--primario" disabled={gerandoPalavras || !iaLigada || palavras?.faltam === 0} onClick={() => void gerarPalavras()}>
-            {gerandoPalavras ? "Gerando… (1 a 2 minutos)" : "Gerar palavras para 60 itens"}
+            {gerandoPalavras && !andamento ? "Gerando… (1 a 2 minutos)" : "Gerar 60 itens"}
           </button>
-          {palavras ? <span className="pf-dica">{palavras.comPalavras} produtos já têm · {palavras.faltam} faltam</span> : null}
+          <button type="button" className="pf-botao pf-botao--primario" disabled={gerandoPalavras || !iaLigada || palavras?.faltam === 0} onClick={() => void gerarTudo()}>
+            Gerar tudo (várias rodadas)
+          </button>
+          {andamento ? <button type="button" className="pf-botao" onClick={() => { pararRef.current = true; }}>Parar</button> : null}
+          {andamento ? <span className="pf-dica" role="status">Rodada {andamento.rodada} · {andamento.salvos} itens prontos{andamento.restantes !== null ? ` · faltam ${andamento.restantes}` : ""}. Pode deixar esta página aberta.</span> : null}
+          {palavras && !andamento ? <span className="pf-dica">{palavras.comPalavras} itens já têm · {palavras.faltam} faltam</span> : null}
           {msgPalavras ? <span className="pf-dica" role="status">{msgPalavras}</span> : null}
         </div>
       </div>

@@ -5,11 +5,12 @@ import { banco, segredo } from "../../../../estoque-fonte";
 import { chamarGeminiComMotivo, esquemaParaGemini, MODELO_GEMINI_TEXTO, modeloEscolhido } from "../../../../gemini-nucleo";
 import { carregarCatalogoCompleto } from "../../../../nacoes-unidas/produtos/catalogo";
 import { carregarRestritos } from "../../../../nacoes-unidas/produtos/receita";
-import { definirPalavras, ESQUEMA_PALAVRAS, lerLotePalavras, mapaDePalavras, PROMPT_PALAVRAS, PROMPT_PALAVRAS_MEDICAMENTO } from "../../../../palavras-busca";
+import { chavesTentadas, definirPalavras, ESQUEMA_PALAVRAS, lerLotePalavras, mapaDePalavras, marcarTentadas, PROMPT_PALAVRAS, PROMPT_PALAVRAS_MEDICAMENTO } from "../../../../palavras-busca";
 
 export const dynamic = "force-dynamic";
 const SEM_CACHE = { "cache-control": "no-store" };
-const limite = criarLimitador(6, 600_000);
+// "Gerar tudo" chama uma rodada atrás da outra (60 itens cada): 40 por 10 minutos, só equipe logada.
+const limite = criarLimitador(40, 600_000);
 const POR_PEDIDO = 60;
 const POR_CHAMADA = 15;
 const EM_PARALELO = 4;
@@ -21,6 +22,7 @@ async function faltando() {
   const db = banco();
   if (!db) return null;
   const feitas = await mapaDePalavras(db);
+  const tentadas = await chavesTentadas(db);
   const vistos = new Set<string>();
   const produtos: Alvo[] = [];
   const medicamentos: Alvo[] = [];
@@ -29,14 +31,14 @@ async function faltando() {
   const chavesRestritos = new Set(restritos.map((i) => chaveDoNome(i.nome)));
   for (const i of carregarCatalogoCompleto().itens) {
     const k = chaveDoNome(i.nome);
-    if (vistos.has(k) || feitas[k]) continue;
+    if (vistos.has(k) || feitas[k] || tentadas.has(k)) continue;
     vistos.add(k);
     const remedio = i.isMIP || i.categoria === "Medicamentos" || chavesRestritos.has(k);
     (remedio ? medicamentos : produtos).push({ nome: i.nome, categoria: i.categoria, medicamento: remedio });
   }
   for (const i of restritos) {
     const k = chaveDoNome(i.nome);
-    if (vistos.has(k) || feitas[k]) continue;
+    if (vistos.has(k) || feitas[k] || tentadas.has(k)) continue;
     vistos.add(k);
     medicamentos.push({ nome: i.nome, categoria: "Medicamentos", ativo: i.ativo ?? undefined, medicamento: true });
   }
@@ -59,6 +61,7 @@ export async function POST(request: Request) {
   }
   let salvos = 0;
   let semPalavras = 0;
+  const semSeguras: string[] = [];
   let falhas = 0;
   let motivo = "";
   for (let g = 0; g < grupos.length; g += EM_PARALELO) {
@@ -84,6 +87,7 @@ export async function POST(request: Request) {
           const palavras = lido.get(i + 1) ?? [];
           if (palavras.length === 0) {
             semPalavras++;
+            semSeguras.push(grupo[i].nome);
             continue;
           }
           if (await definirPalavras(f.db, grupo[i].nome, palavras, "ia", "gemini")) salvos++;
@@ -91,8 +95,9 @@ export async function POST(request: Request) {
       }),
     );
   }
+  if (semSeguras.length > 0) await marcarTentadas(f.db, semSeguras);
   if (salvos > 0) await disparar(f.db);
-  return Response.json({ ok: true, salvos, semPalavras, falhas, motivo: falhas ? motivo : undefined, restantes: Math.max(0, f.lista.length - salvos) }, { headers: SEM_CACHE });
+  return Response.json({ ok: true, salvos, semPalavras, falhas, motivo: falhas ? motivo : undefined, restantes: Math.max(0, f.lista.length - salvos - semSeguras.length) }, { headers: SEM_CACHE });
 }
 
 /** Quantos produtos já têm palavras e quantos faltam. */
