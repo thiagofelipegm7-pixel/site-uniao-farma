@@ -452,8 +452,14 @@ test("passos da reserva: cesta, caminhão e check 3D, linha atrás do círculo s
   assert.doesNotMatch(fluxo, /<IconCesta /);
   assert.doesNotMatch(fluxo, /<IconCaminhao /);
   assert.doesNotMatch(fluxo, /<IconConfirmado /);
-  assert.match(css, /\.cesta-passos li \{[^}]*isolation:\s*isolate/s);
+  assert.match(css, /\.cesta-passos \{[^}]*isolation:\s*isolate/s);
+  assert.doesNotMatch(css, /\.cesta-passos li \{[^}]*isolation:\s*isolate/s);
+  assert.doesNotMatch(css, /\.cesta-passos li \{[^}]*opacity:\s*0\.7/s);
+  assert.doesNotMatch(css, /\.cesta-passos li\.is-on \{[^}]*opacity:\s*1/s);
   assert.match(css, /\.cesta-passos li \+ li::before \{[^}]*z-index:\s*0/s);
+  assert.match(css, /\.cesta-passos li \+ li::before \{[^}]*right:\s*calc\(50% \+ 1\.5rem\)/s);
+  assert.match(css, /\.cesta-passos li \+ li::before \{[^}]*width:\s*calc\(100% - 3rem\)/s);
+  assert.doesNotMatch(css, /\.cesta-passos li \+ li::before \{[^}]*opacity:/s);
   assert.match(css, /\.cesta-passos li span \{[^}]*z-index:\s*1/s);
   assert.match(css, /\.cesta-passos li span \{[^}]*background:\s*#ffffff/s);
   assert.match(css, /\.cesta-passos li\.is-on span \{[^}]*background:\s*var\(--uf-action-ink\)/s);
