@@ -1,0 +1,13 @@
+/* Ícone de duas barras que vira X (Dynamic menu). Cor herdada do botão. */
+.ia-icone { position: relative; display: inline-block; flex: none; }
+.ia-icone i {
+  position: absolute;
+  left: 2px;
+  right: 2px;
+  top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  border-radius: 2px;
+  background: currentColor;
+  will-change: transform;
+}
