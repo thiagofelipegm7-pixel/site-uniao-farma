@@ -10,3 +10,31 @@
   }
   html body .shop-header .shop-acoes .reserva-sacola:hover { background: #effaf4 !important; }
 }
+
+/* Celular: cesta com tamanho fixo (botão de 44 px, ícone de 32 px) e contador dentro do cabeçalho, sem cortar na borda. */
+@media (max-width: 991px) {
+  @layer design {
+    html body .shop-header .shop-acoes .reserva-sacola {
+      width: 2.75rem !important;
+      height: 2.75rem !important;
+      min-width: 2.75rem !important;
+      padding: 0 !important;
+      border-radius: 50% !important;
+      overflow: visible !important;
+    }
+    html body .shop-header .reserva-sacola-icone {
+      width: 2rem !important;
+      height: 2rem !important;
+    }
+    html body .shop-header .reserva-sacola-icone img {
+      width: 2rem !important;
+      height: 2rem !important;
+      max-width: 100% !important;
+      object-fit: contain !important;
+    }
+    html body .shop-header .reserva-contador-bolha {
+      top: -0.25rem !important;
+      right: -0.25rem !important;
+    }
+  }
+}
