@@ -19,9 +19,12 @@ import {
   identificarItens,
   normalizarBusca,
   ORDENS_CATALOGO,
+  termosDaConsulta,
+  textoDeBusca,
   type GrupoBusca,
   type OrdemCatalogo,
 } from "./busca";
+import { ordenarPorRelevancia } from "./relevancia";
 import {
   assinaturaFiltros,
   atalhosDaBusca,
@@ -192,7 +195,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   // Erro de digitação: quando a busca exata não acha nada, tenta corrigir (local primeiro, IA só se precisar).
   const completo = gruposProps.length > 0 || carregado;
   const textosBusca = useMemo(
-    () => (completo ? base.flatMap((grupo) => grupo.itens.map((item) => normalizarBusca(`${item.nome} ${item.lab} ${grupo.categoria} ${item.palavras ?? ""}`))) : null),
+    () => (completo ? base.flatMap((grupo) => grupo.itens.map((item) => textoDeBusca(`${item.nome} ${item.lab} ${grupo.categoria} ${item.palavras ?? ""}`))) : null),
     [completo, base],
   );
   const totalExato = useMemo(() => (consulta.trim() ? filtrarGrupos(base, consulta).reduce((soma, g) => soma + g.itens.length, 0) : 1), [base, consulta]);
@@ -208,7 +211,13 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   }, [base, consulta, consultasAlternativas, sintomaComProdutos]);
   const facetas = useMemo(() => calcularFacetas(porTexto, filtros), [porTexto, filtros]);
   const faixa = useMemo(() => faixaDePrecos(porTexto, filtros), [porTexto, filtros]);
-  const visiveis = aplicarCatalogo(porTexto, { ordem, predicado: predicadoFiltros(filtros) });
+  const visiveisBase = aplicarCatalogo(porTexto, { ordem, predicado: predicadoFiltros(filtros) });
+  // "Recomendados" com busca: o que mais se parece com o digitado vem primeiro (preço e outras ordens seguem como o cliente escolheu).
+  const termosRelevancia = useMemo(
+    () => (consulta.trim() ? (consultasAlternativas?.length ? consultasAlternativas.flatMap(termosDaConsulta) : termosDaConsulta(consulta)) : []),
+    [consulta, consultasAlternativas],
+  );
+  const visiveis = ordem === "recomendados" && termosRelevancia.length > 0 ? ordenarPorRelevancia(visiveisBase, termosRelevancia) : visiveisBase;
   const total = contarItens(visiveis);
   const [pagina, setPagina] = useState(paginaInicial);
   const [porPagina, setPorPagina] = useState<number>(POR_PAGINA);
