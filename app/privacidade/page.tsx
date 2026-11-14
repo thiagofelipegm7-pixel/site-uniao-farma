@@ -52,7 +52,7 @@ export default function PrivacyPage() {
             <li>Direcionar você para a unidade escolhida.</li>
             <li>Responder consultas sobre preço, estoque, entrega e serviços.</li>
             <li>Medir o desempenho do site e das campanhas, quando houver consentimento.</li>
-            <li>Melhorar a navegação e a experiência de atendimento.</li>
+            <li>Melhorar a navegação e a experiência de atendimento. Quando uma busca no site não encontra produto, guardamos só o texto da busca (sem acento), o dia e uma contagem, de forma anônima: sem IP, sem cookie e sem identificar quem digitou, e sem termos de saúde sensível. Usamos para saber quais produtos e palavras faltam, e apagamos depois de 90 dias.</li>
           </ul>
         </section>
 
