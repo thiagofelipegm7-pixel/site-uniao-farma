@@ -270,7 +270,7 @@ test("cartão de produto no padrão da Panvel: um componente só, com as medidas
   const comp = await read("app/nacoes-unidas/produtos/CartaoPanvel.tsx");
   for (const c of ["pv-cesta", "pv-corpo", "pv-img", "pv-nome", "pv-marca", "pv-apres"]) assert.ok(comp.includes(c), c);
   assert.ok((await read("app/nacoes-unidas/produtos/Preco.tsx")).includes("pv-preco"));
-  const { partesPreco } = await import("../app/nacoes-unidas/produtos/preco.ts");
+  const { partesPreco } = await import("../app/nacoes-unidas/produtos/preco-partes.ts");
   assert.deepEqual(partesPreco("R$ 19,49"), { reais: "19", centavos: "49" });
   assert.deepEqual(partesPreco("R$ 1.234,50"), { reais: "1.234", centavos: "50" });
   assert.equal(partesPreco("Consultar"), null);

@@ -38,7 +38,7 @@ import {
   urlComFiltros,
   type FacetaId,
   type FiltrosLista,
-} from "./facetas";
+} from "./facetas-calculo";
 import Facetas, { AtalhosBusca, FiltrosAtivos, type ChipAtivo } from "./Facetas";
 import { slugify } from "./catalogo";
 import CartaoPanvel from "./CartaoPanvel";
