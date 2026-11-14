@@ -82,3 +82,17 @@
 @media (prefers-reduced-motion: reduce) {
   .dm-icone i, .dm-links li { will-change: auto; }
 }
+
+/* Barra de acessos da home (desktop): pílula na cor da marca, com texto e ícone brancos, para destacar o botão. */
+.dm-slot--barra .dm-menu { background: var(--uf-green, #14736b); color: #ffffff; box-shadow: 0 4px 14px rgba(11, 59, 54, 0.18); }
+.dm-slot--barra .dm-cabeca:focus-visible { outline-color: #ffffff; }
+.dm-slot--barra .dm-titulo { font-size: 16px; }
+.dm-slot--barra .dm-icone { width: 26px; height: 26px; }
+.dm-slot--barra .dm-icone i { background: #ffffff; height: 2.5px; left: 2px; right: 2px; top: 11.75px; }
+.dm-slot--barra .dm-links a { color: #ffffff; }
+.dm-slot--barra .dm-links li:hover { background: rgba(255, 255, 255, 0.16); }
+.dm-slot--barra .dm-links a:focus-visible { outline-color: #ffffff; }
+
+/* A lista fica em coluna mesmo dentro da barra da loja (shop.css põe "ul" em linha com .shop-submenu ul). */
+.dm-slot .dm-links { display: block; gap: 0; margin: 0; padding: 4px 10px 10px; }
+.dm-slot .dm-links a { font-size: 17px; font-weight: 600; }
