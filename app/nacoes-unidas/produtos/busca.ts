@@ -19,6 +19,8 @@ export type ItemBusca = {
   slug?: string;
   /** Categoria dentro do departamento (árvore de categorias), ex.: "Desodorantes". */
   tipo?: string;
+  /** Palavras de busca do produto (nomes populares, marcas): entram só na busca, nunca na tela. */
+  palavras?: string;
   /** Medicamento com receita ou controlado: o cartão usa a ficha restrita (receita, retenção, cesta só para retirada). */
   restrito?: ItemRestrito;
 };
@@ -122,7 +124,7 @@ export function filtrarGruposAlternativos(grupos: readonly GrupoBusca[], consult
   const listas = consultas.map(termosDaConsulta).filter((termos) => termos.length > 0);
   if (listas.length === 0) return grupos.map((grupo) => ({ ...grupo, itens: [...grupo.itens] }));
   return grupos
-    .map((grupo) => ({ ...grupo, itens: grupo.itens.filter((item) => listas.some((termos) => combina(termos, item.nome, item.lab, grupo.categoria, sinonimosDe(item.nome)))) }))
+    .map((grupo) => ({ ...grupo, itens: grupo.itens.filter((item) => listas.some((termos) => combina(termos, item.nome, item.lab, grupo.categoria, sinonimosDe(item.nome), item.palavras ?? ""))) }))
     .filter((grupo) => grupo.itens.length > 0);
 }
 
@@ -131,7 +133,7 @@ export function filtrarGrupos(grupos: readonly GrupoBusca[], consulta: string): 
   const termos = termosDaConsulta(consulta);
   if (termos.length === 0) return grupos.map((grupo) => ({ ...grupo, itens: [...grupo.itens] }));
   return grupos
-    .map((grupo) => ({ ...grupo, itens: grupo.itens.filter((item) => combina(termos, item.nome, item.lab, grupo.categoria, sinonimosDe(item.nome))) }))
+    .map((grupo) => ({ ...grupo, itens: grupo.itens.filter((item) => combina(termos, item.nome, item.lab, grupo.categoria, sinonimosDe(item.nome), item.palavras ?? "")) }))
     .filter((grupo) => grupo.itens.length > 0);
 }
 

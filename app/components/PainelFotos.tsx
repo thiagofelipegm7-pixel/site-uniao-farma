@@ -14,7 +14,7 @@ import "./painel-fotos.css";
 
 type Linha = [string, string, string, string, number, number, number, number, number, string, number, number?, number?];
 type LinhaPainel = LinhaFoto & { sistemaRestrito?: boolean };
-type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; reconciliacao?: Reconciliacao; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; nomes?: Record<string, { nome: string; por: string; quando: string }>; controlados?: Record<string, { estado: "sim" | "nao"; por: string; quando: string }>; categoriasOverride?: Record<string, { categoria: string; por: string; quando: string }>; marcasOverride?: Record<string, { marca: string; por: string; quando: string }>; comDescricao?: string[]; descricoes?: Record<string, { t: string; o: string; f?: string }>; descricoesOverride?: Record<string, { texto: string; fonte: string | null; por: string; quando: string }>; mudancas?: { q: string; t: string; n: string; c: string; de?: number; para?: number }[]; alteracoes?: { tipo: string; titulo: string; acao: string; anterior: string | null; novo: string | null; por: string; quando: string }[]; linhas: Linha[] };
+type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: ResumoFotos; reconciliacao?: Reconciliacao; categorias: string[]; pendentes?: string[]; removidas?: string[]; publicacaoRapida?: boolean; nomes?: Record<string, { nome: string; por: string; quando: string }>; controlados?: Record<string, { estado: "sim" | "nao"; por: string; quando: string }>; categoriasOverride?: Record<string, { categoria: string; por: string; quando: string }>; marcasOverride?: Record<string, { marca: string; por: string; quando: string }>; palavrasOverride?: Record<string, { palavras: string; fonte: string; por: string; quando: string }>; comDescricao?: string[]; descricoes?: Record<string, { t: string; o: string; f?: string }>; descricoesOverride?: Record<string, { texto: string; fonte: string | null; por: string; quando: string }>; mudancas?: { q: string; t: string; n: string; c: string; de?: number; para?: number }[]; alteracoes?: { tipo: string; titulo: string; acao: string; anterior: string | null; novo: string | null; por: string; quando: string }[]; linhas: Linha[] };
 
 const CHAVE_MARCAS = "uf_fotos_ok";
 const REAIS = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
@@ -86,6 +86,7 @@ export default function PainelFotos() {
   const [editandoNome, setEditandoNome] = useState<string | null>(null);
   const [textoNome, setTextoNome] = useState("");
   const [nomesAgora, setNomesAgora] = useState<Record<string, string | null>>({});
+  const [palavrasAgora, setPalavrasAgora] = useState<Record<string, string>>({});
   const [marcasAgora, setMarcasAgora] = useState<Record<string, string | null>>({});
   const [selecionando, setSelecionando] = useState(false);
   const [selecionados, setSelecionados] = useState<Set<string>>(new Set());
@@ -374,6 +375,35 @@ export default function PainelFotos() {
     if (local !== undefined) return local ? { texto: local, preenchida: true } : { texto: l.lab, preenchida: false };
     const salva = dados?.marcasOverride?.[k];
     return salva ? { texto: salva.marca, preenchida: true } : { texto: l.lab, preenchida: false };
+  }
+
+  /** Palavras de busca do produto (nomes populares e marcas): só a busca usa, o cliente não as lê. */
+  function palavrasAtual(l: LinhaFoto): { texto: string; fonte: string } {
+    const k = chaveDoNome(l.nome);
+    if (palavrasAgora[k] !== undefined) return { texto: palavrasAgora[k], fonte: "equipe" };
+    const salva = dados?.palavrasOverride?.[k];
+    return { texto: salva?.palavras ?? "", fonte: salva?.fonte ?? "" };
+  }
+
+  async function salvarPalavras(l: LinhaFoto, texto: string) {
+    const novo = texto.replace(/\s+/g, " ").trim();
+    if (novo === palavrasAtual(l).texto.trim()) return;
+    try {
+      const r = await fetch("/api/interno/produto/palavras", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ original: l.nome, palavras: novo || null, por: por.trim() }) });
+      if (r.redirected || (r.headers.get("content-type") ?? "").includes("text/html")) {
+        setAviso("Sua sessão venceu. Recarregue a página (F5), entre de novo e tente outra vez.");
+        return;
+      }
+      const j = (await r.json().catch(() => null)) as { ok?: boolean; palavras?: string } | null;
+      if (!r.ok || !j?.ok) {
+        setAviso("Não consegui salvar as palavras de busca. Tente de novo.");
+        return;
+      }
+      setPalavrasAgora((m) => ({ ...m, [chaveDoNome(l.nome)]: j.palavras ?? "" }));
+      setAviso("Palavras de busca salvas. Valem na próxima publicação (em alguns minutos).");
+    } catch {
+      setAviso("Sem conexão. Tente de novo.");
+    }
   }
 
   async function salvarMarca(l: LinhaFoto, texto: string) {
@@ -907,6 +937,13 @@ export default function PainelFotos() {
                   <span className="pf-campo-rotulo">Marca ou laboratório</span>
                   <input className="pf-entrada" name="pf-marca" type="text" maxLength={60} placeholder="Sem marca informada" defaultValue={marcaAtual(l).texto} />
                 </label>
+                {categoriaEfetiva(l) !== "Medicamentos" && !l.sistemaRestrito ? (
+                  <label className="pf-campo">
+                    <span className="pf-campo-rotulo">Palavras de busca</span>
+                    <input className="pf-entrada" name="pf-palavras" type="text" maxLength={200} placeholder="Ex.: aparelho de barbear, lamina (separe por vírgula)" defaultValue={palavrasAtual(l).texto} />
+                    <small className="pf-dica">Só a busca usa: nomes populares, marca. {palavrasAtual(l).fonte === "ia" ? "Geradas pela IA: ao editar, passam a ser da equipe." : palavrasAtual(l).fonte === "equipe" ? "Escritas pela equipe." : "Ainda sem palavras."} Sem sintoma nem indicação de uso.</small>
+                  </label>
+                ) : null}
                 <label className="pf-campo">
                   <span className="pf-campo-rotulo">Categoria</span>
                   <select className="pf-entrada" name="pf-categoria" value={estadoCategoria(l)} onChange={(e) => void salvarCategoria(l, e.target.value)}>
@@ -954,6 +991,8 @@ export default function PainelFotos() {
                     const catSelect = popup?.querySelector<HTMLSelectElement>('select[name="pf-categoria"]');
                     const marcaInput = popup?.querySelector<HTMLInputElement>('input[name="pf-marca"]');
                     if (marcaInput) await salvarMarca(l, marcaInput.value);
+                    const palavrasInput = popup?.querySelector<HTMLInputElement>('input[name="pf-palavras"]');
+                    if (palavrasInput) await salvarPalavras(l, palavrasInput.value);
                     const descInput = popup?.querySelector<HTMLTextAreaElement>('textarea[name="pf-descricao"]');
                     const fonteInput = popup?.querySelector<HTMLInputElement>('input[name="pf-fonte"]');
                     if (descInput) await salvarDescricao(l, descInput.value, fonteInput?.value ?? "");

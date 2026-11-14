@@ -213,6 +213,11 @@ const cat = JSON.parse(fs.readFileSync(path.join(DADOS, "catalogo-nacoes.json"),
 // Fica fora das sugestões da busca do cabeçalho e da cesta (catalogo-busca.json), que só oferecem o que dá para reservar.
 // Réplica de marcaDoItem (marca.ts): marca preenchida no painel, senão o laboratório do sistema, senão a que o nome cita. Um teste confere as duas.
 const REGRAS_MARCA = JSON.parse(fs.readFileSync(path.join(DADOS, "marcas-pelo-nome.json"), "utf8")).map(([padrao, marca]) => ({ rx: new RegExp(padrao), marca }));
+// Palavras de busca por produto (IA e equipe): só a busca lê; entram no texto de busca e no item compacto da lista.
+const PALAVRAS_BUSCA = JSON.parse(fs.readFileSync(path.join(DADOS, "palavras-busca.json"), "utf8"));
+function palavrasDe(nome) {
+  return PALAVRAS_BUSCA[semAcentoMaiusculo(nome).replace(/\s+/g, " ").trim()] ?? "";
+}
 const MARCAS_CORRIGIDAS = JSON.parse(fs.readFileSync(path.join(DADOS, "marcas-corrigidas.json"), "utf8"));
 function semAcentoMaiusculo(t) {
   return String(t).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
@@ -260,6 +265,7 @@ const POR_PAGINA = 48;
 
 /** Cartão sem receita no índice da busca: mesmos campos das páginas, sem `busca`/`categoria` (a lista recalcula) e sem o nome bruto quando há nome de exibição. */
 function itemOtcCompacto(i) {
+  const palavras = palavrasDe(i.nome);
   return {
     nomeExibicao: i.nomeExibicao || i.nome,
     lab: i.lab,
@@ -271,6 +277,7 @@ function itemOtcCompacto(i) {
     ...(i.esgotado === true ? { esgotado: true } : {}),
     slug: i.slug,
     foto: i.foto,
+    ...(palavras ? { palavras } : {}),
   };
 }
 
@@ -310,7 +317,7 @@ for (const g of grupos) {
     const nomeEx = nomeDeExibicao(item.nome);
     const slug = slugify(item.nome);
     const foto = fotoDoProduto(item.nome) ?? (item.categoria === "Medicamentos" ? ilustracaoSemReceita(item.nome) : null);
-    const busca = normalizarBusca(`${nomeEx} ${item.nome} ${item.lab} ${item.categoria} ${sinonimosDe(item.nome)}`);
+    const busca = normalizarBusca(`${nomeEx} ${item.nome} ${item.lab} ${item.categoria} ${sinonimosDe(item.nome)} ${palavrasDe(item.nome)}`);
     const fmt = {
       nome: item.nome,
       nomeExibicao: nomeEx,

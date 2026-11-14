@@ -192,7 +192,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   // Erro de digitação: quando a busca exata não acha nada, tenta corrigir (local primeiro, IA só se precisar).
   const completo = gruposProps.length > 0 || carregado;
   const textosBusca = useMemo(
-    () => (completo ? base.flatMap((grupo) => grupo.itens.map((item) => normalizarBusca(`${item.nome} ${item.lab} ${grupo.categoria}`))) : null),
+    () => (completo ? base.flatMap((grupo) => grupo.itens.map((item) => normalizarBusca(`${item.nome} ${item.lab} ${grupo.categoria} ${item.palavras ?? ""}`))) : null),
     [completo, base],
   );
   const totalExato = useMemo(() => (consulta.trim() ? filtrarGrupos(base, consulta).reduce((soma, g) => soma + g.itens.length, 0) : 1), [base, consulta]);
