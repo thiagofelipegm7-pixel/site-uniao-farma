@@ -96,3 +96,8 @@
   html body .cesta-sugestoes, html body .cesta-sugestoes-modal, html body .cesta-sugestoes[class] { background: #ffffff !important; }
   html body .cesta-sugestao-add { background: #ffffff !important; color: #000000 !important; box-shadow: inset 0 0 0 1px #000000 !important; }
 }
+
+/* Faixa de passos da cesta (Cesta / Entrega / Finalizar) em branco no rascunho. */
+@layer design {
+  html body .cesta-faixa { background: #ffffff !important; color: #000000 !important; }
+}
