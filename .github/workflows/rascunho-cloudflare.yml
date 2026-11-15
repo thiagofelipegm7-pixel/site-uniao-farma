@@ -48,4 +48,11 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-        run: npx --yes wrangler@4 versions upload --config dist/server/wrangler.json --name site-uniao-farma --preview-alias rascunho --message "Rascunho ${GITHUB_SHA::7}"
+        run: |
+          npx --yes wrangler@4 versions upload --config dist/server/wrangler.json --name site-uniao-farma --preview-alias rascunho --message "Rascunho ${GITHUB_SHA::7}" | tee envio.log
+          URL=$(grep -oE 'https://[A-Za-z0-9.-]+\.workers\.dev' envio.log | head -1)
+          {
+            echo "## Visualização do rascunho"
+            echo ""
+            echo "Endereço: ${URL:-não encontrado no log (veja o passo Enviar visualização)}"
+          } >> "$GITHUB_STEP_SUMMARY"
