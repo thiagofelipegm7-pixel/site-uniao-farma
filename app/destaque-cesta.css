@@ -59,3 +59,8 @@
   html body .shop-marcas-trilho a:not(.is-cheia) { background: #ffffff !important; box-shadow: inset 0 0 0 1px #dfe6e8; }
   html body .shop-marcas-trilho a:not(.is-cheia):hover { background: #f5f7f8 !important; }
 }
+
+/* Rodapé claro em branco (rascunho). O rodapé escuro (.uf-footer) não muda. */
+@layer design {
+  html body .rodape, html body .footer { background: #ffffff !important; }
+}
