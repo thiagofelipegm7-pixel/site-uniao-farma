@@ -112,3 +112,6 @@
 .dm-slot--barra .dm-icone i { background: #ffffff; }
 .dm-slot--barra .dm-links a { color: #ffffff; }
 .dm-slot--barra .dm-links li:hover { background: rgba(255, 255, 255, 0.14); }
+
+/* Departamentos com fundo preto (rascunho). */
+.dm-slot--barra .dm-menu { background: #000000; }
