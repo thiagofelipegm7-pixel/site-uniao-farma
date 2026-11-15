@@ -38,3 +38,10 @@
     }
   }
 }
+
+/* Cabeçalho da loja em branco (rascunho): o verde-água sai; logo e ícones ficam em verde/escuro para continuar legíveis. */
+@layer design {
+  html body .shop-header { background: #ffffff !important; border-bottom-color: #e3ecea !important; }
+  html body .shop-header .marca-uf .marca-uf-nome { color: var(--uf-green-text, #14736b) !important; text-shadow: none !important; }
+  html body .shop-header .shop-icone, html body .shop-header .shop-menu { color: var(--uf-ink, #0d1413) !important; }
+}
