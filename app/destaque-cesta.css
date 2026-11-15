@@ -101,3 +101,8 @@
 @layer design {
   html body .cesta-faixa { background: #ffffff !important; color: #000000 !important; }
 }
+
+/* Loja escolhida na entrega/retirada (rascunho): fundo branco; a seleção continua na borda mais grossa. */
+@layer design {
+  html body .fluxo-loja, html body .fluxo-loja.is-on { background: #ffffff !important; }
+}
