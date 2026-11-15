@@ -3,7 +3,7 @@
 import { trackEvent } from "../../analytics";
 import { registrarEtapa } from "../../funil";
 import { abrirReserva } from "../../reserva/abrir-reserva";
-import { IconLixeira, IconMais, IconMenos } from "../../reserva/ReservaIcons";
+import BotaoCesta from "../../reserva/BotaoCesta";
 import { formatarCentavos, adicionar, atualizarReserva, definirQtd, idDoItem, qtdDoItem, tetoDoItem } from "../../reserva/reserva-store";
 import { useReserva } from "../../reserva/useReserva";
 import { useDisponibilidade } from "../../reserva/useDisponibilidade";
@@ -40,40 +40,28 @@ export default function ProdutoBarra({ unitId, nome, precoCentavos, foto, max: m
     );
   }
 
-  if (qtd === 0) {
-    return (
-      <div className="produto-barra">
-        <p className="produto-barra-preco"><small>Preço</small><strong>{formatarCentavos(precoCentavos)}</strong></p>
-        <button
-          type="button"
-          className="produto-adicionar"
-          onClick={() => {
-            atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, foto, ...(max ? { max } : {}), ...(slug ? { slug } : {}) }));
-            trackEvent("reserva_add", { unit: unitId, source: "produto_nacoes" });
-            registrarEtapa("add");
-          }}
-        >
-          <IconMais size={22} />
-          Adicionar à cesta
-        </button>
-      </div>
-    );
-  }
+  const adicionarPrimeira = () => {
+    atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, foto, ...(max ? { max } : {}), ...(slug ? { slug } : {}) }));
+    trackEvent("reserva_add", { unit: unitId, source: "produto_nacoes" });
+    registrarEtapa("add");
+  };
 
   return (
     <div className="produto-barra">
-      <div className="reservar-contador produto-contador" role="group" aria-label={`Quantidade de ${nome} na cesta`}>
-        <button type="button" aria-label={qtd === 1 ? `Remover ${nome} da cesta` : `Diminuir ${nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, id, qtd - 1))}>
-          {qtd === 1 ? <IconLixeira size={20} /> : <IconMenos size={20} />}
+      {qtd === 0 ? <p className="produto-barra-preco"><small>Preço</small><strong>{formatarCentavos(precoCentavos)}</strong></p> : null}
+      <BotaoCesta
+        quantidade={qtd}
+        teto={tetoDoItem({ max })}
+        nome={nome}
+        rotulo="Adicionar à cesta"
+        aoAdicionar={adicionarPrimeira}
+        aoMudar={(novo) => atualizarReserva((s) => definirQtd(s, id, novo))}
+      />
+      {qtd > 0 ? (
+        <button type="button" className="produto-ver-reserva" onClick={() => abrirReserva()}>
+          Ver cesta
         </button>
-        <output aria-live="polite">{qtd}</output>
-        <button type="button" aria-label={`Aumentar ${nome}`} disabled={qtd >= tetoDoItem({ max })} title={max && qtd >= max ? `Só restam ${max}` : undefined} onClick={() => atualizarReserva((s) => definirQtd(s, id, qtd + 1))}>
-          <IconMais size={20} />
-        </button>
-      </div>
-      <button type="button" className="produto-ver-reserva" onClick={() => abrirReserva()}>
-        Ver cesta
-      </button>
+      ) : null}
     </div>
   );
 }
