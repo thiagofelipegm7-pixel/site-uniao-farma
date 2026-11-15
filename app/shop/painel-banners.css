@@ -26,13 +26,10 @@
 @media (min-width: 768px) {
   .painel { padding: 0 1.5rem; }
   .painel-seta { display: grid; }
-  /* Computador: cards de altura fixa de 300 px com a arte inteira dentro, lado a lado. Tablet: 3 por vez; a partir de 1200 px: 6 por vez, em retrato. */
-  .painel-faixa { gap: 0.75rem; }
-  .painel-slide { flex: 0 0 calc((100% - 2 * 0.75rem) / 3); }
-  .painel-arte { aspect-ratio: auto; height: 18.75rem; }
-}
-@media (min-width: 1200px) {
-  .painel-slide { flex: 0 0 calc((100% - 5 * 0.75rem) / 6); }
+  /* Computador: um banner por vez, na mesma proporção do Chemist Warehouse (949 : 239). */
+  .painel-faixa { gap: 0; }
+  .painel-slide { flex: 0 0 100%; }
+  .painel-arte { aspect-ratio: 949 / 239; height: auto; }
 }
 @media (prefers-reduced-motion: reduce) { .painel-seta, .painel-pontos button::before { transition: none; } }
 

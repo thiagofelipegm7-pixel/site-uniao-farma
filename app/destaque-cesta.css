@@ -38,3 +38,71 @@
     }
   }
 }
+
+/* Cabeçalho da loja em branco (rascunho): o verde-água sai; logo e ícones ficam em verde/escuro para continuar legíveis. */
+@layer design {
+  html body .shop-header { background: #ffffff !important; border-bottom-color: #e3ecea !important; }
+  html body .shop-header .marca-uf .marca-uf-nome { color: var(--uf-green-text, #14736b) !important; text-shadow: none !important; }
+  html body .shop-header .shop-icone, html body .shop-header .shop-menu { color: var(--uf-ink, #0d1413) !important; }
+}
+
+/* Contraste no rascunho, como na Drogasil: busca em cinza claro com texto escuro; Departamentos em verde escuro com texto branco. */
+@layer design {
+  html body .shop-header .shop-busca { background: #ffffff !important; border: 1.5px solid #5b6b69 !important; color: #0d1413 !important; }
+  html body .shop-header .shop-busca button, html body .shop-header .shop-busca button svg { color: #000000 !important; stroke: #000000 !important; }
+  html body .shop-header .shop-busca input { color: #0d1413 !important; }
+  html body .shop-header .shop-busca input::placeholder { color: #4a5a58 !important; opacity: 1 !important; }
+}
+
+/* Marcas (rascunho): as bolinhas cinza viram brancas com borda fina; as de cor própria (is-cheia) continuam. */
+@layer design {
+  html body .shop-marcas-trilho a:not(.is-cheia) { background: #ffffff !important; box-shadow: inset 0 0 0 1px #dfe6e8; }
+  html body .shop-marcas-trilho a:not(.is-cheia):hover { background: #f5f7f8 !important; }
+}
+
+/* Rodapé claro em branco (rascunho). O rodapé escuro (.uf-footer) não muda. */
+@layer design {
+  html body .rodape, html body .footer { background: #ffffff !important; }
+}
+
+/* Paleta do rascunho: fundos verdes viram brancos; letras e linhas viram pretas. Material da marca (logos, fotos, ícones de imagem) não muda. */
+@layer design {
+  :root {
+    --uf-panel: #ffffff; --uf-action: #ffffff; --uf-action-hover: #f2f4f3; --uf-action-active: #e6eae9; --uf-action-ink: #000000;
+    --uf-mint: #ffffff; --uf-fog: #ffffff; --uf-paper: #ffffff; --uf-stone: #f2f4f3; --uf-pill: #ffffff; --uf-footer-bg: #ffffff; --uf-cream: #ffffff;
+    --uf-green: #000000; --uf-green-text: #000000; --uf-green-dark: #000000; --uf-green-deep: #000000; --uf-green-hover: #f2f4f3; --uf-green-bright: #000000;
+    --uf-ink: #000000; --uf-ink-soft: #000000; --uf-muted: #000000; --uf-navy: #000000; --uf-line: #000000; --uf-line-strong: #000000;
+  }
+  html body, html body * { color: #000000 !important; }
+  html body *, html body *::before, html body *::after { border-color: #000000 !important; }
+  html body .marca-uf, html body .marca-uf *, html body .marca-uf .marca-uf-nome { color: revert !important; }
+  html body img, html body picture, html body svg, html body svg *, html body .ia-icone i, html body .marca-uf { color: revert !important; border-color: revert !important; }
+  html body .rodape, html body .footer, html body .shop-header, html body .shop-marcas-trilho a:not(.is-cheia), html body .dm-slot--barra .dm-menu { background: #ffffff !important; }
+}
+
+/* Ajustes do rascunho: Departamentos volta a preto (pedido anterior), com texto e linhas brancos; botões + e faixa de horário em branco. */
+@layer design {
+  html body .dm-slot--barra .dm-menu { background: #000000 !important; }
+  html body .dm-slot--barra .dm-menu, html body .dm-slot--barra .dm-menu * { color: #ffffff !important; }
+  html body .dm-slot--barra .dm-icone i { background: #ffffff !important; }
+  html body .pv-card .pv-adicionar, html body main .pv-adicionar, html body .pv-adicionar { background: #ffffff !important; background-image: none !important; box-shadow: inset 0 0 0 1px #000000 !important; color: #000000 !important; }
+  html body .pv-card .pv-adicionar:hover, html body main .pv-adicionar:hover, html body .pv-adicionar:hover { background: #f2f4f3 !important; }
+  html body .cookie-banner .cookie-accept, html body .cookie-accept { background: #ffffff !important; border-color: #000000 !important; color: #000000 !important; }
+  html body .shop-faixa-info { background: #ffffff !important; }
+}
+
+/* "Leve também" na cesta (rascunho): fundo branco; os + em branco com ícone preto. */
+@layer design {
+  html body .cesta-sugestoes, html body .cesta-sugestoes-modal, html body .cesta-sugestoes[class] { background: #ffffff !important; }
+  html body .cesta-sugestao-add { background: #ffffff !important; color: #000000 !important; box-shadow: inset 0 0 0 1px #000000 !important; }
+}
+
+/* Faixa de passos da cesta (Cesta / Entrega / Finalizar) em branco no rascunho. */
+@layer design {
+  html body .cesta-faixa { background: #ffffff !important; color: #000000 !important; }
+}
+
+/* Loja escolhida na entrega/retirada (rascunho): fundo branco; a seleção continua na borda mais grossa. */
+@layer design {
+  html body .fluxo-loja, html body .fluxo-loja.is-on { background: #ffffff !important; }
+}
