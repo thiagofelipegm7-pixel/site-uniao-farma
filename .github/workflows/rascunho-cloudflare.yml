@@ -3,7 +3,7 @@ name: Rascunho Cloudflare
 # Envia a versão do branch "rascunho" para um endereço de visualização (preview) do Worker.
 # Não troca o site ao vivo: a produção só muda quando o "rascunho" entra no main.
 
-# Desligado automático: a visualização do rascunho vem das builds de preview da Cloudflare.
+# Desligado automático: a visualização do rascunho vem das builds de preview da Cloudflare (revisado para disparar o build).
 # Continua disponível só pelo botão "Run workflow", se um dia houver token no repositório.
 on:
   workflow_dispatch:
