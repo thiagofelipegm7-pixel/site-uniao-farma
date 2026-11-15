@@ -106,3 +106,9 @@
 .dm-slot--barra .dm-icone i { background: var(--uf-ink, #0d1413); }
 .dm-slot--barra .dm-links a { color: var(--uf-ink, #0d1413); }
 .dm-slot--barra .dm-links li:hover { background: var(--uf-mint, #e4f6f3); }
+
+/* Departamentos com contraste forte (rascunho): verde escuro com texto branco. */
+.dm-slot--barra .dm-menu { background: #0b3b36; color: #ffffff; box-shadow: 0 4px 14px rgba(11, 59, 54, 0.22); }
+.dm-slot--barra .dm-icone i { background: #ffffff; }
+.dm-slot--barra .dm-links a { color: #ffffff; }
+.dm-slot--barra .dm-links li:hover { background: rgba(255, 255, 255, 0.14); }

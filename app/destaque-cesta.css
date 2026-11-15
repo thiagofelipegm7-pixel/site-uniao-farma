@@ -45,3 +45,10 @@
   html body .shop-header .marca-uf .marca-uf-nome { color: var(--uf-green-text, #14736b) !important; text-shadow: none !important; }
   html body .shop-header .shop-icone, html body .shop-header .shop-menu { color: var(--uf-ink, #0d1413) !important; }
 }
+
+/* Contraste no rascunho, como na Drogasil: busca em cinza claro com texto escuro; Departamentos em verde escuro com texto branco. */
+@layer design {
+  html body .shop-header .shop-busca { background: #f1f3f2 !important; border: 1px solid #c5d3d0 !important; color: #0d1413 !important; }
+  html body .shop-header .shop-busca input { color: #0d1413 !important; }
+  html body .shop-header .shop-busca input::placeholder { color: #4a5a58 !important; opacity: 1 !important; }
+}
