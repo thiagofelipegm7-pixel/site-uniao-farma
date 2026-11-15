@@ -70,7 +70,7 @@ export type FiltroCatalogo = {
   faixas?: readonly FaixaPreco[];
   /** Categoria dentro do departamento (nível 2 da árvore). */
   tipos?: readonly string[];
-  /** Filtros da lateral que mudam conforme a busca (facetas.ts): o produto só fica se o predicado aceitar. */
+  /** Filtros da lateral que mudam conforme a busca (facetas-calculo.ts): o produto só fica se o predicado aceitar. */
   predicado?: (item: ItemBusca, departamento: string) => boolean;
 };
 
@@ -83,6 +83,43 @@ export function normalizarBusca(value: string): string {
     .trim();
 }
 
+/** Apelidos de unidade que viram uma forma só ("7 unidades", "7 und" e "7UND" são "7un"; "1 litro" e "1,5 l" são "1l" e "1.5l"). */
+const UNIDADE: Record<string, string> = { unidade: "un", unidades: "un", unid: "un", unids: "un", und: "un", uni: "un", un: "un", litro: "l", litros: "l", lt: "l", lts: "l", l: "l", ml: "ml", mg: "mg", mcg: "mcg", kg: "kg", gr: "g", g: "g", cm: "cm", mm: "mm", fps: "fps" };
+
+/**
+ * Texto de busca: sem acento, minúsculo, com número e unidade juntos ("400 ml" = "400ml") e sem pontuação. É a mesma forma do texto de
+ * busca que o gerador dos arquivos grava (scripts/gerar-assets-catalogo.mjs tem uma réplica; um teste confere que saem iguais).
+ */
+export function textoDeBusca(value: string): string {
+  return (value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/(\d),(\d)/g, "$1.$2")
+    .replace(/(\d+(?:\.\d+)?)\s*(unidades?|unids?|unid|und|uni|un|litros?|lts?|lt|ml|mcg|mg|kg|gr|g|cm|mm|fps|l)\b/g, (_m, n: string, u: string) => n + (UNIDADE[u] ?? u))
+    .replace(/[^a-z0-9\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+const alfaNum = (c: string | undefined) => c !== undefined && /[a-z0-9]/.test(c);
+
+/**
+ * O termo está no texto? Palavra comprida casa em qualquer ponto ("fralda" em "fraldas"). Sigla de 1 ou 2 letras ("g", "xg", "p") só casa
+ * como palavra inteira, senão "fralda g" acharia qualquer coisa com um g. Número só casa inteiro ("8" não acha "18" nem "80").
+ */
+export function casaTermo(alvo: string, termo: string): boolean {
+  const curto = /^[a-z]{1,2}$/.test(termo);
+  const numero = /^\d+$/.test(termo);
+  if (!curto && !numero) return alvo.includes(termo);
+  for (let i = alvo.indexOf(termo); i !== -1; i = alvo.indexOf(termo, i + 1)) {
+    const antes = alvo[i - 1];
+    const depois = alvo[i + termo.length];
+    if (curto ? !alfaNum(antes) && !alfaNum(depois) : !(antes !== undefined && /\d/.test(antes)) && !(depois !== undefined && /\d/.test(depois))) return true;
+  }
+  return false;
+}
+
 /** Palavras da busca sem acento e no singular simples ("fraldas" acha "fralda", "protetores" acha "protetor"). */
 export function termosDeBusca(consulta: string): string[] {
   return normalizarBusca(consulta)
@@ -92,11 +129,12 @@ export function termosDeBusca(consulta: string): string[] {
 }
 
 function combina(termos: string[], ...campos: string[]): boolean {
-  const alvo = normalizarBusca(campos.join(" "));
-  return termos.every((termo) => alvo.includes(termo));
+  const alvo = textoDeBusca(campos.join(" "));
+  return termos.every((termo) => casaTermo(alvo, termo));
 }
 
-const PALAVRAS_DE_LIGACAO = new Set(["de", "da", "do", "das", "dos", "para", "pra", "com", "em", "no", "na"]);
+// "tamanho"/"tam" e "c/" (caixa com) não ajudam a achar: o nome traz só "G" ou "8UN".
+const PALAVRAS_DE_LIGACAO = new Set(["de", "da", "do", "das", "dos", "para", "pra", "com", "em", "no", "na", "tamanho", "tamanhos", "tam", "c", "cx"]);
 
 /**
  * Palavras da busca como o cliente digita: sem as de ligação ("teste de covid" busca "teste" e "covid"), desde que sobre alguma palavra.
@@ -104,7 +142,7 @@ const PALAVRAS_DE_LIGACAO = new Set(["de", "da", "do", "das", "dos", "para", "pr
  */
 export function termosDaConsulta(consulta: string): string[] {
   // Hífen e barra separam palavras ("covid-19" vira "covid" e "19"), como nos arquivos de busca.
-  const todos = termosDeBusca(consulta.replace(/[-/]/g, " "));
+  const todos = termosDeBusca(textoDeBusca(consulta.replace(/[-/]/g, " ")));
   const uteis = todos.filter((t) => !PALAVRAS_DE_LIGACAO.has(t));
   return uteis.length > 0 ? uteis : todos;
 }

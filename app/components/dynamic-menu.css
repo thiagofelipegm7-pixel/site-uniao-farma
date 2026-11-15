@@ -1,0 +1,117 @@
+/* Dynamic Menu: pílula com duas linhas que vira painel ao abrir. Cores e fonte do projeto. */
+.dm-slot { position: relative; height: 430px; width: 100%; }
+/* na barra de acessos: só a altura da pílula; o painel aberto sobrepõe a página */
+.dm-slot--barra { height: 52px; width: 200px; flex: none; z-index: 30; }
+
+.dm-menu {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 200px;
+  height: 52px;
+  border-radius: 26px;
+  background: var(--uf-mint, #e4f6f3);
+  overflow: hidden;
+  font-family: var(--font-body, Inter, system-ui, sans-serif);
+  color: var(--uf-ink, #0d1413);
+}
+
+.dm-cabeca {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px 0 20px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  text-align: left;
+}
+.dm-cabeca:focus-visible { outline: 3px solid var(--uf-action, #40baaf); outline-offset: -3px; border-radius: 26px; }
+
+.dm-titulo { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
+
+/* as duas linhas do ícone */
+.dm-icone { position: relative; width: 24px; height: 24px; flex: none; }
+.dm-icone i {
+  position: absolute;
+  left: 3px;
+  right: 3px;
+  top: 11px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--uf-green-deep, #0b3b36);
+  will-change: transform;
+}
+
+.dm-links {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 52px;
+  list-style: none;
+  margin: 0;
+  padding: 4px 10px 10px;
+}
+.dm-links li {
+  display: flex;
+  align-items: center;
+  height: 48px;
+  padding: 0 10px;
+  border-radius: 12px;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.dm-links li:hover { background: var(--uf-stone, #d4eeeb); }
+.dm-links a {
+  color: var(--uf-ink, #0d1413);
+  text-decoration: none;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  width: 100%;
+}
+.dm-links a:focus-visible { outline: 3px solid var(--uf-action, #40baaf); outline-offset: 2px; border-radius: 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dm-icone i, .dm-links li { will-change: auto; }
+}
+
+/* Barra de acessos da home (desktop): pílula na cor da marca, com texto e ícone brancos, para destacar o botão. */
+.dm-slot--barra .dm-menu { background: var(--uf-green, #14736b); color: #ffffff; box-shadow: 0 4px 14px rgba(11, 59, 54, 0.18); }
+.dm-slot--barra .dm-cabeca:focus-visible { outline-color: #ffffff; }
+.dm-slot--barra .dm-titulo { font-size: 16px; }
+.dm-slot--barra .dm-icone { width: 26px; height: 26px; }
+.dm-slot--barra .dm-icone i { background: #ffffff; height: 2.5px; left: 2px; right: 2px; top: 11.75px; }
+.dm-slot--barra .dm-links a { color: #ffffff; }
+.dm-slot--barra .dm-links li:hover { background: rgba(255, 255, 255, 0.16); }
+.dm-slot--barra .dm-links a:focus-visible { outline-color: #ffffff; }
+
+/* A lista fica em coluna mesmo dentro da barra da loja (shop.css põe "ul" em linha com .shop-submenu ul). */
+.dm-slot .dm-links { display: block; gap: 0; margin: 0; padding: 4px 10px 10px; }
+.dm-slot .dm-links a { font-size: 17px; font-weight: 600; }
+
+/* No desktop, a barra da home fica dentro do cabeçalho fixo, que corta o conteúdo (overflow: hidden) na altura da barra.
+   Com o painel aberto, a barra deixa o painel aparecer por baixo. O recolhimento ao rolar continua (max-height e opacity do shop.css). */
+.cab-fixo .shop-submenu:has(.dm-slot--barra) { overflow: visible; }
+
+/* Departamentos na barra da home em branco (rascunho): pílula branca com borda e texto escuro. */
+.dm-slot--barra .dm-menu { background: #ffffff; color: var(--uf-ink, #0d1413); box-shadow: inset 0 0 0 1px var(--uf-line, #c5e4e0), 0 4px 14px rgba(13, 20, 19, 0.08); }
+.dm-slot--barra .dm-icone i { background: var(--uf-ink, #0d1413); }
+.dm-slot--barra .dm-links a { color: var(--uf-ink, #0d1413); }
+.dm-slot--barra .dm-links li:hover { background: var(--uf-mint, #e4f6f3); }
+
+/* Departamentos com contraste forte (rascunho): verde escuro com texto branco. */
+.dm-slot--barra .dm-menu { background: #0b3b36; color: #ffffff; box-shadow: 0 4px 14px rgba(11, 59, 54, 0.22); }
+.dm-slot--barra .dm-icone i { background: #ffffff; }
+.dm-slot--barra .dm-links a { color: #ffffff; }
+.dm-slot--barra .dm-links li:hover { background: rgba(255, 255, 255, 0.14); }
+
+/* Departamentos com fundo preto (rascunho). */
+.dm-slot--barra .dm-menu { background: #000000; }

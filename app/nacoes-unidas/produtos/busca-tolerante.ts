@@ -3,7 +3,7 @@
  * (ss/ç/s/z, ch/x, k/c/qu, ph/f, h mudo, rr, o/u e e/i no fim) e compara com as palavras que existem no catálogo.
  * Só devolve palavras do próprio catálogo, então nunca aparece produto que a loja não tem.
  */
-import { normalizarBusca, termosDeBusca } from "./busca";
+import { casaTermo, normalizarBusca, termosDaConsulta, termosDeBusca, textoDeBusca } from "./busca";
 
 export type PalavraVocab = { w: string; pk: string; f: number; /** Palavra sem o plural (mesma regra de `termosDeBusca`) e o som dela: quem digita costuma errar a palavra já no singular. */ rad: string; pkr: string };
 export type Vocabulario = {
@@ -217,7 +217,7 @@ export function expandirSinonimos(consulta: string): string[] {
  * que em português costumam ser o tipo do produto: "shampoo anticaspa" → "shampoo"). Devolve null se a busca já tem uma palavra só.
  */
 export function buscaParcial(vocab: Vocabulario, consulta: string): { consulta: string; ignoradas: string[] } | null {
-  const tokens = termosDeBusca(aplicarSinonimos(consulta).replace(/[-/]/g, " ")).filter((t) => !PALAVRAS_DE_LIGACAO.has(t));
+  const tokens = termosDeBusca(textoDeBusca(aplicarSinonimos(consulta).replace(/[-/]/g, " "))).filter((t) => !PALAVRAS_DE_LIGACAO.has(t));
   if (tokens.length < 2 || tokens.length > 5) return null;
   // Subconjuntos do maior para o menor; entre do mesmo tamanho, os que mantêm as primeiras palavras.
   const indices = tokens.map((_, i) => i);
@@ -268,7 +268,7 @@ export function semDiminutivo(vocab: Vocabulario, token: string): string | null 
 /** Procura erro de escrita: troca cada palavra desconhecida pela mais parecida que existe no catálogo. */
 export function analisarConsulta(vocab: Vocabulario, consulta: string): Analise {
   const trocada = aplicarSinonimos(consulta);
-  const todos = termosDeBusca(trocada);
+  const todos = termosDeBusca(textoDeBusca(trocada));
   const tokens = todos.filter((t) => !PALAVRAS_DE_LIGACAO.has(t));
   const sintoma = pareceSintoma(consulta);
   if (tokens.length === 0) return { tokens, desconhecidas: [], corrigida: null, sugerida: null, sintoma, alternativas: [], parcial: null };
@@ -311,7 +311,7 @@ export function analisarConsulta(vocab: Vocabulario, consulta: string): Analise 
 
 /** Produto casa com a busca se tiver todas as palavras (mesma regra da busca normal). */
 export function casaConsulta(haystack: string, consulta: string): boolean {
-  return termosDeBusca(consulta).every((t) => haystack.includes(t));
+  return termosDaConsulta(consulta).every((t) => casaTermo(haystack, t));
 }
 
 export function casaAlguma(haystack: string, consultas: readonly string[]): boolean {
@@ -319,10 +319,10 @@ export function casaAlguma(haystack: string, consultas: readonly string[]): bool
 }
 
 export function contarCasos(vocab: Vocabulario, consulta: string): number {
-  const termos = termosDeBusca(consulta);
+  const termos = termosDaConsulta(consulta);
   if (termos.length === 0) return 0;
   let n = 0;
-  for (const t of vocab.textos) if (termos.every((x) => t.includes(x))) n += 1;
+  for (const t of vocab.textos) if (termos.every((x) => casaTermo(t, x))) n += 1;
   return n;
 }
 

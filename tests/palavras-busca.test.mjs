@@ -98,3 +98,12 @@ test("gerar tudo: itens sem palavras seguras não voltam ao lote e o botão tem 
   assert.match(fila, /rodada < 80/);
   assert.match(fila, /falhasSeguidas >= 2/);
 });
+
+test("palavras de busca no popup: todos os produtos, remédio incluído, sem exceção", async () => {
+  const painel = await ler("app/components/PainelFotos.tsx");
+  const trecho = painel.slice(painel.indexOf('name="pf-palavras"') - 700, painel.indexOf('name="pf-palavras"'));
+  assert.ok(!/categoriaEfetiva\(l\) !== "Medicamentos"/.test(trecho), "sem condição por categoria");
+  assert.ok(!/sistemaRestrito/.test(trecho.split("Palavras de busca")[0].slice(-200)), "sem condição por restrito");
+  const rota = await ler("app/api/interno/produto/palavras/route.ts");
+  assert.ok(!/isMIP|Medicamentos|restrit/i.test(rota), "a rota da equipe aceita qualquer produto");
+});

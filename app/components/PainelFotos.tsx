@@ -1,6 +1,8 @@
 "use client";
 
 import FilaIA from "./FilaIA";
+import IconeAlternar from "./IconeAlternar";
+import FileDrop from "./FileDrop";
 import BuscasSemResultado from "./BuscasSemResultado";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { candidatosDoArraste } from "../fotos-arrastar";
@@ -835,18 +837,18 @@ export default function PainelFotos() {
                     <span className={`pf-qtd pf-qtd-${faixa}`} title={faixa === "zero" ? "Sem estoque" : faixa === "baixo" ? "Estoque baixo" : "Estoque normal"}>{l.estoque} un.</span>
                     {estadoControlado(l) === "sim" ? <span className="pf-chip pf-chip-ctl">Controlado</span> : null}
                     <button type="button" className="pf-engrenagem" onClick={() => setProdutoConfig(l.ean)} aria-label={`Configurar ${nomeAtual(l).texto}`}>
-                      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /><circle cx="15" cy="7" r="2" fill="none" stroke="currentColor" strokeWidth="2" /><circle cx="9" cy="17" r="2" fill="none" stroke="currentColor" strokeWidth="2" /></svg>
+                      <IconeAlternar aberto={produtoConfig === l.ean} size={20} />
                     </button>
                   </div>
                   <div className="pf-card-foto">
                     {l.noSite ? (
                       <img src={urlFoto} alt="" width="176" height="176" />
                     ) : (
-                      <label className="pf-envio">
-                        <input type="file" accept="image/*" disabled={envios[l.ean] === "enviando"} onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} />
-                        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 16V5m0 0-4 4m4-4 4 4M5 15v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                        <span>{envios[l.ean] === "enviando" ? "Enviando…" : "Enviar foto"}</span>
-                      </label>
+                      <FileDrop
+                        estado={envios[l.ean] === "enviando" ? "enviando" : envios[l.ean] === "enviada" ? "pronto" : "parado"}
+                        rotulo={`Enviar foto de ${nomeAtual(l).texto}`}
+                        onArquivo={(arquivo) => void enviarFoto(l, arquivo)}
+                      />
                     )}
                   </div>
                   <h3 className="pf-card-nome" title={nomeAtual(l).texto}>{nomeAtual(l).texto}</h3>
@@ -939,13 +941,14 @@ export default function PainelFotos() {
                   <span className="pf-campo-rotulo">Marca ou laboratório</span>
                   <input className="pf-entrada" name="pf-marca" type="text" maxLength={60} placeholder="Sem marca informada" defaultValue={marcaAtual(l).texto} />
                 </label>
-                {categoriaEfetiva(l) !== "Medicamentos" && !l.sistemaRestrito ? (
+                {/* Todos os produtos, remédio incluído: só a busca usa estas palavras e o cliente nunca as lê. */}
+                {(
                   <label className="pf-campo">
                     <span className="pf-campo-rotulo">Palavras de busca</span>
                     <input className="pf-entrada" name="pf-palavras" type="text" maxLength={200} placeholder="Ex.: aparelho de barbear, lamina (separe por vírgula)" defaultValue={palavrasAtual(l).texto} />
-                    <small className="pf-dica">Só a busca usa: nomes populares, marca. {palavrasAtual(l).fonte === "ia" ? "Geradas pela IA: ao editar, passam a ser da equipe." : palavrasAtual(l).fonte === "equipe" ? "Escritas pela equipe." : "Ainda sem palavras."} Sem sintoma nem indicação de uso.</small>
+                    <small className="pf-dica">Só a busca usa: nomes populares, marca. {palavrasAtual(l).fonte === "ia" ? "Geradas pela IA: ao editar, passam a ser da equipe." : palavrasAtual(l).fonte === "equipe" ? "Escritas pela equipe." : "Ainda sem palavras."} Sem sintoma nem indicação de uso{categoriaEfetiva(l) === "Medicamentos" || l.sistemaRestrito ? " (remédio: princípio ativo, marca equivalente ou grafia comum)" : ""}.</small>
                   </label>
-                ) : null}
+                )}
                 <label className="pf-campo">
                   <span className="pf-campo-rotulo">Categoria</span>
                   <select className="pf-entrada" name="pf-categoria" value={estadoCategoria(l)} onChange={(e) => void salvarCategoria(l, e.target.value)}>

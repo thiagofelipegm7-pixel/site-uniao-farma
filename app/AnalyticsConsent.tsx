@@ -6,9 +6,10 @@ import { getClickTrackingParams, trackEvent } from "./analytics";
 import { captureCampaignAttribution } from "./campaign-attribution";
 import { OPEN_COOKIE_PREFERENCES_EVENT } from "./cookie-preferences";
 
-import { CONSENT_STORAGE_KEY as CONSENT_KEY } from "./ga-bootstrap";
+import { CONSENT_STORAGE_KEY as CONSENT_KEY, GTAG_SCRIPT_ID, GTAG_SCRIPT_URL } from "./ga-bootstrap";
 
-// GA4 (gtag.js) é carregado direto no <head> pelo layout, com Consent Mode v2.
+// GA4 (gtag.js) só é carregado depois do aceite: aqui, quando a pessoa aceita, ou pelo trecho do <head> (ga-bootstrap.ts)
+// quando ela já tinha aceitado numa visita anterior. Antes disso nenhum pedido sai para o Google nem para a Meta.
 // O GTM só carrega se NEXT_PUBLIC_GTM_CONTAINER_ID for definido de propósito
 // (e o contêiner NÃO deve ter tag GA4, para não contar page_view em dobro).
 const GTM_CONTAINER_ID = process.env.NEXT_PUBLIC_GTM_CONTAINER_ID ?? "";
@@ -61,6 +62,7 @@ function startAnalytics(): void {
     ad_user_data: "granted",
     ad_personalization: "granted",
   });
+  appendScript(GTAG_SCRIPT_ID, GTAG_SCRIPT_URL);
   if (GTM_CONTAINER_ID) startGoogleTagManager();
   if (!trackingWindow.fbq) {
     const fbq = function (...args: unknown[]) {
@@ -122,7 +124,7 @@ export default function AnalyticsConsent() {
   }, []);
 
   useEffect(() => {
-    // Cliques são medidos sempre. Sem consentimento, o gtag só envia pings sem cookies.
+    // Os cliques passam por trackEvent, que só registra depois do aceite no banner.
     if (interno) return; // equipe: nenhum clique é medido
     const onTrackedClick = (event: MouseEvent) => {
       const target = event.target as Element | null;

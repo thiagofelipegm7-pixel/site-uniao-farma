@@ -10,7 +10,7 @@
 .painel-faixa:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
 .painel-slide { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; scroll-snap-stop: always; }
 .painel-arte { display: block; position: relative; width: 100%; aspect-ratio: 2 / 1; border-radius: 12px; overflow: hidden; background: #f1f5f4; color: inherit; text-decoration: none; }
-.painel-arte img, .painel-arte picture { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; }
+.painel-arte img, .painel-arte picture { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: contain; }
 .painel-vazio { position: absolute; inset: 0; display: block; }
 .painel-seta { position: absolute; top: 50%; z-index: 2; display: none; place-items: center; width: 3rem; height: 3rem; padding: 0; border: 0; border-radius: 50%; background: #e6e9e8; color: var(--uf-navy, #0d1413); cursor: pointer; transform: translateY(-50%); transition: background-color 0.2s ease; }
 .painel-seta:hover:not(:disabled) { background: #d4d9d8; }
@@ -26,7 +26,10 @@
 @media (min-width: 768px) {
   .painel { padding: 0 1.5rem; }
   .painel-seta { display: grid; }
-  .painel-arte { aspect-ratio: 1318 / 300; }
+  /* Computador: um banner por vez, na mesma proporção do Chemist Warehouse (949 : 239). */
+  .painel-faixa { gap: 0; }
+  .painel-slide { flex: 0 0 100%; }
+  .painel-arte { aspect-ratio: 949 / 239; height: auto; }
 }
 @media (prefers-reduced-motion: reduce) { .painel-seta, .painel-pontos button::before { transition: none; } }
 
@@ -44,8 +47,4 @@
 @media (hover: none) { .painel-editar-dica { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) { .painel-editar-dica { transition: none; } }
 
-/* Com arte enviada, a moldura segue a proporção da própria imagem: nada é cortado (a proporção fixa só vale para o espaço vazio). */
-.painel-arte--img, .painel .painel-arte--img { aspect-ratio: auto; }
-.painel-arte--img picture { position: static; display: block; width: 100%; height: auto; }
-.painel-arte--img img { position: static; display: block; width: 100%; height: auto; object-fit: contain; }
-.painel-slide { align-self: flex-start; }
+/* Todos os banners (com ou sem arte) usam a mesma moldura: 2 : 1 no celular, 1318 : 300 no computador. A arte cabe inteira dentro dessa moldura (object-fit: contain), sem cortes; as sobras ficam com o fundo claro, então nenhum banner fica mais alto ou mais baixo que os outros. */

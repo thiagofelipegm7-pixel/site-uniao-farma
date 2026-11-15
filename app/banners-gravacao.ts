@@ -48,3 +48,29 @@ export async function gravarBanner(db: BancoBanner, id: string, url: string, ago
   await inserir.run();
   await apagarAntigas.run();
 }
+
+/* Destino do banner: uma linha separada (stage "banner-link"), com o slug do produto no índice (ex.: cimegripe-gts). */
+
+export function validarDestino(body: unknown): { ok: true; id: string; slug: string } | { ok: false; erro: ErroBanner; status: number } {
+  const b = (body ?? {}) as { id?: unknown; slug?: unknown };
+  if (typeof b.id !== "string" || typeof b.slug !== "string" || !b.id || !b.slug) return { ok: false, erro: "faltando", status: 400 };
+  if (!/^[a-z0-9-]{1,40}$/.test(b.id)) return { ok: false, erro: "vaga_invalida", status: 400 };
+  if (!/^[a-z0-9-]{1,120}$/.test(b.slug)) return { ok: false, erro: "formato_invalido", status: 400 };
+  return { ok: true, id: b.id, slug: b.slug };
+}
+
+/** Troca o produto da vaga: grava o novo destino e só então apaga o anterior (mesma ordem da arte). */
+export async function gravarDestino(db: BancoBanner, id: string, slug: string, agora = new Date()) {
+  const inserir = db
+    .prepare("INSERT INTO metric_hits (day, stage, intent, source, created_at) VALUES (?, ?, ?, ?, ?)")
+    .bind(agora.toISOString().slice(0, 10), "banner-link", id, slug, agora.toISOString());
+  const apagarAntigas = db
+    .prepare("DELETE FROM metric_hits WHERE stage = ? AND intent = ? AND id < (SELECT MAX(id) FROM metric_hits WHERE stage = ? AND intent = ?)")
+    .bind("banner-link", id, "banner-link", id);
+  if (typeof db.batch === "function") {
+    await db.batch([inserir, apagarAntigas]);
+    return;
+  }
+  await inserir.run();
+  await apagarAntigas.run();
+}

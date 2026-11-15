@@ -1,4 +1,5 @@
 import { getCampaignAttribution } from "./campaign-attribution";
+import { CONSENT_STORAGE_KEY } from "./ga-bootstrap";
 import { UNITS } from "./site-config";
 
 export type TrackingParams = Record<string, unknown>;
@@ -16,6 +17,16 @@ type TrackingWindow = Window & {
   fbq?: (...args: unknown[]) => void;
   __uniaoFarmaAnalyticsLoaded?: boolean;
 };
+
+/** O visitante aceitou os cookies opcionais no banner? Sem isso, nenhum evento é registrado. */
+function analyticsAutorizado(trackingWindow: TrackingWindow): boolean {
+  if (trackingWindow.__uniaoFarmaAnalyticsLoaded) return true;
+  try {
+    return trackingWindow.localStorage.getItem(CONSENT_STORAGE_KEY) === "accepted";
+  } catch {
+    return false;
+  }
+}
 
 /** Eventos de clique que levam o parâmetro `store` e `link_location`. */
 const STORE_EVENTS = new Set(["whatsapp_click", "phone_click", "ifood_click"]);
@@ -90,6 +101,8 @@ export function trackEvent(event: string, params: TrackingParams = {}): void {
   if (typeof window === "undefined") return;
 
   const trackingWindow = window as TrackingWindow;
+  // Sem aceite no banner nada é registrado: nem enviado, nem guardado na fila para sair depois.
+  if (!analyticsAutorizado(trackingWindow)) return;
 
   const store = params.store ?? storeFromUnitId(params.unit) ?? undefined;
   if (STORE_EVENTS.has(event)) {
@@ -112,7 +125,6 @@ export function trackEvent(event: string, params: TrackingParams = {}): void {
     page_path: window.location.pathname,
     page_title: document.title,
   };
-  // gtag empurra no dataLayer sozinho. O consentimento (Consent Mode v2) decide se usa cookies.
   if (trackingWindow.gtag) trackingWindow.gtag("event", event, eventParams);
   else trackingWindow.dataLayer.push({ event, ...eventParams });
   // Meta Pixel só depois do aceite do banner.

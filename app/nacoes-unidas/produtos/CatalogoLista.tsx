@@ -19,9 +19,12 @@ import {
   identificarItens,
   normalizarBusca,
   ORDENS_CATALOGO,
+  termosDaConsulta,
+  textoDeBusca,
   type GrupoBusca,
   type OrdemCatalogo,
 } from "./busca";
+import { ordenarPorRelevancia } from "./relevancia";
 import {
   assinaturaFiltros,
   atalhosDaBusca,
@@ -35,7 +38,7 @@ import {
   urlComFiltros,
   type FacetaId,
   type FiltrosLista,
-} from "./facetas";
+} from "./facetas-calculo";
 import Facetas, { AtalhosBusca, FiltrosAtivos, type ChipAtivo } from "./Facetas";
 import { slugify } from "./catalogo";
 import CartaoPanvel from "./CartaoPanvel";
@@ -94,7 +97,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
       }
       try {
         const idx = await fetch("/dados/nacoes/catalogo-index.json").then(r => r.json());
-        type ItemPagina = { slug?: string; nomeExibicao?: string; nome: string; lab: string; isMIP: boolean; restam?: number; esgotado?: boolean; precoFmt: string; preco: number; foto: string | null; tipo?: string };
+        type ItemPagina = { slug?: string; nomeExibicao?: string; nome: string; lab: string; isMIP: boolean; restam?: number; esgotado?: boolean; precoFmt: string; preco: number; foto: string | null; tipo?: string; palavras?: string };
         const paraItem = (item: ItemPagina) => ({
           nome: item.nomeExibicao || item.nome,
           lab: item.lab,
@@ -106,6 +109,8 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
           foto: item.foto,
           slug: item.slug,
           tipo: item.tipo,
+          // Palavras de busca do painel: valem também quando a lista cai nas fatias (igual ao índice).
+          ...(item.palavras ? { palavras: item.palavras } : {}),
         });
         const lerPagina = (slug: string, n: number): Promise<ItemPagina[]> => fetch(`/dados/nacoes/catalogo/${slug}/p${n}.json`).then((r) => r.json());
         const lista: { slug: string; categoria: string; paginas?: number }[] = (idx.grupos || []).filter((g: { slug: string }) => !departamento || g.slug === departamento);
@@ -192,7 +197,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   // Erro de digitação: quando a busca exata não acha nada, tenta corrigir (local primeiro, IA só se precisar).
   const completo = gruposProps.length > 0 || carregado;
   const textosBusca = useMemo(
-    () => (completo ? base.flatMap((grupo) => grupo.itens.map((item) => normalizarBusca(`${item.nome} ${item.lab} ${grupo.categoria} ${item.palavras ?? ""}`))) : null),
+    () => (completo ? base.flatMap((grupo) => grupo.itens.map((item) => textoDeBusca(`${item.nome} ${item.lab} ${grupo.categoria} ${item.palavras ?? ""}`))) : null),
     [completo, base],
   );
   const totalExato = useMemo(() => (consulta.trim() ? filtrarGrupos(base, consulta).reduce((soma, g) => soma + g.itens.length, 0) : 1), [base, consulta]);
@@ -208,7 +213,13 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   }, [base, consulta, consultasAlternativas, sintomaComProdutos]);
   const facetas = useMemo(() => calcularFacetas(porTexto, filtros), [porTexto, filtros]);
   const faixa = useMemo(() => faixaDePrecos(porTexto, filtros), [porTexto, filtros]);
-  const visiveis = aplicarCatalogo(porTexto, { ordem, predicado: predicadoFiltros(filtros) });
+  const visiveisBase = aplicarCatalogo(porTexto, { ordem, predicado: predicadoFiltros(filtros) });
+  // "Recomendados" com busca: o que mais se parece com o digitado vem primeiro (preço e outras ordens seguem como o cliente escolheu).
+  const termosRelevancia = useMemo(
+    () => (consulta.trim() ? (consultasAlternativas?.length ? consultasAlternativas.flatMap(termosDaConsulta) : termosDaConsulta(consulta)) : []),
+    [consulta, consultasAlternativas],
+  );
+  const visiveis = ordem === "recomendados" && termosRelevancia.length > 0 ? ordenarPorRelevancia(visiveisBase, termosRelevancia) : visiveisBase;
   const total = contarItens(visiveis);
   const [pagina, setPagina] = useState(paginaInicial);
   const [porPagina, setPorPagina] = useState<number>(POR_PAGINA);

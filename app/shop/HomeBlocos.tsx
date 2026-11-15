@@ -1,15 +1,25 @@
 "use client";
 
-/* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
 import { useEffect, useState } from "react";
 import { getUnitOpenStatus } from "../unit-hours";
-import { IconCartao, IconLoja, IconMenu, IconMoto, IconWhats } from "../reserva/ReservaIcons";
+import { IconCartao, IconLoja, IconMoto, IconWhats } from "../reserva/ReservaIcons";
 import { formatarCentavos, TAXA_ENTREGA_CENTAVOS } from "../reserva/reserva-store";
 import { buildWhatsAppUrl, PUBLIC_UNITS } from "../site-config";
-import { abrirDepartamentos } from "./loja-evento";
+import DynamicMenu from "../components/DynamicMenu";
 
 const nacoes = PUBLIC_UNITS.find((unit) => unit.id === "nacoes");
+
+/* Os mesmos departamentos da gaveta "Departamentos" (sem Ofertas, que tem a própria página). */
+const DEPARTAMENTOS_BARRA = [
+  { nome: "Medicamentos", href: "/departamentos/medicamentos" },
+  { nome: "Dermocosméticos", href: "/departamentos/dermocosmeticos" },
+  { nome: "Perfumes", href: "/departamentos/perfumes" },
+  { nome: "Infantil e Gestante", href: "/departamentos/infantil-e-gestante" },
+  { nome: "Beleza", href: "/departamentos/beleza" },
+  { nome: "Cuidado Diário", href: "/departamentos/cuidado-diario" },
+  { nome: "Bem Estar", href: "/departamentos/bem-estar" },
+];
 
 /**
  * Barra de acessos do desktop: Departamentos. Some no celular.
@@ -19,7 +29,7 @@ export function SubmenuHome() {
   return (
     <nav className="shop-submenu" aria-label="Acessos rápidos">
       <div className="shop-submenu-conteudo">
-        <button type="button" className="shop-submenu-dep" onClick={abrirDepartamentos}><IconMenu size={20} /><span>Departamentos</span></button>
+        <DynamicMenu barra itens={DEPARTAMENTOS_BARRA} />
       </div>
     </nav>
   );

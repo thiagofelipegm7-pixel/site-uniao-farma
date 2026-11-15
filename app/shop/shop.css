@@ -1199,8 +1199,8 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
     height: 5.75rem;
     padding: 0 max(2rem, calc((100% - 82rem) / 2 + 1.25rem));
     border-bottom: 0;
-    background: var(--uf-panel);
-    color: var(--uf-action-ink);
+    background: #ffffff;
+    color: var(--uf-ink);
   }
   .shop-marca { color: var(--uf-action-ink); }
   .shop-marca img { width: 2.75rem; height: 2.75rem; padding: 4px; border-radius: 10px; background: #ffffff; }
@@ -1355,7 +1355,7 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 
 /* Logo (regras base em app/marca.css). Celular: faixa verde-água como a Panvel, logo à esquerda ao lado do menu. */
 @media (max-width: 991.98px) {
-  .shop-header { background: var(--uf-panel); border-bottom-color: var(--uf-panel); }
+  .shop-header { background: #ffffff; border-bottom-color: #e3ecea; }
   .shop-header .shop-marca { justify-self: start; padding-block: 0.5rem; }
   .shop-header .shop-icone, .shop-header .shop-acoes .reserva-sacola { color: #ffffff !important; }
 }
@@ -2116,7 +2116,8 @@ html body .shop-busca input { order: 1; }
     html body section.cookie-banner .cookie-actions { display: flex !important; flex: none !important; flex-direction: row !important; gap: 0.375rem !important; width: auto !important; }
     html body section.cookie-banner .cookie-actions button { flex: none !important; width: auto !important; min-height: 2.5rem !important; padding: 0 0.875rem !important; border-radius: 999px !important; font-size: 0.8125rem !important; }
     html body .produto-barra { bottom: env(safe-area-inset-bottom) !important; }
-    html body.cookie-banner-visible .produto-barra { bottom: calc(4.75rem + env(safe-area-inset-bottom)) !important; }
+    /* Aviso de cookies com duas linhas ocupa ~92px + 8px de folga: a barra de compra sobe para ficar inteira acima dele. */
+    html body.cookie-banner-visible .produto-barra { bottom: calc(6.25rem + env(safe-area-inset-bottom)) !important; }
     html body.cookie-banner-visible .barra-reserva { bottom: calc(4.75rem + env(safe-area-inset-bottom)) !important; }
     html body.cookie-banner-visible .fluxo-rodape { bottom: 4.75rem !important; }
   }

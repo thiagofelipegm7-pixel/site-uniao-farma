@@ -24,6 +24,13 @@ export function ehPortaria344(controlado: boolean, lista: string | undefined | n
   return controlado && /^(A[1-3]|B[12]|C[1-5])$/i.test((lista ?? "").trim());
 }
 
+/**
+ * Chave da regra. Desligada em nov/2026 por decisão da equipe: controlados (Portaria 344) e antimicrobianos voltam a ter preço e
+ * cesta no site. Para esconder de novo, mude para true e rode o gerador de arquivos (scripts/gerar-assets-catalogo.mjs).
+ * A classificação continua valendo para informar, mas com a chave desligada nada fica sem venda.
+ */
+export const SEM_VENDA_NO_SITE = false;
+
 export type SemVenda = { portaria344: boolean; antimicrobiano: boolean; semVenda: boolean };
 
 /**
@@ -33,5 +40,5 @@ export type SemVenda = { portaria344: boolean; antimicrobiano: boolean; semVenda
 export function classificarSemVenda(a: { controlado: boolean; lista?: string | null; nome: string; retencao: boolean | null }): SemVenda {
   const portaria344 = ehPortaria344(a.controlado, a.lista);
   const antimicrobiano = !portaria344 && (a.controlado || (a.retencao === true && ehAntimicrobiano(a.nome)));
-  return { portaria344, antimicrobiano, semVenda: portaria344 || antimicrobiano };
+  return { portaria344, antimicrobiano, semVenda: SEM_VENDA_NO_SITE && (portaria344 || antimicrobiano) };
 }

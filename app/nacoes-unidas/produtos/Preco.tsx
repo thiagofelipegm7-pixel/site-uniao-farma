@@ -1,5 +1,5 @@
 import "./preco.css";
-import { partesPreco } from "./preco";
+import { partesPreco } from "./preco-partes";
 
 type Props = {
   precoFmt?: string | null;

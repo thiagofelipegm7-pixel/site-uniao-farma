@@ -13,6 +13,7 @@ export default function BuscasSemResultado({ por, onAviso }: { por: string; onAv
   const [itens, setItens] = useState<Linha[] | null>(null);
   const [erro, setErro] = useState(false);
   const [copiado, setCopiado] = useState(false);
+  const [copiadoTeste, setCopiadoTeste] = useState(false);
   const [sugestoes, setSugestoes] = useState<Sugestao[]>([]);
   const [iaLigada, setIaLigada] = useState(true);
   const [escolhida, setEscolhida] = useState<Record<string, string>>({});
@@ -80,6 +81,17 @@ export default function BuscasSemResultado({ por, onAviso }: { por: string; onAv
     }
   }
 
+  /** Comando pronto para pôr as buscas que falharam no teste automático (peça ao desenvolvedor que rode). */
+  async function copiarParaTeste() {
+    try {
+      await navigator.clipboard.writeText(`npm run busca:casos -- add ${(itens ?? []).slice(0, 60).map((i) => `"${i.termo}"`).join(" ")}`);
+      setCopiadoTeste(true);
+      window.setTimeout(() => setCopiadoTeste(false), 2500);
+    } catch {
+      setCopiadoTeste(false);
+    }
+  }
+
   async function copiar() {
     try {
       await navigator.clipboard.writeText(vazias.map((i) => `${i.termo}\t${i.vazia}`).join("\n"));
@@ -131,6 +143,7 @@ export default function BuscasSemResultado({ por, onAviso }: { por: string; onAv
         <>
           <div className="pf-modal-acoes">
             <button type="button" className="pf-botao" onClick={() => void copiar()}>{copiado ? "Copiado!" : "Copiar lista"}</button>
+            <button type="button" className="pf-botao" onClick={() => void copiarParaTeste()} title="Copia o comando que põe estas buscas no teste automático da busca">{copiadoTeste ? "Copiado!" : "Copiar para o teste"}</button>
           </div>
           <ul className="pf-mudancas-lista">
             {vazias.map((i) => (
