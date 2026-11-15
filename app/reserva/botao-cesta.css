@@ -1,0 +1,49 @@
+/* Botão da cesta: "+ Adicionar" que vira "− n +" no mesmo lugar. Cores e raio do projeto. */
+.bc-raiz { position: relative; display: inline-flex; font-family: var(--font-body, Inter, system-ui, sans-serif); }
+.bc-pilula {
+  position: relative;
+  height: 44px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: #ffffff;
+  color: var(--uf-ink, #0d1413);
+  box-shadow: inset 0 0 0 1px var(--uf-line, #c5e4e0);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.bc-pilula.is-aberto { background: var(--uf-green, #14736b); color: #ffffff; box-shadow: inset 0 0 0 1px var(--uf-green, #14736b); }
+.bc-pilula:hover:not(.is-aberto) { background: var(--uf-mint, #e4f6f3); }
+
+.bc-rotulo { position: absolute; inset: 0 44px 0 16px; display: flex; align-items: center; font-size: 15px; font-weight: 600; white-space: nowrap; pointer-events: none; }
+
+.bc-adicionar { position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-end; border: 0; border-radius: 999px; background: transparent; color: inherit; cursor: pointer; outline: none; }
+.bc-adicionar:focus-visible { box-shadow: inset 0 0 0 2px var(--uf-action, #40baaf); }
+.bc-icone-mais { display: flex; width: 44px; height: 44px; align-items: center; justify-content: center; flex: none; }
+
+.bc-contador { position: absolute; inset: 0; margin: 0; padding: 0; border: 0; }
+.bc-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.bc-menos, .bc-mais {
+  position: absolute; top: 0; bottom: 0; width: 44px;
+  display: flex; align-items: center; justify-content: center;
+  border: 0; border-radius: 999px; background: transparent; color: inherit; cursor: pointer; outline: none;
+}
+.bc-menos { left: 0; }
+.bc-mais { right: 0; }
+.bc-mais.is-limite { opacity: 0.45; }
+.bc-menos:hover, .bc-mais:hover { background: rgba(255, 255, 255, 0.14); }
+.bc-menos:focus-visible, .bc-mais:focus-visible { box-shadow: inset 0 0 0 2px #ffffff; }
+.bc-glifo { display: flex; }
+.bc-numero { position: absolute; top: 0; bottom: 0; left: 44px; right: 44px; display: flex; align-items: center; justify-content: center; overflow: hidden; font-size: 16px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.bc-tremer { display: flex; }
+.bc-digitos { display: inline-flex; overflow: hidden; }
+.bc-digito { position: relative; display: inline-block; }
+.bc-digito-char { display: inline-block; }
+
+.bc-aviso {
+  position: absolute; right: 0; bottom: 100%; margin-bottom: 8px; padding: 4px 8px;
+  border-radius: 8px; background: var(--uf-ink, #0d1413); color: #ffffff;
+  font-size: 12px; font-weight: 500; white-space: nowrap; pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bc-pilula { transition: none; }
+}
