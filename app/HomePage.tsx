@@ -9,6 +9,7 @@ import ShopHeader from "./shop/ShopHeader";
 import DestaquesSemana from "./shop/DestaquesSemana";
 import PainelBanners from "./shop/PainelBanners";
 import { FaixaInfo, SubmenuHome } from "./shop/HomeBlocos";
+import CartaoBusca from "./shop/CartaoBusca";
 import { CategoriasLinha } from "./shop/ShopSections";
 import { MarcasLinha } from "./shop/MarcasLinha";
 
@@ -33,6 +34,7 @@ export default function HomePage() {
         <SubmenuHome />
       </CabecalhoInteligente>
       <PainelBanners titulo="Farmácia em Sabará: União Farma Nações Unidas" />
+      <CartaoBusca />
       <CategoriasLinha />
       <DestaquesSemana posicao={0} id="vitrine-higiene" titulo="Cuidado Diário" grupo="cuidado-diario" n={12} verTodas={false} source="home_higiene" />
       <DestaquesSemana posicao={1} id="vitrine-pele" titulo="Dermocosméticos" grupo="dermocosmeticos" n={12} verTodas={false} source="home_pele" />

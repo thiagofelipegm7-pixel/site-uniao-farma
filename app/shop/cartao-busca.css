@@ -1,0 +1,21 @@
+/* Cartão de busca da home. Medidas próprias; cores e fonte da União Farma. */
+.cb-painel { position: relative; box-sizing: border-box; margin: 16px 16px 0; padding: 74px 16px 24px; display: flex; flex-direction: column; align-items: center; border: 1px solid var(--uf-line, #c5e4e0); border-radius: 16px; background: var(--uf-paper, #f1fbfa); box-shadow: 0 0 4.8px 1px rgba(33, 33, 33, 0.14); font-family: var(--font-body, Inter, system-ui, sans-serif); }
+.cb-busca { position: absolute; top: -28px; left: 16px; right: 16px; height: 56px; box-sizing: border-box; display: flex; align-items: center; padding: 0 20px; border: 1px solid var(--uf-line, #c5e4e0); border-radius: 16px; background: #ffffff; box-shadow: 0 2px 8px rgba(13, 20, 19, 0.08); }
+.cb-busca input { width: 100%; border: 0; background: transparent; outline: none; color: var(--uf-ink, #0d1413); font: inherit; font-size: 14px; font-weight: 500; }
+.cb-busca input::placeholder { color: var(--uf-muted, #3e4b49); opacity: 1; }
+.cb-busca input:focus-visible { box-shadow: 0 0 0 3px var(--uf-action, #40baaf); border-radius: 8px; }
+.cb-conteudo { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; margin-top: 16px; }
+.cb-linha { display: flex; align-items: center; gap: 16px; margin: 0; color: var(--uf-muted, #3e4b49); font-size: 14px; font-weight: 600; }
+.cb-linha::before, .cb-linha::after { content: ""; width: 46px; height: 1px; background: var(--uf-line, #c5e4e0); }
+.cb-atalhos { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+.cb-atalho { display: inline-flex; align-items: center; justify-content: center; height: 28px; padding: 4px 12px; box-sizing: border-box; border: 1px solid #f5f8fc; border-radius: 13px; background: #ffffff; color: var(--uf-ink, #0d1413); font-size: 12px; font-weight: 600; text-decoration: none; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); }
+.cb-atalho:focus-visible { outline: 3px solid var(--uf-action, #40baaf); outline-offset: 2px; }
+.cb-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (min-width: 768px) {
+  .cb-painel { margin: 24px 0 0; padding: 98px 24px 24px; }
+  .cb-busca { top: -40px; left: 24px; right: 24px; height: 80px; }
+  .cb-busca input { font-size: 18px; }
+  .cb-conteudo { width: 100%; max-width: 640px; }
+  .cb-atalhos { width: 100%; gap: 24px; flex-wrap: nowrap; }
+  .cb-atalho { flex: 1 1 0; min-height: 42px; height: auto; border-radius: 8px; font-size: 14px; }
+}
