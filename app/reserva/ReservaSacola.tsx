@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
 "use client";
 
+import BotaoCesta from "./BotaoCesta";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { EVENTO_ABRIR_RESERVA } from "./abrir-reserva";
-import { IconFechar, IconLixeira, IconSetaBaixo, IconCestaArte } from "./ReservaIcons";
+import { IconFechar, IconLixeira, IconCestaArte } from "./ReservaIcons";
 import SemFoto from "../nacoes-unidas/produtos/SemFoto";
 import "./cesta-modal.css";
 import { ajustarLimitesAoVivo, atualizarReserva, definirQtd, itemAtivo, tetoDoItem, formatarCentavos, limpar, subtotalCentavos, totalItens } from "./reserva-store";
@@ -159,15 +160,7 @@ export default function ReservaSacola() {
                             {riscado ? <s>{formatarCentavos(riscado)}</s> : null}
                             <strong>{temPreco ? formatarCentavos(item.precoCentavos * item.qtd) : "Consultar"}</strong>
                           </span>
-                          <label className="cm-qtd" title={item.max && item.qtd >= item.max ? `Só restam ${item.max}` : undefined}>
-                            <span className="cm-sr">Quantidade de {item.nome}</span>
-                            <select value={item.qtd} onChange={(e) => { const qtd = Number(e.target.value); atualizarReserva((s) => definirQtd(s, item.id, qtd)); }}>
-                              {Array.from({ length: teto }, (_, n) => n + 1).map((n) => (
-                                <option key={n} value={n}>{n}</option>
-                              ))}
-                            </select>
-                            <IconSetaBaixo size={14} />
-                          </label>
+                          <BotaoCesta quantidade={item.qtd} teto={teto} nome={item.nome} aoAdicionar={() => undefined} aoMudar={(n) => atualizarReserva((s) => definirQtd(s, item.id, n))} />
                         </div>
                       </div>
                     </li>
