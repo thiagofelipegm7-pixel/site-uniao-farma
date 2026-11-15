@@ -175,7 +175,7 @@ test("página de produto: estrutura, noindex, sem texto de saúde inventado e ba
   assert.match(barra, /atualizarReserva/);
   assert.match(barra, /adicionar\(/);
   assert.match(barra, /abrirReserva/);
-  assert.match(barra, /IconLixeira/);
+  assert.match(barra, /BotaoCesta/);
   assert.match(barra, /source: "produto_nacoes"/);
   assert.doesNotMatch(barra, /trackEvent\([^)]*nome/);
   assert.match(sacola, /EVENTO_ABRIR_RESERVA/);

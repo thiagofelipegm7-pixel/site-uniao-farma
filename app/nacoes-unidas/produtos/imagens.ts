@@ -3549,14 +3549,75 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "CICLOPIROX OLAMINA 10mg/ML 15ML GERMED": "7896004727240",
   "RAID PROT PASTILHA REFIL C/12": "7894650002032",
   "DESLORATADINA 0.5MG/ML XPE FR 100ML BIOSSINTETICA": "7896181922667",
+  "PRIMOSISTON 2+0.01mg cx 30 comp": "7896006201731",
+  "DIUPRESS 25+5mg cx 30 comp": "7891317010065",
 };
 
 function normalizarNome(nome: string): string {
   return nome.trim().replace(/\s+/g, " ");
 }
 
+/** Nome comparável: sem acento, em maiúsculas e com um espaço só. */
+export function chaveFotoNormal(nome: string): string {
+  return nome
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toUpperCase()
+    .replace(/\\+/g, " ")
+    .replace(/\*+$/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * Assinatura tolerante do nome: números ficam iguais ("7" ≠ "7.7") e palavras longas
+ * entram pelas 4 primeiras letras ("TINTA" e "TINT", "PROTETOR" e "PROT").
+ * Assim a foto achada pelo código de barras no painel também aparece no site
+ * quando o catálogo atualiza a abreviação (TINT → TINTA).
+ */
+export function chaveFotoAssinatura(nome: string): string {
+  return chaveFotoNormal(nome)
+    .replace(/[^A-Z0-9]+/g, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((t) => (/\d/.test(t) ? t : t.length > 4 ? t.slice(0, 4) : t))
+    .join(" ");
+}
+
+function indiceUnico(entradas: Iterable<[string, string]>): Map<string, string> {
+  const acc = new Map<string, string | "ambigua">();
+  for (const [chave, ean] of entradas) {
+    if (!chave) continue;
+    const atual = acc.get(chave);
+    if (atual === undefined) acc.set(chave, ean);
+    else if (atual !== ean) acc.set(chave, "ambigua");
+  }
+  const limpo = new Map<string, string>();
+  for (const [chave, ean] of acc) if (ean !== "ambigua") limpo.set(chave, ean);
+  return limpo;
+}
+
+const FOTOS_POR_NORMAL = indiceUnico(Object.entries(FOTOS_NACOES).map(([nome, ean]) => [chaveFotoNormal(nome), ean]));
+const FOTOS_POR_ASSINATURA = indiceUnico(Object.entries(FOTOS_NACOES).map(([nome, ean]) => [chaveFotoAssinatura(nome), ean]));
+
+function nomeSemEanColado(nome: string): string {
+  return nome.replace(/(\D)\d{8,14}\s*$/, "$1").trim();
+}
+
+function eanPeloNome(n: string): string | null {
+  return FOTOS_NACOES[n] ?? FOTOS_POR_NORMAL.get(chaveFotoNormal(n)) ?? FOTOS_POR_ASSINATURA.get(chaveFotoAssinatura(n)) ?? null;
+}
+
+/** EAN da foto aprovada, ou null quando não há correspondência segura. */
+export function eanDaFoto(nome: string): string | null {
+  if (!nome.trim()) return null;
+  const n = normalizarNome(nome);
+  return eanPeloNome(n) ?? eanPeloNome(nomeSemEanColado(n));
+}
+
 /** Caminho público da foto aprovada do item, ou null quando não há foto. */
 export function fotoDoProduto(nome: string): string | null {
-  const ean = FOTOS_NACOES[normalizarNome(nome)];
+  const ean = eanDaFoto(nome);
   return ean ? `/produtos/${ean}.webp` : null;
 }

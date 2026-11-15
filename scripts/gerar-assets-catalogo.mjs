@@ -89,9 +89,59 @@ function ilustracaoSemReceita(nome) {
   return forma && ["cpr", "cap", "liq", "got", "tub", "spr"].includes(forma) ? `/ilustrativas/otc-${forma}.webp` : "/ilustrativas/neutra.webp";
 }
 
-function fotoDoProduto(nome) {
+function chaveFotoNormal(nome) {
+  return nome
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toUpperCase()
+    .replace(/\\+/g, " ")
+    .replace(/\*+$/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function chaveFotoAssinatura(nome) {
+  return chaveFotoNormal(nome)
+    .replace(/[^A-Z0-9]+/g, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((t) => (/\d/.test(t) ? t : t.length > 4 ? t.slice(0, 4) : t))
+    .join(" ");
+}
+
+function indiceUnico(entradas) {
+  const acc = new Map();
+  for (const [chave, ean] of entradas) {
+    if (!chave) continue;
+    const atual = acc.get(chave);
+    if (atual === undefined) acc.set(chave, ean);
+    else if (atual !== ean) acc.set(chave, "ambigua");
+  }
+  const limpo = new Map();
+  for (const [chave, ean] of acc) if (ean !== "ambigua") limpo.set(chave, ean);
+  return limpo;
+}
+
+const FOTOS_POR_NORMAL = indiceUnico(Object.entries(FOTOS_NACOES).map(([nome, ean]) => [chaveFotoNormal(nome), ean]));
+const FOTOS_POR_ASSINATURA = indiceUnico(Object.entries(FOTOS_NACOES).map(([nome, ean]) => [chaveFotoAssinatura(nome), ean]));
+
+function nomeSemEanColado(nome) {
+  return nome.replace(/(\D)\d{8,14}\s*$/, "$1").trim();
+}
+
+function eanPeloNome(n) {
+  return FOTOS_NACOES[n] ?? FOTOS_POR_NORMAL.get(chaveFotoNormal(n)) ?? FOTOS_POR_ASSINATURA.get(chaveFotoAssinatura(n)) ?? null;
+}
+
+function eanDaFoto(nome) {
+  if (!String(nome).trim()) return null;
   const n = nome.trim().replace(/\s+/g, " ");
-  const ean = FOTOS_NACOES[n];
+  return eanPeloNome(n) ?? eanPeloNome(nomeSemEanColado(n));
+}
+
+function fotoDoProduto(nome) {
+  const ean = eanDaFoto(nome);
   return ean ? `/produtos/${ean}.webp` : null;
 }
 
