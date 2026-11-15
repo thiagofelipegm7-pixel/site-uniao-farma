@@ -140,3 +140,5 @@ O deploy é automatizado via GitHub Actions (`.github/workflows/deploy-cloudflar
 4. **Build** (`npm run build`) — compilação do bundle para Cloudflare Workers.
 5. **Testes de HTML renderizado** (`node --test tests/rendered-html.test.mjs`) — validação ponta a ponta do HTML final gerado pelo Worker.
 6. **Deploy** — publicação automática no Cloudflare Workers após aprovação de todos os gates de qualidade.
+
+<!-- Teste de build de visualização (rascunho): 2026-11-15 -->
