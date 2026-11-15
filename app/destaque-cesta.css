@@ -48,7 +48,8 @@
 
 /* Contraste no rascunho, como na Drogasil: busca em cinza claro com texto escuro; Departamentos em verde escuro com texto branco. */
 @layer design {
-  html body .shop-header .shop-busca { background: #f1f3f2 !important; border: 1px solid #c5d3d0 !important; color: #0d1413 !important; }
+  html body .shop-header .shop-busca { background: #ffffff !important; border: 1.5px solid #5b6b69 !important; color: #0d1413 !important; }
+  html body .shop-header .shop-busca button, html body .shop-header .shop-busca button svg { color: #000000 !important; stroke: #000000 !important; }
   html body .shop-header .shop-busca input { color: #0d1413 !important; }
   html body .shop-header .shop-busca input::placeholder { color: #4a5a58 !important; opacity: 1 !important; }
 }
