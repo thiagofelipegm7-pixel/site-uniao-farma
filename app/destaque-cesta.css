@@ -52,3 +52,9 @@
   html body .shop-header .shop-busca input { color: #0d1413 !important; }
   html body .shop-header .shop-busca input::placeholder { color: #4a5a58 !important; opacity: 1 !important; }
 }
+
+/* Marcas (rascunho): as bolinhas cinza viram brancas com borda fina; as de cor própria (is-cheia) continuam. */
+@layer design {
+  html body .shop-marcas-trilho a:not(.is-cheia) { background: #ffffff !important; box-shadow: inset 0 0 0 1px #dfe6e8; }
+  html body .shop-marcas-trilho a:not(.is-cheia):hover { background: #f5f7f8 !important; }
+}
