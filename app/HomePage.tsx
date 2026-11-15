@@ -8,7 +8,7 @@ import CabecalhoInteligente from "./shop/CabecalhoInteligente";
 import ShopHeader from "./shop/ShopHeader";
 import DestaquesSemana from "./shop/DestaquesSemana";
 import PainelBanners from "./shop/PainelBanners";
-import { FaixaInfo, SubmenuHome } from "./shop/HomeBlocos";
+import { SubmenuHome } from "./shop/HomeBlocos";
 import CartaoBusca from "./shop/CartaoBusca";
 import { CategoriasLinha } from "./shop/ShopSections";
 import { MarcasLinha } from "./shop/MarcasLinha";
@@ -30,7 +30,6 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeStructuredData) }} />
       <CabecalhoInteligente>
         <ShopHeader />
-        <FaixaInfo />
         <SubmenuHome />
       </CabecalhoInteligente>
       <PainelBanners titulo="Farmácia em Sabará: União Farma Nações Unidas" />
