@@ -1199,8 +1199,8 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
     height: 5.75rem;
     padding: 0 max(2rem, calc((100% - 82rem) / 2 + 1.25rem));
     border-bottom: 0;
-    background: #ffffff;
-    color: var(--uf-ink);
+    background: var(--uf-panel);
+    color: var(--uf-action-ink);
   }
   .shop-marca { color: var(--uf-action-ink); }
   .shop-marca img { width: 2.75rem; height: 2.75rem; padding: 4px; border-radius: 10px; background: #ffffff; }
@@ -1355,7 +1355,7 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
 
 /* Logo (regras base em app/marca.css). Celular: faixa verde-água como a Panvel, logo à esquerda ao lado do menu. */
 @media (max-width: 991.98px) {
-  .shop-header { background: #ffffff; border-bottom-color: #e3ecea; }
+  .shop-header { background: var(--uf-panel); border-bottom-color: var(--uf-panel); }
   .shop-header .shop-marca { justify-self: start; padding-block: 0.5rem; }
   .shop-header .shop-icone, .shop-header .shop-acoes .reserva-sacola { color: #ffffff !important; }
 }
