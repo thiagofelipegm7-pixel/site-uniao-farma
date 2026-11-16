@@ -8,7 +8,7 @@ export type BannerPainel = {
   alt: string;
   /** Imagem do computador (um banner por vez). Proporção 4,39 : 1, como a da Droga Raia: 1318 x 300 px na tela, envie 2636 x 600 px (2x). */
   imagem?: string;
-  /** Imagem do celular (até 767 px de largura). Proporção 2 : 1, ex.: 800 x 400. Sem ela, usa a do computador. */
+  /** Imagem do celular (até 767 px de largura). Proporção 2 : 1, ex.: 800 x 400. Sem ela, usa a do computador, e a caixa do celular fica na proporção dela (949 : 239). */
   imagemCelular?: string;
   /** Destino do clique. Sem destino, o banner não é link. */
   href?: string;
