@@ -489,3 +489,24 @@ test("passos da reserva: cesta, caminhão e check 3D, linha atrás do círculo s
   assert.equal(finalizar.subarray(0, 8).toString("binary"), "\x89PNG\r\n\x1a\n");
   assert.equal(finalizar[25], 6, "finalizar.png tem transparência");
 });
+
+test("cesta no celular: arrastar para baixo fecha, sem X; alça acessível e X mantido no computador", async () => {
+  const [sacola, css, gesto] = await Promise.all([
+    read("app/reserva/ReservaSacola.tsx"),
+    read("app/reserva/cesta-modal.css"),
+    read("app/reserva/arrastar-para-fechar.ts"),
+  ]);
+  assert.match(sacola, /ligarArrastarParaFechar/);
+  assert.match(sacola, /className="cm-puxador" aria-label="Fechar cesta"/);
+  assert.match(css, /@media \(max-width: 767\.98px\) \{[^}]*\.cm-fechar \{ display: none !important; \}/s);
+  assert.match(css, /\.cm-puxador \{ display: none !important; \}/, "no computador a alça some e o X continua");
+  assert.match(gesto, /pointerdown/);
+  assert.match(gesto, /prefers-reduced-motion: reduce/);
+  assert.match(gesto, /corpo\.scrollTop <= 0/);
+  const { deveFechar } = await import("../app/reserva/arrastar-para-fechar.ts");
+  assert.equal(deveFechar(40, 600, 0.1), false, "arrasto curto e lento volta");
+  assert.equal(deveFechar(200, 600, 0.1), true, "passou de ~28% fecha");
+  assert.equal(deveFechar(60, 600, 1.2), true, "gesto rápido fecha");
+  assert.equal(deveFechar(10, 600, 2), false, "toque rápido mínimo não fecha");
+  assert.equal(deveFechar(-50, 600, 2), false);
+});
