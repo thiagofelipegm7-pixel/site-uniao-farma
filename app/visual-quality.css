@@ -1,7 +1,7 @@
 /* União Farma — passo visual 2026-09-15. Não altera regra comercial. */
 
 body {
-  color: #000000;
+  color: var(--uf-ink);
 }
 
 .site-header,
@@ -47,7 +47,7 @@ body {
   font-size: 1.05rem !important;
   line-height: 1.45 !important;
   font-weight: 400 !important;
-  color: #000000;
+  color: var(--uf-muted) !important;
 }
 
 .hero .units-showcase,
@@ -107,14 +107,14 @@ body {
 }
 
 .unit-store-wa {
-  background: #ffffff !important;
+  background: #0f7a33 !important;
   color: #ffffff !important;
 }
 
 .unit-store-map {
   background: #ffffff !important;
-  border: 1px solid #8a8a8a !important;
-  color: #000000;
+  border: 1px solid var(--uf-line) !important;
+  color: #005f57 !important;
 }
 
 .unit-store-photo {
@@ -139,7 +139,7 @@ body {
 .home-offer-price {
   font-size: 1.35rem !important;
   font-weight: 700 !important;
-  color: #000000;
+  color: #005f57 !important;
 }
 
 .offer-consult-brand,
@@ -152,7 +152,7 @@ body {
 .content-nav-links a[aria-current="page"],
 .menu-links a[aria-current="page"],
 .content-side-nav a[aria-current="page"] {
-  color: #000000;
+  color: #005f57 !important;
   font-weight: 700 !important;
   text-decoration: underline;
   text-underline-offset: 0.28em;
@@ -165,7 +165,7 @@ body {
 }
 
 :focus-visible {
-  outline: 3px solid #8a8a8a;
+  outline: 3px solid #005f57;
   outline-offset: 3px;
 }
 

@@ -8,8 +8,8 @@
   box-sizing: border-box;
   aspect-ratio: 1 / 1;
   border-radius: 6px;
-  background: #ffffff;
-  color: #000000;
+  background: #eef3f2;
+  color: #6b8b86;
 }
 .sem-foto-icone { width: 48%; height: auto; max-width: 3.5rem; }
-.sem-foto-legenda { color: #000000; font-size: 0.75rem; line-height: 1.2; }
+.sem-foto-legenda { color: #3f6475; font-size: 0.75rem; line-height: 1.2; }

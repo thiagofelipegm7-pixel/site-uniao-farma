@@ -3,27 +3,22 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
 import { usePathname } from "next/navigation";
-import { useDeferredValue, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
-import { createPortal } from "react-dom";
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { BUSCAS_POPULARES, casaTermo, normalizarBusca, termosDaConsulta } from "../nacoes-unidas/produtos/busca";
 import { carregarBuscasRecentes, guardarBuscasRecentes, registrarBusca, removerBusca } from "./buscas-recentes";
-import SearchCard from "../components/library/SearchCard";
-import SemFoto from "../nacoes-unidas/produtos/SemFoto";
-import { imagemIlustrativa } from "../nacoes-unidas/produtos/receita";
 import { atalhosDaBusca, destacarTrechos, melhoresResultados } from "./busca-painel";
 import { analisarConsulta, casaConsulta, contarCasos, criarVocabulario } from "../nacoes-unidas/produtos/busca-tolerante";
 import { buildWhatsAppUrl, UNITS } from "../site-config";
 import { formatarCentavos } from "../reserva/reserva-store";
+import SemFoto from "../nacoes-unidas/produtos/SemFoto";
 import MarcaUniao from "./MarcaUniao";
 import ReservaSacola from "../reserva/ReservaSacola";
 import FotosNovas from "./FotosNovas";
 import { IconMenu, IconPino } from "../reserva/ReservaIcons";
 import LogoWhatsApp from "../LogoWhatsApp";
 import LojaPicker from "./LojaPicker";
-import { motionIndex } from "../motion/motion";
-import "../motion/motion.css";
 import "./shop.css";
-import "./busca-hero.css";
+import { imagemIlustrativa } from "../nacoes-unidas/produtos/receita";
 import DepartamentosGaveta from "./DepartamentosGaveta";
 import { abrirSeletorDeLoja, EVENTO_ABRIR_DEPARTAMENTOS } from "./loja-evento";
 
@@ -73,16 +68,7 @@ function NomeDestacado({ nome, termos }: { nome: string; termos: readonly string
   );
 }
 
-/** Pré-carrega a página do produto quando o cliente aponta para o card: o clique abre quase na hora. */
-function prefetchPagina(caminho: string) {
-  if (typeof document === "undefined" || document.querySelector(`link[rel="prefetch"][href="${caminho}"]`)) return;
-  const link = document.createElement("link");
-  link.rel = "prefetch";
-  link.href = caminho;
-  document.head.appendChild(link);
-}
-
-export default function ShopHeader({ consultaInicial = "", departamentos = null }: { consultaInicial?: string; departamentos?: ReactNode }) {
+export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?: string }) {
   const [menu, setMenu] = useState(false);
   // Fátima e Itacolomi só têm informações institucionais (sem pedido): o botão de pedido pelo WhatsApp é da loja Nações Unidas.
   const pedidoPeloWhats = !/^\/(fatima|itacolomi)(\/|$)/.test(usePathname() || "/");
@@ -102,8 +88,6 @@ export default function ShopHeader({ consultaInicial = "", departamentos = null 
   // Dedo (ou mouse) no painel de sugestões: no iPhone tocar num link tira o foco do campo antes do clique e o painel sumia sem abrir o produto.
   const tocandoPainel = useRef(false);
   const fimToque = useRef<number | undefined>(undefined);
-  // Última lista de cards mostrada: ao apagar para 1 letra o painel mantém essa lista, em vez de sumir e voltar.
-  const ultimosCards = useRef<Sugestao[]>([]);
 
   // Buscas recentes: só neste aparelho. Lê ao montar (o armazenamento só existe no navegador).
   // eslint-disable-next-line react-hooks/set-state-in-effect -- lê o armazenamento do navegador depois que a página abre
@@ -169,9 +153,7 @@ export default function ShopHeader({ consultaInicial = "", departamentos = null 
   );
   const atalhos = useMemo(() => atalhosDaBusca(termoBusca), [termoBusca]);
   const termosDestaque = corrigida ? termosCorrigidos : termos;
-  if (normal.length >= 2 && resultados.length > 0) ultimosCards.current = resultados; // eslint-disable-line react-hooks/refs -- guarda a última lista (ver ultimosCards)
-  const cardsMostrados = normal.length === 1 && ultimosCards.current.length > 0 ? ultimosCards.current : resultados;
-  const mostrarPainel = foco && (normal.length !== 1 || ultimosCards.current.length > 0);
+  const mostrarPainel = foco && (normal.length === 0 || normal.length >= 2);
   const semResultado = normal.length >= 2 && itens !== null && esgotados !== null && restritosCarregados && resultados.length === 0 && resultadosRestritos.length === 0 && resultadosEsgotados.length === 0;
 
   // Com o teclado aberto (iPhone), a lista não pode passar por baixo dele: limita a altura ao que sobra na tela visível, com rolagem.
@@ -233,12 +215,15 @@ export default function ShopHeader({ consultaInicial = "", departamentos = null 
     return () => window.removeEventListener(EVENTO_ABRIR_DEPARTAMENTOS, abrir);
   }, []);
 
-  const caminho = usePathname() || "/";
-  const [alvoBusca, setAlvoBusca] = useState<HTMLElement | null>(null);
-  // Na home, a busca sai do cabeçalho e fica no bloco central (ver #home-busca-lugar).
-  // eslint-disable-next-line react-hooks/set-state-in-effect -- o alvo só existe no navegador, depois de montar a página
-  useEffect(() => setAlvoBusca(caminho === "/" ? document.getElementById("home-busca-lugar") : null), [caminho]);
-  const buscaForm = (
+  return (
+    <>
+      <header className="shop-header">
+        <button type="button" className="shop-icone shop-menu" aria-label="Abrir menu" aria-expanded={menu} aria-controls="shop-menu-painel" onClick={() => setMenu(true)}>
+          <IconMenu size={26} />
+        </button>
+        <a className="shop-marca" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial">
+          <MarcaUniao />
+        </a>
         <form
           ref={formRef}
           className="shop-busca"
@@ -358,28 +343,45 @@ export default function ShopHeader({ consultaInicial = "", departamentos = null 
                     ))}
                   </ul>
                 </>
-              ) : cardsMostrados.length > 0 || resultadosRestritos.length > 0 || resultadosEsgotados.length > 0 ? (
+              ) : resultados.length > 0 || resultadosRestritos.length > 0 || resultadosEsgotados.length > 0 ? (
                 <>
                   {corrigida ? (
                     <p className="shop-sugestoes-corrigida" role="status">
                       Mostrando resultados para: <strong>{corrigida}</strong>
                     </p>
                   ) : null}
-                  {cardsMostrados.length > 0 ? (
-                    <ul className="shop-sug-cards" aria-label="Produtos sugeridos">
-                      {cardsMostrados.slice(0, 4).map((item, i) => (
-                        <li key={item.slug} style={motionIndex(i)}>
-                          <a className="shop-sug-card" href={`/nacoes-unidas/produtos/${item.slug}`} onMouseEnter={() => prefetchPagina(`/nacoes-unidas/produtos/${item.slug}`)} onTouchStart={() => prefetchPagina(`/nacoes-unidas/produtos/${item.slug}`)}>
-                            <span className="shop-sug-card-foto">
-                              {item.foto ? <img src={item.foto} alt="" width="160" height="160" /> : <SemFoto className="shop-sug-sem-foto" />}
-                            </span>
-                            <span className="shop-sug-card-nome"><NomeDestacado nome={item.nome} termos={termosDestaque} /></span>
-                            <strong className="shop-sug-card-preco">{formatarCentavos(item.precoCentavos)}</strong>
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  ) : null}                  <a className="shop-sugestoes-todos" href={`/nacoes-unidas/produtos?q=${encodeURIComponent(termo.trim())}`}>
+                  <ul aria-label="Produtos sugeridos">
+                    {resultados.map((item) => (
+                      <li key={item.slug}>
+                        <a href={`/nacoes-unidas/produtos/${item.slug}`}>
+                          {item.foto ? <img src={item.foto} alt="" width="44" height="44" /> : <SemFoto className="shop-sug-sem-foto" />}
+                          <span><NomeDestacado nome={item.nome} termos={termosDestaque} /></span>
+                          <strong>{formatarCentavos(item.precoCentavos)}</strong>
+                        </a>
+                      </li>
+                    ))}
+                    {resultadosRestritos.map((item) => (
+                      <li key={`${item.tipo}-${item.nome}`}>
+                        <a href={`/nacoes-unidas/produtos/${(item.nomeOriginal || item.nome).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}>
+                          <img src={imagemIlustrativa({ ...item, nome: item.nomeOriginal })} alt="" width="44" height="44" />
+                          <span>
+                            <NomeDestacado nome={item.nome} termos={termosDestaque} />
+                          </span>
+                          <strong>{item.precoCentavos === null ? (item.semVenda ? <small className="shop-sug-consulte">Consulte o farmacêutico</small> : "") : formatarCentavos(item.precoCentavos)}</strong>
+                        </a>
+                      </li>
+                    ))}
+                    {resultadosEsgotados.map((item) => (
+                      <li key={`esgotado-${item.slug}`} className="shop-sug-esgotado">
+                        <a href={`/nacoes-unidas/produtos/${item.slug}`}>
+                          {item.foto ? <img src={item.foto} alt="" width="44" height="44" /> : <SemFoto className="shop-sug-sem-foto" />}
+                          <span><NomeDestacado nome={item.nome} termos={termosDestaque} /></span>
+                          <em>Esgotado</em>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                  <a className="shop-sugestoes-todos" href={`/nacoes-unidas/produtos?q=${encodeURIComponent(termo.trim())}`}>
                     Ver todos os resultados
                   </a>
                 </>
@@ -398,24 +400,11 @@ export default function ShopHeader({ consultaInicial = "", departamentos = null 
                   ) : null}
                 </div>
               ) : (
-                <SearchCard theme="light" corner={26} rows={3} />
+                <p className="shop-sugestoes-titulo">Buscando…</p>
               )}
             </div>
           ) : null}
         </form>
-  );
-  const veu = foco && alvoBusca ? <div className="busca-veu" aria-hidden="true" onMouseDown={() => setFoco(false)} /> : null;
-  return (
-    <>
-      <header className="shop-header">
-        <button type="button" className="shop-icone shop-menu" aria-label="Abrir menu" aria-expanded={menu} aria-controls="shop-menu-painel" onClick={() => setMenu(true)}>
-          <IconMenu size={26} />
-        </button>
-        <a className="shop-marca" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial">
-          <MarcaUniao />
-        </a>
-        {departamentos}
-        {alvoBusca ? createPortal(<>{veu}{buscaForm}</>, alvoBusca) : buscaForm}
         <nav className="shop-links" aria-label="Menu principal">
           {LINKS.slice(0, 4).map((link) => (
             <a key={link.href} href={link.href}>{link.label}</a>

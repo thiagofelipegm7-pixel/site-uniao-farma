@@ -1,7 +1,7 @@
 /* Preço no padrão único (componente Preco.tsx): R$, reais e centavos no mesmo tamanho em todo o site. */
 .pv-preco {
   display: inline-block;
-  color: #000000;
+  color: var(--uf-navy);
   font-family: var(--font-heading);
   font-size: 14px;
   font-weight: 800;

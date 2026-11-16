@@ -5,11 +5,10 @@
 import { SITE_URL, PUBLIC_UNITS } from "./site-config";
 import { getPageStructuredData } from "./structured-data";
 import CabecalhoInteligente from "./shop/CabecalhoInteligente";
-import PedirAlternativas from "./shop/PedirAlternativas";
 import ShopHeader from "./shop/ShopHeader";
 import DestaquesSemana from "./shop/DestaquesSemana";
 import PainelBanners from "./shop/PainelBanners";
-import { SubmenuHome } from "./shop/HomeBlocos";
+import { FaixaInfo, SubmenuHome } from "./shop/HomeBlocos";
 import { CategoriasLinha } from "./shop/ShopSections";
 import { MarcasLinha } from "./shop/MarcasLinha";
 
@@ -29,11 +28,11 @@ export default function HomePage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(homeStructuredData) }} />
       <CabecalhoInteligente>
-        <ShopHeader departamentos={<SubmenuHome />} />
+        <ShopHeader />
+        <FaixaInfo />
+        <SubmenuHome />
       </CabecalhoInteligente>
       <PainelBanners titulo="Farmácia em Sabará: União Farma Nações Unidas" />
-      <div id="home-busca-lugar" className="home-busca-lugar" />
-      <PedirAlternativas />
       <CategoriasLinha />
       <DestaquesSemana posicao={0} id="vitrine-higiene" titulo="Cuidado Diário" grupo="cuidado-diario" n={12} verTodas={false} source="home_higiene" />
       <DestaquesSemana posicao={1} id="vitrine-pele" titulo="Dermocosméticos" grupo="dermocosmeticos" n={12} verTodas={false} source="home_pele" />
