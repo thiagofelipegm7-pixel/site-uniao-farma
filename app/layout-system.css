@@ -8,7 +8,7 @@
   align-items: center;
   gap: 8px 14px;
   padding: 8px 16px;
-  background: #123734;
+  background: #ffffff;
   color: #f3f7f6;
 }
 
@@ -39,7 +39,7 @@
 
 .open-now-list a.is-open {
   background: #25d366;
-  color: #00322e;
+  color: #000000;
 }
 
 .open-now-list a small {
@@ -66,7 +66,7 @@
   align-items: center;
   justify-content: center;
   min-height: 180px;
-  background: #f3f7f6;
+  background: #ffffff;
 }
 
 .offer-consult-image img {
@@ -83,12 +83,12 @@
   margin: 0 0 4px;
   font-size: 17px;
   line-height: 1.25;
-  color: #123734;
+  color: #000000;
 }
 
 .offer-consult-body p {
   margin: 0 0 8px;
-  color: #4c6360;
+  color: #000000;
   font-size: 13px;
 }
 
@@ -104,7 +104,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  background: #0f6e67;
+  background: #ffffff;
   color: #ffffff;
   font-size: 12px;
   font-weight: 800;
@@ -118,7 +118,7 @@
   max-width: 100%;
   border-radius: 999px;
   background: #e6f4f2;
-  color: #123734;
+  color: #000000;
   padding: 7px 12px;
   font-size: 12px;
   font-weight: 800;
@@ -127,7 +127,7 @@
 .open-status > span { display: none; }
 .open-status strong,
 .open-status small {
-  color: #123734;
+  color: #000000;
   font-size: inherit;
   font-weight: 800;
 }
@@ -154,21 +154,21 @@
   border: 1px solid #d5e4e2;
   border-radius: 12px;
   background: #ffffff;
-  color: #123734;
+  color: #000000;
   font-size: 13px;
   font-weight: 800;
   cursor: pointer;
 }
 
 .whatsapp-intent-chips button.is-active {
-  background: #0f6e67;
-  border-color: #0f6e67;
+  background: #ffffff;
+  border-color: #8a8a8a;
   color: #ffffff;
 }
 
 .offers-primary-button {
-  background: #0f6e67 !important;
-  border-color: #0f6e67 !important;
+  background: #ffffff !important;
+  border-color: #8a8a8a;
   color: #ffffff !important;
 }
 
@@ -182,7 +182,7 @@
   justify-content: center;
   margin-left: auto;
   border-radius: 14px;
-  background: #0f6e67;
+  background: #ffffff;
   color: #ffffff;
   box-sizing: border-box;
 }
@@ -245,8 +245,8 @@
     align-items: center;
     justify-content: center;
     border-radius: 14px;
-    background: #f3f7f6;
-    color: #123734;
+    background: #ffffff;
+    color: #000000;
     font-size: 14px;
     font-weight: 800;
     text-decoration: none;
@@ -591,7 +591,7 @@
     border: 0 !important;
     border-radius: 20px !important;
     background: transparent !important;
-    color: #485f5c !important;
+    color: #000000;
     font-size: 12px !important;
     font-weight: 800 !important;
     letter-spacing: 0.01em !important;
@@ -607,7 +607,7 @@
     height: 30px !important;
     border-radius: 11px;
     background: #eef7f6 !important;
-    color: #14736b !important;
+    color: #000000;
   }
 
   .mobile-quick-nav .mqn-label {
@@ -617,11 +617,11 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 12px !important;
-    color: #2e4b47 !important;
+    color: #000000;
   }
 
   .mobile-quick-nav a.is-primary {
-    background: #14736b !important;
+    background: #ffffff !important;
     color: #ffffff !important;
     box-shadow: none !important;
   }
@@ -717,7 +717,7 @@
     margin: 0 0 10px !important;
     font-size: 15px !important;
     line-height: 1.35 !important;
-    color: #3b5552 !important;
+    color: #000000;
   }
 
   .story-section,
@@ -803,7 +803,7 @@
   width: 100%;
   height: auto;
   object-fit: contain;
-  background: #f1fbfa;
+  background: #ffffff;
 }
 
 .offer-consult-image img,
@@ -833,7 +833,7 @@
 
 /* --- visual-detail.css --- */
 :root {
-  --uf-gold: #00786f;
+  --uf-gold: #000000;
   --uf-open: #0c8a4a;
   --uf-open-live: #0c8a4a;
   --uf-closed: #6b2a1c;
@@ -841,8 +841,7 @@
 
 body {
   background:
-    radial-gradient(1200px 420px at 50% -80px, rgba(15, 122, 85, 0.1), transparent 60%),
-    var(--uf-paper);
+    #ffffff;
 }
 
 .eyebrow,
@@ -854,7 +853,7 @@ body {
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--uf-green-text);
+  color: #000000;
 }
 
 .direct-unit-link,
@@ -875,11 +874,11 @@ body {
   top: 0;
   bottom: 0;
   width: 4px;
-  background: var(--uf-green);
+  background: #ffffff;
 }
 
 .direct-unit-link.is-nearest::before {
-  background: var(--uf-green);
+  background: #ffffff;
 }
 
 .direct-unit-link:hover,
@@ -918,16 +917,16 @@ body {
 
 .open-status.is-hours {
   background: #e6f4f2;
-  color: var(--uf-ink);
+  color: #000000;
 }
 
 .open-status.is-open {
-  background: var(--uf-open-live);
-  color: #01201e;
+  background: #ffffff;
+  color: #000000;
 }
 
 .open-status.is-open::before {
-  background: #01201e;
+  background: #ffffff;
   box-shadow: 0 0 0 0.18em rgba(6, 32, 22, 0.18);
 }
 
@@ -957,7 +956,7 @@ body {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  border: 1px solid var(--uf-line);
+  border: 1px solid #8a8a8a;
   font-weight: 700;
 }
 
@@ -980,13 +979,13 @@ body {
 
 .direct-unit-recipe {
   background: #ffffff;
-  color: var(--uf-ink);
-  border: 1px solid var(--uf-line);
+  color: #000000;
+  border: 1px solid #8a8a8a;
 }
 
 .uf-footer {
   background:
-    linear-gradient(180deg, #0c4b45 0%, #082422 100%);
+    #ffffff;
 }
 
 @media (min-width: 901px) {
@@ -1035,24 +1034,24 @@ main main {
 }
 
 :root {
-  --uf-ink: #0d1413;
-  --uf-green: #14736b;
-  --uf-green-deep: #0b3b36;
+  --uf-ink: #000000;
+  --uf-green: #000000;
+  --uf-green-deep: #000000;
   --uf-wa: #1f9e4b;
   --uf-mint: #e4f6f3;
-  --uf-line: #c5e4e0;
+  --uf-line: #8a8a8a;
   --uf-paper: #f1fbfa;
   --uf-radius: 16px;
   --uf-shadow: 0 10px 28px rgba(8, 58, 59, 0.08);
 }
 
 body {
-  background: var(--uf-paper);
-  color: var(--uf-ink);
+  background: #ffffff;
+  color: #000000;
 }
 
 :focus-visible {
-  outline: 3px solid #198077;
+  outline: 3px solid #8a8a8a;
   outline-offset: 3px;
 }
 
@@ -1061,7 +1060,7 @@ body {
   display: inline-block;
   margin: 8px;
   padding: 8px 12px;
-  background: #198077;
+  background: #ffffff;
   color: #ffffff;
 }
 
@@ -1071,14 +1070,14 @@ body {
 .direct-unit-neighborhood,
 .offer-consult-body p,
 .locate-unit-status {
-  color: #304b48;
+  color: #000000;
   font-size: 14px;
 }
 
 .site-header,
 .content-header {
   background: rgba(255, 255, 255, 0.96) !important;
-  border-bottom: 1px solid var(--uf-line) !important;
+  border-bottom: 1px solid #8a8a8a !important;
   box-shadow: none !important;
 }
 
@@ -1088,7 +1087,7 @@ body {
 }
 
 .open-now-strip {
-  background: var(--uf-green-deep);
+  background: #ffffff;
   color: #f1fbfa;
   padding: 7px 12px;
   font-size: 14px;
@@ -1102,7 +1101,7 @@ body {
 }
 
 .preferred-store-banner {
-  background: var(--uf-green);
+  background: #ffffff;
   color: #ffffff;
   padding: 10px 16px;
   letter-spacing: 0.01em;
@@ -1113,27 +1112,27 @@ body {
 .questions-page h1,
 .encarte-page h1 {
   letter-spacing: -0.03em;
-  color: var(--uf-ink);
+  color: #000000;
 }
 
 .whatsapp-intent-chips button {
   min-height: 44px;
   border-radius: 14px;
-  border-color: var(--uf-line);
+  border-color: #8a8a8a;
   background: #ffffff;
-  color: var(--uf-ink);
+  color: #000000;
   font-size: 14px;
 }
 
 .whatsapp-intent-chips button.is-active {
-  background: var(--uf-green);
-  border-color: var(--uf-green);
+  background: #ffffff;
+  border-color: #8a8a8a;
   color: #ffffff;
   box-shadow: 0 6px 14px rgba(21, 127, 122, 0.2);
 }
 
 .locate-unit-bar {
-  border: 1px solid var(--uf-line);
+  border: 1px solid #8a8a8a;
   border-radius: var(--uf-radius);
   background: #ffffff;
   box-shadow: none;
@@ -1152,7 +1151,7 @@ body {
 .quick-unit-card,
 .offer-consult-card,
 .question-card {
-  border: 1px solid var(--uf-line);
+  border: 1px solid #8a8a8a;
   border-radius: 18px;
   background: #ffffff;
   box-shadow: var(--uf-shadow);
@@ -1161,15 +1160,15 @@ body {
 .direct-unit-name,
 .quick-unit-card h3,
 .offer-consult-body h3 {
-  color: var(--uf-ink);
+  color: #000000;
   letter-spacing: -0.02em;
 }
 
 .open-status {
   width: fit-content;
   max-width: 100%;
-  background: var(--uf-mint);
-  color: var(--uf-ink);
+  background: #ffffff;
+  color: #000000;
   border-radius: 999px;
   padding: 6px 10px;
   font-size: 14px !important;
@@ -1183,22 +1182,22 @@ body {
 
 .mobile-quick-nav {
   background: rgba(255, 255, 255, 0.96);
-  border-top: 1px solid var(--uf-line);
+  border-top: 1px solid #8a8a8a;
   box-shadow: 0 -10px 24px rgba(8, 58, 59, 0.08);
 }
 
 .mobile-quick-nav a {
-  background: var(--uf-mint);
-  color: var(--uf-ink);
+  background: #ffffff;
+  color: #000000;
   border-radius: 14px;
   min-height: 44px;
   font-size: 14px;
 }
 
 .cookie-banner {
-  border: 1px solid var(--uf-line);
+  border: 1px solid #8a8a8a;
   background: #ffffff;
-  color: var(--uf-ink);
+  color: #000000;
   box-shadow: 0 -16px 32px rgba(8, 58, 59, 0.14);
 }
 
@@ -1210,8 +1209,8 @@ body {
 }
 
 .button-light {
-  background: var(--uf-green) !important;
-  border-color: var(--uf-green) !important;
+  background: #ffffff;
+  border-color: #8a8a8a;
   color: #ffffff !important;
 }
 

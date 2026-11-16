@@ -12,8 +12,9 @@ import { buildWhatsAppUrl, PUBLIC_UNITS, type Unit } from "../site-config";
 import UnitStatusBadge, { getUnitOpenStatus } from "../UnitStatusBadge";
 import { carregarDadosCliente, esquecerDadosCliente, guardarDadosCliente } from "./dados-cliente";
 import { carregarUltimoPedido, guardarUltimoPedido, repetirPedido, type ItemCatalogo, type ItemUltimoPedido } from "./ultimo-pedido";
-import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats, IconCestaArte, IconCaminhaoArte, IconFinalizarArte } from "./ReservaIcons";
+import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats } from "./ReservaIcons";
 import CestaSugestoes from "./CestaSugestoes";
+import PillSteps from "./PillSteps";
 import DestaquesSemana from "../shop/DestaquesSemana";
 import { gerarCodigoPedido, trocoValido, ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
@@ -258,11 +259,7 @@ export default function ReservaFluxo() {
     <div className="fluxo-reserva">
       <div className="cesta-faixa">
         <a className="cesta-logo" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial"><MarcaUniao /></a>
-        <ol className="cesta-passos" role="img" aria-label={`Passo ${passo} de 3`}>
-          {[{ n: 1, r: "Cesta", i: <IconCestaArte size={28} /> }, { n: 2, r: "Entrega", i: <IconCaminhaoArte size={36} /> }, { n: 3, r: "Finalizar", i: <IconFinalizarArte size={40} className="cesta-passo-selo" /> }].map((e) => (
-            <li key={e.n} className={e.n <= passo ? "is-on" : ""}><span aria-hidden="true">{e.i}</span><em>{e.r}</em></li>
-          ))}
-        </ol>
+        <PillSteps atual={passo - 1} />
         <div className="cesta-contato">
           <a href={`https://wa.me/${PUBLIC_UNITS[0].whatsappDigits}`} aria-label="Falar com a União Farma no WhatsApp"><IconWhats size={22} oficial /><span>WhatsApp<strong>{PUBLIC_UNITS.find((u) => u.id === "nacoes")?.whatsapp}</strong></span></a>
         </div>

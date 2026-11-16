@@ -12,13 +12,13 @@
   border: 0;
   border-radius: 50%;
   background: transparent;
-  color: var(--uf-navy, #0c2f4d);
+  color: #000000;
   cursor: pointer;
   order: 2;
   position: relative;
 }
 .shop-voz:hover { background: #e8f2f0; }
-.shop-voz:focus-visible { outline: 3px solid var(--uf-action, #0a7a5a); outline-offset: 1px; }
+.shop-voz:focus-visible { outline: 3px solid #8a8a8a; outline-offset: 1px; }
 .shop-busca .shop-voz.is-ouvindo,
 .voz-campo .shop-voz.is-ouvindo { background: #c62828; color: #ffffff; }
 .shop-voz.is-ouvindo::after {
@@ -48,7 +48,7 @@
   border-radius: 8px;
   background: #ffffff;
   box-shadow: 0 8px 24px rgba(13, 20, 19, 0.12);
-  color: #0d1413;
+  color: #000000;
   font-size: 0.875rem;
   line-height: 1.35;
   overflow-wrap: anywhere;
@@ -58,4 +58,4 @@
 /* Caixas de busca das listas (medicamentos, receita, controlados): o campo ganha o microfone ao lado. */
 .voz-campo { position: relative; display: flex; align-items: center; gap: 0.25rem; }
 .voz-campo > input { flex: 1; min-width: 0; }
-.voz-campo .shop-voz { border: 1px solid #6b8b86; background: #ffffff; width: 2.75rem; height: 2.75rem; margin: 0; }
+.voz-campo .shop-voz { border: 1px solid #8a8a8a; background: #ffffff; width: 2.75rem; height: 2.75rem; margin: 0; }

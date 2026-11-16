@@ -10,10 +10,10 @@
   width: 200px;
   height: 52px;
   border-radius: 26px;
-  background: var(--uf-mint, #e4f6f3);
+  background: #ffffff;
   overflow: hidden;
   font-family: var(--font-body, Inter, system-ui, sans-serif);
-  color: var(--uf-ink, #0d1413);
+  color: #000000;
 }
 
 .dm-cabeca {
@@ -33,7 +33,7 @@
   cursor: pointer;
   text-align: left;
 }
-.dm-cabeca:focus-visible { outline: 3px solid var(--uf-action, #40baaf); outline-offset: -3px; border-radius: 26px; }
+.dm-cabeca:focus-visible { outline: 3px solid #8a8a8a; outline-offset: -3px; border-radius: 26px; }
 
 .dm-titulo { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
 
@@ -46,7 +46,7 @@
   top: 11px;
   height: 2px;
   border-radius: 2px;
-  background: var(--uf-green-deep, #0b3b36);
+  background: #ffffff;
   will-change: transform;
 }
 
@@ -68,23 +68,23 @@
   opacity: 0;
   will-change: transform, opacity;
 }
-.dm-links li:hover { background: var(--uf-stone, #d4eeeb); }
+.dm-links li:hover { background: #ffffff; }
 .dm-links a {
-  color: var(--uf-ink, #0d1413);
+  color: #000000;
   text-decoration: none;
   font-size: 17px;
   font-weight: 600;
   letter-spacing: -0.01em;
   width: 100%;
 }
-.dm-links a:focus-visible { outline: 3px solid var(--uf-action, #40baaf); outline-offset: 2px; border-radius: 12px; }
+.dm-links a:focus-visible { outline: 3px solid #8a8a8a; outline-offset: 2px; border-radius: 12px; }
 
 @media (prefers-reduced-motion: reduce) {
   .dm-icone i, .dm-links li { will-change: auto; }
 }
 
 /* Barra de acessos da home (desktop): pílula na cor da marca, com texto e ícone brancos, para destacar o botão. */
-.dm-slot--barra .dm-menu { background: var(--uf-green, #14736b); color: #ffffff; box-shadow: 0 4px 14px rgba(11, 59, 54, 0.18); }
+.dm-slot--barra .dm-menu { background: #ffffff; color: #ffffff; box-shadow: 0 4px 14px rgba(11, 59, 54, 0.18); }
 .dm-slot--barra .dm-cabeca:focus-visible { outline-color: #ffffff; }
 .dm-slot--barra .dm-titulo { font-size: 16px; }
 .dm-slot--barra .dm-icone { width: 26px; height: 26px; }
@@ -100,3 +100,37 @@
 /* No desktop, a barra da home fica dentro do cabeçalho fixo, que corta o conteúdo (overflow: hidden) na altura da barra.
    Com o painel aberto, a barra deixa o painel aparecer por baixo. O recolhimento ao rolar continua (max-height e opacity do shop.css). */
 .cab-fixo .shop-submenu:has(.dm-slot--barra) { overflow: visible; }
+
+/* Departamentos como item de texto na barra de acessos (referência: menu da PharmEasy): sem pílula, com seta.
+   Fica sozinho na barra por enquanto !important; novos itens entram ao lado. */
+@layer design {
+  html body .shop-submenu .dm-slot--barra { width: auto !important; height: 44px !important; }
+  html body .shop-submenu .dm-slot--barra .dm-menu { position: relative !important; width: auto !important; height: 44px !important; border-radius: 0 !important; background: transparent !important; color: #000000 !important; box-shadow: none !important; overflow: visible !important; }
+  html body .shop-submenu .dm-slot--barra .dm-cabeca { position: relative !important; height: 44px !important; padding: 0 4px !important; justify-content: flex-start !important; gap: 6px !important; }
+  html body .shop-submenu .dm-slot--barra .dm-titulo { font-size: 17px !important; font-weight: 600 !important; color: #000000 !important; }
+  html body .shop-submenu .dm-slot--barra .dm-icone { width: 12px !important; height: 12px !important; }
+  html body .shop-submenu .dm-slot--barra .dm-icone i { display: none !important; }
+  html body .shop-submenu .dm-slot--barra .dm-icone::after { content: "" !important; position: absolute !important; left: 2px !important; top: 1px !important; width: 7px !important; height: 7px !important; border-right: 2px solid #000000 !important; border-bottom: 2px solid #000000 !important; transform: rotate(45deg) !important; transition: transform 0.2s ease !important; }
+  html body .shop-submenu .dm-slot--barra .dm-menu[aria-expanded="true"] .dm-icone::after,
+  html body .shop-submenu .dm-slot--barra .dm-cabeca[aria-expanded="true"] .dm-icone::after { transform: rotate(-135deg) !important; top: 4px !important; }
+  html body .shop-submenu .dm-slot--barra .dm-links { top: 44px !important; left: -8px !important; right: auto !important; width: 240px !important; padding: 6px !important; background: transparent !important; border-radius: 0 !important; box-shadow: none !important; }
+  html body .shop-submenu .dm-slot--barra .dm-links a { color: #000000 !important; font-weight: 600 !important; }
+  html body .shop-submenu .dm-slot--barra .dm-links li:hover { background: #f2f2f2 !important; border-radius: 8px; }
+}
+/* Entrada dos links em CSS (não depende do laço em JavaScript, que pode ficar parado): ao abrir, cada link sobe e aparece em sequência. */
+@keyframes dm-entra {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .shop-submenu .dm-slot--barra .dm-menu:has(.dm-cabeca[aria-expanded="true"]) .dm-links li {
+    animation: dm-entra 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  .shop-submenu .dm-slot--barra .dm-links li:nth-child(1) { animation-delay: 0.08s; }
+  .shop-submenu .dm-slot--barra .dm-links li:nth-child(2) { animation-delay: 0.13s; }
+  .shop-submenu .dm-slot--barra .dm-links li:nth-child(3) { animation-delay: 0.18s; }
+  .shop-submenu .dm-slot--barra .dm-links li:nth-child(4) { animation-delay: 0.23s; }
+  .shop-submenu .dm-slot--barra .dm-links li:nth-child(5) { animation-delay: 0.28s; }
+  .shop-submenu .dm-slot--barra .dm-links li:nth-child(6) { animation-delay: 0.33s; }
+  .shop-submenu .dm-slot--barra .dm-links li:nth-child(7) { animation-delay: 0.38s; }
+}

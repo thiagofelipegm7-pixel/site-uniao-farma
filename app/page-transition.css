@@ -1,0 +1,52 @@
+/* Transição entre páginas (ver PageTransicao.tsx).
+   - Navegadores com View Transitions (Chrome, Edge): cruzamento suave entre as páginas; o cabeçalho fica parado.
+   - A foto do produto clicada na lista "voa" até a foto da página do produto.
+   - Os demais navegadores usam o fallback de entrada em fade (classe .sem-transicao-nativa).
+   Curvas: easeOutCubic para entradas e easeInOutCubic para o deslocamento da foto (referência de movimento). */
+
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.32s;
+  animation-timing-function: cubic-bezier(0.33, 1, 0.68, 1);
+}
+
+/* Cabeçalho com o mesmo nome nas duas páginas: não pisca na troca. */
+.shop-header {
+  view-transition-name: cabecalho-loja;
+}
+::view-transition-group(cabecalho-loja) {
+  animation-duration: 0s;
+}
+
+/* Foto do produto: na página do produto, a galeria recebe o mesmo nome e a foto da lista viaja até ela. */
+.pdp-galeria img {
+  view-transition-name: foto-produto;
+}
+::view-transition-group(foto-produto) {
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Fallback: entrada em fade e leve subida do conteúdo principal. */
+@keyframes pagina-entra {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.sem-transicao-nativa main {
+  animation: pagina-entra 0.35s cubic-bezier(0.33, 1, 0.68, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  ::view-transition-group(foto-produto) {
+    animation: none;
+  }
+  .sem-transicao-nativa main {
+    animation: none;
+  }
+}

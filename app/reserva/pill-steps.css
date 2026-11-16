@@ -1,0 +1,97 @@
+/* Indicador de etapas em pílulas (adaptado da animação pill-steps). Só preto, branco e cinza.
+   Durações, curvas e keyframes vêm do kit em app/motion/motion.css: a largura usa a transição de expansão
+   (620 ms, easeInOutCubic) e o check da etapa concluída usa o destaque de estado (mola 240/24). */
+.pill-steps {
+  display: flex;
+  gap: 6px;
+  width: 440px;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pill-steps-item {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 42px;
+  padding: 0 10px 0 5px;
+  border: 1px solid #8a8a8a;
+  border-radius: 999px;
+  background: #ffffff;
+  color: #000000;
+  transition: flex var(--motion-dur-expand) var(--motion-ease-in-out), background-color var(--motion-dur-expand) var(--motion-ease-in-out), border-color var(--motion-dur-expand) var(--motion-ease-in-out), color var(--motion-dur-expand) var(--motion-ease-in-out);
+}
+.pill-steps-n {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border: 1px solid #8a8a8a;
+  background: #ffffff;
+  color: #000000;
+  font-size: 13px;
+  font-weight: 700;
+  transition: background-color var(--motion-dur-expand) var(--motion-ease-in-out), color var(--motion-dur-expand) var(--motion-ease-in-out);
+}
+.pill-steps-t {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  transition: max-width var(--motion-dur-expand) var(--motion-ease-in-out), opacity var(--motion-dur-press-out) var(--motion-ease-out), color var(--motion-dur-expand) var(--motion-ease-in-out);
+}
+
+/* Etapa atual: pílula preta que se abre com o nome. As etapas ainda não chegadas ficam fechadas, só com o número. */
+.pill-steps-item {
+  flex: 0 0 44px;
+}
+.pill-steps-item.is-on {
+  flex: 1 1 auto;
+  background: #000000;
+  border-color: #000000;
+  color: #ffffff;
+}
+.pill-steps-item:not(.is-on) .pill-steps-t {
+  max-width: 0;
+  opacity: 0;
+}
+.pill-steps-item.is-on .pill-steps-t {
+  max-width: 120px;
+  opacity: 1;
+}
+.pill-steps-item.is-on .pill-steps-n {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+/* Etapa concluída: vira só o círculo com check. */
+.pill-steps-item.is-done {
+  flex: 0 0 44px;
+  padding-right: 5px;
+}
+.pill-steps-item.is-done .pill-steps-n {
+  background: #000000;
+  color: #ffffff;
+  border-color: #000000;
+  animation: motion-active-pop var(--motion-dur-active) var(--motion-ease-spring-active);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill-steps-item,
+  .pill-steps-n,
+  .pill-steps-t {
+    transition: none;
+  }
+  .pill-steps-item.is-done .pill-steps-n {
+    animation: none;
+  }
+}

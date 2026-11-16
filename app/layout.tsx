@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
 import SiteFooter from "./SiteFooter";
 import SkipLink from "./SkipLink";
+import PageTransicao from "./PageTransicao";
 import WhatsAppFab from "./WhatsAppFab";
 
 // Sistema de Design Consolidado (Camadas Tailwind 4)
@@ -182,6 +183,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         <SkipLink />
+        <PageTransicao />
         <AnalyticsConsent />
         <RegistroDeErros />
         <PwaRegister />

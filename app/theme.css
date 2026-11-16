@@ -4,15 +4,14 @@
 /* --- skin.css --- */
 body {
   background:
-    radial-gradient(56rem 26rem at 50% -8rem, rgba(20, 143, 138, 0.14), transparent 62%),
-    var(--uf-paper);
-  color: var(--uf-ink);
+    #ffffff;
+  color: #000000;
 }
 
 .site-header,
 .nav {
-  background: var(--uf-paper);
-  color: var(--uf-ink);
+  background: #ffffff;
+  color: #000000;
 }
 
 .site-header a,
@@ -22,11 +21,11 @@ body {
 .menu-label,
 .menu-links a,
 .menu-button {
-  color: var(--uf-ink);
+  color: #000000;
 }
 
 .menu-icon span {
-  background: var(--uf-ink);
+  background: #ffffff;
 }
 
 .hero {
@@ -35,22 +34,22 @@ body {
 }
 
 .hero-copy .eyebrow {
-  color: var(--uf-green-text);
+  color: #000000;
 }
 
 .hero-copy h1 {
   max-width: 16ch;
-  color: var(--uf-ink);
+  color: #000000;
 }
 
 .open-now-strip {
-  background: var(--uf-open-live);
-  color: #0b3b36;
+  background: #ffffff;
+  color: #000000;
 }
 
 .preferred-store-banner {
-  background: var(--uf-stone);
-  color: var(--uf-ink);
+  background: #ffffff;
+  color: #000000;
 }
 
 .direct-unit-photo,
@@ -63,13 +62,13 @@ body {
   margin: 0.4em 0 0.3em;
   padding: 0;
   background: transparent;
-  color: var(--uf-green-text);
+  color: #000000;
 }
 
 .offer-consult-price strong,
 .encarte-price,
 .price-large {
-  color: var(--uf-green-text);
+  color: #000000;
   background: transparent;
   padding: 0;
 }
@@ -82,7 +81,7 @@ body {
 }
 
 .whatsapp-intent-chips button.is-active {
-  background: var(--uf-green);
+  background: #ffffff;
   color: #ffffff;
   border-color: transparent;
 }
@@ -93,7 +92,7 @@ body {
 .button-whatsapp,
 .offer-consult-units a {
   background: var(--uf-whatsapp);
-  color: #0b3b36;
+  color: #000000;
   border-color: transparent;
   font-weight: 800;
 }
@@ -104,7 +103,7 @@ body {
 .button-whatsapp:hover,
 .offer-consult-units a:hover {
   background: #1ebe5d;
-  color: #0b3b36;
+  color: #000000;
 }
 
 .header-cta {
@@ -112,8 +111,8 @@ body {
 }
 
 .open-status.is-open {
-  background: var(--uf-open-live);
-  color: #0b3b36;
+  background: #ffffff;
+  color: #000000;
 }
 
 .open-status.is-closed {
@@ -122,12 +121,12 @@ body {
 }
 
 .nearest-unit-badge {
-  color: var(--uf-green-text);
+  color: #000000;
 }
 
 .reviews,
 .review-grid {
-  background: var(--uf-stone);
+  background: #ffffff;
 }
 
 .review-card,
@@ -140,12 +139,12 @@ body {
 
 .category-card,
 .categories article {
-  background: var(--uf-stone);
+  background: #ffffff;
   border-radius: var(--r-lg);
 }
 
 .uf-footer {
-  background: linear-gradient(180deg, #175b54 0%, #0a312d 100%);
+  background: #ffffff;
 }
 
 /* --- contrast.css --- */
@@ -156,21 +155,21 @@ html {
 }
 
 ::selection {
-  background: #006058;
+  background: #ffffff;
   color: #ffffff;
 }
 
 body {
-  color: #0d2320;
+  color: #000000;
   background: #f2faf9;
 }
 
 .scroll-indicator {
-  background: #006058;
+  background: #ffffff;
 }
 
 .skip-link {
-  background: #006058;
+  background: #ffffff;
   color: #ffffff;
 }
 
@@ -184,14 +183,14 @@ a,
 .menu-links a,
 .content-nav a,
 .brand strong {
-  color: #006058;
+  color: #000000;
 }
 
 a:visited,
 .menu-links a:visited,
 .content-nav a:visited,
 .uf-footer a:visited {
-  color: #003530;
+  color: #000000;
 }
 
 .uf-footer a:hover,
@@ -210,7 +209,7 @@ a:visited,
 .brand small,
 .menu-label,
 .menu-button {
-  color: #27403d;
+  color: #000000;
 }
 
 .hero-copy p,
@@ -220,14 +219,14 @@ a:visited,
 .direct-unit-links-copy span,
 .unit-map-details p,
 .neighborhood-hero p {
-  color: #27403d;
+  color: #000000;
 }
 
 .offer-consult-price,
 .offer-consult-price strong,
 .encarte-price,
 .price-large {
-  color: #006058;
+  color: #000000;
 }
 
 .direct-unit-actions a:first-child,
@@ -242,8 +241,8 @@ a:visited,
 .cookie-accept,
 .cookie-banner button[type="button"]:not(.cookie-reject),
 .modal-unit-action {
-  background: #1f9e4b;
-  color: #001f1c;
+  background: #ffffff;
+  color: #000000;
   border-color: #1f9e4b;
 }
 
@@ -264,45 +263,45 @@ a:visited,
 .mobile-quick-nav a.is-primary:active,
 .cookie-accept:hover,
 .cookie-accept:active {
-  background: #178a40;
-  color: #001f1c;
+  background: #ffffff;
+  color: #000000;
 }
 
 .whatsapp-intent-chips button {
-  background: #cbe8e4;
-  color: #0d2320;
-  border-color: #b2d7d2;
+  background: #ffffff;
+  color: #000000;
+  border-color: #8a8a8a;
 }
 
 .whatsapp-intent-chips button.is-active {
-  background: #006058;
+  background: #ffffff;
   color: #ffffff;
-  border-color: #006058;
+  border-color: #8a8a8a;
 }
 
 .open-now-strip {
-  background: #0c8a4a;
-  color: #01201e;
+  background: #ffffff;
+  color: #000000;
 }
 
 .open-now-list a {
   background: rgba(6, 32, 22, 0.12);
-  color: #01201e;
+  color: #000000;
 }
 
 .open-now-list a.is-open {
-  background: #1f9e4b;
-  color: #001f1c;
+  background: #ffffff;
+  color: #000000;
 }
 
 .open-status.is-hours {
   background: #e5f6f4;
-  color: #006058;
+  color: #000000;
 }
 
 .open-status.is-open {
-  background: #0c8a4a;
-  color: #01201e;
+  background: #ffffff;
+  color: #000000;
 }
 
 .open-status.is-closed {
@@ -321,11 +320,11 @@ a:visited,
 .direct-unit-link .offer-badge,
 .direct-unit-link .selo-consulte {
   background: #e5f6f4;
-  color: #006058;
+  color: #000000;
 }
 
 .offer-consult-image {
-  background: #d0f1ec;
+  background: #ffffff;
 }
 
 .uf-footer,
@@ -338,8 +337,8 @@ a:visited,
 .direct-unit-recipe,
 .mobile-quick-nav a:not(.is-primary) {
   background: #daefec;
-  color: #0d2320;
-  border: 1px solid #006058;
+  color: #000000;
+  border: 1px solid #8a8a8a;
 }
 
 .maps-link,
@@ -347,27 +346,27 @@ a:visited,
 a[href*="google.com/maps"],
 a[href*="maps.apple"] {
   background: #daefec;
-  color: #0d2320;
-  border: 1px solid #b2d7d2;
+  color: #000000;
+  border: 1px solid #8a8a8a;
 }
 
 .unit-map-details a:not([href*="whatsapp"]),
 .map-view-link {
   background: transparent;
-  color: #006058;
+  color: #000000;
   border: 0;
 }
 
 .mobile-quick-nav {
   background: #f2faf9;
-  border-top-color: #b2d7d2;
+  border-top-color: #8a8a8a;
 }
 
 .menu-links.is-open,
 .content-menu-drawer,
 .unit-selector-modal {
   background: #f2faf9;
-  color: #0d2320;
+  color: #000000;
 }
 
 .modal-backdrop,
@@ -378,26 +377,26 @@ a[href*="maps.apple"] {
 
 .modal-close {
   background: #f2faf9;
-  color: #0d2320;
-  border-color: #b2d7d2;
+  color: #000000;
+  border-color: #8a8a8a;
 }
 
 .modal-unit-option {
   background: #ffffff;
-  border-color: #b2d7d2;
-  color: #0d2320;
+  border-color: #8a8a8a;
+  color: #000000;
 }
 
 .cookie-banner {
   background: #f2faf9;
-  color: #0d2320;
-  border-color: #b2d7d2;
+  color: #000000;
+  border-color: #8a8a8a;
 }
 
 .cookie-reject {
   background: #daefec;
-  color: #0d2320;
-  border-color: #b2d7d2;
+  color: #000000;
+  border-color: #8a8a8a;
 }
 
 .faq-item.is-open,
@@ -406,35 +405,35 @@ a[href*="maps.apple"] {
 }
 
 .faq-question {
-  color: #0d2320;
+  color: #000000;
 }
 
 .category-card,
 .categories article {
-  background: #cbe8e4;
-  color: #0d2320;
+  background: #ffffff;
+  color: #000000;
 }
 
 .category-card .line-icon,
 .categories article .line-icon,
 .categories svg {
-  color: #006058;
-  stroke: #006058;
+  color: #000000;
+  stroke: #000000;
 }
 
 .review-card p::before,
 .reviews article p::before {
-  color: #006058;
+  color: #000000;
 }
 
 .review-card,
 .reviews article {
-  border-top: 0.2rem solid #006058;
+  border-top: 0.2rem solid #8a8a8a;
 }
 
 .direct-unit-link.is-preferred {
   box-shadow: inset 0.25rem 0 0 #006058;
-  border-color: #006058;
+  border-color: #8a8a8a;
 }
 
 .direct-unit-link:hover,
@@ -454,13 +453,13 @@ select,
 [type="search"],
 [type="text"] {
   background: #e5f6f4;
-  color: #0d2320;
-  border-color: #006058;
+  color: #000000;
+  border-color: #8a8a8a;
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: #385350;
+  color: #000000;
   opacity: 1;
 }
 
@@ -469,7 +468,7 @@ textarea:focus,
 select:focus {
   outline: 0.2rem solid #12c25a;
   outline-offset: 0.1rem;
-  border-color: #006058;
+  border-color: #8a8a8a;
 }
 
 .unit-map-frame,
@@ -485,7 +484,7 @@ select:focus {
 .marker-cluster-medium,
 .marker-cluster-large,
 .marker-cluster div {
-  background: #006058;
+  background: #ffffff;
   color: #ffffff;
 }
 
@@ -493,20 +492,20 @@ select:focus {
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {
   background: #e5f6f4;
-  color: #006058;
-  border-color: #b2d7d2;
+  color: #000000;
+  border-color: #8a8a8a;
 }
 
 .leaflet-control-attribution,
 .leaflet-control-attribution a {
   background: transparent;
-  color: #385350;
+  color: #000000;
 }
 
 .leaflet-popup-content-wrapper,
 .leaflet-tooltip {
   background: #f2faf9;
-  color: #0d2320;
+  color: #000000;
   border: 0;
   box-shadow: 0 0.6rem 1.4rem rgba(8, 53, 40, 0.18);
 }
@@ -516,7 +515,7 @@ select:focus {
 }
 
 :focus-visible {
-  outline: 0.2rem solid #006058;
+  outline: 0.2rem solid #8a8a8a;
   outline-offset: 0.15rem;
 }
 
@@ -527,42 +526,42 @@ select:focus {
   .locate-unit-button:active,
   .offer-consult-units a:active,
   .cookie-accept:active {
-    background: #178a40;
+    background: #ffffff;
   }
 }
 
 /* --- aqua-override.css --- */
 :root {
-  --uf-ink: #0d1413;
-  --uf-green: #14736b;
-  --uf-green-hover: #14736b;
-  --uf-green-dark: #0b3b36;
-  --uf-green-deep: #0b3b36;
-  --uf-green-bright: #29bbae;
-  --uf-open: #149a90;
-  --uf-open-live: #24d4c5;
+  --uf-ink: #000000;
+  --uf-green: #000000;
+  --uf-green-hover: #ffffff;
+  --uf-green-dark: #000000;
+  --uf-green-deep: #000000;
+  --uf-green-bright: #000000;
+  --uf-open: #000000;
+  --uf-open-live: #000000;
   --uf-paper: #f1fbfa;
-  --uf-stone: #d4eeeb;
+  --uf-stone: #ffffff;
   --uf-fog: #e4f6f3;
   --uf-mint: #e4f6f3;
-  --uf-line: #a9d8d2;
-  --uf-line-strong: #6ebcb2;
-  --uf-muted: #3e4b49;
+  --uf-line: #8a8a8a;
+  --uf-line-strong: #8a8a8a;
+  --uf-muted: #000000;
 }
 
 html,
 body {
-  background: #f1fbfa;
+  background: #ffffff;
 }
 
 ::selection {
-  background: #14736b !important;
+  background: #ffffff !important;
   color: #ffffff !important;
 }
 
 .skip-link,
 .scroll-indicator {
-  background: #14736b !important;
+  background: #ffffff !important;
 }
 
 a,
@@ -575,13 +574,13 @@ a,
 .price-large,
 .unit-map-details a:not([href*="whatsapp"]),
 .map-view-link {
-  color: #14736b;
+  color: #000000;
 }
 
 .content-header-cta,
 .content-nav a.content-header-cta,
 a.content-header-cta {
-  background: #0f5f59 !important;
+  background: #ffffff !important;
   color: #ffffff !important;
   border: 0 !important;
 }
@@ -595,7 +594,7 @@ a.content-header-cta {
 .content-header-cta:active,
 .content-nav a.content-header-cta:hover,
 .content-nav a.content-header-cta:active {
-  background: #0b3b36 !important;
+  background: #ffffff !important;
   color: #ffffff !important;
 }
 
@@ -606,8 +605,8 @@ a.content-header-cta {
 }
 
 .whatsapp-intent-chips button.is-active {
-  background: #14736b !important;
-  border-color: #14736b !important;
+  background: #ffffff !important;
+  border-color: #8a8a8a;
   color: #ffffff !important;
 }
 
@@ -617,58 +616,58 @@ a.content-header-cta {
 input,
 textarea,
 select {
-  background: #e4f6f3;
+  background: #ffffff;
 }
 
 .open-status.is-open,
 .open-now-strip {
-  background: #149a90;
-  color: #0b3b36;
+  background: #ffffff;
+  color: #000000;
 }
 
 .category-card .line-icon,
 .categories article .line-icon,
 .categories svg {
-  color: #14736b;
-  stroke: #14736b;
+  color: #000000;
+  stroke: #000000;
 }
 
 .review-card,
 .reviews article {
-  border-top-color: #14736b;
+  border-top-color: #8a8a8a;
 }
 
 .direct-unit-link.is-preferred {
   box-shadow: inset 0.25rem 0 0 #14736b;
-  border-color: #14736b;
+  border-color: #8a8a8a;
 }
 
 input,
 textarea,
 select {
-  border-color: #14736b;
-  color: #112e2b;
+  border-color: #8a8a8a;
+  color: #000000;
 }
 
 input:focus,
 textarea:focus,
 select:focus,
 :focus-visible {
-  outline-color: #24d4c5;
-  border-color: #14736b;
+  outline-color: #8a8a8a;
+  border-color: #8a8a8a;
 }
 
 .marker-cluster-small,
 .marker-cluster-medium,
 .marker-cluster-large,
 .marker-cluster div {
-  background: #14736b;
+  background: #ffffff;
   color: #ffffff;
 }
 
 /* --- footer-contrast.css --- */
 .uf-footer {
-  background: #093a36 !important;
+  background: #ffffff !important;
   color: #f3fffd !important;
 }
 
@@ -710,7 +709,7 @@ select:focus,
   z-index: 4000;
   padding: 0.65rem 0.9rem;
   border-radius: 0.6rem;
-  background: #006058;
+  background: #ffffff;
   color: #ffffff;
   font-weight: 800;
 }
@@ -747,7 +746,7 @@ select:focus,
 
 .section-kicker {
   margin: 0 0 0.25rem;
-  color: #006058;
+  color: #000000;
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -778,7 +777,7 @@ select:focus,
 .hero-copy .eyebrow {
   display: block !important;
   margin: 0 0 0.35rem;
-  color: #006058;
+  color: #000000;
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -795,7 +794,7 @@ select:focus,
   display: block !important;
   max-width: 32rem;
   margin: 0.55rem 0 0;
-  color: #3b524f;
+  color: #000000;
   font-size: 0.95rem;
   line-height: 1.45;
 }
@@ -825,7 +824,7 @@ select:focus,
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #006058;
+  color: #000000;
 }
 
 .hero-whatsapp-row {
@@ -842,7 +841,7 @@ select:focus,
   min-height: 50px;
   padding: 0.7rem 1rem 0.7rem 1.2rem;
   border-radius: 0.85rem;
-  background: #0f7a33;
+  background: #ffffff;
   color: #ffffff;
   font-weight: 800;
   letter-spacing: -0.01em;
@@ -856,7 +855,7 @@ select:focus,
 }
 
 .hero-whatsapp-btn:hover {
-  background: #0f7a32;
+  background: #ffffff;
 }
 
 .trust-strip {
@@ -881,12 +880,12 @@ select:focus,
 
 .trust-strip-grid strong {
   display: block;
-  color: #006058;
+  color: #000000;
   font-size: 0.88rem;
 }
 
 .trust-strip-grid span {
-  color: #485f5c;
+  color: #000000;
   font-size: 0.75rem;
 }
 
@@ -930,7 +929,7 @@ select:focus,
 
 .category-link {
   margin-top: 0.55rem;
-  color: #006058;
+  color: #000000;
   font-weight: 800;
   font-size: 0.82rem;
 }
@@ -956,7 +955,7 @@ select:focus,
 .reviews-section h2 {
   margin: 0;
   font-size: 0.98rem;
-  color: #0d2320;
+  color: #000000;
 }
 
 .reviews-score {
@@ -966,7 +965,7 @@ select:focus,
   margin: 0 !important;
   padding: 0 !important;
   background: transparent !important;
-  color: #0d2320;
+  color: #000000;
   font-weight: 700;
 }
 
@@ -1051,7 +1050,7 @@ select:focus,
   margin: 0 !important;
   font-size: 0.88rem !important;
   line-height: 1.4 !important;
-  color: #3c4043 !important;
+  color: #000000;
 }
 
 .reviews-google-link {
@@ -1073,7 +1072,7 @@ select:focus,
   border: 1px solid #d5e6e4;
   border-radius: 999px;
   background: #ffffff;
-  color: #006058;
+  color: #000000;
   font-size: 0.75rem;
   font-weight: 700;
   text-decoration: none;
@@ -1084,9 +1083,9 @@ select:focus,
 }
 
 .button.button-whatsapp {
-  background: #0f7a33 !important;
+  background: #ffffff !important;
   color: #ffffff !important;
-  border-color: #0f7a33 !important;
+  border-color: #8a8a8a;
 }
 
 @media (min-width: 861px) {
@@ -1141,7 +1140,7 @@ select:focus,
 .cookie-copy {
   margin: 0;
   font-size: 0.78rem;
-  color: #27403d;
+  color: #000000;
 }
 
 .cookie-actions {

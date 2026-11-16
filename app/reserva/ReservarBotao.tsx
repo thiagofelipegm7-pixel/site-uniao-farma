@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import "./circular-reveal.css";
 import { trackEvent } from "../analytics";
 import { registrarEtapa } from "../funil";
 import { IconMais, IconMaisFino, IconCesta } from "./ReservaIcons";
@@ -39,6 +40,13 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
   const qtd = qtdDoItem(estado, id);
   const teto = tetoDoItem({ max });
   const maisRef = useRef<HTMLButtonElement>(null);
+  // Pulso circular do "+" do cartão: nasce do ponto clicado. A chave muda a cada clique para a animação recomeçar.
+  const [pulso, setPulso] = useState<{ x: number; y: number; k: number } | null>(null);
+  useEffect(() => {
+    if (!pulso) return;
+    const fim = window.setTimeout(() => setPulso(null), 950);
+    return () => window.clearTimeout(fim);
+  }, [pulso]);
 
   const acrescentar = (opcoes?: { abrirCesta?: boolean; gatilho?: HTMLElement | null }) => {
     // Preço 0 (ou inválido) não entra na cesta: não dispara analytics nem abre o modal.
@@ -55,11 +63,19 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
   if (variante === "cartao") {
     return (
       <button
+        key={pulso?.k ?? 0}
         ref={maisRef}
         type="button"
-        className="pv-adicionar"
+        className={pulso ? "pv-adicionar is-pulso" : "pv-adicionar"}
+        style={pulso ? ({ "--pulso-x": `${pulso.x}px`, "--pulso-y": `${pulso.y}px` } as CSSProperties) : undefined}
         aria-label={`Adicionar ${nome} à cesta`}
-        onClick={() => acrescentar({ abrirCesta: true, gatilho: maisRef.current })}
+        onClick={(evento) => {
+          // Clique pelo teclado (sem posição) nasce do centro do botão.
+          const r = evento.currentTarget.getBoundingClientRect();
+          const porTeclado = evento.clientX === 0 && evento.clientY === 0;
+          setPulso({ x: porTeclado ? r.width / 2 : evento.clientX - r.left, y: porTeclado ? r.height / 2 : evento.clientY - r.top, k: Date.now() });
+          acrescentar({ abrirCesta: true, gatilho: maisRef.current });
+        }}
       ><IconMaisFino size={28} strokeWidth={2} /></button>
     );
   }

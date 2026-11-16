@@ -18,7 +18,7 @@ h3 {
 /* (2) Selo "Aberto agora": contraste AA (branco sobre verde-escuro) */
 .open-status.is-open,
 .open-status.is-hours {
-  background: #006058 !important;
+  background: #ffffff !important;
   color: #ffffff !important;
 }
 
@@ -30,7 +30,7 @@ h3 {
 }
 
 .open-status.is-open::before {
-  background: #66e3d5 !important;
+  background: #ffffff;
 }
 
 /* (3) Blocos das lojas: sem esmaecer; animação só se o usuário aceita movimento */
@@ -75,8 +75,8 @@ h3 {
 
 .category-link,
 .category-card .category-link {
-  color: #007c73 !important;
-  text-decoration-color: #007c73 !important;
+  color: #000000;
+  text-decoration-color: #000000;
   margin-top: auto;
 }
 

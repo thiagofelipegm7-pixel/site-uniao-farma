@@ -2,7 +2,7 @@
 .entrega-bairro label {
   display: block;
   margin: 0 0 6px;
-  color: var(--uf-green-text);
+  color: #000000;
   font-weight: 700;
 }
 
@@ -11,10 +11,10 @@
   max-width: 28rem;
   min-height: 52px;
   padding: 0 16px;
-  border: 1px solid var(--uf-line-strong);
+  border: 1px solid #8a8a8a;
   border-radius: 999px;
   background: var(--uf-card);
-  color: var(--uf-ink);
+  color: #000000;
   font: inherit;
   font-size: 1rem;
 }

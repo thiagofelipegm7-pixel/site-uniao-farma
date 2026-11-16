@@ -1,0 +1,49 @@
+/* Painel "Você também pode pedir por" logo abaixo da busca da home (referência PharmEasy). Só preto, branco e cinza. */
+.pedir-alt {
+  box-sizing: border-box;
+  width: min(1037px, calc(100% - 2rem));
+  margin: 1.25rem auto 2.5rem;
+  padding: 1.5rem 1rem 1.25rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 26px;
+  background: #f7f7f7;
+}
+.pedir-alt-titulo {
+  margin: 0 0 1rem;
+  text-align: center;
+  color: #000000;
+  font-size: 0.9375rem;
+  font-weight: 700;
+}
+.pedir-alt-botoes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+.pedir-alt-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3.25rem;
+  padding: 0 1rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #000000;
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.pedir-alt-card:hover {
+  background: #f2f2f2;
+}
+.pedir-alt-card:focus-visible {
+  outline: 3px solid #000000;
+  outline-offset: 2px;
+}
+@media (max-width: 480px) {
+  .pedir-alt-botoes {
+    grid-template-columns: 1fr;
+  }
+}

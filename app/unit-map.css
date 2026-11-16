@@ -16,7 +16,7 @@
   border: 1px solid #d5e4e2;
   border-radius: 14px;
   background: #ffffff;
-  color: #12332f;
+  color: #000000;
   text-align: left;
 }
 
@@ -27,13 +27,13 @@
 
 .unit-map-pins button span {
   margin-top: 4px;
-  color: #2e4b47;
+  color: #000000;
   font-size: 12px;
 }
 
 .unit-map-pins button.is-active {
-  background: #0f6e67;
-  border-color: #0f6e67;
+  background: #ffffff;
+  border-color: #8a8a8a;
   color: #ffffff;
 }
 
@@ -58,7 +58,7 @@
 
 .unit-map-details h2 {
   margin: 4px 0 8px;
-  color: #123734;
+  color: #000000;
 }
 
 .unit-map-actions {

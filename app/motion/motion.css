@@ -1,0 +1,99 @@
+/* =====================================================================
+   Kit de movimento da loja (um lugar só para durações, curvas e keyframes).
+   Referência: https://motion-reference.takayustudio.jp/ (os ids entre colchetes são os do catálogo).
+   Regras: só transform e opacity nos keyframes; quem usa o kit desliga tudo em prefers-reduced-motion.
+   As mesmas constantes estão em motion.ts para uso em React.
+   ===================================================================== */
+:root {
+  /* --- Curvas --- */
+  /* easeOutCubic e easeInOutCubic: o catálogo dá só o nome; estes são os cubic-bezier equivalentes de uso corrente. */
+  --motion-ease-out: cubic-bezier(0.33, 1, 0.68, 1);
+  --motion-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --motion-ease-linear: linear;
+  /* spring(220, 22, 1) [catalog-ui-spatial-spatial-search]: 21 pontos da aproximação do próprio site (495 ms, 41 pontos, um sim um não). */
+  --motion-ease-spring-reveal: linear(0, 0.056, 0.186, 0.344, 0.504, 0.647, 0.767, 0.86, 0.929, 0.976, 1.006, 1.022, 1.03, 1.031, 1.028, 1.024, 1.019, 1.014, 1.01, 1.006, 1.004);
+  /* spring(240, 24, 1) [catalog-ui-control-pill-indicator]: 41 pontos em 470 ms, calculados com a fórmula de mola do site. */
+  --motion-ease-spring-active: linear(0, 0.015, 0.055, 0.112, 0.181, 0.256, 0.334, 0.413, 0.489, 0.561, 0.627, 0.689, 0.744, 0.793, 0.836, 0.873, 0.904, 0.931, 0.953, 0.971, 0.986, 0.997, 1.005, 1.012, 1.016, 1.019, 1.021, 1.021, 1.021, 1.02, 1.019, 1.018, 1.016, 1.015, 1.013, 1.011, 1.01, 1.008, 1.007, 1.006, 1.005);
+
+  /* --- Durações --- */
+  /* Entrada de painel [空間検索リビール]. 900 ms é o valor que o painel de busca já usava; a mola 220/22 assenta em 495 ms. */
+  --motion-dur-reveal: 900ms;
+  /* Revelação escalonada [list-stagger]: 760 ms por item, 70 ms entre itens. */
+  --motion-dur-stagger: 760ms;
+  --motion-stagger-step: 70ms;
+  /* Toque [press-feedback]: 120 ms para afundar até 94%, volta até os 420 ms (300 ms). */
+  --motion-dur-press-in: 120ms;
+  --motion-dur-press-out: 300ms;
+  --motion-press-scale: 0.94;
+  /* Destaque de estado ativo [ピルインジケーター, spring(240, 24, 1)]. */
+  --motion-dur-active: 470ms;
+  /* Largura/expansão [accordion-open]: 620 ms, easeInOutCubic. */
+  --motion-dur-expand: 620ms;
+  /* Carregamento [skeleton-shimmer]: laço de 1200 ms, linear. */
+  --motion-dur-shimmer: 1200ms;
+}
+
+/* Entrada de painel: sai do ponto de origem (defina transform-origin) em escala 0,3 → 1. */
+@keyframes motion-reveal {
+  from { transform: scale(0.3); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+/* Item de lista escalonado: desliza 24px e aparece. Atraso por item: calc(var(--motion-i, 0) * var(--motion-stagger-step)). */
+@keyframes motion-stagger-in {
+  from { transform: translateX(-24px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+/* Destaque de estado: o marcador cresce até o tamanho final com a mola do indicador. */
+@keyframes motion-active-pop {
+  from { transform: scale(0.55); }
+  to { transform: scale(1); }
+}
+/* Brilho de carregamento: a faixa de luz (um pseudo-elemento) atravessa o bloco. */
+@keyframes motion-shimmer {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+/* --- Classes prontas (opcionais; os componentes também podem usar só as variáveis e os keyframes) --- */
+.motion-reveal {
+  animation: motion-reveal var(--motion-dur-reveal) var(--motion-ease-spring-reveal) both;
+}
+.motion-stagger-item {
+  animation: motion-stagger-in var(--motion-dur-stagger) var(--motion-ease-out) both;
+  animation-delay: calc(var(--motion-i, 0) * var(--motion-stagger-step));
+}
+.motion-press {
+  transition: transform var(--motion-dur-press-out) var(--motion-ease-out);
+}
+.motion-press:active {
+  transform: scale(var(--motion-press-scale));
+  transition-duration: var(--motion-dur-press-in);
+}
+.motion-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.motion-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, var(--motion-shimmer-shine, #ffffff) 50%, transparent 100%);
+  transform: translateX(-100%);
+  animation: motion-shimmer var(--motion-dur-shimmer) var(--motion-ease-linear) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-reveal,
+  .motion-stagger-item {
+    animation: none;
+  }
+  .motion-press,
+  .motion-press:active {
+    transform: none;
+    transition: none;
+  }
+  .motion-shimmer::after {
+    display: none;
+    animation: none;
+  }
+}

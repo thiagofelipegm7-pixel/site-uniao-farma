@@ -1,0 +1,140 @@
+/* Na camada design: o cabeçalho tem regras !important nessa mesma camada, e o !important sem camada perde para elas. */
+@layer design {
+/* Busca central da home (referência PharmEasy): barra grande no meio da página, com o restante da página escurecido
+   enquanto o cliente digita. Medidas da captura (px do site): 787 × 79. */
+html body .home-busca-lugar {
+  position: relative;
+  z-index: 60;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.375rem !important;
+  padding: 0 1rem 1.5rem !important;
+}
+/* !important: o cabeçalho tem regras globais de altura e raio com !important na mesma barra. */
+html body .home-busca-lugar .shop-busca {
+  position: relative !important;
+  z-index: 60;
+  grid-area: auto;
+  width: min(1037px, 100%);
+  height: 102px !important;
+  margin: 0;
+  padding: 0 1.5rem 0 1.75rem !important;
+  border: 1px solid #d9d9d9;
+  border-radius: 14px !important;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+html body .home-busca-lugar .shop-busca input {
+  font-size: 1.25rem;
+}
+html body .home-busca-lugar .shop-busca button[type="submit"] {
+  width: 3.5rem;
+  height: 3.5rem;
+  margin: 0;
+}
+.home-busca-lugar .shop-sugestoes {
+  top: calc(100% + 8px);
+  border-radius: 26px;
+}
+/* Véu: escurece a página atrás da barra enquanto ela está em foco. */
+.busca-veu {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(0, 0, 0, 0.45);
+}
+@media (max-width: 768px) {
+  html body .home-busca-lugar {
+    margin-top: 0.25rem !important;
+  }
+  html body .home-busca-lugar .shop-busca {
+    height: 3rem !important;
+    padding: 0 0.75rem !important;
+    border-width: 1px;
+  }
+  html body .home-busca-lugar .shop-busca input {
+    font-size: 1rem;
+  }
+}
+}
+
+/* Barra de topo no computador: logo, Departamentos e busca na mesma linha, com 1901 px de largura. */
+@media (min-width: 992px) {
+  @layer design {
+    html body .shop-header {
+      width: 1901px !important;
+      max-width: 100% !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      box-sizing: border-box;
+      grid-template-columns: auto auto 1fr auto auto !important;
+      grid-template-areas: "marca dep busca whats acoes" !important;
+      align-items: center;
+    }
+    html body .shop-header .shop-marca {
+      grid-area: marca;
+      max-width: 170px;
+    }
+    html body .shop-header .shop-marca svg,
+    html body .shop-header .shop-marca img {
+      width: 170px !important;
+      height: auto !important;
+    }
+    html body .shop-header .shop-submenu {
+      grid-area: dep;
+      display: block !important;
+      border: 0 !important;
+      background: transparent !important;
+      padding: 0 !important;
+      max-width: none !important;
+      margin: 0 !important;
+    }
+    html body .shop-header .shop-submenu-conteudo {
+      display: block !important;
+      max-width: none !important;
+      width: auto !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      min-height: 0 !important;
+    }
+    html body .shop-header .shop-links { display: none !important; }
+  }
+}
+/* Borda que "percorre" a barra de busca da home (referência: ボーダーチェイス): um trecho escuro dá a volta na borda
+   em loop, chamando a atenção para o campo. Só preto e cinza; sem o movimento com "reduzir movimento". */
+@property --busca-volta {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+@layer design {
+  html body .home-busca-lugar .shop-busca {
+    isolation: isolate;
+  }
+  html body .home-busca-lugar .shop-busca::before {
+    content: "";
+    position: absolute;
+    inset: -6px;
+    z-index: -1;
+    padding: 6px;
+    border-radius: inherit;
+    background: conic-gradient(from var(--busca-volta), #000000 0deg, #000000 110deg, #8a8a8a 150deg, transparent 170deg, transparent 360deg);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    animation: busca-borda-volta 1.2s linear infinite;
+    pointer-events: none;
+  }
+}
+/* Ritmo "speed ramp" (referência t-ramp, 1200 ms): a borda corre em velocidade normal, desacelera até 25 %,
+   para no instante do "impacto" e acelera de volta. Os ângulos são a área de cada trecho de tempo. */
+@keyframes busca-borda-volta {
+  0% { --busca-volta: 0deg; animation-timing-function: linear; }
+  50% { --busca-volta: 230deg; animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.6); }
+  75% { --busca-volta: 302deg; animation-timing-function: linear; }
+  83.3% { --busca-volta: 312deg; animation-timing-function: cubic-bezier(0.1, 0.4, 0.4, 1); }
+  100% { --busca-volta: 360deg; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body .home-busca-lugar .shop-busca::before { animation: none; display: none; }
+}

@@ -23,7 +23,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: #e4f6f3;
+  background: #ffffff;
   opacity: var(--h, 0);
   pointer-events: none;
 }
@@ -35,7 +35,7 @@
   width: 4.5rem;
   height: 4.5rem;
   border-radius: 50%;
-  background: #d3ece7;
+  background: #ffffff;
   will-change: transform;
 }
 .fd-verde {
@@ -57,7 +57,7 @@
   stroke-width: 3;
   stroke-linecap: round;
 }
-.fd-trilho { stroke: #b9d9d3; }
+.fd-trilho { stroke: #000000; }
 .fd-arco { stroke: var(--pf-verde); }
 .fd-icone {
   position: absolute;

@@ -1,0 +1,83 @@
+/* Cartão de carregamento da busca: linhas com brilho animado (shimmer). Respeita prefers-reduced-motion. */
+.search-card {
+  --sc-base: #eef1f2;
+  --sc-shine: #ffffff;
+  --sc-ink: #000000;
+  box-sizing: border-box;
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #8a8a8a;
+  background: #ffffff;
+  color: var(--sc-ink);
+  overflow: hidden;
+}
+.search-card--dark {
+  --sc-base: #2b2b2b;
+  --sc-shine: #444444;
+  --sc-ink: #ffffff;
+  background: #000000;
+  border-color: #5a5a5a;
+}
+.search-card .sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+/* Movimento vem do kit em app/motion/motion.css: as linhas entram escalonadas (760 ms, 70 ms entre elas)
+   e o brilho é uma faixa que atravessa cada bloco só com transform (laço de 1200 ms, linear). */
+.search-card-linha {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: motion-stagger-in var(--motion-dur-stagger) var(--motion-ease-out) both;
+  animation-delay: calc(var(--motion-i, 0) * var(--motion-stagger-step));
+}
+.search-card-foto,
+.search-card-barra {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 6px;
+  background: var(--sc-base);
+}
+.search-card-foto::after,
+.search-card-barra::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, var(--sc-shine) 50%, transparent 100%);
+  transform: translateX(-100%);
+  animation: motion-shimmer var(--motion-dur-shimmer) var(--motion-ease-linear) infinite;
+}
+.search-card-foto {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+}
+.search-card-texto {
+  flex: 1;
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+.search-card-barra {
+  height: 12px;
+}
+.search-card-barra--longa { width: 85%; }
+.search-card-barra--curta { width: 50%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .search-card-linha {
+    animation: none;
+  }
+  .search-card-foto::after,
+  .search-card-barra::after {
+    display: none;
+    animation: none;
+  }
+}

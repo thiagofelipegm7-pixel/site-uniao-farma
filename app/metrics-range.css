@@ -8,15 +8,15 @@
 .metrics-range button {
   min-height: 42px;
   padding: 0 0.85rem;
-  border: 1px solid #c5e4e0;
+  border: 1px solid #8a8a8a;
   border-radius: 999px;
   background: #f6fcfb;
-  color: #14736b;
+  color: #000000;
   font-weight: 800;
 }
 
 .metrics-range button.is-on {
-  background: #006058;
-  border-color: #006058;
+  background: #ffffff;
+  border-color: #8a8a8a;
   color: #ffffff;
 }

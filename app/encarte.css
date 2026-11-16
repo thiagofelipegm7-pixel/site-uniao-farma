@@ -46,7 +46,7 @@
   left: 10px;
   padding: 5px 9px;
   border-radius: 999px;
-  background: #0d2825;
+  background: #ffffff;
   color: #ffffff;
   font-size: 12px;
   font-weight: 800;
@@ -61,7 +61,7 @@
   padding: 4px 8px;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.92);
-  color: #0f6e67;
+  color: #000000;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.06em;
@@ -78,7 +78,7 @@
 
 .offer-consult-brand {
   margin: 0;
-  color: #0f6e67;
+  color: #000000;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -87,7 +87,7 @@
 
 .offer-consult-body h3 {
   margin: 0;
-  color: #12332f;
+  color: #000000;
   font-size: 16px;
   line-height: 1.25;
   min-height: 2.5em;
@@ -101,20 +101,20 @@
 }
 
 .offer-consult-price strong {
-  color: #0f6e67;
+  color: #000000;
   font-size: 30px;
   line-height: 1;
   letter-spacing: -0.05em;
 }
 
 .offer-consult-price s {
-  color: #788c89;
+  color: #000000;
   font-size: 13px;
 }
 
 .offer-consult-note {
   margin: 0 0 10px;
-  color: #2e4b47;
+  color: #000000;
   font-size: 12px;
 }
 
@@ -133,7 +133,7 @@
   min-height: 48px;
   padding: 6px 4px;
   border-radius: 14px;
-  background: #0f6e67;
+  background: #ffffff;
   color: #ffffff;
   font-size: 12px;
   font-weight: 800;
@@ -150,7 +150,7 @@
 }
 
 .offer-consult-units a[data-stock="available"] {
-  background: #0f7a4a;
+  background: #ffffff;
 }
 
 .offer-consult-units a[data-stock="unavailable"] {
@@ -158,7 +158,7 @@
 }
 
 .offer-consult-units a[data-stock="consult"] {
-  background: #0f6e67;
+  background: #ffffff;
 }
 
 @media (max-width: 700px) {
