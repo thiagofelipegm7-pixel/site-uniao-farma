@@ -63,6 +63,8 @@ export default function PainelBanners({ titulo, fonte, aoEnviar }: { titulo?: st
   const parou = useRef<ReturnType<typeof setTimeout> | null>(null);
   const n = lista.length;
   const loop = n > 1;
+  /** Alguma arte própria de celular (2 : 1)? Sem ela, a caixa do celular segue a arte larga (949 : 239) e não sobra faixa cinza. */
+  const temArteCelular = lista.some((b) => b.imagemCelular);
 
   /** Largura de um passo (um banner mais o espaço entre eles). No computador cabem dois banners; no celular, um. */
   const passo = useCallback((el: HTMLElement) => {
@@ -150,7 +152,7 @@ export default function PainelBanners({ titulo, fonte, aoEnviar }: { titulo?: st
 
   return (
     <section
-      className="painel"
+      className={temArteCelular ? "painel painel--arte-celular" : "painel"}
       aria-roledescription="carrossel"
       aria-label="Destaques"
       onMouseEnter={pausar}
