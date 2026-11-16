@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
 import MarcaUniao from "./shop/MarcaUniao";
 import OffersGroupCta from "./OffersGroupCta";
-import { buildWhatsAppUrl, SITE_URL, PUBLIC_UNITS, type Unit } from "./site-config";
+import { buildWhatsAppUrl, SITE_URL, UNITS, type Unit } from "./site-config";
 import DirectUnitLinks from "./DirectUnitLinks";
 import type { FaqItem } from "./seo-content";
 import { getPageStructuredData } from "./structured-data";
@@ -75,7 +75,7 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
     name: config.title,
     url: pageUrl,
     faqs: config.faqs,
-    units: config.includeUnitSchema ? PUBLIC_UNITS : undefined,
+    units: config.includeUnitSchema ? UNITS : undefined,
     breadcrumbs: [
       { name: "Início", url: `${SITE_URL}/` },
       { name: config.heading, url: pageUrl },
@@ -113,6 +113,7 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
                 source={`${config.slug}_hero`}
                 heading="Escolha uma unidade e fale direto pelo WhatsApp"
                 description="A conversa abre no assunto desta página, sem voltar ao início."
+                units={UNITS}
               />
               <p className="offers-group-inline">
                 <OffersGroupCta placement={`${config.slug}_hero`} />
@@ -153,7 +154,7 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
               <p>{"O botão identifica a unidade e abre o WhatsApp correspondente."}</p>
             </div>
             <div className="landing-unit-grid">
-              {PUBLIC_UNITS.map((unit) => (
+              {UNITS.map((unit) => (
                 <UnitContactCard key={unit.id} unit={unit} campaign={config.slug} message={config.primaryMessage} />
               ))}
             </div>
