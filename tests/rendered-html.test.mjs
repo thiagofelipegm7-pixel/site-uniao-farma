@@ -354,18 +354,44 @@ test("rodapé de todas as páginas traz o Alvará Sanitário e a AFE da Anvisa",
   }
 });
 
-test("Fátima e Itacolomi: só informações institucionais, sem mapa, entrega nem cesta, e escondidas dos buscadores", async () => {
-  for (const pathname of ["/fatima", "/itacolomi"]) {
-    const html = await (await render(pathname)).text();
-    assert.match(html, /<meta name="robots" content="noindex/i, `${pathname} fora dos buscadores`);
-    assert.doesNotMatch(html, /Mapa interativo|Como chegar|Pedir entrega|Pedir no WhatsApp|Bairros atendidos|iFood/i, `${pathname} sem mapa, entrega nem pedido`);
-    assert.match(html, /Grupo de Ofertas no WhatsApp/, `${pathname} mantém o grupo de ofertas`);
-    assert.match(html, /Falar no WhatsApp/, `${pathname} WhatsApp de contato geral`);
-    assert.match(html, /Ligar[\s\S]{0,30}\(31\)/, `${pathname} telefone`);
+test("Fátima e Itacolomi voltam aos buscadores, com canonical e schema da própria loja", async () => {
+  const cases = [
+    { pathname: "/fatima", street: "Rua Cláudio, 902", name: "Nossa Senhora de Fátima" },
+    { pathname: "/itacolomi", street: "Av. Joaquim Ferreira Madureira, 489", name: "Itacolomi", alternate: "Droga Manaus" },
+  ];
+  for (const unit of cases) {
+    const html = await (await render(unit.pathname)).text();
+    assert.match(html, /<meta name="robots" content="index, follow"/i, `${unit.pathname} indexável`);
+    assert.doesNotMatch(html, /noindex/i, `${unit.pathname} sem noindex`);
+    assert.match(html, new RegExp(`<link rel="canonical" href="https:\\/\\/xn--uniofarmasabar-8gbu\\.com\\.br${unit.pathname.replaceAll("/", "\\/")}"`));
+    assert.match(html, /"@type":\["Pharmacy","LocalBusiness"\]/, `${unit.pathname} schema`);
+    assert.match(html, new RegExp(`"streetAddress":"${unit.street.replaceAll(" ", "\\ ")}"`), `${unit.pathname} endereço no schema`);
+    if (unit.alternate) assert.match(html, new RegExp(`"${unit.alternate}"`), `${unit.pathname} alternateName`);
+    // As lojas ainda não vendem pelo site: página institucional, sem mapa, entrega nem cesta.
+    assert.doesNotMatch(html, /Mapa interativo|Como chegar|Pedir entrega|Pedir no WhatsApp|Bairros atendidos|iFood/i, `${unit.pathname} sem mapa, entrega nem pedido`);
+    assert.match(html, /Grupo de Ofertas no WhatsApp/, `${unit.pathname} mantém o grupo de ofertas`);
+    assert.match(html, /Falar no WhatsApp/, `${unit.pathname} WhatsApp de contato geral`);
+    assert.match(html, /Ligar[\s\S]{0,30}\(31\)/, `${unit.pathname} telefone`);
   }
   const mapa = await (await render("/sitemap.xml")).text();
-  assert.doesNotMatch(mapa, /\/fatima<|\/itacolomi</, "fora do mapa do site");
+  assert.match(mapa, /\/fatima</, "Fátima no mapa do site");
+  assert.match(mapa, /\/itacolomi</, "Itacolomi no mapa do site");
   assert.match(mapa, /\/nacoes-unidas</, "Nações Unidas segue no mapa do site");
+
+  const institucional = await (await render("/institucional")).text();
+  assert.match(institucional, /Rua Cláudio, 902/);
+  assert.match(institucional, /Av\. Joaquim Ferreira Madureira, 489/);
+  assert.match(institucional, /Rua Inglaterra, 162/);
+
+  const horarios = await (await render("/farmacia-aberta-domingo-sabara")).text();
+  assert.match(horarios, /3 lojas/);
+  assert.match(horarios, /Fátima/);
+  assert.match(horarios, /Itacolomi/);
+
+  const entrega = await (await render("/entrega-de-medicamentos-em-sabara")).text();
+  assert.match(entrega, /Jardim Vitória/);
+  assert.match(entrega, /Fátima/);
+  assert.match(entrega, /Itacolomi/);
 });
 
 function slugify(value) {

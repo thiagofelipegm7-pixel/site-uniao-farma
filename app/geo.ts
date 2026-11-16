@@ -62,8 +62,8 @@ export function formatDistance(km: number) {
   return `${km.toLocaleString("pt-BR", { minimumFractionDigits: 1, maximumFractionDigits: 1 })} km`;
 }
 
-export function rankUnitsByDistance(origin: GeoPoint): RankedUnit[] {
-  return PUBLIC_UNITS.filter((unit) => unit.coordinates)
+export function rankUnitsByDistance(origin: GeoPoint, units: readonly Unit[] = PUBLIC_UNITS): RankedUnit[] {
+  return units.filter((unit) => unit.coordinates)
     .map((unit) => ({
       unit,
       distanceKm: distanceKm(origin, unit.coordinates as GeoPoint),
