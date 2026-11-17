@@ -25,18 +25,7 @@ type Banco = {
 };
 
 async function prepararTabela(db: Banco) {
-  await db.exec(`CREATE TABLE IF NOT EXISTS pre_venda (
-    id TEXT PRIMARY KEY,
-    request_id TEXT NOT NULL UNIQUE,
-    codigo TEXT NOT NULL,
-    unidade TEXT NOT NULL,
-    modo TEXT NOT NULL,
-    itens_json TEXT NOT NULL,
-    total_centavos INTEGER NOT NULL,
-    status TEXT NOT NULL DEFAULT 'nova',
-    criado_em TEXT NOT NULL,
-    atualizado_em TEXT NOT NULL
-  )`);
+  await db.exec("CREATE TABLE IF NOT EXISTS pre_venda (id TEXT PRIMARY KEY, request_id TEXT NOT NULL UNIQUE, codigo TEXT NOT NULL, unidade TEXT NOT NULL, modo TEXT NOT NULL, itens_json TEXT NOT NULL, total_centavos INTEGER NOT NULL, status TEXT NOT NULL DEFAULT 'nova', criado_em TEXT NOT NULL, atualizado_em TEXT NOT NULL)");
   await db.exec("CREATE INDEX IF NOT EXISTS pre_venda_criado_em ON pre_venda (criado_em DESC)");
 }
 
