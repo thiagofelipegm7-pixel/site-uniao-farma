@@ -106,7 +106,7 @@ export default function PreVendasPainel() {
   }
 
   return (
-    <main className="pvendas-pagina">
+    <div className="pvendas-pagina">
       <header className="pvendas-cabeca">
         <div>
           <p className="pvendas-eyebrow">Área da equipe</p>
@@ -152,11 +152,14 @@ export default function PreVendasPainel() {
                   <span>Estimativa <strong>{dinheiro(registro.totalCentavos)}</strong></span>
                   <label><span className="pvendas-sr">Atualizar andamento</span><select value={registro.status} disabled={salvando === registro.id} onChange={(event) => void alterarStatus(registro.id, event.target.value as Status)}>{Object.entries(STATUS).map(([valor, rotulo]) => <option key={valor} value={valor}>{rotulo}</option>)}</select></label>
                 </footer>
+                {registro.modo === "casa" && (registro.status === "nova" || registro.status === "atendimento") ? (
+                  <a className="pvenda-entregador" href={`/interno/entregas?pv=${encodeURIComponent(registro.id)}`}>Chamar entregador</a>
+                ) : null}
               </article>
             ))}
           </div>
         )}
       </section>
-    </main>
+    </div>
   );
 }

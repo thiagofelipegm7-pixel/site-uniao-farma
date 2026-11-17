@@ -48,6 +48,8 @@
 .pvenda-rodape > span { display: grid; gap: 0.125rem; color: #74828b; font-size: 0.75rem; }
 .pvenda-rodape > span strong { color: #263744; font-size: 1rem; font-variant-numeric: tabular-nums; }
 .pvenda-rodape select { min-height: 2.375rem; max-width: 10rem; font-size: 0.75rem; font-weight: 700; }
+.pvenda-entregador { display: inline-flex; align-items: center; min-height: 2.5rem; margin-top: 0.75rem; padding: 0 0.9rem; border-radius: 999px; background: #e9f3f2; color: #19524d; font-size: 0.8125rem; font-weight: 800; text-decoration: none; }
+.pvenda-entregador:hover { background: #d6ebe8; }
 .pvendas-vazio { display: grid; gap: 0.35rem; margin: 0; padding: 2rem 1rem; border-radius: 12px; background: #ffffff; color: #52636e; text-align: center; }
 .pvendas-vazio strong { color: #263744; }
 .pvendas-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
