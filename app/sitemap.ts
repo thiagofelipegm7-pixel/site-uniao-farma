@@ -4,9 +4,19 @@ import { PUBLIC_UNITS, SITE_URL, UNITS } from "./site-config";
 import { PAGE_LAST_UPDATED, sitemapDate } from "./sitemap-dates";
 import { departamentosPublicos } from "./nacoes-unidas/produtos/departamentos";
 import { getUnitPublicPath } from "./structured-data";
+import { carregarCatalogoCompleto, slugify } from "./nacoes-unidas/produtos/catalogo";
+import { itensElegiveisGoogle } from "./nacoes-unidas/produtos/google-shopping";
+
+/** Data do catálogo publicado (export do sistema da loja); sem data, a do departamento. */
+function dataDoCatalogo(): Date {
+  const gerado = carregarCatalogoCompleto().geradoEm;
+  const m = /^(\d{4}-\d{2}-\d{2})/.exec(gerado ?? "");
+  return sitemapDate(m ? m[1] : PAGE_LAST_UPDATED.departamentos);
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const news = getPublishedNews();
+  const catalogoData = dataDoCatalogo();
   const latestNews = news.reduce<string>((latest, article) => {
     return article.publishedAt > latest ? article.publishedAt : latest;
   }, PAGE_LAST_UPDATED.novidades);
@@ -121,5 +131,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "yearly",
       priority: 0.3,
     },
+    {
+      url: `${SITE_URL}/trocas-e-devolucoes`,
+      lastModified: sitemapDate(PAGE_LAST_UPDATED.trocas),
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    // Páginas de produto: só as de elegivelGoogle (não medicamento, em estoque, com foto). Medicamento fica fora (noindex).
+    ...itensElegiveisGoogle().map((item) => ({
+      url: `${SITE_URL}/nacoes-unidas/produtos/${slugify(item.nome)}`,
+      lastModified: catalogoData,
+      changeFrequency: "weekly" as const,
+      priority: 0.5,
+    })),
   ];
 }

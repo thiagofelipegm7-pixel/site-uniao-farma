@@ -19,8 +19,16 @@ export const CUSTOMER_QUESTIONS: FaqItem[] = [
     a: `Depende da loja. ${PUBLIC_UNITS.map((unit) => `A loja ${unit.legalLabel} entrega ${unit.deliveryScope}`).join(". ")}. Taxa e prazo são confirmados no WhatsApp da loja antes de fechar o pedido.`,
   },
   {
-    q: "Tem o remédio e o preço no site?",
-    a: "Não. Não tem carrinho virtual. Preço e estoque valem para o dia e são confirmados na loja, pelo WhatsApp.",
+    q: "Tem preço no site? Posso montar o pedido por aqui?",
+    a: "Sim. Os produtos da loja Nações Unidas têm preço no site e você monta a cesta, escolhe retirar ou receber em casa e envia o pedido pelo WhatsApp da loja. Nada é cobrado no site: o pagamento é na retirada ou na entrega.",
+  },
+  {
+    q: "O preço do site vale?",
+    a: "Nos produtos que não são medicamento, vale o preço mostrado no site. A loja confirma pelo WhatsApp só o estoque e combina a entrega. Nos medicamentos, a loja confirma preço e estoque pelo WhatsApp, e o que pede receita só sai com a receita, depois da avaliação do farmacêutico.",
+  },
+  {
+    q: "Posso trocar ou devolver?",
+    a: "Sim. Nos pedidos feitos pelo site ou pelo WhatsApp, você pode desistir em até 7 dias depois de receber. Produto avariado, com defeito ou errado tem troca. Medicamento só tem troca por defeito ou erro. Veja as regras em Trocas e devoluções.",
   },
   {
     q: "Aceita receita digital ou foto?",

@@ -62,6 +62,9 @@ const GOOGLE_SITE_VERIFICATION =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim() ||
   "chgP6OWdJAiM-yv_oPbit7Rf91vAsI7xDUWEuNQG1xk";
 
+/** Verificação do domínio no Google Merchant Center (conta 5907637889), pela meta tag. Fica junto com a do Search Console. */
+const GOOGLE_MERCHANT_VERIFICATION = "c78h12yeN5NoYIfoDpPllCzysv9i6tIFAJyYKV8TEAo";
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
@@ -112,9 +115,11 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  ...(GOOGLE_SITE_VERIFICATION
-    ? { verification: { google: GOOGLE_SITE_VERIFICATION } }
-    : {}),
+  // Uma meta tag por código: o vinext junta lista em google com vírgula, então o código do Merchant Center vai em "other".
+  verification: {
+    google: GOOGLE_SITE_VERIFICATION,
+    ...(GOOGLE_SITE_VERIFICATION !== GOOGLE_MERCHANT_VERIFICATION ? { other: { "google-site-verification": GOOGLE_MERCHANT_VERIFICATION } } : {}),
+  },
 };
 
 export const viewport: Viewport = {

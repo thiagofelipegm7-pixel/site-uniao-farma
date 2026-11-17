@@ -10,7 +10,7 @@ export const PAGE_LAST_UPDATED = {
   ofertas: "2026-10-28",
   receita: "2026-10-31",
   novidades: "2026-08-16",
-  perguntas: "2026-10-28",
+  perguntas: "2026-11-17",
   institucional: "2026-09-10",
   farmaciaEmSabara: "2026-10-28",
   abertaDomingo: "2026-10-31",
@@ -19,7 +19,8 @@ export const PAGE_LAST_UPDATED = {
   ifood: "2026-10-28",
   perfumaria: "2026-10-28",
   privacidade: "2026-08-16",
-  termos: "2026-08-16",
+  termos: "2026-11-17",
+  trocas: "2026-11-17",
   departamentos: "2026-11-05",
 } as const;
 
