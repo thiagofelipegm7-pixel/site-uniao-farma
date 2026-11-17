@@ -74,3 +74,43 @@ export async function gravarDestino(db: BancoBanner, id: string, slug: string, a
   await inserir.run();
   await apagarAntigas.run();
 }
+
+/* Termo de busca do banner: outra linha (stage "banner-busca"). O clique leva para a busca do catálogo com esse termo. */
+
+/** Tamanho máximo do termo de busca de um banner. */
+export const MAX_TERMO_BUSCA = 60;
+
+/** Limpa o termo: espaços repetidos viram um só. Aceita letras (com acento), números, espaço, hífen, ponto, "+" e "&". */
+export function normalizarTermoBusca(texto: string) {
+  return texto.replace(/\s+/g, " ").trim();
+}
+
+export function validarBusca(body: unknown): { ok: true; id: string; busca: string } | { ok: false; erro: ErroBanner; status: number } {
+  const b = (body ?? {}) as { id?: unknown; busca?: unknown };
+  if (typeof b.id !== "string" || typeof b.busca !== "string" || !b.id) return { ok: false, erro: "faltando", status: 400 };
+  if (!/^[a-z0-9-]{1,40}$/.test(b.id)) return { ok: false, erro: "vaga_invalida", status: 400 };
+  const busca = normalizarTermoBusca(b.busca);
+  // Vazio = tira o termo (o banner volta ao destino padrão).
+  if (busca && (busca.length > MAX_TERMO_BUSCA || !/^[\p{L}\p{N} .+&'-]+$/u.test(busca))) return { ok: false, erro: "formato_invalido", status: 400 };
+  return { ok: true, id: b.id, busca };
+}
+
+/** Troca o termo da vaga: grava o novo e só então apaga o anterior. Termo vazio apaga o termo da vaga. */
+export async function gravarBusca(db: BancoBanner, id: string, busca: string, agora = new Date()) {
+  if (!busca) {
+    await db.prepare("DELETE FROM metric_hits WHERE stage = ? AND intent = ?").bind("banner-busca", id).run();
+    return;
+  }
+  const inserir = db
+    .prepare("INSERT INTO metric_hits (day, stage, intent, source, created_at) VALUES (?, ?, ?, ?, ?)")
+    .bind(agora.toISOString().slice(0, 10), "banner-busca", id, busca, agora.toISOString());
+  const apagarAntigas = db
+    .prepare("DELETE FROM metric_hits WHERE stage = ? AND intent = ? AND id < (SELECT MAX(id) FROM metric_hits WHERE stage = ? AND intent = ?)")
+    .bind("banner-busca", id, "banner-busca", id);
+  if (typeof db.batch === "function") {
+    await db.batch([inserir, apagarAntigas]);
+    return;
+  }
+  await inserir.run();
+  await apagarAntigas.run();
+}

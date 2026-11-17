@@ -43,3 +43,11 @@ body:has(.interno-corpo) { background: #f1fbfa; }
 .pm-busca-lista button { display: flex; width: 100%; justify-content: space-between; gap: 0.5rem; min-height: 2.75rem; padding: 0.5rem 0.75rem; border: 0; background: #fff; color: #0d1413; font: inherit; text-align: left; cursor: pointer; }
 .pm-busca-lista button:hover, .pm-busca-lista button:focus-visible { background: #e4f6f3; }
 .pm-busca-lista button span { color: #3c5a56; font-size: 0.8125rem; white-space: nowrap; }
+.pm-destino { padding: 0.75rem 0; border-top: 1px solid #d3e6e4; }
+.pm-destino .pm-busca { border-top: 0; padding: 0.375rem 0 0; }
+.pm-termo label { display: flex; flex-direction: column; gap: 0.25rem; font-size: 0.9375rem; font-weight: 600; }
+.pm-termo { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 0.5rem; }
+.pm-termo input { width: 100%; max-width: 28rem; min-width: 14rem; min-height: 2.5rem; padding: 0 0.75rem; border: 1px solid #a9d8d2; border-radius: 8px; font: inherit; font-size: 1rem; font-weight: 400; }
+.pm-termo button { min-height: 2.5rem; padding: 0 1rem; border: 0; border-radius: 8px; background: #14736b; color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+.pm-termo button:disabled { opacity: 0.6; cursor: default; }
+.pm-termo p { flex-basis: 100%; margin: 0; font-size: 0.875rem; color: #3c5a56; }

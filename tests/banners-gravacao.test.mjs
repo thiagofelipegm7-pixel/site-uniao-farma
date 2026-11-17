@@ -77,3 +77,38 @@ test("a rota grava pela função segura (sem apagar antes de inserir)", () => {
   assert.match(rota, /validarBanner\(/);
   assert.doesNotMatch(rota, /DELETE FROM metric_hits/);
 });
+
+test("termo de busca do banner: valida, troca e apaga sem mexer em outras vagas", async () => {
+  const { validarBusca, gravarBusca } = await import("../app/banners-gravacao.ts");
+  assert.deepEqual(validarBusca({ id: "hero-3", busca: "  Personal   Baby " }), { ok: true, id: "hero-3", busca: "Personal Baby" });
+  assert.equal(validarBusca({ id: "hero-3", busca: "<script>" }).ok, false);
+  assert.equal(validarBusca({ id: "hero-3", busca: "x".repeat(61) }).ok, false);
+  assert.equal(validarBusca({ id: "Hero 3", busca: "eno" }).ok, false);
+  assert.deepEqual(validarBusca({ id: "hero-3", busca: "" }), { ok: true, id: "hero-3", busca: "" });
+  const termos = (db, id) => db.sqlite.prepare("SELECT source FROM metric_hits WHERE stage = 'banner-busca' AND intent = ? ORDER BY id").all(id).map((r) => r.source);
+  for (const comBatch of [true, false]) {
+    const db = bancoFalso({ comBatch });
+    await gravarBanner(db, "hero-3", "data:image/png;base64,ARTE");
+    await gravarBusca(db, "hero-3", "fralda");
+    await gravarBusca(db, "hero-1", "Decongex");
+    await gravarBusca(db, "hero-3", "Personal Baby");
+    assert.deepEqual(termos(db, "hero-3"), ["Personal Baby"]);
+    assert.deepEqual(termos(db, "hero-1"), ["Decongex"]);
+    await gravarBusca(db, "hero-3", "");
+    assert.deepEqual(termos(db, "hero-3"), []);
+    assert.deepEqual(artes(db, "hero-3"), ["data:image/png;base64,ARTE"]);
+  }
+});
+
+test("destino do banner: termo do painel, depois produto, depois termo padrão da arte, depois catálogo", async () => {
+  const { destinoBanner, buscaPadraoDaArte, BUSCA_PADRAO_POR_ARTE } = await import("../app/shop/painel-banners.ts");
+  const arteFralda = "/banners-949x239/WhatsApp_Image_2026-11-16_at_09.32.49_2_banner.jpg";
+  assert.equal(buscaPadraoDaArte(arteFralda), "Personal Baby");
+  assert.deepEqual(destinoBanner({ url: arteFralda }), { href: "/nacoes-unidas/produtos?q=Personal%20Baby", rotulo: "Ver produtos: Personal Baby" });
+  assert.equal(destinoBanner({ url: arteFralda, slug: "cimegripe-gts" }).href, "/nacoes-unidas/produtos/cimegripe-gts");
+  assert.equal(destinoBanner({ url: arteFralda, slug: "cimegripe-gts", busca: "Fralda Personal" }).href, "/nacoes-unidas/produtos?q=Fralda%20Personal");
+  assert.equal(destinoBanner({ url: "data:image/jpeg;base64,AAA" }).href, "/nacoes-unidas/produtos");
+  // Toda arte com termo padrão existe de verdade em public/.
+  const { existsSync } = await import("node:fs");
+  for (const arquivo of Object.keys(BUSCA_PADRAO_POR_ARTE)) assert.ok(existsSync(new URL(`../public/banners-949x239/${arquivo}`, import.meta.url)), arquivo);
+});

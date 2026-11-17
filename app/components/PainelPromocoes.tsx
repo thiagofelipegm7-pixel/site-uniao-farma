@@ -2,14 +2,88 @@
 
 import { useEffect, useMemo, useState } from "react";
 import PainelBanners from "../shop/PainelBanners";
-import type { BannerPainel } from "../shop/painel-banners";
-import { MAX_ARQUIVO_TEXTO } from "../banners-gravacao";
+import { buscaPadraoDaArte, hrefBusca, type BannerPainel } from "../shop/painel-banners";
+import { MAX_ARQUIVO_TEXTO, MAX_TERMO_BUSCA, normalizarTermoBusca } from "../banners-gravacao";
 import { mensagemErroEnvio, prepararArte } from "./preparar-arte";
 import { carregarBuscaIndex } from "../nacoes-unidas/produtos/busca-index";
 
 type ProdutoBusca = { slug: string; nome: string; lab: string };
 
 const normalizar = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+
+/**
+ * Termo de busca do banner: o clique no site leva para a busca do catálogo com esse termo (ex.: "Personal Baby").
+ * Vazio = usa o termo padrão da arte (quando existe) ou o produto escolhido abaixo.
+ */
+function TermoBusca({ id, busca, url, aoSalvar }: { id: string; busca: string | null; url: string; aoSalvar: (id: string, busca: string) => void }) {
+  const numero = id.replace("hero-", "");
+  const [texto, setTexto] = useState(busca ?? "");
+  const [salvando, setSalvando] = useState(false);
+  const [aviso, setAviso] = useState("");
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- o termo salvo chega depois que a página abre
+    setTexto(busca ?? "");
+  }, [busca]);
+  const padrao = buscaPadraoDaArte(url);
+  const vigente = busca || padrao;
+
+  async function salvar() {
+    const termo = normalizarTermoBusca(texto);
+    setSalvando(true);
+    setAviso("");
+    const r = await fetch("/api/interno/banners-busca", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ id, busca: termo }),
+    });
+    setSalvando(false);
+    if (sessaoExpirou(r)) {
+      irParaLogin();
+      return;
+    }
+    if (r.ok) {
+      aoSalvar(id, termo);
+      setAviso(termo ? "Termo salvo." : "Termo apagado.");
+    } else {
+      setAviso("Não consegui salvar o termo. Use só letras, números e espaço (até " + MAX_TERMO_BUSCA + " letras).");
+    }
+  }
+
+  return (
+    <div className="pm-termo">
+      <label>
+        <span>Termo de busca do banner {numero}</span>
+        <input
+          type="text"
+          value={texto}
+          maxLength={MAX_TERMO_BUSCA}
+          onChange={(e) => setTexto(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") void salvar();
+          }}
+          placeholder={padrao ? `Padrão da arte: ${padrao}` : "Ex.: Personal Baby"}
+        />
+      </label>
+      <button type="button" disabled={salvando} onClick={() => void salvar()}>
+        Salvar termo
+      </button>
+      <p className="pm-termo-dica">
+        {vigente ? (
+          <>
+            Clique no banner abre a busca:{" "}
+            <a href={hrefBusca(vigente)} target="_blank" rel="noreferrer">
+              {vigente}
+            </a>
+            {busca ? null : " (padrão da arte)"}
+          </>
+        ) : (
+          "Sem termo: o banner leva para o produto escolhido abaixo ou para o catálogo."
+        )}
+      </p>
+      {aviso ? <p role="status">{aviso}</p> : null}
+    </div>
+  );
+}
 
 /** Busca de produto para um banner: digita o nome, escolhe um resultado e o destino é salvo na hora. */
 function BuscaProduto({ id, slug, aoSalvar }: { id: string; slug: string | null; aoSalvar: (id: string, slug: string) => void }) {
@@ -106,15 +180,21 @@ export default function PainelPromocoes() {
   const [aviso, setAviso] = useState("");
   const [atuais, setAtuais] = useState<Banner[]>([]);
   const [destinos, setDestinos] = useState<Record<string, string>>({});
+  const [buscas, setBuscas] = useState<Record<string, string>>({});
 
   // Produto atual de cada banner (o site já mostra esse mesmo destino).
   useEffect(() => {
     fetch("/api/banners-publico", { cache: "no-store" })
       .then((r) => r.json())
-      .then((d: { banners?: { id: string; slug?: string | null }[] }) => {
+      .then((d: { banners?: { id: string; slug?: string | null; busca?: string | null }[] }) => {
         const mapa: Record<string, string> = {};
-        for (const b of d.banners ?? []) if (b.slug) mapa[b.id] = b.slug;
+        const termos: Record<string, string> = {};
+        for (const b of d.banners ?? []) {
+          if (b.slug) mapa[b.id] = b.slug;
+          if (b.busca) termos[b.id] = b.busca;
+        }
         setDestinos(mapa);
+        setBuscas(termos);
       })
       .catch(() => {});
   }, []);
@@ -183,13 +263,16 @@ export default function PainelPromocoes() {
       </section>
       {atuais.length ? (
         <section className="pm-destinos" aria-label="Produto de cada banner">
-          <h2>Produto de cada banner</h2>
-          <p>Digite o nome do produto e escolha o resultado. O banner passa a levar para a página dele.</p>
+          <h2>Para onde cada banner leva</h2>
+          <p>Escreva o termo de busca (ex.: Personal Baby): o clique no banner abre a busca do catálogo com ele. Sem termo, vale o produto escolhido (página do produto).</p>
           {[...atuais]
             .filter((b) => b.id.startsWith("hero-"))
             .sort((a, b) => (Number(a.id.replace("hero-", "")) || 0) - (Number(b.id.replace("hero-", "")) || 0))
             .map((b) => (
-              <BuscaProduto key={b.id} id={b.id} slug={destinos[b.id] ?? null} aoSalvar={(id, slug) => setDestinos((prev) => ({ ...prev, [id]: slug }))} />
+              <div className="pm-destino" key={b.id}>
+                <TermoBusca id={b.id} url={b.url} busca={buscas[b.id] ?? null} aoSalvar={(id, termo) => setBuscas((prev) => ({ ...prev, [id]: termo }))} />
+                <BuscaProduto id={b.id} slug={destinos[b.id] ?? null} aoSalvar={(id, slug) => setDestinos((prev) => ({ ...prev, [id]: slug }))} />
+              </div>
             ))}
         </section>
       ) : null}
