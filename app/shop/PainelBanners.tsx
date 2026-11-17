@@ -1,8 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type MouseEvent as EventoMouse, type PointerEvent as EventoPonteiro } from "react";
 import { IconSetaDireita, IconVoltar } from "../reserva/ReservaIcons";
-import type { BannerPainel } from "./painel-banners";
+import { destinoBanner, type BannerPainel } from "./painel-banners";
 import "./painel-banners.css";
 
 function Arte({ banner }: { banner: BannerPainel }) {
@@ -42,11 +42,15 @@ export default function PainelBanners({ titulo, fonte, aoEnviar }: { titulo?: st
     }
     fetch("/api/banners-publico", { cache: "no-store" })
       .then((r) => r.json())
-      .then((d: { banners?: { id: string; url: string; slug?: string | null }[] }) => {
+      .then((d: { banners?: { id: string; url: string; slug?: string | null; busca?: string | null }[] }) => {
         const lista = (d.banners ?? [])
           .filter((b) => b.id.startsWith("hero-"))
           .sort((a, b) => (Number(a.id.replace("hero-", "")) || 0) - (Number(b.id.replace("hero-", "")) || 0))
-          .map((b) => ({ id: b.id, imagem: b.url, alt: "Oferta da União Farma", href: b.slug ? `/nacoes-unidas/produtos/${b.slug}` : "/nacoes-unidas/produtos" }));
+          .map((b) => {
+            // Clicar no banner leva para a busca do produto dele (ou para o produto escolhido no painel).
+            const destino = destinoBanner(b);
+            return { id: b.id, imagem: b.url, alt: "Oferta da União Farma", href: destino.href, rotulo: destino.rotulo };
+          });
         if (lista.length) setCustom(lista);
         try {
           window.localStorage.setItem("uf_banners", lista.length ? "1" : "0");
@@ -60,6 +64,7 @@ export default function PainelBanners({ titulo, fonte, aoEnviar }: { titulo?: st
   const publico = !fonte;
   const lista = fonte ?? custom ?? [];
   const pausado = useRef(false);
+  const toque = useRef<{ x: number; y: number; rolagem: number } | null>(null);
   const parou = useRef<ReturnType<typeof setTimeout> | null>(null);
   const n = lista.length;
   const loop = n > 1;
@@ -146,6 +151,20 @@ export default function PainelBanners({ titulo, fonte, aoEnviar }: { titulo?: st
   const pausar = () => {
     pausado.current = true;
   };
+  // Arrastar a faixa (dedo ou mouse) não pode abrir o banner: se a faixa rolou ou o ponteiro andou, o clique é ignorado.
+  const aoApertar = (e: EventoPonteiro) => {
+    const el = faixa.current;
+    toque.current = { x: e.clientX, y: e.clientY, rolagem: el ? el.scrollLeft : 0 };
+  };
+  const aoClicar = (e: EventoMouse) => {
+    const inicio = toque.current;
+    toque.current = null;
+    if (!inicio) return;
+    const el = faixa.current;
+    const andou = Math.abs(e.clientX - inicio.x) > 8 || Math.abs(e.clientY - inicio.y) > 8;
+    const rolou = el ? Math.abs(el.scrollLeft - inicio.rolagem) > 8 : false;
+    if (andou || rolou) e.preventDefault();
+  };
   const retomar = () => {
     pausado.current = false;
   };
@@ -168,7 +187,14 @@ export default function PainelBanners({ titulo, fonte, aoEnviar }: { titulo?: st
           {lista.map((banner, i) => (
             <li className="painel-slide" key={banner.id} aria-roledescription="slide" aria-label={`${i + 1} de ${n}`}>
               {banner.href && !aoEnviar ? (
-                <a className={`painel-arte${banner.imagem ? " painel-arte--img" : ""}`} href={banner.href}>
+                <a
+                  className={`painel-arte${banner.imagem ? " painel-arte--img" : ""}`}
+                  href={banner.href}
+                  aria-label={banner.rotulo}
+                  draggable={false}
+                  onPointerDown={aoApertar}
+                  onClick={aoClicar}
+                >
                   <Arte banner={banner} />
                 </a>
               ) : (
