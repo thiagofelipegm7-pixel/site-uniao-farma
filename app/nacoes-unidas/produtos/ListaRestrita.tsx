@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 /* eslint-disable @next/next/no-img-element -- Imagem estática pequena, igual ao restante do catálogo. */
 import { quantidadeLegivel } from "./quantidade";
+import { fotoDoProduto } from "./imagens";
 import { useEffect, useState } from "react";
 import { ContentSiteFooter } from "../../ContentSiteChrome";
 import ReservarBotao from "../../reserva/ReservarBotao";
@@ -76,7 +77,7 @@ export function Cartao({ item }: { item: ItemRestrito }) {
       medicamento
       classificacao={item.controlado ? "controlado" : item.generico ? "generico" : null}
       apresentacao={quantidadeLegivel(item.apresentacao)}
-      foto={imagemIlustrativa(item)}
+      foto={item.controlado ? imagemIlustrativa(item) : (fotoDoProduto(item.nome) ?? imagemIlustrativa(item))}
       precoFmt={item.preco !== null ? formatBRL(item.preco) : null}
       precoVazio={item.semVenda ? "Consulte o farmacêutico" : undefined}
       restam={item.restam}
@@ -87,7 +88,7 @@ export function Cartao({ item }: { item: ItemRestrito }) {
             unitId={nacoes.id}
             nome={nome}
             precoCentavos={Math.round((item.preco as number) * 100)}
-            foto={imagemIlustrativa(item)}
+            foto={item.controlado ? imagemIlustrativa(item) : (fotoDoProduto(item.nome) ?? imagemIlustrativa(item))}
             source={`produtos_nacoes_${item.tipo}`}
             receita={item.controlado ? "controlado" : "receita"}
             variante="cartao"
