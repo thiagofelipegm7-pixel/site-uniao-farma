@@ -53,6 +53,7 @@ export default function SiteFooter() {
             <ul className="rodape-links">
               <li><a href="/privacidade">Privacidade</a></li>
               <li><a href="/termos">Termos</a></li>
+              <li><a href="/trocas-e-devolucoes">Trocas e devoluções</a></li>
               <li><a href="/perguntas">Perguntas</a></li>
               <li>
                 <button type="button" onClick={openCookiePreferences}>

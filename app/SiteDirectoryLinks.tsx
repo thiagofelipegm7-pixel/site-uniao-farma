@@ -14,6 +14,7 @@ const SITE_DIRECTORY_LINKS = [
   { href: "/entrega-de-medicamentos-em-sabara", label: "Entrega em Sabará" },
   { href: "/privacidade", label: "Privacidade" },
   { href: "/termos", label: "Termos de uso" },
+  { href: "/trocas-e-devolucoes", label: "Trocas e devoluções" },
 ] as const;
 
 export function SiteDirectoryLinks() {

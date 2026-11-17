@@ -18,7 +18,8 @@ import ProdutoBarra from "../ProdutoBarra";
 import { nomeDeExibicao } from "../../../nome-exibicao";
 import CombinaCom, { itensCombinaCom } from "../CombinaCom";
 import { descricaoPublica } from "../descricoes";
-import { conteudoDoNome, ehNbcal, descricaoMetadata, FAQ_PRODUTO, jsonLdProduto, NOTA_PRECO, textosPublicaveis } from "../produto";
+import { conteudoDoNome, ehNbcal, descricaoMetadata, FAQ_PRODUTO, jsonLdProduto, NOTA_PRECO, NOTA_PRECO_FIRME, textosPublicaveis } from "../produto";
+import { ehMedicamentoOuDuvida, elegivelGoogle, gtinValido } from "../google-shopping";
 import "../produtos.css";
 
 export const dynamic = "force-dynamic";
@@ -32,12 +33,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const catalogo = carregarCatalogoCompleto();
   const item = catalogo ? acharPorSlug(catalogo.itens, slug) : null;
   const titulo = item ? `${item.nome} | União Farma Nações Unidas` : "Produto | União Farma Nações Unidas";
-  const descricao = item ? descricaoMetadata(item.nome, (ehNbcal(item.nome) ? null : descricaoPublica(slugify(item.nome), item.isMIP))?.texto) : "Produto da União Farma Nações Unidas, em Sabará.";
+  // Fonte única (elegivelGoogle): só item não medicamento, em estoque e com foto vai para a busca. Medicamento segue com noindex.
+  const noGoogle = item ? elegivelGoogle(item, catalogo.itens) : false;
+  const descricao = item ? descricaoMetadata(item.nome, (ehNbcal(item.nome) ? null : descricaoPublica(slugify(item.nome), item.isMIP))?.texto, !ehMedicamentoOuDuvida(item)) : "Produto da União Farma Nações Unidas, em Sabará.";
   return {
     title: { absolute: titulo },
     description: descricao,
     alternates: { canonical: item ? `/nacoes-unidas/produtos/${slugify(item.nome)}` : "/nacoes-unidas/produtos" },
-    robots: { index: false, follow: false },
+    robots: noGoogle ? { index: true, follow: true } : { index: false, follow: false },
     openGraph: { title: titulo, description: descricao, url: item ? `${SITE_URL}/nacoes-unidas/produtos/${slugify(item.nome)}` : `${SITE_URL}/nacoes-unidas/produtos`, type: "website" },
   };
 }
@@ -78,6 +81,11 @@ export default async function ProdutoNacoesPage({ params }: Props) {
   const descricaoIA = ehNbcal(item.nome) ? null : descricaoPublica(slugItem, item.isMIP);
   const textos = textosPublicaveis({ descricao: descricaoIA?.texto });
   const combinaCom = itensCombinaCom(carregarCatalogoNacoes().itens, item);
+  // Mesma regra do feed do Google: o preço do site vale como preço firme e o JSON-LD leva a oferta. Medicamento fica como estava.
+  const noCatalogo = catalogo.itens.includes(item);
+  const noGoogle = !controlado && noCatalogo && elegivelGoogle(item, catalogo.itens);
+  // Item que não é medicamento: o preço do site vale (preço firme). Medicamento mantém o aviso de confirmar preço e estoque.
+  const precoFirme = !controlado && noCatalogo && !ehMedicamentoOuDuvida(item);
   const jsonLd = jsonLdProduto({
     nome: nomeExibido,
     lab: item.lab,
@@ -85,6 +93,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
     url: pagina,
     image: fotoReal ? `${SITE_URL}${fotoReal}` : null,
     descricao: descricaoIA?.texto,
+    oferta: noGoogle ? { preco: item.preco, gtin: gtinValido(ean) ? ean : null } : null,
   });
   // No lugar das avaliações de clientes (a União não tem): atalho para tirar dúvida do produto com a farmacêutica, no WhatsApp da loja.
   const duvidaHref = buildWhatsAppUrl(nacoes, `Oi, União Farma Nações Unidas! Tenho uma dúvida sobre "${nomeExibido}". Pode me ajudar?`, { campaign: "produto_duvida", content: slugItem });
@@ -150,7 +159,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
               <p className="produto-preco"><Preco precoFmt={formatBRL(item.preco)} variante="grande" /></p>
             )}
             {item.esgotado ? <p className="produto-esgotado" role="status">Indisponível no momento. Fale com a loja pelo WhatsApp para saber quando chega.</p> : null}
-            {controlado ? null : <p className="produto-nota">{NOTA_PRECO}</p>}
+            {controlado ? null : <p className="produto-nota">{precoFirme ? NOTA_PRECO_FIRME : NOTA_PRECO}</p>}
             {item.esgotado || controlado ? null : <ProdutoBarra unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} max={item.restam} slug={slugify(item.nome)} />}
             {/* No lugar do cálculo de frete por CEP da Drogasil: como a União entrega e recebe, sem inventar prazo nem taxa. */}
             {controlado ? null : <ul className="pdp-receber" aria-label="Como receber">
