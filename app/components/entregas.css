@@ -68,3 +68,31 @@
   .entregas-acoes { width: 100%; margin-left: 0; }
   .entregas-acoes .entregas-botao { flex: 1; }
 }
+/* Lalamove + Uber Direct: escolha do provedor, cotações lado a lado e etiqueta na lista. */
+.entregas-selos { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.4rem; }
+.entregas-provedores { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; border: 0; min-width: 0; }
+.entregas-provedores legend { width: 100%; margin-bottom: 0.35rem; padding: 0; font-size: 0.8125rem; font-weight: 700; color: #3c4d58; }
+.entregas-form .entregas-provedores label { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 2.5rem; padding: 0 0.85rem; border: 1px solid #d5e0de; border-radius: 999px; background: #fbfdfc; font-size: 0.875rem; cursor: pointer; }
+.entregas-form .entregas-provedores label:has(input:checked) { border-color: #10857f; background: #eff7f5; color: #0b5d59; }
+.entregas-form .entregas-provedores input { width: auto; min-height: 0; margin: 0; accent-color: #10857f; }
+.entregas-form .entregas-provedores .entregas-desligado { opacity: 0.5; cursor: not-allowed; }
+.entregas-opcoes { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 0.75rem; margin-bottom: 0.75rem; }
+.entregas-opcao { min-width: 0; padding: 0.25rem; border: 2px solid transparent; border-radius: 16px; }
+.entregas-opcoes:has(.entregas-opcao + .entregas-opcao) .entregas-opcao { border-color: #e4ecea; }
+.entregas-opcoes:has(.entregas-opcao + .entregas-opcao) .entregas-opcao-marcada { border-color: #10857f; }
+.entregas-opcao .entregas-preco { flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; margin-bottom: 0.5rem; cursor: pointer; }
+.entregas-opcao .entregas-preco input { flex: none; width: 1.1rem; height: 1.1rem; margin: 0; accent-color: #10857f; }
+.entregas-opcao .entregas-preco span { flex: 1 1 7.5rem; min-width: 0; }
+.entregas-opcao .entregas-preco strong { margin-left: auto; white-space: nowrap; }
+.entregas-opcao dl { grid-template-columns: minmax(0, 1fr); padding: 0 0.6rem; }
+.entregas-etiquetas { display: flex; flex-wrap: wrap; gap: 0.35rem; flex: none; }
+.entregas-provedor { padding: 0.35rem 0.625rem; border-radius: 999px; font-size: 0.75rem; font-weight: 800; }
+.entregas-provedor-lalamove { background: #fff0e6; color: #a6460a; }
+.entregas-provedor-uber { background: #1f2a30; color: #ffffff; }
+.entregas-status-pickup, .entregas-status-pickup_complete, .entregas-status-dropoff { background: #e3eefc; color: #1f4f8a; }
+.entregas-status-delivered { background: #e5f5e9; color: #276c3d; }
+.entregas-status-returned { background: #eceeef; color: #5b6870; }
+@media (max-width: 700px) {
+  .entregas-selos { justify-content: flex-start; }
+  .entregas-opcoes { grid-template-columns: minmax(0, 1fr); }
+}
