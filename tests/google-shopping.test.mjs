@@ -113,6 +113,7 @@ test("trocas e devoluções, FAQ e termos: sem 'sem carrinho', sem 'instituciona
   assert.match(trocas, /art\. 49 do Código de Defesa do Consumidor/);
   assert.match(trocas, /medicamento só tem\s+troca ou devolução em caso de defeito/);
   assert.match(trocas, /canonical: "\/trocas-e-devolucoes"/);
+  assert.match(trocas, /devolvido pelo mesmo meio de pagamento usado na compra/);
   assert.doesNotMatch(trocas, /index: false/);
   assert.doesNotMatch(seo, /carrinho virtual/);
   assert.match(seo, /vale o preço mostrado no site/);

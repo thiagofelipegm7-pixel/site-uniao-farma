@@ -44,7 +44,7 @@ export default function TrocasPage() {
           </p>
           <p>
             Para desistir, avise a loja dentro do prazo pelo WhatsApp ou pelo telefone abaixo, informando o código do pedido. A loja
-            combina com você como o produto volta e como o valor é devolvido. Essa regra não vale para medicamentos (veja o item 4).
+            combina com você como o produto volta, e o valor é devolvido pelo mesmo meio de pagamento usado na compra. Essa regra não vale para medicamentos (veja o item 4).
           </p>
         </section>
 
@@ -99,8 +99,9 @@ export default function TrocasPage() {
             <li>Endereço da loja: {nacoes.address}.</li>
           </ul>
           <p>
-            A forma de devolução do valor (por exemplo, Pix, estorno no cartão ou dinheiro) é combinada com a loja, de acordo com a
-            forma de pagamento usada. No estorno em cartão, o crédito aparece na fatura conforme as regras da operadora do cartão.
+            O valor é devolvido pelo mesmo meio de pagamento usado na compra: Pix volta por Pix, dinheiro volta em dinheiro e cartão
+            volta como estorno no próprio cartão. No estorno em cartão, o crédito aparece na fatura conforme as regras da operadora do
+            cartão.
           </p>
         </section>
 
