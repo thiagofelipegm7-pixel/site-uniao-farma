@@ -119,3 +119,10 @@ test("trocas e devoluções, FAQ e termos: sem 'sem carrinho', sem 'instituciona
   assert.doesNotMatch(termos, /site institucional/);
   assert.match(termos, /vale\s+o preço mostrado no site/);
 });
+
+test("verificação do Merchant Center (meta tag) fica no layout raiz, junto com a do Search Console", async () => {
+  const layout = await read("app/layout.tsx");
+  assert.match(layout, /GOOGLE_MERCHANT_VERIFICATION = "c78h12yeN5NoYIfoDpPllCzysv9i6tIFAJyYKV8TEAo"/);
+  assert.match(layout, /google: GOOGLE_SITE_VERIFICATION,/);
+  assert.match(layout, /"google-site-verification": GOOGLE_MERCHANT_VERIFICATION/);
+});
