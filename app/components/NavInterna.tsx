@@ -11,7 +11,7 @@ export default function NavInterna() {
   if (caminho.startsWith("/interno/entrar")) return null;
   return (
     <nav className="nav-interna" aria-label="Área interna">
-      <a className="nav-interna-marca" href="/interno/fotos" aria-label="União Farma, área da equipe"><MarcaUniao claro /><small>Equipe</small></a>
+      <a className="nav-interna-marca" href="/interno" aria-label="União Farma, área da equipe"><MarcaUniao claro /><small>Equipe</small></a>
       <ul>
         {ITENS_NAV_INTERNO.map((i) => {
           const ativo = caminho === i.href || caminho.startsWith(`${i.href}/`);

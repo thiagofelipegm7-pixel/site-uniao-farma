@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
-import { Fragment, useEffect, useState, useSyncExternalStore } from "react";
+import { Fragment, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import MarcaUniao from "../shop/MarcaUniao";
 import { trackEvent } from "../analytics";
 import { registrarEtapa } from "../funil";
@@ -58,6 +58,7 @@ export default function ReservaFluxo() {
   const [trocoTexto, setTrocoTexto] = useState("");
   // Código curto do pedido, criado uma vez por visita ao fluxo (aparece na mensagem para a loja achar a conversa).
   const [codigoPedido] = useState(gerarCodigoPedido);
+  const preVendaRequestId = useRef("");
   const [tentou, setTentou] = useState(false);
   const [editando, setEditando] = useState(true);
   // Depois do toque em "Enviar pedido pelo WhatsApp": lembra o cliente de tocar em enviar dentro do WhatsApp.
@@ -155,6 +156,23 @@ export default function ReservaFluxo() {
     ir(3);
   }
 
+  function registrarPreVenda() {
+    if (typeof window === "undefined") return;
+    if (!preVendaRequestId.current) preVendaRequestId.current = window.crypto.randomUUID();
+    const dados = {
+      requestId: preVendaRequestId.current,
+      codigo: codigoPedido,
+      unidade: unidade.id,
+      modo,
+      itens: estado.itens.filter(itemAtivo).map((item) => ({ nome: item.nome, quantidade: item.qtd, precoCentavos: item.precoCentavos })),
+    };
+    const corpo = JSON.stringify(dados);
+    const enviado = navigator.sendBeacon?.("/api/pre-vendas", new Blob([corpo], { type: "application/json" })) ?? false;
+    if (!enviado) {
+      void fetch("/api/pre-vendas", { method: "POST", headers: { "content-type": "application/json" }, body: corpo, keepalive: true }).catch(() => {});
+    }
+  }
+
   const titulo = passo === 1 ? "Minha cesta" : passo === 2 ? "Entrega ou retirada" : "Revisar e enviar";
 
   async function repetir() {
@@ -224,6 +242,7 @@ export default function ReservaFluxo() {
 
   const temReceita = estado.itens.some((i) => i.receita) || estado.itens.some((i) => /ritalina|controlado|receita/i.test(i.nome));
   function confirmarEnvio() {
+    registrarPreVenda();
     setAvisoReceita(false);
     guardarUltimoPedido(estado.itens.filter(itemAtivo));
     registrarEtapa("enviar");
@@ -240,7 +259,7 @@ export default function ReservaFluxo() {
         <IconWhats size={24} /> Enviar pedido pelo WhatsApp
       </button>
     ) : (
-      <a className={classe} href={href} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unidade.id} data-track-source="reserva_envio" onClick={() => { guardarUltimoPedido(estado.itens.filter(itemAtivo)); registrarEtapa("enviar"); setEnviado(true); }}>
+      <a className={classe} href={href} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unidade.id} data-track-source="reserva_envio" onClick={() => { registrarPreVenda(); guardarUltimoPedido(estado.itens.filter(itemAtivo)); registrarEtapa("enviar"); setEnviado(true); }}>
         <IconWhats size={24} /> Enviar pedido pelo WhatsApp
       </a>
     )
