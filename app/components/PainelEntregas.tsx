@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { consultarCep, formatarCep, formatarTaxaCentavos, soDigitosCep } from "../area-entrega";
 import "./entregas.css";
 
 type Provedor = "lalamove" | "uber";
@@ -103,10 +104,66 @@ async function enviar(corpo: Record<string, unknown>) {
 }
 type Resposta = { ok?: boolean; mensagem?: string; entrega?: Entrega; cotacoes?: Entrega[]; falhas?: Array<{ provedor: Provedor; mensagem: string }> };
 
+
+function listaBairros(nomes: string[]) {
+  if (nomes.length === 1) return nomes[0];
+  if (nomes.length === 2) return `${nomes[0]} ou ${nomes[1]}`;
+  return `${nomes.slice(0, -1).join(", ")} ou ${nomes.at(-1)}`;
+}
+
+function AreaCep({
+  area,
+  bairroConfirmado,
+  onEscolher,
+}: {
+  area: ReturnType<typeof consultarCep>;
+  bairroConfirmado: string;
+  onEscolher: (bairro: string) => void;
+}) {
+  if (area.status === "vazio") {
+    return <p id="ent-area-cep" className="entregas-dica">Informe o CEP completo para conferir se o endereço está na área de entrega.</p>;
+  }
+  if (area.status === "incompleto") {
+    return <p id="ent-area-cep" className="entregas-dica">Digite os 8 dígitos do CEP. Pode colar com hífen, com espaço ou só os números.</p>;
+  }
+  if (area.status === "fora") {
+    return <p id="ent-area-cep" className="entregas-area entregas-area-fora" role="alert">Fora da área. Este CEP não está na área de entrega da loja.</p>;
+  }
+  if (area.status === "confirmar") {
+    return (
+      <p id="ent-area-cep" className="entregas-area entregas-area-confirmar" role="alert">
+        Fora da área — confirmar. Este CEP é do {area.local}, que não está na lista oficial de entrega. Confirme o endereço com o cliente.
+      </p>
+    );
+  }
+  if (area.status === "ambigua") {
+    return (
+      <div id="ent-area-cep" className="entregas-area entregas-area-ambigua" role="group" aria-label="Confirme o bairro deste CEP">
+        <p>Este CEP é compartilhado por General Carneiro e Ipê Amarelo. Confirme o bairro para aplicar a taxa certa da loja.</p>
+        <div className="entregas-area-bairros">
+          {area.bairros.map((bairro) => (
+            <label key={bairro}>
+              <input type="radio" name="bairro-cep" value={bairro} checked={bairroConfirmado === bairro} onChange={() => onEscolher(bairro)} />
+              <span>{bairro} · {formatarTaxaCentavos(area.taxasCentavos[bairro])}</span>
+            </label>
+          ))}
+        </div>
+      </div>
+    );
+  }
+  return (
+    <p id="ent-area-cep" className="entregas-area entregas-area-ok" role="status">
+      Área de entrega: {listaBairros(area.bairros)} · taxa da loja {formatarTaxaCentavos(area.taxaCentavos)}.
+    </p>
+  );
+}
+
 export default function PainelEntregas() {
   const [estado, setEstado] = useState<Estado | null>(null);
   const [erroCarga, setErroCarga] = useState("");
   const [endereco, setEndereco] = useState("");
+  const [cep, setCep] = useState("");
+  const [bairroConfirmado, setBairroConfirmado] = useState("");
   const [complemento, setComplemento] = useState("");
   const [lat, setLat] = useState("");
   const [lng, setLng] = useState("");
@@ -164,6 +221,9 @@ export default function PainelEntregas() {
   const padrao: Escolha = ambosConfigurados ? "ambos" : info("uber").configurado ? "uber" : "lalamove";
   const escolhaAtual: Escolha = escolha && (escolha === "ambos" ? ambosConfigurados : info(escolha).configurado) ? escolha : padrao;
   const podeCotar = escolhaAtual === "ambos" ? ambosConfigurados : info(escolhaAtual).configurado;
+  const area = consultarCep(cep);
+  const cepLiberado =
+    area.status === "atendida" || (area.status === "ambigua" && area.bairros.includes(bairroConfirmado));
   const preVenda = estado?.preVenda ?? null;
   const cotacao = cotacoes.find((c) => c.id === escolhida) ?? null;
   const limparCotacao = () => {
@@ -188,7 +248,7 @@ export default function PainelEntregas() {
   const cotar = () =>
     executar("cotar", async () => {
       limparCotacao();
-      const dados = await enviar({ acao: "cotar", provedor: escolhaAtual, endereco, complemento, lat: lat.trim(), lng: lng.trim(), preVendaId: preVenda?.id, codigo: preVenda?.codigo });
+      const dados = await enviar({ acao: "cotar", provedor: escolhaAtual, endereco, cep: soDigitosCep(cep), bairroConfirmado: bairroConfirmado || undefined, complemento, lat: lat.trim(), lng: lng.trim(), preVendaId: preVenda?.id, codigo: preVenda?.codigo });
       const lista = dados.cotacoes?.length ? dados.cotacoes : [dados.entrega];
       setCotacoes(lista);
       setFalhasCotacao(dados.falhas ?? []);
@@ -203,6 +263,8 @@ export default function PainelEntregas() {
       const { entrega } = await enviar({ acao: "chamar", id: cotacao.id, nome, telefone });
       limparCotacao();
       setEndereco("");
+      setCep("");
+      setBairroConfirmado("");
       setComplemento("");
       setLat("");
       setLng("");
@@ -288,6 +350,20 @@ export default function PainelEntregas() {
               <input value={endereco} onChange={(e) => { setEndereco(e.target.value); limparCotacao(); }} placeholder="Rua, número, bairro" autoComplete="off" required minLength={6} />
             </label>
             <label>
+              <span>CEP do cliente</span>
+              <input
+                value={cep}
+                onChange={(e) => { setCep(formatarCep(e.target.value)); setBairroConfirmado(""); limparCotacao(); }}
+                inputMode="numeric"
+                autoComplete="postal-code"
+                placeholder="00000-000"
+                required
+                aria-invalid={area.status === "fora" || area.status === "confirmar"}
+                aria-describedby="ent-area-cep"
+              />
+            </label>
+            <AreaCep area={area} bairroConfirmado={bairroConfirmado} onEscolher={(bairro) => { setBairroConfirmado(bairro); limparCotacao(); }} />
+            <label>
               <span>Complemento e referência <small>(opcional)</small></span>
               <input value={complemento} onChange={(e) => setComplemento(e.target.value)} placeholder="Apto, bloco, ponto de referência" autoComplete="off" />
             </label>
@@ -299,7 +375,7 @@ export default function PainelEntregas() {
                 <label><span>Longitude</span><input value={lng} onChange={(e) => { setLng(e.target.value); limparCotacao(); }} inputMode="decimal" placeholder="-43.86" /></label>
               </div>
             </details>
-            <button type="submit" className="entregas-botao" disabled={!podeCotar || ocupado !== null || endereco.trim().length < 6} title={algumConfigurado ? undefined : NAO_CONFIGURADA.lalamove}>
+            <button type="submit" className="entregas-botao" disabled={!podeCotar || ocupado !== null || endereco.trim().length < 6 || !cepLiberado} title={algumConfigurado ? undefined : NAO_CONFIGURADA.lalamove}>
               {ocupado === "cotar" ? "Cotando…" : escolhaAtual === "ambos" ? "Cotar nas duas" : "Cotar entrega"}
             </button>
           </form>

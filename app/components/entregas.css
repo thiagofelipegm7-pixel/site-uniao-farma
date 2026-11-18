@@ -96,3 +96,14 @@
   .entregas-selos { justify-content: flex-start; }
   .entregas-opcoes { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Conferência da área de entrega por CEP completo. */
+.entregas-area { margin: 0; padding: 0.75rem 1rem; border-radius: 12px; font-size: 0.875rem; line-height: 1.45; font-weight: 650; }
+.entregas-area p { margin: 0 0 0.6rem; }
+.entregas-area-ok { background: #e8f6ef; color: #176748; }
+.entregas-area-fora { background: #fff1f0; color: #9e2824; }
+.entregas-area-confirmar, .entregas-area-ambigua { background: #fff4dc; color: #7a4600; }
+.entregas-area-bairros { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.entregas-form .entregas-area-bairros label { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 2.5rem; padding: 0 0.85rem; border: 1px solid #e0c48a; border-radius: 999px; background: #fffdf6; font-size: 0.875rem; font-weight: 700; color: #7a4600; cursor: pointer; }
+.entregas-form .entregas-area-bairros label:has(input:checked) { border-color: #b26a00; background: #ffe9b8; }
+.entregas-form .entregas-area-bairros input { width: auto; min-height: 0; margin: 0; accent-color: #b26a00; }

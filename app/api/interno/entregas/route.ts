@@ -1,4 +1,5 @@
 import { banco, segredo } from "../../../estoque-fonte";
+import { validarCepParaCotar } from "../../../area-entrega";
 import { geocodificar, normalizarEndereco } from "../../../geocodificar";
 import {
   COLETA_LOJA,
@@ -265,6 +266,8 @@ export async function POST(request: Request) {
     const endereco = normalizarEndereco(texto(corpo.endereco, 300));
     const complemento = texto(corpo.complemento, 300);
     if (endereco.length < 6) return falha("endereco_invalido", "Informe o endereço do cliente (rua, número e bairro).", 400);
+    const area = validarCepParaCotar(texto(corpo.cep, 16), texto(corpo.bairroConfirmado, 40));
+    if (!area.ok) return falha(area.erro, area.mensagem, area.statusHttp);
     let lat = Number(corpo.lat);
     let lng = Number(corpo.lng);
     let encontrado = "";
