@@ -3593,6 +3593,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "MUPIROCINA 20MG/G CRISTALIA POM 15G": "7896676443622",
   "MOUNJARO 500MG LIFE NATURAL 60CAPS": "7893458005016",
   "CLORIDRATO DE PROMETAZINA 20mg/g crem derm bg": "7896112181002",
+  "MONTELUCASTE SODICO 10MG CX 10 COMP REV": "7896181926672",
 };
 
 function normalizarNome(nome: string): string {
