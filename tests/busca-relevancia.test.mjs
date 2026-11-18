@@ -49,6 +49,14 @@ test("atalhos: departamento e marca pelo começo do nome, só a partir de 3 letr
   assert.deepEqual(atalhosDaBusca("zzzz"), []);
 });
 
+test("atalhos: cada palavra conta (marca pela palavra completa, departamento pela que está sendo digitada)", () => {
+  const frase = atalhosDaBusca("shampoo dove");
+  assert.ok(frase.some((a) => a.tipo === "marca" && a.nome === "Dove"), "a marca aparece mesmo com outra palavra antes");
+  assert.ok(atalhosDaBusca("dove shampoo").some((a) => a.tipo === "marca" && a.nome === "Dove"), "e com a marca na frente");
+  assert.deepEqual(atalhosDaBusca("de co"), [], "palavras de menos de 3 letras não geram atalho");
+  assert.ok(atalhosDaBusca("shampoo dove").length <= 3);
+});
+
 test("destaque: marca o trecho digitado sem diferenciar acento ou maiúscula e sem alterar o texto", async () => {
   const { destacarTrechos } = await import("../app/shop/busca-painel.ts");
   const junto = (t) => t.map((x) => x.texto).join("");

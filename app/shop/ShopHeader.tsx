@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { BUSCAS_POPULARES, casaTermo, normalizarBusca, termosDaConsulta } from "../nacoes-unidas/produtos/busca";
 import { carregarBuscasRecentes, guardarBuscasRecentes, registrarBusca, removerBusca } from "./buscas-recentes";
+import { criarReconhecimento, limparFala, mensagemDeErroDeFala, type ReconhecimentoFala } from "./busca-voz";
 import { atalhosDaBusca, destacarTrechos, melhoresResultados } from "./busca-painel";
 import { analisarConsulta, casaConsulta, contarCasos, criarVocabulario } from "../nacoes-unidas/produtos/busca-tolerante";
 import { buildWhatsAppUrl, UNITS } from "../site-config";
@@ -35,6 +36,8 @@ type Sugestao = { nome: string; slug: string; precoCentavos: number; foto: strin
 type SugestaoRestrita = { nome: string; nomeOriginal: string; tipo: "receita" | "controlados" | "consulte"; precoCentavos: number | null; busca: string; q: string; apresentacao: string | null; tarja: "vermelha" | "vermelha-retencao" | "preta" | null; retencao: boolean | null; controlado: boolean; portaria344?: boolean; semVenda?: boolean; generico?: boolean; ativo?: string | null };
 const ROTA_RESTRITA = { receita: "/nacoes-unidas/produtos/receita", controlados: "/nacoes-unidas/produtos/controlados", consulte: "/nacoes-unidas/produtos/consulte-o-farmaceutico" } as const;
 const ORDINAIS = ["1º", "2º", "3º", "4º", "5º", "6º", "7º", "8º", "9º", "10º"] as const;
+/** Exemplos que se revezam no campo de busca vazio: só produtos de uso comum (nada de medicamento, para não sugerir remédio). */
+const EXEMPLOS_BUSCA = ["fralda", "protetor solar", "shampoo", "desodorante", "pasta de dente", "lenço umedecido", "sabonete líquido", "absorvente"] as const;
 const nacoes = UNITS.find((unit) => unit.id === "nacoes");
 
 let vocabEmMemoria: { itens: Sugestao[]; restritos: SugestaoRestrita[]; vocab: ReturnType<typeof criarVocabulario> } | null = null;
@@ -75,6 +78,13 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   const [termo, setTermo] = useState(consultaInicial);
   const [foco, setFoco] = useState(false);
   const [recentes, setRecentes] = useState<string[]>([]);
+  // Exemplo mostrado no campo vazio: a primeira pintura é sempre a frase fixa (igual no servidor); o revezamento começa depois de abrir a página.
+  const [exemplo, setExemplo] = useState(-1);
+  // Busca por voz: o botão só aparece onde o navegador sabe ouvir; `ouvindo` e `avisoVoz` alimentam a região de status.
+  const [vozDisponivel, setVozDisponivel] = useState(false);
+  const [ouvindo, setOuvindo] = useState(false);
+  const [avisoVoz, setAvisoVoz] = useState("");
+  const reconhecimento = useRef<ReconhecimentoFala | null>(null);
   const [itens, setItens] = useState<Sugestao[] | null>(null);
   const [restritos, setRestritos] = useState<SugestaoRestrita[]>([]);
   // A lista de receita/controlados chega em outro arquivo: sem ela, "Não encontramos" pode ser falso (ex.: nome de controlado).
@@ -208,6 +218,51 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
     }
   }, []);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- só o navegador sabe se tem reconhecimento de fala
+  useEffect(() => setVozDisponivel(criarReconhecimento(window) !== null), []);
+  useEffect(() => () => reconhecimento.current?.abort(), []);
+  function falar() {
+    if (ouvindo) {
+      reconhecimento.current?.stop();
+      return;
+    }
+    const r = criarReconhecimento(window);
+    if (!r) return;
+    reconhecimento.current = r;
+    r.lang = "pt-BR";
+    r.interimResults = true;
+    r.continuous = false;
+    r.maxAlternatives = 1;
+    setAvisoVoz("");
+    r.onresult = (evento) => {
+      const partes = Array.from(evento.results, (resultado) => resultado[0]?.transcript ?? "");
+      const texto = limparFala(partes.join(" "));
+      if (texto) setTermo(texto);
+    };
+    r.onerror = (evento) => setAvisoVoz(mensagemDeErroDeFala(evento.error));
+    r.onend = () => {
+      setOuvindo(false);
+      setFoco(true);
+    };
+    setOuvindo(true);
+    try {
+      r.start();
+    } catch {
+      setOuvindo(false);
+    }
+  }
+
+  // Exemplos que mudam no campo de busca vazio, a cada 3,5 s; param ao focar, ao digitar e para quem prefere menos movimento.
+  const campoVazio = termo === "" && !foco;
+  useEffect(() => {
+    if (!campoVazio) return;
+    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return;
+    const id = window.setInterval(() => {
+      if (document.visibilityState === "visible") setExemplo((atual) => (atual + 1) % EXEMPLOS_BUSCA.length);
+    }, 3500);
+    return () => window.clearInterval(id);
+  }, [campoVazio]);
+
   // Abre a gaveta "Departamentos" pelo botão do cabeçalho do desktop.
   useEffect(() => {
     const abrir = () => setMenu(true);
@@ -262,16 +317,26 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
             aria-expanded={mostrarPainel}
             aria-controls="shop-sugestoes"
             aria-autocomplete="list"
-            placeholder="Buscar na União Farma"
+            placeholder={exemplo < 0 ? "Buscar na União Farma" : `Buscar “${EXEMPLOS_BUSCA[exemplo]}”`}
             autoComplete="off"
             enterKeyHint="search"
           />
+          {vozDisponivel ? (
+            <button type="button" className={`shop-busca-voz${ouvindo ? " is-ouvindo" : ""}`} aria-label="Buscar falando" aria-pressed={ouvindo} onClick={falar}>
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect x="9" y="3" width="6" height="11" rx="3" />
+                <path d="M5 11a7 7 0 0 0 14 0M12 18v3" />
+              </svg>
+            </button>
+          ) : null}
           <button type="submit" aria-label="Buscar">
             {/* Lupa de contorno, sem o preenchimento claro do ícone padrão; traço de 2 px (10 em 256) e 24 px, metade da área de toque de 48 px. */}
             <svg width="24" height="24" viewBox="0 0 256 256" fill="currentColor" stroke="currentColor" strokeWidth="10" strokeLinejoin="round" aria-hidden="true">
               <path d="M229.66,218.34,179.6,168.28a88.21,88.21,0,1,0-11.32,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z" />
             </svg>
           </button>
+          <p className="sr-only" role="status" aria-live="polite">{ouvindo ? "Ouvindo. Fale o nome do produto." : avisoVoz}</p>
+          {avisoVoz && !ouvindo ? <p className="shop-busca-aviso" aria-hidden="true">{avisoVoz}</p> : null}
           {mostrarPainel ? (
             <div
               className="shop-sugestoes"
