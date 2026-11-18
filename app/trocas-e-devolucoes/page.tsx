@@ -33,7 +33,7 @@ export default function TrocasPage() {
 
         <p className="section-kicker">Seus direitos na compra</p>
         <h1>Trocas e devoluções</h1>
-        <p className="legal-updated">Última atualização: 17 de novembro de 2026.</p>
+        <p className="legal-updated">Última atualização: 18 de novembro de 2026.</p>
 
         <section>
           <h2>1. Desistência em até 7 dias (direito de arrependimento)</h2>
@@ -44,7 +44,8 @@ export default function TrocasPage() {
           </p>
           <p>
             Para desistir, avise a loja dentro do prazo pelo WhatsApp ou pelo telefone abaixo, informando o código do pedido. A loja
-            combina com você como o produto volta, e o valor é devolvido pelo mesmo meio de pagamento usado na compra. Essa regra não vale para medicamentos (veja o item 4).
+            combina com você como o produto volta, ou você pode levar o produto direto no balcão da loja {nacoes.shortName} ({nacoes.street}), dentro do prazo. O valor é
+            devolvido pelo mesmo meio de pagamento usado na compra. Essa regra não vale para medicamentos (veja o item 4).
           </p>
         </section>
 
@@ -96,6 +97,7 @@ export default function TrocasPage() {
             <li>Fale com a loja {nacoes.shortName} pelo WhatsApp {nacoes.whatsapp} ou pelo telefone {nacoes.phone}.</li>
             <li>Informe o código do pedido, o produto e o que aconteceu. Se puder, mande uma foto.</li>
             <li>Guarde o produto com a embalagem e a nota fiscal ou o comprovante da compra.</li>
+            <li>Se preferir, leve o produto ao balcão da loja {nacoes.shortName}, no horário de funcionamento, com a embalagem e o comprovante ou o código do pedido.</li>
             <li>Endereço da loja: {nacoes.address}.</li>
           </ul>
           <p>
