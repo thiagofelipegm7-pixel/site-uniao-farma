@@ -40,6 +40,16 @@ export default function ReservaFluxo() {
     if (vivo) atualizarReserva((s) => ajustarLimitesAoVivo(s, vivo));
   }, [vivo]);
   const [passo, setPasso] = useState<Passo>(1);
+  // Ao mudar de passo, o botão que foi apertado some: o foco vai para o título do passo novo (leitor de tela anuncia onde está; teclado não volta ao topo).
+  const tituloPasso = useRef<HTMLHeadingElement>(null);
+  const primeiroPasso = useRef(true);
+  useEffect(() => {
+    if (primeiroPasso.current) {
+      primeiroPasso.current = false;
+      return;
+    }
+    tituloPasso.current?.focus();
+  }, [passo]);
   const preferida = useSyncExternalStore(
     (fn) => {
       window.addEventListener("uf-preferred-unit", fn);
@@ -296,7 +306,7 @@ export default function ReservaFluxo() {
         ) : (
           <button type="button" className="fluxo-voltar" aria-label="Voltar" onClick={() => ir((passo - 1) as Passo)}><IconVoltar size={26} /></button>
         )}
-        <h1>{titulo}</h1>
+        <h1 ref={tituloPasso} tabIndex={-1}>{titulo}</h1>
         {passo === 1 ? (
           <a className="fluxo-continuar-comprando" href="/nacoes-unidas/produtos">Continuar comprando</a>
         ) : (

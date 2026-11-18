@@ -277,6 +277,24 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
               className="shop-sugestoes"
               id="shop-sugestoes"
               ref={painelRef}
+              onKeyDown={(event) => {
+                // Teclado no painel de sugestões: setas andam entre os links e botões; Esc fecha e devolve o foco ao campo de busca.
+                const campo = document.getElementById("shop-busca-q") as HTMLInputElement | null;
+                if (event.key === "Escape") {
+                  event.preventDefault();
+                  campo?.focus(); // o foco no campo reabre o painel (onFocus); por isso o fechamento vem depois
+                  setFoco(false);
+                  return;
+                }
+                if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+                const itens = [...(painelRef.current?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])") ?? [])];
+                const i = itens.indexOf(document.activeElement as HTMLElement);
+                if (i < 0) return;
+                event.preventDefault();
+                if (event.key === "ArrowDown") itens[Math.min(i + 1, itens.length - 1)]?.focus();
+                else if (i === 0) campo?.focus();
+                else itens[i - 1]?.focus();
+              }}
               onClick={(event) => {
                 // Abrir um produto ou "ver todos" a partir do que foi digitado, ou repetir uma busca recente, guarda a busca.
                 const link = (event.target as HTMLElement).closest("a");
