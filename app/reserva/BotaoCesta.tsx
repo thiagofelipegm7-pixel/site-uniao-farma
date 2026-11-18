@@ -106,7 +106,7 @@ export default function BotaoCesta({ quantidade, teto = 9, nome, rotulo = "Adici
             <motion.button
               type="button"
               className="bc-menos"
-              aria-label={quantidade === 1 ? `Remover ${nome} da cesta` : `Diminuir ${nome}`}
+              aria-label={quantidade === 1 ? `Diminuir ${nome} (última unidade: sai da cesta)` : `Diminuir ${nome}`}
               initial={{ opacity: 0, x: 16 }}
               animate={{ opacity: 1, x: 0 }}
               transition={rapido}
