@@ -3594,6 +3594,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "MOUNJARO 500MG LIFE NATURAL 60CAPS": "7893458005016",
   "CLORIDRATO DE PROMETAZINA 20mg/g crem derm bg": "7896112181002",
   "MONTELUCASTE SODICO 10MG CX 10 COMP REV": "7896181926672",
+  "METOPROLOL 25MG XR GEN 30 CPR-ACH": "7896658053498",
 };
 
 function normalizarNome(nome: string): string {
