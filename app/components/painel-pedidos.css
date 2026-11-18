@@ -1,0 +1,20 @@
+/* Painel de pedidos (/interno/pedidos): usa a base de pre-vendas.css. */
+.ppedidos-abas { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 1rem; }
+.ppedidos-abas button { min-height: 2.75rem; padding: 0 1rem; border: 1px solid #cfe1de; border-radius: 999px; background: #ffffff; color: #263744; font: inherit; font-size: 0.875rem; font-weight: 700; cursor: pointer; }
+.ppedidos-abas button[aria-selected="true"] { border-color: #10857f; background: #10857f; color: #ffffff; }
+.ppedidos-abas button:focus-visible { outline: 3px solid #0a3548; outline-offset: 2px; }
+.ppedidos-sem { color: #74828b !important; font-size: 1.1rem !important; font-weight: 700 !important; }
+.ppedidos-colunas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.875rem; margin-bottom: 1rem; }
+.ppedidos-titulo { margin: 0 0 0.5rem; font-size: 1.125rem; font-weight: 800; }
+.ppedidos-dica { margin: 0 0 0.75rem; color: #52636e; font-size: 0.8125rem; line-height: 1.4; }
+.ppedidos-vazio { margin: 0; padding: 1rem; border-radius: 12px; background: #ffffff; color: #52636e; font-size: 0.875rem; }
+.ppedidos-ranking { display: grid; gap: 0.375rem; margin: 0; padding: 0; list-style: none; counter-reset: ppedidos; }
+.ppedidos-ranking li { display: grid; grid-template-columns: 1.75rem minmax(0, 1fr) auto; grid-template-areas: "n nome qtd" "n info info"; column-gap: 0.5rem; padding: 0.625rem 0.75rem; border-radius: 10px; background: #ffffff; counter-increment: ppedidos; }
+.ppedidos-ranking li::before { content: counter(ppedidos); grid-area: n; align-self: center; color: #10857f; font-weight: 850; }
+.ppedidos-ranking span { grid-area: nome; min-width: 0; overflow-wrap: anywhere; font-size: 0.875rem; font-weight: 700; }
+.ppedidos-ranking b { grid-area: qtd; font-size: 0.875rem; font-variant-numeric: tabular-nums; }
+.ppedidos-ranking small { grid-area: info; color: #74828b; font-size: 0.75rem; }
+@media (max-width: 760px) {
+  .ppedidos-colunas { grid-template-columns: 1fr; }
+  .ppedidos-indicadores { grid-template-columns: 1fr !important; }
+}
