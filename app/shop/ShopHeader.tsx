@@ -221,7 +221,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
         <button type="button" className="shop-icone shop-menu" aria-label="Abrir menu" aria-expanded={menu} aria-controls="shop-menu-painel" onClick={() => setMenu(true)}>
           <IconMenu size={26} />
         </button>
-        <a className="shop-marca" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial">
+        <a className="shop-marca" href="/" aria-label="União Farma Drogaria e Perfumaria: página inicial">
           <MarcaUniao />
         </a>
         <form
@@ -416,7 +416,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
             href={buildWhatsAppUrl(nacoes, "Oi, União Farma Nações Unidas! Quero fazer um pedido.", { campaign: "cabecalho", content: "cabecalho_nacoes" })}
             target="_blank"
             rel="noreferrer"
-            aria-label="Pedir pelo WhatsApp da loja Nações Unidas"
+            aria-label="Pedir no WhatsApp da loja Nações Unidas"
             data-track-event="whatsapp_click"
             data-track-unit="nacoes"
             data-track-source="cabecalho"

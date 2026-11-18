@@ -15,7 +15,7 @@ export default function PrivacyPage() {
   return (
     <div className="legal-page">
       <div className="legal-container">
-        <a className="legal-brand" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial">
+        <a className="legal-brand" href="/" aria-label="União Farma Drogaria e Perfumaria: página inicial">
           <MarcaUniao claro />
         </a>
 

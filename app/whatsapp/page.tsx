@@ -14,7 +14,7 @@ export default function WhatsAppAdsPage() {
     <>
       <header className="site-header">
         <nav className="nav" aria-label="Menu">
-          <Link className="brand" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial">
+          <Link className="brand" href="/" aria-label="União Farma Drogaria e Perfumaria: página inicial">
             <MarcaUniao claro />
           </Link>
         </nav>

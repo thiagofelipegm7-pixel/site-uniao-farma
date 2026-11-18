@@ -55,7 +55,7 @@ export function FaixaLista({ porPagina, aoMudarPorPagina, ordem, opcoesOrdem, ao
     <div className="dg-faixa" role="toolbar" aria-label="Organizar a lista">
       <label className="dg-campo dg-campo--por">
         <span>Itens por página</span>
-        <select value={porPagina} onChange={(e) => aoMudarPorPagina(Number(e.target.value))}>
+        <select aria-label="Itens por página" value={porPagina} onChange={(e) => aoMudarPorPagina(Number(e.target.value))}>
           {OPCOES_POR_PAGINA.map((n) => <option key={n} value={n}>{n}</option>)}
         </select>
       </label>
@@ -63,7 +63,7 @@ export function FaixaLista({ porPagina, aoMudarPorPagina, ordem, opcoesOrdem, ao
       {filtrar}
       <label className="dg-campo dg-campo--ordem">
         <span>Ordenado por</span>
-        <select value={ordem} onChange={(e) => aoMudarOrdem(e.target.value)}>
+        <select aria-label="Ordenado por" value={ordem} onChange={(e) => aoMudarOrdem(e.target.value)}>
           {opcoesOrdem.map((o) => <option key={o.id} value={o.id}>{o.label}</option>)}
         </select>
       </label>
