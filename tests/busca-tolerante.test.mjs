@@ -181,7 +181,9 @@ test("cobertura: jeitos de falar, palavra a mais e diminutivo sempre acham produ
     assert.ok(a.every((x) => contarCasos(vocab, x) > 0), q);
   }
   // Palavra que a loja não conhece: mostra o que existe para as outras ("shampoo anticaspa" → shampoo).
-  for (const [q, esperado, fora] of [["shampoo anticaspa", "shampoo", "anticaspa"], ["desodorante masculino", "desodorante", "masculino"], ["camisinha jontex", "preservativo", "jontex"], ["fralda recem nascido xyzw", "fralda", "xyzw"]]) {
+  // "jontex" não serve neste exemplo: é marca real da loja (Pres Jontex). Se o texto de busca do produto
+  // passar a incluir "preservativo" ou "camisinha", a busca resolve e deixa de ser parcial — e a sincronização cai.
+  for (const [q, esperado, fora] of [["shampoo anticaspa", "shampoo", "anticaspa"], ["desodorante masculino", "desodorante", "masculino"], ["camisinha xyzw", "preservativo", "xyzw"], ["fralda recem nascido xyzw", "fralda", "xyzw"]]) {
     const a = analisarConsulta(vocab, q);
     assert.ok(a.parcial, q);
     assert.ok(a.parcial.consulta.includes(esperado), `${q} -> ${a.parcial.consulta}`);
