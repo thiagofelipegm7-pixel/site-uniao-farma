@@ -21,7 +21,7 @@ export default function PrivacyPage() {
 
         <p className="section-kicker">Privacidade e transparência</p>
         <h1>Política de Privacidade</h1>
-        <p className="legal-updated">Última atualização: 31 de julho de 2026.</p>
+        <p className="legal-updated">Última atualização: 18 de novembro de 2026.</p>
 
         <section>
           <h2>1. Quem é responsável pelo site</h2>
@@ -44,6 +44,14 @@ export default function PrivacyPage() {
               identificação de quem buscou, e apagamos depois de 90 dias. O mesmo vale para a contagem de qual produto foi aberto depois de
               uma busca, que ajuda a mostrar primeiro o que as pessoas mais procuram. Termos de saúde sensível, números longos e e-mails são descartados.
             </li>
+            <li>
+              Lembrete de recompra, só se você marcar a caixa &quot;Quero receber lembrete pelo WhatsApp quando estiver na hora de repor meus
+              produtos&quot; ao fechar a cesta (ela vem desmarcada): guardamos seu nome, seu celular, os produtos da cesta, o texto que você
+              aceitou e a data. Uns 30 dias depois, alguém da equipe pode mandar uma mensagem pelo WhatsApp lembrando de produtos de uso
+              contínuo que não são medicamento (fralda, higiene, dermocosmético, perfumaria, suplemento). Medicamento nunca entra no lembrete.
+              Nada é enviado automaticamente. Para parar, responda SAIR: apagamos seu nome e celular e não mandamos mais. Esses dados são
+              apagados em até 90 dias.
+            </li>
           </ul>
           <p>
             A busca por voz, quando você toca no microfone, usa o reconhecimento de fala do seu navegador: o áudio é tratado pelo serviço do
@@ -60,6 +68,7 @@ export default function PrivacyPage() {
           <ul>
             <li>Direcionar você para a unidade escolhida.</li>
             <li>Responder consultas sobre preço, estoque, entrega e serviços.</li>
+            <li>Lembrar você de repor produtos que não são medicamento, só quando você pede (consentimento, que pode ser retirado a qualquer momento respondendo SAIR).</li>
             <li>Medir o desempenho do site e das campanhas, quando houver consentimento.</li>
             <li>Melhorar a navegação e a experiência de atendimento. Quando uma busca no site não encontra produto, guardamos só o texto da busca (sem acento), o dia e uma contagem, de forma anônima: sem IP, sem cookie e sem identificar quem digitou, e sem termos de saúde sensível. Usamos para saber quais produtos e palavras faltam, e apagamos depois de 90 dias.</li>
           </ul>

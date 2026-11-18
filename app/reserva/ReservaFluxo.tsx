@@ -21,6 +21,7 @@ import { useReserva } from "./useReserva";
 import { useDisponibilidade } from "./useDisponibilidade";
 import { avisosDaCesta } from "../disponibilidade";
 import { podeCompartilhar, prepararReceita, type ReceitaPronta } from "./preparar-receita";
+import { normalizarTelefone, TEXTO_CONSENTIMENTO } from "./lembrete-recompra";
 
 type Passo = 1 | 2 | 3;
 const BAIRROS = listarBairros(PUBLIC_UNITS);
@@ -70,6 +71,9 @@ export default function ReservaFluxo() {
   // Código curto do pedido, criado uma vez por visita ao fluxo (aparece na mensagem para a loja achar a conversa).
   const [codigoPedido] = useState(gerarCodigoPedido);
   const preVendaRequestId = useRef("");
+  // Lembrete de recompra: caixa DESMARCADA por padrão (LGPD: consentimento explícito). Só marcada o nome e o celular vão ao servidor.
+  const [querLembrete, setQuerLembrete] = useState(false);
+  const [celularLembrete, setCelularLembrete] = useState("");
   const [tentou, setTentou] = useState(false);
   const [editando, setEditando] = useState(true);
   // Depois do toque em "Enviar pedido pelo WhatsApp": lembra o cliente de tocar em enviar dentro do WhatsApp.
@@ -142,6 +146,8 @@ export default function ReservaFluxo() {
   const subtotalTabela = formatarCentavos(subtotalDeTabelaCentavos(estado.itens));
 
   const nomeOk = nome.trim().length >= 2;
+  const celularOk = normalizarTelefone(celularLembrete) !== null;
+  const lembretePendente = querLembrete && !celularOk;
   const valido = retirar ? nomeOk : nomeOk && rua.trim().length >= 3 && unidadeEntrega !== null;
 
   function ir(proximo: Passo) {
@@ -188,6 +194,7 @@ export default function ReservaFluxo() {
       unidade: unidade.id,
       modo,
       itens: estado.itens.filter(itemAtivo).map((item) => ({ nome: item.nome, quantidade: item.qtd, precoCentavos: item.precoCentavos })),
+      ...(querLembrete && celularOk ? { lembrete: { consentimento: true, nome: nome.trim(), telefone: celularLembrete } } : {}),
     };
     const corpo = JSON.stringify(dados);
     const enviado = navigator.sendBeacon?.("/api/pre-vendas", new Blob([corpo], { type: "application/json" })) ?? false;
@@ -276,6 +283,8 @@ export default function ReservaFluxo() {
     <button type="button" className={classe} disabled><IconWhats size={24} /> Tire o que acabou para enviar</button>
   ) : pagamento && trocoPendente ? (
     <button type="button" className={classe} disabled><IconWhats size={24} /> Informe o troco</button>
+  ) : pagamento && lembretePendente ? (
+    <button type="button" className={classe} disabled><IconWhats size={24} /> Informe o celular do lembrete</button>
   ) : pagamento ? (
     temReceita ? (
       <button type="button" className={classe} onClick={() => setAvisoReceita(true)}>
@@ -591,6 +600,30 @@ export default function ReservaFluxo() {
                     ) : null}
                   </fieldset>
                 ) : null}
+
+                <div className="fluxo-lembrete">
+                  <label className="fluxo-lembrete-caixa">
+                    <input type="checkbox" checked={querLembrete} onChange={(e) => setQuerLembrete(e.target.checked)} />
+                    <span>{TEXTO_CONSENTIMENTO}</span>
+                  </label>
+                  {querLembrete ? (
+                    <label className="fluxo-campo fluxo-lembrete-celular">
+                      <span>Seu WhatsApp com DDD</span>
+                      <input
+                        type="tel"
+                        inputMode="tel"
+                        autoComplete="tel-national"
+                        placeholder="(31) 9 0000-0000"
+                        maxLength={20}
+                        value={celularLembrete}
+                        aria-invalid={celularLembrete.trim() !== "" && !celularOk}
+                        aria-describedby="lembrete-ajuda"
+                        onChange={(e) => setCelularLembrete(e.target.value)}
+                      />
+                      <small id="lembrete-ajuda">Só para o lembrete. Não mandamos propaganda. Para parar, é só responder SAIR. Seu nome e celular ficam guardados no máximo 90 dias (veja a <a href="/privacidade">privacidade</a>).</small>
+                    </label>
+                  ) : null}
+                </div>
               </div>
             </div>
 
