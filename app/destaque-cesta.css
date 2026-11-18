@@ -131,3 +131,17 @@
 @layer design {
   html body .dm-slot--barra .dm-menu { background: #128078 !important; }
 }
+
+/*
+ * Caixas de seleção dos filtros: todas com 24 px (antes 18, 20 e 22 px, conforme o estilo). Alvo de toque maior (WCAG 2.5.8) e
+ * tamanho igual na lateral, na lista de produtos e na gaveta de filtros do celular. O "certo" desenhado cresce junto (14 → 16 px).
+ */
+@layer design {
+  html body .catalogo-filtro-opcao input[type="checkbox"],
+  html body .fc .fc-opcao input[type="checkbox"],
+  html body .pv-filtros input[type="checkbox"] {
+    width: 24px !important;
+    height: 24px !important;
+    background-size: 16px !important;
+  }
+}
