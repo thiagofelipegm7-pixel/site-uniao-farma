@@ -116,7 +116,7 @@ export default function PreVendasPainel() {
         <button className="pvendas-atualizar" type="button" onClick={() => void carregar()} disabled={carregando}>Atualizar</button>
       </header>
 
-      <p className="pvendas-nota">Cada registro significa que o cliente clicou para abrir o WhatsApp. Isso não confirma o envio da mensagem nem a venda. Nome, telefone, endereço e forma de pagamento não são guardados.</p>
+      <p className="pvendas-nota">Cada registro significa que o cliente clicou para abrir o WhatsApp. Isso não confirma o envio da mensagem nem a venda. Nome, telefone, endereço e forma de pagamento não são guardados, a não ser nome e celular de quem marcou a caixa de lembrete de recompra (veja Recompra).</p>
       {erro ? <p className="pvendas-erro" role="alert">{erro}</p> : null}
       {aviso ? <p className="pvendas-aviso" role="status">{aviso}</p> : null}
 
