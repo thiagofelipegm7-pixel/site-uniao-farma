@@ -58,3 +58,53 @@ test("rota pública é anônima e a lista é só da equipe; busca manda o termo 
   assert.match(priv, /apagamos depois de 90 dias/);
   assert.match(painel, /<BuscasSemResultado /);
 });
+
+// ---- Política de privacidade x código: o que o site envia a terceiros ou guarda precisa estar escrito na /privacidade ----
+const lerArquivo = (path) => readFile(new URL(`../${path}`, import.meta.url), "utf8");
+/** Texto da página sem quebras de linha nem espaços repetidos (o JSX quebra as frases). */
+const politica = async () => (await lerArquivo("app/privacidade/page.tsx")).replace(/\s+/g, " ");
+
+// A política precisa dizer o que o código faz. Cada bloco abaixo liga um trecho do código ao aviso correspondente:
+// se o recurso existir e o aviso sumir (ou o contrário não importar), o teste falha.
+test("privacidade: a foto da receita enviada à IA de terceiros está na política e no aviso da tela", async () => {
+  const rota = await lerArquivo("app/api/receita-ia/route.ts");
+  assert.match(rota, /chamarGemini\(/, "a rota manda a foto ao Gemini");
+  assert.match(rota, /MODELO_VISAO/, "e, como reserva, à IA da Cloudflare");
+  const texto = await politica();
+  assert.match(texto, /Leitura de receita por foto/);
+  assert.match(texto, /Google Gemini/);
+  assert.match(texto, /Cloudflare Workers AI/);
+  assert.match(texto, /não gravamos a foto/i);
+  assert.match(texto, /dados de saúde/);
+  // O contador contra abuso guarda um resumo do IP por alguns minutos.
+  assert.match(rota, /limite_receita/);
+  assert.match(texto, /contador ligado a um código derivado do seu endereço de internet \(IP\)/);
+  const tela = await lerArquivo("app/receita-foto/LerReceita.tsx");
+  assert.match(tela, /receita-privacidade">[^<]*Google Gemini ou Cloudflare[^<]*<a href="\/privacidade">/);
+});
+
+test("privacidade: busca corrigida por IA, busca por voz e dados guardados no aparelho estão na política", async () => {
+  const texto = await politica();
+  const buscaIa = await lerArquivo("app/api/busca-ia/route.ts");
+  assert.match(buscaIa, /chamarGemini\(/);
+  assert.match(texto, /Busca de produtos\.<\/strong> Quando a busca não encontra o que foi digitado, o texto pode ser enviado/);
+  const voz = await lerArquivo("app/shop/voz.ts");
+  assert.match(voz, /SpeechRecognition/);
+  assert.match(texto, /reconhecimento de voz do seu próprio navegador/);
+  const cliente = await lerArquivo("app/reserva/dados-cliente.ts");
+  assert.match(cliente, /localStorage/);
+  assert.match(texto, /seu nome e endereço de entrega/);
+  assert.match(texto, /guardados no seu navegador/);
+  // Registro de erros e funil da cesta: anônimos, mas existem.
+  assert.match(await lerArquivo("app/api/erro-cliente/route.ts"), /registrarErro/);
+  assert.match(await lerArquivo("app/api/funil/route.ts"), /funil_dia/);
+  assert.match(texto, /mensagem do erro, a página e o tipo de navegador/);
+  assert.match(texto, /cada etapa da cesta/);
+});
+
+test("privacidade: fornecedores citados pelo nome e analytics só com autorização", async () => {
+  const texto = await politica();
+  assert.match(texto, /Cloudflare \(hospedagem e banco de dados\)/);
+  assert.match(texto, /Google \(Analytics, quando autorizado, e inteligência artificial\)/);
+  assert.match(texto, /somente são carregados após sua autorização/);
+});
