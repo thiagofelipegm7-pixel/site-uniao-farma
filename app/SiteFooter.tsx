@@ -24,7 +24,7 @@ export default function SiteFooter() {
       <div className="rodape-miolo">
         <div className="rodape-colunas">
           <div className="rodape-bloco">
-            <a className="rodape-logo" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial">
+            <a className="rodape-logo" href="/" aria-label="União Farma Drogaria e Perfumaria: página inicial">
               <MarcaUniao claro />
             </a>
             <p>{COMPANY.legalName}</p>

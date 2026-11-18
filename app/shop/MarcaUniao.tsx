@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 
 /**
  * Logo só com as letras: "União Farma" em itálico + selo "Drogaria e Perfumaria". Texto vivo, sem ilustração.
- * `claro` é para fundo branco (nome verde). O link que a envolve já tem o nome acessível.
+ * `claro` é para fundo branco (nome verde). O link que a envolve já tem o nome acessível. O espaço entre as duas linhas não aparece (a grade ignora), mas faz o texto visível ler "União Farma Drogaria e Perfumaria", igual ao nome do link (WCAG 2.5.3).
  *
  * Ajuste ao espaço: quando o celular está com a letra ampliada, o logo cresce junto e cobriria os ícones ao lado.
  * Depois de aparecer, ele mede o espaço livre na própria linha (entre o que vem antes e o que vem depois) e encolhe
@@ -56,7 +56,7 @@ export default function MarcaUniao({ claro = false }: { claro?: boolean }) {
   return (
     <span ref={ref} className={claro ? "marca-uf marca-uf--claro" : "marca-uf"} aria-hidden="true">
       <span className="marca-uf-texto">
-        <span className="marca-uf-nome">União Farma</span>
+        <span className="marca-uf-nome">União Farma</span>{" "}
         <span className="marca-uf-pe">Drogaria e Perfumaria</span>
       </span>
     </span>

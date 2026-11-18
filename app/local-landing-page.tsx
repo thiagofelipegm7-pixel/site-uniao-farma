@@ -87,7 +87,7 @@ export default function LocalLandingPage({ config }: { config: LocalLandingPageC
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <header className="simple-header">
         <div className="section-inner simple-header-inner">
-          <a className="brand" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial">
+          <a className="brand" href="/" aria-label="União Farma Drogaria e Perfumaria: página inicial">
             <MarcaUniao claro />
           </a>
           <a className="simple-back-link" href="#unidades-landing">Escolher unidade</a>

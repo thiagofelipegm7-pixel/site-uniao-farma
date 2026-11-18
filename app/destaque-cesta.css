@@ -123,3 +123,11 @@
 
   html body .shop-vistos-limpar { padding: 0 0.5rem; border: 0; background: none; color: #086f66; font: inherit; font-size: 0.875rem; text-decoration: underline; cursor: pointer; min-height: 2.75rem; }
 }
+
+/*
+ * Contraste (WCAG 1.4.3): texto branco do botão "Departamentos" sobre o verde-marca #1a8f86 dá 3,94:1; com #128078 dá 4,79:1.
+ * Só este botão escurece; o verde-marca dos outros usos não muda.
+ */
+@layer design {
+  html body .dm-slot--barra .dm-menu { background: #128078 !important; }
+}

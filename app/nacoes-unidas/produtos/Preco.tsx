@@ -18,7 +18,9 @@ export default function Preco({ precoFmt, vazio = "Consultar", variante }: Props
   const classe = `pv-preco${variante ? ` pv-preco--${variante}` : ""}`;
   if (!partes) return <span className={`${classe} pv-preco-vazio`}>{vazio}</span>;
   return (
-    <span className={classe} aria-label={precoFmt ?? undefined}>
+    <span className={classe}>
+      {/* aria-label não vale em <span> sem papel (WCAG 4.1.2): o preço inteiro vai como texto só para leitor de tela. */}
+      <span className="sr-only">{precoFmt}</span>
       <span aria-hidden="true">
         R$ <b>{partes.reais}</b>,{partes.centavos}
       </span>
