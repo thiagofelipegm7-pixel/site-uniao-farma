@@ -18,3 +18,6 @@
   .ppedidos-colunas { grid-template-columns: 1fr; }
   .ppedidos-indicadores { grid-template-columns: 1fr !important; }
 }
+@layer design {
+  .ppedidos .ppedidos-titulo { margin: 0 0 0.5rem !important; color: #263744 !important; font-size: 1.125rem !important; line-height: 1.3 !important; letter-spacing: -0.01em !important; }
+}
