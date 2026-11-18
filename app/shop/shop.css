@@ -2101,6 +2101,7 @@ html body .shop-busca input { order: 1; }
 .fluxo-lembrete-caixa input { flex: none; width: 1.5rem; height: 1.5rem; margin: 0; accent-color: #14736b; cursor: pointer; }
 .fluxo-lembrete-celular { margin: 0.75rem 0 0; }
 .fluxo-lembrete-celular small { color: #4f5f5c; font-size: 0.8125rem; line-height: 1.4; }
+.fluxo-lembrete-celular small a { color: #0b5f58; font-weight: 600; text-decoration: underline; }
 .fluxo-troco legend { margin: 0 0 0.5rem; padding: 0; color: var(--uf-ink); font-size: 1rem; font-weight: 700; }
 .fluxo-troco-valor { margin: 0.5rem 0 0; }
 .fluxo-troco-valor small { color: #3e4b49; font-size: 0.8125rem; }
