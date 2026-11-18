@@ -38,3 +38,88 @@
     }
   }
 }
+
+/*
+ * Faixa do topo "Entregar em …", cartão "Concluir pedido" e "Visto recentemente" da home.
+ * Camada "design", com `html body` na frente, como os outros ajustes novos.
+ */
+@layer design {
+  html body .shop-faixa-info .faixa-entrega-botao {
+    appearance: none;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    line-height: inherit;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  html body .shop-faixa-info .faixa-entrega-botao strong { text-decoration: underline; text-underline-offset: 2px; }
+  html body .shop-faixa-info .faixa-entrega-botao:focus-visible { outline: 2px solid #086f66; outline-offset: 2px; border-radius: 4px; }
+  html body .shop-faixa-info a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
+  html body .faixa-entrega-dialogo {
+    width: min(26rem, calc(100vw - 2rem));
+    max-height: calc(100dvh - 2rem);
+    padding: 0;
+    border: 1px solid #dcebe6;
+    border-radius: 16px;
+    color: #0d3b36;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24);
+  }
+  html body .faixa-entrega-dialogo::backdrop { background: rgba(8, 40, 36, 0.5); }
+  html body .faixa-entrega-corpo { display: grid; gap: 0.75rem; padding: 1.25rem; }
+  html body .faixa-entrega-topo { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  html body .faixa-entrega-topo h2 { margin: 0; font-size: 1.125rem; }
+  html body .faixa-entrega-fechar { min-width: 2.75rem; min-height: 2.75rem; border: 0; background: none; font-size: 1.5rem; line-height: 1; color: inherit; cursor: pointer; }
+  html body .faixa-entrega-campo { display: grid; gap: 0.25rem; font-weight: 600; }
+  html body .faixa-entrega-campo input { min-height: 2.75rem; padding: 0 0.75rem; border: 1px solid #b7cfc9; border-radius: 10px; font: inherit; font-size: 1rem; }
+  html body .faixa-entrega-resultado p { margin: 0; line-height: 1.4; }
+  html body .faixa-entrega-ou { margin: 0.25rem 0 0; font-weight: 600; }
+  html body .faixa-entrega-bairros { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+  html body .faixa-entrega-bairros button {
+    min-height: 2.75rem;
+    padding: 0 0.875rem;
+    border: 1px solid #b7cfc9;
+    border-radius: 999px;
+    background: #fff;
+    color: #0d3b36;
+    font: inherit;
+    cursor: pointer;
+  }
+  html body .faixa-entrega-bairros button:hover,
+  html body .faixa-entrega-bairros button[aria-pressed="true"] { border-color: #086f66; background: #effaf4; }
+  html body .faixa-entrega-nota { margin: 0; font-size: 0.8125rem; color: #3c5a56; line-height: 1.4; }
+  html body .faixa-entrega-limpar { justify-self: start; padding: 0; border: 0; background: none; color: #086f66; font: inherit; text-decoration: underline; cursor: pointer; }
+
+  html body .cesta-retomada {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    max-width: 75rem;
+    margin: 2rem auto 0;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid #dcebe6;
+    border-radius: 12px;
+    background: #effaf4;
+    color: #0d3b36;
+  }
+  html body .cesta-retomada p { margin: 0; }
+  html body .cesta-retomada-botao {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0 1.25rem;
+    border-radius: 999px;
+    background: #086f66;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  html body .cesta-retomada-botao:hover { background: #075c55; }
+
+  html body .shop-vistos-limpar { padding: 0 0.5rem; border: 0; background: none; color: #086f66; font: inherit; font-size: 0.875rem; text-decoration: underline; cursor: pointer; min-height: 2.75rem; }
+}

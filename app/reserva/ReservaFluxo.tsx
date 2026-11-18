@@ -7,6 +7,7 @@ import MarcaUniao from "../shop/MarcaUniao";
 import { trackEvent } from "../analytics";
 import { registrarEtapa } from "../funil";
 import { listarBairros, lojaDoBairro } from "../entrega-bairro";
+import { carregarEntregaEscolhida } from "./entrega-escolhida";
 import { readPreferredUnitId } from "../preferred-unit";
 import { buildWhatsAppUrl, PUBLIC_UNITS, type Unit } from "../site-config";
 import UnitStatusBadge, { getUnitOpenStatus } from "../UnitStatusBadge";
@@ -103,6 +104,9 @@ export default function ReservaFluxo() {
       setLembrado(true);
       setEditando(false);
     }
+    // Bairro escolhido na faixa "Entregar em" da home: vem marcado quando a pessoa ainda não tem endereço salvo.
+    const escolhido = carregarEntregaEscolhida();
+    if (escolhido && !salvo?.bairro) setBairro(escolhido);
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
