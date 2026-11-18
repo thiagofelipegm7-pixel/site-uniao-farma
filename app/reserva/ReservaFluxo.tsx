@@ -154,14 +154,23 @@ export default function ReservaFluxo() {
 
   const mostrarForm = editando || !valido;
 
+  /** Depois de um erro de preenchimento, o foco vai para o primeiro campo inválido (WCAG 3.3.1): o alerta diz o que falta e o cursor já está lá. */
+  function focarPrimeiroInvalido() {
+    window.setTimeout(() => document.querySelector<HTMLElement>('main [aria-invalid="true"]')?.focus(), 0);
+  }
+
   function salvar() {
     if (valido) setEditando(false);
-    else setTentou(true);
+    else {
+      setTentou(true);
+      focarPrimeiroInvalido();
+    }
   }
 
   function revisar() {
     if (!valido) {
       setTentou(true);
+      focarPrimeiroInvalido();
       return;
     }
     trackEvent("reserva_revisar", { modo, itens: estado.itens.filter(itemAtivo).length });
@@ -372,7 +381,7 @@ export default function ReservaFluxo() {
                         <b>{formatarCentavos(item.precoCentavos * item.qtd)}</b>
                       </div>
                       <div className="cel-remover">
-                        <button type="button" className="fluxo-lixeira" aria-label={`Remover ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, 0))}><IconLixeira size={20} /></button>
+                        <button type="button" className="fluxo-lixeira" aria-label={`Remover ${item.nome} da cesta`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, 0))}><IconLixeira size={20} /></button>
                       </div>
                     </li>
                   );

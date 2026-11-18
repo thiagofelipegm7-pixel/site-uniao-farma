@@ -172,7 +172,7 @@ export default function ReservaSacola() {
                       <div className="cm-info">
                         <div className="cm-linha-nome">
                           <span className="cm-nome">{item.nome}</span>
-                          <button type="button" className="cm-lixeira" aria-label={`Remover ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, 0))}>
+                          <button type="button" className="cm-lixeira" aria-label={`Remover ${item.nome} da cesta`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, 0))}>
                             <IconLixeira size={20} />
                           </button>
                         </div>
