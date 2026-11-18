@@ -24,6 +24,7 @@ import {
   type GrupoBusca,
   type OrdemCatalogo,
 } from "./busca";
+import { termoParaRegistro, type MapaCliques } from "../../busca-cliques";
 import { ordenarPorRelevancia } from "./relevancia";
 import { precisaSimilares, similaresEmEstoque } from "./similares";
 import {
@@ -220,7 +221,20 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     () => (consulta.trim() ? (consultasAlternativas?.length ? consultasAlternativas.flatMap(termosDaConsulta) : termosDaConsulta(consulta)) : []),
     [consulta, consultasAlternativas],
   );
-  const visiveis = ordem === "recomendados" && termosRelevancia.length > 0 ? ordenarPorRelevancia(visiveisBase, termosRelevancia) : visiveisBase;
+  // O que as pessoas mais abrem depois dessa mesma busca sobe um pouco (mapa anônimo; chega depois da lista e não trava nada).
+  const [cliques, setCliques] = useState<MapaCliques | null>(null);
+  const baixandoCliques = useRef(false);
+  const termoDeCliques = termoParaRegistro(consulta);
+  useEffect(() => {
+    if (!termoDeCliques || cliques !== null || baixandoCliques.current) return;
+    baixandoCliques.current = true;
+    fetch("/api/busca-cliques", { headers: { accept: "application/json" } })
+      .then((r) => (r.ok ? r.json() : {}))
+      .then((dados: MapaCliques) => setCliques(dados && typeof dados === "object" ? dados : {}))
+      .catch(() => setCliques({}));
+  }, [termoDeCliques, cliques]);
+  const cliquesDoTermo = termoDeCliques ? cliques?.[termoDeCliques] : undefined;
+  const visiveis = ordem === "recomendados" && termosRelevancia.length > 0 ? ordenarPorRelevancia(visiveisBase, termosRelevancia, cliquesDoTermo, (item) => item.slug ?? slugify(item.nome)) : visiveisBase;
   const total = contarItens(visiveis);
   const [pagina, setPagina] = useState(paginaInicial);
   const [porPagina, setPorPagina] = useState<number>(POR_PAGINA);
@@ -289,6 +303,26 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     }, 2500);
     return () => window.clearTimeout(timer);
   }, [buscando, completo, totalExato, tolerante.procurando, tolerante.tipo, consulta]);
+
+  // Abriu um produto vindo de uma busca: conta um clique (anônimo; uma vez por busca e produto nesta visita; nunca para remédio).
+  const cliquesEnviados = useRef(new Set<string>());
+  function lembrarClique(evento: React.MouseEvent<HTMLElement>) {
+    if (!termoDeCliques) return;
+    const link = (evento.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="/nacoes-unidas/produtos/"]');
+    if (!link) return;
+    const slug = link.getAttribute("href")?.split("?")[0].split("/").pop() ?? "";
+    const item = itensDaPagina.find((i) => (i.slug ?? slugify(i.nome)) === slug);
+    if (!item || item.isMIP || item.restrito || visiveisBase.some((g) => g.categoria === "Medicamentos" && g.itens.includes(item))) return;
+    const chave = `${termoDeCliques}|${slug}`;
+    if (cliquesEnviados.current.has(chave)) return;
+    cliquesEnviados.current.add(chave);
+    try {
+      const corpo = JSON.stringify({ q: termoDeCliques, s: slug });
+      if (!navigator.sendBeacon?.("/api/busca-cliques", new Blob([corpo], { type: "application/json" }))) void fetch("/api/busca-cliques", { method: "POST", headers: { "content-type": "application/json" }, body: corpo, keepalive: true });
+    } catch {
+      // o registro nunca atrapalha a navegação
+    }
+  }
 
   /** Cartão de um item da lista (o mesmo na lista principal e nos "parecidos em estoque"). */
   const renderCartao = (item: (typeof itensDaPagina)[number]) => {
@@ -577,7 +611,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
           </a>
         </div>
       ) : (
-        <ul className="catalogo-lista pv-grade">
+        <ul className="catalogo-lista pv-grade" onClick={lembrarClique}>
           {itensDaPagina.map(renderCartao)}
         </ul>
       )}

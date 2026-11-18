@@ -39,7 +39,16 @@ export default function PrivacyPage() {
             <li>Dados técnicos de navegação, quando você aceita cookies opcionais.</li>
             <li>Informações fornecidas voluntariamente ao iniciar uma conversa pelo WhatsApp.</li>
             <li>Dados necessários para responder consultas, pedidos e solicitações de atendimento.</li>
+            <li>
+              Buscas feitas no site, de forma anônima: guardamos só o texto da busca, o dia e uma contagem, sem IP, cookie ou qualquer
+              identificação de quem buscou, e apagamos depois de 90 dias. O mesmo vale para a contagem de qual produto foi aberto depois de
+              uma busca, que ajuda a mostrar primeiro o que as pessoas mais procuram. Termos de saúde sensível, números longos e e-mails são descartados.
+            </li>
           </ul>
+          <p>
+            A busca por voz, quando você toca no microfone, usa o reconhecimento de fala do seu navegador: o áudio é tratado pelo serviço do
+            próprio navegador, sob as regras dele. Este site recebe apenas o texto da busca e não guarda nem envia áudio.
+          </p>
           <p>
             O conteúdo das mensagens enviadas pelo WhatsApp não é armazenado diretamente por este
             site. O tratamento também está sujeito às regras da plataforma WhatsApp/Meta.
