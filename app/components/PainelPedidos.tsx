@@ -108,7 +108,7 @@ export default function PainelPedidos() {
             </section>
           </div>
 
-          <p className="pvendas-nota">Cada pedido é uma cesta que o cliente fechou no site e abriu no WhatsApp; a venda só conta como faturamento quando a equipe marca &quot;Venda concluída&quot; em Pré-vendas. Nome, telefone e endereço não são guardados. Os registros ficam 90 dias.</p>
+          <p className="pvendas-nota">Cada pedido é uma cesta que o cliente fechou no site e abriu no WhatsApp; a venda só conta como faturamento quando a equipe marca &quot;Venda concluída&quot; em Pré-vendas. Nome, telefone e endereço não são guardados, a não ser o nome e o WhatsApp de quem aceitou o lembrete de recompra. Os registros ficam 90 dias.</p>
         </>
       ) : null}
     </div>
