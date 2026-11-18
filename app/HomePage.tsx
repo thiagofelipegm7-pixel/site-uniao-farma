@@ -11,6 +11,8 @@ import PainelBanners from "./shop/PainelBanners";
 import { FaixaInfo, SubmenuHome } from "./shop/HomeBlocos";
 import { CategoriasLinha } from "./shop/ShopSections";
 import { MarcasLinha } from "./shop/MarcasLinha";
+import CestaRetomada from "./shop/CestaRetomada";
+import VistoRecentemente from "./shop/VistoRecentemente";
 
 /**
  * Home na estrutura da home da Panvel: cabeçalho e submenu, banner (único h1), cartões de benefícios,
@@ -33,7 +35,9 @@ export default function HomePage() {
         <SubmenuHome />
       </CabecalhoInteligente>
       <PainelBanners titulo="Farmácia em Sabará: União Farma Nações Unidas" />
+      <CestaRetomada />
       <CategoriasLinha />
+      <VistoRecentemente />
       <DestaquesSemana posicao={0} id="vitrine-higiene" titulo="Cuidado Diário" grupo="cuidado-diario" n={12} verTodas={false} source="home_higiene" />
       <DestaquesSemana posicao={1} id="vitrine-pele" titulo="Dermocosméticos" grupo="dermocosmeticos" n={12} verTodas={false} source="home_pele" />
       <DestaquesSemana posicao={2} id="vitrine-sem-receita" titulo="Medicamentos" grupo="medicamentos" n={12} verTodas={false} source="home_mips" />
