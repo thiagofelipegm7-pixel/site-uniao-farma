@@ -25,6 +25,7 @@ import {
   type OrdemCatalogo,
 } from "./busca";
 import { ordenarPorRelevancia } from "./relevancia";
+import { precisaSimilares, similaresEmEstoque } from "./similares";
 import {
   assinaturaFiltros,
   atalhosDaBusca,
@@ -289,6 +290,43 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     return () => window.clearTimeout(timer);
   }, [buscando, completo, totalExato, tolerante.procurando, tolerante.tipo, consulta]);
 
+  /** Cartão de um item da lista (o mesmo na lista principal e nos "parecidos em estoque"). */
+  const renderCartao = (item: (typeof itensDaPagina)[number]) => {
+    if (item.restrito) return <CartaoRestrito key={item.id ?? item.nome} item={item.restrito} />;
+    const nome = nomeDeExibicao(item.nome);
+    const href = `/nacoes-unidas/produtos/${item.slug ?? slugify(item.nome)}`;
+    const centavos = precoParaCentavos(item.precoFmt);
+    return (
+      <CartaoPanvel
+        key={item.id ?? item.nome}
+        href={href}
+        nome={nome}
+        foto={item.foto}
+        marca={item.lab}
+        medicamento={item.isMIP}
+        classificacao={item.isMIP && /gen[eé]rico/i.test(item.nome) ? "generico" : null}
+        apresentacao={quantidadeDoNome(item.nome)}
+        precoFmt={item.precoFmt}
+        restam={item.restam}
+        esgotado={item.esgotado}
+        cesta={centavos && !item.esgotado ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cartao" max={item.restam} slug={item.slug} /> : null}
+      />
+    );
+  };
+
+  // Tudo o que a busca achou está esgotado? Mostra parecidos em estoque (nunca para remédio) e um atalho para perguntar quando chega.
+  const achadosPorTexto = useMemo(() => porTexto.flatMap((g) => g.itens), [porTexto]);
+  const similares = useMemo(() => (buscando && precisaSimilares(achadosPorTexto) ? similaresEmEstoque(base, achadosPorTexto, 8) : []), [buscando, achadosPorTexto, base]);
+  const whatsappEsgotado = useMemo(() => {
+    try {
+      const u = new URL(whatsappHref);
+      u.searchParams.set("text", `Oi, União Farma Nações Unidas! O produto “${consulta.trim().slice(0, 80)}” aparece esgotado no site. Quando chega de novo?`);
+      return u.toString();
+    } catch {
+      return whatsappHref;
+    }
+  }, [whatsappHref, consulta]);
+
   // Enquanto o catálogo (ou a correção de digitação) não termina, a tela mostra "Buscando…", nunca "não encontramos".
   const estado = estadoDaLista({ completo, total, procurando: buscando && tolerante.procurando, buscando });
   const esperando = estado === "carregando" || estado === "procurando";
@@ -510,6 +548,17 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
         </p>
       ) : null}
 
+      {!esperando && similares.length > 0 ? (
+        <section className="catalogo-similares" aria-labelledby="similares-titulo">
+          <h2 id="similares-titulo">Esse produto está esgotado agora. Parecidos em estoque:</h2>
+          <ul className="catalogo-lista pv-grade">{similares.map(renderCartao)}</ul>
+          <p className="catalogo-similares-nota">
+            Quer exatamente o que procurou?{" "}
+            <a href={whatsappEsgotado} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unitId} data-track-source="produtos_nacoes_esgotado">Pergunte quando chega</a>
+          </p>
+        </section>
+      ) : null}
+
       {esperando ? (
         <EsqueletoGrade />
       ) : total === 0 ? (
@@ -529,30 +578,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
         </div>
       ) : (
         <ul className="catalogo-lista pv-grade">
-          {[itensDaPagina].flatMap((lista) =>
-            lista.map((item) => {
-              if (item.restrito) return <CartaoRestrito key={item.id ?? item.nome} item={item.restrito} />;
-              const nome = nomeDeExibicao(item.nome);
-              const href = `/nacoes-unidas/produtos/${item.slug ?? slugify(item.nome)}`;
-              const centavos = precoParaCentavos(item.precoFmt);
-              return (
-                <CartaoPanvel
-                  key={item.id ?? item.nome}
-                  href={href}
-                  nome={nome}
-                  foto={item.foto}
-                  marca={item.lab}
-                  medicamento={item.isMIP}
-                  classificacao={item.isMIP && /gen[eé]rico/i.test(item.nome) ? "generico" : null}
-                  apresentacao={quantidadeDoNome(item.nome)}
-                  precoFmt={item.precoFmt}
-                  restam={item.restam}
-                  esgotado={item.esgotado}
-                  cesta={centavos && !item.esgotado ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cartao" max={item.restam} slug={item.slug} /> : null}
-                />
-              );
-            }),
-          )}
+          {itensDaPagina.map(renderCartao)}
         </ul>
       )}
       <Paginacao atual={paginaAtual} total={totalPaginas} href={hrefComFiltros} onIr={(n) => { setPagina(n); irParaPagina(n, consulta); }} />
