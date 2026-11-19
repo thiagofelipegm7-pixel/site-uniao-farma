@@ -52,6 +52,11 @@ export default function PrivacyPage() {
               Nada é enviado automaticamente. Para parar, responda SAIR: apagamos seu nome e celular e não mandamos mais. Esses dados são
               apagados em até 90 dias.
             </li>
+            <li>
+              Aviso de retirada, só se você escolher retirar na loja e informar seu WhatsApp nesse campo (é opcional): usamos o número
+              apenas para a equipe avisar que o pedido está pronto. A mensagem é enviada por uma pessoa da equipe, nunca automaticamente.
+              O número é apagado quando o pedido é retirado ou cancelado e, de qualquer forma, em até 90 dias.
+            </li>
           </ul>
           <p>
             A busca por voz, quando você toca no microfone, usa o reconhecimento de fala do seu navegador: o áudio é tratado pelo serviço do

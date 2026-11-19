@@ -1,6 +1,7 @@
 import { banco } from "../../estoque-fonte";
 import type { Banco as BancoCompleto } from "../../nomes-corrigidos";
 import { gravarConsentimento, validarLembrete } from "../../recompra";
+import { garantirColunasRetirada, telefoneDoAviso } from "../../retirada";
 
 export const dynamic = "force-dynamic";
 
@@ -17,6 +18,10 @@ type Entrada = {
   itens?: unknown;
   /** Só vem quando o cliente marcou a caixa de lembrete (desmarcada por padrão): { consentimento: true, nome, telefone }. */
   lembrete?: unknown;
+  /** Só em retirada e só se o cliente preencheu (opcional): WhatsApp para o aviso de "pedido pronto". */
+  avisoTelefone?: unknown;
+  /** A cesta tem item com receita: o aviso de pronto lembra de trazer a receita. */
+  comReceita?: unknown;
 };
 type Banco = {
   exec(sql: string): Promise<unknown>;
@@ -74,13 +79,16 @@ export async function POST(request: Request) {
   if (!db) return Response.json({ ok: false, erro: "sem_banco" }, { status: 503, headers: SEM_CACHE });
   const agora = new Date().toISOString();
   const id = crypto.randomUUID();
+  const avisoTelefone = telefoneDoAviso(modo, entrada.avisoTelefone);
+  const comReceita = entrada.comReceita === true ? 1 : 0;
   try {
     await prepararTabela(db);
+    await garantirColunasRetirada(db as unknown as BancoCompleto);
     // Retém no máximo 90 dias de itens de cesta, que podem revelar informações sensíveis de saúde.
     const limite = new Date(Date.now() - 90 * 86_400_000).toISOString();
     await db.prepare("DELETE FROM pre_venda WHERE criado_em < ?").bind(limite).run();
-    await db.prepare("INSERT OR IGNORE INTO pre_venda (id, request_id, codigo, unidade, modo, itens_json, total_centavos, status, criado_em, atualizado_em) VALUES (?, ?, ?, ?, ?, ?, ?, 'nova', ?, ?)")
-      .bind(id, requestId, codigo, unidade, modo, JSON.stringify(itens), total, agora, agora).run();
+    await db.prepare("INSERT OR IGNORE INTO pre_venda (id, request_id, codigo, unidade, modo, itens_json, total_centavos, status, criado_em, atualizado_em, aviso_telefone, com_receita) VALUES (?, ?, ?, ?, ?, ?, ?, 'nova', ?, ?, ?, ?)")
+      .bind(id, requestId, codigo, unidade, modo, JSON.stringify(itens), total, agora, agora, avisoTelefone, comReceita).run();
     const lembrete = validarLembrete(entrada.lembrete);
     if (lembrete) {
       // O beacon pode chegar duas vezes: o consentimento fica com a cesta que foi gravada primeiro.

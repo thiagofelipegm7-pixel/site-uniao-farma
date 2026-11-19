@@ -16,12 +16,13 @@ import { carregarUltimoPedido, guardarUltimoPedido, repetirPedido, type ItemCata
 import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats, IconCestaArte, IconCaminhaoArte, IconFinalizarArte } from "./ReservaIcons";
 import CestaSugestoes from "./CestaSugestoes";
 import DestaquesSemana from "../shop/DestaquesSemana";
-import { gerarCodigoPedido, trocoValido, ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
+import { gerarCodigoPedido, trocoValido, ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens, exigeReceita } from "./reserva-store";
 import { useReserva } from "./useReserva";
 import { useDisponibilidade } from "./useDisponibilidade";
 import { avisosDaCesta } from "../disponibilidade";
 import { podeCompartilhar, prepararReceita, type ReceitaPronta } from "./preparar-receita";
 import { normalizarTelefone, TEXTO_CONSENTIMENTO } from "./lembrete-recompra";
+import { AJUDA_AVISO_RETIRADA, TEXTO_AVISO_RETIRADA } from "../retirada";
 
 type Passo = 1 | 2 | 3;
 const BAIRROS = listarBairros(PUBLIC_UNITS);
@@ -74,6 +75,8 @@ export default function ReservaFluxo() {
   // Lembrete de recompra: caixa DESMARCADA por padrão (LGPD: consentimento explícito). Só marcada o nome e o celular vão ao servidor.
   const [querLembrete, setQuerLembrete] = useState(false);
   const [celularLembrete, setCelularLembrete] = useState("");
+  // Retirada: WhatsApp opcional só para o aviso de "pedido pronto" (vazio = a equipe responde na conversa do pedido).
+  const [celularAviso, setCelularAviso] = useState("");
   const [tentou, setTentou] = useState(false);
   const [editando, setEditando] = useState(true);
   // Depois do toque em "Enviar pedido pelo WhatsApp": lembra o cliente de tocar em enviar dentro do WhatsApp.
@@ -148,6 +151,8 @@ export default function ReservaFluxo() {
   const nomeOk = nome.trim().length >= 2;
   const celularOk = normalizarTelefone(celularLembrete) !== null;
   const lembretePendente = querLembrete && !celularOk;
+  const avisoOk = normalizarTelefone(celularAviso) !== null;
+  const avisoInvalido = retirar && celularAviso.trim() !== "" && !avisoOk;
   const valido = retirar ? nomeOk : nomeOk && rua.trim().length >= 3 && unidadeEntrega !== null;
 
   function ir(proximo: Passo) {
@@ -174,7 +179,7 @@ export default function ReservaFluxo() {
   }
 
   function revisar() {
-    if (!valido) {
+    if (!valido || avisoInvalido) {
       setTentou(true);
       focarPrimeiroInvalido();
       return;
@@ -194,6 +199,8 @@ export default function ReservaFluxo() {
       unidade: unidade.id,
       modo,
       itens: estado.itens.filter(itemAtivo).map((item) => ({ nome: item.nome, quantidade: item.qtd, precoCentavos: item.precoCentavos })),
+      ...(retirar && avisoOk ? { avisoTelefone: celularAviso } : {}),
+      ...(exigeReceita(estado.itens) ? { comReceita: true } : {}),
       ...(querLembrete && celularOk ? { lembrete: { consentimento: true, nome: nome.trim(), telefone: celularLembrete } } : {}),
     };
     const corpo = JSON.stringify(dados);
@@ -411,7 +418,7 @@ export default function ReservaFluxo() {
               <p className="fluxo-resumo-titulo">Resumo da sua cesta</p>
               <p><span>Subtotal</span><span>{descontos > 0 ? subtotalTabela : subtotal}</span></p>
               {descontos > 0 ? <p className="fluxo-resumo-desconto"><span>Descontos</span><span>- {formatarCentavos(descontos)}</span></p> : null}
-              <p><span>Taxa de entrega</span><span>{formatarCentavos(taxaEntrega)}</span></p>
+              <p><span>{retirar ? "Retirada na loja" : "Taxa de entrega"}</span><span>{formatarCentavos(taxaEntrega)}</span></p>
               <p className="fluxo-resumo-total"><strong>Total estimado</strong><strong>{totalComTaxa}</strong></p>
               <button type="button" className="fluxo-botao fluxo-botao-resumo" disabled={marcados === 0} onClick={() => ir(2)}>Continuar: entrega ou retirada</button>
             </section>
@@ -476,7 +483,7 @@ export default function ReservaFluxo() {
                 <div role="radiogroup" aria-label="Selecione uma opção">
                   <label className={retirar ? "entrega-opcao is-on" : "entrega-opcao"}>
                     <input type="radio" name="forma" checked={retirar} onChange={() => atualizarReserva((s) => ({ ...s, modo: "retirar" }))} />
-                    <span className="entrega-tipo">Retirada em loja</span>
+                    <span className="entrega-tipo">Retirar na loja</span>
                     <span className="entrega-preco entrega-preco-gratis">Grátis</span>
                   </label>
                   {retirar ? (
@@ -487,12 +494,29 @@ export default function ReservaFluxo() {
                           {PUBLIC_UNITS.length > 1 ? <input type="radio" name="loja" checked={lojaId === u.id} onChange={() => setLojaId(u.id)} /> : null}
                           <span className="entrega-loja-corpo">
                             <strong>{u.shortName}</strong>
-                            <span>{u.shortAddress}</span>
+                            <span>{u.address}</span>
                             <UnitStatusBadge unit={u} />
                           </span>
                         </label>
                       ))}
                     </div>
+                  ) : null}
+                  {retirar ? (
+                      <label className="fluxo-campo entrega-aviso-pronto">
+                        <span>{TEXTO_AVISO_RETIRADA} <small>(opcional)</small></span>
+                        <input
+                          type="tel"
+                          inputMode="tel"
+                          autoComplete="tel-national"
+                          placeholder="(31) 9 0000-0000"
+                          maxLength={20}
+                          value={celularAviso}
+                          aria-invalid={avisoInvalido}
+                          aria-describedby="aviso-pronto-ajuda"
+                          onChange={(e) => setCelularAviso(e.target.value)}
+                        />
+                        <small id="aviso-pronto-ajuda">{avisoInvalido ? "Confira o número: DDD + celular, por exemplo (31) 9 0000-0000. Ou deixe em branco." : AJUDA_AVISO_RETIRADA}</small>
+                      </label>
                   ) : null}
                   <label className={retirar ? "entrega-opcao" : "entrega-opcao is-on"}>
                     <input type="radio" name="forma" checked={!retirar} onChange={() => atualizarReserva((s) => ({ ...s, modo: "casa" }))} />
@@ -509,7 +533,7 @@ export default function ReservaFluxo() {
               <p className="fluxo-resumo-titulo">Resumo da sua cesta</p>
               <p><span>Subtotal</span><span>{descontos > 0 ? subtotalTabela : subtotal}</span></p>
               {descontos > 0 ? <p className="fluxo-resumo-desconto"><span>Descontos</span><span>- {formatarCentavos(descontos)}</span></p> : null}
-              <p><span>Taxa de entrega</span><span>{formatarCentavos(taxaEntrega)}</span></p>
+              <p><span>{retirar ? "Retirada na loja" : "Taxa de entrega"}</span><span>{formatarCentavos(taxaEntrega)}</span></p>
               <p className="fluxo-resumo-total"><strong>Total estimado</strong><strong>{totalComTaxa}</strong></p>
               <button type="button" className="fluxo-botao fluxo-botao-resumo" onClick={revisar}>Revisar pedido</button>
             </section>
@@ -647,7 +671,7 @@ export default function ReservaFluxo() {
               <p className="fluxo-resumo-titulo">Resumo da sua cesta</p>
               <p><span>Subtotal</span><span>{descontos > 0 ? subtotalTabela : subtotal}</span></p>
               {descontos > 0 ? <p className="fluxo-resumo-desconto"><span>Descontos</span><span>- {formatarCentavos(descontos)}</span></p> : null}
-              <p><span>Taxa de entrega</span><span>{formatarCentavos(taxaEntrega)}</span></p>
+              <p><span>{retirar ? "Retirada na loja" : "Taxa de entrega"}</span><span>{formatarCentavos(taxaEntrega)}</span></p>
               <p className="fluxo-resumo-total"><strong>Total estimado</strong><strong>{totalComTaxa}</strong></p>
               {enviarWhats("fluxo-botao fluxo-botao-resumo")}
             </section>
