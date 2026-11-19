@@ -9,6 +9,8 @@ import { nomeDeExibicao } from "../../nome-exibicao";
 import { IconFechar, IconFiltro } from "../../reserva/ReservaIcons";
 import ReservarBotao from "../../reserva/ReservarBotao";
 import { precoParaCentavos } from "../../reserva/reserva-store";
+import { useDisponibilidade } from "../../reserva/useDisponibilidade";
+import { aplicarEstoqueVivo } from "../../disponibilidade";
 import {
   aplicarCatalogo,
   contarItens,
@@ -158,7 +160,10 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     })();
     return () => { cancel = true; };
   }, [gruposProps, departamento]);
-  const base = useMemo(() => identificarItens(grupos), [grupos]);
+  // Estoque de agora (PC da loja) por cima da publicação: produto que voltou aparece, e o que acabou sai.
+  const mudou = useDisponibilidade(true);
+  const gruposVivos = useMemo(() => grupos.map((g) => ({ ...g, itens: g.itens.map((i) => aplicarEstoqueVivo(i, mudou)) })), [grupos, mudou]);
+  const base = useMemo(() => identificarItens(gruposVivos), [gruposVivos]);
   // A página é estática: o termo vem da barra de endereço (?q=fralda) depois que a página abre.
   const [consulta, setConsulta] = useState(consultaInicial);
   const [consultaExata, setConsultaExata] = useState(false);
