@@ -569,6 +569,8 @@ public final class MainActivity extends Activity {
             pai.addView(marcasLinha(catalogo.marcas()));
         }
         titulo(pai, "Informações");
+        pai.addView(atalho("Encarte da semana", () -> abrirPagina("encarte")));
+        pai.addView(atalho("Novidades", () -> abrirPagina("novidades")));
         pai.addView(atalho("Unidades e WhatsApp", () -> abrirPagina("unidades")));
         pai.addView(atalho("Dados institucionais", () -> abrirPagina("institucional")));
         pai.addView(atalho("Perguntas frequentes", () -> abrirPagina("perguntas")));

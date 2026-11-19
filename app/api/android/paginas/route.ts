@@ -1,4 +1,5 @@
 import { COMPANY, UNIT_LEGAL } from "../../../company";
+import { getPublishedNews, NEWS_VISUALS } from "../../../news-content";
 import { CUSTOMER_QUESTIONS } from "../../../seo-content";
 import { buildWhatsAppUrl, PUBLIC_UNITS } from "../../../site-config";
 
@@ -131,12 +132,53 @@ function unidades(): { titulo: string; blocos: Bloco[] } {
   return { titulo: "Unidades e WhatsApp", blocos };
 }
 
+/** Novidades: artigos publicados (mesma regra do site) e as artes de novidade, em texto. */
+function novidades(): { titulo: string; blocos: Bloco[] } {
+  const blocos: Bloco[] = [];
+  for (const arte of NEWS_VISUALS) {
+    blocos.push({ tipo: "subtitulo", texto: arte.title });
+    blocos.push({ tipo: "texto", texto: arte.caption });
+  }
+  for (const artigo of getPublishedNews()) {
+    blocos.push({ tipo: "h2", texto: artigo.title });
+    blocos.push({ tipo: "texto", texto: artigo.excerpt });
+    for (const bloco of artigo.content) {
+      if (bloco.type === "heading") blocos.push({ tipo: "subtitulo", texto: bloco.text });
+      else if (bloco.type === "paragraph") blocos.push({ tipo: "texto", texto: bloco.text });
+      else for (const item of bloco.items) blocos.push({ tipo: "texto", texto: `• ${item.label}` });
+    }
+  }
+  if (blocos.length === 0) blocos.push({ tipo: "texto", texto: "Nenhuma novidade publicada no momento." });
+  return { titulo: "Novidades", blocos };
+}
+
+/** Encarte da semana: texto e WhatsApp de cada loja (mesma informação da página de encarte do site). */
+function encarte(): { titulo: string; blocos: Bloco[] } {
+  const blocos: Bloco[] = [
+    { tipo: "texto", texto: "Ofertas da semana da União Farma. Escolha a loja e peça no WhatsApp." },
+  ];
+  for (const unidade of PUBLIC_UNITS) {
+    blocos.push({ tipo: "subtitulo", texto: unidade.shortName });
+    blocos.push({
+      tipo: "link",
+      texto: `Pedir em ${unidade.shortName} pelo WhatsApp`,
+      url: buildWhatsAppUrl(unidade, `Oi, União Farma ${unidade.shortName}! Vi as ofertas da semana no app.`, {
+        campaign: "app",
+        content: `app_encarte_${unidade.id}`,
+      }),
+    });
+  }
+  return { titulo: "Encarte da semana", blocos };
+}
+
 const PAGINAS: Record<string, () => { titulo: string; blocos: Bloco[] }> = {
   institucional,
   perguntas,
   privacidade,
   termos,
   unidades,
+  novidades,
+  encarte,
 };
 
 export async function GET(request: Request) {
