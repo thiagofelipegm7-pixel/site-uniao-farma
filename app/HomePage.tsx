@@ -10,7 +10,7 @@ import DestaquesSemana from "./shop/DestaquesSemana";
 import OfertasSemana from "./shop/OfertasSemana";
 import PainelBanners from "./shop/PainelBanners";
 import { FaixaInfo, SubmenuHome } from "./shop/HomeBlocos";
-import { CategoriasLinha, CategoriasPessoaisLinha } from "./shop/ShopSections";
+import { CategoriasLinha } from "./shop/ShopSections";
 import { MarcasLinha } from "./shop/MarcasLinha";
 import CestaRetomada from "./shop/CestaRetomada";
 import VistoRecentemente from "./shop/VistoRecentemente";
@@ -41,7 +41,6 @@ export default function HomePage() {
       <VistoRecentemente />
       <DestaquesSemana posicao={0} id="vitrine-higiene" titulo="Cuidado Diário" grupo="cuidado-diario" n={12} verTodas={false} source="home_higiene" />
       <DestaquesSemana posicao={1} id="vitrine-farmax" titulo="Farmax" lab="FARMAX" n={12} verTodas={false} source="home_farmax" />
-      <CategoriasPessoaisLinha />
       <DestaquesSemana posicao={2} id="vitrine-pele" titulo="Dermocosméticos" grupo="dermocosmeticos" n={12} verTodas={false} source="home_pele" />
       <DestaquesSemana posicao={3} id="vitrine-sem-receita" titulo="Medicamentos" grupo="medicamentos" n={12} verTodas={false} source="home_mips" />
       <CategoriasLinha />
