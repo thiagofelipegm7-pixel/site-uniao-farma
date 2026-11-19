@@ -403,7 +403,7 @@ test("troco: só na entrega em dinheiro, 'sem troco' ou 'troco para', e o valor 
   assert.match(fluxo, /Informe o troco/, "o envio espera a resposta do troco");
 });
 
-test("card: círculo + permanente adiciona, abre a cesta e não vira pílula; preço 0 não abre", async () => {
+test("card: círculo + permanente abre a visualização rápida e não vira pílula; preço 0 não abre", async () => {
   const [botao, css, icons, abrir, sacola] = await Promise.all([
     readFile(new URL("../app/reserva/ReservarBotao.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/shop/shop.css", import.meta.url), "utf8"),
@@ -415,8 +415,12 @@ test("card: círculo + permanente adiciona, abre a cesta e não vira pílula; pr
   assert.ok(blocoCartao.length > 100, "o ramo do card precisa existir");
   assert.match(blocoCartao, /pv-adicionar/);
   assert.match(blocoCartao, /IconMaisFino/);
-  assert.match(blocoCartao, /Adicionar \$\{nome\} à cesta/);
-  assert.match(blocoCartao, /acrescentar\(\{ abrirCesta: true, gatilho: maisRef\.current \}\)/);
+  // PR #491: o + abre a visualização rápida; o cliente confirma quantidade e inclusão na cesta.
+  assert.match(blocoCartao, /Ver detalhes de \$\{nome\} e adicionar à cesta/);
+  assert.match(blocoCartao, /setVisualizacaoAberta\(true\)/);
+  assert.match(blocoCartao, /<VisualizacaoRapida/);
+  assert.match(blocoCartao, /onAdicionar=\{\(quantidade\) => acrescentar\(undefined, quantidade\)\}/);
+  assert.doesNotMatch(blocoCartao, /acrescentar\(\{ abrirCesta: true/);
   assert.doesNotMatch(blocoCartao, /IconLixeira|IconMenos|pv-seletor|is-aberto|output/);
   assert.doesNotMatch(css, /pv-seletor/);
   assert.doesNotMatch(icons, /IconMenosFino/);

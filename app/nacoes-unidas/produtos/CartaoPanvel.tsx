@@ -127,7 +127,7 @@ export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medi
   return (
     <li className={`pv-card${vertical ? " pv-card--v" : ""}${esgotado ? " pv-card--esgotado" : ""}${classe ? ` ${classe}` : ""}`} data-tipo={tipo}>
       {href ? (
-        <a className="pv-corpo" href={href} aria-label={`Ver ${nome}`}>
+        <a className="pv-corpo" href={href}>
           {corpo}
         </a>
       ) : (

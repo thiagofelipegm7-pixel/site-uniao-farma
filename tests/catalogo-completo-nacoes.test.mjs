@@ -192,8 +192,12 @@ test("departamentos: cada categoria do catálogo tem a sua página e o menu apon
   const tiles = await read("app/shop/ShopSections.tsx");
   for (const d of DEPARTAMENTOS.filter((x) => !x.provisorio)) {
     assert.ok(gaveta.includes(`/departamentos/${d.slug}`), `gaveta: ${d.slug}`);
-    assert.ok(tiles.includes(`/departamentos/${d.slug}`), `carrossel: ${d.slug}`);
   }
+  // A faixa da home (PR #492) mostra temas de saúde, não o carrossel de todos os departamentos.
+  assert.match(tiles, /Navegue por categoria/);
+  assert.match(tiles, /Cuidados com diabetes/);
+  assert.match(tiles, /\/categorias\/diabetes\.jpg/);
+  assert.doesNotMatch(tiles, /\/departamentos\/medicamentos/);
   const provisorios = DEPARTAMENTOS.filter((x) => x.provisorio);
   assert.ok(provisorios.some((d) => d.slug === "categoria-a-conferir"));
   const paginaDep = await read("app/departamentos/[slug]/page.tsx");
