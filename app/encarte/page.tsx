@@ -3,35 +3,17 @@ import OffersGroupCta from "../OffersGroupCta";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import PublicOffersGrid from "../PublicOffersGrid";
 import { INSTAGRAM_URL, SITE_URL, PUBLIC_UNITS, buildWhatsAppUrl } from "../site-config";
-import { getPageStructuredData } from "../structured-data";
 import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 
-const TITLE = "Encarte da semana | União Farma Sabará";
-const DESCRIPTION = "Ofertas da semana da União Farma. Escolha a loja e peça no WhatsApp.";
-const PAGE_URL = `${SITE_URL}/encarte`;
-
 export const metadata: Metadata = {
-  title: { absolute: TITLE },
-  description: DESCRIPTION,
+  title: { absolute: "Encarte da semana | União Farma Sabará" },
+  description: "Ofertas da semana da União Farma. Escolha a loja e peça no WhatsApp.",
   alternates: { canonical: "/encarte" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: PAGE_URL, type: "website", images: ["/ofertas-og-optimized.jpg"] },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/ofertas-og-optimized.jpg"] },
 };
-
-const structuredData = getPageStructuredData({
-  name: TITLE,
-  url: PAGE_URL,
-  breadcrumbs: [
-    { name: "Início", url: `${SITE_URL}/` },
-    { name: "Ofertas", url: `${SITE_URL}/ofertas` },
-    { name: "Encarte da semana", url: PAGE_URL },
-  ],
-});
 
 export default function FlyerPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <ContentSiteHeader activePath="/ofertas" />
       <div className="encarte-page">
         <section className="section-inner">

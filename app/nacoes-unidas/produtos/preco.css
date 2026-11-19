@@ -1,7 +1,7 @@
 /* Preço no padrão único (componente Preco.tsx): R$, reais e centavos no mesmo tamanho em todo o site. */
 .pv-preco {
   display: inline-block;
-  color: var(--color-ink, #263744);
+  color: var(--uf-navy);
   font-family: var(--font-heading);
   font-size: 14px;
   font-weight: 800;
@@ -29,7 +29,7 @@
 }
 .pv-preco--selo b { font-size: inherit; font-weight: inherit; }
 
-/* Preço promocional nas vitrines: atual vermelho e maior, anterior menor e riscado. */
+/* Preço promocional nas vitrines: preço atual maior e destacado. */
 .pv-preco--oferta {
   color: #c62828;
   font-size: clamp(1.25rem, 4.8vw, 1.625rem);

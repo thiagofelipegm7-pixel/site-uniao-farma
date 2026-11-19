@@ -24,7 +24,7 @@ export default function SiteFooter() {
       <div className="rodape-miolo">
         <div className="rodape-colunas">
           <div className="rodape-bloco">
-            <a className="rodape-logo" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial">
+            <a className="rodape-logo" href="/" aria-label="União Farma Drogaria e Perfumaria: página inicial">
               <MarcaUniao claro />
             </a>
             <p>{COMPANY.legalName}</p>
@@ -53,6 +53,7 @@ export default function SiteFooter() {
             <ul className="rodape-links">
               <li><a href="/privacidade">Privacidade</a></li>
               <li><a href="/termos">Termos</a></li>
+              <li><a href="/trocas-e-devolucoes">Trocas e devoluções</a></li>
               <li><a href="/perguntas">Perguntas</a></li>
               <li>
                 <button type="button" onClick={openCookiePreferences}>

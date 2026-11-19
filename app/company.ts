@@ -24,7 +24,7 @@ export const COMPANY = {
   anvisaWarnings: [
     "As informações deste site têm caráter informativo e não devem ser usadas para automedicação. Não substituem orientação médica ou de outro profissional de saúde.",
     "Medicamento sob prescrição só sai com receita e após avaliação do farmacêutico. Controlado e antibiótico pedem retenção de receita na loja.",
-    "Preço, promoção e pagamento valem para a confirmação do dia, no WhatsApp da loja, sujeitos ao estoque da unidade.",
+    "Nos produtos que não são medicamento, vale o preço do site, sujeito ao estoque da unidade. Nos medicamentos, preço, promoção e pagamento valem para a confirmação do dia, no WhatsApp da loja.",
     "SE PERSISTIREM OS SINTOMAS, O MÉDICO DEVERÁ SER CONSULTADO. MEDICAMENTOS PODEM CAUSAR EFEITOS INDESEJADOS. EVITE A AUTOMEDICAÇÃO: INFORME-SE COM O FARMACÊUTICO.",
   ],
 };

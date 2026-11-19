@@ -1,12 +1,19 @@
 import { bairrosAndroid, catalogoAndroid, unidadeAndroid } from "../../../android-catalogo";
 import { gravarPreVenda, MAX_ITENS_PRE_VENDA } from "../../../pre-vendas";
-import { gerarCodigoPedido, mensagemReserva, taxaDoBairro, type ReservaItem } from "../../../reserva/reserva-store";
+import { mensagemReserva, taxaDoBairro, type ReservaItem } from "../../../reserva/reserva-store";
 import { buildWhatsAppUrl } from "../../../site-config";
 
 export const dynamic = "force-dynamic";
 const headers = { "cache-control": "no-store" };
 const formatoUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 const MAX_BYTES = 16_000;
+// Mesmo alfabeto do código de pedido do site (sem 0/O, 1/I/L).
+const ALFABETO_CODIGO = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+/** Código determinístico a partir do requestId: repetir o pedido devolve o mesmo código. */
+function codigoDoPedido(bytes: Uint8Array) {
+  return Array.from(bytes, (b) => ALFABETO_CODIGO[b % ALFABETO_CODIGO.length]).join("");
+}
 
 function falha(erro: string, status: number) {
   return Response.json({ erro }, { status, headers });
@@ -76,12 +83,12 @@ export async function POST(request: Request) {
     itens.push({ id, unitId: unit.id, nome: item.nome, qtd, precoCentavos: item.precoCentavos, receita: item.receita });
   }
   const bytes = Uint8Array.from(requestId.slice(0, 8).match(/../g) ?? [], (hex) => parseInt(hex, 16));
-  const codigo = gerarCodigoPedido(bytes);
+  const codigo = codigoDoPedido(bytes);
   const mensagem = mensagemReserva(unit.shortName, itens, {
     modo, nome: "", bairro, codigo, taxaEntregaCentavos: taxa ?? undefined,
-    receita: modo === "casa" ? "combinar" : "loja",
+    receita: "loja",
   });
-  const whatsapp = buildWhatsAppUrl(unit, mensagem, { source: "android", campaign: "reserva", content: `reserva_${unidade}` });
+  const whatsapp = buildWhatsAppUrl(unit, mensagem, { campaign: "reserva", content: `reserva_${unidade}` });
   const erro = await gravarPreVenda({
     requestId, codigo, unidade, modo,
     itens: itens.map((item) => ({ nome: item.nome, quantidade: item.qtd, precoCentavos: item.precoCentavos })),

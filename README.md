@@ -4,8 +4,6 @@ Site institucional e catálogo de ofertas da **União Farma**, rede de drogarias
 
 Construído com Next.js 16 + React 19 + TypeScript (strict) + Tailwind CSS 4, compilado via [Vinext](https://github.com/cloudflare/vinext) e publicado em Cloudflare Workers.
 
-O [aplicativo Android](android/README.md) usa o catálogo de Nações Unidas e o painel interno de pré-vendas do site.
-
 ---
 
 ## Pré-requisitos

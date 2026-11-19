@@ -24,7 +24,9 @@ import {
   type GrupoBusca,
   type OrdemCatalogo,
 } from "./busca";
+import { termoParaRegistro, type MapaCliques } from "../../busca-cliques";
 import { ordenarPorRelevancia } from "./relevancia";
+import { precisaSimilares, similaresEmEstoque } from "./similares";
 import {
   assinaturaFiltros,
   atalhosDaBusca,
@@ -159,8 +161,13 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   const base = useMemo(() => identificarItens(grupos), [grupos]);
   // A página é estática: o termo vem da barra de endereço (?q=fralda) depois que a página abre.
   const [consulta, setConsulta] = useState(consultaInicial);
+  const [consultaExata, setConsultaExata] = useState(false);
   useEffect(() => {
-    const ler = () => setConsulta((new URLSearchParams(window.location.search).get("q") ?? "").slice(0, 80));
+    const ler = () => {
+      const params = new URLSearchParams(window.location.search);
+      setConsulta((params.get("q") ?? "").slice(0, 80));
+      setConsultaExata(params.get("exata") === "1");
+    };
     ler();
     window.addEventListener("popstate", ler);
     return () => window.removeEventListener("popstate", ler);
@@ -201,7 +208,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     [completo, base],
   );
   const totalExato = useMemo(() => (consulta.trim() ? filtrarGrupos(base, consulta).reduce((soma, g) => soma + g.itens.length, 0) : 1), [base, consulta]);
-  const tolerante = useBuscaTolerante({ textos: textosBusca, consulta, totalExato });
+  const tolerante = useBuscaTolerante({ textos: textosBusca, consulta, totalExato, usarIA: !consultaExata, exata: consultaExata });
   const sintomaComProdutos = tolerante.tipo === "sintoma" && tolerante.consultas?.length ? tolerante : null;
   const consultasAlternativas = tolerante.tipo === "corrigida" || tolerante.tipo === "parcial" ? tolerante.consultas : sintomaComProdutos?.consultas;
 
@@ -219,7 +226,20 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     () => (consulta.trim() ? (consultasAlternativas?.length ? consultasAlternativas.flatMap(termosDaConsulta) : termosDaConsulta(consulta)) : []),
     [consulta, consultasAlternativas],
   );
-  const visiveis = ordem === "recomendados" && termosRelevancia.length > 0 ? ordenarPorRelevancia(visiveisBase, termosRelevancia) : visiveisBase;
+  // O que as pessoas mais abrem depois dessa mesma busca sobe um pouco (mapa anônimo; chega depois da lista e não trava nada).
+  const [cliques, setCliques] = useState<MapaCliques | null>(null);
+  const baixandoCliques = useRef(false);
+  const termoDeCliques = termoParaRegistro(consulta);
+  useEffect(() => {
+    if (!termoDeCliques || cliques !== null || baixandoCliques.current) return;
+    baixandoCliques.current = true;
+    fetch("/api/busca-cliques", { headers: { accept: "application/json" } })
+      .then((r) => (r.ok ? r.json() : {}))
+      .then((dados: MapaCliques) => setCliques(dados && typeof dados === "object" ? dados : {}))
+      .catch(() => setCliques({}));
+  }, [termoDeCliques, cliques]);
+  const cliquesDoTermo = termoDeCliques ? cliques?.[termoDeCliques] : undefined;
+  const visiveis = ordem === "recomendados" && termosRelevancia.length > 0 ? ordenarPorRelevancia(visiveisBase, termosRelevancia, cliquesDoTermo, (item) => item.slug ?? slugify(item.nome)) : visiveisBase;
   const total = contarItens(visiveis);
   const [pagina, setPagina] = useState(paginaInicial);
   const [porPagina, setPorPagina] = useState<number>(POR_PAGINA);
@@ -288,6 +308,63 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     }, 2500);
     return () => window.clearTimeout(timer);
   }, [buscando, completo, totalExato, tolerante.procurando, tolerante.tipo, consulta]);
+
+  // Abriu um produto vindo de uma busca: conta um clique (anônimo; uma vez por busca e produto nesta visita; nunca para remédio).
+  const cliquesEnviados = useRef(new Set<string>());
+  function lembrarClique(evento: React.MouseEvent<HTMLElement>) {
+    if (!termoDeCliques) return;
+    const link = (evento.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="/nacoes-unidas/produtos/"]');
+    if (!link) return;
+    const slug = link.getAttribute("href")?.split("?")[0].split("/").pop() ?? "";
+    const item = itensDaPagina.find((i) => (i.slug ?? slugify(i.nome)) === slug);
+    if (!item || item.isMIP || item.restrito || visiveisBase.some((g) => g.categoria === "Medicamentos" && g.itens.includes(item))) return;
+    const chave = `${termoDeCliques}|${slug}`;
+    if (cliquesEnviados.current.has(chave)) return;
+    cliquesEnviados.current.add(chave);
+    try {
+      const corpo = JSON.stringify({ q: termoDeCliques, s: slug });
+      if (!navigator.sendBeacon?.("/api/busca-cliques", new Blob([corpo], { type: "application/json" }))) void fetch("/api/busca-cliques", { method: "POST", headers: { "content-type": "application/json" }, body: corpo, keepalive: true });
+    } catch {
+      // o registro nunca atrapalha a navegação
+    }
+  }
+
+  /** Cartão de um item da lista (o mesmo na lista principal e nos "parecidos em estoque"). */
+  const renderCartao = (item: (typeof itensDaPagina)[number]) => {
+    if (item.restrito) return <CartaoRestrito key={item.id ?? item.nome} item={item.restrito} />;
+    const nome = nomeDeExibicao(item.nome);
+    const href = `/nacoes-unidas/produtos/${item.slug ?? slugify(item.nome)}`;
+    const centavos = precoParaCentavos(item.precoFmt);
+    return (
+      <CartaoPanvel
+        key={item.id ?? item.nome}
+        href={href}
+        nome={nome}
+        foto={item.foto}
+        marca={item.lab}
+        medicamento={item.isMIP}
+        classificacao={item.isMIP && /gen[eé]rico/i.test(item.nome) ? "generico" : null}
+        apresentacao={quantidadeDoNome(item.nome)}
+        precoFmt={item.precoFmt}
+        restam={item.restam}
+        esgotado={item.esgotado}
+        cesta={centavos && !item.esgotado ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cartao" max={item.restam} slug={item.slug} /> : null}
+      />
+    );
+  };
+
+  // Tudo o que a busca achou está esgotado? Mostra parecidos em estoque (nunca para remédio) e um atalho para perguntar quando chega.
+  const achadosPorTexto = useMemo(() => porTexto.flatMap((g) => g.itens), [porTexto]);
+  const similares = useMemo(() => (buscando && precisaSimilares(achadosPorTexto) ? similaresEmEstoque(base, achadosPorTexto, 8) : []), [buscando, achadosPorTexto, base]);
+  const whatsappEsgotado = useMemo(() => {
+    try {
+      const u = new URL(whatsappHref);
+      u.searchParams.set("text", `Oi, União Farma Nações Unidas! O produto “${consulta.trim().slice(0, 80)}” aparece esgotado no site. Quando chega de novo?`);
+      return u.toString();
+    } catch {
+      return whatsappHref;
+    }
+  }, [whatsappHref, consulta]);
 
   // Enquanto o catálogo (ou a correção de digitação) não termina, a tela mostra "Buscando…", nunca "não encontramos".
   const estado = estadoDaLista({ completo, total, procurando: buscando && tolerante.procurando, buscando });
@@ -510,6 +587,17 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
         </p>
       ) : null}
 
+      {!esperando && similares.length > 0 ? (
+        <section className="catalogo-similares" aria-labelledby="similares-titulo">
+          <h2 id="similares-titulo">Esse produto está esgotado agora. Parecidos em estoque:</h2>
+          <ul className="catalogo-lista pv-grade">{similares.map(renderCartao)}</ul>
+          <p className="catalogo-similares-nota">
+            Quer exatamente o que procurou?{" "}
+            <a href={whatsappEsgotado} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unitId} data-track-source="produtos_nacoes_esgotado">Pergunte quando chega</a>
+          </p>
+        </section>
+      ) : null}
+
       {esperando ? (
         <EsqueletoGrade />
       ) : total === 0 ? (
@@ -528,31 +616,8 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
           </a>
         </div>
       ) : (
-        <ul className="catalogo-lista pv-grade">
-          {[itensDaPagina].flatMap((lista) =>
-            lista.map((item) => {
-              if (item.restrito) return <CartaoRestrito key={item.id ?? item.nome} item={item.restrito} />;
-              const nome = nomeDeExibicao(item.nome);
-              const href = `/nacoes-unidas/produtos/${item.slug ?? slugify(item.nome)}`;
-              const centavos = precoParaCentavos(item.precoFmt);
-              return (
-                <CartaoPanvel
-                  key={item.id ?? item.nome}
-                  href={href}
-                  nome={nome}
-                  foto={item.foto}
-                  marca={item.lab}
-                  medicamento={item.isMIP}
-                  classificacao={item.isMIP && /gen[eé]rico/i.test(item.nome) ? "generico" : null}
-                  apresentacao={quantidadeDoNome(item.nome)}
-                  precoFmt={item.precoFmt}
-                  restam={item.restam}
-                  esgotado={item.esgotado}
-                  cesta={centavos && !item.esgotado ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cartao" max={item.restam} slug={item.slug} /> : null}
-                />
-              );
-            }),
-          )}
+        <ul className="catalogo-lista pv-grade" onClick={lembrarClique}>
+          {itensDaPagina.map(renderCartao)}
         </ul>
       )}
       <Paginacao atual={paginaAtual} total={totalPaginas} href={hrefComFiltros} onIr={(n) => { setPagina(n); irParaPagina(n, consulta); }} />

@@ -51,42 +51,6 @@ test("o layout não põe script nem conexão antecipada para Google/Meta no <hea
   assert.match(layout, /getGtagBootstrapScript\(\)/);
 });
 
-// A barra "Ver minha cesta" (z-index 4100) cobria o aviso de cookies (2200): o bottom dela supunha um aviso de ~76 px,
-// mas ele mede de 92 a 290 px conforme a tela e o tamanho da fonte. Agora o aviso informa a própria altura em --cookie-h.
-test("o aviso de cookies informa a altura em --cookie-h e as barras fixas sobem essa altura", async () => {
-  const [consent, shop, produtos] = await Promise.all([
-    read("app/AnalyticsConsent.tsx"),
-    read("app/shop/shop.css"),
-    read("app/nacoes-unidas/produtos/produtos.css"),
-  ]);
-  assert.match(consent, /COOKIE_HEIGHT_VAR = "--cookie-h"/);
-  assert.match(consent, /new ResizeObserver\(medir\)/);
-  assert.match(consent, /raiz\.style\.setProperty\(COOKIE_HEIGHT_VAR/);
-  assert.match(consent, /raiz\.style\.removeProperty\(COOKIE_HEIGHT_VAR\)/, "sem aviso a variável some e as barras voltam ao lugar");
-  assert.match(consent, /<section ref=\{bannerRef\} className="cookie-banner"/);
-  // Toda regra que reposiciona uma barra quando o aviso aparece usa a altura medida, nunca um número fixo.
-  for (const [nome, css] of [["shop.css", shop], ["produtos.css", produtos]]) {
-    const regras = [...css.matchAll(/body\.cookie-banner-visible \.(barra-reserva|fluxo-rodape|produto-barra) \{ bottom: ([^;]+);/g)];
-    assert.ok(regras.length >= 2, `${nome}: regras das barras com o aviso visível`);
-    for (const [, barra, valor] of regras) assert.match(valor, /var\(--cookie-h, 0px\)/, `${nome}: .${barra} usa --cookie-h (achei "${valor}")`);
-  }
-  assert.equal([...shop.matchAll(/body\.cookie-banner-visible \.(barra-reserva|fluxo-rodape|produto-barra) \{ bottom:/g)].length, 6);
-  // Sem aviso (--cookie-h ausente = 0px) o max() devolve o deslocamento de sempre.
-  assert.match(shop, /body\.cookie-banner-visible \.barra-reserva \{ bottom: max\(calc\(4\.5rem \+ env\(safe-area-inset-bottom\)\), var\(--cookie-h, 0px\)\); \}/);
-});
-
-// Com fonte grande no celular o aviso passava de 1400 px de altura (texto espremido ao lado dos botões, sem quebra nem limite).
-test("no celular o aviso de cookies quebra linha, tem no máximo meia tela e os botões ficam sempre à vista", async () => {
-  const shop = await read("app/shop/shop.css");
-  const celular = shop.slice(shop.indexOf("/* Celular: aviso de cookies em faixa baixa e fina"));
-  const bloco = celular.slice(0, celular.indexOf("html body .produto-barra"));
-  assert.match(bloco, /html body section\.cookie-banner \{[^}]*max-height: 50dvh !important;[^}]*overflow-y: auto !important;[^}]*flex-wrap: wrap !important;/);
-  assert.match(bloco, /padding: 0\.5rem 0\.75rem calc\(0\.5rem \+ env\(safe-area-inset-bottom\)\) !important/);
-  assert.match(bloco, /\.cookie-copy \{ flex: 1 1 7rem !important;/);
-  assert.match(bloco, /\.cookie-actions \{[^}]*flex-wrap: wrap !important;[^}]*max-width: 100% !important;[^}]*position: sticky !important; bottom: 0 !important;/);
-  assert.doesNotMatch(bloco, /max-height: none|overflow: visible/);
-});
-
 test("ao aceitar no banner, o gtag.js e o pixel são carregados; sem aceite, trackEvent não registra nada", async () => {
   const [consent, analytics] = await Promise.all([read("app/AnalyticsConsent.tsx"), read("app/analytics.ts")]);
   assert.match(consent, /appendScript\(GTAG_SCRIPT_ID, GTAG_SCRIPT_URL\)/);

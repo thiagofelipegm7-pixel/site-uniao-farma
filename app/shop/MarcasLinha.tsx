@@ -4,15 +4,16 @@
 /* eslint-disable @next/next/no-img-element -- Logos pequenos e estáticos. */
 import { useState } from "react";
 import { SetasRolagem } from "./SetasRolagem";
-import { EXTENSOES_LOGO, MARCAS_DESTAQUE, type MarcaDestaque } from "./marcas";
+import { extensoesDoLogo, MARCAS_DESTAQUE, type MarcaDestaque } from "./marcas";
 
 /** Logo da marca: tenta png, svg, webp e jpg; sem nenhum, mostra o nome em texto. */
 function Logo({ marca }: { marca: MarcaDestaque }) {
   const [tentativa, setTentativa] = useState(0);
-  if (tentativa >= EXTENSOES_LOGO.length) return <span className="shop-marca-nome">{marca.nome}</span>;
+  const extensoes = extensoesDoLogo(marca.slug);
+  if (tentativa >= extensoes.length) return <span className="shop-marca-nome">{marca.nome}</span>;
   return (
     <img
-      src={`/marcas/${marca.slug}.${EXTENSOES_LOGO[tentativa]}`}
+      src={`/marcas/${marca.slug}.${extensoes[tentativa]}`}
       alt=""
       loading="lazy"
       decoding="async"

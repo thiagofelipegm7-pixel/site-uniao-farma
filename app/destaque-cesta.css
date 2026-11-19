@@ -8,7 +8,7 @@
     border-radius: 50% !important;
     box-shadow: 0 1px 0 rgba(10, 45, 41, 0.18) !important;
   }
-  html body .shop-header .shop-acoes .reserva-sacola:hover { background: #ffffff !important; }
+  html body .shop-header .shop-acoes .reserva-sacola:hover { background: #effaf4 !important; }
 }
 
 /* Celular: cesta com tamanho fixo (botão de 44 px, ícone de 32 px) e contador dentro do cabeçalho, sem cortar na borda. */
@@ -39,432 +39,134 @@
   }
 }
 
-/* Padrão global: sem bordas, contornos ou divisórias; superfícies usam profundidade por sombra. */
-@layer surface-reset {
-  html body *,
-  html body *::before,
-  html body *::after {
-    border: 0 !important;
-    border-image: none !important;
-    outline: 0 !important;
-    box-shadow: none !important;
-  }
-
-  html body :where(
-    .category-card,
-    .home-offer-card,
-    .offer-consult-card,
-    .unit-store-card,
-    .unit-card,
-    .unit-detail-card,
-    .unit-page-logo-card,
-    .quick-unit-card,
-    .landing-unit-card,
-    .neighborhood-card,
-    .review-card,
-    .reviews-unit-card,
-    .question-card,
-    .news-card,
-    .news-visual-card,
-    .offer-card,
-    .offers-hero-card,
-    .metrics-card,
-    .produto-card,
-    .catalogo-card,
-    .pv-card,
-    .shop-card,
-    .semana-card,
-    .combina-com-card,
-    .shop-cuidados-pessoais-card,
-    .pedir-alt-card,
-    .direct-unit-link,
-    .cm-card,
-    .pf-card,
-    .pm-card,
-    .staff-login-card,
-    .farmaceutico-card,
-    .fluxo-aviso-receita-card,
-    .unit-selector-modal,
-    .offers-modal,
-    .cesta-sugestoes-modal,
-    .fluxo-aviso-receita-modal,
-    .pf-modal,
-    .depto-painel,
-    .pdp-painel,
-    .shop-menu-painel,
-    .shop-busca,
-    .home-pedido-card,
-    .direct-unit-links,
-    .shop-header,
-    .shop-submenu
-  ) {
-    box-shadow: 0 3px 8px rgba(38, 55, 68, 0.08), 0 12px 24px rgba(38, 55, 68, 0.055), inset 0 1px 0 rgba(255, 255, 255, 0.88) !important;
-    transition: box-shadow 180ms ease, transform 180ms ease;
-  }
-
-  /* A superfície externa une o conjunto; o campo e as ações continuam legíveis como controles. */
-  html body .home-pedido-card .shop-busca {
-    background: #fbfdfd !important;
-    box-shadow: inset 0 2px 6px rgba(38, 55, 68, 0.07) !important;
-  }
-  html body .home-pedido-card .shop-busca:focus-within {
-    box-shadow: inset 0 2px 6px rgba(38, 55, 68, 0.07), 0 0 0 2px rgba(16, 133, 127, 0.13) !important;
-  }
-  html body .home-pedido-card .pedir-alt-card {
-    box-shadow: 0 2px 7px rgba(38, 55, 68, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
-    transform: none !important;
-  }
-  html body .home-pedido-card .pedir-alt-card:hover,
-  html body .home-pedido-card .pedir-alt-card:focus-visible {
-    box-shadow: 0 5px 11px rgba(38, 55, 68, 0.11), inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
-    transform: translateY(-1px) !important;
-  }
-
-  html body :where(button, input, select, textarea, [role="button"]) {
-    box-shadow: 0 2px 5px rgba(38, 55, 68, 0.08), 0 5px 12px rgba(38, 55, 68, 0.045), inset 0 1px 0 rgba(255, 255, 255, 0.88) !important;
-    transition: box-shadow 180ms ease, transform 180ms ease;
-  }
-
-  html body .shop-busca input {
-    background: transparent !important;
-    box-shadow: none !important;
-  }
-
-  html body :where(
-    .category-card,
-    .home-offer-card,
-    .offer-consult-card,
-    .unit-store-card,
-    .unit-card,
-    .unit-detail-card,
-    .quick-unit-card,
-    .landing-unit-card,
-    .neighborhood-card,
-    .review-card,
-    .reviews-unit-card,
-    .question-card,
-    .news-card,
-    .news-visual-card,
-    .offer-card,
-    .offers-hero-card,
-    .metrics-card,
-    .produto-card,
-    .catalogo-card,
-    .pv-card,
-    .shop-card,
-    .semana-card,
-    .combina-com-card,
-    .shop-cuidados-pessoais-card,
-    .pedir-alt-card,
-    .direct-unit-link,
-    .cm-card,
-    .pf-card,
-    .pm-card,
-    .staff-login-card,
-    .farmaceutico-card,
-    .fluxo-aviso-receita-card
-  ):hover,
-  html body :where(button, [role="button"]):hover:not(:disabled) {
-    box-shadow: 0 8px 16px rgba(38, 55, 68, 0.11), 0 18px 30px rgba(38, 55, 68, 0.075), inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
-    transform: translateY(-2px);
-  }
-
-  html body :focus-visible {
-    outline: 0 !important;
-    box-shadow: 0 0 0 3px rgba(16, 133, 127, 0.24), 0 7px 16px rgba(38, 55, 68, 0.1) !important;
-  }
-
-  html body .shop-busca button,
-  html body .shop-busca button:hover:not(:disabled),
-  html body .shop-busca button:focus-visible {
-    background: transparent !important;
-    box-shadow: none !important;
-    transform: none !important;
-  }
-
-  html body .shop-busca:focus-within {
-    box-shadow: 0 0 0 3px rgba(16, 133, 127, 0.2), 0 12px 26px rgba(38, 55, 68, 0.12), 0 3px 7px rgba(38, 55, 68, 0.07) !important;
-  }
-
-  html body .shop-busca input:focus-visible {
-    box-shadow: none !important;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    html body *,
-    html body *::before,
-    html body *::after {
-      transition-duration: 0.01ms !important;
-    }
-  }
-}
-
-/* Cabeçalho da loja em branco (rascunho): o verde-água sai; logo e ícones ficam em verde/escuro para continuar legíveis. */
+/*
+ * Faixa do topo "Entregar em …", cartão "Concluir pedido" e "Visto recentemente" da home.
+ * Camada "design", com `html body` na frente, como os outros ajustes novos.
+ */
 @layer design {
-  html body .shop-header { background: #ffffff !important; border-bottom-color: #e3ecea !important; }
-  html body .shop-header .marca-uf .marca-uf-nome { color: var(--color-ink, #263744) !important; }
-  html body .shop-header .marca-uf .marca-uf-nome { font-size: 0.875rem !important; }
-  html body .shop-header .shop-icone, html body .shop-header .shop-menu { color: var(--color-ink, #263744); }
+  html body .shop-faixa-info .faixa-entrega-botao {
+    appearance: none;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    line-height: inherit;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  html body .shop-faixa-info .faixa-entrega-botao strong { text-decoration: underline; text-underline-offset: 2px; }
+  html body .shop-faixa-info .faixa-entrega-botao:focus-visible { outline: 2px solid #086f66; outline-offset: 2px; border-radius: 4px; }
+  html body .shop-faixa-info a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+
+  html body .faixa-entrega-dialogo {
+    width: min(26rem, calc(100vw - 2rem));
+    max-height: calc(100dvh - 2rem);
+    padding: 0;
+    border: 1px solid #dcebe6;
+    border-radius: 16px;
+    color: #0d3b36;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24);
+  }
+  html body .faixa-entrega-dialogo::backdrop { background: rgba(8, 40, 36, 0.5); }
+  html body .faixa-entrega-corpo { display: grid; gap: 0.75rem; padding: 1.25rem; }
+  html body .faixa-entrega-topo { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+  html body .faixa-entrega-topo h2 { margin: 0; font-size: 1.125rem; }
+  html body .faixa-entrega-fechar { min-width: 2.75rem; min-height: 2.75rem; border: 0; background: none; font-size: 1.5rem; line-height: 1; color: inherit; cursor: pointer; }
+  html body .faixa-entrega-campo { display: grid; gap: 0.25rem; font-weight: 600; }
+  html body .faixa-entrega-campo input { min-height: 2.75rem; padding: 0 0.75rem; border: 1px solid #b7cfc9; border-radius: 10px; font: inherit; font-size: 1rem; }
+  html body .faixa-entrega-resultado p { margin: 0; line-height: 1.4; }
+  html body .faixa-entrega-ou { margin: 0.25rem 0 0; font-weight: 600; }
+  html body .faixa-entrega-bairros { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+  html body .faixa-entrega-bairros button {
+    min-height: 2.75rem;
+    padding: 0 0.875rem;
+    border: 1px solid #b7cfc9;
+    border-radius: 999px;
+    background: #fff;
+    color: #0d3b36;
+    font: inherit;
+    cursor: pointer;
+  }
+  html body .faixa-entrega-bairros button:hover,
+  html body .faixa-entrega-bairros button[aria-pressed="true"] { border-color: #086f66; background: #effaf4; }
+  html body .faixa-entrega-nota { margin: 0; font-size: 0.8125rem; color: #3c5a56; line-height: 1.4; }
+  html body .faixa-entrega-limpar { justify-self: start; padding: 0; border: 0; background: none; color: #086f66; font: inherit; text-decoration: underline; cursor: pointer; }
+
+  html body .cesta-retomada {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    max-width: 75rem;
+    margin: 2rem auto 0;
+    padding: 0.75rem 1.25rem;
+    border: 1px solid #dcebe6;
+    border-radius: 12px;
+    background: #effaf4;
+    color: #0d3b36;
+  }
+  html body .cesta-retomada p { margin: 0; }
+  html body .cesta-retomada-botao {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    padding: 0 1.25rem;
+    border-radius: 999px;
+    background: #086f66;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  html body .cesta-retomada-botao:hover { background: #075c55; }
+
+  html body .shop-vistos-limpar { padding: 0 0.5rem; border: 0; background: none; color: #086f66; font: inherit; font-size: 0.875rem; text-decoration: underline; cursor: pointer; min-height: 2.75rem; }
 }
 
-/* Glow pulse: a marca permanece estável; só o halo verde-água externo respira. */
-@keyframes uf-logo-glow-pulse {
-  0%, 100% { filter: drop-shadow(0 0 0 rgba(49, 168, 157, 0)); }
-  50% { filter: drop-shadow(0 0 9px rgba(49, 168, 157, 0.85)) drop-shadow(0 0 22px rgba(49, 168, 157, 0.48)); }
+/*
+ * Contraste (WCAG 1.4.3): texto branco do botão "Departamentos" sobre o verde-marca #1a8f86 dá 3,94:1; com #128078 dá 4,79:1.
+ * Só este botão escurece; o verde-marca dos outros usos não muda.
+ */
+@layer design {
+  html body .dm-slot--barra .dm-menu { background: #128078 !important; }
 }
-html body .shop-header .shop-marca .marca-uf-nome {
-  animation: uf-logo-glow-pulse 1100ms cubic-bezier(0.37, 0, 0.63, 1) infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  html body .shop-header .shop-marca .marca-uf-nome {
-    animation: none;
-    filter: drop-shadow(0 0 8px rgba(49, 168, 157, 0.58));
+
+/*
+ * Caixas de seleção dos filtros: todas com 24 px (antes 18, 20 e 22 px, conforme o estilo). Alvo de toque maior (WCAG 2.5.8) e
+ * tamanho igual na lateral, na lista de produtos e na gaveta de filtros do celular. O "certo" desenhado cresce junto (14 → 16 px).
+ */
+@layer design {
+  html body .catalogo-filtro-opcao input[type="checkbox"],
+  html body .fc .fc-opcao input[type="checkbox"],
+  html body .pv-filtros input[type="checkbox"] {
+    width: 24px !important;
+    height: 24px !important;
+    background-size: 16px !important;
   }
 }
 
-/* Contraste no rascunho, como na Drogasil: busca em cinza claro com texto escuro; Departamentos em verde escuro com texto branco. */
+/* "Parecidos em estoque" quando tudo que a busca achou está esgotado. */
 @layer design {
-  html body .shop-header .shop-busca { background: #ffffff !important; border: 1.5px solid #8a8a8a !important; color: var(--color-ink, #263744) !important; }
-  html body .shop-header .shop-busca button, html body .shop-header .shop-busca button svg { color: var(--color-ink, #263744) !important; stroke: #000000 !important; }
-  html body .shop-header .shop-busca input { color: var(--color-ink, #263744); }
-  html body .shop-header .shop-busca input::placeholder { color: var(--color-ink, #263744); opacity: 1 !important; }
-}
-
-/* Marcas (rascunho): as bolinhas cinza viram brancas com borda fina; as de cor própria (is-cheia) continuam. */
-@layer design {
-  html body .shop-marcas-trilho a:not(.is-cheia) { background: #ffffff !important; box-shadow: inset 0 0 0 1px #dfe6e8; }
-  html body .shop-marcas-trilho a:not(.is-cheia):hover { background: #f5f7f8 !important; }
-}
-
-/* Rodapé claro em branco (rascunho). O rodapé escuro (.uf-footer) não muda. */
-@layer design {
-  html body .rodape, html body .footer { background: #ffffff !important; }
-}
-
-/* Paleta do rascunho: fundos verdes viram brancos; letras e linhas viram pretas. Material da marca (logos, fotos, ícones de imagem) não muda. */
-@layer design {
-  :root {
-    --uf-panel: #ffffff; --uf-action: #ffffff; --uf-action-hover: #f2f4f3; --uf-action-active: #e6eae9; --uf-action-ink: #000000;
-    --uf-mint: #ffffff; --uf-fog: #ffffff; --uf-paper: #ffffff; --uf-stone: #f2f4f3; --uf-pill: #ffffff; --uf-footer-bg: #ffffff; --uf-cream: #ffffff;
-    --uf-green: #10857f; --uf-green-text: #0d716c; --uf-green-dark: #075b57; --uf-green-deep: #034a44; --uf-green-hover: #e8f6f4; --uf-green-bright: #159b91;
-    --uf-ink: #263744; --uf-ink-soft: #52636e; --uf-muted: #74828b; --uf-navy: #263744; --uf-line: #e3eae9; --uf-line-strong: #cbd8d6;
+  html body .catalogo-similares {
+    margin: 1rem 0 1.5rem;
+    padding: 1rem;
+    border: 1px solid #dcebe6;
+    border-radius: 12px;
+    background: #f6fbf9;
   }
-  html body { color: #263744 !important; }
-  html body *, html body *::before, html body *::after { border-color: #e3eae9 !important; }
-  html body .marca-uf, html body .marca-uf *, html body .marca-uf .marca-uf-nome { color: revert !important; }
-  html body img, html body picture, html body svg, html body svg *, html body .ia-icone i, html body .marca-uf { color: revert !important; border-color: revert !important; }
-  html body .rodape, html body .footer, html body .shop-header, html body .shop-marcas-trilho a:not(.is-cheia), html body .dm-slot--barra .dm-menu { background: #ffffff !important; }
+  html body .catalogo-similares h2 { margin: 0 0 0.75rem !important; font-size: 1.125rem !important; line-height: 1.3 !important; }
+  html body .catalogo-similares-nota { margin: 0.75rem 0 0; font-size: 0.9375rem; }
+  html body .catalogo-similares-nota a { color: #086f66; font-weight: 600; }
 }
 
-/* Ajustes do rascunho: Departamentos volta a preto (pedido anterior), com texto e linhas brancos; botões + e faixa de horário em branco. */
+/* Busca por voz: botão de microfone ao lado da lupa e aviso curto quando a fala não funciona. */
 @layer design {
-  html body .dm-slot--barra .dm-menu { background: #000000 !important; }
-  html body .dm-slot--barra .dm-menu, html body .dm-slot--barra .dm-menu * { color: #ffffff !important; }
-  html body .dm-slot--barra .dm-icone i { background: #ffffff !important; }
-  html body .pv-card .pv-adicionar, html body main .pv-adicionar, html body .pv-adicionar { background: #ffffff !important; background-image: none !important; box-shadow: inset 0 0 0 1px #dce5e4 !important; color: var(--color-ink, #263744) !important; }
-  html body .pv-card .pv-adicionar:hover, html body main .pv-adicionar:hover, html body .pv-adicionar:hover { background: #ffffff !important; }
-  html body .cookie-banner .cookie-accept, html body .cookie-accept { background: #ffffff !important; border-color: var(--color-ink, #263744) !important; color: var(--color-ink, #263744) !important; }
-  html body .shop-faixa-info { background: #ffffff !important; }
+  html body .shop-busca .shop-busca-voz { order: 1 !important; flex: 0 0 auto !important; width: 2.75rem !important; height: 2.75rem !important; margin: 0 !important; padding: 0 !important; border: 0 !important; border-radius: 50% !important; background: transparent !important; color: #0e7370 !important; display: inline-flex !important; align-items: center !important; justify-content: center !important; cursor: pointer; }
+  html body .shop-busca .shop-busca-voz:hover { background: rgba(14, 115, 112, 0.08) !important; }
+  html body .shop-busca .shop-busca-voz:focus-visible { outline: 3px solid var(--uf-action) !important; outline-offset: -3px !important; }
+  html body .shop-busca .shop-busca-voz.is-ouvindo { background: #0e7370 !important; color: #fff !important; animation: shop-voz-pulso 1.2s ease-in-out infinite; }
+  html body .shop-busca-aviso { position: absolute; left: 1rem; right: 1rem; top: calc(100% + 0.25rem); z-index: 5; margin: 0; padding: 0.5rem 0.75rem; border-radius: 8px; background: #0a3548; color: #fff; font-size: 0.875rem; line-height: 1.3; }
 }
-
-/* "Leve também" na cesta (rascunho): fundo branco; os + em branco com ícone preto. */
-@layer design {
-  html body .cesta-sugestoes, html body .cesta-sugestoes-modal, html body .cesta-sugestoes[class] { background: #ffffff !important; }
-  html body .cesta-sugestao-add { background: #ffffff !important; color: var(--color-ink, #263744) !important; box-shadow: inset 0 0 0 1px #dce5e4 !important; }
-}
-
-/* Faixa de passos da cesta (Cesta / Entrega / Finalizar) em branco no rascunho. */
-@layer design {
-  html body .cesta-faixa { background: #ffffff !important; color: var(--color-ink, #263744) !important; }
-}
-
-/* Loja escolhida na entrega/retirada (rascunho): fundo branco; a seleção continua na borda mais grossa. */
-@layer design {
-  html body .fluxo-loja, html body .fluxo-loja.is-on { background: #ffffff !important; }
-}
-
-/* Acabamento uniforme: linhas neutras e profundidade feita por sombras suaves. */
-:root {
-  --color-line: #e6eceb;
-  --color-line-strong: #d5dfdd;
-  --line: #e6eceb;
-  --uf-line: #e6eceb;
-  --uf-line-strong: #d5dfdd;
-  --health-line: #e6eceb;
-  --shadow-surface: 0 2px 12px rgba(38, 55, 68, 0.045);
-  --shadow-surface-hover: 0 7px 20px rgba(38, 55, 68, 0.085);
-}
-
-html body *,
-html body *::before,
-html body *::after {
-  border-color: var(--color-line) !important;
-}
-
-html body :where(
-  .shop-busca,
-  .direct-unit-links,
-  .direct-unit-link,
-  .category-card,
-  .unit-store-card,
-  .shop-card,
-  .catalogo-card,
-  .pv-card,
-  .offer-card,
-  .news-card,
-  .offers-faq-item,
-  .metrics-card,
-  .pf-card,
-  .pm-card,
-  .fluxo-loja,
-  .entrega-opcao,
-  .cesta-faixa,
-  .cesta-sugestoes,
-  .search-card,
-  .pf-modal
-) {
-  border-color: var(--color-line) !important;
-  box-shadow: var(--shadow-surface);
-}
-
-html body :is(
-  .category-card,
-  .unit-store-card,
-  .shop-card,
-  .catalogo-card,
-  .pv-card,
-  .offer-card,
-  .news-card,
-  .pf-card,
-  .pm-card
-):hover {
-  box-shadow: var(--shadow-surface-hover);
-}
-
-html body :where(.is-error, .is-invalid, [aria-invalid="true"]) {
-  border-color: #c44540 !important;
-}
-
-/* Reforça a mesma linha neutra nos componentes com regras prioritárias da camada de design. */
-@layer design {
-  :root {
-    --color-line: #e6eceb;
-    --line: #e6eceb;
-    --uf-line: #e6eceb;
-    --health-line: #e6eceb;
-  }
-
-  html body *,
-  html body *::before,
-  html body *::after {
-    border-color: var(--color-line) !important;
-  }
-
-  html body .shop-header .shop-busca,
-  html body .home-busca-lugar,
-  html body .home-busca-lugar .shop-busca,
-  html body .cookie-accept,
-  html body .cesta-sugestao-add,
-  html body .fluxo-loja,
-  html body .fluxo-loja.is-on,
-  html body .shop-card,
-  html body .catalogo-card,
-  html body .pv-card,
-  html body .category-card,
-  html body .direct-unit-link,
-  html body .metrics-card {
-    border-color: var(--color-line) !important;
-  }
-
-  html body .home-busca-lugar,
-  html body .home-busca-lugar .shop-busca {
-    border-color: transparent !important;
-  }
-
-  html body .shop-header,
-  html body .shop-header > .shop-submenu {
-    background: #d4eeeb !important;
-  }
-
-  html body .shop-header {
-    border-bottom-color: #c8dfdc !important;
-  }
-
-  html body .shop-header > .shop-submenu {
-    border-bottom-color: #c8dfdc !important;
-  }
-
-  @media (min-width: 64rem) {
-    html body .cab-espaco {
-      height: 4.375rem !important;
-    }
-
-    html body .shop-header {
-      grid-template-columns: auto auto minmax(0, 1fr) auto auto !important;
-      grid-template-areas: "marca dep busca whats acoes" !important;
-      grid-template-rows: 4.375rem !important;
-      column-gap: clamp(0.5rem, 1.25vw, 1.5rem) !important;
-      height: 4.375rem !important;
-      min-height: 4.375rem !important;
-      padding-inline: clamp(1rem, 3vw, 3rem) !important;
-    }
-
-    html body .shop-header > .shop-submenu {
-      position: relative !important;
-      inset: auto !important;
-      grid-area: dep !important;
-      display: flex !important;
-      align-items: center !important;
-      width: auto !important;
-      height: auto !important;
-      min-height: 0 !important;
-      max-height: none !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      border: 0 !important;
-      background: transparent !important;
-    }
-
-    html body .shop-header > .shop-submenu .shop-submenu-conteudo {
-      display: flex !important;
-      align-items: center !important;
-      width: auto !important;
-      min-height: 2.75rem !important;
-      margin: 0 !important;
-      padding: 0 !important;
-    }
-
-    html body .shop-header .shop-busca {
-      height: 2.75rem !important;
-    }
-  }
-}
-
-/* Cabeçalho na cor da marca (verde-água, como no site online), com a logo de letras brancas e o selo "Drogaria e Perfumaria".
-   Só o cabeçalho volta ao verde; o restante da página segue o tema branco. Seletores duplicados para vencer as regras acima. */
-@layer design {
-  html body .shop-header.shop-header { background: #31a89d !important; border-bottom-color: #31a89d !important; }
-  html body .shop-header.shop-header .shop-marca .marca-uf-nome { color: #ffffff !important; font-size: 1.6875rem !important; text-shadow: 0 1px 0 rgba(10, 45, 41, 0.3) !important; }
-  @media (min-width: 992px) {
-    html body .shop-header.shop-header .shop-marca .marca-uf-nome { font-size: 1.75rem !important; }
-  }
-  html body .shop-header.shop-header .shop-marca .marca-uf-pe { background: #ffffff !important; color: #14736b !important; box-shadow: inset 0 0 0 1px #14736b !important; }
-  html body .shop-header.shop-header .shop-icone,
-  html body .shop-header.shop-header .shop-menu { color: #ffffff !important; }
-}
-
-/* Botão Departamentos com o desenho do site online: caixa verde escura de 200 px, ícone de menu branco e lista verde no mesmo tom.
-   Vence as regras de texto simples acima (mesmo nível, declarado depois). */
-@layer design {
-  html body .shop-header .shop-submenu .dm-slot--barra { width: 200px !important; height: 52px !important; }
-  html body .shop-header .shop-submenu .dm-slot--barra .dm-menu { position: relative !important; width: 200px !important; height: 52px !important; border-radius: 26px !important; background: #14736b !important; color: #ffffff !important; box-shadow: 0 4px 14px rgba(11, 59, 54, 0.18) !important; overflow: visible !important; }
-  html body .shop-header .shop-submenu .dm-slot--barra .dm-cabeca { height: 52px !important; padding: 0 18px !important; justify-content: flex-start !important; gap: 10px !important; }
-  html body .shop-header .shop-submenu .dm-slot--barra .dm-titulo { font-size: 16px !important; font-weight: 700 !important; color: #ffffff !important; }
-  html body .shop-header .shop-submenu .dm-slot--barra .dm-icone { width: 26px !important; height: 26px !important; }
-  html body .shop-header .shop-submenu .dm-slot--barra .dm-icone i { display: block !important; background: #ffffff !important; height: 2.5px !important; left: 2px !important; right: 2px !important; top: 11.75px !important; }
-  html body .shop-header .shop-submenu .dm-slot--barra .dm-icone::after { content: none !important; display: none !important; }
-  html body .shop-header .shop-submenu .dm-slot--barra .dm-links { top: 52px !important; left: 0 !important; right: auto !important; width: 200px !important; padding: 6px !important; background: transparent !important; border-radius: 0 0 26px 26px !important; box-shadow: none !important; }
-  html body .shop-header .shop-submenu .dm-slot--barra .dm-menu:has(.dm-cabeca[aria-expanded="true"]) .dm-links { background: #14736b !important; box-shadow: 0 4px 14px rgba(11, 59, 54, 0.18) !important; }
-  html body .shop-header .shop-submenu .dm-slot--barra .dm-links a { color: #ffffff !important; font-weight: 600 !important; }
-  html body .shop-header .shop-submenu .dm-slot--barra .dm-links li:hover { background: rgba(255, 255, 255, 0.16) !important; }
-}
+@keyframes shop-voz-pulso { 0%, 100% { box-shadow: 0 0 0 0 rgba(14, 115, 112, 0.45); } 50% { box-shadow: 0 0 0 8px rgba(14, 115, 112, 0); } }
+@media (prefers-reduced-motion: reduce) { html body .shop-busca .shop-busca-voz.is-ouvindo { animation: none !important; } }

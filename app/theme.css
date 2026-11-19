@@ -4,14 +4,15 @@
 /* --- skin.css --- */
 body {
   background:
-    #ffffff;
-  color: var(--color-ink, #263744);
+    radial-gradient(56rem 26rem at 50% -8rem, rgba(20, 143, 138, 0.14), transparent 62%),
+    var(--uf-paper);
+  color: var(--uf-ink);
 }
 
 .site-header,
 .nav {
-  background: #ffffff;
-  color: var(--color-ink, #263744);
+  background: var(--uf-paper);
+  color: var(--uf-ink);
 }
 
 .site-header a,
@@ -21,11 +22,11 @@ body {
 .menu-label,
 .menu-links a,
 .menu-button {
-  color: var(--color-ink, #263744);
+  color: var(--uf-ink);
 }
 
 .menu-icon span {
-  background: #ffffff;
+  background: var(--uf-ink);
 }
 
 .hero {
@@ -34,22 +35,22 @@ body {
 }
 
 .hero-copy .eyebrow {
-  color: var(--color-ink, #263744);
+  color: var(--uf-green-text);
 }
 
 .hero-copy h1 {
   max-width: 16ch;
-  color: var(--color-ink, #263744);
+  color: var(--uf-ink);
 }
 
 .open-now-strip {
-  background: #ffffff;
-  color: var(--color-ink, #263744);
+  background: var(--uf-open-live);
+  color: #0b3b36;
 }
 
 .preferred-store-banner {
-  background: #ffffff;
-  color: var(--color-ink, #263744);
+  background: var(--uf-stone);
+  color: var(--uf-ink);
 }
 
 .direct-unit-photo,
@@ -62,13 +63,13 @@ body {
   margin: 0.4em 0 0.3em;
   padding: 0;
   background: transparent;
-  color: var(--color-ink, #263744);
+  color: var(--uf-green-text);
 }
 
 .offer-consult-price strong,
 .encarte-price,
 .price-large {
-  color: var(--color-ink, #263744);
+  color: var(--uf-green-text);
   background: transparent;
   padding: 0;
 }
@@ -81,7 +82,7 @@ body {
 }
 
 .whatsapp-intent-chips button.is-active {
-  background: #ffffff;
+  background: var(--uf-green);
   color: #ffffff;
   border-color: transparent;
 }
@@ -92,7 +93,7 @@ body {
 .button-whatsapp,
 .offer-consult-units a {
   background: var(--uf-whatsapp);
-  color: var(--color-ink, #263744);
+  color: #0b3b36;
   border-color: transparent;
   font-weight: 800;
 }
@@ -103,7 +104,7 @@ body {
 .button-whatsapp:hover,
 .offer-consult-units a:hover {
   background: #1ebe5d;
-  color: var(--color-ink, #263744);
+  color: #0b3b36;
 }
 
 .header-cta {
@@ -111,8 +112,8 @@ body {
 }
 
 .open-status.is-open {
-  background: #ffffff;
-  color: var(--color-ink, #263744);
+  background: var(--uf-open-live);
+  color: #0b3b36;
 }
 
 .open-status.is-closed {
@@ -121,12 +122,12 @@ body {
 }
 
 .nearest-unit-badge {
-  color: var(--color-ink, #263744);
+  color: var(--uf-green-text);
 }
 
 .reviews,
 .review-grid {
-  background: #ffffff;
+  background: var(--uf-stone);
 }
 
 .review-card,
@@ -139,12 +140,12 @@ body {
 
 .category-card,
 .categories article {
-  background: #ffffff;
+  background: var(--uf-stone);
   border-radius: var(--r-lg);
 }
 
 .uf-footer {
-  background: #ffffff;
+  background: linear-gradient(180deg, #175b54 0%, #0a312d 100%);
 }
 
 /* --- contrast.css --- */
@@ -155,21 +156,21 @@ html {
 }
 
 ::selection {
-  background: #ffffff;
+  background: #006058;
   color: #ffffff;
 }
 
 body {
-  color: var(--color-ink, #263744);
+  color: #0d2320;
   background: #f2faf9;
 }
 
 .scroll-indicator {
-  background: #ffffff;
+  background: #006058;
 }
 
 .skip-link {
-  background: #ffffff;
+  background: #006058;
   color: #ffffff;
 }
 
@@ -183,14 +184,14 @@ a,
 .menu-links a,
 .content-nav a,
 .brand strong {
-  color: var(--color-ink, #263744);
+  color: #006058;
 }
 
 a:visited,
 .menu-links a:visited,
 .content-nav a:visited,
 .uf-footer a:visited {
-  color: var(--color-ink, #263744);
+  color: #003530;
 }
 
 .uf-footer a:hover,
@@ -209,7 +210,7 @@ a:visited,
 .brand small,
 .menu-label,
 .menu-button {
-  color: var(--color-ink, #263744);
+  color: #27403d;
 }
 
 .hero-copy p,
@@ -219,14 +220,14 @@ a:visited,
 .direct-unit-links-copy span,
 .unit-map-details p,
 .neighborhood-hero p {
-  color: var(--color-ink, #263744);
+  color: #27403d;
 }
 
 .offer-consult-price,
 .offer-consult-price strong,
 .encarte-price,
 .price-large {
-  color: var(--color-ink, #263744);
+  color: #006058;
 }
 
 .direct-unit-actions a:first-child,
@@ -241,8 +242,8 @@ a:visited,
 .cookie-accept,
 .cookie-banner button[type="button"]:not(.cookie-reject),
 .modal-unit-action {
-  background: #ffffff;
-  color: var(--color-ink, #263744);
+  background: #1f9e4b;
+  color: #001f1c;
   border-color: #1f9e4b;
 }
 
@@ -263,45 +264,45 @@ a:visited,
 .mobile-quick-nav a.is-primary:active,
 .cookie-accept:hover,
 .cookie-accept:active {
-  background: #ffffff;
-  color: var(--color-ink, #263744);
+  background: #178a40;
+  color: #001f1c;
 }
 
 .whatsapp-intent-chips button {
-  background: #ffffff;
-  color: var(--color-ink, #263744);
-  border-color: #8a8a8a;
+  background: #cbe8e4;
+  color: #0d2320;
+  border-color: #b2d7d2;
 }
 
 .whatsapp-intent-chips button.is-active {
-  background: #ffffff;
+  background: #006058;
   color: #ffffff;
-  border-color: #8a8a8a;
+  border-color: #006058;
 }
 
 .open-now-strip {
-  background: #ffffff;
-  color: var(--color-ink, #263744);
+  background: #0c8a4a;
+  color: #01201e;
 }
 
 .open-now-list a {
   background: rgba(6, 32, 22, 0.12);
-  color: var(--color-ink, #263744);
+  color: #01201e;
 }
 
 .open-now-list a.is-open {
-  background: #ffffff;
-  color: var(--color-ink, #263744);
+  background: #1f9e4b;
+  color: #001f1c;
 }
 
 .open-status.is-hours {
   background: #e5f6f4;
-  color: var(--color-ink, #263744);
+  color: #006058;
 }
 
 .open-status.is-open {
-  background: #ffffff;
-  color: var(--color-ink, #263744);
+  background: #0c8a4a;
+  color: #01201e;
 }
 
 .open-status.is-closed {
@@ -320,11 +321,11 @@ a:visited,
 .direct-unit-link .offer-badge,
 .direct-unit-link .selo-consulte {
   background: #e5f6f4;
-  color: var(--color-ink, #263744);
+  color: #006058;
 }
 
 .offer-consult-image {
-  background: #ffffff;
+  background: #d0f1ec;
 }
 
 .uf-footer,
@@ -337,8 +338,8 @@ a:visited,
 .direct-unit-recipe,
 .mobile-quick-nav a:not(.is-primary) {
   background: #daefec;
-  color: var(--color-ink, #263744);
-  border: 1px solid #8a8a8a;
+  color: #0d2320;
+  border: 1px solid #006058;
 }
 
 .maps-link,
@@ -346,27 +347,27 @@ a:visited,
 a[href*="google.com/maps"],
 a[href*="maps.apple"] {
   background: #daefec;
-  color: var(--color-ink, #263744);
-  border: 1px solid #8a8a8a;
+  color: #0d2320;
+  border: 1px solid #b2d7d2;
 }
 
 .unit-map-details a:not([href*="whatsapp"]),
 .map-view-link {
   background: transparent;
-  color: var(--color-ink, #263744);
+  color: #006058;
   border: 0;
 }
 
 .mobile-quick-nav {
   background: #f2faf9;
-  border-top-color: #8a8a8a;
+  border-top-color: #b2d7d2;
 }
 
 .menu-links.is-open,
 .content-menu-drawer,
 .unit-selector-modal {
   background: #f2faf9;
-  color: var(--color-ink, #263744);
+  color: #0d2320;
 }
 
 .modal-backdrop,
@@ -377,26 +378,26 @@ a[href*="maps.apple"] {
 
 .modal-close {
   background: #f2faf9;
-  color: var(--color-ink, #263744);
-  border-color: #8a8a8a;
+  color: #0d2320;
+  border-color: #b2d7d2;
 }
 
 .modal-unit-option {
   background: #ffffff;
-  border-color: #8a8a8a;
-  color: var(--color-ink, #263744);
+  border-color: #b2d7d2;
+  color: #0d2320;
 }
 
 .cookie-banner {
   background: #f2faf9;
-  color: var(--color-ink, #263744);
-  border-color: #8a8a8a;
+  color: #0d2320;
+  border-color: #b2d7d2;
 }
 
 .cookie-reject {
   background: #daefec;
-  color: var(--color-ink, #263744);
-  border-color: #8a8a8a;
+  color: #0d2320;
+  border-color: #b2d7d2;
 }
 
 .faq-item.is-open,
@@ -405,35 +406,35 @@ a[href*="maps.apple"] {
 }
 
 .faq-question {
-  color: var(--color-ink, #263744);
+  color: #0d2320;
 }
 
 .category-card,
 .categories article {
-  background: #ffffff;
-  color: var(--color-ink, #263744);
+  background: #cbe8e4;
+  color: #0d2320;
 }
 
 .category-card .line-icon,
 .categories article .line-icon,
 .categories svg {
-  color: var(--color-ink, #263744);
-  stroke: #000000;
+  color: #006058;
+  stroke: #006058;
 }
 
 .review-card p::before,
 .reviews article p::before {
-  color: var(--color-ink, #263744);
+  color: #006058;
 }
 
 .review-card,
 .reviews article {
-  border-top: 0.2rem solid #8a8a8a;
+  border-top: 0.2rem solid #006058;
 }
 
 .direct-unit-link.is-preferred {
   box-shadow: inset 0.25rem 0 0 #006058;
-  border-color: #8a8a8a;
+  border-color: #006058;
 }
 
 .direct-unit-link:hover,
@@ -453,13 +454,13 @@ select,
 [type="search"],
 [type="text"] {
   background: #e5f6f4;
-  color: var(--color-ink, #263744);
-  border-color: #8a8a8a;
+  color: #0d2320;
+  border-color: #006058;
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: var(--color-ink, #263744);
+  color: #385350;
   opacity: 1;
 }
 
@@ -468,7 +469,7 @@ textarea:focus,
 select:focus {
   outline: 0.2rem solid #12c25a;
   outline-offset: 0.1rem;
-  border-color: #8a8a8a;
+  border-color: #006058;
 }
 
 .unit-map-frame,
@@ -484,7 +485,7 @@ select:focus {
 .marker-cluster-medium,
 .marker-cluster-large,
 .marker-cluster div {
-  background: #ffffff;
+  background: #006058;
   color: #ffffff;
 }
 
@@ -492,20 +493,20 @@ select:focus {
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {
   background: #e5f6f4;
-  color: var(--color-ink, #263744);
-  border-color: #8a8a8a;
+  color: #006058;
+  border-color: #b2d7d2;
 }
 
 .leaflet-control-attribution,
 .leaflet-control-attribution a {
   background: transparent;
-  color: var(--color-ink, #263744);
+  color: #385350;
 }
 
 .leaflet-popup-content-wrapper,
 .leaflet-tooltip {
   background: #f2faf9;
-  color: var(--color-ink, #263744);
+  color: #0d2320;
   border: 0;
   box-shadow: 0 0.6rem 1.4rem rgba(8, 53, 40, 0.18);
 }
@@ -515,7 +516,7 @@ select:focus {
 }
 
 :focus-visible {
-  outline: 0.2rem solid #8a8a8a;
+  outline: 0.2rem solid #006058;
   outline-offset: 0.15rem;
 }
 
@@ -526,42 +527,42 @@ select:focus {
   .locate-unit-button:active,
   .offer-consult-units a:active,
   .cookie-accept:active {
-    background: #ffffff;
+    background: #178a40;
   }
 }
 
 /* --- aqua-override.css --- */
 :root {
-  --uf-ink: #263744;
-  --uf-green: #10857f;
-  --uf-green-hover: #0d716c;
-  --uf-green-dark: #075b57;
-  --uf-green-deep: #034a44;
-  --uf-green-bright: #159b91;
-  --uf-open: #167a58;
-  --uf-open-live: #167a58;
+  --uf-ink: #0d1413;
+  --uf-green: #14736b;
+  --uf-green-hover: #14736b;
+  --uf-green-dark: #0b3b36;
+  --uf-green-deep: #0b3b36;
+  --uf-green-bright: #29bbae;
+  --uf-open: #149a90;
+  --uf-open-live: #24d4c5;
   --uf-paper: #f1fbfa;
-  --uf-stone: #ffffff;
+  --uf-stone: #d4eeeb;
   --uf-fog: #e4f6f3;
   --uf-mint: #e4f6f3;
-  --uf-line: #e6eceb;
-  --uf-line-strong: #d5dfdd;
-  --uf-muted: #667782;
+  --uf-line: #a9d8d2;
+  --uf-line-strong: #6ebcb2;
+  --uf-muted: #3e4b49;
 }
 
 html,
 body {
-  background: #ffffff;
+  background: #f1fbfa;
 }
 
 ::selection {
-  background: #ffffff !important;
+  background: #14736b !important;
   color: #ffffff !important;
 }
 
 .skip-link,
 .scroll-indicator {
-  background: #ffffff !important;
+  background: #14736b !important;
 }
 
 a,
@@ -574,13 +575,13 @@ a,
 .price-large,
 .unit-map-details a:not([href*="whatsapp"]),
 .map-view-link {
-  color: var(--color-ink, #263744);
+  color: #14736b;
 }
 
 .content-header-cta,
 .content-nav a.content-header-cta,
 a.content-header-cta {
-  background: #ffffff !important;
+  background: #0f5f59 !important;
   color: #ffffff !important;
   border: 0 !important;
 }
@@ -594,7 +595,7 @@ a.content-header-cta {
 .content-header-cta:active,
 .content-nav a.content-header-cta:hover,
 .content-nav a.content-header-cta:active {
-  background: #ffffff !important;
+  background: #0b3b36 !important;
   color: #ffffff !important;
 }
 
@@ -605,8 +606,8 @@ a.content-header-cta {
 }
 
 .whatsapp-intent-chips button.is-active {
-  background: #ffffff !important;
-  border-color: #8a8a8a;
+  background: #14736b !important;
+  border-color: #14736b !important;
   color: #ffffff !important;
 }
 
@@ -616,58 +617,58 @@ a.content-header-cta {
 input,
 textarea,
 select {
-  background: #ffffff;
+  background: #e4f6f3;
 }
 
 .open-status.is-open,
 .open-now-strip {
-  background: #ffffff;
-  color: var(--color-ink, #263744);
+  background: #149a90;
+  color: #0b3b36;
 }
 
 .category-card .line-icon,
 .categories article .line-icon,
 .categories svg {
-  color: var(--color-ink, #263744);
-  stroke: #000000;
+  color: #14736b;
+  stroke: #14736b;
 }
 
 .review-card,
 .reviews article {
-  border-top-color: #8a8a8a;
+  border-top-color: #14736b;
 }
 
 .direct-unit-link.is-preferred {
   box-shadow: inset 0.25rem 0 0 #14736b;
-  border-color: #8a8a8a;
+  border-color: #14736b;
 }
 
 input,
 textarea,
 select {
-  border-color: #8a8a8a;
-  color: var(--color-ink, #263744);
+  border-color: #14736b;
+  color: #112e2b;
 }
 
 input:focus,
 textarea:focus,
 select:focus,
 :focus-visible {
-  outline-color: #8a8a8a;
-  border-color: #8a8a8a;
+  outline-color: #24d4c5;
+  border-color: #14736b;
 }
 
 .marker-cluster-small,
 .marker-cluster-medium,
 .marker-cluster-large,
 .marker-cluster div {
-  background: #ffffff;
+  background: #14736b;
   color: #ffffff;
 }
 
 /* --- footer-contrast.css --- */
 .uf-footer {
-  background: #ffffff !important;
+  background: #093a36 !important;
   color: #f3fffd !important;
 }
 
@@ -709,7 +710,7 @@ select:focus,
   z-index: 4000;
   padding: 0.65rem 0.9rem;
   border-radius: 0.6rem;
-  background: #ffffff;
+  background: #006058;
   color: #ffffff;
   font-weight: 800;
 }
@@ -746,7 +747,7 @@ select:focus,
 
 .section-kicker {
   margin: 0 0 0.25rem;
-  color: var(--color-ink, #263744);
+  color: #006058;
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -777,7 +778,7 @@ select:focus,
 .hero-copy .eyebrow {
   display: block !important;
   margin: 0 0 0.35rem;
-  color: var(--color-ink, #263744);
+  color: #006058;
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -794,7 +795,7 @@ select:focus,
   display: block !important;
   max-width: 32rem;
   margin: 0.55rem 0 0;
-  color: var(--color-ink, #263744);
+  color: #3b524f;
   font-size: 0.95rem;
   line-height: 1.45;
 }
@@ -824,7 +825,7 @@ select:focus,
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: var(--color-ink, #263744);
+  color: #006058;
 }
 
 .hero-whatsapp-row {
@@ -841,7 +842,7 @@ select:focus,
   min-height: 50px;
   padding: 0.7rem 1rem 0.7rem 1.2rem;
   border-radius: 0.85rem;
-  background: #ffffff;
+  background: #0f7a33;
   color: #ffffff;
   font-weight: 800;
   letter-spacing: -0.01em;
@@ -855,7 +856,7 @@ select:focus,
 }
 
 .hero-whatsapp-btn:hover {
-  background: #ffffff;
+  background: #0f7a32;
 }
 
 .trust-strip {
@@ -880,12 +881,12 @@ select:focus,
 
 .trust-strip-grid strong {
   display: block;
-  color: var(--color-ink, #263744);
+  color: #006058;
   font-size: 0.88rem;
 }
 
 .trust-strip-grid span {
-  color: var(--color-ink, #263744);
+  color: #485f5c;
   font-size: 0.75rem;
 }
 
@@ -929,7 +930,7 @@ select:focus,
 
 .category-link {
   margin-top: 0.55rem;
-  color: var(--color-ink, #263744);
+  color: #006058;
   font-weight: 800;
   font-size: 0.82rem;
 }
@@ -955,7 +956,7 @@ select:focus,
 .reviews-section h2 {
   margin: 0;
   font-size: 0.98rem;
-  color: var(--color-ink, #263744);
+  color: #0d2320;
 }
 
 .reviews-score {
@@ -965,7 +966,7 @@ select:focus,
   margin: 0 !important;
   padding: 0 !important;
   background: transparent !important;
-  color: var(--color-ink, #263744);
+  color: #0d2320;
   font-weight: 700;
 }
 
@@ -1050,7 +1051,7 @@ select:focus,
   margin: 0 !important;
   font-size: 0.88rem !important;
   line-height: 1.4 !important;
-  color: var(--color-ink, #263744);
+  color: #3c4043 !important;
 }
 
 .reviews-google-link {
@@ -1072,7 +1073,7 @@ select:focus,
   border: 1px solid #d5e6e4;
   border-radius: 999px;
   background: #ffffff;
-  color: var(--color-ink, #263744);
+  color: #006058;
   font-size: 0.75rem;
   font-weight: 700;
   text-decoration: none;
@@ -1083,9 +1084,9 @@ select:focus,
 }
 
 .button.button-whatsapp {
-  background: #ffffff !important;
+  background: #0f7a33 !important;
   color: #ffffff !important;
-  border-color: #8a8a8a;
+  border-color: #0f7a33 !important;
 }
 
 @media (min-width: 861px) {
@@ -1140,7 +1141,7 @@ select:focus,
 .cookie-copy {
   margin: 0;
   font-size: 0.78rem;
-  color: var(--color-ink, #263744);
+  color: #27403d;
 }
 
 .cookie-actions {

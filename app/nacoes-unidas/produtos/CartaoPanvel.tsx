@@ -5,6 +5,7 @@ import Preco from "./Preco";
 import SemFoto from "./SemFoto";
 import { formatarQuantidade } from "./quantidade";
 import { marcaDeProduto, marcaLegivel } from "./marca";
+import "../../shop/product-cards-online.css";
 
 /** Classificação do medicamento mostrada na segunda linha ("Med. Genérico", "Controlado"). Sem "com/sem receita": isso já vai nos avisos legais. Vazio para produtos comuns. */
 export type ClassificacaoCartao = "generico" | "controlado";

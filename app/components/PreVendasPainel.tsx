@@ -38,7 +38,7 @@ export default function PreVendasPainel() {
   const [salvando, setSalvando] = useState<string | null>(null);
   const [erro, setErro] = useState("");
   const [aviso, setAviso] = useState("");
-  const [agora, setAgora] = useState(0); // hora da última carga: o filtro por período não lê o relógio durante a renderização
+  const [agora, setAgora] = useState(0);
 
   const carregar = useCallback(async () => {
     try {
@@ -60,10 +60,12 @@ export default function PreVendasPainel() {
   }, []);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- carga inicial do painel
-    void carregar();
+    const inicio = window.setTimeout(() => void carregar(), 0);
     const intervalo = window.setInterval(() => void carregar(), 60_000);
-    return () => window.clearInterval(intervalo);
+    return () => {
+      window.clearTimeout(inicio);
+      window.clearInterval(intervalo);
+    };
   }, [carregar]);
 
   const visiveis = useMemo(() => {
@@ -104,17 +106,17 @@ export default function PreVendasPainel() {
   }
 
   return (
-    <main className="pvendas-pagina">
+    <div className="pvendas-pagina">
       <header className="pvendas-cabeca">
         <div>
           <p className="pvendas-eyebrow">Área da equipe</p>
           <h1>Pré-vendas do site</h1>
-          <p className="pvendas-lead">Acompanhe as cestas de clientes que tentaram abrir o WhatsApp e atualize o andamento da conversa.</p>
+          <p className="pvendas-lead">Acompanhe as cestas que chegaram até a abertura do WhatsApp e atualize o andamento da conversa.</p>
         </div>
         <button className="pvendas-atualizar" type="button" onClick={() => void carregar()} disabled={carregando}>Atualizar</button>
       </header>
 
-      <p className="pvendas-nota">Cada registro significa que o cliente clicou para abrir o WhatsApp. A loja ainda precisa verificar se recebeu a mensagem, confirmar estoque e atualizar o atendimento. Nome, telefone, endereço e forma de pagamento não são guardados.</p>
+      <p className="pvendas-nota">Cada registro significa que o cliente clicou para abrir o WhatsApp. Isso não confirma o envio da mensagem nem a venda. Nome, telefone, endereço e forma de pagamento não são guardados, a não ser nome e celular de quem marcou a caixa de lembrete de recompra (veja Recompra).</p>
       {erro ? <p className="pvendas-erro" role="alert">{erro}</p> : null}
       {aviso ? <p className="pvendas-aviso" role="status">{aviso}</p> : null}
 
@@ -150,11 +152,14 @@ export default function PreVendasPainel() {
                   <span>Estimativa <strong>{dinheiro(registro.totalCentavos)}</strong></span>
                   <label><span className="pvendas-sr">Atualizar andamento</span><select value={registro.status} disabled={salvando === registro.id} onChange={(event) => void alterarStatus(registro.id, event.target.value as Status)}>{Object.entries(STATUS).map(([valor, rotulo]) => <option key={valor} value={valor}>{rotulo}</option>)}</select></label>
                 </footer>
+                {registro.modo === "casa" && (registro.status === "nova" || registro.status === "atendimento") ? (
+                  <a className="pvenda-entregador" href={`/interno/entregas?pv=${encodeURIComponent(registro.id)}`}>Chamar entregador</a>
+                ) : null}
               </article>
             ))}
           </div>
         )}
       </section>
-    </main>
+    </div>
   );
 }

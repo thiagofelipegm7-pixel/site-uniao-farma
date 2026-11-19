@@ -1,5 +1,5 @@
 // Mesma versão do CACHE_BUST em app/PwaRegister.tsx (tests/sw-offline.test.mjs confere): mudou um, muda o outro.
-const CACHE_NAME = "uf-static-v27";
+const CACHE_NAME = "uf-static-v29";
 const PRECACHE = ["/offline.html", "/manifest.json", "/favicon.png"];
 
 // A Cloudflare responde /offline.html com 307 para /offline. O navegador recusa (net::ERR_FAILED) uma resposta

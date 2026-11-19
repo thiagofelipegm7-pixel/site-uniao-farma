@@ -27,7 +27,7 @@ export default function OfertasSemana() {
 
   useEffect(() => {
     let ativo = true;
-    fetch("/api/ofertas", { headers: { accept: "application/json" } })
+    fetch("/api/ofertas-vitrine", { headers: { accept: "application/json" } })
       .then((resposta) => (resposta.ok ? resposta.json() : null))
       .catch(() => null)
       .then((dados: { itens?: Oferta[] } | null) => {

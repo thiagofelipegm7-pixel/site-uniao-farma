@@ -1,0 +1,140 @@
+/* Ajustes dos cards de produto sincronizados da versão local. */
+.pv-nome-palavra {
+  display: inline-block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  color: inherit;
+  transition: transform 260ms cubic-bezier(0.2, 1.15, 0.35, 1), color 180ms ease, text-shadow 260ms ease;
+}
+
+/* Reserva espaço para o nome subir no hover sem ser cortado pelo line-clamp. */
+.pv-nome { padding-top: 8px; margin-top: -8px; }
+
+@media (hover: hover) {
+  .pv-card:hover .pv-nome-palavra {
+    transform: translateY(-5px) scale(1.035);
+    color: #31a89d;
+    text-shadow: 0 5px 8px rgba(49, 168, 157, 0.28);
+    transition-delay: calc(var(--pv-nome-indice, 0) * 20ms);
+  }
+}
+
+.pv-corpo:focus-visible .pv-nome-palavra {
+  transform: translateY(-5px) scale(1.035);
+  color: #31a89d;
+  text-shadow: 0 5px 8px rgba(49, 168, 157, 0.28);
+  transition-delay: calc(var(--pv-nome-indice, 0) * 20ms);
+}
+
+.pv-card .pv-img { position: relative; }
+.pv-selo-novo {
+  position: absolute;
+  z-index: 2;
+  top: 8px;
+  left: 2px;
+  display: grid;
+  place-items: center;
+  width: 4.25rem;
+  height: 3.75rem;
+  background: #e9081b;
+  clip-path: polygon(50% 0%, 60% 10%, 74% 3%, 77% 18%, 94% 16%, 89% 32%, 100% 43%, 87% 53%, 96% 69%, 79% 72%, 81% 91%, 64% 85%, 52% 100%, 42% 86%, 25% 95%, 23% 78%, 5% 80%, 13% 62%, 0% 50%, 13% 39%, 5% 22%, 23% 23%, 31% 5%, 43% 14%);
+  color: #b90012;
+  filter: drop-shadow(0 2px 2px rgba(38, 55, 68, 0.2));
+  transform: rotate(-5deg);
+  pointer-events: none;
+}
+.pv-selo-novo::before {
+  position: absolute;
+  inset: 3px;
+  background: #ffe600;
+  clip-path: polygon(50% 0%, 60% 10%, 74% 3%, 77% 18%, 94% 16%, 89% 32%, 100% 43%, 87% 53%, 96% 69%, 79% 72%, 81% 91%, 64% 85%, 52% 100%, 42% 86%, 25% 95%, 23% 78%, 5% 80%, 13% 62%, 0% 50%, 13% 39%, 5% 22%, 23% 23%, 31% 5%, 43% 14%);
+  content: "";
+}
+.pv-selo-novo > span { position: relative; z-index: 1; font-size: 0.75rem; font-weight: 1000; letter-spacing: 0.015em; line-height: 1; }
+
+.pv-preco-oferta { display: flex; flex-direction: column; align-items: stretch; gap: 0.2rem; margin-top: auto; padding: 10px 0 0; text-align: left; }
+.pv-preco-antigo-linha { display: flex; align-items: center; justify-content: space-between; gap: 0.35rem; width: 100%; }
+.pv-preco-antigo-texto { color: #263744; font-size: 0.75rem; font-weight: 600; line-height: 1.2; white-space: nowrap; }
+.pv-preco-anterior { color: #687781; font-size: inherit; font-weight: 500; line-height: 1.1; white-space: nowrap; }
+.pv-economia { flex: none; padding: 0.28rem 0.4rem; border-radius: 2px; background: #c62828; color: #ffeb3b; font-size: 0.6875rem; font-weight: 900; line-height: 1; white-space: nowrap; text-transform: uppercase; }
+@keyframes pv-preco-batimento {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(198, 40, 40, 0)); }
+  8% { transform: scale(1.08); filter: drop-shadow(0 2px 5px rgba(198, 40, 40, 0.34)); }
+  16% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(198, 40, 40, 0)); }
+  25% { transform: scale(1.045); filter: drop-shadow(0 1px 3px rgba(198, 40, 40, 0.22)); }
+  34% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(198, 40, 40, 0)); }
+}
+.pv-preco--oferta { transform-origin: left center; animation: pv-preco-batimento 1.05s ease-in-out infinite; }
+.pv-preco-atual-linha { display: flex; align-items: center; justify-content: flex-start; gap: 0.4rem; width: 100%; }
+.pv-preco-label { color: #c62828; font-size: 1rem; font-weight: 900; line-height: 1.2; }
+.pv-preco-oferta .pv-preco-vazio { color: #c51e32; }
+
+.shop-destaques--ofertas .shop-destaques-topo { align-items: center; }
+.shop-destaques--ofertas .pv-preco-oferta { width: 100%; }
+
+/* Vitrines roláveis no desktop e no celular; proporção de card 282 × 516. */
+html body .shop-destaques {
+  box-sizing: border-box;
+  width: min(82rem, calc(100% - 2rem));
+  max-width: 82rem;
+  margin: 1.5rem auto 0;
+  padding: 0;
+}
+html body .shop-destaques-topo { min-height: 3rem; margin-bottom: 0.875rem; padding: 0; }
+html body .shop-destaques-lista {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  gap: 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0 0 0.75rem;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: thin;
+}
+html body .shop-destaques-lista > .pv-card--v {
+  box-sizing: border-box;
+  flex: 0 0 282px;
+  width: 282px;
+  min-width: 282px;
+  max-width: 282px;
+  min-height: 516px;
+  height: 516px;
+  aspect-ratio: auto;
+  padding: 0 0 0.75rem;
+  border: 0;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 4px 14px rgba(28, 54, 65, 0.10);
+  scroll-snap-align: start;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+html body .shop-destaques-lista > .pv-card--v:hover,
+html body .shop-destaques-lista > .pv-card--v:focus-within { border: 0; box-shadow: 0 10px 24px rgba(28, 54, 65, 0.16); transform: translateY(-2px); }
+html body .shop-destaques-lista > .pv-card--v .pv-img { box-sizing: content-box; width: 100%; height: auto; max-width: none; padding: 1rem 0 0; aspect-ratio: 1; }
+html body .shop-destaques-lista > .pv-card--v .pv-img img,
+html body .shop-destaques-lista > .pv-card--v .pv-sem-foto { width: 100%; height: 100%; max-height: none; object-fit: contain; }
+html body .shop-destaques-lista > .pv-card--v .pv-corpo { min-height: 0; flex: 1 1 auto; }
+html body .shop-destaques-lista > .pv-card--v .pv-texto { padding: 0.625rem 0 0; }
+html body .shop-destaques-lista > .pv-card--v .pv-nome { min-height: 2.5rem; font-size: 0.9375rem; line-height: 1.25rem; }
+html body .shop-destaques-lista > .pv-card--v .pv-preco-oferta { margin-top: auto; padding-top: 0.625rem; }
+html body .shop-destaques-lista > .pv-card--v .pv-cesta { top: calc(1rem + 100cqw - 2 * var(--pv-corpo-pad-x) - var(--pv-add-size)); }
+html body .shop-destaques--ofertas { margin-top: 1.75rem; padding: 1rem 1.125rem 1.25rem; border-radius: 20px; background: #f6f9f8; }
+html body .shop-destaques--ofertas .shop-destaques-topo { margin-bottom: 0.625rem; }
+html body .shop-destaques--ofertas .shop-ofertas-nota { margin-top: 0.25rem; }
+
+@media (max-width: 767px) {
+  html body .shop-destaques { width: calc(100% - 1.5rem); margin-top: 1.25rem; }
+  html body .shop-destaques-lista { gap: 0.75rem; }
+  html body .shop-destaques-lista > .pv-card--v { flex-basis: min(76vw, 282px); width: min(76vw, 282px); min-width: min(76vw, 282px); height: auto; min-height: auto; aspect-ratio: 282 / 516; border-radius: 11px; }
+  html body .shop-destaques-lista > .pv-card--v .pv-img { padding: 0.625rem 0 0; }
+  html body .shop-destaques-lista > .pv-card--v .pv-cesta { top: calc(0.625rem + 100cqw - 2 * var(--pv-corpo-pad-x) - var(--pv-add-size)); }
+  html body .shop-destaques--ofertas { padding: 0.875rem 0.75rem 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pv-nome-palavra, .pv-card:hover .pv-nome-palavra, .pv-corpo:focus-visible .pv-nome-palavra,
+  .pv-preco--oferta, html body .shop-destaques-lista > .pv-card--v { transform: none; animation: none; transition: none; filter: none; text-shadow: none; }
+}

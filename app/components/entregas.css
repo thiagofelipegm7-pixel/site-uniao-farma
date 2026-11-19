@@ -1,0 +1,113 @@
+.entregas-pagina { box-sizing: border-box; width: min(82rem, calc(100% - 2rem)); margin: 0 auto; padding: 1.75rem 0 3rem; color: #263744; }
+.entregas-cabeca { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; margin-bottom: 1.25rem; }
+.entregas-cabeca h1 { margin: 0; font-size: clamp(1.6rem, 3vw, 2.25rem); font-weight: 850; letter-spacing: -0.035em; line-height: 1.15; }
+.entregas-eyebrow { margin: 0 0 0.4rem; color: #10857f; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
+.entregas-lead { max-width: 46rem; margin: 0.5rem 0 0; color: #52636e; font-size: 0.9375rem; line-height: 1.5; }
+.entregas-teste { flex: none; padding: 0.45rem 0.8rem; border: 2px solid #b26a00; border-radius: 999px; background: #fff4dc; color: #7a4600; font-size: 0.75rem; font-weight: 900; letter-spacing: 0.04em; }
+.entregas-nota, .entregas-erro, .entregas-aviso, .entregas-pv { margin: 0 0 1rem; padding: 0.75rem 1rem; border-radius: 12px; font-size: 0.875rem; line-height: 1.45; }
+.entregas-nota { background: #eff7f5; color: #42545d; }
+.entregas-erro { background: #fff1f0; color: #9e2824; }
+.entregas-aviso { background: #e8f6ef; color: #176748; }
+.entregas-pv { background: #f1f5fb; color: #34506b; }
+.entregas-grade { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 1rem; align-items: start; }
+.entregas-cartao { min-width: 0; padding: 1.125rem; border-radius: 18px; background: #ffffff; box-shadow: 0 5px 18px rgba(31, 58, 68, 0.08); }
+.entregas-cartao h2 { margin: 0 0 0.875rem; font-size: 1.125rem; font-weight: 800; }
+.entregas-form { display: grid; gap: 0.75rem; }
+.entregas-form label { display: grid; gap: 0.3rem; font-size: 0.8125rem; font-weight: 700; color: #3c4d58; }
+.entregas-form label small { font-weight: 500; color: #74828b; }
+.entregas-form input { box-sizing: border-box; width: 100%; min-height: 2.75rem; padding: 0 0.75rem; border: 1px solid #d5e0de; border-radius: 10px; background: #fbfdfc; color: #263744; font: inherit; font-size: 1rem; }
+.entregas-form input:focus { outline: 2px solid #10857f; outline-offset: 1px; }
+.entregas-ponto { font-size: 0.8125rem; color: #52636e; }
+.entregas-ponto summary { cursor: pointer; font-weight: 700; color: #10857f; }
+.entregas-ponto p { margin: 0.5rem 0; line-height: 1.4; }
+.entregas-ponto > div { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+.entregas-botao { min-height: 2.75rem; padding: 0 1.1rem; border: 0; border-radius: 999px; background: #10857f; color: #ffffff; font: inherit; font-size: 0.9375rem; font-weight: 800; cursor: pointer; }
+.entregas-botao:hover:not(:disabled) { background: #0b716d; }
+.entregas-botao:disabled { opacity: 0.5; cursor: not-allowed; }
+.entregas-botao-forte { background: #d8452f; }
+.entregas-botao-forte:hover:not(:disabled) { background: #b93a27; }
+.entregas-botao-claro { min-height: 2.5rem; background: #e9f3f2; color: #19524d; font-size: 0.8125rem; }
+.entregas-botao-claro:hover:not(:disabled) { background: #d6ebe8; }
+.entregas-botao-perigo { min-height: 2.5rem; background: #fff1f0; color: #9e2824; font-size: 0.8125rem; }
+.entregas-botao-perigo:hover:not(:disabled) { background: #ffe0dd; }
+.entregas-link { padding: 0; border: 0; background: none; color: #10857f; font: inherit; font-size: 0.8125rem; font-weight: 800; text-decoration: underline; cursor: pointer; }
+.entregas-cotacao { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e4ecea; }
+.entregas-preco { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; padding: 0.875rem 1rem; border-radius: 14px; background: #eff7f5; }
+.entregas-preco span { color: #42545d; font-size: 0.875rem; font-weight: 700; }
+.entregas-preco strong { font-size: 1.6rem; font-weight: 900; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.entregas-cartao dl { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem 1rem; margin: 0 0 0.75rem; }
+.entregas-cartao dl div { min-width: 0; }
+.entregas-cartao dt { color: #74828b; font-size: 0.6875rem; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; }
+.entregas-cartao dd { margin: 0.15rem 0 0; font-size: 0.875rem; line-height: 1.4; overflow-wrap: anywhere; }
+.entregas-largo { grid-column: 1 / -1; }
+.entregas-dica { margin: 0 0 0.875rem; color: #74828b; font-size: 0.8125rem; }
+.entregas-lista-topo { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.entregas-lista { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+.entregas-item { padding: 0.875rem 1rem; border-radius: 14px; background: #f6f9f8; }
+.entregas-item header { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; }
+.entregas-item header > div { display: grid; gap: 0.15rem; min-width: 0; }
+.entregas-item header strong { font-size: 1rem; overflow-wrap: anywhere; }
+.entregas-item time { color: #74828b; font-size: 0.75rem; }
+.entregas-end { margin: 0.5rem 0 0.75rem; color: #42545d; font-size: 0.875rem; overflow-wrap: anywhere; }
+.entregas-status { flex: none; padding: 0.35rem 0.625rem; border-radius: 999px; background: #fff2d6; color: #795100; font-size: 0.75rem; font-weight: 800; }
+.entregas-status-on_going, .entregas-status-picked_up { background: #e3eefc; color: #1f4f8a; }
+.entregas-status-completed { background: #e5f5e9; color: #276c3d; }
+.entregas-status-canceled, .entregas-status-rejected, .entregas-status-expired { background: #eceeef; color: #5b6870; }
+.entregas-item footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.625rem; }
+.entregas-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-left: auto; }
+.entregas-vazio { margin: 0; padding: 1.5rem 1rem; border-radius: 12px; background: #f6f9f8; color: #52636e; text-align: center; }
+@media (max-width: 900px) {
+  .entregas-grade { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 700px) {
+  .entregas-pagina { width: calc(100% - 1.25rem); padding-top: 1rem; }
+  .entregas-cabeca { flex-direction: column; gap: 0.6rem; }
+  .entregas-cartao { padding: 0.875rem; }
+  .entregas-cartao dl { grid-template-columns: minmax(0, 1fr); }
+  .entregas-item header { flex-direction: column; gap: 0.4rem; }
+  .entregas-acoes { width: 100%; margin-left: 0; }
+  .entregas-acoes .entregas-botao { flex: 1; }
+}
+/* Lalamove + Uber Direct: escolha do provedor, cotações lado a lado e etiqueta na lista. */
+.entregas-selos { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.4rem; }
+.entregas-provedores { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0; padding: 0; border: 0; min-width: 0; }
+.entregas-provedores legend { width: 100%; margin-bottom: 0.35rem; padding: 0; font-size: 0.8125rem; font-weight: 700; color: #3c4d58; }
+.entregas-form .entregas-provedores label { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 2.5rem; padding: 0 0.85rem; border: 1px solid #d5e0de; border-radius: 999px; background: #fbfdfc; font-size: 0.875rem; cursor: pointer; }
+.entregas-form .entregas-provedores label:has(input:checked) { border-color: #10857f; background: #eff7f5; color: #0b5d59; }
+.entregas-form .entregas-provedores input { width: auto; min-height: 0; margin: 0; accent-color: #10857f; }
+.entregas-form .entregas-provedores .entregas-desligado { opacity: 0.5; cursor: not-allowed; }
+.entregas-opcoes { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 0.75rem; margin-bottom: 0.75rem; }
+.entregas-opcao { min-width: 0; padding: 0.25rem; border: 2px solid transparent; border-radius: 16px; }
+.entregas-opcoes:has(.entregas-opcao + .entregas-opcao) .entregas-opcao { border-color: #e4ecea; }
+.entregas-opcoes:has(.entregas-opcao + .entregas-opcao) .entregas-opcao-marcada { border-color: #10857f; }
+.entregas-opcao .entregas-preco { flex-wrap: wrap; align-items: center; gap: 0.35rem 0.6rem; margin-bottom: 0.5rem; cursor: pointer; }
+.entregas-opcao .entregas-preco input { flex: none; width: 1.1rem; height: 1.1rem; margin: 0; accent-color: #10857f; }
+.entregas-opcao .entregas-preco span { flex: 1 1 7.5rem; min-width: 0; }
+.entregas-opcao .entregas-preco strong { margin-left: auto; white-space: nowrap; }
+.entregas-opcao dl { grid-template-columns: minmax(0, 1fr); padding: 0 0.6rem; }
+.entregas-etiquetas { display: flex; flex-wrap: wrap; gap: 0.35rem; flex: none; }
+.entregas-provedor { padding: 0.35rem 0.625rem; border-radius: 999px; font-size: 0.75rem; font-weight: 800; }
+.entregas-provedor-lalamove { background: #fff0e6; color: #a6460a; }
+.entregas-provedor-uber { background: #1f2a30; color: #ffffff; }
+.entregas-provedor-motoboysbh { background: #e8f0ff; color: #23408e; }
+.entregas-manual { display: grid; gap: 0.75rem; justify-items: start; margin-top: 0.75rem; padding: 0.875rem 1rem; border: 1px solid #d5e0de; border-radius: 12px; background: #fbfdfc; }
+.entregas-manual p { margin: 0; font-size: 0.875rem; line-height: 1.45; color: #3c4d58; overflow-wrap: anywhere; }
+.entregas-manual .entregas-botao { display: inline-flex; align-items: center; justify-content: center; max-width: 100%; text-align: center; text-decoration: none; }
+.entregas-status-pickup, .entregas-status-pickup_complete, .entregas-status-dropoff { background: #e3eefc; color: #1f4f8a; }
+.entregas-status-delivered { background: #e5f5e9; color: #276c3d; }
+.entregas-status-returned { background: #eceeef; color: #5b6870; }
+@media (max-width: 700px) {
+  .entregas-selos { justify-content: flex-start; }
+  .entregas-opcoes { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* Conferência da área de entrega por CEP completo. */
+.entregas-area { margin: 0; padding: 0.75rem 1rem; border-radius: 12px; font-size: 0.875rem; line-height: 1.45; font-weight: 650; }
+.entregas-area p { margin: 0 0 0.6rem; }
+.entregas-area-ok { background: #e8f6ef; color: #176748; }
+.entregas-area-fora { background: #fff1f0; color: #9e2824; }
+.entregas-area-confirmar, .entregas-area-ambigua { background: #fff4dc; color: #7a4600; }
+.entregas-area-bairros { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.entregas-form .entregas-area-bairros label { display: inline-flex; align-items: center; gap: 0.4rem; min-height: 2.5rem; padding: 0 0.85rem; border: 1px solid #e0c48a; border-radius: 999px; background: #fffdf6; font-size: 0.875rem; font-weight: 700; color: #7a4600; cursor: pointer; }
+.entregas-form .entregas-area-bairros label:has(input:checked) { border-color: #b26a00; background: #ffe9b8; }
+.entregas-form .entregas-area-bairros input { width: auto; min-height: 0; margin: 0; accent-color: #b26a00; }

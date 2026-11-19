@@ -192,11 +192,8 @@ test("departamentos: cada categoria do catálogo tem a sua página e o menu apon
   const tiles = await read("app/shop/ShopSections.tsx");
   for (const d of DEPARTAMENTOS.filter((x) => !x.provisorio)) {
     assert.ok(gaveta.includes(`/departamentos/${d.slug}`), `gaveta: ${d.slug}`);
+    assert.ok(tiles.includes(`/departamentos/${d.slug}`), `carrossel: ${d.slug}`);
   }
-  // As faixas de categorias da home mostram só uma seleção com foto própria: todo atalho delas tem de levar a um departamento que existe.
-  const atalhos = [...tiles.matchAll(/\/departamentos\/([a-z0-9-]+)/g)].map((m) => m[1]);
-  assert.ok(atalhos.length > 0, "a home tem atalhos de categoria");
-  for (const slug of atalhos) assert.ok(acharDepartamento(slug), `atalho da home sem departamento: ${slug}`);
   const provisorios = DEPARTAMENTOS.filter((x) => x.provisorio);
   assert.ok(provisorios.some((d) => d.slug === "categoria-a-conferir"));
   const paginaDep = await read("app/departamentos/[slug]/page.tsx");

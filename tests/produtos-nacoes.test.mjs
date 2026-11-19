@@ -143,7 +143,7 @@ test("página de produto: slug, volume, textos só quando existem e Product sem 
   assert.match(AVISO_MIP, /Medicamento isento de prescrição/);
 });
 
-test("página de produto: estrutura, noindex, sem texto de saúde inventado e barra de reserva", async () => {
+test("página de produto: estrutura, noindex só fora do Google, sem texto de saúde inventado e barra de reserva", async () => {
   const read = (arquivo) => readFile(new URL(`../${arquivo}`, import.meta.url), "utf8");
   const [pagina, barra, css, lista, sacola] = await Promise.all([
     read("app/nacoes-unidas/produtos/[slug]/page.tsx"),
@@ -152,7 +152,9 @@ test("página de produto: estrutura, noindex, sem texto de saúde inventado e ba
     read("app/nacoes-unidas/produtos/CatalogoLista.tsx"),
     read("app/reserva/ReservaSacola.tsx"),
   ]);
-  assert.match(pagina, /robots: \{ index: false, follow: false \}/);
+  // Indexa só o que elegivelGoogle libera (não medicamento, em estoque, com foto); o resto, inclusive todo medicamento, segue com noindex.
+  assert.match(pagina, /robots: noGoogle \? \{ index: true, follow: true \} : \{ index: false, follow: false \}/);
+  assert.match(pagina, /elegivelGoogle\(item, catalogo\.itens\)/);
   assert.match(pagina, /acharPorSlug/);
   assert.match(pagina, /slugify\(item\.nome\)/);
   assert.match(pagina, />União Farma</);
@@ -286,7 +288,7 @@ test("busca da Nações: sugestões, filtro e ordenação no componente, lista c
   assert.match(lista, /Perguntar à loja pelo WhatsApp/);
   // "Ordenar por" como a Panvel: caixa de seleção com as mesmas ordens.
   const faixa = await read("app/nacoes-unidas/produtos/ListaDrogasil.tsx");
-  assert.match(faixa, /<select value=\{ordem\}/);
+  assert.match(faixa, /<select aria-label="Ordenado por" value=\{ordem\}/);
   assert.match(faixa, /Ordenado por/);
   assert.match(faixa, /Itens por página/);
   assert.match(lista, /Mais relevantes/);

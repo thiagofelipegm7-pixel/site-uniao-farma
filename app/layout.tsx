@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import { Open_Sans, Poppins } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import SiteFooter from "./SiteFooter";
 import SkipLink from "./SkipLink";
-import PageTransicao from "./PageTransicao";
 import WhatsAppFab from "./WhatsAppFab";
 
 // Sistema de Design Consolidado (Camadas Tailwind 4)
@@ -15,12 +14,13 @@ import "./theme.css";
 import "./a11y.css";
 import "./overrides.css";
 // Mantém o polimento visual recente que já estava na main.
-import "./correcoes-visuais.css";
+import "./visual-quality.css";
+import "./ux-fixes.css";
+import "./visual-fixes.css";
 import "./marca.css";
 import "./design.css";
 import "./zoom.css";
 import "./destaque-cesta.css";
-import "./cabecalho-teste-ml.css";
 import { INSTAGRAM_URL, PAYMENT_ACCEPTED, SITE_URL, PUBLIC_UNITS } from "./site-config";
 import { COMPANY } from "./company";
 import { getPostalAddress } from "./structured-data";
@@ -33,13 +33,13 @@ import RegistroDeErros from "./shop/RegistroDeErros";
 import PwaRegister from "./PwaRegister";
 import OfferAlerts from "./OfferAlerts";
 
-const openSans = Open_Sans({
+const inter = Inter({
   subsets: ["latin"],
-  // Corpo 400, rótulos 500/600, títulos 700/800.
+  // Corpo 400, rótulos 500/600, títulos 700/800. Preload inclui o corpo.
   weight: ["400", "500", "600", "700", "800"],
   display: "swap",
   preload: true,
-  variable: "--font-open-sans",
+  variable: "--font-inter",
   fallback: ["Arial", "sans-serif"],
   adjustFontFallback: true,
 });
@@ -52,7 +52,7 @@ const poppins = Poppins({
   display: "swap",
   preload: false,
   variable: "--font-poppins",
-  fallback: ["Open Sans", "Arial", "sans-serif"],
+  fallback: ["Inter", "Arial", "sans-serif"],
 });
 
 const SITE_DESCRIPTION =
@@ -61,6 +61,9 @@ const SITE_DESCRIPTION =
 const GOOGLE_SITE_VERIFICATION =
   process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION?.trim() ||
   "chgP6OWdJAiM-yv_oPbit7Rf91vAsI7xDUWEuNQG1xk";
+
+/** Verificação do domínio no Google Merchant Center (conta 5907637889), pela meta tag. Fica junto com a do Search Console. */
+const GOOGLE_MERCHANT_VERIFICATION = "c78h12yeN5NoYIfoDpPllCzysv9i6tIFAJyYKV8TEAo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -112,9 +115,11 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  ...(GOOGLE_SITE_VERIFICATION
-    ? { verification: { google: GOOGLE_SITE_VERIFICATION } }
-    : {}),
+  // Uma meta tag por código: o vinext junta lista em google com vírgula, então o código do Merchant Center vai em "other".
+  verification: {
+    google: GOOGLE_SITE_VERIFICATION,
+    ...(GOOGLE_SITE_VERIFICATION !== GOOGLE_MERCHANT_VERIFICATION ? { other: { "google-site-verification": GOOGLE_MERCHANT_VERIFICATION } } : {}),
+  },
 };
 
 export const viewport: Viewport = {
@@ -166,7 +171,7 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" data-theme="light" className={`${openSans.className} ${openSans.variable} ${poppins.variable}`}>
+    <html lang="pt-BR" data-theme="light" className={`${inter.className} ${inter.variable} ${poppins.variable}`}>
       <head>
         <link
           rel="preload"
@@ -182,7 +187,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body>
         <SkipLink />
-        <PageTransicao />
         <AnalyticsConsent />
         <RegistroDeErros />
         <PwaRegister />

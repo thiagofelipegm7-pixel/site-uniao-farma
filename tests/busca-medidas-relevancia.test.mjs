@@ -75,6 +75,6 @@ test("relevância: palavra no começo do nome, marca igual, frase junta e palavr
 
 test("relevância: a lista só reordena em 'Recomendados' com busca; preço e outras ordens ficam como o cliente escolheu", async () => {
   const lista = await lerTexto("app/nacoes-unidas/produtos/CatalogoLista.tsx");
-  assert.match(lista, /ordem === "recomendados" && termosRelevancia\.length > 0 \? ordenarPorRelevancia\(visiveisBase, termosRelevancia\) : visiveisBase/);
+  assert.match(lista, /ordem === "recomendados" && termosRelevancia\.length > 0 \? ordenarPorRelevancia\(visiveisBase, termosRelevancia, cliquesDoTermo, \(item\) => item\.slug \?\? slugify\(item\.nome\)\) : visiveisBase/);
   assert.match(lista, /textoDeBusca\(`\$\{item\.nome\}/);
 });

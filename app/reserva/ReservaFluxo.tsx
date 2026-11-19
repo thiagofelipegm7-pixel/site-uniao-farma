@@ -7,20 +7,22 @@ import MarcaUniao from "../shop/MarcaUniao";
 import { trackEvent } from "../analytics";
 import { registrarEtapa } from "../funil";
 import { listarBairros, lojaDoBairro } from "../entrega-bairro";
+import { carregarEntregaEscolhida } from "./entrega-escolhida";
 import { readPreferredUnitId } from "../preferred-unit";
 import { buildWhatsAppUrl, PUBLIC_UNITS, type Unit } from "../site-config";
 import UnitStatusBadge, { getUnitOpenStatus } from "../UnitStatusBadge";
 import { carregarDadosCliente, esquecerDadosCliente, guardarDadosCliente } from "./dados-cliente";
 import { carregarUltimoPedido, guardarUltimoPedido, repetirPedido, type ItemCatalogo, type ItemUltimoPedido } from "./ultimo-pedido";
-import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats } from "./ReservaIcons";
+import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats, IconCestaArte, IconCaminhaoArte, IconFinalizarArte } from "./ReservaIcons";
 import CestaSugestoes from "./CestaSugestoes";
-import PillSteps from "./PillSteps";
 import DestaquesSemana from "../shop/DestaquesSemana";
-import { gerarCodigoPedido, trocoValido, ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens } from "./reserva-store";
+import { gerarCodigoPedido, trocoValido, ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens, exigeReceita } from "./reserva-store";
 import { useReserva } from "./useReserva";
 import { useDisponibilidade } from "./useDisponibilidade";
 import { avisosDaCesta } from "../disponibilidade";
 import { podeCompartilhar, prepararReceita, type ReceitaPronta } from "./preparar-receita";
+import { normalizarTelefone, TEXTO_CONSENTIMENTO } from "./lembrete-recompra";
+import { AJUDA_AVISO_RETIRADA, TEXTO_AVISO_RETIRADA } from "../retirada";
 
 type Passo = 1 | 2 | 3;
 const BAIRROS = listarBairros(PUBLIC_UNITS);
@@ -40,6 +42,16 @@ export default function ReservaFluxo() {
     if (vivo) atualizarReserva((s) => ajustarLimitesAoVivo(s, vivo));
   }, [vivo]);
   const [passo, setPasso] = useState<Passo>(1);
+  // Ao mudar de passo, o botão que foi apertado some: o foco vai para o título do passo novo (leitor de tela anuncia onde está; teclado não volta ao topo).
+  const tituloPasso = useRef<HTMLHeadingElement>(null);
+  const primeiroPasso = useRef(true);
+  useEffect(() => {
+    if (primeiroPasso.current) {
+      primeiroPasso.current = false;
+      return;
+    }
+    tituloPasso.current?.focus();
+  }, [passo]);
   const preferida = useSyncExternalStore(
     (fn) => {
       window.addEventListener("uf-preferred-unit", fn);
@@ -60,6 +72,11 @@ export default function ReservaFluxo() {
   // Código curto do pedido, criado uma vez por visita ao fluxo (aparece na mensagem para a loja achar a conversa).
   const [codigoPedido] = useState(gerarCodigoPedido);
   const preVendaRequestId = useRef("");
+  // Lembrete de recompra: caixa DESMARCADA por padrão (LGPD: consentimento explícito). Só marcada o nome e o celular vão ao servidor.
+  const [querLembrete, setQuerLembrete] = useState(false);
+  const [celularLembrete, setCelularLembrete] = useState("");
+  // Retirada: WhatsApp opcional só para o aviso de "pedido pronto" (vazio = a equipe responde na conversa do pedido).
+  const [celularAviso, setCelularAviso] = useState("");
   const [tentou, setTentou] = useState(false);
   const [editando, setEditando] = useState(true);
   // Depois do toque em "Enviar pedido pelo WhatsApp": lembra o cliente de tocar em enviar dentro do WhatsApp.
@@ -104,6 +121,9 @@ export default function ReservaFluxo() {
       setLembrado(true);
       setEditando(false);
     }
+    // Bairro escolhido na faixa "Entregar em" da home: vem marcado quando a pessoa ainda não tem endereço salvo.
+    const escolhido = carregarEntregaEscolhida();
+    if (escolhido && !salvo?.bairro) setBairro(escolhido);
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
@@ -129,6 +149,10 @@ export default function ReservaFluxo() {
   const subtotalTabela = formatarCentavos(subtotalDeTabelaCentavos(estado.itens));
 
   const nomeOk = nome.trim().length >= 2;
+  const celularOk = normalizarTelefone(celularLembrete) !== null;
+  const lembretePendente = querLembrete && !celularOk;
+  const avisoOk = normalizarTelefone(celularAviso) !== null;
+  const avisoInvalido = retirar && celularAviso.trim() !== "" && !avisoOk;
   const valido = retirar ? nomeOk : nomeOk && rua.trim().length >= 3 && unidadeEntrega !== null;
 
   function ir(proximo: Passo) {
@@ -141,14 +165,23 @@ export default function ReservaFluxo() {
 
   const mostrarForm = editando || !valido;
 
+  /** Depois de um erro de preenchimento, o foco vai para o primeiro campo inválido (WCAG 3.3.1): o alerta diz o que falta e o cursor já está lá. */
+  function focarPrimeiroInvalido() {
+    window.setTimeout(() => document.querySelector<HTMLElement>('main [aria-invalid="true"]')?.focus(), 0);
+  }
+
   function salvar() {
     if (valido) setEditando(false);
-    else setTentou(true);
+    else {
+      setTentou(true);
+      focarPrimeiroInvalido();
+    }
   }
 
   function revisar() {
-    if (!valido) {
+    if (!valido || avisoInvalido) {
       setTentou(true);
+      focarPrimeiroInvalido();
       return;
     }
     trackEvent("reserva_revisar", { modo, itens: estado.itens.filter(itemAtivo).length });
@@ -166,6 +199,9 @@ export default function ReservaFluxo() {
       unidade: unidade.id,
       modo,
       itens: estado.itens.filter(itemAtivo).map((item) => ({ nome: item.nome, quantidade: item.qtd, precoCentavos: item.precoCentavos })),
+      ...(retirar && avisoOk ? { avisoTelefone: celularAviso } : {}),
+      ...(exigeReceita(estado.itens) ? { comReceita: true } : {}),
+      ...(querLembrete && celularOk ? { lembrete: { consentimento: true, nome: nome.trim(), telefone: celularLembrete } } : {}),
     };
     const corpo = JSON.stringify(dados);
     const enviado = navigator.sendBeacon?.("/api/pre-vendas", new Blob([corpo], { type: "application/json" })) ?? false;
@@ -254,6 +290,8 @@ export default function ReservaFluxo() {
     <button type="button" className={classe} disabled><IconWhats size={24} /> Tire o que acabou para enviar</button>
   ) : pagamento && trocoPendente ? (
     <button type="button" className={classe} disabled><IconWhats size={24} /> Informe o troco</button>
+  ) : pagamento && lembretePendente ? (
+    <button type="button" className={classe} disabled><IconWhats size={24} /> Informe o celular do lembrete</button>
   ) : pagamento ? (
     temReceita ? (
       <button type="button" className={classe} onClick={() => setAvisoReceita(true)}>
@@ -277,8 +315,12 @@ export default function ReservaFluxo() {
   return (
     <div className="fluxo-reserva">
       <div className="cesta-faixa">
-        <a className="cesta-logo" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial"><MarcaUniao /></a>
-        <PillSteps atual={passo - 1} />
+        <a className="cesta-logo" href="/" aria-label="União Farma Drogaria e Perfumaria: página inicial"><MarcaUniao /></a>
+        <ol className="cesta-passos" role="img" aria-label={`Passo ${passo} de 3`}>
+          {[{ n: 1, r: "Cesta", i: <IconCestaArte size={28} /> }, { n: 2, r: "Entrega", i: <IconCaminhaoArte size={36} /> }, { n: 3, r: "Finalizar", i: <IconFinalizarArte size={40} className="cesta-passo-selo" /> }].map((e) => (
+            <li key={e.n} className={e.n <= passo ? "is-on" : ""}><span aria-hidden="true">{e.i}</span><em>{e.r}</em></li>
+          ))}
+        </ol>
         <div className="cesta-contato">
           <a href={`https://wa.me/${PUBLIC_UNITS[0].whatsappDigits}`} aria-label="Falar com a União Farma no WhatsApp"><IconWhats size={22} oficial /><span>WhatsApp<strong>{PUBLIC_UNITS.find((u) => u.id === "nacoes")?.whatsapp}</strong></span></a>
         </div>
@@ -289,7 +331,7 @@ export default function ReservaFluxo() {
         ) : (
           <button type="button" className="fluxo-voltar" aria-label="Voltar" onClick={() => ir((passo - 1) as Passo)}><IconVoltar size={26} /></button>
         )}
-        <h1>{titulo}</h1>
+        <h1 ref={tituloPasso} tabIndex={-1}>{titulo}</h1>
         {passo === 1 ? (
           <a className="fluxo-continuar-comprando" href="/nacoes-unidas/produtos">Continuar comprando</a>
         ) : (
@@ -355,7 +397,7 @@ export default function ReservaFluxo() {
                         <b>{formatarCentavos(item.precoCentavos * item.qtd)}</b>
                       </div>
                       <div className="cel-remover">
-                        <button type="button" className="fluxo-lixeira" aria-label={`Remover ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, 0))}><IconLixeira size={20} /></button>
+                        <button type="button" className="fluxo-lixeira" aria-label={`Remover ${item.nome} da cesta`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, 0))}><IconLixeira size={20} /></button>
                       </div>
                     </li>
                   );
@@ -376,7 +418,7 @@ export default function ReservaFluxo() {
               <p className="fluxo-resumo-titulo">Resumo da sua cesta</p>
               <p><span>Subtotal</span><span>{descontos > 0 ? subtotalTabela : subtotal}</span></p>
               {descontos > 0 ? <p className="fluxo-resumo-desconto"><span>Descontos</span><span>- {formatarCentavos(descontos)}</span></p> : null}
-              <p><span>Taxa de entrega</span><span>{formatarCentavos(taxaEntrega)}</span></p>
+              <p><span>{retirar ? "Retirada na loja" : "Taxa de entrega"}</span><span>{formatarCentavos(taxaEntrega)}</span></p>
               <p className="fluxo-resumo-total"><strong>Total estimado</strong><strong>{totalComTaxa}</strong></p>
               <button type="button" className="fluxo-botao fluxo-botao-resumo" disabled={marcados === 0} onClick={() => ir(2)}>Continuar: entrega ou retirada</button>
             </section>
@@ -441,7 +483,7 @@ export default function ReservaFluxo() {
                 <div role="radiogroup" aria-label="Selecione uma opção">
                   <label className={retirar ? "entrega-opcao is-on" : "entrega-opcao"}>
                     <input type="radio" name="forma" checked={retirar} onChange={() => atualizarReserva((s) => ({ ...s, modo: "retirar" }))} />
-                    <span className="entrega-tipo">Retirada em loja</span>
+                    <span className="entrega-tipo">Retirar na loja</span>
                     <span className="entrega-preco entrega-preco-gratis">Grátis</span>
                   </label>
                   {retirar ? (
@@ -452,12 +494,29 @@ export default function ReservaFluxo() {
                           {PUBLIC_UNITS.length > 1 ? <input type="radio" name="loja" checked={lojaId === u.id} onChange={() => setLojaId(u.id)} /> : null}
                           <span className="entrega-loja-corpo">
                             <strong>{u.shortName}</strong>
-                            <span>{u.shortAddress}</span>
+                            <span>{u.address}</span>
                             <UnitStatusBadge unit={u} />
                           </span>
                         </label>
                       ))}
                     </div>
+                  ) : null}
+                  {retirar ? (
+                      <label className="fluxo-campo entrega-aviso-pronto">
+                        <span>{TEXTO_AVISO_RETIRADA} <small>(opcional)</small></span>
+                        <input
+                          type="tel"
+                          inputMode="tel"
+                          autoComplete="tel-national"
+                          placeholder="(31) 9 0000-0000"
+                          maxLength={20}
+                          value={celularAviso}
+                          aria-invalid={avisoInvalido}
+                          aria-describedby="aviso-pronto-ajuda"
+                          onChange={(e) => setCelularAviso(e.target.value)}
+                        />
+                        <small id="aviso-pronto-ajuda">{avisoInvalido ? "Confira o número: DDD + celular, por exemplo (31) 9 0000-0000. Ou deixe em branco." : AJUDA_AVISO_RETIRADA}</small>
+                      </label>
                   ) : null}
                   <label className={retirar ? "entrega-opcao" : "entrega-opcao is-on"}>
                     <input type="radio" name="forma" checked={!retirar} onChange={() => atualizarReserva((s) => ({ ...s, modo: "casa" }))} />
@@ -474,7 +533,7 @@ export default function ReservaFluxo() {
               <p className="fluxo-resumo-titulo">Resumo da sua cesta</p>
               <p><span>Subtotal</span><span>{descontos > 0 ? subtotalTabela : subtotal}</span></p>
               {descontos > 0 ? <p className="fluxo-resumo-desconto"><span>Descontos</span><span>- {formatarCentavos(descontos)}</span></p> : null}
-              <p><span>Taxa de entrega</span><span>{formatarCentavos(taxaEntrega)}</span></p>
+              <p><span>{retirar ? "Retirada na loja" : "Taxa de entrega"}</span><span>{formatarCentavos(taxaEntrega)}</span></p>
               <p className="fluxo-resumo-total"><strong>Total estimado</strong><strong>{totalComTaxa}</strong></p>
               <button type="button" className="fluxo-botao fluxo-botao-resumo" onClick={revisar}>Revisar pedido</button>
             </section>
@@ -565,6 +624,30 @@ export default function ReservaFluxo() {
                     ) : null}
                   </fieldset>
                 ) : null}
+
+                <div className="fluxo-lembrete">
+                  <label className="fluxo-lembrete-caixa">
+                    <input type="checkbox" checked={querLembrete} onChange={(e) => setQuerLembrete(e.target.checked)} />
+                    <span>{TEXTO_CONSENTIMENTO}</span>
+                  </label>
+                  {querLembrete ? (
+                    <label className="fluxo-campo fluxo-lembrete-celular">
+                      <span>Seu WhatsApp com DDD</span>
+                      <input
+                        type="tel"
+                        inputMode="tel"
+                        autoComplete="tel-national"
+                        placeholder="(31) 9 0000-0000"
+                        maxLength={20}
+                        value={celularLembrete}
+                        aria-invalid={celularLembrete.trim() !== "" && !celularOk}
+                        aria-describedby="lembrete-ajuda"
+                        onChange={(e) => setCelularLembrete(e.target.value)}
+                      />
+                      <small id="lembrete-ajuda">Só para o lembrete. Não mandamos propaganda. Para parar, é só responder SAIR. Seu nome e celular ficam guardados no máximo 90 dias (veja a <a href="/privacidade">privacidade</a>).</small>
+                    </label>
+                  ) : null}
+                </div>
               </div>
             </div>
 
@@ -588,7 +671,7 @@ export default function ReservaFluxo() {
               <p className="fluxo-resumo-titulo">Resumo da sua cesta</p>
               <p><span>Subtotal</span><span>{descontos > 0 ? subtotalTabela : subtotal}</span></p>
               {descontos > 0 ? <p className="fluxo-resumo-desconto"><span>Descontos</span><span>- {formatarCentavos(descontos)}</span></p> : null}
-              <p><span>Taxa de entrega</span><span>{formatarCentavos(taxaEntrega)}</span></p>
+              <p><span>{retirar ? "Retirada na loja" : "Taxa de entrega"}</span><span>{formatarCentavos(taxaEntrega)}</span></p>
               <p className="fluxo-resumo-total"><strong>Total estimado</strong><strong>{totalComTaxa}</strong></p>
               {enviarWhats("fluxo-botao fluxo-botao-resumo")}
             </section>

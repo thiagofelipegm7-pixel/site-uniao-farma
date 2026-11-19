@@ -42,8 +42,7 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
     name: `Farmácia ${unit.shortName} em Sabará`,
     url: pageUrl,
     unit,
-    // As perguntas só aparecem na página da loja que vende pelo site: sem FAQ na tela, sem FAQPage no schema.
-    faqs: institucional ? undefined : content.faqs,
+    faqs: content.faqs,
     breadcrumbs: [
       { name: "Início", url: `${SITE_URL}/` },
       { name: unit.shortName, url: pageUrl },

@@ -6,21 +6,16 @@ import { getPageStructuredData } from "../structured-data";
 import { CUSTOMER_QUESTIONS } from "../seo-content";
 import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 
-const TITLE = "Perguntas frequentes | União Farma Sabará";
-const DESCRIPTION = "Tem genérico? Aceita receita digital? Entrega no meu bairro? Respostas curtas e contato direto com a loja.";
-
 export const metadata: Metadata = {
-  title: { absolute: TITLE },
-  description: DESCRIPTION,
+  title: { absolute: "Perguntas frequentes | União Farma Sabará" },
+  description: "Tem genérico? Aceita receita digital? Entrega no meu bairro? Respostas curtas e contato direto com a loja.",
   alternates: { canonical: "/perguntas" },
-  openGraph: { title: TITLE, description: DESCRIPTION, url: `${SITE_URL}/perguntas`, type: "website", images: ["/og-optimized.jpg"] },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/og-optimized.jpg"] },
 };
 
 export default function QuestionsPage() {
   const pageUrl = `${SITE_URL}/perguntas`;
   const structuredData = getPageStructuredData({
-    name: TITLE,
+    name: "Perguntas frequentes | União Farma Sabará",
     url: pageUrl,
     faqs: CUSTOMER_QUESTIONS,
     breadcrumbs: [

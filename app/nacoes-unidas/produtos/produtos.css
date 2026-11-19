@@ -357,9 +357,9 @@
 }
 
 .catalogo-nacoes .catalogo-barra button[aria-pressed="true"] {
-  background: #ffffff;
+  background: var(--uf-action-ink, #0a2d29);
   color: #fff;
-  border-color: #8a8a8a;
+  border-color: var(--uf-action-ink, #0a2d29);
 }
 
 .catalogo-nacoes .catalogo-filtro-contagem {
@@ -369,7 +369,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 4px;
-  background: #ffffff;
+  background: var(--uf-action-ink, #0a2d29);
   color: #fff;
   font-size: 0.75rem;
 }
@@ -382,8 +382,8 @@
   margin-top: 12px;
   padding: 8px 16px;
   border-radius: 6px;
-  background: #ffffff;
-  color: var(--color-ink, #263744);
+  background: var(--uf-action, #40baaf);
+  color: var(--uf-action-ink, #0a2d29);
   font-size: 1rem;
   font-weight: 600;
   text-align: center;
@@ -465,19 +465,19 @@
   height: 22px;
   flex: none;
   margin: 0 0 0 4px;
-  border: 1.5px solid #8a8a8a;
+  border: 1.5px solid var(--uf-ink, #0a3548);
   border-radius: 4px;
   background: #ffffff center / 14px no-repeat;
   cursor: pointer;
 }
 
 .catalogo-filtro-opcao input:checked {
-  background-color: #ffffff;
+  background-color: var(--uf-ink, #0a3548);
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14' fill='none' stroke='%23fff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M2.5 7.5l3 3 6-7'/%3E%3C/svg%3E");
 }
 
 .catalogo-filtro-opcao input:focus-visible {
-  outline: 3px solid #8a8a8a;
+  outline: 3px solid var(--uf-action, #40baaf);
   outline-offset: 2px;
 }
 
@@ -504,7 +504,7 @@
   padding: 0 8px;
   border: 0;
   background: transparent;
-  color: var(--color-ink, #263744);
+  color: var(--teal-deep, #0a3548);
   font: inherit;
   font-size: 0.9375rem;
   font-weight: 700;
@@ -521,8 +521,8 @@
   padding: 0 16px;
   border: 0;
   border-radius: 6px;
-  background: #ffffff;
-  color: var(--color-ink, #263744);
+  background: var(--uf-action, #40baaf);
+  color: var(--uf-action-ink, #0a2d29);
   font: inherit;
   font-size: 1rem;
   font-weight: 600;
@@ -588,7 +588,7 @@
   box-sizing: border-box;
   margin-top: 0;
   padding: 16px !important;
-  border: 1px solid var(--line, #8a8a8a);
+  border: 1px solid var(--line, var(--uf-line));
   border-radius: 8px;
   background: #fff;
 }
@@ -600,8 +600,8 @@
   margin: 0;
   padding: 2px 6px !important;
   border-radius: 2px;
-  background: #ffffff;
-  color: var(--color-ink, #263744);
+  background: var(--uf-fog, #e4f6f3);
+  color: var(--uf-action-ink);
   font-size: 0.75rem;
   font-weight: 600;
   line-height: 1.25rem;
@@ -617,12 +617,12 @@
 .produto-nota,
 .produto-secao p {
   margin: 0 0 12px;
-  color: var(--color-ink, #263744);
+  color: var(--uf-muted);
   font-size: 0.875rem;
   line-height: 1.5;
 }
 
-.produto-marca { margin-bottom: 8px; color: var(--color-ink, #263744); }
+.produto-marca { margin-bottom: 8px; color: var(--uf-ink); }
 .produto-marca strong { font-weight: 700; }
 
 .produto-preco {
@@ -641,7 +641,7 @@
 .produto-ficha {
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid var(--line, #8a8a8a);
+  border: 1px solid var(--line, var(--uf-line));
   border-radius: 8px;
   overflow: hidden;
 }
@@ -657,7 +657,7 @@
 
 .produto-ficha th {
   width: 42%;
-  color: var(--color-ink, #263744);
+  color: var(--uf-muted);
   font-weight: 500;
 }
 
@@ -667,10 +667,10 @@
   text-align: right;
 }
 
-.produto-ficha tr:nth-child(odd) { background: #ffffff; }
+.produto-ficha tr:nth-child(odd) { background: var(--uf-paper, #f1fbfa); }
 
 .produto-faq details {
-  border-bottom: 1px solid var(--line, #8a8a8a);
+  border-bottom: 1px solid var(--line, var(--uf-line));
 }
 
 .produto-faq summary {
@@ -696,7 +696,7 @@
   align-items: center;
   gap: 12px;
   padding: 16px !important;
-  border-top: 1px solid #8a8a8a;
+  border-top: 1px solid var(--uf-line);
   background: #fff;
 }
 
@@ -712,8 +712,8 @@
   padding: 0 16px !important;
   border: 0;
   border-radius: 6px;
-  background: #ffffff;
-  color: var(--color-ink, #263744);
+  background: var(--uf-action);
+  color: var(--uf-action-ink);
   font: inherit;
   font-size: 1.125rem;
   font-weight: 600;
@@ -731,13 +731,13 @@
   min-height: 44px;
 }
 
-/* A barra sobe a altura real do aviso de cookies (--cookie-h, medida em AnalyticsConsent.tsx) e fica inteira acima dele. */
-body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
+/* Desktop: o aviso de cookies encosta no rodapé da tela (~71px) e cobriria o Aceitar. */
+body.cookie-banner-visible .produto-barra { bottom: 5rem; }
 
 /* Desktop: foto à esquerda; nome, marca, preço e botão da cesta à direita, em container de largura máxima.
    A barra de compra deixa de ser fixa e fica dentro do cartão, ao lado do preço. */
 @media (min-width: 1024px) {
-  .produto-topo .produto-foto { height: auto; aspect-ratio: 1 / 1; border: 1px solid var(--line, #8a8a8a); border-radius: 8px; }
+  .produto-topo .produto-foto { height: auto; aspect-ratio: 1 / 1; border: 1px solid var(--line, var(--uf-line)); border-radius: 8px; }
   .produto-topo .produto-foto img { width: 100%; height: 100%; padding: 16px; box-sizing: border-box; }
   .produto-topo .produto-foto--vazia { aspect-ratio: auto; padding: 32px 0; }
   .produto-pagina { padding-bottom: 0 !important; }
@@ -748,8 +748,8 @@ body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
 @media (max-width: 1023px) {
   /* A barra do celular mede no mínimo 4rem e cresce quando o rótulo quebra (320px ≈ 71px). */
   .produto-barra { bottom: calc(4.5rem + env(safe-area-inset-bottom)); }
-  /* A barra tem z-index maior (4100) que o aviso de cookies (2200): sobe a altura real dele para não cobrir o texto nem os botões. */
-  body.cookie-banner-visible .produto-barra { bottom: max(calc(4.5rem + env(safe-area-inset-bottom)), var(--cookie-h, 0px)); }
+  /* O aviso de cookies fica por cima da barra (z-index maior). Sobe a barra para o Aceitar continuar tocável. */
+  body.cookie-banner-visible .produto-barra { bottom: calc(14.25rem + env(safe-area-inset-bottom)); }
 }
 
 /* A camada design força h2 e a cor dos títulos. Preço comum fica preto; seção fica em 18px.
@@ -764,7 +764,7 @@ body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
   }
   .produto-pagina h2 {
     margin: 0 0 8px !important;
-    color: var(--color-ink, #263744);
+    color: var(--uf-ink) !important;
     font-size: 1.125rem !important;
     font-weight: 700 !important;
     line-height: 1.33 !important;
@@ -781,8 +781,8 @@ body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
     height: 54px !important;
     border: 0 !important;
     border-radius: 6px !important;
-    background: #ffffff;
-    color: var(--color-ink, #263744);
+    background: var(--uf-action) !important;
+    color: var(--uf-action-ink) !important;
     font-size: 1.125rem !important;
     font-weight: 600 !important;
   }
@@ -835,7 +835,7 @@ body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
   margin: 0 0 6px;
   padding: 2px 10px;
   border-radius: 999px;
-  background: #ffffff;
+  background: var(--teal-deep, #0b4f55);
   color: #fff;
   font-size: 0.75rem;
   font-weight: 800;
@@ -909,24 +909,24 @@ body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
   white-space: nowrap;
 }
 
-.departamento-resumo { margin: 0.25rem auto 0.75rem; color: var(--color-ink, #263744); font-size: 0.9375rem; line-height: 1.5; }
+.departamento-resumo { margin: 0.25rem auto 0.75rem; color: var(--muted, #3e4b49); font-size: 0.9375rem; line-height: 1.5; }
 .departamento-outros { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 auto 1rem; }
-.departamento-outros a { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 0.875rem; border: 1px solid #c9d8d5; border-radius: 999px; background: #ffffff; color: var(--color-ink, #263744); font-size: 0.8125rem; font-weight: 600; text-decoration: none; }
-.departamento-outros a[aria-current="page"] { border-color: #8a8a8a; background: #ffffff; color: #ffffff; }
+.departamento-outros a { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 0.875rem; border: 1px solid #c9d8d5; border-radius: 999px; background: #ffffff; color: #0a3548; font-size: 0.8125rem; font-weight: 600; text-decoration: none; }
+.departamento-outros a[aria-current="page"] { border-color: #0a3548; background: #0a3548; color: #ffffff; }
 
 
 /* medicamentos-abas removido: departamento Medicamentos sem filtros de categoria */
 .medicamentos-busca { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.25rem; margin: 0 0 0.5rem; }
-.medicamentos-busca label { font-size: 0.8125rem; font-weight: 700; color: var(--color-ink, #263744); }
-.medicamentos-busca input { box-sizing: border-box; width: 100%; min-width: 0; min-height: 2.75rem; padding: 0 0.875rem; border: 1px solid #8a8a8a; border-radius: 6px; font: inherit; }
-.medicamentos-contagem { margin: 0 0 0.75rem; color: var(--color-ink, #263744); font-size: 0.875rem; }
-.medicamentos-mais { display: block; margin: 1.25rem auto; min-height: 2.75rem; padding: 0 1.5rem; border: 1px solid #8a8a8a; border-radius: 6px; background: #ffffff; color: var(--color-ink, #263744); font: inherit; font-weight: 700; cursor: pointer; }
+.medicamentos-busca label { font-size: 0.8125rem; font-weight: 700; color: #3e4b49; }
+.medicamentos-busca input { box-sizing: border-box; width: 100%; min-width: 0; min-height: 2.75rem; padding: 0 0.875rem; border: 1px solid #6b8b86; border-radius: 6px; font: inherit; }
+.medicamentos-contagem { margin: 0 0 0.75rem; color: #3e4b49; font-size: 0.875rem; }
+.medicamentos-mais { display: block; margin: 1.25rem auto; min-height: 2.75rem; padding: 0 1.5rem; border: 1px solid #0a3548; border-radius: 6px; background: #ffffff; color: #0a3548; font: inherit; font-weight: 700; cursor: pointer; }
 
 /* Combina com: sugestões da loja na página do produto */
-.combina-com-nota { margin: 0 0 12px; color: var(--color-ink, #263744); font-size: 0.8125rem; line-height: 1.4; }
+.combina-com-nota { margin: 0 0 12px; color: var(--uf-muted); font-size: 0.8125rem; line-height: 1.4; }
 .combina-com-lista { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
-.combina-com .combina-com-card { display: flex; flex-direction: column; align-items: stretch; box-sizing: border-box; width: 100%; gap: 0.375rem; height: 100%; padding: 0.625rem; border: 1px solid #c9d8d5; border-radius: 8px; background: #ffffff; color: var(--color-ink, #263744); text-decoration: none; }
-.combina-com .combina-com-card:hover { border-color: #8a8a8a; }
+.combina-com .combina-com-card { display: flex; flex-direction: column; align-items: stretch; box-sizing: border-box; width: 100%; gap: 0.375rem; height: 100%; padding: 0.625rem; border: 1px solid #c9d8d5; border-radius: 8px; background: #ffffff; color: var(--uf-ink, #0a3548); text-decoration: none; }
+.combina-com .combina-com-card:hover { border-color: #0a3548; }
 .combina-com-foto { display: flex; align-items: center; justify-content: center; aspect-ratio: 1 / 1; border-radius: 6px; background: #f4f8f7; overflow: hidden; }
 .combina-com-foto img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .combina-com-foto > span { width: 40%; aspect-ratio: 1 / 1; border-radius: 50%; background: #e1ebe9; }
@@ -950,7 +950,7 @@ body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
 
 .fc-termo {
   margin: 0 0 4px;
-  color: var(--color-ink, #263744);
+  color: var(--uf-navy, #0a3548);
   font-size: 1.375rem;
   font-weight: 800;
   line-height: 1.25;
@@ -959,7 +959,7 @@ body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
 
 .fc-carregando {
   margin: 8px 0;
-  color: var(--color-ink, #263744);
+  color: #4a5a58;
   font-size: 0.875rem;
 }
 
@@ -982,7 +982,7 @@ body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
   padding: 0;
   border: 0;
   background: none;
-  color: var(--color-ink, #263744);
+  color: var(--uf-ink, #0a3548);
   font: inherit;
   font-size: 1rem;
   font-weight: 700;
@@ -1007,7 +1007,7 @@ body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
 .fc-atalho:focus-visible,
 .fc-aplicar:focus-visible,
 .fc-preco input:focus-visible {
-  outline: 3px solid #8a8a8a;
+  outline: 3px solid var(--uf-action, #40baaf);
   outline-offset: 2px;
 }
 
@@ -1038,7 +1038,7 @@ body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
 }
 
 .fc-contagem {
-  color: var(--color-ink, #263744);
+  color: #4a5a58;
   font-weight: 400;
 }
 
@@ -1047,7 +1047,7 @@ body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
   padding: 0;
   border: 0;
   background: none;
-  color: var(--color-ink, #263744);
+  color: #0a7d74;
   font: inherit;
   font-size: 0.9375rem;
   font-weight: 700;
@@ -1070,7 +1070,7 @@ body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
 .fc-preco label {
   display: grid;
   gap: 4px;
-  color: var(--color-ink, #263744);
+  color: var(--uf-ink, #0a3548);
   font-size: 0.8125rem;
   font-weight: 700;
 }
@@ -1081,10 +1081,10 @@ body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
   height: 44px;
   box-sizing: border-box;
   padding: 0 10px;
-  border: 1.5px solid #8a8a8a;
+  border: 1.5px solid #9fb3b0;
   border-radius: 8px;
   background: #fff;
-  color: var(--color-ink, #263744);
+  color: var(--uf-ink, #0a3548);
   font: inherit;
   font-size: 16px;
   font-weight: 400;
@@ -1105,10 +1105,10 @@ body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
   width: 100%;
   min-height: 44px;
   margin-top: 8px;
-  border: 1px solid #000000;
+  border: 0;
   border-radius: 8px;
-  background: #ffffff;
-  color: var(--color-ink, #263744);
+  background: var(--uf-navy, #0a3548);
+  color: #fff;
   font: inherit;
   font-size: 0.9375rem;
   font-weight: 700;
@@ -1125,10 +1125,10 @@ body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
 .fc-atalho {
   min-height: 36px;
   padding: 0 14px;
-  border: 1.5px solid #8a8a8a;
+  border: 1.5px solid #0c9b90;
   border-radius: 18px;
   background: #fff;
-  color: var(--color-ink, #263744);
+  color: var(--uf-navy, #0a3548);
   font: inherit;
   font-size: 0.875rem;
   font-weight: 700;
@@ -1166,7 +1166,7 @@ body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
   padding: 0 10px 0 14px;
   border: 0;
   border-radius: 18px;
-  background: #ffffff;
+  background: var(--uf-navy, #0a3548);
   color: #fff;
   font: inherit;
   font-size: 0.875rem;
@@ -1188,7 +1188,7 @@ body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
   padding: 0;
   border: 0;
   background: none;
-  color: var(--color-ink, #263744);
+  color: var(--uf-navy, #0a3548);
   font: inherit;
   font-size: 0.875rem;
   font-weight: 700;

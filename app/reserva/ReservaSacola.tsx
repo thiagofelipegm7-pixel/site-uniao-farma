@@ -13,6 +13,7 @@ import { useReserva } from "./useReserva";
 import { useDisponibilidade } from "./useDisponibilidade";
 import { avisosDaCesta } from "../disponibilidade";
 import CestaSugestoes from "./CestaSugestoes";
+import { ligarArrastarParaFechar } from "./arrastar-para-fechar";
 
 const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
@@ -30,6 +31,9 @@ export default function ReservaSacola() {
   const gatilhoRef = useRef<HTMLButtonElement>(null);
   const origemExternaRef = useRef<HTMLElement | null>(null);
   const painelRef = useRef<HTMLDivElement>(null);
+  const puxadorRef = useRef<HTMLButtonElement>(null);
+  const fundoRef = useRef<HTMLButtonElement>(null);
+  const corpoRef = useRef<HTMLDivElement>(null);
   const total = totalItens(estado);
 
   useEffect(() => {
@@ -72,7 +76,11 @@ export default function ReservaSacola() {
 
     const anterior = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    const timer = window.setTimeout(() => fecharRef.current?.focus(), 20);
+    // No celular o X some (fecha arrastando para baixo); o foco inicial vai para a alça, que também fecha.
+    const timer = window.setTimeout(() => {
+      const x = fecharRef.current;
+      (x && x.offsetParent !== null ? x : puxadorRef.current)?.focus();
+    }, 20);
     const aoTeclar = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
@@ -108,12 +116,28 @@ export default function ReservaSacola() {
     setConfirmando(false);
   };
 
+  // Celular: arrastar a folha para baixo fecha a cesta (pela alça/cabeçalho, ou pela lista quando está no topo).
+  useEffect(() => {
+    if (!aberta || !painelRef.current) return;
+    return ligarArrastarParaFechar({
+      card: painelRef.current,
+      fundo: fundoRef.current,
+      corpo: corpoRef.current,
+      aoFechar: () => {
+        setAberta(false);
+        setConfirmando(false);
+      },
+    });
+  }, [aberta]);
+
   const semPreco = estado.itens.some((i) => itemAtivo(i) && !(i.precoCentavos > 0));
   const gaveta = (
     <div className="reserva-gaveta-raiz cm-raiz" role="dialog" aria-modal="true" aria-labelledby="reserva-gaveta-titulo">
-      <button type="button" className="reserva-gaveta-fundo cm-fundo" aria-label="Fechar a cesta" tabIndex={-1} onClick={fechar} />
+      <button ref={fundoRef} type="button" className="reserva-gaveta-fundo cm-fundo" aria-label="Fechar a cesta" tabIndex={-1} onClick={fechar} />
       <div className="cm-card" ref={painelRef}>
-        <span className="cm-puxador" aria-hidden="true" />
+        <button ref={puxadorRef} type="button" className="cm-puxador" aria-label="Fechar cesta" onClick={fechar}>
+          <span className="cm-puxador-barra" aria-hidden="true" />
+        </button>
         <div className="cm-topo">
           <div className="cm-titulos">
             <h2 id="reserva-gaveta-titulo">Cesta</h2>
@@ -124,7 +148,7 @@ export default function ReservaSacola() {
           </button>
         </div>
 
-        <div className="cm-corpo">
+        <div className="cm-corpo" ref={corpoRef}>
           {estado.itens.length === 0 ? (
             <div className="reserva-vazia cm-vazia">
               <IconCestaArte size={96} className="cm-vazia-icone" />
@@ -148,7 +172,7 @@ export default function ReservaSacola() {
                       <div className="cm-info">
                         <div className="cm-linha-nome">
                           <span className="cm-nome">{item.nome}</span>
-                          <button type="button" className="cm-lixeira" aria-label={`Remover ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, 0))}>
+                          <button type="button" className="cm-lixeira" aria-label={`Remover ${item.nome} da cesta`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, 0))}>
                             <IconLixeira size={20} />
                           </button>
                         </div>

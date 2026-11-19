@@ -26,6 +26,24 @@ export const MARCAS_DESTAQUE: readonly MarcaDestaque[] = [
 
 export const EXTENSOES_LOGO = ["png", "svg", "webp", "jpg"] as const;
 
+/** Logos que não são png: o navegador vai direto à extensão certa, sem passar por 404 em cadeia (um teste confere cada arquivo em public/marcas). */
+export const EXTENSAO_DO_LOGO: Readonly<Record<string, (typeof EXTENSOES_LOGO)[number]>> = {
+  bayer: "svg",
+  colgate: "svg",
+  embelleze: "jpg",
+  eurofarma: "jpg",
+  geolab: "jpg",
+  monange: "jpg",
+  neutrogena: "jpg",
+  wella: "jpg",
+};
+
+/** Extensões a tentar para uma marca: a conhecida primeiro, depois as outras. */
+export function extensoesDoLogo(slug: string): readonly (typeof EXTENSOES_LOGO)[number][] {
+  const certa = EXTENSAO_DO_LOGO[slug];
+  return certa ? [certa, ...EXTENSOES_LOGO.filter((e) => e !== certa)] : EXTENSOES_LOGO;
+}
+
 /**
  * Laboratórios da faixa do departamento Medicamentos, em ordem de volume de estoque (contagem de produtos não esgotados).
  * Entram só os que já têm logo em /public/marcas.

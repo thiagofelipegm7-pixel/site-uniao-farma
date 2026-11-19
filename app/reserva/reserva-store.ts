@@ -181,14 +181,16 @@ export type DadosPedido = {
   codigo?: string;
   /** Só entrega em dinheiro: 0 = não precisa de troco; valor em centavos = troco para esse valor; indefinido = não perguntado. */
   trocoCentavos?: number;
-  /** Como a receita chega à loja: foto, apresentação na retirada ou procedimento a combinar para entrega. */
-  receita?: "foto" | "loja" | "combinar";
+  /** Como a receita chega à loja: "foto" = o cliente manda a foto na conversa; "loja" (padrão) = leva a receita ao retirar. */
+  receita?: "foto" | "loja";
 };
 
 const ALFABETO_CODIGO = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // sem 0/O, 1/I/L: não se confunde ao ler
 
 /** Código curto do pedido (4 caracteres, ex.: K7P3). Só serve para achar a conversa; não leva dado do cliente. */
-export function gerarCodigoPedido(bytes = crypto.getRandomValues(new Uint8Array(4))): string {
+export function gerarCodigoPedido(): string {
+  const bytes = new Uint8Array(4);
+  crypto.getRandomValues(bytes);
   return Array.from(bytes, (b) => ALFABETO_CODIGO[b % ALFABETO_CODIGO.length]).join("");
 }
 
@@ -214,11 +216,6 @@ export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: D
   const quandoForma = escolhido === "Pix" ? "pelo WhatsApp" : quando;
   const troco = !retirar && escolhido === "Dinheiro" && dados.trocoCentavos !== undefined ? (dados.trocoCentavos > 0 ? ` \u2014 troco para ${formatarCentavos(dados.trocoCentavos)}` : " \u2014 sem troco") : "";
   const pag = escolhido ? `${escolhido} (${quandoForma})${troco}` : "a escolher";
-  const textoReceita = dados.receita === "combinar"
-    ? "Tem medicamento com receita. Podem confirmar se é possível entregar e como apresentar a receita?"
-    : dados.receita === "foto"
-      ? "Tem medicamento com receita: vou enviar a foto da receita aqui na conversa e retiro na loja com a receita."
-      : "Tem medicamento com receita: retiro na loja e apresento a receita.";
   // Linhas em branco separam os blocos (itens, entrega, pagamento); só null/false são descartados.
   return [
     `Olá, União Farma ${unitNome}! Quero pedir:`,
@@ -238,7 +235,7 @@ export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: D
     ...(taxa > 0 ? [`Produtos: ${formatarCentavos(sub)}`, `Taxa de entrega: ${formatarCentavos(taxa)}`] : []),
     `*Total estimado: ${formatarCentavos(total)}*`,
     "",
-    ...(exigeReceita(itens) ? [textoReceita, ""] : []),
+    ...(exigeReceita(itens) ? [dados.receita === "foto" ? "Tem medicamento com receita: vou enviar a foto da receita aqui na conversa e retiro na loja com a receita." : "Tem medicamento com receita: retiro na loja e apresento a receita.", ""] : []),
     "Se faltar algum item, podem sugerir outro parecido?",
     "Podem confirmar preço e estoque? Obrigado!",
   ].join("\n");

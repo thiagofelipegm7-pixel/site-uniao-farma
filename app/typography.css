@@ -9,7 +9,7 @@ html {
 body {
   font-size: var(--t-sm);
   line-height: var(--lh-body);
-  color: var(--color-ink, #263744);
+  color: var(--uf-ink);
 }
 
 .eyebrow,
@@ -20,7 +20,7 @@ body {
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-ink, #263744);
+  color: var(--uf-green-text);
 }
 
 h1,
@@ -65,7 +65,7 @@ p,
   margin: 0 0 0.6em;
   font-size: 1em;
   line-height: var(--lh-body);
-  color: var(--color-ink, #263744);
+  color: var(--uf-muted);
 }
 
 .direct-unit-link,
@@ -149,7 +149,7 @@ p,
 }
 
 .direct-unit-links-copy span {
-  color: var(--color-ink, #263744);
+  color: var(--uf-muted);
 }
 
 .direct-unit-links,
@@ -281,8 +281,8 @@ p,
 
 /* --- refero.css --- */
 body {
-  background: #ffffff;
-  color: var(--color-ink, #263744);
+  background: var(--uf-paper);
+  color: var(--uf-ink);
 }
 
 h1,
@@ -316,7 +316,7 @@ h1,
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.15;
-  color: var(--color-ink, #263744);
+  color: var(--uf-ink);
 }
 
 .direct-unit-link .open-status {
@@ -326,7 +326,7 @@ h1,
 .direct-unit-neighborhood {
   order: 3;
   font-size: 0.88em;
-  color: var(--color-ink, #263744);
+  color: var(--uf-muted);
 }
 
 .direct-unit-distance,
@@ -337,12 +337,12 @@ h1,
   font-weight: 800;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--color-ink, #263744);
+  color: var(--uf-muted);
 }
 
 .nearest-unit-badge {
   color: #ffffff;
-  background: #ffffff;
+  background: var(--uf-green);
 }
 
 .direct-unit-actions {
@@ -358,7 +358,7 @@ h1,
 }
 
 .offer-consult-image {
-  background: #ffffff;
+  background: var(--uf-fog);
 }
 
 .offer-consult-image img {
@@ -369,20 +369,20 @@ h1,
 
 .offer-consult-brand {
   font-size: 0.72em;
-  color: var(--color-ink, #263744);
+  color: var(--uf-muted);
 }
 
 .offer-consult-body h3 {
   font-size: 0.98em;
   font-weight: 700;
-  color: var(--color-ink, #263744);
+  color: var(--uf-ink);
   min-height: 0;
 }
 
 .offer-consult-price strong {
   font-size: 1.85em;
   font-weight: 800;
-  color: var(--color-ink, #263744);
+  color: var(--uf-green-text);
 }
 
 .offer-consult-units a {
@@ -391,12 +391,12 @@ h1,
 
 .whatsapp-intent-chips button {
   border-radius: 999px;
-  background: #ffffff;
+  background: var(--uf-stone);
   border-color: transparent;
 }
 
 .whatsapp-intent-chips button.is-active {
-  background: #ffffff;
+  background: var(--uf-green);
   color: #ffffff;
 }
 
@@ -410,12 +410,12 @@ h1,
 .direct-unit-recipe,
 .mobile-quick-nav a:not(.is-primary) {
   border-radius: 999px;
-  background: #ffffff;
+  background: var(--uf-stone);
   border-color: transparent;
 }
 
 .neighborhood-photo {
-  background: #ffffff;
+  background: var(--uf-fog);
   object-fit: cover;
 }
 

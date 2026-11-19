@@ -1,6 +1,7 @@
 /**
  * Nome e endereço do cliente guardados SÓ no navegador dele (localStorage), para o próximo pedido vir preenchido.
- * Nunca vão ao servidor nem ao analytics. O cliente pode esquecer tudo com um toque.
+ * Daqui nunca vão ao servidor nem ao analytics. O cliente pode esquecer tudo com um toque. (Exceção à parte: quem marca a caixa
+ * de lembrete de recompra no checkout manda nome e celular junto com a cesta; ver lembrete-recompra.ts.)
  */
 export const CHAVE_CLIENTE = "uf-cliente-v1";
 

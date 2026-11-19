@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { SetasRolagem } from "./SetasRolagem";
 import ReservarBotao from "../reserva/ReservarBotao";
 import CartaoPanvel from "../nacoes-unidas/produtos/CartaoPanvel";
@@ -34,6 +34,10 @@ type Props = {
   verTodas?: boolean;
   source?: string;
   id?: string;
+  /** Produtos pedidos pelo endereço (slugs): "Visto recentemente". Sem foto, remédio ou fora do catálogo, o item some. */
+  slugs?: readonly string[];
+  /** Botão ou link extra ao lado de "Ver tudo" (ex.: limpar o histórico). */
+  acaoExtra?: ReactNode;
 };
 
 /**
@@ -41,7 +45,7 @@ type Props = {
  * Busca no navegador em /api/destaques (cache de 5 min) para a home continuar estática e o preço nunca ficar congelado.
  * Só entram produtos com foto (cartão com o espaço da imagem vazio parece site quebrado). Se a busca falhar ou não houver nenhum, a seção some.
  */
-export default function DestaquesSemana({ posicao, titulo = "Destaques da semana", grupo, lab, ate, n = 8, verTodasHref = "/nacoes-unidas/produtos", verTodas = true, source = "destaques_home", id = "destaques" }: Props = {}) {
+export default function DestaquesSemana({ posicao, titulo = "Destaques da semana", grupo, lab, ate, n = 8, verTodasHref = "/nacoes-unidas/produtos", verTodas = true, source = "destaques_home", slugs, acaoExtra, id = "destaques" }: Props = {}) {
   const [itens, setItens] = useState<Destaque[]>([]);
   const [lista, setLista] = useState<HTMLUListElement | null>(null);
 
@@ -49,7 +53,9 @@ export default function DestaquesSemana({ posicao, titulo = "Destaques da semana
     let ativo = true;
     // Pede mais itens que o necessário para sobrar o bastante depois de tirar os que já apareceram em outra vitrine.
     const pedir = posicao === undefined ? n : Math.min(36, n * 3);
-    const consulta = new URLSearchParams({ n: String(pedir), fotos: "1", ...(grupo ? { grupo } : {}), ...(lab ? { lab } : {}), ...(ate ? { ate: String(ate) } : {}) });
+    const consulta = slugs && slugs.length > 0
+      ? new URLSearchParams({ slugs: slugs.join(","), fotos: "1" })
+      : new URLSearchParams({ n: String(pedir), fotos: "1", ...(grupo ? { grupo } : {}), ...(lab ? { lab } : {}), ...(ate ? { ate: String(ate) } : {}) });
     const anterior: Promise<Set<string>> = posicao ? (cadeia[posicao - 1] ?? Promise.resolve(new Set<string>())) : Promise.resolve(new Set<string>());
     const busca = fetch(`/api/destaques?${consulta}`, { headers: { accept: "application/json" } })
       .then((resposta) => (resposta.ok ? resposta.json() : null))
@@ -63,7 +69,8 @@ export default function DestaquesSemana({ posicao, titulo = "Destaques da semana
     return () => {
       ativo = false;
     };
-  }, [grupo, lab, ate, n, posicao]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- `slugs` entra pelo texto (chave), para a lista nova não repetir a busca à toa
+  }, [grupo, lab, ate, n, posicao, slugs?.join(",")]);
 
   if (itens.length === 0) return null;
 
@@ -72,6 +79,7 @@ export default function DestaquesSemana({ posicao, titulo = "Destaques da semana
       <div className="shop-destaques-topo">
         <h2 id={`${id}-titulo`}>{titulo}</h2>
         <div className="shop-destaques-acoes">
+          {acaoExtra}
           {verTodas && verTodasHref ? <a href={verTodasHref}>Ver tudo</a> : null}
           <SetasRolagem alvo={lista} rotulo={titulo} />
         </div>

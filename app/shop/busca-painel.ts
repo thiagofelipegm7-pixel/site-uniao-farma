@@ -57,12 +57,22 @@ const todasAsMarcas = (() => {
 export function atalhosDaBusca(consulta: string): AtalhoBusca[] {
   const normal = normalizarBusca(consulta);
   if (normal.length < 3) return [];
+  // Cada palavra de 3 letras ou mais conta: "shampoo dove" acha o departamento pelo "shampoo" e a marca pelo "dove".
+  // A última palavra ainda está sendo digitada (vale o começo); as anteriores já estão completas (valem inteiras).
+  const palavras = normal.split(" ").filter((p) => p.length >= 3);
+  if (palavras.length === 0) return [];
+  const ultima = normal.split(" ").at(-1) ?? "";
+  const casaMarca = (nomeMarca: string) => {
+    const n = normalizarBusca(nomeMarca);
+    return palavras.some((p) => (p === ultima ? n.startsWith(p) : n === p || n.startsWith(`${p} `)));
+  };
   const saida: AtalhoBusca[] = [];
-  const dep = departamentosPublicos().find((d) => normalizarBusca(d.nome).split(" ").some((palavra) => palavra.startsWith(normal)));
+  const deps = departamentosPublicos();
+  const dep = [...palavras].reverse().map((p) => deps.find((d) => normalizarBusca(d.nome).split(" ").some((palavra) => (p === ultima ? palavra.startsWith(p) : palavra === p)))).find(Boolean);
   if (dep) saida.push({ tipo: "departamento", nome: dep.nome, href: `/departamentos/${dep.slug}` });
   for (const marca of todasAsMarcas) {
     if (saida.filter((a) => a.tipo === "marca").length >= 2) break;
-    if (normalizarBusca(marca.nome).startsWith(normal)) saida.push({ tipo: "marca", nome: marca.nome, href: `/nacoes-unidas/produtos?q=${encodeURIComponent(marca.busca)}` });
+    if (casaMarca(marca.nome)) saida.push({ tipo: "marca", nome: marca.nome, href: `/nacoes-unidas/produtos?q=${encodeURIComponent(marca.busca)}` });
   }
   return saida;
 }

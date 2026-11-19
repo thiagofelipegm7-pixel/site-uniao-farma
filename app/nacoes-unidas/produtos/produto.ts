@@ -29,6 +29,9 @@ export const AVISO_MIP = "Medicamento isento de prescrição. Se persistirem os 
 
 export const NOTA_PRECO = "A loja confirma preço e estoque pelo WhatsApp.";
 
+/** Itens que não são medicamento (ver ehMedicamentoOuDuvida): o preço do site vale como preço firme. */
+export const NOTA_PRECO_FIRME = "O preço do site vale para o seu pedido. Pelo WhatsApp, a loja só confirma o estoque e combina a entrega.";
+
 export const FAQ_PRODUTO: readonly FaqProduto[] = [
   {
     q: "Preciso pagar agora?",
@@ -88,24 +91,43 @@ export function conteudoDoNome(nome: string): string | null {
   return `${bruto} ${unidade}`;
 }
 
-export function descricaoMetadata(nome: string, descricao?: string | null): string {
+export function descricaoMetadata(nome: string, descricao?: string | null, precoFirme = false): string {
   const texto = descricao?.replace(/\s+/g, " ").trim();
   if (texto) return `${texto} União Farma Nações Unidas, Sabará.`;
-  return `${nome} na União Farma Nações Unidas, Sabará. ${NOTA_PRECO}`;
+  return `${nome} na União Farma Nações Unidas, Sabará. ${precoFirme ? NOTA_PRECO_FIRME : NOTA_PRECO}`;
 }
 
-/** Product sem nota, sem estoque e sem oferta. O preço fica na página, não no schema. */
-export function jsonLdProduto(input: { nome: string; lab: string; categoria: string; url: string; image?: string | null; descricao?: string | null }): Record<string, unknown> {
+/** Oferta do JSON-LD: só para itens de elegivelGoogle (não medicamento, em estoque, com foto), com o preço do site. */
+export type OfertaProduto = { preco: number; gtin?: string | null };
+
+/**
+ * Product sem nota e sem avaliação. Medicamento e item fora do Google ficam sem oferta (o preço fica só na página).
+ * Com `oferta` (item elegível ao Google): Offer com preço em BRL, InStock, condição nova e a página do produto.
+ */
+export function jsonLdProduto(input: { nome: string; lab: string; categoria: string; url: string; image?: string | null; descricao?: string | null; oferta?: OfertaProduto | null }): Record<string, unknown> {
   const dados: Record<string, unknown> = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: input.nome,
     category: input.categoria,
     url: input.url,
-    description: descricaoMetadata(input.nome, input.descricao),
+    description: descricaoMetadata(input.nome, input.descricao, Boolean(input.oferta)),
   };
   const marca = input.lab.trim();
   if (marca) dados.brand = { "@type": "Brand", name: marca };
   if (input.image) dados.image = input.image;
+  const oferta = input.oferta;
+  if (oferta && Number.isFinite(oferta.preco) && oferta.preco > 0) {
+    if (oferta.gtin) dados.gtin = oferta.gtin;
+    dados.offers = {
+      "@type": "Offer",
+      price: oferta.preco.toFixed(2),
+      priceCurrency: "BRL",
+      availability: "https://schema.org/InStock",
+      itemCondition: "https://schema.org/NewCondition",
+      url: input.url,
+      seller: { "@type": "Organization", name: "União Farma Nações Unidas" },
+    };
+  }
   return dados;
 }

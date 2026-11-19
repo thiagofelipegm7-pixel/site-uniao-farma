@@ -39,10 +39,9 @@ test("setas de rolagem: círculos no cabeçalho, seta com haste, estado ligado a
 
   assert.match(css, /\.shop-setas \{ display: none;/);
   assert.match(css, /@media \(min-width: 992px\)[\s\S]*\.shop-setas \{ display: flex; \}/);
-  assert.match(css, /\.shop-seta \{[\s\S]*width: 2\.5rem;[\s\S]*height: 2\.5rem;[\s\S]*border: 1px solid #[0-9a-f]{6};[\s\S]*border-radius: 50%;[\s\S]*background: #ffffff;[\s\S]*color: #[0-9a-f]{6};/);
-  // Estados: realce ao passar o mouse só quando ativa; desabilitada sem cursor de clique. As cores seguem a paleta.
-  assert.match(css, /\.shop-seta:hover:not\(:disabled\) \{ background: #[0-9a-f]{6}; border-color: #[0-9a-f]{6}; \}/);
-  assert.match(css, /\.shop-seta:disabled \{ border-color: #[0-9a-f]{6}; color: #[0-9a-f]{6}; cursor: default; \}/);
+  assert.match(css, /\.shop-seta \{[\s\S]*width: 2\.5rem;[\s\S]*height: 2\.5rem;[\s\S]*border: 1px solid #94a3b8;[\s\S]*border-radius: 50%;[\s\S]*background: #ffffff;[\s\S]*color: #0a3548;/);
+  assert.match(css, /\.shop-seta:hover:not\(:disabled\) \{ background: #f8fafc; border-color: #0a3548; \}/);
+  assert.match(css, /\.shop-seta:disabled \{ border-color: #e2e8f0; color: #cbd5e1; cursor: default; \}/);
   assert.doesNotMatch(css, /\.shop-seta-esq \{ left:/);
   assert.doesNotMatch(css, /\.shop-seta \{ position: absolute/);
 });

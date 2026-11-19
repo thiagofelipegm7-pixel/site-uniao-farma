@@ -32,7 +32,7 @@ export const ROTULO_TARJA: Record<Tarja, string> = {
   "vermelha-retencao": "Tarja vermelha, com retenção da receita",
 };
 
-type BaseJson = { nome: string; lab: string; preco: number | null; ativo?: string; rms?: string; tarja?: Tarja; generico?: boolean; esgotado?: boolean; restam?: number };
+type BaseJson = { nome: string; lab: string; preco: number | null; ativo?: string; rms?: string; tarja?: Tarja; generico?: boolean };
 export type ItemReceita = BaseJson & { retencao: boolean };
 export type ItemControlado = BaseJson & { lista: string };
 export type ItemConsulte = BaseJson;
@@ -121,8 +121,6 @@ function paraRestrito(base: BaseJson & { retencao?: boolean; lista?: string }, t
     portaria344,
     antimicrobiano,
     semVenda,
-    ...(base.esgotado === true ? { esgotado: true } : {}),
-    ...(typeof base.restam === "number" && base.restam > 0 ? { restam: base.restam } : {}),
   };
 }
 

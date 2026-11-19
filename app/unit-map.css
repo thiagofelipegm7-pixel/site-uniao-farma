@@ -16,7 +16,7 @@
   border: 1px solid #d5e4e2;
   border-radius: 14px;
   background: #ffffff;
-  color: var(--color-ink, #263744);
+  color: #12332f;
   text-align: left;
 }
 
@@ -27,13 +27,13 @@
 
 .unit-map-pins button span {
   margin-top: 4px;
-  color: var(--color-ink, #263744);
+  color: #2e4b47;
   font-size: 12px;
 }
 
 .unit-map-pins button.is-active {
-  background: #ffffff;
-  border-color: #8a8a8a;
+  background: #0f6e67;
+  border-color: #0f6e67;
   color: #ffffff;
 }
 
@@ -58,7 +58,7 @@
 
 .unit-map-details h2 {
   margin: 4px 0 8px;
-  color: var(--color-ink, #263744);
+  color: #123734;
 }
 
 .unit-map-actions {
