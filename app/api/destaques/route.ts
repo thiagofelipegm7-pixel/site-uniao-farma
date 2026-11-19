@@ -4,8 +4,20 @@ import { fotoDoProduto } from "../../nacoes-unidas/produtos/imagens";
 import { ehNbcal } from "../../nacoes-unidas/produtos/produto";
 import { descricaoDoProduto } from "../../nacoes-unidas/produtos/descricoes";
 import { escolherAtrativos } from "../../nacoes-unidas/produtos/atrativos";
+import { chaveDeNome } from "../../fotos-painel";
+import mudancasJson from "../../nacoes-unidas/produtos/dados/mudancas-recentes.json" with { type: "json" };
 
 export const dynamic = "force-dynamic";
+
+type EventoCatalogo = { q?: string; t?: string; n?: string };
+
+function nomesNovosRecentes(agora = Date.now()): Set<string> {
+  const eventos = (mudancasJson as { eventos?: EventoCatalogo[] }).eventos ?? [];
+  const desde = agora - 7 * 24 * 60 * 60 * 1000;
+  return new Set(eventos
+    .filter((evento) => evento.t === "novo" && typeof evento.n === "string" && Date.parse(evento.q ?? "") >= desde)
+    .map((evento) => chaveDeNome(evento.n!)));
+}
 
 /**
  * Vitrines da home e da cesta: itens do catálogo da Nações, preferindo os que têm foto.
@@ -25,6 +37,7 @@ export async function GET(request: Request) {
   const ate = Math.floor(Number(params.get("ate"))) || 0;
   const soComFoto = params.get("fotos") === "1";
   const n = Math.min(36, Math.max(1, Math.floor(Number(params.get("n"))) || 6));
+  const novos = nomesNovosRecentes();
   const catalogo = carregarCatalogoNacoes();
   const pedidos = (params.get("slugs") ?? "").split(",").map((x) => x.trim()).filter((x) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(x) && x.length <= 120).slice(0, 10);
   if (pedidos.length > 0) {
@@ -56,6 +69,7 @@ export async function GET(request: Request) {
         foto: fotoDoProduto(item.nome),
         ...(typeof item.restam === "number" && item.restam > 0 ? { restam: item.restam } : {}),
         isMIP: item.isMIP,
+        novo: novos.has(chaveDeNome(item.nome)),
         descricaoReal: descricao !== null && descricao.origem !== "modelo",
       };
     })
@@ -63,6 +77,6 @@ export async function GET(request: Request) {
   const ordenados = params.get("ordem") === "catalogo"
     ? [...filtrados].sort((a, b) => Number(b.foto !== null) - Number(a.foto !== null)).slice(0, n)
     : escolherAtrativos(filtrados, n, dia, grupo === "medicamentos");
-  const itens = ordenados.map(({ nome, slug, lab: marca, precoCentavos, foto, isMIP }) => ({ nome, slug, lab: marca, precoCentavos, foto, ...(isMIP ? { isMIP: true } : {}) }));
+  const itens = ordenados.map(({ nome, slug, lab: marca, precoCentavos, foto, isMIP, novo }) => ({ nome, slug, lab: marca, precoCentavos, foto, ...(isMIP ? { isMIP: true } : {}), ...(novo ? { novo: true } : {}) }));
   return Response.json({ itens }, { headers: { "cache-control": "public, max-age=300" } });
 }
