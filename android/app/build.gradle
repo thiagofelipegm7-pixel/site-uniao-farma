@@ -1,0 +1,43 @@
+plugins {
+    id 'com.android.application' version '8.7.3'
+}
+
+android {
+    namespace 'br.com.uniaofarma.sabara'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'br.com.uniaofarma.sabara'
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName '0.1.0'
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    def localUrl = providers.gradleProperty('apiBaseUrl').getOrElse('http://10.0.2.2:4173')
+    def parsedUrl = new URI(localUrl)
+    if (!(parsedUrl.scheme in ['http', 'https']) || !parsedUrl.host ||
+            parsedUrl.userInfo || parsedUrl.query || parsedUrl.fragment ||
+            !(parsedUrl.path in ['', '/'])) {
+        throw new GradleException('apiBaseUrl deve ser uma origem HTTP ou HTTPS.')
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix '.dev'
+            buildConfigField 'String', 'API_BASE_URL', '"' + localUrl.replaceAll('/+$', '') + '"'
+        }
+        release {
+            buildConfigField 'String', 'API_BASE_URL', '"https://xn--uniofarmasabar-8gbu.com.br"'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
