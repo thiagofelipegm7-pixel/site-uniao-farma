@@ -30,6 +30,8 @@ type Entrada = {
   totalExato: number;
   /** Chamar a IA depois da correção local? Falso deixa só a correção local. */
   usarIA?: boolean;
+  /** Não sugerir termos diferentes quando a busca veio de uma categoria específica. */
+  exata?: boolean;
 };
 
 function lerCache(chave: string): RespostaBuscaIA | null {
@@ -54,7 +56,7 @@ function guardarCache(chave: string, resposta: RespostaBuscaIA) {
  * 1) correção local, de graça e instantânea; 2) IA, só se a local não resolveu, escolhendo entre palavras que o catálogo tem.
  * Nunca devolve produto fora do catálogo e nunca indica remédio para sintoma.
  */
-export function useBuscaTolerante({ textos, consulta, totalExato, usarIA = true }: Entrada): BuscaTolerante {
+export function useBuscaTolerante({ textos, consulta, totalExato, usarIA = true, exata = false }: Entrada): BuscaTolerante {
   const vocab = useMemo(() => (textos && textos.length > 0 ? criarVocabulario(textos) : null), [textos]);
   const texto = consulta.trim();
 
@@ -135,6 +137,7 @@ export function useBuscaTolerante({ textos, consulta, totalExato, usarIA = true 
   // Correção da IA: só vale se trocar palavra parecida, mantiver o resto da busca e achar produto; troca duvidosa vira pergunta.
   const interpretada = useMemo(() => (!intencao && vocab && local && respostaIA && !respostaIA.sintoma ? interpretarCorrecaoIA(vocab, local, respostaIA.termos) : null), [intencao, vocab, local, respostaIA]);
 
+  if (exata) return { tipo: "nenhum", procurando: false };
   // Sintoma que a loja conhece (lista fixa de medicamentos sem receita): mostra esses produtos com aviso de bula, sem esperar a IA.
   const conhecido = local ? sintomaConhecido(texto) : null;
   const termosSintoma = conhecido && vocab ? conhecido.termos.filter((t) => contarCasos(vocab, t) > 0) : [];

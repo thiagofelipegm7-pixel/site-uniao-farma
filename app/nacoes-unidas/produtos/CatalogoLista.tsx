@@ -161,8 +161,13 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   const base = useMemo(() => identificarItens(grupos), [grupos]);
   // A página é estática: o termo vem da barra de endereço (?q=fralda) depois que a página abre.
   const [consulta, setConsulta] = useState(consultaInicial);
+  const [consultaExata, setConsultaExata] = useState(false);
   useEffect(() => {
-    const ler = () => setConsulta((new URLSearchParams(window.location.search).get("q") ?? "").slice(0, 80));
+    const ler = () => {
+      const params = new URLSearchParams(window.location.search);
+      setConsulta((params.get("q") ?? "").slice(0, 80));
+      setConsultaExata(params.get("exata") === "1");
+    };
     ler();
     window.addEventListener("popstate", ler);
     return () => window.removeEventListener("popstate", ler);
@@ -203,7 +208,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     [completo, base],
   );
   const totalExato = useMemo(() => (consulta.trim() ? filtrarGrupos(base, consulta).reduce((soma, g) => soma + g.itens.length, 0) : 1), [base, consulta]);
-  const tolerante = useBuscaTolerante({ textos: textosBusca, consulta, totalExato });
+  const tolerante = useBuscaTolerante({ textos: textosBusca, consulta, totalExato, usarIA: !consultaExata, exata: consultaExata });
   const sintomaComProdutos = tolerante.tipo === "sintoma" && tolerante.consultas?.length ? tolerante : null;
   const consultasAlternativas = tolerante.tipo === "corrigida" || tolerante.tipo === "parcial" ? tolerante.consultas : sintomaComProdutos?.consultas;
 
