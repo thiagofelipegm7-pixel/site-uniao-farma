@@ -4,17 +4,19 @@ import { useEffect, useState } from "react";
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
-/** Fotos das 7 categorias (public/categorias), separadas da prancha aprovada. */
+/** Temas de saúde apresentados na navegação por categoria. */
 type Categoria = { href: string; rotulo: string; iconeSrc: string };
 
 const CATEGORIAS: readonly Categoria[] = [
-  { href: "/departamentos/medicamentos", rotulo: "Medicamentos", iconeSrc: "/categorias/medicamentos.jpg" },
-  { href: "/departamentos/dermocosmeticos", rotulo: "Dermo­cosméticos", iconeSrc: "/categorias/dermocosmeticos.jpg" },
-  { href: "/departamentos/perfumes", rotulo: "Perfumes", iconeSrc: "/categorias/perfumes.jpg" },
-  { href: "/departamentos/infantil-e-gestante", rotulo: "Infantil e Gestante", iconeSrc: "/categorias/infantil-e-gestante.jpg" },
-  { href: "/departamentos/beleza", rotulo: "Beleza", iconeSrc: "/categorias/beleza.jpg" },
-  { href: "/departamentos/cuidado-diario", rotulo: "Cuidado Diário", iconeSrc: "/categorias/cuidado-diario.jpg" },
-  { href: "/departamentos/bem-estar", rotulo: "Bem Estar", iconeSrc: "/categorias/bem-estar.jpg" },
+  { href: "/nacoes-unidas/produtos?q=diabetes", rotulo: "Cuidados com diabetes", iconeSrc: "/categorias/diabetes.jpg" },
+  { href: "/nacoes-unidas/produtos?q=cora%C3%A7%C3%A3o", rotulo: "Cuidados com o coração", iconeSrc: "/categorias/coracao.jpg" },
+  { href: "/nacoes-unidas/produtos?q=est%C3%B4mago", rotulo: "Cuidados com o estômago", iconeSrc: "/categorias/estomago.jpg" },
+  { href: "/nacoes-unidas/produtos?q=f%C3%ADgado", rotulo: "Cuidados com o fígado", iconeSrc: "/categorias/figado.jpg" },
+  { href: "/nacoes-unidas/produtos?q=ossos", rotulo: "Cuidados com os ossos", iconeSrc: "/categorias/ossos.jpg" },
+  { href: "/nacoes-unidas/produtos?q=rins", rotulo: "Cuidados com os rins", iconeSrc: "/categorias/rins.jpg" },
+  { href: "/departamentos/dermocosmeticos", rotulo: "Derma Cuidados", iconeSrc: "/categorias/derma.jpg" },
+  { href: "/nacoes-unidas/produtos?q=respirat%C3%B3rios", rotulo: "Cuidados Respiratórios", iconeSrc: "/categorias/respiratorios.jpg" },
+  { href: "/nacoes-unidas/produtos?q=olhos", rotulo: "Cuidados com os olhos", iconeSrc: "/categorias/olhos.jpg" },
 ];
 
 /**
