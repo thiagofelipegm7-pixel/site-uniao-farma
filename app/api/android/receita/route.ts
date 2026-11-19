@@ -1,8 +1,7 @@
 import { POST as lerReceitaIA } from "../../receita-ia/route";
 import { nomeDeExibicao } from "../../../nome-exibicao";
 import { casarReceita, prepararCatalogo, type CatalogoReceita, type ProdutoNormal, type ProdutoRestrito } from "../../../nacoes-unidas/produtos/receita-casar";
-import { carregarCatalogoCompleto } from "../../../nacoes-unidas/produtos/catalogo";
-import { carregarRestritos } from "../../../nacoes-unidas/produtos/receita";
+import { idsDoAplicativo } from "../../../android-ids";
 
 export const dynamic = "force-dynamic";
 
@@ -32,15 +31,6 @@ function carregarCatalogo(origem: string): Promise<CatalogoReceita> {
       });
   }
   return catalogoEmMemoria;
-}
-
-/** O catálogo do app usa o nome bruto de cada produto como id; a leitura casa pelo nome de exibição. Aqui fica a ponte. */
-function idsDoAplicativo(): Map<string, string> {
-  const ids = new Map<string, string>();
-  for (const item of carregarCatalogoCompleto().itens) ids.set(nomeDeExibicao(item.nome), item.nome);
-  const restritos = carregarRestritos();
-  for (const item of [...restritos.receita, ...restritos.controlados]) ids.set(nomeDeExibicao(item.nome), item.nome);
-  return ids;
 }
 
 function json(corpo: Record<string, unknown>, status: number) {

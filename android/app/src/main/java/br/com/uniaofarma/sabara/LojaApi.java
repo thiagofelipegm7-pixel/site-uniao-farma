@@ -127,6 +127,40 @@ final class LojaApi {
         return lista;
     }
 
+    /** Facetas da lista (marca, forma, dosagem...) com as contagens do site, e os ids dos produtos na ordem do site. */
+    record OpcaoFiltro(String valor, String label, int contagem, boolean selecionada) {}
+    record FacetaFiltro(String id, String titulo, List<OpcaoFiltro> opcoes) {}
+    record ListaFiltrada(List<FacetaFiltro> facetas, List<String> ids) {}
+
+    ListaFiltrada lista(String consulta, String departamento, Map<String, java.util.Set<String>> selecoes, Double precoMax)
+            throws IOException, JSONException {
+        var caminho = new StringBuilder("/api/android/lista?q=").append(java.net.URLEncoder.encode(consulta, "UTF-8"));
+        if (departamento != null) caminho.append("&dep=").append(java.net.URLEncoder.encode(departamento, "UTF-8"));
+        JSONObject sel = new JSONObject();
+        for (var entrada : selecoes.entrySet()) {
+            if (!entrada.getValue().isEmpty()) sel.put(entrada.getKey(), new JSONArray(entrada.getValue()));
+        }
+        caminho.append("&sel=").append(java.net.URLEncoder.encode(sel.toString(), "UTF-8"));
+        if (precoMax != null) caminho.append("&precoMax=").append(precoMax);
+        JSONObject resposta = json(caminho.toString(), null);
+        var facetas = new ArrayList<FacetaFiltro>();
+        JSONArray arrFacetas = resposta.getJSONArray("facetas");
+        for (int i = 0; i < arrFacetas.length(); i++) {
+            JSONObject f = arrFacetas.getJSONObject(i);
+            var opcoes = new ArrayList<OpcaoFiltro>();
+            JSONArray arrOpcoes = f.getJSONArray("opcoes");
+            for (int j = 0; j < arrOpcoes.length(); j++) {
+                JSONObject o = arrOpcoes.getJSONObject(j);
+                opcoes.add(new OpcaoFiltro(o.getString("valor"), o.getString("label"), o.getInt("contagem"), o.optBoolean("selecionada", false)));
+            }
+            facetas.add(new FacetaFiltro(f.getString("id"), f.getString("titulo"), opcoes));
+        }
+        var ids = new ArrayList<String>();
+        JSONArray arrIds = resposta.getJSONArray("ids");
+        for (int i = 0; i < arrIds.length(); i++) ids.add(arrIds.getString(i));
+        return new ListaFiltrada(facetas, ids);
+    }
+
     /** "Combina com" de um produto (/api/android/combina). O id é o nome bruto do produto. */
     List<Relacionado> combinaCom(String id) throws IOException, JSONException {
         String consulta = "/api/android/combina?id=" + java.net.URLEncoder.encode(id, "UTF-8");
@@ -217,7 +251,7 @@ final class LojaApi {
 
     Bitmap foto(String caminho) throws IOException {
         // Só fotos da própria loja: produto (EAN) ou banner da home. Qualquer outro caminho é recusado.
-        if (!caminho.matches("/produtos/[0-9]+\\.webp|/banners-[0-9a-z]+/[A-Za-z0-9._-]+\\.(jpg|jpeg|webp|png)")) return null;
+        if (!caminho.matches("/produtos/[0-9]+\\.webp|/banners-[0-9a-z]+/[A-Za-z0-9._-]+\\.(jpg|jpeg|webp|png)|/categorias/[A-Za-z0-9._-]+\\.jpg")) return null;
         HttpURLConnection conexao = abrir(caminho);
         try {
             if (conexao.getResponseCode() != 200) return null;

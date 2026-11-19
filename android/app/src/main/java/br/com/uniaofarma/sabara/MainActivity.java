@@ -15,6 +15,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.LruCache;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -67,9 +68,24 @@ public final class MainActivity extends Activity {
     private String combinaDe;
     private List<LojaApi.Relacionado> combinaAtual = Collections.emptyList();
     private boolean combinaCarregando;
-    /** Filtros da lista de produtos: marca exata (null = todas) e preço máximo em centavos (0 = sem limite). */
-    private String marcaFiltro;
+    /** Filtros da lista de produtos (facetas do site): seções com os valores marcados. Preço máximo em centavos (0 = sem limite). */
+    private final Map<String, java.util.Set<String>> filtrosSel = new LinkedHashMap<>();
+    private List<LojaApi.FacetaFiltro> facetasAtuais = Collections.emptyList();
+    private List<String> idsFiltrados;
+    private String chaveFiltro;
     private int precoMaxFiltro;
+    /** Navegue por categoria (mesma lista e mesmas buscas do site): rótulo, termo de busca e imagem. */
+    private static final String[][] CATEGORIAS = {
+            {"Cuidados com diabetes", "diabetes", "/categorias/diabetes.jpg"},
+            {"Cuidados com o coração", "coração", "/categorias/coracao.jpg"},
+            {"Cuidados com o estômago", "estômago", "/categorias/estomago.jpg"},
+            {"Cuidados com o fígado", "fígado", "/categorias/figado.jpg"},
+            {"Cuidados com os ossos", "ossos", "/categorias/ossos.jpg"},
+            {"Cuidados com os rins", "rins", "/categorias/rins.jpg"},
+            {"Derma Cuidados", "dep:dermocosmeticos", "/categorias/derma-usuario.jpg"},
+            {"Cuidados Respiratórios", "respiratórios", "/categorias/respiratorios-usuario.jpg"},
+            {"Cuidados com os olhos", "olhos", "/categorias/olhos.jpg"},
+    };
     private static final String[][] VITRINES = {
             {"Cuidado Diário", "grupo=cuidado-diario"},
             {"Farmax", "lab=FARMAX"},
@@ -96,7 +112,7 @@ public final class MainActivity extends Activity {
     private LinearLayout raiz;
     private ScrollView painelRolavel;
     private Tela telaRenderizada;
-    private ListView listaRenderizada;
+    private AbsListView listaRenderizada;
     private int primeiroProduto;
     private int deslocamentoProduto;
 
@@ -401,10 +417,13 @@ public final class MainActivity extends Activity {
         opcoes.addView(ofertasBotao, lp);
         LinearLayout filtrosLinha = new LinearLayout(this);
         filtros.addView(filtrosLinha);
-        Button marcaBotao = botao(marcaFiltro == null ? "Marca" : marcaFiltro, marcaFiltro != null, this::escolherMarca);
-        marcaBotao.setContentDescription("Marca. " + (marcaFiltro == null ? "Todas" : marcaFiltro));
-        filtrosLinha.addView(marcaBotao, new LinearLayout.LayoutParams(0, -2, 1));
+        int selecionados = contarSelecoes();
+        Button filtrosBotao = botao(selecionados == 0 ? "Filtros" : "Filtros · " + selecionados, selecionados > 0, this::abrirFiltros);
+        filtrosBotao.setEnabled(!vendoOfertas);
+        filtrosBotao.setContentDescription("Filtros. " + (selecionados == 0 ? "Nenhum ativo" : selecionados + " ativos"));
+        filtrosLinha.addView(filtrosBotao, new LinearLayout.LayoutParams(0, -2, 1));
         Button precoBotao = botao(precoMaxFiltro == 0 ? "Preço" : "Até " + moeda(precoMaxFiltro), precoMaxFiltro > 0, this::escolherPreco);
+        precoBotao.setEnabled(!vendoOfertas);
         LinearLayout.LayoutParams lpPreco = new LinearLayout.LayoutParams(0, -2, 1);
         lpPreco.setMarginStart(dp(8));
         filtrosLinha.addView(precoBotao, lpPreco);
@@ -417,9 +436,13 @@ public final class MainActivity extends Activity {
         contagem.setAccessibilityLiveRegion(View.ACCESSIBILITY_LIVE_REGION_POLITE);
         padding(contagem, 2, 9, 0, 0);
         filtros.addView(contagem);
-        ListView lista = new ListView(this);
+        // Grade de duas colunas, como a lista de produtos do site.
+        GridView lista = new GridView(this);
         listaRenderizada = lista;
-        lista.setDivider(null);
+        lista.setNumColumns(2);
+        lista.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
+        lista.setHorizontalSpacing(dp(8));
+        lista.setVerticalSpacing(dp(8));
         lista.setClipToPadding(false);
         padding(lista, 16, 0, 16, 10);
         raiz.addView(lista, new LinearLayout.LayoutParams(-1, 0, 1));
@@ -429,16 +452,7 @@ public final class MainActivity extends Activity {
             produtoAberto = adapter.getItem(position).id();
             navegar(Tela.DETALHES);
         });
-        Runnable filtrar = () -> {
-            String consulta = LojaApi.textoBusca(busca);
-            String[] termos = consulta.isEmpty() ? new String[0] : consulta.split(" ");
-            var encontrados = new ArrayList<LojaApi.Produto>();
-            for (LojaApi.Produto item : catalogo.produtos().values()) {
-                if (vendoOfertas ? !emOferta(item) : departamento != null && !departamento.equals(item.departamento())) continue;
-                if (marcaFiltro != null && !marcaFiltro.equals(item.marca())) continue;
-                if (precoMaxFiltro > 0 && (item.preco() <= 0 || item.preco() > precoMaxFiltro)) continue;
-                if (casa(item.busca(), termos)) encontrados.add(item);
-            }
+        java.util.function.Consumer<List<LojaApi.Produto>> exibir = encontrados -> {
             adapter.itens = encontrados;
             adapter.notifyDataSetChanged();
             lista.setSelection(0);
@@ -446,6 +460,32 @@ public final class MainActivity extends Activity {
             contagem.setText(total == 0 ? (vendoOfertas && carregando ? "Buscando ofertas…"
                     : vendoOfertas && (!sincronizado || falhaOfertas) ? "" : "Nenhum produto encontrado.")
                     : total == 1 ? "1 produto" : total + " produtos");
+        };
+        Runnable filtrar = () -> {
+            if (usaFiltroServidor()) {
+                if (idsFiltrados == null || !chaveAtual().equals(chaveFiltro)) {
+                    contagem.setText("Filtrando…");
+                    adapter.itens = Collections.emptyList();
+                    adapter.notifyDataSetChanged();
+                    atualizarFiltroServidor(null);
+                    return;
+                }
+                var encontrados = new ArrayList<LojaApi.Produto>();
+                for (String id : idsFiltrados) {
+                    LojaApi.Produto p = produto(id);
+                    if (p != null) encontrados.add(p);
+                }
+                exibir.accept(encontrados);
+                return;
+            }
+            String consulta = LojaApi.textoBusca(busca);
+            String[] termos = consulta.isEmpty() ? new String[0] : consulta.split(" ");
+            var encontrados = new ArrayList<LojaApi.Produto>();
+            for (LojaApi.Produto item : catalogo.produtos().values()) {
+                if (vendoOfertas ? !emOferta(item) : departamento != null && !departamento.equals(item.departamento())) continue;
+                if (casa(item.busca(), termos)) encontrados.add(item);
+            }
+            exibir.accept(encontrados);
         };
         campo.addTextChangedListener(new TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -475,14 +515,41 @@ public final class MainActivity extends Activity {
             estado(pai, "Carregando a loja…");
             return;
         }
-        for (LojaApi.Banner banner : catalogo.banners()) {
-            ImageView imagem = new ImageView(this);
-            imagem.setAdjustViewBounds(true);
-            imagem.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1, -2);
-            lp.setMargins(0, 0, 0, dp(12));
-            pai.addView(imagem, lp);
-            carregarFoto(imagem, banner.url(), "Banner da loja");
+        if (!catalogo.banners().isEmpty()) {
+            // Banners na horizontal, como o carrossel do site: largura da tela e proporção 949 : 239.
+            // Um banner por vez: cada um ocupa a largura da faixa e a faixa para no banner mais próximo ao soltar o dedo.
+            HorizontalScrollView faixa = new HorizontalScrollView(this);
+            faixa.setHorizontalScrollBarEnabled(false);
+            LinearLayout linha = new LinearLayout(this);
+            linha.setOrientation(LinearLayout.HORIZONTAL);
+            var imagens = new ArrayList<ImageView>();
+            for (LojaApi.Banner banner : catalogo.banners()) {
+                ImageView imagem = new ImageView(this);
+                imagem.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                linha.addView(imagem, new LinearLayout.LayoutParams(dp(300), dp(120)));
+                imagens.add(imagem);
+                carregarFoto(imagem, banner.url(), "Banner da loja");
+            }
+            faixa.addView(linha);
+            faixa.post(() -> {
+                int largura = faixa.getWidth();
+                if (largura <= 0) return;
+                int altura = largura * 239 / 949;
+                for (ImageView imagem : imagens) imagem.setLayoutParams(new LinearLayout.LayoutParams(largura, altura));
+            });
+            faixa.setOnTouchListener((v, evento) -> {
+                if (evento.getAction() == MotionEvent.ACTION_UP || evento.getAction() == MotionEvent.ACTION_CANCEL) {
+                    int largura = faixa.getWidth();
+                    if (largura > 0) {
+                        int alvo = Math.round(faixa.getScrollX() / (float) largura) * largura;
+                        faixa.post(() -> faixa.smoothScrollTo(alvo, 0));
+                    }
+                }
+                return false;
+            });
+            var lpFaixa = new LinearLayout.LayoutParams(-1, -2);
+            lpFaixa.bottomMargin = dp(12);
+            pai.addView(faixa, lpFaixa);
         }
         titulo(pai, "Departamentos");
         pai.addView(atalho("Ver ofertas", () -> abrirProdutos(null, true)));
@@ -491,12 +558,47 @@ public final class MainActivity extends Activity {
             String slug = d.slug();
             pai.addView(atalho(d.nome(), () -> abrirProdutos(slug, false)));
         }
+        titulo(pai, "Navegue por categoria");
+        pai.addView(categoriasLinha());
         for (String[] vitrine : VITRINES) {
             List<LojaApi.Destaque> itens = vitrines.get(vitrine[0]);
             if (itens == null || itens.isEmpty()) continue;
             titulo(pai, vitrine[0]);
             pai.addView(vitrineLinha(itens));
         }
+    }
+
+    /** Carrossel "Navegue por categoria": cartões com foto e rótulo; tocar abre a busca (ou o departamento, como no site). */
+    private View categoriasLinha() {
+        HorizontalScrollView rolagem = new HorizontalScrollView(this);
+        rolagem.setHorizontalScrollBarEnabled(false);
+        LinearLayout linha = new LinearLayout(this);
+        linha.setOrientation(LinearLayout.HORIZONTAL);
+        for (String[] categoria : CATEGORIAS) {
+            LinearLayout cartao = coluna();
+            cartao.setGravity(Gravity.CENTER_HORIZONTAL);
+            cartao.setClickable(true);
+            cartao.setFocusable(true);
+            ImageView foto = new ImageView(this);
+            foto.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            foto.setBackground(fundo(FUNDO, 12));
+            cartao.addView(foto, new LinearLayout.LayoutParams(dp(112), dp(168)));
+            carregarFoto(foto, categoria[2], null);
+            TextView rotulo = texto(categoria[0], 13, ESCURO, true);
+            rotulo.setGravity(Gravity.CENTER_HORIZONTAL);
+            rotulo.setMaxLines(2);
+            cartao.addView(rotulo, new LinearLayout.LayoutParams(dp(112), -2));
+            String destino = categoria[1];
+            cartao.setOnClickListener(v -> {
+                if (destino.startsWith("dep:")) abrirProdutos(destino.substring(4), false);
+                else abrirBusca(destino);
+            });
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp(112), -2);
+            lp.setMargins(0, 0, dp(10), dp(4));
+            linha.addView(cartao, lp);
+        }
+        rolagem.addView(linha);
+        return rolagem;
     }
 
     /** Linha horizontal de cartões; tocar num cartão abre a busca pelo nome do produto. */
@@ -1059,23 +1161,99 @@ public final class MainActivity extends Activity {
         mostrar();
     }
 
-    /** Marcas dos produtos do departamento ou das ofertas abertos (contagem não aparece: a lista é curta o bastante). */
-    private void escolherMarca() {
-        var marcas = new java.util.TreeSet<String>(java.text.Collator.getInstance(BRASIL));
-        for (LojaApi.Produto p : catalogo.produtos().values()) {
-            boolean noEscopo = vendoOfertas ? emOferta(p) : departamento == null || departamento.equals(p.departamento());
-            if (noEscopo && !p.marca().isEmpty()) marcas.add(p.marca());
-        }
-        var nomes = new ArrayList<String>();
-        nomes.add("Todas as marcas");
-        nomes.addAll(marcas);
-        int selecionado = marcaFiltro == null ? 0 : Math.max(0, nomes.indexOf(marcaFiltro));
-        escolher("Marca", nomes, selecionado, indice -> {
-            marcaFiltro = indice == 0 ? null : nomes.get(indice);
-            listaRenderizada = null;
-            primeiroProduto = deslocamentoProduto = 0;
-            mostrar();
+    /** Filtros com a lista do servidor (mesmas facetas e contagens do site). Só vale fora da aba Ofertas. */
+    private boolean usaFiltroServidor() {
+        // Com busca, departamento, filtro ou preço, a lista vem do mecanismo de busca do site (mesmos resultados e ordem).
+        return !vendoOfertas && (!filtrosSel.isEmpty() || precoMaxFiltro > 0 || !busca.trim().isEmpty() || departamento != null);
+    }
+
+    private String chaveAtual() {
+        return busca + "|" + departamento + "|" + new java.util.TreeMap<>(filtrosSel) + "|" + precoMaxFiltro;
+    }
+
+    private int contarSelecoes() {
+        int total = 0;
+        for (java.util.Set<String> valores : filtrosSel.values()) total += valores.size();
+        return total;
+    }
+
+    /** Busca na lista do servidor e guarda os ids e as facetas; a tela é redesenhada logo depois. */
+    private void atualizarFiltroServidor(Runnable depois) {
+        String chave = chaveAtual();
+        String consulta = busca;
+        String dep = departamento;
+        var sel = new LinkedHashMap<String, java.util.Set<String>>(filtrosSel);
+        Double precoMax = precoMaxFiltro > 0 ? precoMaxFiltro / 100.0 : null;
+        rede.execute(() -> {
+            LojaApi.ListaFiltrada lida;
+            try {
+                lida = api.lista(consulta, dep, sel, precoMax);
+            } catch (IOException | JSONException | RuntimeException e) {
+                lida = null;
+            }
+            LojaApi.ListaFiltrada resultado = lida;
+            atualizarTela(() -> {
+                chaveFiltro = chave;
+                if (resultado == null) {
+                    idsFiltrados = Collections.emptyList();
+                    aviso = "Não foi possível filtrar agora. Tente de novo.";
+                } else {
+                    idsFiltrados = resultado.ids();
+                    facetasAtuais = resultado.facetas();
+                }
+                if (depois != null) depois.run();
+            });
         });
+    }
+
+    private void abrirFiltros() {
+        atualizarFiltroServidor(this::mostrarListaFiltros);
+    }
+
+    private void mostrarListaFiltros() {
+        if (facetasAtuais.isEmpty()) {
+            aviso = "Não há filtros para esta busca.";
+            return;
+        }
+        var titulos = new ArrayList<String>();
+        for (LojaApi.FacetaFiltro f : facetasAtuais) {
+            int n = filtrosSel.getOrDefault(f.id(), Collections.emptySet()).size();
+            titulos.add(f.titulo() + (n > 0 ? " · " + n : ""));
+        }
+        boolean temSelecao = contarSelecoes() > 0;
+        if (temSelecao) titulos.add("Limpar filtros");
+        new AlertDialog.Builder(this).setTitle("Filtros")
+                .setItems(titulos.toArray(new String[0]), (dialogo, indice) -> {
+                    if (indice == facetasAtuais.size()) {
+                        filtrosSel.clear();
+                        mostrar();
+                    } else {
+                        abrirOpcoesFaceta(facetasAtuais.get(indice));
+                    }
+                })
+                .setNegativeButton("Fechar", null).show();
+    }
+
+    private void abrirOpcoesFaceta(LojaApi.FacetaFiltro faceta) {
+        int total = faceta.opcoes().size();
+        var rotulos = new String[total];
+        var marcados = new boolean[total];
+        java.util.Set<String> atuais = filtrosSel.getOrDefault(faceta.id(), Collections.emptySet());
+        for (int i = 0; i < total; i++) {
+            LojaApi.OpcaoFiltro opcao = faceta.opcoes().get(i);
+            rotulos[i] = opcao.label() + " (" + opcao.contagem() + ")";
+            marcados[i] = atuais.contains(opcao.valor());
+        }
+        new AlertDialog.Builder(this).setTitle(faceta.titulo())
+                .setMultiChoiceItems(rotulos, marcados, (dialogo, indice, marcado) -> marcados[indice] = marcado)
+                .setPositiveButton("Aplicar", (dialogo, botao) -> {
+                    var novos = new java.util.LinkedHashSet<String>();
+                    for (int i = 0; i < total; i++) if (marcados[i]) novos.add(faceta.opcoes().get(i).valor());
+                    if (novos.isEmpty()) filtrosSel.remove(faceta.id());
+                    else filtrosSel.put(faceta.id(), novos);
+                    mostrar();
+                })
+                .setNegativeButton("Cancelar", null).show();
     }
 
     private void escolherPreco() {
@@ -1225,22 +1403,28 @@ public final class MainActivity extends Activity {
         LinhaProduto() {
             super(MainActivity.this);
             padding(this, 0, 4, 0, 4);
-            LinearLayout cartao = new LinearLayout(MainActivity.this);
+            // Cartão na vertical, como no site: foto em cima e os textos embaixo.
+            LinearLayout cartao = coluna();
             padding(cartao, 12, 12, 12, 12);
-            cartao.setGravity(Gravity.CENTER_VERTICAL);
             cartao.setBackground(fundo(Color.WHITE, 15));
             imagem.setScaleType(ImageView.ScaleType.FIT_CENTER);
             imagem.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-            var espaco = new LinearLayout.LayoutParams(dp(62), dp(62));
-            espaco.setMarginEnd(dp(12));
+            var espaco = new LinearLayout.LayoutParams(-1, dp(120));
+            espaco.setMarginEnd(0);
+            espaco.bottomMargin = dp(8);
             cartao.addView(imagem, espaco);
-            LinearLayout rotulos = coluna();
-            rotulos.addView(nome);
-            rotulos.addView(apresentacao);
-            rotulos.addView(preco);
-            rotulos.addView(status);
-            cartao.addView(rotulos, new LinearLayout.LayoutParams(0, -2, 1));
-            addView(cartao, new LinearLayout.LayoutParams(-1, -2));
+            // Altura fixa e textos com limite de linhas: os cards de uma mesma linha da grade ficam do mesmo tamanho.
+            nome.setMaxLines(2);
+            nome.setEllipsize(android.text.TextUtils.TruncateAt.END);
+            apresentacao.setMaxLines(1);
+            apresentacao.setEllipsize(android.text.TextUtils.TruncateAt.END);
+            status.setMaxLines(2);
+            status.setEllipsize(android.text.TextUtils.TruncateAt.END);
+            cartao.addView(nome);
+            cartao.addView(apresentacao);
+            cartao.addView(preco);
+            cartao.addView(status);
+            addView(cartao, new LinearLayout.LayoutParams(-1, dp(300)));
         }
     }
 
