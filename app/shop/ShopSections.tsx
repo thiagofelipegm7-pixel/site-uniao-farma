@@ -1,17 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { buildWhatsAppUrl, PUBLIC_UNITS } from "../site-config";
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
 /** Temas de saúde apresentados na navegação por categoria. */
-type Categoria = { href: string; rotulo: string; iconeSrc: string; target?: "_blank" };
-
-const lojaNacoes = PUBLIC_UNITS.find((unit) => unit.id === "nacoes");
-const contatoRins = lojaNacoes
-  ? buildWhatsAppUrl(lojaNacoes, "Oi, União Farma Nações Unidas! Vocês têm algum produto relacionado a cuidados com os rins? Gostaria de confirmar com a equipe da loja.", { campaign: "home", content: "categoria_rins" })
-  : "/whatsapp";
+type Categoria = { href: string; rotulo: string; iconeSrc: string };
 
 const CATEGORIAS: readonly Categoria[] = [
   // Usa termos que existem no catálogo para abrir resultados reais. Para temas sem item relacionado,
@@ -21,7 +15,7 @@ const CATEGORIAS: readonly Categoria[] = [
   { href: "/nacoes-unidas/produtos?q=azia", rotulo: "Cuidados com o estômago", iconeSrc: "/categorias/estomago.jpg" },
   { href: "/nacoes-unidas/produtos?q=f%C3%ADgado", rotulo: "Cuidados com o fígado", iconeSrc: "/categorias/figado.jpg" },
   { href: "/nacoes-unidas/produtos?q=calcio", rotulo: "Cuidados com os ossos", iconeSrc: "/categorias/ossos.jpg" },
-  { href: contatoRins, target: "_blank", rotulo: "Cuidados com os rins", iconeSrc: "/categorias/rins.jpg" },
+  { href: "/nacoes-unidas/produtos?q=rins&exata=1", rotulo: "Cuidados com os rins", iconeSrc: "/categorias/rins.jpg" },
   { href: "/departamentos/dermocosmeticos", rotulo: "Derma Cuidados", iconeSrc: "/categorias/derma.jpg" },
   { href: "/nacoes-unidas/produtos?q=nasal", rotulo: "Cuidados Respiratórios", iconeSrc: "/categorias/respiratorios.jpg" },
   { href: "/nacoes-unidas/produtos?q=colirio", rotulo: "Cuidados com os olhos", iconeSrc: "/categorias/olhos.jpg" },
@@ -38,7 +32,7 @@ export function CategoriasLinha() {
       <ul className="shop-categorias-trilho">
         {CATEGORIAS.map((item) => (
           <li key={item.rotulo}>
-            <a href={item.href} target={item.target} rel={item.target ? "noreferrer" : undefined}>
+            <a href={item.href}>
               <span className="shop-cat-icone shop-cat-foto">
                 {/* alt vazio: o rótulo visível abaixo já nomeia a categoria. */}
                 <img src={item.iconeSrc} alt="" width={265} height={477} loading="lazy" decoding="async" draggable={false} />
