@@ -1,41 +1,110 @@
 /* Na camada design: o cabeçalho tem regras !important nessa mesma camada, e o !important sem camada perde para elas. */
 @layer design {
-/* Busca central da home (referência PharmEasy): barra grande no meio da página, com o restante da página escurecido
-   enquanto o cliente digita. Medidas da captura (px do site): 787 × 79. */
+/* Busca central da home: dimensões alinhadas à referência PharmEasy. */
 html body .home-busca-lugar {
+  box-sizing: border-box;
   position: relative;
   z-index: 60;
   display: flex;
   justify-content: center;
-  margin-top: 0.375rem !important;
-  padding: 0 1rem 1.5rem !important;
+  width: min(680px, calc(100vw - 2rem));
+  margin: 0 auto !important;
+  padding: 0 1rem 0 !important;
+  border: 0 !important;
+  border-radius: 24px 24px 0 0;
+  background: transparent;
 }
 /* !important: o cabeçalho tem regras globais de altura e raio com !important na mesma barra. */
 html body .home-busca-lugar .shop-busca {
   position: relative !important;
+  box-sizing: border-box !important;
   z-index: 60;
   grid-area: auto;
-  width: min(1037px, 100%);
-  height: 102px !important;
+  width: 100% !important;
+  height: 72px !important;
   margin: 0;
-  padding: 0 1.5rem 0 1.75rem !important;
-  border: 1px solid #d9d9d9;
-  border-radius: 14px !important;
+  gap: 0.55rem;
+  padding: 0 1rem !important;
+  border: 0 !important;
+  border-radius: 20px !important;
   background: #ffffff;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 5px 14px rgba(38, 55, 68, 0.11), 0 1px 3px rgba(38, 55, 68, 0.06), inset 0 0 0 1px rgba(111, 151, 163, 0.24) !important;
+}
+html body .home-busca-lugar .shop-busca:focus-within {
+  box-shadow: 0 7px 18px rgba(38, 55, 68, 0.14), 0 2px 5px rgba(38, 55, 68, 0.07), inset 0 0 0 1px rgba(111, 151, 163, 0.3) !important;
 }
 html body .home-busca-lugar .shop-busca input {
+  order: 1 !important;
   font-size: 1.25rem;
 }
 html body .home-busca-lugar .shop-busca button[type="submit"] {
-  width: 3.5rem;
-  height: 3.5rem;
-  margin: 0;
+  order: 0 !important;
+  width: 3rem;
+  height: 3rem;
+  margin: 0 0.25rem 0 0 !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 .home-busca-lugar .shop-sugestoes {
-  top: calc(100% + 8px);
-  border-radius: 26px;
+  top: 100%;
+  border: 0;
+  border-radius: 0 0 26px 26px;
+  box-shadow: 0 16px 28px rgba(38, 55, 68, 0.12);
 }
+html body .home-busca-lugar .shop-busca:has(.shop-sugestoes) {
+  border-radius: 20px 20px 0 0 !important;
+}
+
+/* Uma única superfície para banner, busca e formas alternativas de pedido. */
+html body .home-pedido-card {
+  box-sizing: border-box;
+  display: block !important;
+  width: min(680px, calc(100vw - 2rem)) !important;
+  max-width: 680px !important;
+  margin: 0 auto 2.5rem !important;
+  padding: 0.75rem;
+  border-radius: 24px;
+  background: #fafbfc;
+  box-shadow: 0 10px 24px rgba(38, 55, 68, 0.09), 0 2px 5px rgba(38, 55, 68, 0.045);
+}
+
+html body .home-pedido-card .home-busca-lugar {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html body .home-pedido-card .pedir-alt {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0.75rem 1.25rem 0.25rem !important;
+  border-radius: 0;
+}
+
+html body .home-pedido-card .pedir-alt-card {
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(38, 55, 68, 0.08), 0 1px 2px rgba(38, 55, 68, 0.045), inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+  transform: none !important;
+}
+
+html body .home-pedido-card .shop-busca {
+  box-shadow: 0 5px 14px rgba(38, 55, 68, 0.11), 0 1px 3px rgba(38, 55, 68, 0.06), inset 0 0 0 1px rgba(111, 151, 163, 0.24) !important;
+}
+
+html body .home-pedido-card .shop-busca:focus-within {
+  box-shadow: 0 7px 18px rgba(38, 55, 68, 0.14), 0 2px 5px rgba(38, 55, 68, 0.07), inset 0 0 0 1px rgba(111, 151, 163, 0.3) !important;
+}
+
+html body .painel:has(+ .home-pedido-card) .painel-faixa,
+html body .painel:has(+ .home-pedido-card) .painel-arte {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
 /* Véu: escurece a página atrás da barra enquanto ela está em foco. */
 .busca-veu {
   position: fixed;
@@ -45,7 +114,7 @@ html body .home-busca-lugar .shop-busca button[type="submit"] {
 }
 @media (max-width: 768px) {
   html body .home-busca-lugar {
-    margin-top: 0.25rem !important;
+    margin: 0 auto !important;
   }
   html body .home-busca-lugar .shop-busca {
     height: 3rem !important;
@@ -100,41 +169,79 @@ html body .home-busca-lugar .shop-busca button[type="submit"] {
     html body .shop-header .shop-links { display: none !important; }
   }
 }
-/* Borda que "percorre" a barra de busca da home (referência: ボーダーチェイス): um trecho escuro dá a volta na borda
-   em loop, chamando a atenção para o campo. Só preto e cinza; sem o movimento com "reduzir movimento". */
-@property --busca-volta {
-  syntax: "<angle>";
-  inherits: false;
-  initial-value: 0deg;
-}
+
+/* Traço que contorna a busca da home (referência: vídeo "Search for Medicine"). Medido no vídeo: anel de 2 px sobre a
+   borda, base lavanda #e5e9f6, traço verde-água #559494 que começa nítido e some em 180°, giro horário, uma volta a
+   cada 3 s, velocidade constante, sem pausa. Só "transform" é animado (roda no compositor). O anel fica FORA da caixa
+   da busca: nunca cobre o texto, a lupa nem o botão, e não muda altura nem largura. Some com "reduzir movimento". */
 @layer design {
-  html body .home-busca-lugar .shop-busca {
-    isolation: isolate;
+  /* Fora da home (e em navegador sem máscara) o enfeite não existe. */
+  html body .shop-busca .shop-busca-orbita {
+    display: none !important;
+    position: absolute !important;
+    pointer-events: none !important;
   }
-  html body .home-busca-lugar .shop-busca::before {
-    content: "";
-    position: absolute;
-    inset: -6px;
-    z-index: -1;
-    padding: 6px;
-    border-radius: inherit;
-    background: conic-gradient(from var(--busca-volta), #000000 0deg, #000000 110deg, #8a8a8a 150deg, transparent 170deg, transparent 360deg);
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
-    animation: busca-borda-volta 1.2s linear infinite;
-    pointer-events: none;
+  @supports ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
+    /* O anel passa a ser a borda: a borda própria (1 px no celular) fica invisível, sem mudar de medida. */
+    html body .home-busca-lugar .shop-busca { border-color: transparent !important; }
+    html body .home-busca-lugar .shop-busca .shop-busca-orbita {
+      --busca-anel: 2px;            /* espessura do anel (vídeo: 2 px numa barra de 114 px) */
+      --busca-anel-base: #e5e9f6;   /* borda de repouso (lavanda clara do vídeo) */
+      --busca-traco: 49, 168, 157;  /* traço verde-água da marca */
+      display: block !important;
+      /* Cobre a borda da busca (0 ou 1 px) e cresce para fora; por dentro termina onde começa o conteúdo. */
+      inset: calc(-1 * var(--busca-anel)) !important;
+      z-index: 3;
+      box-sizing: border-box !important;
+      width: auto !important;
+      height: auto !important;
+      margin: 0 !important;
+      padding: var(--busca-anel) !important;
+      border: 0 !important;
+      border-radius: inherit !important;
+      background: var(--busca-anel-base) !important;
+      overflow: hidden !important;
+      /* Só o anel é pintado: a máscara tira o miolo (caixa de conteúdo). */
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      container-type: size;
+    }
+    /* Quadrado com o degradê cônico, centrado na barra, girando por "transform". O lado cobre a diagonal da barra
+       em qualquer largura (largura + altura >= diagonal), então a volta dura o mesmo no celular e no computador. */
+    html body .home-busca-lugar .shop-busca .shop-busca-orbita::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 142%;
+      width: calc(100cqw + 100cqh);
+      aspect-ratio: 1;
+      background: conic-gradient(from 0deg, rgba(var(--busca-traco), 1) 0deg, rgba(var(--busca-traco), 0) 180deg, rgba(var(--busca-traco), 0) 360deg);
+      transform: translate(-50%, -50%) rotate(0deg);
+      filter: drop-shadow(0 0 3px rgba(var(--busca-traco), 0.52));
+      animation: busca-traco-giro 1.9s linear infinite, busca-traco-pulsa 1.55s ease-in-out infinite;
+      will-change: transform, opacity, filter;
+      pointer-events: none;
+    }
   }
 }
-/* Ritmo "speed ramp" (referência t-ramp, 1200 ms): a borda corre em velocidade normal, desacelera até 25 %,
-   para no instante do "impacto" e acelera de volta. Os ângulos são a área de cada trecho de tempo. */
-@keyframes busca-borda-volta {
-  0% { --busca-volta: 0deg; animation-timing-function: linear; }
-  50% { --busca-volta: 230deg; animation-timing-function: cubic-bezier(0.5, 0, 0.9, 0.6); }
-  75% { --busca-volta: 302deg; animation-timing-function: linear; }
-  83.3% { --busca-volta: 312deg; animation-timing-function: cubic-bezier(0.1, 0.4, 0.4, 1); }
-  100% { --busca-volta: 360deg; }
+@keyframes busca-traco-giro {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+@keyframes busca-traco-pulsa {
+  0% { opacity: 0.7; filter: drop-shadow(0 0 2px rgba(49, 168, 157, 0.32)); animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); }
+  8% { opacity: 1; filter: drop-shadow(0 0 10px rgba(49, 168, 157, 0.95)); animation-timing-function: cubic-bezier(0.5, 0, 0.8, 0.2); }
+  14% { opacity: 0.7; filter: drop-shadow(0 0 2px rgba(49, 168, 157, 0.32)); animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); }
+  21% { opacity: 0.96; filter: drop-shadow(0 0 8px rgba(49, 168, 157, 0.82)); animation-timing-function: cubic-bezier(0.5, 0, 0.8, 0.2); }
+  28% { opacity: 0.74; filter: drop-shadow(0 0 2px rgba(49, 168, 157, 0.34)); }
+  48% { opacity: 0.8; filter: drop-shadow(0 0 4px rgba(49, 168, 157, 0.48)); }
+  100% { opacity: 0.7; filter: drop-shadow(0 0 2px rgba(49, 168, 157, 0.32)); }
 }
 @media (prefers-reduced-motion: reduce) {
-  html body .home-busca-lugar .shop-busca::before { animation: none; display: none; }
+  @layer design {
+    /* Sem giro: fica só a borda parada. */
+    html body .home-busca-lugar .shop-busca .shop-busca-orbita::before { animation: none !important; display: none !important; }
+  }
 }

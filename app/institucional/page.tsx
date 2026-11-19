@@ -2,17 +2,33 @@ import type { Metadata } from "next";
 import { COMPANY, UNIT_LEGAL } from "../company";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import { SITE_URL } from "../site-config";
+import { getPageStructuredData } from "../structured-data";
+
+const TITLE = "Dados institucionais | União Farma Sabará";
+const DESCRIPTION = "Razão social, CNPJ, endereços das três lojas em Sabará e avisos sanitários da União Farma.";
+const PAGE_URL = `${SITE_URL}/institucional`;
 
 export const metadata: Metadata = {
-  title: { absolute: "Dados institucionais | União Farma Sabará" },
-  description:
-    "Razão social, CNPJ, endereços das três lojas em Sabará e avisos sanitários da União Farma.",
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: { canonical: "/institucional" },
+  openGraph: { title: TITLE, description: DESCRIPTION, url: PAGE_URL, type: "website", images: ["/og-optimized.jpg"] },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/og-optimized.jpg"] },
 };
+
+const structuredData = getPageStructuredData({
+  name: TITLE,
+  url: PAGE_URL,
+  breadcrumbs: [
+    { name: "Início", url: `${SITE_URL}/` },
+    { name: "Dados institucionais", url: PAGE_URL },
+  ],
+});
 
 export default function InstitutionalPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <ContentSiteHeader activePath="/ofertas" />
       <div className="legal-page institucional-page">
         <div className="legal-container">

@@ -11,7 +11,7 @@
   border: 1px solid #8a8a8a;
   border-radius: 14px;
   background: #e5f6f4;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.95rem;
   font-weight: 800;
   cursor: pointer;
@@ -19,6 +19,6 @@
 
 .offer-alerts-note {
   margin: 0.45rem 0 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.88rem;
 }

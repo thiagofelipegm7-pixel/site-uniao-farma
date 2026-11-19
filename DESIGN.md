@@ -13,7 +13,7 @@
 | Cor | `--uf-green #148f8a`, `--teal #1b5e4b`, `--aqua #0e9a8a`, botão "Pedir no WhatsApp" em verde #1a7a3a | 4+ verdes diferentes. Nenhum é o teal da marca | Só `#279B82` / `#187D68` + 2 tons derivados |
 | Fundo | `--paper #f6fbf8` / `#f1fbfa` em tudo | Site inteiro "esverdeado", sem respiro, sem contraste entre seções | Base **#FFFFFF**. Teal-50 só em faixas de destaque |
 | Preço | Preço em teal (`R$ 13,90`) | Fere a regra da marca. Preço não salta | Preço em **rubi #B81D24**, Poppins 700 |
-| CSS | 23 arquivos CSS (`globals` 7.984 linhas, `overrides`, `visual-fixes`, `visual-quality`…) | Camadas de correção. Estilo imprevisível | Um `@theme` + componentes. Remover camadas na implementação |
+| CSS | 23 arquivos CSS (`globals` 7.984 linhas, `overrides`, `correcoes-visuais`…) | Camadas de correção. Estilo imprevisível | Um `@theme` + componentes. Remover camadas na implementação |
 | Tipo | H1 mobile 22–24px; H2 "Escolha a oferta…" ~40px | Hierarquia invertida: H2 maior que H1 | Escala única (seção 2.2) |
 | Toque | Links 20–33px de altura (rodapé, "Outras lojas", "Ver página da unidade", "Consultar na loja") | Falha os 44px | Todo alvo ≥ 44×44 |
 | Carrossel | Cards de loja e oferta em scroll horizontal no mobile | 2º card cortado. Nações e Itacolomi ficam escondidas | Lista vertical compacta |

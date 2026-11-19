@@ -5,13 +5,13 @@
 body {
   background:
     #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .site-header,
 .nav {
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .site-header a,
@@ -21,7 +21,7 @@ body {
 .menu-label,
 .menu-links a,
 .menu-button {
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .menu-icon span {
@@ -34,22 +34,22 @@ body {
 }
 
 .hero-copy .eyebrow {
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .hero-copy h1 {
   max-width: 16ch;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .open-now-strip {
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .preferred-store-banner {
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .direct-unit-photo,
@@ -62,13 +62,13 @@ body {
   margin: 0.4em 0 0.3em;
   padding: 0;
   background: transparent;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .offer-consult-price strong,
 .encarte-price,
 .price-large {
-  color: #000000;
+  color: var(--color-ink, #263744);
   background: transparent;
   padding: 0;
 }
@@ -92,7 +92,7 @@ body {
 .button-whatsapp,
 .offer-consult-units a {
   background: var(--uf-whatsapp);
-  color: #000000;
+  color: var(--color-ink, #263744);
   border-color: transparent;
   font-weight: 800;
 }
@@ -103,7 +103,7 @@ body {
 .button-whatsapp:hover,
 .offer-consult-units a:hover {
   background: #1ebe5d;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .header-cta {
@@ -112,7 +112,7 @@ body {
 
 .open-status.is-open {
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .open-status.is-closed {
@@ -121,7 +121,7 @@ body {
 }
 
 .nearest-unit-badge {
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .reviews,
@@ -160,7 +160,7 @@ html {
 }
 
 body {
-  color: #000000;
+  color: var(--color-ink, #263744);
   background: #f2faf9;
 }
 
@@ -183,14 +183,14 @@ a,
 .menu-links a,
 .content-nav a,
 .brand strong {
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 a:visited,
 .menu-links a:visited,
 .content-nav a:visited,
 .uf-footer a:visited {
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .uf-footer a:hover,
@@ -209,7 +209,7 @@ a:visited,
 .brand small,
 .menu-label,
 .menu-button {
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .hero-copy p,
@@ -219,14 +219,14 @@ a:visited,
 .direct-unit-links-copy span,
 .unit-map-details p,
 .neighborhood-hero p {
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .offer-consult-price,
 .offer-consult-price strong,
 .encarte-price,
 .price-large {
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .direct-unit-actions a:first-child,
@@ -242,7 +242,7 @@ a:visited,
 .cookie-banner button[type="button"]:not(.cookie-reject),
 .modal-unit-action {
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   border-color: #1f9e4b;
 }
 
@@ -264,12 +264,12 @@ a:visited,
 .cookie-accept:hover,
 .cookie-accept:active {
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .whatsapp-intent-chips button {
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   border-color: #8a8a8a;
 }
 
@@ -281,27 +281,27 @@ a:visited,
 
 .open-now-strip {
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .open-now-list a {
   background: rgba(6, 32, 22, 0.12);
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .open-now-list a.is-open {
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .open-status.is-hours {
   background: #e5f6f4;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .open-status.is-open {
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .open-status.is-closed {
@@ -320,7 +320,7 @@ a:visited,
 .direct-unit-link .offer-badge,
 .direct-unit-link .selo-consulte {
   background: #e5f6f4;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .offer-consult-image {
@@ -337,7 +337,7 @@ a:visited,
 .direct-unit-recipe,
 .mobile-quick-nav a:not(.is-primary) {
   background: #daefec;
-  color: #000000;
+  color: var(--color-ink, #263744);
   border: 1px solid #8a8a8a;
 }
 
@@ -346,14 +346,14 @@ a:visited,
 a[href*="google.com/maps"],
 a[href*="maps.apple"] {
   background: #daefec;
-  color: #000000;
+  color: var(--color-ink, #263744);
   border: 1px solid #8a8a8a;
 }
 
 .unit-map-details a:not([href*="whatsapp"]),
 .map-view-link {
   background: transparent;
-  color: #000000;
+  color: var(--color-ink, #263744);
   border: 0;
 }
 
@@ -366,7 +366,7 @@ a[href*="maps.apple"] {
 .content-menu-drawer,
 .unit-selector-modal {
   background: #f2faf9;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .modal-backdrop,
@@ -377,25 +377,25 @@ a[href*="maps.apple"] {
 
 .modal-close {
   background: #f2faf9;
-  color: #000000;
+  color: var(--color-ink, #263744);
   border-color: #8a8a8a;
 }
 
 .modal-unit-option {
   background: #ffffff;
   border-color: #8a8a8a;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .cookie-banner {
   background: #f2faf9;
-  color: #000000;
+  color: var(--color-ink, #263744);
   border-color: #8a8a8a;
 }
 
 .cookie-reject {
   background: #daefec;
-  color: #000000;
+  color: var(--color-ink, #263744);
   border-color: #8a8a8a;
 }
 
@@ -405,25 +405,25 @@ a[href*="maps.apple"] {
 }
 
 .faq-question {
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .category-card,
 .categories article {
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .category-card .line-icon,
 .categories article .line-icon,
 .categories svg {
-  color: #000000;
+  color: var(--color-ink, #263744);
   stroke: #000000;
 }
 
 .review-card p::before,
 .reviews article p::before {
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .review-card,
@@ -453,13 +453,13 @@ select,
 [type="search"],
 [type="text"] {
   background: #e5f6f4;
-  color: #000000;
+  color: var(--color-ink, #263744);
   border-color: #8a8a8a;
 }
 
 input::placeholder,
 textarea::placeholder {
-  color: #000000;
+  color: var(--color-ink, #263744);
   opacity: 1;
 }
 
@@ -492,20 +492,20 @@ select:focus {
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {
   background: #e5f6f4;
-  color: #000000;
+  color: var(--color-ink, #263744);
   border-color: #8a8a8a;
 }
 
 .leaflet-control-attribution,
 .leaflet-control-attribution a {
   background: transparent;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .leaflet-popup-content-wrapper,
 .leaflet-tooltip {
   background: #f2faf9;
-  color: #000000;
+  color: var(--color-ink, #263744);
   border: 0;
   box-shadow: 0 0.6rem 1.4rem rgba(8, 53, 40, 0.18);
 }
@@ -532,21 +532,21 @@ select:focus {
 
 /* --- aqua-override.css --- */
 :root {
-  --uf-ink: #000000;
-  --uf-green: #000000;
-  --uf-green-hover: #ffffff;
-  --uf-green-dark: #000000;
-  --uf-green-deep: #000000;
-  --uf-green-bright: #000000;
-  --uf-open: #000000;
-  --uf-open-live: #000000;
+  --uf-ink: #263744;
+  --uf-green: #10857f;
+  --uf-green-hover: #0d716c;
+  --uf-green-dark: #075b57;
+  --uf-green-deep: #034a44;
+  --uf-green-bright: #159b91;
+  --uf-open: #167a58;
+  --uf-open-live: #167a58;
   --uf-paper: #f1fbfa;
   --uf-stone: #ffffff;
   --uf-fog: #e4f6f3;
   --uf-mint: #e4f6f3;
-  --uf-line: #8a8a8a;
-  --uf-line-strong: #8a8a8a;
-  --uf-muted: #000000;
+  --uf-line: #e6eceb;
+  --uf-line-strong: #d5dfdd;
+  --uf-muted: #667782;
 }
 
 html,
@@ -574,7 +574,7 @@ a,
 .price-large,
 .unit-map-details a:not([href*="whatsapp"]),
 .map-view-link {
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .content-header-cta,
@@ -622,13 +622,13 @@ select {
 .open-status.is-open,
 .open-now-strip {
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .category-card .line-icon,
 .categories article .line-icon,
 .categories svg {
-  color: #000000;
+  color: var(--color-ink, #263744);
   stroke: #000000;
 }
 
@@ -646,7 +646,7 @@ input,
 textarea,
 select {
   border-color: #8a8a8a;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 input:focus,
@@ -746,7 +746,7 @@ select:focus,
 
 .section-kicker {
   margin: 0 0 0.25rem;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -777,7 +777,7 @@ select:focus,
 .hero-copy .eyebrow {
   display: block !important;
   margin: 0 0 0.35rem;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -794,7 +794,7 @@ select:focus,
   display: block !important;
   max-width: 32rem;
   margin: 0.55rem 0 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.95rem;
   line-height: 1.45;
 }
@@ -824,7 +824,7 @@ select:focus,
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .hero-whatsapp-row {
@@ -880,12 +880,12 @@ select:focus,
 
 .trust-strip-grid strong {
   display: block;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.88rem;
 }
 
 .trust-strip-grid span {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.75rem;
 }
 
@@ -929,7 +929,7 @@ select:focus,
 
 .category-link {
   margin-top: 0.55rem;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-weight: 800;
   font-size: 0.82rem;
 }
@@ -955,7 +955,7 @@ select:focus,
 .reviews-section h2 {
   margin: 0;
   font-size: 0.98rem;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .reviews-score {
@@ -965,7 +965,7 @@ select:focus,
   margin: 0 !important;
   padding: 0 !important;
   background: transparent !important;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-weight: 700;
 }
 
@@ -1050,7 +1050,7 @@ select:focus,
   margin: 0 !important;
   font-size: 0.88rem !important;
   line-height: 1.4 !important;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .reviews-google-link {
@@ -1072,7 +1072,7 @@ select:focus,
   border: 1px solid #d5e6e4;
   border-radius: 999px;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.75rem;
   font-weight: 700;
   text-decoration: none;
@@ -1140,7 +1140,7 @@ select:focus,
 .cookie-copy {
   margin: 0;
   font-size: 0.78rem;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .cookie-actions {

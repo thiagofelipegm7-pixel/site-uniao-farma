@@ -1,19 +1,31 @@
 /* Painel "Você também pode pedir por" logo abaixo da busca da home (referência PharmEasy). Só preto, branco e cinza. */
 .pedir-alt {
   box-sizing: border-box;
-  width: min(1037px, calc(100% - 2rem));
-  margin: 1.25rem auto 2.5rem;
-  padding: 1.5rem 1rem 1.25rem;
-  border: 1px solid #d9d9d9;
-  border-radius: 26px;
-  background: #f7f7f7;
+  width: min(680px, calc(100vw - 2rem));
+  margin: 0 auto 2.5rem;
+  padding: 0.75rem 1rem 1rem;
+  border: 0 !important;
+  border-radius: 0 0 24px 24px;
+  background: transparent;
 }
 .pedir-alt-titulo {
-  margin: 0 0 1rem;
-  text-align: center;
-  color: #000000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  margin: 0 0 0.75rem;
+  color: var(--color-ink, #263744);
   font-size: 0.9375rem;
   font-weight: 700;
+  text-align: center;
+}
+.pedir-alt-titulo::before,
+.pedir-alt-titulo::after {
+  content: "";
+  width: clamp(1.5rem, 8vw, 4rem);
+  height: 1px;
+  flex: 0 1 4rem;
+  background: rgba(111, 151, 163, 0.22);
 }
 .pedir-alt-botoes {
   display: grid;
@@ -25,22 +37,27 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  min-height: 3.25rem;
+  min-height: 3.5rem;
   padding: 0 1rem;
-  border: 1px solid #d9d9d9;
-  border-radius: 10px;
+  border: 0 !important;
+  border-radius: 12px;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 1rem;
   font-weight: 700;
   text-decoration: none;
+  box-shadow: 0 4px 10px rgba(38, 55, 68, 0.08), 0 1px 2px rgba(38, 55, 68, 0.045), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  transition: transform 180ms ease, box-shadow 180ms ease;
 }
 .pedir-alt-card:hover {
-  background: #f2f2f2;
+  background: #ffffff;
+  box-shadow: 0 7px 14px rgba(38, 55, 68, 0.12), 0 2px 4px rgba(38, 55, 68, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  transform: translateY(-2px);
 }
 .pedir-alt-card:focus-visible {
-  outline: 3px solid #000000;
+  outline: 0;
   outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(16, 133, 127, 0.22), 0 9px 20px rgba(38, 55, 68, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.95);
 }
 @media (max-width: 480px) {
   .pedir-alt-botoes {

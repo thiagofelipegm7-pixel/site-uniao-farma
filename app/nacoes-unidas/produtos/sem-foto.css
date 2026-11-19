@@ -9,7 +9,7 @@
   aspect-ratio: 1 / 1;
   border-radius: 6px;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 .sem-foto-icone { width: 48%; height: auto; max-width: 3.5rem; }
-.sem-foto-legenda { color: #000000; font-size: 0.75rem; line-height: 1.2; }
+.sem-foto-legenda { color: var(--color-ink, #263744); font-size: 0.75rem; line-height: 1.2; }

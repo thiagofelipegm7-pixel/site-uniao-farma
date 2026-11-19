@@ -17,11 +17,11 @@
 
 .metrics-roi-row strong {
   display: block;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .metrics-roi-row span,
 .metrics-roi-row small {
   display: block;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Open_Sans, Poppins } from "next/font/google";
 import SiteFooter from "./SiteFooter";
 import SkipLink from "./SkipLink";
 import PageTransicao from "./PageTransicao";
@@ -15,13 +15,12 @@ import "./theme.css";
 import "./a11y.css";
 import "./overrides.css";
 // Mantém o polimento visual recente que já estava na main.
-import "./visual-quality.css";
-import "./ux-fixes.css";
-import "./visual-fixes.css";
+import "./correcoes-visuais.css";
 import "./marca.css";
 import "./design.css";
 import "./zoom.css";
 import "./destaque-cesta.css";
+import "./cabecalho-teste-ml.css";
 import { INSTAGRAM_URL, PAYMENT_ACCEPTED, SITE_URL, PUBLIC_UNITS } from "./site-config";
 import { COMPANY } from "./company";
 import { getPostalAddress } from "./structured-data";
@@ -34,13 +33,13 @@ import RegistroDeErros from "./shop/RegistroDeErros";
 import PwaRegister from "./PwaRegister";
 import OfferAlerts from "./OfferAlerts";
 
-const inter = Inter({
+const openSans = Open_Sans({
   subsets: ["latin"],
-  // Corpo 400, rótulos 500/600, títulos 700/800. Preload inclui o corpo.
+  // Corpo 400, rótulos 500/600, títulos 700/800.
   weight: ["400", "500", "600", "700", "800"],
   display: "swap",
   preload: true,
-  variable: "--font-inter",
+  variable: "--font-open-sans",
   fallback: ["Arial", "sans-serif"],
   adjustFontFallback: true,
 });
@@ -53,7 +52,7 @@ const poppins = Poppins({
   display: "swap",
   preload: false,
   variable: "--font-poppins",
-  fallback: ["Inter", "Arial", "sans-serif"],
+  fallback: ["Open Sans", "Arial", "sans-serif"],
 });
 
 const SITE_DESCRIPTION =
@@ -167,7 +166,7 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" data-theme="light" className={`${inter.className} ${inter.variable} ${poppins.variable}`}>
+    <html lang="pt-BR" data-theme="light" className={`${openSans.className} ${openSans.variable} ${poppins.variable}`}>
       <head>
         <link
           rel="preload"

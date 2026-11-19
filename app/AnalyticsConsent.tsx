@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { getClickTrackingParams, trackEvent } from "./analytics";
 import { captureCampaignAttribution } from "./campaign-attribution";
 import { OPEN_COOKIE_PREFERENCES_EVENT } from "./cookie-preferences";
@@ -14,6 +14,7 @@ import { CONSENT_STORAGE_KEY as CONSENT_KEY, GTAG_SCRIPT_ID, GTAG_SCRIPT_URL } f
 // (e o contêiner NÃO deve ter tag GA4, para não contar page_view em dobro).
 const GTM_CONTAINER_ID = process.env.NEXT_PUBLIC_GTM_CONTAINER_ID ?? "";
 const META_PIXEL_ID = "1566333861510486";
+const COOKIE_HEIGHT_VAR = "--cookie-h";
 
 type ConsentValue = "accepted" | "rejected";
 
@@ -89,6 +90,7 @@ function readStoredConsent(): ConsentValue | null {
 export default function AnalyticsConsent() {
   const [consent, setConsent] = useState<ConsentValue | null>(null);
   const [showPreferences, setShowPreferences] = useState(false);
+  const bannerRef = useRef<HTMLElement | null>(null);
   // Telas internas da equipe não pedem consentimento de cookies (o aviso é para os clientes).
   const interno = (usePathname() || "").startsWith("/interno");
   const hydrated = useSyncExternalStore(
@@ -114,6 +116,29 @@ export default function AnalyticsConsent() {
     document.body.classList.toggle("cookie-banner-visible", showBanner);
     return () => {
       document.body.classList.remove("cookie-banner-visible");
+    };
+  }, [showBanner]);
+
+  // Altura real que o aviso ocupa no fundo da tela, em --cookie-h (no <html>): as barras fixas ("Ver minha cesta",
+  // rodapé do fluxo, barra de compra) sobem exatamente isso e nunca ficam por cima dele. Sem aviso, a variável some.
+  useEffect(() => {
+    const raiz = document.documentElement;
+    const aviso = bannerRef.current;
+    if (!showBanner || !aviso) return;
+    const medir = () => {
+      // Só conta quando o aviso está fixo; em janela muito baixa ele entra no fluxo da página (zoom.css).
+      const fixo = window.getComputedStyle(aviso).position === "fixed";
+      const ocupa = fixo ? Math.max(0, Math.ceil(raiz.clientHeight - aviso.getBoundingClientRect().top)) : 0;
+      raiz.style.setProperty(COOKIE_HEIGHT_VAR, `${ocupa}px`);
+    };
+    medir();
+    const observador = typeof ResizeObserver === "function" ? new ResizeObserver(medir) : null;
+    observador?.observe(aviso);
+    window.addEventListener("resize", medir);
+    return () => {
+      observador?.disconnect();
+      window.removeEventListener("resize", medir);
+      raiz.style.removeProperty(COOKIE_HEIGHT_VAR);
     };
   }, [showBanner]);
 
@@ -150,7 +175,7 @@ export default function AnalyticsConsent() {
   return (
     <>
       {showBanner && (
-        <section className="cookie-banner" aria-label="Preferências de cookies" role="region">
+        <section ref={bannerRef} className="cookie-banner" aria-label="Preferências de cookies" role="region">
           <p className="cookie-copy">
             <strong>Cookies opcionais.</strong> Analytics só com autorização.{" "}
             <a href="/privacidade">Privacidade</a>

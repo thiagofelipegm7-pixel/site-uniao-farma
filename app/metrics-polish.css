@@ -3,7 +3,7 @@
   min-height: 100svh;
   padding: 5.5rem 1.25rem 7rem;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .metrics-wrap,
@@ -24,7 +24,7 @@
 .metrics-page .eyebrow,
 .staff-login-page .eyebrow {
   margin: 0 0 0.4rem;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -41,7 +41,7 @@
 .metrics-lead {
   max-width: 34rem;
   margin: 0.45rem 0 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   line-height: 1.45;
 }
 
@@ -53,7 +53,7 @@
   border: 1px solid #8a8a8a;
   border-radius: 14px;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-weight: 800;
   text-decoration: none;
 }
@@ -77,19 +77,19 @@
 }
 
 .metrics-card strong {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.86rem;
 }
 
 .metrics-card span {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 2rem;
   font-weight: 800;
   line-height: 1;
 }
 
 .metrics-card small {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.86rem;
   line-height: 1.35;
 }
@@ -110,7 +110,7 @@
 
 .metrics-block p,
 .metrics-block li {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.95rem;
 }
 
@@ -123,7 +123,7 @@
   padding: 0.1rem 0.35rem;
   border-radius: 6px;
   background: #e7f4f2;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .metrics-actions {
@@ -157,7 +157,7 @@
   border: 1px solid #8a8a8a;
   border-radius: 12px;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 1rem;
 }
 
@@ -199,7 +199,7 @@
   flex-wrap: wrap;
   gap: 0.8rem;
   margin: 0.35rem 0 0.6rem;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.86rem;
 }
 
@@ -213,7 +213,7 @@
 
 .metrics-chart-focus {
   margin: 0 0 0.6rem;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-weight: 800;
 }
 
@@ -233,7 +233,7 @@
   border: 1px solid #8a8a8a;
   border-radius: 14px;
   background: #f6fcfb;
-  color: #000000;
+  color: var(--color-ink, #263744);
   text-align: left;
 }
 
@@ -260,7 +260,7 @@
   border: 1px solid #8a8a8a;
   border-radius: 12px;
   background: #e5f7f4;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-weight: 700;
   font-size: 0.92rem;
 }
@@ -291,7 +291,7 @@
 }
 
 .metrics-unit-card-header strong {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.95rem;
 }
 
@@ -301,7 +301,7 @@
   padding: 0.2rem 0.55rem;
   border-radius: 999px;
   background: #dff2ef;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .metrics-unit-card-stats {
@@ -319,7 +319,7 @@
   display: block;
   font-size: 1.35rem;
   font-weight: 800;
-  color: #000000;
+  color: var(--color-ink, #263744);
   line-height: 1.1;
 }
 
@@ -327,7 +327,7 @@
   display: block;
   margin-top: 0.15rem;
   font-size: 0.76rem;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .metrics-unit-card-footer {
@@ -335,11 +335,11 @@
   flex-direction: column;
   gap: 0.25rem;
   font-size: 0.82rem;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .metrics-unit-card-footer b {
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .metrics-roi-presets {
@@ -352,7 +352,7 @@
 
 .metrics-roi-preset-label {
   font-size: 0.78rem;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .metrics-roi-preset-btn {
@@ -362,7 +362,7 @@
   border-radius: 8px;
   border: 1px solid #8a8a8a;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   cursor: pointer;
   transition: all 0.15s ease;
 }

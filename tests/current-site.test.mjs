@@ -28,7 +28,8 @@ test("home: cabeçalho que encolhe ao rolar e pílula de abas fixa, só no deskt
     readFile(new URL("../app/shop/CabecalhoInteligente.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/shop/shop.css", import.meta.url), "utf8"),
   ]);
-  assert.match(home, /<CabecalhoInteligente>[\s\S]*<ShopHeader \/>[\s\S]*<SubmenuHome \/>[\s\S]*<\/CabecalhoInteligente>/);
+  // O submenu (Departamentos) entra no cabeçalho pela prop `departamentos`, na mesma linha da logo.
+  assert.match(home, /<CabecalhoInteligente>[\s\S]*<ShopHeader[\s\S]*<SubmenuHome \/>[\s\S]*<\/CabecalhoInteligente>/);
   assert.match(comp, /dataset\.cabRolado/);
   assert.match(comp, /passive: true/);
   assert.doesNotMatch(css, /shop-faixa-topo/);
@@ -110,8 +111,8 @@ test("busca: painel Termos mais buscados no campo vazio (1º–10º)", async () 
   assert.match(header, /10º/);
   assert.match(busca, /Lista curada manualmente/);
   assert.match(busca, /"dipirona"/);
-  assert.match(css, /#0c9b90/);
-  assert.match(css, /#e4f6f3/);
+  // Coluna do ordinal (1º–10º) com largura fixa; as cores mudam com a paleta e não entram no teste.
+  assert.match(css, /\.shop-sugestoes li a strong:first-child \{[^}]*flex:\s*0 0 2\.75rem/s);
   assert.match(css, /main \.shop-sugestoes li > a/);
   assert.match(css, /font-variant-numeric: tabular-nums/);
   assert.match(css, /\.shop-busca input:focus-visible/);
@@ -125,9 +126,9 @@ test("home: sem painel de abas Para você / Saúde / Beleza", async () => {
   assert.doesNotMatch(home, /AbasHome/);
   assert.doesNotMatch(home, /shop-abas/);
   assert.doesNotMatch(blocos, /export function AbasHome/);
-  // Departamentos Saúde/Beleza continuam acessíveis pela faixa de categorias / gaveta.
-  assert.match(await readFile(new URL("../app/shop/ShopSections.tsx", import.meta.url), "utf8"), /departamentos\/medicamentos/);
+  // Beleza fica na faixa de categorias; Medicamentos e os demais continuam acessíveis pela gaveta de departamentos.
   assert.match(await readFile(new URL("../app/shop/ShopSections.tsx", import.meta.url), "utf8"), /departamentos\/beleza/);
+  assert.match(await readFile(new URL("../app/shop/DepartamentosGaveta.tsx", import.meta.url), "utf8"), /departamentos\/medicamentos/);
 });
 
 test("submenu desktop: sem Enviar para e sem Ofertas Exclusivas; Departamentos permanece", async () => {

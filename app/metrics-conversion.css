@@ -12,15 +12,15 @@
   border: 1px solid #8a8a8a;
   border-radius: 16px;
   background: #f6fcfb;
-  color: #000000;
+  color: var(--color-ink, #263744);
   text-align: left;
 }
 
 .metrics-conversion-row strong {
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .metrics-conversion-row span,
 .metrics-conversion-row small {
-  color: #000000;
+  color: var(--color-ink, #263744);
 }

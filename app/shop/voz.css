@@ -12,7 +12,7 @@
   border: 0;
   border-radius: 50%;
   background: transparent;
-  color: #000000;
+  color: var(--color-ink, #263744);
   cursor: pointer;
   order: 2;
   position: relative;
@@ -48,7 +48,7 @@
   border-radius: 8px;
   background: #ffffff;
   box-shadow: 0 8px 24px rgba(13, 20, 19, 0.12);
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.875rem;
   line-height: 1.35;
   overflow-wrap: anywhere;

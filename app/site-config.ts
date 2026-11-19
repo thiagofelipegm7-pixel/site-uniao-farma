@@ -219,6 +219,7 @@ export const SITE_OPTIONS = {
 } as const;
 
 export type WhatsAppTracking = {
+  source?: string;
   campaign?: string;
   content?: string;
 };
@@ -230,7 +231,7 @@ export function buildWhatsAppUrl(
 ): string {
   const params = new URLSearchParams({
     text: message,
-    utm_source: "site",
+    utm_source: tracking.source ?? "site",
     utm_medium: "whatsapp",
     utm_campaign: tracking.campaign ?? "seo_local",
     utm_content: tracking.content ?? `unit_${unit.id}`,

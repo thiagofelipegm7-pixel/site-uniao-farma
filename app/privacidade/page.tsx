@@ -2,17 +2,37 @@ import type { Metadata } from "next";
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
 import { SiteDirectoryLinks } from "../SiteDirectoryLinks";
 import MarcaUniao from "../shop/MarcaUniao";
+import { SITE_URL } from "../site-config";
+import { getPageStructuredData } from "../structured-data";
+
+const HEADING = "Política de Privacidade";
+const TITLE = `${HEADING} | União Farma Sabará`;
+const DESCRIPTION = "Política de Privacidade e uso de cookies do site da União Farma.";
+const PAGE_URL = `${SITE_URL}/privacidade`;
 
 export const metadata: Metadata = {
-  title: "Política de Privacidade",
-  description: "Política de Privacidade e uso de cookies do site da União Farma.",
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: {
     canonical: "/privacidade",
   },
+  openGraph: { title: TITLE, description: DESCRIPTION, url: PAGE_URL, type: "website", images: ["/og-optimized.jpg"] },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/og-optimized.jpg"] },
 };
+
+const structuredData = getPageStructuredData({
+  name: TITLE,
+  url: PAGE_URL,
+  breadcrumbs: [
+    { name: "Início", url: `${SITE_URL}/` },
+    { name: HEADING, url: PAGE_URL },
+  ],
+});
 
 export default function PrivacyPage() {
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
     <div className="legal-page">
       <div className="legal-container">
         <a className="legal-brand" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial">
@@ -120,5 +140,6 @@ export default function PrivacyPage() {
         </nav>
       </div>
     </div>
+    </>
   );
 }

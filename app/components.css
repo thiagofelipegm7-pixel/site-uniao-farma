@@ -30,7 +30,7 @@
 .encarte-page h1,
 .metrics-page h1 {
   margin: 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: clamp(28px, 6vw, 42px);
   line-height: 1.1;
 }
@@ -85,7 +85,7 @@
 .question-card h2,
 .metrics-page h2 {
   margin: 0 0 8px;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 18px;
 }
 
@@ -120,7 +120,7 @@
 .metrics-total {
   font-size: 28px;
   font-weight: 800;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .metrics-grid {
@@ -134,7 +134,7 @@
   margin-top: 6px;
   font-size: 28px;
   font-weight: 800;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 @media (max-width: 700px) {
@@ -379,7 +379,7 @@
 
 .locate-unit-bar p {
   margin: 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 13px;
   line-height: 1.45;
 }
@@ -424,7 +424,7 @@
 }
 
 .locate-unit-status {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 12px;
 }
 
@@ -455,11 +455,11 @@
 
 .preferred-unit-badge {
   background: #e5eeed;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .direct-unit-distance {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 12px;
 }
 
@@ -514,7 +514,7 @@
     border: 0;
     border-radius: 20px;
     background: transparent;
-    color: #000000;
+    color: var(--color-ink, #263744);
     font-size: 0.7rem;
     font-weight: 800;
     letter-spacing: 0.01em;
@@ -530,7 +530,7 @@
     height: 30px;
     border-radius: 11px;
     background: #eef7f6;
-    color: #000000;
+    color: var(--color-ink, #263744);
   }
 
   .mobile-quick-nav .mqn-icon img,
@@ -546,7 +546,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    color: #000000;
+    color: var(--color-ink, #263744);
   }
 
   .mobile-quick-nav a.is-primary {
@@ -613,7 +613,7 @@
 
 .units-showcase-head h2 {
   margin: 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 1.2rem;
   line-height: 1.2;
   letter-spacing: -0.03em;
@@ -621,7 +621,7 @@
 
 .units-showcase-lead {
   margin: 0.35rem 0 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.9rem;
   line-height: 1.4;
 }
@@ -662,7 +662,7 @@
 
 .unit-store-hood {
   margin: 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -671,7 +671,7 @@
 
 .unit-store-card h3 {
   margin: 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 1.12rem;
   letter-spacing: -0.03em;
 }
@@ -679,7 +679,7 @@
 .unit-store-addr,
 .unit-store-hours {
   margin: 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.82rem;
   line-height: 1.35;
   overflow-wrap: break-word;
@@ -730,18 +730,18 @@
 
 .unit-store-wa {
   background: #25d366;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .unit-store-map {
   border: 1px solid #8a8a8a;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .unit-store-more {
   margin-top: 0.25rem;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.78rem;
   font-weight: 800;
   text-decoration: none;
@@ -949,7 +949,7 @@
 
 .story-note {
   margin: 0.65rem 0 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.82rem;
   line-height: 1.4;
 }
@@ -986,7 +986,7 @@
   .hero-lead,
   .direct-unit-links-copy {
     display: block !important;
-    color: #000000;
+    color: var(--color-ink, #263744);
   }
 
   .trust-strip-grid {
@@ -1014,14 +1014,14 @@
 
 .home-reasons-head h2 {
   margin: 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 1.2rem;
   letter-spacing: -0.03em;
 }
 
 .home-reasons-head p {
   margin: 0.35rem 0 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.9rem;
 }
 
@@ -1063,7 +1063,7 @@
 
 .home-offer-brand {
   margin: 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -1072,14 +1072,14 @@
 
 .home-offer-card h3 {
   margin: 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.95rem;
   line-height: 1.25;
 }
 
 .home-offer-price {
   margin: 0.15rem 0 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 1.15rem;
   font-weight: 800;
   letter-spacing: -0.03em;
@@ -1087,7 +1087,7 @@
 
 .home-offer-note {
   margin: 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.75rem;
 }
 
@@ -1119,7 +1119,7 @@
   border: 1px solid #8a8a8a;
   border-radius: 14px;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.82rem;
   font-weight: 800;
   text-align: center;
@@ -1130,14 +1130,14 @@
 .home-reasons-more {
   display: inline-block;
   margin-top: 0.75rem;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.82rem;
   font-weight: 800;
   text-decoration: none;
 }
 
 .home-reasons-empty {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.9rem;
 }
 
@@ -1254,7 +1254,7 @@
 .reviews-brand h2,
 .reviews-section h2 {
   margin: 0 !important;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.98rem !important;
   line-height: 1.2;
   letter-spacing: -0.03em;
@@ -1270,12 +1270,12 @@
   padding: 0 !important;
   border: 0 !important;
   background: transparent !important;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-weight: 700;
 }
 
 .reviews-score-number {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 1.28rem;
   font-weight: 800;
   letter-spacing: -0.04em;
@@ -1283,7 +1283,7 @@
 }
 
 .reviews-score-meta {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.75rem;
   font-weight: 650;
 }
@@ -1304,7 +1304,7 @@
   border: 1px solid #8a8a8a;
   border-radius: 16px;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   text-decoration: none;
 }
 
@@ -1313,13 +1313,13 @@
 }
 
 .reviews-unit-score {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.82rem;
   font-weight: 800;
 }
 
 .reviews-unit-card small {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.75rem;
 }
 
@@ -1438,7 +1438,7 @@ a.brand img {
 
 .store-photos-hint {
   margin: 0.35rem 0 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.78rem;
   font-weight: 700;
 }
@@ -1595,14 +1595,14 @@ a.brand img {
 
 /* Tabela de horários — /farmacia-aberta-domingo-sabara */
 .hours-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 16px; }
-.hours-table { width: 100%; border-collapse: collapse; background: var(--uf-card); color: #000000; border: 1px solid #8a8a8a; border-radius: 12px; overflow: hidden; }
-.hours-table caption { text-align: left; font-weight: 700; padding: 0 0 8px; color: #000000; }
+.hours-table { width: 100%; border-collapse: collapse; background: var(--uf-card); color: var(--color-ink, #263744); border: 1px solid #8a8a8a; border-radius: 12px; overflow: hidden; }
+.hours-table caption { text-align: left; font-weight: 700; padding: 0 0 8px; color: var(--color-ink, #263744); }
 .hours-table th, .hours-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #8a8a8a; vertical-align: top; }
 .hours-table thead th { background: #ffffff; font-size: 0.9rem; }
-.hours-table tbody th a { color: #000000; font-weight: 700; }
-.hours-table td a { color: #000000; font-weight: 600; white-space: nowrap; }
+.hours-table tbody th a { color: var(--color-ink, #263744); font-weight: 700; }
+.hours-table td a { color: var(--color-ink, #263744); font-weight: 600; white-space: nowrap; }
 @media (max-width: 720px) { .hours-table td a, .hours-table tbody th a { white-space: normal; overflow-wrap: anywhere; } }
-.hours-table .unit-status-open { color: #000000; }
+.hours-table .unit-status-open { color: var(--color-ink, #263744); }
 .hours-table .unit-status-closed { color: var(--uf-closed); }
 @media (max-width: 720px) {
   .hours-table, .hours-table tbody, .hours-table tr, .hours-table th, .hours-table td { display: block; width: 100%; }
@@ -1611,7 +1611,7 @@ a.brand img {
   .hours-table tbody tr { background: var(--uf-card); border: 1px solid #8a8a8a; border-radius: 12px; margin-bottom: 12px; padding: 4px 0; }
   .hours-table tbody th { font-size: 1.1rem; border-bottom: 1px solid #8a8a8a; }
   .hours-table td { display: flex; justify-content: space-between; gap: 12px; border-bottom: 0; padding: 8px 14px; }
-  .hours-table td::before { content: attr(data-label); font-weight: 700; color: #000000; }
+  .hours-table td::before { content: attr(data-label); font-weight: 700; color: var(--color-ink, #263744); }
 }
 
 /* Registros sanitários no rodapé (Alvará e AFE). */

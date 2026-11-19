@@ -21,7 +21,7 @@
   border: 1px solid #8a8a8a;
   border-radius: 999px;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   transition: flex var(--motion-dur-expand) var(--motion-ease-in-out), background-color var(--motion-dur-expand) var(--motion-ease-in-out), border-color var(--motion-dur-expand) var(--motion-ease-in-out), color var(--motion-dur-expand) var(--motion-ease-in-out);
 }
 .pill-steps-n {
@@ -33,7 +33,7 @@
   place-items: center;
   border: 1px solid #8a8a8a;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 13px;
   font-weight: 700;
   transition: background-color var(--motion-dur-expand) var(--motion-ease-in-out), color var(--motion-dur-expand) var(--motion-ease-in-out);
@@ -56,7 +56,7 @@
 .pill-steps-item.is-on {
   flex: 1 1 auto;
   background: #000000;
-  border-color: #000000;
+  border-color: var(--color-ink, #263744);
   color: #ffffff;
 }
 .pill-steps-item:not(.is-on) .pill-steps-t {
@@ -69,7 +69,7 @@
 }
 .pill-steps-item.is-on .pill-steps-n {
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   border-color: #ffffff;
 }
 
@@ -81,7 +81,7 @@
 .pill-steps-item.is-done .pill-steps-n {
   background: #000000;
   color: #ffffff;
-  border-color: #000000;
+  border-color: var(--color-ink, #263744);
   animation: motion-active-pop var(--motion-dur-active) var(--motion-ease-spring-active);
 }
 

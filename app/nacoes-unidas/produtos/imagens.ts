@@ -841,6 +841,8 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "CIMEGRIPE CX C/20 CAPS": "7896523200576",
   "LAVITAN HAIR COM 60 CAPSULA": "7897947612891",
   "STREPSILS 875MG CX 16 PAST MEL LIMAO": "7891035010866",
+  "Pastilhas para Garganta Strepsils Sabor Mel e Limão 16 Pastilhas": "7891035010866",
+  "Pastilhas para Garganta Strepsils Sabor Laranja Sem Açúcar 16 Unidades": "7891035010972",
   "BENEGRIP MULTI DIA COM 4CPR": "7896094918597",
   "STREPSILS 8.75mg cx 16 past LARANJA": "7891035010972",
   "VICK VAPORUB 12 GR": "78911222",

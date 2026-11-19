@@ -24,7 +24,7 @@
 
 .offers-hero .eyebrow {
   margin: 0 0 0.35rem;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.7rem;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -33,7 +33,7 @@
 
 .offers-hero h1 {
   margin: 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: clamp(1.65rem, 5vw, 2.45rem);
   line-height: 1.08;
   letter-spacing: -0.04em;
@@ -42,7 +42,7 @@
 .offers-hero-lead {
   max-width: 28rem;
   margin: 0.55rem 0 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.98rem;
   line-height: 1.4;
 }
@@ -98,14 +98,14 @@
 
 .offer-consult-brand {
   margin: 0 !important;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.75rem !important;
   letter-spacing: 0.08em !important;
 }
 
 .offer-consult-body h3 {
   min-height: 0 !important;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.95rem !important;
   line-height: 1.25 !important;
 }
@@ -115,7 +115,7 @@
 }
 
 .offer-consult-price strong {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 1.45rem !important;
 }
 
@@ -155,13 +155,13 @@
 }
 
 .offers-whatsapp-section .direct-unit-name {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 1rem;
   font-weight: 800;
 }
 
 .offers-whatsapp-section .direct-unit-neighborhood {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.78rem;
 }
 
@@ -199,13 +199,13 @@
   align-items: center;
   min-height: 48px;
   font-weight: 800;
-  color: #000000;
+  color: var(--color-ink, #263744);
   cursor: pointer;
 }
 
 .offers-faq-item p {
   margin: 0 0 0.8rem;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.92rem;
 }
 

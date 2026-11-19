@@ -1,4 +1,5 @@
 import { COMPANY } from "./company";
+import { getDayRule, getSaoPauloDateKey, SPECIAL_DATES, UNIT_DAY_OVERRIDES } from "./hours-exceptions";
 import { INSTAGRAM_URL, PAYMENT_ACCEPTED, SITE_URL, type Unit } from "./site-config";
 import type { FaqItem } from "./seo-content";
 
@@ -37,19 +38,46 @@ export function getOpeningHoursSpecification(unit: Unit) {
     .filter(Boolean);
 }
 
+/**
+ * Horários especiais confirmados pelo dono (Finados, vésperas), a partir de hours-exceptions.
+ * Só entram as datas com horário definido. Feriado sem regra própria fica de fora: o site manda
+ * confirmar no WhatsApp, então o schema não afirma que a loja está fechada.
+ * Datas já passadas saem da lista (fromDateKey = hoje em São Paulo, formato YYYY-MM-DD).
+ */
+export function getSpecialOpeningHoursSpecification(unit: Unit, fromDateKey = getSaoPauloDateKey(new Date())) {
+  const dateKeys = new Set([...Object.keys(SPECIAL_DATES), ...Object.keys(UNIT_DAY_OVERRIDES[unit.id] ?? {})]);
+  return [...dateKeys]
+    .filter((dateKey) => dateKey >= fromDateKey)
+    .sort()
+    .flatMap((dateKey) => {
+      const rule = getDayRule(dateKey, unit.id);
+      if (!rule || rule.type !== "special") return [];
+      return [
+        {
+          "@type": "OpeningHoursSpecification",
+          validFrom: dateKey,
+          validThrough: dateKey,
+          opens: rule.open,
+          closes: rule.close,
+        },
+      ];
+    });
+}
+
 export function getPostalAddress(unit: Unit) {
   return {
     "@type": "PostalAddress",
-    streetAddress: unit.address.split(" — ")[0],
+    // schema.org não tem campo de bairro em PostalAddress: o bairro vai junto do logradouro.
+    streetAddress: `${unit.street} - ${unit.neighborhood}`,
     addressLocality: "Sabará",
     addressRegion: "MG",
     addressCountry: "BR",
-    addressNeighborhood: unit.neighborhood,
     postalCode: unit.cep,
   };
 }
 
 export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}${PUBLIC_PATH[unit.id]}`) {
+  const specialHours = getSpecialOpeningHoursSpecification(unit);
   return {
     "@type": ["Pharmacy", "LocalBusiness"],
     "@id": `${pageUrl}#localbusiness`,
@@ -81,6 +109,7 @@ export function getUnitBusinessSchema(unit: Unit, pageUrl = `${SITE_URL}${PUBLIC
     paymentAccepted: PAYMENT_ACCEPTED,
     hasMap: unit.map,
     openingHoursSpecification: getOpeningHoursSpecification(unit),
+    ...(specialHours.length ? { specialOpeningHoursSpecification: specialHours } : {}),
     areaServed: unit.deliveryAreas.map((name) => ({
       "@type": "Place",
       name: `${name}, Sabará - MG`,

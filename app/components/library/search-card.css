@@ -2,7 +2,7 @@
 .search-card {
   --sc-base: #eef1f2;
   --sc-shine: #ffffff;
-  --sc-ink: #000000;
+  --sc-ink: #263744;
   box-sizing: border-box;
   display: grid;
   gap: 10px;

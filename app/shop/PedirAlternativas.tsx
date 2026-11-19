@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
+
 import { IconWhats } from "../reserva/ReservaIcons";
 import { buildWhatsAppUrl, PUBLIC_UNITS } from "../site-config";
 import "./pedir-alternativas.css";

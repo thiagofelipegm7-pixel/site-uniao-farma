@@ -420,13 +420,14 @@ test("card: círculo + permanente adiciona, abre a cesta e não vira pílula; pr
   assert.doesNotMatch(blocoCartao, /IconLixeira|IconMenos|pv-seletor|is-aberto|output/);
   assert.doesNotMatch(css, /pv-seletor/);
   assert.doesNotMatch(icons, /IconMenosFino/);
-  assert.match(css, /--pv-add-bg, #0c9b90/);
+  // A cor do círculo vem da variável do card (o valor muda com a paleta).
+  assert.match(css, /\.pv-adicionar \{[^}]*background:\s*var\(--pv-add-bg, #[0-9a-f]{6}\)/s);
   assert.match(css, /\.pv-adicionar[^{]*\{[^}]*caret-color:\s*transparent/s);
   assert.match(css, /\.pv-adicionar[^{]*\{[^}]*user-select:\s*none/s);
   assert.match(css, /\.pv-adicionar svg[^{]*\{[^}]*caret-color:\s*transparent/s);
   assert.match(css, /\.pv-adicionar svg[^{]*\{[^}]*user-select:\s*none/s);
   assert.match(css, /\.pv-adicionar:focus \{ outline: none; \}/);
-  assert.match(css, /\.pv-adicionar:focus-visible \{ outline: 3px solid #0a2d29/);
+  assert.match(css, /\.pv-adicionar:focus-visible \{ outline: 3px solid #[0-9a-f]{6}/);
   assert.match(blocoCartao, /><IconMaisFino size=\{28\} strokeWidth=\{2\} \/><\/button>/);
   assert.match(botao, /if \(!\(precoCentavos > 0\)\) return/);
   assert.match(botao, /import \{ abrirReserva \} from "\.\/abrir-reserva"/);
@@ -443,10 +444,11 @@ test("card: círculo + permanente adiciona, abre a cesta e não vira pílula; pr
 });
 
 test("passos da reserva: cesta, caminhão e check 3D, linha atrás do círculo sólido", async () => {
-  const [icons, fluxo, css] = await Promise.all([
+  const [icons, fluxo, pilulas, css] = await Promise.all([
     readFile(new URL("../app/reserva/ReservaIcons.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/reserva/ReservaFluxo.tsx", import.meta.url), "utf8"),
-    readFile(new URL("../app/shop/shop.css", import.meta.url), "utf8"),
+    readFile(new URL("../app/reserva/PillSteps.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/reserva/pill-steps.css", import.meta.url), "utf8"),
   ]);
   assert.match(icons, /export function IconCestaArte/);
   assert.match(icons, /export function IconCaminhaoArte/);
@@ -454,28 +456,19 @@ test("passos da reserva: cesta, caminhão e check 3D, linha atrás do círculo s
   assert.match(icons, /\/icons\/cesta\.png/);
   assert.match(icons, /\/icons\/caminhao\.png/);
   assert.match(icons, /\/icons\/finalizar\.png/);
-  assert.match(fluxo, /IconCestaArte size=\{28\}/);
-  assert.match(fluxo, /IconCaminhaoArte size=\{36\}/);
-  assert.match(fluxo, /IconFinalizarArte size=\{40\}/);
+  // Os passos viraram pílulas numeradas (PillSteps): 3 etapas, a atual aberta com o nome, as concluídas com check.
+  assert.match(fluxo, /<PillSteps atual=\{passo - 1\} \/>/);
+  assert.match(pilulas, /const ETAPAS = \["Cesta", "Entrega", "Finalizar"\]/);
+  assert.match(pilulas, /aria-label=\{`Passo \$\{atual \+ 1\} de \$\{ETAPAS\.length\}: \$\{ETAPAS\[atual\]\}`\}/);
+  assert.match(pilulas, /i < atual \? "is-done" : i === atual \? "is-on" : ""/);
   assert.doesNotMatch(fluxo, /<IconCesta /);
   assert.doesNotMatch(fluxo, /<IconCaminhao /);
   assert.doesNotMatch(fluxo, /<IconConfirmado /);
-  assert.match(css, /\.cesta-passos \{[^}]*isolation:\s*isolate/s);
-  assert.doesNotMatch(css, /\.cesta-passos li \{[^}]*isolation:\s*isolate/s);
-  assert.doesNotMatch(css, /\.cesta-passos li \{[^}]*opacity:\s*0\.7/s);
-  assert.doesNotMatch(css, /\.cesta-passos li\.is-on \{[^}]*opacity:\s*1/s);
-  assert.match(css, /\.cesta-passos li \+ li::before \{[^}]*z-index:\s*0/s);
-  assert.match(css, /\.cesta-passos li \+ li::before \{[^}]*right:\s*calc\(50% \+ 1\.5rem\)/s);
-  assert.match(css, /\.cesta-passos li \+ li::before \{[^}]*width:\s*calc\(100% - 3rem\)/s);
-  assert.doesNotMatch(css, /\.cesta-passos li \+ li::before \{[^}]*opacity:/s);
-  assert.match(css, /\.cesta-passos li span \{[^}]*z-index:\s*1/s);
-  assert.match(css, /\.cesta-passos li span \{[^}]*background:\s*#ffffff/s);
-  assert.match(css, /\.cesta-passos li\.is-on span \{[^}]*background:\s*var\(--uf-action-ink\)/s);
-  assert.match(css, /\.cesta-passos li\.is-on span:has\(> img\) \{[^}]*background:\s*var\(--uf-action-ink/);
-  assert.match(css, /html body \.cesta-passos li span > img \{[^}]*width:\s*2\.125rem/s);
-  assert.match(css, /html body \.cesta-passos li span > img \{[^}]*height:\s*2\.125rem/s);
-  assert.match(css, /html body \.cesta-passos li span > img \{[^}]*object-fit:\s*contain/s);
-  assert.doesNotMatch(css, /img\.cesta-passo-selo \{ width: 2\.75rem/);
+  // Etapa atual se abre e mostra o nome; as outras ficam só com o número. Sem animação para quem pede movimento reduzido.
+  assert.match(css, /\.pill-steps-item\.is-on \{[^}]*flex:\s*1 1 auto/s);
+  assert.match(css, /\.pill-steps-item:not\(\.is-on\) \.pill-steps-t \{[^}]*max-width:\s*0/s);
+  assert.match(css, /\.pill-steps \{[^}]*max-width:\s*100%/s);
+  assert.match(css, /@media \(prefers-reduced-motion: reduce\) \{[\s\S]*transition:\s*none[\s\S]*animation:\s*none/);
   const [cesta, caminhao, finalizar] = await Promise.all([
     readFile(new URL("../public/icons/cesta.png", import.meta.url)),
     readFile(new URL("../public/icons/caminhao.png", import.meta.url)),

@@ -7,9 +7,9 @@
 .nav-interna a[aria-current="page"] { background: #ffffff; }
 .nav-interna a:focus-visible { outline: 3px solid #e3b341; outline-offset: -3px; }
 
-.painel-inicio { max-width: 64rem; margin: 0 auto; padding: 1rem; color: #000000; }
+.painel-inicio { max-width: 64rem; margin: 0 auto; padding: 1rem; color: var(--color-ink, #263744); }
 .painel-inicio h1 { margin: 0 0 0.25rem; font-size: 1.5rem; }
-.painel-inicio .pi-lead { margin: 0 0 1rem; color: #000000; }
+.painel-inicio .pi-lead { margin: 0 0 1rem; color: var(--color-ink, #263744); }
 .painel-inicio .pi-grade { display: grid; gap: 0.875rem; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); }
 .painel-inicio .pi-cartao { display: grid; align-content: start; gap: 0.625rem; padding: 1rem; border: 1px solid #d3e2df; border-radius: 12px; background: #ffffff; }
 .painel-inicio .pi-largo { grid-column: 1 / -1; }
@@ -22,7 +22,7 @@
 .painel-inicio .pi-alertas li { display: grid; gap: 0.125rem; padding: 0.75rem; border-radius: 10px; border-left: 6px solid #8a8a8a; background: #f3f7f6; overflow-wrap: anywhere; }
 .painel-inicio .pi-alertas li.pi-ok { border-left-color: #8a8a8a; background: #e9f6ee; }
 .painel-inicio .pi-alertas li.pi-alerta { border-left-color: #e3b341; background: #fff3c4; }
-.painel-inicio .pi-alertas a { justify-self: start; min-height: 2.75rem; display: inline-flex; align-items: center; color: #000000; font-weight: 700; }
+.painel-inicio .pi-alertas a { justify-self: start; min-height: 2.75rem; display: inline-flex; align-items: center; color: var(--color-ink, #263744); font-weight: 700; }
 
 /* Barra superior: marca da equipe, abas e "Sair" à direita. */
 .nav-interna { display: flex; align-items: center; gap: 0.5rem; padding-inline: 0.75rem; border-bottom-width: 0; box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08) inset, 0 2px 8px rgba(10, 53, 72, 0.18); }
@@ -35,12 +35,12 @@
 @media (max-width: 520px) { .nav-interna-marca small { display: none; } }
 
 /* Mesmo padrão do site dos clientes: barra branca com linha verde-água, texto escuro, aba atual em menta, verde #14736b como cor de ação. */
-.nav-interna { background: #ffffff; color: #000000; border-bottom: 1px solid #d3e2df; box-shadow: 0 1px 0 #ffffff inset, 0 4px 12px rgba(8, 58, 59, 0.06); }
-.nav-interna-marca { color: #000000; font-style: italic; }
-.nav-interna-marca small { background: #ffffff; color: #000000; font-style: normal; }
-.nav-interna a { color: #000000; opacity: 1; font-weight: 600; }
-.nav-interna a:hover { background: #ffffff; color: #000000; }
-.nav-interna a[aria-current="page"] { background: #ffffff; color: #000000; box-shadow: inset 0 -3px 0 #14736b; border-radius: 10px 10px 0 0; font-weight: 700; }
+.nav-interna { background: #ffffff; color: var(--color-ink, #263744); border-bottom: 1px solid #d3e2df; box-shadow: 0 1px 0 #ffffff inset, 0 4px 12px rgba(8, 58, 59, 0.06); }
+.nav-interna-marca { color: var(--color-ink, #263744); font-style: italic; }
+.nav-interna-marca small { background: #ffffff; color: var(--color-ink, #263744); font-style: normal; }
+.nav-interna a { color: var(--color-ink, #263744); opacity: 1; font-weight: 600; }
+.nav-interna a:hover { background: #ffffff; color: var(--color-ink, #263744); }
+.nav-interna a[aria-current="page"] { background: #ffffff; color: var(--color-ink, #263744); box-shadow: inset 0 -3px 0 #14736b; border-radius: 10px 10px 0 0; font-weight: 700; }
 .nav-interna a:focus-visible { outline: 3px solid #8a8a8a; outline-offset: -3px; }
 .nav-interna a.nav-interna-marca { display: inline-flex; align-items: center; gap: 0.5rem; min-height: 3.25rem; padding: 0 0.5rem 0 0.25rem; border-radius: 10px; font-style: normal; }
 .nav-interna a.nav-interna-marca:hover { background: transparent; }

@@ -47,6 +47,7 @@ export const metadata: Metadata = {
   title: { absolute: TITLE },
   description: DESCRIPTION,
   alternates: { canonical: `/${SLUG}` },
+  robots: { index: false, follow: false }, // Vende a entrega da loja Fátima, que ainda não é pública (como /fatima).
   keywords: ["farmácia Jardim Vitória Sabará", "farmácia que entrega Jardim Vitória", "União Farma Jardim Vitória"],
   openGraph: { title: TITLE, description: DESCRIPTION, url: PAGE_URL, type: "website", images: ["/og-optimized.jpg"] },
   twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/og-optimized.jpg"] },

@@ -11,7 +11,7 @@
   border: 1px solid #8a8a8a;
   border-radius: 999px;
   background: #f6fcfb;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-weight: 800;
 }
 

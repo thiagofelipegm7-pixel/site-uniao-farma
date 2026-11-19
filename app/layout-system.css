@@ -39,7 +39,7 @@
 
 .open-now-list a.is-open {
   background: #25d366;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .open-now-list a small {
@@ -83,12 +83,12 @@
   margin: 0 0 4px;
   font-size: 17px;
   line-height: 1.25;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .offer-consult-body p {
   margin: 0 0 8px;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 13px;
 }
 
@@ -118,7 +118,7 @@
   max-width: 100%;
   border-radius: 999px;
   background: #e6f4f2;
-  color: #000000;
+  color: var(--color-ink, #263744);
   padding: 7px 12px;
   font-size: 12px;
   font-weight: 800;
@@ -127,7 +127,7 @@
 .open-status > span { display: none; }
 .open-status strong,
 .open-status small {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: inherit;
   font-weight: 800;
 }
@@ -154,7 +154,7 @@
   border: 1px solid #d5e4e2;
   border-radius: 12px;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 13px;
   font-weight: 800;
   cursor: pointer;
@@ -246,7 +246,7 @@
     justify-content: center;
     border-radius: 14px;
     background: #ffffff;
-    color: #000000;
+    color: var(--color-ink, #263744);
     font-size: 14px;
     font-weight: 800;
     text-decoration: none;
@@ -591,7 +591,7 @@
     border: 0 !important;
     border-radius: 20px !important;
     background: transparent !important;
-    color: #000000;
+    color: var(--color-ink, #263744);
     font-size: 12px !important;
     font-weight: 800 !important;
     letter-spacing: 0.01em !important;
@@ -607,7 +607,7 @@
     height: 30px !important;
     border-radius: 11px;
     background: #eef7f6 !important;
-    color: #000000;
+    color: var(--color-ink, #263744);
   }
 
   .mobile-quick-nav .mqn-label {
@@ -617,7 +617,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     font-size: 12px !important;
-    color: #000000;
+    color: var(--color-ink, #263744);
   }
 
   .mobile-quick-nav a.is-primary {
@@ -717,7 +717,7 @@
     margin: 0 0 10px !important;
     font-size: 15px !important;
     line-height: 1.35 !important;
-    color: #000000;
+    color: var(--color-ink, #263744);
   }
 
   .story-section,
@@ -853,7 +853,7 @@ body {
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .direct-unit-link,
@@ -917,12 +917,12 @@ body {
 
 .open-status.is-hours {
   background: #e6f4f2;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .open-status.is-open {
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .open-status.is-open::before {
@@ -979,7 +979,7 @@ body {
 
 .direct-unit-recipe {
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   border: 1px solid #8a8a8a;
 }
 
@@ -1034,12 +1034,12 @@ main main {
 }
 
 :root {
-  --uf-ink: #000000;
-  --uf-green: #000000;
-  --uf-green-deep: #000000;
+  --uf-ink: #263744;
+  --uf-green: #10857f;
+  --uf-green-deep: #075b57;
   --uf-wa: #1f9e4b;
   --uf-mint: #e4f6f3;
-  --uf-line: #8a8a8a;
+  --uf-line: #e6eceb;
   --uf-paper: #f1fbfa;
   --uf-radius: 16px;
   --uf-shadow: 0 10px 28px rgba(8, 58, 59, 0.08);
@@ -1047,7 +1047,7 @@ main main {
 
 body {
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 :focus-visible {
@@ -1070,7 +1070,7 @@ body {
 .direct-unit-neighborhood,
 .offer-consult-body p,
 .locate-unit-status {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 14px;
 }
 
@@ -1112,7 +1112,7 @@ body {
 .questions-page h1,
 .encarte-page h1 {
   letter-spacing: -0.03em;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .whatsapp-intent-chips button {
@@ -1120,7 +1120,7 @@ body {
   border-radius: 14px;
   border-color: #8a8a8a;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 14px;
 }
 
@@ -1160,7 +1160,7 @@ body {
 .direct-unit-name,
 .quick-unit-card h3,
 .offer-consult-body h3 {
-  color: #000000;
+  color: var(--color-ink, #263744);
   letter-spacing: -0.02em;
 }
 
@@ -1168,7 +1168,7 @@ body {
   width: fit-content;
   max-width: 100%;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   border-radius: 999px;
   padding: 6px 10px;
   font-size: 14px !important;
@@ -1188,7 +1188,7 @@ body {
 
 .mobile-quick-nav a {
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   border-radius: 14px;
   min-height: 44px;
   font-size: 14px;
@@ -1197,7 +1197,7 @@ body {
 .cookie-banner {
   border: 1px solid #8a8a8a;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   box-shadow: 0 -16px 32px rgba(8, 58, 59, 0.14);
 }
 

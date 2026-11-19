@@ -13,7 +13,7 @@
   background: #ffffff;
   overflow: hidden;
   font-family: var(--font-body, Inter, system-ui, sans-serif);
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .dm-cabeca {
@@ -70,7 +70,7 @@
 }
 .dm-links li:hover { background: #ffffff; }
 .dm-links a {
-  color: #000000;
+  color: var(--color-ink, #263744);
   text-decoration: none;
   font-size: 17px;
   font-weight: 600;
@@ -105,16 +105,16 @@
    Fica sozinho na barra por enquanto !important; novos itens entram ao lado. */
 @layer design {
   html body .shop-submenu .dm-slot--barra { width: auto !important; height: 44px !important; }
-  html body .shop-submenu .dm-slot--barra .dm-menu { position: relative !important; width: auto !important; height: 44px !important; border-radius: 0 !important; background: transparent !important; color: #000000 !important; box-shadow: none !important; overflow: visible !important; }
+  html body .shop-submenu .dm-slot--barra .dm-menu { position: relative !important; width: auto !important; height: 44px !important; border-radius: 0 !important; background: transparent !important; color: var(--color-ink, #263744) !important; box-shadow: none !important; overflow: visible !important; }
   html body .shop-submenu .dm-slot--barra .dm-cabeca { position: relative !important; height: 44px !important; padding: 0 4px !important; justify-content: flex-start !important; gap: 6px !important; }
-  html body .shop-submenu .dm-slot--barra .dm-titulo { font-size: 17px !important; font-weight: 600 !important; color: #000000 !important; }
+  html body .shop-submenu .dm-slot--barra .dm-titulo { font-size: 17px !important; font-weight: 600 !important; color: var(--color-ink, #263744) !important; }
   html body .shop-submenu .dm-slot--barra .dm-icone { width: 12px !important; height: 12px !important; }
   html body .shop-submenu .dm-slot--barra .dm-icone i { display: none !important; }
   html body .shop-submenu .dm-slot--barra .dm-icone::after { content: "" !important; position: absolute !important; left: 2px !important; top: 1px !important; width: 7px !important; height: 7px !important; border-right: 2px solid #000000 !important; border-bottom: 2px solid #000000 !important; transform: rotate(45deg) !important; transition: transform 0.2s ease !important; }
   html body .shop-submenu .dm-slot--barra .dm-menu[aria-expanded="true"] .dm-icone::after,
   html body .shop-submenu .dm-slot--barra .dm-cabeca[aria-expanded="true"] .dm-icone::after { transform: rotate(-135deg) !important; top: 4px !important; }
   html body .shop-submenu .dm-slot--barra .dm-links { top: 44px !important; left: -8px !important; right: auto !important; width: 240px !important; padding: 6px !important; background: transparent !important; border-radius: 0 !important; box-shadow: none !important; }
-  html body .shop-submenu .dm-slot--barra .dm-links a { color: #000000 !important; font-weight: 600 !important; }
+  html body .shop-submenu .dm-slot--barra .dm-links a { color: var(--color-ink, #263744) !important; font-weight: 600 !important; }
   html body .shop-submenu .dm-slot--barra .dm-links li:hover { background: #f2f2f2 !important; border-radius: 8px; }
 }
 /* Entrada dos links em CSS (não depende do laço em JavaScript, que pode ficar parado): ao abrir, cada link sobe e aparece em sequência. */

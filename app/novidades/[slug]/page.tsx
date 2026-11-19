@@ -23,12 +23,13 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: NewsPageProps): Promise<Metadata> {
   const { slug } = await params;
   const article = getNewsArticle(slug);
-  if (!article) return { title: "Novidade não encontrada" };
+  if (!article) return { title: "Novidade não encontrada", robots: { index: false, follow: false } };
 
   const url = `${SITE_URL}/novidades/${article.slug}`;
+  // Artigo sem foto própria usa a arte da área de novidades (a mesma de /novidades), para o link não sair sem imagem.
   const images = article.image
     ? [{ url: article.image.src, width: article.image.width, height: article.image.height, alt: article.image.alt }]
-    : undefined;
+    : [{ url: "/novidades-og-optimized.jpg", width: 1200, height: 629, alt: "Novidades da União Farma em Sabará" }];
 
   return {
     title: { absolute: `${article.seo.title} | União Farma` },
@@ -40,13 +41,13 @@ export async function generateMetadata({ params }: NewsPageProps): Promise<Metad
       url,
       type: "article",
       publishedTime: article.publishedAt,
-      ...(images ? { images } : {}),
+      images,
     },
     twitter: {
       card: "summary_large_image",
       title: `${article.seo.title} | União Farma`,
       description: article.seo.description,
-      ...(images ? { images: images.map((image) => image.url) } : {}),
+      images: images.map((image) => image.url),
     },
     robots: { index: true, follow: true },
   };
@@ -80,7 +81,9 @@ export default async function NewsArticlePage({ params }: NewsPageProps) {
     headline: article.title,
     description: article.excerpt,
     datePublished: article.publishedAt,
-    mainEntityOfPage: { "@id": `${pageUrl}#webpage` },
+    inLanguage: "pt-BR",
+    mainEntityOfPage: { "@type": "WebPage", "@id": `${pageUrl}#webpage`, url: pageUrl },
+    author: { "@id": `${SITE_URL}/#organization` },
     publisher: { "@id": `${SITE_URL}/#organization` },
     ...(article.image ? { image: `${SITE_URL}${article.image.src}` } : {}),
   };

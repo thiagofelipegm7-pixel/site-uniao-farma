@@ -9,24 +9,24 @@
  */
 @theme static {
   --color-teal-50: #e9f6f4;
-  --color-teal-100: #000000;
-  --color-teal-500: #000000; /* marca: ícone, foco, texto >= 24px */
-  --color-teal-600: #000000; /* marca: CTA, link (5,03:1) */
-  --color-teal-700: #000000; /* hover, selo aberto */
+  --color-teal-100: #d4eeeb;
+  --color-teal-500: #10857f;
+  --color-teal-600: #0d716c;
+  --color-teal-700: #095e5a;
   --color-teal-800: #034a44; /* rodapé */
-  --color-ink: #000000;
-  --color-ink-2: #000000;
-  --color-ink-3: #000000;
-  --color-line: #d5e3e1;
-  --color-line-strong: #000000;
+  --color-ink: #263744;
+  --color-ink-2: #52636e;
+  --color-ink-3: #74828b;
+  --color-line: #e6eceb;
+  --color-line-strong: #d5dfdd;
   --color-neutral-100: #f1f3f2;
   --color-ruby-50: #fff1f1;
   --color-ruby-500: #c53231; /* fundo de selo */
   --color-ruby-600: #b62024; /* preço */
   --color-on-dark-muted: #c8ddda;
 
-  --font-heading: var(--font-inter), "Inter", system-ui, sans-serif;
-  --font-body: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-heading: var(--font-open-sans), "Open Sans", system-ui, sans-serif;
+  --font-body: var(--font-open-sans), "Open Sans", system-ui, sans-serif;
 
   --text-display: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
   --text-h1: clamp(1.75rem, 1.3rem + 2vw, 2.75rem);
@@ -70,19 +70,19 @@
 
 :root {
   color-scheme: only light;
-  --aqua: #000000;
+  --aqua: #10857f;
   --aqua-light: #d3e6e4;
   --aqua-pale: #f5fbfa;
-  --teal: #000000;
-  --teal-deep: #000000;
-  --teal-black: #000000;
+  --teal: #10857f;
+  --teal-deep: #0d716c;
+  --teal-black: #263744;
   --coral: #c44540;
   --coral-dark: #a83b37;
   --white: #ffffff;
   --paper: #f5fbfa;
-  --ink: #000000;
-  --muted: #000000;
-  --line: #8a8a8a;
+  --ink: #263744;
+  --muted: #667782;
+  --line: #e6eceb;
   --yellow: #e8c9a8;
   --danger: #c44540;
   --shadow: 0 18px 45px rgba(18, 63, 58, 0.12);
@@ -107,7 +107,7 @@ body {
   color-scheme: only light;
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--font-inter), "Inter", Arial, sans-serif;
+  font-family: var(--font-open-sans), "Open Sans", Arial, sans-serif;
   font-size: 16px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
@@ -120,7 +120,7 @@ button,
 input,
 textarea,
 select {
-  font-family: var(--font-inter), "Inter", Arial, sans-serif;
+  font-family: var(--font-open-sans), "Open Sans", Arial, sans-serif;
 }
 
 a {
@@ -228,7 +228,7 @@ h3 {
 
 .section-kicker.light,
 .hero .eyebrow {
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .skip-link {
@@ -668,7 +668,7 @@ h3 {
 
 .open-status.is-open {
   background: #e2f9f6;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .open-status.is-open > span {
@@ -2164,7 +2164,7 @@ h3 {
 }
 
 .pay-badge.pix {
-  color: #000000;
+  color: var(--color-ink, #263744);
   border-color: #8a8a8a;
   background: #eefaf8;
   min-width: 76px;
@@ -4282,15 +4282,15 @@ h3 {
 
 /* Surgical UX fixes: non-blocking consent, per-unit CTA visibility and calm compliance footer. */
 :root {
-  --uf-ink: #000000;
-  --uf-ink-soft: #000000;
-  --uf-teal: #000000;
-  --uf-wa: #000000;
+  --uf-ink: #263744;
+  --uf-ink-soft: #667782;
+  --uf-teal: #10857f;
+  --uf-wa: #25d366;
   --uf-offer: #c44540;
   --uf-mint: #f5fbfa;
   --uf-cream: #f8f3ea;
   --uf-card: #ffffff;
-  --uf-line: #d3e6e4;
+  --uf-line: #e6eceb;
   --uf-footer-bg: #f3f7f6;
 }
 
@@ -4310,7 +4310,7 @@ h3 {
 }
 
 .nav > .header-cta:hover { background: #ffffff; }
-.hero-lead, .direct-unit-links-copy span { color: #000000; }
+.hero-lead, .direct-unit-links-copy span { color: var(--color-ink, #263744); }
 .direct-unit-actions a { min-height: 44px; }
 
 .cookie-banner {
@@ -4322,20 +4322,20 @@ h3 {
   border-width: 1px 0 0;
   border-radius: 0;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   padding: 10px 16px calc(10px + env(safe-area-inset-bottom));
   box-shadow: 0 -4px 18px rgba(22, 56, 47, 0.08);
 }
 
-.cookie-banner p { color: #000000; }
-.cookie-banner a { color: #000000; }
+.cookie-banner p { color: var(--color-ink, #263744); }
+.cookie-banner a { color: var(--color-ink, #263744); }
 .cookie-actions { flex-shrink: 0; }
 .cookie-accept { background: #ffffff; border-color: #8a8a8a; }
 
-.footer, .offers-footer, .content-footer { background: #ffffff; color: #000000; }
+.footer, .offers-footer, .content-footer { background: #ffffff; color: var(--color-ink, #263744); }
 .footer-brand strong, .footer-brand p, .footer nav a,
 .offers-footer .brand, .offers-footer .brand strong, .offers-footer nav a,
-.content-footer .brand, .content-footer .brand strong, .content-footer nav a { color: #000000; }
+.content-footer .brand, .content-footer .brand strong, .content-footer nav a { color: var(--color-ink, #263744); }
 .footer-bottom-bar .anvisa-section {
   justify-self: center;
   border: 1px solid #d3e6e4;
@@ -4366,7 +4366,7 @@ h3 {
 .open-status.is-open,
 .open-status.is-closed {
   background: #e6f4f2;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .open-status > span,
@@ -4376,7 +4376,7 @@ h3 {
 }
 
 .open-status { display: flex; flex-wrap: wrap; gap: 2px 8px; }
-.open-status strong, .open-status small { color: #000000; }
+.open-status strong, .open-status small { color: var(--color-ink, #263744); }
 .open-status small { flex-basis: 100%; font-size: 12px; font-weight: 600; }
 
 .hero .direct-unit-links-copy strong { display: none; }
@@ -5187,7 +5187,7 @@ html[data-theme="light"] .news-contact-units span {
 
 .offers-hero-card span {
   display: block;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 0.1em;
@@ -5970,7 +5970,7 @@ html[data-theme="light"] .news-contact-units span {
 }
 
 .news-hero .eyebrow {
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .news-hero h1 {
@@ -6295,7 +6295,7 @@ html[data-theme="light"] .news-contact-units span {
 
 .news-article-content > p {
   margin-bottom: 26px;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .news-article-content h2 {
@@ -6400,7 +6400,7 @@ html[data-theme="light"] .news-contact-units span {
 }
 
 .news-contact-units span {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 12px;
   font-weight: 800;
   text-align: right;
@@ -6842,7 +6842,7 @@ body {
 
 h2,
 h3 {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-weight: 900;
 }
 
@@ -7359,11 +7359,11 @@ h3 {
 
 /* Health-forward visual polish: calmer surfaces, clearer hierarchy and safer contrast. */
 :root {
-  --health-navy: #000000;
-  --health-teal: #000000;
+  --health-navy: #263744;
+  --health-teal: #10857f;
   --health-mint: #eaf7f5;
   --health-paper: #f8fbfa;
-  --health-line: #8a8a8a;
+  --health-line: #e6eceb;
   --health-shadow: 0 12px 30px rgba(12, 45, 42, 0.08);
 }
 
@@ -7787,11 +7787,11 @@ body { background: var(--health-paper); }
 
 /* Health-forward visual polish: calmer surfaces, clearer hierarchy and safer contrast. */
 :root {
-  --health-navy: #000000;
-  --health-teal: #000000;
+  --health-navy: #263744;
+  --health-teal: #10857f;
   --health-mint: #eaf7f5;
   --health-paper: #f8fbfa;
-  --health-line: #8a8a8a;
+  --health-line: #e6eceb;
   --health-shadow: 0 12px 30px rgba(12, 45, 42, 0.08);
 }
 

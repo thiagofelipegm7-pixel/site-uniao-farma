@@ -9,7 +9,7 @@ import CartaoPanvel from "../nacoes-unidas/produtos/CartaoPanvel";
 import { quantidadeDoNome } from "../nacoes-unidas/produtos/quantidade";
 import { formatarCentavos } from "../reserva/reserva-store";
 
-type Destaque = { nome: string; slug: string; lab?: string; precoCentavos: number; foto: string | null; isMIP?: boolean };
+type Destaque = { nome: string; slug: string; lab?: string; precoCentavos: number; foto: string | null; isMIP?: boolean; novo?: boolean };
 
 /**
  * Encadeia as vitrines da home pela ordem (`posicao`): cada uma espera a anterior e não repete produto que já apareceu acima.
@@ -87,6 +87,7 @@ export default function DestaquesSemana({ posicao, titulo = "Destaques da semana
               foto={item.foto}
               marca={item.lab}
               medicamento={item.isMIP}
+              novo={item.novo}
               classificacao={item.isMIP && /gen[eé]rico/i.test(item.nome) ? "generico" : null}
               apresentacao={quantidadeDoNome(item.nome)}
               precoFmt={formatarCentavos(item.precoCentavos)}

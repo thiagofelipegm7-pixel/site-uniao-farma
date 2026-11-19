@@ -4,7 +4,8 @@ import test from "node:test";
 
 test("área interna: um menu só em todas as telas, e cada item leva a uma tela que existe", async () => {
   const { ITENS_NAV_INTERNO } = await import("../app/interno/itens-nav.ts");
-  assert.equal(ITENS_NAV_INTERNO[0].href, "/interno/fotos", "o primeiro item é Produtos (a tela Início saiu do menu)");
+  assert.equal(ITENS_NAV_INTERNO[0].href, "/interno", "o primeiro item é Início");
+  assert.equal(ITENS_NAV_INTERNO[1].href, "/interno/fotos", "o segundo item é Produtos");
   const hrefs = ITENS_NAV_INTERNO.map((i) => i.href);
   assert.equal(new Set(hrefs).size, hrefs.length, "sem item repetido");
   for (const h of hrefs) await access(new URL(`..${h === "/interno" ? "/app/interno" : `/app${h}`}/page.tsx`, import.meta.url), 0);

@@ -1,27 +1,27 @@
-/* Ordem das camadas: "design" (DESIGN.md) vem primeiro para que os !important dela prevaleçam. */
-@layer design, typography, layout, components, theme, overrides;
+/* surface-reset define o acabamento global; design mantém prioridade sobre as demais camadas visuais. */
+@layer surface-reset, design, typography, layout, components, theme, overrides;
 
 :root {
-  --uf-green: #000000;
-  --uf-green-hover: #ffffff;
-  --uf-green-dark: #000000;
-  --uf-green-bright: #000000;
-  --uf-open: #000000;
-  --uf-open-live: #000000;
+  --uf-green: #10857f;
+  --uf-green-hover: #0d716c;
+  --uf-green-dark: #075b57;
+  --uf-green-bright: #159b91;
+  --uf-open: #167a58;
+  --uf-open-live: #167a58;
   --uf-whatsapp: #25d366;
 
-  --uf-ink: #000000; /* texto do protótipo: quase preto */
-  --uf-navy: #000000; /* marinho: chips ativos, bordas de contador, links */
-  --uf-muted: #000000;
+  --uf-ink: #263744;
+  --uf-navy: #263744;
+  --uf-muted: #667782;
   --uf-closed: #9b3e38;
   --uf-gold: #000000;
-  --uf-green-text: #000000; /* verde para TEXTO: 5,67:1 sobre branco (o verde-marca #1a8f86 dá 3,94:1) */
-  --uf-gold-ink: #000000;
+  --uf-green-text: #0b716c;
+  --uf-gold-ink: #263744;
   --uf-panel: #ffffff; /* painel verde-água das faixas e ofertas: tinta escura passa 5,1:1 */
   --uf-action: #ffffff; /* botão de reserva: texto escuro #0a2d29 passa 6,2:1 */
   --uf-action-hover: #ffffff; /* 5,1:1 com --uf-action-ink */
   --uf-action-active: #ffffff; /* 4,6:1 com --uf-action-ink */
-  --uf-action-ink: #000000;
+  --uf-action-ink: #263744;
   --uf-pill: #ffffff; /* pílula do lema */
   --uf-offer: #d94641;
 
@@ -29,8 +29,8 @@
   --uf-stone: #ffffff;
   --uf-fog: #e4f6f3;
   --uf-card: #ffffff;
-  --uf-line: #8a8a8a;
-  --uf-line-strong: #8a8a8a;
+  --uf-line: #e6eceb;
+  --uf-line-strong: #d5dfdd;
 
   --t-xs: clamp(0.75rem, 0.74rem + 0.05vw, 0.8125rem);
   --t-sm: clamp(0.8125rem, 0.767rem + 0.23vw, 0.9375rem);

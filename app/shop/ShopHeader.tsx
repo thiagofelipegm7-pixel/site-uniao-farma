@@ -103,7 +103,7 @@ export default function ShopHeader({ consultaInicial = "", departamentos = null 
   const tocandoPainel = useRef(false);
   const fimToque = useRef<number | undefined>(undefined);
   // Última lista de cards mostrada: ao apagar para 1 letra o painel mantém essa lista, em vez de sumir e voltar.
-  const ultimosCards = useRef<Sugestao[]>([]);
+  const [ultimosCards, setUltimosCards] = useState<Sugestao[]>([]);
 
   // Buscas recentes: só neste aparelho. Lê ao montar (o armazenamento só existe no navegador).
   // eslint-disable-next-line react-hooks/set-state-in-effect -- lê o armazenamento do navegador depois que a página abre
@@ -169,9 +169,10 @@ export default function ShopHeader({ consultaInicial = "", departamentos = null 
   );
   const atalhos = useMemo(() => atalhosDaBusca(termoBusca), [termoBusca]);
   const termosDestaque = corrigida ? termosCorrigidos : termos;
-  if (normal.length >= 2 && resultados.length > 0) ultimosCards.current = resultados; // eslint-disable-line react-hooks/refs -- guarda a última lista (ver ultimosCards)
-  const cardsMostrados = normal.length === 1 && ultimosCards.current.length > 0 ? ultimosCards.current : resultados;
-  const mostrarPainel = foco && (normal.length !== 1 || ultimosCards.current.length > 0);
+  // Guarda a última lista em estado (não em ref: ref não pode ser lida na renderização). Só troca quando os produtos mudam, para não renderizar em laço.
+  if (normal.length >= 2 && resultados.length > 0 && !(ultimosCards.length === resultados.length && ultimosCards.every((item, i) => item.slug === resultados[i].slug))) setUltimosCards(resultados);
+  const cardsMostrados = normal.length === 1 && ultimosCards.length > 0 ? ultimosCards : resultados;
+  const mostrarPainel = foco && (normal.length !== 1 || ultimosCards.length > 0);
   const semResultado = normal.length >= 2 && itens !== null && esgotados !== null && restritosCarregados && resultados.length === 0 && resultadosRestritos.length === 0 && resultadosEsgotados.length === 0;
 
   // Com o teclado aberto (iPhone), a lista não pode passar por baixo dele: limita a altura ao que sobra na tela visível, com rolagem.
@@ -379,7 +380,33 @@ export default function ShopHeader({ consultaInicial = "", departamentos = null 
                         </li>
                       ))}
                     </ul>
-                  ) : null}                  <a className="shop-sugestoes-todos" href={`/nacoes-unidas/produtos?q=${encodeURIComponent(termo.trim())}`}>
+                  ) : null}
+                  {/* Com receita, controlados e esgotados: em linhas, abaixo dos cards (sem cesta). */}
+                  {resultadosRestritos.length > 0 || resultadosEsgotados.length > 0 ? (
+                    <ul className="shop-sug-linhas" aria-label="Medicamentos com receita e produtos esgotados">
+                      {resultadosRestritos.map((item) => (
+                        <li key={`${item.tipo}-${item.nome}`}>
+                          <a href={`/nacoes-unidas/produtos/${(item.nomeOriginal || item.nome).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}>
+                            <img src={imagemIlustrativa({ ...item, nome: item.nomeOriginal })} alt="" width="44" height="44" />
+                            <span>
+                              <NomeDestacado nome={item.nome} termos={termosDestaque} />
+                            </span>
+                            <strong>{item.precoCentavos === null ? (item.semVenda ? <small className="shop-sug-consulte">Consulte o farmacêutico</small> : "") : formatarCentavos(item.precoCentavos)}</strong>
+                          </a>
+                        </li>
+                      ))}
+                      {resultadosEsgotados.map((item) => (
+                        <li key={`esgotado-${item.slug}`} className="shop-sug-esgotado">
+                          <a href={`/nacoes-unidas/produtos/${item.slug}`}>
+                            {item.foto ? <img src={item.foto} alt="" width="44" height="44" /> : <SemFoto className="shop-sug-sem-foto" />}
+                            <span><NomeDestacado nome={item.nome} termos={termosDestaque} /></span>
+                            <em>Esgotado</em>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  ) : null}
+                  <a className="shop-sugestoes-todos" href={`/nacoes-unidas/produtos?q=${encodeURIComponent(termo.trim())}`}>
                     Ver todos os resultados
                   </a>
                 </>
@@ -402,12 +429,13 @@ export default function ShopHeader({ consultaInicial = "", departamentos = null 
               )}
             </div>
           ) : null}
+          <span className="shop-busca-orbita" aria-hidden="true" />
         </form>
   );
   const veu = foco && alvoBusca ? <div className="busca-veu" aria-hidden="true" onMouseDown={() => setFoco(false)} /> : null;
   return (
     <>
-      <header className="shop-header">
+      <header className={caminho === "/" ? "shop-header shop-header-home" : "shop-header"}>
         <button type="button" className="shop-icone shop-menu" aria-label="Abrir menu" aria-expanded={menu} aria-controls="shop-menu-painel" onClick={() => setMenu(true)}>
           <IconMenu size={26} />
         </button>

@@ -2,17 +2,37 @@ import type { Metadata } from "next";
 /* eslint-disable @next/next/no-html-link-for-pages -- Native links avoid the Vinext client-navigation failure. */
 import { SiteDirectoryLinks } from "../SiteDirectoryLinks";
 import MarcaUniao from "../shop/MarcaUniao";
+import { SITE_URL } from "../site-config";
+import { getPageStructuredData } from "../structured-data";
+
+const HEADING = "Termos de Uso";
+const TITLE = `${HEADING} | União Farma Sabará`;
+const DESCRIPTION = "Termos de Uso do site da União Farma.";
+const PAGE_URL = `${SITE_URL}/termos`;
 
 export const metadata: Metadata = {
-  title: "Termos de Uso",
-  description: "Termos de Uso do site da União Farma.",
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
   alternates: {
     canonical: "/termos",
   },
+  openGraph: { title: TITLE, description: DESCRIPTION, url: PAGE_URL, type: "website", images: ["/og-optimized.jpg"] },
+  twitter: { card: "summary_large_image", title: TITLE, description: DESCRIPTION, images: ["/og-optimized.jpg"] },
 };
+
+const structuredData = getPageStructuredData({
+  name: TITLE,
+  url: PAGE_URL,
+  breadcrumbs: [
+    { name: "Início", url: `${SITE_URL}/` },
+    { name: HEADING, url: PAGE_URL },
+  ],
+});
 
 export default function TermsPage() {
   return (
+    <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
     <div className="legal-page">
       <div className="legal-container">
         <a className="legal-brand" href="/" aria-label="União Farma, Drogaria e Perfumaria: página inicial">
@@ -117,5 +137,6 @@ export default function TermsPage() {
         </nav>
       </div>
     </div>
+    </>
   );
 }

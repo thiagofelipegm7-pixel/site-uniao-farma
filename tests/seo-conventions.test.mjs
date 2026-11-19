@@ -193,7 +193,8 @@ test("horário fixo no HTML, /jardim-vitoria, priceRange e FAQ da receita", asyn
   const page = read("app/jardim-vitoria/page.tsx");
   assert.match(page, /find\(\(unit\) => unit\.id === "fatima"\)/);
   assert.match(page, /units: \[fatima\]/);
-  assert.match(read("app/sitemap.ts"), /\/jardim-vitoria/);
+  assert.doesNotMatch(read("app/sitemap.ts"), /\/jardim-vitoria/); // noindex enquanto a loja Fátima não é pública
+  assert.match(page, /robots: \{ index: false/);
   assert.match(read("app/sitemap-dates.ts"), /jardimVitoria:/);
   assert.match(read("app/entrega-de-medicamentos-em-sabara/page.tsx"), /href="\/jardim-vitoria"/);
 
@@ -214,4 +215,131 @@ test("departamentos: cada página entra no sitemap, é indexável e traz a lista
   assert.match(await read("app/nacoes-unidas/produtos/ListaDrogasil.tsx"), /departamentosPublicos\(\)\.map/); // a lista de departamentos agora fica na lateral da lista
   assert.match(pagina, /grupos=\{grupos\}/);
   assert.match(pagina, /application\/ld\+json/);
+});
+
+test("SEO técnico: Open Graph próprio, breadcrumb e título com a marca nas páginas indexáveis", async () => {
+  const read = (f) => readFile(new URL(`../${f}`, import.meta.url), "utf8");
+  // Sem openGraph próprio a página herda og:url e og:title da home (layout).
+  for (const [file, path] of [
+    ["app/perguntas/page.tsx", "/perguntas"],
+    ["app/institucional/page.tsx", "/institucional"],
+    ["app/privacidade/page.tsx", "/privacidade"],
+    ["app/termos/page.tsx", "/termos"],
+    ["app/encarte/page.tsx", "/encarte"],
+  ]) {
+    const source = await read(file);
+    assert.match(source, /openGraph: \{ title: TITLE, description: DESCRIPTION, url: /, `${file} sem openGraph`);
+    assert.ok(source.includes(`\`\${SITE_URL}${path}\``), `${file} sem a URL absoluta da página`);
+    assert.match(source, /twitter: \{ card: "summary_large_image"/, `${file} sem twitter card`);
+    assert.match(source, /title: \{ absolute: TITLE \}/, file);
+    assert.match(source, /getPageStructuredData\(\{/, `${file} sem breadcrumb no JSON-LD`);
+    assert.match(source, /application\/ld\+json/, file);
+  }
+  for (const file of ["app/privacidade/page.tsx", "app/termos/page.tsx"]) {
+    assert.match(await read(file), /const TITLE = `\$\{HEADING\} \| União Farma Sabará`/, `${file}: título com a marca`);
+  }
+});
+
+test("SEO técnico: área interna inteira fora do Google e robots.txt", async () => {
+  const read = (f) => readFile(new URL(`../${f}`, import.meta.url), "utf8");
+  // O layout cobre a tela que não declara metadata (ex.: /interno/metricas).
+  assert.match(await read("app/interno/layout.tsx"), /export const metadata: Metadata = \{\s+robots: \{ index: false, follow: false \},/);
+  const { default: robots } = await import("../app/robots.ts");
+  const { SITE_URL } = await import("../app/site-config.ts");
+  const config = robots();
+  assert.deepEqual(config.rules.disallow, ["/api/", "/interno", "/interno/"]);
+  assert.equal(config.sitemap, `${SITE_URL}/sitemap.xml`);
+});
+
+test("SEO técnico: sitemap só com URL canônica, absoluta, única e de página indexável", async () => {
+  const { default: sitemap } = await import("../app/sitemap.ts");
+  const { SITE_URL } = await import("../app/site-config.ts");
+  const entries = sitemap();
+  const urls = entries.map((entry) => entry.url);
+  assert.equal(new Set(urls).size, urls.length, "URL repetida no sitemap");
+  for (const entry of entries) {
+    assert.ok(entry.url.startsWith(`${SITE_URL}/`), entry.url);
+    assert.ok(entry.url === `${SITE_URL}/` || !entry.url.endsWith("/"), `${entry.url} com barra final`);
+    assert.ok(entry.lastModified instanceof Date && !Number.isNaN(entry.lastModified.getTime()), `${entry.url} sem lastmod válido`);
+    assert.ok(entry.lastModified.getTime() <= Date.now(), `${entry.url} com lastmod no futuro`);
+  }
+  // Páginas fora do Google (noindex) e rotas internas não entram no mapa do site.
+  for (const path of ["/fatima", "/itacolomi", "/reserva", "/whatsapp", "/nacoes-unidas/produtos", "/interno", "/api"]) {
+    assert.ok(!urls.some((url) => url === `${SITE_URL}${path}` || url.startsWith(`${SITE_URL}${path}/`)), `${path} não pode estar no sitemap`);
+  }
+});
+
+test("SEO técnico: JSON-LD da loja válido, sem campo inventado e com horário especial confirmado", async () => {
+  const { UNITS } = await import("../app/site-config.ts");
+  const { getPageStructuredData, getPostalAddress, getSpecialOpeningHoursSpecification, getUnitBusinessSchema } = await import("../app/structured-data.ts");
+  const { SPECIAL_DATES, NATIONAL_HOLIDAYS } = await import("../app/hours-exceptions.ts");
+  const byId = Object.fromEntries(UNITS.map((u) => [u.id, u]));
+
+  // PostalAddress só com propriedades que existem no schema.org (não há addressNeighborhood).
+  const address = getPostalAddress(byId.nacoes);
+  assert.deepEqual(Object.keys(address).sort(), ["@type", "addressCountry", "addressLocality", "addressRegion", "postalCode", "streetAddress"]);
+  assert.equal(address.streetAddress, "Rua Inglaterra, 162 - Nações Unidas");
+  assert.equal(address.postalCode, "34590-010");
+
+  for (const unit of UNITS) {
+    const schema = JSON.parse(JSON.stringify(getUnitBusinessSchema(unit)));
+    assert.deepEqual(schema["@type"], ["Pharmacy", "LocalBusiness"]);
+    assert.match(schema.telephone, /^\+55\d{10,11}$/, "telefone em E.164");
+    assert.match(schema.contactPoint.telephone, /^\+55\d{10,11}$/, "WhatsApp em E.164");
+    assert.equal(schema.openingHoursSpecification.length, 7);
+    for (const spec of schema.openingHoursSpecification) {
+      assert.match(spec.opens, /^\d{2}:\d{2}$/);
+      assert.match(spec.closes, /^\d{2}:\d{2}$/);
+    }
+    assert.equal(typeof schema.geo.latitude, "number");
+    for (const url of schema.sameAs) assert.match(url, /^https:\/\//);
+    // Nada que o site não sabe: sem nota, avaliação nem oferta com preço.
+    for (const forbidden of ["aggregateRating", "review", "offers", "makesOffer"]) assert.equal(schema[forbidden], undefined, forbidden);
+  }
+
+  // Horário especial: só datas com horário confirmado (Finados, vésperas), nunca "fechado" presumido em feriado.
+  const all = getSpecialOpeningHoursSpecification(byId.nacoes, "2026-01-01");
+  assert.deepEqual(all.map((s) => s.validFrom), ["2026-11-02", "2026-12-24", "2026-12-31", "2027-12-24", "2027-12-31"]);
+  for (const spec of all) {
+    assert.equal(spec["@type"], "OpeningHoursSpecification");
+    assert.equal(spec.validFrom, spec.validThrough);
+    assert.equal(spec.opens, "08:00");
+    assert.equal(spec.closes, "12:00");
+    assert.ok(SPECIAL_DATES[spec.validFrom], `${spec.validFrom} precisa estar em SPECIAL_DATES`);
+  }
+  assert.equal(getSpecialOpeningHoursSpecification(byId.fatima, "2026-01-01")[0].opens, "07:00");
+  assert.ok(NATIONAL_HOLIDAYS["2026-12-25"]);
+  assert.ok(!all.some((s) => s.validFrom === "2026-12-25"), "Natal não tem horário confirmado: fica fora do schema");
+  // Datas passadas saem; sem data futura, a lista fica vazia e a propriedade nem aparece.
+  assert.deepEqual(getSpecialOpeningHoursSpecification(byId.nacoes, "2027-12-25").map((s) => s.validFrom), ["2027-12-31"]);
+  assert.deepEqual(getSpecialOpeningHoursSpecification(byId.nacoes, "2028-01-01"), []);
+
+  // Grafo da página: @context, WebPage, BreadcrumbList com posições em ordem e FAQPage.
+  const graph = getPageStructuredData({
+    name: "Teste",
+    url: "https://exemplo.test/pagina",
+    breadcrumbs: [{ name: "Início", url: "https://exemplo.test/" }, { name: "Página", url: "https://exemplo.test/pagina" }],
+    faqs: [{ q: "Pergunta?", a: "Resposta." }],
+  });
+  const parsed = JSON.parse(JSON.stringify(graph));
+  assert.equal(parsed["@context"], "https://schema.org");
+  assert.deepEqual(parsed["@graph"].map((node) => node["@type"]), ["WebPage", "BreadcrumbList", "FAQPage"]);
+  assert.deepEqual(parsed["@graph"][1].itemListElement.map((item) => item.position), [1, 2]);
+  assert.equal(parsed["@graph"][2].mainEntity[0].acceptedAnswer.text, "Resposta.");
+});
+
+test("SEO técnico: FAQPage só onde a pergunta aparece na tela; artigo com imagem, autor e página", async () => {
+  const read = (f) => readFile(new URL(`../${f}`, import.meta.url), "utf8");
+  // Loja institucional (sem FAQ na tela) não publica FAQPage.
+  assert.match(await read("app/NeighborhoodPage.tsx"), /faqs: institucional \? undefined : content\.faqs/);
+  const artigo = await read("app/novidades/[slug]/page.tsx");
+  assert.match(artigo, /url: "\/novidades-og-optimized\.jpg", width: 1200, height: 629/, "artigo sem foto precisa de og:image padrão");
+  assert.match(artigo, /mainEntityOfPage: \{ "@type": "WebPage", "@id": `\$\{pageUrl\}#webpage`, url: pageUrl \}/);
+  assert.match(artigo, /author: \{ "@id": `\$\{SITE_URL\}\/#organization` \}/);
+  assert.match(artigo, /"Novidade não encontrada", robots: \{ index: false, follow: false \}/);
+  // Produto: sem oferta, preço, estoque nem avaliação no schema (vale também para controlado, Portaria 344).
+  const { jsonLdProduto } = await import("../app/nacoes-unidas/produtos/produto.ts");
+  const produto = jsonLdProduto({ nome: "Produto de teste 10 mg", lab: "Marca", categoria: "Medicamentos", url: "https://exemplo.test/p" });
+  assert.equal(produto["@type"], "Product");
+  for (const forbidden of ["offers", "aggregateRating", "review"]) assert.equal(produto[forbidden], undefined, forbidden);
 });

@@ -16,7 +16,7 @@
   border: 1px solid #d5e4e2;
   border-radius: 14px;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   text-align: left;
 }
 
@@ -27,7 +27,7 @@
 
 .unit-map-pins button span {
   margin-top: 4px;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 12px;
 }
 
@@ -58,7 +58,7 @@
 
 .unit-map-details h2 {
   margin: 4px 0 8px;
-  color: #000000;
+  color: var(--color-ink, #263744);
 }
 
 .unit-map-actions {

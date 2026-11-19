@@ -383,7 +383,7 @@
   padding: 8px 16px;
   border-radius: 6px;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 1rem;
   font-weight: 600;
   text-align: center;
@@ -504,7 +504,7 @@
   padding: 0 8px;
   border: 0;
   background: transparent;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font: inherit;
   font-size: 0.9375rem;
   font-weight: 700;
@@ -522,7 +522,7 @@
   border: 0;
   border-radius: 6px;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font: inherit;
   font-size: 1rem;
   font-weight: 600;
@@ -601,7 +601,7 @@
   padding: 2px 6px !important;
   border-radius: 2px;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.75rem;
   font-weight: 600;
   line-height: 1.25rem;
@@ -617,12 +617,12 @@
 .produto-nota,
 .produto-secao p {
   margin: 0 0 12px;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.875rem;
   line-height: 1.5;
 }
 
-.produto-marca { margin-bottom: 8px; color: #000000; }
+.produto-marca { margin-bottom: 8px; color: var(--color-ink, #263744); }
 .produto-marca strong { font-weight: 700; }
 
 .produto-preco {
@@ -657,7 +657,7 @@
 
 .produto-ficha th {
   width: 42%;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-weight: 500;
 }
 
@@ -713,7 +713,7 @@
   border: 0;
   border-radius: 6px;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font: inherit;
   font-size: 1.125rem;
   font-weight: 600;
@@ -731,8 +731,8 @@
   min-height: 44px;
 }
 
-/* Desktop: o aviso de cookies encosta no rodapé da tela (~71px) e cobriria o Aceitar. */
-body.cookie-banner-visible .produto-barra { bottom: 5rem; }
+/* A barra sobe a altura real do aviso de cookies (--cookie-h, medida em AnalyticsConsent.tsx) e fica inteira acima dele. */
+body.cookie-banner-visible .produto-barra { bottom: var(--cookie-h, 0px); }
 
 /* Desktop: foto à esquerda; nome, marca, preço e botão da cesta à direita, em container de largura máxima.
    A barra de compra deixa de ser fixa e fica dentro do cartão, ao lado do preço. */
@@ -748,8 +748,8 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
 @media (max-width: 1023px) {
   /* A barra do celular mede no mínimo 4rem e cresce quando o rótulo quebra (320px ≈ 71px). */
   .produto-barra { bottom: calc(4.5rem + env(safe-area-inset-bottom)); }
-  /* O aviso de cookies fica por cima da barra (z-index maior). Sobe a barra para o Aceitar continuar tocável. */
-  body.cookie-banner-visible .produto-barra { bottom: calc(14.25rem + env(safe-area-inset-bottom)); }
+  /* A barra tem z-index maior (4100) que o aviso de cookies (2200): sobe a altura real dele para não cobrir o texto nem os botões. */
+  body.cookie-banner-visible .produto-barra { bottom: max(calc(4.5rem + env(safe-area-inset-bottom)), var(--cookie-h, 0px)); }
 }
 
 /* A camada design força h2 e a cor dos títulos. Preço comum fica preto; seção fica em 18px.
@@ -764,7 +764,7 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
   }
   .produto-pagina h2 {
     margin: 0 0 8px !important;
-    color: #000000;
+    color: var(--color-ink, #263744);
     font-size: 1.125rem !important;
     font-weight: 700 !important;
     line-height: 1.33 !important;
@@ -782,7 +782,7 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
     border: 0 !important;
     border-radius: 6px !important;
     background: #ffffff;
-    color: #000000;
+    color: var(--color-ink, #263744);
     font-size: 1.125rem !important;
     font-weight: 600 !important;
   }
@@ -909,23 +909,23 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
   white-space: nowrap;
 }
 
-.departamento-resumo { margin: 0.25rem auto 0.75rem; color: #000000; font-size: 0.9375rem; line-height: 1.5; }
+.departamento-resumo { margin: 0.25rem auto 0.75rem; color: var(--color-ink, #263744); font-size: 0.9375rem; line-height: 1.5; }
 .departamento-outros { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 auto 1rem; }
-.departamento-outros a { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 0.875rem; border: 1px solid #c9d8d5; border-radius: 999px; background: #ffffff; color: #000000; font-size: 0.8125rem; font-weight: 600; text-decoration: none; }
+.departamento-outros a { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 0.875rem; border: 1px solid #c9d8d5; border-radius: 999px; background: #ffffff; color: var(--color-ink, #263744); font-size: 0.8125rem; font-weight: 600; text-decoration: none; }
 .departamento-outros a[aria-current="page"] { border-color: #8a8a8a; background: #ffffff; color: #ffffff; }
 
 
 /* medicamentos-abas removido: departamento Medicamentos sem filtros de categoria */
 .medicamentos-busca { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0.25rem; margin: 0 0 0.5rem; }
-.medicamentos-busca label { font-size: 0.8125rem; font-weight: 700; color: #000000; }
+.medicamentos-busca label { font-size: 0.8125rem; font-weight: 700; color: var(--color-ink, #263744); }
 .medicamentos-busca input { box-sizing: border-box; width: 100%; min-width: 0; min-height: 2.75rem; padding: 0 0.875rem; border: 1px solid #8a8a8a; border-radius: 6px; font: inherit; }
-.medicamentos-contagem { margin: 0 0 0.75rem; color: #000000; font-size: 0.875rem; }
-.medicamentos-mais { display: block; margin: 1.25rem auto; min-height: 2.75rem; padding: 0 1.5rem; border: 1px solid #8a8a8a; border-radius: 6px; background: #ffffff; color: #000000; font: inherit; font-weight: 700; cursor: pointer; }
+.medicamentos-contagem { margin: 0 0 0.75rem; color: var(--color-ink, #263744); font-size: 0.875rem; }
+.medicamentos-mais { display: block; margin: 1.25rem auto; min-height: 2.75rem; padding: 0 1.5rem; border: 1px solid #8a8a8a; border-radius: 6px; background: #ffffff; color: var(--color-ink, #263744); font: inherit; font-weight: 700; cursor: pointer; }
 
 /* Combina com: sugestões da loja na página do produto */
-.combina-com-nota { margin: 0 0 12px; color: #000000; font-size: 0.8125rem; line-height: 1.4; }
+.combina-com-nota { margin: 0 0 12px; color: var(--color-ink, #263744); font-size: 0.8125rem; line-height: 1.4; }
 .combina-com-lista { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
-.combina-com .combina-com-card { display: flex; flex-direction: column; align-items: stretch; box-sizing: border-box; width: 100%; gap: 0.375rem; height: 100%; padding: 0.625rem; border: 1px solid #c9d8d5; border-radius: 8px; background: #ffffff; color: #000000; text-decoration: none; }
+.combina-com .combina-com-card { display: flex; flex-direction: column; align-items: stretch; box-sizing: border-box; width: 100%; gap: 0.375rem; height: 100%; padding: 0.625rem; border: 1px solid #c9d8d5; border-radius: 8px; background: #ffffff; color: var(--color-ink, #263744); text-decoration: none; }
 .combina-com .combina-com-card:hover { border-color: #8a8a8a; }
 .combina-com-foto { display: flex; align-items: center; justify-content: center; aspect-ratio: 1 / 1; border-radius: 6px; background: #f4f8f7; overflow: hidden; }
 .combina-com-foto img { display: block; width: 100%; height: 100%; object-fit: contain; }
@@ -950,7 +950,7 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
 
 .fc-termo {
   margin: 0 0 4px;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 1.375rem;
   font-weight: 800;
   line-height: 1.25;
@@ -959,7 +959,7 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
 
 .fc-carregando {
   margin: 8px 0;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.875rem;
 }
 
@@ -982,7 +982,7 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
   padding: 0;
   border: 0;
   background: none;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font: inherit;
   font-size: 1rem;
   font-weight: 700;
@@ -1038,7 +1038,7 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
 }
 
 .fc-contagem {
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-weight: 400;
 }
 
@@ -1047,7 +1047,7 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
   padding: 0;
   border: 0;
   background: none;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font: inherit;
   font-size: 0.9375rem;
   font-weight: 700;
@@ -1070,7 +1070,7 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
 .fc-preco label {
   display: grid;
   gap: 4px;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font-size: 0.8125rem;
   font-weight: 700;
 }
@@ -1084,7 +1084,7 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
   border: 1.5px solid #8a8a8a;
   border-radius: 8px;
   background: #fff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font: inherit;
   font-size: 16px;
   font-weight: 400;
@@ -1108,7 +1108,7 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
   border: 1px solid #000000;
   border-radius: 8px;
   background: #ffffff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font: inherit;
   font-size: 0.9375rem;
   font-weight: 700;
@@ -1128,7 +1128,7 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
   border: 1.5px solid #8a8a8a;
   border-radius: 18px;
   background: #fff;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font: inherit;
   font-size: 0.875rem;
   font-weight: 700;
@@ -1188,7 +1188,7 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
   padding: 0;
   border: 0;
   background: none;
-  color: #000000;
+  color: var(--color-ink, #263744);
   font: inherit;
   font-size: 0.875rem;
   font-weight: 700;
