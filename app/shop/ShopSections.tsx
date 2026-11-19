@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { SetasRolagem } from "./SetasRolagem";
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
@@ -43,6 +44,42 @@ export function CategoriasLinha() {
         ))}
       </ul>
     </nav>
+  );
+}
+
+const CUIDADOS_PESSOAIS: readonly Categoria[] = [
+  { href: "/departamentos/dermocosmeticos", rotulo: "Cuidados com a pele", iconeSrc: "/categorias/derma-usuario.jpg" },
+  { href: "/departamentos/beleza", rotulo: "Cuidados capilares", iconeSrc: "/categorias/beleza.jpg" },
+  { href: "/nacoes-unidas/produtos?q=preservativo", rotulo: "Bem-estar sexual", iconeSrc: "/categorias/bem-estar.jpg" },
+  { href: "/nacoes-unidas/produtos?q=higiene%20bucal", rotulo: "Higiene bucal", iconeSrc: "/categorias/cuidado-diario.jpg" },
+  { href: "/nacoes-unidas/produtos?q=vitaminas", rotulo: "Cuidados para idosos", iconeSrc: "/categorias/medicamentos.jpg" },
+  { href: "/departamentos/infantil-e-gestante", rotulo: "Bebês e maternidade", iconeSrc: "/categorias/infantil-e-gestante.jpg" },
+  { href: "/nacoes-unidas/produtos?q=absorvente", rotulo: "Cuidados femininos", iconeSrc: "/categorias/cuidado-diario.jpg" },
+  { href: "/nacoes-unidas/produtos?q=barba", rotulo: "Cuidados masculinos", iconeSrc: "/categorias/perfumes.jpg" },
+];
+
+export function CategoriasPessoaisLinha() {
+  const [trilho, setTrilho] = useState<HTMLUListElement | null>(null);
+  return (
+    <section className="shop-cuidados-pessoais" aria-labelledby="cuidados-pessoais-titulo">
+      <div className="shop-cuidados-pessoais-topo">
+        <div>
+          <h2 id="cuidados-pessoais-titulo">Cuidados pessoais</h2>
+          <span aria-hidden="true" />
+        </div>
+        <SetasRolagem alvo={trilho} rotulo="cuidados pessoais" />
+      </div>
+      <ul className="shop-cuidados-pessoais-trilho" ref={setTrilho}>
+        {CUIDADOS_PESSOAIS.map((item) => (
+          <li key={item.rotulo}>
+            <a href={item.href} className="shop-cuidados-pessoais-card">
+              <img src={item.iconeSrc} alt="" width={265} height={477} loading="lazy" decoding="async" draggable={false} />
+              <strong>{item.rotulo}</strong>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
   );
 }
 
