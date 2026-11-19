@@ -89,6 +89,10 @@
 .entregas-provedor { padding: 0.35rem 0.625rem; border-radius: 999px; font-size: 0.75rem; font-weight: 800; }
 .entregas-provedor-lalamove { background: #fff0e6; color: #a6460a; }
 .entregas-provedor-uber { background: #1f2a30; color: #ffffff; }
+.entregas-provedor-motoboysbh { background: #e8f0ff; color: #23408e; }
+.entregas-manual { display: grid; gap: 0.75rem; justify-items: start; margin-top: 0.75rem; padding: 0.875rem 1rem; border: 1px solid #d5e0de; border-radius: 12px; background: #fbfdfc; }
+.entregas-manual p { margin: 0; font-size: 0.875rem; line-height: 1.45; color: #3c4d58; overflow-wrap: anywhere; }
+.entregas-manual .entregas-botao { display: inline-flex; align-items: center; justify-content: center; max-width: 100%; text-align: center; text-decoration: none; }
 .entregas-status-pickup, .entregas-status-pickup_complete, .entregas-status-dropoff { background: #e3eefc; color: #1f4f8a; }
 .entregas-status-delivered { background: #e5f5e9; color: #276c3d; }
 .entregas-status-returned { background: #eceeef; color: #5b6870; }
