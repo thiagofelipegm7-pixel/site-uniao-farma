@@ -48,7 +48,24 @@ final class LojaApi {
     record Relacionado(String id, String nome, int precoCentavos, String foto) {}
     record Bairro(String nome, Integer taxa) {}
     record Unidade(String id, String nome, String endereco, List<Bairro> bairros) {}
-    record Catalogo(List<Unidade> unidades, List<Departamento> departamentos, List<Banner> banners, Map<String, Produto> produtos, int maxItens) {
+    record Marca(String slug, String nome, String busca) {}
+
+    /** Página informativa em texto (/api/android/paginas): título e blocos (h2, subtítulo e parágrafo). */
+    record BlocoPagina(String tipo, String texto, String url) {}
+    record Pagina(String titulo, List<BlocoPagina> blocos) {}
+
+    Pagina pagina(String slug) throws IOException, JSONException {
+        JSONObject r = json("/api/android/paginas?p=" + java.net.URLEncoder.encode(slug, "UTF-8"), null);
+        var blocos = new ArrayList<BlocoPagina>();
+        JSONArray arr = r.getJSONArray("blocos");
+        for (int i = 0; i < arr.length(); i++) {
+            JSONObject b = arr.getJSONObject(i);
+            blocos.add(new BlocoPagina(b.getString("tipo"), b.getString("texto"), texto(b, "url")));
+        }
+        return new Pagina(r.getString("titulo"), blocos);
+    }
+    record Catalogo(List<Unidade> unidades, List<Departamento> departamentos, List<Banner> banners, List<Marca> marcas,
+                    String whatsapp, Map<String, Produto> produtos, int maxItens) {
         static Catalogo ler(JSONObject raiz) throws JSONException {
             var unidades = new ArrayList<Unidade>();
             JSONArray lojas = raiz.getJSONArray("unidades");
@@ -87,7 +104,16 @@ final class LojaApi {
             lista.sort(Comparator.comparing(Produto::nome, ordem));
             var produtos = new LinkedHashMap<String, Produto>();
             for (Produto item : lista) produtos.put(item.id(), item);
-            return new Catalogo(unidades, departamentos, banners, produtos, raiz.getInt("maxItens"));
+            var marcas = new ArrayList<Marca>();
+            JSONArray arrMarcas = raiz.optJSONArray("marcas");
+            if (arrMarcas != null) {
+                for (int i = 0; i < arrMarcas.length(); i++) {
+                    JSONObject m = arrMarcas.getJSONObject(i);
+                    marcas.add(new Marca(m.getString("slug"), m.getString("nome"), m.getString("busca")));
+                }
+            }
+            String whatsapp = raiz.isNull("whatsapp") ? null : raiz.optString("whatsapp", null);
+            return new Catalogo(unidades, departamentos, banners, marcas, whatsapp, produtos, raiz.getInt("maxItens"));
         }
     }
 
@@ -251,7 +277,7 @@ final class LojaApi {
 
     Bitmap foto(String caminho) throws IOException {
         // Só fotos da própria loja: produto (EAN) ou banner da home. Qualquer outro caminho é recusado.
-        if (!caminho.matches("/produtos/[0-9]+\\.webp|/banners-[0-9a-z]+/[A-Za-z0-9._-]+\\.(jpg|jpeg|webp|png)|/categorias/[A-Za-z0-9._-]+\\.jpg")) return null;
+        if (!caminho.matches("/produtos/[0-9]+\\.webp|/banners-[0-9a-z]+/[A-Za-z0-9._-]+\\.(jpg|jpeg|webp|png)|/categorias/[A-Za-z0-9._-]+\\.jpg|/marcas/[a-z0-9-]+\\.(png|jpg)")) return null;
         HttpURLConnection conexao = abrir(caminho);
         try {
             if (conexao.getResponseCode() != 200) return null;

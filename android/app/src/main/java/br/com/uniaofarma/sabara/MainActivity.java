@@ -48,7 +48,7 @@ public final class MainActivity extends Activity {
     private static final int ERRO = 0xff864121;
     private static final int MAX_LARGURA_DP = 760;
 
-    private enum Tela { INICIO, PRODUTOS, CESTA, RECENTES, DETALHES, RECEITA }
+    private enum Tela { INICIO, PRODUTOS, CESTA, RECENTES, DETALHES, RECEITA, PAGINA }
 
     private final LojaApi api = new LojaApi();
     private final NumberFormat reais = NumberFormat.getCurrencyInstance(BRASIL);
@@ -305,6 +305,7 @@ public final class MainActivity extends Activity {
                 case RECENTES -> recentes(conteudo);
                 case DETALHES -> detalhes(conteudo);
                 case RECEITA -> receita(conteudo);
+                case PAGINA -> pagina(conteudo);
             }
             if (rolagemAnterior > 0 && aviso == null) rolagem.post(() -> rolagem.scrollTo(0, rolagemAnterior));
         }
@@ -551,21 +552,161 @@ public final class MainActivity extends Activity {
             lpFaixa.bottomMargin = dp(12);
             pai.addView(faixa, lpFaixa);
         }
+        pedirAlternativas(pai);
         titulo(pai, "Departamentos");
         pai.addView(atalho("Ver ofertas", () -> abrirProdutos(null, true)));
-        pai.addView(atalho("Enviar receita por foto", this::escolherFotoReceita));
         for (LojaApi.Departamento d : catalogo.departamentos()) {
             String slug = d.slug();
             pai.addView(atalho(d.nome(), () -> abrirProdutos(slug, false)));
         }
         titulo(pai, "Navegue por categoria");
         pai.addView(categoriasLinha());
+        if (!catalogo.marcas().isEmpty()) {
+            titulo(pai, "Navegue por marcas");
+            pai.addView(marcasLinha(catalogo.marcas()));
+        }
+        titulo(pai, "Informações");
+        pai.addView(atalho("Unidades e WhatsApp", () -> abrirPagina("unidades")));
+        pai.addView(atalho("Dados institucionais", () -> abrirPagina("institucional")));
+        pai.addView(atalho("Perguntas frequentes", () -> abrirPagina("perguntas")));
+        pai.addView(atalho("Política de Privacidade", () -> abrirPagina("privacidade")));
+        pai.addView(atalho("Termos de Uso", () -> abrirPagina("termos")));
         for (String[] vitrine : VITRINES) {
             List<LojaApi.Destaque> itens = vitrines.get(vitrine[0]);
             if (itens == null || itens.isEmpty()) continue;
             titulo(pai, vitrine[0]);
             pai.addView(vitrineLinha(itens));
         }
+    }
+
+    // ---- Páginas informativas (texto nativo) ------------------------------------------------------------------------
+    private LojaApi.Pagina paginaCarregada;
+    private String paginaSlug;
+    private boolean carregandoPagina;
+    private String erroPagina;
+
+    private void abrirPagina(String slug) {
+        paginaSlug = slug;
+        paginaCarregada = null;
+        erroPagina = null;
+        carregandoPagina = true;
+        tela = Tela.PAGINA;
+        esconderTeclado();
+        mostrar();
+        rede.execute(() -> {
+            LojaApi.Pagina lida = null;
+            String erro = null;
+            try {
+                lida = api.pagina(slug);
+            } catch (IOException | JSONException | RuntimeException e) {
+                erro = "Não foi possível abrir esta página agora. Tente de novo.";
+            }
+            LojaApi.Pagina resultado = lida;
+            String mensagem = erro;
+            atualizarTela(() -> {
+                carregandoPagina = false;
+                paginaCarregada = resultado;
+                erroPagina = mensagem;
+            });
+        });
+    }
+
+    private void pagina(LinearLayout pai) {
+        if (carregandoPagina) {
+            estado(pai, "Carregando…");
+            return;
+        }
+        if (erroPagina != null) {
+            estado(pai, erroPagina);
+            return;
+        }
+        if (paginaCarregada == null) return;
+        titulo(pai, paginaCarregada.titulo());
+        for (LojaApi.BlocoPagina bloco : paginaCarregada.blocos()) {
+            switch (bloco.tipo()) {
+                case "h2" -> pai.addView(texto(bloco.texto(), 19, ESCURO, true));
+                case "link" -> {
+                    String destino = bloco.url();
+                    Button botao = botao(bloco.texto(), false, () -> abrirLinkWhatsApp(destino));
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1, -2);
+                    lp.setMargins(0, dp(8), 0, 0);
+                    pai.addView(botao, lp);
+                }
+                case "subtitulo" -> {
+                    TextView t = texto(bloco.texto(), 16, ESCURO, true);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1, -2);
+                    lp.setMargins(0, dp(10), 0, 0);
+                    pai.addView(t, lp);
+                }
+                default -> pai.addView(texto(bloco.texto(), 15, ESCURO, false));
+            }
+        }
+    }
+
+    /** "Você também pode pedir por": WhatsApp da loja e envio da receita, como no site (mesmo texto e campanha). */
+    private void pedirAlternativas(LinearLayout pai) {
+        titulo(pai, "Você também pode pedir por");
+        LinearLayout linha = new LinearLayout(this);
+        linha.setOrientation(LinearLayout.HORIZONTAL);
+        Button whats = botao("WhatsApp", false, this::abrirWhatsAppLoja);
+        whats.setEnabled(catalogo.whatsapp() != null);
+        whats.setContentDescription("Pedir pelo WhatsApp da loja");
+        linha.addView(whats, new LinearLayout.LayoutParams(0, -2, 1));
+        Button receita = botao("Enviar receita", false, this::escolherFotoReceita);
+        LinearLayout.LayoutParams lpReceita = new LinearLayout.LayoutParams(0, -2, 1);
+        lpReceita.setMarginStart(dp(8));
+        linha.addView(receita, lpReceita);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1, -2);
+        lp.setMargins(0, 0, 0, dp(12));
+        pai.addView(linha, lp);
+    }
+
+    /** Só abre links do WhatsApp oficial (wa.me, por https). */
+    private void abrirLinkWhatsApp(String url) {
+        if (url == null) return;
+        Uri destino = Uri.parse(url);
+        if (!"https".equals(destino.getScheme()) || !"wa.me".equals(destino.getEncodedAuthority())) return;
+        startActivity(new Intent(Intent.ACTION_VIEW, destino));
+    }
+
+    private void abrirWhatsAppLoja() {
+        String url = catalogo.whatsapp();
+        if (url == null) return;
+        Uri destino = Uri.parse(url);
+        // Só abre o WhatsApp oficial (wa.me, por https), como no envio da pré-venda.
+        if (!"https".equals(destino.getScheme()) || !"wa.me".equals(destino.getEncodedAuthority())) return;
+        startActivity(new Intent(Intent.ACTION_VIEW, destino));
+    }
+
+    /** Faixa de marcas (logo e nome): tocar abre a busca da marca, como no site. */
+    private View marcasLinha(List<LojaApi.Marca> marcas) {
+        HorizontalScrollView rolagem = new HorizontalScrollView(this);
+        rolagem.setHorizontalScrollBarEnabled(false);
+        LinearLayout linha = new LinearLayout(this);
+        linha.setOrientation(LinearLayout.HORIZONTAL);
+        for (LojaApi.Marca marca : marcas) {
+            LinearLayout cartao = coluna();
+            cartao.setGravity(Gravity.CENTER_HORIZONTAL);
+            cartao.setBackground(fundo(Color.WHITE, 12));
+            padding(cartao, 8, 10, 8, 10);
+            cartao.setClickable(true);
+            cartao.setFocusable(true);
+            ImageView logo = new ImageView(this);
+            logo.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            cartao.addView(logo, new LinearLayout.LayoutParams(dp(110), dp(48)));
+            carregarFoto(logo, "/marcas/" + marca.slug() + ".png", null);
+            TextView nome = texto(marca.nome(), 12, ESCURO, true);
+            nome.setGravity(Gravity.CENTER_HORIZONTAL);
+            nome.setMaxLines(1);
+            cartao.addView(nome, new LinearLayout.LayoutParams(dp(110), -2));
+            String busca = marca.busca();
+            cartao.setOnClickListener(v -> abrirBusca(busca));
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(dp(126), -2);
+            lp.setMargins(0, 0, dp(10), dp(4));
+            linha.addView(cartao, lp);
+        }
+        rolagem.addView(linha);
+        return rolagem;
     }
 
     /** Carrossel "Navegue por categoria": cartões com foto e rótulo; tocar abre a busca (ou o departamento, como no site). */
