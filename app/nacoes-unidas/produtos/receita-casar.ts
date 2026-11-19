@@ -134,11 +134,17 @@ function candidatos(catalogo: CatalogoReceita, palavras: readonly string[], dose
   return saida;
 }
 
+/** Nomes comerciais que a receita costuma trazer e que a loja vende pelo princípio ativo. */
+const NOME_COMERCIAL_PARA_PRINCIPIO: Readonly<Record<string, string>> = {
+  amoxilina: "amoxicilina",
+  amoxil: "amoxicilina",
+};
+
 /** Casa UM medicamento lido da receita com o catálogo. */
 export function casarMedicamento(catalogo: CatalogoReceita, lido: MedicamentoLido): ResultadoMedicamento {
   const dosesReceita = lerDoses(lido.dosagem).length > 0 ? lerDoses(lido.dosagem) : lerDoses(lido.nome);
   const base: ResultadoMedicamento = { lido, status: "nao", entendidoComo: null, itens: [], outrasDoses: [] };
-  const original = palavrasDoNome(lido.nome);
+  const original = palavrasDoNome(lido.nome).map((p) => NOME_COMERCIAL_PARA_PRINCIPIO[p] ?? p);
   if (original.length === 0) return base;
 
   // 1) como está escrito; 2) só se nada casar, com erro de escrita corrigido por palavra bem parecida do catálogo.
