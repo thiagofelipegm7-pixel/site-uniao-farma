@@ -43,7 +43,7 @@
       background: conic-gradient(from 0deg, rgba(var(--busca-traco), 1) 0deg, rgba(var(--busca-traco), 0) 180deg, rgba(var(--busca-traco), 0) 360deg);
       transform: translate(-50%, -50%) rotate(0deg);
       filter: drop-shadow(0 0 3px rgba(var(--busca-traco), 0.52));
-      animation: busca-traco-giro 1.9s linear infinite, busca-traco-pulsa 1.55s ease-in-out infinite;
+      animation: busca-traco-giro 2.8s linear infinite, busca-traco-pulsa 2.3s ease-in-out infinite;
       will-change: transform, opacity, filter;
       pointer-events: none;
     }
