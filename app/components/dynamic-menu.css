@@ -37,7 +37,7 @@
 
 .dm-titulo { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; white-space: nowrap; }
 
-/* as duas linhas do ícone */
+/* as três linhas do ícone: a de cima e a de baixo viram X ao abrir; a do meio some */
 .dm-icone { position: relative; width: 24px; height: 24px; flex: none; }
 .dm-icone i {
   position: absolute;
