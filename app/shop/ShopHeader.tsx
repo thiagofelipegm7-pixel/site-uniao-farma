@@ -19,6 +19,7 @@ import { IconMenu, IconPino } from "../reserva/ReservaIcons";
 import LogoWhatsApp from "../LogoWhatsApp";
 import LojaPicker from "./LojaPicker";
 import "./shop.css";
+import "./busca-hero.css";
 import { imagemIlustrativa } from "../nacoes-unidas/produtos/receita";
 import DepartamentosGaveta from "./DepartamentosGaveta";
 import { abrirSeletorDeLoja, EVENTO_ABRIR_DEPARTAMENTOS } from "./loja-evento";
@@ -487,6 +488,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
               )}
             </div>
           ) : null}
+          <span className="shop-busca-orbita" aria-hidden="true" />
         </form>
         <nav className="shop-links" aria-label="Menu principal">
           {LINKS.slice(0, 4).map((link) => (
