@@ -2,12 +2,15 @@
 
 import { useCallback, useEffect, useState } from "react";
 import type { ChavePeriodo, PainelPedidos as Dados, ResumoPeriodo } from "../pedidos-resumo";
+import type { Retirada } from "../retirada";
 import "./pre-vendas.css";
 import "./painel-pedidos.css";
 
 const dinheiro = (centavos: number) => (centavos / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 const dataCurta = (dia: string) => dia.split("-").reverse().slice(0, 2).join("/");
 const SEM_DADOS = "sem dados ainda";
+const dataHora = (iso: string) =>
+  new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" }).format(new Date(iso));
 
 function Valor({ centavos }: { centavos: number | null }) {
   return centavos === null ? <strong className="ppedidos-sem">{SEM_DADOS}</strong> : <strong>{dinheiro(centavos)}</strong>;
@@ -16,6 +19,8 @@ function Valor({ centavos }: { centavos: number | null }) {
 /** Painel interno: quantos pedidos, quanto valeram, o que mais saiu e o que procuraram e não acharam. */
 export default function PainelPedidos() {
   const [dados, setDados] = useState<Dados | null>(null);
+  // null = a lista de retiradas não carregou (o resumo continua aparecendo).
+  const [retiradas, setRetiradas] = useState<Retirada[] | null>(null);
   const [periodo, setPeriodo] = useState<ChavePeriodo>("hoje");
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState("");
@@ -28,9 +33,10 @@ export default function PainelPedidos() {
         window.location.assign(`/interno/entrar?next=${encodeURIComponent("/interno/pedidos")}`);
         return;
       }
-      const json = (await resposta.json()) as { ok?: boolean; erro?: string } & Partial<Dados>;
+      const json = (await resposta.json()) as { ok?: boolean; erro?: string; retiradas?: Retirada[] | null } & Partial<Dados>;
       if (!resposta.ok || !json.ok || !Array.isArray(json.periodos)) throw new Error(json.erro || "falha");
       setDados({ geradoEm: String(json.geradoEm), periodos: json.periodos, buscas: json.buscas ?? null });
+      setRetiradas(Array.isArray(json.retiradas) ? json.retiradas : null);
       setErro("");
     } catch (falha) {
       setErro(falha instanceof Error && falha.message === "sem_banco" ? "O banco não está disponível agora. O resumo aparece quando a conexão voltar." : "Não foi possível carregar agora. Confira a conexão e tente novamente.");
@@ -61,6 +67,39 @@ export default function PainelPedidos() {
         </div>
         <button className="pvendas-atualizar" type="button" onClick={() => void carregar()} disabled={carregando}>Atualizar</button>
       </header>
+
+      {dados ? (
+        <section className="pvendas-lista ppedidos-retiradas" aria-labelledby="ppedidos-retiradas">
+          <h2 id="ppedidos-retiradas" className="ppedidos-titulo">Retiradas na loja</h2>
+          <p className="ppedidos-dica">Pedidos para retirar no balcão, ainda em aberto (últimos 7 dias). Quando o pedido estiver separado, toque em &quot;Avisar que está pronto&quot;: o WhatsApp abre com a mensagem pronta e você confere antes de enviar. Nada é enviado sozinho.</p>
+          {retiradas === null ? (
+            <p className="ppedidos-vazio">Não foi possível carregar as retiradas agora.</p>
+          ) : retiradas.length === 0 ? (
+            <p className="ppedidos-vazio">Nenhuma retirada em aberto.</p>
+          ) : (
+            <ul className="ppedidos-retirada-lista">
+              {retiradas.map((r) => (
+                <li key={r.id} className="ppedidos-retirada">
+                  <div className="ppedidos-retirada-topo">
+                    <span className="ppedidos-retirada-tags">
+                      <span className="pvenda-codigo">#{r.codigo}</span>
+                      <span className="ppedidos-tag-retirada">Retirada</span>
+                      {r.comReceita ? <span className="ppedidos-tag-receita">Tem item com receita</span> : null}
+                    </span>
+                    <span className={`pvenda-status pvenda-status-${r.status}`}>{r.status === "nova" ? "Nova" : "Em atendimento"}</span>
+                  </div>
+                  <p className="ppedidos-retirada-info">
+                    {r.lojaNome} · <time dateTime={r.criadoEm}>{dataHora(r.criadoEm)}</time> · {r.itens} {r.itens === 1 ? "item" : "itens"}
+                    {r.totalCentavos !== null ? <> · estimativa {dinheiro(r.totalCentavos)}</> : null}
+                  </p>
+                  <a className="ppedidos-pronto" href={r.linkPronto} target="_blank" rel="noreferrer">Avisar que está pronto</a>
+                  {!r.temWhatsapp ? <p className="ppedidos-retirada-sem">O cliente não deixou WhatsApp no site: escolha a conversa do pedido #{r.codigo}.</p> : null}
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+      ) : null}
 
       <div className="ppedidos-abas" role="tablist" aria-label="Período">
         {(dados?.periodos ?? [{ chave: "hoje", rotulo: "Hoje" }, { chave: "7d", rotulo: "Últimos 7 dias" }, { chave: "30d", rotulo: "Últimos 30 dias" }]).map((p) => (
@@ -108,7 +147,7 @@ export default function PainelPedidos() {
             </section>
           </div>
 
-          <p className="pvendas-nota">Cada pedido é uma cesta que o cliente fechou no site e abriu no WhatsApp; a venda só conta como faturamento quando a equipe marca &quot;Venda concluída&quot; em Pré-vendas. Nome, telefone e endereço não são guardados, a não ser o nome e o WhatsApp de quem aceitou o lembrete de recompra. Os registros ficam 90 dias.</p>
+          <p className="pvendas-nota">Cada pedido é uma cesta que o cliente fechou no site e abriu no WhatsApp; a venda só conta como faturamento quando a equipe marca &quot;Venda concluída&quot; em Pré-vendas. Nome, telefone e endereço não são guardados, a não ser o nome e o WhatsApp de quem aceitou o lembrete de recompra e o WhatsApp opcional do aviso de retirada (apagado quando a pré-venda é concluída ou cancelada). Os registros ficam 90 dias.</p>
         </>
       ) : null}
     </div>
