@@ -23,6 +23,7 @@ import "./busca-hero.css";
 import { imagemIlustrativa } from "../nacoes-unidas/produtos/receita";
 import DepartamentosGaveta from "./DepartamentosGaveta";
 import { abrirSeletorDeLoja, EVENTO_ABRIR_DEPARTAMENTOS } from "./loja-evento";
+import { SubmenuHome } from "./HomeBlocos";
 
 const LINKS = [
   { href: "/nacoes-unidas/produtos", label: "Produtos" },
@@ -274,6 +275,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   return (
     <>
       <header className="shop-header">
+        <SubmenuHome />
         <button type="button" className="shop-icone shop-menu" aria-label="Abrir menu" aria-expanded={menu} aria-controls="shop-menu-painel" onClick={() => setMenu(true)}>
           <IconMenu size={26} />
         </button>

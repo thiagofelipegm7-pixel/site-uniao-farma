@@ -9,7 +9,7 @@ import ShopHeader from "./shop/ShopHeader";
 import DestaquesSemana from "./shop/DestaquesSemana";
 import OfertasSemana from "./shop/OfertasSemana";
 import PainelBanners from "./shop/PainelBanners";
-import { FaixaInfo, SubmenuHome } from "./shop/HomeBlocos";
+import { FaixaInfo } from "./shop/HomeBlocos";
 import { CategoriasLinha } from "./shop/ShopSections";
 import { MarcasLinha } from "./shop/MarcasLinha";
 import CestaRetomada from "./shop/CestaRetomada";
@@ -33,7 +33,6 @@ export default function HomePage() {
       <CabecalhoInteligente>
         <ShopHeader />
         <FaixaInfo />
-        <SubmenuHome />
       </CabecalhoInteligente>
       <PainelBanners titulo="Farmácia em Sabará: União Farma Nações Unidas" />
       <CestaRetomada />
