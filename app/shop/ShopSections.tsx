@@ -15,7 +15,7 @@ const CATEGORIAS: readonly Categoria[] = [
   { href: "/nacoes-unidas/produtos?q=azia", rotulo: "Cuidados com o estômago", iconeSrc: "/categorias/estomago.jpg" },
   { href: "/nacoes-unidas/produtos?q=f%C3%ADgado", rotulo: "Cuidados com o fígado", iconeSrc: "/categorias/figado.jpg" },
   { href: "/nacoes-unidas/produtos?q=calcio", rotulo: "Cuidados com os ossos", iconeSrc: "/categorias/ossos.jpg" },
-  { href: "/nacoes-unidas/produtos?q=rins", rotulo: "Cuidados com os rins", iconeSrc: "/categorias/rins.jpg" },
+  { href: "/nacoes-unidas/produtos?q=rins&exata=1", rotulo: "Cuidados com os rins", iconeSrc: "/categorias/rins.jpg" },
   { href: "/departamentos/dermocosmeticos", rotulo: "Derma Cuidados", iconeSrc: "/categorias/derma.jpg" },
   { href: "/nacoes-unidas/produtos?q=nasal", rotulo: "Cuidados Respiratórios", iconeSrc: "/categorias/respiratorios.jpg" },
   { href: "/nacoes-unidas/produtos?q=colirio", rotulo: "Cuidados com os olhos", iconeSrc: "/categorias/olhos.jpg" },
