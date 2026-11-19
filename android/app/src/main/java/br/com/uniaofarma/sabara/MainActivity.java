@@ -347,6 +347,9 @@ public final class MainActivity extends Activity {
         Button botao = botao(rotulo, ativa, () -> navegar(alvo));
         botao.setSelected(ativa);
         botao.setEnabled(!enviando);
+        // Com a fonte grande do celular, o nome não pode quebrar nem ser cortado: uma linha e tamanho em dp (não muda com a fonte do aparelho).
+        botao.setSingleLine(true);
+        botao.setTextSize(android.util.TypedValue.COMPLEX_UNIT_DIP, 15);
         var lp = new LinearLayout.LayoutParams(0, -2, 1);
         lp.setMargins(dp(3), 0, dp(3), 0);
         pai.addView(botao, lp);
