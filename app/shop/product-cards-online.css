@@ -125,20 +125,6 @@ html body .shop-destaques--ofertas { margin-top: 1.75rem; padding: 1rem 1.125rem
 html body .shop-destaques--ofertas .shop-destaques-topo { margin-bottom: 0.625rem; }
 html body .shop-destaques--ofertas .shop-ofertas-nota { margin-top: 0.25rem; }
 
-/* Cards de cuidados pessoais separados da fileira de departamentos. */
-html body .shop-cuidados-pessoais { box-sizing: border-box; width: min(82rem, calc(100% - 2.5rem)); margin: 1.5rem auto 2rem; }
-html body .shop-cuidados-pessoais-topo { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
-html body .shop-cuidados-pessoais-topo h2 { margin: 0 0 0.75rem !important; padding: 0 !important; color: #172c3d; font-size: 1.5rem !important; font-weight: 700 !important; }
-html body .shop-cuidados-pessoais-topo > div > span { display: block; width: min(24rem, 45vw); height: 2px; background: linear-gradient(90deg, #ff7043, rgba(255, 112, 67, 0)); }
-html body .shop-cuidados-pessoais-topo .shop-setas { display: flex; }
-html body .shop-cuidados-pessoais-trilho { display: flex; gap: 1rem; margin: 0; padding: 0 0 0.75rem; overflow-x: auto; overflow-y: hidden; list-style: none; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: #9aa7ad #eef1f2; }
-html body .shop-cuidados-pessoais-trilho > li { flex: 0 0 10.5rem; scroll-snap-align: start; }
-html body .shop-cuidados-pessoais-card { position: relative; display: block; height: 12.5rem; overflow: hidden; border: 0; border-radius: 12px; background: #f4f6f7; box-shadow: 0 4px 14px rgba(28, 54, 65, 0.10); text-decoration: none; }
-html body .shop-cuidados-pessoais-card img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 25%; transition: transform 0.25s ease; }
-html body .shop-cuidados-pessoais-card:hover img { transform: scale(1.04); }
-html body .shop-cuidados-pessoais-card strong { position: absolute; inset: 0 0 auto; display: grid; place-items: center; min-height: 3rem; padding: 0.5rem; background: linear-gradient(180deg, rgba(20, 38, 52, 0.58), rgba(20, 38, 52, 0)); color: #fff; font-size: 0.9375rem; line-height: 1.2; text-align: center; text-wrap: balance; }
-html body .shop-cuidados-pessoais-card:focus-visible { outline: 3px solid #0b8b83; outline-offset: 2px; }
-
 @media (max-width: 767px) {
   html body .shop-destaques { width: calc(100% - 1.5rem); margin-top: 1.25rem; }
   html body .shop-destaques-lista { gap: 0.75rem; }
@@ -146,11 +132,6 @@ html body .shop-cuidados-pessoais-card:focus-visible { outline: 3px solid #0b8b8
   html body .shop-destaques-lista > .pv-card--v .pv-img { padding: 0.625rem 0 0; }
   html body .shop-destaques-lista > .pv-card--v .pv-cesta { top: calc(0.625rem + 100cqw - 2 * var(--pv-corpo-pad-x) - var(--pv-add-size)); }
   html body .shop-destaques--ofertas { padding: 0.875rem 0.75rem 1rem; }
-  html body .shop-cuidados-pessoais { width: calc(100% - 2rem); }
-  html body .shop-cuidados-pessoais-topo h2 { font-size: 1.25rem !important; }
-  html body .shop-cuidados-pessoais-topo .shop-setas { display: none; }
-  html body .shop-cuidados-pessoais-trilho > li { flex-basis: 8.5rem; }
-  html body .shop-cuidados-pessoais-card { height: 10.5rem; }
 }
 
 @media (prefers-reduced-motion: reduce) {
