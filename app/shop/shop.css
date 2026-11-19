@@ -1232,6 +1232,36 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .shop-submenu ul a { color: var(--uf-navy); font-size: 0.875rem; font-weight: 500; text-decoration: none; }
 }
 
+/* Departamentos ocupa o espaço à esquerda da marca na faixa principal do cabeçalho. */
+@media (min-width: 992px) {
+  html body .shop-header {
+    grid-template-columns: 200px auto minmax(12rem, 1fr) auto auto;
+    grid-template-areas: "departamentos marca busca whats acoes";
+    column-gap: clamp(0.5rem, 1.2vw, 1.25rem);
+  }
+  html body .shop-header > .shop-submenu {
+    grid-area: departamentos;
+    display: flex;
+    align-items: center;
+    width: 200px;
+    max-width: 200px;
+    height: 52px;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    background: transparent;
+  }
+  html body .shop-header .shop-submenu-conteudo {
+    display: contents;
+    width: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+  }
+  html body .shop-header .shop-menu { display: none; }
+}
+
 /* Abas em pílula como no vídeo da Panvel: contêiner claro com sombra, abas que dividem a pílula por igual,
    aba ativa e aba sob o mouse preenchidas. Sem área vazia dentro da pílula. */
 .shop-abas { width: calc(100% - 2.5rem); max-width: 22.625rem; background: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08); }
