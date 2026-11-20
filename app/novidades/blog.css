@@ -1,0 +1,38 @@
+/* Blog (/novidades) no formato de revista: categorias no topo, "Últimos conteúdos" com um destaque grande, uma seção por categoria e os serviços da loja. */
+@layer design {
+  html body .blog-categorias { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin: 0 auto !important; padding-top: 1.5rem !important; padding-bottom: 0.5rem; }
+  html body .blog-categorias a { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 1.125rem; border: 1px solid #8fb5ae !important; border-radius: 999px; background: #ffffff; color: #086f66; font-size: 0.9375rem; font-weight: 700; text-decoration: none; }
+  html body .blog-categorias a:hover { background: #effaf4; border-color: #086f66; }
+  html body .blog-categorias a:focus-visible { outline: 3px solid #086f66; outline-offset: 2px; }
+  html body .blog-ultimos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+  html body .blog-ultimos .news-card--grande { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); align-items: stretch; }
+  html body .blog-ultimos .news-card--grande .news-card-body h3 { font-size: clamp(1.375rem, 2.4vw, 1.875rem); line-height: 1.15; }
+  html body .blog-categoria { padding-top: 2rem; padding-bottom: 0.5rem; scroll-margin-top: 7.5rem; }
+  html body .blog-servicos { padding-top: 3rem; padding-bottom: 3.5rem; }
+  html body .blog-servicos-lista { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: 1rem; margin: 0; padding: 0; list-style: none; }
+  html body .blog-servicos-lista li { display: grid; align-content: start; gap: 0.5rem; padding: 1.25rem; border: 1px solid #d2e5e2; border-radius: 18px; background: #ffffff; }
+  html body .blog-servicos-lista h3 { margin: 0; font-size: 1.125rem; }
+  html body .blog-servicos-lista p { margin: 0; color: #3c5a56; line-height: 1.45; }
+  html body .blog-servicos-lista a { display: inline-flex; align-items: center; min-height: 2.75rem; color: #086f66; font-weight: 700; text-decoration: none; }
+  html body .blog-servicos-lista a:hover { text-decoration: underline; }
+  html body .blog-servicos-lista a:focus-visible { outline: 3px solid #086f66; outline-offset: 2px; border-radius: 6px; }
+}
+@media (max-width: 900px) {
+  @layer design {
+    html body .blog-ultimos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    html body .blog-ultimos .news-card--grande { grid-template-columns: 1fr; }
+  }
+}
+@media (max-width: 560px) {
+  @layer design { html body .blog-ultimos { grid-template-columns: 1fr; } }
+}
+
+/* Destaques em grade: três colunas no desktop, uma no celular (uma regra antiga mantinha as artes empilhadas, cada uma na largura toda). */
+@layer design {
+  html body .news-visual-grid { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 1.5rem !important; align-items: start; }
+  html body .news-visual-card { display: block !important; width: auto !important; max-width: none !important; }
+  html body .news-visual-image img { width: 100% !important; height: auto !important; }
+}
+@media (max-width: 760px) {
+  @layer design { html body .news-visual-grid { grid-template-columns: 1fr !important; } }
+}

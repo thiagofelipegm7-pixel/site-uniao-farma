@@ -541,7 +541,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
             ))}
           </nav>
           {statusLoja ? (
-            <p className={`shop-linha2-status${statusLoja.isOpen ? " is-aberta" : ""}`}>
+            <p className={`shop-linha2-status${statusLoja.isOpen ? " is-aberta" : ""}`} title={statusLoja.label}>
               <span className="shop-faixa-ponto" aria-hidden="true" />
               {statusLoja.label}
             </p>
