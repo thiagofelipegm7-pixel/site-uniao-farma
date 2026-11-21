@@ -31,7 +31,9 @@ test("fotoDoProduto: não troca foto quando a assinatura é ambígua ou o produt
   // VERTIGIUM e VERTIZAN compartilham a mesma assinatura: só o nome exato vale.
   assert.equal(eanDaFoto("VERTIGIUM 10MG CX 50CPR"), "7896714239712");
   assert.equal(eanDaFoto("VERTIZAN 10MG CX 50CPR"), "7898049790586");
-  assert.equal(eanDaFoto("REXONA CLINICAL EXTRA DRY 150ML"), null);
+  // Nome/EAN fictícios e estáveis: um produto real (ex. 7891150064300, Rexona Clinical)
+  // pode ganhar foto pelo painel e deixar de servir como exemplo de "sem arte".
+  assert.equal(eanDaFoto("PRODUTO SEM ARTE FICTICIO 0000000000001"), null);
   assert.notEqual(eanDaFoto("FISIO FORTE PREMIUM"), "7908512700810");
 });
 

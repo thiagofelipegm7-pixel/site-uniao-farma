@@ -88,7 +88,43 @@ function Fingerprint([object]$row) {
 }
 
 function Post-Json([string]$url, [byte[]]$body, [string]$token, [bool]$gzipped) {
+    # TLS 1.2 (Windows pode negociar mal em SystemDefault) e sem Expect: 100-continue
+    # (o "100 Continue" às vezes fecha o POST no meio do envio).
     [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12
+    [System.Net.ServicePointManager]::Expect100Continue = $false
+
+    # Preferir IPv4 + HTTP/1.1 via curl.exe: neste PC o DNS do Worker às vezes só devolve IPv6,
+    # e POSTs grandes (/delta, /upload) falhavam com "conexao subjacente estava fechada".
+    # GET pequeno continuava 200. O curl.exe do Windows 10+ aceita --ipv4; o Invoke-WebRequest nao.
+    $curl = Get-Command curl.exe -ErrorAction SilentlyContinue
+    if ($curl) {
+        $inFile = Join-Path $env:TEMP ('ufs-body-' + [guid]::NewGuid().ToString('N') + '.bin')
+        $outFile = Join-Path $env:TEMP ('ufs-out-' + [guid]::NewGuid().ToString('N') + '.txt')
+        try {
+            [System.IO.File]::WriteAllBytes($inFile, $body)
+            $curlArgs = @(
+                '-sS', '--ipv4', '--http1.1', '-X', 'POST', $url,
+                '-H', ('Authorization: Bearer ' + $token),
+                '-H', 'Content-Type: application/json',
+                '-H', 'User-Agent: UniaoFarmaSync/2.0',
+                '--data-binary', ('@' + $inFile),
+                '--max-time', '120',
+                '-o', $outFile,
+                '-w', '%{http_code}'
+            )
+            if ($gzipped) { $curlArgs = @('-H', 'Content-Encoding: gzip') + $curlArgs }
+            $codeTxt = & curl.exe @curlArgs
+            if ($LASTEXITCODE -ne 0) { throw "curl falhou (codigo $LASTEXITCODE)" }
+            $status = [int]$codeTxt
+            if ($status -lt 200 -or $status -ge 300) { throw "HTTP $status" }
+            $content = $null
+            if (Test-Path -LiteralPath $outFile) { $content = Get-Content -LiteralPath $outFile -Raw -ErrorAction SilentlyContinue }
+            return [pscustomobject]@{ StatusCode = $status; Content = $content }
+        } finally {
+            Remove-Item -LiteralPath $inFile, $outFile -ErrorAction SilentlyContinue
+        }
+    }
+
     $headers = @{ Authorization = "Bearer $token" }
     if ($gzipped) { $headers['Content-Encoding'] = 'gzip' }
     return Invoke-WebRequest -Uri $url -Method Post -Body $body -UseBasicParsing -TimeoutSec 120 `

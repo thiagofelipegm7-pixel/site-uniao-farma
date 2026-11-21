@@ -387,7 +387,9 @@ test("nomes legíveis: o gerador e o site expandem abreviações do mesmo jeito,
   const { nomeDeExibicao } = await import("../app/nome-exibicao.ts");
   assert.equal(nomeDeExibicao("SH J&J BABY CAB CACHEADO"), "Shampoo J&j Baby cabelo Cacheado");
   assert.equal(nomeDeExibicao("FRALDA PAMPERS SUPSEQUI MEGA G 34UN"), "Fralda Pampers Supsequi Mega G 34UN");
-  assert.equal(nomeDeExibicao("CREME DE CACAU 230 GRS."), "Creme de Cacau 230 g.");
+  // Nome sintético: "CREME DE CACAU 230 GRS." é produto real e o painel pode sobrescrever
+  // nomes-corrigidos.json na sincronização (em 21/11 virou "Creme de Cacau 230 g Casulov").
+  assert.equal(nomeDeExibicao("CREME DE TESTE 230 GRS."), "Creme de Teste 230 g.");
   assert.equal(nomeDeExibicao("ALMEIDA PRADO 35 60CPR"), "Almeida Prado 35 60 comprimidos");
   assert.equal(nomeDeExibicao("TINT MAXTON 3.0 CASTANHO ESCURO"), "Tintura Maxton 3.0 Castanho Escuro");
   // Os arquivos gerados para o site saem iguais ao que o código do site calcularia.
