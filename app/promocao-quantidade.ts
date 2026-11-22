@@ -13,12 +13,14 @@ async function tabela(db: BancoPromocao) {
 export function catalogoPermitido() {
   const itens = carregarCatalogoNacoes()?.itens ?? [];
   const restritos = carregarRestritos();
-  const slugsControlados = new Set(restritos.controlados.map((item) => slugify(item.nome)));
   const medicamentosComReceita = restritos.receita
     .filter((item) => !item.controlado && !item.esgotado && typeof item.preco === "number")
     .map((item) => ({ nome: item.nome, categoria: "Medicamentos", preco: item.preco as number, isMIP: false, restam: item.restam, esgotado: item.esgotado }));
-  const permitidos = itens.filter((item) => !item.esgotado && !(item.categoria === "Medicamentos" && slugsControlados.has(slugify(item.nome))));
-  return new Map([...permitidos, ...medicamentosComReceita].map((item) => [slugify(item.nome), item]));
+  const medicamentosControlados = restritos.controlados
+    .filter((item) => !item.esgotado && typeof item.preco === "number")
+    .map((item) => ({ nome: item.nome, categoria: "Medicamentos", preco: item.preco as number, isMIP: false, restam: item.restam, esgotado: item.esgotado }));
+  const permitidos = itens.filter((item) => !item.esgotado);
+  return new Map([...permitidos, ...medicamentosComReceita, ...medicamentosControlados].map((item) => [slugify(item.nome), item]));
 }
 
 export async function listarPromocoesQuantidade(): Promise<PromocaoQuantidade[]> {

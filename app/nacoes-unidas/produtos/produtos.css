@@ -829,7 +829,7 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
   }
 }
 
-/* Cartões restritos: oferta pode aparecer para medicamento com receita configurado manualmente; controlados seguem sem oferta. */
+/* Cartões restritos: ofertas por quantidade são configuráveis manualmente no painel. */
 .catalogo-nacoes .restrito-selo {
   display: inline-block;
   margin: 0 0 6px;

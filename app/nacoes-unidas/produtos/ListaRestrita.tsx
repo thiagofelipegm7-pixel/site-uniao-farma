@@ -112,7 +112,7 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
   const [promocoes, setPromocoes] = useState<Record<string, PromocaoQuantidade>>({});
   const [data, setData] = useState<string | null>(null);
   useEffect(() => {
-    if (tipo !== "receita") return;
+    if (tipo !== "receita" && tipo !== "controlados") return;
     fetch("/api/promocoes-quantidade", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).then((dados: { promocoes?: PromocaoQuantidade[] } | null) => {
       if (dados?.promocoes) setPromocoes(Object.fromEntries(dados.promocoes.map((p) => [p.slug, p])));
     }).catch(() => undefined);

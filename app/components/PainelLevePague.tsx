@@ -21,12 +21,11 @@ export default function PainelLevePague({ nivel = 1 }: { /** 1 = h1 (página pr�
       carregarBuscaIndex(),
       fetch("/api/interno/promocoes-quantidade", { cache: "no-store" }).then((r) => r.ok ? r.json() : Promise.reject()),
     ]).then(([indice, dados]) => {
-      const slugsControlados = new Set(indice.restritos.filter((item) => item.tipo === "controlados").map((item) => item.slug));
-      const lista = indice.grupos.flatMap((grupo) => grupo.itens.flatMap((item) => item.slug && typeof item.preco === "number" && !(grupo.categoria === "Medicamentos" && slugsControlados.has(item.slug)) ? [{ slug: item.slug, nome: item.nomeExibicao ?? item.nome ?? item.slug, preco: item.preco, isMIP: item.isMIP, categoria: grupo.categoria }] : []));
-      const medicamentosComReceita = indice.restritos.flatMap((item) => item.tipo === "receita" && !item.controlado && !item.esgotado && item.slug && typeof item.preco === "number"
+      const lista = indice.grupos.flatMap((grupo) => grupo.itens.flatMap((item) => item.slug && typeof item.preco === "number" ? [{ slug: item.slug, nome: item.nomeExibicao ?? item.nome ?? item.slug, preco: item.preco, isMIP: item.isMIP, categoria: grupo.categoria }] : []));
+      const medicamentosRestritos = indice.restritos.flatMap((item) => (item.tipo === "receita" || item.tipo === "controlados") && !item.esgotado && item.slug && typeof item.preco === "number"
         ? [{ slug: item.slug, nome: item.nomeExibicao ?? item.nome, preco: item.preco, isMIP: false, categoria: "Medicamentos" }]
         : []);
-      setProdutos([...lista, ...medicamentosComReceita]);
+      setProdutos([...lista, ...medicamentosRestritos]);
       setLinhas((dados.promocoes as PromocaoQuantidade[]).map((p) => ({ id: idNovo(), slug: p.slug, quantidade: String(p.quantidade), preco: (p.precoUnitarioCentavos / 100).toFixed(2) })));
     }).catch(() => setAviso("Não consegui carregar os produtos e promoções. Atualize a página."));
   }, []);
@@ -52,7 +51,7 @@ export default function PainelLevePague({ nivel = 1 }: { /** 1 = h1 (página pr�
     <section className="painel-leve-pague" aria-labelledby="leve-pague-titulo">
       {nivel === 2 ? <h2 id="leve-pague-titulo">Leve mais e pague menos</h2> : <h1 id="leve-pague-titulo">Leve mais e pague menos</h1>}
       <p>Escolha os produtos, a quantidade mínima e o preço de cada unidade na promoção. O preço normal continua valendo para quantidades menores.</p>
-      <p className="painel-leve-pague__nota">Medicamentos controlados ficam fora. Medicamentos sob prescrição não controlados podem ser selecionados.</p>
+      <p className="painel-leve-pague__nota">Todos os medicamentos do catálogo podem ser selecionados. Defina as quantidades e os preços promocionais manualmente.</p>
       {linhas.map((linha) => {
         const produto = porSlug.get(linha.slug);
         return (
