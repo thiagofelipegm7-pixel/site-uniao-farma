@@ -10,6 +10,7 @@ import { abrirReserva } from "./abrir-reserva";
 import { adicionar, atualizarReserva, definirQtd, idDoItem, qtdDoItem, tetoDoItem } from "./reserva-store";
 import { useReserva } from "./useReserva";
 import VisualizacaoRapida from "./VisualizacaoRapida";
+import type { RegraPromocaoQuantidade } from "../promocao-quantidade-tipos";
 
 type Props = {
   unitId: string;
@@ -32,7 +33,7 @@ type Props = {
   rotulo?: string;
   /** Unidades que restam na loja (1 a 5): a cesta não passa disso. */
   max?: number;
-  promocao?: { quantidade: number; precoUnitarioCentavos: number };
+  promocao?: RegraPromocaoQuantidade;
 };
 
 /** Botão "+" que adiciona à cesta. Sem texto do produto no analytics. */

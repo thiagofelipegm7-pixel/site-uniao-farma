@@ -6,6 +6,7 @@ import SemFoto from "./SemFoto";
 import { formatarQuantidade } from "./quantidade";
 import { marcaDeProduto, marcaLegivel } from "./marca";
 import { formatarCentavos } from "../../reserva/reserva-store";
+import { faixaAplicavel, faixasDaPromocao, type RegraPromocaoQuantidade } from "../../promocao-quantidade-tipos";
 import "../../shop/product-cards-online.css";
 
 /** Classificação do medicamento mostrada na segunda linha ("Med. Genérico", "Controlado"). Sem "com/sem receita": isso já vai nos avisos legais. Vazio para produtos comuns. */
@@ -76,7 +77,7 @@ type Props = {
   /** Atributo `data-tipo` e classe extra. */
   classe?: string;
   tipo?: string;
-  levePague?: { quantidade: number; precoUnitarioCentavos: number };
+  levePague?: RegraPromocaoQuantidade;
 };
 
 /**
@@ -89,6 +90,7 @@ export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medi
   // Medicamento: "Lab. Cimed". Produto comum: "Marca Dove" se o nome cita a marca; senão o fabricante do cadastro ("Fab. Procter").
   const marcaDoNome = medicamento ? "" : marcaDeProduto(nome);
   const linhaMarca = medicamento ? (marca?.trim() ? `Lab. ${marcaLegivel(marca)}` : "") : marcaDoNome ? `Marca ${marcaDoNome}` : marca?.trim() ? `Fab. ${marcaLegivel(marca)}` : "";
+  const faixaUmaUnidade = faixaAplicavel(levePague, 1);
   const corpo = (
     <>
       <span className="pv-img">
@@ -110,8 +112,13 @@ export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medi
           </span>
         ) : null}
       </span>
-      {levePague ? <span className="pv-leve-pague"><strong>Leve + pague menos</strong><span>Leve {levePague.quantidade} e pague {formatarCentavos(levePague.precoUnitarioCentavos)} cada</span></span> : null}
-      {oferta ? (
+      {levePague ? <span className="pv-leve-pague"><strong>Leve + pague menos</strong><span>{faixasDaPromocao(levePague).map((faixa) => `${faixa.quantidade} un. ${formatarCentavos(faixa.precoUnitarioCentavos)}/un.`).join(" · ")}</span></span> : null}
+      {faixaUmaUnidade && precoFmt ? (
+        <span className="pv-preco-oferta">
+          <span className="pv-preco-antigo-linha"><span className="pv-preco-antigo-texto">Preço normal <del className="pv-preco-anterior">{precoFmt}</del></span><span className="pv-economia">PROMOÇÃO</span></span>
+          <span className="pv-preco-atual-linha"><span className="pv-preco-label">Por</span><Preco precoFmt={formatarCentavos(faixaUmaUnidade.precoUnitarioCentavos)} variante="oferta" /></span>
+        </span>
+      ) : oferta ? (
         <span className="pv-preco-oferta">
           {precoAnteriorFmt ? (
             <span className="pv-preco-antigo-linha">

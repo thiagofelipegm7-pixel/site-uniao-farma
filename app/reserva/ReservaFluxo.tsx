@@ -23,6 +23,7 @@ import { avisosDaCesta } from "../disponibilidade";
 import { podeCompartilhar, prepararReceita, type ReceitaPronta } from "./preparar-receita";
 import { normalizarTelefone, TEXTO_CONSENTIMENTO } from "./lembrete-recompra";
 import { AJUDA_AVISO_RETIRADA, TEXTO_AVISO_RETIRADA } from "../retirada";
+import { faixaAplicavel, proximaFaixa } from "../promocao-quantidade-tipos";
 
 type Passo = 1 | 2 | 3;
 const BAIRROS = listarBairros(PUBLIC_UNITS);
@@ -274,7 +275,7 @@ export default function ReservaFluxo() {
             <li key={item.id}>
               <div className="entrega-item-prod">
                 <span className="fluxo-item-foto">{item.foto ? <img src={item.foto} alt="" width="52" height="52" /> : null}<b className="fluxo-item-qtd" aria-hidden="true">{item.qtd}</b></span>
-                <strong className="fluxo-item-nome">{item.nome}{item.receita ? <span className="fluxo-item-receita">{item.receita === "controlado" ? "Controlado · receita retida" : "Exige receita"}</span> : null}{item.promocao ? <span className="fluxo-item-receita">{item.qtd >= item.promocao.quantidade ? `Leve ${item.promocao.quantidade}, pague ${formatarCentavos(item.promocao.precoUnitarioCentavos)} cada — aplicado` : `Leve ${item.promocao.quantidade}, pague ${formatarCentavos(item.promocao.precoUnitarioCentavos)} cada`}</span> : null}</strong>
+                <strong className="fluxo-item-nome">{item.nome}{item.receita ? <span className="fluxo-item-receita">{item.receita === "controlado" ? "Controlado · receita retida" : "Exige receita"}</span> : null}{faixaAplicavel(item.promocao, item.qtd) ? <span className="fluxo-item-receita">Faixa de {faixaAplicavel(item.promocao, item.qtd)?.quantidade} unidades aplicada</span> : proximaFaixa(item.promocao, item.qtd) ? <span className="fluxo-item-receita">Leve {proximaFaixa(item.promocao, item.qtd)?.quantidade}, pague {formatarCentavos(proximaFaixa(item.promocao, item.qtd)?.precoUnitarioCentavos ?? 0)} cada</span> : null}</strong>
                 {avisoDe(item.id)?.tipo === "acabou" ? <span className="fluxo-aviso-estoque" role="alert">Acabou na loja agora. Volte e tire este item da cesta.</span> : null}
               </div>
               <span className="entrega-item-preco">{formatarCentavos(precoUnitarioReserva(item))}</span>

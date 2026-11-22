@@ -14,6 +14,7 @@ import { useDisponibilidade } from "./useDisponibilidade";
 import { avisosDaCesta } from "../disponibilidade";
 import CestaSugestoes from "./CestaSugestoes";
 import { ligarArrastarParaFechar } from "./arrastar-para-fechar";
+import { faixaAplicavel, proximaFaixa } from "../promocao-quantidade-tipos";
 
 const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
@@ -164,6 +165,8 @@ export default function ReservaSacola() {
                   // Preço "De" riscado só quando já veio confirmado no dado, e nunca em medicamento com receita ou controlado (Anvisa).
                   const riscado = temPreco && !item.receita && item.deCentavos && item.deCentavos > item.precoCentavos ? item.deCentavos * item.qtd : null;
                   const teto = Math.max(tetoDoItem(item), item.qtd);
+                  const faixaAtiva = faixaAplicavel(item.promocao, item.qtd);
+                  const proxima = proximaFaixa(item.promocao, item.qtd);
                   return (
                     <li key={item.id} className="cm-item">
                       <span className="cm-foto">
@@ -178,12 +181,12 @@ export default function ReservaSacola() {
                         </div>
                         <small className="cm-loja">União Farma</small>
                         {item.receita ? <small className="cm-receita">{item.receita === "controlado" ? "Controlado: retirada na loja com receita" : "Exige receita: retirada na loja"}</small> : null}
-                        {item.promocao ? <small className="cm-loja">{item.qtd >= item.promocao.quantidade ? `Leve ${item.promocao.quantidade}, pague ${formatarCentavos(item.promocao.precoUnitarioCentavos)} cada — aplicado` : `Leve ${item.promocao.quantidade}, pague ${formatarCentavos(item.promocao.precoUnitarioCentavos)} cada`}</small> : null}
+                        {faixaAtiva ? <small className="cm-loja">Faixa de {faixaAtiva.quantidade} un. aplicada: {formatarCentavos(faixaAtiva.precoUnitarioCentavos)} cada</small> : proxima ? <small className="cm-loja">Leve {proxima.quantidade}, pague {formatarCentavos(proxima.precoUnitarioCentavos)} cada</small> : null}
                         {avisos.some((a) => a.id === item.id && a.tipo === "acabou") ? <small className="fluxo-aviso-estoque" role="alert">Acabou na loja agora</small> : null}
                         <div className="cm-linha-preco">
                           <span className="cm-preco">
                             {riscado ? <s>{formatarCentavos(riscado)}</s> : null}
-                            {item.promocao && item.qtd < item.promocao.quantidade ? <small>Leve {item.promocao.quantidade}, pague {formatarCentavos(item.promocao.precoUnitarioCentavos)} cada</small> : null}
+                            {proxima ? <small>Próxima faixa: {proxima.quantidade} un. por {formatarCentavos(proxima.precoUnitarioCentavos)} cada</small> : null}
                             <strong>{temPreco ? formatarCentavos(precoUnitarioReserva(item) * item.qtd) : "Consultar"}</strong>
                           </span>
                           <BotaoCesta quantidade={item.qtd} teto={teto} nome={item.nome} aoAdicionar={() => undefined} aoMudar={(n) => atualizarReserva((s) => definirQtd(s, item.id, n))} />

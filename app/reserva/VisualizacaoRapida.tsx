@@ -4,6 +4,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { formatarCentavos, MAX_POR_ITEM } from "./reserva-store";
+import { faixaAplicavel, faixasDaPromocao, proximaFaixa, type RegraPromocaoQuantidade } from "../promocao-quantidade-tipos";
 import "./visualizacao-rapida.css";
 
 type Props = {
@@ -15,7 +16,7 @@ type Props = {
   slug?: string;
   receita?: "receita" | "controlado";
   max?: number;
-  promocao?: { quantidade: number; precoUnitarioCentavos: number };
+  promocao?: RegraPromocaoQuantidade;
   onClose: () => void;
   onAdicionar: (quantidade: number) => void;
   onAbrirCesta: () => void;
@@ -29,8 +30,9 @@ export default function VisualizacaoRapida({ open, nome, precoCentavos, deCentav
   const [adicionado, setAdicionado] = useState(false);
   const limite = typeof max === "number" && max >= 1 ? Math.min(MAX_POR_ITEM, Math.floor(max)) : MAX_POR_ITEM;
   const desconto = deCentavos && deCentavos > precoCentavos ? Math.round((deCentavos - precoCentavos) / deCentavos * 100) : null;
-  const promoAtiva = promocao && quantidade >= promocao.quantidade;
-  const precoExibido = promoAtiva ? promocao.precoUnitarioCentavos : precoCentavos;
+  const faixaAtiva = faixaAplicavel(promocao, quantidade);
+  const proxima = proximaFaixa(promocao, quantidade);
+  const precoExibido = faixaAtiva?.precoUnitarioCentavos ?? precoCentavos;
 
   useEffect(() => {
     const dialogo = dialogRef.current;
@@ -88,7 +90,7 @@ export default function VisualizacaoRapida({ open, nome, precoCentavos, deCentav
               {deCentavos && deCentavos > precoCentavos ? <del>{formatarCentavos(deCentavos)}</del> : null}
               {desconto ? <span>{desconto}% OFF</span> : null}
             </div>
-            {promocao ? <p className="uf-quick-view__promo">{promoAtiva ? `Promoção aplicada: ${formatarCentavos(promocao.precoUnitarioCentavos)} cada.` : `Leve ${promocao.quantidade} e pague ${formatarCentavos(promocao.precoUnitarioCentavos)} cada. Adicione mais ${promocao.quantidade - quantidade} para ativar.`}</p> : null}
+            {promocao ? <p className="uf-quick-view__promo">{faixasDaPromocao(promocao).map((faixa) => `${faixa.quantidade} un.: ${formatarCentavos(faixa.precoUnitarioCentavos)} cada`).join(" · ")}{faixaAtiva ? ` — faixa de ${faixaAtiva.quantidade} aplicada.` : ""}{proxima ? ` Adicione mais ${proxima.quantidade - quantidade} para chegar à próxima faixa.` : ""}</p> : null}
             <p className="uf-quick-view__nota">Preço e disponibilidade serão confirmados pela loja ao concluir o pedido.</p>
             {receita ? (
               <p className="uf-quick-view__receita">
