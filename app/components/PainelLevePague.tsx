@@ -21,8 +21,12 @@ export default function PainelLevePague() {
       carregarBuscaIndex(),
       fetch("/api/interno/promocoes-quantidade", { cache: "no-store" }).then((r) => r.ok ? r.json() : Promise.reject()),
     ]).then(([indice, dados]) => {
-      const lista = indice.grupos.flatMap((grupo) => grupo.itens.flatMap((item) => item.slug && typeof item.preco === "number" ? [{ slug: item.slug, nome: item.nomeExibicao ?? item.nome ?? item.slug, preco: item.preco, isMIP: item.isMIP, categoria: grupo.categoria }] : []));
-      setProdutos(lista);
+      const slugsControlados = new Set(indice.restritos.filter((item) => item.tipo === "controlados").map((item) => item.slug));
+      const lista = indice.grupos.flatMap((grupo) => grupo.itens.flatMap((item) => item.slug && typeof item.preco === "number" && !(grupo.categoria === "Medicamentos" && slugsControlados.has(item.slug)) ? [{ slug: item.slug, nome: item.nomeExibicao ?? item.nome ?? item.slug, preco: item.preco, isMIP: item.isMIP, categoria: grupo.categoria }] : []));
+      const medicamentosComReceita = indice.restritos.flatMap((item) => item.tipo === "receita" && !item.controlado && !item.esgotado && item.slug && typeof item.preco === "number"
+        ? [{ slug: item.slug, nome: item.nomeExibicao ?? item.nome, preco: item.preco, isMIP: false, categoria: "Medicamentos" }]
+        : []);
+      setProdutos([...lista, ...medicamentosComReceita]);
       setLinhas((dados.promocoes as PromocaoQuantidade[]).map((p) => ({ id: idNovo(), slug: p.slug, quantidade: String(p.quantidade), preco: (p.precoUnitarioCentavos / 100).toFixed(2) })));
     }).catch(() => setAviso("Não consegui carregar os produtos e promoções. Atualize a página."));
   }, []);
@@ -48,7 +52,7 @@ export default function PainelLevePague() {
     <section className="painel-leve-pague" aria-labelledby="leve-pague-titulo">
       <h1 id="leve-pague-titulo">Leve mais e pague menos</h1>
       <p>Escolha os produtos, a quantidade mínima e o preço de cada unidade na promoção. O preço normal continua valendo para quantidades menores.</p>
-      <p className="painel-leve-pague__nota">Medicamentos com receita e controlados não entram nessa promoção.</p>
+      <p className="painel-leve-pague__nota">Medicamentos controlados ficam fora. Medicamentos sob prescrição não controlados podem ser selecionados.</p>
       {linhas.map((linha) => {
         const produto = porSlug.get(linha.slug);
         return (
@@ -56,7 +60,7 @@ export default function PainelLevePague() {
             <label>Produto
               <select value={linha.slug} onChange={(e) => setLinhas((atuais) => atuais.map((x) => x.id === linha.id ? { ...x, slug: e.target.value } : x))}>
                 <option value="">Selecione um produto</option>
-                {produtos.filter((p) => !p.categoria?.includes("Medicamentos") || p.isMIP).map((p) => <option key={p.slug} value={p.slug}>{p.nome}</option>)}
+                {produtos.map((p) => <option key={p.slug} value={p.slug}>{p.nome}</option>)}
               </select>
             </label>
             <label>Leve

@@ -15,6 +15,7 @@ import ShopTopo from "../../shop/ShopTopo";
 import BotaoVoz from "../../shop/BotaoVoz";
 import { buildWhatsAppUrl, getHoursSentence, UNITS } from "../../site-config";
 import { formatBRL, slugify } from "./catalogo";
+import type { PromocaoQuantidade } from "../../promocao-quantidade-tipos";
 import {
   imagemIlustrativa,
   type ItemRestrito,
@@ -64,7 +65,7 @@ const TEXTOS: Record<TipoRestrito, { titulo: string; h1: string; intro: string; 
 };
 
 
-export function Cartao({ item }: { item: ItemRestrito }) {
+export function Cartao({ item, levePague }: { item: ItemRestrito; levePague?: PromocaoQuantidade }) {
   const nome = item.nomeExibicao ?? item.nome;
   const pedeCesta = item.tipo !== "consulte" && item.preco !== null && item.preco > 0 && !item.esgotado;
   return (
@@ -79,6 +80,7 @@ export function Cartao({ item }: { item: ItemRestrito }) {
       apresentacao={quantidadeLegivel(item.apresentacao)}
       foto={item.controlado ? imagemIlustrativa(item) : (fotoDoProduto(item.nome) ?? imagemIlustrativa(item))}
       precoFmt={item.preco !== null ? formatBRL(item.preco) : null}
+      levePague={levePague}
       precoVazio={item.semVenda ? "Consulte o farmacêutico" : undefined}
       restam={item.restam}
       esgotado={item.esgotado}
@@ -93,6 +95,8 @@ export function Cartao({ item }: { item: ItemRestrito }) {
             receita={item.controlado ? "controlado" : "receita"}
             variante="cartao"
             max={item.restam}
+            slug={item.slug}
+            promocao={levePague}
           />
         ) : null
       }
@@ -105,7 +109,14 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
   const [consulta, setConsulta] = useState("");
   const [pagina, setPagina] = useState(1);
   const [todos, setTodos] = useState<ItemRestrito[]>([]);
+  const [promocoes, setPromocoes] = useState<Record<string, PromocaoQuantidade>>({});
   const [data, setData] = useState<string | null>(null);
+  useEffect(() => {
+    if (tipo !== "receita") return;
+    fetch("/api/promocoes-quantidade", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).then((dados: { promocoes?: PromocaoQuantidade[] } | null) => {
+      if (dados?.promocoes) setPromocoes(Object.fromEntries(dados.promocoes.map((p) => [p.slug, p])));
+    }).catch(() => undefined);
+  }, [tipo]);
   // Falso até a lista inteira chegar: antes disso a tela mostra "Buscando…", nunca "0 itens" nem "nenhum encontrado".
   const [carregado, setCarregado] = useState(false);
   useEffect(() => {
@@ -199,7 +210,7 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
           ) : (
             <ul className="catalogo-lista pv-grade">
               {pag.itens.map((item) => (
-                <Cartao key={`${item.nome}|${item.lab}|${item.preco}`} item={item} />
+                <Cartao key={`${item.nome}|${item.lab}|${item.preco}`} item={item} levePague={item.slug ? promocoes[item.slug] : undefined} />
               ))}
             </ul>
           )}

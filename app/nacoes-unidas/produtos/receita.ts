@@ -6,7 +6,8 @@ import receitaEstatica from "./dados/receita-nacoes.json" with { type: "json" };
 import { normalizarBusca } from "./busca";
 
 /**
- * Medicamentos com receita, controlados e itens "consulte o farmacêutico": lista de preços, sem oferta e sem destaque. Receita e controlados
+ * Medicamentos com receita, controlados e itens "consulte o farmacêutico": lista de preços. Ofertas por quantidade podem ser cadastradas
+ * manualmente para medicamentos com receita e não controlados; os controlados permanecem sem oferta. Receita e controlados
  * entram na cesta só para retirada na loja com a receita; "consulte" fica sem cesta.
  * Fonte: JSON estático (export do DMaster + tarja, princípio ativo e registro da lista pública CMED/Anvisa; ver ops/catalogo-nacoes/gerar.py).
  * Princípio ativo, registro (RMS) e tarja só aparecem quando vêm de vínculo seguro com a CMED/Anvisa (ou, no caso do ativo dos controlados, da

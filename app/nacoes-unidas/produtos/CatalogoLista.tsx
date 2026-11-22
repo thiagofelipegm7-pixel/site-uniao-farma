@@ -346,7 +346,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
 
   /** Cartão de um item da lista (o mesmo na lista principal e nos "parecidos em estoque"). */
   const renderCartao = (item: (typeof itensDaPagina)[number]) => {
-    if (item.restrito) return <CartaoRestrito key={item.id ?? item.nome} item={item.restrito} />;
+    if (item.restrito) return <CartaoRestrito key={item.id ?? item.nome} item={item.restrito} levePague={item.slug ? promocoesQuantidade[item.slug] : undefined} />;
     const nome = nomeDeExibicao(item.nome);
     const href = `/nacoes-unidas/produtos/${item.slug ?? slugify(item.nome)}`;
     const centavos = precoParaCentavos(item.precoFmt);
