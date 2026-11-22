@@ -769,3 +769,7 @@ body:has(.nav-interna) { background: #ffffff; }
 
 /* Aviso de confirmação ("Nome salvo…"): é uma mensagem de sucesso, então usa o verde-menta da paleta, não o amarelo de alerta. */
 .painel-fotos .pf-aviso { background: var(--pf-ok); border-color: #7fc4b8; color: var(--pf-ok-texto); }
+
+/* Selo "unidades" em estoque normal: verde #22A05A com letras brancas. */
+.painel-fotos .pf-card .pf-qtd-normal,
+.painel-fotos .pf-qtd-normal { background: #22a05a; color: #ffffff; }
