@@ -15,19 +15,22 @@ type Props = {
   slug?: string;
   receita?: "receita" | "controlado";
   max?: number;
+  promocao?: { quantidade: number; precoUnitarioCentavos: number };
   onClose: () => void;
   onAdicionar: (quantidade: number) => void;
   onAbrirCesta: () => void;
 };
 
 /** Prévia leve do produto: confirma quantidade e escolha antes de atualizar a cesta. */
-export default function VisualizacaoRapida({ open, nome, precoCentavos, deCentavos, foto, slug, receita, max, onClose, onAdicionar, onAbrirCesta }: Props) {
+export default function VisualizacaoRapida({ open, nome, precoCentavos, deCentavos, foto, slug, receita, max, promocao, onClose, onAdicionar, onAbrirCesta }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const abrirCestaAposFechar = useRef(false);
   const [quantidade, setQuantidade] = useState(1);
   const [adicionado, setAdicionado] = useState(false);
   const limite = typeof max === "number" && max >= 1 ? Math.min(MAX_POR_ITEM, Math.floor(max)) : MAX_POR_ITEM;
   const desconto = deCentavos && deCentavos > precoCentavos ? Math.round((deCentavos - precoCentavos) / deCentavos * 100) : null;
+  const promoAtiva = promocao && quantidade >= promocao.quantidade;
+  const precoExibido = promoAtiva ? promocao.precoUnitarioCentavos : precoCentavos;
 
   useEffect(() => {
     const dialogo = dialogRef.current;
@@ -81,10 +84,11 @@ export default function VisualizacaoRapida({ open, nome, precoCentavos, deCentav
             <p className="uf-quick-view__eyebrow">Visualização rápida</p>
             <h2 id="uf-quick-view-titulo">{nome}</h2>
             <div className="uf-quick-view__precos">
-              <strong>{formatarCentavos(precoCentavos)}</strong>
+              <strong>{formatarCentavos(precoExibido)}</strong>
               {deCentavos && deCentavos > precoCentavos ? <del>{formatarCentavos(deCentavos)}</del> : null}
               {desconto ? <span>{desconto}% OFF</span> : null}
             </div>
+            {promocao ? <p className="uf-quick-view__promo">{promoAtiva ? `Promoção aplicada: ${formatarCentavos(promocao.precoUnitarioCentavos)} cada.` : `Leve ${promocao.quantidade} e pague ${formatarCentavos(promocao.precoUnitarioCentavos)} cada. Adicione mais ${promocao.quantidade - quantidade} para ativar.`}</p> : null}
             <p className="uf-quick-view__nota">Preço e disponibilidade serão confirmados pela loja ao concluir o pedido.</p>
             {receita ? (
               <p className="uf-quick-view__receita">

@@ -16,7 +16,7 @@ import { carregarUltimoPedido, guardarUltimoPedido, repetirPedido, type ItemCata
 import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats, IconCestaArte, IconCaminhaoArte, IconFinalizarArte } from "./ReservaIcons";
 import CestaSugestoes from "./CestaSugestoes";
 import DestaquesSemana from "../shop/DestaquesSemana";
-import { gerarCodigoPedido, trocoValido, ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens, exigeReceita } from "./reserva-store";
+import { gerarCodigoPedido, trocoValido, ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, precoUnitarioReserva, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens, exigeReceita } from "./reserva-store";
 import { useReserva } from "./useReserva";
 import { useDisponibilidade } from "./useDisponibilidade";
 import { avisosDaCesta } from "../disponibilidade";
@@ -265,12 +265,12 @@ export default function ReservaFluxo() {
             <li key={item.id}>
               <div className="entrega-item-prod">
                 <span className="fluxo-item-foto">{item.foto ? <img src={item.foto} alt="" width="52" height="52" /> : null}<b className="fluxo-item-qtd" aria-hidden="true">{item.qtd}</b></span>
-                <strong className="fluxo-item-nome">{item.nome}{item.receita ? <span className="fluxo-item-receita">{item.receita === "controlado" ? "Controlado · receita retida" : "Exige receita"}</span> : null}</strong>
+                <strong className="fluxo-item-nome">{item.nome}{item.receita ? <span className="fluxo-item-receita">{item.receita === "controlado" ? "Controlado · receita retida" : "Exige receita"}</span> : null}{item.promocao ? <span className="fluxo-item-receita">{item.qtd >= item.promocao.quantidade ? `Leve ${item.promocao.quantidade}, pague ${formatarCentavos(item.promocao.precoUnitarioCentavos)} cada — aplicado` : `Leve ${item.promocao.quantidade}, pague ${formatarCentavos(item.promocao.precoUnitarioCentavos)} cada`}</span> : null}</strong>
                 {avisoDe(item.id)?.tipo === "acabou" ? <span className="fluxo-aviso-estoque" role="alert">Acabou na loja agora. Volte e tire este item da cesta.</span> : null}
               </div>
-              <span className="entrega-item-preco">{formatarCentavos(item.precoCentavos)}</span>
+              <span className="entrega-item-preco">{formatarCentavos(precoUnitarioReserva(item))}</span>
               <span className="entrega-item-qtd">{item.qtd} {item.qtd === 1 ? "unidade" : "unidades"}</span>
-              <b className="entrega-item-total">{formatarCentavos(item.precoCentavos * item.qtd)}</b>
+              <b className="entrega-item-total">{formatarCentavos(precoUnitarioReserva(item) * item.qtd)}</b>
             </li>
           ))}
         </ul>
@@ -383,7 +383,7 @@ export default function ReservaFluxo() {
                       <div className="cel-preco">
                         {temDe ? <span className="fluxo-item-tag">↓ {Math.round((1 - item.precoCentavos / item.deCentavos!) * 100)}%</span> : null}
                         {temDe ? <s className="fluxo-item-de">{formatarCentavos(item.deCentavos!)}</s> : null}
-                        <b>{formatarCentavos(item.precoCentavos)}</b>
+                        <b>{formatarCentavos(precoUnitarioReserva(item))}</b>
                       </div>
                       <div className="cel-qtd">
                         <div className="reservar-contador fluxo-contador" role="group" aria-label={`Quantidade de ${item.nome}`}>
@@ -394,7 +394,7 @@ export default function ReservaFluxo() {
                       </div>
                       <div className="cel-total">
                         {temDe ? <s className="fluxo-item-de">{formatarCentavos(item.deCentavos! * item.qtd)}</s> : null}
-                        <b>{formatarCentavos(item.precoCentavos * item.qtd)}</b>
+                        <b>{formatarCentavos(precoUnitarioReserva(item) * item.qtd)}</b>
                       </div>
                       <div className="cel-remover">
                         <button type="button" className="fluxo-lixeira" aria-label={`Remover ${item.nome} da cesta`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, 0))}><IconLixeira size={20} /></button>

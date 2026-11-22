@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import PainelPromocoes from "../../components/PainelPromocoes";
+import PainelLevePague from "../../components/PainelLevePague";
 
 export const metadata: Metadata = {
   title: "Promoções",
@@ -7,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function PromocoesInternoPage() {
-  return <PainelPromocoes />;
+  return <><PainelLevePague /><PainelPromocoes /></>;
 }

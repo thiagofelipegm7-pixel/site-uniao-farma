@@ -90,3 +90,4 @@
 @media (prefers-reduced-motion: reduce) {
   .uf-quick-view__botao { transition: none; }
 }
+.uf-quick-view__promo { margin: -0.25rem 0 0.75rem; color: #126b50; font-size: 0.9375rem; font-weight: 650; line-height: 1.4; }

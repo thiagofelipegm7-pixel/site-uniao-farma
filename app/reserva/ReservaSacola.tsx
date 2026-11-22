@@ -8,7 +8,7 @@ import { EVENTO_ABRIR_RESERVA } from "./abrir-reserva";
 import { IconFechar, IconLixeira, IconCestaArte } from "./ReservaIcons";
 import SemFoto from "../nacoes-unidas/produtos/SemFoto";
 import "./cesta-modal.css";
-import { ajustarLimitesAoVivo, atualizarReserva, definirQtd, itemAtivo, tetoDoItem, formatarCentavos, limpar, subtotalCentavos, totalItens } from "./reserva-store";
+import { ajustarLimitesAoVivo, atualizarReserva, definirQtd, itemAtivo, tetoDoItem, formatarCentavos, limpar, precoUnitarioReserva, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
 import { useDisponibilidade } from "./useDisponibilidade";
 import { avisosDaCesta } from "../disponibilidade";
@@ -178,11 +178,13 @@ export default function ReservaSacola() {
                         </div>
                         <small className="cm-loja">União Farma</small>
                         {item.receita ? <small className="cm-receita">{item.receita === "controlado" ? "Controlado: retirada na loja com receita" : "Exige receita: retirada na loja"}</small> : null}
+                        {item.promocao ? <small className="cm-loja">{item.qtd >= item.promocao.quantidade ? `Leve ${item.promocao.quantidade}, pague ${formatarCentavos(item.promocao.precoUnitarioCentavos)} cada — aplicado` : `Leve ${item.promocao.quantidade}, pague ${formatarCentavos(item.promocao.precoUnitarioCentavos)} cada`}</small> : null}
                         {avisos.some((a) => a.id === item.id && a.tipo === "acabou") ? <small className="fluxo-aviso-estoque" role="alert">Acabou na loja agora</small> : null}
                         <div className="cm-linha-preco">
                           <span className="cm-preco">
                             {riscado ? <s>{formatarCentavos(riscado)}</s> : null}
-                            <strong>{temPreco ? formatarCentavos(item.precoCentavos * item.qtd) : "Consultar"}</strong>
+                            {item.promocao && item.qtd < item.promocao.quantidade ? <small>Leve {item.promocao.quantidade}, pague {formatarCentavos(item.promocao.precoUnitarioCentavos)} cada</small> : null}
+                            <strong>{temPreco ? formatarCentavos(precoUnitarioReserva(item) * item.qtd) : "Consultar"}</strong>
                           </span>
                           <BotaoCesta quantidade={item.qtd} teto={teto} nome={item.nome} aoAdicionar={() => undefined} aoMudar={(n) => atualizarReserva((s) => definirQtd(s, item.id, n))} />
                         </div>

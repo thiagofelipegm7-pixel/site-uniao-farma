@@ -138,3 +138,12 @@ html body .shop-destaques--ofertas .shop-ofertas-nota { margin-top: 0.25rem; }
   .pv-nome-palavra, .pv-card:hover .pv-nome-palavra, .pv-corpo:focus-visible .pv-nome-palavra,
   .pv-preco--oferta, html body .shop-destaques-lista > .pv-card--v { transform: none; animation: none; transition: none; filter: none; text-shadow: none; }
 }
+.pv-leve-pague {
+  display: grid;
+  gap: 0.125rem;
+  margin: 0.25rem 0 0.5rem;
+  color: #126b50;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+}
+.pv-leve-pague strong { font-weight: 700; }

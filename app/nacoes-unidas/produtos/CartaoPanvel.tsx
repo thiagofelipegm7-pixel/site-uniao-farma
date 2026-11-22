@@ -5,6 +5,7 @@ import Preco from "./Preco";
 import SemFoto from "./SemFoto";
 import { formatarQuantidade } from "./quantidade";
 import { marcaDeProduto, marcaLegivel } from "./marca";
+import { formatarCentavos } from "../../reserva/reserva-store";
 import "../../shop/product-cards-online.css";
 
 /** Classificação do medicamento mostrada na segunda linha ("Med. Genérico", "Controlado"). Sem "com/sem receita": isso já vai nos avisos legais. Vazio para produtos comuns. */
@@ -75,6 +76,7 @@ type Props = {
   /** Atributo `data-tipo` e classe extra. */
   classe?: string;
   tipo?: string;
+  levePague?: { quantidade: number; precoUnitarioCentavos: number };
 };
 
 /**
@@ -82,7 +84,7 @@ type Props = {
  * preço e botão largo "Adicionar" no pé. Abaixo do nome, até três linhas com ícone (quantidade, "Med. Genérico" e "Lab. Cimed"), como nas farmácias grandes. Sem selo de programa, sem "De/Por" e sem % OFF quando
  * o catálogo não tem preço de antes: o que a União não tem fica em branco.
  */
-export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medicamento = false, classificacao = null, apresentacao, precoFmt, precoAnteriorFmt, descontoPct, oferta = false, cesta, esgotado = false, avisos, extra, vertical = false, novo = false, classe = "", tipo }: Props) {
+export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medicamento = false, classificacao = null, apresentacao, precoFmt, precoAnteriorFmt, descontoPct, oferta = false, cesta, esgotado = false, avisos, extra, vertical = false, novo = false, classe = "", tipo, levePague }: Props) {
   const apresentacaoLegivel = formatarQuantidade(apresentacao);
   // Medicamento: "Lab. Cimed". Produto comum: "Marca Dove" se o nome cita a marca; senão o fabricante do cadastro ("Fab. Procter").
   const marcaDoNome = medicamento ? "" : marcaDeProduto(nome);
@@ -108,6 +110,7 @@ export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medi
           </span>
         ) : null}
       </span>
+      {levePague ? <span className="pv-leve-pague"><strong>Leve + pague menos</strong><span>Leve {levePague.quantidade} e pague {formatarCentavos(levePague.precoUnitarioCentavos)} cada</span></span> : null}
       {oferta ? (
         <span className="pv-preco-oferta">
           {precoAnteriorFmt ? (

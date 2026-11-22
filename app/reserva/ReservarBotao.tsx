@@ -32,10 +32,11 @@ type Props = {
   rotulo?: string;
   /** Unidades que restam na loja (1 a 5): a cesta não passa disso. */
   max?: number;
+  promocao?: { quantidade: number; precoUnitarioCentavos: number };
 };
 
 /** Botão "+" que adiciona à cesta. Sem texto do produto no analytics. */
-export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos, foto, source = "catalogo", compacto = false, receita, variante, rotulo = "Adicionar", max, slug }: Props) {
+export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos, foto, source = "catalogo", compacto = false, receita, variante, rotulo = "Adicionar", max, slug, promocao }: Props) {
   const estado = useReserva();
   const id = idDoItem(unitId, nome);
   const qtd = qtdDoItem(estado, id);
@@ -53,7 +54,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
   const acrescentar = (opcoes?: { abrirCesta?: boolean; gatilho?: HTMLElement | null }, quantidade = 1) => {
     // Preço 0 (ou inválido) não entra na cesta: não dispara analytics nem abre o modal.
     if (!(precoCentavos > 0)) return;
-    atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, deCentavos, foto, ...(receita ? { receita } : {}), ...(max ? { max } : {}), ...(slug ? { slug } : {}) }, quantidade));
+    atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, deCentavos, foto, ...(promocao ? { promocao } : {}), ...(receita ? { receita } : {}), ...(max ? { max } : {}), ...(slug ? { slug } : {}) }, quantidade));
     trackEvent("reserva_add", { unit: unitId, source });
     registrarEtapa("add");
     if (opcoes?.abrirCesta) abrirReserva(opcoes.gatilho);
@@ -90,6 +91,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
           slug={slug}
           receita={receita}
           max={max}
+          promocao={promocao}
           onClose={() => setVisualizacaoAberta(false)}
           onAdicionar={(quantidade) => acrescentar(undefined, quantidade)}
           onAbrirCesta={() => abrirReserva(maisRef.current)}
