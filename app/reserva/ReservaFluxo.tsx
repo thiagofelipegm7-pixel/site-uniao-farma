@@ -243,8 +243,17 @@ export default function ReservaFluxo() {
           <h1>Minha cesta</h1>
         </header>
         <div className="fluxo-vazio">
-          <strong>Sua cesta está vazia.</strong>
-          <p>Escolha seus produtos e pague só quando retirar.</p>
+          {enviado ? (
+            <>
+              <strong>Sua cesta foi limpa.</strong>
+              <p>O pedido foi preparado no WhatsApp. Confira a conversa e toque em enviar para concluir.</p>
+            </>
+          ) : (
+            <>
+              <strong>Sua cesta está vazia.</strong>
+              <p>Escolha seus produtos e pague só quando retirar.</p>
+            </>
+          )}
           {ultimo.length > 0 ? (
             <button type="button" className="fluxo-botao fluxo-botao-repetir" disabled={repetindo} onClick={repetir}>
               {repetindo ? "Procurando seus produtos…" : `Repetir meu último pedido (${ultimo.reduce((n, i) => n + i.qtd, 0)} ${ultimo.reduce((n, i) => n + i.qtd, 0) === 1 ? "item" : "itens"})`}
@@ -278,12 +287,16 @@ export default function ReservaFluxo() {
   );
 
   const temControlado = estado.itens.some((i) => itemAtivo(i) && (i.receita === "controlado" || /ritalina|controlado/i.test(i.nome)));
-  function confirmarEnvio() {
+  function concluirEnvio() {
     registrarPreVenda();
-    setAvisoReceita(false);
     guardarUltimoPedido(estado.itens.filter(itemAtivo));
     registrarEtapa("enviar");
     setEnviado(true);
+    atualizarReserva(limpar);
+  }
+  function confirmarEnvio() {
+    concluirEnvio();
+    setAvisoReceita(false);
     window.open(href, "_blank");
   }
   const enviarWhats = (classe: string) => acabaram.length > 0 ? (
@@ -298,7 +311,7 @@ export default function ReservaFluxo() {
         <IconWhats size={24} /> Enviar pedido pelo WhatsApp
       </button>
     ) : (
-      <a className={classe} href={href} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unidade.id} data-track-source="reserva_envio" onClick={() => { registrarPreVenda(); guardarUltimoPedido(estado.itens.filter(itemAtivo)); registrarEtapa("enviar"); setEnviado(true); }}>
+      <a className={classe} href={href} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unidade.id} data-track-source="reserva_envio" onClick={concluirEnvio}>
         <IconWhats size={24} /> Enviar pedido pelo WhatsApp
       </a>
     )
