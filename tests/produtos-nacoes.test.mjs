@@ -145,8 +145,9 @@ test("página de produto: slug, volume, textos só quando existem e Product sem 
 
 test("página de produto: estrutura, noindex só fora do Google, sem texto de saúde inventado e barra de reserva", async () => {
   const read = (arquivo) => readFile(new URL(`../${arquivo}`, import.meta.url), "utf8");
-  const [pagina, barra, css, lista, sacola] = await Promise.all([
+  const [pagina, galeria, barra, css, lista, sacola] = await Promise.all([
     read("app/nacoes-unidas/produtos/[slug]/page.tsx"),
+    read("app/nacoes-unidas/produtos/GaleriaProduto.tsx"),
     read("app/nacoes-unidas/produtos/ProdutoBarra.tsx"),
     read("app/nacoes-unidas/produtos/produtos.css"),
     read("app/nacoes-unidas/produtos/CatalogoLista.tsx"),
@@ -170,7 +171,8 @@ test("página de produto: estrutura, noindex só fora do Google, sem texto de sa
   assert.match(pagina, /Perguntas frequentes/);
   assert.doesNotMatch(pagina, /AVISO_MIP/, "avisos de venda ficam só na foto e no WhatsApp");
   assert.match(pagina, /jsonLdProduto/);
-  assert.match(pagina, /width="420"/);
+  assert.match(pagina, /GaleriaProduto/);
+  assert.match(galeria, /width="420"/);
   assert.doesNotMatch(pagina, /ácido hialurônico|pele seca|aggregateRating|availability/);
   assert.match(barra, /Adicionar à cesta/);
   assert.match(barra, /Ver cesta/);

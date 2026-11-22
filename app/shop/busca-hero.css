@@ -1,0 +1,71 @@
+/* Animação da borda da busca: um único traço verde-água percorre a pílula. */
+@layer design {
+  html body .shop-header .shop-busca .shop-busca-orbita {
+    display: none !important;
+    position: absolute !important;
+    pointer-events: none !important;
+  }
+
+  @supports ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
+    html body .shop-header .shop-busca { border-color: transparent !important; }
+
+    html body .shop-header .shop-busca .shop-busca-orbita {
+      --busca-anel: 2px;
+      --busca-anel-base: #e5e9f6;
+      --busca-traco: 49, 168, 157;
+      display: block !important;
+      inset: calc(-1 * var(--busca-anel)) !important;
+      z-index: 3;
+      box-sizing: border-box !important;
+      width: auto !important;
+      height: auto !important;
+      margin: 0 !important;
+      padding: var(--busca-anel) !important;
+      border: 0 !important;
+      border-radius: inherit !important;
+      background: var(--busca-anel-base) !important;
+      overflow: hidden !important;
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      mask-composite: exclude;
+      container-type: size;
+    }
+
+    html body .shop-header .shop-busca .shop-busca-orbita::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 142%;
+      width: calc(100cqw + 100cqh);
+      aspect-ratio: 1;
+      background: conic-gradient(from 0deg, rgba(var(--busca-traco), 1) 0deg, rgba(var(--busca-traco), 0) 180deg, rgba(var(--busca-traco), 0) 360deg);
+      transform: translate(-50%, -50%) rotate(0deg);
+      filter: drop-shadow(0 0 3px rgba(var(--busca-traco), 0.52));
+      animation: busca-traco-giro 2.8s linear infinite, busca-traco-pulsa 2.3s ease-in-out infinite;
+      will-change: transform, opacity, filter;
+      pointer-events: none;
+    }
+  }
+}
+
+@keyframes busca-traco-giro {
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes busca-traco-pulsa {
+  0% { opacity: 0.7; filter: drop-shadow(0 0 2px rgba(49, 168, 157, 0.32)); animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); }
+  8% { opacity: 1; filter: drop-shadow(0 0 10px rgba(49, 168, 157, 0.95)); animation-timing-function: cubic-bezier(0.5, 0, 0.8, 0.2); }
+  14% { opacity: 0.7; filter: drop-shadow(0 0 2px rgba(49, 168, 157, 0.32)); animation-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); }
+  21% { opacity: 0.96; filter: drop-shadow(0 0 8px rgba(49, 168, 157, 0.82)); animation-timing-function: cubic-bezier(0.5, 0, 0.8, 0.2); }
+  28% { opacity: 0.74; filter: drop-shadow(0 0 2px rgba(49, 168, 157, 0.34)); }
+  48% { opacity: 0.8; filter: drop-shadow(0 0 4px rgba(49, 168, 157, 0.48)); }
+  100% { opacity: 0.7; filter: drop-shadow(0 0 2px rgba(49, 168, 157, 0.32)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @layer design {
+    html body .shop-header .shop-busca .shop-busca-orbita::before { animation: none !important; display: none !important; }
+  }
+}

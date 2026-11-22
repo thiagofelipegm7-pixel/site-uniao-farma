@@ -15,6 +15,7 @@ import {
   telefoneE164,
 } from "../../../lalamove";
 import { ErroUber, configUber, criarClienteUber, entregadorUber, mensagemErroUber, precoUber, uberModoTeste } from "../../../uber-direct";
+import { ErroMotoboysBh, configMotoboysBh, criarClienteMotoboysBh, mensagemErroMotoboysBh, motoboysBhModoTeste } from "../../../motoboys-bh";
 
 export const dynamic = "force-dynamic";
 const SEM_CACHE = { "cache-control": "no-store" };
@@ -29,8 +30,9 @@ type Statement = {
 };
 type Banco = { exec(sql: string): Promise<unknown>; prepare(sql: string): Statement };
 
-type Provedor = "lalamove" | "uber";
-const NOME_PROVEDOR: Record<Provedor, string> = { lalamove: "Lalamove", uber: "Uber Direct" };
+type Provedor = "lalamove" | "uber" | "motoboysbh";
+const NOME_PROVEDOR: Record<Provedor, string> = { lalamove: "Lalamove", uber: "Uber Direct", motoboysbh: "Motoboys BH" };
+const PROVEDORES: Provedor[] = ["lalamove", "uber", "motoboysbh"];
 
 type Linha = {
   id: string;
@@ -88,15 +90,20 @@ async function prepararTabela(db: Banco) {
 }
 
 function provedorDa(l: Linha): Provedor {
-  return l.provedor === "uber" ? "uber" : "lalamove";
+  return l.provedor === "uber" || l.provedor === "motoboysbh" ? l.provedor : "lalamove";
 }
 
 const uber = () => {
   const cfg = configUber(segredo);
   return cfg ? criarClienteUber(cfg) : null;
 };
-const configurado = (p: Provedor) => (p === "uber" ? Boolean(configUber(segredo)) : lalamoveConfigurado());
-const modoTeste = (p: Provedor) => (p === "uber" ? uberModoTeste(segredo) : lalamoveModoTeste());
+const motoboysBh = () => {
+  const cfg = configMotoboysBh(segredo);
+  return cfg ? criarClienteMotoboysBh(cfg) : null;
+};
+const configurado = (p: Provedor) =>
+  p === "uber" ? Boolean(configUber(segredo)) : p === "motoboysbh" ? Boolean(configMotoboysBh(segredo)) : lalamoveConfigurado();
+const modoTeste = (p: Provedor) => (p === "uber" ? uberModoTeste(segredo) : p === "motoboysbh" ? motoboysBhModoTeste(segredo) : lalamoveModoTeste());
 
 function publico(l: Linha) {
   let precoDetalhe: Record<string, unknown> | null = null;
@@ -106,7 +113,9 @@ function publico(l: Linha) {
     precoDetalhe = null;
   }
   // Prazo só quando o provedor informa na cotação (o Uber manda minutos e horário previsto; a Lalamove não).
+  // A Motoboys BH manda só o tempo de trajeto simulado, que vai em trajetoMin (não é prazo de entrega).
   const prazoMin = Number(precoDetalhe?.duration);
+  const trajetoMin = Number(precoDetalhe?.trajetoMin);
   return {
     id: l.id,
     provedor: provedorDa(l),
@@ -122,6 +131,7 @@ function publico(l: Linha) {
     precoDetalhe,
     distanciaM: l.distancia_m,
     prazoMin: Number.isFinite(prazoMin) && prazoMin > 0 ? prazoMin : null,
+    trajetoMin: Number.isFinite(trajetoMin) && trajetoMin > 0 ? trajetoMin : null,
     previsaoEntrega: typeof precoDetalhe?.dropoff_eta === "string" ? precoDetalhe.dropoff_eta : null,
     cotacaoExpiraEm: l.cotacao_expira_em,
     clienteNome: l.cliente_nome,
@@ -156,6 +166,14 @@ function erroDoUber(e: unknown) {
   return falha("falha_uber", "Não foi possível falar com a Uber agora. Tente de novo em instantes.", 502);
 }
 
+function erroDaMotoboysBh(e: unknown) {
+  if (e instanceof ErroMotoboysBh) {
+    const status = e.status === 429 ? 429 : e.status >= 400 && e.status < 500 ? 422 : 502;
+    return falha(e.codigo, mensagemErroMotoboysBh(e.codigo), status);
+  }
+  return falha("falha_motoboysbh", "Não foi possível falar com a Motoboys BH agora. Tente de novo em instantes.", 502);
+}
+
 const COLETA = { nome: COLETA_LOJA.nome, lat: COLETA_LOJA.lat, lng: COLETA_LOJA.lng, telefone: COLETA_LOJA.telefone };
 // Situações do Uber em que ainda dá para cancelar sem o pedido ter saído da loja.
 const UBER_CANCELAVEL = new Set(["pending", "pickup"]);
@@ -171,6 +189,8 @@ export async function GET(request: Request) {
   const provedores = {
     lalamove: { configurado: configurado("lalamove"), sandbox: modoTeste("lalamove") },
     uber: { configurado: configurado("uber"), sandbox: modoTeste("uber") },
+    // Motoboys BH só cota pela API; a chamada do motoboy ainda é no painel dela (chamadaManual).
+    motoboysbh: { configurado: configurado("motoboysbh"), sandbox: modoTeste("motoboysbh"), chamadaManual: true },
   };
   // configurado/sandbox de primeiro nível continuam sendo os da Lalamove, como antes do Uber.
   const base = { configurado: provedores.lalamove.configurado, sandbox: provedores.lalamove.sandbox, provedores, coleta: { nome: COLETA_LOJA.nome, endereco: COLETA_LOJA.endereco } };
@@ -205,9 +225,29 @@ async function cotarCom(provedor: Provedor, db: Banco, p: {
   preVendaId: string | null;
   codigo: string | null;
   agora: string;
+  cep: string;
 }): Promise<Cotada | FalhaProvedor> {
   const enderecoCompleto = p.complemento ? `${p.endereco} (${p.complemento})` : p.endereco;
   const id = crypto.randomUUID();
+  if (provedor === "motoboysbh") {
+    const cliente = motoboysBh();
+    if (!cliente) return { provedor, erro: "nao_configurado", mensagem: mensagemErroMotoboysBh("nao_configurado"), status: 503 };
+    let cotacao;
+    try {
+      // Só "Calcular Serviço": simulação do frete, sem criar serviço nem chamar motoboy.
+      const cep = /^\d{8}$/.test(p.cep) ? `${p.cep.slice(0, 5)}-${p.cep.slice(5)}` : "";
+      cotacao = await cliente.cotar({ lat: p.lat, lng: p.lng, endereco: p.endereco, complemento: p.complemento, cep });
+    } catch (e) {
+      const r = erroDaMotoboysBh(e);
+      const j = (await r.json()) as { erro: string; mensagem: string };
+      return { provedor, erro: j.erro, mensagem: j.mensagem, status: r.status };
+    }
+    const detalhe = { trajetoMin: cotacao.trajetoMin, modalidades: cotacao.modalidades, obs: cotacao.obs };
+    await db.prepare("INSERT INTO entrega_lalamove (id, provedor, pre_venda_id, codigo, endereco, complemento, encontrado, lat, lng, preco_total, moeda, preco_json, distancia_m, status, sandbox, criado_em, atualizado_em) VALUES (?, 'motoboysbh', ?, ?, ?, ?, ?, ?, ?, ?, 'BRL', ?, ?, 'cotada', ?, ?, ?)")
+      .bind(id, p.preVendaId, p.codigo, p.endereco, p.complemento || null, p.encontrado, p.lat, p.lng, cotacao.total, JSON.stringify(detalhe), cotacao.distanciaM,
+        modoTeste("motoboysbh") ? 1 : 0, p.agora, p.agora).run();
+    return { provedor, linha: await buscar(db, id) };
+  }
   if (provedor === "uber") {
     const cliente = uber();
     if (!cliente) return { provedor, erro: "nao_configurado", mensagem: mensagemErroUber("nao_configurado"), status: 503 };
@@ -250,10 +290,10 @@ export async function POST(request: Request) {
   const acao = corpo?.acao;
   if (!corpo || typeof acao !== "string") return falha("pedido_invalido", "Pedido inválido.", 400);
 
-  // Sem provedor no pedido vale a Lalamove, como era antes do Uber.
-  const pedido = corpo.provedor === "uber" || corpo.provedor === "ambos" ? corpo.provedor : "lalamove";
+  // Sem provedor no pedido vale a Lalamove, como era antes do Uber. "ambos" (nome antigo) compara todos os ligados.
+  const pedido = corpo.provedor === "uber" || corpo.provedor === "motoboysbh" || corpo.provedor === "ambos" ? corpo.provedor : "lalamove";
   if (acao === "cotar") {
-    const pedidos: Provedor[] = pedido === "ambos" ? (["lalamove", "uber"] as Provedor[]).filter(configurado) : [pedido];
+    const pedidos: Provedor[] = pedido === "ambos" ? PROVEDORES.filter(configurado) : [pedido];
     if (pedido === "ambos" && pedidos.length === 0) return falha("nao_configurado", "Nenhuma integração de entrega configurada.", 503);
     if (pedido !== "ambos" && !configurado(pedido)) return falha("nao_configurado", `Integração ${NOME_PROVEDOR[pedido]} não configurada.`, 503);
   }
@@ -283,8 +323,9 @@ export async function POST(request: Request) {
     }
     const preVendaId = ID_VALIDO.test(texto(corpo.preVendaId, 36)) ? texto(corpo.preVendaId, 36) : null;
     const codigo = /^[A-Z0-9]{4}$/.test(texto(corpo.codigo, 4).toUpperCase()) ? texto(corpo.codigo, 4).toUpperCase() : null;
-    const provedores: Provedor[] = pedido === "ambos" ? (["lalamove", "uber"] as Provedor[]).filter(configurado) : [pedido];
-    const resultados = await Promise.all(provedores.map((p) => cotarCom(p, db, { endereco, complemento, encontrado, lat, lng, preVendaId, codigo, agora })));
+    const provedores: Provedor[] = pedido === "ambos" ? PROVEDORES.filter(configurado) : [pedido];
+    const cep = texto(corpo.cep, 16).replace(/\D/g, "");
+    const resultados = await Promise.all(provedores.map((p) => cotarCom(p, db, { endereco, complemento, encontrado, lat, lng, preVendaId, codigo, agora, cep })));
     const cotacoes = resultados.filter((r): r is Cotada => "linha" in r && Boolean(r.linha)).map((r) => publico(r.linha as Linha));
     const falhas = resultados.filter((r): r is FalhaProvedor => "erro" in r);
     if (cotacoes.length === 0) {
@@ -301,6 +342,9 @@ export async function POST(request: Request) {
   if (!linha) return falha("nao_encontrada", "Entrega não encontrada.", 404);
   const provedor = provedorDa(linha);
   if (!configurado(provedor)) return falha("nao_configurado", `Integração ${NOME_PROVEDOR[provedor]} não configurada.`, 503);
+
+  // Motoboys BH: a API só cota por enquanto. Chamar, atualizar e cancelar são feitos no painel da Motoboys BH.
+  if (provedor === "motoboysbh") return falha("chamada_manual", mensagemErroMotoboysBh("chamada_manual"), 409);
 
   if (acao === "chamar") {
     if (linha.order_id) return falha("ja_chamado", "Essa entrega já foi chamada.", 409);

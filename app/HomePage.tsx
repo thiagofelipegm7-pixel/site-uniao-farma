@@ -7,8 +7,9 @@ import { getPageStructuredData } from "./structured-data";
 import CabecalhoInteligente from "./shop/CabecalhoInteligente";
 import ShopHeader from "./shop/ShopHeader";
 import DestaquesSemana from "./shop/DestaquesSemana";
+import OfertasSemana from "./shop/OfertasSemana";
 import PainelBanners from "./shop/PainelBanners";
-import { FaixaInfo, SubmenuHome } from "./shop/HomeBlocos";
+import { FaixaInfo } from "./shop/HomeBlocos";
 import { CategoriasLinha } from "./shop/ShopSections";
 import { MarcasLinha } from "./shop/MarcasLinha";
 import CestaRetomada from "./shop/CestaRetomada";
@@ -32,19 +33,20 @@ export default function HomePage() {
       <CabecalhoInteligente>
         <ShopHeader />
         <FaixaInfo />
-        <SubmenuHome />
       </CabecalhoInteligente>
       <PainelBanners titulo="Farmácia em Sabará: União Farma Nações Unidas" />
       <CestaRetomada />
-      <CategoriasLinha />
+      <OfertasSemana />
       <VistoRecentemente />
       <DestaquesSemana posicao={0} id="vitrine-higiene" titulo="Cuidado Diário" grupo="cuidado-diario" n={12} verTodas={false} source="home_higiene" />
-      <DestaquesSemana posicao={1} id="vitrine-pele" titulo="Dermocosméticos" grupo="dermocosmeticos" n={12} verTodas={false} source="home_pele" />
-      <DestaquesSemana posicao={2} id="vitrine-sem-receita" titulo="Medicamentos" grupo="medicamentos" n={12} verTodas={false} source="home_mips" />
-      <DestaquesSemana posicao={3} id="vitrine-suplementos" titulo="Bem Estar" grupo="bem-estar" n={12} verTodas={false} source="home_suplementos" />
-      <DestaquesSemana posicao={4} id="vitrine-ate-10" titulo="Até R$ 10,00" ate={1000} n={12} verTodas={false} source="home_ate_10" />
+      <DestaquesSemana posicao={1} id="vitrine-farmax" titulo="Farmax" lab="FARMAX" n={12} verTodas={false} source="home_farmax" />
+      <DestaquesSemana posicao={2} id="vitrine-pele" titulo="Dermocosméticos" grupo="dermocosmeticos" n={12} verTodas={false} source="home_pele" />
+      <DestaquesSemana posicao={3} id="vitrine-sem-receita" titulo="Medicamentos" grupo="medicamentos" n={12} verTodas={false} source="home_mips" />
+      <CategoriasLinha />
+      <DestaquesSemana posicao={4} id="vitrine-suplementos" titulo="Bem Estar" grupo="bem-estar" n={12} verTodas={false} source="home_suplementos" />
+      <DestaquesSemana posicao={5} id="vitrine-dove" titulo="Dove" lab="DOVE" n={12} verTodas={false} source="home_dove" />
+      <DestaquesSemana posicao={6} id="vitrine-ate-10" titulo="Até R$ 10,00" ate={1000} n={12} verTodas={false} source="home_ate_10" />
       <MarcasLinha />
-      <DestaquesSemana posicao={5} id="vitrine-farmax" titulo="Farmax" lab="FARMAX" n={12} verTodas={false} source="home_farmax" />
       {/* Invisível: mantém a página de novidades ligada à home sem mudar o visual. */}
       <a className="sr-only" href="/novidades">Novidades da União Farma</a>
     </>

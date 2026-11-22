@@ -123,8 +123,6 @@ export default function PainelCatalogo() {
 
   const c = dados?.catalogo;
   const pc = dados?.pc;
-  const ultimoDelta = pc?.historico?.find((e) => e.tipo === "delta" || e.tipo === "completo") ?? null;
-  const mudancasUltimo = ultimoDelta ? ultimoDelta.aplicados + ultimoDelta.removidos : null;
 
   return (
     <div className="metrics-page painel-catalogo">
@@ -157,31 +155,6 @@ export default function PainelCatalogo() {
                 </p>
               </div>
             </section>
-
-
-            <div className="metrics-grid">
-              <article className="metrics-card">
-                <strong>Última mudança de estoque/preço</strong>
-                <span className="painel-valor">{formatarQuandoBRT(pc?.mudancaEm || pc?.geradoEm || c.geradoEm)}</span>
-                <small>
-                  {mudancasUltimo !== null && mudancasUltimo > 0
-                    ? mudancasUltimo === 1
-                      ? "1 produto na última atualização"
-                      : `${mudancasUltimo} produtos na última atualização`
-                    : "Quando o PC manda uma alteração"}
-                </small>
-              </article>
-              <article className="metrics-card">
-                <strong>Produtos no PC</strong>
-                <span className="painel-valor">{pc?.total ?? c.total}</span>
-                <small>No site (sem receita): {c.total}</small>
-              </article>
-              <article className="metrics-card">
-                <strong>Último sinal do PC</strong>
-                <span className="painel-valor">{formatarIdade(pc?.idadeBatimentoHoras ?? c.idadeHoras)}</span>
-                <small>{formatarQuandoBRT(pc?.batimentoEm || c.geradoEm)}</small>
-              </article>
-            </div>
           </>
         ) : null}
       </div>

@@ -22,18 +22,21 @@ test("public store routes stay on one URL each", async () => {
   assert.match(company, /28\.455\.556\/0001-91/);
 });
 
-test("home: cabeçalho que encolhe ao rolar e pílula de abas fixa, só no desktop e com movimento reduzido respeitado", async () => {
-  const [home, comp, css] = await Promise.all([
+test("home: cabeçalho que encolhe ao rolar, Departamentos no cabeçalho principal e movimento reduzido respeitado", async () => {
+  const [home, header, comp, css] = await Promise.all([
     readFile(new URL("../app/HomePage.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/shop/ShopHeader.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/shop/CabecalhoInteligente.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/shop/shop.css", import.meta.url), "utf8"),
   ]);
-  assert.match(home, /<CabecalhoInteligente>[\s\S]*<ShopHeader \/>[\s\S]*<SubmenuHome \/>[\s\S]*<\/CabecalhoInteligente>/);
+  assert.match(home, /<CabecalhoInteligente>[\s\S]*<ShopHeader \/>[\s\S]*<FaixaInfo \/>[\s\S]*<\/CabecalhoInteligente>/);
+  // PR #494: o menu Departamentos (SubmenuHome) passou para a faixa principal do cabeçalho.
+  assert.match(header, /<SubmenuHome \/>/);
+  assert.doesNotMatch(home, /<SubmenuHome \/>/);
   assert.match(comp, /dataset\.cabRolado/);
   assert.match(comp, /passive: true/);
   assert.doesNotMatch(css, /shop-faixa-topo/);
   assert.match(css, /html\[data-cab-rolado="sim"\] \.cab-fixo \.shop-submenu/);
-  assert.match(css, /\.shop-abas \{ position: sticky;/);
   assert.match(css, /\.cab-espaco, \.cab-fixo \{ display: contents; \}/);
   assert.match(css, /@media \(min-width: 992px\) and \(prefers-reduced-motion: reduce\)/);
 });
@@ -45,7 +48,10 @@ test("home: 'Navegue por categoria' é faixa horizontal com cards menores e scro
   ]);
   assert.match(sec, /shop-categorias-trilho/);
   assert.match(sec, /Navegue por categoria/);
-  assert.match(sec, /\/categorias\/medicamentos\.jpg/);
+  // PR #492: a faixa mostra temas de saúde (diabetes, coração, rins...), não o card de Medicamentos.
+  assert.match(sec, /\/categorias\/diabetes\.jpg/);
+  assert.match(sec, /Cuidados com diabetes/);
+  assert.doesNotMatch(sec, /\/categorias\/medicamentos\.jpg/);
   // Pedido da loja: sem card "Ofertas" na faixa (página /ofertas permanece).
   assert.doesNotMatch(sec, /rotulo: "Ofertas"/);
   assert.doesNotMatch(sec, /href: "\/ofertas"/);
@@ -125,9 +131,9 @@ test("home: sem painel de abas Para você / Saúde / Beleza", async () => {
   assert.doesNotMatch(home, /AbasHome/);
   assert.doesNotMatch(home, /shop-abas/);
   assert.doesNotMatch(blocos, /export function AbasHome/);
-  // Departamentos Saúde/Beleza continuam acessíveis pela faixa de categorias / gaveta.
-  assert.match(await readFile(new URL("../app/shop/ShopSections.tsx", import.meta.url), "utf8"), /departamentos\/medicamentos/);
-  assert.match(await readFile(new URL("../app/shop/ShopSections.tsx", import.meta.url), "utf8"), /departamentos\/beleza/);
+  // Departamentos Saúde/Beleza continuam no menu Departamentos (gaveta), não na faixa de temas de saúde.
+  assert.match(await readFile(new URL("../app/shop/DepartamentosGaveta.tsx", import.meta.url), "utf8"), /departamentos\/medicamentos/);
+  assert.match(await readFile(new URL("../app/shop/DepartamentosGaveta.tsx", import.meta.url), "utf8"), /departamentos\/beleza/);
 });
 
 test("submenu desktop: sem Enviar para e sem Ofertas Exclusivas; Departamentos permanece", async () => {

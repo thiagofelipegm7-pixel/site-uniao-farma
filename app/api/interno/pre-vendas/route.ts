@@ -1,4 +1,6 @@
 import { banco } from "../../../estoque-fonte";
+import type { Banco as BancoCompleto } from "../../../nomes-corrigidos";
+import { garantirColunasRetirada } from "../../../retirada";
 
 export const dynamic = "force-dynamic";
 const SEM_CACHE = { "cache-control": "no-store" };
@@ -66,7 +68,10 @@ export async function PATCH(request: Request) {
   const db = banco() as Banco | null;
   if (!db) return Response.json({ ok: false, erro: "sem_banco" }, { status: 503, headers: SEM_CACHE });
   await prepararTabela(db);
-  const resultado = await db.prepare("UPDATE pre_venda SET status = ?, atualizado_em = ? WHERE id = ?")
+  await garantirColunasRetirada(db as unknown as BancoCompleto);
+  // Concluída ou cancelada: o WhatsApp do aviso de retirada não serve mais e é apagado.
+  const encerrada = status === "concluida" || status === "cancelada";
+  const resultado = await db.prepare(`UPDATE pre_venda SET status = ?, atualizado_em = ?${encerrada ? ", aviso_telefone = NULL" : ""} WHERE id = ?`)
     .bind(status, new Date().toISOString(), id).run();
   if (!resultado.meta?.changes) return Response.json({ ok: false, erro: "nao_encontrada" }, { status: 404, headers: SEM_CACHE });
   return Response.json({ ok: true }, { headers: SEM_CACHE });

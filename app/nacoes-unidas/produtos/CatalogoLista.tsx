@@ -9,6 +9,8 @@ import { nomeDeExibicao } from "../../nome-exibicao";
 import { IconFechar, IconFiltro } from "../../reserva/ReservaIcons";
 import ReservarBotao from "../../reserva/ReservarBotao";
 import { precoParaCentavos } from "../../reserva/reserva-store";
+import { useDisponibilidade } from "../../reserva/useDisponibilidade";
+import { aplicarEstoqueVivo } from "../../disponibilidade";
 import {
   aplicarCatalogo,
   contarItens,
@@ -52,6 +54,7 @@ import { useBuscaTolerante } from "./useBuscaTolerante";
 import { carregarBuscaIndex, estadoDaLista, grupoRestritos, gruposDoIndice } from "./busca-index";
 import EsqueletoGrade from "./EsqueletoGrade";
 import { FaixaLista, LateralTopo } from "./ListaDrogasil";
+import type { PromocaoQuantidade } from "../../promocao-quantidade-tipos";
 
 type Props = {
   /** Texto vindo do campo de busca do cabeçalho (?q=). */
@@ -80,6 +83,15 @@ function alternar(lista: readonly string[] | undefined, valor: string): string[]
  */
 export default function CatalogoLista({ grupos: gruposProps, departamento, whatsappHref, unitId, consultaInicial = "", paginaInicial = 1 }: Props) {
   const [grupos, setGrupos] = useState(gruposProps);
+  const [promocoesQuantidade, setPromocoesQuantidade] = useState<Record<string, PromocaoQuantidade>>({});
+  useEffect(() => {
+    let cancel = false;
+    fetch("/api/promocoes-quantidade", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).then((dados: { promocoes?: PromocaoQuantidade[] } | null) => {
+      if (cancel || !dados?.promocoes) return;
+      setPromocoesQuantidade(Object.fromEntries(dados.promocoes.map((p) => [p.slug, p])));
+    }).catch(() => undefined);
+    return () => { cancel = true; };
+  }, []);
   // Falso até o catálogo inteiro estar na tela: a correção de digitação só vale com a lista completa.
   const [carregado, setCarregado] = useState(false);
   useEffect(() => {
@@ -158,11 +170,19 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     })();
     return () => { cancel = true; };
   }, [gruposProps, departamento]);
-  const base = useMemo(() => identificarItens(grupos), [grupos]);
+  // Estoque de agora (PC da loja) por cima da publicação: produto que voltou aparece, e o que acabou sai.
+  const mudou = useDisponibilidade(true);
+  const gruposVivos = useMemo(() => grupos.map((g) => ({ ...g, itens: g.itens.map((i) => aplicarEstoqueVivo(i, mudou)) })), [grupos, mudou]);
+  const base = useMemo(() => identificarItens(gruposVivos), [gruposVivos]);
   // A página é estática: o termo vem da barra de endereço (?q=fralda) depois que a página abre.
   const [consulta, setConsulta] = useState(consultaInicial);
+  const [consultaExata, setConsultaExata] = useState(false);
   useEffect(() => {
-    const ler = () => setConsulta((new URLSearchParams(window.location.search).get("q") ?? "").slice(0, 80));
+    const ler = () => {
+      const params = new URLSearchParams(window.location.search);
+      setConsulta((params.get("q") ?? "").slice(0, 80));
+      setConsultaExata(params.get("exata") === "1");
+    };
     ler();
     window.addEventListener("popstate", ler);
     return () => window.removeEventListener("popstate", ler);
@@ -203,7 +223,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
     [completo, base],
   );
   const totalExato = useMemo(() => (consulta.trim() ? filtrarGrupos(base, consulta).reduce((soma, g) => soma + g.itens.length, 0) : 1), [base, consulta]);
-  const tolerante = useBuscaTolerante({ textos: textosBusca, consulta, totalExato });
+  const tolerante = useBuscaTolerante({ textos: textosBusca, consulta, totalExato, usarIA: !consultaExata, exata: consultaExata });
   const sintomaComProdutos = tolerante.tipo === "sintoma" && tolerante.consultas?.length ? tolerante : null;
   const consultasAlternativas = tolerante.tipo === "corrigida" || tolerante.tipo === "parcial" ? tolerante.consultas : sintomaComProdutos?.consultas;
 
@@ -326,10 +346,11 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
 
   /** Cartão de um item da lista (o mesmo na lista principal e nos "parecidos em estoque"). */
   const renderCartao = (item: (typeof itensDaPagina)[number]) => {
-    if (item.restrito) return <CartaoRestrito key={item.id ?? item.nome} item={item.restrito} />;
+    if (item.restrito) return <CartaoRestrito key={item.id ?? item.nome} item={item.restrito} levePague={item.slug ? promocoesQuantidade[item.slug] : undefined} />;
     const nome = nomeDeExibicao(item.nome);
     const href = `/nacoes-unidas/produtos/${item.slug ?? slugify(item.nome)}`;
     const centavos = precoParaCentavos(item.precoFmt);
+    const levePague = item.slug ? promocoesQuantidade[item.slug] : undefined;
     return (
       <CartaoPanvel
         key={item.id ?? item.nome}
@@ -343,7 +364,8 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
         precoFmt={item.precoFmt}
         restam={item.restam}
         esgotado={item.esgotado}
-        cesta={centavos && !item.esgotado ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cartao" max={item.restam} slug={item.slug} /> : null}
+        levePague={levePague}
+        cesta={centavos && !item.esgotado ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cartao" max={item.restam} slug={item.slug} promocao={levePague} /> : null}
       />
     );
   };

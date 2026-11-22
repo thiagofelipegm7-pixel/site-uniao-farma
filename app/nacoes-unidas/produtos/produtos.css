@@ -829,7 +829,7 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
   }
 }
 
-/* Listas de preços de medicamentos com receita e controlados: sem cesta, sem oferta, sem destaque. */
+/* Cartões restritos: ofertas por quantidade são configuráveis manualmente no painel. */
 .catalogo-nacoes .restrito-selo {
   display: inline-block;
   margin: 0 0 6px;

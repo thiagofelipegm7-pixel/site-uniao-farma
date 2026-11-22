@@ -173,10 +173,10 @@ function sessaoExpirou(r: Response) {
 }
 
 function irParaLogin() {
-  window.location.href = "/interno/entrar?next=%2Finterno%2Fpromocoes";
+  window.location.href = `/interno/entrar?next=${encodeURIComponent(window.location.pathname + window.location.search)}`;
 }
 
-export default function PainelPromocoes() {
+export default function PainelPromocoes({ modo = "completo", nivel = 1 }: { /** "fotos": só as artes do carrossel. "destinos": só para onde cada banner leva. */ modo?: "completo" | "fotos" | "destinos"; nivel?: 1 | 2 } = {}) {
   const [aviso, setAviso] = useState("");
   const [atuais, setAtuais] = useState<Banner[]>([]);
   const [destinos, setDestinos] = useState<Record<string, string>>({});
@@ -254,14 +254,16 @@ export default function PainelPromocoes() {
   return (
     <section className="pm-pagina">
       <header className="pm-cabeca">
-        <h1>Promoções</h1>
+        {modo === "fotos" ? (nivel === 2 ? <h2>Banners</h2> : <h1>Banners</h1>) : (nivel === 2 ? <h2>Promoções</h2> : <h1>Promoções</h1>)}
+        {modo === "destinos" ? <p>Defina para onde cada banner da página inicial leva. As artes dos banners ficam na página Fotos.</p> : (
         <p>É o carrossel da página inicial, do jeito que o cliente vê. Toque num banner para enviar ou trocar a arte dele e use as setas para ver os {BANNERS_PRINCIPAIS.length}. No site só aparecem os banners que têm arte. Tamanho máximo de cada arte: {MAX_ARQUIVO_TEXTO} (se passar, o painel tenta diminuir sozinho).</p>
+        )}
       </header>
       {aviso ? <p className="pm-aviso" role="status">{aviso}</p> : null}
-      <section className="pm-previa" aria-label="Carrossel da página inicial">
+      {modo !== "destinos" ? <section className="pm-previa" aria-label="Carrossel da página inicial">
         <PainelBanners fonte={previa} aoEnviar={(b, arquivo) => void enviar(b.id, arquivo)} />
-      </section>
-      {atuais.length ? (
+      </section> : null}
+      {modo !== "fotos" && atuais.length ? (
         <section className="pm-destinos" aria-label="Produto de cada banner">
           <h2>Para onde cada banner leva</h2>
           <p>Escreva o termo de busca (ex.: Personal Baby): o clique no banner abre a busca do catálogo com ele. Sem termo, vale o produto escolhido (página do produto).</p>

@@ -192,8 +192,12 @@ test("departamentos: cada categoria do catálogo tem a sua página e o menu apon
   const tiles = await read("app/shop/ShopSections.tsx");
   for (const d of DEPARTAMENTOS.filter((x) => !x.provisorio)) {
     assert.ok(gaveta.includes(`/departamentos/${d.slug}`), `gaveta: ${d.slug}`);
-    assert.ok(tiles.includes(`/departamentos/${d.slug}`), `carrossel: ${d.slug}`);
   }
+  // A faixa da home (PR #492) mostra temas de saúde, não o carrossel de todos os departamentos.
+  assert.match(tiles, /Navegue por categoria/);
+  assert.match(tiles, /Cuidados com diabetes/);
+  assert.match(tiles, /\/categorias\/diabetes\.jpg/);
+  assert.doesNotMatch(tiles, /\/departamentos\/medicamentos/);
   const provisorios = DEPARTAMENTOS.filter((x) => x.provisorio);
   assert.ok(provisorios.some((d) => d.slug === "categoria-a-conferir"));
   const paginaDep = await read("app/departamentos/[slug]/page.tsx");
@@ -383,7 +387,9 @@ test("nomes legíveis: o gerador e o site expandem abreviações do mesmo jeito,
   const { nomeDeExibicao } = await import("../app/nome-exibicao.ts");
   assert.equal(nomeDeExibicao("SH J&J BABY CAB CACHEADO"), "Shampoo J&j Baby cabelo Cacheado");
   assert.equal(nomeDeExibicao("FRALDA PAMPERS SUPSEQUI MEGA G 34UN"), "Fralda Pampers Supsequi Mega G 34UN");
-  assert.equal(nomeDeExibicao("CREME DE CACAU 230 GRS."), "Creme de Cacau 230 g.");
+  // Nome sintético: "CREME DE CACAU 230 GRS." é produto real e o painel pode sobrescrever
+  // nomes-corrigidos.json na sincronização (em 21/11 virou "Creme de Cacau 230 g Casulov").
+  assert.equal(nomeDeExibicao("CREME DE TESTE 230 GRS."), "Creme de Teste 230 g.");
   assert.equal(nomeDeExibicao("ALMEIDA PRADO 35 60CPR"), "Almeida Prado 35 60 comprimidos");
   assert.equal(nomeDeExibicao("TINT MAXTON 3.0 CASTANHO ESCURO"), "Tintura Maxton 3.0 Castanho Escuro");
   // Os arquivos gerados para o site saem iguais ao que o código do site calcularia.

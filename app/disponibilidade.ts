@@ -31,6 +31,15 @@ export function diferencasDeEstoque(vivo: ReadonlyMap<string, number>, publicado
   return saida;
 }
 
+/** Item com o estoque de agora aplicado (só os que mudaram desde a publicação). Sem mudança, devolve o item como está. */
+export function aplicarEstoqueVivo<T extends { slug?: string; esgotado?: boolean; restam?: number }>(item: T, mudou: Mudancas | null | undefined): T {
+  if (!mudou || !item.slug) return item;
+  const nivel = mudou[item.slug];
+  if (nivel === undefined) return item;
+  if (nivel === 0) return { ...item, esgotado: true, restam: undefined };
+  return { ...item, esgotado: false, restam: nivel < NIVEL_MAXIMO ? nivel : undefined };
+}
+
 export type ItemDaCesta = { id: string; slug?: string; qtd: number; selecionado?: boolean };
 export type AvisoCesta = { id: string; tipo: "acabou" | "poucas"; restam: number };
 

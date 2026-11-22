@@ -2,7 +2,11 @@ name: Sincronizar catálogo da loja
 
 # O PC da loja manda heartbeat/delta ao Worker a cada ~10 min. Este workflow acompanha o ritmo:
 # baixa o catálogo, refaz o pipeline (ops/catalogo-nacoes) e, se o conteúdo mudou, faz commit na main
-# (Workers Builds publica em seguida). Sem mudança: sai rápido (mudou=false), sem build.
+# (a publicação do Worker de dados fica a cargo do publisher já ligado à main; o Deploy Cloudflare
+# ignora só arquivos de catálogo/fotos para não republicar o Worker duas vezes).
+# Mudança só de catálogo: espera 30 min desde o último commit desses dados (o estoque ao vivo
+# em /api/estoque já atualiza o site). Foto ou coleção nova, ou disparo manual, entra na hora.
+# Sem mudança: sai rápido (mudou=false), sem build.
 # Dados recusados ou Worker fora do ar: nada é commitado e o site segue com o JSON anterior (fallback).
 on:
   schedule:
@@ -16,7 +20,8 @@ on:
 
 concurrency:
   group: catalogo-sync
-  cancel-in-progress: false
+  # Um tique novo cancela a execução anterior ainda em teste/build, para não empilhar publicações.
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -58,8 +63,38 @@ jobs:
           CATALOGO_READ_TOKEN: ${{ secrets.CATALOGO_READ_TOKEN }}
         run: python3 ops/catalogo-nacoes/baixar_fotos.py baixar
 
+      - name: Coleções de fotos extras (/interno/colecoes)
+        id: colecoes
+        env:
+          CATALOGO_READ_TOKEN: ${{ secrets.CATALOGO_READ_TOKEN }}
+        run: python3 ops/catalogo-nacoes/baixar_colecoes.py sincronizar
+
+      - name: Adiar catálogo recente (fotos e coleções entram na hora)
+        id: janela
+        run: |
+          MUDOU="${{ steps.sync.outputs.mudou }}"
+          FOTOS="${{ steps.fotos.outputs.fotos }}"
+          COLECOES="${{ steps.colecoes.outputs.colecoes }}"
+          EVENTO="${{ github.event_name }}"
+          if [ "$FOTOS" = "true" ] || [ "$COLECOES" = "true" ] || [ "$EVENTO" = "workflow_dispatch" ]; then
+            echo "publicar=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          if [ "$MUDOU" != "true" ]; then
+            echo "publicar=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          last=$(git log -1 --format=%ct -- app/nacoes-unidas/produtos/dados/catalogo-nacoes.json || echo 0)
+          now=$(date +%s)
+          if [ "$last" != "0" ] && [ $((now - last)) -lt 1800 ]; then
+            echo "publicar=false" >> "$GITHUB_OUTPUT"
+            echo "Último catálogo no git há $((now - last))s; espera 30 min. O estoque ao vivo já atualiza o site."
+          else
+            echo "publicar=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Instalar dependências
-        if: steps.sync.outputs.mudou == 'true' || steps.fotos.outputs.fotos == 'true'
+        if: steps.janela.outputs.publicar == 'true'
         run: npm ci
 
       - name: Refazer os arquivos da busca com as fotos novas
@@ -71,31 +106,32 @@ jobs:
         run: node --experimental-strip-types --import ./tests/ts-resolve-hook.mjs scripts/podar-dados-ia.mjs
 
       - name: Testes unitários
-        if: steps.sync.outputs.mudou == 'true' || steps.fotos.outputs.fotos == 'true'
+        if: steps.janela.outputs.publicar == 'true'
         run: npm test
 
       - name: Build
-        if: steps.sync.outputs.mudou == 'true' || steps.fotos.outputs.fotos == 'true'
+        if: steps.janela.outputs.publicar == 'true'
         run: npm run build
 
       - name: Testes de HTML renderizado
-        if: steps.sync.outputs.mudou == 'true' || steps.fotos.outputs.fotos == 'true'
+        if: steps.janela.outputs.publicar == 'true'
         run: node --test tests/rendered-html.test.mjs
 
       - name: Commit na main
         id: commit
-        if: steps.sync.outputs.mudou == 'true' || steps.fotos.outputs.fotos == 'true'
+        if: steps.janela.outputs.publicar == 'true'
         env:
           DADOS_DE: ${{ steps.sync.outputs.dados_de }}
           FOTOS: ${{ steps.fotos.outputs.eans }}
+          COLECOES: ${{ steps.colecoes.outputs.colecoes }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add app/nacoes-unidas/produtos/dados/catalogo-nacoes.json app/nacoes-unidas/produtos/dados/receita-nacoes.json app/nacoes-unidas/produtos/dados/descricoes-ia.json app/nacoes-unidas/produtos/dados/relacionados-ia.json app/nacoes-unidas/produtos/dados/revisao-pendente.json app/nacoes-unidas/produtos/dados/nomes-corrigidos.json app/nacoes-unidas/produtos/dados/controlados-overrides.json app/nacoes-unidas/produtos/dados/categorias-overrides.json app/nacoes-unidas/produtos/dados/marcas-corrigidas.json app/nacoes-unidas/produtos/dados/mudancas-recentes.json app/nacoes-unidas/produtos/dados/descricoes-painel.json app/nacoes-unidas/produtos/dados/palavras-busca.json app/nacoes-unidas/produtos/dados/produtos-removidos.json public/dados/nacoes public/produtos app/nacoes-unidas/produtos/imagens.ts
+          git add app/nacoes-unidas/produtos/dados/catalogo-nacoes.json app/nacoes-unidas/produtos/dados/receita-nacoes.json app/nacoes-unidas/produtos/dados/descricoes-ia.json app/nacoes-unidas/produtos/dados/relacionados-ia.json app/nacoes-unidas/produtos/dados/revisao-pendente.json app/nacoes-unidas/produtos/dados/nomes-corrigidos.json app/nacoes-unidas/produtos/dados/controlados-overrides.json app/nacoes-unidas/produtos/dados/categorias-overrides.json app/nacoes-unidas/produtos/dados/marcas-corrigidas.json app/nacoes-unidas/produtos/dados/mudancas-recentes.json app/nacoes-unidas/produtos/dados/descricoes-painel.json app/nacoes-unidas/produtos/dados/palavras-busca.json app/nacoes-unidas/produtos/dados/produtos-removidos.json public/dados/nacoes public/produtos public/produtos-extras app/nacoes-unidas/produtos/dados/fotos-extras.json app/nacoes-unidas/produtos/imagens.ts
           git diff --cached --quiet && exit 0
-          if [ -n "$FOTOS" ] && [ -z "$DADOS_DE" ]; then MSG="Fotos de produtos enviadas pelo painel (${FOTOS})"; else MSG="Catálogo: dados da loja de ${DADOS_DE} (sincronização automática)"; fi
+          if [ -n "$FOTOS" ] && [ -z "$DADOS_DE" ]; then MSG="Fotos de produtos enviadas pelo painel (${FOTOS})"; elif [ "$COLECOES" = "true" ] && [ -z "$DADOS_DE" ] && [ -z "$FOTOS" ]; then MSG="Coleções de fotos atualizadas pelo painel"; else MSG="Catálogo: dados da loja de ${DADOS_DE} (sincronização automática)"; fi
           git commit -m "$MSG"
-          git pull --rebase origin main
+          git pull --no-rebase origin main
           git push origin HEAD:main
 
       - name: Apagar do painel as fotos já publicadas

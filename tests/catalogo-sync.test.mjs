@@ -143,3 +143,15 @@ test("workflow catalogo-sync: todo arquivo de dados que o sincronizar.py grava �
     assert.doesNotThrow(() => readFileSync(`app/nacoes-unidas/produtos/dados/${nome}`), `${nome} não existe no repositório`);
   }
 });
+
+test("workflow catalogo-sync: janela de 30 min no catálogo, fotos na hora, merge em vez de rebase", () => {
+  const y = readFileSync(".github/workflows/catalogo-sync.yml", "utf8");
+  assert.match(y, /cancel-in-progress: true/);
+  assert.match(y, /id: janela/);
+  assert.match(y, /1800/);
+  assert.match(y, /estoque ao vivo/);
+  assert.match(y, /git pull --no-rebase origin main/);
+  assert.doesNotMatch(y, /git pull --rebase/);
+  const d = readFileSync(".github/workflows/deploy-cloudflare.yml", "utf8");
+  assert.match(d, /public\/produtos-extras\/\*\*/);
+});
