@@ -1,7 +1,7 @@
-import "./galeria-produto.css";
 "use client";
 
 import { useState } from "react";
+import "./galeria-produto.css";
 
 /**
  * Galeria da ficha: foto principal grande e, quando há mais de uma foto, uma coluna de miniaturas à esquerda.
@@ -30,7 +30,7 @@ export default function GaleriaProduto({ fotos, alt }: { fotos: readonly string[
           ))}
         </ul>
       ) : null}
-      <img className="pdp-foto-principal" src={atual} alt={alt} width="420" height="420" />
+      {atual ? <img className="pdp-foto-principal" src={atual} alt={alt} width="420" height="420" /> : null}
     </>
   );
 }

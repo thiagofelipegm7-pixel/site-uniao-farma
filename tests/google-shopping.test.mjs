@@ -5,7 +5,7 @@ import { readFile } from "node:fs/promises";
 const read = (arquivo) => readFile(new URL(`../${arquivo}`, import.meta.url), "utf8");
 
 const { elegivelGoogle, motivoForaGoogle, itensElegiveisGoogle, ehMedicamentoOuDuvida, gtinValido } = await import("../app/nacoes-unidas/produtos/google-shopping.ts");
-const { itensDoFeed, xmlDoFeed, escaparXml, idDoFeed, FEED_GOOGLE_PATH } = await import("../app/nacoes-unidas/produtos/google-shopping-feed.ts");
+const { itensDoFeed, xmlDoFeed, xmlDoFeedEmCache, limparCacheDoFeed, FEED_CACHE_MS, escaparXml, idDoFeed, FEED_GOOGLE_PATH } = await import("../app/nacoes-unidas/produtos/google-shopping-feed.ts");
 const { carregarCatalogoCompleto, slugify } = await import("../app/nacoes-unidas/produtos/catalogo.ts");
 const { carregarRestritos } = await import("../app/nacoes-unidas/produtos/receita.ts");
 const { fotoDoProduto } = await import("../app/nacoes-unidas/produtos/imagens.ts");
@@ -126,4 +126,16 @@ test("verificação do Merchant Center (meta tag) fica no layout raiz, junto com
   assert.match(layout, /GOOGLE_MERCHANT_VERIFICATION = "c78h12yeN5NoYIfoDpPllCzysv9i6tIFAJyYKV8TEAo"/);
   assert.match(layout, /google: GOOGLE_SITE_VERIFICATION,/);
   assert.match(layout, /"google-site-verification": GOOGLE_MERCHANT_VERIFICATION/);
+});
+
+test("feed: XML em cache por 1 hora não remonta a cada chamada, e a rota pede max-age=3600", async () => {
+  assert.equal(FEED_CACHE_MS, 3_600_000);
+  limparCacheDoFeed();
+  const a = xmlDoFeedEmCache(1_000);
+  const b = xmlDoFeedEmCache(1_000 + 10_000);
+  assert.equal(a, b);
+  assert.equal(a, xmlDoFeed());
+  const rota = await read("app/feeds/google-shopping.xml/route.ts");
+  assert.match(rota, /xmlDoFeedEmCache/);
+  assert.match(rota, /max-age=3600, s-maxage=3600, stale-while-revalidate=86400/);
 });

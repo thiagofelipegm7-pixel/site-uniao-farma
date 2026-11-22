@@ -37,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const item = catalogo ? acharPorSlug(catalogo.itens, slug) : null;
   const titulo = item ? `${item.nome} | União Farma Nações Unidas` : "Produto | União Farma Nações Unidas";
   // Fonte única (elegivelGoogle): só item não medicamento, em estoque e com foto vai para a busca. Medicamento segue com noindex.
-  const noGoogle = item ? elegivelGoogle(item, catalogo.itens) : false;
+  const noGoogle = item && catalogo ? elegivelGoogle(item, catalogo.itens) : false;
   const descricao = item ? descricaoMetadata(item.nome, (ehNbcal(item.nome) ? null : descricaoPublica(slugify(item.nome), item.isMIP))?.texto, !ehMedicamentoOuDuvida(item)) : "Produto da União Farma Nações Unidas, em Sabará.";
   return {
     title: { absolute: titulo },
@@ -85,7 +85,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
   const textos = textosPublicaveis({ descricao: descricaoIA?.texto });
   const combinaCom = itensCombinaCom(carregarCatalogoNacoes().itens, item);
   // Mesma regra do feed do Google: o preço do site vale como preço firme e o JSON-LD leva a oferta. Medicamento fica como estava.
-  const noCatalogo = catalogo.itens.includes(item);
+  const noCatalogo = Boolean(catalogo && catalogo.itens.includes(item));
   const noGoogle = !controlado && noCatalogo && elegivelGoogle(item, catalogo.itens);
   // Item que não é medicamento: o preço do site vale (preço firme). Medicamento mantém o aviso de confirmar preço e estoque.
   const precoFirme = !controlado && noCatalogo && !ehMedicamentoOuDuvida(item);

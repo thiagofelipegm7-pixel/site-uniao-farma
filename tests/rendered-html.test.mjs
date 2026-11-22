@@ -367,3 +367,49 @@ test("Fátima e Itacolomi: só informações institucionais, sem mapa, entrega n
   assert.doesNotMatch(mapa, /\/fatima<|\/itacolomi</, "fora do mapa do site");
   assert.match(mapa, /\/nacoes-unidas</, "Nações Unidas segue no mapa do site");
 });
+
+function slugify(value) {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+test("ficha de produto abre (200) sem a página de erro do Vinext", async () => {
+  const catalogo = JSON.parse(await readFile(new URL("../app/nacoes-unidas/produtos/dados/catalogo-nacoes.json", import.meta.url), "utf8"));
+  const item = catalogo.itens.find((i) => i.categoria !== "Medicamentos" && !i.isMIP && i.preco > 0);
+  assert.ok(item, "precisa de um item não medicamento no catálogo");
+  const pathname = `/nacoes-unidas/produtos/${slugify(item.nome)}`;
+  const response = await render(pathname);
+  assert.equal(response.status, 200, pathname);
+  const html = await response.text();
+  assert.doesNotMatch(html, /id="__next_error__"/, pathname);
+  assert.doesNotMatch(html, /This page couldn.t load/);
+  assert.match(html, /<h1[^>]*>/);
+  assert.match(html, /pdp-galeria|produto-sem-foto/);
+});
+
+test("cache: feed e catálogo não saem com max-age=0; HTML público tem s-maxage; reserva fica no-store", async () => {
+  const feed = await render("/feeds/google-shopping.xml");
+  assert.equal(feed.status, 200);
+  const feedCc = feed.headers.get("cache-control") ?? "";
+  assert.match(feedCc, /max-age=3600/);
+  assert.doesNotMatch(feedCc, /max-age=0/);
+
+  const catalogo = await render("/api/catalogo");
+  assert.equal(catalogo.status, 200);
+  const catCc = catalogo.headers.get("cache-control") ?? "";
+  assert.match(catCc, /max-age=300/);
+  assert.doesNotMatch(catCc, /max-age=0/);
+
+  const home = await render("/");
+  assert.equal(home.status, 200);
+  const homeCc = home.headers.get("cache-control") ?? "";
+  assert.match(homeCc, /s-maxage=60/);
+
+  const reserva = await render("/reserva");
+  const reservaCc = reserva.headers.get("cache-control") ?? "";
+  assert.match(reservaCc, /no-store/);
+});
