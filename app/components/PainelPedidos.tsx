@@ -17,7 +17,7 @@ function Valor({ centavos }: { centavos: number | null }) {
 }
 
 /** Painel interno: quantos pedidos, quanto valeram, o que mais saiu e o que procuraram e não acharam. */
-export default function PainelPedidos() {
+export default function PainelPedidos({ nivel = 1 }: { /** 1 = h1 (página própria); 2 = h2 (dentro de uma aba). */ nivel?: 1 | 2 } = {}) {
   const [dados, setDados] = useState<Dados | null>(null);
   // null = a lista de retiradas não carregou (o resumo continua aparecendo).
   const [retiradas, setRetiradas] = useState<Retirada[] | null>(null);
@@ -30,7 +30,7 @@ export default function PainelPedidos() {
     try {
       const resposta = await fetch("/api/interno/pedidos", { cache: "no-store" });
       if (resposta.redirected || (resposta.headers.get("content-type") ?? "").includes("text/html")) {
-        window.location.assign(`/interno/entrar?next=${encodeURIComponent("/interno/pedidos")}`);
+        window.location.assign(`/interno/entrar?next=${encodeURIComponent(window.location.pathname + window.location.search)}`);
         return;
       }
       const json = (await resposta.json()) as { ok?: boolean; erro?: string; retiradas?: Retirada[] | null } & Partial<Dados>;
@@ -62,7 +62,7 @@ export default function PainelPedidos() {
       <header className="pvendas-cabeca">
         <div>
           <p className="pvendas-eyebrow">Área da equipe</p>
-          <h1>Pedidos do site</h1>
+          {nivel === 2 ? <h2>Pedidos do site</h2> : <h1>Pedidos do site</h1>}
           <p className="pvendas-lead">Resumo das cestas que os clientes fecharam no site e mandaram pelo WhatsApp, os produtos que mais saíram e o que procuraram sem achar.</p>
         </div>
         <button className="pvendas-atualizar" type="button" onClick={() => void carregar()} disabled={carregando}>Atualizar</button>

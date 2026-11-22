@@ -149,7 +149,7 @@ test("recompra: checkout com caixa DESMARCADA por padrão, celular só depois de
   assert.match(fluxo, /querLembrete && celularOk \? \{ lembrete: \{ consentimento: true/);
   assert.match(rota, /validarLembrete\(entrada\.lembrete\)/);
   assert.match(interna, /lerListaRecompra\(db/);
-  assert.match(nav, /href: "\/interno\/recompra"/);
+  assert.match(nav, /href: "\/interno\/vendas"/);
   assert.match(priv, /lembrete de recompra/i);
   assert.match(priv, /SAIR/);
   assert.match(painel, /href=\{c\.link\}/);

@@ -81,7 +81,7 @@ test("pedidos: lê do banco só colunas sem dado de cliente e junta as buscas se
 
 test("pedidos: tela protegida, no menu e com 'sem dados ainda'", async () => {
   const [nav, rota, painel, mw] = await Promise.all([ler("app/interno/itens-nav.ts"), ler("app/api/interno/pedidos/route.ts"), ler("app/components/PainelPedidos.tsx"), ler("middleware.ts")]);
-  assert.match(nav, /href: "\/interno\/pedidos"/);
+  assert.match(nav, /href: "\/interno\/vendas"/);
   assert.match(rota, /lerPainelPedidos\(db/);
   assert.match(painel, /sem dados ainda/i);
   assert.match(painel, /\/api\/interno\/pedidos/);

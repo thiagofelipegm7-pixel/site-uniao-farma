@@ -1,11 +1,6 @@
-import type { Metadata } from "next";
-import PainelRecompra from "../../components/PainelRecompra";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Recompra | Área interna",
-  robots: { index: false, follow: false },
-};
-
+/** Agora é uma aba da página Vendas. */
 export default function RecompraPage() {
-  return <PainelRecompra />;
+  redirect("/interno/vendas?aba=recompra");
 }
