@@ -7,6 +7,7 @@ import { formatarQuantidade } from "./quantidade";
 import { marcaDeProduto, marcaLegivel } from "./marca";
 import { formatarCentavos } from "../../reserva/reserva-store";
 import { faixaAplicavel, faixasDaPromocao, type RegraPromocaoQuantidade } from "../../promocao-quantidade-tipos";
+import type { ApresentacaoPublica } from "../../apresentacao-produto-tipos";
 import "../../shop/product-cards-online.css";
 
 /** Classificação do medicamento mostrada na segunda linha ("Med. Genérico", "Controlado"). Sem "com/sem receita": isso já vai nos avisos legais. Vazio para produtos comuns. */
@@ -78,6 +79,7 @@ type Props = {
   classe?: string;
   tipo?: string;
   levePague?: RegraPromocaoQuantidade;
+  apresentacoes?: ApresentacaoPublica[];
 };
 
 /**
@@ -85,7 +87,7 @@ type Props = {
  * preço e botão largo "Adicionar" no pé. Abaixo do nome, até três linhas com ícone (quantidade, "Med. Genérico" e "Lab. Cimed"), como nas farmácias grandes. Sem selo de programa, sem "De/Por" e sem % OFF quando
  * o catálogo não tem preço de antes: o que a União não tem fica em branco.
  */
-export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medicamento = false, classificacao = null, apresentacao, precoFmt, precoAnteriorFmt, descontoPct, oferta = false, cesta, esgotado = false, avisos, extra, vertical = false, novo = false, classe = "", tipo, levePague }: Props) {
+export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medicamento = false, classificacao = null, apresentacao, precoFmt, precoAnteriorFmt, descontoPct, oferta = false, cesta, esgotado = false, avisos, extra, vertical = false, novo = false, classe = "", tipo, levePague, apresentacoes }: Props) {
   const apresentacaoLegivel = formatarQuantidade(apresentacao);
   // Medicamento: "Lab. Cimed". Produto comum: "Marca Dove" se o nome cita a marca; senão o fabricante do cadastro ("Fab. Procter").
   const marcaDoNome = medicamento ? "" : marcaDeProduto(nome);
@@ -112,8 +114,11 @@ export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medi
           </span>
         ) : null}
       </span>
+      {apresentacoes && apresentacoes.length > 1 ? <span className="pv-leve-pague pv-apresentacoes"><strong>Escolha a apresentação · preço por unidade</strong><span>{apresentacoes.map((a) => `${a.nome}: ${formatarCentavos(a.precoCentavos)}`).join(" · ")}</span></span> : null}
       {levePague ? <span className="pv-leve-pague"><strong>Leve + pague menos</strong><span>{faixasDaPromocao(levePague).map((faixa) => `${faixa.quantidade} un. ${formatarCentavos(faixa.precoUnitarioCentavos)}/un.`).join(" · ")}</span></span> : null}
-      {faixaUmaUnidade && precoFmt ? (
+      {apresentacoes && apresentacoes.length > 1 ? (
+        <span className="pv-preco-opcoes"><small>Preço por unidade · a partir de</small><Preco precoFmt={formatarCentavos(Math.min(...apresentacoes.map((a) => a.precoCentavos)))} /></span>
+      ) : faixaUmaUnidade && precoFmt ? (
         <span className="pv-preco-oferta">
           <span className="pv-preco-antigo-linha"><span className="pv-preco-antigo-texto">Preço normal <del className="pv-preco-anterior">{precoFmt}</del></span><span className="pv-economia">PROMOÇÃO</span></span>
           <span className="pv-preco-atual-linha"><span className="pv-preco-label">Por</span><Preco precoFmt={formatarCentavos(faixaUmaUnidade.precoUnitarioCentavos)} variante="oferta" /></span>

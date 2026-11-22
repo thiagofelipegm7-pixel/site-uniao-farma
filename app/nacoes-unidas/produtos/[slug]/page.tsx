@@ -23,6 +23,9 @@ import CombinaCom, { itensCombinaCom } from "../CombinaCom";
 import { descricaoPublica } from "../descricoes";
 import { conteudoDoNome, ehNbcal, descricaoMetadata, FAQ_PRODUTO, jsonLdProduto, NOTA_PRECO, NOTA_PRECO_FIRME, textosPublicaveis } from "../produto";
 import { ehMedicamentoOuDuvida, elegivelGoogle, gtinValido } from "../google-shopping";
+import { banco } from "../../../estoque-fonte";
+import { listarApresentacoes } from "../../../apresentacoes-produto";
+import type { ApresentacaoPublica } from "../../../apresentacao-produto-tipos";
 import "../produtos.css";
 
 export const dynamic = "force-dynamic";
@@ -81,6 +84,15 @@ export default async function ProdutoNacoesPage({ params }: Props) {
   const conteudo = conteudoDoNome(item.nome);
   // O arquivo da foto oficial é nomeado pelo código de barras (EAN) do produto.
   const ean = (typeof item.ean === "string" && /^\d{8,14}$/.test(item.ean) ? item.ean : null) ?? fotoReal?.match(/(\d{8,14})\.webp$/)?.[1] ?? null;
+  let apresentacoes: ApresentacaoPublica[] = [];
+  const db = banco();
+  if (ean && db) {
+    try {
+      apresentacoes = (await listarApresentacoes(db as Parameters<typeof listarApresentacoes>[0], ean)).map((a) => ({ ...a, ean, foto: a.fotoOrdem ? `/api/apresentacoes-produto?ean=${ean}&ordem=${a.fotoOrdem}&imagem=1` : null }));
+    } catch {
+      apresentacoes = [];
+    }
+  }
   const descricaoIA = ehNbcal(item.nome) ? null : descricaoPublica(slugItem, item.isMIP);
   const textos = textosPublicaveis({ descricao: descricaoIA?.texto });
   const combinaCom = itensCombinaCom(carregarCatalogoNacoes().itens, item);
@@ -161,11 +173,11 @@ export default async function ProdutoNacoesPage({ params }: Props) {
                 <p className="produto-nota" role="note">{controleEspecial ? "Medicamento controlado (Portaria SVS/MS 344/98): não é vendido pelo site e não tem preço aqui. A venda é só na loja, com a Notificação de Receita, e a farmácia retém a receita." : "Medicamento de venda sob prescrição com retenção da receita, como os antimicrobianos: não é vendido pelo site e não tem preço aqui. A venda é só na loja, com a receita, e a farmácia retém a via."}</p>
               </>
             ) : (
-              <p className="produto-preco"><Preco precoFmt={formatBRL(item.preco)} variante="grande" /></p>
+              <p className="produto-preco"><Preco precoFmt={formatBRL(apresentacoes.length > 1 ? Math.min(...apresentacoes.map((a) => a.precoCentavos)) / 100 : item.preco)} variante="grande" />{apresentacoes.length > 1 ? <small>Preço por unidade. Escolha a apresentação antes de adicionar.</small> : null}</p>
             )}
             {item.esgotado ? <p className="produto-esgotado" role="status">Indisponível no momento. Fale com a loja pelo WhatsApp para saber quando chega.</p> : null}
             {controlado ? null : <p className="produto-nota">{precoFirme ? NOTA_PRECO_FIRME : NOTA_PRECO}</p>}
-            {item.esgotado || controlado ? null : <ProdutoBarra unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} max={item.restam} slug={slugify(item.nome)} />}
+            {item.esgotado || controlado ? null : <ProdutoBarra unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} max={item.restam} slug={slugify(item.nome)} apresentacoes={apresentacoes} />}
             {/* No lugar do cálculo de frete por CEP da Drogasil: como a União entrega e recebe, sem inventar prazo nem taxa. */}
             {controlado ? null : <ul className="pdp-receber" aria-label="Como receber">
               <li><strong>Retire na loja</strong><span>Nações Unidas, em Sabará</span></li>

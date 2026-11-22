@@ -5,6 +5,7 @@
 import { useEffect, useRef, useState } from "react";
 import { formatarCentavos, MAX_POR_ITEM } from "./reserva-store";
 import { faixaAplicavel, faixasDaPromocao, proximaFaixa, type RegraPromocaoQuantidade } from "../promocao-quantidade-tipos";
+import type { ApresentacaoPublica } from "../apresentacao-produto-tipos";
 import "./visualizacao-rapida.css";
 
 type Props = {
@@ -17,22 +18,27 @@ type Props = {
   receita?: "receita" | "controlado";
   max?: number;
   promocao?: RegraPromocaoQuantidade;
+  apresentacoes?: ApresentacaoPublica[];
   onClose: () => void;
-  onAdicionar: (quantidade: number) => void;
+  onAdicionar: (quantidade: number, apresentacao?: ApresentacaoPublica) => void;
   onAbrirCesta: () => void;
 };
 
 /** Prévia leve do produto: confirma quantidade e escolha antes de atualizar a cesta. */
-export default function VisualizacaoRapida({ open, nome, precoCentavos, deCentavos, foto, slug, receita, max, promocao, onClose, onAdicionar, onAbrirCesta }: Props) {
+export default function VisualizacaoRapida({ open, nome, precoCentavos, deCentavos, foto, slug, receita, max, promocao, apresentacoes, onClose, onAdicionar, onAbrirCesta }: Props) {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const abrirCestaAposFechar = useRef(false);
   const [quantidade, setQuantidade] = useState(1);
+  const [apresentacaoId, setApresentacaoId] = useState("");
   const [adicionado, setAdicionado] = useState(false);
   const limite = typeof max === "number" && max >= 1 ? Math.min(MAX_POR_ITEM, Math.floor(max)) : MAX_POR_ITEM;
   const desconto = deCentavos && deCentavos > precoCentavos ? Math.round((deCentavos - precoCentavos) / deCentavos * 100) : null;
-  const faixaAtiva = faixaAplicavel(promocao, quantidade);
+  const opcoes = apresentacoes && apresentacoes.length > 1 ? apresentacoes : [];
+  const escolhida = opcoes.find((a) => a.id === apresentacaoId) ?? opcoes[0];
+  const faixaAtiva = opcoes.length ? undefined : faixaAplicavel(promocao, quantidade);
   const proxima = proximaFaixa(promocao, quantidade);
-  const precoExibido = faixaAtiva?.precoUnitarioCentavos ?? precoCentavos;
+  const precoExibido = escolhida?.precoCentavos ?? faixaAtiva?.precoUnitarioCentavos ?? precoCentavos;
+  const fotoExibida = escolhida?.foto ?? foto;
 
   useEffect(() => {
     const dialogo = dialogRef.current;
@@ -54,6 +60,7 @@ export default function VisualizacaoRapida({ open, nome, precoCentavos, deCentav
       onClose={() => {
         onClose();
         setQuantidade(1);
+        setApresentacaoId("");
         setAdicionado(false);
         if (abrirCestaAposFechar.current) {
           abrirCestaAposFechar.current = false;
@@ -80,7 +87,7 @@ export default function VisualizacaoRapida({ open, nome, precoCentavos, deCentav
       ) : (
         <div className="uf-quick-view__conteudo">
           <div className="uf-quick-view__foto">
-            {foto ? <img src={foto} alt={nome} /> : <span aria-hidden="true">💊</span>}
+            {fotoExibida ? <img src={fotoExibida} alt={escolhida ? `${nome} — ${escolhida.nome}` : nome} /> : <span aria-hidden="true">💊</span>}
           </div>
           <div className="uf-quick-view__info">
             <p className="uf-quick-view__eyebrow">Visualização rápida</p>
@@ -90,7 +97,20 @@ export default function VisualizacaoRapida({ open, nome, precoCentavos, deCentav
               {deCentavos && deCentavos > precoCentavos ? <del>{formatarCentavos(deCentavos)}</del> : null}
               {desconto ? <span>{desconto}% OFF</span> : null}
             </div>
-            {promocao ? <p className="uf-quick-view__promo">{faixasDaPromocao(promocao).map((faixa) => `${faixa.quantidade} un.: ${formatarCentavos(faixa.precoUnitarioCentavos)} cada`).join(" · ")}{faixaAtiva ? ` — faixa de ${faixaAtiva.quantidade} aplicada.` : ""}{proxima ? ` Adicione mais ${proxima.quantidade - quantidade} para chegar à próxima faixa.` : ""}</p> : null}
+            {opcoes.length ? (
+              <fieldset className="uf-quick-view__apresentacoes">
+                <legend>Escolha a apresentação · preço por unidade</legend>
+                {opcoes.map((opcao) => (
+                  <label key={opcao.id}>
+                    <input type="radio" name={`apresentacao-${slug ?? nome}`} checked={(escolhida?.id ?? "") === opcao.id} onChange={() => setApresentacaoId(opcao.id)} />
+                    {opcao.foto ? <img src={opcao.foto} alt="" width="44" height="44" /> : null}
+                    <span>{opcao.nome}</span>
+                    <strong>{formatarCentavos(opcao.precoCentavos)} / un.</strong>
+                  </label>
+                ))}
+              </fieldset>
+            ) : null}
+            {!opcoes.length && promocao ? <p className="uf-quick-view__promo">{faixasDaPromocao(promocao).map((faixa) => `${faixa.quantidade} un.: ${formatarCentavos(faixa.precoUnitarioCentavos)} cada`).join(" · ")}{faixaAtiva ? ` — faixa de ${faixaAtiva.quantidade} aplicada.` : ""}{proxima ? ` Adicione mais ${proxima.quantidade - quantidade} para chegar à próxima faixa.` : ""}</p> : null}
             <p className="uf-quick-view__nota">Preço e disponibilidade serão confirmados pela loja ao concluir o pedido.</p>
             {receita ? (
               <p className="uf-quick-view__receita">
@@ -107,7 +127,7 @@ export default function VisualizacaoRapida({ open, nome, precoCentavos, deCentav
                 <span aria-live="polite">{quantidade}</span>
                 <button type="button" aria-label="Aumentar quantidade" disabled={quantidade >= limite} onClick={() => setQuantidade((atual) => Math.min(limite, atual + 1))}>+</button>
               </div>
-              <button type="button" className="uf-quick-view__botao" onClick={() => { onAdicionar(quantidade); setAdicionado(true); }}>
+              <button type="button" className="uf-quick-view__botao" disabled={max === 0} onClick={() => { onAdicionar(quantidade, escolhida); setAdicionado(true); }}>
                 Adicionar à cesta
               </button>
             </div>

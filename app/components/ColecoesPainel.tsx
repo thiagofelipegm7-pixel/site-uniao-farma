@@ -2,16 +2,22 @@
 
 import { useEffect, useState } from "react";
 
-type Produto = { nome: string; ean: string; categoria: string };
+type Produto = { nome: string; ean: string; categoria: string; precoCentavos: number };
 type Foto = { ordem: number; mime: string; criadoEm: string };
+type Apresentacao = { id: string; nome: string; fotoOrdem: number; precoCentavos: number };
 
 const MAX = 6;
+const novoId = () => `opcao-${Math.random().toString(36).slice(2, 10)}`;
+const novaApresentacao = (precoCentavos: number): Apresentacao => ({ id: novoId(), nome: "", fotoOrdem: 0, precoCentavos });
 const ERROS: Record<string, string> = {
   limite_de_fotos: `Este produto já tem ${MAX} fotos. Remova uma para enviar outra.`,
   imagem_muito_grande: "Foto grande demais. Envie uma imagem de até cerca de 450 KB (WebP ou JPG comprimido).",
   formato_nao_aceito: "Formato não aceito. Use WebP, PNG ou JPG.",
   imagem_invalida: "Não consegui ler esse arquivo.",
   ean_invalido: "Este produto não tem código de barras válido.",
+  apresentacoes_invalidas: "Cadastre duas ou mais apresentações, ou desative as opções.",
+  apresentacao_invalida: "Confira o nome, a foto e o preço de cada apresentação.",
+  apresentacao_repetida: "Use nomes diferentes para cada apresentação.",
 };
 
 function mensagem(erro: string | undefined): string {
@@ -33,13 +39,13 @@ export default function ColecoesPainel({ nivel = 1 }: { /** 1 = h1 (página pró
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [escolhido, setEscolhido] = useState<Produto | null>(null);
   const [fotos, setFotos] = useState<Foto[]>([]);
+  const [apresentacoes, setApresentacoes] = useState<Apresentacao[]>([]);
+  const [configurar, setConfigurar] = useState(false);
   const [aviso, setAviso] = useState<string | null>(null);
   const [ocupado, setOcupado] = useState(false);
 
-  // Busca de produtos com pequeno atraso, para não pedir a cada tecla.
   useEffect(() => {
     if (busca.trim().length < 2) {
-      setProdutos([]);
       return;
     }
     const t = window.setTimeout(() => {
@@ -51,13 +57,16 @@ export default function ColecoesPainel({ nivel = 1 }: { /** 1 = h1 (página pró
     return () => window.clearTimeout(t);
   }, [busca]);
 
-  // Carrega a coleção do produto escolhido.
   useEffect(() => {
     if (!escolhido) return;
     fetch(`/api/interno/colecoes?ean=${escolhido.ean}`, { cache: "no-store" })
       .then((r) => r.json())
-      .then((d: { fotos?: Foto[] }) => setFotos(d.fotos ?? []))
-      .catch(() => setFotos([]));
+      .then((d: { fotos?: Foto[]; apresentacoes?: Apresentacao[] }) => {
+        setFotos(d.fotos ?? []);
+        setApresentacoes(d.apresentacoes ?? []);
+        setConfigurar((d.apresentacoes?.length ?? 0) > 0);
+      })
+      .catch(() => { setFotos([]); setApresentacoes([]); });
   }, [escolhido]);
 
   async function enviar(api: Record<string, unknown>) {
@@ -70,10 +79,15 @@ export default function ColecoesPainel({ nivel = 1 }: { /** 1 = h1 (página pró
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ ean: escolhido.ean, ...api }),
       });
-      const d = (await r.json()) as { ok?: boolean; erro?: string; fotos?: Foto[] };
+      const d = (await r.json()) as { ok?: boolean; erro?: string; fotos?: Foto[]; apresentacoes?: Apresentacao[] };
       if (!r.ok || !d.ok) setAviso(mensagem(d.erro));
-      else if (d.fotos) setFotos(d.fotos);
-      else if (api.acao === "adicionar") setFotos((atuais) => [...atuais, { ordem: atuais.length + 1, mime: "", criadoEm: "" }]);
+      if (r.ok && d.ok && d.fotos) setFotos(d.fotos);
+      if (r.ok && d.ok && d.apresentacoes) {
+        setApresentacoes(d.apresentacoes);
+        setConfigurar(d.apresentacoes.length > 0);
+        if (api.acao === "salvar_apresentacoes") setAviso("Apresentações salvas. Elas já podem ser escolhidas no site.");
+      }
+      if (r.ok && d.ok && api.acao === "adicionar" && !d.fotos) setFotos((atuais) => [...atuais, { ordem: atuais.length + 1, mime: "", criadoEm: "" }]);
     } catch {
       setAviso("Sem conexão. Tente de novo.");
     } finally {
@@ -85,32 +99,32 @@ export default function ColecoesPainel({ nivel = 1 }: { /** 1 = h1 (página pró
     if (!arquivo) return;
     const base64 = await lerComoBase64(arquivo);
     await enviar({ acao: "adicionar", imagem: base64 });
-    // Recarrega para pegar a ordem e o formato de verdade.
     if (escolhido) {
-      const d = (await (await fetch(`/api/interno/colecoes?ean=${escolhido.ean}`, { cache: "no-store" })).json()) as { fotos?: Foto[] };
+      const d = (await (await fetch(`/api/interno/colecoes?ean=${escolhido.ean}`, { cache: "no-store" })).json()) as { fotos?: Foto[]; apresentacoes?: Apresentacao[] };
       setFotos(d.fotos ?? []);
+      setApresentacoes(d.apresentacoes ?? []);
     }
   }
 
   return (
     <main className="colecoes-painel">
       <header>
-        {nivel === 2 ? <h2>Coleções de fotos</h2> : <h1>Coleções de fotos</h1>}
-        <p>Fotos extras de cada produto, na ordem em que aparecem na ficha (até {MAX} por produto). Use o nome ou o código de barras para achar o produto.</p>
+        {nivel === 2 ? <h2>Coleções de fotos e apresentações</h2> : <h1>Coleções de fotos e apresentações</h1>}
+        <p>Encontre o produto pelo nome ou código de barras. Cadastre fotos extras e, quando um mesmo código tiver embalagens diferentes, crie uma escolha para cada apresentação.</p>
       </header>
 
       <label className="colecoes-busca">
         <span>Produto</span>
-        <input type="search" value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Ex.: Creatina ou 7896..." />
+        <input type="search" value={busca} onChange={(e) => { setBusca(e.target.value); if (e.target.value.trim().length < 2) setProdutos([]); }} placeholder="Ex.: Elástico de cabelo ou 7908..." />
       </label>
 
       {produtos.length > 0 ? (
         <ul className="colecoes-resultados">
           {produtos.map((p) => (
-            <li key={p.ean}>
-              <button type="button" onClick={() => { setEscolhido(p); setBusca(""); setProdutos([]); }}>
+            <li key={`${p.ean}-${p.nome}`}>
+              <button type="button" onClick={() => { setEscolhido(p); setBusca(""); setProdutos([]); setAviso(null); }}>
                 <strong>{p.nome}</strong>
-                <small>{p.ean} · {p.categoria}</small>
+                <small>{p.ean} · {p.categoria} · R$ {(p.precoCentavos / 100).toFixed(2).replace(".", ",")}</small>
               </button>
             </li>
           ))}
@@ -120,7 +134,7 @@ export default function ColecoesPainel({ nivel = 1 }: { /** 1 = h1 (página pró
       {escolhido ? (
         <section className="colecoes-produto" aria-live="polite">
           <h2>{escolhido.nome}</h2>
-          <p className="colecoes-ean">EAN {escolhido.ean}</p>
+          <p className="colecoes-ean">EAN {escolhido.ean} · Preço normal do cadastro: R$ {(escolhido.precoCentavos / 100).toFixed(2).replace(".", ",")}</p>
 
           <ol className="colecoes-fotos">
             {fotos.map((f, i) => (
@@ -144,8 +158,40 @@ export default function ColecoesPainel({ nivel = 1 }: { /** 1 = h1 (página pró
             <p className="colecoes-cheio">Coleção completa ({MAX} fotos). Remova uma para enviar outra.</p>
           )}
 
+          <section className="colecoes-apresentacoes" aria-labelledby="apresentacoes-titulo">
+            <h3 id="apresentacoes-titulo">Apresentações para o cliente escolher</h3>
+            <p>Cadastre cada sachê ou embalagem como uma opção separada, com seu nome, foto individual e preço por unidade. Ex.: “Preto · 2 sachês” e “Colorido · 2 sachês”.</p>
+            {!configurar ? <button type="button" disabled={ocupado} onClick={() => { setConfigurar(true); setApresentacoes([novaApresentacao(escolhido.precoCentavos), novaApresentacao(escolhido.precoCentavos)]); }}>Configurar opções de apresentação</button> : null}
+            {configurar ? (
+              <>
+                {apresentacoes.map((a, indice) => (
+                  <div className="colecoes-apresentacao" key={a.id}>
+                    <label>Nome da opção {indice + 1}
+                      <input type="text" maxLength={48} value={a.nome} placeholder="Ex.: Preto · 2 sachês" onChange={(e) => setApresentacoes((atuais) => atuais.map((x) => x.id === a.id ? { ...x, nome: e.target.value } : x))} />
+                    </label>
+                    <label>Foto desta opção
+                      <select value={a.fotoOrdem} onChange={(e) => setApresentacoes((atuais) => atuais.map((x) => x.id === a.id ? { ...x, fotoOrdem: Number(e.target.value) } : x))}>
+                        <option value={0}>Foto principal do produto</option>
+                        {fotos.map((f) => <option key={f.ordem} value={f.ordem}>Foto extra {f.ordem}</option>)}
+                      </select>
+                    </label>
+                    <label>Preço por unidade (R$)
+                      <input type="number" min="0.01" step="0.01" value={(a.precoCentavos / 100).toFixed(2)} onChange={(e) => setApresentacoes((atuais) => atuais.map((x) => x.id === a.id ? { ...x, precoCentavos: Math.round(Number(e.target.value) * 100) || 0 } : x))} />
+                    </label>
+                    <button type="button" className="colecoes-apresentacao-remover" disabled={ocupado || apresentacoes.length <= 2} onClick={() => setApresentacoes((atuais) => atuais.filter((x) => x.id !== a.id))}>Remover</button>
+                  </div>
+                ))}
+                <div className="colecoes-apresentacoes-acoes">
+                  <button type="button" disabled={ocupado || apresentacoes.length >= MAX} onClick={() => setApresentacoes((atuais) => [...atuais, novaApresentacao(escolhido.precoCentavos)])}>Adicionar apresentação</button>
+                  <button type="button" disabled={ocupado} onClick={() => enviar({ acao: "salvar_apresentacoes", apresentacoes })}>{ocupado ? "Salvando…" : "Salvar opções"}</button>
+                  <button type="button" className="colecoes-apresentacao-remover" disabled={ocupado} onClick={() => { setApresentacoes([]); void enviar({ acao: "salvar_apresentacoes", apresentacoes: [] }); }}>Desativar opções</button>
+                </div>
+              </>
+            ) : <p className="colecoes-nota">Sem opções cadastradas. O produto continua com o preço e a foto normais.</p>}
+          </section>
+
           {aviso ? <p className="colecoes-aviso" role="alert">{aviso}</p> : null}
-          <p className="colecoes-nota">As fotos ficam no painel até a sincronização publicar o site. A ficha do produto passa a mostrar a coleção depois dessa etapa.</p>
+          <p className="colecoes-nota">Para não dar a impressão de que o preço inclui as duas embalagens, use uma foto individual em cada apresentação e inclua “por unidade” no nome se necessário.</p>
         </section>
       ) : null}
     </main>

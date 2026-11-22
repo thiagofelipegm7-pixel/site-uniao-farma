@@ -16,7 +16,7 @@ import { carregarUltimoPedido, guardarUltimoPedido, repetirPedido, type ItemCata
 import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats, IconCestaArte, IconCaminhaoArte, IconFinalizarArte } from "./ReservaIcons";
 import CestaSugestoes from "./CestaSugestoes";
 import DestaquesSemana from "../shop/DestaquesSemana";
-import { gerarCodigoPedido, trocoValido, ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, precoUnitarioReserva, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens, exigeReceita } from "./reserva-store";
+import { gerarCodigoPedido, trocoValido, ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, nomePedidoItem, precoUnitarioReserva, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens, exigeReceita } from "./reserva-store";
 import { useReserva } from "./useReserva";
 import { useDisponibilidade } from "./useDisponibilidade";
 import { avisosDaCesta } from "../disponibilidade";
@@ -24,6 +24,7 @@ import { podeCompartilhar, prepararReceita, type ReceitaPronta } from "./prepara
 import { normalizarTelefone, TEXTO_CONSENTIMENTO } from "./lembrete-recompra";
 import { AJUDA_AVISO_RETIRADA, TEXTO_AVISO_RETIRADA } from "../retirada";
 import { faixaAplicavel, proximaFaixa } from "../promocao-quantidade-tipos";
+import { eanDaFoto } from "../nacoes-unidas/produtos/imagens";
 
 type Passo = 1 | 2 | 3;
 const BAIRROS = listarBairros(PUBLIC_UNITS);
@@ -199,7 +200,7 @@ export default function ReservaFluxo() {
       codigo: codigoPedido,
       unidade: unidade.id,
       modo,
-      itens: estado.itens.filter(itemAtivo).map((item) => ({ nome: item.nome, quantidade: item.qtd, precoCentavos: item.precoCentavos })),
+      itens: estado.itens.filter(itemAtivo).map((item) => ({ nome: nomePedidoItem(item), quantidade: item.qtd, precoCentavos: precoUnitarioReserva(item) })),
       ...(retirar && avisoOk ? { avisoTelefone: celularAviso } : {}),
       ...(exigeReceita(estado.itens) ? { comReceita: true } : {}),
       ...(querLembrete && celularOk ? { lembrete: { consentimento: true, nome: nome.trim(), telefone: celularLembrete } } : {}),
@@ -216,11 +217,18 @@ export default function ReservaFluxo() {
   async function repetir() {
     setRepetindo(true);
     try {
-      const [comuns, restritos] = await Promise.all([
+      const [comuns, restritos, dadosApresentacoes] = await Promise.all([
         fetch("/dados/nacoes/catalogo-busca.json").then((r) => r.json()) as Promise<Array<{ nome: string; precoCentavos: number; foto: string | null }>>,
         fetch("/dados/nacoes/restritos-busca.json").then((r) => r.json()) as Promise<Array<{ nome: string; precoCentavos: number | null; tipo: "receita" | "controlados" }>>,
+        fetch("/api/apresentacoes-produto", { cache: "no-store" }).then((r) => r.json()) as Promise<{ apresentacoes?: Array<{ ean: string; id: string; nome: string; precoCentavos: number; foto: string | null }> }>,
       ]);
-      const catalogo: ItemCatalogo[] = [...comuns.map((c) => ({ nome: c.nome, precoCentavos: c.precoCentavos, foto: c.foto })), ...restritos.map((c) => ({ nome: c.nome, precoCentavos: c.precoCentavos, tipo: c.tipo }))];
+      const porEan: Record<string, Array<{ id: string; nome: string; precoCentavos: number; foto: string | null }>> = {};
+      for (const a of dadosApresentacoes.apresentacoes ?? []) (porEan[a.ean] ??= []).push(a);
+      const comApresentacoes = (item: { nome: string; precoCentavos: number | null; foto?: string | null; tipo?: "receita" | "controlados" }): ItemCatalogo => {
+        const ean = eanDaFoto(item.nome);
+        return { ...item, apresentacoes: ean ? porEan[ean] : undefined };
+      };
+      const catalogo: ItemCatalogo[] = [...comuns.map((c) => comApresentacoes({ nome: c.nome, precoCentavos: c.precoCentavos, foto: c.foto })), ...restritos.map((c) => comApresentacoes({ nome: c.nome, precoCentavos: c.precoCentavos, tipo: c.tipo }))];
       let faltou: string[] = [];
       atualizarReserva((s) => {
         const r = repetirPedido(s, ultimo, catalogo, "nacoes");
@@ -275,7 +283,7 @@ export default function ReservaFluxo() {
             <li key={item.id}>
               <div className="entrega-item-prod">
                 <span className="fluxo-item-foto">{item.foto ? <img src={item.foto} alt="" width="52" height="52" /> : null}<b className="fluxo-item-qtd" aria-hidden="true">{item.qtd}</b></span>
-                <strong className="fluxo-item-nome">{item.nome}{item.receita ? <span className="fluxo-item-receita">{item.receita === "controlado" ? "Controlado · receita retida" : "Exige receita"}</span> : null}{faixaAplicavel(item.promocao, item.qtd) ? <span className="fluxo-item-receita">Faixa de {faixaAplicavel(item.promocao, item.qtd)?.quantidade} unidades aplicada</span> : proximaFaixa(item.promocao, item.qtd) ? <span className="fluxo-item-receita">Leve {proximaFaixa(item.promocao, item.qtd)?.quantidade}, pague {formatarCentavos(proximaFaixa(item.promocao, item.qtd)?.precoUnitarioCentavos ?? 0)} cada</span> : null}</strong>
+                <strong className="fluxo-item-nome">{nomePedidoItem(item)}{item.receita ? <span className="fluxo-item-receita">{item.receita === "controlado" ? "Controlado · receita retida" : "Exige receita"}</span> : null}{faixaAplicavel(item.promocao, item.qtd) ? <span className="fluxo-item-receita">Faixa de {faixaAplicavel(item.promocao, item.qtd)?.quantidade} unidades aplicada</span> : proximaFaixa(item.promocao, item.qtd) ? <span className="fluxo-item-receita">Leve {proximaFaixa(item.promocao, item.qtd)?.quantidade}, pague {formatarCentavos(proximaFaixa(item.promocao, item.qtd)?.precoUnitarioCentavos ?? 0)} cada</span> : null}</strong>
                 {avisoDe(item.id)?.tipo === "acabou" ? <span className="fluxo-aviso-estoque" role="alert">Acabou na loja agora. Volte e tire este item da cesta.</span> : null}
               </div>
               <span className="entrega-item-preco">{formatarCentavos(precoUnitarioReserva(item))}</span>

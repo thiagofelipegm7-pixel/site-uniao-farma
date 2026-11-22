@@ -55,6 +55,8 @@ import { carregarBuscaIndex, estadoDaLista, grupoRestritos, gruposDoIndice } fro
 import EsqueletoGrade from "./EsqueletoGrade";
 import { FaixaLista, LateralTopo } from "./ListaDrogasil";
 import type { PromocaoQuantidade } from "../../promocao-quantidade-tipos";
+import type { ApresentacaoPublica } from "../../apresentacao-produto-tipos";
+import { eanDaFoto } from "./imagens";
 
 type Props = {
   /** Texto vindo do campo de busca do cabeçalho (?q=). */
@@ -84,11 +86,22 @@ function alternar(lista: readonly string[] | undefined, valor: string): string[]
 export default function CatalogoLista({ grupos: gruposProps, departamento, whatsappHref, unitId, consultaInicial = "", paginaInicial = 1 }: Props) {
   const [grupos, setGrupos] = useState(gruposProps);
   const [promocoesQuantidade, setPromocoesQuantidade] = useState<Record<string, PromocaoQuantidade>>({});
+  const [apresentacoesPorEan, setApresentacoesPorEan] = useState<Record<string, ApresentacaoPublica[]>>({});
   useEffect(() => {
     let cancel = false;
     fetch("/api/promocoes-quantidade", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).then((dados: { promocoes?: PromocaoQuantidade[] } | null) => {
       if (cancel || !dados?.promocoes) return;
       setPromocoesQuantidade(Object.fromEntries(dados.promocoes.map((p) => [p.slug, p])));
+    }).catch(() => undefined);
+    return () => { cancel = true; };
+  }, []);
+  useEffect(() => {
+    let cancel = false;
+    fetch("/api/apresentacoes-produto", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).then((dados: { apresentacoes?: ApresentacaoPublica[] } | null) => {
+      if (cancel || !dados?.apresentacoes) return;
+      const porEan: Record<string, ApresentacaoPublica[]> = {};
+      for (const a of dados.apresentacoes) (porEan[a.ean] ??= []).push(a);
+      setApresentacoesPorEan(porEan);
     }).catch(() => undefined);
     return () => { cancel = true; };
   }, []);
@@ -346,11 +359,17 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
 
   /** Cartão de um item da lista (o mesmo na lista principal e nos "parecidos em estoque"). */
   const renderCartao = (item: (typeof itensDaPagina)[number]) => {
-    if (item.restrito) return <CartaoRestrito key={item.id ?? item.nome} item={item.restrito} levePague={item.slug ? promocoesQuantidade[item.slug] : undefined} />;
+    if (item.restrito) {
+      const ean = eanDaFoto(item.restrito.nome);
+      return <CartaoRestrito key={item.id ?? item.nome} item={item.restrito} levePague={item.slug ? promocoesQuantidade[item.slug] : undefined} apresentacoes={ean ? apresentacoesPorEan[ean] : undefined} />;
+    }
     const nome = nomeDeExibicao(item.nome);
     const href = `/nacoes-unidas/produtos/${item.slug ?? slugify(item.nome)}`;
     const centavos = precoParaCentavos(item.precoFmt);
     const levePague = item.slug ? promocoesQuantidade[item.slug] : undefined;
+    const ean = eanDaFoto(item.nome);
+    const apresentacoes = ean ? apresentacoesPorEan[ean] : undefined;
+    const promocaoProduto = apresentacoes && apresentacoes.length > 1 ? undefined : levePague;
     return (
       <CartaoPanvel
         key={item.id ?? item.nome}
@@ -364,8 +383,9 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
         precoFmt={item.precoFmt}
         restam={item.restam}
         esgotado={item.esgotado}
-        levePague={levePague}
-        cesta={centavos && !item.esgotado ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cartao" max={item.restam} slug={item.slug} promocao={levePague} /> : null}
+        levePague={promocaoProduto}
+        apresentacoes={apresentacoes}
+        cesta={centavos && !item.esgotado ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cartao" max={item.restam} slug={item.slug} promocao={promocaoProduto} apresentacoes={apresentacoes} /> : null}
       />
     );
   };

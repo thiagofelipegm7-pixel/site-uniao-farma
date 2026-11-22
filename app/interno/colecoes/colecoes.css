@@ -21,5 +21,16 @@
 .colecoes-enviar input { font: inherit; }
 .colecoes-aviso { margin: 0.5rem 0; padding: 0.6rem 0.8rem; border-radius: 8px; background: #fdecea; color: #a3200f; font-weight: 700; }
 .colecoes-cheio, .colecoes-nota { margin: 0.5rem 0 0; color: #3e4b49; font-size: 0.9rem; }
+.colecoes-apresentacoes { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #d3e2df; }
+.colecoes-apresentacoes h3 { margin: 0 0 0.35rem; color: #0a3548; font-size: 1.05rem; }
+.colecoes-apresentacoes > p { margin: 0 0 0.8rem; color: #3e4b49; line-height: 1.45; }
+.colecoes-apresentacoes label { display: grid; gap: 0.3rem; font-size: 0.85rem; font-weight: 700; }
+.colecoes-apresentacoes input, .colecoes-apresentacoes select { box-sizing: border-box; width: 100%; min-height: 2.65rem; padding: 0.5rem 0.7rem; border: 1px solid #9ab5af; border-radius: 7px; background: #fff; font: inherit; font-weight: 400; }
+.colecoes-apresentacao { display: grid; grid-template-columns: minmax(10rem, 1.2fr) minmax(9rem, 1fr) minmax(8rem, 0.7fr) auto; align-items: end; gap: 0.6rem; margin: 0.7rem 0; padding: 0.7rem; border: 1px solid #d3e2df; border-radius: 10px; background: #f9fcfb; }
+.colecoes-apresentacoes button { min-height: 2.65rem; padding: 0 0.85rem; border: 0; border-radius: 8px; background: #14736b; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+.colecoes-apresentacoes button:disabled { opacity: 0.5; cursor: default; }
+.colecoes-apresentacoes .colecoes-apresentacao-remover { background: #eef3f2; color: #17434a; }
+.colecoes-apresentacoes-acoes { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 0.75rem; }
+@media (max-width: 720px) { .colecoes-apresentacao { grid-template-columns: minmax(0, 1fr) auto; } .colecoes-apresentacao label { grid-column: 1 / -1; } .colecoes-apresentacao button { grid-column: 2; } }
 @media (min-width: 720px) { .colecoes-fotos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 992px) { .colecoes-fotos { grid-template-columns: repeat(6, minmax(0, 1fr)); } }

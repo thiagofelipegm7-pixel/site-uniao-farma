@@ -25,6 +25,8 @@ export type ReservaItem = {
   selecionado?: boolean;
   qtd: number;
   foto?: string | null;
+  /** Opção escolhida quando o mesmo código possui embalagens/apresentações diferentes. */
+  variante?: { id: string; nome: string };
   /** Medicamento de venda sob prescrição ("receita") ou de controle especial ("controlado"): retirada na loja com a receita. */
   receita?: "receita" | "controlado";
   /** Unidades que restam na loja (1 a 5): a quantidade da cesta não passa disso. Ausente = sem limite além de MAX_POR_ITEM. */
@@ -39,8 +41,8 @@ export const ESTADO_VAZIO: ReservaEstado = { itens: [], modo: "retirar" };
 export const MAX_POR_ITEM = 20;
 const STORAGE_KEY = "uf-reserva-v1";
 
-export function idDoItem(unitId: string, nome: string): string {
-  return `${unitId}:${nome.replace(/\s+/g, " ").trim().toLowerCase()}`;
+export function idDoItem(unitId: string, nome: string, varianteId?: string): string {
+  return `${unitId}:${nome.replace(/\s+/g, " ").trim().toLowerCase()}${varianteId ? `:variante:${varianteId}` : ""}`;
 }
 
 /** "R$ 19,90" ou "19,90" → 1990. Devolve null se não for um preço válido. */
@@ -68,17 +70,27 @@ export function itemAtivo(item: ReservaItem): boolean {
   return item.selecionado !== false;
 }
 
+export function nomePedidoItem(item: Pick<ReservaItem, "nome" | "variante">): string {
+  return item.variante?.nome ? `${item.nome} — ${item.variante.nome}` : item.nome;
+}
+
 export function adicionar(estado: ReservaEstado, item: Omit<ReservaItem, "qtd" | "id">, qtd = 1): ReservaEstado {
-  const id = idDoItem(item.unitId, item.nome);
+  const id = idDoItem(item.unitId, item.nome, item.variante?.id);
+  const doMesmoProduto = (i: ReservaItem) => i.unitId === item.unitId && (item.slug ? i.slug === item.slug : i.nome === item.nome);
+  const quantidadeNoProduto = estado.itens.filter(doMesmoProduto).reduce((total, i) => total + i.qtd, 0);
+  const limiteProduto = tetoDoItem({ max: item.max });
   const existente = estado.itens.find((i) => i.id === id);
   if (existente) {
     // O limite vem do último "Resta N" que o cliente viu; sem limite agora, o antigo cai.
     const comLimite: ReservaEstado = { ...estado, itens: estado.itens.map((i) => (i.id === id ? limiteDoItem({ ...i, max: item.max, slug: item.slug ?? i.slug, promocao: item.promocao }) : i)) };
-    return definirSelecao(definirQtd(comLimite, id, existente.qtd + qtd), id, true);
+    const outras = quantidadeNoProduto - existente.qtd;
+    return definirSelecao(definirQtd(comLimite, id, Math.min(existente.qtd + qtd, Math.max(0, limiteProduto - outras))), id, true);
   }
   if (!(item.precoCentavos > 0)) return estado;
+  const disponivel = limiteProduto - quantidadeNoProduto;
+  if (disponivel <= 0) return estado;
   const novo: ReservaItem = limiteDoItem({ ...item, id, qtd: 1 });
-  novo.qtd = Math.min(tetoDoItem(novo), Math.max(1, qtd));
+  novo.qtd = Math.min(disponivel, tetoDoItem(novo), Math.max(1, qtd));
   return { ...estado, itens: [...estado.itens, novo] };
 }
 
@@ -129,9 +141,14 @@ export function ajustarLimitesAoVivo(estado: ReservaEstado, mudou: Record<string
 /** qtd <= 0 remove o item. A quantidade nunca passa do que resta na loja (`max`). */
 export function definirQtd(estado: ReservaEstado, id: string, qtd: number): ReservaEstado {
   if (qtd <= 0) return { ...estado, itens: estado.itens.filter((i) => i.id !== id) };
+  const alvo = estado.itens.find((i) => i.id === id);
+  if (!alvo) return estado;
+  const outras = estado.itens.filter((i) => i.id !== id && i.unitId === alvo.unitId && (alvo.slug ? i.slug === alvo.slug : i.nome === alvo.nome)).reduce((total, i) => total + i.qtd, 0);
+  const permitido = Math.max(0, tetoDoItem(alvo) - outras);
+  if (permitido === 0) return { ...estado, itens: estado.itens.filter((i) => i.id !== id) };
   return {
     ...estado,
-    itens: estado.itens.map((i) => (i.id === id ? { ...i, qtd: Math.min(tetoDoItem(i), Math.floor(qtd)) } : i)),
+    itens: estado.itens.map((i) => (i.id === id ? { ...i, qtd: Math.min(permitido, Math.floor(qtd)) } : i)),
   };
 }
 
@@ -215,7 +232,7 @@ export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: D
     const aplicada = faixaAplicavel(i.promocao, i.qtd);
     const proxima = proximaFaixa(i.promocao, i.qtd);
     const promocao = aplicada ? ` (promoção: ${formatarCentavos(aplicada.precoUnitarioCentavos)} cada)` : proxima ? ` (leve ${proxima.quantidade}, pague ${formatarCentavos(proxima.precoUnitarioCentavos)} cada)` : "";
-    return `\u2022 ${i.qtd}x ${i.nome.replace(/\s+/g, " ").trim()}${i.receita === "controlado" ? " (controlado: receita retida na loja)" : ""}${promocao} \u2014 ${formatarCentavos(precoUnitarioReserva(i) * i.qtd)}`;
+    return `\u2022 ${i.qtd}x ${nomePedidoItem(i).replace(/\s+/g, " ").trim()}${i.receita === "controlado" ? " (controlado: receita retida na loja)" : ""}${promocao} \u2014 ${formatarCentavos(precoUnitarioReserva(i) * i.qtd)}`;
   });
   const retirar = dados.modo === "retirar";
   const nome = dados.nome.replace(/\s+/g, " ").trim();

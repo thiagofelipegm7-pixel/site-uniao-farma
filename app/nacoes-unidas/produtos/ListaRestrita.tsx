@@ -16,6 +16,7 @@ import BotaoVoz from "../../shop/BotaoVoz";
 import { buildWhatsAppUrl, getHoursSentence, UNITS } from "../../site-config";
 import { formatBRL, slugify } from "./catalogo";
 import type { PromocaoQuantidade } from "../../promocao-quantidade-tipos";
+import type { ApresentacaoPublica } from "../../apresentacao-produto-tipos";
 import {
   imagemIlustrativa,
   type ItemRestrito,
@@ -65,8 +66,9 @@ const TEXTOS: Record<TipoRestrito, { titulo: string; h1: string; intro: string; 
 };
 
 
-export function Cartao({ item, levePague }: { item: ItemRestrito; levePague?: PromocaoQuantidade }) {
+export function Cartao({ item, levePague, apresentacoes }: { item: ItemRestrito; levePague?: PromocaoQuantidade; apresentacoes?: ApresentacaoPublica[] }) {
   const nome = item.nomeExibicao ?? item.nome;
+  const promocaoProduto = apresentacoes && apresentacoes.length > 1 ? undefined : levePague;
   const pedeCesta = item.tipo !== "consulte" && item.preco !== null && item.preco > 0 && !item.esgotado;
   return (
     <CartaoPanvel
@@ -80,7 +82,8 @@ export function Cartao({ item, levePague }: { item: ItemRestrito; levePague?: Pr
       apresentacao={quantidadeLegivel(item.apresentacao)}
       foto={item.controlado ? imagemIlustrativa(item) : (fotoDoProduto(item.nome) ?? imagemIlustrativa(item))}
       precoFmt={item.preco !== null ? formatBRL(item.preco) : null}
-      levePague={levePague}
+      levePague={promocaoProduto}
+      apresentacoes={apresentacoes}
       precoVazio={item.semVenda ? "Consulte o farmacêutico" : undefined}
       restam={item.restam}
       esgotado={item.esgotado}
@@ -96,7 +99,8 @@ export function Cartao({ item, levePague }: { item: ItemRestrito; levePague?: Pr
             variante="cartao"
             max={item.restam}
             slug={item.slug}
-            promocao={levePague}
+            promocao={promocaoProduto}
+            apresentacoes={apresentacoes}
           />
         ) : null
       }

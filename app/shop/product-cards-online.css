@@ -147,3 +147,5 @@ html body .shop-destaques--ofertas .shop-ofertas-nota { margin-top: 0.25rem; }
   line-height: 1.35;
 }
 .pv-leve-pague strong { font-weight: 700; }
+.pv-preco-opcoes { display: grid; gap: 0.15rem; margin-top: auto; padding-top: 0.5rem; }
+.pv-preco-opcoes small { color: #3e4b49; font-size: 0.75rem; line-height: 1.3; }

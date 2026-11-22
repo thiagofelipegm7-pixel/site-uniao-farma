@@ -5,8 +5,8 @@
 import { adicionar, definirQtd, idDoItem, type ReservaEstado, type ReservaItem } from "./reserva-store";
 
 export const CHAVE_ULTIMO_PEDIDO = "uf-ultimo-pedido-v1";
-export type ItemUltimoPedido = { nome: string; qtd: number; receita?: "receita" | "controlado" };
-export type ItemCatalogo = { nome: string; precoCentavos: number | null; foto?: string | null; tipo?: "receita" | "controlados" };
+export type ItemUltimoPedido = { nome: string; qtd: number; receita?: "receita" | "controlado"; variante?: { id: string; nome: string } };
+export type ItemCatalogo = { nome: string; precoCentavos: number | null; foto?: string | null; tipo?: "receita" | "controlados"; slug?: string; apresentacoes?: { id: string; nome: string; precoCentavos: number; foto: string | null }[] };
 
 export function lerUltimoPedido(bruto: string | null): ItemUltimoPedido[] {
   if (!bruto) return [];
@@ -16,7 +16,10 @@ export function lerUltimoPedido(bruto: string | null): ItemUltimoPedido[] {
     return lista
       .filter((i): i is ItemUltimoPedido => !!i && typeof i.nome === "string" && i.nome.trim().length > 0 && Number.isInteger(i.qtd) && i.qtd > 0 && i.qtd <= 20)
       .slice(0, 40)
-      .map((i) => ({ nome: i.nome.trim().slice(0, 160), qtd: i.qtd, ...(i.receita === "receita" || i.receita === "controlado" ? { receita: i.receita } : {}) }));
+      .map((i) => {
+        const variante = i.variante && typeof i.variante.id === "string" && typeof i.variante.nome === "string" ? { id: i.variante.id.slice(0, 48), nome: i.variante.nome.trim().slice(0, 48) } : undefined;
+        return { nome: i.nome.trim().slice(0, 160), qtd: i.qtd, ...(i.receita === "receita" || i.receita === "controlado" ? { receita: i.receita } : {}), ...(variante ? { variante } : {}) };
+      });
   } catch {
     return [];
   }
@@ -30,9 +33,9 @@ export function carregarUltimoPedido(): ItemUltimoPedido[] {
   }
 }
 
-export function guardarUltimoPedido(itens: readonly Pick<ReservaItem, "nome" | "qtd" | "receita">[]): void {
+export function guardarUltimoPedido(itens: readonly Pick<ReservaItem, "nome" | "qtd" | "receita" | "variante">[]): void {
   try {
-    const lista = itens.map((i) => ({ nome: i.nome, qtd: i.qtd, ...(i.receita ? { receita: i.receita } : {}) }));
+    const lista = itens.map((i) => ({ nome: i.nome, qtd: i.qtd, ...(i.receita ? { receita: i.receita } : {}), ...(i.variante ? { variante: i.variante } : {}) }));
     if (lista.length > 0) window.localStorage.setItem(CHAVE_ULTIMO_PEDIDO, JSON.stringify(lista));
   } catch {
     // sem armazenamento: só não lembra
@@ -51,8 +54,13 @@ export function repetirPedido(estado: ReservaEstado, anterior: readonly ItemUlti
       continue;
     }
     const receita = item.receita ?? (achado.tipo === "controlados" ? "controlado" : achado.tipo === "receita" ? "receita" : undefined);
-    novo = adicionar(novo, { unitId, nome: item.nome, precoCentavos: achado.precoCentavos, foto: achado.foto ?? null, ...(receita ? { receita } : {}) }, 1);
-    novo = definirQtd(novo, idDoItem(unitId, item.nome), item.qtd);
+    const variante = item.variante ? achado.apresentacoes?.find((a) => a.id === item.variante?.id) : undefined;
+    if (item.variante && !variante) {
+      faltaram.push(`${item.nome} — ${item.variante.nome}`);
+      continue;
+    }
+    novo = adicionar(novo, { unitId, nome: item.nome, precoCentavos: variante?.precoCentavos ?? achado.precoCentavos, foto: variante?.foto ?? achado.foto ?? null, ...(variante ? { variante: { id: variante.id, nome: variante.nome } } : {}), ...(achado.slug ? { slug: achado.slug } : {}), ...(receita ? { receita } : {}) }, 1);
+    novo = definirQtd(novo, idDoItem(unitId, item.nome, variante?.id), item.qtd);
   }
   return { estado: novo, faltaram };
 }
