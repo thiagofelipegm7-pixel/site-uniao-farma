@@ -827,7 +827,6 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
                       </label>
                     ) : null}
                     <span className={`pf-qtd pf-qtd-${faixa}`} title={faixa === "zero" ? "Sem estoque" : faixa === "baixo" ? "Estoque baixo" : "Estoque normal"}>{l.estoque} {l.estoque === 1 ? "unidade" : "unidades"}</span>
-                    {estadoControlado(l) === "sim" ? <span className="pf-chip pf-chip-ctl">Controlado</span> : null}
                     <button type="button" className="pf-engrenagem" onClick={(e) => { const r = e.currentTarget.getBoundingClientRect(); setOrigemConfig({ bx: r.left + r.width / 2, by: r.top + r.height / 2 }); setProdutoConfig(l.ean); }} aria-label={`Configurar ${nomeAtual(l).texto}`}>
                       <IconeAlternar aberto={produtoConfig === l.ean} size={20} />
                     </button>
@@ -846,7 +845,10 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
                     )}
                   </div>
                   <h3 className="pf-card-nome" title={nomeAtual(l).texto}>{nomeAtual(l).texto}</h3>
-                  <p className={marcaAtual(l).texto ? "pf-card-lab" : "pf-card-lab pf-card-lab-vazio"}>{marcaAtual(l).texto || "Sem marca informada"}</p>
+                  <div className="pf-card-linha-marca">
+                    <p className={marcaAtual(l).texto ? "pf-card-lab" : "pf-card-lab pf-card-lab-vazio"}>{marcaAtual(l).texto || "Sem marca informada"}</p>
+                    {estadoControlado(l) === "sim" ? <span className="pf-chip pf-chip-ctl">Controlado</span> : null}
+                  </div>
                   <dl className="pf-card-dados">
                     <div><dt>Categoria</dt><dd>{categoriaEfetiva(l)}</dd></div>
                     <div><dt>Código</dt><dd className="pf-mono" title={l.ean}>{l.semCodigo ? "sem código" : l.ean}</dd></div>

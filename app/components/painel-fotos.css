@@ -773,3 +773,7 @@ body:has(.nav-interna) { background: #ffffff; }
 /* Selo "unidades" em estoque normal: verde #22A05A com letras brancas. */
 .painel-fotos .pf-card .pf-qtd-normal,
 .painel-fotos .pf-qtd-normal { background: #22a05a; color: #ffffff; }
+
+.painel-fotos .pf-card-linha-marca { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.painel-fotos .pf-card-linha-marca .pf-card-lab { min-width: 0; }
+.painel-fotos .pf-card-linha-marca .pf-chip-ctl { flex: none; }
