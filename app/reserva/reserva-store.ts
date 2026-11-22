@@ -210,7 +210,7 @@ export function trocoValido(texto: string, totalCentavos: number): number | null
  * Pede confirmação de preço e estoque (não promete nada). Nome e endereço vão só no texto da mensagem, nunca ao analytics.
  */
 export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: DadosPedido): string {
-  const linhas = itens.filter(itemAtivo).map((i) => `\u2022 ${i.qtd}x ${i.nome.replace(/\s+/g, " ").trim()}${i.receita === "controlado" ? " (controlado: receita retida na loja)" : i.receita ? " (exige receita)" : ""}${i.promocao && i.qtd >= i.promocao.quantidade ? ` (leve ${i.promocao.quantidade}, pague ${formatarCentavos(i.promocao.precoUnitarioCentavos)} cada)` : ""} \u2014 ${formatarCentavos(precoUnitarioReserva(i) * i.qtd)}`);
+  const linhas = itens.filter(itemAtivo).map((i) => `\u2022 ${i.qtd}x ${i.nome.replace(/\s+/g, " ").trim()}${i.receita === "controlado" ? " (controlado: receita retida na loja)" : ""}${i.promocao && i.qtd >= i.promocao.quantidade ? ` (leve ${i.promocao.quantidade}, pague ${formatarCentavos(i.promocao.precoUnitarioCentavos)} cada)` : ""} \u2014 ${formatarCentavos(precoUnitarioReserva(i) * i.qtd)}`);
   const retirar = dados.modo === "retirar";
   const nome = dados.nome.replace(/\s+/g, " ").trim();
   const sub = subtotalCentavos(itens);
