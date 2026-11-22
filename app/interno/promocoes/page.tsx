@@ -8,5 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function PromocoesInternoPage() {
-  return <><PainelLevePague /><PainelPromocoes /></>;
+  return <><PainelLevePague /><PainelPromocoes modo="destinos" /></>;
 }
