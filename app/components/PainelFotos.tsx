@@ -1,9 +1,9 @@
 "use client";
 
-import FilaIA from "./FilaIA";
 import IconeAlternar from "./IconeAlternar";
 import FileDrop from "./FileDrop";
-import BuscasSemResultado from "./BuscasSemResultado";
+import { subcategoriaDe, subcategoriasDe } from "../subcategorias";
+import FiltroCategorias from "./FiltroCategorias";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { candidatosDoArraste } from "../fotos-arrastar";
 import { CATEGORIAS_VALIDAS } from "../categoria-override";
@@ -69,7 +69,8 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
   const [erro, setErro] = useState(false);
   const [busca, setBusca] = useState("");
   const [categoria, setCategoria] = useState("");
-  const [estoque, setEstoque] = useState<FiltroFotos["estoque"]>("com");
+  const [subcategoria, setSubcategoria] = useState("");
+  const [estoque, setEstoque] = useState<FiltroFotos["estoque"]>("");
   const [fotos, setFotos] = useState<FiltroFotos["fotos"]>(modo === "produtos" ? "" : "faltam");
   const [tipo, setTipo] = useState<FiltroFotos["tipo"]>("");
   const [pendencia, setPendencia] = useState<Pendencia>("");
@@ -85,6 +86,8 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
   const [aviso, setAviso] = useState("");
   const [configAberto, setConfigAberto] = useState(false);
   const [produtoConfig, setProdutoConfig] = useState<string | null>(null);
+  /** Distância do botão que abriu o pop-up até o centro da tela: o pop-up nasce dali. */
+  const [origemConfig, setOrigemConfig] = useState<{ bx: number; by: number } | null>(null);
   const [excluindo, setExcluindo] = useState<string | null>(null);
   // Quem está mexendo: fica registrado no histórico (foto e nome). Guardado só neste aparelho.
   const [por, setPor] = useState("");
@@ -218,7 +221,7 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
   const resumo = useMemo(() => resumirFotos(linhas), [linhas]);
   const filtradas = useMemo(() => {
     // Buscando por nome ou código: mostra o produto mesmo que já tenha foto (para trocar).
-    const lista = filtrarLinhas(linhas, { busca, categoria, estoque, fotos: busca.trim() || pendencia ? "" : fotos, tipo, marcados }).filter((l) => !pendencia || temPendencia(l, pendencia, contextoPendencia(l)));
+    const lista = filtrarLinhas(linhas, { busca, categoria, estoque, fotos: busca.trim() || pendencia ? "" : fotos, tipo, marcados }).filter((l) => !pendencia || temPendencia(l, pendencia, contextoPendencia(l))).filter((l) => !subcategoria || subcategoriaDe(l.nome, l.categoria) === subcategoria);
     const comparar: Record<Ordem, (a: LinhaFoto, b: LinhaFoto) => number> = {
       estoque: (a, b) => b.estoque - a.estoque,
       nome: (a, b) => a.nome.localeCompare(b.nome, "pt-BR"),
@@ -226,7 +229,7 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
     };
     return [...lista].sort(comparar[ordem]);
     // eslint-disable-next-line react-hooks/exhaustive-deps -- contextoPendencia lê dados, marcasAgora e nomesAgora, listados abaixo
-  }, [linhas, busca, categoria, estoque, fotos, tipo, marcados, ordem, pendencia, dados, marcasAgora, nomesAgora]);
+  }, [linhas, busca, categoria, subcategoria, estoque, fotos, tipo, marcados, ordem, pendencia, dados, marcasAgora, nomesAgora]);
 
   const totalPaginas = Math.max(1, Math.ceil(filtradas.length / POR_PAGINA));
   const paginaAtual = Math.min(pagina, totalPaginas);
@@ -531,6 +534,17 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
   }
 
   /** Quantos itens do filtro atual (sem a própria pendência) caem em cada pendência: o número que aparece na lista. */
+  const contagemCategoria = useMemo(() => {
+    const m: Record<string, number> = {};
+    for (const l of linhas) m[l.categoria] = (m[l.categoria] ?? 0) + 1;
+    return m;
+  }, [linhas]);
+  const contagemSubcategoria = useMemo(() => {
+    const m: Record<string, number> = {};
+    if (!categoria) return m;
+    for (const l of linhas) if (l.categoria === categoria) { const sc = subcategoriaDe(l.nome, categoria); m[sc] = (m[sc] ?? 0) + 1; }
+    return m;
+  }, [linhas, categoria]);
   const contagemPendencias = useMemo(() => {
     const base = filtrarLinhas(linhas, { busca, categoria, estoque, fotos: busca.trim() ? "" : fotos, tipo, marcados });
     const total: Record<string, number> = {};
@@ -747,7 +761,7 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
     <section className="painel-fotos">
       <header className="pf-cabeca">
         {nivel === 2 ? <h2>{titulo}</h2> : <h1>{titulo}</h1>}
-        <p>{descricao}</p>
+        {descricao ? <p>{descricao}</p> : null}
       </header>
       {mostraGestao ? <PainelCatalogo /> : null}
       {erro ? <p role="alert">Não consegui ler o estoque agora. O PC da loja ou o acesso aos dados pode estar parado. <button type="button" onClick={() => void carregar()}>Tentar de novo</button></p> : null}
@@ -762,40 +776,23 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
             <p className="pf-aviso" role="note">A publicação rápida está desligada (falta a chave do GitHub no Cloudflare). As fotos funcionam no site, mas o arquivo fixo só sai quando o GitHub rodar a sincronização, o que pode levar horas.</p>
           ) : null}
           {arrastando ? <p className="pf-solte" role="status">Solte aqui para enviar a foto de &ldquo;{linhas.find((x) => x.ean === arrastando)?.nome}&rdquo;</p> : null}
-          {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
 
-          {mostraGestao ? <BuscasSemResultado por={por} onAviso={setAviso} /> : null}
-          {mostraGestao ? <FilaIA por={por} onAviso={setAviso} onDescricaoSalva={(o, t) => setDescricoesAgora((m) => ({ ...m, [chaveDoNome(o)]: { texto: t, fonte: "" } }))} /> : null}
-          {mostraGestao && mudancas.length > 0 ? (
-            <details className="pf-mudancas">
-              <summary>O que mudou nos últimos dias <b>({mudancas.length})</b></summary>
-              <div className="pf-mudancas-chips" role="group" aria-label="Tipo de mudança">
-                {([["", "Tudo", mudancas.length], ["novo", "Novos", contagemMudancas.novo], ["esgotou", "Esgotaram", contagemMudancas.esgotou], ["voltou", "Voltaram", contagemMudancas.voltou], ["preco", "Preço mudou", contagemMudancas.preco]] as const).map(([valor, rotulo, total]) => (
-                  <button key={valor} type="button" className={`pf-chip-filtro${filtroMudanca === valor ? " pf-chip-filtro--ativo" : ""}`} aria-pressed={filtroMudanca === valor} onClick={() => setFiltroMudanca(valor)}>{rotulo} ({total})</button>
-                ))}
-              </div>
-              <ul className="pf-mudancas-lista">
-                {mudancasVisiveis.map((m, i) => (
-                  <li key={`${m.q}|${m.t}|${m.n}|${i}`}>
-                    <span className={`pf-mudanca-tipo pf-mudanca-tipo--${m.t}`}>{({ novo: "Novo", esgotou: "Esgotou", voltou: "Voltou", preco: "Preço" } as Record<string, string>)[m.t] ?? m.t}</span>
-                    <button type="button" className="pf-mudanca-nome" onClick={() => { setBusca(m.n); setEstoque(""); setCategoria(""); setPendencia(""); setPagina(1); }} title="Buscar este produto">{nomeDeExibicao(m.n)}</button>
-                    <span className="pf-mudanca-info">{m.c}{m.t === "preco" && typeof m.de === "number" && typeof m.para === "number" ? ` · ${REAIS.format(m.de)} → ${REAIS.format(m.para)}` : ""} · {`${m.q.slice(8, 10)}/${m.q.slice(5, 7)} ${m.q.slice(11, 16)}`}</span>
-                  </li>
-                ))}
-              </ul>
-              {mudancas.filter((m) => !filtroMudanca || m.t === filtroMudanca).length > 60 ? <p className="pf-mudancas-nota">Mostrando as 60 mais recentes.</p> : null}
-            </details>
-          ) : null}
-          <div className="pf-barra" role="search">
+                    <div className="pf-barra" role="search">
             <label className="pf-busca">
               <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" strokeWidth="2" /><path d="m20 20-4.4-4.4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" /></svg>
               <input type="search" value={busca} onChange={(e) => mudar(setBusca)(e.target.value)} placeholder="Buscar produto, laboratório ou código" aria-label="Buscar" />
             </label>
-            <select className="pf-select" value={categoria} onChange={(e) => mudar(setCategoria)(e.target.value)} aria-label="Categoria">
-              <option value="">Todas as categorias</option>
-              <option value="__corrigir">A corrigir</option>
-              {dados.categorias.map((c) => <option key={c}>{c}</option>)}
-            </select>
+            <FiltroCategorias
+              categorias={dados.categorias}
+              categoria={categoria}
+              onCategoria={(c) => { mudar(setCategoria)(c); setSubcategoria(""); }}
+              subcategorias={categoria ? subcategoriasDe(categoria) : []}
+              subcategoria={subcategoria}
+              onSubcategoria={(s) => { setSubcategoria(s); setPagina(1); }}
+              contagemCategoria={contagemCategoria}
+              contagemSubcategoria={contagemSubcategoria}
+              total={linhas.length}
+            />
             {mostraFotos ? (
             <select className="pf-select" value={fotos} onChange={(e) => mudar(setFotos)(e.target.value as FiltroFotos["fotos"])} aria-label="Fotos">
               <option value="faltam">Faltam foto</option>
@@ -803,19 +800,7 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
               <option value="">Todos</option>
             </select>
             ) : null}
-            {mostraGestao ? (
-            <select className="pf-select" value={pendencia} onChange={(e) => mudar(setPendencia)(e.target.value as Pendencia)} aria-label="Pendências">
-              <option value="">Todas as pendências</option>
-              {(Object.keys(ROTULOS_PENDENCIA) as Exclude<Pendencia, "">[]).map((p) => <option key={p} value={p}>{ROTULOS_PENDENCIA[p]} ({contagemPendencias[p] ?? 0})</option>)}
-            </select>
-            ) : null}
-            <select className="pf-select" value={estoque} onChange={(e) => mudar(setEstoque)(e.target.value as FiltroFotos["estoque"])} aria-label="Estoque">
-              <option value="com">Só com estoque</option>
-              <option value="zero">Zerado ou negativo</option>
-              <option value="">Todo estoque</option>
-            </select>
           </div>
-          <p className="pf-contagem" role="status"><b>{filtradas.length}</b> {filtradas.length === 1 ? "item" : "itens"} no filtro</p>
           {mostraGestao ? <div className="pf-selecao-controle">
             <button type="button" className={`pf-botao${selecionando ? " pf-botao--primario" : ""}`} aria-pressed={selecionando} onClick={() => (selecionando ? sairDaSelecao() : setSelecionando(true))}>
               {selecionando ? "Sair da seleção" : "Selecionar vários"}
@@ -841,9 +826,9 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
                         <input type="checkbox" checked={selecionados.has(l.ean)} onChange={() => alternarSelecao(l.ean)} aria-label={`Selecionar ${nomeAtual(l).texto}`} />
                       </label>
                     ) : null}
-                    <span className={`pf-qtd pf-qtd-${faixa}`} title={faixa === "zero" ? "Sem estoque" : faixa === "baixo" ? "Estoque baixo" : "Estoque normal"}>{l.estoque} un.</span>
+                    <span className={`pf-qtd pf-qtd-${faixa}`} title={faixa === "zero" ? "Sem estoque" : faixa === "baixo" ? "Estoque baixo" : "Estoque normal"}>{l.estoque} {l.estoque === 1 ? "unidade" : "unidades"}</span>
                     {estadoControlado(l) === "sim" ? <span className="pf-chip pf-chip-ctl">Controlado</span> : null}
-                    <button type="button" className="pf-engrenagem" onClick={() => setProdutoConfig(l.ean)} aria-label={`Configurar ${nomeAtual(l).texto}`}>
+                    <button type="button" className="pf-engrenagem" onClick={(e) => { const r = e.currentTarget.getBoundingClientRect(); setOrigemConfig({ bx: r.left + r.width / 2, by: r.top + r.height / 2 }); setProdutoConfig(l.ean); }} aria-label={`Configurar ${nomeAtual(l).texto}`}>
                       <IconeAlternar aberto={produtoConfig === l.ean} size={20} />
                     </button>
                   </div>
@@ -901,11 +886,11 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
         const urlFoto = pendentes.has(l.ean) || envios[l.ean] === "enviada" ? `/api/foto-nova?ean=${l.ean}&v=${envios[l.ean] === "enviada" ? "n" : "p"}` : `/produtos/${l.ean}.webp`;
         return (
           <div className="pf-modal-fundo" onClick={(e) => { if (e.target === e.currentTarget) setProdutoConfig(null); }}>
-            <div className="pf-modal" role="dialog" aria-modal="true" aria-label={`Configurar ${nomeAtual(l).texto}`}>
+            <div className="pf-modal" ref={(el) => { if (el && origemConfig) { const cx = el.offsetLeft + el.offsetWidth / 2; const cy = el.offsetTop + el.offsetHeight / 2; el.style.setProperty("--ox", `${origemConfig.bx - cx}px`); el.style.setProperty("--oy", `${origemConfig.by - cy}px`); el.style.transformOrigin = `${((origemConfig.bx - el.offsetLeft) / el.offsetWidth) * 100}% ${((origemConfig.by - el.offsetTop) / el.offsetHeight) * 100}%`; } }} role="dialog" aria-modal="true" aria-label={`Configurar ${nomeAtual(l).texto}`}>
               <div className="pf-modal-topo">
                 <div>
                   <h2>{nomeAtual(l).texto}</h2>
-                  <p className="pf-mono">{l.semCodigo ? "sem código de barras" : l.ean} · {REAIS.format(l.preco)} · {l.estoque} un.</p>
+                  <p className="pf-mono">{l.semCodigo ? "sem código de barras" : l.ean} · {REAIS.format(l.preco)} · {l.estoque} {l.estoque === 1 ? "unidade" : "unidades"}</p>
                 </div>
                 <button type="button" className="pf-modal-fechar" onClick={() => setProdutoConfig(null)} aria-label="Fechar">×</button>
               </div>

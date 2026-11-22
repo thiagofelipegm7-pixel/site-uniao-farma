@@ -110,6 +110,18 @@ export const NEWS_ARTICLES: NewsArticle[] = [
   },
 ];
 
+/** Categorias do blog, na ordem em que aparecem no menu. Um texto só entra numa seção se a categoria dele estiver aqui (ou for "União Farma"). */
+export const NEWS_CATEGORIES = ["Saúde", "Beleza", "Alimentação", "Atividade Física", "Maternidade", "Saúde Mental", "União Farma"] as const;
+
+export function categorySlug(nome: string): string {
+  return nome.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+/** Textos publicados e aprovados agrupados por categoria (só as que têm texto), na ordem de NEWS_CATEGORIES. */
+export function groupNewsByCategory(articles: readonly NewsArticle[] = getPublishedNews()): Array<{ nome: string; slug: string; artigos: NewsArticle[] }> {
+  return NEWS_CATEGORIES.map((nome) => ({ nome, slug: categorySlug(nome), artigos: articles.filter((a) => a.category === nome) })).filter((g) => g.artigos.length > 0);
+}
+
 export function getPublishedNews(): NewsArticle[] {
   return NEWS_ARTICLES.filter(
     (article) => article.publicationStatus === "published" && article.contentApproved,

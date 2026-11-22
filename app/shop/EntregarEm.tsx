@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { trackEvent } from "../analytics";
 import { consultarCep, formatarCep, formatarTaxaCentavos, taxaOficialDoBairro } from "../area-entrega";
 import { carregarEntregaEscolhida, esquecerEntregaEscolhida, guardarEntregaEscolhida } from "../reserva/entrega-escolhida";
@@ -13,7 +13,8 @@ const nacoes = PUBLIC_UNITS.find((u) => u.id === "nacoes");
  * "Entregar em …" na faixa do topo: a pessoa digita o CEP ou escolhe o bairro e vê a taxa na hora. O bairro fica só no navegador
  * e já vem marcado na cesta. As taxas e as faixas de CEP são as confirmadas pelo dono (site-config e area-entrega); prazo não é prometido.
  */
-export default function EntregarEm() {
+export default function EntregarEm({ cabecalho = false }: { cabecalho?: boolean }) {
+  const idTitulo = useId();
   const [bairro, setBairro] = useState<string | null>(null);
   const [cep, setCep] = useState("");
   const dialogo = useRef<HTMLDialogElement>(null);
@@ -40,13 +41,24 @@ export default function EntregarEm() {
   const taxa = bairro ? taxaOficialDoBairro(bairro) : null;
   return (
     <>
-      <button type="button" className="faixa-entrega-botao" onClick={abrir} aria-haspopup="dialog">
-        {bairro && taxa !== null ? <>Entregar em <strong>{bairro}</strong> · {formatarTaxaCentavos(taxa)}</> : <>Entrega a partir de {formatarTaxaCentavos(TAXA_ENTREGA_CENTAVOS)} · <strong>ver no seu CEP</strong></>}
-      </button>
-      <dialog ref={dialogo} className="faixa-entrega-dialogo" aria-labelledby="faixa-entrega-titulo" onClick={(e) => { if (e.target === dialogo.current) fechar(); }}>
+      {cabecalho ? (
+        // No cabeçalho do desktop: duas linhas, como o "Enviar para" das lojas grandes (rótulo pequeno em cima, o que importa embaixo).
+        <button type="button" className="faixa-entrega-botao faixa-entrega-botao--cab" onClick={abrir} aria-haspopup="dialog">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.5" /></svg>
+          <span>
+            <small>{bairro && taxa !== null ? "Entregar em" : `Entrega a partir de ${formatarTaxaCentavos(TAXA_ENTREGA_CENTAVOS)}`}</small>
+            <strong>{bairro && taxa !== null ? `${bairro} · ${formatarTaxaCentavos(taxa)}` : "Ver no seu CEP"}</strong>
+          </span>
+        </button>
+      ) : (
+        <button type="button" className="faixa-entrega-botao" onClick={abrir} aria-haspopup="dialog">
+          {bairro && taxa !== null ? <>Entregar em <strong>{bairro}</strong> · {formatarTaxaCentavos(taxa)}</> : <>Entrega a partir de {formatarTaxaCentavos(TAXA_ENTREGA_CENTAVOS)} · <strong>ver no seu CEP</strong></>}
+        </button>
+      )}
+      <dialog ref={dialogo} className="faixa-entrega-dialogo" aria-labelledby={idTitulo} onClick={(e) => { if (e.target === dialogo.current) fechar(); }}>
         <div className="faixa-entrega-corpo">
           <div className="faixa-entrega-topo">
-            <h2 id="faixa-entrega-titulo">Onde você quer receber?</h2>
+            <h2 id={idTitulo}>Onde você quer receber?</h2>
             <button type="button" className="faixa-entrega-fechar" onClick={fechar} aria-label="Fechar">×</button>
           </div>
           <label className="faixa-entrega-campo">

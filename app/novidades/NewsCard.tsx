@@ -4,7 +4,8 @@ import { formatNewsDate, NEWS_VISUALS, type NewsArticle } from "../news-content"
 
 const WELCOME_TITLE = "Bem-vindo à área de novidades da União Farma";
 
-export default function NewsCard({ article }: { article: NewsArticle }) {
+export default function NewsCard({ article, nivel = "h2", grande = false }: { article: NewsArticle; nivel?: "h2" | "h3"; grande?: boolean }) {
+  const Titulo = nivel;
   const title = article.slug === "bem-vindo-area-novidades" ? WELCOME_TITLE : article.title;
   const image = article.image || {
     src: NEWS_VISUALS[0]?.src || "/novidades-og-optimized.jpg",
@@ -14,7 +15,7 @@ export default function NewsCard({ article }: { article: NewsArticle }) {
   };
 
   return (
-    <article className="news-card">
+    <article className={grande ? "news-card news-card--grande" : "news-card"}>
       <div className="news-card-image">
         <WebImage src={image.src} alt={image.alt} width={image.width} height={image.height} sizes="(max-width: 720px) 92vw, 360px" srcSet={responsiveSrcSet(image.src, [480, 768])} />
       </div>
@@ -23,7 +24,7 @@ export default function NewsCard({ article }: { article: NewsArticle }) {
           <span>{article.category}</span>
           <time dateTime={article.publishedAt}>{formatNewsDate(article.publishedAt)}</time>
         </div>
-        <h2 lang="pt-BR">{title}</h2>
+        <Titulo lang="pt-BR">{title}</Titulo>
         <p>{article.excerpt}</p>
         <a className="news-card-link" href={`/novidades/${article.slug}`}>
           Ler novidade <span aria-hidden="true">→</span>

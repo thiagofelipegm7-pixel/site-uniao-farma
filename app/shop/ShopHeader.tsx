@@ -18,6 +18,8 @@ import FotosNovas from "./FotosNovas";
 import { IconMenu, IconPino } from "../reserva/ReservaIcons";
 import LogoWhatsApp from "../LogoWhatsApp";
 import LojaPicker from "./LojaPicker";
+import EntregarEm from "./EntregarEm";
+import { getUnitOpenStatus } from "../unit-hours";
 import "./shop.css";
 import "./busca-hero.css";
 import { imagemIlustrativa } from "../nacoes-unidas/produtos/receita";
@@ -41,6 +43,16 @@ const ORDINAIS = ["1º", "2º", "3º", "4º", "5º", "6º", "7º", "8º", "9º",
 /** Exemplos que se revezam no campo de busca vazio: só produtos de uso comum (nada de medicamento, para não sugerir remédio). */
 const EXEMPLOS_BUSCA = ["fralda", "protetor solar", "shampoo", "desodorante", "pasta de dente", "lenço umedecido", "sabonete líquido", "absorvente"] as const;
 const nacoes = UNITS.find((unit) => unit.id === "nacoes");
+
+/** Segunda linha do cabeçalho (desktop): o que a loja grande deixa sempre à vista. Departamentos abre a gaveta; os demais são páginas do site. */
+const LINKS_LINHA2 = [
+  { href: "/ofertas", label: "Ofertas" },
+  { href: "/nacoes-unidas/produtos", label: "Todos os produtos" },
+  { href: "/entrega-de-medicamentos-em-sabara", label: "Entrega" },
+  { href: "/#unidades-rapidas", label: "A loja" },
+  { href: "/perguntas", label: "Perguntas" },
+  { href: "/trocas-e-devolucoes", label: "Trocas e devoluções" },
+] as const;
 
 let vocabEmMemoria: { itens: Sugestao[]; restritos: SugestaoRestrita[]; vocab: ReturnType<typeof criarVocabulario> } | null = null;
 
@@ -87,6 +99,11 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   const [ouvindo, setOuvindo] = useState(false);
   const [avisoVoz, setAvisoVoz] = useState("");
   const reconhecimento = useRef<ReconhecimentoFala | null>(null);
+  // "Aberto agora": a hora só existe no navegador (a página é estática).
+  const [agora, setAgora] = useState<Date | null>(null);
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- a hora só existe no navegador
+  useEffect(() => setAgora(new Date()), []);
+  const statusLoja = nacoes && agora ? getUnitOpenStatus(nacoes, agora) : null;
   const [itens, setItens] = useState<Sugestao[] | null>(null);
   const [restritos, setRestritos] = useState<SugestaoRestrita[]>([]);
   // A lista de receita/controlados chega em outro arquivo: sem ela, "Não encontramos" pode ser falso (ex.: nome de controlado).
@@ -515,6 +532,24 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
         <div className="shop-acoes">
           <ReservaSacola />
           <FotosNovas />
+        </div>
+        <div className="shop-linha2">
+          <EntregarEm cabecalho />
+          <nav className="shop-linha2-menu" aria-label="Seções do site">
+            <button type="button" className="shop-linha2-dep" aria-haspopup="dialog" aria-expanded={menu} aria-controls="shop-menu-painel" onClick={() => setMenu(true)}>
+              Departamentos
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M2 4.5l4 4 4-4" /></svg>
+            </button>
+            {LINKS_LINHA2.map((link) => (
+              <a key={link.href} href={link.href}>{link.label}</a>
+            ))}
+          </nav>
+          {statusLoja ? (
+            <p className={`shop-linha2-status${statusLoja.isOpen ? " is-aberta" : ""}`} title={statusLoja.label}>
+              <span className="shop-faixa-ponto" aria-hidden="true" />
+              {statusLoja.label}
+            </p>
+          ) : null}
         </div>
       </header>
 
