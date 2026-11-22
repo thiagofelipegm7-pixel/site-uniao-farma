@@ -14,6 +14,8 @@ import { carregarRestritos } from "../receita";
 import { acharDepartamento } from "../departamentos";
 import { fotoDoProduto } from "../imagens";
 import { fotoExibida } from "../foto-exibida";
+import { fotosExtrasDoProduto } from "../fotos-extras";
+import GaleriaProduto from "../GaleriaProduto";
 import ProdutoAcoes from "../ProdutoAcoes";
 import ProdutoBarra from "../ProdutoBarra";
 import { nomeDeExibicao } from "../../../nome-exibicao";
@@ -123,7 +125,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
         <div className="pdp-topo section-inner">
           <div className={foto ? "pdp-galeria" : "pdp-galeria pdp-galeria--vazia"}>
             {foto ? (
-              <img src={foto} alt={nomeExibido} width="420" height="420" />
+              <GaleriaProduto fotos={[foto, ...fotosExtrasDoProduto(ean)]} alt={nomeExibido} />
             ) : (
               <SemFoto className="produto-sem-foto" legenda="Sem foto" />
             )}
