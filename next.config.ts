@@ -95,9 +95,32 @@ const nextConfig: NextConfig = {
       source: "/:path*.:ext(ico|png|jpg|jpeg|gif)",
       headers: [{ key: "Cache-Control", value: "public, max-age=86400, stale-while-revalidate=604800" }],
     },
+    // Sem catch-all de Cache-Control: o anterior (`/:path*` → max-age=0) sobrescrevia o
+    // max-age do feed, do catálogo e das APIs públicas. HTML público ganha s-maxage curto
+    // no middleware; rotas privadas e com sessão ficam no-store.
     {
-      source: "/:path*",
-      headers: [{ key: "Cache-Control", value: "public, max-age=0, must-revalidate" }],
+      source: "/feeds/google-shopping.xml",
+      headers: [{ key: "Cache-Control", value: "public, max-age=3600, s-maxage=3600, stale-while-revalidate=86400" }],
+    },
+    {
+      source: "/api/catalogo",
+      headers: [{ key: "Cache-Control", value: "public, max-age=300, s-maxage=300, stale-while-revalidate=60" }],
+    },
+    {
+      source: "/api/destaques",
+      headers: [{ key: "Cache-Control", value: "public, max-age=300, s-maxage=300" }],
+    },
+    {
+      source: "/api/marcas",
+      headers: [{ key: "Cache-Control", value: "public, max-age=300, s-maxage=300" }],
+    },
+    {
+      source: "/api/ofertas-vitrine",
+      headers: [{ key: "Cache-Control", value: "public, max-age=300, s-maxage=300" }],
+    },
+    {
+      source: "/api/banners-publico",
+      headers: [{ key: "Cache-Control", value: "public, max-age=60, s-maxage=60" }],
     },
   ],
 };

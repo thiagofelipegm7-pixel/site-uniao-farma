@@ -122,3 +122,20 @@ export function xmlDoFeed(linhas: readonly ItemFeed[] = itensDoFeed()): string {
     "",
   ].join("\n");
 }
+
+/** Tempo que o XML montado fica reutilizado neste isolate (1 hora), para não remountar ~966 itens a cada visita. */
+export const FEED_CACHE_MS = 3_600_000;
+
+let feedEmCache: { xml: string; em: number } | null = null;
+
+/** XML do feed, refeito no máximo a cada FEED_CACHE_MS. Passe `agora` nos testes. */
+export function xmlDoFeedEmCache(agora = Date.now()): string {
+  if (feedEmCache && agora - feedEmCache.em < FEED_CACHE_MS) return feedEmCache.xml;
+  feedEmCache = { xml: xmlDoFeed(), em: agora };
+  return feedEmCache.xml;
+}
+
+/** Só para testes: esvazia o memo do feed. */
+export function limparCacheDoFeed(): void {
+  feedEmCache = null;
+}

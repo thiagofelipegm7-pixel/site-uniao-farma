@@ -120,14 +120,33 @@ export async function definirPalavras(db: Banco, original: string, palavras: str
       .bind("palavras", chave, original, palavras.length ? "escreveu as palavras de busca" : "apagou as palavras de busca", antes?.palavras ?? null, palavras.length ? palavras.join(", ") : null, por, agora.toISOString())
       .run();
   }
+  invalidarCachePalavras();
   return true;
 }
 
-export async function mapaDePalavras(db: Banco): Promise<Record<string, { palavras: string; fonte: string; por: string; quando: string }>> {
+const PALAVRAS_CACHE_MS = 60_000;
+let palavrasEmCache: { mapa: Record<string, { palavras: string; fonte: string; por: string; quando: string }>; em: number } | null = null;
+
+function invalidarCachePalavras() {
+  palavrasEmCache = null;
+}
+
+/** Só para testes. */
+export function limparCachePalavras(): void {
+  invalidarCachePalavras();
+}
+
+/**
+ * Mapa chave → palavras. Não usa ORDER BY: a chave é única (PRIMARY KEY) e a ordem não importa no mapa.
+ * Sem índice extra nem migração no D1. Resultado fica 60 s neste isolate e cai quando a equipe ou a IA grava.
+ */
+export async function mapaDePalavras(db: Banco, agora = Date.now()): Promise<Record<string, { palavras: string; fonte: string; por: string; quando: string }>> {
+  if (palavrasEmCache && agora - palavrasEmCache.em < PALAVRAS_CACHE_MS) return palavrasEmCache.mapa;
   await garantir(db);
-  const { results } = await db.prepare("SELECT chave, original, palavras, fonte, por, quando FROM produto_palavras ORDER BY quando").bind().all<Linha>();
+  const { results } = await db.prepare("SELECT chave, palavras, fonte, por, quando FROM produto_palavras").bind().all<Linha>();
   const mapa: Record<string, { palavras: string; fonte: string; por: string; quando: string }> = {};
   for (const l of results) mapa[l.chave] = { palavras: l.palavras, fonte: l.fonte, por: l.por, quando: l.quando };
+  palavrasEmCache = { mapa, em: agora };
   return mapa;
 }
 

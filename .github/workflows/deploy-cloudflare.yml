@@ -3,9 +3,11 @@ name: Deploy Cloudflare
 on:
   push:
     branches: [main]
-    # Foto/dado da sincronização automática: a própria sincronização já rodou testes e build antes de gravar, e o Cloudflare publica pelo Workers Builds.
+    # Foto/dado da sincronização automática: a própria sincronização já rodou testes e build antes de gravar.
+    # Estes caminhos não disparam este workflow, para não republicar o Worker em duplicata a cada sync.
     paths-ignore:
       - "public/produtos/**"
+      - "public/produtos-extras/**"
       - "public/dados/**"
       - "app/nacoes-unidas/produtos/dados/**"
       - "app/nacoes-unidas/produtos/imagens.ts"

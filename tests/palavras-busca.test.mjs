@@ -107,3 +107,36 @@ test("palavras de busca no popup: todos os produtos, remédio incluído, sem exc
   const rota = await ler("app/api/interno/produto/palavras/route.ts");
   assert.ok(!/isMIP|Medicamentos|restrit/i.test(rota), "a rota da equipe aceita qualquer produto");
 });
+
+test("mapa de palavras: sem ORDER BY, com cache de 60s que cai na gravação", async () => {
+  P.limparCachePalavras();
+  const sqls = [];
+  const linhas = new Map([["SH XPTO", { chave: "SH XPTO", palavras: "xampu", fonte: "ia", por: "gemini", quando: "2026-01-01" }]]);
+  const db = {
+    async exec() {},
+    prepare(sql) {
+      sqls.push(sql);
+      return { bind: (...v) => ({
+        async first() { return linhas.get(v[0]) ?? null; },
+        async all() { return { results: [...linhas.values()] }; },
+        async run() {
+          if (sql.startsWith("INSERT OR REPLACE INTO produto_palavras")) linhas.set(v[0], { chave: v[0], original: v[1], palavras: v[2], fonte: v[3], por: v[4], quando: v[5] });
+          if (sql.startsWith("DELETE")) linhas.delete(v[0]);
+        },
+      }) };
+    },
+  };
+  const a = await P.mapaDePalavras(db, 1_000);
+  assert.equal(a["SH XPTO"].palavras, "xampu");
+  const selectsAntes = sqls.filter((s) => s.startsWith("SELECT chave, palavras")).length;
+  assert.equal(selectsAntes, 1);
+  assert.ok(sqls.every((s) => !s.includes("ORDER BY")), "não varre com ORDER BY quando");
+  await P.mapaDePalavras(db, 1_000 + 10_000); // ainda dentro de 60s
+  assert.equal(sqls.filter((s) => s.startsWith("SELECT chave, palavras")).length, 1, "reusa o cache");
+  assert.equal(await P.definirPalavras(db, "SH XPTO", ["shampoo"], "equipe", "Ana"), true);
+  const b = await P.mapaDePalavras(db, 1_000 + 20_000);
+  assert.equal(b["SH XPTO"].palavras, "shampoo");
+  assert.equal(sqls.filter((s) => s.startsWith("SELECT chave, palavras")).length, 2, "gravação derruba o cache");
+  await P.mapaDePalavras(db, 1_000 + 20_000 + 61_000);
+  assert.equal(sqls.filter((s) => s.startsWith("SELECT chave, palavras")).length, 3, "depois de 60s busca de novo");
+});
