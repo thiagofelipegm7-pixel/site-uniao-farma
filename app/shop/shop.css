@@ -1309,6 +1309,26 @@ button.fluxo-continuar-comprando { border: 0; background: transparent; font: inh
   .shop-card-foto { height: 10rem; }
   /* categorias: sizing no bloco da faixa scroll-snap */
 }
+
+/* Cartões de produto mais compactos, com foto, nome e preço fáceis de localizar. */
+@media (max-width: 991.98px) {
+  .shop-destaques-lista li { flex-basis: 9.75rem; }
+  .shop-destaques-lista .shop-card { padding: 0.625rem; }
+  .shop-destaques-lista .shop-card-foto { height: 7.5rem; }
+  .shop-destaques-lista .shop-card h3 {
+    height: 2.25rem;
+    margin: 0.5rem 0;
+    font-size: 0.875rem;
+    line-height: 1.3;
+    text-align: left;
+  }
+  .shop-destaques-lista .shop-card-marca { margin-top: 0.25rem; text-align: left; }
+  .shop-destaques-lista .shop-card-preco { margin: 0 0 0.5rem; text-align: left; }
+  .catalogo-nacoes .catalogo-item.catalogo-card { padding: 0.625rem; }
+  .catalogo-card-foto { width: 78%; }
+  .catalogo-card h4 { margin-block: 0.5rem !important; text-align: left !important; }
+  .catalogo-card .catalogo-preco { margin-bottom: 0.5rem; text-align: left; }
+}
 @layer design {
   @media (min-width: 992px) {
     .shop-destaques h2 { line-height: 2.25rem !important; margin: 0 !important; }
