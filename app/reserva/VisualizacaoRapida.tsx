@@ -34,7 +34,7 @@ export default function VisualizacaoRapida({ open, nome, precoCentavos, deCentav
   const limite = typeof max === "number" && max >= 1 ? Math.min(MAX_POR_ITEM, Math.floor(max)) : MAX_POR_ITEM;
   const desconto = deCentavos && deCentavos > precoCentavos ? Math.round((deCentavos - precoCentavos) / deCentavos * 100) : null;
   const opcoes = apresentacoes && apresentacoes.length > 1 ? apresentacoes : [];
-  const escolhida = opcoes.find((a) => a.id === apresentacaoId) ?? opcoes[0];
+  const escolhida = opcoes.find((a) => a.id === apresentacaoId);
   const faixaAtiva = opcoes.length ? undefined : faixaAplicavel(promocao, quantidade);
   const proxima = proximaFaixa(promocao, quantidade);
   const precoExibido = escolhida?.precoCentavos ?? faixaAtiva?.precoUnitarioCentavos ?? precoCentavos;
@@ -78,7 +78,7 @@ export default function VisualizacaoRapida({ open, nome, precoCentavos, deCentav
           <span className="uf-quick-view__check" aria-hidden="true">✓</span>
           <p className="uf-quick-view__eyebrow">Cesta atualizada</p>
           <h2 id="uf-quick-view-titulo">Produto adicionado</h2>
-          <p>{quantidade} × {nome}</p>
+          <p>{quantidade} × {nome}{escolhida ? ` — ${escolhida.nome}` : ""}</p>
           <div className="uf-quick-view__sucesso-acoes">
             <button type="button" className="uf-quick-view__botao uf-quick-view__botao--secundario" onClick={fechar}>Continuar comprando</button>
             <button type="button" className="uf-quick-view__botao" onClick={() => { abrirCestaAposFechar.current = true; fechar(); }}>Ver cesta</button>
@@ -102,7 +102,7 @@ export default function VisualizacaoRapida({ open, nome, precoCentavos, deCentav
                 <legend>Escolha a apresentação · preço por unidade</legend>
                 {opcoes.map((opcao) => (
                   <label key={opcao.id}>
-                    <input type="radio" name={`apresentacao-${slug ?? nome}`} checked={(escolhida?.id ?? "") === opcao.id} onChange={() => setApresentacaoId(opcao.id)} />
+                    <input type="radio" name={`apresentacao-${slug ?? nome}`} checked={escolhida?.id === opcao.id} onChange={() => setApresentacaoId(opcao.id)} />
                     {opcao.foto ? <img src={opcao.foto} alt="" width="44" height="44" /> : null}
                     <span>{opcao.nome}</span>
                     <strong>{formatarCentavos(opcao.precoCentavos)} / un.</strong>
@@ -110,6 +110,7 @@ export default function VisualizacaoRapida({ open, nome, precoCentavos, deCentav
                 ))}
               </fieldset>
             ) : null}
+            {opcoes.length > 0 && !escolhida ? <p className="uf-quick-view__promo" role="status">Selecione uma apresentação para habilitar a inclusão na cesta.</p> : null}
             {!opcoes.length && promocao ? <p className="uf-quick-view__promo">{faixasDaPromocao(promocao).map((faixa) => `${faixa.quantidade} un.: ${formatarCentavos(faixa.precoUnitarioCentavos)} cada`).join(" · ")}{faixaAtiva ? ` — faixa de ${faixaAtiva.quantidade} aplicada.` : ""}{proxima ? ` Adicione mais ${proxima.quantidade - quantidade} para chegar à próxima faixa.` : ""}</p> : null}
             <p className="uf-quick-view__nota">Preço e disponibilidade serão confirmados pela loja ao concluir o pedido.</p>
             {receita ? (
@@ -127,7 +128,7 @@ export default function VisualizacaoRapida({ open, nome, precoCentavos, deCentav
                 <span aria-live="polite">{quantidade}</span>
                 <button type="button" aria-label="Aumentar quantidade" disabled={quantidade >= limite} onClick={() => setQuantidade((atual) => Math.min(limite, atual + 1))}>+</button>
               </div>
-              <button type="button" className="uf-quick-view__botao" disabled={max === 0} onClick={() => { onAdicionar(quantidade, escolhida); setAdicionado(true); }}>
+              <button type="button" className="uf-quick-view__botao" disabled={max === 0 || (opcoes.length > 0 && !escolhida)} onClick={() => { onAdicionar(quantidade, escolhida); setAdicionado(true); }}>
                 Adicionar à cesta
               </button>
             </div>

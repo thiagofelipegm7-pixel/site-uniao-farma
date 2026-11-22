@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 /* eslint-disable @next/next/no-img-element -- Imagem estática pequena, igual ao restante do catálogo. */
 import { quantidadeLegivel } from "./quantidade";
-import { fotoDoProduto } from "./imagens";
+import { eanDaFoto, fotoDoProduto } from "./imagens";
 import { useEffect, useState } from "react";
 import { ContentSiteFooter } from "../../ContentSiteChrome";
 import ReservarBotao from "../../reserva/ReservarBotao";
@@ -66,7 +66,7 @@ const TEXTOS: Record<TipoRestrito, { titulo: string; h1: string; intro: string; 
 };
 
 
-export function Cartao({ item, levePague, apresentacoes }: { item: ItemRestrito; levePague?: PromocaoQuantidade; apresentacoes?: ApresentacaoPublica[] }) {
+export function Cartao({ item, levePague, apresentacoes, apresentacoesCarregadas = true }: { item: ItemRestrito; levePague?: PromocaoQuantidade; apresentacoes?: ApresentacaoPublica[]; apresentacoesCarregadas?: boolean }) {
   const nome = item.nomeExibicao ?? item.nome;
   const promocaoProduto = apresentacoes && apresentacoes.length > 1 ? undefined : levePague;
   const pedeCesta = item.tipo !== "consulte" && item.preco !== null && item.preco > 0 && !item.esgotado;
@@ -101,6 +101,7 @@ export function Cartao({ item, levePague, apresentacoes }: { item: ItemRestrito;
             slug={item.slug}
             promocao={promocaoProduto}
             apresentacoes={apresentacoes}
+            aguardandoApresentacoes={!apresentacoesCarregadas}
           />
         ) : null
       }
@@ -114,7 +115,19 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
   const [pagina, setPagina] = useState(1);
   const [todos, setTodos] = useState<ItemRestrito[]>([]);
   const [promocoes, setPromocoes] = useState<Record<string, PromocaoQuantidade>>({});
+  const [apresentacoesPorEan, setApresentacoesPorEan] = useState<Record<string, ApresentacaoPublica[]>>({});
+  const [apresentacoesCarregadas, setApresentacoesCarregadas] = useState(false);
   const [data, setData] = useState<string | null>(null);
+  useEffect(() => {
+    let cancelado = false;
+    fetch("/api/apresentacoes-produto", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).then((dados: { apresentacoes?: ApresentacaoPublica[] } | null) => {
+      if (cancelado || !dados?.apresentacoes) return;
+      const porEan: Record<string, ApresentacaoPublica[]> = {};
+      for (const a of dados.apresentacoes) (porEan[a.ean] ??= []).push(a);
+      setApresentacoesPorEan(porEan);
+    }).catch(() => undefined).finally(() => { if (!cancelado) setApresentacoesCarregadas(true); });
+    return () => { cancelado = true; };
+  }, []);
   useEffect(() => {
     if (tipo !== "receita" && tipo !== "controlados") return;
     fetch("/api/promocoes-quantidade", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).then((dados: { promocoes?: PromocaoQuantidade[] } | null) => {
@@ -214,7 +227,7 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
           ) : (
             <ul className="catalogo-lista pv-grade">
               {pag.itens.map((item) => (
-                <Cartao key={`${item.nome}|${item.lab}|${item.preco}`} item={item} levePague={item.slug ? promocoes[item.slug] : undefined} />
+                <Cartao key={`${item.nome}|${item.lab}|${item.preco}`} item={item} levePague={item.slug ? promocoes[item.slug] : undefined} apresentacoes={apresentacoesPorEan[eanDaFoto(item.nome) ?? ""]} apresentacoesCarregadas={apresentacoesCarregadas} />
               ))}
             </ul>
           )}

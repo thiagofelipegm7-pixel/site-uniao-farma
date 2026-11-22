@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { trackEvent } from "../../analytics";
 import { registrarEtapa } from "../../funil";
 import { abrirReserva } from "../../reserva/abrir-reserva";
@@ -10,6 +10,8 @@ import { useReserva } from "../../reserva/useReserva";
 import { useDisponibilidade } from "../../reserva/useDisponibilidade";
 import VisualizacaoRapida from "../../reserva/VisualizacaoRapida";
 import type { ApresentacaoPublica } from "../../apresentacao-produto-tipos";
+import type { PromocaoQuantidade } from "../../promocao-quantidade-tipos";
+import { carregarPromocoesQuantidade } from "../../promocao-quantidade-cliente";
 
 type Props = {
   unitId: string;
@@ -30,6 +32,15 @@ export default function ProdutoBarra({ unitId, nome, precoCentavos, foto, max: m
   const qtd = qtdDoItem(estado, id);
   const qtdProduto = estado.itens.filter((i) => i.unitId === unitId && (slug ? i.slug === slug : i.nome === nome)).reduce((soma, i) => soma + i.qtd, 0);
   const [abrirOpcoes, setAbrirOpcoes] = useState(false);
+  const [promocao, setPromocao] = useState<PromocaoQuantidade | undefined>();
+  useEffect(() => {
+    let cancelado = false;
+    void carregarPromocoesQuantidade().then((promocoes) => {
+      if (!cancelado && slug) setPromocao(promocoes.find((p) => p.slug === slug));
+    }).catch(() => undefined);
+    return () => { cancelado = true; };
+  }, [slug]);
+  const promocaoEfetiva = apresentacoes && apresentacoes.length > 1 ? undefined : promocao;
   // Estoque de agora: se acabou depois da última publicação, não deixa adicionar; se restam poucos, limita a quantidade.
   const vivo = useDisponibilidade(true);
   const nivel = slug && vivo ? vivo[slug] : undefined;
@@ -47,6 +58,7 @@ export default function ProdutoBarra({ unitId, nome, precoCentavos, foto, max: m
         nome,
         precoCentavos: escolha.precoCentavos,
         foto: escolha.foto ?? foto,
+        ...(promocaoEfetiva ? { promocao: promocaoEfetiva } : {}),
         variante: { id: escolha.id, nome: escolha.nome },
         ...(max !== undefined ? { max } : {}),
         ...(slug ? { slug } : {}),
@@ -77,14 +89,15 @@ export default function ProdutoBarra({ unitId, nome, precoCentavos, foto, max: m
   }
 
   const adicionarPrimeira = () => {
-    atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, foto, ...(max ? { max } : {}), ...(slug ? { slug } : {}) }));
+    atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, foto, ...(promocaoEfetiva ? { promocao: promocaoEfetiva } : {}), ...(max ? { max } : {}), ...(slug ? { slug } : {}) }));
     trackEvent("reserva_add", { unit: unitId, source: "produto_nacoes" });
     registrarEtapa("add");
   };
 
   return (
     <div className="produto-barra">
-      {qtd === 0 ? <p className="produto-barra-preco"><small>Preço</small><strong>{formatarCentavos(precoCentavos)}</strong></p> : null}
+      {qtd === 0 ? <p className="produto-barra-preco"><small>{promocaoEfetiva ? "Leve mais e pague menos · preço por unidade" : "Preço"}</small><strong>{formatarCentavos(precoCentavos)}</strong></p> : null}
+      {promocaoEfetiva ? <p className="produto-barra-promocao">{(promocaoEfetiva.faixas ?? []).map((faixa) => `${faixa.quantidade} un.: ${formatarCentavos(faixa.precoUnitarioCentavos)} cada`).join(" · ")}</p> : null}
       <BotaoCesta
         quantidade={qtd}
         teto={tetoDoItem({ max })}

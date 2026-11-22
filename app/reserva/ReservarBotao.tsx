@@ -36,10 +36,11 @@ type Props = {
   max?: number;
   promocao?: RegraPromocaoQuantidade;
   apresentacoes?: ApresentacaoPublica[];
+  aguardandoApresentacoes?: boolean;
 };
 
 /** Botão "+" que adiciona à cesta. Sem texto do produto no analytics. */
-export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos, foto, source = "catalogo", compacto = false, receita, variante, rotulo = "Adicionar", max, slug, promocao, apresentacoes }: Props) {
+export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos, foto, source = "catalogo", compacto = false, receita, variante, rotulo = "Adicionar", max, slug, promocao, apresentacoes, aguardandoApresentacoes = false }: Props) {
   const estado = useReserva();
   const id = idDoItem(unitId, nome);
   const qtd = qtdDoItem(estado, id);
@@ -80,7 +81,8 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
           className={pulso ? "pv-adicionar is-pulso" : "pv-adicionar"}
           style={pulso ? ({ "--pulso-x": `${pulso.x}px`, "--pulso-y": `${pulso.y}px` } as CSSProperties) : undefined}
           aria-label={`Ver detalhes de ${nome} e adicionar à cesta`}
-          disabled={!(precoCentavos > 0) || restanteDoProduto === 0}
+          disabled={aguardandoApresentacoes || !(precoCentavos > 0) || restanteDoProduto === 0}
+          title={aguardandoApresentacoes ? "Carregando opções de apresentação" : undefined}
           onClick={(evento) => {
             // Clique pelo teclado (sem posição) nasce do centro do botão.
             const r = evento.currentTarget.getBoundingClientRect();

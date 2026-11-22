@@ -87,6 +87,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   const [grupos, setGrupos] = useState(gruposProps);
   const [promocoesQuantidade, setPromocoesQuantidade] = useState<Record<string, PromocaoQuantidade>>({});
   const [apresentacoesPorEan, setApresentacoesPorEan] = useState<Record<string, ApresentacaoPublica[]>>({});
+  const [apresentacoesCarregadas, setApresentacoesCarregadas] = useState(false);
   useEffect(() => {
     let cancel = false;
     fetch("/api/promocoes-quantidade", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).then((dados: { promocoes?: PromocaoQuantidade[] } | null) => {
@@ -102,7 +103,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
       const porEan: Record<string, ApresentacaoPublica[]> = {};
       for (const a of dados.apresentacoes) (porEan[a.ean] ??= []).push(a);
       setApresentacoesPorEan(porEan);
-    }).catch(() => undefined);
+    }).catch(() => undefined).finally(() => { if (!cancel) setApresentacoesCarregadas(true); });
     return () => { cancel = true; };
   }, []);
   // Falso até o catálogo inteiro estar na tela: a correção de digitação só vale com a lista completa.
@@ -361,7 +362,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   const renderCartao = (item: (typeof itensDaPagina)[number]) => {
     if (item.restrito) {
       const ean = eanDaFoto(item.restrito.nome);
-      return <CartaoRestrito key={item.id ?? item.nome} item={item.restrito} levePague={item.slug ? promocoesQuantidade[item.slug] : undefined} apresentacoes={ean ? apresentacoesPorEan[ean] : undefined} />;
+      return <CartaoRestrito key={item.id ?? item.nome} item={item.restrito} levePague={item.slug ? promocoesQuantidade[item.slug] : undefined} apresentacoes={ean ? apresentacoesPorEan[ean] : undefined} apresentacoesCarregadas={apresentacoesCarregadas} />;
     }
     const nome = nomeDeExibicao(item.nome);
     const href = `/nacoes-unidas/produtos/${item.slug ?? slugify(item.nome)}`;
@@ -385,7 +386,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
         esgotado={item.esgotado}
         levePague={promocaoProduto}
         apresentacoes={apresentacoes}
-        cesta={centavos && !item.esgotado ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cartao" max={item.restam} slug={item.slug} promocao={promocaoProduto} apresentacoes={apresentacoes} /> : null}
+        cesta={centavos && !item.esgotado ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cartao" max={item.restam} slug={item.slug} promocao={promocaoProduto} apresentacoes={apresentacoes} aguardandoApresentacoes={!apresentacoesCarregadas} /> : null}
       />
     );
   };

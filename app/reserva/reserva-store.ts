@@ -82,7 +82,7 @@ export function adicionar(estado: ReservaEstado, item: Omit<ReservaItem, "qtd" |
   const existente = estado.itens.find((i) => i.id === id);
   if (existente) {
     // O limite vem do último "Resta N" que o cliente viu; sem limite agora, o antigo cai.
-    const comLimite: ReservaEstado = { ...estado, itens: estado.itens.map((i) => (i.id === id ? limiteDoItem({ ...i, max: item.max, slug: item.slug ?? i.slug, promocao: item.promocao }) : i)) };
+    const comLimite: ReservaEstado = { ...estado, itens: estado.itens.map((i) => (i.id === id ? limiteDoItem({ ...i, max: item.max, slug: item.slug ?? i.slug, promocao: item.promocao ?? i.promocao }) : i)) };
     const outras = quantidadeNoProduto - existente.qtd;
     return definirSelecao(definirQtd(comLimite, id, Math.min(existente.qtd + qtd, Math.max(0, limiteProduto - outras))), id, true);
   }
@@ -97,6 +97,22 @@ export function adicionar(estado: ReservaEstado, item: Omit<ReservaItem, "qtd" |
 /** Marca ou desmarca um item. */
 export function definirSelecao(estado: ReservaEstado, id: string, selecionado: boolean): ReservaEstado {
   return { ...estado, itens: estado.itens.map((i) => (i.id === id ? { ...i, selecionado } : i)) };
+}
+
+/** Atualiza as faixas de promoção vindas do painel, inclusive para itens já salvos na cesta. */
+export function sincronizarPromocoes(estado: ReservaEstado, promocoes: readonly import("../promocao-quantidade-tipos").PromocaoQuantidade[]): ReservaEstado {
+  const porSlug = new Map(promocoes.map((promocao) => [promocao.slug, promocao]));
+  let mudou = false;
+  const itens = estado.itens.map((item) => {
+    if (!item.slug) return item;
+    const promocao = item.variante ? undefined : porSlug.get(item.slug);
+    if (JSON.stringify(item.promocao ?? null) === JSON.stringify(promocao ?? null)) return item;
+    mudou = true;
+    const { promocao: _anterior, ...semPromocao } = item;
+    void _anterior;
+    return promocao ? { ...semPromocao, promocao } : semPromocao;
+  });
+  return mudou ? { ...estado, itens } : estado;
 }
 
 /** Marca ou desmarca todos os itens de uma vez. */
