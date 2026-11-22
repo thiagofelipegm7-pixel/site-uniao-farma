@@ -13,6 +13,7 @@ import { buildWhatsAppUrl, UNITS } from "../site-config";
 import { formatarCentavos } from "../reserva/reserva-store";
 import SemFoto from "../nacoes-unidas/produtos/SemFoto";
 import MarcaUniao from "./MarcaUniao";
+import BotaoReceita from "../receita-foto/BotaoReceita";
 import ReservaSacola from "../reserva/ReservaSacola";
 import FotosNovas from "./FotosNovas";
 import { IconMenu, IconPino } from "../reserva/ReservaIcons";
@@ -413,6 +414,9 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
               ) : null}
               {normal.length === 0 ? (
                 <>
+                  <div className="shop-sugestoes-receita">
+                    <BotaoReceita aoAbrir={() => setFoco(false)} classe="receita-gatilho-bloco" rotulo="Tenho uma receita: ler a foto" />
+                  </div>
                   {recentes.length > 0 ? (
                     <>
                       <div className="shop-sugestoes-cabeca">

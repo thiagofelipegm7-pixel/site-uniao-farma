@@ -15,6 +15,7 @@ import { avisosDaCesta } from "../disponibilidade";
 import CestaSugestoes from "./CestaSugestoes";
 import { ligarArrastarParaFechar } from "./arrastar-para-fechar";
 import { faixaAplicavel, proximaFaixa } from "../promocao-quantidade-tipos";
+import LerReceita from "../receita-foto/LerReceita";
 
 const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
@@ -245,6 +246,7 @@ export default function ReservaSacola() {
       </button>
 
       {aberta ? createPortal(gaveta, document.body) : null}
+      <LerReceita />
     </>
   );
 }
