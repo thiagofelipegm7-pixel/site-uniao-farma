@@ -10,7 +10,7 @@ type Produto = { slug: string; nome: string; preco: number; isMIP: boolean; cate
 type Linha = { slug: string; quantidade: string; preco: string };
 const idNovo = () => `linha-${Math.random().toString(36).slice(2)}`;
 
-export default function PainelLevePague() {
+export default function PainelLevePague({ nivel = 1 }: { /** 1 = h1 (página própria); 2 = h2 (dentro de uma aba). */ nivel?: 1 | 2 } = {}) {
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [linhas, setLinhas] = useState<Array<Linha & { id: string }>>([]);
   const [aviso, setAviso] = useState("");
@@ -50,7 +50,7 @@ export default function PainelLevePague() {
 
   return (
     <section className="painel-leve-pague" aria-labelledby="leve-pague-titulo">
-      <h1 id="leve-pague-titulo">Leve mais e pague menos</h1>
+      {nivel === 2 ? <h2 id="leve-pague-titulo">Leve mais e pague menos</h2> : <h1 id="leve-pague-titulo">Leve mais e pague menos</h1>}
       <p>Escolha os produtos, a quantidade mínima e o preço de cada unidade na promoção. O preço normal continua valendo para quantidades menores.</p>
       <p className="painel-leve-pague__nota">Medicamentos controlados ficam fora. Medicamentos sob prescrição não controlados podem ser selecionados.</p>
       {linhas.map((linha) => {
