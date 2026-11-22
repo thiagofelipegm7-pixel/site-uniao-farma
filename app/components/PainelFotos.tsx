@@ -62,13 +62,15 @@ function ContasFecham({ c }: { c: Reconciliacao }) {
   );
 }
 
-export default function PainelFotos({ titulo = "Produtos", descricao = "Estoque do PC, fotos e ajustes do que aparece no site.", nivel = 1 }: { titulo?: string; descricao?: string; /** 1 = h1 (página própria); 2 = h2 (dentro de uma aba). */ nivel?: 1 | 2 } = {}) {
+export default function PainelFotos({ modo = "completo", titulo = "Produtos", descricao = "Estoque do PC, fotos e ajustes do que aparece no site.", nivel = 1 }: { /** "produtos": estoque, nome, categoria (sem foto). "fotos": só foto. "completo": tudo. */ modo?: "completo" | "produtos" | "fotos"; titulo?: string; descricao?: string; /** 1 = h1 (página própria); 2 = h2 (dentro de uma aba). */ nivel?: 1 | 2 } = {}) {
+  const mostraFotos = modo !== "produtos";
+  const mostraGestao = modo !== "fotos";
   const [dados, setDados] = useState<Resposta | null>(null);
   const [erro, setErro] = useState(false);
   const [busca, setBusca] = useState("");
   const [categoria, setCategoria] = useState("");
   const [estoque, setEstoque] = useState<FiltroFotos["estoque"]>("com");
-  const [fotos, setFotos] = useState<FiltroFotos["fotos"]>("faltam");
+  const [fotos, setFotos] = useState<FiltroFotos["fotos"]>(modo === "produtos" ? "" : "faltam");
   const [tipo, setTipo] = useState<FiltroFotos["tipo"]>("");
   const [pendencia, setPendencia] = useState<Pendencia>("");
   const [filtroMudanca, setFiltroMudanca] = useState("");
@@ -110,7 +112,7 @@ export default function PainelFotos({ titulo = "Produtos", descricao = "Estoque 
       const r = await fetch("/api/interno/fotos", { cache: "no-store" });
       // Sessão vencida: o servidor responde com a tela de entrada (HTML). Leva para entrar de novo e volta para cá.
       if (r.redirected || (r.headers.get("content-type") ?? "").includes("text/html")) {
-        window.location.assign("/interno/entrar?next=%2Finterno%2Ffotos");
+        window.location.assign(`/interno/entrar?next=${encodeURIComponent(window.location.pathname + window.location.search)}`);
         return;
       }
       const j = (await r.json()) as Resposta;
@@ -148,6 +150,7 @@ export default function PainelFotos({ titulo = "Produtos", descricao = "Estoque 
   useEffect(() => {
     // Ouve o arraste na página inteira, já na fase de captura: assim o navegador nunca abre a imagem (nem sai do painel),
     // seja qual for o elemento sob o mouse. A linha do produto é achada pelo ponto onde o arquivo foi solto.
+    if (!mostraFotos) return undefined;
     const linhaDe = (alvo: EventTarget | null) => (alvo instanceof Element ? (alvo.closest<HTMLElement>("tr[data-ean]")?.dataset.ean ?? null) : null);
     const sobre = (e: DragEvent) => {
       e.preventDefault();
@@ -178,7 +181,7 @@ export default function PainelFotos({ titulo = "Produtos", descricao = "Estoque 
       window.removeEventListener("dragleave", saiu, true);
       window.removeEventListener("drop", solta, true);
     };
-  }, []);
+  }, [mostraFotos]);
 
   const pendentes = useMemo(() => new Set(dados?.pendentes ?? []), [dados]);
   // Fotos já publicadas no site (arquivo fixo). As enviadas e ainda não publicadas já aparecem na loja, então contam como "com foto".
@@ -746,7 +749,7 @@ export default function PainelFotos({ titulo = "Produtos", descricao = "Estoque 
         {nivel === 2 ? <h2>{titulo}</h2> : <h1>{titulo}</h1>}
         <p>{descricao}</p>
       </header>
-      <PainelCatalogo />
+      {mostraGestao ? <PainelCatalogo /> : null}
       {erro ? <p role="alert">Não consegui ler o estoque agora. O PC da loja ou o acesso aos dados pode estar parado. <button type="button" onClick={() => void carregar()}>Tentar de novo</button></p> : null}
       {!dados && !erro ? <p>Carregando o estoque…</p> : null}
       {dados ? (
@@ -755,15 +758,15 @@ export default function PainelFotos({ titulo = "Produtos", descricao = "Estoque 
           
           
 
-          {dados.publicacaoRapida === false ? (
+          {mostraFotos && dados.publicacaoRapida === false ? (
             <p className="pf-aviso" role="note">A publicação rápida está desligada (falta a chave do GitHub no Cloudflare). As fotos funcionam no site, mas o arquivo fixo só sai quando o GitHub rodar a sincronização, o que pode levar horas.</p>
           ) : null}
           {arrastando ? <p className="pf-solte" role="status">Solte aqui para enviar a foto de &ldquo;{linhas.find((x) => x.ean === arrastando)?.nome}&rdquo;</p> : null}
           {aviso ? <p className="pf-aviso" role="status">{aviso}</p> : null}
 
-          <BuscasSemResultado por={por} onAviso={setAviso} />
-          <FilaIA por={por} onAviso={setAviso} onDescricaoSalva={(o, t) => setDescricoesAgora((m) => ({ ...m, [chaveDoNome(o)]: { texto: t, fonte: "" } }))} />
-          {mudancas.length > 0 ? (
+          {mostraGestao ? <BuscasSemResultado por={por} onAviso={setAviso} /> : null}
+          {mostraGestao ? <FilaIA por={por} onAviso={setAviso} onDescricaoSalva={(o, t) => setDescricoesAgora((m) => ({ ...m, [chaveDoNome(o)]: { texto: t, fonte: "" } }))} /> : null}
+          {mostraGestao && mudancas.length > 0 ? (
             <details className="pf-mudancas">
               <summary>O que mudou nos últimos dias <b>({mudancas.length})</b></summary>
               <div className="pf-mudancas-chips" role="group" aria-label="Tipo de mudança">
@@ -793,15 +796,19 @@ export default function PainelFotos({ titulo = "Produtos", descricao = "Estoque 
               <option value="__corrigir">A corrigir</option>
               {dados.categorias.map((c) => <option key={c}>{c}</option>)}
             </select>
+            {mostraFotos ? (
             <select className="pf-select" value={fotos} onChange={(e) => mudar(setFotos)(e.target.value as FiltroFotos["fotos"])} aria-label="Fotos">
               <option value="faltam">Faltam foto</option>
               <option value="site">Já estão no site</option>
               <option value="">Todos</option>
             </select>
+            ) : null}
+            {mostraGestao ? (
             <select className="pf-select" value={pendencia} onChange={(e) => mudar(setPendencia)(e.target.value as Pendencia)} aria-label="Pendências">
               <option value="">Todas as pendências</option>
               {(Object.keys(ROTULOS_PENDENCIA) as Exclude<Pendencia, "">[]).map((p) => <option key={p} value={p}>{ROTULOS_PENDENCIA[p]} ({contagemPendencias[p] ?? 0})</option>)}
             </select>
+            ) : null}
             <select className="pf-select" value={estoque} onChange={(e) => mudar(setEstoque)(e.target.value as FiltroFotos["estoque"])} aria-label="Estoque">
               <option value="com">Só com estoque</option>
               <option value="zero">Zerado ou negativo</option>
@@ -809,7 +816,7 @@ export default function PainelFotos({ titulo = "Produtos", descricao = "Estoque 
             </select>
           </div>
           <p className="pf-contagem" role="status"><b>{filtradas.length}</b> {filtradas.length === 1 ? "item" : "itens"} no filtro</p>
-          <div className="pf-selecao-controle">
+          {mostraGestao ? <div className="pf-selecao-controle">
             <button type="button" className={`pf-botao${selecionando ? " pf-botao--primario" : ""}`} aria-pressed={selecionando} onClick={() => (selecionando ? sairDaSelecao() : setSelecionando(true))}>
               {selecionando ? "Sair da seleção" : "Selecionar vários"}
             </button>
@@ -821,7 +828,7 @@ export default function PainelFotos({ titulo = "Produtos", descricao = "Estoque 
                 {filtradas.length > 300 ? <span className="pf-selecao-nota">Máximo de 300 por vez: refine o filtro.</span> : null}
               </>
             ) : null}
-          </div>
+          </div> : null}
           <div className="pf-grade">
             {visiveis.map((l) => {
               const faixa = l.estoque <= 0 ? "zero" : l.estoque <= 5 ? "baixo" : "normal";
@@ -843,6 +850,8 @@ export default function PainelFotos({ titulo = "Produtos", descricao = "Estoque 
                   <div className="pf-card-foto">
                     {l.noSite ? (
                       <img src={urlFoto} alt="" width="176" height="176" />
+                    ) : !mostraFotos ? (
+                      <div className="pf-foto-vazia">Sem foto</div>
                     ) : (
                       <FileDrop
                         estado={envios[l.ean] === "enviando" ? "enviando" : envios[l.ean] === "enviada" ? "pronto" : "parado"}
@@ -901,7 +910,7 @@ export default function PainelFotos({ titulo = "Produtos", descricao = "Estoque 
                 <button type="button" className="pf-modal-fechar" onClick={() => setProdutoConfig(null)} aria-label="Fechar">×</button>
               </div>
               <div className="pf-modal-corpo">
-                <section className="pf-campo">
+                {mostraFotos ? <section className="pf-campo">
                   <span className="pf-campo-rotulo">Foto</span>
                   <div className="pf-foto-linha">
                     {l.noSite ? <img src={urlFoto} alt="" width="80" height="80" /> : <div className="pf-foto-vazia">Sem foto</div>}
@@ -910,7 +919,8 @@ export default function PainelFotos({ titulo = "Produtos", descricao = "Estoque 
                       {l.noSite ? "Trocar foto" : "Enviar foto"}
                     </label>
                   </div>
-                </section>
+                </section> : null}
+                {mostraGestao ? <>
                 <div className="pf-campo">
                   <button type="button" className="pf-botao" disabled={sugestaoIA?.carregando === true} onClick={(e) => void sugerirComIA(l, e.currentTarget.closest('[role="dialog"]'))}>
                     {sugestaoIA?.ean === l.ean && sugestaoIA.carregando ? "Pensando…" : "Sugerir com IA"}
@@ -973,7 +983,9 @@ export default function PainelFotos({ titulo = "Produtos", descricao = "Estoque 
                     />
                   </div>
                 ) : null}
+                </> : null}
               </div>
+              {mostraGestao ? <>
               {excluindo === l.ean ? (
                 <div role="alertdialog" aria-label="Confirmar exclusão" className="pf-perigo">
                   <p>Excluir <b>{nomeAtual(l).texto}</b> do site? Ele continua no sistema da loja e só deixa de aparecer para o cliente.</p>
@@ -1012,6 +1024,11 @@ export default function PainelFotos({ titulo = "Produtos", descricao = "Estoque 
                 </button>
                 <button type="button" className="pf-botao" onClick={() => setProdutoConfig(null)}>Cancelar</button>
               </div>
+              </> : (
+                <div className="pf-modal-acoes pf-modal-rodape">
+                  <button type="button" className="pf-botao pf-botao--primario pf-botao--cheio" onClick={() => setProdutoConfig(null)}>Fechar</button>
+                </div>
+              )}
             </div>
           </div>
         );
