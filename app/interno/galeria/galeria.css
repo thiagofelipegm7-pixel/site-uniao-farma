@@ -1,9 +1,0 @@
-/* Página única de fotos do painel interno: abas no topo, o conteúdo de cada aba logo abaixo. */
-.fotos-abas-topo { max-width: 82rem; margin: 0 auto; padding: 1.25rem 16px 0; box-sizing: border-box; }
-.fotos-abas-topo h1 { margin: 0 0 0.75rem; font-size: 1.5rem; color: #0a3548; }
-.fotos-abas-lista { display: flex; flex-wrap: wrap; gap: 0.5rem; border-bottom: 1px solid #d3e2df; }
-.fotos-aba { min-height: 2.75rem; padding: 0 1.1rem; border: 0; border-radius: 10px 10px 0 0; background: transparent; color: #0a3548; font: inherit; font-weight: 700; cursor: pointer; }
-.fotos-aba:hover { background: #f1f5f7; }
-.fotos-aba.is-ativa { background: #e4f6f3; box-shadow: inset 0 -3px 0 #14736b; }
-.fotos-aba:focus-visible { outline: 3px solid #14736b; outline-offset: -3px; }
-.colecoes-painel header h2 { margin: 0 0 0.4rem; font-size: 1.25rem; color: #0a3548; }
