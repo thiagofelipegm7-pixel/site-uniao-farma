@@ -277,7 +277,7 @@ export default function ReservaFluxo() {
     </>
   );
 
-  const temReceita = estado.itens.some((i) => i.receita) || estado.itens.some((i) => /ritalina|controlado|receita/i.test(i.nome));
+  const temControlado = estado.itens.some((i) => itemAtivo(i) && (i.receita === "controlado" || /ritalina|controlado/i.test(i.nome)));
   function confirmarEnvio() {
     registrarPreVenda();
     setAvisoReceita(false);
@@ -293,7 +293,7 @@ export default function ReservaFluxo() {
   ) : pagamento && lembretePendente ? (
     <button type="button" className={classe} disabled><IconWhats size={24} /> Informe o celular do lembrete</button>
   ) : pagamento ? (
-    temReceita ? (
+    temControlado ? (
       <button type="button" className={classe} onClick={() => setAvisoReceita(true)}>
         <IconWhats size={24} /> Enviar pedido pelo WhatsApp
       </button>
@@ -554,7 +554,7 @@ export default function ReservaFluxo() {
                 A loja está fechada agora ({statusLoja?.label.replace(/^Fechado · /, "").replace(/^[A-ZÀ-Ú]/, (c) => c.toLowerCase())}). Pode enviar o pedido mesmo assim: a loja responde quando abrir.
               </p>
             ) : null}
-            {/* Só o lembrete da receita fica: sem ele o cliente não sabe que precisa anexar a foto na conversa. */}
+            {/* Em pedidos com controlado, o lembrete orienta anexar a foto da receita na conversa. */}
             {enviado && receita ? (
               <section className="fluxo-enviado" role="status" aria-live="polite">
                 <p>
@@ -684,10 +684,10 @@ export default function ReservaFluxo() {
         </div>
       ) : null}
       {avisoReceita ? (
-        <div className="fluxo-aviso-receita-modal" role="alertdialog" aria-modal="true" aria-label="Envie a foto da receita">
+        <div className="fluxo-aviso-receita-modal" role="alertdialog" aria-modal="true" aria-label="Envie a foto da receita do medicamento controlado">
           <div className="fluxo-aviso-receita-card">
-            <strong>Envie a foto da receita</strong>
-            <p>Sua cesta tem medicamento com receita. No WhatsApp, toque no clipe (📎) e envie a foto da receita junto com o pedido. A loja confere antes de separar.</p>
+            <strong>Envie a foto da receita do medicamento controlado</strong>
+            <p>Sua cesta tem medicamento controlado. No WhatsApp, toque no clipe (📎) e envie a foto da receita junto com o pedido. A loja confere antes de separar.</p>
             <button type="button" onClick={confirmarEnvio}>Entendi, ir para o WhatsApp</button>
           </div>
         </div>
