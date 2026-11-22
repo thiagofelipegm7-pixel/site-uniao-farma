@@ -3,8 +3,6 @@ export const ITENS_NAV_INTERNO = [
   { href: "/interno/fotos", rotulo: "Produtos" },
   { href: "/interno/galeria", rotulo: "Fotos" },
   { href: "/interno/promocoes", rotulo: "Promoções" },
-  { href: "/interno/pre-vendas", rotulo: "Pré-vendas" },
-  { href: "/interno/pedidos", rotulo: "Pedidos" },
-  { href: "/interno/recompra", rotulo: "Recompra" },
+  { href: "/interno/vendas", rotulo: "Vendas" },
   { href: "/interno/entregas", rotulo: "Entregas" },
 ] as const;

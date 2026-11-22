@@ -30,7 +30,7 @@ const UNIDADE: Record<string, string> = {
 const dinheiro = (centavos: number) => (centavos / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 const dataHora = (texto: string) => new Intl.DateTimeFormat("pt-BR", { dateStyle: "short", timeStyle: "short", timeZone: "America/Sao_Paulo" }).format(new Date(texto));
 
-export default function PreVendasPainel() {
+export default function PreVendasPainel({ nivel = 1 }: { /** 1 = h1 (página própria); 2 = h2 (dentro de uma aba). */ nivel?: 1 | 2 } = {}) {
   const [registros, setRegistros] = useState<PreVenda[]>([]);
   const [faixa, setFaixa] = useState<7 | 30 | 90>(30);
   const [busca, setBusca] = useState("");
@@ -44,7 +44,7 @@ export default function PreVendasPainel() {
     try {
       const resposta = await fetch("/api/interno/pre-vendas", { cache: "no-store" });
       if (resposta.redirected || (resposta.headers.get("content-type") ?? "").includes("text/html")) {
-        window.location.assign(`/interno/entrar?next=${encodeURIComponent("/interno/pre-vendas")}`);
+        window.location.assign(`/interno/entrar?next=${encodeURIComponent(window.location.pathname + window.location.search)}`);
         return;
       }
       const dados = (await resposta.json()) as { ok?: boolean; erro?: string; preVendas?: PreVenda[] };
@@ -92,7 +92,7 @@ export default function PreVendasPainel() {
         body: JSON.stringify({ id, status }),
       });
       if (resposta.redirected || (resposta.headers.get("content-type") ?? "").includes("text/html")) {
-        window.location.assign(`/interno/entrar?next=${encodeURIComponent("/interno/pre-vendas")}`);
+        window.location.assign(`/interno/entrar?next=${encodeURIComponent(window.location.pathname + window.location.search)}`);
         return;
       }
       if (!resposta.ok) throw new Error("Não foi possível atualizar o andamento.");
@@ -110,7 +110,7 @@ export default function PreVendasPainel() {
       <header className="pvendas-cabeca">
         <div>
           <p className="pvendas-eyebrow">Área da equipe</p>
-          <h1>Pré-vendas do site</h1>
+          {nivel === 2 ? <h2>Pré-vendas do site</h2> : <h1>Pré-vendas do site</h1>}
           <p className="pvendas-lead">Acompanhe as cestas que chegaram até a abertura do WhatsApp e atualize o andamento da conversa.</p>
         </div>
         <button className="pvendas-atualizar" type="button" onClick={() => void carregar()} disabled={carregando}>Atualizar</button>

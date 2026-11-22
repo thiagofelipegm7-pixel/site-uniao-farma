@@ -9,7 +9,7 @@ const data = (texto: string) => new Intl.DateTimeFormat("pt-BR", { dateStyle: "s
 const telefoneBonito = (t: string) => t.replace(/^55(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
 
 /** Lembrete de recompra: o operador abre o WhatsApp com a mensagem pronta e envia ele mesmo. Nada sai sozinho. */
-export default function PainelRecompra() {
+export default function PainelRecompra({ nivel = 1 }: { /** 1 = h1 (página própria); 2 = h2 (dentro de uma aba). */ nivel?: 1 | 2 } = {}) {
   const [lista, setLista] = useState<Lembrar[]>([]);
   const [enviados, setEnviados] = useState(0);
   const [optouts, setOptouts] = useState(0);
@@ -24,7 +24,7 @@ export default function PainelRecompra() {
     try {
       const resposta = await fetch("/api/interno/recompra", { cache: "no-store" });
       if (resposta.redirected || (resposta.headers.get("content-type") ?? "").includes("text/html")) {
-        window.location.assign(`/interno/entrar?next=${encodeURIComponent("/interno/recompra")}`);
+        window.location.assign(`/interno/entrar?next=${encodeURIComponent(window.location.pathname + window.location.search)}`);
         return;
       }
       const json = (await resposta.json()) as { ok?: boolean; erro?: string; pendentes?: Lembrar[]; enviados?: number; optouts?: number };
@@ -66,7 +66,7 @@ export default function PainelRecompra() {
       <header className="pvendas-cabeca">
         <div>
           <p className="pvendas-eyebrow">Área da equipe</p>
-          <h1>Lembrete de recompra</h1>
+          {nivel === 2 ? <h2>Lembrete de recompra</h2> : <h1>Lembrete de recompra</h1>}
           <p className="pvendas-lead">Clientes que pediram lembrete no site e levaram, há uns 30 dias, fralda, higiene, dermocosmético, perfumaria ou suplemento. Medicamento nunca entra.</p>
         </div>
         <button className="pvendas-atualizar" type="button" onClick={() => void carregar()} disabled={carregando}>Atualizar</button>

@@ -1,11 +1,6 @@
-import type { Metadata } from "next";
-import PainelPedidos from "../../components/PainelPedidos";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Pedidos | Área interna",
-  robots: { index: false, follow: false },
-};
-
+/** Agora é uma aba da página Vendas. */
 export default function PedidosPage() {
-  return <PainelPedidos />;
+  redirect("/interno/vendas?aba=pedidos");
 }
