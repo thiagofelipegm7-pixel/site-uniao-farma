@@ -13,6 +13,7 @@ const idNovo = () => `linha-${Math.random().toString(36).slice(2)}`;
 export default function PainelLevePague({ nivel = 1 }: { /** 1 = h1 (página própria); 2 = h2 (dentro de uma aba). */ nivel?: 1 | 2 } = {}) {
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [linhas, setLinhas] = useState<Array<Linha & { id: string }>>([]);
+  const [buscas, setBuscas] = useState<Record<string, string>>({});
   const [aviso, setAviso] = useState("");
   const [ocupado, setOcupado] = useState(false);
 
@@ -54,14 +55,52 @@ export default function PainelLevePague({ nivel = 1 }: { /** 1 = h1 (página pr�
       <p className="painel-leve-pague__nota">Todos os medicamentos do catálogo podem ser selecionados. Defina as quantidades e os preços promocionais manualmente.</p>
       {linhas.map((linha) => {
         const produto = porSlug.get(linha.slug);
+        const busca = buscas[linha.id] ?? produto?.nome ?? "";
+        const termos = busca.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR").trim().split(/\s+/).filter(Boolean);
+        const resultados = termos.length ? produtos.filter((p) => {
+          const nome = p.nome.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR");
+          return termos.every((termo) => nome.includes(termo));
+        }).slice(0, 20) : [];
+        const mostrarResultados = (buscas[linha.id] ?? "").trim().length > 0;
         return (
           <div className="painel-leve-pague__linha" key={linha.id}>
-            <label>Produto
-              <select value={linha.slug} onChange={(e) => setLinhas((atuais) => atuais.map((x) => x.id === linha.id ? { ...x, slug: e.target.value } : x))}>
-                <option value="">Selecione um produto</option>
-                {produtos.map((p) => <option key={p.slug} value={p.slug}>{p.nome}</option>)}
-              </select>
-            </label>
+            <div className="painel-leve-pague__busca">
+              <label htmlFor={`produto-busca-${linha.id}`}>Pesquisar produto pelo nome
+                <input
+                  id={`produto-busca-${linha.id}`}
+                  type="search"
+                  role="combobox"
+                  aria-autocomplete="list"
+                  aria-expanded={mostrarResultados}
+                  aria-controls={`produto-resultados-${linha.id}`}
+                  autoComplete="off"
+                  placeholder="Digite o nome do produto"
+                  value={busca}
+                  onChange={(e) => {
+                    const valor = e.target.value;
+                    setBuscas((atuais) => ({ ...atuais, [linha.id]: valor }));
+                    setLinhas((atuais) => atuais.map((x) => x.id === linha.id ? { ...x, slug: "" } : x));
+                  }}
+                />
+              </label>
+              {mostrarResultados ? (
+                <div id={`produto-resultados-${linha.id}`} className="painel-leve-pague__resultados" role="listbox" aria-label="Produtos encontrados">
+                  {resultados.length ? resultados.map((p) => (
+                    <button
+                      key={p.slug}
+                      type="button"
+                      role="option"
+                      aria-selected={linha.slug === p.slug}
+                      onClick={() => {
+                        setLinhas((atuais) => atuais.map((x) => x.id === linha.id ? { ...x, slug: p.slug } : x));
+                        setBuscas((atuais) => { const prox = { ...atuais }; delete prox[linha.id]; return prox; });
+                      }}
+                    >{p.nome}</button>
+                  )) : <p role="status">Nenhum produto encontrado.</p>}
+                  {resultados.length === 20 ? <p>Mostrando os 20 primeiros resultados. Refine a busca.</p> : null}
+                </div>
+              ) : null}
+            </div>
             <label>Leve
               <input type="number" min="2" max="20" step="1" value={linha.quantidade} onChange={(e) => setLinhas((atuais) => atuais.map((x) => x.id === linha.id ? { ...x, quantidade: e.target.value } : x))} />
             </label>
