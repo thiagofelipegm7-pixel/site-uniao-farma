@@ -62,7 +62,7 @@ function ContasFecham({ c }: { c: Reconciliacao }) {
   );
 }
 
-export default function PainelFotos() {
+export default function PainelFotos({ titulo = "Produtos", descricao = "Estoque do PC, fotos e ajustes do que aparece no site.", nivel = 1 }: { titulo?: string; descricao?: string; /** 1 = h1 (página própria); 2 = h2 (dentro de uma aba). */ nivel?: 1 | 2 } = {}) {
   const [dados, setDados] = useState<Resposta | null>(null);
   const [erro, setErro] = useState(false);
   const [busca, setBusca] = useState("");
@@ -743,8 +743,8 @@ export default function PainelFotos() {
     <>
     <section className="painel-fotos">
       <header className="pf-cabeca">
-        <h1>Produtos</h1>
-        <p>Estoque do PC, fotos e ajustes do que aparece no site.</p>
+        {nivel === 2 ? <h2>{titulo}</h2> : <h1>{titulo}</h1>}
+        <p>{descricao}</p>
       </header>
       <PainelCatalogo />
       {erro ? <p role="alert">Não consegui ler o estoque agora. O PC da loja ou o acesso aos dados pode estar parado. <button type="button" onClick={() => void carregar()}>Tentar de novo</button></p> : null}

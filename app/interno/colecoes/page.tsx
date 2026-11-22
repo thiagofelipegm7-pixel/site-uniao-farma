@@ -1,12 +1,6 @@
-import type { Metadata } from "next";
-import ColecoesPainel from "../../components/ColecoesPainel";
-import "./colecoes.css";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Coleções de fotos",
-  robots: { index: false, follow: false },
-};
-
+/** A tela de coleções agora é uma aba da página única de fotos. */
 export default function ColecoesInternoPage() {
-  return <ColecoesPainel />;
+  redirect("/interno/galeria?aba=colecoes");
 }

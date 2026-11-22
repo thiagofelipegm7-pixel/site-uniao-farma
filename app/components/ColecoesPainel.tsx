@@ -28,7 +28,7 @@ function lerComoBase64(arquivo: File): Promise<string> {
   });
 }
 
-export default function ColecoesPainel() {
+export default function ColecoesPainel({ nivel = 1 }: { /** 1 = h1 (página própria); 2 = h2 (dentro de uma aba). */ nivel?: 1 | 2 } = {}) {
   const [busca, setBusca] = useState("");
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [escolhido, setEscolhido] = useState<Produto | null>(null);
@@ -95,7 +95,7 @@ export default function ColecoesPainel() {
   return (
     <main className="colecoes-painel">
       <header>
-        <h1>Coleções de fotos</h1>
+        {nivel === 2 ? <h2>Coleções de fotos</h2> : <h1>Coleções de fotos</h1>}
         <p>Fotos extras de cada produto, na ordem em que aparecem na ficha (até {MAX} por produto). Use o nome ou o código de barras para achar o produto.</p>
       </header>
 
