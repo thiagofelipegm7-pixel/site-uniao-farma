@@ -1,0 +1,47 @@
+/* Direção artística da página Entregas: cartões verde-água em relevo, campos e botões em inset (brancos, texto petróleo), avisos suaves. Sem o teal escuro e sem bordas. */
+
+/* Cartões: verde-água em relevo, sem borda. */
+.entregas-pagina .entregas-cartao {
+  border: 0; border-radius: 18px; background: #9fe3d6;
+  box-shadow: 8px 8px 16px #8fd3c4, -8px -8px 16px #ffffff;
+}
+.entregas-pagina .entregas-cartao dt { color: #2f3d3a; }
+.entregas-pagina .entregas-cartao dd { color: #0d1413; }
+.entregas-pagina .entregas-cartao h2 { color: #0d1413; }
+
+/* Campos: brancos, recuados, sem borda. */
+.entregas-pagina input:not([type="radio"]):not([type="checkbox"]),
+.entregas-pagina select,
+.entregas-pagina textarea {
+  border: 0; border-radius: 12px; background: #ffffff; color: #0d1413;
+  box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff;
+}
+
+/* Botões: brancos em inset, texto petróleo (o de ação forte fica em vermelho, também em inset). */
+.entregas-pagina .entregas-botao,
+.entregas-pagina .entregas-botao-claro,
+.entregas-pagina .entregas-botao-perigo {
+  border: 0; border-radius: 14px; background: #ffffff; color: #0a3548; font-weight: 700;
+  box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff;
+}
+.entregas-pagina .entregas-botao-forte { background: #ffffff; color: #b93a27; }
+.entregas-pagina .entregas-botao:hover:not(:disabled),
+.entregas-pagina .entregas-botao-claro:hover:not(:disabled),
+.entregas-pagina .entregas-botao-perigo:hover:not(:disabled) { background: #fdfdfd; }
+
+/* Escolha de provedor (chips): em inset; o desligado fica apagado. */
+.entregas-pagina .entregas-provedores label,
+.entregas-pagina label.entregas-desligado {
+  border: 0; border-radius: 12px; background: #ffffff;
+  box-shadow: inset 3px 3px 6px #c4c8cd, inset -3px -3px 6px #ffffff;
+}
+
+/* Avisos e erros: faixas brancas recuadas, com o texto na cor do aviso. */
+.entregas-pagina .entregas-erro,
+.entregas-pagina .entregas-aviso,
+.entregas-pagina .entregas-nota {
+  border: 0; border-radius: 14px; background: #ffffff;
+  box-shadow: inset 3px 3px 6px #c4c8cd, inset -3px -3px 6px #ffffff;
+}
+.entregas-pagina .entregas-erro { color: #9e2824; }
+.entregas-pagina .entregas-aviso { color: #176748; }

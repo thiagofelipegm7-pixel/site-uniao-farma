@@ -1,0 +1,33 @@
+/* Direção artística da aba Promoções: mesma linguagem da Foto principal (verde-água, neumorfismo, campos e botões em inset, sem bordas escuras). */
+
+/* Respiro lateral igual ao das outras abas. */
+#painel-promocoes, #painel-banners { box-sizing: border-box; padding-inline: 16px; padding-bottom: 48px; }
+
+/* Cartão "Leve mais e pague menos": cartão verde-água em relevo, sem borda. */
+#painel-promocoes .painel-leve-pague {
+  box-sizing: border-box; max-width: none; margin: 16px 0; padding: 20px; border: 0; border-radius: 18px;
+  background: #9fe3d6; box-shadow: 8px 8px 16px #8fd3c4, -8px -8px 16px #ffffff;
+}
+#painel-promocoes .painel-leve-pague h2 { margin: 0 0 6px; font-size: 1.25rem; font-weight: 700; color: #0d1413; }
+#painel-promocoes .painel-leve-pague p { color: #2f3d3a; }
+
+/* Campos: brancos, recuados, sem borda. */
+#painel-promocoes input, #painel-promocoes select, #painel-promocoes textarea {
+  border: 0; border-radius: 12px; background: #ffffff; color: #0d1413;
+  box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff;
+}
+#painel-promocoes label { color: #0d1413; }
+
+/* Botões: brancos em inset, texto petróleo, sem o preenchimento escuro. */
+#painel-promocoes .painel-leve-pague button,
+#painel-promocoes .pm-pagina button {
+  border: 0; border-radius: 14px; background: #ffffff; color: #0a3548; font-weight: 700;
+  box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff;
+}
+#painel-promocoes .painel-leve-pague__remover { background: #ffffff; color: #0a3548; }
+
+/* Blocos da página de promoções: cartões verde-água, sem linha. */
+#painel-promocoes .pm-pagina section,
+#painel-promocoes .pm-pagina .pm-destino {
+  border: 0; border-radius: 18px;
+}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import CampoSenha from "./CampoSenha";
 import "../../metrics-polish.css";
 
 export const metadata: Metadata = {
@@ -17,9 +18,7 @@ export default async function StaffLoginPage({
   return (
     <div className="staff-login-page">
       <div className="staff-login-card">
-        <p className="eyebrow">Equipe</p>
         <h1>Entrar</h1>
-        <p className="metrics-lead">A senha é a definida no ambiente da loja. Não use senha publicada.</p>
         {params.erro ? <p className="metrics-error">Usuário ou senha não conferem.</p> : null}
         <form action="/api/interno/login" method="post">
           <input type="hidden" name="next" value={nextPath} />
@@ -27,10 +26,7 @@ export default async function StaffLoginPage({
             Usuário
             <input name="user" autoComplete="username" required />
           </label>
-          <label>
-            Senha
-            <input name="pass" type="password" autoComplete="current-password" required />
-          </label>
+          <CampoSenha />
           <button type="submit">Entrar</button>
         </form>
       </div>

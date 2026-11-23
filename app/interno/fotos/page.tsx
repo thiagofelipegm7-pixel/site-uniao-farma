@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function FotosInternoPage() {
-  return <PainelFotos />;
+  return <PainelFotos modo="produtos" descricao="" />;
 }

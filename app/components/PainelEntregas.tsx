@@ -1,10 +1,11 @@
 "use client";
+import "./entregas-direcao.css";
 
 import { useCallback, useEffect, useState } from "react";
 import { consultarCep, formatarCep, formatarTaxaCentavos, soDigitosCep } from "../area-entrega";
 import "./entregas.css";
 
-type Provedor = "lalamove" | "uber";
+type Provedor = "lalamove" | "uber" | "motoboysbh";
 type Escolha = Provedor | "ambos";
 type Entregador = { id: string; nome: string | null; telefone: string | null; placa: string | null; veiculo?: string | null };
 type Entrega = {
@@ -21,6 +22,7 @@ type Entrega = {
   moeda: string | null;
   distanciaM: number | null;
   prazoMin?: number | null;
+  trajetoMin?: number | null;
   previsaoEntrega?: string | null;
   cotacaoExpiraEm: string | null;
   clienteNome: string | null;
@@ -33,7 +35,7 @@ type Entrega = {
   criadoEm: string;
   atualizadoEm: string;
 };
-type InfoProvedor = { configurado: boolean; sandbox: boolean };
+type InfoProvedor = { configurado: boolean; sandbox: boolean; chamadaManual?: boolean };
 type Estado = {
   provedores: Record<Provedor, InfoProvedor>;
   coleta: { nome: string; endereco: string } | null;
@@ -61,11 +63,25 @@ const STATUS: Record<string, string> = {
 };
 const PODE_CANCELAR = new Set(["ASSIGNING_DRIVER", "ON_GOING", "pending", "pickup"]);
 const ENCERRADA = new Set(["COMPLETED", "CANCELED", "REJECTED", "EXPIRED", "delivered", "canceled", "returned"]);
-const NOME: Record<Provedor, string> = { lalamove: "Lalamove", uber: "Uber Direct" };
-const CURTO: Record<Provedor, string> = { lalamove: "Lalamove", uber: "Uber" };
-const NAO_CONFIGURADA: Record<Provedor, string> = { lalamove: "Integração Lalamove não configurada", uber: "Integração Uber Direct não configurada" };
+const PROVEDORES: Provedor[] = ["lalamove", "uber", "motoboysbh"];
+const NOME: Record<Provedor, string> = { lalamove: "Lalamove", uber: "Uber Direct", motoboysbh: "Motoboys BH" };
+const CURTO: Record<Provedor, string> = { lalamove: "Lalamove", uber: "Uber", motoboysbh: "Motoboys BH" };
+const DA: Record<Provedor, string> = { lalamove: "da Lalamove", uber: "do Uber Direct", motoboysbh: "da Motoboys BH" };
+const NAO_CONFIGURADA: Record<Provedor, string> = {
+  lalamove: "Integração Lalamove não configurada",
+  uber: "Integração Uber Direct não configurada",
+  motoboysbh: "Integração Motoboys BH não configurada",
+};
+const DESLIGADA: Record<Provedor, string> = {
+  lalamove: "Os botões da Lalamove ficam desligados até a chave da Lalamove ser cadastrada no servidor.",
+  uber: "O Uber fica desligado até as credenciais do Uber Direct serem cadastradas no servidor.",
+  motoboysbh: "A Motoboys BH fica desligada até o token e o código de cliente da API serem cadastrados no servidor.",
+};
+const SELO_TESTE: Record<Provedor, string> = { lalamove: "LALAMOVE: MODO TESTE (sandbox)", uber: "UBER: MODO TESTE", motoboysbh: "MOTOBOYS BH: MODO TESTE" };
+/** Painel da Motoboys BH: enquanto a API só cota, a equipe pede o motoboy lá. */
+const MOTOBOYSBH_PAINEL = "https://motoboysbh.com.br/";
 const SEM_PROVEDOR: InfoProvedor = { configurado: false, sandbox: false };
-const provedorDe = (e: Entrega): Provedor => (e.provedor === "uber" ? "uber" : "lalamove");
+const provedorDe = (e: Entrega): Provedor => (e.provedor === "uber" || e.provedor === "motoboysbh" ? e.provedor : "lalamove");
 
 function preco(total: string | null, moeda: string | null) {
   if (!total) return "—";
@@ -82,7 +98,11 @@ const hora = (iso: string | null) =>
 const dataHora = (iso: string) =>
   new Intl.DateTimeFormat("pt-BR", { dateStyle: "short", timeStyle: "short", timeZone: "America/Sao_Paulo" }).format(new Date(iso));
 const prazo = (e: Entrega, rotulo: Provedor) =>
-  e.prazoMin
+  rotulo === "motoboysbh"
+    ? e.trajetoMin
+      ? `Trajeto de cerca de ${e.trajetoMin} min, sem contar a espera por um motoboy.`
+      : "A Motoboys BH não informa o prazo na cotação."
+    : e.prazoMin
     ? `Cerca de ${e.prazoMin} min${e.previsaoEntrega ? ` (entrega prevista às ${hora(e.previsaoEntrega)})` : ""}`
     : `A ${NOME[rotulo]} não informa na cotação. O andamento aparece depois que um entregador aceitar.`;
 const km = (m: number | null) => (m == null ? "—" : `${(m / 1000).toLocaleString("pt-BR", { maximumFractionDigits: 1 })} km`);
@@ -190,6 +210,7 @@ export default function PainelEntregas() {
       const provedores = {
         lalamove: dados.provedores?.lalamove ?? { configurado: Boolean(dados.configurado), sandbox: Boolean(dados.sandbox) },
         uber: dados.provedores?.uber ?? SEM_PROVEDOR,
+        motoboysbh: dados.provedores?.motoboysbh ?? SEM_PROVEDOR,
       };
       setEstado({ provedores, coleta: dados.coleta ?? null, entregas: dados.entregas ?? [], preVenda: dados.preVenda ?? null });
       setErroCarga(dados.ok ? "" : dados.erro === "sem_banco" ? "O banco não está disponível agora. A lista de entregas não carregou." : "Não foi possível carregar as entregas.");
@@ -215,10 +236,12 @@ export default function PainelEntregas() {
   }, [cotacoes]);
 
   const info = (p: Provedor) => estado?.provedores[p] ?? SEM_PROVEDOR;
-  const algumConfigurado = info("lalamove").configurado || info("uber").configurado;
-  const ambosConfigurados = info("lalamove").configurado && info("uber").configurado;
-  // Padrão: comparar as duas quando as duas estão ligadas; senão, a que estiver ligada.
-  const padrao: Escolha = ambosConfigurados ? "ambos" : info("uber").configurado ? "uber" : "lalamove";
+  const ligados = PROVEDORES.filter((p) => info(p).configurado);
+  const algumConfigurado = ligados.length > 0;
+  // "ambos" (nome antigo) = comparar todas as integrações ligadas; só faz sentido com duas ou mais.
+  const ambosConfigurados = ligados.length > 1;
+  // Padrão: comparar quando há mais de uma ligada; senão, a que estiver ligada.
+  const padrao: Escolha = ambosConfigurados ? "ambos" : ligados[0] ?? "lalamove";
   const escolhaAtual: Escolha = escolha && (escolha === "ambos" ? ambosConfigurados : info(escolha).configurado) ? escolha : padrao;
   const podeCotar = escolhaAtual === "ambos" ? ambosConfigurados : info(escolhaAtual).configurado;
   const area = consultarCep(cep);
@@ -276,7 +299,7 @@ export default function PainelEntregas() {
 
   const agir = (entrega: Entrega, acao: "atualizar" | "cancelar") =>
     executar(`${acao}-${entrega.id}`, async () => {
-      const nomeProvedor = provedorDe(entrega) === "uber" ? "no Uber" : "na Lalamove";
+      const nomeProvedor = provedorDe(entrega) === "uber" ? "no Uber" : provedorDe(entrega) === "motoboysbh" ? "na Motoboys BH" : "na Lalamove";
       if (acao === "cancelar" && !window.confirm(`Cancelar esta entrega ${nomeProvedor}?`)) return;
       const { entrega: nova } = await enviar({ acao, id: entrega.id });
       setEstado((e) => (e ? { ...e, entregas: e.entregas.map((x) => (x.id === nova.id ? nova : x)) } : e));
@@ -285,35 +308,36 @@ export default function PainelEntregas() {
 
   const vencida = (c: Entrega) => (agora > 0 && c.cotacaoExpiraEm ? Date.parse(c.cotacaoExpiraEm) < agora : false);
   const expirada = cotacao ? vencida(cotacao) : false;
-  const testes = (["lalamove", "uber"] as Provedor[]).filter((p) => info(p).configurado && info(p).sandbox);
+  const testes = PROVEDORES.filter((p) => info(p).configurado && info(p).sandbox);
+  const manual = cotacao ? provedorDe(cotacao) === "motoboysbh" || Boolean(info(provedorDe(cotacao)).chamadaManual) : false;
 
   return (
     <div className="entregas-pagina">
       <header className="entregas-cabeca">
         <div>
-          <p className="entregas-eyebrow">Entregas · Lalamove e Uber Direct</p>
+          <p className="entregas-eyebrow">Entregas · Lalamove, Uber Direct e Motoboys BH</p>
           <h1>Chamar entregador</h1>
-          <p className="entregas-lead">Cote e chame um entregador da Lalamove (LalaGo) ou do Uber Direct saindo da loja {estado?.coleta?.endereco ?? "Rua Inglaterra, 162, Nações Unidas"}.</p>
+          <p className="entregas-lead">Cote lado a lado e chame um entregador da Lalamove (LalaGo), do Uber Direct ou da Motoboys BH saindo da loja {estado?.coleta?.endereco ?? "Rua Inglaterra, 162, Nações Unidas"}.</p>
         </div>
         {testes.length ? (
           <span className="entregas-selos">
             {testes.map((p) => (
-              <span key={p} className="entregas-teste" role="status">{p === "lalamove" ? "LALAMOVE: MODO TESTE (sandbox)" : "UBER: MODO TESTE"}</span>
+              <span key={p} className="entregas-teste" role="status">{SELO_TESTE[p]}</span>
             ))}
           </span>
         ) : null}
       </header>
 
       {estado
-        ? (["lalamove", "uber"] as Provedor[]).filter((p) => !info(p).configurado).map((p) => (
+        ? PROVEDORES.filter((p) => !info(p).configurado).map((p) => (
             <p key={p} className="entregas-erro" role="alert">
-              <strong>{NAO_CONFIGURADA[p]}.</strong> {p === "lalamove" ? "Os botões da Lalamove ficam desligados até a chave da Lalamove ser cadastrada no servidor." : "O Uber fica desligado até as credenciais do Uber Direct serem cadastradas no servidor."}
+              <strong>{NAO_CONFIGURADA[p]}.</strong> {DESLIGADA[p]}
             </p>
           ))
         : null}
       {testes.length ? (
         <p className="entregas-nota">
-          Ambiente de teste {testes.map((p) => (p === "lalamove" ? "da Lalamove" : "do Uber Direct")).join(" e ")}: nenhum entregador de verdade é chamado e nada é cobrado.
+          Ambiente de teste {testes.map((p) => DA[p]).join(", ").replace(/, ([^,]+)$/, " e $1")}: nenhum entregador de verdade é chamado e nada é cobrado.
           {testes.includes("uber") ? " No Uber, um entregador simulado aceita e anda com o pedido sozinho." : ""}
         </p>
       ) : null}
@@ -335,9 +359,10 @@ export default function PainelEntregas() {
             <fieldset className="entregas-provedores">
               <legend>Cotar com</legend>
               {([
-                ["ambos", "Comparar as duas", ambosConfigurados],
+                ["ambos", "Comparar todas", ambosConfigurados],
                 ["lalamove", "Lalamove", info("lalamove").configurado],
                 ["uber", "Uber Direct", info("uber").configurado],
+                ["motoboysbh", "Motoboys BH", info("motoboysbh").configurado],
               ] as Array<[Escolha, string, boolean]>).map(([valor, rotulo, ligado]) => (
                 <label key={valor} className={ligado ? undefined : "entregas-desligado"}>
                   <input type="radio" name="provedor" value={valor} checked={escolhaAtual === valor} disabled={!ligado} onChange={() => { setEscolha(valor); limparCotacao(); }} />
@@ -376,7 +401,7 @@ export default function PainelEntregas() {
               </div>
             </details>
             <button type="submit" className="entregas-botao" disabled={!podeCotar || ocupado !== null || endereco.trim().length < 6 || !cepLiberado} title={algumConfigurado ? undefined : NAO_CONFIGURADA.lalamove}>
-              {ocupado === "cotar" ? "Cotando…" : escolhaAtual === "ambos" ? "Cotar nas duas" : "Cotar entrega"}
+              {ocupado === "cotar" ? "Cotando…" : escolhaAtual === "ambos" ? `Cotar nas ${ligados.length}` : "Cotar entrega"}
             </button>
           </form>
 
@@ -391,12 +416,12 @@ export default function PainelEntregas() {
                     <div key={c.id} className={`entregas-opcao${marcada ? " entregas-opcao-marcada" : ""}`}>
                       <label className="entregas-preco">
                         {cotacoes.length > 1 ? <input type="radio" name="cotacao" checked={marcada} onChange={() => setEscolhida(c.id)} /> : null}
-                        <span>Preço {p === "uber" ? "do Uber Direct" : "da Lalamove"}</span>
+                        <span>Preço {DA[p]}</span>
                         <strong>{preco(c.precoTotal, c.moeda)}</strong>
                       </label>
                       <dl>
                         <div><dt>Prazo</dt><dd>{prazo(c, p)}</dd></div>
-                        <div><dt>Cotação vale até</dt><dd>{hora(c.cotacaoExpiraEm)}{vencida(c) ? " (venceu)" : ""}</dd></div>
+                        {c.cotacaoExpiraEm ? <div><dt>Cotação vale até</dt><dd>{hora(c.cotacaoExpiraEm)}{vencida(c) ? " (venceu)" : ""}</dd></div> : null}
                         {c.distanciaM != null ? <div><dt>Distância</dt><dd>{km(c.distanciaM)}</dd></div> : null}
                       </dl>
                     </div>
@@ -412,6 +437,12 @@ export default function PainelEntregas() {
                     <div className="entregas-largo"><dt>Endereço localizado</dt><dd>{cotacao.encontrado || cotacao.endereco} · <a href={mapa(cotacao.lat, cotacao.lng)} target="_blank" rel="noreferrer">ver no mapa</a></dd></div>
                   </dl>
                   <p className="entregas-dica">Ponto errado? Corrija o endereço ou o ponto no mapa e cote de novo.</p>
+                  {manual ? (
+                    <div className="entregas-manual" role="note">
+                      <p>A Motoboys BH ainda é chamada no painel dela: a integração só cota por enquanto. Peça o motoboy lá, confira se o valor bate com esta cotação ({preco(cotacao.precoTotal, cotacao.moeda)}) e avise o cliente no WhatsApp.</p>
+                      <a className="entregas-botao entregas-botao-forte" href={MOTOBOYSBH_PAINEL} target="_blank" rel="noreferrer">Abrir o painel da Motoboys BH</a>
+                    </div>
+                  ) : (
                   <form
                     className="entregas-form"
                     onSubmit={(ev) => {
@@ -425,6 +456,7 @@ export default function PainelEntregas() {
                       {ocupado === "chamar" ? "Chamando…" : cotacoes.length > 1 ? `Chamar entregador (${CURTO[provedorDe(cotacao)]})` : "Chamar entregador"}
                     </button>
                   </form>
+                  )}
                 </>
               ) : null}
             </div>
@@ -475,7 +507,7 @@ export default function PainelEntregas() {
                       <div><dt>Atualizado</dt><dd>{dataHora(ent.atualizadoEm)}</dd></div>
                     </dl>
                     <footer>
-                      {ent.shareLink ? <a className="entregas-link" href={ent.shareLink} target="_blank" rel="noreferrer">{p === "uber" ? "Acompanhar no Uber" : "Acompanhar na Lalamove"}</a> : null}
+                      {ent.shareLink ? <a className="entregas-link" href={ent.shareLink} target="_blank" rel="noreferrer">{p === "uber" ? "Acompanhar no Uber" : p === "motoboysbh" ? "Acompanhar na Motoboys BH" : "Acompanhar na Lalamove"}</a> : null}
                       <span className="entregas-acoes">
                         <button type="button" className="entregas-botao entregas-botao-claro" onClick={() => void agir(ent, "atualizar")} disabled={!ligado || ocupado !== null}>
                           {ocupado === `atualizar-${ent.id}` ? "Atualizando…" : "Atualizar status"}

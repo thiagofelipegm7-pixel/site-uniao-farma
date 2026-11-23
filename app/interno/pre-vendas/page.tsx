@@ -1,11 +1,6 @@
-import type { Metadata } from "next";
-import PreVendasPainel from "../../components/PreVendasPainel";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Pré-vendas | Área interna",
-  robots: { index: false, follow: false },
-};
-
+/** Agora é uma aba da página Vendas. */
 export default function PreVendasPage() {
-  return <PreVendasPainel />;
+  redirect("/interno/vendas");
 }

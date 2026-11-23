@@ -1,0 +1,10 @@
+/* Página única de publicidade (imagens) do painel interno: abas no topo, o conteúdo de cada aba logo abaixo. */
+.pub-abas-topo { max-width: 82rem; margin: 0 auto; padding: 1.25rem 16px 0; box-sizing: border-box; }
+.pub-abas-topo h1 { margin: 0 0 0.75rem; font-size: 26px; font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; color: #0d1413; }
+.pub-abas-lista { display: flex; flex-wrap: wrap; gap: 10px; border-bottom: 0; padding-bottom: 1rem; }
+.pub-aba { min-height: 44px; padding: 0 18px; border: 0; border-radius: 12px; background: #ffffff; color: #0d1413; font: inherit; font-size: 15px; font-weight: 600; cursor: pointer; box-shadow: inset 4px 4px 8px #e6e8eb, inset -4px -4px 8px #ffffff; transition: box-shadow 0.2s ease, background-color 0.2s ease; }
+.pub-abas .pf-aviso { border: 0 !important; background: #9fe3d6 !important; color: #0d1413 !important; box-shadow: inset 4px 4px 8px #5cc4b0, inset -4px -4px 8px #ffffff !important; border-radius: 12px !important; }
+.pub-aba:hover { background: #fdfdfd; box-shadow: inset 6px 6px 10px #dfe2e6, inset -6px -6px 10px #ffffff; }
+.pub-aba.is-ativa { background: #9fe3d6; color: #0d1413; box-shadow: inset 4px 4px 8px #5cc4b0, inset -4px -4px 8px #ffffff; }
+.pub-aba:focus-visible { outline: 3px solid #14736b; outline-offset: -3px; }
+.colecoes-painel header h2 { margin: 0 0 0.4rem; font-size: 1.25rem; color: #0a3548; }

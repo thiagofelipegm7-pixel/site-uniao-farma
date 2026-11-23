@@ -1,11 +1,6 @@
-import type { Metadata } from "next";
-import PainelPromocoes from "../../components/PainelPromocoes";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: "Promoções",
-  robots: { index: false, follow: false },
-};
-
+/** Agora é a aba Promoções da página Publicidade. */
 export default function PromocoesInternoPage() {
-  return <PainelPromocoes />;
+  redirect("/interno/publicidade?aba=promocoes");
 }
