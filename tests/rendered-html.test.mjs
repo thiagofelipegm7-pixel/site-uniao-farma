@@ -190,7 +190,7 @@ test("keeps unit-specific data on all unit pages", async () => {
     {
       pathname: "/fatima",
       name: "Fátima",
-      heading: "Farmácia em Nossa Senhora de Fátima, Sabará",
+      heading: "Drogaria União Farma em Nossa Senhora de Fátima, Sabará",
       address: "Rua Cláudio, 902 — Nossa Senhora de Fátima, Sabará/MG",
       phone: "(31) 3673-2122",
       whatsapp: "(31) 98738-1786",
@@ -199,7 +199,7 @@ test("keeps unit-specific data on all unit pages", async () => {
     {
       pathname: "/nacoes-unidas",
       name: "Nações Unidas",
-      heading: "Farmácia em Nações Unidas, Sabará",
+      heading: "Drogaria União Farma em Nações Unidas, Sabará",
       address: "Rua Inglaterra, 162 — Nações Unidas, Sabará/MG",
       phone: "(31) 3671-8506",
       whatsapp: "(31) 98762-9909",
@@ -208,7 +208,7 @@ test("keeps unit-specific data on all unit pages", async () => {
     {
       pathname: "/itacolomi",
       name: "Itacolomi",
-      heading: "Farmácia no Itacolomi, Sabará",
+      heading: "Drogaria União Farma no Itacolomi, Sabará",
       address: "Av. Joaquim Ferreira Madureira, 489 — Itacolomi, Sabará/MG",
       phone: "(31) 3673-3155",
       whatsapp: "(31) 99493-6960",
@@ -438,4 +438,19 @@ test("cache: feed e catálogo não saem com max-age=0; HTML público tem s-maxag
   const reserva = await render("/reserva");
   const reservaCc = reserva.headers.get("cache-control") ?? "";
   assert.match(reservaCc, /no-store/);
+});
+
+test("palavra 'drogaria' nos títulos da home e das lojas", async () => {
+  const expectations = {
+    "/": /<title>Drogaria e Farmácia em Sabará com entrega \| União Farma<\/title>/,
+    "/farmacia-em-sabara": /<title>Drogaria e Farmácia em Sabará \| União Farma<\/title>/,
+    "/fatima": /<title>Drogaria União Farma Fátima \| Farmácia em Sabará<\/title>/,
+    "/itacolomi": /<title>Drogaria União Farma Itacolomi \| Farmácia em Sabará<\/title>/,
+    "/nacoes-unidas": /<title>Drogaria União Farma Nações Unidas \| Farmácia em Sabará<\/title>/,
+    "/jardim-vitoria": /<title>Drogaria União Farma Fátima \| Entrega no Jardim Vitória<\/title>/,
+  };
+  for (const [pathname, titlePattern] of Object.entries(expectations)) {
+    const html = await (await render(pathname)).text();
+    assert.match(html, titlePattern, pathname);
+  }
 });

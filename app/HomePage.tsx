@@ -21,7 +21,7 @@ import VistoRecentemente from "./shop/VistoRecentemente";
  */
 export default function HomePage() {
   const homeStructuredData = getPageStructuredData({
-    name: "Farmácia em Sabará | União Farma",
+    name: "Drogaria e Farmácia em Sabará | União Farma",
     url: `${SITE_URL}/`,
     units: PUBLIC_UNITS,
     breadcrumbs: [{ name: "Início", url: `${SITE_URL}/` }],
@@ -34,7 +34,7 @@ export default function HomePage() {
         <ShopHeader />
         <FaixaInfo />
       </CabecalhoInteligente>
-      <PainelBanners titulo="Farmácia em Sabará: União Farma Nações Unidas" />
+      <PainelBanners titulo="Drogaria em Sabará: União Farma Nações Unidas" />
       <CestaRetomada />
       <OfertasSemana />
       <VistoRecentemente />
