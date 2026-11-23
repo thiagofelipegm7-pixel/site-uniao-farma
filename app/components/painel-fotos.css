@@ -1080,3 +1080,8 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .painel-fotos .painel-catalogo .painel-saude-atencao strong { font-size: 14px !important; font-weight: 600 !important; }
   html body .painel-fotos .painel-catalogo .painel-saude-atencao p { margin: 0 !important; font-size: 13px !important; }
 }
+
+/* Selo de estoque normal em verde vibrante, com letras brancas (legível). */
+@layer design {
+  html body .painel-fotos .pf-card .pf-qtd-normal { background: #22a05a !important; color: #ffffff !important; }
+}
