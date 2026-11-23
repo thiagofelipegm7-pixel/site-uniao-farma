@@ -1,7 +1,6 @@
 import { env } from "cloudflare:workers";
 import { diaBrasilia, itensDoExport } from "./estoque-historico";
 import type { ItemEstoque } from "./estoque-alertas";
-import { exportReferencia } from "./estoque-referencia";
 
 // Mesmo endereço que a sincronização do catálogo lê (ops/catalogo-nacoes/sincronizar.py): export do DMaster com o estoque.
 const URL_EXPORT = "https://dmaster-catalogo.thiagofelipegm7.workers.dev/catalogo?loja=itacolomi";
@@ -95,8 +94,6 @@ export async function lerExportBruto(): Promise<{ itens: Array<Record<string, un
 }
 
 async function buscarExportBruto(): Promise<{ itens: Array<Record<string, unknown>>; geradoEm: string | null } | null> {
-  // Modo local: lista de referência em vez do PC da loja (ESTOQUE_REFERENCIA=1 no .env).
-  if (segredo("ESTOQUE_REFERENCIA") === "1") return exportReferencia();
   const token = segredo("CATALOGO_READ_TOKEN");
   if (!token) return null;
   try {
