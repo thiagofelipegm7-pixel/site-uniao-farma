@@ -1,6 +1,7 @@
 import { env } from "cloudflare:workers";
 import { diaBrasilia, itensDoExport } from "./estoque-historico";
 import type { ItemEstoque } from "./estoque-alertas";
+import { exportReferencia } from "./estoque-referencia";
 
 // Mesmo endereço que a sincronização do catálogo lê (ops/catalogo-nacoes/sincronizar.py): export do DMaster com o estoque.
 const URL_EXPORT = "https://dmaster-catalogo.thiagofelipegm7.workers.dev/catalogo?loja=itacolomi";
@@ -82,7 +83,20 @@ export async function enviarPush(titulo: string, corpo: string, prioridade: "hig
 }
 
 /** Export completo do DMaster (todos os itens, com código de barras, estoque e preço). Só para o painel interno. */
+// Export do PC guardado por 60 s no servidor: a tela não espera o PC a cada abertura. Só guarda resposta completa.
+let exportEmCache: { em: number; valor: { itens: Array<Record<string, unknown>>; geradoEm: string | null } } | null = null;
+const TEMPO_EXPORT_MS = 60_000;
+
 export async function lerExportBruto(): Promise<{ itens: Array<Record<string, unknown>>; geradoEm: string | null } | null> {
+  if (exportEmCache && Date.now() - exportEmCache.em < TEMPO_EXPORT_MS) return exportEmCache.valor;
+  const valor = await buscarExportBruto();
+  if (valor) exportEmCache = { em: Date.now(), valor };
+  return valor;
+}
+
+async function buscarExportBruto(): Promise<{ itens: Array<Record<string, unknown>>; geradoEm: string | null } | null> {
+  // Modo local: lista de referência em vez do PC da loja (ESTOQUE_REFERENCIA=1 no .env).
+  if (segredo("ESTOQUE_REFERENCIA") === "1") return exportReferencia();
   const token = segredo("CATALOGO_READ_TOKEN");
   if (!token) return null;
   try {
