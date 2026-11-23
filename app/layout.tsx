@@ -68,7 +68,7 @@ const GOOGLE_MERCHANT_VERIFICATION = "c78h12yeN5NoYIfoDpPllCzysv9i6tIFAJyYKV8TEA
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Farmácia em Sabará | União Farma",
+    default: "Drogaria e Farmácia em Sabará | União Farma",
     template: "%s",
   },
   description: SITE_DESCRIPTION,
@@ -90,7 +90,7 @@ export const metadata: Metadata = {
     apple: "/favicon.png",
   },
   openGraph: {
-    title: "Farmácia em Sabará | União Farma",
+    title: "Drogaria e Farmácia em Sabará | União Farma",
     description: SITE_DESCRIPTION,
     type: "website",
     locale: "pt_BR",
@@ -107,7 +107,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Farmácia em Sabará | União Farma",
+    title: "Drogaria e Farmácia em Sabará | União Farma",
     description: SITE_DESCRIPTION,
     images: ["/og-instagram-optimized.jpg"],
   },
