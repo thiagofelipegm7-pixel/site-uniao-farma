@@ -410,7 +410,12 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 @media (max-width: 640px) {
   .painel-fotos .pf-arvore-linha { grid-template-columns: 1fr; gap: 0.25rem; }
   .painel-fotos .pf-arvore-rotulo { padding-top: 0; }
-  .painel-fotos .pf-arvore-linha--sub .pf-arvore-chips--sub { grid-template-columns: 1fr 1fr; }
+  .painel-fotos .pf-arvore-linha--sub .pf-arvore-chips--sub { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  /* Subcategorias no celular: cabem na coluna; o nome corta com reticências e a contagem fica visível. */
+  .painel-fotos .pf-arvore .pf-chip-filtro--sub { min-width: 0; max-width: 100%; overflow: hidden; }
+  .painel-fotos .pf-arvore .pf-chip-filtro--sub > span:first-child,
+  .painel-fotos .pf-arvore .pf-chip-filtro--sub > em { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .painel-fotos .pf-arvore .pf-chip-filtro--sub small { flex: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .painel-fotos .pf-arvore .pf-chip-filtro,
