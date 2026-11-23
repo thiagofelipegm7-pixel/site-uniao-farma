@@ -1634,8 +1634,16 @@ body:has(.nav-interna) { background: #ffffff; }
     max-width: 100% !important;
   }
   /* Cards mais largos e nome do produto numa só linha (com reticências se não couber). */
-  html body .painel-fotos .pf-grade {
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  /* Telas largas: três cards por linha. Celular: um card por linha. */
+  @media (min-width: 720px) {
+    html body .painel-fotos .pf-grade {
+      grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    }
+  }
+  @media (max-width: 719.98px) {
+    html body .painel-fotos .pf-grade {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
   }
   html body .painel-fotos .pf-grade > .pf-card .pf-card-nome {
     display: block !important;
