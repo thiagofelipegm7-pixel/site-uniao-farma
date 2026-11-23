@@ -146,13 +146,6 @@ export default function PainelCatalogo() {
               <span className="painel-selo">{pc ? (pc.online ? "Online" : "Offline") : dados.saude.nivel === "ok" ? "Tudo certo" : dados.saude.nivel === "atencao" ? "Atenção" : "Problema"}</span>
               <div>
                 <strong>PC do estoque: {pc ? (pc.online ? "ligado" : "sem sinal") : "sem leitura ao vivo"}</strong>
-                <p>
-                  {pc
-                    ? pc.online
-                      ? `Último sinal ${formatarQuandoBRT(pc.batimentoEm)} (há ${formatarIdade(pc.idadeBatimentoHoras)}).`
-                      : `Sem sinal desde ${formatarQuandoBRT(pc.batimentoEm)} (há ${formatarIdade(pc.idadeBatimentoHoras)}). Confira o TERMINAL02.`
-                    : dados.saude.detalhe}
-                </p>
               </div>
             </section>
           </>

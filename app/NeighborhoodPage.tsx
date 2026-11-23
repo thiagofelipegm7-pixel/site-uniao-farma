@@ -18,9 +18,9 @@ const SHORT_LABEL: Record<Unit["id"], string> = {
 };
 
 const PAGE_HEADING: Record<Unit["id"], string> = {
-  fatima: "Farmácia em Nossa Senhora de Fátima, Sabará",
-  nacoes: "Farmácia em Nações Unidas, Sabará",
-  itacolomi: "Farmácia no Itacolomi, Sabará",
+  fatima: "Drogaria União Farma em Nossa Senhora de Fátima, Sabará",
+  nacoes: "Drogaria União Farma em Nações Unidas, Sabará",
+  itacolomi: "Drogaria União Farma no Itacolomi, Sabará",
 };
 
 const PAGE_HREF: Record<Unit["id"], string> = {
@@ -63,7 +63,7 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
           sizes="(max-width: 800px) 96vw, 1200px"
           srcSet={responsiveSrcSet(UNIT_PHOTOS[unit.id], unit.id === "nacoes" ? [480, 768, 1024] : [480])}
         />
-        <p className="eyebrow">Farmácia em {unit.neighborhood}</p>
+        <p className="eyebrow">Drogaria em {unit.neighborhood}</p>
         <h1>{PAGE_HEADING[unit.id]}</h1>
         {unit.alternateNames?.length ? (
           <p className="former-name"><strong>Antiga {unit.alternateNames.join(", ")}</strong> — mesmo endereço, agora União Farma</p>

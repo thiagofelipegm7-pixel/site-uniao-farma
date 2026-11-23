@@ -2,15 +2,14 @@
 
 import { useEffect, useState } from "react";
 import PainelFotos from "./PainelFotos";
-import ColecoesPainel from "./ColecoesPainel";
 import PainelPromocoes from "./PainelPromocoes";
 import PainelLevePague from "./PainelLevePague";
+import "./promocoes-direcao.css";
 
-type Aba = "principal" | "colecoes" | "banners" | "promocoes";
+type Aba = "principal" | "banners" | "promocoes";
 
 const ABAS: { id: Aba; rotulo: string }[] = [
   { id: "principal", rotulo: "Foto principal" },
-  { id: "colecoes", rotulo: "Coleções" },
   { id: "banners", rotulo: "Banners" },
   { id: "promocoes", rotulo: "Promoções" },
 ];
@@ -22,7 +21,7 @@ export default function PublicidadeAbas() {
   useEffect(() => {
     const ler = () => {
       const a = new URLSearchParams(window.location.search).get("aba");
-      setAba(a === "colecoes" || a === "banners" || a === "promocoes" ? a : "principal");
+      setAba(a === "banners" || a === "promocoes" ? a : "principal");
     };
     ler();
     window.addEventListener("popstate", ler);
@@ -60,9 +59,7 @@ export default function PublicidadeAbas() {
       </header>
       <div role="tabpanel" id={`painel-${aba}`} aria-labelledby={`aba-${aba}`}>
         {aba === "principal" ? (
-          <PainelFotos modo="fotos" nivel={2} titulo="Foto principal" descricao="Envie ou troque a foto principal de cada produto. O filtro “Faltam foto” mostra o que está sem imagem." />
-        ) : aba === "colecoes" ? (
-          <ColecoesPainel nivel={2} />
+          <PainelFotos modo="fotos" nivel={2} titulo="" descricao="" />
         ) : aba === "banners" ? (
           <PainelPromocoes modo="fotos" nivel={2} />
         ) : (

@@ -120,7 +120,7 @@ test("AEO: cobertura de entrega, Droga Manaus, pagamento e schemas", async () =>
   assert.match(perguntas, /faqs: CUSTOMER_QUESTIONS/);
   assert.match(perguntas, /CUSTOMER_QUESTIONS\.map/);
   assert.match(read("app/farmacia-em-sabara/page.tsx"), /includeUnitSchema: true/);
-  assert.match(read("app/local-landing-page.tsx"), /units: config\.includeUnitSchema \? PUBLIC_UNITS : undefined/);
+  assert.match(read("app/local-landing-page.tsx"), /units: config\.includeUnitSchema \? UNITS : undefined/);
 
   // Sem frases genéricas que sugerem entrega fora dos bairros confirmados.
   const forbidden = [

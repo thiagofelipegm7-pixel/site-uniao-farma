@@ -32,3 +32,12 @@
 .painel-catalogo .painel-nomes { color: #55645a; font-size: 0.88rem; }
 .painel-catalogo .metrics-card small { display: block; margin-top: 4px; overflow-wrap: anywhere; }
 .painel-catalogo .metrics-block p { overflow-wrap: anywhere; }
+
+/* Estado de problema no estoque: só uma bolinha vermelha, sem caixa nem selo de texto. */
+.painel-catalogo .painel-saude-problema { background: transparent !important; border: 0 !important; padding: 4px 0 !important; box-shadow: none !important; align-items: center !important; }
+.painel-catalogo .painel-saude-problema .painel-selo { width: 9px !important; height: 9px !important; min-width: 9px !important; padding: 0 !important; border-radius: 50% !important; background: #d64545 !important; color: transparent !important; font-size: 0 !important; overflow: hidden !important; }
+
+/* Tipografia do aviso de estoque: título na escala do painel (14 px, peso 500), alinhado ao ponto. */
+.painel-catalogo .painel-saude-problema { align-items: center !important; gap: 10px !important; }
+.painel-catalogo .painel-saude-problema > div { margin: 0 !important; }
+.painel-catalogo .painel-saude-problema strong { font-size: 14px !important; font-weight: 500 !important; letter-spacing: -0.005em !important; line-height: 1.4 !important; color: #111111 !important; }

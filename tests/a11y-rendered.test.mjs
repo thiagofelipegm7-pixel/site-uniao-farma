@@ -1,8 +1,10 @@
 import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
-import { createRequire } from "node:module";
+import { createRequire, register } from "node:module";
 import test from "node:test";
+
+register(new URL("./cloudflare-workers-hook.mjs", import.meta.url));
 
 const require = createRequire(import.meta.url);
 const workerPath = new URL("../dist/server/index.js", import.meta.url);

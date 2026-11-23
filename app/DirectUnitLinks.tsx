@@ -29,6 +29,8 @@ type DirectUnitLinksProps = {
   description?: string;
   compact?: boolean;
   className?: string;
+  /** Lojas exibidas. Por padrão, só as lojas públicas do site (hoje, Nações Unidas). */
+  units?: Unit[];
 };
 
 type LocateState =
@@ -70,7 +72,9 @@ export default function DirectUnitLinks({
   description = "A conversa já abre pronta no WhatsApp.",
   compact = false,
   className = "",
+  units: unitsProp,
 }: DirectUnitLinksProps) {
+  const availableUnits = unitsProp ?? PUBLIC_UNITS;
   const [locate, setLocate] = useState<LocateState>({ status: "idle" });
   const [preferredId, setPreferredId] = useState<Unit["id"] | null>(null);
   const activeIntent = resolveWhatsAppIntent(intent);
@@ -78,8 +82,8 @@ export default function DirectUnitLinks({
 
   const units = useMemo(() => {
     if (locate.status === "ready") return locate.ranked.map((item) => item.unit);
-    return sortUnitsByPreference(PUBLIC_UNITS, preferredId);
-  }, [locate, preferredId]);
+    return sortUnitsByPreference([...availableUnits], preferredId);
+  }, [availableUnits, locate, preferredId]);
 
   const nearest = locate.status === "ready" ? locate.ranked[0] : null;
   const distances = locate.status === "ready"
@@ -96,13 +100,13 @@ export default function DirectUnitLinks({
   }
 
   async function applyOrigin(origin: { latitude: number; longitude: number }, fromCache: boolean) {
-    const offThread = await rankUnitsInWorker(origin, PUBLIC_UNITS);
+    const offThread = await rankUnitsInWorker(origin, [...availableUnits]);
     const ranked: RankedUnit[] = offThread.length
       ? offThread.flatMap((item) => {
-          const unit = PUBLIC_UNITS.find((entry) => entry.id === item.id);
+          const unit = availableUnits.find((entry) => entry.id === item.id);
           return unit ? [{ unit, distanceKm: item.distanceKm }] : [];
         })
-      : rankUnitsByDistance(origin);
+      : rankUnitsByDistance(origin, availableUnits);
     setLocate({ status: "ready", ranked, fromCache });
     return ranked;
   }

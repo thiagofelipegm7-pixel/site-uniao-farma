@@ -1,0 +1,45 @@
+/* Polimento da área interna, com a página de Produtos como referência: mesmo título, mesmo raio dos cartões e mesma escala de texto em todas as telas. */
+
+@layer design {
+  /* Título principal: 26 px, peso 700, entrelinha e espaçamento de letras da página de Produtos. */
+  html body .interno-corpo h1 {
+    font-size: 26px !important; font-weight: 700 !important; line-height: 1.2 !important; letter-spacing: -0.02em !important; color: #0d1413 !important;
+  }
+
+  /* Rótulo de seção (ÁREA DA EQUIPE): 11 px, peso 700, espaçamento de letras discreto. */
+  html body .interno-corpo .pvendas-eyebrow {
+    font-size: 11px !important; font-weight: 700 !important; letter-spacing: 0.06em !important; color: #2a7f7f !important; margin-bottom: 6px !important;
+  }
+
+  /* Texto de apoio do cabeçalho: 15 px, cor de leitura, entrelinha 1,5. */
+  html body .interno-corpo .pvendas-cabeca p:not(.pvendas-eyebrow) {
+    font-size: 15px !important; line-height: 1.5 !important; color: #3e4b49 !important;
+  }
+
+  /* Títulos internos (seções dentro de cada aba): 20 px, peso 700, cor de tinta. Não mexe no título do cartão de configuração. */
+  html body .interno-corpo h2:not(.pf-modal-titulo) {
+    font-size: 20px !important; font-weight: 700 !important; line-height: 1.25 !important; letter-spacing: -0.01em !important; color: #0d1413 !important;
+  }
+
+  /* Título do cabeçalho de cada aba (ex.: "Pedidos do site"): mesmo tamanho do título principal. */
+  html body .interno-corpo :is(.pvendas-cabeca, .pm-cabeca) h2:not(.pf-modal-titulo) {
+    font-size: 26px !important; letter-spacing: -0.02em !important;
+  }
+
+  /* Alinhamento lateral: o conteúdo da aba começa na mesma margem dos cartões. */
+  html body .interno-corpo .pm-pagina {
+    padding-left: 0 !important; padding-right: 0 !important;
+  }
+
+  /* Espaço entre o cabeçalho e o conteúdo de cada aba: igual ao das demais telas. */
+  html body .interno-corpo .pvendas-cabeca {
+    margin-bottom: 20px !important;
+  }
+
+  /* Cartões: raio de 16 px, como os da página de Produtos. */
+  html body .interno-corpo .pvenda-card,
+  html body .interno-corpo .pvendas-indicadores > *,
+  html body .interno-corpo .entregas-cartao {
+    border-radius: 16px !important;
+  }
+}

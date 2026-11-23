@@ -1,4 +1,5 @@
 "use client";
+import "./entregas-direcao.css";
 
 import { useCallback, useEffect, useState } from "react";
 import { consultarCep, formatarCep, formatarTaxaCentavos, soDigitosCep } from "../area-entrega";

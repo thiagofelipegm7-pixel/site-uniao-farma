@@ -33,6 +33,7 @@ test("pendências do painel: a rota entrega quem já tem descrição e a tela mo
   const [rota, painel] = await Promise.all([ler("app/api/interno/fotos/route.ts"), ler("app/components/PainelFotos.tsx")]);
   assert.match(rota, /comDescricao/);
   assert.match(rota, /d\.origem !== "modelo"/);
-  assert.match(painel, /aria-label="Pendências"/);
-  assert.match(painel, /ROTULOS_PENDENCIA\[p\]\} \(\{contagemPendencias\[p\]/);
+  // A contagem permanece no painel; o <select aria-label="Pendências"> saiu na PR #514.
+  assert.match(painel, /const contagemPendencias = useMemo/);
+  assert.match(painel, /ROTULOS_PENDENCIA/);
 });

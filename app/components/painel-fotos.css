@@ -1,3 +1,5 @@
+/* Camada de ajustes finais: declarada antes de "design" para que seus !important vençam os de design. */
+@layer ajustes;
 .painel-fotos { max-width: 80rem; margin: 0 auto; padding: 1rem; color: #0d1413; }
 .painel-fotos h1 { margin: 0 0 0.25rem; font-size: 1.5rem; }
 .painel-fotos .pf-nav { margin: 0 0 1rem; font-size: 0.9375rem; }
@@ -246,9 +248,12 @@ body:has(.nav-interna) { background: #f1fbfa; }
 .pf-campo-rotulo { color: #3e4b49; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
 .pf-entrada { box-sizing: border-box; width: 100%; min-height: 2.75rem; padding: 0 0.75rem; border: 1px solid #c9d8d4; border-radius: 10px; background: #ffffff; color: #0d1413; font: inherit; font-size: 16px; }
 .pf-entrada:focus-visible { outline: 3px solid #14736b; outline-offset: 1px; border-color: #14736b; }
-.pf-foto-linha { display: flex; align-items: center; gap: 0.875rem; padding: 0.75rem; border: 1px solid #d3e2df; border-radius: 12px; background: #f7faf9; }
-.pf-foto-linha img { width: 5rem; height: 5rem; object-fit: contain; border-radius: 10px; background: #ffffff; }
-.pf-foto-vazia { display: grid; place-items: center; width: 5rem; height: 5rem; border-radius: 10px; background: #e3ecea; color: #66756f; font-size: 0.8125rem; }
+.pf-foto-linha { position: relative; display: flex; align-items: center; justify-content: center; gap: 0.875rem; padding: 0.75rem; border: 1px solid #d3e2df; border-radius: 12px; background: #f7faf9; }
+/* Tirar a foto: × no canto de cima da foto, em relevo pequeno. */
+.pf-foto-remover { position: absolute; top: 0.5rem; right: 0.5rem; display: grid; place-items: center; width: 2rem; height: 2rem; padding: 0; border: 0; border-radius: 10px; background: #ffffff; color: #0a3548; font-size: 1.25rem; line-height: 1; cursor: pointer; box-shadow: 3px 3px 6px #c4c8cd, -3px -3px 6px #ffffff; }
+.pf-foto-remover:hover { color: #b3261e; }
+.pf-foto-linha img { flex: none; width: min(12rem, 72%); height: auto; aspect-ratio: 1; object-fit: contain; border-radius: 10px; background: #ffffff; }
+.pf-foto-vazia { flex: none; display: grid; place-items: center; width: min(12rem, 72%); aspect-ratio: 1; border-radius: 10px; background: #e3ecea; color: #66756f; font-size: 0.8125rem; }
 .pf-botao { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 0.375rem; box-sizing: border-box; min-height: 2.75rem; padding: 0 1.125rem; border: 1px solid #c9d8d4; border-radius: 10px; background: #ffffff; color: #0a3548; font: inherit; font-size: 0.9375rem; font-weight: 700; cursor: pointer; transition: background-color 0.15s ease; }
 .pf-botao:hover { background: #f1fbfa; }
 .pf-botao:focus-visible { outline: 3px solid #14736b; outline-offset: 2px; }
@@ -768,8 +773,8 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .painel-fotos .pf-selecao-controle .pf-botao[aria-pressed="true"] { background: #000000 !important; border-color: #000000 !important; color: #ffffff !important; }
   html body .painel-fotos .pf-selecao-controle .pf-botao { border-color: #bdbdbd !important; }
   html body .painel-fotos .pf-selecao-controle .pf-botao:hover:not(:disabled) { background: #f2f2f2 !important; }
-  html body .painel-fotos .pf-barra,
-  html body .painel-fotos .pf-busca { background: #ffffff !important; }
+  html body .painel-fotos .pf-barra { background: #9fe3d6 !important; }
+  html body .painel-fotos .pf-busca { background: #fdfdfd !important; }
   html body .painel-fotos .pf-arvore { border-color: #d4d4d4 !important; }
   html body .painel-fotos .pf-arvore .pf-chip-filtro--sub.pf-chip-filtro--ativo { border-color: #000000 !important; }
   html body .painel-fotos .pf-chip-filtro--ativo:not(.pf-chip-cat) { border-color: #000000 !important; }
@@ -821,7 +826,7 @@ body:has(.nav-interna) { background: #ffffff; }
       background: transparent !important; transition: background-color 0.25s ease, color 0.25s ease !important;
     }
     html body .nav-interna a:hover { background: #f4f4f4 !important; }
-    html body .nav-interna a[aria-current="page"] { background: #111111 !important; color: #ffffff !important; font-weight: 600 !important; box-shadow: none !important; }
+    html body .nav-interna a[aria-current="page"] { background: #9fe3d6 !important; color: #0d1413 !important; font-weight: 600 !important; box-shadow: inset 6px 6px 10px #5cc4b0, inset -6px -6px 10px #ffffff !important; }
     html body .nav-interna .nav-interna-icone { flex: none; opacity: 0.9; }
     html body .nav-interna a[aria-current="page"] .nav-interna-icone { opacity: 1; }
   }
@@ -934,7 +939,7 @@ body:has(.nav-interna) { background: #ffffff; }
     html body .nav-interna.nav-interna--mobile-aberta { transform: translateX(0) !important; box-shadow: 0 0 40px rgba(0, 0, 0, 0.18) !important; }
     html body .nav-interna ul { flex-direction: column !important; gap: 4px !important; padding: 0 !important; overflow: visible !important; width: 100% !important; }
     html body .nav-interna a { width: 100% !important; box-sizing: border-box !important; display: flex !important; align-items: center !important; gap: 12px !important; min-height: 44px !important; padding: 0 12px 0 14px !important; border-radius: 10px !important; color: #111111 !important; font-size: 15px !important; font-weight: 500 !important; opacity: 1 !important; background: transparent !important; }
-    html body .nav-interna a[aria-current="page"] { background: #111111 !important; color: #ffffff !important; font-weight: 600 !important; box-shadow: none !important; }
+    html body .nav-interna a[aria-current="page"] { background: #9fe3d6 !important; color: #0d1413 !important; font-weight: 600 !important; box-shadow: inset 6px 6px 10px #5cc4b0, inset -6px -6px 10px #ffffff !important; }
     html body .nav-interna .nav-interna-rotulo { display: inline !important; }
     html body .nav-interna-marca { padding: 4px 8px 14px !important; border-bottom: 1px solid #ececec; margin-bottom: 4px; }
     html body main:has(> .nav-interna) { display: block !important; }
@@ -993,12 +998,12 @@ body:has(.nav-interna) { background: #ffffff; }
 @layer design {
   html body .painel-fotos .pf-paginas {
     display: inline-flex !important; align-items: center !important; gap: 4px !important; margin: 20px auto 0 !important;
-    padding: 4px !important; border: 1px solid #e5e5e5 !important; border-radius: 999px !important; background: #ffffff !important;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important; width: max-content !important; max-width: 100% !important; justify-content: center !important;
+    padding: 4px !important; border: 0 !important; border-radius: 0 !important; background: transparent !important;
+    box-shadow: none !important; width: max-content !important; max-width: 100% !important; justify-content: center !important;
   }
   html body .painel-fotos .pf-paginas button {
     min-height: 36px !important; padding: 0 14px !important; border: 0 !important; border-radius: 999px !important;
-    background: transparent !important; color: #111111 !important; font-size: 14px !important; font-weight: 500 !important;
+    background: #ffffff !important; color: #111111 !important; font-size: 14px !important; font-weight: 500 !important;
     transition: background-color 0.2s ease, color 0.2s ease !important; cursor: pointer !important;
   }
   html body .painel-fotos .pf-paginas button:hover:not(:disabled) { background: #f2f2f2 !important; }
@@ -1019,9 +1024,9 @@ body:has(.nav-interna) { background: #ffffff; }
 /* Paginação com profundidade: a barra e os botões ganham borda inferior e sombra, e um brilho no topo, para se destacarem. */
 @layer design {
   html body .painel-fotos .pf-paginas {
-    background: linear-gradient(180deg, #ffffff 0%, #f4f4f4 100%) !important;
-    border: 1px solid #d9d9d9 !important;
-    box-shadow: inset 0 1px 0 #ffffff, 0 4px 0 #d4d4d4, 0 10px 22px -8px rgba(0, 0, 0, 0.28) !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
   }
   html body .painel-fotos .pf-paginas button:not(:disabled) {
     background: linear-gradient(180deg, #ffffff 0%, #ececec 100%) !important;
@@ -1033,6 +1038,53 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .painel-fotos .pf-paginas button:not(:disabled):hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 #ffffff, 0 3px 0 #bdbdbd, 0 8px 12px -6px rgba(0, 0, 0, 0.3) !important; }
   html body .painel-fotos .pf-paginas button:not(:disabled):active { transform: translateY(2px); box-shadow: inset 0 1px 0 #ffffff, 0 0 0 #bdbdbd, 0 1px 3px -2px rgba(0, 0, 0, 0.3) !important; }
   html body .painel-fotos .pf-paginas button:disabled { background: #f6f6f6 !important; box-shadow: none !important; }
+  /* Botão "+" de adicionar foto extra: em inset, branco, sem borda (vence a regra geral de botões do cartão). */
+  html body .pf-modal button.colecoes-adicionar:not(.pf-chave):not(.pf-botao--primario):not(:disabled),
+  html body .pf-modal button.colecoes-adicionar:not(.pf-chave):not(.pf-botao--primario):not(:disabled):hover {
+    border: 0 !important; transform: none !important; background: #ffffff !important;
+    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+  }
+  /* Área da foto no cartão de configuração em inset: recuada, sem borda. */
+  html body .pf-modal .pf-foto-linha.pf-foto-linha {
+    border: 0 !important; background: #ffffff !important;
+    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+  }
+  /* Cartão de configuração da foto: os × (fechar e tirar a foto) também em inset, como os demais botões. */
+  html body .pf-modal button.pf-modal-fechar:not(.pf-chave):not(.pf-botao--primario):not(:disabled),
+  html body .pf-modal button.pf-foto-remover:not(.pf-chave):not(.pf-botao--primario):not(:disabled),
+  html body .pf-modal button.pf-modal-fechar:not(.pf-chave):not(.pf-botao--primario):not(:disabled):hover,
+  html body .pf-modal button.pf-foto-remover:not(.pf-chave):not(.pf-botao--primario):not(:disabled):hover,
+  html body .pf-modal button.pf-modal-fechar.pf-modal-fechar,
+  html body .pf-modal button.pf-foto-remover.pf-foto-remover {
+    border: 0 !important; background: #ffffff !important;
+    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+  }
+  /* "Próxima" em inset: recuado, sem borda (a regra precisa estar nesta camada para vencer as de cima). */
+  html body .painel-fotos .pf-paginas button.pf-pagina-proxima:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled),
+  html body .painel-fotos .pf-paginas button.pf-pagina-proxima:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled):hover,
+  html body .painel-fotos .pf-paginas button.pf-pagina-proxima:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled):active {
+    background: #ffffff !important; background-image: none !important; border: 0 !important; transform: none !important;
+    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+  }
+  /* Paginação numa pílula em neumorfismo: relevo com duas sombras opostas, sem borda, cabe no conteúdo. */
+  html body .painel-fotos .pf-paginas.pf-paginas {
+    width: fit-content !important; max-width: 100% !important; margin: 16px auto 0 !important; padding: 8px !important;
+    border: 0 !important; border-radius: 999px !important; background: #f1f3f4 !important;
+    box-shadow: 8px 8px 16px #d5d9dd, -8px -8px 16px #ffffff !important; gap: 12px !important;
+  }
+  /* Pílula da paginação no celular: rótulos numa linha só, sem quebrar "Anterior" nem "Próxima". */
+  html body .painel-fotos .pf-paginas.pf-paginas { gap: 8px !important; }
+  html body .painel-fotos .pf-paginas.pf-paginas button { white-space: nowrap !important; flex: 0 0 auto !important; padding: 0 16px !important; }
+  html body .painel-fotos .pf-paginas.pf-paginas span { white-space: nowrap !important; }
+  /* "Anterior" em inset também; desabilitado, segue com o texto apagado. */
+  html body .painel-fotos .pf-paginas button.pf-pagina-anterior:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled),
+  html body .painel-fotos .pf-paginas button.pf-pagina-anterior:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled):hover,
+  html body .painel-fotos .pf-paginas button.pf-pagina-anterior:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled):active,
+  html body .painel-fotos .pf-paginas button.pf-pagina-proxima.pf-pagina-proxima:disabled,
+  html body .painel-fotos .pf-paginas button.pf-pagina-anterior.pf-pagina-anterior:disabled {
+    background: #ffffff !important; background-image: none !important; border: 0 !important; transform: none !important;
+    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+  }
 }
 /* Troca de página: a grade sai e entra com deslize e fade (a cada página, a grade é remontada). */
 .painel-fotos .pf-grade--pagina { animation: pf-pagina-entra 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
@@ -1084,4 +1136,731 @@ body:has(.nav-interna) { background: #ffffff; }
 /* Selo de estoque normal em verde vibrante, com letras brancas (legível). */
 @layer design {
   html body .painel-fotos .pf-card .pf-qtd-normal { background: #22a05a !important; color: #ffffff !important; }
+}
+
+/* Caixas de seleção do painel na cor preta do painel (em vez do verde padrão). */
+@layer design {
+  html body .painel-fotos input[type="checkbox"] { accent-color: #111111 !important; width: 18px; height: 18px; cursor: pointer; }
+  html body .painel-fotos input[type="checkbox"]:focus, html body .painel-fotos input[type="checkbox"]:focus-visible { outline: none !important; box-shadow: none !important; }
+}
+
+/* A barra colorida do subchip ativo continua aparecendo quando o chip está com o foco (logo após o clique). */
+@layer design {
+  html body .painel-fotos .pf-chip-filtro--sub.pf-chip-filtro--ativo,
+  html body .painel-fotos .pf-chip-filtro--sub.pf-chip-filtro--ativo:focus,
+  html body .painel-fotos .pf-chip-filtro--sub.pf-chip-filtro--ativo:focus-visible { box-shadow: inset 3px 0 0 var(--cor, #111111) !important; }
+}
+
+/* Caixa de seleção em 3D (isométrica): base com profundidade, degradê e marca de visto em relevo. */
+@layer design {
+  html body .painel-fotos input[type="checkbox"] {
+    appearance: none !important; -webkit-appearance: none; width: 22px !important; height: 22px !important; margin: 0; cursor: pointer;
+    border: 1px solid #111111 !important; border-radius: 6px !important; background: linear-gradient(180deg, #ffffff 0%, #e9e9e9 100%) !important;
+    box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 #111111, 0 5px 8px -3px rgba(0, 0, 0, 0.35) !important; position: relative; transition: transform 0.12s ease, box-shadow 0.12s ease !important;
+    display: inline-grid; place-content: center;
+  }
+  html body .painel-fotos input[type="checkbox"]:hover { transform: translateY(-1px); }
+  html body .painel-fotos input[type="checkbox"]:active { transform: translateY(1px); box-shadow: inset 0 1px 0 #ffffff, 0 0 0 #111111, 0 1px 3px -2px rgba(0, 0, 0, 0.35) !important; }
+  html body .painel-fotos input[type="checkbox"]:checked { background: linear-gradient(180deg, #3a3a3a 0%, #000000 100%) !important; }
+  html body .painel-fotos input[type="checkbox"]:checked::after {
+    content: ""; width: 6px; height: 11px; border: solid #ffffff; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg) translate(-1px, -1px);
+    filter: drop-shadow(0 1px 0 rgba(0,0,0,0.5));
+  }
+}
+
+/* Caixa de seleção redonda. */
+@layer design {
+  html body .painel-fotos input[type="checkbox"] { border-radius: 50% !important; }
+}
+
+/* Botão fechar do cartão: sem o verde claro, com sombra 3D como os botões da paginação. */
+@layer design {
+  html body .pf-modal .pf-modal-fechar, html body button.pf-modal-fechar {
+    background: #ffffff !important;
+    border: 0 !important; color: #111111 !important; border-radius: 10px !important;
+    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    transition: transform 0.12s ease, box-shadow 0.12s ease !important;
+  }
+  html body .pf-modal .pf-modal-fechar:hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 #ffffff, 0 3px 0 #bdbdbd, 0 8px 12px -6px rgba(0,0,0,0.3) !important; }
+  html body .pf-modal .pf-modal-fechar:active { transform: translateY(2px); box-shadow: inset 0 1px 0 #ffffff, 0 0 0 #bdbdbd !important; }
+}
+
+/* Todos os botões do painel: sem contorno, com sombra 3D (relevo) e resposta ao toque. */
+@layer design {
+  html body .painel-fotos button:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled),
+  html body .pf-modal button:not(.pf-chave):not(.pf-botao--primario):not(:disabled) {
+    border: 0 !important;
+    background: linear-gradient(180deg, #ffffff 0%, #ececec 100%) !important;
+    box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 #bdbdbd, 0 4px 8px -4px rgba(0, 0, 0, 0.25) !important;
+    transition: transform 0.12s ease, box-shadow 0.12s ease !important;
+  }
+  html body .painel-fotos button:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled):hover,
+  html body .pf-modal button:not(.pf-chave):not(.pf-botao--primario):not(:disabled):hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 #ffffff, 0 3px 0 #bdbdbd, 0 8px 12px -6px rgba(0, 0, 0, 0.3) !important; }
+  html body .painel-fotos button:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled):active,
+  html body .pf-modal button:not(.pf-chave):not(.pf-botao--primario):not(:disabled):active { transform: translateY(2px); box-shadow: inset 0 1px 0 #ffffff, 0 0 0 #bdbdbd !important; }
+}
+
+/* Campos do cartão de configuração (entrada, seleção e área de texto) com sombra 3D, como os botões. */
+@layer design {
+  html body .pf-modal .pf-entrada,
+  html body .pf-modal input.pf-entrada,
+  html body .pf-modal select.pf-entrada,
+  html body .pf-modal textarea.pf-entrada {
+    background: #ffffff !important;
+    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease !important;
+  }
+  html body .pf-modal .pf-entrada:focus,
+  html body .pf-modal .pf-entrada:focus-visible { outline: none !important; border-color: #d6d6d6 !important; box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important; }
+}
+
+/* Linha "Controlado" e botão Confirmar do cartão com sombra 3D, como o resto. */
+@layer design {
+  html body .pf-modal .pf-campo--linha {
+    background: linear-gradient(180deg, #ffffff 0%, #f7f7f7 100%) !important;
+    border: 1px solid #e7e7e7 !important; border-radius: 10px !important; padding: 10px 12px !important;
+    box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 #d9d9d9, 0 5px 10px -6px rgba(0,0,0,0.28) !important;
+  }
+  html body .pf-modal .pf-botao--primario {
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 3px 0 #0a4f47, 0 8px 14px -8px rgba(0,0,0,0.45) !important;
+    transition: transform 0.12s ease, box-shadow 0.12s ease !important;
+  }
+  html body .pf-modal .pf-botao--primario:hover:not(:disabled) { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 0 #0a4f47, 0 10px 16px -8px rgba(0,0,0,0.5) !important; }
+  html body .pf-modal .pf-botao--primario:active:not(:disabled) { transform: translateY(2px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 0 0 #0a4f47 !important; }
+}
+
+/* Formatação do cartão de configuração: cabeçalho alinhado, rótulos padronizados, campos com a mesma altura e espaçamento regular. */
+@layer design {
+  html body .pf-modal { padding: 22px 22px 18px !important; }
+  html body .pf-modal .pf-modal-topo { align-items: center !important; margin: 0 0 18px !important; }
+  html body .pf-modal .pf-modal-topo h2 { font-size: 18px !important; font-weight: 700 !important; letter-spacing: -0.015em !important; color: #0d1413 !important; line-height: 1.25 !important; }
+  html body .pf-modal .pf-modal-corpo { display: grid !important; gap: 16px !important; }
+  html body .pf-modal .pf-campo { display: grid !important; gap: 7px !important; }
+  html body .pf-modal .pf-campo-rotulo, html body .pf-modal label.pf-campo-rotulo {
+    font-size: 13px !important; font-weight: 600 !important; letter-spacing: 0 !important; text-transform: none !important; color: #57534e !important; margin: 0 0 2px !important; line-height: 1.2 !important;
+    color: #0d1413 !important;
+    text-shadow: none !important;
+  }
+  /* Todos os cards de campo do cartão com a mesma altura, largura e raio. */
+  html body .pf-modal .pf-entrada,
+  html body .pf-modal .pf-campo--linha { width: 100% !important; height: 46px !important; min-height: 46px !important; max-height: 46px !important; padding: 0 14px !important; font-size: 15px !important; border-radius: 10px !important; box-sizing: border-box !important; display: flex !important; align-items: center !important; }
+  html body .pf-modal .pf-area { min-height: 88px !important; line-height: 1.5 !important; }
+  html body .pf-modal .pf-dica { font-size: 13px !important; line-height: 1.5 !important; color: #2f3d3a !important; margin: 0 !important; }
+  html body .pf-modal .pf-campo--linha { display: flex !important; align-items: center !important; justify-content: space-between !important; min-height: 56px !important; }
+  html body .pf-modal .pf-modal-rodape { display: flex !important; gap: 10px !important; margin-top: 20px !important; padding-top: 16px !important; border-top: 0 !important; }
+  html body .pf-modal .pf-modal-rodape > * { flex: 1 1 0 !important; min-height: 44px !important; }
+  html body .pf-modal .pf-modal-acoes { gap: 10px !important; }
+}
+
+/* Polimento final do cartão de configuração: cantos e sombra do cartão, fundo do painel desfocado, separadores discretos e foco preto. */
+@layer design {
+  html body .pf-modal {
+    border-radius: 16px !important; border: 0 !important;
+    background: #9fe3d6 !important;
+    box-shadow: inset 0 1px 0 #c6f3ea, 0 2px 0 #8fd3c4, 0 28px 48px -16px rgba(0,0,0,0.25) !important;
+  }
+  html body .pf-modal-fundo { background: rgba(28, 25, 23, 0.42) !important; backdrop-filter: blur(4px) !important; }
+  /* Botões do cartão de configuração em inset (recuados), sem borda. O primário mantém o verde escuro, também recuado. */
+  html body .pf-modal button.pf-modal-fechar.pf-modal-fechar,
+  html body .pf-modal button.pf-botao:not(.pf-botao--primario):not(.pf-chave):not(:disabled),
+  html body .pf-modal button.pf-botao:not(.pf-botao--primario):not(.pf-chave):not(:disabled):hover,
+  html body .pf-modal button.pf-botao:not(.pf-botao--primario):not(.pf-chave):not(:disabled):active,
+  html body .pf-modal button.pf-modal-fechar:hover,
+  html body .pf-modal button.pf-modal-fechar:active {
+    border: 0 !important; transform: none !important; background: #ffffff !important;
+    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+  }
+  html body .pf-modal button.pf-botao--primario:disabled { opacity: 1 !important; }
+  html body .pf-modal .pf-botao--primario,
+  html body .pf-modal .pf-botao--primario:hover:not(:disabled),
+  html body .pf-modal .pf-botao--primario:active:not(:disabled) {
+    border: 0 !important; transform: none !important; background: #ffffff !important; background-image: none !important; color: #0a3548 !important;
+    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+  }
+  html body .pf-modal .pf-modal-topo { padding-bottom: 14px !important; border-bottom: 0 !important; }
+  html body .pf-modal .pf-modal-corpo > .pf-campo + .pf-campo { padding-top: 2px; }
+  html body .pf-modal .pf-entrada:hover:not(:focus) { border-color: #cfcac4 !important; }
+  html body .pf-modal .pf-entrada::placeholder { color: #a8a29e !important; }
+  html body .pf-modal .pf-modal-rodape { border-top: 0 !important; }
+  html body .pf-modal .pf-perigo { border: 0 !important; }
+}
+
+/* ===== Interruptor "Controlado" (versão única) =====
+   Trilho cinza, afundado, com sombra interna forte; tampa branca em domo, mais alta que o trilho.
+   Desligado: tampa à esquerda. Ligado: tampa à direita, com a mesma profundidade. */
+@layer design {
+  html body .pf-modal button.pf-chave {
+    width: 56px !important; height: 32px !important; min-width: 56px !important; min-height: 32px !important; max-height: 32px !important;
+    padding: 0 !important; margin: 0 !important; border: 0 !important; border-radius: 999px !important; flex: none !important; position: relative !important;
+    background: radial-gradient(ellipse at 50% 20%, #6e6e6e 0%, #4a4a4a 55%, #2e2e2e 100%) !important;
+    box-shadow: inset 0 10px 14px -4px rgba(0,0,0,0.85), inset 0 2px 3px rgba(0,0,0,0.6), inset 0 -2px 0 rgba(255,255,255,0.22), 0 1px 0 rgba(255,255,255,0.95), 0 0 0 2px #d4d4d4, 0 0 0 3px #9a9a9a !important;
+    transition: background-color 0.9s cubic-bezier(0.3, 0.1, 0.2, 1), box-shadow 0.9s cubic-bezier(0.3, 0.1, 0.2, 1) !important;
+  }
+  html body .pf-modal button.pf-chave[aria-checked="true"] {
+    background: radial-gradient(ellipse at 50% 20%, #6e6e6e 0%, #4a4a4a 55%, #2e2e2e 100%) !important;
+  }
+  html body .pf-modal button.pf-chave::after {
+    content: "" !important; position: absolute !important; top: 0 !important; left: 2px !important;
+    width: 28px !important; height: 28px !important; border-radius: 50% !important; box-sizing: border-box !important;
+    background: radial-gradient(circle at 38% 30%, #ffffff 0%, #f4f4f4 45%, #d4d4d4 100%) !important;
+    box-shadow: inset 0 -3px 0 rgba(0,0,0,0.18), inset 0 1px 1px rgba(255,255,255,0.9), 0 8px 10px -2px rgba(0,0,0,0.75), 0 2px 0 #9e9e9e !important;
+    transition: transform 0.45s cubic-bezier(0.34, 1.25, 0.64, 1) !important;
+  }
+  html body .pf-modal button.pf-chave[aria-checked="true"]::after { transform: translateX(24px) !important; }
+  html body .pf-modal button.pf-chave:focus-visible { outline: 2px solid #111111 !important; outline-offset: 3px !important; }
+}
+
+/* Interruptor ligado: trilho verde da marca, com a mesma profundidade do trilho cinza. */
+@layer design {
+  html body .pf-modal button.pf-chave[aria-checked="true"] {
+    background: radial-gradient(ellipse at 50% 20%, #2a9d91 0%, #14736b 55%, #0b4f49 100%) !important;
+    box-shadow: inset 0 10px 14px -4px rgba(0,0,0,0.6), inset 0 2px 3px rgba(0,0,0,0.45), inset 0 -2px 0 rgba(255,255,255,0.15), 0 1px 0 rgba(255,255,255,0.95), 0 0 0 2px #cfe6e2, 0 0 0 3px #14736b !important;
+  }
+}
+
+/* Acabamento do interruptor: anel metálico no trilho, tampa com folga e volume (anel interno e brilho). */
+@layer design {
+  html body .pf-modal button.pf-chave {
+    box-shadow: inset 0 10px 14px -4px rgba(0,0,0,0.85), inset 0 2px 3px rgba(0,0,0,0.6), inset 0 -2px 0 rgba(255,255,255,0.22), 0 1px 0 rgba(255,255,255,0.95), 0 0 0 2px #e6e6e6, 0 0 0 3px #8c8c8c, 0 0 0 4px rgba(255,255,255,0.8) !important;
+  }
+  html body .pf-modal button.pf-chave::after {
+    top: 2px !important; left: 2px !important; width: 28px !important; height: 28px !important;
+    background: radial-gradient(circle at 36% 26%, #ffffff 0%, #ffffff 38%, #ececec 70%, #cfcfcf 100%) !important;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06), inset 0 -3px 2px rgba(0,0,0,0.12), inset 0 1px 1px rgba(255,255,255,1), 0 6px 8px -2px rgba(0,0,0,0.6), 0 2px 0 #a3a3a3 !important;
+  }
+  html body .pf-modal button.pf-chave[aria-checked="true"]::after { transform: translateX(22px) !important; }
+}
+
+/* Interruptor em forma de joystick: a tampa abaulada sai de uma haste que desce até o encaixe, e as duas se movem juntas. */
+@layer design {
+  html body .pf-modal button.pf-chave::before {
+    content: "" !important; position: absolute !important; top: 12px !important; left: 11px !important;
+    width: 12px !important; height: 18px !important; border-radius: 6px !important; box-sizing: border-box !important;
+    background: linear-gradient(90deg, #5a5a5a 0%, #9a9a9a 45%, #3e3e3e 100%) !important;
+    box-shadow: inset 0 -2px 2px rgba(0,0,0,0.35), 0 2px 3px rgba(0,0,0,0.5) !important;
+    transition: transform 0.45s cubic-bezier(0.34, 1.25, 0.64, 1) !important;
+  }
+  html body .pf-modal button.pf-chave[aria-checked="true"]::before { transform: translateX(22px) !important; }
+  html body .pf-modal button.pf-chave::after {
+    /* Bolinha saltada (emboss): topo claro, base escura e sombra projetada. */
+    box-shadow: inset 0 2px 1px rgba(255,255,255,1), inset 0 -3px 2px rgba(0,0,0,0.22), 0 3px 0 #8f8f8f, 0 6px 8px -2px rgba(0,0,0,0.6) !important;
+  }
+}
+
+/* Linha "Controlado": degradê de branco para cinza claro, com mais profundidade embaixo. */
+@layer design {
+  html body .pf-modal .pf-campo--linha {
+    background: linear-gradient(180deg, #fbfbfb 0%, #ececec 100%) !important;
+    border: 1px solid #dcdcdc !important;
+    box-shadow: inset 0 2px 3px rgba(255,255,255,0.9), inset 0 -2px 3px rgba(0,0,0,0.06), 0 3px 0 #cfcfcf, 0 8px 12px -6px rgba(0,0,0,0.3) !important;
+  }
+}
+
+/* Trilho desligado em branco e cinza, com profundidade (o ligado continua verde). */
+@layer design {
+  html body .pf-modal button.pf-chave:not([aria-checked="true"]) {
+    /* Trilho gravado (engraved): fundo afundado, sombra interna forte no topo e brilho na borda de baixo. */
+    background-image: none !important; background-color: #dedede !important;
+    box-shadow: inset 0 7px 9px -3px rgba(0,0,0,0.40), inset 0 1px 1px rgba(0,0,0,0.22), inset 0 -2px 1px rgba(255,255,255,0.95), inset 2px 0 3px -2px rgba(0,0,0,0.12), inset -2px 0 3px -2px rgba(0,0,0,0.12), 0 1px 0 rgba(255,255,255,0.95) !important;
+  }
+}
+
+/* Bolinha que rola para o outro lado, devagar: translação com giro completo e curva suave. */
+@layer design {
+  html body .pf-modal button.pf-chave::after {
+    transition: transform 1.1s cubic-bezier(0.45, 0.05, 0.25, 1) !important;
+  }
+  html body .pf-modal button.pf-chave[aria-checked="true"]::after { transform: translateX(24px) rotate(540deg) !important; }
+  html body .pf-modal button.pf-chave:not([aria-checked="true"])::after { transform: translateX(0) rotate(0deg) !important; }
+  html body .pf-modal button.pf-chave::before { transition: transform 1.1s cubic-bezier(0.45, 0.05, 0.25, 1) !important; }
+}
+@media (prefers-reduced-motion: reduce) { html body .pf-modal button.pf-chave::after, html body .pf-modal button.pf-chave::before { transition: none !important; } }
+
+/* Bolinha rolando de forma natural: o giro acompanha a distância percorrida (sem exagero), sem salto nem rebote. */
+@layer design {
+  html body .pf-modal button.pf-chave::after,
+  html body .pf-modal button.pf-chave::before { transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1) !important; }
+  html body .pf-modal button.pf-chave[aria-checked="true"]::after { transform: translateX(24px) rotate(100deg) !important; }
+  html body .pf-modal button.pf-chave:not([aria-checked="true"])::after { transform: translateX(0) rotate(0deg) !important; }
+}
+
+/* Verde #00C2A8 no trilho ligado do interruptor e no botão Confirmar do cartão (texto escuro para manter a leitura). */
+@layer design {
+  html body .pf-modal button.pf-chave[aria-checked="true"] {
+    background-image: none !important; background-color: #00c2a8 !important;
+    box-shadow: inset 0 10px 14px -4px rgba(0,0,0,0.5), inset 0 2px 3px rgba(0,0,0,0.35), inset 0 -2px 0 rgba(255,255,255,0.2), 0 1px 0 rgba(255,255,255,0.95) !important;
+  }
+  html body .pf-modal .pf-botao--primario {
+    background: #ffffff !important; background-image: none !important;
+    color: #0a3548 !important; border-color: #ffffff !important;
+  }
+  html body .pf-modal .pf-botao--primario:hover:not(:disabled) { background: #f6f7f8 !important; background-image: none !important; }
+}
+
+/* Começo um pouco mais leve: a bolinha sai com um pouco mais de impulso e mantém a desaceleração suave. */
+@layer design {
+  html body .pf-modal button.pf-chave::after,
+  html body .pf-modal button.pf-chave::before { transition: transform 0.9s cubic-bezier(0.3, 0.1, 0.2, 1) !important; }
+}
+
+/* Chips de categoria e subcategoria em neumorfismo: sem borda, relevo com duas sombras opostas; ativo fica afundado. */
+@layer design {
+  html body .painel-fotos .pf-arvore .pf-chip-filtro {
+    border: 0 !important;
+    background: #ffffff !important;
+    color: #3b4247 !important;
+    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    transition: box-shadow 0.25s ease, transform 0.25s ease !important;
+  }
+  html body .painel-fotos .pf-arvore .pf-chip-filtro:hover:not(:disabled) {
+    transform: none !important;
+    box-shadow: inset 6px 6px 10px #bfc3c8, inset -6px -6px 10px #ffffff !important;
+  }
+  html body .painel-fotos .pf-arvore .pf-chip-filtro:active:not(:disabled) {
+    transform: none !important;
+    box-shadow: inset 2px 2px 4px #c4c8cd, inset -2px -2px 4px #ffffff !important;
+  }
+  html body .painel-fotos .pf-arvore .pf-chip-filtro--ativo,
+  html body .painel-fotos .pf-arvore .pf-chip-filtro.pf-chip-filtro--ativo,
+  html body .painel-fotos .pf-arvore .pf-chip-cat.pf-chip-filtro--ativo {
+    background: var(--cor) !important;
+    border: 0 !important;
+    color: var(--cor-texto, #ffffff) !important;
+    box-shadow: inset 4px 4px 8px rgba(0,0,0,0.25), inset -4px -4px 8px rgba(255,255,255,0.25) !important;
+    transform: none !important;
+  }
+  html body .painel-fotos .pf-arvore .pf-chip-filtro--sub.pf-chip-filtro--ativo { box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important; }
+  /* Chip ativo neutro (ex.: "Todos") precisa de texto escuro sobre o fundo cinza. */
+  html body .painel-fotos .pf-arvore .pf-chip-filtro--ativo:not(.pf-chip-cat),
+  html body .painel-fotos .pf-arvore .pf-chip-filtro--ativo:not(.pf-chip-cat) small { color: #0b3b36 !important; }
+  html body .painel-fotos .pf-arvore .pf-chip-filtro--ativo::before { box-shadow: none; }
+}
+
+/* Botão "Selecionar vários" com efeito Inset: recuado, sombra interna, sem borda. */
+@layer ajustes {
+  html body .painel-fotos .pf-selecao-controle .pf-botao:not(.pf-botao--primario):not(:disabled) {
+    border: 0 !important;
+    background: #ffffff !important;
+    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    transform: none !important;
+  }
+  html body .painel-fotos .pf-selecao-controle .pf-botao:not(.pf-botao--primario):not(:disabled):hover {
+    box-shadow: inset 6px 6px 10px #bfc3c8, inset -6px -6px 10px #ffffff !important;
+    transform: none !important;
+  }
+  html body .painel-fotos .pf-selecao-controle .pf-botao:not(.pf-botao--primario):not(:disabled):active {
+    box-shadow: inset 2px 2px 4px #c4c8cd, inset -2px -2px 4px #ffffff !important;
+  }
+}
+
+/* Cards de produto em neumorfismo: sem borda, relevo com duas sombras opostas. */
+@layer ajustes {
+  html body .painel-fotos .pf-grade > .pf-card {
+    border: 0 !important;
+    background: #9fe3d6 !important;
+    box-shadow: 8px 8px 16px #8fd3c4, -8px -8px 16px #ffffff !important;
+  }
+  /* Caixa de categoria e subcategoria em inset: recuada, sem borda. */
+  html body .painel-fotos .pf-arvore {
+    border: 0 !important;
+    background: #fdfdfd !important;
+    box-shadow: inset 4px 4px 8px #eeeff1, inset -4px -4px 8px #ffffff !important;
+  }
+  /* Campo de busca em inset: recuado, sem borda. */
+  html body .painel-fotos .pf-busca {
+    border: 0 !important;
+    background: #fdfdfd !important;
+    box-shadow: inset 4px 4px 8px #eeeff1, inset -4px -4px 8px #ffffff !important;
+  }
+  /* Barra de busca e filtros em neumorfismo: sem borda, relevo com duas sombras opostas. */
+  html body .painel-fotos .pf-barra {
+    border: 0 !important;
+    border-radius: 18px !important;
+    padding: 16px !important;
+    gap: 14px !important;
+    background: #9fe3d6 !important;
+    box-shadow: inset 6px 6px 12px #8fd3c4, inset -6px -6px 12px #ffffff !important;
+  }
+  html body .painel-fotos .pf-barra .pf-busca {
+    min-height: 48px !important;
+    border-radius: 14px !important;
+    padding: 0 16px !important;
+  }
+  html body .painel-fotos .pf-barra .pf-arvore {
+    border-radius: 16px !important;
+    padding: 14px !important;
+    gap: 10px !important;
+  }
+  html body .painel-fotos .pf-barra .pf-arvore-rotulo {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    color: #5b6268 !important;
+  }
+  /* Faixa da paginação flat: sem pílula, sem borda e sem sombra. */
+  html body .painel-fotos .pf-paginas,
+  html body .painel-fotos p.pf-paginas,
+  html body .painel-fotos section > p.pf-paginas {
+    background: transparent !important;
+    background-image: none !important;
+    border: 0 !important;
+    outline: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+  /* Botões de paginação (Anterior, Próxima) flat: sem sombra, sem borda, fundo transparente. */
+  html body .painel-fotos .pf-paginas button,
+  html body .painel-fotos .pf-paginas button:not(:disabled),
+  html body .painel-fotos .pf-paginas button:disabled {
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+  html body .painel-fotos .pf-paginas button:not(:disabled):hover {
+    background: rgba(0, 0, 0, 0.05) !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+  /* Botão "Próxima" em inset: recuado, sem borda. */
+  html body .painel-fotos .pf-paginas button:last-of-type:not(:disabled) {
+    background: #ffffff !important;
+    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+  }
+  html body .painel-fotos .pf-paginas button.pf-pagina-proxima:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled),
+  html body .painel-fotos .pf-paginas button.pf-pagina-proxima:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled):hover,
+  html body .painel-fotos .pf-paginas button.pf-pagina-proxima:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled):active {
+    background: #ffffff !important; background-image: none !important;
+    border: 0 !important; transform: none !important;
+    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+  }
+  /* Cartão de configuração em neumorfismo: sem borda, relevo com duas sombras opostas. */
+  html body .pf-modal {
+    border: 0 !important;
+    background: #9fe3d6 !important;
+    box-shadow: 10px 10px 20px #8fd3c4, -10px -10px 20px #c6f3ea !important;
+  }
+  /* Chip de categoria ativo: cor sólida, sem brilho branco (tira o aspecto de vidro). */
+  html body .painel-fotos .pf-arvore .pf-chip-cat.pf-chip-filtro--ativo {
+    background: var(--cor) !important;
+    box-shadow: inset 2px 2px 3px rgba(0,0,0,0.22) !important;
+  }
+  /* Preço em inset (texto embutido): sombra interna no topo e brilho rebatido na base. */
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-dados dd.pf-preco {
+    color: #0d1413 !important;
+    text-shadow: none !important;
+  }
+  /* Engrenagem do card em inset: botão recuado, sem borda. */
+  html body .painel-fotos .pf-grade > .pf-card .pf-engrenagem {
+    border: 0 !important;
+    background: #ffffff !important;
+    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+  }
+  /* Selo de quantidade ("5 unidades") em inset: recuado, mantendo a cor amarela do estoque baixo. */
+  html body .painel-fotos .pf-grade > .pf-card .pf-qtd {
+    border: 0 !important;
+    background: #ffe866 !important;
+    box-shadow: inset 2px 2px 3px rgba(122, 92, 0, 0.28), inset -1px -1px 2px rgba(255, 246, 180, 0.6) !important;
+  }
+  /* Informações do produto (nome, laboratório, categoria, código, preço) dentro de cartões recuados (inset). */
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-nome,
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-lab,
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-dados > div {
+    display: inline-flex !important;
+    width: fit-content !important;
+    max-width: 100% !important;
+    justify-self: start !important;
+    align-items: baseline !important;
+    gap: 12px !important;
+    padding: 6px 12px !important;
+    border-radius: 10px !important;
+    background: #ffffff !important;
+    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+  }
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-dados {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin: 0 !important;
+  }
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-dados > div:last-child {
+    margin-left: auto !important;
+  }
+  /* Marca na mesma linha do nome, à direita. */
+  html body .painel-fotos .pf-grade > .pf-card {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) auto !important;
+    align-items: center !important;
+    column-gap: 12px !important;
+    row-gap: 14px !important;
+    padding: 16px !important;
+  }
+  html body .painel-fotos .pf-grade > .pf-card > .pf-card-topo,
+  html body .painel-fotos .pf-grade > .pf-card > .pf-card-foto,
+  html body .painel-fotos .pf-grade > .pf-card > .pf-card-dados {
+    grid-column: 1 / -1 !important;
+  }
+  html body .painel-fotos .pf-grade > .pf-card > .pf-card-nome {
+    grid-column: 1 / -1 !important;
+    grid-row: 3 !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+  }
+  html body .painel-fotos .pf-grade > .pf-card > .pf-card-lab {
+    grid-column: 1 / -1 !important;
+    grid-row: 4 !important;
+    justify-self: start !important;
+  }
+  html body .painel-fotos .pf-grade > .pf-card > .pf-card-dados {
+    grid-row: 5 !important;
+  }
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-dados > div {
+    margin: 0 !important;
+  }
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-dados dd {
+    margin: 0 !important;
+  }
+  /* Revisão: selo de unidades numa linha só e nome ocupando a largura da caixa. */
+  html body .painel-fotos .pf-grade > .pf-card .pf-qtd {
+    white-space: nowrap !important;
+    width: auto !important;
+    flex: none !important;
+  }
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-nome {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  /* Cards mais largos e nome do produto numa só linha (com reticências se não couber). */
+  html body .painel-fotos .pf-grade {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-nome {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+  }
+  /* Campo "Palavras de busca" em inset: recuado, sem borda. */
+  html body .painel-fotos .pf-modal input.pf-entrada[name="pf-palavras"],
+  html body .painel-fotos .pf-modal input.pf-entrada[name="pf-palavras"]:focus {
+    border: 0 !important;
+    background: #ffffff !important;
+    outline: none !important;
+    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+  }
+  /* Cartão de configuração em verde-água petróleo: rótulos e títulos claros sobre o fundo escuro. */
+  html body .pf-modal .pf-campo-rotulo,
+  html body .pf-modal label.pf-campo-rotulo,
+  html body .pf-modal .pf-modal-topo h2,
+  html body .pf-modal .pf-dica,
+  html body .pf-modal small {
+    color: #0d1413 !important;
+    text-shadow: none !important;
+  }
+  /* Menu lateral: espaçamento e tipografia consistentes, itens do mesmo tamanho. */
+  html body .nav-interna ul {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+  html body .nav-interna li {
+    list-style: none !important;
+  }
+  /* Polimento do menu: fundo limpo, sem linha divisória, marca com respiro e ícones alinhados. */
+  html body .nav-interna {
+    border-right: 0 !important;
+    background: #ffffff !important;
+  }
+  html body .nav-interna-marca {
+    border-bottom: 0 !important;
+    padding: 4px 8px 20px !important;
+    margin-bottom: 8px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 6px !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    white-space: normal !important;
+  }
+  html body .nav-interna-marca small {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: none !important;
+    color: #2f3d3a !important;
+    height: auto !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+    overflow: visible !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+  html body .nav-interna .nav-interna-icone {
+    flex: none !important;
+    color: #0d1413 !important;
+  }
+  /* Itens do menu em inset: recuados, sem borda. O item ativo fica afundado. */
+  html body .nav-interna ul a {
+    background: #ffffff !important;
+    border: 0 !important;
+    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+  }
+  html body .nav-interna ul a[aria-current="page"],
+  html body .nav-interna ul li a[aria-current="page"],
+  html body .nav-interna ul li a[aria-current="page"]:hover,
+  html body .nav-interna ul li a[aria-current="page"]:focus-visible {
+    background-color: #9fe3d6 !important;
+    background-image: none !important;
+    color: #0d1413 !important;
+    box-shadow: inset 6px 6px 10px #b8bdc3, inset -6px -6px 10px #ffffff !important;
+  }
+  html body .nav-interna ul li a[aria-current="page"] .nav-interna-rotulo,
+  html body .nav-interna ul li a[aria-current="page"] svg {
+    color: #0d1413 !important;
+    stroke: #0d1413 !important;
+  }
+  html body .nav-interna a {
+    min-height: 46px !important;
+    padding: 0 14px !important;
+    gap: 12px !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    line-height: 1.2 !important;
+    letter-spacing: -0.005em !important;
+  }
+  html body .nav-interna .nav-interna-rotulo {
+    font-size: 15px !important;
+    font-weight: 600 !important;
+  }
+  html body .nav-interna .nav-interna-marca small {
+    display: block !important;
+    margin: 6px 0 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+  }
+  /* Tipografia do painel: escala única e cores de texto alinhadas ao verde-água e ao branco. */
+  html body .painel-fotos {
+    font-family: "Inter", "Helvetica Neue", Arial, sans-serif !important;
+    color: #0d1413 !important;
+  }
+  html body .painel-fotos h1 {
+    font-size: 26px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+    line-height: 1.2 !important;
+    color: #0d1413 !important;
+  }
+  html body .painel-fotos h2 {
+    font-size: 18px !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important;
+    color: #0d1413 !important;
+  }
+  html body .painel-fotos .pf-arvore-rotulo,
+  html body .painel-fotos .pf-barra .pf-arvore-rotulo {
+    font-size: 12px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    color: #2f3d3a !important;
+  }
+  html body .painel-fotos .pf-atualizado,
+  html body .painel-fotos .pf-aviso {
+    font-size: 13px !important;
+    color: #2f3d3a !important;
+  }
+  /* Tipografia do card: hierarquia clara entre nome, laboratório e dados. */
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-nome {
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    line-height: 1.3 !important;
+    color: #0d1413 !important;
+  }
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-lab {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    color: #2f3d3a !important;
+  }
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-dados dt {
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    color: #5f6b68 !important;
+  }
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-dados dd {
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    color: #0d1413 !important;
+  }
+  /* Textos do card em letterpress (tipo prensado): baixo-relevo sutil e nítido, cinza escuro. */
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-nome,
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-lab,
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-dados dt,
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-dados dd {
+    color: #0d1413 !important;
+    text-shadow: none !important;
+  }
+  html body .painel-fotos .pf-grade > .pf-card .pf-card-foto {
+    border: 0 !important;
+    background: #ffffff !important;
+    box-shadow: inset 6px 6px 12px #b8bdc3, inset -6px -6px 12px #ffffff !important;
+  }
+}
+
+/* Efeito Inflated nos títulos do painel, sem mudar a cor do texto: volume por sombras empilhadas e difusas. */
+@layer design {
+  html body .painel-fotos h1,
+  html body .painel-fotos h2 {
+    font-weight: 700 !important;
+    text-shadow: none !important;
+  }
+}
+
+/* Seletores do cartão sem barra verde: contorno, sombra e borda inferior neutros, também com foco. */
+@layer design {
+  html body .pf-modal select, html body .pf-modal select:focus, html body .pf-modal select:focus-visible, html body .pf-modal select:active {
+    outline: none !important; border-bottom-color: #d6d6d6 !important; border-color: #d6d6d6 !important;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.06), 0 2px 0 #d9d9d9, 0 5px 10px -6px rgba(0,0,0,0.28) !important;
+  }
+  html body .pf-modal select:focus-visible, html body .pf-modal select:focus { border-color: #111111 !important; }
+}
+
+/* Título do cartão: nome do produto, até 2 linhas, ao lado do ×. */
+html body .pf-modal .pf-modal-topo { align-items: center !important; }
+html body .pf-modal .pf-modal-titulo {
+  flex: 1 1 auto; min-width: 0; margin: 0 !important; font-size: 17px !important; font-weight: 700 !important;
+  line-height: 1.3 !important; color: #0d1413 !important; overflow: hidden; display: -webkit-box;
+  -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow-wrap: anywhere;
+}
+/* Confirmação: "✓ Salvo" fica em contraste total, sem o apagado do estado desabilitado. */
+html body .pf-modal button.pf-botao--primario:disabled {
+  opacity: 1 !important; background: #ffffff !important; color: #0a3548 !important;
+  box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+}
+/* Confirmação: o botão afunda ao clique e a linha salva pisca uma vez. */
+html body .pf-modal .pf-botao--primario:active:not(:disabled) {
+  transform: translateY(1px) scale(0.985) !important;
+  box-shadow: inset 6px 6px 10px #b3ebe0, inset -2px -2px 4px #ffffff !important;
+  transition: transform 0.08s ease, box-shadow 0.08s ease !important;
+}
+@keyframes pf-card-salvo {
+  0% { filter: brightness(1); }
+  35% { filter: brightness(1.1) saturate(1.15); }
+  100% { filter: brightness(1); }
+}
+.painel-fotos .pf-grade--pagina > .pf-card.pf-card--salvo { animation: pf-card-salvo 0.9s ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  .painel-fotos .pf-grade--pagina > .pf-card.pf-card--salvo { animation: none; }
+  html body .pf-modal .pf-botao--primario:active:not(:disabled) { transition: none !important; }
 }

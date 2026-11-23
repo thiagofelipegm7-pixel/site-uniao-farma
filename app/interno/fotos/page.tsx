@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function FotosInternoPage() {
-  return <PainelFotos modo="produtos" descricao="Estoque do PC, nomes, categorias e ajustes do que aparece no site. As fotos ficam na página Fotos." />;
+  return <PainelFotos modo="produtos" descricao="" />;
 }

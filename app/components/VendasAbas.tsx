@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import PreVendasPainel from "./PreVendasPainel";
 import PainelPedidos from "./PainelPedidos";
 import PainelRecompra from "./PainelRecompra";
+import "./vendas-direcao.css";
 
 type Aba = "pre-vendas" | "pedidos" | "recompra";
 

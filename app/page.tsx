@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import HomePage from "./HomePage";
 import { SITE_URL } from "./site-config";
 
-const HOME_TITLE = "Farmácia em Sabará com entrega | União Farma";
+const HOME_TITLE = "Drogaria e Farmácia em Sabará com entrega | União Farma";
 const HOME_DESCRIPTION =
   "Loja Nações Unidas, na Rua Inglaterra, 162, em Sabará. Aberta todos os dias, até domingo de manhã. Peça pelo WhatsApp e consulte a entrega no seu bairro.";
 

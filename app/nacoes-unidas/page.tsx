@@ -13,13 +13,13 @@ import { SITE_URL, UNITS } from "../site-config";
 const unit = UNITS[1];
 
 export const metadata: Metadata = {
-  title: { absolute: "Farmácia em Nações Unidas, Sabará: seg a sáb até 21h | União Farma" },
+  title: { absolute: "Drogaria União Farma Nações Unidas | Farmácia em Sabará" },
   description:
     "Rua Inglaterra, 162. Aberta até 21h de segunda a sábado e domingo até 12h. Peça pelo WhatsApp (31) 98762-9909 e consulte a entrega.",
   alternates: { canonical: "/nacoes-unidas" },
   keywords: ["farmácia Nações Unidas Sabará", "União Farma Nações", "drogaria Nações Unidas"],
   openGraph: {
-    title: "Farmácia em Nações Unidas, Sabará: seg a sáb até 21h | União Farma",
+    title: "Drogaria União Farma Nações Unidas | Farmácia em Sabará",
     description: "Rua Inglaterra, 162. Aberta até 21h de segunda a sábado e domingo até 12h. Peça pelo WhatsApp (31) 98762-9909 e consulte a entrega.",
     url: `${SITE_URL}/nacoes-unidas`,
     type: "website",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Farmácia em Nações Unidas, Sabará: seg a sáb até 21h | União Farma",
+    title: "Drogaria União Farma Nações Unidas | Farmácia em Sabará",
     description: "Rua Inglaterra, 162. Aberta até 21h de segunda a sábado e domingo até 12h. Peça pelo WhatsApp (31) 98762-9909 e consulte a entrega.",
     images: [{ url: "/og-nacoes-unidas.jpg", width: 1200, height: 630, alt: "União Farma Nações Unidas, Rua Inglaterra, 162" }],
   },

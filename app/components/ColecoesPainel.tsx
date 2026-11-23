@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type DragEvent } from "react";
 
 type Produto = { nome: string; ean: string; categoria: string; precoCentavos: number };
 type Foto = { ordem: number; mime: string; criadoEm: string };
@@ -32,6 +32,121 @@ function lerComoBase64(arquivo: File): Promise<string> {
     leitor.onerror = () => reject(leitor.error);
     leitor.readAsDataURL(arquivo);
   });
+}
+
+/** Fotos extras de um produto dentro do cartão de configuração: lista, remove e adiciona (até MAX). Mesma API da aba Coleções. */
+export function FotosExtras({ ean, nome }: { ean: string; nome: string }) {
+  const [fotos, setFotos] = useState<Foto[] | null>(null);
+  const [ocupado, setOcupado] = useState(false);
+  const [aviso, setAviso] = useState<string | null>(null);
+  const [arrastando, setArrastando] = useState(false);
+  /** Cards vazios abertos pelo "+", esperando uma foto (clique ou arraste). */
+  const [vagas, setVagas] = useState(0);
+
+  useEffect(() => {
+    let vivo = true;
+    setVagas(0);
+    setFotos(null);
+    setAviso(null);
+    fetch(`/api/interno/colecoes?ean=${ean}`, { cache: "no-store" })
+      .then((r) => r.json())
+      .then((d: { fotos?: Foto[] }) => { if (vivo) setFotos(d.fotos ?? []); })
+      .catch(() => { if (vivo) setFotos([]); });
+    return () => { vivo = false; };
+  }, [ean]);
+
+  async function enviar(api: Record<string, unknown>): Promise<boolean> {
+    setOcupado(true);
+    setAviso(null);
+    try {
+      const r = await fetch("/api/interno/colecoes", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ ean, ...api }),
+      });
+      const d = (await r.json()) as { ok?: boolean; erro?: string; fotos?: Foto[] };
+      if (!r.ok || !d.ok) {
+        setAviso(mensagem(d.erro));
+        return false;
+      }
+      // Recarrega a lista: a resposta do envio nem sempre traz as fotos.
+      const atual = (await (await fetch(`/api/interno/colecoes?ean=${ean}`, { cache: "no-store" })).json()) as { fotos?: Foto[] };
+      setFotos(atual.fotos ?? d.fotos ?? []);
+      return true;
+    } catch {
+      setAviso("Sem conexão. Tente de novo.");
+      return false;
+    } finally {
+      setOcupado(false);
+    }
+  }
+
+  /** Envia a foto e, se deu certo, fecha um card vazio (se houver). */
+  async function adicionar(arquivo: File | undefined) {
+    if (!arquivo) return;
+    const imagem = await lerComoBase64(arquivo);
+    const ok = await enviar({ acao: "adicionar", imagem });
+    if (ok) setVagas((v) => Math.max(0, v - 1));
+  }
+
+  const lista = fotos ?? [];
+  const podeAdicionar = lista.length + vagas < MAX && fotos !== null && !ocupado;
+
+  /** Arrastar uma imagem para a área já envia: não precisa abrir o seletor. */
+  function soltar(e: DragEvent<HTMLElement>) {
+    e.preventDefault();
+    setArrastando(false);
+    if (!podeAdicionar) return;
+    const arquivo = Array.from(e.dataTransfer.files).find((f) => f.type.startsWith("image/"));
+    if (arquivo) void adicionar(arquivo);
+    else setAviso("Solte uma imagem (WebP, PNG ou JPG).");
+  }
+
+  return (
+    <section
+      className={`pf-campo colecoes-extras${arrastando ? " colecoes-extras--arrastando" : ""}`}
+      onDragOver={(e) => { if (e.dataTransfer.types.includes("Files")) { e.preventDefault(); if (!arrastando) setArrastando(true); } }}
+      onDragLeave={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setArrastando(false); }}
+      onDrop={soltar}
+    >
+      <span className="pf-campo-rotulo">Fotos extras · {lista.length} de {MAX}</span>
+      {lista.length > 0 || vagas > 0 ? (
+        <ol className="colecoes-extras-lista">
+          {lista.map((f, i) => (
+            <li key={f.ordem}>
+              <img src={`/api/interno/colecoes?ean=${ean}&ordem=${f.ordem}&imagem=1`} alt={`Foto extra ${i + 1} de ${nome}`} width={64} height={64} loading="lazy" />
+              <button type="button" className="colecoes-remover" disabled={ocupado} onClick={() => enviar({ acao: "remover", ordem: f.ordem })}>Remover</button>
+            </li>
+          ))}
+        </ol>
+      ) : null}
+      {Array.from({ length: vagas }, (_, i) => (
+        <label key={`vaga-${i}`} className="colecoes-vaga">
+          <input type="file" accept="image/webp,image/png,image/jpeg" disabled={ocupado} onChange={(e) => { void adicionar(e.target.files?.[0]); e.target.value = ""; }} />
+          <span className="colecoes-vaga-icone" aria-hidden="true">+</span>
+          <span className="colecoes-vaga-texto">
+            <strong>{ocupado ? "Enviando…" : "Adicionar foto"}</strong>
+            <small>Clique aqui ou arraste uma imagem para este card. Use WebP, PNG ou JPG, de até cerca de 450 KB.</small>
+          </span>
+        </label>
+      ))}
+      {lista.length < MAX ? (
+        <button
+          type="button"
+          className="colecoes-adicionar"
+          disabled={ocupado || fotos === null || lista.length + vagas >= MAX}
+          onClick={() => setVagas((v) => v + 1)}
+          aria-label="Adicionar Foto Extra"
+          title="Adicionar Foto Extra"
+        >
+          +
+        </button>
+      ) : (
+        <small className="colecoes-cheio">Coleção completa ({MAX} fotos). Remova uma para enviar outra.</small>
+      )}
+      {aviso ? <small className="colecoes-aviso" role="alert">{aviso}</small> : null}
+    </section>
+  );
 }
 
 export default function ColecoesPainel({ nivel = 1 }: { /** 1 = h1 (página própria); 2 = h2 (dentro de uma aba). */ nivel?: 1 | 2 } = {}) {

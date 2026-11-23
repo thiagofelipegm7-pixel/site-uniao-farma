@@ -16,7 +16,8 @@ test("o que mudou no painel: a sincronização grava, o painel lê e o arquivo n
   assert.match(sync, /mudancas\.gravar/);
   assert.match(flow, /mudancas-recentes\.json/);
   assert.match(rota, /mudancasRecentes\(\)/);
-  assert.match(painel, /O que mudou nos últimos dias/);
+  // O painel ainda lê as mudanças; o bloco "O que mudou nos últimos dias" saiu na PR #514.
+  assert.match(painel, /dados\?\.mudancas/);
   const eventos = JSON.parse(arquivo).eventos;
   assert.ok(Array.isArray(eventos));
   for (const e of eventos) {

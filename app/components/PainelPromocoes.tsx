@@ -255,9 +255,7 @@ export default function PainelPromocoes({ modo = "completo", nivel = 1 }: { /** 
     <section className="pm-pagina">
       <header className="pm-cabeca">
         {modo === "fotos" ? (nivel === 2 ? <h2>Banners</h2> : <h1>Banners</h1>) : (nivel === 2 ? <h2>Promoções</h2> : <h1>Promoções</h1>)}
-        {modo === "destinos" ? <p>Defina para onde cada banner da página inicial leva. As artes dos banners ficam na página Fotos.</p> : (
-        <p>É o carrossel da página inicial, do jeito que o cliente vê. Toque num banner para enviar ou trocar a arte dele e use as setas para ver os {BANNERS_PRINCIPAIS.length}. No site só aparecem os banners que têm arte. Tamanho máximo de cada arte: {MAX_ARQUIVO_TEXTO} (se passar, o painel tenta diminuir sozinho).</p>
-        )}
+        {modo === "destinos" ? <p>Defina para onde cada banner da página inicial leva. As artes dos banners ficam na página Fotos.</p> : null}
       </header>
       {aviso ? <p className="pm-aviso" role="status">{aviso}</p> : null}
       {modo !== "destinos" ? <section className="pm-previa" aria-label="Carrossel da página inicial">

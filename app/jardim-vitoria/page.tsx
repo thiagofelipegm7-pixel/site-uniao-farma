@@ -8,8 +8,8 @@ import { getPageStructuredData, getUnitPublicPath } from "../structured-data";
 const SLUG = "jardim-vitoria";
 const PAGE_URL = `${SITE_URL}/${SLUG}`;
 const BAIRRO = "Jardim Vitória";
-const TITLE = "Farmácia no Jardim Vitória, Sabará: entrega e WhatsApp | União Farma";
-const HEADING = "Farmácia no Jardim Vitória, Sabará";
+const TITLE = "Drogaria União Farma Fátima | Entrega no Jardim Vitória";
+const HEADING = "Drogaria União Farma: entrega no Jardim Vitória, Sabará";
 
 const fatima = UNITS.find((unit) => unit.id === "fatima")!;
 const fatimaPath = getUnitPublicPath(fatima);
