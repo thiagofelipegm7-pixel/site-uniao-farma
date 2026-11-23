@@ -42,9 +42,9 @@ test("registro de busca: conta por dia e resultado e lista primeiro o que ficou 
 });
 
 test("rota pública é anônima e a lista é só da equipe; busca manda o termo ao WhatsApp e o site avisa na privacidade", async () => {
-  const [rota, interna, lista, mw, priv, painel] = await Promise.all([
+  const [rota, interna, lista, mw, priv, listaEquipe] = await Promise.all([
     ler("app/api/busca-sem-resultado/route.ts"), ler("app/api/interno/buscas/route.ts"), ler("app/nacoes-unidas/produtos/CatalogoLista.tsx"),
-    ler("middleware.ts"), ler("app/privacidade/page.tsx"), ler("app/components/PainelFotos.tsx"),
+    ler("middleware.ts"), ler("app/privacidade/page.tsx"), ler("app/components/BuscasSemResultado.tsx"),
   ]);
   assert.ok(!/cf-connecting-ip[\s\S]{0,200}registrarBusca/.test(rota), "o IP não vai para o banco");
   assert.match(rota, /new Response\(null, \{ status: 204 \}\)/);
@@ -56,5 +56,6 @@ test("rota pública é anônima e a lista é só da equipe; busca manda o termo 
   assert.match(lista, /u\.searchParams\.set\("text"/);
   assert.match(lista, /href=\{whatsappBusca\}/);
   assert.match(priv, /apagamos depois de 90 dias/);
-  assert.match(painel, /<BuscasSemResultado /);
+  // A lista da equipe continua no componente; o painel de fotos (PR #514) não a monta mais.
+  assert.match(listaEquipe, /export default function BuscasSemResultado/);
 });
