@@ -419,7 +419,7 @@ export default function ReservaFluxo() {
                         <b>{formatarCentavos(precoUnitarioReserva(item) * item.qtd)}</b>
                       </div>
                       <div className="cel-remover">
-                        <button type="button" className="fluxo-lixeira" aria-label={`Remover ${item.nome} da cesta`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, 0))}><IconLixeira size={20} /></button>
+                        <button type="button" className="fluxo-lixeira" aria-label={`Remover ${nomePedidoItem(item)} da cesta`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, 0))}><IconLixeira size={20} /></button>
                       </div>
                     </li>
                   );

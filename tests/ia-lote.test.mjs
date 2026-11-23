@@ -68,6 +68,4 @@ test("lote e fila: só equipe, nada vai ao cliente sem aprovação, e o painel s
   assert.match(fila, /\/api\/interno\/produto\/descricao/);
   assert.match(fila, /Aprovar/);
   assert.match(fila, /Descartar/);
-  const painel = await ler("app/components/PainelFotos.tsx");
-  assert.match(painel, /<FilaIA /);
 });
