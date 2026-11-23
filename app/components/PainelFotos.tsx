@@ -5,6 +5,7 @@ import FileDrop from "./FileDrop";
 import { subcategoriaDe, subcategoriasDe } from "../subcategorias";
 import FiltroCategorias from "./FiltroCategorias";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { candidatosDoArraste } from "../fotos-arrastar";
 import { CATEGORIAS_VALIDAS } from "../categoria-override";
 import { chaveDoNome } from "../nomes-corrigidos";
@@ -21,7 +22,7 @@ type Resposta = { ok: boolean; erro?: string; geradoEm: string | null; resumo: R
 
 const CHAVE_MARCAS = "uf_fotos_ok";
 const REAIS = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" });
-const POR_PAGINA = 100;
+const POR_PAGINA = 36;
 
 function paraLinha(l: Linha): LinhaPainel {
   return { ean: l[0], nome: l[1], lab: l[2], classe: l[3], estoque: l[4], preco: l[5], valor: l[6], controlado: l[7] === 1, antimicrobiano: l[8] === 1, categoria: l[9], noSite: l[10] === 1, ...(l[11] === 1 ? { semCodigo: true } : {}), ...(l[12] === 1 ? { sistemaRestrito: true } : {}) };
@@ -65,7 +66,11 @@ function ContasFecham({ c }: { c: Reconciliacao }) {
 export default function PainelFotos({ modo = "completo", titulo = "Produtos", descricao = "Estoque do PC, fotos e ajustes do que aparece no site.", nivel = 1 }: { /** "produtos": estoque, nome, categoria (sem foto). "fotos": só foto. "completo": tudo. */ modo?: "completo" | "produtos" | "fotos"; titulo?: string; descricao?: string; /** 1 = h1 (página própria); 2 = h2 (dentro de uma aba). */ nivel?: 1 | 2 } = {}) {
   const mostraFotos = modo !== "produtos";
   const mostraGestao = modo !== "fotos";
+  // Último resultado guardado neste navegador: a tela abre com ele na hora e atualiza em seguida.
+  const CHAVE_CACHE = "pf-produtos-cache-v1";
+  // Lido só depois de montar (no servidor não há localStorage, e ler na renderização causaria erro de hidratação).
   const [dados, setDados] = useState<Resposta | null>(null);
+  const [atualizando, setAtualizando] = useState(false);
   const [erro, setErro] = useState(false);
   const [busca, setBusca] = useState("");
   const [categoria, setCategoria] = useState("");
@@ -95,6 +100,7 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
   const [textoNome, setTextoNome] = useState("");
   const [nomesAgora, setNomesAgora] = useState<Record<string, string | null>>({});
   const [palavrasAgora, setPalavrasAgora] = useState<Record<string, string>>({});
+  const [palavrasMapa, setPalavrasMapa] = useState<Record<string, { palavras: string; fonte: string }>>({});
   const [marcasAgora, setMarcasAgora] = useState<Record<string, string | null>>({});
   const [selecionando, setSelecionando] = useState(false);
   const [selecionados, setSelecionados] = useState<Set<string>>(new Set());
@@ -111,6 +117,7 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
 
   const carregar = useCallback(async () => {
     setErro(false);
+    setAtualizando(true);
     try {
       const r = await fetch("/api/interno/fotos", { cache: "no-store" });
       // Sessão vencida: o servidor responde com a tela de entrada (HTML). Leva para entrar de novo e volta para cá.
@@ -121,8 +128,70 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
       const j = (await r.json()) as Resposta;
       if (!r.ok || !j.ok) throw new Error("falha");
       setDados(j);
+      try {
+        window.localStorage.setItem(CHAVE_CACHE, JSON.stringify(j));
+      } catch {
+        // sem espaço ou armazenamento bloqueado: segue sem cache
+      }
     } catch {
       setErro(true);
+    } finally {
+      setAtualizando(false);
+    }
+  }, []);
+
+  // Filtros e página lembrados na sessão: ao voltar para a tela, continua de onde parou.
+  const CHAVE_SESSAO = "pf-produtos-sessao-v1";
+  const sessaoLida = useRef(false);
+  useEffect(() => {
+    try {
+      const guardado = window.sessionStorage.getItem(CHAVE_SESSAO);
+      if (guardado) {
+        const v = JSON.parse(guardado) as { busca?: string; categoria?: string; subcategoria?: string; fotos?: string; tipo?: string; ordem?: string; pagina?: number; scroll?: number };
+        if (typeof v.busca === "string") setBusca(v.busca);
+        if (typeof v.categoria === "string") setCategoria(v.categoria);
+        if (typeof v.subcategoria === "string") setSubcategoria(v.subcategoria);
+        if (typeof v.tipo === "string") setTipo(v.tipo as FiltroFotos["tipo"]);
+        if (typeof v.ordem === "string") setOrdem(v.ordem as Ordem);
+        if (typeof v.pagina === "number") setPagina(v.pagina);
+        if (typeof v.scroll === "number") window.setTimeout(() => window.scrollTo(0, v.scroll ?? 0), 300);
+      }
+    } catch {
+      // sessão sem dados guardados: começa do zero
+    }
+    sessaoLida.current = true;
+  }, [modo]);
+  useEffect(() => {
+    if (!sessaoLida.current) return;
+    try {
+      window.sessionStorage.setItem(CHAVE_SESSAO, JSON.stringify({ busca, categoria, subcategoria, tipo, ordem, pagina, scroll: window.scrollY }));
+    } catch {
+      // armazenamento indisponível: segue sem lembrar
+    }
+  }, [busca, categoria, subcategoria, tipo, ordem, pagina]);
+
+  // Palavras de busca: carregadas depois da lista, em segundo plano (pesam bem mais que o resto).
+  const temDados = dados !== null;
+  useEffect(() => {
+    if (!temDados) return;
+    let vivo = true;
+    fetch("/api/interno/fotos/palavras", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((j: { ok?: boolean; palavras?: Record<string, { palavras: string; fonte: string }> } | null) => {
+        if (vivo && j?.ok && j.palavras) setPalavrasMapa(j.palavras);
+      })
+      .catch(() => undefined);
+    return () => {
+      vivo = false;
+    };
+  }, [temDados]);
+
+  useEffect(() => {
+    try {
+      const guardado = window.localStorage.getItem(CHAVE_CACHE);
+      if (guardado) setDados(JSON.parse(guardado) as Resposta);
+    } catch {
+      // sem cache: segue com o carregamento normal
     }
   }, []);
 
@@ -232,8 +301,31 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
   }, [linhas, busca, categoria, subcategoria, estoque, fotos, tipo, marcados, ordem, pendencia, dados, marcasAgora, nomesAgora]);
 
   const totalPaginas = Math.max(1, Math.ceil(filtradas.length / POR_PAGINA));
+  // Trocar de página: depois que a nova página aparece, a tela vai para o primeiro card dela (posição fixa na janela).
+  const rolarAposPagina = useRef(false);
+  function irPagina(n: number) {
+    rolarAposPagina.current = true;
+    setPagina(n);
+  }
+  useEffect(() => {
+    if (!rolarAposPagina.current) return;
+    rolarAposPagina.current = false;
+    const c = document.querySelector<HTMLElement>(".pf-grade > .pf-card");
+    if (!c) return;
+    const y = c.getBoundingClientRect().top + window.scrollY - Math.max(90, Math.round(window.innerHeight * 0.36));
+    window.scrollTo({ top: y, behavior: "smooth" });
+  }, [pagina]);
+
   const paginaAtual = Math.min(pagina, totalPaginas);
   const visiveis = filtradas.slice((paginaAtual - 1) * POR_PAGINA, paginaAtual * POR_PAGINA);
+  // Renderização em partes: os primeiros cards aparecem já; o restante da página entra logo depois.
+  const [quantosMostrar, setQuantosMostrar] = useState(12);
+  useEffect(() => {
+    setQuantosMostrar(12);
+    const t = window.setTimeout(() => setQuantosMostrar(POR_PAGINA), 120);
+    return () => window.clearTimeout(t);
+  }, [paginaAtual, busca, categoria, subcategoria, fotos, tipo, ordem]);
+  const visiveisAgora = visiveis.slice(0, quantosMostrar);
 
   function marcar(ean: string, ligado: boolean) {
     setMarcados((antes) => {
@@ -390,7 +482,7 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
   function palavrasAtual(l: LinhaFoto): { texto: string; fonte: string } {
     const k = chaveDoNome(l.nome);
     if (palavrasAgora[k] !== undefined) return { texto: palavrasAgora[k], fonte: "equipe" };
-    const salva = dados?.palavrasOverride?.[k];
+    const salva = palavrasMapa[k];
     return { texto: salva?.palavras ?? "", fonte: salva?.fonte ?? "" };
   }
 
@@ -703,6 +795,10 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
       setAviso("Este item é receita ou controlado no sistema. Não pode sair de Medicamentos.");
       return;
     }
+    const kOtim = chaveDoNome(l.nome);
+    const anterior = categoriasAgora[kOtim];
+    setCategoriasAgora((n) => ({ ...n, [kOtim]: categoria === "auto" ? "" : categoria }));
+    const voltar = () => setCategoriasAgora((n) => ({ ...n, [kOtim]: anterior ?? "" }));
     try {
       const r = await fetch("/api/interno/produto/categoria", {
         method: "POST",
@@ -710,6 +806,7 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
         body: JSON.stringify({ original: l.nome, categoria, por: por.trim() }),
       });
       if (r.redirected || (r.headers.get("content-type") ?? "").includes("text/html")) {
+        voltar();
         setAviso("Sua sessão venceu. Recarregue a página (F5), entre de novo e tente outra vez.");
         return;
       }
@@ -719,6 +816,7 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
           sistema_restrito: "Este item é receita ou controlado no sistema. Não pode sair de Medicamentos.",
           categoria_invalida: "Categoria inválida.",
         };
+        voltar();
         setAviso(msg[j?.erro ?? ""] ?? "Não consegui salvar a categoria. Tente de novo.");
         return;
       }
@@ -763,9 +861,20 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
         {nivel === 2 ? <h2>{titulo}</h2> : <h1>{titulo}</h1>}
         {descricao ? <p>{descricao}</p> : null}
       </header>
+      {atualizando ? <div className="pf-barra-atualiza" role="progressbar" aria-label="Atualizando os produtos" /> : null}
+      {dados?.geradoEm ? (() => {
+        const d = new Date(dados.geradoEm);
+        if (Number.isNaN(d.getTime())) return null;
+        const quando = d.toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo", day: "2-digit", month: "2-digit", hour: "2-digit", minute: "2-digit" });
+        return <p className="pf-atualizado">Estoque de {quando}{atualizando ? " · atualizando…" : ""}</p>;
+      })() : null}
       {mostraGestao ? <PainelCatalogo /> : null}
       {erro ? <p role="alert">Não consegui ler o estoque agora. O PC da loja ou o acesso aos dados pode estar parado. <button type="button" onClick={() => void carregar()}>Tentar de novo</button></p> : null}
-      {!dados && !erro ? <p>Carregando o estoque…</p> : null}
+      {!dados && !erro ? (
+        <div className="pf-esqueleto" aria-busy="true" aria-label="Carregando produtos">
+          {Array.from({ length: 8 }).map((_, i) => <div key={i} className="pf-esqueleto-card" />)}
+        </div>
+      ) : null}
       {dados ? (
         <>
           
@@ -814,8 +923,8 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
               </>
             ) : null}
           </div> : null}
-          <div className="pf-grade">
-            {visiveis.map((l) => {
+          <div className="pf-grade pf-grade--pagina" key={`pagina-${paginaAtual}`}>
+            {visiveisAgora.map((l) => {
               const faixa = l.estoque <= 0 ? "zero" : l.estoque <= 5 ? "baixo" : "normal";
               const urlFoto = pendentes.has(l.ean) || envios[l.ean] === "enviada" ? `/api/foto-nova?ean=${l.ean}&v=${envios[l.ean] === "enviada" ? "n" : "p"}` : `/produtos/${l.ean}.webp`;
               return (
@@ -834,7 +943,7 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
                   </div>
                   <div className="pf-card-foto">
                     {l.noSite ? (
-                      <img src={urlFoto} alt="" width="176" height="176" />
+                      <img src={urlFoto} alt="" width="176" height="176" loading="lazy" decoding="async" />
                     ) : !mostraFotos ? (
                       <div className="pf-foto-vazia">Sem foto</div>
                     ) : (
@@ -858,9 +967,9 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
           </div>
           {totalPaginas > 1 ? (
             <p className="pf-paginas">
-              <button type="button" disabled={paginaAtual <= 1} onClick={() => setPagina(paginaAtual - 1)}>Anterior</button>
+              <button type="button" disabled={paginaAtual <= 1} onClick={() => irPagina(paginaAtual - 1)}>Anterior</button>
               <span>Página {paginaAtual} de {totalPaginas}</span>
-              <button type="button" disabled={paginaAtual >= totalPaginas} onClick={() => setPagina(paginaAtual + 1)}>Próxima</button>
+              <button type="button" disabled={paginaAtual >= totalPaginas} onClick={() => irPagina(paginaAtual + 1)}>Próxima</button>
             </p>
           ) : null}
         </>
@@ -880,7 +989,7 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
           <button type="button" className="pf-botao" onClick={() => setSelecionados(new Set())}>Limpar</button>
         </div>
       ) : null}
-      {produtoConfig ? (() => {
+      {produtoConfig && typeof document !== "undefined" ? createPortal((() => {
         const l = linhas.find((x) => x.ean === produtoConfig);
         if (!l) return null;
         const urlFoto = pendentes.has(l.ean) || envios[l.ean] === "enviada" ? `/api/foto-nova?ean=${l.ean}&v=${envios[l.ean] === "enviada" ? "n" : "p"}` : `/produtos/${l.ean}.webp`;
@@ -898,7 +1007,7 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
                 {mostraFotos ? <section className="pf-campo">
                   <span className="pf-campo-rotulo">Foto</span>
                   <div className="pf-foto-linha">
-                    {l.noSite ? <img src={urlFoto} alt="" width="80" height="80" /> : <div className="pf-foto-vazia">Sem foto</div>}
+                    {l.noSite ? <img src={urlFoto} alt="" width="80" height="80" loading="lazy" decoding="async" /> : <div className="pf-foto-vazia">Sem foto</div>}
                     <label className="pf-botao pf-botao--primario pf-botao--cheio">
                       <input type="file" accept="image/*" onChange={(e) => { void enviarFoto(l, e.target.files?.[0]); e.target.value = ""; }} />
                       {l.noSite ? "Trocar foto" : "Enviar foto"}
@@ -1017,7 +1126,7 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
             </div>
           </div>
         );
-      })() : null}
+      })(), document.body) : null}
     </>
   );
 }

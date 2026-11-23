@@ -167,9 +167,6 @@
   }
 }
 
-.pf-controlado { display: flex; flex-wrap: wrap; align-items: center; gap: 0.375rem; margin-top: 0.375rem; font-size: 0.75rem; color: #3e4b49; }
-.pf-controlado select { min-height: 2rem; max-width: 14rem; padding: 0 0.5rem; border: 1px solid #6b8b86; border-radius: 6px; background: #fff; font: inherit; font-size: 0.8125rem; }
-
 .pf-contas { margin: 0.75rem 0; padding: 0.75rem 1rem; border: 1px solid var(--color-line, #d5e3e1); border-radius: 12px; background: #ffffff; }
 .pf-contas summary { cursor: pointer; font-weight: 700; }
 .pf-contas ul { margin: 0.5rem 0 0; padding-left: 1.25rem; line-height: 1.6; }
@@ -221,9 +218,6 @@ body:has(.nav-interna) { background: #f1fbfa; }
 .pf-engrenagem:focus-visible { outline: 3px solid var(--pf-verde); outline-offset: 1px; }
 .pf-card-foto { display: grid; place-items: center; height: 12rem; border-radius: 12px; background: var(--pf-fundo); overflow: hidden; }
 .painel-fotos .pf-card-foto img { width: 11rem; height: 11rem; max-width: 100%; object-fit: contain; border-radius: 0; background: transparent; }
-.pf-envio { position: relative; display: grid; justify-items: center; gap: 0.25rem; width: 100%; height: 100%; align-content: center; border: 2px dashed #9dbcb6; border-radius: 12px; color: var(--pf-verde); font-size: 0.875rem; font-weight: 700; cursor: pointer; transition: background-color 0.15s ease, border-color 0.15s ease; }
-.pf-envio:hover { background: var(--pf-verde-claro); border-color: var(--pf-verde); }
-.pf-envio:focus-within { outline: 3px solid var(--pf-verde); outline-offset: 1px; }
 .pf-envio input, .pf-botao input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; font-size: 16px; }
 .painel-fotos .pf-card-nome { margin: 0.25rem 0 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; min-height: 2.5em; color: var(--pf-ink); font-size: 0.9375rem; font-weight: 700; line-height: 1.25; }
 .pf-card-lab { margin: 0; color: var(--pf-mudo); font-size: 0.8125rem; text-transform: uppercase; letter-spacing: 0.03em; }
@@ -308,37 +302,27 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 @media (min-width: 560px) { .pf-selecao-barra strong { flex: none; margin-right: 0.25rem; } }
 .pf-mudancas { margin: 0 0 0.75rem; padding: 0.625rem 0.875rem; border: 1px solid var(--pf-linha); border-radius: 14px; background: #ffffff; }
 .pf-mudancas summary { gap: 0.375rem; cursor: pointer; font-weight: 700; font-size: 0.9375rem; min-height: 2.25rem; display: flex; align-items: center; }
-.pf-mudancas-chips { display: flex; flex-wrap: wrap; gap: 0.375rem; margin: 0.5rem 0; }
 .pf-chip-filtro { min-height: 2.25rem; padding: 0 0.75rem; border: 1px solid var(--pf-linha); border-radius: 999px; background: #ffffff; color: var(--pf-ink); font: inherit; font-size: 0.8125rem; font-weight: 600; cursor: pointer; }
 .pf-chip-filtro--ativo { border-color: var(--pf-verde); background: var(--pf-verde-claro); color: #0b3b36; }
 .pf-mudancas-lista { display: grid; gap: 0.25rem; margin: 0; padding: 0; list-style: none; max-height: 22rem; overflow-y: auto; }
 .pf-mudancas-lista li { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; padding: 0.375rem 0; border-top: 1px solid var(--pf-linha); }
 .pf-mudanca-tipo { flex: none; min-width: 4.25rem; padding: 0.125rem 0.5rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700; text-align: center; background: var(--pf-fundo); color: var(--pf-ink2); }
-.pf-mudanca-tipo--novo, .pf-mudanca-tipo--voltou { background: var(--pf-verde-claro); color: #0b3b36; }
 .pf-mudanca-tipo--esgotou { background: var(--pf-verm); color: var(--pf-verm-tx); }
-.pf-mudanca-tipo--preco { background: var(--pf-ambar); color: var(--pf-ambar-tx); }
 .pf-mudanca-nome { padding: 0; border: 0; background: transparent; color: var(--pf-ink); font: inherit; font-size: 0.9375rem; font-weight: 600; text-align: left; text-decoration: underline; text-decoration-color: var(--pf-linha); cursor: pointer; }
 .pf-mudanca-info { color: var(--pf-mudo); font-size: 0.8125rem; }
-.pf-mudancas-nota { margin: 0.5rem 0 0; color: var(--pf-mudo); font-size: 0.8125rem; }
 .pf-area { min-height: 6rem; padding: 0.625rem 0.75rem; resize: vertical; line-height: 1.4; font-family: inherit; }
 .pf-dica { display: block; margin-top: 0.25rem; color: var(--pf-mudo); font-size: 0.8125rem; }
 
 .pf-fila-lista { list-style: none; margin: 0.75rem 0 0; padding: 0; display: grid; gap: 0.75rem; }
 .pf-fila-item { display: grid; gap: 0.4rem; padding: 0.75rem; border: 1px solid var(--pf-borda, #d9e2e6); border-radius: 12px; background: #fff; }
 .pf-fila-palavras { margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--pf-borda, #d9e2e6); display: grid; gap: 0.4rem; }
-
 /* Botão único "Buscar problemas com IA": abre o painel com as três seções. */
-.pf-ia-painel { margin: 0 0 0.75rem; }
-.pf-ia-painel > summary.pf-ia-botao { display: inline-flex; list-style: none; cursor: pointer; }
-.pf-ia-painel > summary.pf-ia-botao::-webkit-details-marker { display: none; }
 .pf-ia-painel > .pf-dica { margin: 0.5rem 0; }
-
 /* Rótulo visível acima dos filtros de categoria e estoque. */
 .painel-fotos .pf-filtro { display: flex; flex-direction: column; gap: 0.25rem; }
 /* Ajuste visual dos filtros rotulados: rótulo alinhado, select ocupa a largura da coluna, mesma altura dos demais. */
 .painel-fotos .pf-filtro { min-width: 0; gap: 0.3rem; }
 .painel-fotos .pf-filtro .pf-select { width: 100%; min-width: 0; }
-
 /* ===== Barra de filtros ===== */
 .painel-fotos { --pf-controle-altura: 2.5rem; --pf-controle-raio: 10px; }
 .painel-fotos .pf-barra { align-items: end; gap: 0.625rem; padding: 0.75rem; border-radius: 14px; box-shadow: 0 1px 2px rgba(13, 20, 19, 0.04); }
@@ -349,7 +333,6 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 .painel-fotos .pf-select:focus-visible { border-color: var(--pf-verde); }
 .painel-fotos .pf-filtro { gap: 0.3125rem; }
 @media (max-width: 640px) { .painel-fotos { --pf-controle-altura: 2.75rem; } .painel-fotos .pf-barra { padding: 0.625rem; } }
-
 /* ===== Filtro de categoria e subcategoria =====
    Uma única definição, sem regras sobrepostas. Transições longas com desaceleração suave.
    Animação de entrada só preenche antes de começar (backwards), para não travar hover e ativo. */
@@ -366,7 +349,6 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 .painel-fotos .pf-arvore-linha { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); align-items: start; gap: 0.75rem; }
 .painel-fotos .pf-arvore-rotulo { padding-top: 0.5rem; font-size: 0.6875rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--pf-mudo); }
 .painel-fotos .pf-arvore-chips { display: flex; flex-wrap: wrap; gap: 0.375rem; min-width: 0; }
-
 .painel-fotos .pf-arvore .pf-chip-filtro {
   display: inline-flex;
   align-items: center;
@@ -394,7 +376,6 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 .painel-fotos .pf-arvore .pf-chip-filtro:focus-visible { outline: 2px solid var(--pf-verde); outline-offset: 2px; }
 .painel-fotos .pf-arvore .pf-chip-filtro small { color: var(--pf-mudo); font-size: 0.75rem; font-weight: 500; font-variant-numeric: tabular-nums; margin-left: auto; transition: color 0.45s ease; }
 .painel-fotos .pf-arvore .pf-chip-filtro--vazio { color: #9aa8a5; }
-
 /* Categorias: ponto da cor do grupo; ativo cheio na cor */
 .painel-fotos .pf-arvore .pf-chip-cat { border-color: color-mix(in srgb, var(--cor) 30%, #ffffff); }
 .painel-fotos .pf-arvore .pf-chip-cat::before { content: ""; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: var(--cor); flex: none; transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.45s ease; }
@@ -402,7 +383,6 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 .painel-fotos .pf-arvore .pf-chip-cat.pf-chip-filtro--ativo::before { background: var(--cor-texto, #ffffff); transform: scale(1.15); }
 .painel-fotos .pf-arvore .pf-chip-cat.pf-chip-filtro--ativo small { color: var(--cor-texto, #ffffff); opacity: 0.85; }
 .painel-fotos .pf-arvore .pf-chip-cat.pf-chip-filtro--ativo:hover:not(:disabled) { transform: scale(1.02) translateY(-1px); }
-
 /* Subcategorias: grade alinhada que desliza para dentro da linha */
 .painel-fotos .pf-arvore-linha--sub .pf-arvore-chips--sub {
   display: grid;
@@ -418,12 +398,10 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 .painel-fotos .pf-arvore .pf-chip-filtro--sub:nth-child(5) { animation-delay: 0.2s; }
 .painel-fotos .pf-arvore .pf-chip-filtro--sub:nth-child(6) { animation-delay: 0.25s; }
 .painel-fotos .pf-arvore .pf-chip-filtro--sub:nth-child(n+7) { animation-delay: 0.3s; }
-.painel-fotos .pf-arvore .pf-chip-filtro--sub.pf-chip-filtro--ativo { background: #eef6f4; border-color: var(--cor); color: var(--pf-ink); font-weight: 600; box-shadow: inset 3px 0 0 var(--cor); }
+.painel-fotos .pf-arvore .pf-chip-filtro--sub.pf-chip-filtro--ativo { background: #ffffff; border-color: var(--cor); color: var(--pf-ink); font-weight: 600; box-shadow: inset 3px 0 0 var(--cor); }
 .painel-fotos .pf-arvore .pf-chip-filtro--sub.pf-chip-filtro--ativo small { color: var(--pf-ink2); }
-
 @keyframes pf-sub-desliza { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
 @keyframes pf-sub-chip { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
-
 @media (max-width: 640px) {
   .painel-fotos .pf-arvore-linha { grid-template-columns: 1fr; gap: 0.25rem; }
   .painel-fotos .pf-arvore-rotulo { padding-top: 0; }
@@ -439,7 +417,6 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
   .painel-fotos .pf-arvore .pf-chip-filtro:active:not(:disabled),
   .painel-fotos .pf-arvore .pf-chip-cat.pf-chip-filtro--ativo { transform: none !important; }
 }
-
 /* Selo de unidades nos cards: cores vivas e tipografia mais limpa (sem caixa-alta, peso médio, números alinhados). */
 .painel-fotos .pf-card .pf-qtd {
   font-family: inherit;
@@ -454,7 +431,6 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 .painel-fotos .pf-card .pf-qtd-zero { background: #ff1744; color: #ffffff; box-shadow: 0 0 0 1px rgba(255, 23, 68, 0.25); }
 .painel-fotos .pf-card .pf-qtd-baixo { background: #ffd600; color: #2b1d00; box-shadow: 0 0 0 1px rgba(255, 214, 0, 0.35); }
 .painel-fotos .pf-card .pf-qtd-normal { background: #00e5a0; color: #03271c; box-shadow: 0 0 0 1px rgba(0, 229, 160, 0.3); }
-
 /* Botão de configurar do card: as barras fazem uma mola ao virar X; o botão responde ao mouse e ao clique. */
 .painel-fotos .pf-engrenagem {
   transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
@@ -467,7 +443,6 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
   .painel-fotos .pf-engrenagem,
   .painel-fotos .pf-engrenagem .ia-icone i { transition: none; transform: none !important; }
 }
-
 /* Pop-up de configuração: movimento sóbrio, de uma peça só.
    Curva de sistema (rápida no início, suave no fim), sem inclinação nem deformação.
    O painel cresce do botão em 0,32 s; o fundo escurece em 0,25 s; o conteúdo aparece junto, sem atraso. */
@@ -479,14 +454,12 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 .pf-modal-topo,
 .pf-modal-corpo,
 .pf-modal-rodape { animation: pf-conteudo 0.2s ease-out 0.08s both; }
-
 @keyframes pf-fundo { from { opacity: 0; } to { opacity: 1; } }
 @keyframes pf-painel {
   from { opacity: 0; transform: translate(var(--ox, 0px), var(--oy, 0px)) perspective(900px) rotateX(-32deg) scale(0.28); }
   to { opacity: 1; transform: none; }
 }
 @keyframes pf-conteudo { from { opacity: 0; } to { opacity: 1; } }
-
 @media (prefers-reduced-motion: reduce) {
   .pf-modal-fundo,
   .pf-modal,
@@ -494,7 +467,6 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
   .pf-modal-corpo,
   .pf-modal-rodape { animation: none !important; }
 }
-
 /* Harmonia das fotos nos cards: mesma moldura, mesmo espaço interno e mesma escala em todos.
    Fundo branco neutro; o branco da embalagem se funde à moldura (multiply) e o contraste fica uniforme. */
 .painel-fotos .pf-card-foto {
@@ -514,21 +486,16 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
   mix-blend-mode: multiply;
   filter: contrast(1.03) saturate(1.04);
 }
-
 /* Sem fundo verde-claro na área da foto: branco neutro em todos os cards. */
 .painel-fotos .pf-card .pf-card-foto { background: #ffffff !important; }
-
 /* Enquadramento: o produto ocupa o centro com respiro igual dos quatro lados. */
 .painel-fotos .pf-card .pf-card-foto { padding: 1.25rem; place-items: center; }
 .painel-fotos .pf-card .pf-card-foto img { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; }
-
 /* A imagem ocupa exatamente a área interna da moldura, sem vazar; o produto fica centralizado com a mesma margem. */
 .painel-fotos .pf-card .pf-card-foto img { width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; }
-
 /* A linha da grade ocupa só a altura da moldura, então a imagem não cresce além da área interna. */
 .painel-fotos .pf-card .pf-card-foto { grid-template-rows: minmax(0, 1fr); grid-template-columns: minmax(0, 1fr); }
 .painel-fotos .pf-card .pf-card-foto img { min-height: 0; min-width: 0; height: 100%; width: 100%; }
-
 /* Botão "Selecionar vários": contorno da marca, preenchimento suave no hover e no modo de seleção ativo. */
 .pf-selecao-controle .pf-botao {
   min-height: 2.75rem;
@@ -549,7 +516,6 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
   .pf-selecao-controle .pf-botao { transition: none; }
   .pf-selecao-controle .pf-botao:hover:not(:disabled), .pf-selecao-controle .pf-botao:active:not(:disabled) { transform: none; }
 }
-
 /* ===== Acabamento final do painel: uma linha visual só =====
    Teal da marca para ação principal e estado ativo; contorno para ação secundária;
    categorias só com ponto colorido. Todos os controles com a mesma altura, raio e espaçamento. */
@@ -562,7 +528,6 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 .painel-fotos .pf-arvore .pf-chip-filtro:not(.pf-chip-filtro--ativo) small { color: var(--pf-ink2); background: #f1f6f5; }
 .painel-fotos .pf-busca,
 .painel-fotos .pf-select { border-radius: 10px; }
-
 /* Ajustes finais: categorias numa linha só e selo de unidades com amarelo mais contido. */
 .painel-fotos .pf-arvore-linha--cat .pf-arvore-chips--cat,
 .painel-fotos .pf-arvore .pf-arvore-chips--cat { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
@@ -574,7 +539,6 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 .painel-fotos .pf-arvore .pf-arvore-chips--cat .pf-chip-filtro { padding: 0 0.5rem; font-size: 0.78rem; gap: 0.3125rem; }
 .painel-fotos .pf-arvore .pf-arvore-chips--cat { gap: 0.25rem; }
 .painel-fotos .pf-arvore .pf-arvore-chips--cat .pf-chip-filtro small { padding: 0 0.25rem; }
-
 /* Com uma categoria escolhida, as outras perdem o brilho: somem a cor e ficam apagadas, e voltam ao passar o mouse. */
 .painel-fotos .pf-arvore-chips--cat:has(.pf-chip-cat.pf-chip-filtro--ativo) .pf-chip-filtro:not(.pf-chip-filtro--ativo) {
   opacity: 0.5;
@@ -588,7 +552,6 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 @media (prefers-reduced-motion: reduce) {
   .painel-fotos .pf-arvore-chips--cat:has(.pf-chip-cat.pf-chip-filtro--ativo) .pf-chip-filtro:not(.pf-chip-filtro--ativo) { transition: none; }
 }
-
 /* ===== Revisão completa: sistema único de tipografia, raios e espaçamentos =====
    Escala de texto: 11 (rótulos) · 13 (meta, chips, selos) · 15 (botões, controles, nomes) · 26 (título).
    Raios: 10 (controles e chips) · 14 (containers) · 16 (cards).
@@ -621,7 +584,6 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 @media (max-width: 1180px) {
   .painel-fotos .pf-arvore .pf-arvore-chips--cat { flex-wrap: wrap; overflow: visible; }
 }
-
 /* Contagem dos chips: só número, sem caixa de fundo (a caixa aparecia como um quadrado piscando ao trocar o filtro). */
 .painel-fotos .pf-arvore .pf-chip-filtro small,
 .painel-fotos .pf-arvore .pf-chip-filtro--ativo small,
@@ -637,24 +599,19 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 .painel-fotos .pf-arvore .pf-chip-cat.pf-chip-filtro--ativo small { color: var(--cor-texto, #ffffff); opacity: 0.85; }
 .painel-fotos .pf-arvore .pf-chip-filtro:not(.pf-chip-filtro--ativo) small,
 .painel-fotos .pf-arvore .pf-chip-filtro.pf-chip-filtro--ativo small { background: transparent; padding: 0; }
-
 /* Some a barrinha de rolagem do menu da área interna (ele continua rolável pelo toque e pelo trackpad). */
 .nav-interna ul { scrollbar-width: none; }
 .nav-interna ul::-webkit-scrollbar { display: none; }
-
 /* Sem o verde-claro: campos, cards e fundo da área interna ficam em branco neutro. */
 .painel-fotos { --pf-fundo: #ffffff; }
 .painel-fotos .pf-busca { background: #ffffff; }
 body:has(.nav-interna) { background: #ffffff; }
-
 /* Subcategoria ativa sem fundo verde: fica branca, com a barra da cor do grupo à esquerda. */
 .painel-fotos .pf-arvore .pf-chip-filtro--sub.pf-chip-filtro--ativo,
 .painel-fotos .pf-arvore .pf-chip-filtro.pf-chip-filtro--sub.pf-chip-filtro--ativo { background: #ffffff; }
-
 /* Chips são botões: sem cursor de texto, sem caret e sem seleção de letras ao passar o mouse. */
 .painel-fotos .pf-arvore button,
 .painel-fotos .pf-selecao-controle button { cursor: pointer; caret-color: transparent; user-select: none; -webkit-user-select: none; }
-
 /* Sem contornos verdes de foco: campos e botões não ganham quadrados ao receber o clique. */
 .painel-fotos :focus,
 .painel-fotos :focus-visible,
@@ -664,7 +621,6 @@ body:has(.nav-interna) { background: #ffffff; }
 .painel-fotos .pf-busca:focus-within,
 .painel-fotos .pf-busca:focus-within input,
 .painel-fotos .pf-select:focus-visible { border-color: var(--pf-linha) !important; box-shadow: none !important; outline: none !important; }
-
 /* O sistema de design marca o foco com contorno !important dentro da camada "design";
    para vencer dentro do painel, a regra entra na mesma camada com seletor mais específico. */
 @layer design {
@@ -675,50 +631,42 @@ body:has(.nav-interna) { background: #ffffff; }
   .painel-fotos select:focus-visible,
   .painel-fotos button:focus-visible { outline: none !important; outline-offset: 0 !important; box-shadow: none !important; }
 }
-
 /* Amarelos vivos no painel: selo de unidades, avisos e o banner de atenção. */
 .painel-fotos .pf-card .pf-qtd-baixo,
 .painel-fotos .pf-qtd-baixo { background: #ffcc00; color: #3d2b00; box-shadow: 0 0 0 1px rgba(255, 170, 0, 0.35); }
 .painel-fotos .pf-aviso { background: #ffe14d; border-color: #f5b800; color: #3d2b00; }
 .painel-fotos .painel-catalogo .painel-saude-atencao { border-color: #f5b800; background: #fff3a3; }
 .painel-fotos .painel-catalogo .painel-saude-atencao .painel-selo { background: #ffcc00; color: #3d2b00; }
-
 /* Amarelos mais vivos e naturais: girassol (selos e avisos) e mel (categoria Perfumes). */
 .painel-fotos .pf-card .pf-qtd-baixo,
 .painel-fotos .pf-qtd-baixo { background: #ffd21f; color: #3b2a05; box-shadow: none; }
 .painel-fotos .pf-aviso { background: #ffe45c; border-color: #f2b705; color: #3b2a05; }
 .painel-fotos .painel-catalogo .painel-saude-atencao { border-color: #f2b705; background: #fff1a6; }
 .painel-fotos .painel-catalogo .painel-saude-atencao .painel-selo { background: #ffd21f; color: #3b2a05; }
-
 /* Amarelo ainda mais vivo: girassol intenso nos selos e nos avisos. */
 .painel-fotos .pf-card .pf-qtd-baixo,
 .painel-fotos .pf-qtd-baixo { background: #ffc800; color: #2e2200; }
 .painel-fotos .pf-aviso { background: #ffd93b; border-color: #f0a500; color: #2e2200; }
 .painel-fotos .painel-catalogo .painel-saude-atencao { border-color: #f0a500; background: #ffe866; }
 .painel-fotos .painel-catalogo .painel-saude-atencao .painel-selo { background: #ffc800; color: #2e2200; }
-
 /* Amarelo suave e quente, em harmonia com a paleta verde-menta do site. */
 .painel-fotos .pf-card .pf-qtd-baixo,
 .painel-fotos .pf-qtd-baixo { background: #f6d78a; color: #4a3500; }
 .painel-fotos .pf-aviso { background: #fbeab2; border-color: #e7c35e; color: #4a3500; }
 .painel-fotos .painel-catalogo .painel-saude-atencao { border-color: #e7c35e; background: #fdf3cf; }
 .painel-fotos .painel-catalogo .painel-saude-atencao .painel-selo { background: #f6d78a; color: #4a3500; }
-
 /* Amarelo mais natural (palha e ocre), sem a cor de tinta: combina com o verde e com a madeira. */
 .painel-fotos .pf-card .pf-qtd-baixo,
 .painel-fotos .pf-qtd-baixo { background: #e9d595; color: #433412; }
 .painel-fotos .pf-aviso { background: #f5ebc8; border-color: #d9c17a; color: #433412; }
 .painel-fotos .painel-catalogo .painel-saude-atencao { border-color: #d9c17a; background: #f6eece; }
 .painel-fotos .painel-catalogo .painel-saude-atencao .painel-selo { background: #e9d595; color: #433412; }
-
 /* Banner de atenção: volta ao amarelo anterior no fundo, com o selo "Atenção" em vermelho e letras brancas. */
 .painel-fotos .painel-catalogo .painel-saude-atencao { border-color: #f0a500; background: #ffe866; }
 .painel-fotos .painel-catalogo .painel-saude-atencao .painel-selo { background: #d64545; color: #ffffff; }
-
 /* Selo de estoque baixo com o mesmo amarelo do banner de atenção. */
 .painel-fotos .pf-card .pf-qtd-baixo,
 .painel-fotos .pf-qtd-baixo { background: #ffe866; color: #3d2f00; }
-
 /* ===== Paleta fixa do painel (fonte única) =====
    Destaque: verde da marca (#14736b). Alerta: amarelo (#ffe866, borda #f0a500, texto #3d2f00).
    Erro: vermelho (#d64545, texto branco). Sucesso/normal: verde-menta suave. Neutros: cinzas da marca. */
@@ -740,13 +688,11 @@ body:has(.nav-interna) { background: #ffffff; }
 .painel-fotos .pf-aviso { background: #fff6cc; border-color: var(--pf-alerta-borda); color: var(--pf-alerta-texto); }
 .painel-fotos .painel-catalogo .painel-saude-atencao { border-color: var(--pf-alerta-borda); background: var(--pf-alerta); }
 .painel-fotos .painel-catalogo .painel-saude-atencao .painel-selo { background: var(--pf-erro); color: var(--pf-erro-texto); }
-
 /* Revisão dos cards: mesma hierarquia em todos — selo e unidades no topo, foto no centro, nome forte, marca e dados em apoio. */
 .painel-fotos .pf-card { gap: 10px; padding: 12px; border-color: var(--pf-linha); box-shadow: 0 1px 2px rgba(13, 20, 19, 0.04); }
 .painel-fotos .pf-card-nome { font-size: 15px; font-weight: 600; line-height: 1.35; margin-top: 4px; }
 .painel-fotos .pf-card-lab { font-size: 13px; font-weight: 500; color: var(--pf-mudo); text-transform: uppercase; letter-spacing: 0.04em; }
 .painel-fotos .pf-card-topo { align-items: center; }
-
 /* Revisão dos chips de subcategoria: mesma altura, raio, tipografia e espaçamento dos chips de categoria. */
 .painel-fotos .pf-arvore-linha--sub .pf-arvore-chips--sub { gap: 8px; }
 .painel-fotos .pf-arvore .pf-chip-filtro--sub {
@@ -766,10 +712,376 @@ body:has(.nav-interna) { background: #ffffff; }
 }
 .painel-fotos .pf-arvore .pf-chip-filtro--sub small { font-size: 12px; font-weight: 500; color: var(--pf-mudo); }
 .painel-fotos .pf-arvore .pf-chip-filtro--sub.pf-chip-filtro--vazio { color: #9aa8a5; }
-
 /* Aviso de confirmação ("Nome salvo…"): é uma mensagem de sucesso, então usa o verde-menta da paleta, não o amarelo de alerta. */
 .painel-fotos .pf-aviso { background: var(--pf-ok); border-color: #7fc4b8; color: var(--pf-ok-texto); }
+@layer design {
+  /* Todo o texto da página de produtos em preto. Textos sobre fundo colorido (selos, botões primários,
+     chip ativo) mantêm a cor de contraste, para continuarem legíveis. */
+  html body .painel-fotos :is(h1, h2, h3, p, span, label, dt, dd, small, b, strong, li, td, th, a) { color: #000000 !important; }
+  html body .painel-fotos :is(input, select, textarea) { color: #000000 !important; }
+  html body .painel-fotos .pf-chip-filtro--ativo,
+  html body .painel-fotos .pf-chip-filtro--ativo small,
+  html body .painel-fotos .pf-chip-cat.pf-chip-filtro--ativo small { color: var(--cor-texto, #ffffff) !important; }
+  html body .painel-fotos .pf-botao--primario,
+  html body .painel-fotos .pf-botao-ia { color: #ffffff !important; }
+  html body .painel-fotos .pf-qtd,
+  html body .painel-fotos .pf-chip-ctl { color: #ffffff !important; }
+  html body .painel-fotos .pf-qtd-baixo { color: #3d2f00 !important; }
+  html body .painel-fotos .pf-qtd-zero,
+  html body .painel-fotos .pf-qtd-normal { color: #ffffff !important; }
+  html body .painel-fotos .pf-chip-ctl { color: #a3200f !important; }
 
-/* Selo "unidades" em estoque normal: verde #22A05A com letras brancas. */
-.painel-fotos .pf-card .pf-qtd-normal,
-.painel-fotos .pf-qtd-normal { background: #22a05a; color: #ffffff; }
+}
+@layer design {
+  html body .painel-fotos .pf-chip-filtro:not(.pf-chip-filtro--ativo),
+  html body .painel-fotos .pf-botao:not(.pf-botao--primario),
+  html body .painel-fotos .pf-engrenagem,
+  html body .painel-fotos .pf-qtd-baixo,
+  html body .painel-fotos .pf-select,
+  html body .painel-fotos .pf-busca input { color: #000000 !important; }
+}
+@layer design {
+  html body .painel-fotos .pf-chip-filtro--sub.pf-chip-filtro--ativo,
+  html body .painel-fotos .pf-chip-filtro--sub.pf-chip-filtro--ativo small { color: #000000 !important; }
+  html body .painel-fotos .painel-catalogo .painel-saude-atencao .painel-selo { color: #ffffff !important; }
+}
+@layer design {
+  html body .painel-fotos .pf-chip-filtro--ativo:not(.pf-chip-cat) { background: #ffffff !important; border-color: #000000 !important; color: #000000 !important; }
+  html body .painel-fotos .pf-chip-filtro--ativo:not(.pf-chip-cat) small { color: #000000 !important; }
+}
+/* Cabeçalho da área interna: logo, selo EQUIPE e links em preto. */
+@layer design {
+  html body .nav-interna .nav-interna-marca,
+  html body .nav-interna .nav-interna-marca *,
+  html body .nav-interna a,
+  html body .nav-interna small { color: #000000 !important; }
+}
+/* Sem verde na área interna: cabeçalho, aba ativa, selos e botões de ação ficam em neutro (preto e cinza).
+   Cores que representam dados (estoque normal, categorias e alertas) continuam como estão. */
+@layer design {
+  html body .nav-interna { border-bottom-color: #d4d4d4 !important; }
+  html body .nav-interna a[aria-current="page"] { background: #e9e9e9 !important; box-shadow: inset 0 -3px 0 #000000; }
+  html body .nav-interna-marca small { background: #ececec !important; }
+  html body .painel-fotos { --pf-verde: #000000; --pf-verde-claro: #ececec; --pf-ok: #ececec; --pf-ok-texto: #000000; }
+  html body .painel-fotos .pf-botao--primario,
+  html body .painel-fotos .pf-botao-ia,
+  html body .painel-fotos .pf-selecao-controle .pf-botao[aria-pressed="true"] { background: #000000 !important; border-color: #000000 !important; color: #ffffff !important; }
+  html body .painel-fotos .pf-selecao-controle .pf-botao { border-color: #bdbdbd !important; }
+  html body .painel-fotos .pf-selecao-controle .pf-botao:hover:not(:disabled) { background: #f2f2f2 !important; }
+  html body .painel-fotos .pf-barra,
+  html body .painel-fotos .pf-busca { background: #ffffff !important; }
+  html body .painel-fotos .pf-arvore { border-color: #d4d4d4 !important; }
+  html body .painel-fotos .pf-arvore .pf-chip-filtro--sub.pf-chip-filtro--ativo { border-color: #000000 !important; }
+  html body .painel-fotos .pf-chip-filtro--ativo:not(.pf-chip-cat) { border-color: #000000 !important; }
+}
+/* Indicadores do topo do painel (estoque, PC e uso interno): textos em preto e bordas neutras. Selos de alerta mantêm a cor de status. */
+@layer design {
+  html body .painel-fotos .painel-catalogo,
+  html body .painel-fotos .painel-catalogo :is(p, span, strong, b, small, h1, h2, h3, div, a, li, dt, dd):not(.painel-selo) { color: #000000 !important; }
+  html body .painel-fotos .painel-catalogo :is(div, section, article, li) { border-color: #d4d4d4 !important; }
+}
+@layer design {
+  html body .nav-interna a[aria-current="page"] { box-shadow: inset 0 -3px 0 #000000 !important; }
+}
+/* Menu da área interna na lateral esquerda, em vez da faixa no topo (telas largas).
+   Em telas estreitas volta para a faixa de cima. */
+@layer design {
+  @media (min-width: 861px) {
+    html body main:has(> .nav-interna) { display: grid !important; grid-template-columns: 216px minmax(0, 1fr) !important; align-items: start !important; }
+    html body .nav-interna {
+      position: sticky !important; top: 0 !important; height: 100vh !important; grid-column: 1 !important; grid-row: 1 !important;
+      flex-direction: column !important; align-items: stretch !important; gap: 12px !important; padding: 20px 12px !important;
+      border-bottom: 0 !important; border-right: 1px solid #d4d4d4 !important; background: #ffffff !important;
+      box-shadow: none !important; overflow-y: auto !important;
+    }
+    html body .nav-interna-marca { padding: 0 8px 12px !important; }
+    html body .nav-interna ul { flex-direction: column !important; gap: 4px !important; padding: 0 !important; overflow: visible !important; width: 100% !important; }
+    html body .nav-interna a { width: 100% !important; box-sizing: border-box !important; justify-content: flex-start !important; min-height: 2.5rem !important; }
+    html body .nav-interna a[aria-current="page"] { box-shadow: inset 3px 0 0 #000000 !important; }
+    html body main:has(> .nav-interna) > .interno-corpo { grid-column: 2 !important; grid-row: 1 !important; min-width: 0 !important; }
+  }
+}
+@layer design {
+  @media (min-width: 861px) {
+    html body .nav-interna { overflow-x: hidden !important; }
+    html body .nav-interna-marca { display: flex !important; flex-wrap: wrap !important; align-items: center !important; gap: 6px !important; }
+    html body .nav-interna-marca small { margin: 0 !important; }
+  }
+}
+/* Lateral elaborada (telas largas): ícones, estado ativo com barra e fundo suave, hover discreto e marca com respiro. */
+@layer design {
+  @media (min-width: 861px) {
+    html body .nav-interna { padding: 22px 14px 18px !important; gap: 18px !important; }
+    html body .nav-interna-marca { padding: 4px 8px 16px !important; border-bottom: 1px solid #ececec; margin-bottom: 4px; }
+    html body .nav-interna ul { gap: 2px !important; }
+    html body .nav-interna a {
+      display: flex !important; align-items: center !important; gap: 12px !important;
+      min-height: 42px !important; padding: 0 12px 0 14px !important; border-radius: 10px !important;
+      color: #111111 !important; font-size: 14px !important; font-weight: 500 !important; opacity: 1 !important;
+      background: transparent !important; transition: background-color 0.25s ease, color 0.25s ease !important;
+    }
+    html body .nav-interna a:hover { background: #f4f4f4 !important; }
+    html body .nav-interna a[aria-current="page"] { background: #111111 !important; color: #ffffff !important; font-weight: 600 !important; box-shadow: none !important; }
+    html body .nav-interna .nav-interna-icone { flex: none; opacity: 0.9; }
+    html body .nav-interna a[aria-current="page"] .nav-interna-icone { opacity: 1; }
+  }
+}
+/* Versão final da lateral: recolher para só ícones, rodapé com o botão de recolher, e transições suaves. */
+@layer design {
+  @media (min-width: 861px) {
+    html body main:has(> .nav-interna) { grid-template-columns: 224px minmax(0, 1fr) !important; transition: grid-template-columns 0.3s cubic-bezier(0.22, 1, 0.36, 1) !important; }
+    html body main:has(> .nav-interna--recolhida) { grid-template-columns: 68px minmax(0, 1fr) !important; }
+    html body .nav-interna .nav-interna-rotulo { transition: opacity 0.2s ease !important; white-space: nowrap; }
+    html body .nav-interna--recolhida .nav-interna-marca small,
+    html body .nav-interna--recolhida .nav-interna-marca > span:not(:first-child) { display: none !important; }
+    html body .nav-interna--recolhida .nav-interna-marca { padding: 4px 0 16px !important; justify-content: center !important; }
+    html body .nav-interna--recolhida .nav-interna-marca svg,
+    html body .nav-interna--recolhida .nav-interna-marca { max-width: 100%; }
+    html body .nav-interna--recolhida .nav-interna-rotulo { display: none !important; }
+    html body .nav-interna--recolhida a { justify-content: center !important; padding: 0 !important; }
+    html body .nav-interna--recolhida .nav-interna-recolher { justify-content: center !important; padding: 0 !important; }
+    html body .nav-interna-recolher {
+      margin-top: auto !important; display: flex !important; align-items: center !important; gap: 12px !important;
+      min-height: 40px !important; padding: 0 12px 0 14px !important; border: 1px solid #e5e5e5 !important; border-radius: 10px !important;
+      background: #ffffff !important; color: #555555 !important; font: inherit !important; font-size: 13px !important; font-weight: 500 !important; cursor: pointer !important;
+      transition: background-color 0.25s ease, color 0.25s ease !important;
+    }
+    html body .nav-interna-recolher:hover { background: #f4f4f4 !important; color: #111111 !important; }
+    html body .nav-interna-recolher:focus-visible { outline: 2px solid #111111 !important; outline-offset: 2px !important; }
+    html body .nav-interna { transition: width 0.3s cubic-bezier(0.22, 1, 0.36, 1) !important; }
+  }
+}
+@layer design {
+  @media (min-width: 861px) {
+    html body .nav-interna--recolhida { width: 68px !important; min-width: 0 !important; padding-inline: 10px !important; overflow: hidden !important; }
+    html body .nav-interna--recolhida ul { width: 100% !important; }
+    html body .nav-interna--recolhida a { width: 100% !important; }
+  }
+}
+@layer design {
+  @media (min-width: 861px) {
+    html body .nav-interna--recolhida .nav-interna-marca { display: none !important; }
+    html body .nav-interna--recolhida { padding-top: 16px !important; }
+  }
+}
+/* Transição entre telas da área interna.
+   Chrome/Edge: a troca de página acontece como uma transição de visualização (o conteúdo cruza suavemente).
+   Outros navegadores: o conteúdo da tela nova entra com um leve deslize e fade, e a lateral permanece. */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: 180ms cubic-bezier(0.4, 0, 1, 1) both pf-sai; }
+::view-transition-new(root) { animation: 320ms cubic-bezier(0.22, 1, 0.36, 1) both pf-entra; }
+@keyframes pf-sai { to { opacity: 0; } }
+@keyframes pf-entra { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@layer design {
+  html body main .interno-corpo { animation: pf-corpo-entra 0.38s cubic-bezier(0.22, 1, 0.36, 1) both; }
+}
+@keyframes pf-corpo-entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root), ::view-transition-new(root), html body main .interno-corpo { animation: none !important; }
+}
+/* Carregamento percebido: cards vazios que pulsam enquanto os dados chegam (só quando não há cache). */
+.painel-fotos .pf-esqueleto { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; margin-top: 12px; }
+.painel-fotos .pf-esqueleto-card { height: 340px; border-radius: 16px; border: 1px solid #ececec; background: linear-gradient(90deg, #f4f4f4 0%, #fafafa 50%, #f4f4f4 100%); background-size: 200% 100%; animation: pf-pulsa 1.2s ease-in-out infinite; }
+@keyframes pf-pulsa { 0% { background-position: 100% 0; } 100% { background-position: -100% 0; } }
+@media (prefers-reduced-motion: reduce) { .painel-fotos .pf-esqueleto-card { animation: none; } }
+/* Percepção de carregamento nos cards: a área da foto já aparece com um tom suave, a imagem entra com fade,
+   e os primeiros cards entram em sequência curta. */
+.painel-fotos .pf-card-foto { background: linear-gradient(180deg, #fafafa 0%, #f2f2f2 100%) !important; }
+.painel-fotos .pf-card-foto img { animation: pf-foto-entra 0.45s ease-out both; }
+@keyframes pf-foto-entra { from { opacity: 0; } to { opacity: 1; } }
+.painel-fotos .pf-grade > .pf-card { animation: pf-card-entra 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.painel-fotos .pf-grade > .pf-card:nth-child(4n+2) { animation-delay: 0.03s; }
+.painel-fotos .pf-grade > .pf-card:nth-child(4n+3) { animation-delay: 0.06s; }
+.painel-fotos .pf-grade > .pf-card:nth-child(4n+4) { animation-delay: 0.09s; }
+.painel-fotos .pf-grade > .pf-card:nth-child(n+9) { animation: none; }
+@keyframes pf-card-entra { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .painel-fotos .pf-card-foto img, .painel-fotos .pf-grade > .pf-card { animation: none !important; }
+}
+/* Indicadores honestos: barra fina só enquanto a busca real está em andamento, e a data dos dados exibidos. */
+.painel-fotos .pf-barra-atualiza { position: relative; height: 2px; margin: 0 0 8px; overflow: hidden; border-radius: 2px; background: #ececec; }
+.painel-fotos .pf-barra-atualiza::after { content: ""; position: absolute; inset: 0; width: 35%; background: #111111; animation: pf-barra-corre 1.1s ease-in-out infinite; }
+@keyframes pf-barra-corre { from { transform: translateX(-100%); } to { transform: translateX(300%); } }
+.painel-fotos .pf-atualizado { margin: 0 0 12px; font-size: 13px; color: #666666; }
+@media (prefers-reduced-motion: reduce) { .painel-fotos .pf-barra-atualiza::after { animation: none; width: 100%; opacity: 0.4; } }
+/* Na área interna, o logo fica só com "União Farma" e o selo EQUIPE. O logo do site público não muda. */
+@layer design {
+  html body .nav-interna .marca-uf-pe { display: none !important; }
+}
+/* No celular, o botão "Recolher" não existe (a faixa do topo rola de lado). */
+@layer design {
+  @media (max-width: 860px) {
+    html body .nav-interna-recolher { display: none !important; }
+  }
+}
+/* Celular: a mesma lateral, que abre por cima da tela pelo botão de menu (fecha ao escolher um item). */
+.nav-interna-abrir { display: none; }
+@layer design {
+  @media (max-width: 860px) {
+    html body .nav-interna-abrir {
+      display: inline-flex !important; position: fixed !important; top: 10px !important; left: 10px !important; z-index: 90 !important;
+      width: 42px !important; height: 42px !important; align-items: center !important; justify-content: center !important;
+      border: 1px solid #e5e5e5 !important; border-radius: 10px !important; background: #ffffff !important; color: #111111 !important; cursor: pointer !important;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    }
+    html body .nav-interna {
+      position: fixed !important; top: 0 !important; left: 0 !important; bottom: 0 !important; height: 100vh !important;
+      width: min(272px, 84vw) !important; flex-direction: column !important; align-items: stretch !important; gap: 14px !important;
+      padding: 64px 14px 20px !important; background: #ffffff !important; border-right: 1px solid #e5e5e5 !important; border-bottom: 0 !important;
+      box-shadow: none !important; overflow-y: auto !important; overflow-x: hidden !important; z-index: 80 !important;
+      transform: translateX(-104%) !important; transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease !important;
+    }
+    html body .nav-interna.nav-interna--mobile-aberta { transform: translateX(0) !important; box-shadow: 0 0 40px rgba(0, 0, 0, 0.18) !important; }
+    html body .nav-interna ul { flex-direction: column !important; gap: 4px !important; padding: 0 !important; overflow: visible !important; width: 100% !important; }
+    html body .nav-interna a { width: 100% !important; box-sizing: border-box !important; display: flex !important; align-items: center !important; gap: 12px !important; min-height: 44px !important; padding: 0 12px 0 14px !important; border-radius: 10px !important; color: #111111 !important; font-size: 15px !important; font-weight: 500 !important; opacity: 1 !important; background: transparent !important; }
+    html body .nav-interna a[aria-current="page"] { background: #111111 !important; color: #ffffff !important; font-weight: 600 !important; box-shadow: none !important; }
+    html body .nav-interna .nav-interna-rotulo { display: inline !important; }
+    html body .nav-interna-marca { padding: 4px 8px 14px !important; border-bottom: 1px solid #ececec; margin-bottom: 4px; }
+    html body main:has(> .nav-interna) { display: block !important; }
+    html body main:has(> .nav-interna) > .interno-corpo { padding-top: 60px !important; }
+  }
+}
+/* Nenhuma categoria fica cortada: a linha quebra em outra linha sempre que faltar espaço, em qualquer largura. */
+@layer design {
+  html body .painel-fotos .pf-arvore .pf-arvore-chips--cat { flex-wrap: wrap !important; overflow: visible !important; }
+}
+/* Categorias sempre em uma linha: o texto dos chips acompanha a largura da tela para caber.
+   No celular, a linha rola de lado (sem quebrar e sem cortar nenhum chip). */
+@layer design {
+  html body .painel-fotos .pf-arvore .pf-arvore-chips--cat { flex-wrap: nowrap !important; overflow-x: auto !important; scrollbar-width: none; }
+  html body .painel-fotos .pf-arvore .pf-arvore-chips--cat::-webkit-scrollbar { display: none; }
+  html body .painel-fotos .pf-arvore .pf-arvore-chips--cat .pf-chip-filtro { font-size: clamp(11px, 0.95vw, 13px) !important; padding: 0 clamp(6px, 0.6vw, 10px) !important; flex: 0 0 auto; }
+  html body .painel-fotos .pf-arvore .pf-arvore-chips--cat .pf-chip-filtro small { font-size: clamp(10px, 0.85vw, 12px) !important; }
+}
+/* Rótulo CATEGORIA ocupa só a largura do texto, e os chips reduzem um pouco para a linha inteira caber em desktop. */
+@layer design {
+  @media (min-width: 861px) {
+    html body .painel-fotos .pf-arvore-linha:has(.pf-arvore-chips--cat) { grid-template-columns: auto minmax(0, 1fr) !important; gap: 14px !important; }
+    html body .painel-fotos .pf-arvore-linha:has(.pf-arvore-chips--cat) > .pf-arvore-rotulo { white-space: nowrap; }
+    html body .painel-fotos .pf-arvore .pf-arvore-chips--cat .pf-chip-filtro { font-size: clamp(10.5px, 0.9vw, 13px) !important; padding: 0 clamp(5px, 0.5vw, 10px) !important; gap: 0.3rem !important; }
+  }
+}
+/* Cartão de configuração compacto e sempre no centro da tela (renderizado fora da página, num portal). */
+@layer design {
+  html body .pf-modal-fundo { position: fixed !important; inset: 0 !important; z-index: 200 !important; display: grid !important; place-items: center !important; padding: 16px !important; }
+  html body .pf-modal {
+    width: min(420px, 100%) !important; max-width: 420px !important; max-height: min(78vh, 640px) !important;
+    padding: 14px 16px !important; border-radius: 14px !important; overflow-y: auto !important; box-sizing: border-box !important;
+  }
+  html body .pf-modal .pf-modal-topo { margin: 0 0 10px !important; }
+  html body .pf-modal .pf-modal-topo h2 { font-size: 15px !important; }
+  html body .pf-modal .pf-modal-corpo { gap: 10px !important; }
+  html body .pf-modal .pf-entrada { padding: 7px 10px !important; font-size: 14px !important; }
+  html body .pf-modal .pf-area { min-height: 64px !important; }
+  html body .pf-modal .pf-modal-rodape { margin-top: 10px !important; padding-top: 10px !important; }
+}
+/* A linha de categorias tem folga no fim, para o último chip nunca encostar na borda ao rolar. */
+@layer design {
+  html body .painel-fotos .pf-arvore .pf-arvore-chips--cat { padding-right: 12px !important; scroll-padding-right: 12px; }
+}
+/* Chips de categoria sem os números (as subcategorias mantêm os seus). */
+@layer design {
+  html body .painel-fotos .pf-arvore .pf-chip-cat small { display: none !important; }
+}
+/* Com os números fora, os chips de categoria ganham tamanho de leitura (sem sair da linha). */
+@layer design {
+  @media (min-width: 861px) {
+    html body .painel-fotos .pf-arvore .pf-arvore-chips--cat .pf-chip-cat { font-size: clamp(12px, 1vw, 14px) !important; padding: 0 clamp(8px, 0.7vw, 12px) !important; min-height: 2.25rem !important; }
+  }
+}
+/* Paginação: barra compacta e centralizada, com setas, contador em números alinhados e botões discretos. */
+@layer design {
+  html body .painel-fotos .pf-paginas {
+    display: inline-flex !important; align-items: center !important; gap: 4px !important; margin: 20px auto 0 !important;
+    padding: 4px !important; border: 1px solid #e5e5e5 !important; border-radius: 999px !important; background: #ffffff !important;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04) !important; width: max-content !important; max-width: 100% !important; justify-content: center !important;
+  }
+  html body .painel-fotos .pf-paginas button {
+    min-height: 36px !important; padding: 0 14px !important; border: 0 !important; border-radius: 999px !important;
+    background: transparent !important; color: #111111 !important; font-size: 14px !important; font-weight: 500 !important;
+    transition: background-color 0.2s ease, color 0.2s ease !important; cursor: pointer !important;
+  }
+  html body .painel-fotos .pf-paginas button:hover:not(:disabled) { background: #f2f2f2 !important; }
+  html body .painel-fotos .pf-paginas button:disabled { color: #b5b5b5 !important; cursor: default !important; opacity: 1 !important; }
+  html body .painel-fotos .pf-paginas span {
+    padding: 0 12px !important; font-size: 14px !important; color: #555555 !important; font-variant-numeric: tabular-nums !important; white-space: nowrap !important;
+  }
+}
+/* Paginação maior e centralizada na página. */
+@layer design {
+  html body .painel-fotos .pf-paginas {
+    display: flex !important; width: max-content !important; margin: 28px auto 8px !important;
+    padding: 6px !important; gap: 6px !important; border-radius: 999px !important;
+  }
+  html body .painel-fotos .pf-paginas button { min-height: 46px !important; padding: 0 22px !important; font-size: 16px !important; font-weight: 600 !important; }
+  html body .painel-fotos .pf-paginas span { padding: 0 18px !important; font-size: 16px !important; }
+}
+/* Paginação com profundidade: a barra e os botões ganham borda inferior e sombra, e um brilho no topo, para se destacarem. */
+@layer design {
+  html body .painel-fotos .pf-paginas {
+    background: linear-gradient(180deg, #ffffff 0%, #f4f4f4 100%) !important;
+    border: 1px solid #d9d9d9 !important;
+    box-shadow: inset 0 1px 0 #ffffff, 0 4px 0 #d4d4d4, 0 10px 22px -8px rgba(0, 0, 0, 0.28) !important;
+  }
+  html body .painel-fotos .pf-paginas button:not(:disabled) {
+    background: linear-gradient(180deg, #ffffff 0%, #ececec 100%) !important;
+    border: 1px solid #cfcfcf !important;
+    box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 #bdbdbd, 0 4px 8px -4px rgba(0, 0, 0, 0.25) !important;
+    transform: translateY(0);
+    transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.2s ease !important;
+  }
+  html body .painel-fotos .pf-paginas button:not(:disabled):hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 #ffffff, 0 3px 0 #bdbdbd, 0 8px 12px -6px rgba(0, 0, 0, 0.3) !important; }
+  html body .painel-fotos .pf-paginas button:not(:disabled):active { transform: translateY(2px); box-shadow: inset 0 1px 0 #ffffff, 0 0 0 #bdbdbd, 0 1px 3px -2px rgba(0, 0, 0, 0.3) !important; }
+  html body .painel-fotos .pf-paginas button:disabled { background: #f6f6f6 !important; box-shadow: none !important; }
+}
+/* Troca de página: a grade sai e entra com deslize e fade (a cada página, a grade é remontada). */
+.painel-fotos .pf-grade--pagina { animation: pf-pagina-entra 0.55s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes pf-pagina-entra { from { opacity: 0; transform: translateX(24px); } to { opacity: 1; transform: none; } }
+.painel-fotos .pf-grade--pagina > .pf-card { animation: pf-card-sobe 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.painel-fotos .pf-grade--pagina > .pf-card:nth-child(4n+2) { animation-delay: 0.03s; }
+.painel-fotos .pf-grade--pagina > .pf-card:nth-child(4n+3) { animation-delay: 0.06s; }
+.painel-fotos .pf-grade--pagina > .pf-card:nth-child(4n+4) { animation-delay: 0.09s; }
+.painel-fotos .pf-grade--pagina > .pf-card:nth-child(n+9) { animation: none; }
+@keyframes pf-card-sobe { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .painel-fotos .pf-grade--pagina, .painel-fotos .pf-grade--pagina > .pf-card { animation: none !important; }
+}
+/* Ao trocar de página, a rolagem vai para o topo da lista; no celular, sem esconder atrás do botão de menu. */
+.painel-fotos .pf-grade { scroll-margin-top: 84px; }
+
+/* Ao trocar de página, o primeiro card entra inteiro na tela, com uma pequena folga em cima. */
+.painel-fotos .pf-grade > .pf-card { scroll-margin-top: 96px; }
+
+/* Aviso de estoque minimalista: fundo branco, uma faixa fina à esquerda e uma linha de texto discreta. */
+@layer design {
+  html body .painel-fotos .painel-catalogo .painel-saude-atencao {
+    background: #ffffff !important; border: 1px solid #ececec !important; border-left: 3px solid #d64545 !important;
+    border-radius: 10px !important; padding: 12px 16px !important; box-shadow: none !important; align-items: center !important;
+  }
+  html body .painel-fotos .painel-catalogo .painel-saude-atencao .painel-selo {
+    background: transparent !important; color: #d64545 !important; padding: 0 !important; font-size: 12px !important; font-weight: 700 !important;
+    text-transform: uppercase !important; letter-spacing: 0.06em !important; border: 0 !important;
+  }
+  html body .painel-fotos .painel-catalogo .painel-saude-atencao strong { font-size: 14px !important; font-weight: 600 !important; color: #111111 !important; }
+  html body .painel-fotos .painel-catalogo .painel-saude-atencao p { font-size: 13px !important; color: #666666 !important; margin: 2px 0 0 !important; }
+}
+
+/* Aviso ainda mais discreto: sem borda e sem faixa, só um ponto vermelho e o texto em uma linha. */
+@layer design {
+  html body .painel-fotos .painel-catalogo .painel-saude-atencao {
+    background: transparent !important; border: 0 !important; border-left: 0 !important; border-radius: 0 !important;
+    padding: 4px 0 !important; margin: 0 0 12px !important; align-items: center !important; gap: 10px !important;
+  }
+  html body .painel-fotos .painel-catalogo .painel-saude-atencao .painel-selo {
+    width: 8px !important; height: 8px !important; min-width: 8px !important; padding: 0 !important; border-radius: 50% !important;
+    background: #d64545 !important; color: transparent !important; font-size: 0 !important; overflow: hidden !important;
+  }
+  html body .painel-fotos .painel-catalogo .painel-saude-atencao > div { display: flex !important; flex-wrap: wrap !important; align-items: baseline !important; gap: 8px !important; }
+  html body .painel-fotos .painel-catalogo .painel-saude-atencao strong { font-size: 14px !important; font-weight: 600 !important; }
+  html body .painel-fotos .painel-catalogo .painel-saude-atencao p { margin: 0 !important; font-size: 13px !important; }
+}
+
+/* Selo de estoque normal em verde vibrante, com letras brancas (legível). */
+@layer design {
+  html body .painel-fotos .pf-card .pf-qtd-normal { background: #22a05a !important; color: #ffffff !important; }
+}

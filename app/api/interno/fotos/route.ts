@@ -8,7 +8,6 @@ import { listarPendentes, listarRemocoes } from "../../../fotos-enviadas";
 import { mapaDeCategorias } from "../../../categoria-override";
 import { mapaDeControlados } from "../../../controlado-override";
 import { mapaDeMarcas } from "../../../marca-override";
-import { mapaDePalavras } from "../../../palavras-busca";
 import { mapaDeDescricoes } from "../../../descricao-override";
 import { mapaDeNomes, ultimasAlteracoes, type Banco } from "../../../nomes-corrigidos";
 import { mapaDeRemovidos } from "../../../produtos-removidos";
@@ -76,14 +75,18 @@ export async function GET() {
   const eansComFoto = new Set(Object.values(FOTOS_NACOES));
   const linhas = montarLinhas(itens, eansComFoto, categorias);
   // Fotos já enviadas pelo painel e ainda não publicadas no site.
-  const pendentes = db ? (await listarPendentes(db).catch(() => [])).map((f) => f.ean) : [];
-  const removidas = db ? (await listarRemocoes(db).catch(() => [])).map((r) => r.ean) : [];
-  const nomes = db ? await mapaDeNomes(db).catch(() => ({})) : {};
-  const controlados = db ? await mapaDeControlados(db).catch(() => ({})) : {};
-  const marcasOverride = db ? await mapaDeMarcas(db).catch(() => ({})) : {};
-  const palavrasOverride = db ? await mapaDePalavras(db).catch(() => ({})) : {};
-  const descricoesOverride = db ? await mapaDeDescricoes(db).catch(() => ({})) : {};
-  const alteracoes = db ? await ultimasAlteracoes(db).catch(() => []) : [];
+  // Consultas independentes rodam juntas, em vez de uma depois da outra.
+  const [pendentesBr, removidasBr, nomes, controlados, marcasOverride, descricoesOverride, alteracoes] = await Promise.all([
+    db ? listarPendentes(db).catch(() => []) : Promise.resolve([]),
+    db ? listarRemocoes(db).catch(() => []) : Promise.resolve([]),
+    db ? mapaDeNomes(db).catch(() => ({})) : Promise.resolve({}),
+    db ? mapaDeControlados(db).catch(() => ({})) : Promise.resolve({}),
+    db ? mapaDeMarcas(db).catch(() => ({})) : Promise.resolve({}),
+    db ? mapaDeDescricoes(db).catch(() => ({})) : Promise.resolve({}),
+    db ? ultimasAlteracoes(db).catch(() => []) : Promise.resolve([]),
+  ]);
+  const pendentes = db ? pendentesBr.map((f) => f.ean) : [];
+  const removidas = db ? removidasBr.map((r) => r.ean) : [];
   const sistemaRestrito = new Set<string>();
   for (const i of [...restritos.receita, ...restritos.controlados]) sistemaRestrito.add(chaveDeNome(i.nome));
   // Produtos que já têm texto de pesquisa ou de IA na página (para o filtro "Sem descrição"; sem o texto em si, só o código).
@@ -109,7 +112,6 @@ export async function GET() {
       controlados,
       categoriasOverride: categoriasOvr,
       marcasOverride,
-      palavrasOverride,
       comDescricao,
       descricoes,
       descricoesOverride,
