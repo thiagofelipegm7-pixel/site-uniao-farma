@@ -2,12 +2,23 @@
 .painel-leve-pague h1 { margin: 0 0 0.5rem; font-size: 1.35rem; }
 .painel-leve-pague p { max-width: 52rem; line-height: 1.5; }
 .painel-leve-pague__nota { color: #81501d; }
-.painel-leve-pague__linha { display: grid; grid-template-columns: minmax(13rem, 2fr) 6rem minmax(9rem, 1fr) auto auto; align-items: end; gap: 0.75rem; margin-top: 0.75rem; padding: 0.875rem 0; border-top: 1px solid #e2eae8; }
+.painel-leve-pague__linha { display: grid; grid-template-columns: minmax(14rem, 1.2fr) minmax(22rem, 2fr) auto auto; align-items: end; gap: 0.75rem; margin-top: 0.75rem; padding: 0.875rem 0; border-top: 1px solid #e2eae8; }
 .painel-leve-pague label { display: grid; gap: 0.3rem; font-size: 0.875rem; font-weight: 650; }
-.painel-leve-pague input, .painel-leve-pague select { box-sizing: border-box; width: 100%; min-height: 2.75rem; padding: 0.5rem; border: 1px solid #9ab5af; border-radius: 6px; background: #fff; color: #153f48; font: inherit; }
+.painel-leve-pague input { box-sizing: border-box; width: 100%; min-height: 2.75rem; padding: 0.5rem; border: 1px solid #9ab5af; border-radius: 6px; background: #fff; color: #153f48; font: inherit; }
+.painel-leve-pague__busca { position: relative; min-width: 0; }
+.painel-leve-pague__resultados { position: absolute; z-index: 20; top: calc(100% + 0.25rem); left: 0; right: 0; max-height: min(18rem, 55vh); overflow: auto; padding: 0.25rem; border: 1px solid #9ab5af; border-radius: 8px; background: #fff; box-shadow: 0 8px 24px rgb(14 48 50 / 18%); }
+.painel-leve-pague__resultados button { display: block; width: 100%; min-height: 2.75rem; padding: 0.625rem 0.75rem; border-radius: 5px; background: #fff; color: #153f48; text-align: left; font-weight: 550; }
+.painel-leve-pague__resultados button:hover, .painel-leve-pague__resultados button:focus-visible { background: #eef7f5; outline: 2px solid #006d70; outline-offset: -2px; }
+.painel-leve-pague__resultados p { margin: 0; padding: 0.65rem; color: #465b58; font-size: 0.875rem; font-weight: 500; }
+.painel-leve-pague__faixas { display: grid; gap: 0.5rem; }
+.painel-leve-pague__faixa { display: grid; grid-template-columns: minmax(5rem, 0.65fr) minmax(9rem, 1fr) auto; align-items: end; gap: 0.5rem; }
+.painel-leve-pague__faixa label { font-size: 0.8rem; }
+.painel-leve-pague__faixa input { min-height: 2.5rem; }
+.painel-leve-pague__faixa .painel-leve-pague__remover-faixa { width: 2.5rem; padding: 0; background: #f3f6f5; color: #17434a; font-size: 1.35rem; }
+.painel-leve-pague__adicionar-faixa { justify-self: start; min-height: 2.25rem !important; padding: 0.3rem 0.65rem !important; font-size: 0.8rem !important; }
 .painel-leve-pague__preco { margin: 0; white-space: nowrap; font-size: 0.875rem; }
 .painel-leve-pague button { min-height: 2.75rem; padding: 0.5rem 0.875rem; border: 0; border-radius: 6px; background: #006d70; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
 .painel-leve-pague__remover { background: #f3f6f5 !important; color: #17434a !important; }
 .painel-leve-pague__acoes { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
 .painel-leve-pague__aviso { color: #075f48; font-weight: 650; }
-@media (max-width: 650px) { .painel-leve-pague { padding: 1rem; } .painel-leve-pague__linha { grid-template-columns: minmax(0, 1fr) 5rem; } .painel-leve-pague__linha label:first-child { grid-column: 1 / -1; } .painel-leve-pague__preco { grid-column: 1 / -1; } }
+@media (max-width: 800px) { .painel-leve-pague { padding: 1rem; } .painel-leve-pague__linha { grid-template-columns: minmax(0, 1fr) auto; } .painel-leve-pague__busca, .painel-leve-pague__faixas, .painel-leve-pague__preco { grid-column: 1 / -1; } .painel-leve-pague__remover { grid-column: 2; grid-row: 3; } }

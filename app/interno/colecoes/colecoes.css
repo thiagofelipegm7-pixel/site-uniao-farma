@@ -1,3 +1,41 @@
+/* Painel de coleções de fotos (área interna). Celular primeiro, sem rolagem horizontal. */
+.colecoes-painel { max-width: 56rem; margin: 0 auto; padding: 1.25rem 16px 3rem; box-sizing: border-box; color: #0d1413; }
+.colecoes-painel h1 { margin: 0 0 0.4rem; font-size: 1.5rem; color: #0a3548; }
+.colecoes-painel header p { margin: 0 0 1rem; color: #3e4b49; }
+.colecoes-busca { display: grid; gap: 0.35rem; margin-bottom: 0.75rem; font-weight: 700; }
+.colecoes-busca input { min-height: 2.75rem; padding: 0 0.8rem; border: 1px solid #6b8b86; border-radius: 8px; font: inherit; font-weight: 400; }
+.colecoes-resultados { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; gap: 0.4rem; }
+.colecoes-resultados button { width: 100%; display: grid; gap: 0.15rem; padding: 0.7rem 0.9rem; border: 1px solid #d3e2df; border-radius: 10px; background: #ffffff; text-align: left; cursor: pointer; font: inherit; }
+.colecoes-resultados small { color: #66756f; }
+.colecoes-produto { padding: 1rem; border: 1px solid #d3e2df; border-radius: 14px; background: #ffffff; }
+.colecoes-produto h2 { margin: 0; font-size: 1.1rem; color: #0a3548; overflow-wrap: anywhere; }
+.colecoes-ean { margin: 0.2rem 0 1rem; color: #66756f; font-size: 0.875rem; }
+.colecoes-fotos { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.75rem; }
+.colecoes-fotos li { display: grid; gap: 0.5rem; justify-items: center; }
+.colecoes-fotos img { width: 100%; max-width: 120px; height: auto; aspect-ratio: 1; object-fit: contain; border: 1px solid #d3e2df; border-radius: 10px; background: #ffffff; }
+.colecoes-acoes { display: flex; flex-wrap: wrap; gap: 0.35rem; justify-content: center; }
+.colecoes-acoes button { min-height: 2.5rem; min-width: 2.5rem; padding: 0 0.6rem; border: 1px solid #0a3548; border-radius: 8px; background: #ffffff; color: #0a3548; font: inherit; font-weight: 700; cursor: pointer; }
+.colecoes-acoes button:disabled { opacity: 0.4; cursor: default; }
+.colecoes-enviar { display: grid; gap: 0.4rem; margin-bottom: 0.75rem; }
+.colecoes-enviar span { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0 1rem; border-radius: 8px; background: #14736b; color: #ffffff; font-weight: 700; cursor: pointer; }
+.colecoes-enviar input { font: inherit; }
+.colecoes-aviso { margin: 0.5rem 0; padding: 0.6rem 0.8rem; border-radius: 8px; background: #fdecea; color: #a3200f; font-weight: 700; }
+.colecoes-cheio, .colecoes-nota { margin: 0.5rem 0 0; color: #3e4b49; font-size: 0.9rem; }
+.colecoes-apresentacoes { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #d3e2df; }
+.colecoes-apresentacoes h3 { margin: 0 0 0.35rem; color: #0a3548; font-size: 1.05rem; }
+.colecoes-apresentacoes > p { margin: 0 0 0.8rem; color: #3e4b49; line-height: 1.45; }
+.colecoes-apresentacoes label { display: grid; gap: 0.3rem; font-size: 0.85rem; font-weight: 700; }
+.colecoes-apresentacoes input, .colecoes-apresentacoes select { box-sizing: border-box; width: 100%; min-height: 2.65rem; padding: 0.5rem 0.7rem; border: 1px solid #9ab5af; border-radius: 7px; background: #fff; font: inherit; font-weight: 400; }
+.colecoes-apresentacao { display: grid; grid-template-columns: minmax(10rem, 1.2fr) minmax(9rem, 1fr) minmax(8rem, 0.7fr) auto; align-items: end; gap: 0.6rem; margin: 0.7rem 0; padding: 0.7rem; border: 1px solid #d3e2df; border-radius: 10px; background: #f9fcfb; }
+.colecoes-apresentacoes button { min-height: 2.65rem; padding: 0 0.85rem; border: 0; border-radius: 8px; background: #14736b; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+.colecoes-apresentacoes button:disabled { opacity: 0.5; cursor: default; }
+.colecoes-apresentacoes .colecoes-apresentacao-remover { background: #eef3f2; color: #17434a; }
+.colecoes-apresentacoes-acoes { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-top: 0.75rem; }
+@media (max-width: 720px) { .colecoes-apresentacao { grid-template-columns: minmax(0, 1fr) auto; } .colecoes-apresentacao label { grid-column: 1 / -1; } .colecoes-apresentacao button { grid-column: 2; } }
+@media (min-width: 720px) { .colecoes-fotos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 992px) { .colecoes-fotos { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+
+/* Fotos extras no cartão de configuração (painel de Publicidade). */
 /* Aba Coleções (dentro de Publicidade). Mesmo acabamento da aba Foto principal: verde-água, neumorfismo, sem linhas. Celular primeiro, sem rolagem horizontal. */
 /* display: block garante a caixa (o layout interno deixa o <main> como "contents", sem largura nem respiro). */
 html body main.colecoes-painel { display: block !important; }
