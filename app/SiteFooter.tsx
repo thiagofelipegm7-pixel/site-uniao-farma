@@ -42,7 +42,7 @@ export default function SiteFooter() {
 
           <div className="rodape-bloco">
             <p className="rodape-titulo" role="heading" aria-level={2}>Responsabilidade técnica</p>
-            <p>Farmacêutico responsável: João</p>
+            <p>Farmacêutico responsável: João Victor dos Santos</p>
             <p>CRF/MG 31958</p>
             <p>{COMPANY.alvara}</p>
             <p>{COMPANY.afe}</p>
