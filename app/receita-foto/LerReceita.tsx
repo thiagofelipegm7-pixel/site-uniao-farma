@@ -97,7 +97,7 @@ function CartaoItem({ item, principioAtivoSimilar }: { item: ItemCasado; princip
         <span className="receita-item-preco">{formatarCentavos(item.precoCentavos)}</span>
         {p.generico ? <em className="receita-selo">Genérico</em> : null}
         <em className={`receita-selo${controlado ? " is-controlado" : ""}`}>{controlado ? "Controlado · receita retida na loja" : "Exige receita · retirada na loja"}</em>
-        {principioAtivoSimilar ? <em className="receita-selo receita-selo-similar">Mesmo princípio ativo ({principioAtivoSimilar}). Confira a dose e a apresentação com o farmacêutico antes de usar.</em> : null}
+        {principioAtivoSimilar ? <em className="receita-selo receita-selo-similar">Mesmo princípio ativo ({principioAtivoSimilar}). {item.doseConfere === true ? "Dose descrita compatível com a receita; confira a apresentação com o farmacêutico." : "Confira a dose e a apresentação com o farmacêutico antes de usar."}</em> : null}
       </span>
       {principioAtivoSimilar && item.doseConfere !== true ? (
         <span className="receita-similar-sem-cesta">Confira esta dose e apresentação com o farmacêutico antes de adicionar.</span>
@@ -121,6 +121,7 @@ const ITENS_VISIVEIS = 3;
 function CartaoMedicamento({ r }: { r: ResultadoMedicamento }) {
   const [verTodos, setVerTodos] = useState(false);
   const lido = `${r.lido.nome}${r.lido.dosagem ? ` ${r.lido.dosagem}` : ""}`;
+  const todosSimilaresComDose = r.similares.length > 0 && r.similares.every((item) => item.doseConfere === true);
   return (
     <section className="receita-med" aria-label={`Medicamento da receita: ${lido}`}>
       <h3>
@@ -147,8 +148,8 @@ function CartaoMedicamento({ r }: { r: ResultadoMedicamento }) {
       )}
       {r.similares.length > 0 ? (
         <div className="receita-similares">
-          <strong>Opção encontrada pelo princípio ativo: {r.principioAtivoSimilar}</strong>
-          <p>Esta correspondência não confirma que seja a mesma dose, apresentação ou substituição. Confira a receita com o farmacêutico antes de escolher.</p>
+          <strong>{todosSimilaresComDose ? "Opção com dose compatível e mesmo princípio ativo:" : "Opção encontrada pelo princípio ativo:"} {r.principioAtivoSimilar}</strong>
+          <p>{todosSimilaresComDose ? "A dose descrita corresponde à receita. Confira a apresentação e a embalagem com o farmacêutico." : "Esta correspondência não confirma que seja a mesma dose ou apresentação. Confira a receita com o farmacêutico antes de escolher."}</p>
           <ul className="receita-itens">
             {r.similares.map((item) => <CartaoItem key={item.chave} item={item} principioAtivoSimilar={r.principioAtivoSimilar ?? undefined} />)}
           </ul>

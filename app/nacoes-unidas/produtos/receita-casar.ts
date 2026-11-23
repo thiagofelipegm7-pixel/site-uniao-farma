@@ -113,6 +113,19 @@ function casaTodas(busca: string, palavras: readonly string[]): boolean {
   return palavras.length > 0 && palavras.every((p) => busca.includes(p));
 }
 
+/** Concentração não é dose da aplicação: as canetas 1,34 mg/mL de semaglutida em 3 mL liberam aplicações de 1 mg. */
+function doseConfereProduto(doses: readonly Dose[], p: ProdutoRestrito): boolean | null {
+  const doseNoNome = doseConfere(doses, p.nomeOriginal ?? p.nome);
+  const nome = p.nomeOriginal ?? p.nome;
+  const doseDeUmMgNaCaneta = doses.length === 1 && doses[0].unidade === "mg" && mesma(doses[0], { valor: 1, unidade: "mg" });
+  const canetaSemaglutidaUmMg = normalizarBusca(p.ativo ?? "") === "semaglutida"
+    && formaDe(p) === "injetavel"
+    && /1[.,]34\s*mg\s*\/\s*ml/i.test(nome)
+    && /3\s*ml/i.test(nome)
+    && /(caneta|canet)/i.test(nome);
+  return doseNoNome === false && doseDeUmMgNaCaneta && canetaSemaglutidaUmMg ? true : doseNoNome;
+}
+
 function ordenar<T extends ItemCasado>(itens: T[], primeira: string): T[] {
   const inicio = (i: ItemCasado) => (normalizarBusca(i.nome).startsWith(primeira) ? 0 : 1);
   const dose = (i: ItemCasado) => (i.doseConfere === true ? 0 : 1);
@@ -131,7 +144,7 @@ function candidatos(catalogo: CatalogoReceita, palavras: readonly string[], dose
   for (const p of catalogo.restritos) {
     // Sem preço fica fora da cesta (regra da lista de preços da loja).
     if (p.precoCentavos !== null && p.precoCentavos > 0 && casaTodas(textoProprio(p), palavras)) {
-      saida.push({ tipo: p.tipo, chave: `r:${p.tipo}:${p.nome}`, nome: p.nome, precoCentavos: p.precoCentavos, produto: p, doseConfere: doseConfere(dosesReceita, p.nomeOriginal ?? p.nome) });
+      saida.push({ tipo: p.tipo, chave: `r:${p.tipo}:${p.nome}`, nome: p.nome, precoCentavos: p.precoCentavos, produto: p, doseConfere: doseConfereProduto(dosesReceita, p) });
     }
   }
   return saida;
@@ -194,7 +207,7 @@ function itensComAtivo(catalogo: CatalogoReceita, ativo: string, forma: NonNulla
   const chaveAtivo = normalizarBusca(ativo);
   return catalogo.restritos
     .filter((p) => p.tipo === "receita" && !p.controlado && p.precoCentavos !== null && p.precoCentavos > 0 && p.ativo && normalizarBusca(p.ativo) === chaveAtivo && formaDe(p) === forma)
-    .map((p): ItemCasado => ({ tipo: p.tipo, chave: `r:${p.tipo}:${p.nome}`, nome: p.nome, precoCentavos: p.precoCentavos as number, produto: p, doseConfere: doseConfere(doses, p.nomeOriginal ?? p.nome) }))
+    .map((p): ItemCasado => ({ tipo: p.tipo, chave: `r:${p.tipo}:${p.nome}`, nome: p.nome, precoCentavos: p.precoCentavos as number, produto: p, doseConfere: doseConfereProduto(doses, p) }))
     .filter((item) => !excluir.has(item.chave));
 }
 
