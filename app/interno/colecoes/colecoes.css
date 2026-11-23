@@ -34,3 +34,73 @@
 @media (max-width: 720px) { .colecoes-apresentacao { grid-template-columns: minmax(0, 1fr) auto; } .colecoes-apresentacao label { grid-column: 1 / -1; } .colecoes-apresentacao button { grid-column: 2; } }
 @media (min-width: 720px) { .colecoes-fotos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 992px) { .colecoes-fotos { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+
+/* Fotos extras no cartão de configuração (painel de Publicidade). */
+/* Aba Coleções (dentro de Publicidade). Mesmo acabamento da aba Foto principal: verde-água, neumorfismo, sem linhas. Celular primeiro, sem rolagem horizontal. */
+/* display: block garante a caixa (o layout interno deixa o <main> como "contents", sem largura nem respiro). */
+html body main.colecoes-painel { display: block !important; }
+.colecoes-painel { box-sizing: border-box; width: 100%; max-width: 82rem; margin: 0 auto; padding: 0 16px 3rem; color: #0d1413; }
+.colecoes-painel header h2 { margin: 0 0 0.35rem; font-size: 1.25rem; font-weight: 700; line-height: 1.25; color: #0d1413; }
+.colecoes-painel header p { margin: 0 0 1rem; font-size: 0.9375rem; line-height: 1.5; color: #2f3d3a; }
+.colecoes-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Busca: cartão verde-água com o campo recuado (inset), como a barra da Foto principal. */
+.colecoes-busca { display: block; padding: 16px; margin-bottom: 1rem; border-radius: 18px; background: #9fe3d6; box-shadow: 8px 8px 16px #8fd3c4, -8px -8px 16px #ffffff; }
+.colecoes-busca input { box-sizing: border-box; display: block; width: 100%; min-height: 48px; padding: 0 16px; border: 0; border-radius: 14px; background: #ffffff; color: #0d1413; font: inherit; font-size: 16px; box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff; outline: none; }
+.colecoes-busca input::placeholder { color: #66756f; }
+.colecoes-busca input:focus-visible { box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff, 0 0 0 3px #14736b; }
+
+/* Resultados da busca: botões em relevo suave, uma linha por produto. */
+.colecoes-resultados { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; gap: 10px; }
+.colecoes-resultados button { box-sizing: border-box; width: 100%; display: grid; gap: 2px; padding: 12px 16px; border: 0; border-radius: 14px; background: #ffffff; text-align: left; cursor: pointer; font: inherit; box-shadow: 5px 5px 10px #d5d9dd, -5px -5px 10px #ffffff; }
+.colecoes-resultados strong { font-size: 0.9375rem; font-weight: 700; color: #0a3548; }
+.colecoes-resultados small { font-size: 0.8125rem; color: #2f3d3a; }
+
+/* Produto escolhido: cartão verde-água com as fotos em cartões brancos. */
+.colecoes-produto { padding: 16px; border-radius: 18px; background: #9fe3d6; box-shadow: 8px 8px 16px #8fd3c4, -8px -8px 16px #ffffff; }
+.colecoes-produto h2 { margin: 0; font-size: 1.0625rem; font-weight: 700; line-height: 1.3; color: #0d1413; overflow-wrap: anywhere; }
+.colecoes-ean { margin: 4px 0 1rem; font-size: 0.8125rem; color: #2f3d3a; }
+.colecoes-fotos { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.colecoes-fotos li { box-sizing: border-box; display: grid; gap: 10px; justify-items: center; padding: 10px; border-radius: 14px; background: #ffffff; }
+.colecoes-fotos img { display: block; width: 100%; max-width: 120px; height: auto; aspect-ratio: 1; object-fit: contain; }
+.colecoes-acoes { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; }
+.colecoes-acoes button { min-height: 40px; min-width: 40px; padding: 0 10px; border: 0; border-radius: 10px; background: #ffffff; color: #0a3548; font: inherit; font-size: 0.875rem; font-weight: 700; cursor: pointer; box-shadow: inset 3px 3px 6px #c4c8cd, inset -3px -3px 6px #ffffff; }
+.colecoes-acoes button:disabled { color: #9aa5a2; cursor: default; }
+.colecoes-acoes .colecoes-remover { color: #b3261e; }
+
+/* Adicionar foto: botão recuado, como os demais. */
+.colecoes-enviar { position: relative; display: block; margin-bottom: 12px; }
+.colecoes-enviar span { display: inline-flex; align-items: center; justify-content: center; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 16px; border-radius: 14px; background: #ffffff; color: #0a3548; font-size: 0.9375rem; font-weight: 700; cursor: pointer; box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff; }
+.colecoes-enviar input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.colecoes-enviar input:disabled { cursor: default; }
+
+.colecoes-aviso { margin: 0 0 12px; padding: 12px 14px; border-radius: 14px; background: #ffffff; color: #a3200f; font-size: 0.9375rem; font-weight: 700; box-shadow: inset 3px 3px 6px #c4c8cd, inset -3px -3px 6px #ffffff; }
+.colecoes-cheio, .colecoes-nota { margin: 0; font-size: 0.875rem; line-height: 1.5; color: #2f3d3a; }
+
+/* Fotos extras no cartão de configuração: miniaturas e botão "Adicionar Foto Extra". */
+.colecoes-extras { display: grid; gap: 10px; border-radius: 14px; transition: box-shadow 0.15s ease; }
+.colecoes-extras--arrastando { box-shadow: 0 0 0 3px #14736b; }
+.colecoes-extras--arrastando .colecoes-adicionar span { box-shadow: inset 4px 4px 8px #9fe3d6, inset -4px -4px 8px #ffffff; }
+.colecoes-extras-lista { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 10px; }
+.colecoes-extras-lista li { display: grid; gap: 6px; justify-items: center; padding: 8px; border-radius: 12px; background: #ffffff; box-shadow: inset 3px 3px 6px #e6e8eb, inset -3px -3px 6px #ffffff; }
+.colecoes-extras-lista img { display: block; width: 64px; height: 64px; object-fit: contain; }
+.colecoes-extras .colecoes-remover { min-height: 32px; padding: 0 8px; border: 0; border-radius: 8px; background: #ffffff; color: #b3261e; font: inherit; font-size: 0.8125rem; font-weight: 700; cursor: pointer; }
+.colecoes-extras .colecoes-remover:disabled { color: #9aa5a2; cursor: default; }
+/* Card vazio aberto pelo "+": instruções para adicionar a foto (clique ou arraste). */
+.colecoes-vaga { position: relative; display: flex; align-items: center; gap: 12px; box-sizing: border-box; padding: 12px; border-radius: 12px; background: #ffffff; box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff; cursor: pointer; }
+.colecoes-vaga input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.colecoes-vaga input:disabled { cursor: default; }
+.colecoes-vaga-icone { flex: none; display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; background: #9fe3d6; color: #0a3548; font-size: 1.25rem; font-weight: 700; line-height: 1; }
+.colecoes-vaga-texto { display: grid; gap: 2px; min-width: 0; }
+.colecoes-vaga-texto strong { font-size: 0.875rem; font-weight: 700; color: #0d1413; }
+.colecoes-vaga-texto small { font-size: 0.75rem; line-height: 1.4; color: #2f3d3a; }
+.colecoes-adicionar { display: block; box-sizing: border-box; width: 100%; min-height: 44px; padding: 0; border: 0; border-radius: 12px; background: #ffffff; color: #0a3548; font: inherit; font-size: 1.75rem; font-weight: 400; line-height: 1; cursor: pointer; box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff; }
+.colecoes-adicionar:disabled { color: #9aa5a2; cursor: default; }
+.colecoes-adicionar span { display: flex; align-items: center; justify-content: center; width: 100%; box-sizing: border-box; min-height: 48px; padding: 0 16px; border-radius: 14px; font-size: 1.75rem; font-weight: 400; line-height: 1; background: #ffffff; color: #0a3548; font-size: 0.9375rem; font-weight: 700; cursor: pointer; box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff; }
+.colecoes-adicionar input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.colecoes-adicionar input:disabled { cursor: default; }
+.colecoes-extras .colecoes-cheio, .colecoes-extras .colecoes-aviso { font-size: 0.8125rem; font-weight: 400; color: #2f3d3a; background: none; box-shadow: none; padding: 0; margin: 0; }
+.colecoes-extras .colecoes-aviso { color: #a3200f; font-weight: 700; }
+
+@media (min-width: 720px) { .colecoes-fotos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 992px) { .colecoes-fotos { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
