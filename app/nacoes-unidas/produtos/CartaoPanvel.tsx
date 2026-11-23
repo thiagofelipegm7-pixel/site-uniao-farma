@@ -1,10 +1,14 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 /* eslint-disable @next/next/no-img-element -- Imagem estática pequena, igual ao restante do catálogo. */
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import Preco from "./Preco";
 import SemFoto from "./SemFoto";
 import { formatarQuantidade } from "./quantidade";
 import { marcaDeProduto, marcaLegivel } from "./marca";
+import { formatarCentavos } from "../../reserva/reserva-store";
+import { faixaAplicavel, faixasDaPromocao, type RegraPromocaoQuantidade } from "../../promocao-quantidade-tipos";
+import type { ApresentacaoPublica } from "../../apresentacao-produto-tipos";
+import "../../shop/product-cards-online.css";
 
 /** Classificação do medicamento mostrada na segunda linha ("Med. Genérico", "Controlado"). Sem "com/sem receita": isso já vai nos avisos legais. Vazio para produtos comuns. */
 export type ClassificacaoCartao = "generico" | "controlado";
@@ -13,6 +17,19 @@ const ROTULO_CLASSIFICACAO: Record<ClassificacaoCartao, string> = {
   generico: "Med. Genérico",
   controlado: "Controlado",
 };
+
+function NomeComPalavrasAnimadas({ nome }: { nome: string }) {
+  let indice = 0;
+  return <>{nome.split(/(\s+)/).map((parte, i) => /^\s+$/.test(parte) ? parte : (
+    <span
+      className="pv-nome-palavra"
+      key={i}
+      style={{ "--pv-nome-indice": indice++ } as CSSProperties}
+    >
+      {parte}
+    </span>
+  ))}</>;
+}
 
 function Icone({ tipo }: { tipo: "quantidade" | "controlado" | "lab" | "marca" }) {
   const base = { width: 16, height: 16, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.8, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true, className: "pv-atrib-icone" };
@@ -38,6 +55,12 @@ type Props = {
   /** Apresentação ("30 comprimidos"). Em branco quando o catálogo não tem. */
   apresentacao?: string | null;
   precoFmt?: string | null;
+  /** Preço de referência impresso na oferta, quando confirmado pelo material da campanha. */
+  precoAnteriorFmt?: string | null;
+  /** Percentual calculado pelo servidor a partir dos preços atual e anterior. */
+  descontoPct?: number | null;
+  /** Identifica itens da faixa de ofertas mesmo quando não há preço anterior confirmado. */
+  oferta?: boolean;
   /** Unidades que restam (1 a 5). O aviso "Resta N" está desligado (quase todo produto tem 1 ou 2); só a trava da cesta usa o dado. */
   restam?: number | null;
   /** Estoque zero: selo "Esgotado" no pé do cartão, no lugar do botão da cesta. */
@@ -50,9 +73,13 @@ type Props = {
   extra?: ReactNode;
   /** Cartão vertical em qualquer largura (vitrines em carrossel). */
   vertical?: boolean;
+  /** Produto que entrou recentemente no catálogo: exibe o selo NOVO em formato de explosão. */
+  novo?: boolean;
   /** Atributo `data-tipo` e classe extra. */
   classe?: string;
   tipo?: string;
+  levePague?: RegraPromocaoQuantidade;
+  apresentacoes?: ApresentacaoPublica[];
 };
 
 /**
@@ -60,16 +87,20 @@ type Props = {
  * preço e botão largo "Adicionar" no pé. Abaixo do nome, até três linhas com ícone (quantidade, "Med. Genérico" e "Lab. Cimed"), como nas farmácias grandes. Sem selo de programa, sem "De/Por" e sem % OFF quando
  * o catálogo não tem preço de antes: o que a União não tem fica em branco.
  */
-export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medicamento = false, classificacao = null, apresentacao, precoFmt, cesta, esgotado = false, avisos, extra, vertical = false, classe = "", tipo }: Props) {
+export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medicamento = false, classificacao = null, apresentacao, precoFmt, precoAnteriorFmt, descontoPct, oferta = false, cesta, esgotado = false, avisos, extra, vertical = false, novo = false, classe = "", tipo, levePague, apresentacoes }: Props) {
   const apresentacaoLegivel = formatarQuantidade(apresentacao);
   // Medicamento: "Lab. Cimed". Produto comum: "Marca Dove" se o nome cita a marca; senão o fabricante do cadastro ("Fab. Procter").
   const marcaDoNome = medicamento ? "" : marcaDeProduto(nome);
   const linhaMarca = medicamento ? (marca?.trim() ? `Lab. ${marcaLegivel(marca)}` : "") : marcaDoNome ? `Marca ${marcaDoNome}` : marca?.trim() ? `Fab. ${marcaLegivel(marca)}` : "";
+  const faixaUmaUnidade = faixaAplicavel(levePague, 1);
   const corpo = (
     <>
-      <span className="pv-img">{foto ? <img src={foto} alt="" width="160" height="160" loading="lazy" decoding="async" /> : <SemFoto className="pv-sem-foto" />}</span>
+      <span className="pv-img">
+        {novo ? <span className="pv-selo-novo" aria-label="Produto novo"><span>NOVO</span></span> : null}
+        {foto ? <img src={foto} alt="" width="160" height="160" loading="lazy" decoding="async" /> : <SemFoto className="pv-sem-foto" />}
+      </span>
       <span className="pv-texto">
-        <span className="pv-nome">{nome}</span>
+        <span className="pv-nome"><NomeComPalavrasAnimadas nome={nome} /></span>
         {apresentacaoLegivel || classificacao || linhaMarca ? (
           <span className="pv-atrib">
             {apresentacaoLegivel ? <span className="pv-atrib-linha pv-apres"><Icone tipo="quantidade" />{apresentacaoLegivel}</span> : null}
@@ -83,7 +114,29 @@ export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medi
           </span>
         ) : null}
       </span>
-      <Preco precoFmt={precoFmt} vazio={precoVazio} />
+      {apresentacoes && apresentacoes.length > 1 ? <span className="pv-leve-pague pv-apresentacoes"><strong>Escolha a apresentação · preço por unidade</strong><span>{apresentacoes.map((a) => `${a.nome}: ${formatarCentavos(a.precoCentavos)}`).join(" · ")}</span></span> : null}
+      {levePague ? <span className="pv-leve-pague"><strong>Leve + pague menos</strong><span>{faixasDaPromocao(levePague).map((faixa) => `${faixa.quantidade} un. ${formatarCentavos(faixa.precoUnitarioCentavos)}/un.`).join(" · ")}</span></span> : null}
+      {apresentacoes && apresentacoes.length > 1 ? (
+        <span className="pv-preco-opcoes"><small>Preço por unidade · a partir de</small><Preco precoFmt={formatarCentavos(Math.min(...apresentacoes.map((a) => a.precoCentavos)))} /></span>
+      ) : faixaUmaUnidade && precoFmt ? (
+        <span className="pv-preco-oferta">
+          <span className="pv-preco-antigo-linha"><span className="pv-preco-antigo-texto">Preço normal <del className="pv-preco-anterior">{precoFmt}</del></span><span className="pv-economia">PROMOÇÃO</span></span>
+          <span className="pv-preco-atual-linha"><span className="pv-preco-label">Por</span><Preco precoFmt={formatarCentavos(faixaUmaUnidade.precoUnitarioCentavos)} variante="oferta" /></span>
+        </span>
+      ) : oferta ? (
+        <span className="pv-preco-oferta">
+          {precoAnteriorFmt ? (
+            <span className="pv-preco-antigo-linha">
+              <span className="pv-preco-antigo-texto">De <del className="pv-preco-anterior">{precoAnteriorFmt}</del></span>
+              <span className="pv-economia">{descontoPct ? `${descontoPct}% OFF` : "OFERTA"}</span>
+            </span>
+          ) : <span className="pv-economia">OFERTA</span>}
+          <span className="pv-preco-atual-linha">
+            <span className="pv-preco-label">Por</span>
+            <Preco precoFmt={precoFmt} vazio={precoVazio} variante="oferta" />
+          </span>
+        </span>
+      ) : <Preco precoFmt={precoFmt} vazio={precoVazio} />}
     </>
   );
   return (

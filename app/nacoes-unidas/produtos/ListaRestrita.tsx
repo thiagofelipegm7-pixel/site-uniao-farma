@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 /* eslint-disable @next/next/no-img-element -- Imagem estática pequena, igual ao restante do catálogo. */
 import { quantidadeLegivel } from "./quantidade";
-import { fotoDoProduto } from "./imagens";
+import { eanDaFoto, fotoDoProduto } from "./imagens";
 import { useEffect, useState } from "react";
 import { ContentSiteFooter } from "../../ContentSiteChrome";
 import ReservarBotao from "../../reserva/ReservarBotao";
@@ -15,6 +15,8 @@ import ShopTopo from "../../shop/ShopTopo";
 import BotaoVoz from "../../shop/BotaoVoz";
 import { buildWhatsAppUrl, getHoursSentence, UNITS } from "../../site-config";
 import { formatBRL, slugify } from "./catalogo";
+import type { PromocaoQuantidade } from "../../promocao-quantidade-tipos";
+import type { ApresentacaoPublica } from "../../apresentacao-produto-tipos";
 import {
   imagemIlustrativa,
   type ItemRestrito,
@@ -64,8 +66,9 @@ const TEXTOS: Record<TipoRestrito, { titulo: string; h1: string; intro: string; 
 };
 
 
-export function Cartao({ item }: { item: ItemRestrito }) {
+export function Cartao({ item, levePague, apresentacoes, apresentacoesCarregadas = true }: { item: ItemRestrito; levePague?: PromocaoQuantidade; apresentacoes?: ApresentacaoPublica[]; apresentacoesCarregadas?: boolean }) {
   const nome = item.nomeExibicao ?? item.nome;
+  const promocaoProduto = apresentacoes && apresentacoes.length > 1 ? undefined : levePague;
   const pedeCesta = item.tipo !== "consulte" && item.preco !== null && item.preco > 0 && !item.esgotado;
   return (
     <CartaoPanvel
@@ -79,6 +82,8 @@ export function Cartao({ item }: { item: ItemRestrito }) {
       apresentacao={quantidadeLegivel(item.apresentacao)}
       foto={item.controlado ? imagemIlustrativa(item) : (fotoDoProduto(item.nome) ?? imagemIlustrativa(item))}
       precoFmt={item.preco !== null ? formatBRL(item.preco) : null}
+      levePague={promocaoProduto}
+      apresentacoes={apresentacoes}
       precoVazio={item.semVenda ? "Consulte o farmacêutico" : undefined}
       restam={item.restam}
       esgotado={item.esgotado}
@@ -93,6 +98,10 @@ export function Cartao({ item }: { item: ItemRestrito }) {
             receita={item.controlado ? "controlado" : "receita"}
             variante="cartao"
             max={item.restam}
+            slug={item.slug}
+            promocao={promocaoProduto}
+            apresentacoes={apresentacoes}
+            aguardandoApresentacoes={!apresentacoesCarregadas}
           />
         ) : null
       }
@@ -105,7 +114,26 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
   const [consulta, setConsulta] = useState("");
   const [pagina, setPagina] = useState(1);
   const [todos, setTodos] = useState<ItemRestrito[]>([]);
+  const [promocoes, setPromocoes] = useState<Record<string, PromocaoQuantidade>>({});
+  const [apresentacoesPorEan, setApresentacoesPorEan] = useState<Record<string, ApresentacaoPublica[]>>({});
+  const [apresentacoesCarregadas, setApresentacoesCarregadas] = useState(false);
   const [data, setData] = useState<string | null>(null);
+  useEffect(() => {
+    let cancelado = false;
+    fetch("/api/apresentacoes-produto", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).then((dados: { apresentacoes?: ApresentacaoPublica[] } | null) => {
+      if (cancelado || !dados?.apresentacoes) return;
+      const porEan: Record<string, ApresentacaoPublica[]> = {};
+      for (const a of dados.apresentacoes) (porEan[a.ean] ??= []).push(a);
+      setApresentacoesPorEan(porEan);
+    }).catch(() => undefined).finally(() => { if (!cancelado) setApresentacoesCarregadas(true); });
+    return () => { cancelado = true; };
+  }, []);
+  useEffect(() => {
+    if (tipo !== "receita" && tipo !== "controlados") return;
+    fetch("/api/promocoes-quantidade", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).then((dados: { promocoes?: PromocaoQuantidade[] } | null) => {
+      if (dados?.promocoes) setPromocoes(Object.fromEntries(dados.promocoes.map((p) => [p.slug, p])));
+    }).catch(() => undefined);
+  }, [tipo]);
   // Falso até a lista inteira chegar: antes disso a tela mostra "Buscando…", nunca "0 itens" nem "nenhum encontrado".
   const [carregado, setCarregado] = useState(false);
   useEffect(() => {
@@ -199,7 +227,7 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
           ) : (
             <ul className="catalogo-lista pv-grade">
               {pag.itens.map((item) => (
-                <Cartao key={`${item.nome}|${item.lab}|${item.preco}`} item={item} />
+                <Cartao key={`${item.nome}|${item.lab}|${item.preco}`} item={item} levePague={item.slug ? promocoes[item.slug] : undefined} apresentacoes={apresentacoesPorEan[eanDaFoto(item.nome) ?? ""]} apresentacoesCarregadas={apresentacoesCarregadas} />
               ))}
             </ul>
           )}

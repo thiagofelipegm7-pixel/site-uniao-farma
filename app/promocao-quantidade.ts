@@ -2,12 +2,15 @@ import { banco } from "./estoque-fonte";
 import { carregarCatalogoNacoes, slugify } from "./nacoes-unidas/produtos/catalogo";
 import { carregarRestritos } from "./nacoes-unidas/produtos/receita";
 
-import type { PromocaoQuantidade } from "./promocao-quantidade-tipos";
-export type { PromocaoQuantidade } from "./promocao-quantidade-tipos";
+import { faixasDaPromocao, type FaixaPromocaoQuantidade, type PromocaoQuantidade } from "./promocao-quantidade-tipos";
+export type { FaixaPromocaoQuantidade, PromocaoQuantidade } from "./promocao-quantidade-tipos";
 type BancoPromocao = { exec(sql: string): Promise<unknown>; prepare(sql: string): { bind(...values: unknown[]): { all<T>(): Promise<{ results: T[] }>; run(): Promise<unknown> } }; batch(statements: unknown[]): Promise<unknown> };
 
 async function tabela(db: BancoPromocao) {
+  // A tabela antiga é mantida para migrar as promoções atuais sem perder configuração.
   await db.exec("CREATE TABLE IF NOT EXISTS promocao_quantidade (slug TEXT PRIMARY KEY, quantidade INTEGER NOT NULL, preco_unitario_centavos INTEGER NOT NULL, atualizado_em TEXT NOT NULL)");
+  await db.exec("CREATE TABLE IF NOT EXISTS promocao_quantidade_faixas (slug TEXT NOT NULL, quantidade INTEGER NOT NULL, preco_unitario_centavos INTEGER NOT NULL, atualizado_em TEXT NOT NULL, PRIMARY KEY (slug, quantidade))");
+  await db.exec("INSERT OR IGNORE INTO promocao_quantidade_faixas (slug, quantidade, preco_unitario_centavos, atualizado_em) SELECT slug, quantidade, preco_unitario_centavos, atualizado_em FROM promocao_quantidade");
 }
 
 export function catalogoPermitido() {
@@ -27,38 +30,76 @@ export async function listarPromocoesQuantidade(): Promise<PromocaoQuantidade[]>
   const db = banco() as BancoPromocao | null;
   if (!db) return [];
   await tabela(db);
-  const { results } = await db.prepare("SELECT slug, quantidade, preco_unitario_centavos FROM promocao_quantidade ORDER BY slug").bind().all<{ slug: string; quantidade: number; preco_unitario_centavos: number }>();
+  const { results } = await db.prepare("SELECT slug, quantidade, preco_unitario_centavos FROM promocao_quantidade_faixas ORDER BY slug, quantidade").bind().all<{ slug: string; quantidade: number; preco_unitario_centavos: number }>();
   const catalogo = catalogoPermitido();
-  return (results ?? []).flatMap((row) => {
+  const porProduto = new Map<string, FaixaPromocaoQuantidade[]>();
+  for (const row of results ?? []) {
     const item = catalogo.get(row.slug);
-    if (!item || row.quantidade < 2 || (typeof item.restam === "number" && item.restam < row.quantidade) || row.preco_unitario_centavos < 1 || row.preco_unitario_centavos >= Math.round(item.preco * 100)) return [];
-    return [{ slug: row.slug, nome: item.nome, quantidade: row.quantidade, precoUnitarioCentavos: row.preco_unitario_centavos }];
+    if (!item || row.quantidade < 1 || row.quantidade > 20 || (typeof item.restam === "number" && item.restam < row.quantidade) || row.preco_unitario_centavos < 1 || row.preco_unitario_centavos >= Math.round(item.preco * 100)) continue;
+    const faixas = porProduto.get(row.slug) ?? [];
+    faixas.push({ quantidade: row.quantidade, precoUnitarioCentavos: row.preco_unitario_centavos });
+    porProduto.set(row.slug, faixas);
+  }
+  return [...porProduto].flatMap(([slug, faixas]) => {
+    const item = catalogo.get(slug);
+    if (!item) return [];
+    const validas = faixas.sort((a, b) => a.quantidade - b.quantidade);
+    return validas.length ? [{ slug, nome: item.nome, faixas: validas }] : [];
   });
+}
+
+type EntradaPromocao = { slug: string; faixas: FaixaPromocaoQuantidade[] };
+
+function normalizarEntrada(entrada: unknown): EntradaPromocao | null {
+  if (!entrada || typeof entrada !== "object") return null;
+  const e = entrada as Record<string, unknown>;
+  if (typeof e.slug !== "string") return null;
+  if (Array.isArray(e.faixas)) {
+    return { slug: e.slug, faixas: e.faixas.map((faixa) => {
+      const f = faixa && typeof faixa === "object" ? faixa as Record<string, unknown> : {};
+      return { quantidade: Number(f.quantidade), precoUnitarioCentavos: Number(f.precoUnitarioCentavos) };
+    }) };
+  }
+  // Aceita clientes antigos enquanto navegadores que ficaram abertos atualizam.
+  return { slug: e.slug, faixas: faixasDaPromocao({ quantidade: Number(e.quantidade), precoUnitarioCentavos: Number(e.precoUnitarioCentavos) }) };
 }
 
 export async function salvarPromocoesQuantidade(entradas: unknown): Promise<{ ok: true } | { ok: false; erro: string }> {
   if (!Array.isArray(entradas) || entradas.length > 100) return { ok: false, erro: "Lista de promoções inválida." };
   const catalogo = catalogoPermitido();
-  const validas: Array<{ slug: string; quantidade: number; preco: number }> = [];
+  const validas: Array<{ slug: string; faixas: FaixaPromocaoQuantidade[] }> = [];
   for (const entrada of entradas) {
-    if (!entrada || typeof entrada !== "object") return { ok: false, erro: "Revise os produtos selecionados." };
-    const e = entrada as Record<string, unknown>;
-    const slug = typeof e.slug === "string" ? e.slug : "";
-    const quantidade = Number(e.quantidade);
-    const preco = Number(e.precoUnitarioCentavos);
-    const item = catalogo.get(slug);
-    if (!item || !Number.isInteger(quantidade) || quantidade < 2 || quantidade > 20 || (typeof item.restam === "number" && item.restam < quantidade) || !Number.isInteger(preco) || preco < 1 || preco >= Math.round(item.preco * 100)) {
-      return { ok: false, erro: "Cada promoção precisa ter um produto elegível, quantidade de 2 a 20 e preço por unidade abaixo do preço atual." };
+    const regra = normalizarEntrada(entrada);
+    const item = regra ? catalogo.get(regra.slug) : undefined;
+    const faixas = regra?.faixas ?? [];
+    if (!regra || !item || faixas.length < 1 || faixas.length > 20) {
+      return { ok: false, erro: "Cada produto precisa ter pelo menos uma faixa de preço preenchida." };
     }
-    if (validas.some((v) => v.slug === slug)) return { ok: false, erro: "Não repita o mesmo produto." };
-    validas.push({ slug, quantidade, preco });
+    const ordenadas = [...faixas].sort((a, b) => a.quantidade - b.quantidade);
+    for (let i = 0; i < ordenadas.length; i++) {
+      const faixa = ordenadas[i];
+      if (!Number.isInteger(faixa.quantidade) || faixa.quantidade < 1 || faixa.quantidade > 20 || (typeof item.restam === "number" && item.restam < faixa.quantidade) || !Number.isInteger(faixa.precoUnitarioCentavos) || faixa.precoUnitarioCentavos < 1 || faixa.precoUnitarioCentavos >= Math.round(item.preco * 100)) {
+        return { ok: false, erro: "Cada faixa precisa ter quantidade de 1 a 20, dentro do estoque, e preço por unidade abaixo do preço normal." };
+      }
+      if (i > 0 && (faixa.quantidade === ordenadas[i - 1].quantidade || faixa.precoUnitarioCentavos > ordenadas[i - 1].precoUnitarioCentavos)) {
+        return { ok: false, erro: "Não repita quantidades; o preço por unidade deve se manter ou diminuir nas faixas maiores." };
+      }
+    }
+    if (validas.some((v) => v.slug === regra.slug)) return { ok: false, erro: "Não repita o mesmo produto." };
+    validas.push({ slug: regra.slug, faixas: ordenadas });
   }
   const db = banco() as BancoPromocao | null;
   if (!db) return { ok: false, erro: "Banco de dados indisponível." };
   await tabela(db);
   const agora = new Date().toISOString();
-  const statements = [db.prepare("DELETE FROM promocao_quantidade").bind()];
-  for (const item of validas) statements.push(db.prepare("INSERT INTO promocao_quantidade (slug, quantidade, preco_unitario_centavos, atualizado_em) VALUES (?, ?, ?, ?)").bind(item.slug, item.quantidade, item.preco, agora));
+  const statements = [db.prepare("DELETE FROM promocao_quantidade").bind(), db.prepare("DELETE FROM promocao_quantidade_faixas").bind()];
+  for (const produto of validas) {
+    for (const faixa of produto.faixas) {
+      statements.push(db.prepare("INSERT INTO promocao_quantidade_faixas (slug, quantidade, preco_unitario_centavos, atualizado_em) VALUES (?, ?, ?, ?)").bind(produto.slug, faixa.quantidade, faixa.precoUnitarioCentavos, agora));
+    }
+    const legada = [...produto.faixas].filter((f) => f.quantidade >= 2).at(-1) ?? produto.faixas[0];
+    statements.push(db.prepare("INSERT INTO promocao_quantidade (slug, quantidade, preco_unitario_centavos, atualizado_em) VALUES (?, ?, ?, ?)").bind(produto.slug, legada.quantidade, legada.precoUnitarioCentavos, agora));
+  }
   await db.batch(statements);
   return { ok: true };
 }

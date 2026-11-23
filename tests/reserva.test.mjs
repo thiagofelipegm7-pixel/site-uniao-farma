@@ -233,7 +233,9 @@ test("cesta com medicamento de receita ou controlado: só retirada, com a receit
   assert.equal(exigeReceita([comum, rx]), true);
   assert.equal(exigeReceita([comum, { ...rx, selecionado: false }]), false); // item desmarcado não conta
   const msg = mensagemReserva("Nações Unidas", [comum, rx, ctl], { modo: "retirar", nome: "Maria", pagamento: "Pix" });
-  assert.match(msg, /1x AMOXICILINA 500MG \(exige receita\)/);
+  // O sufixo "(exige receita)" no item saiu de propósito (aviso só no rodapé). Medicamento controlado mantém o aviso na linha.
+  assert.match(msg, /1x AMOXICILINA 500MG/);
+  assert.doesNotMatch(msg, /1x AMOXICILINA 500MG \(exige receita\)/);
   assert.match(msg, /2x ALPRAZOLAM 1MG \(controlado: receita retida na loja\)/);
   assert.match(msg, /Tem medicamento com receita: retiro na loja e apresento a receita\./);
   assert.doesNotMatch(mensagemReserva("Nações Unidas", [comum], { modo: "retirar", nome: "Maria" }), /receita/);
@@ -403,7 +405,7 @@ test("troco: só na entrega em dinheiro, 'sem troco' ou 'troco para', e o valor 
   assert.match(fluxo, /Informe o troco/, "o envio espera a resposta do troco");
 });
 
-test("card: círculo + permanente adiciona, abre a cesta e não vira pílula; preço 0 não abre", async () => {
+test("card: círculo + permanente abre a visualização rápida e não vira pílula; preço 0 não abre", async () => {
   const [botao, css, icons, abrir, sacola] = await Promise.all([
     readFile(new URL("../app/reserva/ReservarBotao.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/shop/shop.css", import.meta.url), "utf8"),
@@ -415,8 +417,12 @@ test("card: círculo + permanente adiciona, abre a cesta e não vira pílula; pr
   assert.ok(blocoCartao.length > 100, "o ramo do card precisa existir");
   assert.match(blocoCartao, /pv-adicionar/);
   assert.match(blocoCartao, /IconMaisFino/);
-  assert.match(blocoCartao, /Adicionar \$\{nome\} à cesta/);
-  assert.match(blocoCartao, /acrescentar\(\{ abrirCesta: true, gatilho: maisRef\.current \}\)/);
+  // PR #491: o + abre a visualização rápida; o cliente confirma quantidade e inclusão na cesta.
+  assert.match(blocoCartao, /Ver detalhes de \$\{nome\} e adicionar à cesta/);
+  assert.match(blocoCartao, /setVisualizacaoAberta\(true\)/);
+  assert.match(blocoCartao, /<VisualizacaoRapida/);
+  assert.match(blocoCartao, /onAdicionar=\{\(quantidade, escolha\) => acrescentar\(undefined, quantidade, escolha\)\}/);
+  assert.doesNotMatch(blocoCartao, /acrescentar\(\{ abrirCesta: true/);
   assert.doesNotMatch(blocoCartao, /IconLixeira|IconMenos|pv-seletor|is-aberto|output/);
   assert.doesNotMatch(css, /pv-seletor/);
   assert.doesNotMatch(icons, /IconMenosFino/);
@@ -428,7 +434,8 @@ test("card: círculo + permanente adiciona, abre a cesta e não vira pílula; pr
   assert.match(css, /\.pv-adicionar:focus \{ outline: none; \}/);
   assert.match(css, /\.pv-adicionar:focus-visible \{ outline: 3px solid #0a2d29/);
   assert.match(blocoCartao, /><IconMaisFino size=\{28\} strokeWidth=\{2\} \/><\/button>/);
-  assert.match(botao, /if \(!\(precoCentavos > 0\)\) return/);
+  assert.match(botao, /const precoEscolhido = escolha\?\.precoCentavos \?\? precoCentavos/);
+  assert.match(botao, /if \(!\(precoEscolhido > 0\)\) return/);
   assert.match(botao, /import \{ abrirReserva \} from "\.\/abrir-reserva"/);
   assert.match(abrir, /detail: \{ gatilho: origem \}/);
   assert.match(sacola, /origemExternaRef\.current \?\? gatilhoRef\.current/);

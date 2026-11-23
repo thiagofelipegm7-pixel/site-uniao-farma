@@ -1,5 +1,6 @@
 import { ehAntimicrobiano, SEM_VENDA_NO_SITE } from "../nacoes-unidas/produtos/sem-venda";
 import { UNITS } from "../site-config";
+import { faixaAplicavel, proximaFaixa, type RegraPromocaoQuantidade } from "../promocao-quantidade-tipos";
 /**
  * Reserva: lista de produtos que o cliente separa no site e fecha pelo WhatsApp da loja.
  * Nada é cobrado no site. Preço e estoque são confirmados pela loja; o pagamento é no balcão ou na entrega.
@@ -19,10 +20,13 @@ export type ReservaItem = {
   precoCentavos: number;
   /** Preço de antes ("De"), só quando a oferta confirma. Mostra o riscado e o desconto na reserva. */
   deCentavos?: number;
+  promocao?: RegraPromocaoQuantidade;
   /** Caixa de seleção da cesta: só os marcados entram no total e no pedido. Ausente = marcado. */
   selecionado?: boolean;
   qtd: number;
   foto?: string | null;
+  /** Opção escolhida quando o mesmo código possui embalagens/apresentações diferentes. */
+  variante?: { id: string; nome: string };
   /** Medicamento de venda sob prescrição ("receita") ou de controle especial ("controlado"): retirada na loja com a receita. */
   receita?: "receita" | "controlado";
   /** Unidades que restam na loja (1 a 5): a quantidade da cesta não passa disso. Ausente = sem limite além de MAX_POR_ITEM. */
@@ -37,8 +41,8 @@ export const ESTADO_VAZIO: ReservaEstado = { itens: [], modo: "retirar" };
 export const MAX_POR_ITEM = 20;
 const STORAGE_KEY = "uf-reserva-v1";
 
-export function idDoItem(unitId: string, nome: string): string {
-  return `${unitId}:${nome.replace(/\s+/g, " ").trim().toLowerCase()}`;
+export function idDoItem(unitId: string, nome: string, varianteId?: string): string {
+  return `${unitId}:${nome.replace(/\s+/g, " ").trim().toLowerCase()}${varianteId ? `:variante:${varianteId}` : ""}`;
 }
 
 /** "R$ 19,90" ou "19,90" → 1990. Devolve null se não for um preço válido. */
@@ -66,23 +70,49 @@ export function itemAtivo(item: ReservaItem): boolean {
   return item.selecionado !== false;
 }
 
+export function nomePedidoItem(item: Pick<ReservaItem, "nome" | "variante">): string {
+  return item.variante?.nome ? `${item.nome} — ${item.variante.nome}` : item.nome;
+}
+
 export function adicionar(estado: ReservaEstado, item: Omit<ReservaItem, "qtd" | "id">, qtd = 1): ReservaEstado {
-  const id = idDoItem(item.unitId, item.nome);
+  const id = idDoItem(item.unitId, item.nome, item.variante?.id);
+  const doMesmoProduto = (i: ReservaItem) => i.unitId === item.unitId && (item.slug ? i.slug === item.slug : i.nome === item.nome);
+  const quantidadeNoProduto = estado.itens.filter(doMesmoProduto).reduce((total, i) => total + i.qtd, 0);
+  const limiteProduto = tetoDoItem({ max: item.max });
   const existente = estado.itens.find((i) => i.id === id);
   if (existente) {
     // O limite vem do último "Resta N" que o cliente viu; sem limite agora, o antigo cai.
-    const comLimite: ReservaEstado = { ...estado, itens: estado.itens.map((i) => (i.id === id ? limiteDoItem({ ...i, max: item.max, slug: item.slug ?? i.slug }) : i)) };
-    return definirSelecao(definirQtd(comLimite, id, existente.qtd + qtd), id, true);
+    const comLimite: ReservaEstado = { ...estado, itens: estado.itens.map((i) => (i.id === id ? limiteDoItem({ ...i, max: item.max, slug: item.slug ?? i.slug, promocao: item.promocao ?? i.promocao }) : i)) };
+    const outras = quantidadeNoProduto - existente.qtd;
+    return definirSelecao(definirQtd(comLimite, id, Math.min(existente.qtd + qtd, Math.max(0, limiteProduto - outras))), id, true);
   }
   if (!(item.precoCentavos > 0)) return estado;
+  const disponivel = limiteProduto - quantidadeNoProduto;
+  if (disponivel <= 0) return estado;
   const novo: ReservaItem = limiteDoItem({ ...item, id, qtd: 1 });
-  novo.qtd = Math.min(tetoDoItem(novo), Math.max(1, qtd));
+  novo.qtd = Math.min(disponivel, tetoDoItem(novo), Math.max(1, qtd));
   return { ...estado, itens: [...estado.itens, novo] };
 }
 
 /** Marca ou desmarca um item. */
 export function definirSelecao(estado: ReservaEstado, id: string, selecionado: boolean): ReservaEstado {
   return { ...estado, itens: estado.itens.map((i) => (i.id === id ? { ...i, selecionado } : i)) };
+}
+
+/** Atualiza as faixas de promoção vindas do painel, inclusive para itens já salvos na cesta. */
+export function sincronizarPromocoes(estado: ReservaEstado, promocoes: readonly import("../promocao-quantidade-tipos").PromocaoQuantidade[]): ReservaEstado {
+  const porSlug = new Map(promocoes.map((promocao) => [promocao.slug, promocao]));
+  let mudou = false;
+  const itens = estado.itens.map((item) => {
+    if (!item.slug) return item;
+    const promocao = item.variante ? undefined : porSlug.get(item.slug);
+    if (JSON.stringify(item.promocao ?? null) === JSON.stringify(promocao ?? null)) return item;
+    mudou = true;
+    const { promocao: _anterior, ...semPromocao } = item;
+    void _anterior;
+    return promocao ? { ...semPromocao, promocao } : semPromocao;
+  });
+  return mudou ? { ...estado, itens } : estado;
 }
 
 /** Marca ou desmarca todos os itens de uma vez. */
@@ -127,9 +157,14 @@ export function ajustarLimitesAoVivo(estado: ReservaEstado, mudou: Record<string
 /** qtd <= 0 remove o item. A quantidade nunca passa do que resta na loja (`max`). */
 export function definirQtd(estado: ReservaEstado, id: string, qtd: number): ReservaEstado {
   if (qtd <= 0) return { ...estado, itens: estado.itens.filter((i) => i.id !== id) };
+  const alvo = estado.itens.find((i) => i.id === id);
+  if (!alvo) return estado;
+  const outras = estado.itens.filter((i) => i.id !== id && i.unitId === alvo.unitId && (alvo.slug ? i.slug === alvo.slug : i.nome === alvo.nome)).reduce((total, i) => total + i.qtd, 0);
+  const permitido = Math.max(0, tetoDoItem(alvo) - outras);
+  if (permitido === 0) return { ...estado, itens: estado.itens.filter((i) => i.id !== id) };
   return {
     ...estado,
-    itens: estado.itens.map((i) => (i.id === id ? { ...i, qtd: Math.min(tetoDoItem(i), Math.floor(qtd)) } : i)),
+    itens: estado.itens.map((i) => (i.id === id ? { ...i, qtd: Math.min(permitido, Math.floor(qtd)) } : i)),
   };
 }
 
@@ -141,8 +176,12 @@ export function totalItens(estado: ReservaEstado): number {
   return estado.itens.filter(itemAtivo).reduce((soma, i) => soma + i.qtd, 0);
 }
 
+export function precoUnitarioReserva(item: ReservaItem): number {
+  return faixaAplicavel(item.promocao, item.qtd)?.precoUnitarioCentavos ?? item.precoCentavos;
+}
+
 export function subtotalCentavos(itens: ReservaItem[]): number {
-  return itens.filter(itemAtivo).reduce((soma, i) => soma + i.precoCentavos * i.qtd, 0);
+  return itens.filter(itemAtivo).reduce((soma, i) => soma + precoUnitarioReserva(i) * i.qtd, 0);
 }
 
 /** Soma do que o cliente deixa de pagar nos itens com preço "De" confirmado. */
@@ -205,7 +244,12 @@ export function trocoValido(texto: string, totalCentavos: number): number | null
  * Pede confirmação de preço e estoque (não promete nada). Nome e endereço vão só no texto da mensagem, nunca ao analytics.
  */
 export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: DadosPedido): string {
-  const linhas = itens.filter(itemAtivo).map((i) => `\u2022 ${i.qtd}x ${i.nome.replace(/\s+/g, " ").trim()}${i.receita === "controlado" ? " (controlado: receita retida na loja)" : i.receita ? " (exige receita)" : ""} \u2014 ${formatarCentavos(i.precoCentavos * i.qtd)}`);
+  const linhas = itens.filter(itemAtivo).map((i) => {
+    const aplicada = faixaAplicavel(i.promocao, i.qtd);
+    const proxima = proximaFaixa(i.promocao, i.qtd);
+    const promocao = aplicada ? ` (promoção: ${formatarCentavos(aplicada.precoUnitarioCentavos)} cada)` : proxima ? ` (leve ${proxima.quantidade}, pague ${formatarCentavos(proxima.precoUnitarioCentavos)} cada)` : "";
+    return `\u2022 ${i.qtd}x ${nomePedidoItem(i).replace(/\s+/g, " ").trim()}${i.receita === "controlado" ? " (controlado: receita retida na loja)" : ""}${promocao} \u2014 ${formatarCentavos(precoUnitarioReserva(i) * i.qtd)}`;
+  });
   const retirar = dados.modo === "retirar";
   const nome = dados.nome.replace(/\s+/g, " ").trim();
   const sub = subtotalCentavos(itens);

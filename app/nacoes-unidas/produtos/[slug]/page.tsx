@@ -14,6 +14,8 @@ import { carregarRestritos } from "../receita";
 import { acharDepartamento } from "../departamentos";
 import { fotoDoProduto } from "../imagens";
 import { fotoExibida } from "../foto-exibida";
+import { fotosExtrasDoProduto } from "../fotos-extras";
+import GaleriaProduto from "../GaleriaProduto";
 import ProdutoAcoes from "../ProdutoAcoes";
 import ProdutoBarra from "../ProdutoBarra";
 import { nomeDeExibicao } from "../../../nome-exibicao";
@@ -21,6 +23,9 @@ import CombinaCom, { itensCombinaCom } from "../CombinaCom";
 import { descricaoPublica } from "../descricoes";
 import { conteudoDoNome, ehNbcal, descricaoMetadata, FAQ_PRODUTO, jsonLdProduto, NOTA_PRECO, NOTA_PRECO_FIRME, textosPublicaveis } from "../produto";
 import { ehMedicamentoOuDuvida, elegivelGoogle, gtinValido } from "../google-shopping";
+import { banco } from "../../../estoque-fonte";
+import { listarApresentacoes } from "../../../apresentacoes-produto";
+import type { ApresentacaoPublica } from "../../../apresentacao-produto-tipos";
 import "../produtos.css";
 
 export const dynamic = "force-dynamic";
@@ -35,7 +40,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const item = catalogo ? acharPorSlug(catalogo.itens, slug) : null;
   const titulo = item ? `${item.nome} | União Farma Nações Unidas` : "Produto | União Farma Nações Unidas";
   // Fonte única (elegivelGoogle): só item não medicamento, em estoque e com foto vai para a busca. Medicamento segue com noindex.
-  const noGoogle = item ? elegivelGoogle(item, catalogo.itens) : false;
+  const noGoogle = item && catalogo ? elegivelGoogle(item, catalogo.itens) : false;
   const descricao = item ? descricaoMetadata(item.nome, (ehNbcal(item.nome) ? null : descricaoPublica(slugify(item.nome), item.isMIP))?.texto, !ehMedicamentoOuDuvida(item)) : "Produto da União Farma Nações Unidas, em Sabará.";
   return {
     title: { absolute: titulo },
@@ -79,11 +84,20 @@ export default async function ProdutoNacoesPage({ params }: Props) {
   const conteudo = conteudoDoNome(item.nome);
   // O arquivo da foto oficial é nomeado pelo código de barras (EAN) do produto.
   const ean = (typeof item.ean === "string" && /^\d{8,14}$/.test(item.ean) ? item.ean : null) ?? fotoReal?.match(/(\d{8,14})\.webp$/)?.[1] ?? null;
+  let apresentacoes: ApresentacaoPublica[] = [];
+  const db = banco();
+  if (ean && db) {
+    try {
+      apresentacoes = (await listarApresentacoes(db as Parameters<typeof listarApresentacoes>[0], ean)).map((a) => ({ ...a, ean, foto: a.fotoOrdem ? `/api/apresentacoes-produto?ean=${ean}&ordem=${a.fotoOrdem}&imagem=1` : null }));
+    } catch {
+      apresentacoes = [];
+    }
+  }
   const descricaoIA = ehNbcal(item.nome) ? null : descricaoPublica(slugItem, item.isMIP);
   const textos = textosPublicaveis({ descricao: descricaoIA?.texto });
   const combinaCom = itensCombinaCom(carregarCatalogoNacoes().itens, item);
   // Mesma regra do feed do Google: o preço do site vale como preço firme e o JSON-LD leva a oferta. Medicamento fica como estava.
-  const noCatalogo = catalogo.itens.includes(item);
+  const noCatalogo = Boolean(catalogo && catalogo.itens.includes(item));
   const noGoogle = !controlado && noCatalogo && elegivelGoogle(item, catalogo.itens);
   // Item que não é medicamento: o preço do site vale (preço firme). Medicamento mantém o aviso de confirmar preço e estoque.
   const precoFirme = !controlado && noCatalogo && !ehMedicamentoOuDuvida(item);
@@ -123,7 +137,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
         <div className="pdp-topo section-inner">
           <div className={foto ? "pdp-galeria" : "pdp-galeria pdp-galeria--vazia"}>
             {foto ? (
-              <img src={foto} alt={nomeExibido} width="420" height="420" />
+              <GaleriaProduto fotos={[foto, ...fotosExtrasDoProduto(ean)]} alt={nomeExibido} />
             ) : (
               <SemFoto className="produto-sem-foto" legenda="Sem foto" />
             )}
@@ -159,11 +173,11 @@ export default async function ProdutoNacoesPage({ params }: Props) {
                 <p className="produto-nota" role="note">{controleEspecial ? "Medicamento controlado (Portaria SVS/MS 344/98): não é vendido pelo site e não tem preço aqui. A venda é só na loja, com a Notificação de Receita, e a farmácia retém a receita." : "Medicamento de venda sob prescrição com retenção da receita, como os antimicrobianos: não é vendido pelo site e não tem preço aqui. A venda é só na loja, com a receita, e a farmácia retém a via."}</p>
               </>
             ) : (
-              <p className="produto-preco"><Preco precoFmt={formatBRL(item.preco)} variante="grande" /></p>
+              <p className="produto-preco"><Preco precoFmt={formatBRL(apresentacoes.length > 1 ? Math.min(...apresentacoes.map((a) => a.precoCentavos)) / 100 : item.preco)} variante="grande" />{apresentacoes.length > 1 ? <small>Preço por unidade. Escolha a apresentação antes de adicionar.</small> : null}</p>
             )}
             {item.esgotado ? <p className="produto-esgotado" role="status">Indisponível no momento. Fale com a loja pelo WhatsApp para saber quando chega.</p> : null}
             {controlado ? null : <p className="produto-nota">{precoFirme ? NOTA_PRECO_FIRME : NOTA_PRECO}</p>}
-            {item.esgotado || controlado ? null : <ProdutoBarra unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} max={item.restam} slug={slugify(item.nome)} />}
+            {item.esgotado || controlado ? null : <ProdutoBarra unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} max={item.restam} slug={slugify(item.nome)} apresentacoes={apresentacoes} />}
             {/* No lugar do cálculo de frete por CEP da Drogasil: como a União entrega e recebe, sem inventar prazo nem taxa. */}
             {controlado ? null : <ul className="pdp-receber" aria-label="Como receber">
               <li><strong>Retire na loja</strong><span>Nações Unidas, em Sabará</span></li>

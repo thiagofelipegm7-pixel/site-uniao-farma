@@ -6,7 +6,7 @@ type Props = {
   /** Texto quando não há preço ("Consultar", "Consulte"). */
   vazio?: string;
   /** "grande": página do produto. "selo": fundo de oferta (mesma tipografia, com o destaque da oferta). */
-  variante?: "grande" | "selo";
+  variante?: "grande" | "selo" | "oferta";
 };
 
 /**

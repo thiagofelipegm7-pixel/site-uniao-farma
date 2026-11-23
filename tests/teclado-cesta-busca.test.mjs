@@ -27,8 +27,8 @@ test("cesta: botões de remover têm nomes diferentes e o erro de preenchimento 
   const fluxo = ler("app/reserva/ReservaFluxo.tsx");
   assert.match(botao, /Diminuir \$\{nome\} \(última unidade: sai da cesta\)/);
   assert.ok(!/`Remover \$\{nome\} da cesta`/.test(botao), "o contador não repete o nome da lixeira");
-  assert.match(sacola, /aria-label=\{`Remover \$\{item\.nome\} da cesta`\}/);
-  assert.match(fluxo, /aria-label=\{`Remover \$\{item\.nome\} da cesta`\}/);
+  assert.match(sacola, /aria-label=\{`Remover \$\{nomePedidoItem\(item\)\} da cesta`\}/);
+  assert.match(fluxo, /aria-label=\{`Remover \$\{nomePedidoItem\(item\)\} da cesta`\}/);
   assert.match(fluxo, /function focarPrimeiroInvalido\(\)/);
   assert.equal((fluxo.match(/focarPrimeiroInvalido\(\);/g) ?? []).length, 2, "ao salvar o endereço e ao revisar o pedido");
   assert.match(fluxo, /main \[aria-invalid="true"\]/);

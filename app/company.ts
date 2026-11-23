@@ -1,4 +1,4 @@
-import { PUBLIC_UNITS } from "./site-config";
+import { UNITS } from "./site-config";
 
 export const COMPANY = {
   legalName: "Drogaria e Perfumaria União Farma Ltda",
@@ -39,7 +39,7 @@ export type LegalUnit = {
 };
 
 export const UNIT_LEGAL = Object.fromEntries(
-  PUBLIC_UNITS.map((unit) => [
+  UNITS.map((unit) => [
     unit.id,
     {
       label: unit.legalLabel,

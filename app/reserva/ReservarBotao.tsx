@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import "./circular-reveal.css";
 import { trackEvent } from "../analytics";
 import { registrarEtapa } from "../funil";
 import { IconMais, IconMaisFino, IconCesta } from "./ReservaIcons";
@@ -8,6 +9,9 @@ import BotaoCesta from "./BotaoCesta";
 import { abrirReserva } from "./abrir-reserva";
 import { adicionar, atualizarReserva, definirQtd, idDoItem, qtdDoItem, tetoDoItem } from "./reserva-store";
 import { useReserva } from "./useReserva";
+import VisualizacaoRapida from "./VisualizacaoRapida";
+import type { RegraPromocaoQuantidade } from "../promocao-quantidade-tipos";
+import type { ApresentacaoPublica } from "../apresentacao-produto-tipos";
 
 type Props = {
   unitId: string;
@@ -30,20 +34,35 @@ type Props = {
   rotulo?: string;
   /** Unidades que restam na loja (1 a 5): a cesta não passa disso. */
   max?: number;
+  promocao?: RegraPromocaoQuantidade;
+  apresentacoes?: ApresentacaoPublica[];
+  aguardandoApresentacoes?: boolean;
 };
 
 /** Botão "+" que adiciona à cesta. Sem texto do produto no analytics. */
-export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos, foto, source = "catalogo", compacto = false, receita, variante, rotulo = "Adicionar", max, slug }: Props) {
+export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos, foto, source = "catalogo", compacto = false, receita, variante, rotulo = "Adicionar", max, slug, promocao, apresentacoes, aguardandoApresentacoes = false }: Props) {
   const estado = useReserva();
   const id = idDoItem(unitId, nome);
   const qtd = qtdDoItem(estado, id);
   const teto = tetoDoItem({ max });
+  const quantidadeDoProduto = estado.itens.filter((item) => item.unitId === unitId && (slug ? item.slug === slug : item.nome === nome)).reduce((soma, item) => soma + item.qtd, 0);
+  const restanteDoProduto = Math.max(0, teto - quantidadeDoProduto);
+  const promoEfetiva = apresentacoes && apresentacoes.length > 1 ? undefined : promocao;
   const maisRef = useRef<HTMLButtonElement>(null);
+  // Pulso circular do "+" do cartão: nasce do ponto clicado. A chave muda a cada clique para a animação recomeçar.
+  const [pulso, setPulso] = useState<{ x: number; y: number; k: number } | null>(null);
+  const [visualizacaoAberta, setVisualizacaoAberta] = useState(false);
+  useEffect(() => {
+    if (!pulso) return;
+    const fim = window.setTimeout(() => setPulso(null), 950);
+    return () => window.clearTimeout(fim);
+  }, [pulso]);
 
-  const acrescentar = (opcoes?: { abrirCesta?: boolean; gatilho?: HTMLElement | null }) => {
+  const acrescentar = (opcoes?: { abrirCesta?: boolean; gatilho?: HTMLElement | null }, quantidade = 1, escolha?: ApresentacaoPublica) => {
     // Preço 0 (ou inválido) não entra na cesta: não dispara analytics nem abre o modal.
-    if (!(precoCentavos > 0)) return;
-    atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, deCentavos, foto, ...(receita ? { receita } : {}), ...(max ? { max } : {}), ...(slug ? { slug } : {}) }));
+    const precoEscolhido = escolha?.precoCentavos ?? precoCentavos;
+    if (!(precoEscolhido > 0)) return;
+    atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos: precoEscolhido, deCentavos, foto: escolha?.foto ?? foto, ...(promoEfetiva ? { promocao: promoEfetiva } : {}), ...(escolha ? { variante: { id: escolha.id, nome: escolha.nome } } : {}), ...(receita ? { receita } : {}), ...(max !== undefined ? { max } : {}), ...(slug ? { slug } : {}) }, quantidade));
     trackEvent("reserva_add", { unit: unitId, source });
     registrarEtapa("add");
     if (opcoes?.abrirCesta) abrirReserva(opcoes.gatilho);
@@ -51,16 +70,43 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
 
   const mudar = (novo: number) => atualizarReserva((s) => definirQtd(s, id, novo));
 
-  // Card (catálogo, listas, carrosséis): o círculo + permanece; cada clique adiciona 1 e abre a cesta.
+  // Card: o círculo + abre a visualização rápida; o cliente confirma quantidade e inclusão na cesta.
   if (variante === "cartao") {
     return (
-      <button
-        ref={maisRef}
-        type="button"
-        className="pv-adicionar"
-        aria-label={`Adicionar ${nome} à cesta`}
-        onClick={() => acrescentar({ abrirCesta: true, gatilho: maisRef.current })}
-      ><IconMaisFino size={28} strokeWidth={2} /></button>
+      <>
+        <button
+          key={pulso?.k ?? 0}
+          ref={maisRef}
+          type="button"
+          className={pulso ? "pv-adicionar is-pulso" : "pv-adicionar"}
+          style={pulso ? ({ "--pulso-x": `${pulso.x}px`, "--pulso-y": `${pulso.y}px` } as CSSProperties) : undefined}
+          aria-label={`Ver detalhes de ${nome} e adicionar à cesta`}
+          disabled={aguardandoApresentacoes || !(precoCentavos > 0) || restanteDoProduto === 0}
+          title={aguardandoApresentacoes ? "Carregando opções de apresentação" : undefined}
+          onClick={(evento) => {
+            // Clique pelo teclado (sem posição) nasce do centro do botão.
+            const r = evento.currentTarget.getBoundingClientRect();
+            const porTeclado = evento.clientX === 0 && evento.clientY === 0;
+            setPulso({ x: porTeclado ? r.width / 2 : evento.clientX - r.left, y: porTeclado ? r.height / 2 : evento.clientY - r.top, k: Date.now() });
+            setVisualizacaoAberta(true);
+          }}
+        ><IconMaisFino size={28} strokeWidth={2} /></button>
+        <VisualizacaoRapida
+          open={visualizacaoAberta}
+          nome={nome}
+          precoCentavos={precoCentavos}
+          deCentavos={deCentavos}
+          foto={foto}
+          slug={slug}
+          receita={receita}
+          max={restanteDoProduto}
+          promocao={promoEfetiva}
+          apresentacoes={apresentacoes}
+          onClose={() => setVisualizacaoAberta(false)}
+          onAdicionar={(quantidade, escolha) => acrescentar(undefined, quantidade, escolha)}
+          onAbrirCesta={() => abrirReserva(maisRef.current)}
+        />
+      </>
     );
   }
 

@@ -1,20 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { SetasRolagem } from "./SetasRolagem";
 
 /* eslint-disable @next/next/no-html-link-for-pages -- Links nativos: a navegação do cliente falha no Vinext em produção. */
 
-/** Fotos das 7 categorias (public/categorias), separadas da prancha aprovada. */
+/** Temas de saúde apresentados na navegação por categoria. */
 type Categoria = { href: string; rotulo: string; iconeSrc: string };
 
 const CATEGORIAS: readonly Categoria[] = [
-  { href: "/departamentos/medicamentos", rotulo: "Medicamentos", iconeSrc: "/categorias/medicamentos.jpg" },
-  { href: "/departamentos/dermocosmeticos", rotulo: "Dermo­cosméticos", iconeSrc: "/categorias/dermocosmeticos.jpg" },
-  { href: "/departamentos/perfumes", rotulo: "Perfumes", iconeSrc: "/categorias/perfumes.jpg" },
-  { href: "/departamentos/infantil-e-gestante", rotulo: "Infantil e Gestante", iconeSrc: "/categorias/infantil-e-gestante.jpg" },
-  { href: "/departamentos/beleza", rotulo: "Beleza", iconeSrc: "/categorias/beleza.jpg" },
-  { href: "/departamentos/cuidado-diario", rotulo: "Cuidado Diário", iconeSrc: "/categorias/cuidado-diario.jpg" },
-  { href: "/departamentos/bem-estar", rotulo: "Bem Estar", iconeSrc: "/categorias/bem-estar.jpg" },
+  // Usa termos que existem no catálogo para abrir resultados reais. Para temas sem item relacionado,
+  // mantém a busca pelo próprio tema; a lista oferece contato com o farmacêutico quando não há estoque.
+  { href: "/nacoes-unidas/produtos?q=glicose", rotulo: "Cuidados com diabetes", iconeSrc: "/categorias/diabetes.jpg" },
+  { href: "/nacoes-unidas/produtos?q=pressao", rotulo: "Cuidados com o coração", iconeSrc: "/categorias/coracao.jpg" },
+  { href: "/nacoes-unidas/produtos?q=azia", rotulo: "Cuidados com o estômago", iconeSrc: "/categorias/estomago.jpg" },
+  { href: "/nacoes-unidas/produtos?q=f%C3%ADgado", rotulo: "Cuidados com o fígado", iconeSrc: "/categorias/figado.jpg" },
+  { href: "/nacoes-unidas/produtos?q=calcio", rotulo: "Cuidados com os ossos", iconeSrc: "/categorias/ossos.jpg" },
+  { href: "/nacoes-unidas/produtos?q=rins&exata=1", rotulo: "Cuidados com os rins", iconeSrc: "/categorias/rins.jpg" },
+  { href: "/departamentos/dermocosmeticos", rotulo: "Derma Cuidados", iconeSrc: "/categorias/derma.jpg" },
+  { href: "/nacoes-unidas/produtos?q=nasal", rotulo: "Cuidados Respiratórios", iconeSrc: "/categorias/respiratorios.jpg" },
+  { href: "/nacoes-unidas/produtos?q=colirio", rotulo: "Cuidados com os olhos", iconeSrc: "/categorias/olhos.jpg" },
 ];
 
 /**

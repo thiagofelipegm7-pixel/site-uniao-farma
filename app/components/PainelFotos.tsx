@@ -1017,6 +1017,9 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
                 {mostraFotos ? <FotosExtras ean={l.ean} nome={nomeAtual(l).texto} /> : null}
                 {mostraGestao ? <>
                 <div className="pf-campo">
+                  <button type="button" className="pf-botao" disabled={sugestaoIA?.carregando === true} onClick={(e) => void sugerirComIA(l, e.currentTarget.closest('[role="dialog"]'))}>
+                    {sugestaoIA?.ean === l.ean && sugestaoIA.carregando ? "Pensando…" : "Sugerir com IA"}
+                  </button>
                   {sugestaoIA?.ean === l.ean && sugestaoIA.msg ? <small className="pf-dica" role="status">{sugestaoIA.msg}</small> : null}
                   {sugestaoIA?.ean === l.ean && sugestaoIA.categoria ? (
                     <small className="pf-dica">

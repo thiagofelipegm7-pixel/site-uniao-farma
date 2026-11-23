@@ -700,6 +700,9 @@
   background: #fff;
 }
 
+.produto-barra:has(.produto-barra-promocao) { height: auto; min-height: 86px; flex-wrap: wrap; }
+.produto-barra-promocao { flex: 1 0 100%; margin: 0; color: #245d53; font-size: 0.8125rem; line-height: 1.3; }
+
 .produto-adicionar,
 .produto-ver-reserva {
   display: inline-flex;
@@ -829,7 +832,7 @@ body.cookie-banner-visible .produto-barra { bottom: 5rem; }
   }
 }
 
-/* Listas de preços de medicamentos com receita e controlados: sem cesta, sem oferta, sem destaque. */
+/* Cartões restritos: ofertas por quantidade são configuráveis manualmente no painel. */
 .catalogo-nacoes .restrito-selo {
   display: inline-block;
   margin: 0 0 6px;

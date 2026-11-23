@@ -8,12 +8,14 @@ import { EVENTO_ABRIR_RESERVA } from "./abrir-reserva";
 import { IconFechar, IconLixeira, IconCestaArte } from "./ReservaIcons";
 import SemFoto from "../nacoes-unidas/produtos/SemFoto";
 import "./cesta-modal.css";
-import { ajustarLimitesAoVivo, atualizarReserva, definirQtd, itemAtivo, tetoDoItem, formatarCentavos, limpar, subtotalCentavos, totalItens } from "./reserva-store";
+import { ajustarLimitesAoVivo, atualizarReserva, definirQtd, itemAtivo, nomePedidoItem, tetoDoItem, formatarCentavos, limpar, precoUnitarioReserva, subtotalCentavos, totalItens } from "./reserva-store";
 import { useReserva } from "./useReserva";
 import { useDisponibilidade } from "./useDisponibilidade";
 import { avisosDaCesta } from "../disponibilidade";
 import CestaSugestoes from "./CestaSugestoes";
 import { ligarArrastarParaFechar } from "./arrastar-para-fechar";
+import { faixaAplicavel, proximaFaixa } from "../promocao-quantidade-tipos";
+import LerReceita from "../receita-foto/LerReceita";
 
 const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
@@ -163,7 +165,10 @@ export default function ReservaSacola() {
                   const temPreco = item.precoCentavos > 0;
                   // Preço "De" riscado só quando já veio confirmado no dado, e nunca em medicamento com receita ou controlado (Anvisa).
                   const riscado = temPreco && !item.receita && item.deCentavos && item.deCentavos > item.precoCentavos ? item.deCentavos * item.qtd : null;
-                  const teto = Math.max(tetoDoItem(item), item.qtd);
+                  const outrasApresentacoes = estado.itens.filter((i) => i.id !== item.id && i.unitId === item.unitId && item.slug && i.slug === item.slug).reduce((soma, i) => soma + i.qtd, 0);
+                  const teto = Math.max(item.qtd, tetoDoItem(item) - outrasApresentacoes);
+                  const faixaAtiva = faixaAplicavel(item.promocao, item.qtd);
+                  const proxima = proximaFaixa(item.promocao, item.qtd);
                   return (
                     <li key={item.id} className="cm-item">
                       <span className="cm-foto">
@@ -171,20 +176,22 @@ export default function ReservaSacola() {
                       </span>
                       <div className="cm-info">
                         <div className="cm-linha-nome">
-                          <span className="cm-nome">{item.nome}</span>
-                          <button type="button" className="cm-lixeira" aria-label={`Remover ${item.nome} da cesta`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, 0))}>
+                          <span className="cm-nome">{nomePedidoItem(item)}</span>
+                          <button type="button" className="cm-lixeira" aria-label={`Remover ${nomePedidoItem(item)} da cesta`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, 0))}>
                             <IconLixeira size={20} />
                           </button>
                         </div>
                         <small className="cm-loja">União Farma</small>
                         {item.receita ? <small className="cm-receita">{item.receita === "controlado" ? "Controlado: retirada na loja com receita" : "Exige receita: retirada na loja"}</small> : null}
+                        {faixaAtiva ? <small className="cm-loja">Faixa de {faixaAtiva.quantidade} un. aplicada: {formatarCentavos(faixaAtiva.precoUnitarioCentavos)} cada</small> : proxima ? <small className="cm-loja">Leve {proxima.quantidade}, pague {formatarCentavos(proxima.precoUnitarioCentavos)} cada</small> : null}
                         {avisos.some((a) => a.id === item.id && a.tipo === "acabou") ? <small className="fluxo-aviso-estoque" role="alert">Acabou na loja agora</small> : null}
                         <div className="cm-linha-preco">
                           <span className="cm-preco">
                             {riscado ? <s>{formatarCentavos(riscado)}</s> : null}
-                            <strong>{temPreco ? formatarCentavos(item.precoCentavos * item.qtd) : "Consultar"}</strong>
+                            {proxima ? <small>Próxima faixa: {proxima.quantidade} un. por {formatarCentavos(proxima.precoUnitarioCentavos)} cada</small> : null}
+                            <strong>{temPreco ? formatarCentavos(precoUnitarioReserva(item) * item.qtd) : "Consultar"}</strong>
                           </span>
-                          <BotaoCesta quantidade={item.qtd} teto={teto} nome={item.nome} aoAdicionar={() => undefined} aoMudar={(n) => atualizarReserva((s) => definirQtd(s, item.id, n))} />
+                          <BotaoCesta quantidade={item.qtd} teto={teto} nome={nomePedidoItem(item)} aoAdicionar={() => undefined} aoMudar={(n) => atualizarReserva((s) => definirQtd(s, item.id, n))} />
                         </div>
                       </div>
                     </li>
@@ -239,6 +246,7 @@ export default function ReservaSacola() {
       </button>
 
       {aberta ? createPortal(gaveta, document.body) : null}
+      <LerReceita />
     </>
   );
 }

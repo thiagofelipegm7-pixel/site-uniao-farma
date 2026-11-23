@@ -13,6 +13,7 @@ import { buildWhatsAppUrl, UNITS } from "../site-config";
 import { formatarCentavos } from "../reserva/reserva-store";
 import SemFoto from "../nacoes-unidas/produtos/SemFoto";
 import MarcaUniao from "./MarcaUniao";
+import BotaoReceita from "../receita-foto/BotaoReceita";
 import ReservaSacola from "../reserva/ReservaSacola";
 import FotosNovas from "./FotosNovas";
 import { IconMenu, IconPino } from "../reserva/ReservaIcons";
@@ -21,9 +22,11 @@ import LojaPicker from "./LojaPicker";
 import EntregarEm from "./EntregarEm";
 import { getUnitOpenStatus } from "../unit-hours";
 import "./shop.css";
+import "./busca-hero.css";
 import { imagemIlustrativa } from "../nacoes-unidas/produtos/receita";
 import DepartamentosGaveta from "./DepartamentosGaveta";
 import { abrirSeletorDeLoja, EVENTO_ABRIR_DEPARTAMENTOS } from "./loja-evento";
+import { SubmenuHome } from "./HomeBlocos";
 
 const LINKS = [
   { href: "/nacoes-unidas/produtos", label: "Produtos" },
@@ -290,6 +293,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
   return (
     <>
       <header className="shop-header">
+        <SubmenuHome />
         <button type="button" className="shop-icone shop-menu" aria-label="Abrir menu" aria-expanded={menu} aria-controls="shop-menu-painel" onClick={() => setMenu(true)}>
           <IconMenu size={26} />
         </button>
@@ -410,6 +414,9 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
               ) : null}
               {normal.length === 0 ? (
                 <>
+                  <div className="shop-sugestoes-receita">
+                    <BotaoReceita aoAbrir={() => setFoco(false)} classe="receita-gatilho-bloco" rotulo="Tenho uma receita: ler a foto" />
+                  </div>
                   {recentes.length > 0 ? (
                     <>
                       <div className="shop-sugestoes-cabeca">
@@ -504,6 +511,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
               )}
             </div>
           ) : null}
+          <span className="shop-busca-orbita" aria-hidden="true" />
         </form>
         <nav className="shop-links" aria-label="Menu principal">
           {LINKS.slice(0, 4).map((link) => (
