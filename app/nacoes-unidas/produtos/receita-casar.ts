@@ -36,6 +36,9 @@ export type ResultadoMedicamento = {
   /** Como a loja entendeu o nome quando foi preciso corrigir a escrita (para a pessoa conferir). */
   entendidoComo: string | null;
   itens: ItemCasado[];
+  /** Sugestões de mesmo princípio ativo. A semelhança não confirma dose nem substituição. */
+  similares: ItemCasado[];
+  principioAtivoSimilar: string | null;
   /** Nomes que existem na loja mas em outra dosagem (só informativo, sem botão de cesta). */
   outrasDoses: string[];
 };
@@ -137,7 +140,7 @@ function candidatos(catalogo: CatalogoReceita, palavras: readonly string[], dose
 /** Casa UM medicamento lido da receita com o catálogo. */
 export function casarMedicamento(catalogo: CatalogoReceita, lido: MedicamentoLido): ResultadoMedicamento {
   const dosesReceita = lerDoses(lido.dosagem).length > 0 ? lerDoses(lido.dosagem) : lerDoses(lido.nome);
-  const base: ResultadoMedicamento = { lido, status: "nao", entendidoComo: null, itens: [], outrasDoses: [] };
+  const base: ResultadoMedicamento = { lido, status: "nao", entendidoComo: null, itens: [], similares: [], principioAtivoSimilar: null, outrasDoses: [] };
   const original = palavrasDoNome(lido.nome);
   if (original.length === 0) return base;
 
@@ -163,15 +166,66 @@ export function casarMedicamento(catalogo: CatalogoReceita, lido: MedicamentoLid
       }
     }
   }
-  if (lista.length === 0) return base;
+  const sugestoes = similaresPorAtivo(catalogo, original, dosesReceita, lista, entendidoComo !== null);
+  if (lista.length === 0) {
+    return sugestoes ? { ...base, similares: sugestoes.itens, principioAtivoSimilar: sugestoes.ativo } : base;
+  }
 
   // Com dosagem na receita: quem confirma a dose vem primeiro; produto sem dose no nome só entra se nenhum confirmar.
   let sim = lista.filter((i) => i.doseConfere !== false);
   if (sim.some((i) => i.doseConfere === true)) sim = sim.filter((i) => i.doseConfere === true);
   if (sim.length === 0) {
-    return { ...base, status: "dose", entendidoComo, outrasDoses: ordenar(lista, palavras[0]).slice(0, 3).map((i) => i.nome) };
+    return { ...base, status: "dose", entendidoComo, similares: sugestoes?.itens ?? [], principioAtivoSimilar: sugestoes?.ativo ?? null, outrasDoses: ordenar(lista, palavras[0]).slice(0, 3).map((i) => i.nome) };
   }
-  return { ...base, status: "achado", entendidoComo, itens: ordenar(sim, palavras[0]).slice(0, MAX_ITENS_POR_MEDICAMENTO) };
+  return { ...base, status: "achado", entendidoComo, itens: ordenar(sim, palavras[0]).slice(0, MAX_ITENS_POR_MEDICAMENTO), similares: sugestoes?.itens ?? [], principioAtivoSimilar: sugestoes?.ativo ?? null };
+}
+
+function formaDe(p: ProdutoRestrito): "injetavel" | "oral" | "topico" | "oftalmico" | "nasal" | null {
+  const texto = normalizarBusca(`${p.nomeOriginal ?? p.nome} ${p.apresentacao ?? ""}`);
+  if (/\b(caneta|canet|injetavel|inj|ampola|seringa|sol inj)\b|\d+canet/.test(texto)) return "injetavel";
+  if (/\b(oral|comprimidos?|cpr|comp|capsulas?|caps|xarope|gotas|solucao oral|suspensao oral)\b/.test(texto)) return "oral";
+  if (/\b(creme|pomada|gel|topico|dermatologico)\b/.test(texto)) return "topico";
+  if (/\b(oftalmica|oftalmico|colirio|solucao oft)\b/.test(texto)) return "oftalmico";
+  if (/\b(nasal|spray nasal)\b/.test(texto)) return "nasal";
+  return null;
+}
+
+function itensComAtivo(catalogo: CatalogoReceita, ativo: string, forma: NonNullable<ReturnType<typeof formaDe>>, doses: readonly Dose[], excluir: ReadonlySet<string>): ItemCasado[] {
+  const chaveAtivo = normalizarBusca(ativo);
+  return catalogo.restritos
+    .filter((p) => p.tipo === "receita" && !p.controlado && p.precoCentavos !== null && p.precoCentavos > 0 && p.ativo && normalizarBusca(p.ativo) === chaveAtivo && formaDe(p) === forma)
+    .map((p): ItemCasado => ({ tipo: p.tipo, chave: `r:${p.tipo}:${p.nome}`, nome: p.nome, precoCentavos: p.precoCentavos as number, produto: p, doseConfere: doseConfere(doses, p.nomeOriginal ?? p.nome) }))
+    .filter((item) => !excluir.has(item.chave));
+}
+
+/** Usa o princípio ativo do cadastro e os sinônimos já indexados para sugerir itens relacionados, sem afirmar equivalência. */
+function similaresPorAtivo(catalogo: CatalogoReceita, palavras: readonly string[], doses: readonly Dose[], diretos: readonly ItemCasado[], incluirDiretos = false): { ativo: string; itens: ItemCasado[] } | null {
+  const fontes: ProdutoRestrito[] = [];
+  for (const item of diretos) if (item.tipo !== "normal" && item.produto.ativo && formaDe(item.produto)) fontes.push(item.produto);
+
+  if (fontes.length === 0 && palavras.length > 0) {
+    for (const p of catalogo.restritos) {
+      if (p.tipo !== "receita" || p.controlado || !p.ativo || !formaDe(p)) continue;
+      const busca = typeof p.proprio === "number" ? p.busca.slice(p.proprio) : "";
+      const sinonimos = new Set(termosDeBusca(busca));
+      // Exige que cada palavra legível do nome apareça literalmente entre os sinônimos catalogados.
+      if (palavras.every((palavra) => sinonimos.has(palavra))) fontes.push(p);
+    }
+  }
+
+  const grupos = new Map<string, { ativo: string; forma: NonNullable<ReturnType<typeof formaDe>> }>();
+  for (const p of fontes) {
+    const forma = formaDe(p);
+    const ativo = p.ativo?.trim();
+    if (!forma || !ativo) continue;
+    grupos.set(`${normalizarBusca(ativo)}|${forma}`, { ativo, forma });
+  }
+  // Se a mesma marca apontar para princípios ativos ou formas diferentes, não arrisca uma sugestão.
+  if (grupos.size !== 1) return null;
+  const grupo = [...grupos.values()][0];
+  const excluir = new Set(incluirDiretos ? [] : diretos.map((item) => item.chave));
+  const itens = ordenar(itensComAtivo(catalogo, grupo.ativo, grupo.forma, doses, excluir), palavras[0] ?? "").slice(0, MAX_ITENS_POR_MEDICAMENTO);
+  return itens.length ? { ativo: grupo.ativo, itens } : null;
 }
 
 export function casarReceita(catalogo: CatalogoReceita, lidos: readonly MedicamentoLido[]): ResultadoMedicamento[] {

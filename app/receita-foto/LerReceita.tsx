@@ -71,7 +71,7 @@ function carregarCatalogo(): Promise<CatalogoReceita> {
   return catalogoEmMemoria;
 }
 
-function CartaoItem({ item }: { item: ItemCasado }) {
+function CartaoItem({ item, principioAtivoSimilar }: { item: ItemCasado; principioAtivoSimilar?: string }) {
   if (item.tipo === "normal") {
     const nome = nomeDeExibicao(item.nome);
     return (
@@ -95,17 +95,23 @@ function CartaoItem({ item }: { item: ItemCasado }) {
       <span className="receita-item-info">
         <strong>{p.nome}</strong>
         <span className="receita-item-preco">{formatarCentavos(item.precoCentavos)}</span>
+        {p.generico ? <em className="receita-selo">Genérico</em> : null}
         <em className={`receita-selo${controlado ? " is-controlado" : ""}`}>{controlado ? "Controlado · receita retida na loja" : "Exige receita · retirada na loja"}</em>
+        {principioAtivoSimilar ? <em className="receita-selo receita-selo-similar">Mesmo princípio ativo ({principioAtivoSimilar}). Confira a dose e a apresentação com o farmacêutico antes de usar.</em> : null}
       </span>
-      <ReservarBotao
-        unitId="nacoes"
-        nome={p.nome}
-        precoCentavos={item.precoCentavos}
-        foto={imagemIlustrativa({ ...p, nome: p.nomeOriginal ?? p.nome })}
-        source={`receita_foto_${controlado ? "controlado" : "receita"}`}
-        receita={controlado ? "controlado" : "receita"}
-        rotulo="Adicionar à cesta"
-      />
+      {principioAtivoSimilar && item.doseConfere !== true ? (
+        <span className="receita-similar-sem-cesta">Confira esta dose e apresentação com o farmacêutico antes de adicionar.</span>
+      ) : (
+        <ReservarBotao
+          unitId="nacoes"
+          nome={p.nome}
+          precoCentavos={item.precoCentavos}
+          foto={imagemIlustrativa({ ...p, nome: p.nomeOriginal ?? p.nome })}
+          source={`receita_foto_${controlado ? "controlado" : "receita"}`}
+          receita={controlado ? "controlado" : "receita"}
+          rotulo="Adicionar à cesta"
+        />
+      )}
     </li>
   );
 }
@@ -137,8 +143,17 @@ function CartaoMedicamento({ r }: { r: ResultadoMedicamento }) {
           {r.outrasDoses.length > 0 ? <span className="receita-outras">Outras apresentações na loja: {r.outrasDoses.join("; ")}.</span> : null}
         </p>
       ) : (
-        <p className="receita-faltou">Não encontrado no site. Fale com o farmacêutico.</p>
+        <p className="receita-faltou">{r.similares.length > 0 ? "Não encontrei esse nome exato." : "Não encontrado no site."} Fale com o farmacêutico.</p>
       )}
+      {r.similares.length > 0 ? (
+        <div className="receita-similares">
+          <strong>Opção encontrada pelo princípio ativo: {r.principioAtivoSimilar}</strong>
+          <p>Esta correspondência não confirma que seja a mesma dose, apresentação ou substituição. Confira a receita com o farmacêutico antes de escolher.</p>
+          <ul className="receita-itens">
+            {r.similares.map((item) => <CartaoItem key={item.chave} item={item} principioAtivoSimilar={r.principioAtivoSimilar ?? undefined} />)}
+          </ul>
+        </div>
+      ) : null}
     </section>
   );
 }
