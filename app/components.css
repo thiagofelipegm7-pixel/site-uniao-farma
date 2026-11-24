@@ -530,7 +530,7 @@
     height: 30px;
     border-radius: 11px;
     background: #eef7f6;
-    color: #14736b;
+    color: #000000;
   }
 
   .mobile-quick-nav .mqn-icon img,
@@ -550,8 +550,8 @@
   }
 
   .mobile-quick-nav a.is-primary {
-    background: #14736b;
-    color: #ffffff;
+    background: #ffffff;
+    color: #000000;
   }
 
   .mobile-quick-nav a.is-primary .mqn-icon {
@@ -662,7 +662,7 @@
 
 .unit-store-hood {
   margin: 0;
-  color: #14736b;
+  color: #000000;
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -736,12 +736,12 @@
 .unit-store-map {
   border: 1px solid #a9d8d2;
   background: #e4f6f3;
-  color: #14736b;
+  color: #000000;
 }
 
 .unit-store-more {
   margin-top: 0.25rem;
-  color: #14736b;
+  color: #000000;
   font-size: 0.78rem;
   font-weight: 800;
   text-decoration: none;
@@ -1063,7 +1063,7 @@
 
 .home-offer-brand {
   margin: 0;
-  color: #14736b;
+  color: #000000;
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -1079,7 +1079,7 @@
 
 .home-offer-price {
   margin: 0.15rem 0 0;
-  color: #14736b;
+  color: #000000;
   font-size: 1.15rem;
   font-weight: 800;
   letter-spacing: -0.03em;
@@ -1119,7 +1119,7 @@
   border: 1px solid #a9d8d2;
   border-radius: 14px;
   background: #e4f6f3;
-  color: #14736b;
+  color: #000000;
   font-size: 0.82rem;
   font-weight: 800;
   text-align: center;
@@ -1130,7 +1130,7 @@
 .home-reasons-more {
   display: inline-block;
   margin-top: 0.75rem;
-  color: #14736b;
+  color: #000000;
   font-size: 0.82rem;
   font-weight: 800;
   text-decoration: none;
@@ -1275,7 +1275,7 @@
 }
 
 .reviews-score-number {
-  color: #14736b;
+  color: #000000;
   font-size: 1.28rem;
   font-weight: 800;
   letter-spacing: -0.04em;
@@ -1313,7 +1313,7 @@
 }
 
 .reviews-unit-score {
-  color: #14736b;
+  color: #000000;
   font-size: 0.82rem;
   font-weight: 800;
 }
@@ -1339,8 +1339,8 @@ a.reviews-google-link {
   padding: 0.5rem 0.9rem;
   border: 0 !important;
   border-radius: 999px;
-  background: #14736b !important;
-  color: #fff !important;
+  background: #ffffff !important;
+  color: #000000 !important;
   font-size: 0.8rem;
   font-weight: 800;
   text-decoration: none !important;
@@ -1571,8 +1571,8 @@ a.brand img {
   justify-content: center;
   min-height: 48px;
   border-radius: 14px;
-  background: #14736b;
-  color: #fff !important;
+  background: #ffffff;
+  color: #000000 !important;
   text-decoration: none;
   font-weight: 700;
 }

@@ -71,7 +71,7 @@
   }
   .menu-links a, .content-nav-links a { min-width: var(--spacing-tap) !important; justify-content: center !important; }
   .menu-links a:hover, .content-nav-links a:hover { background: var(--color-teal-50) !important; color: var(--color-teal-700) !important; }
-  .content-nav-links a[aria-current="page"] { color: var(--color-teal-700) !important; box-shadow: inset 0 -3px 0 var(--color-teal-600) !important; border-radius: 0 !important; }
+  .content-nav-links a[aria-current="page"] { color: var(--color-teal-700) !important; box-shadow: none !important; border-radius: 0 !important; }
   .header-cta, .content-header-cta {
     min-height: var(--spacing-tap) !important; padding: 0 var(--spacing-lg) !important; border-radius: var(--radius-md) !important; background: var(--uf-action) !important;
     color: var(--uf-action-ink) !important; font: 600 .9375rem/1 var(--font-body) !important; display: inline-flex !important; align-items: center !important; gap: var(--spacing-sm) !important;

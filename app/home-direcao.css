@@ -1,0 +1,83 @@
+/* Direção artística na página inicial. Só vale na home: a vitrine #vitrine-higiene identifica a página.
+   Verde-água como único verde, perolado nas superfícies de destaque, preto como único escuro, relevo sem bordas. */
+
+/* Cabeçalho: faixa verde-água, texto preto */
+html body header.shop-header {
+  background: #9fe3d6 !important;
+  color: #000000 !important;
+  box-shadow: none !important;
+}
+html body header.shop-header a,
+html body header.shop-header button,
+html body header.shop-header .dm-cabeca {
+  color: #000000 !important;
+}
+
+/* Busca: pílula perolada com relevo */
+html body header.shop-header .shop-busca {
+  background: #ffffff !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Botões do topo: pérola com relevo; WhatsApp como ação principal (preto) */
+html body header.shop-header .reserva-sacola,
+html body header.shop-header .shop-icone {
+  background: #ffffff !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+html body header.shop-header a.shop-whats {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+}
+html body header.shop-header a.shop-whats * {
+  color: #ffffff !important;
+}
+
+/* Setas dos carrosséis: pérola em relevo */
+html body:has(#vitrine-higiene) .painel-seta,
+html body:has(#vitrine-higiene) .shop-seta {
+  background: #ffffff !important;
+  border: 0 !important;
+  color: #000000 !important;
+  box-shadow: none !important;
+}
+
+/* Banner: cantos arredondados, sem contorno */
+html body:has(#vitrine-higiene) .painel-slide {
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+/* Aviso de cookies: cartão pérola, botões em relevo ou preto */
+html body:has(#vitrine-higiene) .cookie-banner {
+  border: 0 !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+html body:has(#vitrine-higiene) .cookie-actions .cookie-reject {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+html body:has(#vitrine-higiene) .cookie-actions button:not(.cookie-reject) {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 0 !important;
+}
+
+/* Rodapé: verde-água, texto preto */
+html body:has(#vitrine-higiene) footer.rodape {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+html body:has(#vitrine-higiene) footer.rodape a,
+html body:has(#vitrine-higiene) footer.rodape p,
+html body:has(#vitrine-higiene) footer.rodape li {
+  color: #000000 !important;
+}

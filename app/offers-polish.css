@@ -98,7 +98,7 @@
 
 .offer-consult-brand {
   margin: 0 !important;
-  color: #14736b !important;
+  color: #000000 !important;
   font-size: 0.75rem !important;
   letter-spacing: 0.08em !important;
 }
@@ -115,7 +115,7 @@
 }
 
 .offer-consult-price strong {
-  color: #14736b !important;
+  color: #000000 !important;
   font-size: 1.45rem !important;
 }
 
@@ -155,7 +155,7 @@
 }
 
 .offers-whatsapp-section .direct-unit-name {
-  color: #14736b;
+  color: #000000;
   font-size: 1rem;
   font-weight: 800;
 }

@@ -5,9 +5,13 @@ type P = { size?: number };
 
 export function IconSacola({ size = 24 }: P) {
   return (
-    <svg width={size} height={size} viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">
-      <path d="M224,80V200a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V80a8,8,0,0,1,8-8H216A8,8,0,0,1,224,80Z" opacity="0.2"/><path d="M216,64H176a48,48,0,0,0-96,0H40A16,16,0,0,0,24,80V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V80A16,16,0,0,0,216,64ZM128,32a32,32,0,0,1,32,32H96A32,32,0,0,1,128,32Zm88,168H40V80H80V96a8,8,0,0,0,16,0V80h64V96a8,8,0,0,0,16,0V80h40Z"/>
+    <svg width={size} height={size} viewBox="0 0 1024 768" aria-hidden="true" style={{ display: "block" }}>
+      {/* Sacola de farmácia no estilo de referência: contorno petróleo, miolo verde perolado claro, cruz verde-água. */}
+      <path d="M300 205 H724 Q784 205 784 268 L806 650 Q810 721 740 721 H284 Q216 721 220 650 L240 268 Q240 205 300 205 Z" fill="#c6f3ea" stroke="#000000" strokeWidth="34" strokeLinejoin="round" />
+      <path d="M395 248 V150 A115 100 0 0 1 625 150 V248 M368 248 H422 M598 248 H652" fill="none" stroke="#000000" strokeWidth="34" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M485 354 H539 V433 H627 V487 H539 V568 H485 V487 H397 V433 H485 Z" fill="#8fd3c4" stroke="#000000" strokeWidth="26" strokeLinejoin="round" />
     </svg>
+
   );
 }
 

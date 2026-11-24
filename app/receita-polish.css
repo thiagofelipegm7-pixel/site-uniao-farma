@@ -53,8 +53,8 @@
   width: 1.45rem;
   height: 1.45rem;
   border-radius: 999px;
-  background: #14736b;
-  color: #ffffff;
+  background: #ffffff;
+  color: #000000;
   font-size: 0.75rem;
 }
 
@@ -80,7 +80,7 @@
 }
 
 .recipe-page .direct-unit-name {
-  color: #14736b;
+  color: #000000;
   font-size: 1rem;
   font-weight: 800;
 }

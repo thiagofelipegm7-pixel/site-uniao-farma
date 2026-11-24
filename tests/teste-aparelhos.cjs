@@ -63,7 +63,7 @@ async function perfil(browser, p) {
   if (await pix.count()) await pix.check().catch(() => {});
   const envio = page.locator('a[data-track-source="reserva_envio"]').first();
   const href = (await envio.count()) ? await envio.getAttribute("href") : "";
-  ok("Cesta gera a mensagem do WhatsApp pronta", /^https:\/\/(wa\.me|api\.whatsapp\.com)\//.test(href || "") && decodeURIComponent((href || "").replace(/\+/g, " ")).includes("Quero pedir"), (href || "sem link").slice(0, 40));
+  ok("Cesta gera a mensagem do WhatsApp pronta", /^https:\/\/(wa\.me|api\.whatsapp\.com)\//.test(href || "") && decodeURIComponent((href || "").replace(/\+/g, " ")).includes("Itens"), (href || "sem link").slice(0, 40));
 
   // 5) rodapé com Alvará e AFE
   await page.goto(BASE + "/", { waitUntil: "load" });

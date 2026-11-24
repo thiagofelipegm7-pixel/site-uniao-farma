@@ -1,0 +1,889 @@
+@layer base-direcao {
+/* Base da direção artística no site público: verde-água, neumorfismo, campos e botões em inset, sem bordas.
+ * Carregado por último para vencer as regras anteriores. Escopo: busca, cards de produto e títulos de seção. */
+
+/* Campo de busca: branco, recuado, sem borda. */
+html body .shop-busca input {
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: none !important;
+}
+
+/* Cards de produto dos destaques: verde-água em relevo, sem borda. */
+html body .shop-destaques-lista > .pv-card--v {
+  border: 0 !important;
+  border-radius: 16px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+html body .shop-destaques-lista > .pv-card--v .pv-nome,
+html body .shop-destaques-lista > .pv-card--v .pv-preco,
+html body .shop-destaques-lista > .pv-card--v .pv-atrib-linha {
+  color: #000000 !important;
+}
+
+/* Títulos de seção: peso 700, cor de tinta. */
+html body main h2 {
+  font-weight: 700 !important;
+  color: #000000 !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Botão principal (+ de adicionar à cesta): branco em inset, ícone petróleo, sem o teal chapado. */
+html body .pv-adicionar {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+html body .pv-adicionar:hover {
+  background: #fdfdfd !important;
+}
+
+/* O botão + usa a variável --pv-add-bg (definida em shop.css): troca a variável para o branco da direção. */
+html body .pv-card,
+html body .pv-card .pv-adicionar {
+  --pv-add-bg: #ffffff;
+}
+html body .pv-card .pv-adicionar {
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: none !important;
+}
+html body .pv-card .pv-adicionar svg,
+html body .pv-card .pv-adicionar svg * {
+  color: #000000 !important;
+  stroke: #000000 !important;
+}
+
+/* Cesta ("Aproveite também"): o + tem relevo em repouso e afunda ao clique, como os botões da cesta. */
+/* Neumorphism no + da vitrine da cesta: relevo em repouso, afunda ao clique. */
+html body .fluxo-vitrine .pv-card .pv-adicionar {
+  background: #ffffff !important;
+  box-shadow: none !important;
+  transition: box-shadow 160ms ease, transform 160ms ease;
+}
+html body .fluxo-vitrine .pv-card .pv-adicionar:active {
+  background: #ffffff !important;
+  box-shadow: none !important;
+  transform: translateY(1px);
+}
+
+/* Botões principais da reserva/finalização ("Revisar pedido", "Continuar", "Enviar"): branco em inset, texto petróleo, sem borda teal. */
+html body .fluxo-botao:not(:disabled):not(.fluxo-botao-vazado) {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+  font-weight: 700 !important;
+}
+html body .fluxo-botao:not(:disabled):not(.fluxo-botao-vazado):active {
+  box-shadow: none !important;
+}
+/* Botão "Continuar" do rodapé da cesta: perolado verde-água com brilho de topo, inset em relevo
+ * e resposta ao toque (afunda ao pressionar, realça ao passar o mouse). */
+html body .fluxo-rodape .fluxo-botao:not(:disabled):not(.fluxo-botao-vazado) {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0) 48%),
+    linear-gradient(#ffffff, #ffffff) !important;
+  box-shadow: none !important;
+  transition: box-shadow 160ms ease, transform 160ms ease;
+}
+html body .fluxo-rodape .fluxo-botao:not(:disabled):not(.fluxo-botao-vazado):hover {
+  box-shadow: none !important;
+}
+html body .fluxo-rodape .fluxo-botao:not(:disabled):not(.fluxo-botao-vazado):active {
+  box-shadow: none !important;
+  transform: translateY(1px);
+}
+html body .fluxo-botao:not(:disabled):not(.fluxo-botao-vazado) svg,
+html body .fluxo-botao:not(:disabled):not(.fluxo-botao-vazado) svg * {
+  color: #000000 !important;
+  stroke: #000000 !important;
+}
+
+/* Loja (bairros e unidades): botões de WhatsApp em branco, em inset, texto petróleo, como os demais botões da direção. */
+html body .button-whatsapp,
+html body a.button.button-whatsapp,
+html body .button.button-whatsapp {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+}
+html body .button-whatsapp:hover,
+html body .button-whatsapp:active {
+  background: #fdfdfd !important;
+  color: #000000 !important;
+}
+html body .button-whatsapp svg,
+html body .button-whatsapp svg * {
+  color: #000000 !important;
+  stroke: #000000 !important;
+  fill: none !important;
+}
+html body .button-whatsapp svg path[fill]:not([fill="none"]) {
+  fill: #000000 !important;
+}
+html body .unit-store-wa,
+html body a.unit-store-wa {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+}
+html body .unit-store-wa:hover,
+html body .unit-store-wa:active {
+  background: #fdfdfd !important;
+  color: #000000 !important;
+}
+
+/* Cesta: itens, resumo e barra de baixo na direção do painel (verde-água em relevo, sem linha). */
+.fluxo-itens > li {
+  background: #ffffff !important;
+  border: 0 !important;
+  border-radius: 16px !important;
+  box-shadow: none !important;
+  color: #000000 !important;
+}
+.cel-produto {
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
+  color: #000000 !important;
+}
+.cel-produto * { color: inherit; }
+.fluxo-resumo {
+  background: #ffffff !important;
+  border: 0 !important;
+  border-radius: 18px !important;
+  box-shadow: none !important;
+  color: #000000 !important;
+}
+.fluxo-resumo-titulo { color: #000000 !important; font-weight: 700 !important; }
+.fluxo-rodape-total {
+  background: #ffffff !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: #000000 !important;
+}
+.fluxo-rodape-total .fluxo-rodape-valor, .fluxo-rodape-total strong { color: #000000 !important; }
+
+/* Resumo + barra "Revisar pedido": um único card. O resumo fica sem a base arredondada e a barra sem o topo,
+ * com a mesma cor, então os dois se encaixam sem emenda. */
+html body .fluxo-coluna-resumo:has(+ .fluxo-rodape-total) > .fluxo-resumo {
+  border-radius: 18px 18px 0 0 !important;
+  box-shadow: none !important;
+  margin-bottom: 0 !important;
+}
+html body .fluxo-coluna-resumo + .fluxo-rodape-total {
+  background: #ffffff !important;
+  border-radius: 0 0 18px 18px !important;
+  box-shadow: none !important;
+  margin-top: 0 !important;
+}
+
+/* Entrega: o pacote de opções e o resumo viram um único card (pacote sem a base, resumo sem o topo). */
+html body .fluxo-coluna-itens:has(+ .fluxo-coluna-resumo) .entrega-pacote {
+  border-radius: 18px 18px 0 0 !important;
+  box-shadow: none !important;
+  margin-bottom: 0 !important;
+}
+html body .fluxo-coluna-itens + .fluxo-coluna-resumo > .fluxo-resumo {
+  border-radius: 0 !important;
+  margin-top: 0 !important;
+  padding: 16px 20px 18px !important;
+}
+/* Formatação do card unificado: mesmo respiro lateral, linhas com espaçamento regular, total destacado. */
+html body .fluxo-coluna-resumo > .fluxo-resumo p {
+  margin: 0 0 10px !important;
+  line-height: 1.4 !important;
+}
+html body .fluxo-coluna-resumo > .fluxo-resumo .fluxo-resumo-titulo {
+  margin: 0 0 12px !important;
+}
+/* Cesta: o cabeçalho "Todos os produtos" também faz parte do mesmo card: mesmo verde, sem emendas. */
+html body main#conteudo .fluxo-conteudo-cesta:not(.fluxo-entrega) .fluxo-titulo-cesta {
+  background: #ffffff !important;
+  border-radius: 18px 18px 0 0 !important;
+  margin: 0 !important;
+  padding: 16px 16px 12px !important;
+  box-shadow: none !important;
+  border: 0 !important;
+}
+html body main#conteudo .fluxo-conteudo-cesta:not(.fluxo-entrega) .fluxo-itens {
+  border-radius: 0 !important;
+}
+html body main#conteudo .fluxo-conteudo-cesta:not(.fluxo-entrega) .fluxo-tabela {
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+
+/* Cesta: produtos e resumo formam um card só (cantos e sombra da emenda removidos, mesmo fundo). */
+html body main#conteudo .fluxo-conteudo-cesta:not(.fluxo-entrega) .fluxo-itens,
+html body main#conteudo .fluxo-conteudo-cesta:not(.fluxo-entrega) .fluxo-itens > li,
+html body main#conteudo .fluxo-conteudo-cesta:not(.fluxo-entrega) .fluxo-tabela {
+  background: #ffffff !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+html body main#conteudo .fluxo-conteudo-cesta:not(.fluxo-entrega) .fluxo-itens > li {
+  border-radius: 0 !important;
+}
+html body main#conteudo .fluxo-conteudo-cesta:not(.fluxo-entrega) .fluxo-coluna-resumo > .fluxo-resumo {
+  border-radius: 0 0 18px 18px !important;
+  box-shadow: none !important;
+  background: #ffffff !important;
+  margin-top: 0 !important;
+}
+
+/* Cesta (desktop): a vitrine "Aproveite também" fica numa linha própria, abaixo do resumo, sem sobrepor as setas. */
+html body main#conteudo .fluxo-conteudo-cesta:not(.fluxo-entrega) .fluxo-vitrine {
+  grid-row: 3 !important;
+  position: relative;
+  z-index: 0;
+}
+/* O resumo deixa de ser "sticky" no desktop: ao rolar, não cobre a vitrine nem as setas. */
+html body main#conteudo .fluxo-conteudo-cesta:not(.fluxo-entrega) .fluxo-coluna-resumo {
+  position: static !important;
+  top: auto !important;
+}
+
+/* Botão "Copiar código Pix": degradê perolado com texto petróleo e relevo; verde com texto branco quando copiado. */
+html body main#conteudo .fluxo-reserva .fluxo-pix-cp.fluxo-pix-cp:not(.is-ok) {
+  background: #000000 !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  border-radius: 14px !important;
+}
+html body main#conteudo .fluxo-reserva .fluxo-pix-cp.fluxo-pix-cp:not(.is-ok) svg {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+html body main#conteudo .fluxo-reserva .fluxo-pix-cp.fluxo-pix-cp.fluxo-pix-cp:not(.is-ok) > span,
+html body main#conteudo .fluxo-reserva .fluxo-pix-cp.fluxo-pix-cp.fluxo-pix-cp:not(.is-ok) > span * {
+  color: #ffffff !important;
+}
+html body main#conteudo .fluxo-reserva .fluxo-pix-cp.fluxo-pix-cp.is-ok {
+  background: #119c72 !important;
+  color: #ffffff !important;
+}
+
+/* Polimento do resumo + barra de envio: espaçamento mais justo e barra alinhada ao resumo. */
+html body main#conteudo .fluxo-reserva .fluxo-coluna-resumo:has(+ .fluxo-rodape-total) > .fluxo-resumo {
+  padding-bottom: 14px !important;
+}
+html body main#conteudo .fluxo-reserva .fluxo-coluna-resumo:has(+ .fluxo-rodape-total) > .fluxo-resumo > p:last-of-type {
+  margin-bottom: 0 !important;
+}
+html body main#conteudo .fluxo-reserva .fluxo-coluna-resumo + .fluxo-rodape-total.fluxo-rodape {
+  padding: 14px 20px 18px !important;
+  align-items: center !important;
+}
+
+/* Resumo da cesta com cantos quadrados, em todas as etapas. */
+html body main#conteudo .fluxo-reserva .fluxo-conteudo .fluxo-coluna-resumo > .fluxo-resumo[aria-label].fluxo-resumo {
+  border-radius: 0 !important;
+}
+
+/* Finalizar: resumo e barra "Enviar pedido" formam um card só (sem canto nem sombra na emenda). */
+html body main#conteudo .fluxo-conteudo-cesta .fluxo-coluna-resumo:has(+ .fluxo-rodape-total) > .fluxo-resumo {
+  border-radius: 18px 18px 0 0 !important;
+  box-shadow: none !important;
+  margin-bottom: 0 !important;
+  background: #ffffff !important;
+}
+html body main#conteudo .fluxo-conteudo-cesta .fluxo-coluna-resumo + .fluxo-rodape-total {
+  border-radius: 0 0 18px 18px !important;
+  margin-top: 0 !important;
+  box-shadow: none !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+}
+
+/* Prévia da mensagem: sem a moldura clara externa; só o bloco do texto. */
+html body .fluxo-bolha {
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* Botão "Continuar: entrega ou retirada" da barra de baixo: preto com letras brancas. */
+html body main#conteudo .fluxo-reserva .fluxo-rodape .fluxo-botao.fluxo-botao:not(:disabled) {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+html body main#conteudo .fluxo-reserva .fluxo-rodape .fluxo-botao.fluxo-botao:not(:disabled) svg,
+html body main#conteudo .fluxo-reserva .fluxo-rodape .fluxo-botao.fluxo-botao:not(:disabled) svg * {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+/* Cesta: sem a linha divisória entre o card de produtos e o resumo. */
+html body main#conteudo .fluxo-conteudo-cesta:not(.fluxo-entrega) .fluxo-itens > li,
+html body main#conteudo .fluxo-conteudo-cesta:not(.fluxo-entrega) .fluxo-tabela,
+html body main#conteudo .fluxo-conteudo-cesta:not(.fluxo-entrega) .fluxo-titulo-cesta,
+html body main#conteudo .fluxo-conteudo-cesta:not(.fluxo-entrega) .fluxo-resumo,
+html body main#conteudo .fluxo-conteudo-cesta:not(.fluxo-entrega) .fluxo-resumo * {
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+}
+
+/* Cesta: some o link "Continuar comprando" do topo (o código continua no lugar). */
+html body .fluxo-continuar-comprando {
+  display: none !important;
+}
+
+/* Cesta: some a linha "Esvaziar minha cesta" / "Adicionar mais itens" (os links continuam no código). */
+html body main#conteudo .fluxo-conteudo-cesta:not(.fluxo-entrega) .fluxo-links {
+  display: none !important;
+}
+
+/* Tudo unificado na etapa de entrega: sem linhas divisórias entre produto, opções, endereço, resumo e barra. */
+html body .fluxo-entrega .entrega-itens li,
+html body .fluxo-entrega .entrega-pacote li,
+html body .fluxo-entrega .entrega-pacote hr,
+html body .fluxo-entrega .entrega-miolo > *,
+html body .fluxo-entrega .fluxo-resumo,
+html body .fluxo-entrega .fluxo-resumo > *,
+html body .fluxo-entrega .fluxo-rodape,
+html body .fluxo-entrega .fluxo-coluna-resumo + .fluxo-rodape-total {
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+}
+/* Sem o filete de borda acima do total do resumo na etapa de entrega. */
+html body .fluxo-coluna-resumo > .fluxo-resumo .fluxo-resumo-total {
+  border-top: 0 !important;
+}
+
+/* "Total estimado" repetido dentro do resumo some: o total já aparece na barra de baixo. */
+html body .fluxo-coluna-resumo:has(+ .fluxo-rodape-total) > .fluxo-resumo .fluxo-resumo-total {
+  display: none !important;
+}
+html body .fluxo-coluna-resumo + .fluxo-rodape-total {
+  padding: 14px 20px 18px !important;
+  row-gap: 10px !important;
+}
+
+/* Cesta com teoria das cores: base análoga (verde-água e petróleo), contraste de texto escuro sobre o verde,
+ * cor complementar só onde há ação ou atenção (vermelho para remover, amarelo para quantidade e destaque de preço). */
+.fluxo-rodape-total { background: #ffffff !important; box-shadow: 0 -8px 16px #7cc7b6 !important; }
+.fluxo-rodape-total .fluxo-rodape-valor, .fluxo-rodape-total strong { color: #000000 !important; font-weight: 800 !important; }
+.fluxo-itens > li .fluxo-preco-antigo, .fluxo-itens > li s, .fluxo-itens > li del { color: #57535f !important; }
+.fluxo-itens > li button[aria-label*="emover"], .fluxo-itens > li button[aria-label*="excluir"], .fluxo-itens > li button[aria-label*="Remover"] { color: #b3261e !important; }
+.fluxo-itens > li .pv-qtd, .fluxo-itens > li [class*="qtd"] button { background: #ffffff !important; color: #000000 !important; }
+
+/* Finalização e entrega: mesma teoria das cores da cesta (base análoga verde-água/petróleo, contraste escuro,
+ * branco para campos e opções, acento complementar só para o que pede atenção). */
+.entrega-pacote {
+  background: #ffffff !important;
+  border: 0 !important;
+  border-radius: 18px !important;
+  box-shadow: none !important;
+  color: #000000 !important;
+}
+.entrega-topbar { background: transparent !important; color: #000000 !important; }
+/* Campos do endereço com os efeitos da direção: degradê perolado e relevo neumórfico; ao focar, afundam (inset). */
+html body .entrega-form .fluxo-campo input,
+html body .entrega-form .fluxo-campo select,
+html body .entrega-form .fluxo-campo textarea {
+  background: #ffffff !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+}
+html body .entrega-form .fluxo-campo input:focus,
+html body .entrega-form .fluxo-campo select:focus,
+html body .entrega-form .fluxo-campo textarea:focus {
+  box-shadow: none !important;
+}
+
+/* Hierarquia da etapa de entrega. */
+/* 1. Separação: o card de entrega e o resumo ficam em degradê perolado claro; a seção de endereço segue em #9FE3D6 e se destaca. */
+html body .entrega-pacote,
+html body .fluxo-coluna-itens + .fluxo-coluna-resumo > .fluxo-resumo,
+html body .fluxo-coluna-resumo + .fluxo-rodape-total {
+  background: #ffffff !important;
+}
+/* 6. Vitrine "Aproveite também" menos dominante na etapa de entrega: título menor e mais afastada da barra. */
+html body .fluxo-entrega .fluxo-vitrine {
+  margin-top: 32px;
+}
+html body .fluxo-entrega .fluxo-vitrine h2 {
+  font-size: 18px !important;
+  font-weight: 700 !important;
+}
+/* 2. Ação principal: "Revisar pedido" em petróleo sólido, o único botão cheio da tela. */
+html body main#conteudo .fluxo-reserva .fluxo-coluna-resumo + .fluxo-rodape-total.fluxo-rodape .fluxo-botao.fluxo-botao:not(:disabled) {
+  background: #000000 !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+html body main#conteudo .fluxo-coluna-resumo + .fluxo-rodape-total .fluxo-botao:not(:disabled) svg,
+html body main#conteudo .fluxo-coluna-resumo + .fluxo-rodape-total .fluxo-botao:not(:disabled) svg * {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+/* 3. Status "Thiago / Retirada" menor, para o título da etapa ser o primeiro nível. */
+html body .entrega-end-texto strong {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+}
+/* 4. Opção escolhida: texto mais forte e petróleo. */
+html body .entrega-opcao.is-on .entrega-tipo,
+html body .entrega-opcao.is-on .entrega-preco {
+  font-weight: 800 !important;
+  color: #000000 !important;
+}
+/* 5. Escala de textos do formulário: rótulo forte, apoio menor e cinza. */
+html body .entrega-form .fluxo-campo > span {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  color: #000000 !important;
+}
+html body .entrega-aviso-pronto,
+html body .entrega-aviso-pronto small {
+  font-size: 13px !important;
+  color: #3e4b49 !important;
+}
+
+/* Card de entrega: um único degradê contínuo. Todos os blocos usam o mesmo degradê fixo na janela,
+ * então a cor segue uma trajetória só, do topo ao fim do card, sem um degradê por elemento. */
+html body .entrega-pacote,
+html body .fluxo-coluna-itens + .fluxo-coluna-resumo > .fluxo-resumo,
+html body .fluxo-coluna-resumo + .fluxo-rodape-total,
+html body .entrega-loja,
+html body .entrega-loja.is-on {
+  background: linear-gradient(180deg, #eaf9f6 0%, #ffffff 55%) fixed !important;
+}
+/* Seção de endereço sem fundo próprio: herda o degradê contínuo do card, sem linha entre os blocos. */
+html body .entrega-pacote .entrega-endereco {
+  background: transparent !important;
+}
+
+/* Botão "Confirmar endereço": efeitos da direção (degradê perolado, relevo neumórfico, afunda ao clique), sem contorno. */
+html body .entrega-btn {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 0 !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+  transition: transform 160ms ease;
+}
+html body .entrega-btn:active {
+  box-shadow: none !important;
+  transform: translateY(1px);
+}
+.entrega-titulo, .entrega-opcoes-titulo { color: #000000 !important; font-weight: 700 !important; }
+/* Seção de endereço dentro do card de entrega: degradê vertical, mais claro no topo e #9fe3d6 embaixo; campos em relevo. */
+html body .entrega-pacote .entrega-endereco {
+  margin: 12px 0 0 !important;
+  padding: 16px !important;
+  border-radius: 12px !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Cartão da loja (Nações Unidas): verde perolado com relevo neumórfico, sem contorno. */
+html body .entrega-loja,
+html body .entrega-loja.is-on {
+  background: #ffffff !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  color: #000000 !important;
+}
+
+/* Botão de rádio das opções de entrega: poço neumórfico (inset) com ponto petróleo quando marcado. */
+html body .entrega-opcao input[type="radio"] {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 22px !important;
+  height: 22px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  display: inline-grid !important;
+  place-content: center !important;
+  cursor: pointer !important;
+  flex: none !important;
+}
+/* Progresso (Cesta / Entrega / Finalizar), versão pílulas: cada etapa é uma pílula em relevo; a atual fica afundada. */
+html body .fluxo-progresso {
+  display: none !important;
+}
+html body .fluxo-progresso-rotulos {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 10px !important;
+  list-style: none !important;
+  margin: 8px 16px 0 !important;
+  padding: 0 !important;
+}
+html body .fluxo-progresso-rotulos li {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 34px !important;
+  padding: 6px 10px !important;
+  border-radius: 999px !important;
+  background: #f4fbf9 !important;
+  color: #5d6f6c !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  box-shadow: none !important;
+  text-align: center !important;
+}
+html body .fluxo-progresso-rotulos li.is-on {
+  background: #ffffff !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+/* Etapa atual (última marcada) fica afundada; as concluídas ficam em relevo. */
+html body .fluxo-progresso-rotulos li.is-on:not(:has(+ li.is-on)) {
+  background: #ffffff !important;
+  font-weight: 800 !important;
+  box-shadow: none !important;
+}
+
+/* Progresso: as pílulas (versão escolhida) substituem os ícones do topo, que ficam ocultos. */
+html body .cesta-faixa .cesta-passos {
+  display: none !important;
+}
+
+/* Sem a linha verde ao selecionar os checkboxes da cesta. */
+html body .fluxo-check input:focus,
+html body .fluxo-check input:focus-visible,
+html body .fluxo-check:focus-within,
+html body .fluxo-check:focus {
+  outline: none !important;
+}
+/* Sem o contorno verde do navegador ao clicar nas opções de entrega e nos campos. */
+html body .entrega-opcao input[type="radio"]:focus,
+html body .entrega-opcao input[type="radio"]:focus-visible,
+html body .entrega-opcao:focus,
+html body .entrega-opcao:focus-visible,
+html body .entrega-opcao:focus-within,
+html body .entrega-pacote .fluxo-campo input:focus,
+html body .entrega-pacote .fluxo-campo input:focus-visible,
+html body .entrega-pacote .fluxo-campo select:focus,
+html body .entrega-pacote .fluxo-campo select:focus-visible,
+html body .entrega-pacote .fluxo-campo textarea:focus,
+html body .entrega-pacote .fluxo-campo textarea:focus-visible {
+  outline: none !important;
+}
+html body .entrega-opcao input[type="radio"]::before {
+  content: "";
+  width: 22px;
+  height: 22px;
+  margin: -0.5px 0 0 -0.5px;
+  border-radius: 50%;
+  background: #000000;
+  transform: scale(0);
+  transition: transform 1400ms cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 1px 1px 2px rgba(10, 53, 72, 0.35);
+}
+html body .entrega-opcao input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
+/* Opções de entrega no visual da seção de endereço: cartão branco reto, sem sombra.
+ * A opção escolhida usa o verde-água sólido do botão "Confirmar endereço". */
+.entrega-opcao {
+  background: #ffffff !important;
+  border: 0 !important;
+  border-radius: 12px !important;
+  box-shadow: none !important;
+  color: #000000 !important;
+}
+.entrega-opcao.is-on {
+  background: #ffffff !important;
+  box-shadow: none !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+.fluxo-campo input, .fluxo-campo select, .fluxo-campo textarea {
+  border: 0 !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: none !important;
+}
+.fluxo-campo input:focus, .fluxo-campo select:focus, .fluxo-campo textarea:focus {
+  box-shadow: none !important;
+}
+.fluxo-campo label, .fluxo-campo > span { color: #000000 !important; font-weight: 600 !important; }
+
+/* Cesta: jogo de profundidade. Controles que se pressionam (campo de quantidade, "Todos os produtos") em inset;
+ * botões que se tocam (+ / −, lixeira, setas do carrossel) em neumorfismo, com relevo suave. */
+.fluxo-itens [class*="qtd"] button {
+  border: 0 !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: none !important;
+}
+/* Minha cesta: todos os textos em preto. Mantém o número sobre fundo escuro (selo) e o ícone vermelho da lixeira. */
+html body main#conteudo .fluxo-reserva *:not(.fluxo-item-qtd):not(.fluxo-lixeira):not(.fluxo-lixeira *) {
+  color: #000000 !important;
+}
+
+/* Foto do produto na entrega/finalização: moldura em inset, sem contorno. */
+.entrega-itens li .fluxo-item-foto {
+  border: 0 !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+
+/* Foto do produto na cesta: moldura em inset, sem contorno. */
+.fluxo-itens > li .fluxo-item-foto {
+  border: 0 !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+
+/* Botões de ação da cesta (+ / −, lixeira, setas): relevo em repouso, afundam ao clique (feedback intuitivo). */
+.fluxo-itens > li [class*="qtd"] button {
+  background: #ffffff !important;
+  box-shadow: none !important;
+  transition: background-color 160ms ease;
+}
+.fluxo-itens > li [class*="qtd"] button:active {
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+/* Contador de quantidade (o "2"): inset com o mesmo acabamento, sem contorno. O grupo fica transparente. */
+.fluxo-itens > li .cel-qtd .reservar-contador {
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.fluxo-itens > li .cel-qtd .reservar-contador output {
+  border: 0 !important;
+  border-radius: 50px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+.fluxo-lixeira {
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  transition: background-color 160ms ease;
+}
+.fluxo-lixeira:active {
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+.shop-seta {
+  border: 0 !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: none !important;
+}
+.fluxo-check-todos {
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: #ffffff !important;
+  padding: 12px 16px !important;
+  box-shadow: none !important;
+}
+
+/* Botão "Alterar" (nome e endereço no resumo do pedido): em inset, branco, texto petróleo, sem contorno escuro. */
+.entrega-btn-alterar {
+  border: 0 !important;
+  border-radius: 14px !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  box-shadow: none !important;
+}
+.entrega-btn-alterar:active {
+  box-shadow: none !important;
+}
+
+/* Cesta ("Aproveite também", celular): cards sem a altura fixa de 516px; o espaço vazio some e o preço segue o texto. */
+html body .fluxo-vitrine .shop-destaques-lista > .pv-card--v {
+  height: auto !important;
+  min-height: 22rem !important;
+  aspect-ratio: auto !important;
+}
+html body .fluxo-vitrine .shop-destaques-lista > .pv-card--v .pv-preco {
+  margin-top: auto !important;
+}
+
+/* Cesta ("Aproveite também"): moldura da foto em inset, sem contorno. */
+html body .fluxo-vitrine .shop-destaques-lista > .pv-card--v .pv-img {
+  border: 0 !important;
+  border-radius: 12px !important;
+  padding: 0.625rem !important;
+  box-sizing: border-box !important;
+  margin: 0.625rem 0 0 !important;
+  width: 100% !important;
+  height: 9.5rem !important;
+  aspect-ratio: auto !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+}
+html body .fluxo-vitrine .shop-destaques-lista > .pv-card--v .pv-cesta {
+  top: calc(9.5rem - var(--pv-add-size)) !important;
+}
+
+/* Cesta: a vitrine "Aproveite também" ocupa a largura toda, sem invadir o resumo da cesta. */
+.fluxo-vitrine { grid-column: 1 / -1 !important; position: relative; z-index: 0; }
+
+/* Cesta: marcadores de seleção (checkbox) com acabamento perolado verde-água claro e marca preta. */
+.fluxo-check input {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  width: 1.25rem !important;
+  height: 1.25rem !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 6px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  cursor: pointer !important;
+}
+.fluxo-check input:checked {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3.2L13 4.8' fill='none' stroke='%23000000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"), linear-gradient(#ffffff, #ffffff) !important;
+  background-size: 80% 80%, 100% 100% !important;
+  background-position: center, 0 0 !important;
+  background-repeat: no-repeat, no-repeat !important;
+}
+/* Card Pix em duas páginas: botões pretos (escolher foto, enviar, próximo) e prévia do comprovante. */
+html body main#conteudo .fluxo-reserva .fluxo-pix .fluxo-pix-escolher.fluxo-pix-escolher {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 22rem;
+  height: 40px;
+  min-height: 40px;
+  white-space: nowrap;
+  font-size: 13.5px !important;
+  line-height: 1.2;
+  margin: 0.75rem auto 0;
+  padding: 0 1rem;
+  border: 0;
+  border-radius: 12px;
+  background: #000000 !important;
+  color: #ffffff !important;
+  font: inherit !important;
+  font-weight: 700 !important;
+  text-decoration: none;
+  cursor: pointer;
+}
+html body main#conteudo .fluxo-reserva .fluxo-pix .fluxo-pix-escolher.fluxo-pix-escolher:disabled {
+  background: #ffffff !important;
+  color: #57535f !important;
+  cursor: not-allowed;
+}
+html body main#conteudo .fluxo-reserva .fluxo-pix .fluxo-pix-escolher.fluxo-pix-escolher input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+html body .fluxo-pix-previa {
+  display: block;
+  width: 120px;
+  max-width: 100%;
+  margin: 0.75rem auto 0;
+  border-radius: 12px;
+}
+/* Página 2 do card Pix: foto em área de relevo, prévia proporcional e botões neumórficos. Seletores duplicados para vencer a cor global da cesta. */
+html body main#conteudo .fluxo-reserva .fluxo-pix .fluxo-pix-foto.fluxo-pix-foto {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 128px;
+  margin: 0.75rem auto 0;
+  padding: 12px;
+  border-radius: 16px;
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: none !important;
+  font-size: 0.8125rem !important;
+  font-weight: 600 !important;
+  text-align: center;
+  cursor: pointer;
+}
+html body main#conteudo .fluxo-reserva .fluxo-pix .fluxo-pix-foto.fluxo-pix-foto input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+html body main#conteudo .fluxo-reserva .fluxo-pix .fluxo-pix-foto-vazia.fluxo-pix-foto-vazia {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #000000 !important;
+  font-size: 0.8125rem !important;
+  font-weight: 600 !important;
+  line-height: 1.35;
+}
+html body main#conteudo .fluxo-reserva .fluxo-pix .fluxo-pix-foto-vazia svg {
+  width: 30px;
+  height: 30px;
+  fill: none;
+  stroke: #000000;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+html body main#conteudo .fluxo-reserva .fluxo-pix .fluxo-pix-previa.fluxo-pix-previa {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 150px;
+  margin: 0;
+  border-radius: 12px;
+  object-fit: contain;
+}
+html body main#conteudo .fluxo-reserva .fluxo-pix .fluxo-pix-escolher.fluxo-pix-escolher:disabled {
+  background: #ffffff !important;
+  color: #8e8a97 !important;
+  box-shadow: none !important;
+}
+html body main#conteudo .fluxo-reserva .fluxo-pix .fluxo-pix-voltar.fluxo-pix-voltar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 22rem;
+  height: 40px;
+  margin: 0.75rem auto 0;
+  padding: 0 1rem;
+  border: 0;
+  border-radius: 12px;
+  background: #ffffff !important;
+  color: #000000 !important;
+  font: inherit;
+  font-size: 0.8125rem !important;
+  font-weight: 600 !important;
+  box-shadow: none !important;
+  cursor: pointer;
+}
+/* Trilha do blog: a regra global de .section-inner (camada anterior) põe a trilha em coluna; esta regra fica na mesma camada para vencer. */
+.blog-pagina .blog-migalhas.section-inner { flex-direction: row !important; flex-wrap: wrap; align-items: center; width: auto !important; max-width: 75rem; }
+.blog-pagina .blog-migalhas.section-inner > * { display: inline !important; width: auto !important; min-height: 0 !important; min-width: 0 !important; line-height: 1.4; }
+}

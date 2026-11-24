@@ -3,36 +3,36 @@
 /* Abas: pílulas em relevo; a ativa fica em verde-água recuada. Sem a linha inferior. */
 .vendas-abas .vendas-abas-lista { gap: 10px; border-bottom: 0; padding-bottom: 16px; }
 .vendas-abas .vendas-aba {
-  min-height: 44px; padding: 0 18px; border-radius: 12px; background: #ffffff; color: #0d1413;
-  box-shadow: inset 4px 4px 8px #e6e8eb, inset -4px -4px 8px #ffffff;
+  min-height: 44px; padding: 0 18px; border-radius: 12px; background: #ffffff; color: #000000;
+  box-shadow: none;
 }
-.vendas-abas .vendas-aba.is-ativa { background: #9fe3d6; box-shadow: inset 4px 4px 8px #5cc4b0, inset -4px -4px 8px #ffffff; }
+.vendas-abas .vendas-aba.is-ativa { background: #ffffff; box-shadow: none; }
 .vendas-abas .vendas-aba:hover { background: #fdfdfd; }
-.vendas-abas-topo h1 { color: #0d1413; font-weight: 700; }
+.vendas-abas-topo h1 { color: #000000; font-weight: 700; }
 
 /* Botões: brancos em inset, texto petróleo, sem o preenchimento teal (inclui o "Atualizar"). */
 .vendas-abas [role="tabpanel"] button:not(.vendas-aba) {
-  border: 0; border-radius: 14px; background: #ffffff; color: #0a3548; font-weight: 700;
-  box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff;
+  border: 0; border-radius: 14px; background: #ffffff; color: #000000; font-weight: 700;
+  box-shadow: none;
 }
 
 /* Cards de venda: cartões verde-água em relevo, sem borda, como os da Foto principal. */
 .vendas-abas .pvenda-card,
 .vendas-abas li.ppedidos-retirada,
 .vendas-abas .pvendas-indicadores > * {
-  border: 0; border-radius: 18px; background: #9fe3d6;
-  box-shadow: 8px 8px 16px #8fd3c4, -8px -8px 16px #ffffff;
+  border: 0; border-radius: 18px; background: #ffffff;
+  box-shadow: none;
 }
 
 /* Botão "Avisar que está pronto" (é um link): branco em inset, texto petróleo, sem o teal escuro. */
 .vendas-abas a.ppedidos-pronto {
-  background: #ffffff; color: #0a3548; border-radius: 14px; box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff;
+  background: #ffffff; color: #000000; border-radius: 14px; box-shadow: none;
 }
 
 /* Link "Chamar entregador" dentro do card: branco em inset, como os botões. */
 .vendas-abas a.pvenda-entregador {
-  background: #ffffff; color: #0a3548; border-radius: 14px;
-  box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff;
+  background: #ffffff; color: #000000; border-radius: 14px;
+  box-shadow: none;
 }
 
 /* Listas: o fundo cinza-esverdeado das seções sai; os cards é que aparecem. */
@@ -42,6 +42,6 @@
 .vendas-abas [role="tabpanel"] input,
 .vendas-abas [role="tabpanel"] select,
 .vendas-abas [role="tabpanel"] textarea {
-  border: 0; border-radius: 12px; background: #ffffff; color: #0d1413;
-  box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff;
+  border: 0; border-radius: 12px; background: #ffffff; color: #000000;
+  box-shadow: none;
 }

@@ -1,4 +1,4 @@
-.painel-revisao { max-width: 56rem; margin: 0 auto; padding: 1rem; color: #0d1413; }
+.painel-revisao { max-width: 56rem; margin: 0 auto; padding: 1rem; color: #000000; }
 .painel-revisao h1 { margin: 0 0 0.25rem; font-size: 1.5rem; }
 .painel-revisao h2 { margin: 1.25rem 0 0.5rem; font-size: 1.125rem; }
 .painel-revisao .pr-nav { margin: 0 0 0.75rem; font-size: 0.9375rem; }
@@ -15,7 +15,7 @@
 .painel-revisao .pr-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.25rem; }
 .painel-revisao .pr-acoes input { flex: 1 1 14rem; }
 .painel-revisao button { min-height: 2.75rem; padding: 0 1rem; border-radius: 8px; font: inherit; font-size: 16px; font-weight: 700; cursor: pointer; }
-.painel-revisao .pr-aprovar { border: 0; background: #0a3548; color: #ffffff; }
+.painel-revisao .pr-aprovar { border: 0; background: #000000; color: #ffffff; }
 .painel-revisao .pr-desfazer { border: 1px solid #b3261e; background: #ffffff; color: #b3261e; justify-self: start; }
 .painel-revisao .pr-ok { color: #1f8a4c; font-weight: 700; }
 .painel-revisao .pr-origem { color: #7a5a00; }

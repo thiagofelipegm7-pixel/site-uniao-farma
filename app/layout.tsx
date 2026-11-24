@@ -5,6 +5,7 @@ import SkipLink from "./SkipLink";
 import WhatsAppFab from "./WhatsAppFab";
 
 // Sistema de Design Consolidado (Camadas Tailwind 4)
+import "./base-direcao-layer.css";
 import "./tokens.css";
 import "./globals.css";
 import "./typography.css";
@@ -21,6 +22,8 @@ import "./marca.css";
 import "./design.css";
 import "./zoom.css";
 import "./destaque-cesta.css";
+import "./base-direcao.css";
+import "./home-direcao.css";
 import { INSTAGRAM_URL, PAYMENT_ACCEPTED, SITE_URL, PUBLIC_UNITS } from "./site-config";
 import { COMPANY } from "./company";
 import { getPostalAddress } from "./structured-data";

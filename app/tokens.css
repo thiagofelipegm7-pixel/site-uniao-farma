@@ -3,20 +3,20 @@
 
 :root {
   --uf-green: #1a8f86;
-  --uf-green-hover: #14736b;
+  --uf-green-hover: #000000;
   --uf-green-dark: #0b3b36;
   --uf-green-bright: #29bbae;
   --uf-open: #149a90;
   --uf-open-live: #24d4c5;
   --uf-whatsapp: #25d366;
 
-  --uf-ink: #0d1413; /* texto do protótipo: quase preto */
-  --uf-navy: #0a3548; /* marinho: chips ativos, bordas de contador, links */
+  --uf-ink: #000000; /* texto do protótipo: quase preto */
+  --uf-navy: #000000; /* marinho: chips ativos, bordas de contador, links */
   --uf-muted: #3e4b49;
   --uf-closed: #9b3e38;
   --uf-gold: #1a8f86;
-  --uf-green-text: #14736b; /* verde para TEXTO: 5,67:1 sobre branco (o verde-marca #1a8f86 dá 3,94:1) */
-  --uf-gold-ink: #14736b;
+  --uf-green-text: #000000; /* verde para TEXTO: 5,67:1 sobre branco (o verde-marca #1a8f86 dá 3,94:1) */
+  --uf-gold-ink: #000000;
   --uf-panel: #31a89d; /* painel verde-água das faixas e ofertas: tinta escura passa 5,1:1 */
   --uf-action: #40baaf; /* botão de reserva: texto escuro #0a2d29 passa 6,2:1 */
   --uf-action-hover: #35a89e; /* 5,1:1 com --uf-action-ink */

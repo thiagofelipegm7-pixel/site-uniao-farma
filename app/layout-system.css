@@ -607,7 +607,7 @@
     height: 30px !important;
     border-radius: 11px;
     background: #eef7f6 !important;
-    color: #14736b !important;
+    color: #000000 !important;
   }
 
   .mobile-quick-nav .mqn-label {
@@ -621,8 +621,8 @@
   }
 
   .mobile-quick-nav a.is-primary {
-    background: #14736b !important;
-    color: #ffffff !important;
+    background: #ffffff !important;
+    color: #000000 !important;
     box-shadow: none !important;
   }
 
@@ -1035,8 +1035,8 @@ main main {
 }
 
 :root {
-  --uf-ink: #0d1413;
-  --uf-green: #14736b;
+  --uf-ink: #000000;
+  --uf-green: #000000;
   --uf-green-deep: #0b3b36;
   --uf-wa: #1f9e4b;
   --uf-mint: #e4f6f3;

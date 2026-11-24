@@ -3,7 +3,7 @@
 @layer design {
   /* Título principal: 26 px, peso 700, entrelinha e espaçamento de letras da página de Produtos. */
   html body .interno-corpo h1 {
-    font-size: 26px !important; font-weight: 700 !important; line-height: 1.2 !important; letter-spacing: -0.02em !important; color: #0d1413 !important;
+    font-size: 26px !important; font-weight: 700 !important; line-height: 1.2 !important; letter-spacing: -0.02em !important; color: #000000 !important;
   }
 
   /* Rótulo de seção (ÁREA DA EQUIPE): 11 px, peso 700, espaçamento de letras discreto. */
@@ -18,7 +18,7 @@
 
   /* Títulos internos (seções dentro de cada aba): 20 px, peso 700, cor de tinta. Não mexe no título do cartão de configuração. */
   html body .interno-corpo h2:not(.pf-modal-titulo) {
-    font-size: 20px !important; font-weight: 700 !important; line-height: 1.25 !important; letter-spacing: -0.01em !important; color: #0d1413 !important;
+    font-size: 20px !important; font-weight: 700 !important; line-height: 1.25 !important; letter-spacing: -0.01em !important; color: #000000 !important;
   }
 
   /* Título do cabeçalho de cada aba (ex.: "Pedidos do site"): mesmo tamanho do título principal. */

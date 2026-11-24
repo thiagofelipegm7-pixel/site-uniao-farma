@@ -5,9 +5,9 @@ html body .nav-interna {
   box-shadow: 0 8px 16px #e3ebe9 !important;
 }
 html body .nav-interna ul a {
-  border-radius: 12px !important; color: #0a3548 !important; opacity: 1 !important; font-weight: 700 !important;
+  border-radius: 12px !important; color: #000000 !important; opacity: 1 !important; font-weight: 700 !important;
   background: #ffffff !important;
-  box-shadow: inset 4px 4px 8px #e6e8eb, inset -4px -4px 8px #ffffff !important;
+  box-shadow: none !important;
 }
 /* Celular: a faixa de itens rola na horizontal sem a barra de rolagem escura. */
 html body .nav-interna ul { scrollbar-width: none; }
@@ -15,14 +15,14 @@ html body .nav-interna ul::-webkit-scrollbar { display: none; }
 
 /* Botão do menu (celular): mesmo relevo suave dos demais controles. */
 html body .nav-interna-abrir {
-  color: #0a3548; background: #ffffff; border: 0; border-radius: 12px;
-  box-shadow: 4px 4px 8px #e3ebe9, -4px -4px 8px #ffffff;
+  color: #000000; background: #ffffff; border: 0; border-radius: 12px;
+  box-shadow: 4px 4px 8px #e3ebe9;
 }
 
 html body .nav-interna ul a:hover {
   background: #fdfdfd !important;
 }
 html body .nav-interna ul a[aria-current="page"] {
-  background: #9fe3d6 !important; color: #0d1413 !important; border-radius: 12px !important;
-  box-shadow: inset 4px 4px 8px #5cc4b0, inset -4px -4px 8px #ffffff !important;
+  background: #ffffff !important; color: #000000 !important; border-radius: 12px !important;
+  box-shadow: none !important;
 }

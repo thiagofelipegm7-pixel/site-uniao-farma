@@ -2,7 +2,7 @@
 .ppedidos-abas { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 0 0 1rem; }
 .ppedidos-abas button { min-height: 2.75rem; padding: 0 1rem; border: 1px solid #cfe1de; border-radius: 999px; background: #ffffff; color: #263744; font: inherit; font-size: 0.875rem; font-weight: 700; cursor: pointer; }
 .ppedidos-abas button[aria-selected="true"] { border-color: #10857f; background: #10857f; color: #ffffff; }
-.ppedidos-abas button:focus-visible { outline: 3px solid #0a3548; outline-offset: 2px; }
+.ppedidos-abas button:focus-visible { outline: 3px solid #000000; outline-offset: 2px; }
 .ppedidos-sem { color: #74828b !important; font-size: 1.1rem !important; font-weight: 700 !important; }
 .ppedidos-colunas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.875rem; margin-bottom: 1rem; }
 .ppedidos-titulo { margin: 0 0 0.5rem; font-size: 1.125rem; font-weight: 800; }
@@ -35,7 +35,7 @@
 .ppedidos-retirada-info { margin: 0; color: #52636e; font-size: 0.8125rem; line-height: 1.4; overflow-wrap: anywhere; }
 .ppedidos-pronto { display: inline-flex; align-items: center; justify-content: center; justify-self: start; max-width: 100%; min-height: 2.75rem; padding: 0 1.1rem; border-radius: 999px; background: #10857f; color: #ffffff; font-size: 0.875rem; font-weight: 800; text-align: center; text-decoration: none; }
 .ppedidos-pronto:hover { background: #0b716d; }
-.ppedidos-pronto:focus-visible { outline: 3px solid #0a3548; outline-offset: 2px; }
+.ppedidos-pronto:focus-visible { outline: 3px solid #000000; outline-offset: 2px; }
 .ppedidos-retirada-sem { margin: 0; color: #74828b; font-size: 0.75rem; line-height: 1.4; }
 @media (max-width: 760px) {
   .ppedidos-pronto { justify-self: stretch; }

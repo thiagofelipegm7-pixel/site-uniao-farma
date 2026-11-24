@@ -3,6 +3,6 @@
 .pdp-miniaturas { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; flex: none; }
 .pdp-miniatura { display: block; width: 56px; height: 56px; padding: 0; border: 1px solid #d3e2df; border-radius: 8px; background: #ffffff; cursor: pointer; overflow: hidden; }
 .pdp-miniatura img { width: 100%; height: 100%; object-fit: contain; display: block; }
-.pdp-miniatura.is-ativa { border-color: #0c9b90; box-shadow: inset 0 0 0 1px #0c9b90; }
+.pdp-miniatura.is-ativa { border-color: #0c9b90; box-shadow: none; }
 .pdp-miniatura:focus-visible { outline: 3px solid #0c9b90; outline-offset: 2px; }
 .pdp-foto-principal { width: 100%; max-width: 420px; height: auto; object-fit: contain; }

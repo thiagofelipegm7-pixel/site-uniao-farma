@@ -1,6 +1,6 @@
 /* Camada de ajustes finais: declarada antes de "design" para que seus !important vençam os de design. */
 @layer ajustes;
-.painel-fotos { max-width: 80rem; margin: 0 auto; padding: 1rem; color: #0d1413; }
+.painel-fotos { max-width: 80rem; margin: 0 auto; padding: 1rem; color: #000000; }
 .painel-fotos h1 { margin: 0 0 0.25rem; font-size: 1.5rem; }
 .painel-fotos .pf-nav { margin: 0 0 1rem; font-size: 0.9375rem; }
 .painel-fotos .pf-resumo { display: grid; grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr)); gap: 0.75rem; margin: 0.5rem 0; }
@@ -11,7 +11,7 @@
 .painel-fotos .pf-filtros { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.75rem; }
 .painel-fotos .pf-filtros input[type="search"] { flex: 1 1 14rem; min-width: 0; }
 .painel-fotos .pf-filtros input, .painel-fotos .pf-filtros select, .painel-fotos .pf-filtros button, .painel-fotos .pf-paginas button { min-height: 2.75rem; padding: 0 0.75rem; border: 1px solid #6b8b86; border-radius: 8px; background: #ffffff; font: inherit; font-size: 0.9375rem; max-width: 100%; }
-.painel-fotos .pf-filtros button, .painel-fotos .pf-paginas button { cursor: pointer; font-weight: 700; color: #0a3548; }
+.painel-fotos .pf-filtros button, .painel-fotos .pf-paginas button { cursor: pointer; font-weight: 700; color: #000000; }
 .painel-fotos .pf-tabela { overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid #d3e2df; border-radius: 12px; background: #ffffff; }
 .painel-fotos table { width: 100%; min-width: 46rem; border-collapse: collapse; font-size: 0.875rem; }
 .painel-fotos th, .painel-fotos td { padding: 0.5rem 0.625rem; border-bottom: 1px solid #e3ecea; text-align: left; vertical-align: middle; overflow-wrap: anywhere; }
@@ -27,7 +27,7 @@
 .painel-fotos input[type="checkbox"] { width: 1.375rem; height: 1.375rem; }
 .painel-fotos .pf-paginas { display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin: 1rem 0; }
 .painel-fotos .pf-paginas button:disabled { opacity: 0.5; cursor: not-allowed; }
-.painel-fotos .pf-enviar { position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0 0.875rem; border-radius: 8px; background: #0a3548; color: #ffffff; font-size: 0.875rem; font-weight: 700; cursor: pointer; text-align: center; }
+.painel-fotos .pf-enviar { position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0 0.875rem; border-radius: 8px; background: #000000; color: #ffffff; font-size: 0.875rem; font-weight: 700; cursor: pointer; text-align: center; }
 .painel-fotos .pf-enviar input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; font-size: 16px; }
 .painel-fotos .pf-enviar.pf-erro { background: #b3261e; }
 .painel-fotos .pf-enviada { display: inline-block; color: #1f8a4c; font-size: 0.8125rem; font-weight: 700; }
@@ -50,23 +50,23 @@
   .painel-fotos td.pf-prod small { font-weight: 400; }
 }
 .painel-fotos tr.pf-arrastando td { background: #e4f6f3; }
-.painel-fotos tr.pf-arrastando { outline: 3px dashed #14736b; outline-offset: -3px; }
+.painel-fotos tr.pf-arrastando { outline: 3px dashed #ffffff; outline-offset: -3px; }
 .painel-fotos .pf-aviso { margin: 0 0 0.75rem; padding: 0.625rem 0.875rem; border: 1px solid #e3b341; border-radius: 10px; background: #fff8e6; color: #5a4300; font-size: 0.9375rem; }
 .painel-fotos .pf-codigo { white-space: nowrap; }
 .painel-fotos .pf-codigo span { margin-right: 0.5rem; font-variant-numeric: tabular-nums; }
-.painel-fotos .pf-copiar { min-height: 2rem; padding: 0 0.625rem; border: 1px solid #6b8b86; border-radius: 6px; background: #ffffff; color: #0a3548; font: inherit; font-size: 0.8125rem; font-weight: 700; cursor: pointer; }
+.painel-fotos .pf-copiar { min-height: 2rem; padding: 0 0.625rem; border: 1px solid #6b8b86; border-radius: 6px; background: #ffffff; color: #000000; font: inherit; font-size: 0.8125rem; font-weight: 700; cursor: pointer; }
 @media (max-width: 720px) {
   .painel-fotos .pf-codigo { flex-wrap: wrap; align-items: center; }
   .painel-fotos .pf-copiar { min-height: 2.75rem; }
 }
 .painel-fotos .pf-enviada { display: inline-flex; align-items: center; gap: 0.5rem; }
 .painel-fotos .pf-foto-atual { display: inline-flex; align-items: center; gap: 0.5rem; }
-.painel-fotos .pf-trocar { position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0 0.75rem; border: 1px solid #0a3548; border-radius: 8px; background: #ffffff; color: #0a3548; font-size: 0.8125rem; font-weight: 700; cursor: pointer; text-align: center; }
+.painel-fotos .pf-trocar { position: relative; display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0 0.75rem; border: 1px solid #000000; border-radius: 8px; background: #ffffff; color: #000000; font-size: 0.8125rem; font-weight: 700; cursor: pointer; text-align: center; }
 .painel-fotos .pf-trocar input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; font-size: 16px; }
 .painel-fotos .pf-trocar.pf-erro { border-color: #b3261e; color: #b3261e; }
 .painel-fotos .pf-remover { min-height: 2.75rem; padding: 0 0.75rem; border: 1px solid #b3261e; border-radius: 8px; background: #ffffff; color: #b3261e; font: inherit; font-size: 0.8125rem; font-weight: 700; cursor: pointer; }
 .painel-fotos .pf-foto-atual { flex-wrap: wrap; }
-.painel-fotos .pf-solte { position: sticky; top: 0.5rem; z-index: 5; margin: 0 0 0.75rem; padding: 0.625rem 0.875rem; border: 2px dashed #14736b; border-radius: 10px; background: #e4f6f3; color: #0a3548; font-weight: 700; }
+.painel-fotos .pf-solte { position: sticky; top: 0.5rem; z-index: 5; margin: 0 0 0.75rem; padding: 0.625rem 0.875rem; border: 2px dashed #ffffff; border-radius: 10px; background: #e4f6f3; color: #000000; font-weight: 700; }
 /* iPhone amplia a página ao tocar em campo com letra menor que 16 px; botões e campos do painel ficam com 16 px. */
 .painel-fotos .pf-filtros input, .painel-fotos .pf-filtros select, .painel-fotos .pf-filtros button, .painel-fotos .pf-paginas button { font-size: 16px !important; }
 .painel-fotos label, .painel-fotos button { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
@@ -81,11 +81,11 @@
 /* Quem está mexendo, edição de nome e histórico. */
 .painel-fotos .pf-quem { display: grid; gap: 0.25rem; max-width: 22rem; margin: 0 0 0.75rem; font-weight: 700; font-size: 0.9375rem; }
 .painel-fotos .pf-quem input, .painel-fotos .pf-nome-edicao input { min-height: 2.75rem; padding: 0 0.75rem; border: 1px solid #6b8b86; border-radius: 8px; font: inherit; font-size: 16px; max-width: 100%; }
-.painel-fotos .pf-nome-editar { display: inline-flex; align-items: center; min-height: 1.75rem; margin-top: 0.25rem; padding: 0.125rem 0.625rem; border: 1px solid #c5d5d2; border-radius: 999px; background: #f7faf9; color: #0a3548; font: inherit; font-size: 0.75rem; font-weight: 600; cursor: pointer; letter-spacing: 0.01em; }
-.painel-fotos .pf-nome-edicao button { min-height: 2.75rem; margin-top: 0.25rem; padding: 0 0.75rem; border: 1px solid #0a3548; border-radius: 8px; background: #ffffff; color: #0a3548; font: inherit; font-size: 0.8125rem; font-weight: 700; cursor: pointer; }
+.painel-fotos .pf-nome-editar { display: inline-flex; align-items: center; min-height: 1.75rem; margin-top: 0.25rem; padding: 0.125rem 0.625rem; border: 1px solid #c5d5d2; border-radius: 999px; background: #f7faf9; color: #000000; font: inherit; font-size: 0.75rem; font-weight: 600; cursor: pointer; letter-spacing: 0.01em; }
+.painel-fotos .pf-nome-edicao button { min-height: 2.75rem; margin-top: 0.25rem; padding: 0 0.75rem; border: 1px solid #000000; border-radius: 8px; background: #ffffff; color: #000000; font: inherit; font-size: 0.8125rem; font-weight: 700; cursor: pointer; }
 .painel-fotos .pf-nome-edicao { display: grid; gap: 0.375rem; }
-.painel-fotos .pf-nome-salvar { background: #0a3548 !important; color: #ffffff !important; }
-.painel-fotos .pf-tag-n { background: #14736b; }
+.painel-fotos .pf-nome-salvar { background: #000000 !important; color: #ffffff !important; }
+.painel-fotos .pf-tag-n { background: #ffffff; }
 .painel-fotos .pf-original { color: #7a8785; }
 .painel-fotos .pf-historico { margin: 1rem 0; padding: 0.75rem 1rem; border: 1px solid #d3e2df; border-radius: 12px; background: #ffffff; }
 .painel-fotos .pf-historico h2 { margin: 0 0 0.5rem; font-size: 1.0625rem; }
@@ -178,7 +178,7 @@
    legíveis e popup limpo. Cores: verde = ação, amarelo = alerta, vermelho = zerado/perigo (docs/cores-e-animacoes.md).
    ===================================================================== */
 body:has(.nav-interna) { background: #f1fbfa; }
-.painel-fotos { --pf-ink: #0d1413; --pf-ink2: #3e4b49; --pf-mudo: #66756f; --pf-linha: #d3e2df; --pf-fundo: #f1fbfa; --pf-navy: #0a3548; --pf-verde: #14736b; --pf-verde-claro: #e4f6f3; --pf-ambar: #fff3c4; --pf-ambar-tx: #5a4300; --pf-verm: #fdecea; --pf-verm-tx: #a3200f; max-width: 82rem; padding: 1.5rem 1.25rem 3rem; }
+.painel-fotos { --pf-ink: #000000; --pf-ink2: #3e4b49; --pf-mudo: #66756f; --pf-linha: #d3e2df; --pf-fundo: #f1fbfa; --pf-navy: #000000; --pf-verde: #000000; --pf-verde-claro: #e4f6f3; --pf-ambar: #fff3c4; --pf-ambar-tx: #5a4300; --pf-verm: #fdecea; --pf-verm-tx: #a3200f; max-width: 82rem; padding: 1.5rem 1.25rem 3rem; }
 .pf-cabeca { margin: 0 0 1rem; }
 .painel-fotos .pf-cabeca h1 { margin: 0; font-size: 1.625rem; font-weight: 800; letter-spacing: -0.02em; }
 .pf-cabeca p { margin: 0.25rem 0 0; color: var(--pf-ink2); font-size: 0.9375rem; }
@@ -236,7 +236,7 @@ body:has(.nav-interna) { background: #f1fbfa; }
 
 /* Popup */
 .pf-modal-fundo { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 1rem; background: rgba(10, 53, 72, 0.55); backdrop-filter: blur(3px); }
-.pf-modal { box-sizing: border-box; width: 100%; max-width: 30rem; max-height: 92vh; overflow-y: auto; padding: 1.25rem; border-radius: 18px; background: #ffffff; color: #0d1413; box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25); }
+.pf-modal { box-sizing: border-box; width: 100%; max-width: 30rem; max-height: 92vh; overflow-y: auto; padding: 1.25rem; border-radius: 18px; background: #ffffff; color: #000000; box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25); }
 .pf-modal-topo { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.75rem; margin: 0 0 1rem; }
 .pf-modal-topo h2 { margin: 0; font-size: 1.1875rem; font-weight: 800; line-height: 1.25; }
 .pf-modal-topo p { margin: 0.25rem 0 0; color: #66756f; font-size: 0.8125rem; }
@@ -246,18 +246,18 @@ body:has(.nav-interna) { background: #f1fbfa; }
 .pf-campo { display: grid; gap: 0.375rem; margin: 0; padding: 0; border: 0; }
 .pf-campo--linha { display: flex; align-items: center; justify-content: space-between; padding: 0.625rem 0.75rem; border: 1px solid #d3e2df; border-radius: 12px; }
 .pf-campo-rotulo { color: #3e4b49; font-size: 0.8125rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; }
-.pf-entrada { box-sizing: border-box; width: 100%; min-height: 2.75rem; padding: 0 0.75rem; border: 1px solid #c9d8d4; border-radius: 10px; background: #ffffff; color: #0d1413; font: inherit; font-size: 16px; }
-.pf-entrada:focus-visible { outline: 3px solid #14736b; outline-offset: 1px; border-color: #14736b; }
+.pf-entrada { box-sizing: border-box; width: 100%; min-height: 2.75rem; padding: 0 0.75rem; border: 1px solid #c9d8d4; border-radius: 10px; background: #ffffff; color: #000000; font: inherit; font-size: 16px; }
+.pf-entrada:focus-visible { outline: 3px solid #ffffff; outline-offset: 1px; border-color: #ffffff; }
 .pf-foto-linha { position: relative; display: flex; align-items: center; justify-content: center; gap: 0.875rem; padding: 0.75rem; border: 1px solid #d3e2df; border-radius: 12px; background: #f7faf9; }
 /* Tirar a foto: × no canto de cima da foto, em relevo pequeno. */
-.pf-foto-remover { position: absolute; top: 0.5rem; right: 0.5rem; display: grid; place-items: center; width: 2rem; height: 2rem; padding: 0; border: 0; border-radius: 10px; background: #ffffff; color: #0a3548; font-size: 1.25rem; line-height: 1; cursor: pointer; box-shadow: 3px 3px 6px #c4c8cd, -3px -3px 6px #ffffff; }
+.pf-foto-remover { position: absolute; top: 0.5rem; right: 0.5rem; display: grid; place-items: center; width: 2rem; height: 2rem; padding: 0; border: 0; border-radius: 10px; background: #ffffff; color: #000000; font-size: 1.25rem; line-height: 1; cursor: pointer; box-shadow: none; }
 .pf-foto-remover:hover { color: #b3261e; }
 .pf-foto-linha img { flex: none; width: min(12rem, 72%); height: auto; aspect-ratio: 1; object-fit: contain; border-radius: 10px; background: #ffffff; }
 .pf-foto-vazia { flex: none; display: grid; place-items: center; width: min(12rem, 72%); aspect-ratio: 1; border-radius: 10px; background: #e3ecea; color: #66756f; font-size: 0.8125rem; }
-.pf-botao { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 0.375rem; box-sizing: border-box; min-height: 2.75rem; padding: 0 1.125rem; border: 1px solid #c9d8d4; border-radius: 10px; background: #ffffff; color: #0a3548; font: inherit; font-size: 0.9375rem; font-weight: 700; cursor: pointer; transition: background-color 0.15s ease; }
+.pf-botao { position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 0.375rem; box-sizing: border-box; min-height: 2.75rem; padding: 0 1.125rem; border: 1px solid #c9d8d4; border-radius: 10px; background: #ffffff; color: #000000; font: inherit; font-size: 0.9375rem; font-weight: 700; cursor: pointer; transition: background-color 0.15s ease; }
 .pf-botao:hover { background: #f1fbfa; }
-.pf-botao:focus-visible { outline: 3px solid #14736b; outline-offset: 2px; }
-.pf-botao--primario { border-color: #14736b; background: #14736b; color: #ffffff; }
+.pf-botao:focus-visible { outline: 3px solid #ffffff; outline-offset: 2px; }
+.pf-botao--primario { border-color: #ffffff; background: #ffffff; color: #000000; }
 .pf-botao--primario:hover { background: #0a5f5c; }
 .pf-botao--cheio { flex: 1; }
 .pf-botao--perigo { border-color: #c62828; background: #c62828; color: #ffffff; }
@@ -266,9 +266,9 @@ body:has(.nav-interna) { background: #f1fbfa; }
 .pf-botao--contorno-perigo:hover { background: #fdecea; }
 .pf-chave { position: relative; flex: none; width: 3rem; height: 1.75rem; padding: 0; border: 0; border-radius: 999px; background: #c9d8d4; cursor: pointer; transition: background-color 0.2s ease; }
 .pf-chave::after { content: ""; position: absolute; top: 0.1875rem; left: 0.1875rem; width: 1.375rem; height: 1.375rem; border-radius: 50%; background: #ffffff; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25); transition: transform 0.2s ease; }
-.pf-chave[aria-checked="true"] { background: #14736b; }
+.pf-chave[aria-checked="true"] { background: #ffffff; }
 .pf-chave[aria-checked="true"]::after { transform: translateX(1.25rem); }
-.pf-chave:focus-visible { outline: 3px solid #14736b; outline-offset: 2px; }
+.pf-chave:focus-visible { outline: 3px solid #ffffff; outline-offset: 2px; }
 .pf-perigo { margin-top: 1rem; padding: 0.875rem 1rem; border: 1px solid #e5a29c; border-radius: 12px; background: #fff5f5; }
 .pf-perigo p { margin: 0 0 0.75rem; line-height: 1.4; }
 .pf-modal-acoes { display: flex; gap: 0.5rem; }
@@ -403,7 +403,7 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 .painel-fotos .pf-arvore .pf-chip-filtro--sub:nth-child(5) { animation-delay: 0.2s; }
 .painel-fotos .pf-arvore .pf-chip-filtro--sub:nth-child(6) { animation-delay: 0.25s; }
 .painel-fotos .pf-arvore .pf-chip-filtro--sub:nth-child(n+7) { animation-delay: 0.3s; }
-.painel-fotos .pf-arvore .pf-chip-filtro--sub.pf-chip-filtro--ativo { background: #ffffff; border-color: var(--cor); color: var(--pf-ink); font-weight: 600; box-shadow: inset 3px 0 0 var(--cor); }
+.painel-fotos .pf-arvore .pf-chip-filtro--sub.pf-chip-filtro--ativo { background: #ffffff; border-color: var(--cor); color: var(--pf-ink); font-weight: 600; box-shadow: none; }
 .painel-fotos .pf-arvore .pf-chip-filtro--sub.pf-chip-filtro--ativo small { color: var(--pf-ink2); }
 @keyframes pf-sub-desliza { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
 @keyframes pf-sub-chip { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
@@ -505,7 +505,7 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 .pf-selecao-controle .pf-botao {
   min-height: 2.75rem;
   padding: 0 1.125rem;
-  border: 1px solid #14736b;
+  border: 1px solid #ffffff;
   border-radius: 10px;
   background: #ffffff;
   color: #0b4f46;
@@ -514,8 +514,8 @@ html body .pf-busca input:focus, html body .pf-busca input:focus-visible { outli
 }
 .pf-selecao-controle .pf-botao:hover:not(:disabled) { background: #eef8f6; box-shadow: 0 6px 14px -8px rgba(20, 115, 107, 0.45); transform: translateY(-1px); }
 .pf-selecao-controle .pf-botao:active:not(:disabled) { transform: translateY(0) scale(0.98); transition-duration: 0.12s; }
-.pf-selecao-controle .pf-botao:focus-visible { outline: 2px solid #14736b; outline-offset: 3px; }
-.pf-selecao-controle .pf-botao[aria-pressed="true"] { background: #14736b; border-color: #14736b; color: #ffffff; box-shadow: 0 8px 18px -10px rgba(20, 115, 107, 0.6); }
+.pf-selecao-controle .pf-botao:focus-visible { outline: 2px solid #ffffff; outline-offset: 3px; }
+.pf-selecao-controle .pf-botao[aria-pressed="true"] { background: #ffffff; border-color: #ffffff; color: #000000; box-shadow: 0 8px 18px -10px rgba(20, 115, 107, 0.6); }
 .pf-selecao-controle .pf-botao[aria-pressed="true"]:hover:not(:disabled) { background: #0f5f58; }
 @media (prefers-reduced-motion: reduce) {
   .pf-selecao-controle .pf-botao { transition: none; }
@@ -652,7 +652,7 @@ body:has(.nav-interna) { background: #ffffff; }
 .painel-fotos .pf-card .pf-qtd-baixo,
 .painel-fotos .pf-qtd-baixo { background: #ffc800; color: #2e2200; }
 .painel-fotos .pf-aviso { background: #ffd93b; border-color: #f0a500; color: #2e2200; }
-.painel-fotos .painel-catalogo .painel-saude-atencao { border-color: #f0a500; background: #ffe866; }
+.painel-fotos .painel-catalogo .painel-saude-atencao { border-color: #f0a500; background: #FFE600; }
 .painel-fotos .painel-catalogo .painel-saude-atencao .painel-selo { background: #ffc800; color: #2e2200; }
 /* Amarelo suave e quente, em harmonia com a paleta verde-menta do site. */
 .painel-fotos .pf-card .pf-qtd-baixo,
@@ -667,16 +667,16 @@ body:has(.nav-interna) { background: #ffffff; }
 .painel-fotos .painel-catalogo .painel-saude-atencao { border-color: #d9c17a; background: #f6eece; }
 .painel-fotos .painel-catalogo .painel-saude-atencao .painel-selo { background: #e9d595; color: #433412; }
 /* Banner de atenção: volta ao amarelo anterior no fundo, com o selo "Atenção" em vermelho e letras brancas. */
-.painel-fotos .painel-catalogo .painel-saude-atencao { border-color: #f0a500; background: #ffe866; }
+.painel-fotos .painel-catalogo .painel-saude-atencao { border-color: #f0a500; background: #FFE600; }
 .painel-fotos .painel-catalogo .painel-saude-atencao .painel-selo { background: #d64545; color: #ffffff; }
 /* Selo de estoque baixo com o mesmo amarelo do banner de atenção. */
 .painel-fotos .pf-card .pf-qtd-baixo,
-.painel-fotos .pf-qtd-baixo { background: #ffe866; color: #3d2f00; }
+.painel-fotos .pf-qtd-baixo { background: #FFE600; color: #3d2f00; }
 /* ===== Paleta fixa do painel (fonte única) =====
-   Destaque: verde da marca (#14736b). Alerta: amarelo (#ffe866, borda #f0a500, texto #3d2f00).
+   Destaque: verde da marca (#14736b). Alerta: amarelo (#FFE600, borda #f0a500, texto #3d2f00).
    Erro: vermelho (#d64545, texto branco). Sucesso/normal: verde-menta suave. Neutros: cinzas da marca. */
 .painel-fotos {
-  --pf-alerta: #ffe866;
+  --pf-alerta: #FFE600;
   --pf-alerta-borda: #f0a500;
   --pf-alerta-texto: #3d2f00;
   --pf-erro: #d64545;
@@ -712,8 +712,8 @@ body:has(.nav-interna) { background: #ffffff; }
   font-weight: 600;
   color: var(--pf-ink);
   background: #ffffff;
-  border-color: var(--cor, #14736b);
-  box-shadow: inset 3px 0 0 var(--cor, #14736b);
+  border-color: var(--cor, #ffffff);
+  box-shadow: none;
 }
 .painel-fotos .pf-arvore .pf-chip-filtro--sub small { font-size: 12px; font-weight: 500; color: var(--pf-mudo); }
 .painel-fotos .pf-arvore .pf-chip-filtro--sub.pf-chip-filtro--vazio { color: #9aa8a5; }
@@ -765,7 +765,7 @@ body:has(.nav-interna) { background: #ffffff; }
    Cores que representam dados (estoque normal, categorias e alertas) continuam como estão. */
 @layer design {
   html body .nav-interna { border-bottom-color: #d4d4d4 !important; }
-  html body .nav-interna a[aria-current="page"] { background: #e9e9e9 !important; box-shadow: inset 0 -3px 0 #000000; }
+  html body .nav-interna a[aria-current="page"] { background: #e9e9e9 !important; box-shadow: none; }
   html body .nav-interna-marca small { background: #ececec !important; }
   html body .painel-fotos { --pf-verde: #000000; --pf-verde-claro: #ececec; --pf-ok: #ececec; --pf-ok-texto: #000000; }
   html body .painel-fotos .pf-botao--primario,
@@ -773,7 +773,7 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .painel-fotos .pf-selecao-controle .pf-botao[aria-pressed="true"] { background: #000000 !important; border-color: #000000 !important; color: #ffffff !important; }
   html body .painel-fotos .pf-selecao-controle .pf-botao { border-color: #bdbdbd !important; }
   html body .painel-fotos .pf-selecao-controle .pf-botao:hover:not(:disabled) { background: #f2f2f2 !important; }
-  html body .painel-fotos .pf-barra { background: #9fe3d6 !important; }
+  html body .painel-fotos .pf-barra { background: #ffffff !important; }
   html body .painel-fotos .pf-busca { background: #fdfdfd !important; }
   html body .painel-fotos .pf-arvore { border-color: #d4d4d4 !important; }
   html body .painel-fotos .pf-arvore .pf-chip-filtro--sub.pf-chip-filtro--ativo { border-color: #000000 !important; }
@@ -786,7 +786,7 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .painel-fotos .painel-catalogo :is(div, section, article, li) { border-color: #d4d4d4 !important; }
 }
 @layer design {
-  html body .nav-interna a[aria-current="page"] { box-shadow: inset 0 -3px 0 #000000 !important; }
+  html body .nav-interna a[aria-current="page"] { box-shadow: none !important; }
 }
 /* Menu da área interna na lateral esquerda, em vez da faixa no topo (telas largas).
    Em telas estreitas volta para a faixa de cima. */
@@ -802,7 +802,7 @@ body:has(.nav-interna) { background: #ffffff; }
     html body .nav-interna-marca { padding: 0 8px 12px !important; }
     html body .nav-interna ul { flex-direction: column !important; gap: 4px !important; padding: 0 !important; overflow: visible !important; width: 100% !important; }
     html body .nav-interna a { width: 100% !important; box-sizing: border-box !important; justify-content: flex-start !important; min-height: 2.5rem !important; }
-    html body .nav-interna a[aria-current="page"] { box-shadow: inset 3px 0 0 #000000 !important; }
+    html body .nav-interna a[aria-current="page"] { box-shadow: none !important; }
     html body main:has(> .nav-interna) > .interno-corpo { grid-column: 2 !important; grid-row: 1 !important; min-width: 0 !important; }
   }
 }
@@ -826,7 +826,7 @@ body:has(.nav-interna) { background: #ffffff; }
       background: transparent !important; transition: background-color 0.25s ease, color 0.25s ease !important;
     }
     html body .nav-interna a:hover { background: #f4f4f4 !important; }
-    html body .nav-interna a[aria-current="page"] { background: #9fe3d6 !important; color: #0d1413 !important; font-weight: 600 !important; box-shadow: inset 6px 6px 10px #5cc4b0, inset -6px -6px 10px #ffffff !important; }
+    html body .nav-interna a[aria-current="page"] { background: #ffffff !important; color: #000000 !important; font-weight: 600 !important; box-shadow: none !important; }
     html body .nav-interna .nav-interna-icone { flex: none; opacity: 0.9; }
     html body .nav-interna a[aria-current="page"] .nav-interna-icone { opacity: 1; }
   }
@@ -939,7 +939,7 @@ body:has(.nav-interna) { background: #ffffff; }
     html body .nav-interna.nav-interna--mobile-aberta { transform: translateX(0) !important; box-shadow: 0 0 40px rgba(0, 0, 0, 0.18) !important; }
     html body .nav-interna ul { flex-direction: column !important; gap: 4px !important; padding: 0 !important; overflow: visible !important; width: 100% !important; }
     html body .nav-interna a { width: 100% !important; box-sizing: border-box !important; display: flex !important; align-items: center !important; gap: 12px !important; min-height: 44px !important; padding: 0 12px 0 14px !important; border-radius: 10px !important; color: #111111 !important; font-size: 15px !important; font-weight: 500 !important; opacity: 1 !important; background: transparent !important; }
-    html body .nav-interna a[aria-current="page"] { background: #9fe3d6 !important; color: #0d1413 !important; font-weight: 600 !important; box-shadow: inset 6px 6px 10px #5cc4b0, inset -6px -6px 10px #ffffff !important; }
+    html body .nav-interna a[aria-current="page"] { background: #ffffff !important; color: #000000 !important; font-weight: 600 !important; box-shadow: none !important; }
     html body .nav-interna .nav-interna-rotulo { display: inline !important; }
     html body .nav-interna-marca { padding: 4px 8px 14px !important; border-bottom: 1px solid #ececec; margin-bottom: 4px; }
     html body main:has(> .nav-interna) { display: block !important; }
@@ -1031,23 +1031,23 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .painel-fotos .pf-paginas button:not(:disabled) {
     background: linear-gradient(180deg, #ffffff 0%, #ececec 100%) !important;
     border: 1px solid #cfcfcf !important;
-    box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 #bdbdbd, 0 4px 8px -4px rgba(0, 0, 0, 0.25) !important;
+    box-shadow: none, 0 2px 0 #bdbdbd, 0 4px 8px -4px rgba(0, 0, 0, 0.25) !important;
     transform: translateY(0);
     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.2s ease !important;
   }
-  html body .painel-fotos .pf-paginas button:not(:disabled):hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 #ffffff, 0 3px 0 #bdbdbd, 0 8px 12px -6px rgba(0, 0, 0, 0.3) !important; }
-  html body .painel-fotos .pf-paginas button:not(:disabled):active { transform: translateY(2px); box-shadow: inset 0 1px 0 #ffffff, 0 0 0 #bdbdbd, 0 1px 3px -2px rgba(0, 0, 0, 0.3) !important; }
+  html body .painel-fotos .pf-paginas button:not(:disabled):hover { transform: translateY(-1px); box-shadow: none, 0 3px 0 #bdbdbd, 0 8px 12px -6px rgba(0, 0, 0, 0.3) !important; }
+  html body .painel-fotos .pf-paginas button:not(:disabled):active { transform: translateY(2px); box-shadow: none, 0 0 0 #bdbdbd, 0 1px 3px -2px rgba(0, 0, 0, 0.3) !important; }
   html body .painel-fotos .pf-paginas button:disabled { background: #f6f6f6 !important; box-shadow: none !important; }
   /* Botão "+" de adicionar foto extra: em inset, branco, sem borda (vence a regra geral de botões do cartão). */
   html body .pf-modal button.colecoes-adicionar:not(.pf-chave):not(.pf-botao--primario):not(:disabled),
   html body .pf-modal button.colecoes-adicionar:not(.pf-chave):not(.pf-botao--primario):not(:disabled):hover {
     border: 0 !important; transform: none !important; background: #ffffff !important;
-    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    box-shadow: none !important;
   }
   /* Área da foto no cartão de configuração em inset: recuada, sem borda. */
   html body .pf-modal .pf-foto-linha.pf-foto-linha {
     border: 0 !important; background: #ffffff !important;
-    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    box-shadow: none !important;
   }
   /* Cartão de configuração da foto: os × (fechar e tirar a foto) também em inset, como os demais botões. */
   html body .pf-modal button.pf-modal-fechar:not(.pf-chave):not(.pf-botao--primario):not(:disabled),
@@ -1057,20 +1057,20 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .pf-modal button.pf-modal-fechar.pf-modal-fechar,
   html body .pf-modal button.pf-foto-remover.pf-foto-remover {
     border: 0 !important; background: #ffffff !important;
-    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    box-shadow: none !important;
   }
   /* "Próxima" em inset: recuado, sem borda (a regra precisa estar nesta camada para vencer as de cima). */
   html body .painel-fotos .pf-paginas button.pf-pagina-proxima:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled),
   html body .painel-fotos .pf-paginas button.pf-pagina-proxima:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled):hover,
   html body .painel-fotos .pf-paginas button.pf-pagina-proxima:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled):active {
     background: #ffffff !important; background-image: none !important; border: 0 !important; transform: none !important;
-    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    box-shadow: none !important;
   }
   /* Paginação numa pílula em neumorfismo: relevo com duas sombras opostas, sem borda, cabe no conteúdo. */
   html body .painel-fotos .pf-paginas.pf-paginas {
     width: fit-content !important; max-width: 100% !important; margin: 16px auto 0 !important; padding: 8px !important;
     border: 0 !important; border-radius: 999px !important; background: #f1f3f4 !important;
-    box-shadow: 8px 8px 16px #d5d9dd, -8px -8px 16px #ffffff !important; gap: 12px !important;
+    box-shadow: 8px 8px 16px #d5d9dd !important; gap: 12px !important;
   }
   /* Pílula da paginação no celular: rótulos numa linha só, sem quebrar "Anterior" nem "Próxima". */
   html body .painel-fotos .pf-paginas.pf-paginas { gap: 8px !important; }
@@ -1083,7 +1083,7 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .painel-fotos .pf-paginas button.pf-pagina-proxima.pf-pagina-proxima:disabled,
   html body .painel-fotos .pf-paginas button.pf-pagina-anterior.pf-pagina-anterior:disabled {
     background: #ffffff !important; background-image: none !important; border: 0 !important; transform: none !important;
-    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    box-shadow: none !important;
   }
 }
 /* Troca de página: a grade sai e entra com deslize e fade (a cada página, a grade é remontada). */
@@ -1148,7 +1148,7 @@ body:has(.nav-interna) { background: #ffffff; }
 @layer design {
   html body .painel-fotos .pf-chip-filtro--sub.pf-chip-filtro--ativo,
   html body .painel-fotos .pf-chip-filtro--sub.pf-chip-filtro--ativo:focus,
-  html body .painel-fotos .pf-chip-filtro--sub.pf-chip-filtro--ativo:focus-visible { box-shadow: inset 3px 0 0 var(--cor, #111111) !important; }
+  html body .painel-fotos .pf-chip-filtro--sub.pf-chip-filtro--ativo:focus-visible { box-shadow: none, #111111) !important; }
 }
 
 /* Caixa de seleção em 3D (isométrica): base com profundidade, degradê e marca de visto em relevo. */
@@ -1156,11 +1156,11 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .painel-fotos input[type="checkbox"] {
     appearance: none !important; -webkit-appearance: none; width: 22px !important; height: 22px !important; margin: 0; cursor: pointer;
     border: 1px solid #111111 !important; border-radius: 6px !important; background: linear-gradient(180deg, #ffffff 0%, #e9e9e9 100%) !important;
-    box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 #111111, 0 5px 8px -3px rgba(0, 0, 0, 0.35) !important; position: relative; transition: transform 0.12s ease, box-shadow 0.12s ease !important;
+    box-shadow: none, 0 2px 0 #111111, 0 5px 8px -3px rgba(0, 0, 0, 0.35) !important; position: relative; transition: transform 0.12s ease, box-shadow 0.12s ease !important;
     display: inline-grid; place-content: center;
   }
   html body .painel-fotos input[type="checkbox"]:hover { transform: translateY(-1px); }
-  html body .painel-fotos input[type="checkbox"]:active { transform: translateY(1px); box-shadow: inset 0 1px 0 #ffffff, 0 0 0 #111111, 0 1px 3px -2px rgba(0, 0, 0, 0.35) !important; }
+  html body .painel-fotos input[type="checkbox"]:active { transform: translateY(1px); box-shadow: none, 0 0 0 #111111, 0 1px 3px -2px rgba(0, 0, 0, 0.35) !important; }
   html body .painel-fotos input[type="checkbox"]:checked { background: linear-gradient(180deg, #3a3a3a 0%, #000000 100%) !important; }
   html body .painel-fotos input[type="checkbox"]:checked::after {
     content: ""; width: 6px; height: 11px; border: solid #ffffff; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg) translate(-1px, -1px);
@@ -1178,11 +1178,11 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .pf-modal .pf-modal-fechar, html body button.pf-modal-fechar {
     background: #ffffff !important;
     border: 0 !important; color: #111111 !important; border-radius: 10px !important;
-    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    box-shadow: none !important;
     transition: transform 0.12s ease, box-shadow 0.12s ease !important;
   }
-  html body .pf-modal .pf-modal-fechar:hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 #ffffff, 0 3px 0 #bdbdbd, 0 8px 12px -6px rgba(0,0,0,0.3) !important; }
-  html body .pf-modal .pf-modal-fechar:active { transform: translateY(2px); box-shadow: inset 0 1px 0 #ffffff, 0 0 0 #bdbdbd !important; }
+  html body .pf-modal .pf-modal-fechar:hover { transform: translateY(-1px); box-shadow: none, 0 3px 0 #bdbdbd, 0 8px 12px -6px rgba(0,0,0,0.3) !important; }
+  html body .pf-modal .pf-modal-fechar:active { transform: translateY(2px); box-shadow: none, 0 0 0 #bdbdbd !important; }
 }
 
 /* Todos os botões do painel: sem contorno, com sombra 3D (relevo) e resposta ao toque. */
@@ -1191,13 +1191,13 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .pf-modal button:not(.pf-chave):not(.pf-botao--primario):not(:disabled) {
     border: 0 !important;
     background: linear-gradient(180deg, #ffffff 0%, #ececec 100%) !important;
-    box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 #bdbdbd, 0 4px 8px -4px rgba(0, 0, 0, 0.25) !important;
+    box-shadow: none, 0 2px 0 #bdbdbd, 0 4px 8px -4px rgba(0, 0, 0, 0.25) !important;
     transition: transform 0.12s ease, box-shadow 0.12s ease !important;
   }
   html body .painel-fotos button:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled):hover,
-  html body .pf-modal button:not(.pf-chave):not(.pf-botao--primario):not(:disabled):hover { transform: translateY(-1px); box-shadow: inset 0 1px 0 #ffffff, 0 3px 0 #bdbdbd, 0 8px 12px -6px rgba(0, 0, 0, 0.3) !important; }
+  html body .pf-modal button:not(.pf-chave):not(.pf-botao--primario):not(:disabled):hover { transform: translateY(-1px); box-shadow: none, 0 3px 0 #bdbdbd, 0 8px 12px -6px rgba(0, 0, 0, 0.3) !important; }
   html body .painel-fotos button:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled):active,
-  html body .pf-modal button:not(.pf-chave):not(.pf-botao--primario):not(:disabled):active { transform: translateY(2px); box-shadow: inset 0 1px 0 #ffffff, 0 0 0 #bdbdbd !important; }
+  html body .pf-modal button:not(.pf-chave):not(.pf-botao--primario):not(:disabled):active { transform: translateY(2px); box-shadow: none, 0 0 0 #bdbdbd !important; }
 }
 
 /* Campos do cartão de configuração (entrada, seleção e área de texto) com sombra 3D, como os botões. */
@@ -1207,11 +1207,11 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .pf-modal select.pf-entrada,
   html body .pf-modal textarea.pf-entrada {
     background: #ffffff !important;
-    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    box-shadow: none !important;
     transition: box-shadow 0.2s ease, border-color 0.2s ease !important;
   }
   html body .pf-modal .pf-entrada:focus,
-  html body .pf-modal .pf-entrada:focus-visible { outline: none !important; border-color: #d6d6d6 !important; box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important; }
+  html body .pf-modal .pf-entrada:focus-visible { outline: none !important; border-color: #d6d6d6 !important; box-shadow: none !important; }
 }
 
 /* Linha "Controlado" e botão Confirmar do cartão com sombra 3D, como o resto. */
@@ -1219,26 +1219,26 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .pf-modal .pf-campo--linha {
     background: linear-gradient(180deg, #ffffff 0%, #f7f7f7 100%) !important;
     border: 1px solid #e7e7e7 !important; border-radius: 10px !important; padding: 10px 12px !important;
-    box-shadow: inset 0 1px 0 #ffffff, 0 2px 0 #d9d9d9, 0 5px 10px -6px rgba(0,0,0,0.28) !important;
+    box-shadow: none, 0 2px 0 #d9d9d9, 0 5px 10px -6px rgba(0,0,0,0.28) !important;
   }
   html body .pf-modal .pf-botao--primario {
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 3px 0 #0a4f47, 0 8px 14px -8px rgba(0,0,0,0.45) !important;
+    box-shadow: none,255,255,0.25), 0 3px 0 #0a4f47, 0 8px 14px -8px rgba(0,0,0,0.45) !important;
     transition: transform 0.12s ease, box-shadow 0.12s ease !important;
   }
-  html body .pf-modal .pf-botao--primario:hover:not(:disabled) { transform: translateY(-1px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 0 #0a4f47, 0 10px 16px -8px rgba(0,0,0,0.5) !important; }
-  html body .pf-modal .pf-botao--primario:active:not(:disabled) { transform: translateY(2px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 0 0 #0a4f47 !important; }
+  html body .pf-modal .pf-botao--primario:hover:not(:disabled) { transform: translateY(-1px); box-shadow: none,255,255,0.25), 0 4px 0 #0a4f47, 0 10px 16px -8px rgba(0,0,0,0.5) !important; }
+  html body .pf-modal .pf-botao--primario:active:not(:disabled) { transform: translateY(2px); box-shadow: none,255,255,0.25), 0 0 0 #0a4f47 !important; }
 }
 
 /* Formatação do cartão de configuração: cabeçalho alinhado, rótulos padronizados, campos com a mesma altura e espaçamento regular. */
 @layer design {
   html body .pf-modal { padding: 22px 22px 18px !important; }
   html body .pf-modal .pf-modal-topo { align-items: center !important; margin: 0 0 18px !important; }
-  html body .pf-modal .pf-modal-topo h2 { font-size: 18px !important; font-weight: 700 !important; letter-spacing: -0.015em !important; color: #0d1413 !important; line-height: 1.25 !important; }
+  html body .pf-modal .pf-modal-topo h2 { font-size: 18px !important; font-weight: 700 !important; letter-spacing: -0.015em !important; color: #000000 !important; line-height: 1.25 !important; }
   html body .pf-modal .pf-modal-corpo { display: grid !important; gap: 16px !important; }
   html body .pf-modal .pf-campo { display: grid !important; gap: 7px !important; }
   html body .pf-modal .pf-campo-rotulo, html body .pf-modal label.pf-campo-rotulo {
     font-size: 13px !important; font-weight: 600 !important; letter-spacing: 0 !important; text-transform: none !important; color: #57534e !important; margin: 0 0 2px !important; line-height: 1.2 !important;
-    color: #0d1413 !important;
+    color: #000000 !important;
     text-shadow: none !important;
   }
   /* Todos os cards de campo do cartão com a mesma altura, largura e raio. */
@@ -1256,8 +1256,8 @@ body:has(.nav-interna) { background: #ffffff; }
 @layer design {
   html body .pf-modal {
     border-radius: 16px !important; border: 0 !important;
-    background: #9fe3d6 !important;
-    box-shadow: inset 0 1px 0 #c6f3ea, 0 2px 0 #8fd3c4, 0 28px 48px -16px rgba(0,0,0,0.25) !important;
+    background: #ffffff !important;
+    box-shadow: none, 0 28px 48px -16px rgba(0,0,0,0.25) !important;
   }
   html body .pf-modal-fundo { background: rgba(28, 25, 23, 0.42) !important; backdrop-filter: blur(4px) !important; }
   /* Botões do cartão de configuração em inset (recuados), sem borda. O primário mantém o verde escuro, também recuado. */
@@ -1268,14 +1268,14 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .pf-modal button.pf-modal-fechar:hover,
   html body .pf-modal button.pf-modal-fechar:active {
     border: 0 !important; transform: none !important; background: #ffffff !important;
-    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    box-shadow: none !important;
   }
   html body .pf-modal button.pf-botao--primario:disabled { opacity: 1 !important; }
   html body .pf-modal .pf-botao--primario,
   html body .pf-modal .pf-botao--primario:hover:not(:disabled),
   html body .pf-modal .pf-botao--primario:active:not(:disabled) {
-    border: 0 !important; transform: none !important; background: #ffffff !important; background-image: none !important; color: #0a3548 !important;
-    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    border: 0 !important; transform: none !important; background: #ffffff !important; background-image: none !important; color: #000000 !important;
+    box-shadow: none !important;
   }
   html body .pf-modal .pf-modal-topo { padding-bottom: 14px !important; border-bottom: 0 !important; }
   html body .pf-modal .pf-modal-corpo > .pf-campo + .pf-campo { padding-top: 2px; }
@@ -1293,7 +1293,7 @@ body:has(.nav-interna) { background: #ffffff; }
     width: 56px !important; height: 32px !important; min-width: 56px !important; min-height: 32px !important; max-height: 32px !important;
     padding: 0 !important; margin: 0 !important; border: 0 !important; border-radius: 999px !important; flex: none !important; position: relative !important;
     background: radial-gradient(ellipse at 50% 20%, #6e6e6e 0%, #4a4a4a 55%, #2e2e2e 100%) !important;
-    box-shadow: inset 0 10px 14px -4px rgba(0,0,0,0.85), inset 0 2px 3px rgba(0,0,0,0.6), inset 0 -2px 0 rgba(255,255,255,0.22), 0 1px 0 rgba(255,255,255,0.95), 0 0 0 2px #d4d4d4, 0 0 0 3px #9a9a9a !important;
+    box-shadow: none, 0, 0, 0, 0, 255, 255, 0.22), 0 1px 0 rgba(255, 255, 255, 0.95), 0 0 0 2px #d4d4d4, 0 0 0 3px #9a9a9a !important;
     transition: background-color 0.9s cubic-bezier(0.3, 0.1, 0.2, 1), box-shadow 0.9s cubic-bezier(0.3, 0.1, 0.2, 1) !important;
   }
   html body .pf-modal button.pf-chave[aria-checked="true"] {
@@ -1303,7 +1303,7 @@ body:has(.nav-interna) { background: #ffffff; }
     content: "" !important; position: absolute !important; top: 0 !important; left: 2px !important;
     width: 28px !important; height: 28px !important; border-radius: 50% !important; box-sizing: border-box !important;
     background: radial-gradient(circle at 38% 30%, #ffffff 0%, #f4f4f4 45%, #d4d4d4 100%) !important;
-    box-shadow: inset 0 -3px 0 rgba(0,0,0,0.18), inset 0 1px 1px rgba(255,255,255,0.9), 0 8px 10px -2px rgba(0,0,0,0.75), 0 2px 0 #9e9e9e !important;
+    box-shadow: none, 0, 0, 255, 255, 0.9), 0 8px 10px -2px rgba(0, 0, 0, 0.75), 0 2px 0 #9e9e9e !important;
     transition: transform 0.45s cubic-bezier(0.34, 1.25, 0.64, 1) !important;
   }
   html body .pf-modal button.pf-chave[aria-checked="true"]::after { transform: translateX(24px) !important; }
@@ -1313,20 +1313,20 @@ body:has(.nav-interna) { background: #ffffff; }
 /* Interruptor ligado: trilho verde da marca, com a mesma profundidade do trilho cinza. */
 @layer design {
   html body .pf-modal button.pf-chave[aria-checked="true"] {
-    background: radial-gradient(ellipse at 50% 20%, #2a9d91 0%, #14736b 55%, #0b4f49 100%) !important;
-    box-shadow: inset 0 10px 14px -4px rgba(0,0,0,0.6), inset 0 2px 3px rgba(0,0,0,0.45), inset 0 -2px 0 rgba(255,255,255,0.15), 0 1px 0 rgba(255,255,255,0.95), 0 0 0 2px #cfe6e2, 0 0 0 3px #14736b !important;
+    background: radial-gradient(ellipse at 50% 20%, #2a9d91 0%, #ffffff 55%, #0b4f49 100%) !important;
+    box-shadow: none, 0, 0, 0, 0, 255, 255, 0.15), 0 1px 0 rgba(255, 255, 255 !important;
   }
 }
 
 /* Acabamento do interruptor: anel metálico no trilho, tampa com folga e volume (anel interno e brilho). */
 @layer design {
   html body .pf-modal button.pf-chave {
-    box-shadow: inset 0 10px 14px -4px rgba(0,0,0,0.85), inset 0 2px 3px rgba(0,0,0,0.6), inset 0 -2px 0 rgba(255,255,255,0.22), 0 1px 0 rgba(255,255,255,0.95), 0 0 0 2px #e6e6e6, 0 0 0 3px #8c8c8c, 0 0 0 4px rgba(255,255,255,0.8) !important;
+    box-shadow: none, 0, 0, 0, 0, 255, 255, 0.22), 0 1px 0 rgba(255, 255, 255, 0.95), 0 0 0 2px #e6e6e6, 0 0 0 3px #8c8c8c, 0 0 0 4px rgba(255, 255, 255, 0.8) !important;
   }
   html body .pf-modal button.pf-chave::after {
     top: 2px !important; left: 2px !important; width: 28px !important; height: 28px !important;
     background: radial-gradient(circle at 36% 26%, #ffffff 0%, #ffffff 38%, #ececec 70%, #cfcfcf 100%) !important;
-    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06), inset 0 -3px 2px rgba(0,0,0,0.12), inset 0 1px 1px rgba(255,255,255,1), 0 6px 8px -2px rgba(0,0,0,0.6), 0 2px 0 #a3a3a3 !important;
+    box-shadow: none, 0, 0, 0, 0, 255, 255, 1), 0 6px 8px -2px rgba(0, 0, 0, 0.6), 0 2px 0 #a3a3a3 !important;
   }
   html body .pf-modal button.pf-chave[aria-checked="true"]::after { transform: translateX(22px) !important; }
 }
@@ -1337,13 +1337,13 @@ body:has(.nav-interna) { background: #ffffff; }
     content: "" !important; position: absolute !important; top: 12px !important; left: 11px !important;
     width: 12px !important; height: 18px !important; border-radius: 6px !important; box-sizing: border-box !important;
     background: linear-gradient(90deg, #5a5a5a 0%, #9a9a9a 45%, #3e3e3e 100%) !important;
-    box-shadow: inset 0 -2px 2px rgba(0,0,0,0.35), 0 2px 3px rgba(0,0,0,0.5) !important;
+    box-shadow: none,0,0,0.35), 0 2px 3px rgba(0,0,0,0.5) !important;
     transition: transform 0.45s cubic-bezier(0.34, 1.25, 0.64, 1) !important;
   }
   html body .pf-modal button.pf-chave[aria-checked="true"]::before { transform: translateX(22px) !important; }
   html body .pf-modal button.pf-chave::after {
     /* Bolinha saltada (emboss): topo claro, base escura e sombra projetada. */
-    box-shadow: inset 0 2px 1px rgba(255,255,255,1), inset 0 -3px 2px rgba(0,0,0,0.22), 0 3px 0 #8f8f8f, 0 6px 8px -2px rgba(0,0,0,0.6) !important;
+    box-shadow: none, 255, 255, 0, 0, 0.22), 0 3px 0 #8f8f8f, 0 6px 8px -2px rgba(0, 0, 0, 0.6) !important;
   }
 }
 
@@ -1352,7 +1352,7 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .pf-modal .pf-campo--linha {
     background: linear-gradient(180deg, #fbfbfb 0%, #ececec 100%) !important;
     border: 1px solid #dcdcdc !important;
-    box-shadow: inset 0 2px 3px rgba(255,255,255,0.9), inset 0 -2px 3px rgba(0,0,0,0.06), 0 3px 0 #cfcfcf, 0 8px 12px -6px rgba(0,0,0,0.3) !important;
+    box-shadow: none, 255, 255, 0, 0, 0.06), 0 3px 0 #cfcfcf, 0 8px 12px -6px rgba(0, 0, 0, 0.3) !important;
   }
 }
 
@@ -1361,7 +1361,7 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .pf-modal button.pf-chave:not([aria-checked="true"]) {
     /* Trilho gravado (engraved): fundo afundado, sombra interna forte no topo e brilho na borda de baixo. */
     background-image: none !important; background-color: #dedede !important;
-    box-shadow: inset 0 7px 9px -3px rgba(0,0,0,0.40), inset 0 1px 1px rgba(0,0,0,0.22), inset 0 -2px 1px rgba(255,255,255,0.95), inset 2px 0 3px -2px rgba(0,0,0,0.12), inset -2px 0 3px -2px rgba(0,0,0,0.12), 0 1px 0 rgba(255,255,255,0.95) !important;
+    box-shadow: none, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0.12), 0 1px 0 rgba(255, 255, 255, 0.95) !important;
   }
 }
 
@@ -1388,11 +1388,11 @@ body:has(.nav-interna) { background: #ffffff; }
 @layer design {
   html body .pf-modal button.pf-chave[aria-checked="true"] {
     background-image: none !important; background-color: #00c2a8 !important;
-    box-shadow: inset 0 10px 14px -4px rgba(0,0,0,0.5), inset 0 2px 3px rgba(0,0,0,0.35), inset 0 -2px 0 rgba(255,255,255,0.2), 0 1px 0 rgba(255,255,255,0.95) !important;
+    box-shadow: none, 0, 0, 0, 0, 255, 255, 0.2), 0 1px 0 rgba(255, 255, 255, 0.95) !important;
   }
   html body .pf-modal .pf-botao--primario {
     background: #ffffff !important; background-image: none !important;
-    color: #0a3548 !important; border-color: #ffffff !important;
+    color: #000000 !important; border-color: #ffffff !important;
   }
   html body .pf-modal .pf-botao--primario:hover:not(:disabled) { background: #f6f7f8 !important; background-image: none !important; }
 }
@@ -1409,16 +1409,16 @@ body:has(.nav-interna) { background: #ffffff; }
     border: 0 !important;
     background: #ffffff !important;
     color: #3b4247 !important;
-    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    box-shadow: none !important;
     transition: box-shadow 0.25s ease, transform 0.25s ease !important;
   }
   html body .painel-fotos .pf-arvore .pf-chip-filtro:hover:not(:disabled) {
     transform: none !important;
-    box-shadow: inset 6px 6px 10px #bfc3c8, inset -6px -6px 10px #ffffff !important;
+    box-shadow: none !important;
   }
   html body .painel-fotos .pf-arvore .pf-chip-filtro:active:not(:disabled) {
     transform: none !important;
-    box-shadow: inset 2px 2px 4px #c4c8cd, inset -2px -2px 4px #ffffff !important;
+    box-shadow: none !important;
   }
   html body .painel-fotos .pf-arvore .pf-chip-filtro--ativo,
   html body .painel-fotos .pf-arvore .pf-chip-filtro.pf-chip-filtro--ativo,
@@ -1426,10 +1426,10 @@ body:has(.nav-interna) { background: #ffffff; }
     background: var(--cor) !important;
     border: 0 !important;
     color: var(--cor-texto, #ffffff) !important;
-    box-shadow: inset 4px 4px 8px rgba(0,0,0,0.25), inset -4px -4px 8px rgba(255,255,255,0.25) !important;
+    box-shadow: none, 0, 0, 255, 255, 0.25) !important;
     transform: none !important;
   }
-  html body .painel-fotos .pf-arvore .pf-chip-filtro--sub.pf-chip-filtro--ativo { box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important; }
+  html body .painel-fotos .pf-arvore .pf-chip-filtro--sub.pf-chip-filtro--ativo { box-shadow: none !important; }
   /* Chip ativo neutro (ex.: "Todos") precisa de texto escuro sobre o fundo cinza. */
   html body .painel-fotos .pf-arvore .pf-chip-filtro--ativo:not(.pf-chip-cat),
   html body .painel-fotos .pf-arvore .pf-chip-filtro--ativo:not(.pf-chip-cat) small { color: #0b3b36 !important; }
@@ -1441,15 +1441,15 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .painel-fotos .pf-selecao-controle .pf-botao:not(.pf-botao--primario):not(:disabled) {
     border: 0 !important;
     background: #ffffff !important;
-    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    box-shadow: none !important;
     transform: none !important;
   }
   html body .painel-fotos .pf-selecao-controle .pf-botao:not(.pf-botao--primario):not(:disabled):hover {
-    box-shadow: inset 6px 6px 10px #bfc3c8, inset -6px -6px 10px #ffffff !important;
+    box-shadow: none !important;
     transform: none !important;
   }
   html body .painel-fotos .pf-selecao-controle .pf-botao:not(.pf-botao--primario):not(:disabled):active {
-    box-shadow: inset 2px 2px 4px #c4c8cd, inset -2px -2px 4px #ffffff !important;
+    box-shadow: none !important;
   }
 }
 
@@ -1457,20 +1457,20 @@ body:has(.nav-interna) { background: #ffffff; }
 @layer ajustes {
   html body .painel-fotos .pf-grade > .pf-card {
     border: 0 !important;
-    background: #9fe3d6 !important;
-    box-shadow: 8px 8px 16px #8fd3c4, -8px -8px 16px #ffffff !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
   }
   /* Caixa de categoria e subcategoria em inset: recuada, sem borda. */
   html body .painel-fotos .pf-arvore {
     border: 0 !important;
     background: #fdfdfd !important;
-    box-shadow: inset 4px 4px 8px #eeeff1, inset -4px -4px 8px #ffffff !important;
+    box-shadow: none !important;
   }
   /* Campo de busca em inset: recuado, sem borda. */
   html body .painel-fotos .pf-busca {
     border: 0 !important;
     background: #fdfdfd !important;
-    box-shadow: inset 4px 4px 8px #eeeff1, inset -4px -4px 8px #ffffff !important;
+    box-shadow: none !important;
   }
   /* Barra de busca e filtros em neumorfismo: sem borda, relevo com duas sombras opostas. */
   html body .painel-fotos .pf-barra {
@@ -1478,8 +1478,8 @@ body:has(.nav-interna) { background: #ffffff; }
     border-radius: 18px !important;
     padding: 16px !important;
     gap: 14px !important;
-    background: #9fe3d6 !important;
-    box-shadow: inset 6px 6px 12px #8fd3c4, inset -6px -6px 12px #ffffff !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
   }
   html body .painel-fotos .pf-barra .pf-busca {
     min-height: 48px !important;
@@ -1526,42 +1526,42 @@ body:has(.nav-interna) { background: #ffffff; }
   /* Botão "Próxima" em inset: recuado, sem borda. */
   html body .painel-fotos .pf-paginas button:last-of-type:not(:disabled) {
     background: #ffffff !important;
-    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    box-shadow: none !important;
   }
   html body .painel-fotos .pf-paginas button.pf-pagina-proxima:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled),
   html body .painel-fotos .pf-paginas button.pf-pagina-proxima:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled):hover,
   html body .painel-fotos .pf-paginas button.pf-pagina-proxima:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled):active {
     background: #ffffff !important; background-image: none !important;
     border: 0 !important; transform: none !important;
-    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    box-shadow: none !important;
   }
   /* Cartão de configuração em neumorfismo: sem borda, relevo com duas sombras opostas. */
   html body .pf-modal {
     border: 0 !important;
-    background: #9fe3d6 !important;
-    box-shadow: 10px 10px 20px #8fd3c4, -10px -10px 20px #c6f3ea !important;
+    background: #ffffff !important;
+    box-shadow: -10px -10px 20px #c6f3ea !important;
   }
   /* Chip de categoria ativo: cor sólida, sem brilho branco (tira o aspecto de vidro). */
   html body .painel-fotos .pf-arvore .pf-chip-cat.pf-chip-filtro--ativo {
     background: var(--cor) !important;
-    box-shadow: inset 2px 2px 3px rgba(0,0,0,0.22) !important;
+    box-shadow: none,0,0,0.22) !important;
   }
   /* Preço em inset (texto embutido): sombra interna no topo e brilho rebatido na base. */
   html body .painel-fotos .pf-grade > .pf-card .pf-card-dados dd.pf-preco {
-    color: #0d1413 !important;
+    color: #000000 !important;
     text-shadow: none !important;
   }
   /* Engrenagem do card em inset: botão recuado, sem borda. */
   html body .painel-fotos .pf-grade > .pf-card .pf-engrenagem {
     border: 0 !important;
     background: #ffffff !important;
-    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    box-shadow: none !important;
   }
   /* Selo de quantidade ("5 unidades") em inset: recuado, mantendo a cor amarela do estoque baixo. */
   html body .painel-fotos .pf-grade > .pf-card .pf-qtd {
     border: 0 !important;
-    background: #ffe866 !important;
-    box-shadow: inset 2px 2px 3px rgba(122, 92, 0, 0.28), inset -1px -1px 2px rgba(255, 246, 180, 0.6) !important;
+    background: #FFE600 !important;
+    box-shadow: none, 92, 0, 246, 180, 0.6) !important;
   }
   /* Informações do produto (nome, laboratório, categoria, código, preço) dentro de cartões recuados (inset). */
   html body .painel-fotos .pf-grade > .pf-card .pf-card-nome,
@@ -1576,7 +1576,7 @@ body:has(.nav-interna) { background: #ffffff; }
     padding: 6px 12px !important;
     border-radius: 10px !important;
     background: #ffffff !important;
-    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    box-shadow: none !important;
   }
   html body .painel-fotos .pf-grade > .pf-card .pf-card-dados {
     display: flex !important;
@@ -1659,7 +1659,7 @@ body:has(.nav-interna) { background: #ffffff; }
     border: 0 !important;
     background: #ffffff !important;
     outline: none !important;
-    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    box-shadow: none !important;
   }
   /* Cartão de configuração em verde-água petróleo: rótulos e títulos claros sobre o fundo escuro. */
   html body .pf-modal .pf-campo-rotulo,
@@ -1667,7 +1667,7 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .pf-modal .pf-modal-topo h2,
   html body .pf-modal .pf-dica,
   html body .pf-modal small {
-    color: #0d1413 !important;
+    color: #000000 !important;
     text-shadow: none !important;
   }
   /* Menu lateral: espaçamento e tipografia consistentes, itens do mesmo tamanho. */
@@ -1714,27 +1714,27 @@ body:has(.nav-interna) { background: #ffffff; }
   }
   html body .nav-interna .nav-interna-icone {
     flex: none !important;
-    color: #0d1413 !important;
+    color: #000000 !important;
   }
   /* Itens do menu em inset: recuados, sem borda. O item ativo fica afundado. */
   html body .nav-interna ul a {
     background: #ffffff !important;
     border: 0 !important;
-    box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+    box-shadow: none !important;
   }
   html body .nav-interna ul a[aria-current="page"],
   html body .nav-interna ul li a[aria-current="page"],
   html body .nav-interna ul li a[aria-current="page"]:hover,
   html body .nav-interna ul li a[aria-current="page"]:focus-visible {
-    background-color: #9fe3d6 !important;
+    background-color: #ffffff !important;
     background-image: none !important;
-    color: #0d1413 !important;
-    box-shadow: inset 6px 6px 10px #b8bdc3, inset -6px -6px 10px #ffffff !important;
+    color: #000000 !important;
+    box-shadow: none !important;
   }
   html body .nav-interna ul li a[aria-current="page"] .nav-interna-rotulo,
   html body .nav-interna ul li a[aria-current="page"] svg {
-    color: #0d1413 !important;
-    stroke: #0d1413 !important;
+    color: #000000 !important;
+    stroke: #000000 !important;
   }
   html body .nav-interna a {
     min-height: 46px !important;
@@ -1759,20 +1759,20 @@ body:has(.nav-interna) { background: #ffffff; }
   /* Tipografia do painel: escala única e cores de texto alinhadas ao verde-água e ao branco. */
   html body .painel-fotos {
     font-family: "Inter", "Helvetica Neue", Arial, sans-serif !important;
-    color: #0d1413 !important;
+    color: #000000 !important;
   }
   html body .painel-fotos h1 {
     font-size: 26px !important;
     font-weight: 700 !important;
     letter-spacing: -0.02em !important;
     line-height: 1.2 !important;
-    color: #0d1413 !important;
+    color: #000000 !important;
   }
   html body .painel-fotos h2 {
     font-size: 18px !important;
     font-weight: 700 !important;
     line-height: 1.3 !important;
-    color: #0d1413 !important;
+    color: #000000 !important;
   }
   html body .painel-fotos .pf-arvore-rotulo,
   html body .painel-fotos .pf-barra .pf-arvore-rotulo {
@@ -1792,7 +1792,7 @@ body:has(.nav-interna) { background: #ffffff; }
     font-size: 16px !important;
     font-weight: 700 !important;
     line-height: 1.3 !important;
-    color: #0d1413 !important;
+    color: #000000 !important;
   }
   html body .painel-fotos .pf-grade > .pf-card .pf-card-lab {
     font-size: 12px !important;
@@ -1809,20 +1809,20 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .painel-fotos .pf-grade > .pf-card .pf-card-dados dd {
     font-size: 14px !important;
     font-weight: 600 !important;
-    color: #0d1413 !important;
+    color: #000000 !important;
   }
   /* Textos do card em letterpress (tipo prensado): baixo-relevo sutil e nítido, cinza escuro. */
   html body .painel-fotos .pf-grade > .pf-card .pf-card-nome,
   html body .painel-fotos .pf-grade > .pf-card .pf-card-lab,
   html body .painel-fotos .pf-grade > .pf-card .pf-card-dados dt,
   html body .painel-fotos .pf-grade > .pf-card .pf-card-dados dd {
-    color: #0d1413 !important;
+    color: #000000 !important;
     text-shadow: none !important;
   }
   html body .painel-fotos .pf-grade > .pf-card .pf-card-foto {
     border: 0 !important;
     background: #ffffff !important;
-    box-shadow: inset 6px 6px 12px #b8bdc3, inset -6px -6px 12px #ffffff !important;
+    box-shadow: none !important;
   }
 }
 
@@ -1839,7 +1839,7 @@ body:has(.nav-interna) { background: #ffffff; }
 @layer design {
   html body .pf-modal select, html body .pf-modal select:focus, html body .pf-modal select:focus-visible, html body .pf-modal select:active {
     outline: none !important; border-bottom-color: #d6d6d6 !important; border-color: #d6d6d6 !important;
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.06), 0 2px 0 #d9d9d9, 0 5px 10px -6px rgba(0,0,0,0.28) !important;
+    box-shadow: none,0,0,0.06), 0 2px 0 #d9d9d9, 0 5px 10px -6px rgba(0,0,0,0.28) !important;
   }
   html body .pf-modal select:focus-visible, html body .pf-modal select:focus { border-color: #111111 !important; }
 }
@@ -1848,18 +1848,18 @@ body:has(.nav-interna) { background: #ffffff; }
 html body .pf-modal .pf-modal-topo { align-items: center !important; }
 html body .pf-modal .pf-modal-titulo {
   flex: 1 1 auto; min-width: 0; margin: 0 !important; font-size: 17px !important; font-weight: 700 !important;
-  line-height: 1.3 !important; color: #0d1413 !important; overflow: hidden; display: -webkit-box;
+  line-height: 1.3 !important; color: #000000 !important; overflow: hidden; display: -webkit-box;
   -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow-wrap: anywhere;
 }
 /* Confirmação: "✓ Salvo" fica em contraste total, sem o apagado do estado desabilitado. */
 html body .pf-modal button.pf-botao--primario:disabled {
-  opacity: 1 !important; background: #ffffff !important; color: #0a3548 !important;
-  box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff !important;
+  opacity: 1 !important; background: #ffffff !important; color: #000000 !important;
+  box-shadow: none !important;
 }
 /* Confirmação: o botão afunda ao clique e a linha salva pisca uma vez. */
 html body .pf-modal .pf-botao--primario:active:not(:disabled) {
   transform: translateY(1px) scale(0.985) !important;
-  box-shadow: inset 6px 6px 10px #b3ebe0, inset -2px -2px 4px #ffffff !important;
+  box-shadow: none !important;
   transition: transform 0.08s ease, box-shadow 0.08s ease !important;
 }
 @keyframes pf-card-salvo {

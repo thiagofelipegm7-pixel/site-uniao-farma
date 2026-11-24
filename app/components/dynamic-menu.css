@@ -13,7 +13,7 @@
   background: var(--uf-mint, #e4f6f3);
   overflow: hidden;
   font-family: var(--font-body, Inter, system-ui, sans-serif);
-  color: var(--uf-ink, #0d1413);
+  color: var(--uf-ink, #000000);
 }
 
 .dm-cabeca {
@@ -70,7 +70,7 @@
 }
 .dm-links li:hover { background: var(--uf-stone, #d4eeeb); }
 .dm-links a {
-  color: var(--uf-ink, #0d1413);
+  color: var(--uf-ink, #000000);
   text-decoration: none;
   font-size: 17px;
   font-weight: 600;
@@ -84,7 +84,7 @@
 }
 
 /* Barra de acessos da home (desktop): pílula na cor da marca, com texto e ícone brancos, para destacar o botão. */
-.dm-slot--barra .dm-menu { background: var(--uf-green, #14736b); color: #ffffff; box-shadow: 0 4px 14px rgba(11, 59, 54, 0.18); }
+.dm-slot--barra .dm-menu { background: var(--uf-green, #ffffff); color: #000000; box-shadow: 0 4px 14px rgba(11, 59, 54, 0.18); }
 .dm-slot--barra .dm-cabeca:focus-visible { outline-color: #ffffff; }
 .dm-slot--barra .dm-titulo { font-size: 16px; }
 .dm-slot--barra .dm-icone { width: 26px; height: 26px; }
