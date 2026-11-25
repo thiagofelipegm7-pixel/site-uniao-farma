@@ -1,3 +1,5 @@
+import { detalhesEntregaOferta, politicaDevolucao } from "../../politicas-merchant";
+
 /**
  * Página de produto do catálogo da Nações.
  * Não há texto de saúde por item: "Para que serve" e "Destaques do rótulo" só aparecem se alguém preencher o dado.
@@ -102,7 +104,8 @@ export type OfertaProduto = { preco: number; gtin?: string | null };
 
 /**
  * Product sem nota e sem avaliação. Medicamento e item fora do Google ficam sem oferta (o preço fica só na página).
- * Com `oferta` (item elegível ao Google): Offer com preço em BRL, InStock, condição nova e a página do produto.
+ * Com `oferta` (item elegível ao Google): Offer com preço em BRL, InStock, condição nova, a página do produto,
+ * entrega (R$ 5,00, em até 1 hora, em Sabará/MG) e troca em até 7 dias (produto lacrado, retirada na loja).
  */
 export function jsonLdProduto(input: { nome: string; lab: string; categoria: string; url: string; image?: string | null; descricao?: string | null; oferta?: OfertaProduto | null }): Record<string, unknown> {
   const dados: Record<string, unknown> = {
@@ -127,6 +130,8 @@ export function jsonLdProduto(input: { nome: string; lab: string; categoria: str
       itemCondition: "https://schema.org/NewCondition",
       url: input.url,
       seller: { "@type": "Organization", name: "União Farma Nações Unidas" },
+      shippingDetails: detalhesEntregaOferta,
+      hasMerchantReturnPolicy: politicaDevolucao,
     };
   }
   return dados;
