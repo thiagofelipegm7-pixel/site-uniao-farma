@@ -3694,6 +3694,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "BEPANTRIZ DERMA LABIAL 75ML": "7897947612365",
   "CIMEGRIPE DIA 400+400+20mg bl 6 co": "7896523226590",
   "COND SEDA CACHOS DEFIN 325ML": "7891150037465",
+  "CHOCOLATE TRENTO 029G CHOCOLATE(E)": "7896306625244",
 };
 
 function normalizarNome(nome: string): string {
