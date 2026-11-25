@@ -1,5 +1,11 @@
 import { banco } from "../../estoque-fonte";
 import type { Banco as BancoCompleto } from "../../nomes-corrigidos";
+import {
+  corpoPreVendaGrandeDemais,
+  permitirPreVenda,
+  respostaLimitePreVenda,
+  type BancoLimite,
+} from "../../limite-visitante";
 import { gravarConsentimento, validarLembrete } from "../../recompra";
 import { garantirColunasRetirada, telefoneDoAviso } from "../../retirada";
 
@@ -40,7 +46,7 @@ async function prepararTabela(db: Banco) {
  */
 export async function POST(request: Request) {
   const tamanho = Number(request.headers.get("content-length") || 0);
-  if (tamanho > 16_000) return Response.json({ ok: false, erro: "pedido_grande" }, { status: 413, headers: SEM_CACHE });
+  if (corpoPreVendaGrandeDemais(tamanho)) return Response.json({ ok: false, erro: "pedido_grande" }, { status: 413, headers: SEM_CACHE });
 
   const origin = request.headers.get("origin");
   const host = request.headers.get("host");
@@ -52,7 +58,17 @@ export async function POST(request: Request) {
     }
   }
 
-  const entrada = (await request.json().catch(() => null)) as Entrada | null;
+  // 30 envios / 10 min por visitante (IP). Um cliente normal não chega perto disso; a cesta e o WhatsApp seguem mesmo se vier 429.
+  if (!(await permitirPreVenda(request, banco() as BancoLimite | null))) return respostaLimitePreVenda();
+
+  const bruto = await request.text().catch(() => "");
+  if (corpoPreVendaGrandeDemais(bruto.length)) return Response.json({ ok: false, erro: "pedido_grande" }, { status: 413, headers: SEM_CACHE });
+  let entrada: Entrada | null = null;
+  try {
+    entrada = bruto ? (JSON.parse(bruto) as Entrada) : null;
+  } catch {
+    entrada = null;
+  }
   if (!entrada || typeof entrada !== "object") return Response.json({ ok: false, erro: "pedido_invalido" }, { status: 400, headers: SEM_CACHE });
   const requestId = typeof entrada.requestId === "string" ? entrada.requestId.trim() : "";
   const codigo = typeof entrada.codigo === "string" ? entrada.codigo.trim().toUpperCase() : "";
