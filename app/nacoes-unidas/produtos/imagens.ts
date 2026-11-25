@@ -3688,6 +3688,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "OXIMETRO G-TECH DE DEDO LED IM": "7898639690999",
   "ELASTICO DE PANO (XUXINHA)": "7908072510386",
   "TINTA COR&TON 8.3 125GR": "7896000706171",
+  "XEFO 8mg cx 20 comp rev": "7896112480709",
 };
 
 function normalizarNome(nome: string): string {
