@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Taxonomia da direção artística</title>
+<style>
+  :root {
+    --verde-agua: #9fe3d6;
+        --sombra: transparent;
+    --luz: #ffffff;
+    --preto: #000000;
+    --erro: #b3261e;
+    --aviso: #FFE600;
+    --fundo: #f3f6f5;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--fundo);
+    color: var(--preto);
+    font-family: Inter, "Helvetica Neue", Arial, system-ui, sans-serif;
+    font-size: 15px;
+    line-height: 1.55;
+  }
+  main { max-width: 1040px; margin: 0 auto; padding: 40px 20px 72px; }
+  h1 { font-size: 34px; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 8px; color: var(--preto); }
+  h2 { font-size: 22px; font-weight: 800; margin: 56px 0 6px; color: var(--preto); }
+  h3 { font-size: 15px; font-weight: 700; margin: 0 0 6px; }
+  p { margin: 0 0 10px; }
+  .lead { font-size: 16px; max-width: 680px; color: #3e4b49; }
+  .sub { color: #57535f; font-size: 13.5px; margin: 0 0 18px; }
+  code, .hex { font-family: ui-monospace, Consolas, monospace; font-size: 12.5px; }
+
+  /* Seção de fundo verde-água, como a cesta */
+  .faixa { background: var(--verde-agua); border-radius: 18px; padding: 22px; box-shadow: 8px 8px 16px var(--sombra-verde); }
+
+  /* Princípios */
+  .principios { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin-top: 18px; }
+  .principio { background: var(--luz); border-radius: 16px; padding: 18px; box-shadow: 6px 6px 12px var(--sombra); }
+  .principio .num { font-size: 12px; font-weight: 800; color: var(--preto); letter-spacing: 0.08em; }
+
+  /* Paleta */
+  .paleta { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 18px; }
+  .cor { background: var(--luz); border-radius: 16px; padding: 12px; box-shadow: 6px 6px 12px var(--sombra); }
+  .cor .amostra { height: 84px; border-radius: 12px; margin-bottom: 12px; }
+  .cor .nome { font-weight: 700; }
+  .cor .papel { color: #57535f; font-size: 13px; margin-top: 2px; }
+  .cor .hex { color: var(--preto); margin-top: 4px; display: block; }
+
+  /* Superfícies */
+  .superficies { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 22px; margin-top: 18px; }
+  .exemplo { padding: 22px 18px; border-radius: 16px; min-height: 120px; display: flex; flex-direction: column; justify-content: flex-end; }
+  .exemplo small { font-size: 12.5px; color: #57535f; }
+  .relevo { background: var(--luz); box-shadow: 6px 6px 12px var(--sombra); }
+    .verde { background: var(--verde-agua); box-shadow: 8px 8px 16px var(--sombra-verde); }
+
+  /* Botões */
+  .botoes { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; margin-top: 18px; }
+  .btn { border: 0; border-radius: 12px; height: 40px; padding: 0 18px; font: inherit; font-weight: 700; font-size: 13.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+  .btn-preto { background: var(--preto); color: #ffffff; }
+  .btn-perola { background: var(--luz); color: var(--preto); box-shadow: 5px 5px 10px var(--sombra); }
+  .btn-off { background: var(--luz); color: #8e8a97; box-shadow: 5px 5px 10px var(--sombra); cursor: not-allowed; }
+  .btn-texto { background: none; color: var(--preto); text-decoration: underline; padding: 0; height: auto; }
+
+  /* Pílulas e opções */
+  .pilulas { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+  .pilula { padding: 8px 16px; border-radius: 999px; background: var(--luz); box-shadow: 4px 4px 8px var(--sombra); font-weight: 600; font-size: 13.5px; color: var(--preto); }
+  .pilula.on { background: var(--verde-agua); box-shadow: none; }
+  .opcao { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 14px; background: var(--luz); box-shadow: 5px 5px 10px var(--sombra); font-weight: 600; }
+  .radio { width: 22px; height: 22px; border-radius: 50%; background: var(--luz); box-shadow: none; position: relative; flex: none; }
+  .radio::after { content: ""; position: absolute; inset: 5px; border-radius: 50%; background: var(--preto); }
+  .radio.off::after { display: none; }
+  .check { width: 22px; height: 22px; border-radius: 6px; background: var(--luz); box-shadow: none; flex: none; position: relative; }
+  .check.on::after { content: ""; position: absolute; left: 7px; top: 3px; width: 6px; height: 11px; border: solid var(--preto); border-width: 0 2.5px 2.5px 0; transform: rotate(45deg); }
+  .campo { display: flex; flex-direction: column; gap: 6px; max-width: 320px; }
+  .campo label { font-size: 12.5px; font-weight: 700; color: #3e4b49; }
+  .campo .entrada { height: 42px; padding: 0 14px; border-radius: 12px; background: var(--luz); box-shadow: none; display: flex; align-items: center; color: #57535f; }
+
+  /* Pix (cesta) */
+  .pix { width: 230px; background: var(--luz); border-radius: 22px; padding: 16px; text-align: center; box-shadow: 0 0 0 1px rgba(22,21,27,.09), 0 22px 44px -26px rgba(40,30,80,.3); }
+  .pix h4 { margin: 4px 0 10px; font-size: 14px; font-weight: 800; color: var(--preto); }
+  .pix .qr { width: 120px; height: 120px; margin: 0 auto 12px; border-radius: 16px; background: #fff; box-shadow: 0 0 0 1px rgba(22,21,27,.08); display: grid; place-items: center; }
+  .pix .qr span { font-size: 11px; color: #8e8a97; }
+  .pix .qr-grade { width: 88px; height: 88px; background: repeating-conic-gradient(#000 0 25%, #fff 0 50%) 0 0 / 11px 11px; border-radius: 6px; }
+  .pix .copiar { width: 100%; height: 40px; border-radius: 12px; background: var(--preto); color: #fff; font-weight: 700; font-size: 13.5px; border: 0; }
+  .pix .pagina2 { font-size: 12px; color: #57535f; margin-top: 10px; }
+
+  /* Painel interno */
+  .painel { background: #fff; border-radius: 14px; padding: 14px; box-shadow: 0 1px 2px rgba(13,20,19,.04); }
+  .painel-topo { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .painel-topo strong { color: var(--preto); font-size: 14px; }
+  .painel-topo span { color: #57535f; font-size: 12.5px; }
+  .painel-card { border-radius: 12px; padding: 12px; background: #fff; box-shadow: none; font-size: 13px; }
+  .selo { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+  .selo-teal { background: var(--verde-agua); color: var(--preto); }
+  .selo-aviso { background: var(--aviso); color: var(--preto); }
+  .selo-erro { background: #b3261e; color: #fff; }
+  .selo-ok { background: var(--verde-agua); color: var(--preto); }
+  .painel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+  /* Árvore */
+  .arvore { font-size: 14px; line-height: 1.7; }
+  .arvore ul { list-style: none; padding-left: 20px; margin: 0; }
+  .arvore > ul { padding-left: 0; }
+  .arvore li { position: relative; }
+  .arvore li::before { content: "▸"; color: var(--preto); margin-right: 8px; }
+  .arvore li.raiz { font-weight: 800; color: var(--preto); font-size: 16px; }
+  .arvore li.raiz::before { content: ""; }
+
+  /* Tabela de regras */
+  table { width: 100%; border-collapse: separate; border-spacing: 0; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 6px 6px 12px var(--sombra); margin-top: 16px; font-size: 13.5px; }
+  th, td { text-align: left; padding: 12px 14px; vertical-align: top; }
+  th { background: var(--luz); color: var(--preto); font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.06em; }
+  tr + tr td { padding-top: 10px; }
+  td code { color: var(--preto); }
+
+  .atencao { background: var(--luz); border-radius: 16px; padding: 16px 18px; box-shadow: none; margin-top: 14px; }
+  .atencao h3 { color: var(--preto); }
+
+  @media (max-width: 640px) {
+    main { padding: 24px 16px 56px; }
+    h1 { font-size: 27px; }
+    .painel-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <header>
+    <h1>Direção artística atual</h1>
+    <p class="lead">Taxonomia do que a cesta (<code>/reserva</code>) e o painel interno já usam. O resumo: superfícies em relevo neumórfico, sem bordas nem linhas, verde-água como único verde, preto como único escuro (texto e ação principal).</p>
+    <p class="sub">Fonte: <code>app/base-direcao.css</code>, <code>app/shop/shop.css</code>, <code>app/components/painel-fotos.css</code> e os tokens <code>--uf-*</code>.</p>
+  </header>
+
+  <h2>1. Princípios</h2>
+  <div class="principios">
+    <div class="principio"><div class="num">01</div><h3>Sem bordas nem linhas</h3><p>Separação vem de sombra e de mudança de superfície, nunca de borda ou divisória.</p></div>
+    <div class="principio"><div class="num">02</div><h3>Sem sombra colorida</h3><p>Nada de sombra verde, luz branca, cinza ou efeito afundado.</p></div>
+    <div class="principio"><div class="num">03</div><h3>Verde só no cabeçalho</h3><p><code>#9fe3d6</code> aparece só no cabeçalho. Todo o resto é branco ou preto.</p></div>
+    <div class="principio"><div class="num">04</div><h3>Preto só para agir</h3><p>Um botão preto por tela, sempre a próxima ação. O resto é branco ou verde-água.</p></div>
+  </div>
+
+  <h2>2. Paleta</h2>
+  <div class="paleta">
+    <div class="cor"><div class="amostra" style="background:#9fe3d6"></div><div class="nome">Verde-água</div><div class="papel">Único verde: só o cabeçalho do site</div><span class="hex">#9FE3D6</span></div>
+    
+    
+    
+    <div class="cor"><div class="amostra" style="background:#000000"></div><div class="nome">Preto (único escuro)</div><div class="papel">Ação principal (Continuar, Copiar código Pix, Enviar) e todo texto escuro</div><span class="hex">#000000</span></div>
+    
+    
+    
+    
+    
+    <div class="cor"><div class="amostra" style="background:#b3261e"></div><div class="nome">Erro</div><div class="papel">Mensagens de erro, lixeira e ações destrutivas</div><span class="hex">#B3261E</span></div>
+    <div class="cor"><div class="amostra" style="background:#FFE600"></div><div class="nome">Aviso</div><div class="papel">Selo de atenção no painel</div><span class="hex">#FFE600</span></div>
+  </div>
+
+  <h2>3. Superfícies</h2>
+  <p class="sub">Dois tipos. Cada um responde a uma pergunta: é conteúdo ou é fundo?</p>
+  <div class="superficies">
+    <div class="exemplo relevo"><h3>Branco</h3><small>Cartão, opção e campo. Branco sobre o fundo, sem sombra.</small></div>
+  </div>
+
+  <h2>4. Botões e ações</h2>
+  <p class="sub">Hierarquia: preto (principal), branco (secundário), desabilitado (branco com texto cinza), link (texto sublinhado).</p>
+  <div class="botoes">
+    <button class="btn btn-preto" type="button">Copiar código Pix</button>
+    <button class="btn btn-perola" type="button">Voltar ao QR code</button>
+    <button class="btn btn-off" type="button" disabled>Enviar comprovante</button>
+    <button class="btn btn-texto" type="button">Ver detalhes</button>
+  </div>
+
+  <h2>5. Seleção, progresso e formulário</h2>
+  <p class="sub">Pílulas para progresso, radio e checkbox customizados, campo liso sobre a superfície. Nada de contorno de foco visível: a seleção é o relevo.</p>
+  <div class="pilulas">
+    <span class="pilula">Cesta</span>
+    <span class="pilula on">Entrega</span>
+    <span class="pilula">Finalizar</span>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:18px;">
+    <div class="opcao"><span class="radio"></span>Retirada na loja</div>
+    <div class="opcao" style="background:var(--luz);box-shadow:none;"><span class="radio off"></span>Entrega (sem seleção)</div>
+    <div class="opcao"><span class="check on"></span>Quero receber lembrete</div>
+    <div class="campo"><label>Nome</label><div class="entrada">Maria Teste</div></div>
+  </div>
+
+  <h2>6. Cesta e Pix</h2>
+  <p class="sub">A cesta usa cards brancos e preto na ação. O Pix é um card em duas páginas: a primeira mostra o QR, a segunda pede o comprovante.</p>
+  <div class="faixa" style="display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;justify-content:center;">
+    <div class="pix">
+      <h4>Pagamento por Pix</h4>
+      <div class="qr"><div class="qr-grade"></div></div>
+      <button class="copiar" type="button">Copiar código Pix</button>
+      <div class="pagina2">Ao copiar, o card vai para a página 2</div>
+    </div>
+    <div class="pix">
+      <h4>Aguardando comprovante</h4>
+      <div style="height:94px;border-radius:16px;background:var(--luz);box-shadow:6px 6px 12px var(--sombra);margin-bottom:12px;display:grid;place-items:center;font-size:12.5px;font-weight:600;color:var(--preto);">Toque para escolher a foto</div>
+      <button class="copiar" type="button" style="background:#000">Enviar comprovante</button>
+      <div class="pagina2">Voltar ao QR code abaixo</div>
+    </div>
+  </div>
+
+  <h2>7. Página inicial</h2>
+  <p class="sub">Mesma direção na home: verde só no cabeçalho, o resto em branco e preto. WhatsApp e cookies com ação preta.</p>
+  <div class="faixa" style="padding:0;overflow:hidden;">
+    <div style="background:#9fe3d6;padding:14px 18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+      <strong style="font-size:20px;font-style:italic;color:#000;">União Farma</strong>
+      <div style="flex:1;min-width:160px;height:40px;border-radius:999px;background:#fff;box-shadow:none;display:flex;align-items:center;padding:0 16px;color:#57535f;font-size:13px;">Buscar na União Farma</div>
+      <span class="btn btn-preto" style="height:36px;">Pedir no WhatsApp</span>
+      <span style="width:40px;height:40px;border-radius:50%;background:var(--luz);display:inline-block;"></span>
+    </div>
+    <div style="padding:18px;display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+      <div style="width:200px;background:#ffffff;border-radius:16px;padding:12px;">
+        <div style="height:90px;background:#fff;border-radius:12px;"></div>
+        <div style="font-size:13px;font-weight:600;margin-top:8px;">Produto de exemplo</div>
+        <div style="font-weight:800;">R$ 8,90</div>
+      </div>
+      <span style="width:36px;height:36px;border-radius:50%;background:var(--luz);display:inline-grid;place-items:center;font-weight:800;">&rsaquo;</span>
+    </div>
+    <div style="background:#ffffff;padding:12px 18px;font-size:12.5px;">Rodapé branco, texto preto.</div>
+  </div>
+
+  <h2>8. Painel interno</h2>
+  <p class="sub">O painel usa branco com relevo interno leve, preto para destaque e os tokens <code>--uf-*</code>. Mais denso que a cesta, com foco em leitura.</p>
+  <div class="painel">
+    <div class="painel-topo"><strong>Fotos publicadas</strong><span>12 pendentes</span></div>
+    <div class="painel-grid">
+      <div class="painel-card"><div style="margin-bottom:8px;"><span class="selo selo-teal">Publicada</span></div>Dipirona 500 mg<br><span style="color:#57535f">Nações Unidas</span></div>
+      <div class="painel-card"><div style="margin-bottom:8px;"><span class="selo selo-aviso">Aguardando</span></div>Vitamina C 1 g<br><span style="color:#57535f">Fátima</span></div>
+      <div class="painel-card"><div style="margin-bottom:8px;"><span class="selo selo-ok">Pago</span></div>Pedido #4821<br><span style="color:#57535f">Comprovante recebido</span></div>
+      <div class="painel-card"><div style="margin-bottom:8px;"><span class="selo selo-erro">Falhou</span></div>Foto sem nome<br><span style="color:#57535f">Tente de novo</span></div>
+    </div>
+  </div>
+
+  <h2>9. Sombras: receitas</h2>
+  <table>
+    <thead><tr><th>Uso</th><th>Valor</th><th>Onde aparece</th></tr></thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <h2>10. Profundidade e cores em uso</h2>
+  <p class="sub">O que vale hoje, resumido. Sem sombra colorida; a cor vem da paleta enxuta.</p>
+  <div class="principios">
+    <div class="principio"><div class="num">PLANO</div><h3>Sem sombra</h3><p>Cartões e botões ficam planos, na cor da superfície. A profundidade não vem mais de sombra colorida.</p></div>
+    <div class="principio"><div class="num">SEM EFEITO</div><h3>Campos e seleção</h3><p>Campos, radio e checkbox ficam lisos, na cor da superfície. A seleção aparece pela cor e pela forma, não por sombra interna.</p></div>
+    <div class="principio"><div class="num">PROIBIDO</div><h3>Três coisas que saíram</h3><p><code>inset</code>, luz branca (sombra <code>#fff</code>), cinza <code>#c4c8cd</code>. Também sem borda e sem linha divisória.</p></div>
+    <div class="principio"><div class="num">COR</div><h3>Cinco cores</h3><p>Verde-água <code>#9fe3d6</code> para superfície, branco para conteúdo, preto para texto e ação, erro <code>#b3261e</code>, aviso <code>#ffe600</code>.</p></div>
+  </div>
+  <table>
+    <thead><tr><th>Efeito</th><th>Valor</th><th>Onde</th></tr></thead>
+    <tbody>
+      <tr><td>Sem sombra</td><td><code>none</code></td><td>Cards de produto, opções, resumo, botões</td></tr>
+      
+      <tr><td>Sem efeito</td><td><code>none</code></td><td>Campos, radio, checkbox, área vazia</td></tr>
+    </tbody>
+  </table>
+  <div class="atencao">
+    <h3>Fora da direção (ainda no código)</h3>
+    <p>Alguns componentes ainda usam sombras cinza <code>#bdbdbd</code>, <code>#d5d9dd</code> e preto transparente <code>rgba(0,0,0,…)</code>. Os arquivos são o painel de fotos (<code>painel-fotos.css</code>), <code>colecoes.css</code>, <code>destaque-cesta.css</code>, <code>globals.css</code>, <code>overrides.css</code> e <code>shop.css</code>. Isso não segue a direção.</p>
+  </div>
+
+  <h2>11. Raios e tipografia</h2>
+  <table>
+    <thead><tr><th>Elemento</th><th>Valor</th><th>Observação</th></tr></thead>
+    <tbody>
+      <tr><td>Botões e campos</td><td><code>12px</code></td><td>O mais usado na cesta</td></tr>
+      <tr><td>Opções e cards pequenos</td><td><code>14px</code></td><td>Opção de entrega, painel</td></tr>
+      <tr><td>Cards e seções</td><td><code>16px</code> a <code>18px</code></td><td>Resumo e seções verdes</td></tr>
+      <tr><td>Cartão do Pix</td><td><code>22px</code></td><td>Único card com raio maior</td></tr>
+      <tr><td>Pílulas</td><td><code>999px</code></td><td>Progresso e selos</td></tr>
+      <tr><td>Fonte</td><td>Inter, 400 a 800</td><td>Títulos 800, rótulos 600 a 700, corpo 400. Tamanhos de 13 a 16 px.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="atencao"><h3>Unificado</h3><p>Verde só no cabeçalho: <code>#9fe3d6</code>. Escuro único: preto <code>#000000</code>. Vermelho único: <code>#b3261e</code>. Paleta enxuta: sem petróleo, menta, teal nem verde de confirmação. Na home, cabeçalho, rodapé e cookies já seguem a direção. Ainda fica de fora o Aceitar dos cookies na cesta, que está em teal.</p></div>
+
+</main>
+</body>
+</html>

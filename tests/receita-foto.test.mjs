@@ -213,3 +213,58 @@ test("gerador: com palavras de busca, o texto leva a marca `proprio` e as fatias
   assert.ok(g.includes("...(palavrasDe(item.nome) ? { palavras: palavrasDe(item.nome) } : {})"), "fatias do catálogo levam as palavras");
   assert.ok(g.includes("...(palavrasDe(base.nome) ? { palavras: palavrasDe(base.nome) } : {})"), "fatias dos restritos levam as palavras");
 });
+
+test("reconhece PDF pelo cabeçalho e não confunde com imagem", async () => {
+  const { ehPdf, tipoDaImagem } = await nucleo();
+  const pdf = new Uint8Array([0x25, 0x50, 0x44, 0x46, 0x2d, 0x31, 0x2e, 0x37, 0x0a, 0x25, 0xc4, 0xe5, 0xf2, 0xe5]);
+  const jpeg = new Uint8Array([0xff, 0xd8, 0xff, 0xe0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  assert.equal(ehPdf(pdf), true);
+  assert.equal(ehPdf(jpeg), false);
+  assert.equal(tipoDaImagem(pdf), null);
+});
+
+test("arquivo PDF é reconhecido pelo tipo ou pela extensão", async () => {
+  const { arquivoEhPdf } = await imagem();
+  assert.equal(arquivoEhPdf({ type: "application/pdf", name: "x" }), true);
+  assert.equal(arquivoEhPdf({ type: "", name: "Receita.PDF" }), true);
+  assert.equal(arquivoEhPdf({ type: "image/jpeg", name: "foto.jpg" }), false);
+  assert.equal(arquivoEhPdf({ type: "", name: "xpdf" }), false);
+});
+
+const textoModulo = () => import("../app/receita-foto/texto-para-medicamentos.ts");
+
+test("texto de receita: acha remédio do catálogo, com dose, sem IA", async () => {
+  const { medicamentosDoTexto } = await textoModulo();
+  const { prepararCatalogo } = await casar();
+  const cat = prepararCatalogo(
+    [{ nome: "Dipirona 500mg 10 comprimidos", slug: "dipirona-500", precoCentavos: 500, foto: null, busca: "dipirona 500mg 10 comprimidos", proprio: 30 }],
+    [{ nome: "Amoxicilina 500mg Cx 21 capsulas", tipo: "receita", precoCentavos: 2000, busca: "amoxicilina 500mg cx 21 caps", proprio: 28, q: "amoxicilina", apresentacao: null, tarja: "vermelha", retencao: true, controlado: false, ativo: "amoxicilina" }],
+  );
+  const lidos = medicamentosDoTexto(["RECEITUARIO", "Paciente: Maria", "1) Amoxicilina 500 mg - tomar 1 capsula de 8 em 8 horas por 7 dias", "2) Dipirona 500mg se dor"].join(" | "), cat);
+  assert.deepEqual(lidos.map((m) => [m.nome, m.dosagem]), [["Amoxicilina", "500 mg"], ["Dipirona", "500 mg"]]);
+});
+
+test("texto de receita: produto sem dose em mg (cosmético) não vira remédio", async () => {
+  const { medicamentosDoTexto } = await textoModulo();
+  const { prepararCatalogo } = await casar();
+  const cat = prepararCatalogo([{ nome: "Leite de Colônia 200ml", slug: "leite-colonia", precoCentavos: 1100, foto: null, busca: "leite de colonia 200ml", proprio: 22 }], []);
+  assert.equal(medicamentosDoTexto("pao, leite, ovos e cafe", cat).length, 0);
+});
+
+test("texto de receita: tolera 1 letra errada do OCR e ignora palavras comuns", async () => {
+  const { medicamentosDoTexto } = await textoModulo();
+  const { prepararCatalogo } = await casar();
+  const cat = prepararCatalogo([], [{ nome: "Amoxicilina 500mg", tipo: "receita", precoCentavos: 2000, busca: "amoxicilina", proprio: 11, q: "amoxicilina", apresentacao: null, tarja: "vermelha", retencao: true, controlado: false, ativo: "amoxicilina" }]);
+  assert.equal(medicamentosDoTexto("Amoxlcilina 500 mg tomar de manha", cat)[0]?.nome, "Amoxicilina");
+  assert.equal(medicamentosDoTexto("tomar comprimidos de manha e a noite, uso oral", cat).length, 0);
+});
+
+test("texto de receita: remédio com dose que a loja não tem aparece como faltando", async () => {
+  const { medicamentosDoTexto, remediosForaDoCatalogo } = await textoModulo();
+  const { prepararCatalogo } = await casar();
+  const cat = prepararCatalogo([], [{ nome: "Amoxicilina 500mg", tipo: "receita", precoCentavos: 2000, busca: "amoxicilina", proprio: 11, q: "amoxicilina", apresentacao: null, tarja: "vermelha", retencao: true, controlado: false, ativo: "amoxicilina" }]);
+  const texto = "1) Amoxicilina 500 mg de 8 em 8 horas 2) Xarelto 20mg 1 vez ao dia 3) Rivotril 2 mg a noite 4) Ondansetrona 8 mg se enjoo";
+  const achados = medicamentosDoTexto(texto, cat);
+  assert.deepEqual(achados.map((m) => m.nome), ["Amoxicilina"]);
+  assert.deepEqual(remediosForaDoCatalogo(texto, cat, achados).map((m) => [m.nome, m.dosagem]), [["Xarelto", "20 mg"], ["Rivotril", "2 mg"], ["Ondansetrona", "8 mg"]]);
+});

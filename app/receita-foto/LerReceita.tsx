@@ -17,12 +17,14 @@ import {
   type ResultadoMedicamento,
 } from "../nacoes-unidas/produtos/receita-casar";
 import { abrirReserva } from "../reserva/abrir-reserva";
-import { IconCamera, IconFechar, IconImagem, IconWhats } from "../reserva/ReservaIcons";
+import { IconCamera, IconClipe, IconFechar, IconImagem, IconWhats } from "../reserva/ReservaIcons";
 import { formatarCentavos, totalItens } from "../reserva/reserva-store";
 import ReservarBotao from "../reserva/ReservarBotao";
 import { useReserva } from "../reserva/useReserva";
 import { EVENTO_ABRIR_RECEITA } from "./abrir-receita";
 import { ErroImagem, prepararImagem } from "./imagem";
+import { lerLocalmente } from "./leitor-local";
+import { medicamentosDoTexto, remediosForaDoCatalogo } from "./texto-para-medicamentos";
 import "./receita-foto.css";
 
 const FOCAVEIS = 'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -40,7 +42,7 @@ type Fase =
 
 const MENSAGENS: Record<Falha, string> = {
   grande: "Esta foto é muito grande. Tire outra foto ou escolha uma imagem menor.",
-  formato: "Não consegui abrir este arquivo. Use uma foto JPG, PNG ou WebP.",
+  formato: "Não consegui abrir este arquivo. Use uma foto JPG, PNG ou WebP, ou um PDF.",
   "falha-foto": "Não consegui preparar a foto neste aparelho. Tente tirar outra.",
   limite: "Muitas leituras seguidas. Aguarde alguns minutos ou fale com o farmacêutico pelo WhatsApp.",
   rede: "Sem conexão agora. Confira a internet e tente de novo.",
@@ -177,6 +179,7 @@ export default function LerReceita() {
   const fecharRef = useRef<HTMLButtonElement>(null);
   const cameraRef = useRef<HTMLInputElement>(null);
   const galeriaRef = useRef<HTMLInputElement>(null);
+  const pdfRef = useRef<HTMLInputElement>(null);
   const abortarRef = useRef<AbortController | null>(null);
   const retornoRef = useRef<HTMLElement | null>(null);
   const totalNaCesta = totalItens(reserva);
@@ -261,23 +264,37 @@ export default function LerReceita() {
     const controle = new AbortController();
     abortarRef.current = controle;
     let expirou = false;
-    const relogio = window.setTimeout(() => {
-      expirou = true;
-      controle.abort();
-    }, TEMPO_CLIENTE_MS);
+    const armarRelogio = () =>
+      window.setTimeout(() => {
+        expirou = true;
+        controle.abort();
+      }, TEMPO_CLIENTE_MS);
+    let relogio = armarRelogio();
     try {
       setFase({ tipo: "lendo", previa: null });
       const imagem = await prepararImagem(arquivo);
       if (controle.signal.aborted) return;
       // A prévia é um data: URL (a política de segurança do site não aceita blob:) e some da memória quando a leitura termina.
-      const previa = await lerComoDataUrl(imagem);
+      const previa = imagem.type === "application/pdf" ? null : await lerComoDataUrl(imagem);
       if (controle.signal.aborted) return;
       setFase({ tipo: "lendo", previa });
-      const [catalogo, resposta] = await Promise.all([
-        carregarCatalogo().catch(() => null),
-        fetch("/api/receita-ia", { method: "POST", body: imagem, headers: { "content-type": imagem.type || "image/jpeg" }, cache: "no-store", signal: controle.signal }),
-      ]);
+      const catalogo = await carregarCatalogo().catch(() => null);
       if (!catalogo) return setFase({ tipo: "erro", motivo: "catalogo" });
+      // 1º: leitura no próprio aparelho (texto do PDF ou OCR), sem IA e sem enviar nada. Se não achar remédio, a IA lê.
+      const local = await lerLocalmente(arquivo, imagem, controle.signal).catch(() => null);
+      if (controle.signal.aborted) return;
+      if (local && (local.origem === "pdf" || local.confianca >= 65)) {
+        const lidosLocal = medicamentosDoTexto(local.texto, catalogo);
+        if (lidosLocal.length > 0) {
+          const resultadosLocal = casarReceita(catalogo, [...lidosLocal, ...remediosForaDoCatalogo(local.texto, catalogo, lidosLocal)]);
+          trackEvent("receita_foto_resultado", { achados: resultadosLocal.filter((r) => r.status === "achado").length, lidos: resultadosLocal.length, leitor: local.origem });
+          return setFase({ tipo: "resultado", resultados: resultadosLocal });
+        }
+      }
+      // Reserva: a leitura local gastou parte do tempo; a IA recebe o prazo inteiro.
+      window.clearTimeout(relogio);
+      relogio = armarRelogio();
+      const resposta = await fetch("/api/receita-ia", { method: "POST", body: imagem, headers: { "content-type": imagem.type || "image/jpeg" }, cache: "no-store", signal: controle.signal });
       if (resposta.status === 429) return setFase({ tipo: "erro", motivo: "limite" });
       if (resposta.status === 413) return setFase({ tipo: "erro", motivo: "grande" });
       if (resposta.status === 415) return setFase({ tipo: "erro", motivo: "formato" });
@@ -343,6 +360,9 @@ export default function LerReceita() {
       <button type="button" className="reserva-botao reserva-botao-vazado" onClick={() => galeriaRef.current?.click()} disabled={lendo}>
         <IconImagem size={22} /> Escolher da galeria
       </button>
+      <button type="button" className="reserva-botao reserva-botao-vazado" onClick={() => pdfRef.current?.click()} disabled={lendo}>
+        <IconClipe size={22} /> Escolher arquivo PDF
+      </button>
     </div>
   );
 
@@ -351,7 +371,7 @@ export default function LerReceita() {
       <button type="button" className="receita-fundo" aria-label="Fechar" tabIndex={-1} onClick={fechar} />
       <div className="receita-janela" ref={janelaRef}>
         <div className="receita-topo">
-          <h2 id="receita-titulo">Ler receita pela foto</h2>
+          <h2 id="receita-titulo">Ler receita</h2>
           <button ref={fecharRef} type="button" className="reserva-icone" aria-label="Fechar" onClick={fechar}>
             <IconFechar size={24} />
           </button>
@@ -359,10 +379,10 @@ export default function LerReceita() {
         <div className="receita-corpo">
           <input ref={cameraRef} type="file" accept="image/*" capture="environment" hidden onChange={aoEscolher} />
           <input ref={galeriaRef} type="file" accept="image/jpeg,image/png,image/webp,image/*" hidden onChange={aoEscolher} />
+          <input ref={pdfRef} type="file" accept="application/pdf,.pdf" hidden onChange={aoEscolher} />
 
           {fase.tipo === "inicio" || fase.tipo === "erro" || fase.tipo === "naoReceita" ? (
             <>
-              <p className="receita-intro">Tire uma foto da receita, inteira e com boa luz. Achamos na loja os medicamentos escritos nela e você coloca na cesta.</p>
               {fase.tipo === "erro" ? <p className="receita-erro" role="alert">{MENSAGENS[fase.motivo]}</p> : null}
               {fase.tipo === "naoReceita" ? (
                 <p className="receita-erro" role="alert">Não consegui ler medicamentos nesta foto. Tente de novo com a receita inteira, em foco e sem sombra, ou fale com o farmacêutico.</p>
@@ -385,7 +405,7 @@ export default function LerReceita() {
               <p className="receita-resumo" role="status">
                 {achados === 0
                   ? "Li a receita, mas não achei estes itens no site."
-                  : `Achei ${achados} de ${resultados.length} ${resultados.length === 1 ? "medicamento" : "medicamentos"} da receita.`}
+                  : `Achei ${achados} de ${resultados.length} ${resultados.length === 1 ? "medicamento" : "medicamentos"} da receita.${faltam.length > 0 ? ` ${faltam.length === 1 ? "Falta 1 remédio" : `Faltam ${faltam.length} remédios`} no site: fale com o farmacêutico.` : ""}`}
               </p>
               <div className="receita-lista">
                 {resultados.map((r, i) => <CartaoMedicamento key={`${r.lido.nome}-${i}`} r={r} />)}
@@ -400,9 +420,6 @@ export default function LerReceita() {
               ) : null}
             </>
           ) : null}
-
-          <p className="receita-aviso receita-aviso-forte">O farmacêutico confere a receita antes da venda. A leitura é automática e pode errar: confira nomes e doses.</p>
-          <p className="receita-privacidade">A foto é lida na hora por inteligência artificial e não é guardada: não fica salva no site nem no servidor, e some quando você fecha esta janela.</p>
         </div>
         {resultados ? (
           <div className="receita-pe">

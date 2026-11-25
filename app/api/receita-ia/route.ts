@@ -4,12 +4,14 @@ import { segredo } from "../../estoque-fonte";
 import { chamarGemini, MODELO_GEMINI_VISAO, modeloEscolhido } from "../../gemini-nucleo";
 import { criarLimitador, conteudoDaRespostaIA } from "../../busca-ia-nucleo";
 import {
+  ehPdf,
   limparRespostaReceita,
   MODELO_VISAO,
   MODELO_VISAO_RESERVA,
   paraDataUrl,
   PROMPT_RECEITA,
   TAMANHO_MAX_IMAGEM,
+  TAMANHO_MAX_PDF,
   tipoDaImagem,
 } from "../../receita-ia-nucleo";
 
@@ -126,8 +128,12 @@ export async function POST(request: Request) {
   }
   if (bytes.length === 0) return responder({ erro: "imagem" }, 400, "invalida");
   if (bytes.length > TAMANHO_MAX_IMAGEM) return responder({ erro: "grande" }, 413, "grande");
-  const tipo = tipoDaImagem(bytes);
+  const pdf = ehPdf(bytes);
+  const tipo = pdf ? "application/pdf" : tipoDaImagem(bytes);
   if (!tipo) return responder({ erro: "tipo" }, 415, "tipo");
+  // Só o Gemini lê PDF; sem a chave, o arquivo não pode ser lido.
+  if (pdf && !chaveGemini) return responder({ erro: "tipo" }, 415, "pdf-sem-gemini");
+  if (pdf && bytes.length > TAMANHO_MAX_PDF) return responder({ erro: "grande" }, 413, "grande");
 
   try {
     const imagem = paraDataUrl(bytes, tipo);
@@ -147,11 +153,11 @@ export async function POST(request: Request) {
       if (limpa) estado = "gemini";
     }
     let resultado: unknown = null;
-    if (!limpa && ia) {
+    if (!limpa && ia && !pdf) {
       resultado = await lerComLimite(ia, MODELO_VISAO, imagem, { chat_template_kwargs: { enable_thinking: false } }, TEMPO_PRINCIPAL_CF_MS);
       limpa = resultado === null ? null : limparRespostaReceita(conteudoDaRespostaIA(resultado));
     }
-    if (!limpa && ia) {
+    if (!limpa && ia && !pdf) {
       estado = "reserva";
       resultado = await lerComLimite(ia, MODELO_VISAO_RESERVA, imagem, {}, TEMPO_RESERVA_MS);
       limpa = resultado === null ? null : limparRespostaReceita(conteudoDaRespostaIA(resultado));

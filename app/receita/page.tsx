@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
-import DirectUnitLinks from "../DirectUnitLinks";
+import TutorialReceita from "./TutorialReceita";
+import BotaoReceita from "../receita-foto/BotaoReceita";
+import { IconClipe } from "../reserva/ReservaIcons";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import { RECIPE_FAQS } from "../seo-content";
 import { SITE_URL } from "../site-config";
@@ -10,29 +12,28 @@ const breadcrumbSchema = {
   "@graph": [
     getBreadcrumbSchema([
       { name: "Início", url: SITE_URL },
-      { name: "Enviar receita", url: `${SITE_URL}/receita` },
+      { name: "Ler receita", url: `${SITE_URL}/receita` },
     ]),
     getFaqSchema(RECIPE_FAQS, `${SITE_URL}/receita`),
   ],
 };
-import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 import "../receita-polish.css";
 
 export const metadata: Metadata = {
-  title: { absolute: "Enviar receita pelo WhatsApp | União Farma" },
+  title: { absolute: "Ler receita e achar os remédios | União Farma" },
   description:
-    "Envie a foto da receita ou o link do Memed no WhatsApp da União Farma em Sabará. A loja confere no horário e diz se tem.",
+    "Fotografe a receita ou anexe o PDF e veja quais remédios a União Farma tem em Sabará. O farmacêutico confere antes da venda.",
   alternates: { canonical: "/receita" },
   openGraph: {
-    title: "Enviar receita pelo WhatsApp | União Farma",
-    description: "Envie a foto da receita ou o link do Memed no WhatsApp da União Farma em Sabará.",
+    title: "Ler receita e achar os remédios | União Farma",
+    description: "Fotografe a receita ou anexe o PDF e veja quais remédios a União Farma tem em Sabará.",
     url: `${SITE_URL}/receita`,
     type: "website",
     images: [{ url: "/og-receita.jpg", width: 1200, height: 630, alt: "Envie sua receita para a União Farma" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Enviar receita pelo WhatsApp | União Farma",
+    title: "Ler receita e achar os remédios | União Farma",
     images: ["/og-receita.jpg"],
   },
 };
@@ -43,48 +44,35 @@ export default function ReceitaPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <ContentSiteHeader activePath="/receita" />
       <div className="recipe-page" id="receita-whatsapp">
+        <nav className="recipe-migalhas" aria-label="Navegação estrutural">
+          <a href="/">Início</a>
+          <span aria-hidden="true">/</span>
+          <span>Ler receita</span>
+        </nav>
         <section className="hero hero-home recipe-hero" aria-labelledby="recipe-title">
+          <img
+            className="recipe-foto"
+            src="/fotos/receita-topo.jpg"
+            alt="Mulher olhando a receita em papel e o celular"
+            width={1600}
+            height={895}
+            fetchPriority="high"
+          />
           <div className="hero-inner">
             <div className="hero-copy recipe-copy">
-              <p className="eyebrow">Receita no WhatsApp</p>
-              <h1 id="recipe-title">Envie a receita para a loja</h1>
-              <p className="hero-lead recipe-lead">
-                Foto nítida ou Memed. A loja do bairro confere no horário e responde se tem.
-              </p>
+              <p className="eyebrow">Receita</p>
+              <h1 id="recipe-title">Encontre os remédios da sua receita</h1>
             </div>
 
-            <ol className="recipe-steps">
-              <li>
-                <strong>1</strong>
-                <span>Foto nítida ou Memed</span>
-              </li>
-              <li>
-                <strong>2</strong>
-                <span>Escolha a loja</span>
-              </li>
-              <li>
-                <strong>3</strong>
-                <span>A loja confirma se tem</span>
-              </li>
-            </ol>
-
-            <p className="recipe-note legal-band" role="note">
-              Controlado e antibiótico: retirada na loja, com retenção da receita. Não envie dados além dos necessários.
-            </p>
-
-            <DirectUnitLinks
-              compact
-              message={WHATSAPP_MESSAGES.recipe}
-              intent="recipe"
-              source="recipe_page"
-            />
-
+            <BotaoReceita classe="recipe-anexar" rotulo="Ler minha receita" icone={<IconClipe size={22} />} />
           </div>
         </section>
 
+        <TutorialReceita />
+
         <section className="section unit-faq-section" aria-labelledby="recipe-faq">
           <div className="section-inner">
-            <h2 id="recipe-faq">Perguntas sobre a receita</h2>
+            <h2 id="recipe-faq">Perguntas frequentes</h2>
             <div className="unit-faq-list">
               {RECIPE_FAQS.map((faq) => (
                 <details key={faq.q} className="unit-faq-item">

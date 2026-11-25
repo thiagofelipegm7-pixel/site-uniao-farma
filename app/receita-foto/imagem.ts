@@ -26,6 +26,13 @@ export function tamanhoReduzido(largura: number, altura: number, max = LADO_MAX_
   return { largura: Math.max(1, Math.round(largura * f)), altura: Math.max(1, Math.round(altura * f)) };
 }
 
+/** PDF da receita segue como está (o servidor lê direto); limite menor para caber no envio. */
+export const PDF_MAX_BYTES = 2_800_000;
+
+export function arquivoEhPdf(arquivo: { type: string; name: string }): boolean {
+  return arquivo.type === "application/pdf" || arquivo.name.toLowerCase().endsWith(".pdf");
+}
+
 export function arquivoParecidoComImagem(arquivo: { type: string; name: string }): boolean {
   if (arquivo.type) return arquivo.type.startsWith("image/");
   return /\.(jpe?g|png|webp|heic|heif)$/i.test(arquivo.name);
@@ -60,6 +67,10 @@ function paraBlob(canvas: HTMLCanvasElement, qualidade: number): Promise<Blob | 
 }
 
 export async function prepararImagem(arquivo: File): Promise<Blob> {
+  if (arquivoEhPdf(arquivo)) {
+    if (arquivo.size > PDF_MAX_BYTES) throw new ErroImagem("grande");
+    return arquivo.slice(0, arquivo.size, "application/pdf");
+  }
   if (!arquivoParecidoComImagem(arquivo)) throw new ErroImagem("formato");
   if (arquivo.size > ARQUIVO_MAX_BYTES) throw new ErroImagem("grande");
   const origem = await abrir(arquivo);

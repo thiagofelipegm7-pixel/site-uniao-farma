@@ -59,28 +59,28 @@ export const HOME_FAQS: FaqItem[] = [
 /** FAQ de /receita: só fatos que já estão no site (home, termos e página da receita). */
 export const RECIPE_FAQS: FaqItem[] = [
   {
-    q: "Posso enviar a receita por foto ou pelo Memed?",
-    a: "Sim. Envie foto nítida da receita ou o link do Memed no WhatsApp da loja. O farmacêutico confere no horário da loja, antes de separar.",
+    q: "Que receita o site consegue ler?",
+    a: "Receita impressa, em foto ou em PDF, como as do Memed. Letra de mão pode não ser lida. Se acontecer, mande a receita no WhatsApp da loja.",
   },
   {
-    q: "A loja responde se tem o medicamento?",
-    a: "Sim. A loja do bairro confere no horário e responde se tem. O estoque muda no dia, então a resposta vale para hoje.",
+    q: "A leitura pode errar nome ou dose?",
+    a: "Pode. Compare cada item com a receita e desmarque o que estiver diferente. A dose da receita precisa ser a mesma da embalagem.",
   },
   {
-    q: "Enviar a foto da receita garante a venda ou a reserva?",
-    a: "Não. O envio de uma foto não garante a venda ou a reserva do produto. A equipe pode pedir receita, identificação ou outros documentos quando necessário.",
+    q: "A foto da receita fica guardada?",
+    a: "O site não guarda a imagem. Sempre que dá, a leitura acontece no seu aparelho e nada sai dele. Se o aparelho não conseguir ler, um leitor automático (inteligência artificial) lê só os nomes dos remédios na hora.",
   },
   {
-    q: "Controlado e antibiótico saem na entrega?",
-    a: "Em regra, não. Controlado e antibiótico pedem retirada na loja, com retenção da receita e o farmacêutico. Tire a dúvida no WhatsApp antes de ir.",
+    q: "E se o remédio não aparecer na lista?",
+    a: "O site mostra só o que está no catálogo. Pergunte ao farmacêutico no WhatsApp se a loja tem.",
   },
   {
-    q: "Para onde envio a receita?",
-    a: "A loja Nações Unidas (Rua Inglaterra, 162). Estoque e entrega são da loja que você chamar.",
+    q: "Ler a receita garante a compra?",
+    a: "Não. A leitura só mostra os produtos. Remédio com receita só sai depois que o farmacêutico confere a receita original, e ele pode pedir identificação.",
   },
   {
-    q: "Que dados devo enviar junto com a receita?",
-    a: "Envie só os dados necessários. Não mande informações além das que a receita já traz.",
+    q: "Antibiótico e controlado saem na entrega?",
+    a: "Em regra, não. Só saem na loja, com a receita original, que a farmácia retém. Tire a dúvida no WhatsApp antes de ir.",
   },
 ];
 

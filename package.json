@@ -6,7 +6,9 @@
     "node": ">=22.13.0"
   },
   "scripts": {
+    "predev": "node scripts/copiar-ocr.mjs",
     "dev": "vite",
+    "prebuild": "node scripts/copiar-ocr.mjs",
     "build": "vinext build && node scripts/normalize-cloudflare-config.mjs",
     "start": "vinext start",
     "audit:ios": "node tests/audit-campos-ios.cjs http://localhost:4173",
@@ -19,13 +21,16 @@
     "busca:casos": "node --experimental-strip-types --import ./tests/ts-resolve-hook.mjs scripts/busca-casos.mjs"
   },
   "dependencies": {
+    "@tesseract.js-data/por": "^1.0.0",
     "drizzle-orm": "0.45.2",
     "lucide-react": "^1.73.0",
     "motion": "^14.14.0",
     "next": "16.3.5",
+    "pdfjs-dist": "^4.10.38",
     "qrcode": "^1.5.4",
     "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "react-dom": "19.3.0",
+    "tesseract.js": "^6.0.1"
   },
   "devDependencies": {
     "@cloudflare/vite-plugin": "1.54.9",

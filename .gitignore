@@ -52,3 +52,6 @@ ops/**/*.csv
 .env
 .env.*
 !.env.example
+
+# copiado por scripts/copiar-ocr.mjs (OCR e PDF no aparelho)
+public/ocr/

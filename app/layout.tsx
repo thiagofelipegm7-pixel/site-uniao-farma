@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
-import SiteFooter from "./SiteFooter";
 import SkipLink from "./SkipLink";
 import WhatsAppFab from "./WhatsAppFab";
 
@@ -203,7 +202,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main id="conteudo" tabIndex={-1}>
           {children}
         </main>
-        <SiteFooter />
+        {/* rodapé removido a pedido */}
         <WhatsAppFab />
       </body>
     </html>

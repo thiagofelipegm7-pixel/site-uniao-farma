@@ -886,4 +886,748 @@ html body main#conteudo .fluxo-reserva .fluxo-pix .fluxo-pix-voltar.fluxo-pix-vo
 /* Trilha do blog: a regra global de .section-inner (camada anterior) põe a trilha em coluna; esta regra fica na mesma camada para vencer. */
 .blog-pagina .blog-migalhas.section-inner { flex-direction: row !important; flex-wrap: wrap; align-items: center; width: auto !important; max-width: 75rem; }
 .blog-pagina .blog-migalhas.section-inner > * { display: inline !important; width: auto !important; min-height: 0 !important; min-width: 0 !important; line-height: 1.4; }
+/* Página de receita (direção atual). Dentro da camada base-direcao para vencer as regras !important das camadas seguintes. */
+Escopo: só quando a página tem .recipe-page. As variáveis de cor são trocadas aqui, então as regras globais já existentes
+html body:has(.recipe-page) {
+  --color-teal-50: #ffffff;
+  --color-teal-600: #000000;
+  --color-teal-700: #000000;
+  --color-teal-800: #000000;
+  --color-line: #ffffff;
+  --uf-action: #000000;
+  --uf-action-hover: #000000;
+  --uf-navy: #000000;
+  --uf-muted: #000000;
+}
+
+html body:has(.recipe-page) .recipe-page,
+html body:has(.recipe-page) .recipe-page p,
+html body:has(.recipe-page) .recipe-page li,
+html body:has(.recipe-page) .recipe-page h1,
+html body:has(.recipe-page) .recipe-page h2,
+html body:has(.recipe-page) .recipe-page h3 {
+  color: #000000;
+}
+
+html body:has(.recipe-page) .recipe-page *,
+html body:has(.recipe-page) .recipe-page *::before,
+html body:has(.recipe-page) .recipe-page *::after {
+  box-shadow: none !important;
+}
+
+html body:has(.recipe-page) .recipe-page .recipe-note {
+  background: #ffe600 !important;
+  border: 0 !important;
+  border-left: 0 !important;
+  color: #000000 !important;
+}
+
+html body:has(.recipe-page) .recipe-page .recipe-steps li {
+  border: 0 !important;
+  background: #ffffff !important;
+}
+
+html body:has(.recipe-page) .recipe-page .direct-unit-actions a:first-child,
+html body:has(.recipe-page) .recipe-page .direct-unit-actions a:not(:first-child) {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: 0 !important;
+}
+html body:has(.recipe-page) .recipe-page .direct-unit-link {
+  border: 0 !important;
+}
+html body:has(.recipe-page) .recipe-page .eyebrow {
+  color: #000000 !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-steps strong {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+html body:has(.recipe-page) .recipe-page .open-status {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+html body:has(.recipe-page) .recipe-page *:not(a):not(button):not(svg):not(path) {
+  color: #000000 !important;
+}
+html body:has(.recipe-page) .recipe-page .direct-unit-actions a {
+  color: #ffffff !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-migalhas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding-top: 1rem;
+  padding-inline: 16px;
+  font-size: 0.875rem;
+}
+html body:has(.recipe-page) .recipe-page .recipe-migalhas a {
+  color: #000000;
+}
+html body:has(.recipe-page) .recipe-page .recipe-formas {
+  margin-top: 2rem;
+}
+html body:has(.recipe-page) .recipe-page .recipe-formas h2 {
+  margin: 0 0 0.9rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+html body:has(.recipe-page) .recipe-page .recipe-formas ul {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+html body:has(.recipe-page) .recipe-page .recipe-formas li {
+  display: grid;
+  gap: 0.2rem;
+}
+html body:has(.recipe-page) .recipe-page .recipe-formas li strong {
+  font-weight: 800;
+}
+html body:has(.recipe-page) .recipe-page .recipe-nota {
+  margin-top: 1rem;
+  font-size: 0.9375rem;
+}
+
+/* ===== Tipografia e composição (regras 1 a 13 do CLAUDE.md) ===== */
+
+/* 3 e 12: uma sans para tudo, texto em 400 */
+html body,
+html body :is(p, li, span, label, small, td, th, dd, dt, input, select, textarea) {
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+}
+html body :is(strong, b) {
+  font-weight: 500 !important;
+}
+
+/* 3, 4, 7, 8, 10, 12: títulos retos, 500, uma família, balanceados */
+html body :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-inter), "Inter", system-ui, sans-serif !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  text-wrap: balance;
+}
+html body h1 {
+  font-size: clamp(1.875rem, 5vw, 2.75rem) !important;
+  line-height: 1.08 !important;
+  letter-spacing: -0.03em !important;
+}
+html body h2 {
+  font-size: clamp(1.375rem, 3.6vw, 1.75rem) !important;
+  line-height: 1.15 !important;
+  letter-spacing: -0.02em !important;
+}
+html body h3 {
+  font-size: 1.125rem !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.01em !important;
+}
+html body :is(h4, h5, h6) {
+  font-size: 1rem !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0 !important;
+}
+
+/* 2: título de card menor que título de seção */
+html body :is(article, [class*="card"], [class*="cartao"], .blog-lista li) :is(h2, h3, h4, h5) {
+  font-size: 1rem !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0 !important;
+  font-weight: 500 !important;
+}
+
+/* 5: texto de card 1 px menor que o texto de fora (16px) */
+html body :is(article, [class*="card"], [class*="cartao"]) p {
+  font-size: 0.9375rem !important;
+}
+
+/* 6: texto de botão 1 px menor que o texto ao redor, peso 500 */
+html body :is(button, a.button, [class*="btn"], [class*="button"], [role="button"], input[type="submit"]) {
+  font-size: 0.9375rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0 !important;
+}
+
+/* 9: respiro entre seções */
+html body main :is(section.section, .section) {
+  padding-block: clamp(2.25rem, 6vw, 4rem);
+}
+
+html body :is(a, summary, em, i, cite, button *, a *) {
+  font-weight: 500 !important;
+  font-style: normal !important;
+}
+
+/* receita: migalha alinhada ao título, com respiro e sem vãos */
+html body:has(.recipe-page) .recipe-page nav.recipe-migalhas {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.25rem 20px 0 max(20px, calc(50% - 480px)) !important;
+  font-size: 0.875rem;
+  line-height: 1.4;
+}
+html body:has(.recipe-page) .recipe-page nav.recipe-migalhas > * {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  width: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+html body:has(.recipe-page) .recipe-page nav.recipe-migalhas a {
+  color: #000000;
+  text-decoration: none;
+}
+html body:has(.recipe-page) .recipe-page nav.recipe-migalhas a:hover {
+  text-decoration: underline;
+}
+html body:has(.recipe-page) .recipe-page nav.recipe-migalhas span:last-child {
+  font-weight: 500 !important;
+}
+
+/* receita: título e botão num cartão grande de cantos redondos */
+html body:has(.recipe-page) .recipe-page .recipe-hero {
+  padding: 1rem 20px 0 !important;
+  background: transparent !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-hero .hero-inner {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 1.75rem 0.75rem;
+  max-width: 960px !important;
+  margin-inline: auto !important;
+  padding: clamp(28px, 7vw, 64px) !important;
+  border-radius: 24px;
+  background: #ffffff !important;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.14), 0 4px 10px rgba(0, 0, 0, 0.08) !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-hero .hero-inner > :not(.recipe-copy) {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  max-width: none !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-hero .recipe-copy {
+  flex: 0 0 100%;
+  display: grid;
+  gap: 0.75rem;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-hero h1 {
+  margin: 0 !important;
+  max-width: 14ch;
+  font-size: clamp(2rem, 7vw, 3rem) !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-hero .direct-unit-links,
+html body:has(.recipe-page) .recipe-page .recipe-hero .direct-unit-links-grid,
+html body:has(.recipe-page) .recipe-page .recipe-hero .direct-unit-link,
+html body:has(.recipe-page) .recipe-page .recipe-hero .direct-unit-actions {
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-self: flex-start !important;
+  width: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-hero .direct-unit-actions a {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: auto !important;
+  min-height: 56px;
+  padding: 0 2rem !important;
+  border-radius: 999px !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+}
+/* receita: passo a passo em carrossel, cartões brancos com celular ilustrado */
+html body:has(.recipe-page) .recipe-page .recipe-tutorial {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 960px !important;
+  margin: clamp(3rem, 8vw, 4.5rem) auto 0 !important;
+  padding: 0 20px !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-tutorial-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+html body:has(.recipe-page) .recipe-page .recipe-tutorial-topo h2 {
+  margin: 0 !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-setas {
+  display: flex;
+  gap: 0.5rem;
+}
+html body:has(.recipe-page) .recipe-page .recipe-setas button {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 44px !important;
+  height: 44px !important;
+  min-width: 44px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.16) !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-passos {
+  display: flex;
+  gap: 16px;
+  padding: 8px 4px 28px;
+  margin: 0 -4px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+html body:has(.recipe-page) .recipe-page .recipe-passos::-webkit-scrollbar {
+  display: none;
+}
+html body:has(.recipe-page) .recipe-page .recipe-passo {
+  display: flex;
+  flex: 0 0 86%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  min-width: 0;
+  padding: 28px 20px 0 !important;
+  overflow: hidden;
+  border-radius: 24px !important;
+  background: #ffffff !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14), 0 3px 8px rgba(0, 0, 0, 0.08) !important;
+  scroll-snap-align: start;
+  text-align: center;
+}
+html body:has(.recipe-page) .recipe-page .recipe-passo-texto {
+  display: grid;
+  justify-items: center;
+  gap: 0.5rem;
+}
+html body:has(.recipe-page) .recipe-page .recipe-passo-texto :is(h3, p) {
+  margin: 0 !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-numero {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: #000000;
+  color: #ffffff !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+}
+
+/* celular: moldura preta, entalhe, barra do app e conteúdo da cena */
+html body:has(.recipe-page) .recipe-page .recipe-celular {
+  box-sizing: border-box;
+  width: 224px;
+  height: 330px;
+  padding: 9px 9px 0 !important;
+  border-radius: 36px 36px 0 0 !important;
+  background: #000000 !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-celular-tela {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 28px 28px 0 0;
+  background: #ffffff;
+  text-align: left;
+}
+html body:has(.recipe-page) .recipe-page .recipe-entalhe {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 60px;
+  height: 16px;
+  border-radius: 999px;
+  background: #000000;
+  transform: translateX(-50%);
+}
+html body:has(.recipe-page) .recipe-page .recipe-app-topo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 34px 14px 10px !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  color: #000000 !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-app-topo svg {
+  width: 16px;
+  height: 16px;
+}
+html body:has(.recipe-page) .recipe-page .recipe-cena {
+  display: grid;
+  align-content: start;
+  gap: 10px;
+  padding: 4px 14px 0 !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-cena small {
+  font-size: 0.6875rem !important;
+  color: #000000 !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-etiqueta {
+  font-weight: 500 !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-cena-foto {
+  justify-items: center;
+  gap: 12px;
+}
+html body:has(.recipe-page) .recipe-page .recipe-visor {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 128px;
+  border-radius: 14px;
+  background: #000000;
+}
+html body:has(.recipe-page) .recipe-page .recipe-papel {
+  display: grid;
+  align-content: center;
+  gap: 7px;
+  width: 78px;
+  height: 100px;
+  padding: 0 12px !important;
+  border-radius: 6px;
+  background: #ffffff;
+}
+html body:has(.recipe-page) .recipe-page .recipe-papel i {
+  display: block;
+  height: 4px;
+  border-radius: 2px;
+  background: #000000;
+}
+html body:has(.recipe-page) .recipe-page .recipe-papel i:nth-child(even) {
+  width: 65%;
+}
+html body:has(.recipe-page) .recipe-page .recipe-canto {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border: 0 solid #ffffff;
+}
+html body:has(.recipe-page) .recipe-page .recipe-canto-a { top: 8px; left: 8px; border-width: 2px 0 0 2px; }
+html body:has(.recipe-page) .recipe-page .recipe-canto-b { top: 8px; right: 8px; border-width: 2px 2px 0 0; }
+html body:has(.recipe-page) .recipe-page .recipe-canto-c { bottom: 8px; left: 8px; border-width: 0 0 2px 2px; }
+html body:has(.recipe-page) .recipe-page .recipe-canto-d { bottom: 8px; right: 8px; border-width: 0 2px 2px 0; }
+html body:has(.recipe-page) .recipe-page .recipe-obturador {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: #000000;
+  color: #ffffff !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px !important;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.16);
+}
+html body:has(.recipe-page) .recipe-page .recipe-item > svg {
+  flex: 0 0 auto;
+  color: #000000 !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-item-icone {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  background: #000000;
+  color: #ffffff !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-item-texto {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+  gap: 1px;
+}
+html body:has(.recipe-page) .recipe-page .recipe-item-texto strong {
+  font-size: 0.6875rem !important;
+  font-weight: 500 !important;
+  color: #000000 !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-pilula {
+  justify-self: stretch;
+  padding: 10px 14px !important;
+  border-radius: 999px;
+  background: #000000;
+  color: #ffffff !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  text-align: center;
+}
+html body:has(.recipe-page) .recipe-page .recipe-cena-titulo {
+  font-size: 0.9375rem !important;
+  font-weight: 500 !important;
+  color: #000000 !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-opcao {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 10px !important;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.16);
+  font-size: 0.75rem !important;
+  color: #000000 !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-opcao span {
+  flex: 1;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  color: #000000 !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-opcao svg {
+  flex: 0 0 auto;
+  color: #000000;
+}
+html body:has(.recipe-page) .recipe-page .recipe-opcao svg:last-child {
+  width: 14px;
+  height: 14px;
+}
+html body:has(.recipe-page) .recipe-page .recipe-nota-mini {
+  font-size: 0.625rem !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-caixa {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  background: #ffffff;
+  box-shadow: 0 2px 7px rgba(0, 0, 0, 0.55);
+}
+html body:has(.recipe-page) .recipe-page .recipe-caixa-marcada {
+  background: #000000;
+  box-shadow: none;
+}
+html body:has(.recipe-page) .recipe-page .recipe-caixa-marcada svg {
+  width: 18px;
+  height: 18px;
+}
+html body:has(.recipe-page) .recipe-page .recipe-total {
+  display: grid;
+  gap: 8px;
+  margin-top: 6px;
+}
+@media (min-width: 1000px) {
+  html body:has(.recipe-page) .recipe-page .recipe-tutorial {
+    padding: 0 !important;
+  }
+}
+@media (min-width: 900px) {
+  html body:has(.recipe-page) .recipe-page .recipe-passo {
+    flex-basis: calc((100% - 32px) / 3);
+  }
+}
+html body:has(.recipe-page) .recipe-page .recipe-balao {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+  padding: 10px !important;
+  border-radius: 14px 14px 4px 14px;
+  background: #ffffff;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.16);
+}
+html body:has(.recipe-page) .recipe-page .recipe-papel-mini {
+  width: 100%;
+  height: 64px;
+  border-radius: 8px;
+  background: #000000;
+}
+html body:has(.recipe-page) .recipe-page .recipe-papel-mini i {
+  background: #ffffff;
+}
+
+/* receita: perguntas em cartões brancos, alinhadas ao restante da página */
+html body:has(.recipe-page) .recipe-page .unit-faq-section {
+  max-width: 960px;
+  margin: clamp(3rem, 8vw, 4.5rem) auto 0 !important;
+  padding: 0 20px !important;
+}
+html body:has(.recipe-page) .recipe-page .unit-faq-section .section-inner {
+  display: block !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+html body:has(.recipe-page) .recipe-page .unit-faq-section h2 {
+  margin: 0 0 1.5rem !important;
+}
+html body:has(.recipe-page) .recipe-page .unit-faq-list {
+  display: grid !important;
+  gap: 14px;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+html body:has(.recipe-page) .recipe-page .unit-faq-item {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 18px !important;
+  background: #ffffff !important;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.07) !important;
+}
+html body:has(.recipe-page) .recipe-page .unit-faq-item summary {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 26px !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+  color: #000000 !important;
+  list-style: none !important;
+  cursor: pointer;
+}
+html body:has(.recipe-page) .recipe-page .unit-faq-item summary::marker {
+  content: "";
+  font-size: 0;
+}
+html body:has(.recipe-page) .recipe-page .unit-faq-item summary::-webkit-details-marker {
+  display: none !important;
+}
+html body:has(.recipe-page) .recipe-page .unit-faq-item summary::after {
+  content: "";
+  flex: 0 0 auto;
+  width: 14px;
+  height: 14px;
+  background: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 24 24%27 fill=%27none%27 stroke=%27%23000%27 stroke-width=%273%27 stroke-linecap=%27round%27 stroke-linejoin=%27round%27%3E%3Cpath d=%27M4 8l8 8 8-8%27/%3E%3C/svg%3E") center / contain no-repeat;
+  transition: transform 0.2s ease;
+}
+html body:has(.recipe-page) .recipe-page .unit-faq-item[open] summary::after {
+  transform: rotate(180deg);
+}
+html body:has(.recipe-page) .recipe-page .unit-faq-item p {
+  margin: 0 !important;
+  padding: 0 26px 24px !important;
+  font-size: 0.9375rem !important;
+  line-height: 1.55;
+}
+@media (min-width: 1000px) {
+  html body:has(.recipe-page) .recipe-page .unit-faq-section {
+    padding: 0 !important;
+  }
+}
+
+/* receita: foto no topo, cantos redondos, antes do cartão */
+html body:has(.recipe-page) .recipe-page .recipe-hero .recipe-foto {
+  display: block !important;
+  width: 100% !important;
+  max-width: 960px !important;
+  height: clamp(180px, 34vw, 340px) !important;
+  margin: 0 auto 16px !important;
+  border-radius: 24px !important;
+  object-fit: cover !important;
+  object-position: center 30% !important;
+}
+
+/* receita: botão de anexo (clipe), pílula preta como o botão da loja */
+html body:has(.recipe-page) .recipe-page .recipe-hero button.recipe-anexar.receita-gatilho {
+  display: inline-flex !important;
+  align-self: flex-start !important;
+  flex: 0 0 auto !important;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: auto !important;
+  min-height: 56px;
+  padding: 0 2rem !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+  font-size: 1rem !important;
+  font-weight: 500 !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-hero button.recipe-anexar.receita-gatilho * {
+  color: #ffffff !important;
+}
+
+/* receita: os dois botões com a mesma altura e no mesmo nível */
+html body:has(.recipe-page) .recipe-page .recipe-hero :is(button.recipe-anexar.receita-gatilho, .direct-unit-actions a) {
+  box-sizing: border-box !important;
+  height: 52px !important;
+  min-height: 52px !important;
+  margin: 0 !important;
+}
+html body:has(.recipe-page) .recipe-page .recipe-hero .direct-unit-links :is(.direct-unit-links-grid, .direct-unit-link, .direct-unit-actions) {
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 0 !important;
+}
+
+/* receita: só o botão da loja, sem nome, status nem endereço acima dele */
+html body:has(.recipe-page) .recipe-page .direct-unit-link > :not(.direct-unit-actions) {
+  display: none !important;
+}
+
+/* cabeçalho: ícone do menu legível (preto no botão branco) e sem botão de voz na busca */
+html body header.shop-header button.shop-icone,
+html body header.shop-header button.shop-icone svg {
+  color: #000000 !important;
+}
+html body header.shop-header .shop-busca .shop-busca-voz {
+  display: none !important;
+}
+
+/* a marca (logotipo) não é texto corrido: mantém o desenho original */
+html body .marca-uf .marca-uf-nome {
+  font-weight: 700 !important;
+  font-style: italic !important;
+}
+html body .marca-uf .marca-uf-pe {
+  font-weight: 600 !important;
+  font-style: italic !important;
+}
+
+/* 11: etiquetas decorativas e badges fora (avisos legais e de receita ficam) */
+html body :is(
+  .offer-card-badge,
+  .offer-badge,
+  .hero-price-tag,
+  .unit-store-photo-tag,
+  .nearest-unit-badge,
+  .preferred-unit-badge,
+  .pv-selo-novo
+) {
+  display: none !important;
+}
 }
