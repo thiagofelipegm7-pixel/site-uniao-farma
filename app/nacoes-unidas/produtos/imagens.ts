@@ -3693,6 +3693,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "LEVETIRACETAM 250MG 30CPR GEN GERMED / G": "7896004821290",
   "BEPANTRIZ DERMA LABIAL 75ML": "7897947612365",
   "CIMEGRIPE DIA 400+400+20mg bl 6 co": "7896523226590",
+  "COND SEDA CACHOS DEFIN 325ML": "7891150037465",
 };
 
 function normalizarNome(nome: string): string {
