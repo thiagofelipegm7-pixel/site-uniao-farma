@@ -1,0 +1,58 @@
+/* Edição dos itens de um pedido (cartões de pré-venda, área da equipe). Botões com no mínimo 44 px de toque. */
+.pvenda-acoes { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+.pvenda-acoes .pvenda-entregador { margin-top: 0; }
+.pvenda-editar, .pvenda-resumo { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0 0.95rem; border: 0; border-radius: 999px; font: inherit; font-size: 0.8125rem; font-weight: 800; text-decoration: none; cursor: pointer; }
+.pvenda-acoes .pvenda-entregador { min-height: 2.75rem; }
+.pvenda-editar { background: #10857f; color: #ffffff; }
+.pvenda-editar:hover { background: #0b716d; }
+.pvenda-editar:disabled { opacity: 0.6; cursor: not-allowed; }
+.pvenda-resumo { background: #e8f6ef; color: #176748; box-shadow: inset 0 0 0 1px rgba(23, 103, 72, 0.25); }
+.pvenda-resumo:hover { background: #d7efe2; }
+.pvenda-bloqueio { margin: 0.75rem 0 0; color: #687781; font-size: 0.75rem; line-height: 1.4; }
+.pvenda-editado { margin-top: 0.625rem; color: #52636e; font-size: 0.75rem; }
+.pvenda-editado summary { display: inline-flex; align-items: center; min-height: 2.75rem; padding: 0 0.6rem; border-radius: 999px; background: #fff2d6; color: #795100; font-weight: 800; cursor: pointer; list-style: none; max-width: 100%; overflow-wrap: anywhere; }
+.pvenda-editado summary::-webkit-details-marker { display: none; }
+.pvenda-editado ol { display: grid; gap: 0.5rem; margin: 0.5rem 0 0; padding: 0; list-style: none; }
+.pvenda-editado ol > li > span { font-weight: 700; color: #263744; }
+.pvenda-editado ul { margin: 0.2rem 0 0; padding-left: 1rem; }
+.pvenda-editado li { overflow-wrap: anywhere; }
+
+.pedit { display: grid; gap: 0.75rem; min-width: 0; }
+.pedit-alerta { margin: 0; padding: 0.625rem 0.75rem; border-radius: 10px; background: #fff2d6; color: #6b4800; font-size: 0.8125rem; line-height: 1.4; }
+.pedit-lista { display: grid; gap: 0.5rem; margin: 0; padding: 0; list-style: none; }
+.pedit-item { display: grid; gap: 0.5rem; min-width: 0; padding: 0.625rem; border-radius: 12px; background: #f6f9f8; }
+.pedit-item-info { display: grid; gap: 0.15rem; min-width: 0; }
+.pedit-nome { color: #263744; font-size: 0.8125rem; font-weight: 700; line-height: 1.35; overflow-wrap: anywhere; }
+.pedit-item-info small { color: #74828b; font-size: 0.75rem; }
+.pedit-controles { display: flex; align-items: center; gap: 0.5rem; min-width: 0; }
+.pedit-qtd { display: inline-flex; align-items: center; flex: none; border-radius: 999px; background: #ffffff; box-shadow: 0 1px 4px rgba(31, 58, 68, 0.1); }
+.pedit-qtd button { width: 2.75rem; height: 2.75rem; border: 0; border-radius: 999px; background: transparent; color: #10857f; font: inherit; font-size: 1.25rem; font-weight: 800; cursor: pointer; }
+.pedit-qtd button:disabled { color: #b4c0c4; cursor: not-allowed; }
+.pedit-qtd output { min-width: 1.75rem; text-align: center; font-weight: 800; font-variant-numeric: tabular-nums; }
+.pedit-sub { flex: 1; min-width: 0; text-align: right; font-size: 0.8125rem; font-variant-numeric: tabular-nums; }
+.pedit-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 2.75rem; padding: 0 0.875rem; border: 0; border-radius: 999px; background: #e9f3f2; color: #19524d; font: inherit; font-size: 0.8125rem; font-weight: 800; cursor: pointer; }
+.pedit-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.pedit-remover { flex: none; background: #ffffff; color: #9e2824; box-shadow: inset 0 0 0 1px rgba(158, 40, 36, 0.3); }
+.pedit-perigo { background: #9e2824; color: #ffffff; }
+.pedit-confirma { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.pedit-confirma span { flex: 1 1 100%; color: #9e2824; font-size: 0.8125rem; font-weight: 800; }
+.pedit-dica { margin: 0; color: #687781; font-size: 0.75rem; line-height: 1.4; }
+.pedit-incluir, .pedit-autor { display: grid; gap: 0.35rem; min-width: 0; }
+.pedit-incluir label, .pedit-autor span { color: #52636e; font-size: 0.75rem; font-weight: 800; }
+.pedit-incluir input, .pedit-autor input { box-sizing: border-box; width: 100%; min-height: 2.75rem; padding: 0 0.75rem; border: 1px solid #d4dfdd; border-radius: 10px; background: #ffffff; color: #263744; font: inherit; font-size: 1rem; }
+.pedit-achados { display: grid; gap: 0.25rem; max-height: 15rem; margin: 0; padding: 0.25rem; overflow-y: auto; border-radius: 10px; background: #ffffff; box-shadow: 0 4px 14px rgba(31, 58, 68, 0.12); list-style: none; }
+.pedit-achados button { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; width: 100%; min-height: 2.75rem; padding: 0.4rem 0.6rem; border: 0; border-radius: 8px; background: transparent; color: #263744; font: inherit; font-size: 0.8125rem; text-align: left; cursor: pointer; }
+.pedit-achados button:hover, .pedit-achados button:focus-visible { background: #eff7f5; }
+.pedit-achados button span { min-width: 0; overflow-wrap: anywhere; }
+.pedit-achados button b { flex: none; font-variant-numeric: tabular-nums; }
+.pedit-vazio { padding: 0.6rem; color: #74828b; font-size: 0.8125rem; }
+.pedit-total { display: grid; gap: 0.2rem; padding-top: 0.625rem; box-shadow: 0 -1px 0 rgba(38, 55, 68, 0.08); }
+.pedit-total span { color: #74828b; font-size: 0.75rem; }
+.pedit-total strong { color: #263744; font-size: 1rem; font-variant-numeric: tabular-nums; }
+.pedit-acoes { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 0.5rem; }
+.pedit-salvar { background: #10857f; color: #ffffff; }
+.pedit-salvar:hover:not(:disabled) { background: #0b716d; }
+@media (max-width: 420px) {
+  .pedit-acoes .pedit-btn { flex: 1 1 auto; }
+  .pvenda-acoes > * { flex: 1 1 auto; }
+}

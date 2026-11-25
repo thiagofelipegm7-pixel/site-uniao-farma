@@ -1,7 +1,9 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import PedidoEditor from "./PedidoEditor";
 import "./pre-vendas.css";
+import "./pedido-editor.css";
 
 type Status = "nova" | "atendimento" | "concluida" | "cancelada";
 type ItemPreVenda = { nome: string; quantidade: number; precoCentavos: number };
@@ -14,6 +16,13 @@ type PreVenda = {
   totalCentavos: number;
   status: Status;
   criadoEm: string;
+  atualizadoEm?: string;
+  editadoEm?: string | null;
+  editadoPor?: string | null;
+  historico?: Array<{ em: string; por: string; antesCentavos: number; depoisCentavos: number; mudancas: string[] }>;
+  edicao?: { bloqueio: string | null; aviso: string | null };
+  linkResumo?: string | null;
+  temWhatsapp?: boolean;
 };
 
 const STATUS: Record<Status, string> = {
@@ -28,6 +37,12 @@ const UNIDADE: Record<string, string> = {
   itacolomi: "Itacolomi",
 };
 const dinheiro = (centavos: number) => (centavos / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+const hora = (texto: string) => new Intl.DateTimeFormat("pt-BR", { hour: "2-digit", minute: "2-digit", timeZone: "America/Sao_Paulo" }).format(new Date(texto));
+const dia = (texto: string) => new Intl.DateTimeFormat("pt-BR", { day: "2-digit", month: "2-digit", timeZone: "America/Sao_Paulo" }).format(new Date(texto));
+/** "Editado às 14:05" (hoje) ou "Editado em 24/11 às 14:05". */
+function rotuloEditado(editadoEm: string, agora = Date.now()): string {
+  return dia(editadoEm) === dia(new Date(agora).toISOString()) ? `Editado às ${hora(editadoEm)}` : `Editado em ${dia(editadoEm)} às ${hora(editadoEm)}`;
+}
 const dataHora = (texto: string) => new Intl.DateTimeFormat("pt-BR", { dateStyle: "short", timeStyle: "short", timeZone: "America/Sao_Paulo" }).format(new Date(texto));
 
 export default function PreVendasPainel({ nivel = 1 }: { /** 1 = h1 (página própria); 2 = h2 (dentro de uma aba). */ nivel?: 1 | 2 } = {}) {
@@ -39,6 +54,7 @@ export default function PreVendasPainel({ nivel = 1 }: { /** 1 = h1 (página pr�
   const [erro, setErro] = useState("");
   const [aviso, setAviso] = useState("");
   const [agora, setAgora] = useState(0);
+  const [editando, setEditando] = useState<string | null>(null);
 
   const carregar = useCallback(async () => {
     try {
@@ -144,17 +160,56 @@ export default function PreVendasPainel({ nivel = 1 }: { /** 1 = h1 (página pr�
                   <span className={`pvenda-status pvenda-status-${registro.status}`}>{STATUS[registro.status]}</span>
                 </header>
                 <p className="pvenda-loja">{UNIDADE[registro.unidade] || registro.unidade} <span>·</span> {registro.modo === "casa" ? "Entrega" : "Retirada"}</p>
-                <ul className="pvenda-itens">
-                  {registro.itens.slice(0, 5).map((item, index) => <li key={`${item.nome}-${index}`}><span>{item.quantidade}× {item.nome}</span><b>{dinheiro(item.precoCentavos * item.quantidade)}</b></li>)}
-                  {registro.itens.length > 5 ? <li className="pvenda-mais-itens">+ {registro.itens.length - 5} outros produtos</li> : null}
-                </ul>
+                {editando === registro.id && registro.atualizadoEm ? (
+                  <PedidoEditor
+                    id={registro.id}
+                    codigo={registro.codigo}
+                    atualizadoEm={registro.atualizadoEm}
+                    itens={registro.itens}
+                    totalCentavos={registro.totalCentavos}
+                    aviso={registro.edicao?.aviso ?? null}
+                    onCancelar={() => setEditando(null)}
+                    onSalvo={async (mensagem) => {
+                      setEditando(null);
+                      setAviso(`${mensagem} Mande o resumo novo ao cliente pelo botão do cartão.`);
+                      await carregar();
+                    }}
+                  />
+                ) : (
+                  <ul className="pvenda-itens">
+                    {registro.itens.slice(0, 5).map((item, index) => <li key={`${item.nome}-${index}`}><span>{item.quantidade}× {item.nome}</span><b>{dinheiro(item.precoCentavos * item.quantidade)}</b></li>)}
+                    {registro.itens.length > 5 ? <li className="pvenda-mais-itens">+ {registro.itens.length - 5} outros produtos</li> : null}
+                  </ul>
+                )}
+                {registro.editadoEm ? (
+                  <details className="pvenda-editado">
+                    <summary>{rotuloEditado(registro.editadoEm, agora || undefined)}{registro.editadoPor ? ` por ${registro.editadoPor}` : ""}</summary>
+                    <ol>
+                      {(registro.historico ?? []).slice().reverse().map((h) => (
+                        <li key={h.em}>
+                          <span>{dataHora(h.em)} · {h.por} · {dinheiro(h.antesCentavos)} → {dinheiro(h.depoisCentavos)}</span>
+                          <ul>{h.mudancas.map((m, i) => <li key={i}>{m}</li>)}</ul>
+                        </li>
+                      ))}
+                    </ol>
+                  </details>
+                ) : null}
                 <footer className="pvenda-rodape">
                   <span>Estimativa <strong>{dinheiro(registro.totalCentavos)}</strong></span>
                   <label><span className="pvendas-sr">Atualizar andamento</span><select value={registro.status} disabled={salvando === registro.id} onChange={(event) => void alterarStatus(registro.id, event.target.value as Status)}>{Object.entries(STATUS).map(([valor, rotulo]) => <option key={valor} value={valor}>{rotulo}</option>)}</select></label>
                 </footer>
-                {registro.modo === "casa" && (registro.status === "nova" || registro.status === "atendimento") ? (
-                  <a className="pvenda-entregador" href={`/interno/entregas?pv=${encodeURIComponent(registro.id)}`}>Chamar entregador</a>
+                {editando !== registro.id && (registro.status === "nova" || registro.status === "atendimento") ? (
+                  <div className="pvenda-acoes">
+                    {registro.edicao?.bloqueio ? null : (
+                      <button type="button" className="pvenda-editar" onClick={() => { setAviso(""); setEditando(registro.id); }} disabled={!registro.atualizadoEm || salvando === registro.id}>Editar itens</button>
+                    )}
+                    {registro.modo === "casa" ? <a className="pvenda-entregador" href={`/interno/entregas?pv=${encodeURIComponent(registro.id)}`}>Chamar entregador</a> : null}
+                    {registro.linkResumo ? (
+                      <a className="pvenda-resumo" href={registro.linkResumo} target="_blank" rel="noreferrer">{registro.temWhatsapp ? "Mandar resumo novo ao cliente" : "Mandar resumo novo (escolha a conversa)"}</a>
+                    ) : null}
+                  </div>
                 ) : null}
+                {editando !== registro.id && registro.edicao?.bloqueio && (registro.status === "nova" || registro.status === "atendimento") ? <p className="pvenda-bloqueio">{registro.edicao.bloqueio}</p> : null}
               </article>
             ))}
           </div>
