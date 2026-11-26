@@ -433,7 +433,7 @@ export default function ReservaFluxo() {
         {[1, 2, 3].map((n) => <span key={n} className={n <= passo ? "is-on" : ""} />)}
       </div>
       <ol className="fluxo-progresso-rotulos" aria-hidden="true">
-        {["Itens", "Receber", "Enviar"].map((r, i) => <li key={r} className={i + 1 <= passo ? "is-on" : ""}>{r}</li>)}
+        {["1. Itens", "2. Receber", "3. Enviar"].map((r, i) => <li key={r} className={i + 1 <= passo ? "is-on" : ""}>{r}</li>)}
       </ol>
 
       {passo === 1 ? (
