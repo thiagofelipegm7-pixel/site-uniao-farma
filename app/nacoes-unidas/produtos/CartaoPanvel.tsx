@@ -97,7 +97,18 @@ export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medi
     <>
       <span className="pv-img">
         {novo ? <span className="pv-selo-novo" aria-label="Produto novo"><span>NOVO</span></span> : null}
-        {foto ? <img src={foto} alt="" width="160" height="160" loading="lazy" decoding="async" /> : <SemFoto className="pv-sem-foto" />}
+        {foto ? (
+          <img
+            src={foto}
+            alt=""
+            width="160"
+            height="160"
+            sizes="(max-width: 720px) 45vw, 160px"
+            loading="lazy"
+            decoding="async"
+            fetchPriority="low"
+          />
+        ) : <SemFoto className="pv-sem-foto" />}
       </span>
       <span className="pv-texto">
         <span className="pv-nome"><NomeComPalavrasAnimadas nome={nome} /></span>
