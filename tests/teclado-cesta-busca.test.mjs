@@ -7,8 +7,8 @@ const ler = (a) => readFileSync(new URL(`../${a}`, import.meta.url), "utf8");
 test("cesta: ao mudar de passo o foco vai para o título do passo novo (sem perder o lugar no teclado e no leitor de tela)", () => {
   const f = ler("app/reserva/ReservaFluxo.tsx");
   assert.match(f, /<h1 ref=\{tituloPasso\} tabIndex=\{-1\}>\{titulo\}<\/h1>/);
-  assert.match(f, /tituloPasso\.current\?\.focus\(\);\n  \}, \[passo\]\);/);
-  assert.match(f, /primeiroPasso\.current = false;\n      return;/, "o primeiro desenho não rouba o foco da página");
+  assert.match(f, /tituloPasso\.current\?\.focus\(\);\r?\n  \}, \[passo\]\);/);
+  assert.match(f, /primeiroPasso\.current = false;\r?\n      return;/, "o primeiro desenho não rouba o foco da página");
 });
 
 test("busca do cabeçalho: no painel de sugestões, Esc fecha e volta ao campo; setas andam entre as opções", () => {

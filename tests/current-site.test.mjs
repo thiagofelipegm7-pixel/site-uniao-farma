@@ -49,7 +49,7 @@ test("home: 'Navegue por categoria' é faixa horizontal com cards menores e scro
   assert.match(sec, /shop-categorias-trilho/);
   assert.match(sec, /Navegue por categoria/);
   // PR #492: a faixa mostra temas de saúde (diabetes, coração, rins...), não o card de Medicamentos.
-  assert.match(sec, /\/categorias\/diabetes\.jpg/);
+  assert.match(sec, /\/categorias\/diabetes"/); // sem extensão: o <picture> escolhe .webp ou .jpg
   assert.match(sec, /Cuidados com diabetes/);
   assert.doesNotMatch(sec, /\/categorias\/medicamentos\.jpg/);
   // Pedido da loja: sem card "Ofertas" na faixa (página /ofertas permanece).

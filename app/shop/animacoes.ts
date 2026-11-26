@@ -35,15 +35,16 @@ export function animarNumero(
   formatar?: (n: number) => string
 ) {
   if (!el) return;
+  const alvo = el; // dentro de `frame` o TypeScript perde a garantia de que não é nulo
   if (reduzido()) {
-    el.textContent = formatar ? formatar(para) : String(para);
+    alvo.textContent = formatar ? formatar(para) : String(para);
     return;
   }
   const inicio = performance.now();
   function frame(agora: number) {
     const p = Math.min(1, (agora - inicio) / duracao);
     const valor = Math.round(de + (para - de) * p);
-    el.textContent = formatar ? formatar(valor) : String(valor);
+    alvo.textContent = formatar ? formatar(valor) : String(valor);
     if (p < 1) requestAnimationFrame(frame);
   }
   requestAnimationFrame(frame);

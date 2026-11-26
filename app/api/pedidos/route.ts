@@ -1,4 +1,5 @@
 import { banco } from "../../estoque-fonte";
+import type { Banco } from "../../nomes-corrigidos";
 
 export const dynamic = "force-dynamic";
 
@@ -10,7 +11,7 @@ function clienteId(request: Request): string {
 }
 
 export async function GET(request: Request) {
-  const db = banco();
+  const db = banco() as unknown as Banco | null;
   if (!db) return Response.json({ ok: false, itens: [] });
 
   const cid = clienteId(request);
@@ -25,7 +26,7 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
-  const db = banco();
+  const db = banco() as unknown as Banco | null;
   if (!db) return Response.json({ ok: false }, { status: 501 });
 
   let corpo: { itens?: unknown; total?: string } = {};

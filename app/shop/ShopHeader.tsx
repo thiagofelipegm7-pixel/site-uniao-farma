@@ -56,6 +56,11 @@ const LINKS_LINHA2 = [
   { href: "/trocas-e-devolucoes", label: "Trocas e devoluções" },
 ] as const;
 
+/** Endereço do produto restrito (receita/controlado): o catálogo de busca não traz o slug, ele sai do nome original. */
+function slugDoRestrito(item: { nome: string; nomeOriginal: string }): string {
+  return (item.nomeOriginal || item.nome).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
 let vocabEmMemoria: { itens: Sugestao[]; restritos: SugestaoRestrita[]; vocab: ReturnType<typeof criarVocabulario> } | null = null;
 
 /** Vocabulário da correção de digitação, montado só quando precisa e guardado enquanto os dados forem os mesmos. */
@@ -474,7 +479,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                     ))}
                     {resultadosRestritos.map((item) => (
                       <li key={`${item.tipo}-${item.nome}`}>
-                        <a href={`/nacoes-unidas/produtos/${(item.nomeOriginal || item.nome).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")}`}>
+                        <a href={`/nacoes-unidas/produtos/${slugDoRestrito(item)}`}>
                           <img src={imagemIlustrativa({ ...item, nome: item.nomeOriginal })} alt="" width="44" height="44" />
                           <span>
                             <NomeDestacado nome={item.nome} termos={termosDestaque} />
@@ -482,7 +487,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                           <strong>{item.precoCentavos === null ? (item.semVenda ? <small className="shop-sug-consulte">Consulte o farmacêutico</small> : "") : formatarCentavos(item.precoCentavos)}</strong>
                         </a>
                           <div style={{position:"absolute",right:"0.5rem",top:"50%",transform:"translateY(-50%)"}}>
-                            <SalvarNaLista nome={item.nome} slug={item.slug} />
+                            <SalvarNaLista nome={item.nome} slug={slugDoRestrito(item)} />
                           </div>
                         </li>
                     ))}

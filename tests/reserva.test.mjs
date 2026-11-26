@@ -130,7 +130,7 @@ test("página /reserva: noindex, 3 passos como o protótipo, envio rastreado sem
   assert.match(fluxo, /Continuar: entrega ou retirada/);
   assert.match(fluxo, /Adicionar mais itens/);
   assert.doesNotMatch(fluxo, /não uma compra|Nada é cobrado|Cobrado neste site|Sem cobrança/);
-  assert.match(fluxo, /Entrega ou retirada/);
+  assert.match(fluxo, /Como receber/); // título do passo 2 (antes "Entrega ou retirada"; renomeado na revisão de clareza do fluxo)
   assert.match(fluxo, /Retire ou receba sua compra/);
   assert.match(fluxo, /Selecione uma opção/);
   assert.match(fluxo, /Entrega/);
