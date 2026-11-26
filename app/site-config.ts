@@ -1,4 +1,7 @@
 export const SITE_URL = "https://xn--uniofarmasabar-8gbu.com.br";
+
+/** ID público do Microsoft Clarity (mapa de calor). Pode ser trocado com NEXT_PUBLIC_CLARITY_PROJECT_ID. Sem ID, o script não é carregado. */
+export const CLARITY_PROJECT_ID = process.env.NEXT_PUBLIC_CLARITY_PROJECT_ID || "zji1cnkn76";
 export const OFFERS_GROUP_URL = "https://chat.whatsapp.com/GTqeJJk46N4KnJWGDGtfIp";
 export const INSTAGRAM_URL = "https://www.instagram.com/droguniaofarma/";
 

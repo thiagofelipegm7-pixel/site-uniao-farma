@@ -199,7 +199,7 @@ export default function ListaRestrita({ tipo }: { tipo: TipoRestrito }) {
           <form method="get" action={t.rota} className="catalogo-busca" role="search">
             <label htmlFor="restrito-q">Buscar nesta lista</label>
             <div className="voz-campo">
-              <input key={consulta} id="restrito-q" name="q" type="search" defaultValue={consulta} maxLength={80} placeholder="Nome ou princípio ativo" />
+              <input key={consulta} id="restrito-q" name="q" type="search" defaultValue={consulta} maxLength={80} placeholder="Nome ou princípio ativo" data-clarity-mask="true" />
               <BotaoVoz contexto={tipo} onTexto={(texto) => { window.location.assign(`${t.rota}?q=${encodeURIComponent(texto)}`); }} />
             </div>
             <button type="submit">Buscar</button>

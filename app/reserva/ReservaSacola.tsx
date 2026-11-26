@@ -135,7 +135,7 @@ export default function ReservaSacola() {
 
   const semPreco = estado.itens.some((i) => itemAtivo(i) && !(i.precoCentavos > 0));
   const gaveta = (
-    <div className="reserva-gaveta-raiz cm-raiz" role="dialog" aria-modal="true" aria-labelledby="reserva-gaveta-titulo">
+    <div className="reserva-gaveta-raiz cm-raiz" role="dialog" aria-modal="true" aria-labelledby="reserva-gaveta-titulo" data-clarity-mask="true">
       <button ref={fundoRef} type="button" className="reserva-gaveta-fundo cm-fundo" aria-label="Fechar a cesta" tabIndex={-1} onClick={fechar} />
       <div className="cm-card" ref={painelRef}>
         <button ref={puxadorRef} type="button" className="cm-puxador" aria-label="Fechar cesta" onClick={fechar}>

@@ -321,6 +321,7 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
             id="shop-busca-q"
             name="q"
             type="search"
+            data-clarity-mask="true"
             value={termo}
             onChange={(event) => setTermo(event.target.value)}
             onFocus={() => {
