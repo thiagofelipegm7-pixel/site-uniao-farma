@@ -558,6 +558,19 @@ button.primary,
   background-color: #004d45 !important;
 }
 
+/* Menu de departamentos (fundo escuro #128078) — texto branco para AAA */
+.dm-menu,
+.dm-menu a,
+.dm-menu button,
+.dm-links a,
+.dm-cabeca {
+  color: #ffffff !important;
+}
+
+.dm-menu {
+  background-color: #0a5c56 !important;
+}
+
 /* Placeholders */
 input::placeholder,
 textarea::placeholder {
