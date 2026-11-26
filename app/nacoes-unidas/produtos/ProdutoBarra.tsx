@@ -13,6 +13,7 @@ import type { ApresentacaoPublica } from "../../apresentacao-produto-tipos";
 import type { PromocaoQuantidade } from "../../promocao-quantidade-tipos";
 import { carregarPromocoesQuantidade } from "../../promocao-quantidade-cliente";
 import AviseMe from "../../shop/AviseMe";
+import SalvarNaLista from "../../shop/SalvarNaLista";
 
 type Props = {
   unitId: string;
@@ -147,6 +148,9 @@ export default function ProdutoBarra({ unitId, nome, precoCentavos, foto, max: m
         </button>
       ) : null}
     {semEstoque ? <AviseMe produto={nome} /> : null}
+      <div style={{marginTop:"0.5rem"}}>
+        <SalvarNaLista nome={nome} slug={slug} />
+      </div>
     </div>
   );
 }
