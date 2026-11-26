@@ -6,6 +6,7 @@ import "./galeria-produto.css";
 /**
  * Galeria da ficha: foto principal grande e, quando há mais de uma foto, uma coluna de miniaturas à esquerda.
  * Com uma foto só, mostra apenas a imagem (sem miniaturas).
+ * Foto principal com prioridade alta (LCP da página de produto).
  */
 export default function GaleriaProduto({ fotos, alt }: { fotos: readonly string[]; alt: string }) {
   const [ativa, setAtiva] = useState(0);
@@ -30,7 +31,18 @@ export default function GaleriaProduto({ fotos, alt }: { fotos: readonly string[
           ))}
         </ul>
       ) : null}
-      {atual ? <img className="pdp-foto-principal" src={atual} alt={alt} width="420" height="420" /> : null}
+      {atual ? (
+        <img
+          className="pdp-foto-principal"
+          src={atual}
+          alt={alt}
+          width="420"
+          height="420"
+          loading="eager"
+          decoding="async"
+          fetchPriority="high"
+        />
+      ) : null}
     </>
   );
 }
