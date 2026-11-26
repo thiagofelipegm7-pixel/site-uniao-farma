@@ -372,74 +372,57 @@
 }
 
 /* =====================================================================
-   Microinterações nos botões
+   Animações CSS avançadas
    ===================================================================== */
 
-/* Press effect (scale down) */
-.fluxo-botao,
-.cm-botao,
-.pv-adicionar,
-.reservar-mais,
-.pv-cesta-botao,
-.shop-busca button,
-.painel-seta,
-.mobile-quick-nav a,
-button[type="button"],
-button[type="submit"] {
-  transition: transform 0.12s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+/* 1. Stagger nos cards das vitrines */
+.shop-destaques-lista > li,
+.shop-destaques-lista > .pv-card--v {
+  animation: fade-slide-up 0.45s ease both;
+}
+.shop-destaques-lista > li:nth-child(1),
+.shop-destaques-lista > .pv-card--v:nth-child(1) { animation-delay: 0.04s; }
+.shop-destaques-lista > li:nth-child(2),
+.shop-destaques-lista > .pv-card--v:nth-child(2) { animation-delay: 0.08s; }
+.shop-destaques-lista > li:nth-child(3),
+.shop-destaques-lista > .pv-card--v:nth-child(3) { animation-delay: 0.12s; }
+.shop-destaques-lista > li:nth-child(4),
+.shop-destaques-lista > .pv-card--v:nth-child(4) { animation-delay: 0.16s; }
+.shop-destaques-lista > li:nth-child(5),
+.shop-destaques-lista > .pv-card--v:nth-child(5) { animation-delay: 0.20s; }
+.shop-destaques-lista > li:nth-child(n+6) { animation-delay: 0.24s; }
+
+/* 2. Bounce no contador da cesta */
+@keyframes bounce-in {
+  0% { transform: scale(0.5); }
+  55% { transform: scale(1.18); }
+  100% { transform: scale(1); }
+}
+.reserva-contador-bolha,
+.mobile-quick-nav .mqn-icon span {
+  animation: bounce-in 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
-.fluxo-botao:active,
-.cm-botao:active,
-.pv-adicionar:active,
-.reservar-mais:active,
-.pv-cesta-botao:active,
-.shop-busca button:active,
-.painel-seta:active,
-button[type="button"]:active,
-button[type="submit"]:active {
-  transform: scale(0.96);
+/* 3. Shimmer nos skeletons */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
-
-/* Subtle lift on hover (only fine pointer) */
-@media (hover: hover) and (pointer: fine) {
-  .fluxo-botao:hover,
-  .cm-botao:hover,
-  .pv-adicionar:hover,
-  .reservar-mais:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(14, 115, 112, 0.18);
-  }
-}
-
-/* WhatsApp buttons */
-.whatsapp-fab,
-.unit-store-wa,
-.header-cta {
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.whatsapp-fab:active,
-.unit-store-wa:active {
-  transform: scale(0.94);
+.shop-destaques [style*="background:#f0f4f3"],
+.skeleton,
+.cm-card [style*="background:#f0f4f3"] {
+  background: linear-gradient(90deg, #f0f4f3 25%, #e4eeeb 50%, #f0f4f3 75%) !important;
+  background-size: 200% 100% !important;
+  animation: shimmer 1.5s infinite !important;
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .fluxo-botao,
-  .cm-botao,
-  .pv-adicionar,
-  .reservar-mais,
-  .pv-cesta-botao,
-  .whatsapp-fab,
-  button[type="button"],
-  button[type="submit"] {
-    transition: none !important;
-  }
-  .fluxo-botao:active,
-  .cm-botao:active,
-  .pv-adicionar:active,
-  .whatsapp-fab:active {
-    transform: none !important;
+  .shop-destaques-lista > li,
+  .shop-destaques-lista > .pv-card--v,
+  .reserva-contador-bolha,
+  .mobile-quick-nav .mqn-icon span,
+  .skeleton {
+    animation: none !important;
   }
 }
