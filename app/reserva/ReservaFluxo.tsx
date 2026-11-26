@@ -322,7 +322,7 @@ export default function ReservaFluxo() {
           {enviado ? (
             <>
               <strong>Sua cesta foi limpa.</strong>
-              <p>O pedido foi preparado no WhatsApp. Confira a conversa e toque em enviar para concluir.</p>
+              <p>Pedido preparado! Abra o WhatsApp, confira a mensagem e toque em Enviar para finalizar.</p>
             </>
           ) : (
             <>
@@ -433,7 +433,7 @@ export default function ReservaFluxo() {
         {[1, 2, 3].map((n) => <span key={n} className={n <= passo ? "is-on" : ""} />)}
       </div>
       <ol className="fluxo-progresso-rotulos" aria-hidden="true">
-        {["1. Itens", "2. Receber", "3. Enviar"].map((r, i) => <li key={r} className={i + 1 <= passo ? "is-on" : ""}>{r}</li>)}
+        {["Itens", "Receber", "Enviar"].map((r, i) => <li key={r} className={i + 1 <= passo ? "is-on" : ""}>{r}</li>)}
       </ol>
 
       {passo === 1 ? (
