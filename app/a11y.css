@@ -488,3 +488,64 @@
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
 }
+
+/* =====================================================================
+   AAA — Contraste 7:1 forçado em textos, links e botões
+   ===================================================================== */
+
+/* Textos principais */
+body,
+p,
+li,
+span,
+small,
+h1, h2, h3, h4, h5, h6,
+.hero-lead,
+.unit-store-addr,
+.unit-store-hours,
+.offer-consult-body p,
+.recipe-lead,
+.offers-hero-lead,
+.rodape p,
+.rodape-legal,
+.section-kicker,
+.eyebrow,
+.brand small {
+  color: #0a1f1c !important;
+}
+
+/* Links e navegação (força AAA) */
+a,
+.menu-links a,
+.content-nav a,
+.shop-categorias a,
+.nav a,
+.menu-button,
+button {
+  color: #00332e !important;
+}
+
+a:visited {
+  color: #00241f !important;
+}
+
+/* Botões com fundo claro precisam de texto escuro */
+.cookie-banner button,
+.cookie-reject,
+.cookie-accept {
+  color: #001f1c !important;
+  background: #e8f5f3 !important;
+}
+
+/* Placeholders */
+input::placeholder,
+textarea::placeholder {
+  color: #1f3330 !important;
+  opacity: 1 !important;
+}
+
+/* Foco mais forte */
+:focus-visible {
+  outline: 3px solid #00332e !important;
+  outline-offset: 2px !important;
+}
