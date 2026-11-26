@@ -514,27 +514,48 @@ h1, h2, h3, h4, h5, h6,
   color: #0a1f1c !important;
 }
 
-/* Links e navegação (força AAA) */
+/* Links e navegação — força AAA (7:1) */
 a,
+a:link,
+a:visited,
+a:hover,
+a:active,
 .menu-links a,
 .content-nav a,
 .shop-categorias a,
 .nav a,
 .menu-button,
-button {
-  color: #00332e !important;
-}
-
-a:visited {
+button,
+.menu-button span,
+.shop-categorias a span,
+.categoria-link,
+.department-link,
+.nav-link {
   color: #00241f !important;
 }
 
-/* Botões com fundo claro precisam de texto escuro */
+/* Botões específicos que estavam abaixo de 7:1 */
 .cookie-banner button,
 .cookie-reject,
-.cookie-accept {
-  color: #001f1c !important;
-  background: #e8f5f3 !important;
+.cookie-accept,
+.menu-button,
+button[type="button"] {
+  color: #001a17 !important;
+  background-color: #e4f3f1 !important;
+}
+
+/* Botões com fundo escuro mantêm texto branco */
+.header-cta,
+.content-header-cta,
+.whatsapp-fab,
+.unit-store-wa,
+.offer-consult-choose,
+.direct-unit-actions a,
+.modal-unit-action,
+button.primary,
+.cookie-accept.is-primary {
+  color: #ffffff !important;
+  background-color: #004d45 !important;
 }
 
 /* Placeholders */
@@ -546,6 +567,6 @@ textarea::placeholder {
 
 /* Foco mais forte */
 :focus-visible {
-  outline: 3px solid #00332e !important;
+  outline: 3px solid #00241f !important;
   outline-offset: 2px !important;
 }
