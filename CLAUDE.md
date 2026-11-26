@@ -1,6 +1,16 @@
+# União Farma — regras do site
+
+## Ordem de prioridade das regras (cumprimento rigoroso e obrigatório)
+
+Estas regras devem ser **severamente seguidas**. Quando duas entrarem em conflito, vale a de cima, e quem trabalhar no site deve dizer qual regra venceu:
+
+1. **Acessibilidade AAA** — [`ACCESSIBILITY.md`](./ACCESSIBILITY.md). Regra número 1: nunca cede.
+2. **Conversão** — [`CONVERSAO.md`](./CONVERSAO.md), as 23 Leis Definitivas de Conversão.
+3. **Direção artística** — o resto deste arquivo. Vale sempre que não contrariar as duas primeiras.
+
 # União Farma — direção artística
 
-Resumo da taxonomia de design do site. Vale para todas as páginas. Em caso de dúvida, siga estas regras.
+Resumo da taxonomia de design do site. Vale para todas as páginas. Em caso de dúvida, siga estas regras (respeitando a ordem de prioridade acima).
 
 ## Princípios
 
