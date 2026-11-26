@@ -54,9 +54,9 @@
 
 .pv-preco-oferta { display: flex; flex-direction: column; align-items: stretch; gap: 0.2rem; margin-top: auto; padding: 10px 0 0; text-align: left; }
 .pv-preco-antigo-linha { display: flex; align-items: center; justify-content: space-between; gap: 0.35rem; width: 100%; }
-.pv-preco-antigo-texto { color: #263744; font-size: 0.75rem; font-weight: 600; line-height: 1.2; white-space: nowrap; }
-.pv-preco-anterior { color: #687781; font-size: inherit; font-weight: 500; line-height: 1.1; white-space: nowrap; }
-.pv-economia { flex: none; padding: 0.28rem 0.4rem; border-radius: 2px; background: #c62828; color: #ffeb3b; font-size: 0.6875rem; font-weight: 900; line-height: 1; white-space: nowrap; text-transform: uppercase; }
+.pv-preco-antigo-texto { color: #1a2a33; font-size: 0.75rem; font-weight: 600; line-height: 1.2; white-space: nowrap; }
+.pv-preco-anterior { color: #4a5a64; font-size: inherit; font-weight: 500; line-height: 1.1; white-space: nowrap; }
+.pv-economia { flex: none; padding: 0.28rem 0.4rem; border-radius: 2px; background: #b71c1c; color: #ffffff; font-size: 0.6875rem; font-weight: 900; line-height: 1; white-space: nowrap; text-transform: uppercase; }
 @keyframes pv-preco-batimento {
   0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(198, 40, 40, 0)); }
   8% { transform: scale(1.08); filter: drop-shadow(0 2px 5px rgba(198, 40, 40, 0.34)); }
@@ -66,8 +66,8 @@
 }
 .pv-preco--oferta { transform-origin: left center; animation: pv-preco-batimento 1.05s ease-in-out infinite; }
 .pv-preco-atual-linha { display: flex; align-items: center; justify-content: flex-start; gap: 0.4rem; width: 100%; }
-.pv-preco-label { color: #c62828; font-size: 1rem; font-weight: 900; line-height: 1.2; }
-.pv-preco-oferta .pv-preco-vazio { color: #c51e32; }
+.pv-preco-label { color: #b71c1c; font-size: 1rem; font-weight: 900; line-height: 1.2; }
+.pv-preco-oferta .pv-preco-vazio { color: #b71c1c; }
 
 .shop-destaques--ofertas .shop-destaques-topo { align-items: center; }
 .shop-destaques--ofertas .pv-preco-oferta { width: 100%; }
@@ -142,13 +142,13 @@ html body .shop-destaques--ofertas .shop-ofertas-nota { margin-top: 0.25rem; }
   display: grid;
   gap: 0.125rem;
   margin: 0.25rem 0 0.5rem;
-  color: #126b50;
+  color: #0d5c43;
   font-size: 0.8125rem;
   line-height: 1.35;
 }
 .pv-leve-pague strong { font-weight: 700; }
 .pv-preco-opcoes { display: grid; gap: 0.15rem; margin-top: auto; padding-top: 0.5rem; }
-.pv-preco-opcoes small { color: #3e4b49; font-size: 0.75rem; line-height: 1.3; }
+.pv-preco-opcoes small { color: #2c3a38; font-size: 0.75rem; line-height: 1.3; }
 
 /* Vitrine de destaques (computador): cards menores, para caber mais produtos na tela. */
 @media (min-width: 721px) {
