@@ -212,6 +212,28 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         {/* rodapé removido a pedido */}
         <ToastAdicionado />
         <WhatsAppFab />
+        <style>{`
+          html body .cookie-banner button.cookie-reject {
+            color: #001a17 !important;
+            background-color: #f0faf8 !important;
+            border: 2px solid #001a17 !important;
+            -webkit-text-fill-color: #001a17 !important;
+          }
+          html body .cookie-banner button.cookie-accept {
+            color: #ffffff !important;
+            background-color: #001a17 !important;
+            border: 2px solid #001a17 !important;
+            -webkit-text-fill-color: #ffffff !important;
+          }
+          html body .dm-menu {
+            background-color: #042c29 !important;
+          }
+          html body .dm-menu a,
+          html body .dm-menu button.dm-cabeca {
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+          }
+        `}</style>
       </body>
     </html>
   );
