@@ -286,36 +286,87 @@
     grid-template-columns: minmax(0, 1fr) !important;
   }
 }
-/* Polish responsivo extra — telas pequenas e tablets */
 
-@media (max-width: 380px) {
-  .shop-categorias { --cat-tile: 5.25rem; }
-  .shop-destaques-lista li,
-  html body .shop-destaques-lista > .pv-card--v {
-    flex-basis: min(82vw, 260px) !important;
-    width: min(82vw, 260px) !important;
-    min-width: min(82vw, 260px) !important;
+/* =====================================================================
+   Media queries avançadas
+   ===================================================================== */
+
+/* 1. Pointer coarse — alvos maiores em telas de toque reais */
+@media (pointer: coarse) {
+  button,
+  a,
+  .shop-icone,
+  .cm-botao,
+  .fluxo-botao,
+  .painel-seta,
+  .mobile-quick-nav a {
+    min-height: 48px;
+    min-width: 48px;
   }
-  .shop-hero { margin-inline: 0.75rem; padding: 0.875rem; }
-  .shop-passos { padding-inline: 1rem; }
+  .shop-categorias a,
+  .pv-card {
+    min-height: 44px;
+  }
 }
 
-@media (max-width: 480px) {
-  .catalogo-loja .catalogo-grupo > h3 { font-size: 1.05rem; }
-  .fluxo-topo h1 { font-size: 1.25rem !important; }
-  .cm-nome { font-size: 0.9rem; }
+/* 2. Preferência de contraste alto */
+@media (prefers-contrast: more) {
+  :root {
+    --uf-ink: #000000;
+    --uf-muted: #1a1a1a;
+    --uf-action: #005a4f;
+  }
+  .pv-card,
+  .shop-card,
+  .cm-item {
+    border: 2px solid #000000 !important;
+  }
+  .pv-economia,
+  .selo-sem-receita-simples {
+    background: #000000 !important;
+    color: #ffffff !important;
+  }
+  button:focus-visible,
+  a:focus-visible {
+    outline: 4px solid #000000 !important;
+    outline-offset: 3px;
+  }
 }
 
-/* Melhor espaçamento entre seções no mobile */
-@media (max-width: 767px) {
-  .shop-destaques { padding-left: 0.75rem; }
-  .shop-categorias { margin-top: 1rem; }
-  .shop-hero { margin-top: 0.75rem; }
+/* 3. Hover só em dispositivos com ponteiro fino (desktop) */
+@media (hover: hover) and (pointer: fine) {
+  .pv-card:hover,
+  .shop-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(28, 54, 65, 0.12);
+  }
 }
 
-/* Tablet: categorias um pouco maiores */
-@media (min-width: 481px) and (max-width: 767px) {
-  .shop-categorias { --cat-tile: 6.5rem; }
+/* 4. Container query para cards de produto em carrosséis */
+.shop-destaques-lista,
+.painel-faixa {
+  container-type: inline-size;
+  container-name: vitrine;
 }
 
-/* End responsive polish */
+@container vitrine (min-width: 360px) {
+  .pv-card--v .pv-nome {
+    font-size: 0.95rem;
+  }
+}
+
+@container vitrine (max-width: 320px) {
+  .pv-card--v {
+    padding-inline: 0.5rem;
+  }
+}
+
+/* 5. Orientação landscape em telas baixas (já existia parcialmente) */
+@media (max-height: 500px) and (orientation: landscape) {
+  .mobile-quick-nav {
+    padding-bottom: 0.25rem;
+  }
+  .cm-card {
+    max-height: 90vh;
+  }
+}
