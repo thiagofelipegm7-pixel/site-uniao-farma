@@ -1,38 +1,50 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { carregarVistos } from "../vistos-recentemente";
 
-type Visto = { nome: string; slug: string };
+type Produto = { nome: string; slug: string };
 
 export default function VistosRecentemente() {
-  const [itens, setItens] = useState<Visto[]>([]);
+  const [itens, setItens] = useState<Produto[]>([]);
 
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("uf_vistos_v1");
-      if (raw) setItens(JSON.parse(raw).slice(0, 4));
-    } catch {}
+    const slugs = carregarVistos();
+    if (slugs.length === 0) return;
+    // Busca nomes simples do catálogo de busca
+    fetch("/dados/nacoes/catalogo-busca.json")
+      .then((r) => r.json())
+      .then((catalogo: { nome: string; slug: string }[]) => {
+        const mapa = new Map(catalogo.map((p) => [p.slug, p.nome]));
+        const lista = slugs
+          .map((slug) => ({ slug, nome: mapa.get(slug) || slug }))
+          .filter((p) => p.nome)
+          .slice(0, 6);
+        setItens(lista);
+      })
+      .catch(() => {});
   }, []);
 
   if (itens.length === 0) return null;
 
   return (
-    <section style={{ padding: "1rem" }}>
-      <h2 style={{ fontSize: "1.1rem", marginBottom: "0.5rem" }}>Você viu recentemente</h2>
-      <div style={{ display: "flex", gap: "0.5rem", overflowX: "auto" }}>
+    <section style={{ padding: "1rem 1rem 0.5rem" }}>
+      <h2 style={{ fontSize: "1.05rem", margin: "0 0 0.5rem", fontWeight: 700 }}>Você viu recentemente</h2>
+      <div style={{ display: "flex", gap: "0.5rem", overflowX: "auto", paddingBottom: "0.25rem" }}>
         {itens.map((p) => (
           <a
             key={p.slug}
             href={`/nacoes-unidas/produtos/${p.slug}`}
             style={{
               flex: "none",
-              padding: "0.5rem 0.75rem",
+              padding: "0.45rem 0.75rem",
               background: "#f4faf9",
+              border: "1px solid #d3e2df",
               borderRadius: "8px",
-              fontSize: "0.85rem",
+              fontSize: "0.82rem",
               textDecoration: "none",
-              color: "#000",
-              maxWidth: "140px",
+              color: "#1c3641",
+              maxWidth: "150px",
               whiteSpace: "nowrap",
               overflow: "hidden",
               textOverflow: "ellipsis",
