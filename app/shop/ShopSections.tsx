@@ -9,17 +9,15 @@ import { SetasRolagem } from "./SetasRolagem";
 type Categoria = { href: string; rotulo: string; iconeSrc: string };
 
 const CATEGORIAS: readonly Categoria[] = [
-  // Usa termos que existem no catálogo para abrir resultados reais. Para temas sem item relacionado,
-  // mantém a busca pelo próprio tema; a lista oferece contato com o farmacêutico quando não há estoque.
-  { href: "/nacoes-unidas/produtos?q=glicose", rotulo: "Cuidados com diabetes", iconeSrc: "/categorias/diabetes.jpg" },
-  { href: "/nacoes-unidas/produtos?q=pressao", rotulo: "Cuidados com o coração", iconeSrc: "/categorias/coracao.jpg" },
-  { href: "/nacoes-unidas/produtos?q=azia", rotulo: "Cuidados com o estômago", iconeSrc: "/categorias/estomago.jpg" },
-  { href: "/nacoes-unidas/produtos?q=f%C3%ADgado", rotulo: "Cuidados com o fígado", iconeSrc: "/categorias/figado.jpg" },
-  { href: "/nacoes-unidas/produtos?q=calcio", rotulo: "Cuidados com os ossos", iconeSrc: "/categorias/ossos.jpg" },
-  { href: "/nacoes-unidas/produtos?q=rins&exata=1", rotulo: "Cuidados com os rins", iconeSrc: "/categorias/rins.jpg" },
-  { href: "/departamentos/dermocosmeticos", rotulo: "Derma Cuidados", iconeSrc: "/categorias/derma.jpg" },
-  { href: "/nacoes-unidas/produtos?q=nasal", rotulo: "Cuidados Respiratórios", iconeSrc: "/categorias/respiratorios.jpg" },
-  { href: "/nacoes-unidas/produtos?q=colirio", rotulo: "Cuidados com os olhos", iconeSrc: "/categorias/olhos.jpg" },
+  { href: "/nacoes-unidas/produtos?q=glicose", rotulo: "Cuidados com diabetes", iconeSrc: "/categorias/diabetes" },
+  { href: "/nacoes-unidas/produtos?q=pressao", rotulo: "Cuidados com o coração", iconeSrc: "/categorias/coracao" },
+  { href: "/nacoes-unidas/produtos?q=azia", rotulo: "Cuidados com o estômago", iconeSrc: "/categorias/estomago" },
+  { href: "/nacoes-unidas/produtos?q=f%C3%ADgado", rotulo: "Cuidados com o fígado", iconeSrc: "/categorias/figado" },
+  { href: "/nacoes-unidas/produtos?q=calcio", rotulo: "Cuidados com os ossos", iconeSrc: "/categorias/ossos" },
+  { href: "/nacoes-unidas/produtos?q=rins&exata=1", rotulo: "Cuidados com os rins", iconeSrc: "/categorias/rins" },
+  { href: "/departamentos/dermocosmeticos", rotulo: "Derma Cuidados", iconeSrc: "/categorias/derma" },
+  { href: "/nacoes-unidas/produtos?q=nasal", rotulo: "Cuidados Respiratórios", iconeSrc: "/categorias/respiratorios" },
+  { href: "/nacoes-unidas/produtos?q=colirio", rotulo: "Cuidados com os olhos", iconeSrc: "/categorias/olhos" },
 ];
 
 /**
@@ -35,8 +33,10 @@ export function CategoriasLinha() {
           <li key={item.rotulo}>
             <a href={item.href}>
               <span className="shop-cat-icone shop-cat-foto">
-                {/* alt vazio: o rótulo visível abaixo já nomeia a categoria. */}
-                <img src={item.iconeSrc} alt="" width={265} height={477} loading="lazy" decoding="async" draggable={false} />
+                <picture>
+                  <source type="image/webp" srcSet={`${item.iconeSrc}.webp`} />
+                  <img src={`${item.iconeSrc}.jpg`} alt="" width={265} height={477} loading="lazy" decoding="async" draggable={false} />
+                </picture>
               </span>
               <span className="shop-cat-rotulo">{item.rotulo}</span>
             </a>
