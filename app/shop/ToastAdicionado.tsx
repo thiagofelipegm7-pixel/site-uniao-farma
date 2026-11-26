@@ -17,7 +17,7 @@ export default function ToastAdicionado() {
     mostrar = (texto) => {
       const id = Date.now();
       setToasts((t) => [...t, { id, texto }]);
-      setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 2800);
+      setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 3500);
     };
     return () => { mostrar = null; };
   }, []);
@@ -62,11 +62,20 @@ export default function ToastAdicionado() {
               fontSize: "0.9rem",
               fontWeight: 600,
               boxShadow: "0 4px 16px rgba(0,0,0,0.18)",
-              whiteSpace: "nowrap",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.75rem",
+              pointerEvents: "auto",
               animation: "toast-in 0.28s ease",
             }}
           >
-            {t.texto}
+            <span>{t.texto}</span>
+            <a
+              href="/nacoes-unidas/produtos"
+              style={{ color: "#fff", textDecoration: "underline", fontWeight: 700, fontSize: "0.85rem" }}
+            >
+              Continuar
+            </a>
           </div>
         ))}
       </div>
