@@ -27,6 +27,11 @@ export default function EntregarEm({ cabecalho = false }: { cabecalho?: boolean 
   function abrir() {
     setCep("");
     dialogo.current?.showModal();
+    // Foco inicial no campo de CEP para acessibilidade
+    window.setTimeout(() => {
+      const input = dialogo.current?.querySelector("input");
+      input?.focus();
+    }, 50);
   }
   function fechar() {
     dialogo.current?.close();
@@ -42,7 +47,6 @@ export default function EntregarEm({ cabecalho = false }: { cabecalho?: boolean 
   return (
     <>
       {cabecalho ? (
-        // No cabeçalho do desktop: duas linhas, como o "Enviar para" das lojas grandes (rótulo pequeno em cima, o que importa embaixo).
         <button type="button" className="faixa-entrega-botao faixa-entrega-botao--cab" onClick={abrir} aria-haspopup="dialog">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.5" /></svg>
           <span>
@@ -55,7 +59,7 @@ export default function EntregarEm({ cabecalho = false }: { cabecalho?: boolean 
           {bairro && taxa !== null ? <>Entregar em <strong>{bairro}</strong> · {formatarTaxaCentavos(taxa)}</> : <>Entrega a partir de {formatarTaxaCentavos(TAXA_ENTREGA_CENTAVOS)} · <strong>ver no seu CEP</strong></>}
         </button>
       )}
-      <dialog ref={dialogo} className="faixa-entrega-dialogo" aria-labelledby={idTitulo} onClick={(e) => { if (e.target === dialogo.current) fechar(); }}>
+      <dialog ref={dialogo} className="faixa-entrega-dialogo" aria-labelledby={idTitulo} aria-modal="true" onClick={(e) => { if (e.target === dialogo.current) fechar(); }}>
         <div className="faixa-entrega-corpo">
           <div className="faixa-entrega-topo">
             <h2 id={idTitulo}>Onde você quer receber?</h2>
@@ -63,7 +67,7 @@ export default function EntregarEm({ cabecalho = false }: { cabecalho?: boolean 
           </div>
           <label className="faixa-entrega-campo">
             <span>Digite o seu CEP</span>
-            <input type="text" inputMode="numeric" autoComplete="postal-code" placeholder="00000-000" value={cep} onChange={(e) => setCep(formatarCep(e.target.value))} maxLength={9} />
+            <input type="text" inputMode="numeric" autoComplete="postal-code" placeholder="00000-000" value={cep} onChange={(e) => setCep(formatarCep(e.target.value))} maxLength={9} aria-describedby="faixa-entrega-nota" />
           </label>
           <div className="faixa-entrega-resultado" role="status" aria-live="polite">
             {area.status === "incompleto" ? <p>Digite os 8 números do CEP.</p> : null}
@@ -98,7 +102,7 @@ export default function EntregarEm({ cabecalho = false }: { cabecalho?: boolean 
               return <li key={b}><button type="button" onClick={() => escolher(b)} aria-pressed={bairro === b}>{b}{t !== null ? ` · ${formatarTaxaCentavos(t)}` : ""}</button></li>;
             })}
           </ul>
-          <p className="faixa-entrega-nota">Taxa e prazo são confirmados pelo WhatsApp da loja antes de fechar o pedido. Retirar na loja não tem taxa. O CEP não é guardado.</p>
+          <p className="faixa-entrega-nota" id="faixa-entrega-nota">Taxa e prazo são confirmados pelo WhatsApp da loja antes de fechar o pedido. Retirar na loja não tem taxa. O CEP não é guardado.</p>
           {bairro ? <button type="button" className="faixa-entrega-limpar" onClick={() => { esquecerEntregaEscolhida(); setBairro(null); }}>Esquecer o bairro escolhido</button> : null}
         </div>
       </dialog>
