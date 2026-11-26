@@ -5,13 +5,6 @@ import "./dynamic-menu.css";
 
 export type ItemMenu = { nome: string; href: string };
 
-/*
- * Dynamic Menu (adaptado do designbookmark.com/motion): uma pílula com duas linhas no lugar do ícone.
- * Ao abrir, a pílula cresce em painel, as linhas viram um X e os links sobem um a um.
- * As molas são as mesmas da versão original (menu.js): largura 320/26, altura 240/22,
- * X 380/24, cada link 260/22, com o mesmo escalonamento. Sem dependências: um loop de requestAnimationFrame.
- */
-
 type Mola = { x: number; v: number; t: number; k: number; c: number };
 
 const mola = (x: number, k = 400, c = 30): Mola => ({ x, v: 0, t: x, k, c });
@@ -19,7 +12,6 @@ const mola = (x: number, k = 400, c = 30): Mola => ({ x, v: 0, t: x, k, c });
 const reduzirMovimento = () =>
   typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// Com "reduzir movimento", o amortecimento vira crítico (sem sobressalto), como no motion.js.
 const ajustar = (s: Mola, k: number, c: number) => {
   s.k = k;
   s.c = reduzirMovimento() ? 2 * Math.sqrt(k) : c;
@@ -37,7 +29,7 @@ const ALTURA_FECHADA = 52;
 const LARGURA_FECHADA = 200;
 const ALTURA_LINHA = 48;
 
-export default function DynamicMenu({ itens, titulo = "Departamentos", barra = false }: { itens: ItemMenu[]; titulo?: string; /** Na barra de acessos: ocupa só a altura da pílula; o painel abre por cima da página. */ barra?: boolean }) {
+export default function DynamicMenu({ itens, titulo = "Departamentos", barra = false }: { itens: ItemMenu[]; titulo?: string; barra?: boolean }) {
   const menuRef = useRef<HTMLDivElement>(null);
   const cabecaRef = useRef<HTMLButtonElement>(null);
   const linha1 = useRef<HTMLElement>(null);
@@ -65,7 +57,6 @@ export default function DynamicMenu({ itens, titulo = "Departamentos", barra = f
     let ultimo = performance.now();
     let rafId = 0;
 
-    // Largura de abertura: até 320 px, cabendo no pai com 24 px de margem de cada lado.
     const larguraAberta = () => (barra ? 320 : Math.min(320, (menu.parentElement?.clientWidth ?? 320) - 48));
 
     const definir = (o: boolean) => {
@@ -103,10 +94,8 @@ export default function DynamicMenu({ itens, titulo = "Departamentos", barra = f
       }
       menu.style.width = `${W.x.toFixed(2)}px`;
       menu.style.height = `${H.x.toFixed(2)}px`;
-      // raio: pílula fechada (26 px) até o raio do projeto (16 px) aberta
       menu.style.borderRadius = `${(26 - 10 * limitar(X.x, 0, 1)).toFixed(2)}px`;
       const x = limitar(X.x, -0.1, 1.1);
-      // as duas linhas, separadas por 8 px, se encontram no meio e giram 45 graus cada uma
       l1.style.transform = `translateY(${(-4 * (1 - x)).toFixed(2)}px) rotate(${(45 * x).toFixed(2)}deg)`;
       l2.style.transform = `translateY(${(4 * (1 - x)).toFixed(2)}px) rotate(${(-45 * x).toFixed(2)}deg)`;
       lis.forEach((l) => {
@@ -127,8 +116,19 @@ export default function DynamicMenu({ itens, titulo = "Departamentos", barra = f
 
   return (
     <div className={barra ? "dm-slot dm-slot--barra" : "dm-slot"}>
-      <div className="dm-menu" ref={menuRef}>
-        <button ref={cabecaRef} type="button" className="dm-cabeca" aria-expanded={aberto} aria-controls="dm-links">
+      <div
+        className="dm-menu"
+        ref={menuRef}
+        style={{ backgroundColor: "#042c29" }}
+      >
+        <button
+          ref={cabecaRef}
+          type="button"
+          className="dm-cabeca"
+          aria-expanded={aberto}
+          aria-controls="dm-links"
+          style={{ color: "#ffffff" }}
+        >
           <span className="dm-titulo">{titulo}</span>
           <span className="dm-icone" aria-hidden="true">
             <i ref={linha1} />
@@ -138,7 +138,7 @@ export default function DynamicMenu({ itens, titulo = "Departamentos", barra = f
         <ul className="dm-links" id="dm-links" ref={listaRef}>
           {itens.map((item) => (
             <li key={item.href}>
-              <a href={item.href}>{item.nome}</a>
+              <a href={item.href} style={{ color: "#ffffff" }}>{item.nome}</a>
             </li>
           ))}
         </ul>
