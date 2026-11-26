@@ -29,6 +29,7 @@ import {
 import { termoParaRegistro, type MapaCliques } from "../../busca-cliques";
 import { ordenarPorRelevancia } from "./relevancia";
 import { precisaSimilares, similaresEmEstoque } from "./similares";
+import { itensElegiveisParaBuscaVazia, sugestoesParaBuscaVazia, termosDeRemedioDoCatalogo } from "./busca-vazia-sugestoes";
 import {
   assinaturaFiltros,
   atalhosDaBusca,
@@ -408,6 +409,14 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   const estado = estadoDaLista({ completo, total, procurando: buscando && tolerante.procurando, buscando });
   const esperando = estado === "carregando" || estado === "procurando";
 
+  // Lista elegível e nomes de remédio saem do catálogo já em memória (uma vez por atualização), sem D1.
+  const elegiveisBuscaVazia = useMemo(() => itensElegiveisParaBuscaVazia(base), [base]);
+  const termosRemedio = useMemo(() => termosDeRemedioDoCatalogo(base), [base]);
+  const sugestoesVazia = useMemo(() => {
+    if (!buscando || esperando || total > 0 || tolerante.tipo === "sintoma") return [];
+    return sugestoesParaBuscaVazia(consulta, elegiveisBuscaVazia, termosRemedio);
+  }, [buscando, esperando, total, tolerante.tipo, consulta, elegiveisBuscaVazia, termosRemedio]);
+
   // Mede a busca uma vez, só com o resultado final (sem o texto digitado, ver eventoBusca).
   const buscaMedida = useRef<string | null>(null);
   useEffect(() => {
@@ -639,6 +648,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
       {esperando ? (
         <EsqueletoGrade />
       ) : total === 0 ? (
+        <>
         <div className="catalogo-vazio">
           <p>
             {buscando && tolerante.tipo === "sintoma"
@@ -653,6 +663,14 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
             Perguntar à loja pelo WhatsApp
           </a>
         </div>
+        {sugestoesVazia.length > 0 ? (
+          <section className="catalogo-similares catalogo-busca-vazia" aria-labelledby="busca-vazia-titulo">
+            <h2 id="busca-vazia-titulo">Outras opções da loja</h2>
+            <p className="catalogo-similares-nota">Sugestões de higiene, beleza e perfumaria. Isto não é indicação.</p>
+            <ul className="catalogo-lista pv-grade">{sugestoesVazia.map(renderCartao)}</ul>
+          </section>
+        ) : null}
+        </>
       ) : (
         <ul className="catalogo-lista pv-grade" onClick={lembrarClique}>
           {itensDaPagina.map(renderCartao)}
