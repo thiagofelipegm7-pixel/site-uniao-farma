@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useEffect, useRef, useState } from "react";
 import { getUnitOpenStatus } from "../unit-hours";
 import { IconCartao, IconLoja, IconMoto, IconWhats } from "../reserva/ReservaIcons";
@@ -8,7 +7,6 @@ import { formatarCentavos, TAXA_ENTREGA_CENTAVOS } from "../reserva/reserva-stor
 import { buildWhatsAppUrl, PUBLIC_UNITS } from "../site-config";
 import DynamicMenu from "../components/DynamicMenu";
 import EntregarEm from "./EntregarEm";
-import PedirDeNovo from "./PedirDeNovo";
 
 const nacoes = PUBLIC_UNITS.find((unit) => unit.id === "nacoes");
 
@@ -30,7 +28,6 @@ const DEPARTAMENTOS_BARRA = [
 export function SubmenuHome() {
   return (
     <>
-      <PedirDeNovo />
       <nav className="shop-submenu" aria-label="Acessos rápidos">
         <div className="shop-submenu-conteudo">
           <DynamicMenu barra itens={DEPARTAMENTOS_BARRA} />

@@ -1,22 +1,6 @@
 /* Correções de bugs visuais reportados no mobile - Nov 2026 */
 
-/* 1. Pedir de novo / Repetir pedido: garantir layout horizontal e sem texto vertical */
-.pedir-de-novo,
-[class*="pedir"],
-.shop-pedir-de-novo {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  justify-content: space-between !important;
-  writing-mode: horizontal-tb !important;
-  text-orientation: mixed !important;
-  white-space: normal !important;
-  gap: 0.75rem;
-  padding: 0.875rem 1rem;
-  margin: 1rem;
-  background: #e8f7f5;
-  border-radius: 12px;
-}
+/* 1. Pedir de novo: o layout vive em shop.css (.pedir-de-novo), fora da grade do cabeçalho. */
 
 /* 2. Abas/pílulas de Departamentos: separar e evitar texto misturado */
 .depto-abas {
