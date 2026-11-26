@@ -1,5 +1,7 @@
 "use client";
 
+import "./novos-componentes.css";
+
 const kits = [
   { nome: "Kit Resfriado", itens: "dipirona,vitamina c,spray", emoji: "🤧" },
   { nome: "Kit Bebê", itens: "fralda,lenço,pomada", emoji: "👶" },
@@ -9,20 +11,19 @@ const kits = [
 
 export default function SugestaoKit() {
   return (
-    <div style={{ padding: "1rem" }}>
-      <h2 style={{ fontSize: "1.1rem", marginBottom: "0.75rem" }}>Kits prontos</h2>
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.5rem" }}>
+    <section className="uf-card">
+      <h2 className="uf-card-titulo">Kits prontos</h2>
+      <div className="uf-grid-2">
         {kits.map((k) => (
           <a
             key={k.nome}
             href={`/nacoes-unidas/produtos?q=${encodeURIComponent(k.itens)}`}
             style={{
-              padding: "0.75rem",
-              background: "#f9fdfc",
-              border: "1px solid #d3e2df",
+              padding: "0.85rem",
+              background: "var(--color-neutral-100, #f1f3f2)",
               borderRadius: "10px",
               textDecoration: "none",
-              color: "#1c3641",
+              color: "var(--color-ink, #000)",
               textAlign: "center",
             }}
           >
@@ -31,6 +32,6 @@ export default function SugestaoKit() {
           </a>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
