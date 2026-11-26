@@ -558,13 +558,21 @@ button.primary,
   background-color: #004d45 !important;
 }
 
-/* Menu de departamentos (fundo escuro #128078) — texto branco para AAA */
+/* Menu de departamentos (fundo escuro) — força texto branco AAA */
 .dm-menu,
+.dm-menu *,
 .dm-menu a,
-.dm-menu button,
+.dm-menu a:link,
+.dm-menu a:visited,
+.dm-menu a:hover,
+.dm-links,
 .dm-links a,
-.dm-cabeca {
+.dm-links a:link,
+.dm-links a:visited,
+.dm-cabeca,
+.dm-slot .dm-menu a {
   color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
 }
 
 .dm-menu {
