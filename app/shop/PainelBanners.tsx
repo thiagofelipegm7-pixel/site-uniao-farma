@@ -7,8 +7,10 @@ import "./painel-banners.css";
 
 function Arte({ banner }: { banner: BannerPainel }) {
   if (!banner.imagem) return <span className="painel-vazio" role="img" aria-label={banner.alt} />;
+  const webp = banner.imagem.replace(/\.jpe?g$/i, ".webp");
   return (
     <picture>
+      {webp !== banner.imagem ? <source type="image/webp" srcSet={webp} /> : null}
       {banner.imagemCelular ? <source media="(max-width: 767px)" srcSet={banner.imagemCelular} /> : null}
       <img src={banner.imagem} alt={banner.alt} decoding="async" draggable={false} />
     </picture>
