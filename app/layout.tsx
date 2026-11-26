@@ -17,6 +17,7 @@ import "./overrides.css";
 import "./visual-quality.css";
 import "./ux-fixes.css";
 import "./visual-fixes.css";
+import "./mobile-bugs-fix.css";
 import "./marca.css";
 import "./design.css";
 import "./zoom.css";
