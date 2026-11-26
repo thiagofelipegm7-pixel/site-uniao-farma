@@ -12,6 +12,7 @@ import VisualizacaoRapida from "../../reserva/VisualizacaoRapida";
 import type { ApresentacaoPublica } from "../../apresentacao-produto-tipos";
 import type { PromocaoQuantidade } from "../../promocao-quantidade-tipos";
 import { carregarPromocoesQuantidade } from "../../promocao-quantidade-cliente";
+import AviseMe from "../../shop/AviseMe";
 
 type Props = {
   unitId: string;
@@ -43,7 +44,10 @@ export default function ProdutoBarra({ unitId, nome, precoCentavos, foto, max: m
     if (!alvo) return;
     const olho = new IntersectionObserver(([entrada]) => setCartaoVisivel(entrada.isIntersecting), { threshold: 0.2 });
     olho.observe(alvo);
-    return () => olho.disconnect();
+    // Mostra Avise-me se não tem estoque
+  const semEstoque = maxPublicado === 0;
+  
+  return () => olho.disconnect();
   }, [bloco]);
   const [promocao, setPromocao] = useState<PromocaoQuantidade | undefined>();
   useEffect(() => {
@@ -142,6 +146,7 @@ export default function ProdutoBarra({ unitId, nome, precoCentavos, foto, max: m
           Ver cesta
         </button>
       ) : null}
+    {semEstoque ? <AviseMe produto={nome} /> : null}
     </div>
   );
 }
