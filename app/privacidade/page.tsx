@@ -53,6 +53,14 @@ export default function PrivacyPage() {
               apagados em até 90 dias.
             </li>
             <li>
+              Aviso de cesta esquecida, só se você marcar a caixa &quot;Se eu não terminar o pedido, a loja pode me chamar no WhatsApp com o
+              link da cesta&quot; (ela vem desmarcada): guardamos seu nome, seu celular, os itens da cesta (nunca medicamento), o texto que
+              você aceitou e a data. Se o pedido não for fechado em cerca de 2 horas, alguém da equipe pode mandar uma mensagem pelo
+              WhatsApp com o link para retomar a cesta. Medicamento nunca entra. Nada é enviado automaticamente. O conteúdo dessa
+              mensagem não é guardado. Para parar, responda SAIR. Esses dados são apagados em até 7 dias, ou antes se o pedido for
+              fechado ou se a equipe descartar o aviso.
+            </li>
+            <li>
               Aviso de retirada, só se você escolher retirar na loja e informar seu WhatsApp nesse campo (é opcional): usamos o número
               apenas para a equipe avisar que o pedido está pronto. A mensagem é enviada por uma pessoa da equipe, nunca automaticamente.
               O número é apagado quando o pedido é retirado ou cancelado e, de qualquer forma, em até 90 dias.
