@@ -28,8 +28,8 @@ export default function ToastAdicionado() {
     <>
       <style>{`
         @keyframes toast-in {
-          from { opacity: 0; transform: translate(-50%, 12px); }
-          to { opacity: 1; transform: translate(-50%, 0); }
+          from { opacity: 0; transform: translate3d(-50%, 12px, 0); }
+          to { opacity: 1; transform: translate3d(-50%, 0, 0); }
         }
         @media (prefers-reduced-motion: reduce) {
           .toast-adicionado { animation: none !important; }
@@ -41,12 +41,14 @@ export default function ToastAdicionado() {
           position: "fixed",
           bottom: "5.5rem",
           left: "50%",
-          transform: "translateX(-50%)",
+          transform: "translateX(-50%) translateZ(0)",
           zIndex: 9999,
           display: "flex",
           flexDirection: "column",
           gap: "0.5rem",
           pointerEvents: "none",
+          contain: "layout style",
+          willChange: "transform, opacity",
         }}
         role="status"
         aria-live="polite"

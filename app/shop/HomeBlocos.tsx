@@ -28,6 +28,7 @@ const DEPARTAMENTOS_BARRA = [
  */
 export function SubmenuHome() {
   return (
+      <PedirDeNovo />
     <nav className="shop-submenu" aria-label="Acessos rápidos">
       <div className="shop-submenu-conteudo">
         <DynamicMenu barra itens={DEPARTAMENTOS_BARRA} />

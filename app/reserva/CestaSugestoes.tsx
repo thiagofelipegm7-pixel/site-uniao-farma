@@ -75,8 +75,8 @@ export default function CestaSugestoes({ itens, max = 3, variante }: { itens: re
   if (sugestoes.length < 3) return null;
   return (
     <section className={`cesta-sugestoes cesta-sugestoes-${variante}`} aria-labelledby={`cesta-sugestoes-titulo-${variante}`}>
-      <h3 id={`cesta-sugestoes-titulo-${variante}`}>Leve também</h3>
-      <p className="cesta-sugestoes-nota">Sugestões da loja que combinam com a sua cesta.</p>
+      <h3 id={`cesta-sugestoes-titulo-${variante}`} style={{fontSize:"1.1rem",color:"#0e7370"}}>Compre junto</h3>
+      <p className="cesta-sugestoes-nota">Produtos que combinam com o que você já escolheu.</p>
       <ul>
         {sugestoes.map((p) => (
           <li key={p.slug}>
