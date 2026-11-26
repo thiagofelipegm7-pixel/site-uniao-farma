@@ -15,6 +15,7 @@ import { carregarDadosCliente, esquecerDadosCliente, guardarDadosCliente } from 
 import { carregarUltimoPedido, guardarUltimoPedido, repetirPedido, type ItemCatalogo, type ItemUltimoPedido } from "./ultimo-pedido";
 import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, IconWhats, IconCestaArte, IconCaminhaoArte, IconFinalizarArte } from "./ReservaIcons";
 import CestaSugestoes from "./CestaSugestoes";
+import AvaliacoesCesta from "./AvaliacoesCesta";
 import DestaquesSemana from "../shop/DestaquesSemana";
 import { gerarCodigoPedido, trocoValido, ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, nomePedidoItem, precoUnitarioReserva, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens, exigeReceita } from "./reserva-store";
 import { useReserva } from "./useReserva";
@@ -442,6 +443,7 @@ export default function ReservaFluxo() {
               {descontos > 0 ? <p className="fluxo-resumo-desconto"><span>Descontos</span><span>- {formatarCentavos(descontos)}</span></p> : null}
               <p><span>{retirar ? "Retirada na loja" : "Taxa de entrega"}</span><span>{formatarCentavos(taxaEntrega)}</span></p>
               <p className="fluxo-resumo-total"><strong>Total estimado</strong><strong>{totalComTaxa}</strong></p>
+              <AvaliacoesCesta variante="resumo" />
               <button type="button" className="fluxo-botao fluxo-botao-resumo" disabled={marcados === 0} onClick={() => ir(2)}>Continuar: entrega ou retirada</button>
             </section>
           </aside>
@@ -695,6 +697,7 @@ export default function ReservaFluxo() {
               {descontos > 0 ? <p className="fluxo-resumo-desconto"><span>Descontos</span><span>- {formatarCentavos(descontos)}</span></p> : null}
               <p><span>{retirar ? "Retirada na loja" : "Taxa de entrega"}</span><span>{formatarCentavos(taxaEntrega)}</span></p>
               <p className="fluxo-resumo-total"><strong>Total estimado</strong><strong>{totalComTaxa}</strong></p>
+              <AvaliacoesCesta variante="resumo" />
               {enviarWhats("fluxo-botao fluxo-botao-resumo")}
             </section>
           </aside>
