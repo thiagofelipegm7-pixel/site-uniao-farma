@@ -29,6 +29,10 @@ type Props = {
   ate?: number;
   /** Quantos itens (1 a 12). */
   n?: number;
+  /** "conversao": só produtos com pedidos/cliques reais (vitrine "Mais pedidos"); a seção some se houver poucos. */
+  ordem?: "conversao";
+  /** Menos itens que isto e a vitrine não aparece (evita fileira com 1 ou 2 cartões). */
+  minimo?: number;
   /** Link do "Ver tudo". */
   verTodasHref?: string | null;
   verTodas?: boolean;
@@ -45,7 +49,7 @@ type Props = {
  * Busca no navegador em /api/destaques (cache de 5 min) para a home continuar estática e o preço nunca ficar congelado.
  * Só entram produtos com foto (cartão com o espaço da imagem vazio parece site quebrado). Se a busca falhar ou não houver nenhum, a seção some.
  */
-export default function DestaquesSemana({ posicao, titulo = "Destaques da semana", grupo, lab, ate, n = 8, verTodasHref = "/nacoes-unidas/produtos", verTodas = true, source = "destaques_home", slugs, acaoExtra, id = "destaques" }: Props = {}) {
+export default function DestaquesSemana({ posicao, titulo = "Destaques da semana", grupo, lab, ate, ordem, minimo = 1, n = 8, verTodasHref = "/nacoes-unidas/produtos", verTodas = true, source = "destaques_home", slugs, acaoExtra, id = "destaques" }: Props = {}) {
   const [itens, setItens] = useState<Destaque[]>([]);
   const [lista, setLista] = useState<HTMLUListElement | null>(null);
 
@@ -55,22 +59,22 @@ export default function DestaquesSemana({ posicao, titulo = "Destaques da semana
     const pedir = posicao === undefined ? n : Math.min(36, n * 3);
     const consulta = slugs && slugs.length > 0
       ? new URLSearchParams({ slugs: slugs.join(","), fotos: "1" })
-      : new URLSearchParams({ n: String(pedir), fotos: "1", ...(grupo ? { grupo } : {}), ...(lab ? { lab } : {}), ...(ate ? { ate: String(ate) } : {}) });
+      : new URLSearchParams({ n: String(pedir), fotos: "1", ...(grupo ? { grupo } : {}), ...(lab ? { lab } : {}), ...(ate ? { ate: String(ate) } : {}), ...(ordem ? { ordem } : {}) });
     const anterior: Promise<Set<string>> = posicao ? (cadeia[posicao - 1] ?? Promise.resolve(new Set<string>())) : Promise.resolve(new Set<string>());
     const busca = fetch(`/api/destaques?${consulta}`, { headers: { accept: "application/json" } })
       .then((resposta) => (resposta.ok ? resposta.json() : null))
       .catch(() => null) as Promise<{ itens?: Destaque[] } | null>;
     const minha = Promise.all([anterior, busca]).then(([usados, dados]) => {
       const livres = (dados?.itens ?? []).filter((item) => !usados.has(item.slug)).slice(0, n);
-      if (ativo && livres.length) setItens(livres);
-      return new Set([...usados, ...livres.map((item) => item.slug)]);
+      if (ativo && livres.length >= minimo) setItens(livres);
+      return livres.length >= minimo ? new Set([...usados, ...livres.map((item) => item.slug)]) : usados;
     });
     if (posicao !== undefined) cadeia[posicao] = minha;
     return () => {
       ativo = false;
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps -- `slugs` entra pelo texto (chave), para a lista nova não repetir a busca à toa
-  }, [grupo, lab, ate, n, posicao, slugs?.join(",")]);
+  }, [grupo, lab, ate, ordem, minimo, n, posicao, slugs?.join(",")]);
 
   if (itens.length === 0) return null;
 

@@ -5,6 +5,9 @@ import { ehNbcal } from "../../nacoes-unidas/produtos/produto";
 import { descricaoDoProduto } from "../../nacoes-unidas/produtos/descricoes";
 import { escolherAtrativos } from "../../nacoes-unidas/produtos/atrativos";
 import { chaveDeNome } from "../../fotos-painel";
+import { banco } from "../../estoque-fonte";
+import { carregarSinais, ordenarPorConversao, SINAIS_VAZIOS } from "../../nacoes-unidas/produtos/mais-pedidos";
+import { elegivelParaPares } from "../../nacoes-unidas/produtos/relacionados";
 import mudancasJson from "../../nacoes-unidas/produtos/dados/mudancas-recentes.json" with { type: "json" };
 
 export const dynamic = "force-dynamic";
@@ -28,6 +31,8 @@ function nomesNovosRecentes(agora = Date.now()): Set<string> {
  * pequena variação diária); `?ordem=catalogo` mantém a ordem antiga do catálogo.
  * `?slugs=a,b,c` (até 10) devolve esses produtos na ordem pedida, só os que ainda estão no catálogo, têm foto e NÃO são remédio
  * ("Visto recentemente" da home: preço e disponibilidade do dia; sem cache, porque a lista é da pessoa).
+ * `?ordem=conversao` ("Mais pedidos"): só produtos com sinal real de compra (pedidos enviados e aberturas depois da busca), em estoque, com
+ * foto e que podem ser sugeridos (nunca remédio); sem sinal suficiente devolve lista vazia e a vitrine some.
  * Preço sempre do dia (cache de 5 min).
  */
 export async function GET(request: Request) {
@@ -69,11 +74,20 @@ export async function GET(request: Request) {
         foto: fotoDoProduto(item.nome),
         ...(typeof item.restam === "number" && item.restam > 0 ? { restam: item.restam } : {}),
         isMIP: item.isMIP,
+        categoria: item.categoria,
+        esgotado: item.esgotado === true,
         novo: novos.has(chaveDeNome(item.nome)),
         descricaoReal: descricao !== null && descricao.origem !== "modelo",
       };
     })
     .filter((item) => !soComFoto || item.foto !== null);
+  if (params.get("ordem") === "conversao") {
+    const db = banco();
+    const sinais = db ? await carregarSinais(db, dia) : SINAIS_VAZIOS;
+    const vendaveis = filtrados.filter((item) => item.foto !== null && !item.esgotado && elegivelParaPares({ nome: item.nomeOriginal, categoria: item.categoria, isMIP: item.isMIP }));
+    const top = ordenarPorConversao(vendaveis, sinais, n).map(({ nome, slug, lab: marca, precoCentavos, foto }) => ({ nome, slug, lab: marca, precoCentavos, foto }));
+    return Response.json({ itens: top }, { headers: { "cache-control": "public, max-age=300" } });
+  }
   const ordenados = params.get("ordem") === "catalogo"
     ? [...filtrados].sort((a, b) => Number(b.foto !== null) - Number(a.foto !== null)).slice(0, n)
     : escolherAtrativos(filtrados, n, dia, grupo === "medicamentos");
