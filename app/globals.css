@@ -4358,7 +4358,7 @@ h3 {
   .cookie-banner strong { font-size: 13px; }
   .cookie-banner p { margin-top: 2px; font-size: 12px; line-height: 1.25; }
   .cookie-actions { display: flex; flex-direction: row; }
-  .cookie-actions button { width: auto; min-height: 40px; padding: 7px 14px; }
+  .cookie-actions button { width: auto; min-height: 44px; padding: 7px 14px; }
 }
 
 /* Final requested refinements. */
@@ -4655,7 +4655,7 @@ h3 {
   }
 
   .cookie-actions button {
-    min-height: 42px;
+    min-height: 44px;
     padding: 7px 10px;
   }
 
