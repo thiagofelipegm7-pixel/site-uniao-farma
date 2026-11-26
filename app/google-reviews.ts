@@ -10,7 +10,8 @@ export type UnitGoogleProfile = {
 };
 
 /**
- * Notas e quantidades das 3 lojas no Google, confirmadas pelo respons\u00e1vel em 02/11/2026.
+ * Notas e quantidades das 3 lojas no Google, confirmadas pelo respons\u00e1vel em 02/11/2026
+ * e conferidas de novo no perfil p\u00fablico em 25/11/2026 (Na\u00e7\u00f5es Unidas passou de 30 para 31 avalia\u00e7\u00f5es).
  * Atualize aqui quando o perfil mudar; a home mostra exatamente estes valores.
  */
 export const UNIT_GOOGLE_PROFILES: UnitGoogleProfile[] = [
@@ -27,7 +28,7 @@ export const UNIT_GOOGLE_PROFILES: UnitGoogleProfile[] = [
     label: "Na\u00e7\u00f5es Unidas",
     mapsUrl: GOOGLE_REVIEWS_URL,
     rating: 4.8,
-    reviewCount: 30,
+    reviewCount: 31,
     sourceNote: "Nota do perfil de Na\u00e7\u00f5es Unidas no Google",
   },
   {
