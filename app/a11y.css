@@ -444,3 +444,26 @@
     z-index: 10;
   }
 }
+
+/* Finalizar fixo reforçado */
+@media (max-width: 767px) {
+  .fluxo-resumo,
+  .cm-rodape,
+  .fluxo-botao-principal {
+    position: sticky;
+    bottom: 0;
+    z-index: 20;
+    background: #fff;
+    box-shadow: 0 -6px 16px rgba(0,0,0,0.1);
+  }
+}
+
+/* Você quis dizer mais forte */
+.busca-voce-quis-dizer,
+.shop-sugestoes .voce-quis {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  font-weight: 600;
+}
