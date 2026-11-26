@@ -3455,4 +3455,70 @@ html body .shop-header .shop-acoes .shop-receita:focus-visible {
     font-size: 0.75rem !important;
   }
 }
+
+/* Home: aviso "Você deixou itens na cesta" como cartão branco com sombra e botão preto (sem verde, sem contorno, com margem). */
+html body .cesta-retomada.cesta-retomada {
+  box-sizing: border-box !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px 12px !important;
+  width: calc(100% - 1.5rem) !important;
+  max-width: 85.375rem !important;
+  margin: 16px auto 0 !important;
+  padding: 12px 12px 12px 18px !important;
+  border: 0 !important;
+  border-radius: 22px !important;
+  background: #ffffff !important;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.13), 0 2px 6px rgba(0, 0, 0, 0.07) !important;
+}
+html body .cesta-retomada.cesta-retomada p {
+  flex: 1 1 11rem !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  font-size: 0.875rem !important;
+  line-height: 1.35 !important;
+}
+html body .cesta-retomada.cesta-retomada p,
+html body .cesta-retomada.cesta-retomada p * {
+  color: #000000 !important;
+}
+html body .cesta-retomada.cesta-retomada strong {
+  font-weight: 500 !important;
+}
+html body .cesta-retomada.cesta-retomada .cesta-retomada-botao {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 auto !important;
+  min-height: 44px !important;
+  padding: 0 22px !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #000000 !important;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22) !important;
+  color: #ffffff !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+}
+@media (max-width: 520px) {
+  html body .cesta-retomada.cesta-retomada {
+    padding: 14px !important;
+  }
+  html body .cesta-retomada.cesta-retomada p {
+    flex-basis: 100% !important;
+    padding: 0 4px !important;
+  }
+  html body .cesta-retomada.cesta-retomada .cesta-retomada-botao {
+    flex: 1 1 100% !important;
+  }
+}
+@media (min-width: 768px) {
+  html body .cesta-retomada.cesta-retomada {
+    width: calc(100% - 2rem) !important;
+  }
+}
 }
