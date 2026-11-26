@@ -29,6 +29,7 @@ export default function ReservaSacola() {
     if (vivo) atualizarReserva((s) => ajustarLimitesAoVivo(s, vivo));
   }, [vivo]);
   const [aberta, setAberta] = useState(false);
+  const [fechando, setFechando] = useState(false);
   const [confirmando, setConfirmando] = useState(false);
   const fecharRef = useRef<HTMLButtonElement>(null);
   const gatilhoRef = useRef<HTMLButtonElement>(null);
@@ -115,8 +116,12 @@ export default function ReservaSacola() {
   }, [aberta]);
 
   const fechar = () => {
-    setAberta(false);
-    setConfirmando(false);
+    setFechando(true);
+    setTimeout(() => {
+      setAberta(false);
+      setFechando(false);
+      setConfirmando(false);
+    }, 280);
   };
 
   // Celular: arrastar a folha para baixo fecha a cesta (pela alça/cabeçalho, ou pela lista quando está no topo).
@@ -137,7 +142,7 @@ export default function ReservaSacola() {
   const gaveta = (
     <div className="reserva-gaveta-raiz cm-raiz" role="dialog" aria-modal="true" aria-labelledby="reserva-gaveta-titulo" data-clarity-mask="true">
       <button ref={fundoRef} type="button" className="reserva-gaveta-fundo cm-fundo" aria-label="Fechar a cesta" tabIndex={-1} onClick={fechar} />
-      <div className="cm-card" ref={painelRef}>
+      <div className={`cm-card${fechando ? " is-fechando" : ""}`} ref={painelRef}>
         <button ref={puxadorRef} type="button" className="cm-puxador" aria-label="Fechar cesta" onClick={fechar}>
           <span className="cm-puxador-barra" aria-hidden="true" />
         </button>
