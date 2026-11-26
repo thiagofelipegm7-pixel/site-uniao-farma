@@ -6,6 +6,7 @@ import {
   respostaLimitePreVenda,
   type BancoLimite,
 } from "../../limite-visitante";
+import { marcarCestaConvertida } from "../../cesta-esquecida";
 import { gravarConsentimento, validarLembrete } from "../../recompra";
 import { garantirColunasRetirada, telefoneDoAviso } from "../../retirada";
 
@@ -111,6 +112,8 @@ export async function POST(request: Request) {
       const gravada = await (db as unknown as BancoCompleto).prepare("SELECT id FROM pre_venda WHERE request_id = ?").bind(requestId).first<{ id: string }>();
       if (gravada?.id) await gravarConsentimento(db as unknown as BancoCompleto, gravada.id, lembrete, new Date(agora));
     }
+    // Pedido fechado: a cesta esquecida desta visita (ou do mesmo celular) sai da lista da equipe.
+    await marcarCestaConvertida(db as unknown as BancoCompleto, { requestId, telefone: lembrete?.telefone ?? avisoTelefone }, new Date(agora));
   } catch {
     return Response.json({ ok: false, erro: "falha_ao_gravar" }, { status: 503, headers: SEM_CACHE });
   }

@@ -4,22 +4,24 @@ import { useEffect, useState } from "react";
 import PreVendasPainel from "./PreVendasPainel";
 import PainelPedidos from "./PainelPedidos";
 import PainelRecompra from "./PainelRecompra";
+import PainelCestasEsquecidas from "./PainelCestasEsquecidas";
 import "./vendas-direcao.css";
 
-type Aba = "pre-vendas" | "pedidos" | "recompra";
+type Aba = "pre-vendas" | "pedidos" | "recompra" | "cestas";
 
 const ABAS: { id: Aba; rotulo: string }[] = [
   { id: "pre-vendas", rotulo: "Pré-vendas" },
   { id: "pedidos", rotulo: "Pedidos" },
   { id: "recompra", rotulo: "Recompra" },
+  { id: "cestas", rotulo: "Cestas esquecidas" },
 ];
 
 function abaDaUrl(): Aba {
   const a = new URLSearchParams(window.location.search).get("aba");
-  return a === "pedidos" || a === "recompra" ? a : "pre-vendas";
+  return a === "pedidos" || a === "recompra" || a === "cestas" ? a : "pre-vendas";
 }
 
-/** Tudo de venda numa página só: pré-vendas, pedidos do site e lembretes de recompra. A aba fica na URL (?aba=pedidos ou ?aba=recompra). */
+/** Tudo de venda numa página só: pré-vendas, pedidos, recompra e cestas esquecidas. A aba fica na URL (?aba=pedidos, ?aba=recompra ou ?aba=cestas). */
 export default function VendasAbas() {
   const [aba, setAba] = useState<Aba>("pre-vendas");
 
@@ -60,7 +62,7 @@ export default function VendasAbas() {
         </div>
       </header>
       <div role="tabpanel" id={`painel-${aba}`} aria-labelledby={`aba-${aba}`}>
-        {aba === "pre-vendas" ? <PreVendasPainel nivel={2} /> : aba === "pedidos" ? <PainelPedidos nivel={2} /> : <PainelRecompra nivel={2} />}
+        {aba === "pre-vendas" ? <PreVendasPainel nivel={2} /> : aba === "pedidos" ? <PainelPedidos nivel={2} /> : aba === "recompra" ? <PainelRecompra nivel={2} /> : <PainelCestasEsquecidas nivel={2} />}
       </div>
     </div>
   );

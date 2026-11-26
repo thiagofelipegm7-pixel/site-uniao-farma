@@ -17,12 +17,14 @@ import { IconLixeira, IconMais, IconMenos, IconSacola, IconLoja, IconVoltar, Ico
 import CestaSugestoes from "./CestaSugestoes";
 import AvaliacoesCesta from "./AvaliacoesCesta";
 import DestaquesSemana from "../shop/DestaquesSemana";
-import { gerarCodigoPedido, trocoValido, ajustarLimitesAoVivo, atualizarReserva, definirQtd, tetoDoItem, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, nomePedidoItem, precoUnitarioReserva, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens, exigeReceita } from "./reserva-store";
+import { gerarCodigoPedido, trocoValido, ajustarLimitesAoVivo, atualizarReserva, adicionar, definirQtd, tetoDoItem, definirSelecao, descontoCentavos, FORMAS_PAGAMENTO, itemAtivo, selecionarTodos, formatarCentavos, limpar, nomePedidoItem, precoUnitarioReserva, subtotalDeTabelaCentavos, taxaDoBairro, TAXA_ENTREGA_CENTAVOS, mensagemReserva, subtotalCentavos, totalItens, exigeReceita } from "./reserva-store";
 import { useReserva } from "./useReserva";
 import { useDisponibilidade } from "./useDisponibilidade";
 import { avisosDaCesta } from "../disponibilidade";
 import { podeCompartilhar, prepararReceita, type ReceitaPronta } from "./preparar-receita";
 import { normalizarTelefone, TEXTO_CONSENTIMENTO } from "./lembrete-recompra";
+import { TEXTO_CONSENTIMENTO_CESTA } from "../cesta-esquecida";
+import { buscarCestaParaRetomar, enviarCestaEsquecida } from "./salvar-cesta-esquecida";
 import { AJUDA_AVISO_RETIRADA, TEXTO_AVISO_RETIRADA } from "../retirada";
 import { faixaAplicavel, proximaFaixa } from "../promocao-quantidade-tipos";
 import { eanDaFoto } from "../nacoes-unidas/produtos/imagens";
@@ -77,6 +79,7 @@ export default function ReservaFluxo() {
   const preVendaRequestId = useRef("");
   // Lembrete de recompra: caixa DESMARCADA por padrão (LGPD: consentimento explícito). Só marcada o nome e o celular vão ao servidor.
   const [querLembrete, setQuerLembrete] = useState(false);
+  const [querAvisoCesta, setQuerAvisoCesta] = useState(false);
   const [celularLembrete, setCelularLembrete] = useState("");
   // Retirada: WhatsApp opcional só para o aviso de "pedido pronto" (vazio = a equipe responde na conversa do pedido).
   const [celularAviso, setCelularAviso] = useState("");
@@ -130,7 +133,38 @@ export default function ReservaFluxo() {
     /* eslint-enable react-hooks/set-state-in-effect */
   }, []);
 
+  const retomando = useRef(false);
+  useEffect(() => {
+    if (typeof window === "undefined" || retomando.current) return;
+    const id = new URLSearchParams(window.location.search).get("cesta");
+    if (!id || !/^[0-9a-f-]{36}$/i.test(id)) return;
+    retomando.current = true;
+    void buscarCestaParaRetomar(id).then((itens) => {
+      if (!itens?.length) return;
+      atualizarReserva((s) => {
+        let proximo = s;
+        for (const item of itens) {
+          proximo = adicionar(proximo, {
+            unitId: item.unitId ?? "nacoes",
+            nome: item.nome,
+            precoCentavos: item.precoCentavos,
+            foto: item.foto,
+            slug: item.slug,
+            variante: item.variante,
+          }, item.quantidade);
+        }
+        return proximo;
+      });
+      const url = new URL(window.location.href);
+      url.searchParams.delete("cesta");
+      window.history.replaceState(null, "", url);
+    }).catch(() => {
+      retomando.current = false;
+    });
+  }, []);
+
   // Entrega liberada mesmo com receita/controlado (dono autorizou).
+
   const modo = estado.modo;
   const retirar = modo === "retirar";
   const unidadeEntrega = bairro ? lojaDoBairro(PUBLIC_UNITS, bairro) : null;
@@ -153,7 +187,34 @@ export default function ReservaFluxo() {
 
   const nomeOk = nome.trim().length >= 2;
   const celularOk = normalizarTelefone(celularLembrete) !== null;
-  const lembretePendente = querLembrete && !celularOk;
+  const lembretePendente = (querLembrete || querAvisoCesta) && !celularOk;
+
+  useEffect(() => {
+    if (passo !== 3 || enviado || !querAvisoCesta || !celularOk || nome.trim().length < 2) return;
+    if (estado.itens.filter(itemAtivo).some((i) => i.receita)) return;
+    if (!preVendaRequestId.current) preVendaRequestId.current = window.crypto.randomUUID();
+    const corpo = JSON.stringify({
+      requestId: preVendaRequestId.current,
+      consentimento: { consentimento: true, nome: nome.trim(), telefone: celularLembrete },
+      itens: estado.itens.filter(itemAtivo).map((item) => ({
+        nome: nomePedidoItem(item),
+        quantidade: item.qtd,
+        precoCentavos: precoUnitarioReserva(item),
+        foto: item.foto ?? null,
+        slug: item.slug,
+        unitId: item.unitId,
+        variante: item.variante,
+      })),
+    });
+    const timer = window.setTimeout(() => enviarCestaEsquecida(corpo), 2000);
+    const aoSair = () => enviarCestaEsquecida(corpo);
+    window.addEventListener("pagehide", aoSair);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("pagehide", aoSair);
+    };
+  }, [passo, enviado, querAvisoCesta, celularOk, celularLembrete, nome, estado.itens]);
+
   const avisoOk = normalizarTelefone(celularAviso) !== null;
   const avisoInvalido = retirar && celularAviso.trim() !== "" && !avisoOk;
   const valido = retirar ? nomeOk : nomeOk && rua.trim().length >= 3 && unidadeEntrega !== null;
@@ -314,7 +375,7 @@ export default function ReservaFluxo() {
   ) : pagamento && trocoPendente ? (
     <button type="button" className={classe} disabled><IconWhats size={24} /> Informe o troco</button>
   ) : pagamento && lembretePendente ? (
-    <button type="button" className={classe} disabled><IconWhats size={24} /> Informe o celular do lembrete</button>
+    <button type="button" className={classe} disabled><IconWhats size={24} /> Informe o WhatsApp</button>
   ) : pagamento ? (
     temControlado ? (
       <button type="button" className={classe} onClick={() => setAvisoReceita(true)}>
@@ -654,7 +715,11 @@ export default function ReservaFluxo() {
                     <input type="checkbox" checked={querLembrete} onChange={(e) => setQuerLembrete(e.target.checked)} />
                     <span>{TEXTO_CONSENTIMENTO}</span>
                   </label>
-                  {querLembrete ? (
+                  <label className="fluxo-lembrete-caixa">
+                    <input type="checkbox" checked={querAvisoCesta} onChange={(e) => setQuerAvisoCesta(e.target.checked)} />
+                    <span>{TEXTO_CONSENTIMENTO_CESTA}</span>
+                  </label>
+                  {querLembrete || querAvisoCesta ? (
                     <label className="fluxo-campo fluxo-lembrete-celular">
                       <span>Seu WhatsApp com DDD</span>
                       <input
@@ -668,7 +733,7 @@ export default function ReservaFluxo() {
                         aria-describedby="lembrete-ajuda"
                         onChange={(e) => setCelularLembrete(e.target.value)}
                       />
-                      <small id="lembrete-ajuda">Só para o lembrete. Não mandamos propaganda. Para parar, é só responder SAIR. Seu nome e celular ficam guardados no máximo 90 dias (veja a <a href="/privacidade">privacidade</a>).</small>
+                      <small id="lembrete-ajuda">Só com a caixa marcada. A equipe envia a mensagem, nada sai sozinho. Para parar, responda SAIR. O aviso da cesta some em 7 dias; o lembrete de repor, em 90 (veja a <a href="/privacidade">privacidade</a>).</small>
                     </label>
                   ) : null}
                 </div>

@@ -2145,6 +2145,7 @@ html body .shop-busca input { order: 1; }
 /* Lembrete de recompra no checkout: caixa desmarcada por padrão; o celular só aparece depois de marcar. */
 .fluxo-lembrete { margin: 1rem 0 0; padding: 0.875rem 0 0; border-top: 1px solid #dbe7e4; }
 .fluxo-lembrete-caixa { display: flex; align-items: flex-start; gap: 0.625rem; color: var(--uf-ink); font-size: 0.9375rem; line-height: 1.4; cursor: pointer; }
+.fluxo-lembrete-caixa + .fluxo-lembrete-caixa { margin-top: 0.7rem; }
 .fluxo-lembrete-caixa input { flex: none; width: 1.5rem; height: 1.5rem; margin: 0; accent-color: #000000; cursor: pointer; }
 .fluxo-lembrete-celular { margin: 0.75rem 0 0; }
 .fluxo-lembrete-celular small { color: #4f5f5c; font-size: 0.8125rem; line-height: 1.4; }
