@@ -9,6 +9,7 @@
 import type { Banco } from "../../nomes-corrigidos";
 
 export const DIAS_JANELA = 60;
+export const DIAS_JANELA_SEMANA = 7;
 export const MIN_ITENS = 4;
 const PESO_PEDIDO = 30;
 const PESO_CLIQUE = 2;
@@ -97,4 +98,49 @@ export async function carregarSinais(db: Banco, hoje: string): Promise<SinaisDeC
     /* sem cliques */
   }
   return { pedidosPorNome, cliquesPorSlug };
+}
+
+/** Faixa da home: só entra o que não é medicamento (MIP, controlado, antimicrobiano ou nome com cara de remédio) e está em estoque. */
+export function elegivelMaisPedidosSemana(item: { nome: string; nomeOriginal?: string; categoria?: string; isMIP?: boolean; esgotado?: boolean }): boolean {
+  if (item.esgotado === true || item.isMIP === true) return false;
+  if (item.categoria === "Medicamentos") return false;
+  if (pareceMedicamento(item.nome)) return false;
+  if (item.nomeOriginal && pareceMedicamento(item.nomeOriginal)) return false;
+  return true;
+}
+
+/** Ordena só pelos pedidos reais (sem clique). Quem não teve pedido nos últimos 7 dias fica de fora. */
+export function ordenarPorPedidosDaSemana<T extends Candidato>(itens: readonly T[], pedidosPorNome: ReadonlyMap<string, number>, n: number): T[] {
+  const pontuados = itens
+    .map((item) => {
+      const pedidos = Math.max(pedidosPorNome.get(chaveDoPedido(item.nome)) ?? 0, pedidosPorNome.get(chaveDoPedido(item.nomeOriginal)) ?? 0);
+      return { item, pedidos };
+    })
+    .filter((x) => x.pedidos > 0);
+  pontuados.sort((a, b) => b.pedidos - a.pedidos || a.item.nome.localeCompare(b.item.nome, "pt-BR"));
+  return pontuados.slice(0, Math.max(0, n)).map((x) => x.item);
+}
+
+/** A faixa some se não houver o mínimo de itens reais. */
+export function faixaSeSuficiente<T>(itens: readonly T[], minimo = MIN_ITENS): T[] {
+  return itens.length >= minimo ? [...itens] : [];
+}
+
+/** Pedidos enviados nos últimos 7 dias, só o nome do item (sem dado de cliente). Qualquer falha vira mapa vazio. */
+export async function carregarPedidosDaSemana(db: Banco, hoje: string): Promise<ReadonlyMap<string, number>> {
+  const pedidosPorNome = new Map<string, number>();
+  try {
+    const { results } = await db
+      .prepare("SELECT json_extract(j.value, '$.nome') AS nome, COUNT(*) AS n FROM pre_venda p, json_each(p.itens_json) j WHERE p.criado_em >= date(?, ?) GROUP BY nome LIMIT 800")
+      .bind(hoje, `-${DIAS_JANELA_SEMANA} day`)
+      .all<{ nome: string | null; n: number }>();
+    for (const linha of results) {
+      if (typeof linha.nome !== "string" || !(linha.n > 0)) continue;
+      const chave = chaveDoPedido(linha.nome);
+      pedidosPorNome.set(chave, (pedidosPorNome.get(chave) ?? 0) + linha.n);
+    }
+  } catch {
+    /* tabela ainda não existe ou banco fora do ar: a faixa some */
+  }
+  return pedidosPorNome;
 }

@@ -23,6 +23,7 @@ import GaleriaProduto from "../GaleriaProduto";
 import ProdutoBarra from "../ProdutoBarra";
 import { nomeDeExibicao } from "../../../nome-exibicao";
 import CombinaCom, { itensCombinaCom, itensDaMarca, itensDestaque, itensRelacionados } from "../CombinaCom";
+import CompletaKit, { itensCompletaKit } from "../CompletaKit";
 import { descricaoPublica } from "../descricoes";
 import { conteudoDoNome, ehNbcal, descricaoMetadata, FAQ_PRODUTO, jsonLdProduto, NOTA_PRECO, textosPublicaveis } from "../produto";
 import { ehMedicamentoOuDuvida, elegivelGoogle, gtinValido } from "../google-shopping";
@@ -100,6 +101,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
   const textos = textosPublicaveis({ descricao: descricaoIA?.texto });
   const itensNacoes = carregarCatalogoNacoes().itens;
   const combinaCom = itensCombinaCom(itensNacoes, item);
+  const completaKit = itensCompletaKit(itensNacoes, item);
   const relacionados = itensRelacionados(itensNacoes, item, new Set(combinaCom.map((c) => slugify(c.nome))));
   const daMarca = itensDaMarca(itensNacoes, item, new Set([...combinaCom, ...relacionados].map((c) => slugify(c.nome))));
   // Dois carrosséis de destaques por critério objetivo (preço e categoria), sem repetir produtos de outras listas da página.
@@ -172,6 +174,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
               </p>
             )}
             {item.esgotado || controlado ? null : <ProdutoBarra bloco unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} max={item.restam} slug={slugify(item.nome)} apresentacoes={apresentacoes} />}
+            {item.esgotado || controlado ? null : <CompletaKit itens={completaKit} />}
           </aside>
           </div>
           {item.esgotado || controlado ? null : <ProdutoBarra unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} max={item.restam} slug={slugify(item.nome)} apresentacoes={apresentacoes} />}

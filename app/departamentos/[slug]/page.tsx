@@ -5,6 +5,7 @@ import { ContentSiteFooter } from "../../ContentSiteChrome";
 import { IconSetaDireita } from "../../reserva/ReservaIcons";
 import BarraReserva from "../../shop/BarraReserva";
 import { MarcasLinha } from "../../shop/MarcasLinha";
+import LinhasConfianca from "../../shop/LinhasConfianca";
 import { MARCAS_POR_DEPARTAMENTO } from "../../shop/marcas";
 import PainelBanners from "../../shop/PainelBanners";
 import ShopTopo from "../../shop/ShopTopo";
@@ -86,6 +87,7 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
           <span>{dep.nome}</span>
         </nav>
         <h1 className="catalogo-titulo section-inner">{dep.nome}</h1>
+        <LinhasConfianca variante="faixa" />
         {MARCAS_POR_DEPARTAMENTO[dep.slug]?.length === 0 ? null : (
           <div className="section-inner marcas-pagina">
             <MarcasLinha marcas={MARCAS_POR_DEPARTAMENTO[dep.slug]} />

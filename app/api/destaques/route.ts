@@ -6,7 +6,7 @@ import { descricaoDoProduto } from "../../nacoes-unidas/produtos/descricoes";
 import { escolherAtrativos } from "../../nacoes-unidas/produtos/atrativos";
 import { chaveDeNome } from "../../fotos-painel";
 import { banco } from "../../estoque-fonte";
-import { carregarSinais, ordenarPorConversao, pareceMedicamento, SINAIS_VAZIOS } from "../../nacoes-unidas/produtos/mais-pedidos";
+import { carregarPedidosDaSemana, carregarSinais, elegivelMaisPedidosSemana, faixaSeSuficiente, ordenarPorConversao, ordenarPorPedidosDaSemana, pareceMedicamento, SINAIS_VAZIOS } from "../../nacoes-unidas/produtos/mais-pedidos";
 import { elegivelParaPares } from "../../nacoes-unidas/produtos/relacionados";
 import mudancasJson from "../../nacoes-unidas/produtos/dados/mudancas-recentes.json" with { type: "json" };
 
@@ -33,6 +33,8 @@ function nomesNovosRecentes(agora = Date.now()): Set<string> {
  * ("Visto recentemente" da home: preço e disponibilidade do dia; sem cache, porque a lista é da pessoa).
  * `?ordem=conversao` ("Mais pedidos"): só produtos com sinal real de compra (pedidos enviados e aberturas depois da busca), em estoque, com
  * foto e que podem ser sugeridos (nunca remédio); sem sinal suficiente devolve lista vazia e a vitrine some.
+ * `?ordem=pedidos-semana`: chips da home, só pedidos reais dos últimos 7 dias (sem clique), em estoque, com foto e sem medicamento;
+ * menos de 4 itens devolve lista vazia.
  * Preço sempre do dia (cache de 5 min).
  */
 export async function GET(request: Request) {
@@ -86,6 +88,13 @@ export async function GET(request: Request) {
     const sinais = db ? await carregarSinais(db, dia) : SINAIS_VAZIOS;
     const vendaveis = filtrados.filter((item) => item.foto !== null && !item.esgotado && !pareceMedicamento(item.nomeOriginal) && elegivelParaPares({ nome: item.nomeOriginal, categoria: item.categoria, isMIP: item.isMIP }));
     const top = ordenarPorConversao(vendaveis, sinais, n).map(({ nome, slug, lab: marca, precoCentavos, foto }) => ({ nome, slug, lab: marca, precoCentavos, foto }));
+    return Response.json({ itens: top }, { headers: { "cache-control": "public, max-age=300" } });
+  }
+  if (params.get("ordem") === "pedidos-semana") {
+    const db = banco();
+    const pedidos = db ? await carregarPedidosDaSemana(db, dia) : new Map<string, number>();
+    const vendaveis = filtrados.filter((item) => item.foto !== null && elegivelMaisPedidosSemana({ nome: item.nome, nomeOriginal: item.nomeOriginal, categoria: item.categoria, isMIP: item.isMIP, esgotado: item.esgotado }));
+    const top = faixaSeSuficiente(ordenarPorPedidosDaSemana(vendaveis, pedidos, n)).map(({ nome, slug, lab: marca, precoCentavos, foto }) => ({ nome, slug, lab: marca, precoCentavos, foto }));
     return Response.json({ itens: top }, { headers: { "cache-control": "public, max-age=300" } });
   }
   const ordenados = params.get("ordem") === "catalogo"

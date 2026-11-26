@@ -2355,3 +2355,211 @@ html body .cesta-passos li span > img { display: block; width: 2.125rem; height:
 .fluxo-pix-titulo { font-size: 0.8125rem; font-weight: 600; color: #57535f; }
 .fluxo-pix-cp { height: 40px; min-height: 40px; max-width: none; border-radius: 12px; font-size: 13.5px; }
 .fluxo-pix-aviso { font-size: 0.75rem; }
+
+
+/* --- Conversão lote 2: chips da semana, ticks da cesta, abas do menu, faixa do catálogo, complete o kit --- */
+.mais-pedidos-chips {
+  box-sizing: border-box;
+  max-width: 82rem;
+  margin: 0 auto;
+  padding: 0.75rem 1.25rem 0.25rem;
+}
+.mais-pedidos-chips h2 {
+  margin: 0 0 0.5rem;
+  color: var(--uf-ink);
+  font-size: 0.9375rem;
+  font-weight: 800;
+}
+.mais-pedidos-chips-lista {
+  display: flex;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0 0 0.5rem;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.mais-pedidos-chip {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 14rem;
+  min-height: 2.5rem;
+  padding: 0.25rem 0.75rem 0.25rem 0.25rem;
+  border: 1px solid #dcebe6;
+  border-radius: 999px;
+  background: #ffffff;
+  color: var(--uf-ink);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.mais-pedidos-chip img {
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
+  border-radius: 50%;
+  background: #f4f8f7;
+}
+.mais-pedidos-chip span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.mais-pedidos-chip:hover { border-color: var(--uf-navy); }
+.mais-pedidos-chip:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
+
+.ticks-confianca {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  margin: 0.4rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: #3e4b49;
+  font-size: 0.6875rem;
+  line-height: 1.3;
+}
+.ticks-confianca li { display: inline-flex; align-items: center; gap: 0.25rem; }
+.ticks-confianca-icone { color: #0b6b3a; font-weight: 800; }
+.ticks-confianca a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.fluxo-envio { display: grid; gap: 0.15rem; min-width: 0; }
+.fluxo-resumo .ticks-confianca { margin-top: 0.5rem; }
+/* No celular o envio fica no rodapé; no desktop, no resumo. Evita os ticks em dobro. */
+@media (max-width: 991px) {
+  .fluxo-resumo .ticks-confianca { display: none; }
+}
+
+@media (max-width: 991px) {
+  .fluxo-rodape-confianca {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    align-items: stretch;
+    row-gap: 0.35rem;
+  }
+  .fluxo-rodape-confianca .fluxo-barra-total { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+}
+
+.faixa-confianca {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem 1.25rem;
+  box-sizing: border-box;
+  max-width: 82rem;
+  margin: 0 auto 0.75rem;
+  padding: 0.5rem 1.25rem;
+  list-style: none;
+  background: #eef7f4;
+  border-bottom: 1px solid #dcebe6;
+  color: #0d3b36;
+  font-size: 0.8125rem;
+  line-height: 1.3;
+  overflow-x: auto;
+  scrollbar-width: none;
+  white-space: nowrap;
+}
+.faixa-confianca::-webkit-scrollbar { display: none; }
+.faixa-confianca li { flex: none; display: inline-flex; align-items: center; gap: 0.375rem; }
+.faixa-confianca li + li::before { content: ""; width: 3px; height: 3px; margin-right: 0.875rem; border-radius: 50%; background: #6b8b86; }
+.faixa-confianca a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+@media (max-width: 767px) {
+  .faixa-confianca { font-size: 0.75rem; padding: 0.4rem 1rem; margin-bottom: 0.5rem; }
+}
+
+.depto-abas {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.25rem;
+  margin: 0 0 1rem;
+  padding: 0.25rem;
+  border-radius: 999px;
+  background: #e3ecea;
+}
+.depto-abas [role="tab"] {
+  min-height: 2.5rem;
+  padding: 0 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--uf-ink);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+.depto-abas [role="tab"].is-ativa,
+.depto-abas [role="tab"][aria-selected="true"] {
+  background: #ffffff;
+  color: var(--uf-navy);
+  box-shadow: 0 1px 2px rgba(13, 20, 19, 0.12);
+}
+.depto-abas [role="tab"]:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
+.depto-tabpanel { display: none; }
+.depto-tabpanel.is-ativa { display: block; }
+.depto-item-ofertas-desktop { display: none; }
+.depto-loja { display: grid; gap: 0.15rem; min-width: 0; }
+.depto-loja small { color: #5b6b68; font-weight: 500; font-size: 0.75rem; line-height: 1.3; white-space: normal; }
+@media (min-width: 992px) {
+  .depto-abas,
+  .depto-tabpanel-lojas,
+  .depto-tabpanel-ofertas { display: none !important; }
+  .depto-tabpanel-deptos { display: block !important; }
+  .depto-item-ofertas-desktop { display: list-item; }
+}
+
+.completa-kit {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid #e3e8e7;
+}
+.completa-kit h2 {
+  margin: 0 0 0.5rem;
+  color: var(--uf-ink);
+  font-size: 0.875rem;
+  font-weight: 800;
+}
+.completa-kit-lista {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.completa-kit-item {
+  display: grid;
+  justify-items: center;
+  gap: 0.25rem;
+  padding: 0.35rem 0.25rem;
+  border: 1px solid #e3e8e7;
+  border-radius: 10px;
+  background: #f7fbfa;
+  color: var(--uf-ink);
+  text-align: center;
+  text-decoration: none;
+}
+.completa-kit-item:hover { border-color: var(--uf-navy); }
+.completa-kit-item:focus-visible { outline: 3px solid var(--uf-action); outline-offset: 2px; }
+.completa-kit-foto {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+}
+.completa-kit-foto img { width: 48px; height: 48px; object-fit: contain; }
+.completa-kit-nome {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 0.6875rem;
+  line-height: 1.25;
+  font-weight: 600;
+}
+.completa-kit-preco { font-size: 0.75rem; font-weight: 800; color: var(--uf-navy); }
+@media (max-width: 767px) {
+  .completa-kit-lista { gap: 0.3rem; }
+}
+
