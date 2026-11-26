@@ -36,3 +36,11 @@ export const aviseMe = sqliteTable("avise_me", {
   criadoEm: text("criado_em").notNull(),
   notificado: integer("notificado").default(0),
 });
+
+export const pedidos = sqliteTable("pedidos", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  clienteId: text("cliente_id").notNull(),
+  itens: text("itens").notNull(),
+  total: text("total"),
+  criadoEm: text("criado_em").notNull(),
+});
