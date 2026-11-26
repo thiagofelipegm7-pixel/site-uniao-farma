@@ -534,14 +534,18 @@ button,
   color: #00241f !important;
 }
 
-/* Botões específicos que estavam abaixo de 7:1 */
-.cookie-banner button,
+/* Botões de cookie — AAA */
 .cookie-reject,
-.cookie-accept,
-.menu-button,
-button[type="button"] {
+.cookie-banner .cookie-reject {
   color: #001a17 !important;
-  background-color: #e4f3f1 !important;
+  background-color: #e8f5f3 !important;
+  border: 1px solid #001a17 !important;
+}
+
+.cookie-accept,
+.cookie-banner .cookie-accept {
+  color: #ffffff !important;
+  background-color: #00332e !important;
 }
 
 /* Botões com fundo escuro mantêm texto branco */
@@ -552,39 +556,29 @@ button[type="button"] {
 .offer-consult-choose,
 .direct-unit-actions a,
 .modal-unit-action,
-button.primary,
-.cookie-accept.is-primary {
+button.primary {
   color: #ffffff !important;
   background-color: #004d45 !important;
 }
 
-/* Menu de departamentos (fundo escuro) — força texto branco AAA */
+/* Menu de departamentos — fundo mais escuro + texto branco para AAA */
 .dm-menu,
 .dm-menu *,
 .dm-menu a,
-.dm-menu a:link,
-.dm-menu a:visited,
-.dm-menu a:hover,
-.dm-links,
 .dm-links a,
-.dm-links a:link,
-.dm-links a:visited,
 .dm-cabeca,
-.dm-slot .dm-menu a,
 .depto-painel,
 .depto-painel a,
-.depto-painel button,
 .depto-lista a,
-.depto-lista button,
-.depto-raiz a,
-.depto-raiz button {
+.depto-lista button {
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
 }
 
 .dm-menu,
-.depto-painel {
-  background-color: #0a5c56 !important;
+.depto-painel,
+.dm-slot {
+  background-color: #063a36 !important;
 }
 
 /* Placeholders */
