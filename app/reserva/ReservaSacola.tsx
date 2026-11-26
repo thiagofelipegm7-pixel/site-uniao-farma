@@ -222,7 +222,7 @@ export default function ReservaSacola() {
               <strong>{formatarCentavos(subtotalCentavos(estado.itens.filter((i) => i.precoCentavos > 0)))}</strong>
             </p>
             <AvaliacoesCesta variante="gaveta" />
-            <a className="cm-botao cm-botao-cheio" href="/reserva" onClick={fechar}>Ir para a cesta</a>
+            <a className="cm-botao cm-botao-cheio" href="/reserva" onClick={fechar}>Revisar e enviar pedido</a>
             <button type="button" className="cm-botao cm-botao-vazado" onClick={fechar}>Continuar comprando</button>
           </div>
         ) : null}
