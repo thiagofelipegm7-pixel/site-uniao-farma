@@ -421,8 +421,10 @@ export default function ReservaFluxo() {
         ) : (
           <button type="button" className="fluxo-voltar" aria-label="Voltar" onClick={() => ir((passo - 1) as Passo)}><IconVoltar size={26} /></button>
         )}
-        <h1 ref={tituloPasso} tabIndex={-1}>{titulo}</h1>
-        <p className="fluxo-ajuda" style={{margin:"0.25rem 0 0",fontSize:"0.9rem",color:"#3e4b49"}}>{ajuda}</p>
+        <div className="fluxo-titulo">
+          <h1 ref={tituloPasso} tabIndex={-1}>{titulo}</h1>
+          <p className="fluxo-ajuda">{ajuda}</p>
+        </div>
         {passo === 1 ? (
           <a className="fluxo-continuar-comprando" href="/nacoes-unidas/produtos">Continuar comprando</a>
         ) : (

@@ -91,15 +91,17 @@ button[aria-label*="Adicionar"],
   z-index: 3;
 }
 
-/* 5. Cesta / Revisar itens: título horizontal, botão remover separado do preço */
-.revisar-itens h1,
-.revisar-itens h2,
-[class*="revisar"] h1,
-.cesta-titulo {
+/* 5. Cesta / Revisar itens: título e texto de ajuda horizontais (seletores reais do fluxo) */
+.fluxo-topo h1,
+.fluxo-topo .fluxo-titulo,
+.fluxo-topo .fluxo-ajuda {
   writing-mode: horizontal-tb !important;
   text-orientation: mixed !important;
   white-space: normal !important;
+}
+.fluxo-topo h1 {
   display: block !important;
+  overflow-wrap: break-word;
 }
 .item-cesta .remover,
 .item-cesta button[aria-label*="Remover"],

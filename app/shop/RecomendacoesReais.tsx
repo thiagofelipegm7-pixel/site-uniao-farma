@@ -5,9 +5,9 @@ import CestaSugestoes from "../reserva/CestaSugestoes";
 import { useReserva } from "../reserva/useReserva";
 
 /**
- * Recomendações baseadas nos itens da cesta.
- * Usa o sistema existente de "Combina com" (pares estáticos filtrados).
- * Em produção, pode ser alimentado por dados agregados de pedidos (sem expor saúde).
+ * Recomendações a partir da cesta, reusando "Compre junto".
+ * CestaSugestoes já exclui medicamentos (com ou sem receita) das sugestões
+ * e não afirma histórico de outros clientes.
  */
 export default function RecomendacoesReais() {
   const estado = useReserva();
@@ -20,10 +20,7 @@ export default function RecomendacoesReais() {
   if (!mostrar) return null;
 
   return (
-    <section style={{ marginTop: "1.5rem" }}>
-      <h2 style={{ fontSize: "1.1rem", marginBottom: "0.5rem", color: "#0e7370" }}>
-        Quem levou isso também escolheu
-      </h2>
+    <section className="uf-recomendacoes-cesta" style={{ margin: "0.5rem 0 0.25rem" }}>
       <CestaSugestoes itens={estado.itens} max={4} variante="pagina" />
     </section>
   );

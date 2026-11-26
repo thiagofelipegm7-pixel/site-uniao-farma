@@ -995,7 +995,8 @@ body.cookie-banner-visible .fluxo-rodape { bottom: 9rem; }
   .fluxo-topo .fluxo-voltar { display: none; }
   .fluxo-continuar-comprando { order: 1; width: 100%; margin: 0; padding: 0; text-decoration: none; text-transform: uppercase; letter-spacing: 0.04em; font-weight: 600; color: #3e4b49; }
   .fluxo-continuar-comprando::before { content: "←  "; }
-  .fluxo-topo h1 { order: 2; width: 100%; margin: 1.5rem 0 0; color: #000000; font-size: 2.25rem; letter-spacing: 0.02em; text-transform: uppercase; }
+  .fluxo-topo .fluxo-titulo { order: 2; width: 100%; margin: 1.5rem 0 0; }
+  .fluxo-topo h1 { width: 100%; margin: 0; color: #000000; font-size: 2.25rem; letter-spacing: 0.02em; text-transform: uppercase; }
   .fluxo-conteudo-cesta { display: grid; grid-template-columns: minmax(0, 1fr) 22rem; align-items: start; gap: 0 1.5rem; max-width: 70rem; padding-bottom: 3rem; }
   .fluxo-conteudo-cesta .fluxo-coluna-resumo { position: sticky; top: 1rem; grid-row: 1 / span 2; grid-column: 2; }
   .fluxo-conteudo-cesta .fluxo-coluna-itens { grid-column: 1; }
@@ -1019,9 +1020,37 @@ body.cookie-banner-visible .fluxo-rodape { bottom: 9rem; }
     .fluxo-reserva .fluxo-topo h1 { font-size: 2.25rem !important; line-height: 1.1 !important; letter-spacing: 0.02em !important; text-transform: uppercase; color: var(--uf-ink) !important; }
   }
 }
-.fluxo-topo { flex-wrap: nowrap; }
-.fluxo-topo h1 { flex: 1; min-width: 0; }
-@media (min-width: 992px) { .fluxo-topo { flex-wrap: wrap; } }
+.fluxo-topo { flex-wrap: wrap; align-items: center; }
+.fluxo-topo .fluxo-titulo {
+  flex: 1 1 10rem;
+  min-width: 10rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.15rem;
+}
+.fluxo-topo h1 {
+  flex: none;
+  width: 100%;
+  min-width: 0;
+  writing-mode: horizontal-tb;
+  text-orientation: mixed;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+.fluxo-topo .fluxo-ajuda {
+  width: 100%;
+  margin: 0;
+  color: #3e4b49;
+  font-size: 0.9rem;
+  line-height: 1.35;
+  writing-mode: horizontal-tb;
+  white-space: normal;
+}
+@media (min-width: 992px) {
+  .fluxo-topo { flex-wrap: wrap; }
+  .fluxo-topo .fluxo-titulo { flex: 1 1 100%; min-width: 0; }
+}
 .fluxo-topo .fluxo-continuar-comprando { align-self: center; min-height: 0; line-height: 1.2; }
 
 /* ---- Cesta: caixa de seleção por item e em "Todos os produtos", colunas centralizadas, sem "−" com 1 unidade ---- */
@@ -1984,7 +2013,8 @@ html body .produto-pagina .reservar-mais:not(.reservar-mais-icone), html body .p
   html body .fluxo-topo { max-width: 82rem; padding: 1.5rem 1.25rem 0; }
   html body .fluxo-continuar-comprando { text-transform: none; letter-spacing: 0; font-size: 0.9375rem; font-weight: 700; color: #000000; text-decoration: underline; text-underline-offset: 3px; }
   html body .fluxo-continuar-comprando::before { content: ""; }
-  html body .fluxo-topo h1 { margin: 0.5rem 0 0; font-size: 1.75rem; letter-spacing: -0.015em; text-transform: none; }
+  html body .fluxo-topo .fluxo-titulo { margin: 0.5rem 0 0; }
+  html body .fluxo-topo h1 { margin: 0; font-size: 1.75rem; letter-spacing: -0.015em; text-transform: none; }
   html body .fluxo-conteudo-cesta { max-width: 82rem; grid-template-columns: minmax(0, 1fr) 21.25rem; gap: 0 2rem; }
   html body .fluxo-colunas { text-transform: none; letter-spacing: 0; font-size: 0.8125rem; font-weight: 600; color: #5b6b68; }
 }
