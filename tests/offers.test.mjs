@@ -197,7 +197,7 @@ test("componente OfertasSemana: vitrine da home com preço anterior só quando i
   assert.match(home, /import OfertasSemana from "\.\/shop\/OfertasSemana"/);
   assert.match(home, /<OfertasSemana \/>/);
   assert.match(painel, /Descontos e ofertas/);
-  assert.match(painel, /o preço anterior aparece quando foi informado na oferta/);
+  assert.match(painel, /precoAnteriorFmt=\{item\.precoAnteriorCentavos \? formatarCentavos\(item\.precoAnteriorCentavos\) : null\}/);
   assert.match(painel, /ReservarBotao/);
   assert.match(painel, /source="home_ofertas"/);
   assert.match(painel, /precoAnteriorCentavos/);
