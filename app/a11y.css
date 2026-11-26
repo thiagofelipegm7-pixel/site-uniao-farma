@@ -570,12 +570,20 @@ button.primary,
 .dm-links a:link,
 .dm-links a:visited,
 .dm-cabeca,
-.dm-slot .dm-menu a {
+.dm-slot .dm-menu a,
+.depto-painel,
+.depto-painel a,
+.depto-painel button,
+.depto-lista a,
+.depto-lista button,
+.depto-raiz a,
+.depto-raiz button {
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
 }
 
-.dm-menu {
+.dm-menu,
+.depto-painel {
   background-color: #0a5c56 !important;
 }
 
