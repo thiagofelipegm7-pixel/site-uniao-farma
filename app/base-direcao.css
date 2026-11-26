@@ -3380,4 +3380,47 @@ html body main#conteudo .fluxo-reserva .fluxo-vazio strong {
   font-size: 1.25rem !important;
   font-weight: 500 !important;
 }
+
+/* Cabeçalho: botão "Receita" leva à página de receitas. Círculo branco em tela estreita (como a cesta), pílula com texto a partir de 400 px. Sem sombra (regra do cabeçalho). */
+html body .shop-header .shop-acoes .shop-receita {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 auto !important;
+  gap: 8px !important;
+  width: 44px !important;
+  height: 44px !important;
+  margin-right: 8px !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  box-shadow: none !important;
+  color: #000000 !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+}
+html body .shop-header .shop-acoes .shop-receita span {
+  display: none !important;
+  color: #000000 !important;
+}
+html body .shop-header .shop-acoes .shop-receita svg,
+html body .shop-header .shop-acoes .shop-receita svg * {
+  color: #000000 !important;
+  stroke: #000000 !important;
+}
+html body .shop-header .shop-acoes .shop-receita:focus-visible {
+  outline: 3px solid #000000 !important;
+  outline-offset: 2px !important;
+}
+@media (min-width: 400px) {
+  html body .shop-header .shop-acoes .shop-receita {
+    width: auto !important;
+    padding: 0 18px 0 14px !important;
+  }
+  html body .shop-header .shop-acoes .shop-receita span {
+    display: inline !important;
+  }
+}
 }
