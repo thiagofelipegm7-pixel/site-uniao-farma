@@ -46,6 +46,15 @@ export default function DynamicMenu({ itens, titulo = "Departamentos", barra = f
     const lista = listaRef.current;
     if (!menu || !cabeca || !l1 || !l2 || !lista) return;
 
+    // Força contraste AAA (vence !important do CSS)
+    menu.style.setProperty("background-color", "#042c29", "important");
+    cabeca.style.setProperty("color", "#ffffff", "important");
+    cabeca.style.setProperty("-webkit-text-fill-color", "#ffffff", "important");
+    lista.querySelectorAll("a").forEach((a) => {
+      (a as HTMLElement).style.setProperty("color", "#ffffff", "important");
+      (a as HTMLElement).style.setProperty("-webkit-text-fill-color", "#ffffff", "important");
+    });
+
     const lis = Array.from(lista.querySelectorAll<HTMLElement>("li")).map((el) => ({ el, s: mola(0, 260, 22) }));
     const W = mola(LARGURA_FECHADA);
     const H = mola(ALTURA_FECHADA);
@@ -116,18 +125,13 @@ export default function DynamicMenu({ itens, titulo = "Departamentos", barra = f
 
   return (
     <div className={barra ? "dm-slot dm-slot--barra" : "dm-slot"}>
-      <div
-        className="dm-menu"
-        ref={menuRef}
-        style={{ backgroundColor: "#042c29" }}
-      >
+      <div className="dm-menu" ref={menuRef}>
         <button
           ref={cabecaRef}
           type="button"
           className="dm-cabeca"
           aria-expanded={aberto}
           aria-controls="dm-links"
-          style={{ color: "#ffffff" }}
         >
           <span className="dm-titulo">{titulo}</span>
           <span className="dm-icone" aria-hidden="true">
@@ -138,7 +142,7 @@ export default function DynamicMenu({ itens, titulo = "Departamentos", barra = f
         <ul className="dm-links" id="dm-links" ref={listaRef}>
           {itens.map((item) => (
             <li key={item.href}>
-              <a href={item.href} style={{ color: "#ffffff" }}>{item.nome}</a>
+              <a href={item.href}>{item.nome}</a>
             </li>
           ))}
         </ul>
