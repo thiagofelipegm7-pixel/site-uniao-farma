@@ -372,57 +372,62 @@
 }
 
 /* =====================================================================
-   Animações CSS avançadas
+   Transições CSS complexas
    ===================================================================== */
 
-/* 1. Stagger nos cards das vitrines */
-.shop-destaques-lista > li,
-.shop-destaques-lista > .pv-card--v {
-  animation: fade-slide-up 0.45s ease both;
-}
-.shop-destaques-lista > li:nth-child(1),
-.shop-destaques-lista > .pv-card--v:nth-child(1) { animation-delay: 0.04s; }
-.shop-destaques-lista > li:nth-child(2),
-.shop-destaques-lista > .pv-card--v:nth-child(2) { animation-delay: 0.08s; }
-.shop-destaques-lista > li:nth-child(3),
-.shop-destaques-lista > .pv-card--v:nth-child(3) { animation-delay: 0.12s; }
-.shop-destaques-lista > li:nth-child(4),
-.shop-destaques-lista > .pv-card--v:nth-child(4) { animation-delay: 0.16s; }
-.shop-destaques-lista > li:nth-child(5),
-.shop-destaques-lista > .pv-card--v:nth-child(5) { animation-delay: 0.20s; }
-.shop-destaques-lista > li:nth-child(n+6) { animation-delay: 0.24s; }
-
-/* 2. Bounce no contador da cesta */
-@keyframes bounce-in {
-  0% { transform: scale(0.5); }
-  55% { transform: scale(1.18); }
-  100% { transform: scale(1); }
-}
-.reserva-contador-bolha,
-.mobile-quick-nav .mqn-icon span {
-  animation: bounce-in 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+/* 1. Multi-property staggered nos cards */
+.pv-card,
+.shop-card {
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease 0.04s,
+    border-color 0.18s ease 0.08s;
 }
 
-/* 3. Shimmer nos skeletons */
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+/* 2. Easing elástico na cesta */
+.cm-card {
+  transition: transform 0.42s cubic-bezier(0.34, 1.25, 0.64, 1), opacity 0.32s ease !important;
 }
-.shop-destaques [style*="background:#f0f4f3"],
-.skeleton,
-.cm-card [style*="background:#f0f4f3"] {
-  background: linear-gradient(90deg, #f0f4f3 25%, #e4eeeb 50%, #f0f4f3 75%) !important;
-  background-size: 200% 100% !important;
-  animation: shimmer 1.5s infinite !important;
+.cm-card.is-fechando {
+  transition: transform 0.28s ease, opacity 0.28s ease !important;
+}
+
+/* 3. Accordion suave (grid) — útil para detalhes e FAQ */
+.accordion-item,
+.fluxo-detalhe,
+.produto-detalhe {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.accordion-item.is-aberto,
+.fluxo-detalhe.is-aberto,
+.produto-detalhe.is-aberto {
+  grid-template-rows: 1fr;
+}
+.accordion-item > div,
+.fluxo-detalhe > div,
+.produto-detalhe > div {
+  overflow: hidden;
+}
+
+/* 4. Clip-path em seções que aparecem */
+.shop-hero,
+.painel-arte {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 0.5s cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .shop-destaques-lista > li,
-  .shop-destaques-lista > .pv-card--v,
-  .reserva-contador-bolha,
-  .mobile-quick-nav .mqn-icon span,
-  .skeleton {
-    animation: none !important;
+  .pv-card,
+  .shop-card,
+  .cm-card,
+  .accordion-item,
+  .fluxo-detalhe,
+  .produto-detalhe,
+  .shop-hero,
+  .painel-arte {
+    transition: none !important;
   }
 }
