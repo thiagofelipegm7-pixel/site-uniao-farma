@@ -370,3 +370,32 @@
     max-height: 90vh;
   }
 }
+
+/* Animações de transição suaves */
+@keyframes fade-slide-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.shop-destaques,
+.painel,
+.shop-categorias {
+  animation: fade-slide-up 0.45s ease both;
+}
+
+/* Cesta / gaveta */
+.cm-card,
+.reserva-gaveta-raiz .cm-card {
+  animation: fade-slide-up 0.32s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shop-destaques,
+  .painel,
+  .shop-categorias,
+  .cm-card,
+  .reserva-gaveta-raiz .cm-card,
+  .toast-adicionado {
+    animation: none !important;
+  }
+}
