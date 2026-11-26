@@ -9,7 +9,7 @@ export default function ModoEconomia() {
       <span style={{ fontSize: "1.5rem" }} aria-hidden="true">💰</span>
       <div>
         <strong className="uf-card-titulo" style={{ margin: 0 }}>Modo economia</strong>
-        <p className="uf-card-texto" style={{ margin: 0 }}>Ver os mais baratos primeiro, sem medicamentos</p>
+        <p className="uf-card-texto" style={{ margin: 0 }}>Ver os mais baratos primeiro</p>
       </div>
     </a>
   );
