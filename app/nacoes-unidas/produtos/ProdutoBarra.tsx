@@ -38,6 +38,8 @@ export default function ProdutoBarra({ unitId, nome, precoCentavos, foto, max: m
   const [abrirOpcoes, setAbrirOpcoes] = useState(false);
   const [escolhida, setEscolhida] = useState(1);
   const [cartaoVisivel, setCartaoVisivel] = useState(false);
+  // Fora do efeito: o JSX do Avise-me precisa desta variável no render (dentro do useEffect ela não existia e a PDP dava 500).
+  const semEstoque = maxPublicado === 0;
   // A barra fixa do celular só aparece depois que o botão do cartão sai de vista (evita dois botões iguais na mesma tela).
   useEffect(() => {
     if (bloco || typeof IntersectionObserver === "undefined") return;
@@ -45,10 +47,7 @@ export default function ProdutoBarra({ unitId, nome, precoCentavos, foto, max: m
     if (!alvo) return;
     const olho = new IntersectionObserver(([entrada]) => setCartaoVisivel(entrada.isIntersecting), { threshold: 0.2 });
     olho.observe(alvo);
-    // Mostra Avise-me se não tem estoque
-  const semEstoque = maxPublicado === 0;
-  
-  return () => olho.disconnect();
+    return () => olho.disconnect();
   }, [bloco]);
   const [promocao, setPromocao] = useState<PromocaoQuantidade | undefined>();
   useEffect(() => {

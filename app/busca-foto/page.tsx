@@ -1,4 +1,4 @@
-import BuscaPorFoto from "../../shop/BuscaPorFoto";
+import BuscaPorFoto from "../shop/BuscaPorFoto";
 
 export const metadata = {
   title: "Buscar por foto | União Farma",

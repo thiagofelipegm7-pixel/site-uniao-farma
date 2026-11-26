@@ -1,4 +1,4 @@
-import CompraRapida from "../../shop/CompraRapida";
+import CompraRapida from "../shop/CompraRapida";
 
 export const metadata = {
   title: "Compra rápida | União Farma",

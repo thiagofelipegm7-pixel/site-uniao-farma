@@ -448,9 +448,6 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                           <strong aria-hidden="true">{ORDINAIS[i]}</strong>
                           <span>{valor}</span>
                         </a>
-                          <div style={{position:"absolute",right:"0.5rem",top:"50%",transform:"translateY(-50%)"}}>
-                            <SalvarNaLista nome={item.nome} slug={item.slug} />
-                          </div>
                         </li>
                     ))}
                   </ul>
