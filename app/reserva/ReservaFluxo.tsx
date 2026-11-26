@@ -114,7 +114,7 @@ export default function ReservaFluxo() {
   const [agora, setAgora] = useState<Date | null>(null);
   // Nome e endereço do último pedido, guardados só neste aparelho.
   const [lembrado, setLembrado] = useState(false);
-  // Último pedido enviado neste aparelho (nomes e quantidades), para "Repetir meu último pedido".
+  // Último pedido enviado neste aparelho (nomes e quantidades), para "Repetir meu último pedido agora".
   const [ultimo, setUltimo] = useState<ItemUltimoPedido[]>([]);
   const [repetindo, setRepetindo] = useState(false);
   const [faltaram, setFaltaram] = useState<string[]>([]);
@@ -322,7 +322,7 @@ export default function ReservaFluxo() {
           {enviado ? (
             <>
               <strong>Sua cesta foi limpa.</strong>
-              <p>Pedido preparado! Abra o WhatsApp, confira a mensagem e toque em Enviar para finalizar.</p>
+              <p>O pedido foi preparado no WhatsApp. Confira a conversa e toque em enviar para concluir.</p>
             </>
           ) : (
             <>
@@ -332,7 +332,7 @@ export default function ReservaFluxo() {
           )}
           {ultimo.length > 0 ? (
             <button type="button" className="fluxo-botao fluxo-botao-repetir" disabled={repetindo} onClick={repetir}>
-              {repetindo ? "Procurando seus produtos…" : `Repetir meu último pedido (${ultimo.reduce((n, i) => n + i.qtd, 0)} ${ultimo.reduce((n, i) => n + i.qtd, 0) === 1 ? "item" : "itens"})`}
+              {repetindo ? "Procurando seus produtos…" : `Repetir meu último pedido agora (${ultimo.reduce((n, i) => n + i.qtd, 0)} ${ultimo.reduce((n, i) => n + i.qtd, 0) === 1 ? "item" : "itens"})`}
             </button>
           ) : null}
           {faltaram.length > 0 ? <p className="fluxo-faltaram" role="status">Não achamos hoje: {faltaram.join(", ")}. Procure na loja ou pelo WhatsApp.</p> : null}
