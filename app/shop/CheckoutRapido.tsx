@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { carregarDadosCliente } from "../reserva/dados-cliente";
 import { carregarUltimoPedido } from "../reserva/ultimo-pedido";
+import "./novos-componentes.css";
 
 export default function CheckoutRapido() {
   const [pronto, setPronto] = useState(false);
@@ -20,34 +21,12 @@ export default function CheckoutRapido() {
   if (!pronto) return null;
 
   return (
-    <div style={{
-      margin: "0.75rem 1rem",
-      padding: "1rem",
-      background: "linear-gradient(135deg, #0e7370, #0a5c59)",
-      color: "#fff",
-      borderRadius: "12px",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "space-between",
-      gap: "0.75rem",
-    }}>
+    <div className="uf-destaque" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.75rem" }}>
       <div>
-        <strong style={{ display: "block" }}>Olá, {nome}!</strong>
-        <small style={{ opacity: 0.9 }}>Seus dados estão salvos. Peça de novo em 1 toque.</small>
+        <strong style={{ display: "block", fontSize: "1rem" }}>Olá, {nome}!</strong>
+        <small style={{ opacity: 0.9 }}>Seus dados estão salvos.</small>
       </div>
-      <a
-        href="/reserva"
-        style={{
-          background: "#fff",
-          color: "#0e7370",
-          padding: "0.5rem 1rem",
-          borderRadius: "999px",
-          fontWeight: 700,
-          fontSize: "0.875rem",
-          textDecoration: "none",
-          whiteSpace: "nowrap",
-        }}
-      >
+      <a href="/reserva" className="uf-botao" style={{ background: "#fff", color: "var(--color-teal-700, #006058)" }}>
         Pedir agora
       </a>
     </div>
