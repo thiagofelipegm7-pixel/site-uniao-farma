@@ -371,31 +371,18 @@
   }
 }
 
-/* Animações de transição suaves */
-@keyframes fade-slide-up {
-  from { opacity: 0; transform: translateY(14px); }
-  to { opacity: 1; transform: translateY(0); }
+/* Animação de saída da cesta */
+@keyframes fade-slide-down {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(16px); }
 }
 
-.shop-destaques,
-.painel,
-.shop-categorias {
-  animation: fade-slide-up 0.45s ease both;
-}
-
-/* Cesta / gaveta */
-.cm-card,
-.reserva-gaveta-raiz .cm-card {
-  animation: fade-slide-up 0.32s ease both;
+.cm-card.is-fechando {
+  animation: fade-slide-down 0.28s ease both !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .shop-destaques,
-  .painel,
-  .shop-categorias,
-  .cm-card,
-  .reserva-gaveta-raiz .cm-card,
-  .toast-adicionado {
+  .cm-card.is-fechando {
     animation: none !important;
   }
 }
