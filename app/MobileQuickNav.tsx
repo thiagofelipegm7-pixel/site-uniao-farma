@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import { buildWhatsAppUrl, getUnitBySlug, UNITS, type Unit } from "./site-config";
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
 import { IconCasa, IconCategorias, IconLoja, IconCesta } from "./reserva/ReservaIcons";
+import { useReserva } from "./reserva/useReserva";
+import { totalItens } from "./reserva/reserva-store";
 
 type Slot = {
   key: string;
@@ -17,7 +19,6 @@ type Slot = {
 };
 
 function findUnit(pathname: string): Unit | undefined {
-  // /nacoes-unidas/produtos é a loja virtual (barra de compra), não a página institucional da loja.
   if (pathname.startsWith("/nacoes-unidas/produtos")) return undefined;
   const slug = pathname.replace(/^\//, "").split("/")[0];
   if (!slug) return undefined;
@@ -67,7 +68,6 @@ function slotsFor(pathname: string): Slot[] {
     ];
   }
 
-  // Páginas de compra: Início, Categorias, Cesta e A loja (como no protótipo). O WhatsApp fica no botão flutuante.
   return [
     { key: "inicio", href: "/", label: "Início", icon: "inicio" },
     { key: "categorias", href: "/nacoes-unidas/produtos", label: "Categorias", icon: "categorias" },
@@ -86,6 +86,8 @@ function ativo(slot: Slot, pathname: string): boolean {
 export default function MobileQuickNav() {
   const pathname = usePathname() || "/";
   const slots = slotsFor(pathname);
+  const estado = useReserva();
+  const totalCesta = totalItens(estado);
 
   return (
     <nav className="mobile-quick-nav" aria-label="Ações rápidas">
@@ -95,12 +97,35 @@ export default function MobileQuickNav() {
             key={slot.key}
             href={slot.href}
             className={slot.primary ? "mqn-primary" : undefined}
-            aria-label={slot.ariaLabel}
+            aria-label={slot.key === "reserva" && totalCesta > 0 ? `Cesta, ${totalCesta} ${totalCesta === 1 ? "item" : "itens"}` : slot.ariaLabel}
             aria-current={ativo(slot, pathname) ? "page" : undefined}
             {...(slot.external ? { target: "_blank", rel: "noreferrer" } : {})}
           >
-            <span className="mqn-icon">
+            <span className="mqn-icon" style={{ position: "relative" }}>
               <Icon name={slot.icon} />
+              {slot.key === "reserva" && totalCesta > 0 ? (
+                <span
+                  style={{
+                    position: "absolute",
+                    top: -4,
+                    right: -6,
+                    background: "#c62828",
+                    color: "#fff",
+                    fontSize: "0.65rem",
+                    fontWeight: 700,
+                    minWidth: "1.1rem",
+                    height: "1.1rem",
+                    borderRadius: "999px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "0 0.2rem",
+                  }}
+                  aria-hidden="true"
+                >
+                  {totalCesta > 9 ? "9+" : totalCesta}
+                </span>
+              ) : null}
             </span>
             <span className="mqn-label">{slot.label}</span>
           </a>
