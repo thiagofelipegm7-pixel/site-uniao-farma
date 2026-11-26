@@ -82,7 +82,7 @@ export default function DestaquesSemana({ posicao, titulo = "Destaques da semana
   if (carregando) {
     return (
       <section className="shop-destaques" aria-hidden="true">
-        <div className="shop-destaques-topo"><h2 style={{opacity:0.4}}>Carregando...</h2></div>
+        <div className="shop-destaques-topo"><div style={{height:"1.75rem",width:"11rem",background:"#f0f4f3",borderRadius:"8px"}} /></div>
         <div className="shop-vitrine">
           <ul className="shop-destaques-lista" style={{display:"flex",gap:"1rem",overflow:"hidden"}}>
             {Array.from({length: 4}).map((_, i) => (

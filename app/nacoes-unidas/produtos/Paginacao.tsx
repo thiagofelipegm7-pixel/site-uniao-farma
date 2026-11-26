@@ -40,7 +40,7 @@ export default function Paginacao({ atual, total, href, onIr, variante }: Props)
   if (variante === "barra") {
     const nums = paginasVisiveis(atual, total);
     return (
-      <nav className="dg-pag" aria-label="Paginação">
+      <nav className="dg-pag" aria-label="Paginação da lista">
         {atual > 1 ? <a className="dg-pag-btn" href={href(atual - 1)} onClick={ir(atual - 1)}>Anterior</a> : <span className="dg-pag-btn is-off" aria-disabled="true">Anterior</span>}
         <ol>
           {nums.map((n, i) => (

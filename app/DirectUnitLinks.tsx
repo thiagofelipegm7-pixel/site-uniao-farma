@@ -159,7 +159,7 @@ export default function DirectUnitLinks({
                   })}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={`${label} no WhatsApp`}
+                  aria-label={label === "WhatsApp" ? `Conversar com a loja ${unit.shortName} no WhatsApp` : `${label} no WhatsApp`}
                   onClick={() => {
                     rememberUnit(unit.id);
                     if (activeIntent === "delivery") {

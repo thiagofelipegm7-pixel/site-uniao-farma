@@ -19,8 +19,8 @@
 .painel-seta:disabled { color: #9aa3a1; cursor: default; }
 .painel-seta-esq { left: -0.25rem; }
 .painel-seta-dir { right: -0.25rem; }
-.painel-pontos { display: flex; justify-content: center; gap: 0; margin-top: 0; }
-.painel .painel-pontos button { position: relative; box-sizing: border-box; width: 1rem; height: 1.625rem; min-width: 0; min-height: 0; padding: 0; border: 0; background: none; cursor: pointer; }
+.painel-pontos { display: flex; flex-wrap: wrap; justify-content: center; gap: 0; margin-top: 0; }
+.painel .painel-pontos button { position: relative; box-sizing: border-box; width: 1.5rem; height: 3rem; min-width: 0; min-height: 0; padding: 0; border: 0; background: none; cursor: pointer; }
 .painel-pontos button::before { content: ""; position: absolute; top: 50%; left: 50%; width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #b3b3b3; transform: translate(-50%, -50%); transition: background-color 0.3s ease; }
 .painel-pontos button.is-ativo::before { background: #4d4d4d; }
 .painel-pontos button:focus-visible { outline: 3px solid var(--uf-action); outline-offset: -2px; border-radius: 6px; }

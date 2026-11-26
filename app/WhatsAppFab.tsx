@@ -63,9 +63,9 @@ export default function WhatsAppFab() {
   if (pathname.startsWith("/interno")) return null;
 
   return (
+    <aside aria-label="Atalho para o WhatsApp" aria-hidden={hidden || undefined}>
     <a
       className={`whatsapp-fab${unitName ? " whatsapp-fab-unit" : ""}${hidden ? " is-hidden" : ""}`}
-      aria-hidden={hidden || undefined}
       tabIndex={hidden ? -1 : undefined}
       href={target.href}
       aria-label={unitName ? `${geral ? "Falar" : "Pedir"} no WhatsApp da loja ${unitName}` : "Falar no WhatsApp"}
@@ -74,5 +74,6 @@ export default function WhatsAppFab() {
       <LogoWhatsApp size={30} cor="atual" />
       {unitName ? <span className="whatsapp-fab-label">{geral ? "Falar no WhatsApp da loja" : "Pedir no WhatsApp da loja"}</span> : null}
     </a>
+    </aside>
   );
 }

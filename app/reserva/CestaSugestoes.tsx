@@ -73,9 +73,11 @@ export default function CestaSugestoes({ itens, max = 3, variante }: { itens: re
   }, [dados, chave, max]);
 
   if (sugestoes.length < 3) return null;
+  // Na página da cesta o título principal é um h1, então este é h2 (sem pular nível); na gaveta o título da janela já é h2.
+  const Titulo = variante === "pagina" ? "h2" : "h3";
   return (
     <section className={`cesta-sugestoes cesta-sugestoes-${variante}`} aria-labelledby={`cesta-sugestoes-titulo-${variante}`}>
-      <h3 id={`cesta-sugestoes-titulo-${variante}`} style={{fontSize:"1.1rem",color:"#0e7370"}}>Compre junto</h3>
+      <Titulo id={`cesta-sugestoes-titulo-${variante}`} style={{ fontSize: "1.1rem" }}>Compre junto</Titulo>
       <p className="cesta-sugestoes-nota">Produtos que combinam com o que você já escolheu.</p>
       <ul>
         {sugestoes.map((p) => (

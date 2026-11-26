@@ -27,7 +27,10 @@ export default function FiltroPreco() {
           href={urlCatalogoSemMedicamentos({ precoMaxReais: f.precoMaxReais })}
           style={{
             flex: "none",
-            padding: "0.4rem 0.85rem",
+            display: "inline-flex",
+            alignItems: "center",
+            minHeight: "48px",
+            padding: "0 1rem",
             background: "#f4faf9",
             border: "1px solid #d3e2df",
             borderRadius: "999px",

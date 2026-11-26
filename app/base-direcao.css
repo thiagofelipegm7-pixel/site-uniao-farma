@@ -3521,4 +3521,112 @@ html body .cesta-retomada.cesta-retomada .cesta-retomada-botao {
     width: calc(100% - 2rem) !important;
   }
 }
+
+/* Acessibilidade AAA (regra nº 1): alvos de toque de 48 px, contraste e formas além da cor. Vence a direção artística quando houver conflito. */
+html body .painel .painel-pontos button::before {
+  width: 0.5rem !important;
+  height: 0.5rem !important;
+  border-radius: 50% !important;
+  background: #000000 !important;
+  transition: width 0.2s ease !important;
+}
+html body .painel .painel-pontos button.is-ativo::before {
+  width: 1rem !important;
+  border-radius: 999px !important;
+  background: #000000 !important;
+}
+@media (min-width: 992px) {
+  html:root {
+    --cab-banda: 7.75rem !important;
+  }
+  html body .shop-header {
+    grid-template-rows: 4.5rem 3rem !important;
+  }
+  html body .shop-header .shop-linha2 {
+    height: 3rem !important;
+  }
+  html body .shop-linha2-menu a,
+  html body .shop-linha2-dep,
+  html body .shop-linha2 .faixa-entrega-botao--cab {
+    min-height: 48px !important;
+  }
+  html body .shop-header .shop-linha2-status,
+  html body .shop-header .shop-linha2-status * {
+    color: #000000 !important;
+  }
+}
+html body .shop-header .shop-acoes .shop-receita {
+  height: 48px !important;
+  min-width: 48px !important;
+}
+html body main#conteudo .fluxo-reserva .fluxo-check {
+  min-width: 48px !important;
+  min-height: 48px !important;
+  justify-content: center !important;
+}
+html body main#conteudo .fluxo-reserva .fluxo-itens > li .cel-qtd .reservar-contador > button,
+html body main#conteudo .fluxo-reserva .fluxo-conteudo-cesta .fluxo-itens > li .cel-qtd .reservar-contador > button {
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+  min-height: 48px !important;
+}
+@media (max-width: 991px) {
+  html body main#conteudo .fluxo-reserva .fluxo-conteudo-cesta:not(.fluxo-entrega) .fluxo-itens.fluxo-itens > li {
+    grid-template-columns: 48px 72px minmax(0, 1fr) auto !important;
+    grid-template-areas: "check foto nome nome" "check foto preco preco" "qtd qtd qtd total" !important;
+  }
+  html body main#conteudo .fluxo-reserva .fluxo-itens > li .cel-produto .fluxo-item-foto {
+    width: 72px !important;
+    height: 72px !important;
+  }
+  html body main#conteudo .fluxo-reserva .fluxo-itens > li .cel-produto .fluxo-item-foto img {
+    width: 64px !important;
+    height: 64px !important;
+  }
+}
+
+/* Acessibilidade AAA: contraste 7:1 no "Aberto agora" dos cartões de loja (antes 6,7:1) e links de ficha/migalhas com 48 px de altura. */
+html body .direct-unit-link .open-status.is-open,
+html body .direct-unit-link .open-status.is-open strong {
+  color: #004f48 !important;
+}
+html body:has(.catalogo-nacoes) .catalogo-nacoes .pdp-attrs-lista a {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 48px !important;
+}
+html body .recipe-migalhas a {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 48px !important;
+  min-width: 48px !important;
+}
+
+/* Acessibilidade AAA: botão "Aplicar" do filtro, WhatsApp dos cartões de loja e setas dos carrosséis. */
+html body .fc-aplicar.fc-aplicar {
+  background: #000000 !important;
+  color: #ffffff !important;
+  min-height: 48px !important;
+}
+html body .direct-unit-actions a[aria-label*="WhatsApp"] {
+  background: #004f48 !important;
+  color: #ffffff !important;
+}
+html body .shop-seta {
+  width: 48px !important;
+  height: 48px !important;
+}
+
+/* Acessibilidade AAA: demais botões e links com 48 px de altura (filtro "ver mais", adicionar da ficha, sugestões da cesta, WhatsApp da cesta). */
+html body .fc-mais,
+html body .bc-adicionar,
+html body .cesta-contato a {
+  min-height: 48px !important;
+}
+html body .cesta-sugestao-add.cesta-sugestao-add {
+  width: 48px !important;
+  height: 48px !important;
+  min-width: 48px !important;
+}
 }
