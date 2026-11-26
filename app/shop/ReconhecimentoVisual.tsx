@@ -8,6 +8,7 @@ export default function ReconhecimentoVisual() {
   const [preview, setPreview] = useState<string | null>(null);
   const [analisando, setAnalisando] = useState(false);
   const [resultados, setResultados] = useState<Produto[]>([]);
+  const [identificado, setIdentificado] = useState<string | null>(null);
   const [erro, setErro] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -17,36 +18,45 @@ export default function ReconhecimentoVisual() {
     setAnalisando(true);
     setErro(null);
     setResultados([]);
+    setIdentificado(null);
 
     try {
-      // 1. OCR para extrair texto
-      const { createWorker } = await import("tesseract.js");
-      const worker = await createWorker("por");
-      const { data } = await worker.recognize(file);
-      await worker.terminate();
+      // Converte para base64
+      const base64 = await new Promise<string>((resolve) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result as string);
+        reader.readAsDataURL(file);
+      });
 
-      const texto = data.text.replace(/\s+/g, " ").trim().toLowerCase();
-      
-      if (texto.length < 3) {
-        setErro("Não identifiquei o produto. Tente uma foto mais nítida da embalagem.");
+      // Chama a API com Gemini
+      const res = await fetch("/api/reconhecer-produto", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ imagem: base64, tipo: file.type }),
+      });
+      const data = await res.json();
+
+      if (!data.ok || !data.produto) {
+        setErro("Não consegui identificar o produto. Tente uma foto mais nítida da embalagem.");
         setAnalisando(false);
         return;
       }
 
-      // 2. Busca no catálogo
+      setIdentificado(data.produto);
+
+      // Busca no catálogo
       const catalogo: Produto[] = await fetch("/dados/nacoes/catalogo-busca.json").then((r) => r.json());
-      
-      // Extrai palavras-chave do texto
-      const palavras = texto.split(/\s+/).filter((p) => p.length >= 4).slice(0, 5);
-      
-      // Pontua produtos por correspondência
+      const termo = data.produto.toLowerCase();
+      const palavras = termo.split(/\s+/).filter((p: string) => p.length >= 3);
+
       const pontuados = catalogo
         .map((p) => {
-          const nomeNorm = p.nome.toLowerCase();
+          const nome = p.nome.toLowerCase();
           let pontos = 0;
           for (const palavra of palavras) {
-            if (nomeNorm.includes(palavra)) pontos += 2;
+            if (nome.includes(palavra)) pontos += 2;
           }
+          if (nome.includes(termo.slice(0, 15))) pontos += 3;
           return { produto: p, pontos };
         })
         .filter((x) => x.pontos > 0)
@@ -54,10 +64,9 @@ export default function ReconhecimentoVisual() {
         .slice(0, 6)
         .map((x) => x.produto);
 
+      setResultados(pontuados);
       if (pontuados.length === 0) {
-        setErro(`Não encontrei “${texto.slice(0, 40)}” no catálogo.`);
-      } else {
-        setResultados(pontuados);
+        setErro(`Identifiquei “${data.produto}”, mas não encontrei no catálogo.`);
       }
     } catch {
       setErro("Erro ao analisar. Tente novamente.");
@@ -69,7 +78,7 @@ export default function ReconhecimentoVisual() {
     <div style={{ padding: "1rem", maxWidth: "500px", margin: "0 auto" }}>
       <h1 style={{ fontSize: "1.3rem", marginBottom: "0.5rem" }}>Reconhecimento visual</h1>
       <p style={{ color: "#3e4b49", fontSize: "0.9rem", marginBottom: "1rem" }}>
-        Tire uma foto da embalagem. O site identifica o produto e mostra opções.
+        Tire uma foto da embalagem. O Gemini identifica o produto.
       </p>
 
       <input
@@ -105,12 +114,13 @@ export default function ReconhecimentoVisual() {
       ) : (
         <div style={{ textAlign: "center" }}>
           <img src={preview} alt="Prévia" style={{ maxWidth: "200px", borderRadius: "8px", marginBottom: "1rem" }} />
-          {analisando && <p style={{ color: "#0e7370" }}>Identificando produto...</p>}
+          {analisando && <p style={{ color: "#0e7370" }}>Identificando com Gemini...</p>}
+          {identificado && <p style={{ fontWeight: 600 }}>Identificado: “{identificado}”</p>}
           {erro && <p style={{ color: "#c62828" }}>{erro}</p>}
-          
+
           {resultados.length > 0 && (
             <div style={{ textAlign: "left", marginTop: "1rem" }}>
-              <p style={{ fontWeight: 700, marginBottom: "0.5rem" }}>Produtos encontrados:</p>
+              <p style={{ fontWeight: 700, marginBottom: "0.5rem" }}>Produtos no catálogo:</p>
               {resultados.map((p) => (
                 <a
                   key={p.slug}
@@ -137,7 +147,7 @@ export default function ReconhecimentoVisual() {
 
           <button
             type="button"
-            onClick={() => { setPreview(null); setResultados([]); setErro(null); }}
+            onClick={() => { setPreview(null); setResultados([]); setErro(null); setIdentificado(null); }}
             style={{ marginTop: "1rem", background: "transparent", border: "1px solid #ccc", borderRadius: "6px", padding: "0.4rem 0.8rem", cursor: "pointer" }}
           >
             Outra foto
