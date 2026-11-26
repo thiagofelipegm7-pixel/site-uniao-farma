@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { carregarSinais, chaveDoPedido, MIN_ITENS, ordenarPorConversao, pontosDeConversao, SINAIS_VAZIOS } from "../app/nacoes-unidas/produtos/mais-pedidos.ts";
+import { carregarSinais, chaveDoPedido, MIN_ITENS, ordenarPorConversao, pareceMedicamento, pontosDeConversao, SINAIS_VAZIOS } from "../app/nacoes-unidas/produtos/mais-pedidos.ts";
 
 const item = (nome, slug, nomeOriginal = nome) => ({ nome, nomeOriginal, slug });
 
@@ -71,4 +71,13 @@ test("a consulta de pedidos não lê dados de cliente", async () => {
   const pedidos = sqls.find((s) => s.includes("pre_venda"));
   assert.ok(pedidos);
   assert.doesNotMatch(pedidos, /telefone|aviso|nome_cliente|lembrete|codigo/i);
+});
+
+test("trava de remédio: nome com cara de medicamento nunca entra", () => {
+  for (const nome of ["Tilemaxy Baby paracetamol 100MG/ML 15ml", "Periogard 60g ( Hortela)", "Dipirona 500mg 10 comprimidos", "Vitamina C 1g efervescente", "Xarope infantil 120ml", "Gotas para os olhos"]) {
+    assert.equal(pareceMedicamento(nome), true, nome);
+  }
+  for (const nome of ["Aparelho Gillette Prestobarba Movel Fem - 2UND", "Absorvente Always 10UND Suave", "Elastico de Cabelo (gominha)", "Creme de Pentear Seda 300ml", "Tinta Alta Moda 91", "Shampoo Elseve Colágeno 200ml"]) {
+    assert.equal(pareceMedicamento(nome), false, nome);
+  }
 });

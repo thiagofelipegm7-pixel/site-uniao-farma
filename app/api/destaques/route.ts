@@ -6,7 +6,7 @@ import { descricaoDoProduto } from "../../nacoes-unidas/produtos/descricoes";
 import { escolherAtrativos } from "../../nacoes-unidas/produtos/atrativos";
 import { chaveDeNome } from "../../fotos-painel";
 import { banco } from "../../estoque-fonte";
-import { carregarSinais, ordenarPorConversao, SINAIS_VAZIOS } from "../../nacoes-unidas/produtos/mais-pedidos";
+import { carregarSinais, ordenarPorConversao, pareceMedicamento, SINAIS_VAZIOS } from "../../nacoes-unidas/produtos/mais-pedidos";
 import { elegivelParaPares } from "../../nacoes-unidas/produtos/relacionados";
 import mudancasJson from "../../nacoes-unidas/produtos/dados/mudancas-recentes.json" with { type: "json" };
 
@@ -84,7 +84,7 @@ export async function GET(request: Request) {
   if (params.get("ordem") === "conversao") {
     const db = banco();
     const sinais = db ? await carregarSinais(db, dia) : SINAIS_VAZIOS;
-    const vendaveis = filtrados.filter((item) => item.foto !== null && !item.esgotado && elegivelParaPares({ nome: item.nomeOriginal, categoria: item.categoria, isMIP: item.isMIP }));
+    const vendaveis = filtrados.filter((item) => item.foto !== null && !item.esgotado && !pareceMedicamento(item.nomeOriginal) && elegivelParaPares({ nome: item.nomeOriginal, categoria: item.categoria, isMIP: item.isMIP }));
     const top = ordenarPorConversao(vendaveis, sinais, n).map(({ nome, slug, lab: marca, precoCentavos, foto }) => ({ nome, slug, lab: marca, precoCentavos, foto }));
     return Response.json({ itens: top }, { headers: { "cache-control": "public, max-age=300" } });
   }

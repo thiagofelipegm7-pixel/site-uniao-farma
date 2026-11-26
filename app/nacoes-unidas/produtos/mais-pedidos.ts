@@ -34,6 +34,18 @@ export function chaveDoPedido(nome: string): string {
     .toUpperCase();
 }
 
+/**
+ * Trava extra da vitrine "Mais pedidos": o catálogo nem sempre marca remédio como remédio (ex.: gotas de paracetamol infantil entram como
+ * "Infantil e Gestante"). Se o nome lembra medicamento (dose em mg/mcg/UI, princípio ativo comum, forma farmacêutica ou antisséptico), fica de fora.
+ */
+export function pareceMedicamento(nome: string): boolean {
+  const base = nome.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  if (/\d+(?:[.,]\d+)?\s?(?:mg|mcg|ug|ui|g\/100)(?![a-z0-9])|(?:mg|mcg)\s?\/\s?ml/.test(base)) return true;
+  if (/paracetamol|dipirona|ibuprofeno|nimesulida|diclofenaco|cetoprofeno|clorexidina|periogard|omeprazol|loratadina|amoxicilina|azitromicina|predniso|dexameta|cetirizina|loperamida|simeticona|dramin|neosaldina|tylenol|novalgina|advil|polivitaminico|(?<![a-z0-9])aas(?![a-z0-9])|vitamina/.test(base)) return true;
+  if (/(?<![a-z0-9])(?:gotas|xarope|comprimidos?|capsulas?|supositorio|colirio|solucao oral|suspensao oral|ampolas?|injetavel)(?![a-z0-9])/.test(base)) return true;
+  return false;
+}
+
 export function pontosDeConversao(pedidos: number, cliques: number): number {
   const p = Number.isFinite(pedidos) && pedidos > 0 ? pedidos : 0;
   const c = Number.isFinite(cliques) && cliques > 0 ? Math.min(cliques, MAX_CLIQUES_CONTADOS) : 0;
