@@ -641,3 +641,26 @@ html body button.cookie-accept {
   background-color: #001a17 !important;
   border: 2px solid #001a17 !important;
 }
+
+/* Especificidade máxima — vence qualquer regra anterior */
+html body .cookie-banner button.cookie-reject,
+html body .cookie-banner button.cookie-reject:not([disabled]) {
+  color: #001a17 !important;
+  background-color: #f0faf8 !important;
+  border: 2px solid #001a17 !important;
+  -webkit-text-fill-color: #001a17 !important;
+}
+
+html body .cookie-banner button.cookie-accept,
+html body .cookie-banner button.cookie-accept:not([disabled]) {
+  color: #ffffff !important;
+  background-color: #001a17 !important;
+  border: 2px solid #001a17 !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+html body .dm-menu button.dm-cabeca,
+html body .dm-menu a {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
