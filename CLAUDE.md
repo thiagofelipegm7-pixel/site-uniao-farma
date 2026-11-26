@@ -12,7 +12,7 @@ Resumo da taxonomia de design do site. Vale para todas as páginas. Em caso de d
 
 | Uso | Cor |
 | --- | --- |
-| Verde-água, **só** no cabeçalho (`header.shop-header`) | `#9FE3D6` |
+| Verde-água no cabeçalho (`header.shop-header`) e nos botões de adicionar à cesta (página de produto e botão + dos cartões) | `#9FE3D6` |
 | Fundo, superfícies e cartões | `#FFFFFF` |
 | Texto, botões e único tom escuro | `#000000` |
 | Erro | `#B3261E` |
@@ -57,13 +57,12 @@ Sem sombra em cabeçalho, campo de busca, sacola e ícones. Quando houver profun
 
 - Cesta e Pix (BR Code estático, QR, comprovante em duas páginas).
 - Home, blog (Popular, Últimos conteúdos, carrosséis por tema; rodapé oculto) e receita.
+- Loja: listagem, departamento e produto (escopo `html body:has(.catalogo-nacoes)`), aviso de cookies e círculos de marcas. Lista restrita (medicamentos com receita) e texto do produto também conferidos.
 - Painel interno: ajustado, mas ainda não conferido visualmente (exige login).
 
 ## Pendências conhecidas
 
-- Botão "Aceitar" do aviso de cookies ainda em verde.
-- Resquícios de verde em `app/receita-foto/receita-foto.css` e `app/receita-polish.css`.
-- Círculos de "Navegue por marcas" na home ainda em cinza.
+- Resquícios de verde em `app/receita-polish.css` (regras de `.direct-unit-*`, sem uso na página de receita) e no gatilho `.receita-gatilho` de outras páginas. A janela "Ler receita" já está em preto e branco (bloco no fim de `app/base-direcao.css`).
 
 ## Conteúdo de saúde
 

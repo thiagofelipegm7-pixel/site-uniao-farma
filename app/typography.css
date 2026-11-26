@@ -354,7 +354,7 @@ h1,
 .direct-unit-link:hover,
 .offer-consult-card:hover,
 .question-card:hover {
-  box-shadow: none, 0 0.75rem 1.5rem rgba(28, 46, 41, 0.06);
+  box-shadow: none;
 }
 
 .offer-consult-image {

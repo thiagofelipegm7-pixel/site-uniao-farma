@@ -21,7 +21,7 @@ import { IconCamera, IconClipe, IconFechar, IconImagem, IconWhats } from "../res
 import { formatarCentavos, totalItens } from "../reserva/reserva-store";
 import ReservarBotao from "../reserva/ReservarBotao";
 import { useReserva } from "../reserva/useReserva";
-import { EVENTO_ABRIR_RECEITA } from "./abrir-receita";
+import { EVENTO_ABRIR_RECEITA, type ModoLeitor } from "./abrir-receita";
 import { ErroImagem, prepararImagem } from "./imagem";
 import { lerLocalmente } from "./leitor-local";
 import { medicamentosDoTexto, remediosForaDoCatalogo } from "./texto-para-medicamentos";
@@ -182,7 +182,17 @@ export default function LerReceita() {
   const pdfRef = useRef<HTMLInputElement>(null);
   const abortarRef = useRef<AbortController | null>(null);
   const retornoRef = useRef<HTMLElement | null>(null);
+  const modoRef = useRef<ModoLeitor | undefined>(undefined);
   const totalNaCesta = totalItens(reserva);
+  const [demora, setDemora] = useState(false);
+  const estaLendo = fase.tipo === "lendo";
+  // Na primeira leitura o aparelho baixa o leitor (alguns MB): avisa que é só desta vez em vez de parecer travado.
+  useEffect(() => {
+    setDemora(false);
+    if (!estaLendo) return;
+    const t = window.setTimeout(() => setDemora(true), 5000);
+    return () => window.clearTimeout(t);
+  }, [estaLendo]);
 
   const fechar = useCallback(() => {
     abortarRef.current?.abort();
@@ -192,11 +202,12 @@ export default function LerReceita() {
   }, []);
 
   useEffect(() => {
-    const abrir = () => {
+    const abrir = (evento: Event) => {
+      modoRef.current = (evento as CustomEvent<{ modo?: ModoLeitor }>).detail?.modo;
       retornoRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
       setFase({ tipo: "inicio" });
       setAberto(true);
-      trackEvent("receita_foto_abrir", {});
+      trackEvent("receita_foto_abrir", { modo: modoRef.current ?? "padrao" });
       // Aquece o catálogo enquanto a pessoa escolhe a foto.
       carregarCatalogo().catch(() => undefined);
     };
@@ -220,7 +231,10 @@ export default function LerReceita() {
     fundo.forEach((node) => node.setAttribute("inert", ""));
     const anterior = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    const timer = window.setTimeout(() => fecharRef.current?.focus(), 20);
+    const modo = modoRef.current;
+    modoRef.current = undefined;
+    // Quem tocou em "Tenho um PDF" cai direto no seletor de arquivo; as outras opções continuam na janela.
+    const timer = window.setTimeout(() => (modo === "pdf" ? pdfRef.current?.click() : fecharRef.current?.focus()), 20);
     const aoTeclar = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
@@ -283,6 +297,8 @@ export default function LerReceita() {
       // 1º: leitura no próprio aparelho (texto do PDF ou OCR), sem IA e sem enviar nada. Se não achar remédio, a IA lê.
       const local = await lerLocalmente(arquivo, imagem, controle.signal).catch(() => null);
       if (controle.signal.aborted) return;
+      if (!local) trackEvent("receita_foto_local_falhou", { motivo: "erro" });
+      else if (local.origem !== "pdf" && local.confianca < 65) trackEvent("receita_foto_local_falhou", { motivo: "confianca_baixa" });
       if (local && (local.origem === "pdf" || local.confianca >= 65)) {
         const lidosLocal = medicamentosDoTexto(local.texto, catalogo);
         if (lidosLocal.length > 0) {
@@ -290,6 +306,7 @@ export default function LerReceita() {
           trackEvent("receita_foto_resultado", { achados: resultadosLocal.filter((r) => r.status === "achado").length, lidos: resultadosLocal.length, leitor: local.origem });
           return setFase({ tipo: "resultado", resultados: resultadosLocal });
         }
+        trackEvent("receita_foto_local_falhou", { motivo: "sem_remedio" });
       }
       // Reserva: a leitura local gastou parte do tempo; a IA recebe o prazo inteiro.
       window.clearTimeout(relogio);
@@ -302,11 +319,11 @@ export default function LerReceita() {
       const dados = (await resposta.json()) as { ehReceita?: boolean; medicamentos?: Medicamento[] };
       const lidos = Array.isArray(dados.medicamentos) ? dados.medicamentos : [];
       if (dados.ehReceita === false || lidos.length === 0) {
-        trackEvent("receita_foto_resultado", { achados: 0, lidos: 0 });
+        trackEvent("receita_foto_resultado", { achados: 0, lidos: 0, leitor: "ia" });
         return setFase({ tipo: "naoReceita" });
       }
       const resultados = casarReceita(catalogo, lidos);
-      trackEvent("receita_foto_resultado", { achados: resultados.filter((r) => r.status === "achado").length, lidos: resultados.length });
+      trackEvent("receita_foto_resultado", { achados: resultados.filter((r) => r.status === "achado").length, lidos: resultados.length, leitor: "ia" });
       setFase({ tipo: "resultado", resultados });
     } catch (erro) {
       if (erro instanceof ErroImagem) {
@@ -387,7 +404,13 @@ export default function LerReceita() {
               {fase.tipo === "naoReceita" ? (
                 <p className="receita-erro" role="alert">Não consegui ler medicamentos nesta foto. Tente de novo com a receita inteira, em foco e sem sombra, ou fale com o farmacêutico.</p>
               ) : null}
+              {fase.tipo === "inicio" ? <p className="receita-dica">Fotografe a receita inteira, com boa luz e o texto em foco. Se tiver o PDF do Memed, escolha o arquivo.</p> : null}
               {escolher}
+              {whatsapp ? (
+                <a className="receita-mao" href={whatsapp} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="receita_foto_mao">
+                  Receita escrita à mão? Fale com o farmacêutico
+                </a>
+              ) : null}
             </>
           ) : null}
 
@@ -395,7 +418,7 @@ export default function LerReceita() {
             <div className="receita-lendo" role="status" aria-live="polite">
               {fase.tipo === "lendo" && fase.previa ? <img src={fase.previa} alt="" className="receita-previa" /> : <span className="receita-previa receita-previa-vazia" aria-hidden="true" />}
               <span className="receita-giro" aria-hidden="true" />
-              <p>Lendo a receita… leva alguns segundos.</p>
+              <p>{demora ? "Preparando o leitor no seu aparelho. Só demora assim na primeira vez." : "Lendo a receita… leva alguns segundos."}</p>
               <button type="button" className="reserva-botao reserva-botao-vazado" onClick={cancelarLeitura}>Cancelar</button>
             </div>
           ) : null}
@@ -407,12 +430,12 @@ export default function LerReceita() {
                   ? "Li a receita, mas não achei estes itens no site."
                   : `Achei ${achados} de ${resultados.length} ${resultados.length === 1 ? "medicamento" : "medicamentos"} da receita.${faltam.length > 0 ? ` ${faltam.length === 1 ? "Falta 1 remédio" : `Faltam ${faltam.length} remédios`} no site: fale com o farmacêutico.` : ""}`}
               </p>
+              {temRestrito ? (
+                <p className="receita-aviso">Remédio com receita é retirado na loja, com a receita original. Controle especial (Portaria 344) e antimicrobianos só são vendidos na loja, e a farmácia retém a receita.</p>
+              ) : null}
               <div className="receita-lista">
                 {resultados.map((r, i) => <CartaoMedicamento key={`${r.lido.nome}-${i}`} r={r} />)}
               </div>
-              {temRestrito ? (
-                <p className="receita-aviso">Medicamentos com receita são retirados na loja, com a receita original. Medicamentos de controle especial (Portaria 344) e antimicrobianos não são vendidos pelo site: a venda é só na loja, com a receita (a farmácia retém a receita).</p>
-              ) : null}
               {faltam.length > 0 && whatsapp ? (
                 <a className="reserva-botao reserva-botao-vazado receita-whats" href={whatsapp} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="receita_foto">
                   <IconWhats size={22} oficial /> <span>Falar com o farmacêutico sobre o que faltou</span>
@@ -425,7 +448,7 @@ export default function LerReceita() {
           <div className="receita-pe">
             <button type="button" className="reserva-botao reserva-botao-vazado" onClick={() => setFase({ tipo: "inicio" })}>Ler outra receita</button>
             {totalNaCesta > 0 ? (
-              <button type="button" className="reserva-botao" onClick={() => { fechar(); abrirReserva(); }}>Ver cesta ({totalNaCesta})</button>
+              <button type="button" className="reserva-botao" onClick={() => { fechar(); abrirReserva(); }}>Ir para a cesta ({totalNaCesta})</button>
             ) : null}
           </div>
         ) : null}

@@ -1,0 +1,921 @@
+{
+  "geradoEm": "2026-11-22T15:44:49.558Z",
+  "origem": "2026-11-17T20:31:52",
+  "fonte": "catalogo-nacoes.json (export DMaster, site online)",
+  "total": 100,
+  "itens": [
+    {
+      "nome": "A SAUDE DA MULHER sus fr 150ml",
+      "lab": "EMS MARCAS",
+      "preco": 29.9,
+      "categoria": "Medicamentos",
+      "isMIP": false,
+      "categoriaAntiga": "Consulte o farmacêutico",
+      "origem": "consulte",
+      "restam": 1
+    },
+    {
+      "nome": "ABS CAREFRREE diario brisa /40",
+      "lab": "J&J",
+      "preco": 22.9,
+      "restam": 2,
+      "categoria": "Cuidado Diário",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "AGUA MICELAR SOL 5EM1 200ML ELSEVE",
+      "lab": "LOREAL",
+      "preco": 29.9,
+      "restam": 1,
+      "categoria": "Beleza",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "AGIL C KIDS CHICO BENTO MORANGO 30MG 25G",
+      "lab": "PHARLAB",
+      "preco": 15,
+      "restam": 1,
+      "categoria": "Infantil e Gestante",
+      "isMIP": false,
+      "categoriaAntiga": "Suplementos e alimentos"
+    },
+    {
+      "nome": "ADOCANTE ADOCYL STEVIA 80ML",
+      "lab": "COSMED",
+      "preco": 12,
+      "restam": 2,
+      "categoria": "Bem Estar",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "ADESIVO RICCA 3867 SECATIVO ACNE FASE CR",
+      "lab": "RICCA",
+      "preco": 26.5,
+      "restam": 1,
+      "categoria": "Dermocosméticos",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "BODY SPLASH LAVANDA HIDRADERM 190ML",
+      "lab": "FARMAX",
+      "preco": 24.9,
+      "restam": 1,
+      "categoria": "Perfumes",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "ACALMILFITO C/20",
+      "lab": "",
+      "preco": 22,
+      "categoria": "Medicamentos",
+      "isMIP": false,
+      "categoriaAntiga": "Consulte o farmacêutico",
+      "origem": "consulte",
+      "restam": 1
+    },
+    {
+      "nome": "ABSORVENTE ALWAYS 10UND SUAVE",
+      "lab": "PROCTER & GAMBLE",
+      "preco": 6,
+      "restam": 1,
+      "categoria": "Cuidado Diário",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "ALICATE CUTICULA MUNDIAL ACO 522",
+      "lab": "MUNDIAL",
+      "preco": 29,
+      "restam": 2,
+      "categoria": "Beleza",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "AGIL C KIDS CHICO BENTO PLUS LARANJA 40G",
+      "lab": "PHARLAB",
+      "preco": 34.9,
+      "restam": 1,
+      "categoria": "Infantil e Gestante",
+      "isMIP": false,
+      "categoriaAntiga": "Suplementos e alimentos"
+    },
+    {
+      "nome": "ADOCANTE DIETETICO DOCURINHA 1",
+      "lab": "DOCURINHA",
+      "preco": 28.9,
+      "restam": 1,
+      "categoria": "Bem Estar",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "AGUA MICELAR CICATRICURE 200ML",
+      "lab": "GENOMMA LAB",
+      "preco": 25,
+      "restam": 1,
+      "categoria": "Dermocosméticos",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "LEITE COLONIA 200ML FINAL FANT",
+      "lab": "",
+      "preco": 11,
+      "restam": 2,
+      "categoria": "Perfumes",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "ACETICIL 500mg 10CPR",
+      "lab": "CAZI",
+      "preco": 4.5,
+      "categoria": "Medicamentos",
+      "isMIP": false,
+      "categoriaAntiga": "Consulte o farmacêutico",
+      "origem": "consulte",
+      "restam": 2
+    },
+    {
+      "nome": "ABSORVENTE ALWAYS NOT SUAVE C/8 UN",
+      "lab": "PROCTER",
+      "preco": 13.9,
+      "restam": 4,
+      "categoria": "Cuidado Diário",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "ALIS HAIRLIFE CACHOS",
+      "lab": "EMBELLEZE",
+      "preco": 21.9,
+      "restam": 1,
+      "categoria": "Beleza",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "AGIL C KIDS LARANJA 30MG 25 GOMAS-PLS",
+      "lab": "PHARLAB",
+      "preco": 15,
+      "restam": 1,
+      "categoria": "Infantil e Gestante",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "AGUA OXIGENADA 40 VOL FARMAX 900ML",
+      "lab": "FARMAX",
+      "preco": 24.9,
+      "restam": 1,
+      "categoria": "Bem Estar",
+      "isMIP": false,
+      "categoriaAntiga": "Correlatos e outros"
+    },
+    {
+      "nome": "CARMED ACIDO HIALURONICO 10G",
+      "lab": "CIMED",
+      "preco": 16.9,
+      "restam": 1,
+      "categoria": "Dermocosméticos",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "LEITE DE COLONIA 200ML LOCAO",
+      "lab": "",
+      "preco": 11,
+      "restam": 1,
+      "categoria": "Perfumes",
+      "isMIP": false,
+      "categoriaAntiga": "Pele e proteção solar"
+    },
+    {
+      "nome": "ACETILCISTEINA 20 MG 120 ML LEGRAND",
+      "lab": "LEGRAND GE",
+      "preco": 20,
+      "restam": 1,
+      "categoria": "Medicamentos",
+      "isMIP": true,
+      "categoriaAntiga": "Medicamentos isentos de prescrição"
+    },
+    {
+      "nome": "ABSORVENTE ALWAYS NOTURNO C/16",
+      "lab": "PROCTER & GAMBLE",
+      "preco": 22.9,
+      "restam": 3,
+      "categoria": "Cuidado Diário",
+      "isMIP": false,
+      "categoriaAntiga": "Correlatos e outros"
+    },
+    {
+      "nome": "ALIS HAIRLIFE SOLT/NAT",
+      "lab": "EMBELLEZE",
+      "preco": 21.9,
+      "restam": 1,
+      "categoria": "Beleza",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "AGIL-C KIDS C/25 GOMAS CHICO BENTO SAB.",
+      "lab": "PHARLAB",
+      "preco": 15,
+      "restam": 2,
+      "categoria": "Infantil e Gestante",
+      "isMIP": false,
+      "categoriaAntiga": "Suplementos e alimentos"
+    },
+    {
+      "nome": "AMORA COM ISOFLAVONA 500MG 100 CAPS",
+      "lab": "",
+      "preco": 35,
+      "restam": 1,
+      "categoria": "Bem Estar",
+      "isMIP": false,
+      "categoriaAntiga": "Suplementos e alimentos"
+    },
+    {
+      "nome": "CERAVE CREME HIDRATANTE 85G",
+      "lab": "LOREAL",
+      "preco": 39.9,
+      "restam": 3,
+      "categoria": "Dermocosméticos",
+      "isMIP": false,
+      "categoriaAntiga": "Pele e proteção solar"
+    },
+    {
+      "nome": "ACETILCISTEINA 200 MG 16 SACHES EUROFARMA",
+      "lab": "EUROFARMA",
+      "preco": 25,
+      "restam": 3,
+      "categoria": "Medicamentos",
+      "isMIP": true,
+      "categoriaAntiga": "Medicamentos isentos de prescrição"
+    },
+    {
+      "nome": "ABSORVENTE ALWAYS NOTURNO C/16 SECA",
+      "lab": "PROCTER",
+      "preco": 22.9,
+      "restam": 1,
+      "categoria": "Cuidado Diário",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "ALISANTE TOIN FLOFT 400 G",
+      "lab": "EMBELLEZE",
+      "preco": 39.9,
+      "restam": 1,
+      "categoria": "Beleza",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "ATIVADOR DE CACHOS KIDS SALON LINE",
+      "lab": "SALON LINE",
+      "preco": 23.9,
+      "restam": 1,
+      "categoria": "Infantil e Gestante",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "ARTRIFLEX 40MG C/30 CAPS QUALYNUTRI",
+      "lab": "QUALYNUTRI",
+      "preco": 45,
+      "restam": 1,
+      "categoria": "Bem Estar",
+      "isMIP": false,
+      "categoriaAntiga": "Suplementos e alimentos"
+    },
+    {
+      "nome": "CERAVE LOCAO HIDRATANTE 340ML",
+      "lab": "LOREAL",
+      "preco": 115.99,
+      "restam": 1,
+      "categoria": "Dermocosméticos",
+      "isMIP": false,
+      "categoriaAntiga": "Pele e proteção solar"
+    },
+    {
+      "nome": "ACETILCISTEINA 20MG/ML XPE INF 120 ML GEOLAB",
+      "lab": "GEOLAB",
+      "preco": 20,
+      "restam": 2,
+      "categoria": "Medicamentos",
+      "isMIP": true,
+      "categoriaAntiga": "Medicamentos isentos de prescrição"
+    },
+    {
+      "nome": "ABSORVENTE GERIATRICO CONFORT MASTER COM 20 UNIDA",
+      "lab": "CONFORT MASTER",
+      "preco": 22,
+      "restam": 2,
+      "categoria": "Cuidado Diário",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "AMACIHAIR LISO",
+      "lab": "EMBELLEZE",
+      "preco": 40,
+      "restam": 1,
+      "categoria": "Beleza",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "BABY MED ROSA 45G",
+      "lab": "CIMED",
+      "preco": 12,
+      "categoria": "Infantil e Gestante",
+      "isMIP": false,
+      "categoriaAntiga": "Consulte o farmacêutico",
+      "origem": "consulte",
+      "restam": 4
+    },
+    {
+      "nome": "ARTRIFLEX ULTRA 80MG C/60 CAPS QUALYNUTR",
+      "lab": "QUALYNUTRI",
+      "preco": 69.9,
+      "restam": 3,
+      "categoria": "Bem Estar",
+      "isMIP": false,
+      "categoriaAntiga": "Suplementos e alimentos"
+    },
+    {
+      "nome": "CERIDRAT CREME CORPORAL E FACIAL 500G",
+      "lab": "1FARMA",
+      "preco": 69.9,
+      "restam": 1,
+      "categoria": "Dermocosméticos",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "ACETILCISTEINA 40MG XPE ADUL 120ML LEGRAND",
+      "lab": "LEGRAND",
+      "preco": 25,
+      "restam": 3,
+      "categoria": "Medicamentos",
+      "isMIP": true,
+      "categoriaAntiga": "Medicamentos isentos de prescrição"
+    },
+    {
+      "nome": "ABSORVENTE GERIATRICO MASTER SOFT COM 20UND",
+      "lab": "EVER FRESH",
+      "preco": 22,
+      "restam": 2,
+      "categoria": "Cuidado Diário",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "ATIVADOR CACHO SAL LINE 500G",
+      "lab": "SALON LINE",
+      "preco": 37.9,
+      "restam": 1,
+      "categoria": "Beleza",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "BICO MAMITA REDONDO",
+      "lab": "ISABABY",
+      "preco": 5,
+      "restam": 2,
+      "categoria": "Infantil e Gestante",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "BIOTINA MASTIGAVEL 45MCG C/60 COMP QUALY",
+      "lab": "QUALYNUTRI",
+      "preco": 42.9,
+      "restam": 4,
+      "categoria": "Bem Estar",
+      "isMIP": false,
+      "categoriaAntiga": "Suplementos e alimentos"
+    },
+    {
+      "nome": "CERIDRAT LOCAO CORPORAL E FACIAL 473ML",
+      "lab": "1FARMA",
+      "preco": 69.9,
+      "restam": 2,
+      "categoria": "Dermocosméticos",
+      "isMIP": false,
+      "categoriaAntiga": "Pele e proteção solar"
+    },
+    {
+      "nome": "ACETILCISTEINA 600mg 16 ENV EMS",
+      "lab": "GERMED",
+      "preco": 35,
+      "restam": 2,
+      "categoria": "Medicamentos",
+      "isMIP": true,
+      "categoriaAntiga": "Medicamentos isentos de prescrição"
+    },
+    {
+      "nome": "ABSORVENTE INTERNO INTIMUS SUPER C/8 UN",
+      "lab": "KIMBERLY",
+      "preco": 12.9,
+      "restam": 3,
+      "categoria": "Cuidado Diário",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "ATIVADOR CACHOS SAL LINE 500 G",
+      "lab": "SALON LINE",
+      "preco": 37.9,
+      "restam": 1,
+      "categoria": "Beleza",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "BYE BYE FEVER BEBES C 2UN",
+      "lab": "",
+      "preco": 16.9,
+      "restam": 1,
+      "categoria": "Infantil e Gestante",
+      "isMIP": false,
+      "categoriaAntiga": "Correlatos e outros"
+    },
+    {
+      "nome": "BLA HALLS EXTRA FORTE",
+      "lab": "MONDELEZ",
+      "preco": 2.5,
+      "restam": 1,
+      "categoria": "Bem Estar",
+      "isMIP": false,
+      "categoriaAntiga": "Suplementos e alimentos"
+    },
+    {
+      "nome": "Cetaphil Creme Hidratante Corporal 453g",
+      "lab": "GALDERMA",
+      "preco": 119.99,
+      "restam": 2,
+      "categoria": "Dermocosméticos",
+      "isMIP": false,
+      "categoriaAntiga": "Pele e proteção solar"
+    },
+    {
+      "nome": "ACEVITON 1G C/10 EFERVESCENTE PROMOCIONAL",
+      "lab": "CIMED",
+      "preco": 9.9,
+      "categoria": "Medicamentos",
+      "isMIP": false,
+      "categoriaAntiga": "Consulte o farmacêutico",
+      "origem": "consulte",
+      "restam": 1
+    },
+    {
+      "nome": "ABSORVENTE INTIMUS SECA ABAS C/16 UN",
+      "lab": "KIMBERLY",
+      "preco": 15,
+      "restam": 1,
+      "categoria": "Cuidado Diário",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "ATIVADOR CACHOS SALON LINE 300",
+      "lab": "SALON LINE",
+      "preco": 23.9,
+      "categoria": "Beleza",
+      "isMIP": false,
+      "restam": 1,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "BYE BYE FEVER CRIANCA C 2UN",
+      "lab": "",
+      "preco": 16.9,
+      "restam": 2,
+      "categoria": "Infantil e Gestante",
+      "isMIP": false,
+      "categoriaAntiga": "Correlatos e outros"
+    },
+    {
+      "nome": "BOMBOM SORTIDO LACTA FAVORITOS CAIXA 131.4G",
+      "lab": "MONDELEZ",
+      "preco": 14,
+      "restam": 1,
+      "categoria": "Bem Estar",
+      "isMIP": false,
+      "categoriaAntiga": "Suplementos e alimentos"
+    },
+    {
+      "nome": "Cetaphil locao Hidratante Corporal 453g",
+      "lab": "GALDERMA",
+      "preco": 119.99,
+      "restam": 2,
+      "categoria": "Dermocosméticos",
+      "isMIP": false,
+      "categoriaAntiga": "Pele e proteção solar"
+    },
+    {
+      "nome": "ACEVITON 500MG C/60 MASTIGAVEL",
+      "lab": "CIMED",
+      "preco": 29.9,
+      "categoria": "Medicamentos",
+      "isMIP": false,
+      "categoriaAntiga": "Consulte o farmacêutico",
+      "origem": "consulte",
+      "restam": 1
+    },
+    {
+      "nome": "ABSORVENTE INTIMUS SUAVE ABAS C/16 UN",
+      "lab": "KIMBERLY",
+      "preco": 15,
+      "restam": 1,
+      "categoria": "Cuidado Diário",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "BANHO DE CREME BIOEXTRATUS ANTIQUEDA JABORANDI 1KG",
+      "lab": "BIOEXTRATO",
+      "preco": 69.9,
+      "restam": 4,
+      "categoria": "Beleza",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "CAMOMINE C BABY 20 CAPS",
+      "lab": "ARTE NATIV",
+      "preco": 24,
+      "categoria": "Infantil e Gestante",
+      "isMIP": false,
+      "categoriaAntiga": "Consulte o farmacêutico",
+      "origem": "consulte",
+      "restam": 1
+    },
+    {
+      "nome": "CATETER INTRAVENOSO 16G .",
+      "lab": "DESCAPACK",
+      "preco": 7,
+      "restam": 1,
+      "categoria": "Bem Estar",
+      "isMIP": false,
+      "categoriaAntiga": "Correlatos e outros"
+    },
+    {
+      "nome": "CICATRICURE GEL 30 GR",
+      "lab": "GENOM",
+      "preco": 39.9,
+      "restam": 1,
+      "categoria": "Dermocosméticos",
+      "isMIP": false,
+      "categoriaAntiga": "Correlatos e outros"
+    },
+    {
+      "nome": "ACNEZIL GEL 20 G TRATAMENTO 2",
+      "lab": "CIMED",
+      "preco": 21,
+      "categoria": "Medicamentos",
+      "isMIP": false,
+      "categoriaAntiga": "Consulte o farmacêutico",
+      "origem": "consulte",
+      "restam": 4
+    },
+    {
+      "nome": "ABSORVENTE OB SEMPRE LIVRE MINI 8UND",
+      "lab": "JOHNSON &",
+      "preco": 15,
+      "restam": 3,
+      "categoria": "Cuidado Diário",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "BANHO DE CREME BIOEXTRATUS CACHOS 1KG",
+      "lab": "BIO EXTRATUS",
+      "preco": 69.9,
+      "restam": 2,
+      "categoria": "Beleza",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "CANECA TREINAMENTO ROSA KUKA BABY",
+      "lab": "KUKA",
+      "preco": 42,
+      "restam": 1,
+      "categoria": "Infantil e Gestante",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "CHA DE ERVA-DOCE COM 10 SACHES",
+      "lab": "",
+      "preco": 6,
+      "restam": 1,
+      "categoria": "Bem Estar",
+      "isMIP": false,
+      "categoriaAntiga": "Correlatos e outros"
+    },
+    {
+      "nome": "CR NIVEA 56 GR LATA",
+      "lab": "NIVEA",
+      "preco": 29.9,
+      "restam": 2,
+      "categoria": "Dermocosméticos",
+      "isMIP": false,
+      "categoriaAntiga": "Pele e proteção solar"
+    },
+    {
+      "nome": "ACNEZIL GEL SECATIVO 10 G7897947607392",
+      "lab": "CIMED",
+      "preco": 18,
+      "categoria": "Medicamentos",
+      "isMIP": false,
+      "categoriaAntiga": "Consulte o farmacêutico",
+      "origem": "consulte",
+      "restam": 3
+    },
+    {
+      "nome": "ABSORVENTE OB SEMPRE LIVRE SUPER 8UND",
+      "lab": "J&J",
+      "preco": 15,
+      "restam": 1,
+      "categoria": "Cuidado Diário",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "BANHO DE CREME BIOEXTRATUS POS QUIMICA 1KG",
+      "lab": "BIOEXTRATO",
+      "preco": 69.9,
+      "restam": 2,
+      "categoria": "Beleza",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "CHUPETA BUBA COMFORT 0 - 6 M UNICORNIO",
+      "lab": "BUBA",
+      "preco": 21.9,
+      "restam": 1,
+      "categoria": "Infantil e Gestante",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "CHA DE HIBISCO 10SACHES 13G VEMAT",
+      "lab": "VEMAT",
+      "preco": 6,
+      "restam": 1,
+      "categoria": "Bem Estar",
+      "isMIP": false,
+      "categoriaAntiga": "Suplementos e alimentos"
+    },
+    {
+      "nome": "CR NIVEA FACIAL CONTROLE OLEOSIDADE 100 G",
+      "lab": "NIVEA (BEIERSDORF)",
+      "preco": 35,
+      "restam": 2,
+      "categoria": "Dermocosméticos",
+      "isMIP": false,
+      "categoriaAntiga": "Pele e proteção solar"
+    },
+    {
+      "nome": "ACU FRESH 5mg/ml sol oft fr 10 ML",
+      "lab": "GEOLAB",
+      "preco": 25,
+      "restam": 4,
+      "categoria": "Medicamentos",
+      "isMIP": true,
+      "categoriaAntiga": "Medicamentos isentos de prescrição"
+    },
+    {
+      "nome": "ABSORVENTE PARA SEIOS CREMER COM 12 UND",
+      "lab": "CREMER",
+      "preco": 15,
+      "restam": 2,
+      "categoria": "Cuidado Diário",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "BANHO DE CREME BIOEXTRATUS TUTANO CERAMIDAS 1KG",
+      "lab": "BIOEXTRATO",
+      "preco": 69.9,
+      "restam": 3,
+      "categoria": "Beleza",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "CHUPETA ISABAB",
+      "lab": "ISABABY",
+      "preco": 12,
+      "restam": 1,
+      "categoria": "Infantil e Gestante",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "CHA VERDE 100 CPS LIFE NATURAL",
+      "lab": "LIFE NATURAL",
+      "preco": 29.9,
+      "restam": 1,
+      "categoria": "Bem Estar",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "CR SEBO DE CARNEIRO C/ UREIA 200 ML7898946058871",
+      "lab": "3M",
+      "preco": 15.9,
+      "restam": 1,
+      "categoria": "Dermocosméticos",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "ACU FRESH G 10ML",
+      "lab": "GEOLAB",
+      "preco": 25,
+      "restam": 2,
+      "categoria": "Medicamentos",
+      "isMIP": true,
+      "categoriaAntiga": "Medicamentos isentos de prescrição"
+    },
+    {
+      "nome": "ABSORVENTE POS PARTO GERIAMAX COM 20UND",
+      "lab": "GERIAMAX",
+      "preco": 26,
+      "restam": 1,
+      "categoria": "Cuidado Diário",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "BEPANTRIZ DERMA CREME 20G",
+      "lab": "CIMED",
+      "preco": 20,
+      "categoria": "Beleza",
+      "isMIP": false,
+      "restam": 1,
+      "origem": "consulte",
+      "categoriaAntiga": "Consulte o farmacêutico"
+    },
+    {
+      "nome": "CHUPETA KUKA TAM 1 100% SILICONE ROSA",
+      "lab": "KUKA",
+      "preco": 32.5,
+      "restam": 1,
+      "categoria": "Infantil e Gestante",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "CHICLE TRIDENT 8G TUTTI FRUTTI",
+      "lab": "ADAMS",
+      "preco": 3.5,
+      "restam": 5,
+      "categoria": "Bem Estar",
+      "isMIP": false,
+      "categoriaAntiga": "Suplementos e alimentos"
+    },
+    {
+      "nome": "CREME NIVEA FACIAL NUTRITIVO 100 GR",
+      "lab": "NIVEA",
+      "preco": 35,
+      "restam": 1,
+      "categoria": "Dermocosméticos",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "ADEFORTE SOL 1AMP 3ML",
+      "lab": "GROSS",
+      "preco": 29,
+      "categoria": "Medicamentos",
+      "isMIP": false,
+      "categoriaAntiga": "Consulte o farmacêutico",
+      "origem": "consulte",
+      "restam": 4
+    },
+    {
+      "nome": "ABSORVENTE SYM 30UN SECA",
+      "lab": "santher",
+      "preco": 15,
+      "restam": 1,
+      "categoria": "Cuidado Diário",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "BRINCO STUDEX",
+      "lab": "STUDEX",
+      "preco": 40,
+      "restam": 3,
+      "categoria": "Beleza",
+      "isMIP": false,
+      "categoriaAntiga": "Correlatos e outros"
+    },
+    {
+      "nome": "CHUPETA KUKA TAM 2 100% SILICONE AZUL",
+      "lab": "KUKA",
+      "preco": 32.5,
+      "restam": 2,
+      "categoria": "Infantil e Gestante",
+      "isMIP": false,
+      "categoriaAntiga": "Correlatos e outros"
+    },
+    {
+      "nome": "CINCO MAG 500MG C/60 CAPS QUALYNUTRI",
+      "lab": "QUALYNUTRI",
+      "preco": 46.9,
+      "restam": 1,
+      "categoria": "Bem Estar",
+      "isMIP": false,
+      "categoriaAntiga": "Suplementos e alimentos"
+    },
+    {
+      "nome": "EPIDRAT CALM B5 BG 50ML",
+      "lab": "MANTECORP/FARMASA",
+      "preco": 110,
+      "restam": 1,
+      "categoria": "Dermocosméticos",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "AFOLIMAX 30ML (ACIDO FOLICO) /",
+      "lab": "",
+      "preco": 25,
+      "categoria": "Medicamentos",
+      "isMIP": false,
+      "categoriaAntiga": "Consulte o farmacêutico",
+      "origem": "consulte",
+      "restam": 2
+    },
+    {
+      "nome": "ABSORVENTE SYM COM 30UND SUAVE",
+      "lab": "santher",
+      "preco": 15,
+      "restam": 1,
+      "categoria": "Cuidado Diário",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "CD ELSEVE GLYCOLIC GLOSS 200ML",
+      "lab": "LOREAL",
+      "preco": 24.9,
+      "restam": 1,
+      "categoria": "Beleza",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "CHUPETA KUKA TAM 2 100% SILICONE TRANSPARENTE",
+      "lab": "KUKA",
+      "preco": 32.5,
+      "restam": 1,
+      "categoria": "Infantil e Gestante",
+      "isMIP": false,
+      "categoriaAntiga": "Correlatos e outros"
+    },
+    {
+      "nome": "CLORIDRATO DE PROMETAZINA 20mg/g crem derm bg",
+      "lab": "TEUTO",
+      "preco": 16.9,
+      "categoria": "Bem Estar",
+      "isMIP": false,
+      "restam": 1,
+      "categoriaAntiga": "Medicamentos isentos de prescrição"
+    },
+    {
+      "nome": "FISIOGEL LC CREMOSA 400ML",
+      "lab": "DAUDT",
+      "preco": 120,
+      "restam": 1,
+      "categoria": "Dermocosméticos",
+      "isMIP": false,
+      "categoriaAntiga": "Perfumaria e higiene"
+    },
+    {
+      "nome": "AGIIGRIP DUO 12CPR REV (DIP SOD+CAF+CLOR",
+      "lab": "",
+      "preco": 9.9,
+      "categoria": "Medicamentos",
+      "isMIP": false,
+      "categoriaAntiga": "Consulte o farmacêutico",
+      "origem": "consulte",
+      "restam": 2
+    }
+  ]
+}

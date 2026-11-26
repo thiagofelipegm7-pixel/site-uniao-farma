@@ -35,7 +35,7 @@
 @media (max-width: 520px) { .nav-interna-marca small { display: none; } }
 
 /* Mesmo padrão do site dos clientes: barra branca com linha verde-água, texto escuro, aba atual em menta, verde #14736b como cor de ação. */
-.nav-interna { background: #ffffff; color: #000000; border-bottom: 1px solid #d3e2df; box-shadow: none, 0 4px 12px rgba(8, 58, 59, 0.06); }
+.nav-interna { background: #ffffff; color: #000000; border-bottom: 1px solid #d3e2df; box-shadow: none; }
 .nav-interna-marca { color: #000000; font-style: italic; }
 .nav-interna-marca small { background: #e4f6f3; color: #0b3b36; font-style: normal; }
 .nav-interna a { color: #000000; opacity: 1; font-weight: 600; }

@@ -57,7 +57,7 @@
 .uf-quick-view__entrega { display: grid; gap: 0.2rem; margin: 1rem 0; padding: 0.8rem 0.9rem; border-radius: 14px; background: #f5f8f8; font-size: 0.875rem; }
 .uf-quick-view__entrega span { color: #667980; line-height: 1.4; }
 .uf-quick-view__rodape { display: flex; align-items: center; gap: 0.75rem; margin-top: 1rem; }
-.uf-quick-view__quantidade { display: inline-flex; align-items: center; min-height: 3rem; border-radius: 12px; background: #f4f7f7; box-shadow: none, 55, 68, 0.08); }
+.uf-quick-view__quantidade { display: inline-flex; align-items: center; min-height: 3rem; border-radius: 12px; background: #f4f7f7; box-shadow: none; }
 .uf-quick-view__quantidade button { width: 2.75rem; height: 3rem; border: 0; border-radius: 12px; background: transparent; color: var(--color-ink, #263744); font: inherit; font-size: 1.3rem; cursor: pointer; }
 .uf-quick-view__quantidade button:disabled { opacity: 0.4; cursor: default; }
 .uf-quick-view__quantidade span { min-width: 1.5rem; text-align: center; font-weight: 750; }

@@ -31,6 +31,9 @@ const PASSOS = [
   },
 ] as const;
 
+/** Resumo de uma linha por passo: quem já sabe o que quer não precisa abrir o passo a passo ilustrado. */
+const RESUMO = ["Foto ou PDF da receita", "Escolha os remédios que a loja tem", "Cesta e conferência do farmacêutico"] as const;
+
 function IconImagem() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -152,25 +155,36 @@ export default function TutorialReceita() {
 
   return (
     <section className="recipe-tutorial" aria-labelledby="recipe-tutorial-titulo">
-      <div className="recipe-tutorial-topo">
-        <h2 id="recipe-tutorial-titulo">Como funciona</h2>
-        <div className="recipe-setas">
-          <button type="button" aria-label="Passo anterior" onClick={() => rolar(-1)}><Chevron lado="esq" /></button>
-          <button type="button" aria-label="Próximo passo" onClick={() => rolar(1)}><Chevron lado="dir" /></button>
-        </div>
-      </div>
-      <div className="recipe-passos" ref={faixa}>
-        {PASSOS.map((p) => (
-          <article key={p.titulo} className="recipe-passo">
-            <div className="recipe-passo-texto">
-              <span className="recipe-numero">{p.n}</span>
-              <h3>{p.titulo}</h3>
-              <p>{p.texto}</p>
-            </div>
-            <Celular tela={p.tela} />
-          </article>
+      <h2 id="recipe-tutorial-titulo">Como funciona</h2>
+      <ol className="recipe-resumo">
+        {RESUMO.map((texto, i) => (
+          <li key={texto}>
+            <span className="recipe-numero">{i + 1}</span>
+            <span>{texto}</span>
+          </li>
         ))}
-      </div>
+      </ol>
+      <details className="recipe-detalhe">
+        <summary>Ver passo a passo</summary>
+        <div className="recipe-detalhe-corpo">
+          <div className="recipe-setas">
+            <button type="button" aria-label="Passo anterior" onClick={() => rolar(-1)}><Chevron lado="esq" /></button>
+            <button type="button" aria-label="Próximo passo" onClick={() => rolar(1)}><Chevron lado="dir" /></button>
+          </div>
+          <div className="recipe-passos" ref={faixa}>
+            {PASSOS.map((p) => (
+              <article key={p.titulo} className="recipe-passo">
+                <div className="recipe-passo-texto">
+                  <span className="recipe-numero">{p.n}</span>
+                  <h3>{p.titulo}</h3>
+                  <p>{p.texto}</p>
+                </div>
+                <Celular tela={p.tela} />
+              </article>
+            ))}
+          </div>
+        </div>
+      </details>
     </section>
   );
 }

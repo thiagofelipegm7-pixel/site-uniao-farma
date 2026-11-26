@@ -7,7 +7,7 @@
   overflow: hidden;
   background: #ffffff;
   color: var(--uf-ink, #000000);
-  box-shadow: none, #c5e4e0);
+  box-shadow: none;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 .bc-pilula.is-aberto { background: var(--uf-green, #ffffff); color: #000000; box-shadow: none; }
@@ -16,7 +16,7 @@
 .bc-rotulo { position: absolute; inset: 0 44px 0 16px; display: flex; align-items: center; font-size: 15px; font-weight: 600; white-space: nowrap; pointer-events: none; }
 
 .bc-adicionar { position: absolute; inset: 0; display: flex; align-items: center; justify-content: flex-end; border: 0; border-radius: 999px; background: transparent; color: inherit; cursor: pointer; outline: none; }
-.bc-adicionar:focus-visible { box-shadow: none, #40baaf); }
+.bc-adicionar:focus-visible { box-shadow: none; }
 .bc-icone-mais { display: flex; width: 44px; height: 44px; align-items: center; justify-content: center; flex: none; }
 
 .bc-contador { position: absolute; inset: 0; margin: 0; padding: 0; border: 0; }

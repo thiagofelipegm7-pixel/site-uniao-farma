@@ -72,6 +72,11 @@ const nextConfig: NextConfig = {
       headers: [{ key: "Cache-Control", value: "no-cache, must-revalidate" }],
     },
     {
+      // Arquivos do leitor de receita (OCR, ~5 MB): cache longo para a segunda leitura não baixar tudo de novo.
+      source: "/ocr/:path*",
+      headers: [{ key: "Cache-Control", value: "public, max-age=2592000, immutable" }],
+    },
+    {
       source: "/manifest.json",
       headers: [{ key: "Cache-Control", value: "no-cache, must-revalidate" }],
     },

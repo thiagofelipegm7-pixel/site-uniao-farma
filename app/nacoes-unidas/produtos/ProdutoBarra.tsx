@@ -23,15 +23,28 @@ type Props = {
   /** Página do produto: confere a disponibilidade ao vivo. */
   slug?: string;
   apresentacoes?: ApresentacaoPublica[];
+  /** Bloco de compra completo (entrega, estoque e quantidade), abaixo do conteúdo da página. */
+  bloco?: boolean;
 };
 
 /** Barra fixa da página do produto. O nome fica na tela, não no analytics. */
-export default function ProdutoBarra({ unitId, nome, precoCentavos, foto, max: maxPublicado, slug, apresentacoes }: Props) {
+export default function ProdutoBarra({ unitId, nome, precoCentavos, foto, max: maxPublicado, slug, apresentacoes, bloco = false }: Props) {
   const estado = useReserva();
   const id = idDoItem(unitId, nome);
   const qtd = qtdDoItem(estado, id);
   const qtdProduto = estado.itens.filter((i) => i.unitId === unitId && (slug ? i.slug === slug : i.nome === nome)).reduce((soma, i) => soma + i.qtd, 0);
   const [abrirOpcoes, setAbrirOpcoes] = useState(false);
+  const [escolhida, setEscolhida] = useState(1);
+  const [cartaoVisivel, setCartaoVisivel] = useState(false);
+  // A barra fixa do celular só aparece depois que o botão do cartão sai de vista (evita dois botões iguais na mesma tela).
+  useEffect(() => {
+    if (bloco || typeof IntersectionObserver === "undefined") return;
+    const alvo = document.querySelector(".produto-barra--bloco");
+    if (!alvo) return;
+    const olho = new IntersectionObserver(([entrada]) => setCartaoVisivel(entrada.isIntersecting), { threshold: 0.2 });
+    olho.observe(alvo);
+    return () => olho.disconnect();
+  }, [bloco]);
   const [promocao, setPromocao] = useState<PromocaoQuantidade | undefined>();
   useEffect(() => {
     let cancelado = false;
@@ -88,16 +101,34 @@ export default function ProdutoBarra({ unitId, nome, precoCentavos, foto, max: m
     );
   }
 
+  // Quantidade escolhida antes de adicionar (como na caixa de compra de um marketplace). Nunca passa do que a loja pode atender.
+  const quantidadeParaAdicionar = Math.max(1, Math.min(escolhida, restante || 1));
+  const opcoesQuantidade = Array.from({ length: Math.min(restante, 20) }, (_, i) => i + 1);
+
   const adicionarPrimeira = () => {
-    atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, foto, ...(promocaoEfetiva ? { promocao: promocaoEfetiva } : {}), ...(max ? { max } : {}), ...(slug ? { slug } : {}) }));
+    atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos, foto, ...(promocaoEfetiva ? { promocao: promocaoEfetiva } : {}), ...(max ? { max } : {}), ...(slug ? { slug } : {}) }, quantidadeParaAdicionar));
     trackEvent("reserva_add", { unit: unitId, source: "produto_nacoes" });
     registrarEtapa("add");
   };
 
   return (
-    <div className="produto-barra">
+    <div className={bloco ? "produto-barra produto-barra--bloco" : cartaoVisivel ? "produto-barra is-oculta" : "produto-barra"}>
       {qtd === 0 ? <p className="produto-barra-preco"><small>{promocaoEfetiva ? "Leve mais e pague menos · preço por unidade" : "Preço"}</small><strong>{formatarCentavos(precoCentavos)}</strong></p> : null}
       {promocaoEfetiva ? <p className="produto-barra-promocao">{(promocaoEfetiva.faixas ?? []).map((faixa) => `${faixa.quantidade} un.: ${formatarCentavos(faixa.precoUnitarioCentavos)} cada`).join(" · ")}</p> : null}
+      {bloco && qtd === 0 && restante > 0 ? (
+        <div className="produto-qtd">
+          <strong className="produto-qtd-titulo">Estoque disponível</strong>
+          <label className="produto-qtd-campo">
+            <span>Quantidade:</span>
+            <strong>{quantidadeParaAdicionar}</strong>
+            {max !== undefined ? <small>(restam {restante})</small> : null}
+            {/* O select cobre o cartão inteiro, invisível: o toque em qualquer ponto abre a lista nativa do aparelho. */}
+            <select value={quantidadeParaAdicionar} onChange={(evento) => setEscolhida(Number(evento.target.value))} aria-label={`Quantidade de ${nome}`}>
+              {opcoesQuantidade.map((n) => <option key={n} value={n}>{n}</option>)}
+            </select>
+          </label>
+        </div>
+      ) : null}
       <BotaoCesta
         quantidade={qtd}
         teto={tetoDoItem({ max })}

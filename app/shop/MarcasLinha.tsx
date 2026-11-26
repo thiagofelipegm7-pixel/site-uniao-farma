@@ -7,7 +7,7 @@ import { SetasRolagem } from "./SetasRolagem";
 import { extensoesDoLogo, MARCAS_DESTAQUE, type MarcaDestaque } from "./marcas";
 
 /** Logo da marca: tenta png, svg, webp e jpg; sem nenhum, mostra o nome em texto. */
-function Logo({ marca }: { marca: MarcaDestaque }) {
+export function Logo({ marca }: { marca: MarcaDestaque }) {
   const [tentativa, setTentativa] = useState(0);
   const extensoes = extensoesDoLogo(marca.slug);
   if (tentativa >= extensoes.length) return <span className="shop-marca-nome">{marca.nome}</span>;

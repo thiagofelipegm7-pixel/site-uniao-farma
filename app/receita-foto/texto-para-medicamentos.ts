@@ -13,6 +13,9 @@ const IGNORAR = new Set([
   "paciente", "receituario", "receita", "medico", "clinica", "assinatura", "validade", "adulto", "infantil", "pediatrico", "generico",
   "similar", "dose", "unidade", "unidades", "agua", "sabonete", "shampoo", "protetor", "solar", "tratamento", "continuo", "mensal",
   "diario", "diaria", "refeicao", "refeicoes", "jejum", "dormir", "tomar", "aplicar", "usar", "tablete", "comp", "cps",
+  // sais e formas que vêm depois do nome ("Losartana potássica", "Cloridrato de ..."): fazem parte do nome, não são outro remédio
+  "potassica", "sodica", "calcica", "magnesica", "cloridrato", "sulfato", "besilato", "maleato", "succinato", "tartarato", "fumarato",
+  "acetato", "bromidrato", "hemifumarato", "dihidratado", "monoidratado", "valerato", "propionato", "dipropionato", "nitrato", "fosfato",
 ]);
 
 type Indice = { palavras: Map<string, string> };
@@ -107,6 +110,9 @@ export function remediosForaDoCatalogo(texto: string, catalogo: CatalogoReceita,
   const faltando = new Map<string, MedicamentoLido>();
   dasPalavras.forEach((palavra, i) => {
     if (palavra.length < 6 || /\d/.test(palavra) || IGNORAR.has(palavra) || indice.has(palavra) || conhecidos.has(palavra)) return;
+    // Palavra logo depois de um remédio que já achamos é complemento do nome (sal, forma), não outro remédio.
+    const anterior = dasPalavras[i - 1] ?? "";
+    if (indice.has(anterior) || conhecidos.has(anterior)) return;
     if (palavra.length >= 8 && chaves.some((k) => k.length >= 8 && distanciaAte1(palavra, k))) return;
     const t1 = dasPalavras[i + 1] ?? "";
     const t2 = dasPalavras[i + 2] ?? "";

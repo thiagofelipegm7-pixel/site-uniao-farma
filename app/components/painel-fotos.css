@@ -1031,12 +1031,12 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .painel-fotos .pf-paginas button:not(:disabled) {
     background: linear-gradient(180deg, #ffffff 0%, #ececec 100%) !important;
     border: 1px solid #cfcfcf !important;
-    box-shadow: none, 0 2px 0 #bdbdbd, 0 4px 8px -4px rgba(0, 0, 0, 0.25) !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16) !important;
     transform: translateY(0);
     transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.2s ease !important;
   }
-  html body .painel-fotos .pf-paginas button:not(:disabled):hover { transform: translateY(-1px); box-shadow: none, 0 3px 0 #bdbdbd, 0 8px 12px -6px rgba(0, 0, 0, 0.3) !important; }
-  html body .painel-fotos .pf-paginas button:not(:disabled):active { transform: translateY(2px); box-shadow: none, 0 0 0 #bdbdbd, 0 1px 3px -2px rgba(0, 0, 0, 0.3) !important; }
+  html body .painel-fotos .pf-paginas button:not(:disabled):hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22) !important; }
+  html body .painel-fotos .pf-paginas button:not(:disabled):active { transform: translateY(2px); box-shadow: none !important; }
   html body .painel-fotos .pf-paginas button:disabled { background: #f6f6f6 !important; box-shadow: none !important; }
   /* Botão "+" de adicionar foto extra: em inset, branco, sem borda (vence a regra geral de botões do cartão). */
   html body .pf-modal button.colecoes-adicionar:not(.pf-chave):not(.pf-botao--primario):not(:disabled),
@@ -1148,7 +1148,7 @@ body:has(.nav-interna) { background: #ffffff; }
 @layer design {
   html body .painel-fotos .pf-chip-filtro--sub.pf-chip-filtro--ativo,
   html body .painel-fotos .pf-chip-filtro--sub.pf-chip-filtro--ativo:focus,
-  html body .painel-fotos .pf-chip-filtro--sub.pf-chip-filtro--ativo:focus-visible { box-shadow: none, #111111) !important; }
+  html body .painel-fotos .pf-chip-filtro--sub.pf-chip-filtro--ativo:focus-visible { box-shadow: 0 0 0 2px #000000 !important; }
 }
 
 /* Caixa de seleção em 3D (isométrica): base com profundidade, degradê e marca de visto em relevo. */
@@ -1156,11 +1156,11 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .painel-fotos input[type="checkbox"] {
     appearance: none !important; -webkit-appearance: none; width: 22px !important; height: 22px !important; margin: 0; cursor: pointer;
     border: 1px solid #111111 !important; border-radius: 6px !important; background: linear-gradient(180deg, #ffffff 0%, #e9e9e9 100%) !important;
-    box-shadow: none, 0 2px 0 #111111, 0 5px 8px -3px rgba(0, 0, 0, 0.35) !important; position: relative; transition: transform 0.12s ease, box-shadow 0.12s ease !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16) !important; position: relative; transition: transform 0.12s ease, box-shadow 0.12s ease !important;
     display: inline-grid; place-content: center;
   }
   html body .painel-fotos input[type="checkbox"]:hover { transform: translateY(-1px); }
-  html body .painel-fotos input[type="checkbox"]:active { transform: translateY(1px); box-shadow: none, 0 0 0 #111111, 0 1px 3px -2px rgba(0, 0, 0, 0.35) !important; }
+  html body .painel-fotos input[type="checkbox"]:active { transform: translateY(1px); box-shadow: none !important; }
   html body .painel-fotos input[type="checkbox"]:checked { background: linear-gradient(180deg, #3a3a3a 0%, #000000 100%) !important; }
   html body .painel-fotos input[type="checkbox"]:checked::after {
     content: ""; width: 6px; height: 11px; border: solid #ffffff; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg) translate(-1px, -1px);
@@ -1181,8 +1181,8 @@ body:has(.nav-interna) { background: #ffffff; }
     box-shadow: none !important;
     transition: transform 0.12s ease, box-shadow 0.12s ease !important;
   }
-  html body .pf-modal .pf-modal-fechar:hover { transform: translateY(-1px); box-shadow: none, 0 3px 0 #bdbdbd, 0 8px 12px -6px rgba(0,0,0,0.3) !important; }
-  html body .pf-modal .pf-modal-fechar:active { transform: translateY(2px); box-shadow: none, 0 0 0 #bdbdbd !important; }
+  html body .pf-modal .pf-modal-fechar:hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22) !important; }
+  html body .pf-modal .pf-modal-fechar:active { transform: translateY(2px); box-shadow: none !important; }
 }
 
 /* Todos os botões do painel: sem contorno, com sombra 3D (relevo) e resposta ao toque. */
@@ -1191,13 +1191,13 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .pf-modal button:not(.pf-chave):not(.pf-botao--primario):not(:disabled) {
     border: 0 !important;
     background: linear-gradient(180deg, #ffffff 0%, #ececec 100%) !important;
-    box-shadow: none, 0 2px 0 #bdbdbd, 0 4px 8px -4px rgba(0, 0, 0, 0.25) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
     transition: transform 0.12s ease, box-shadow 0.12s ease !important;
   }
   html body .painel-fotos button:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled):hover,
-  html body .pf-modal button:not(.pf-chave):not(.pf-botao--primario):not(:disabled):hover { transform: translateY(-1px); box-shadow: none, 0 3px 0 #bdbdbd, 0 8px 12px -6px rgba(0, 0, 0, 0.3) !important; }
+  html body .pf-modal button:not(.pf-chave):not(.pf-botao--primario):not(:disabled):hover { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22) !important; }
   html body .painel-fotos button:not(.pf-chip-filtro):not(.pf-engrenagem):not(.pf-chave):not(.pf-botao--primario):not(:disabled):active,
-  html body .pf-modal button:not(.pf-chave):not(.pf-botao--primario):not(:disabled):active { transform: translateY(2px); box-shadow: none, 0 0 0 #bdbdbd !important; }
+  html body .pf-modal button:not(.pf-chave):not(.pf-botao--primario):not(:disabled):active { transform: translateY(2px); box-shadow: none !important; }
 }
 
 /* Campos do cartão de configuração (entrada, seleção e área de texto) com sombra 3D, como os botões. */
@@ -1219,14 +1219,14 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .pf-modal .pf-campo--linha {
     background: linear-gradient(180deg, #ffffff 0%, #f7f7f7 100%) !important;
     border: 1px solid #e7e7e7 !important; border-radius: 10px !important; padding: 10px 12px !important;
-    box-shadow: none, 0 2px 0 #d9d9d9, 0 5px 10px -6px rgba(0,0,0,0.28) !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16) !important;
   }
   html body .pf-modal .pf-botao--primario {
-    box-shadow: none,255,255,0.25), 0 3px 0 #0a4f47, 0 8px 14px -8px rgba(0,0,0,0.45) !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16) !important;
     transition: transform 0.12s ease, box-shadow 0.12s ease !important;
   }
-  html body .pf-modal .pf-botao--primario:hover:not(:disabled) { transform: translateY(-1px); box-shadow: none,255,255,0.25), 0 4px 0 #0a4f47, 0 10px 16px -8px rgba(0,0,0,0.5) !important; }
-  html body .pf-modal .pf-botao--primario:active:not(:disabled) { transform: translateY(2px); box-shadow: none,255,255,0.25), 0 0 0 #0a4f47 !important; }
+  html body .pf-modal .pf-botao--primario:hover:not(:disabled) { transform: translateY(-1px); box-shadow: 0 6px 14px rgba(0, 0, 0, 0.22) !important; }
+  html body .pf-modal .pf-botao--primario:active:not(:disabled) { transform: translateY(2px); box-shadow: none !important; }
 }
 
 /* Formatação do cartão de configuração: cabeçalho alinhado, rótulos padronizados, campos com a mesma altura e espaçamento regular. */
@@ -1257,7 +1257,7 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .pf-modal {
     border-radius: 16px !important; border: 0 !important;
     background: #ffffff !important;
-    box-shadow: none, 0 28px 48px -16px rgba(0,0,0,0.25) !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16) !important;
   }
   html body .pf-modal-fundo { background: rgba(28, 25, 23, 0.42) !important; backdrop-filter: blur(4px) !important; }
   /* Botões do cartão de configuração em inset (recuados), sem borda. O primário mantém o verde escuro, também recuado. */
@@ -1293,7 +1293,7 @@ body:has(.nav-interna) { background: #ffffff; }
     width: 56px !important; height: 32px !important; min-width: 56px !important; min-height: 32px !important; max-height: 32px !important;
     padding: 0 !important; margin: 0 !important; border: 0 !important; border-radius: 999px !important; flex: none !important; position: relative !important;
     background: radial-gradient(ellipse at 50% 20%, #6e6e6e 0%, #4a4a4a 55%, #2e2e2e 100%) !important;
-    box-shadow: none, 0, 0, 0, 0, 255, 255, 0.22), 0 1px 0 rgba(255, 255, 255, 0.95), 0 0 0 2px #d4d4d4, 0 0 0 3px #9a9a9a !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
     transition: background-color 0.9s cubic-bezier(0.3, 0.1, 0.2, 1), box-shadow 0.9s cubic-bezier(0.3, 0.1, 0.2, 1) !important;
   }
   html body .pf-modal button.pf-chave[aria-checked="true"] {
@@ -1303,7 +1303,7 @@ body:has(.nav-interna) { background: #ffffff; }
     content: "" !important; position: absolute !important; top: 0 !important; left: 2px !important;
     width: 28px !important; height: 28px !important; border-radius: 50% !important; box-sizing: border-box !important;
     background: radial-gradient(circle at 38% 30%, #ffffff 0%, #f4f4f4 45%, #d4d4d4 100%) !important;
-    box-shadow: none, 0, 0, 255, 255, 0.9), 0 8px 10px -2px rgba(0, 0, 0, 0.75), 0 2px 0 #9e9e9e !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
     transition: transform 0.45s cubic-bezier(0.34, 1.25, 0.64, 1) !important;
   }
   html body .pf-modal button.pf-chave[aria-checked="true"]::after { transform: translateX(24px) !important; }
@@ -1314,19 +1314,19 @@ body:has(.nav-interna) { background: #ffffff; }
 @layer design {
   html body .pf-modal button.pf-chave[aria-checked="true"] {
     background: radial-gradient(ellipse at 50% 20%, #2a9d91 0%, #ffffff 55%, #0b4f49 100%) !important;
-    box-shadow: none, 0, 0, 0, 0, 255, 255, 0.15), 0 1px 0 rgba(255, 255, 255 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
   }
 }
 
 /* Acabamento do interruptor: anel metálico no trilho, tampa com folga e volume (anel interno e brilho). */
 @layer design {
   html body .pf-modal button.pf-chave {
-    box-shadow: none, 0, 0, 0, 0, 255, 255, 0.22), 0 1px 0 rgba(255, 255, 255, 0.95), 0 0 0 2px #e6e6e6, 0 0 0 3px #8c8c8c, 0 0 0 4px rgba(255, 255, 255, 0.8) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
   }
   html body .pf-modal button.pf-chave::after {
     top: 2px !important; left: 2px !important; width: 28px !important; height: 28px !important;
     background: radial-gradient(circle at 36% 26%, #ffffff 0%, #ffffff 38%, #ececec 70%, #cfcfcf 100%) !important;
-    box-shadow: none, 0, 0, 0, 0, 255, 255, 1), 0 6px 8px -2px rgba(0, 0, 0, 0.6), 0 2px 0 #a3a3a3 !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
   }
   html body .pf-modal button.pf-chave[aria-checked="true"]::after { transform: translateX(22px) !important; }
 }
@@ -1337,13 +1337,13 @@ body:has(.nav-interna) { background: #ffffff; }
     content: "" !important; position: absolute !important; top: 12px !important; left: 11px !important;
     width: 12px !important; height: 18px !important; border-radius: 6px !important; box-sizing: border-box !important;
     background: linear-gradient(90deg, #5a5a5a 0%, #9a9a9a 45%, #3e3e3e 100%) !important;
-    box-shadow: none,0,0,0.35), 0 2px 3px rgba(0,0,0,0.5) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
     transition: transform 0.45s cubic-bezier(0.34, 1.25, 0.64, 1) !important;
   }
   html body .pf-modal button.pf-chave[aria-checked="true"]::before { transform: translateX(22px) !important; }
   html body .pf-modal button.pf-chave::after {
     /* Bolinha saltada (emboss): topo claro, base escura e sombra projetada. */
-    box-shadow: none, 255, 255, 0, 0, 0.22), 0 3px 0 #8f8f8f, 0 6px 8px -2px rgba(0, 0, 0, 0.6) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
   }
 }
 
@@ -1352,7 +1352,7 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .pf-modal .pf-campo--linha {
     background: linear-gradient(180deg, #fbfbfb 0%, #ececec 100%) !important;
     border: 1px solid #dcdcdc !important;
-    box-shadow: none, 255, 255, 0, 0, 0.06), 0 3px 0 #cfcfcf, 0 8px 12px -6px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16) !important;
   }
 }
 
@@ -1361,7 +1361,7 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .pf-modal button.pf-chave:not([aria-checked="true"]) {
     /* Trilho gravado (engraved): fundo afundado, sombra interna forte no topo e brilho na borda de baixo. */
     background-image: none !important; background-color: #dedede !important;
-    box-shadow: none, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0.12), 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
   }
 }
 
@@ -1388,7 +1388,7 @@ body:has(.nav-interna) { background: #ffffff; }
 @layer design {
   html body .pf-modal button.pf-chave[aria-checked="true"] {
     background-image: none !important; background-color: #00c2a8 !important;
-    box-shadow: none, 0, 0, 0, 0, 255, 255, 0.2), 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
   }
   html body .pf-modal .pf-botao--primario {
     background: #ffffff !important; background-image: none !important;
@@ -1426,7 +1426,7 @@ body:has(.nav-interna) { background: #ffffff; }
     background: var(--cor) !important;
     border: 0 !important;
     color: var(--cor-texto, #ffffff) !important;
-    box-shadow: none, 0, 0, 255, 255, 0.25) !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16) !important;
     transform: none !important;
   }
   html body .painel-fotos .pf-arvore .pf-chip-filtro--sub.pf-chip-filtro--ativo { box-shadow: none !important; }
@@ -1544,7 +1544,7 @@ body:has(.nav-interna) { background: #ffffff; }
   /* Chip de categoria ativo: cor sólida, sem brilho branco (tira o aspecto de vidro). */
   html body .painel-fotos .pf-arvore .pf-chip-cat.pf-chip-filtro--ativo {
     background: var(--cor) !important;
-    box-shadow: none,0,0,0.22) !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16) !important;
   }
   /* Preço em inset (texto embutido): sombra interna no topo e brilho rebatido na base. */
   html body .painel-fotos .pf-grade > .pf-card .pf-card-dados dd.pf-preco {
@@ -1561,7 +1561,7 @@ body:has(.nav-interna) { background: #ffffff; }
   html body .painel-fotos .pf-grade > .pf-card .pf-qtd {
     border: 0 !important;
     background: #FFE600 !important;
-    box-shadow: none, 92, 0, 246, 180, 0.6) !important;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.16) !important;
   }
   /* Informações do produto (nome, laboratório, categoria, código, preço) dentro de cartões recuados (inset). */
   html body .painel-fotos .pf-grade > .pf-card .pf-card-nome,
@@ -1839,7 +1839,7 @@ body:has(.nav-interna) { background: #ffffff; }
 @layer design {
   html body .pf-modal select, html body .pf-modal select:focus, html body .pf-modal select:focus-visible, html body .pf-modal select:active {
     outline: none !important; border-bottom-color: #d6d6d6 !important; border-color: #d6d6d6 !important;
-    box-shadow: none,0,0,0.06), 0 2px 0 #d9d9d9, 0 5px 10px -6px rgba(0,0,0,0.28) !important;
+    box-shadow: none !important;
   }
   html body .pf-modal select:focus-visible, html body .pf-modal select:focus { border-color: #111111 !important; }
 }

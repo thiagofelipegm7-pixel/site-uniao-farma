@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import TutorialReceita from "./TutorialReceita";
+import BarraReceita from "./BarraReceita";
 import BotaoReceita from "../receita-foto/BotaoReceita";
 import { IconClipe } from "../reserva/ReservaIcons";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
@@ -17,7 +18,6 @@ const breadcrumbSchema = {
     getFaqSchema(RECIPE_FAQS, `${SITE_URL}/receita`),
   ],
 };
-import "../receita-polish.css";
 
 export const metadata: Metadata = {
   title: { absolute: "Ler receita e achar os remédios | União Farma" },
@@ -64,11 +64,15 @@ export default function ReceitaPage() {
               <h1 id="recipe-title">Encontre os remédios da sua receita</h1>
             </div>
 
-            <BotaoReceita classe="recipe-anexar" rotulo="Ler minha receita" icone={<IconClipe size={22} />} />
+            <div className="recipe-acoes">
+              <BotaoReceita classe="recipe-anexar" rotulo="Ler minha receita" icone={<IconClipe size={22} />} />
+              <BotaoReceita classe="recipe-pdf" rotulo="Tenho um PDF" modo="pdf" icone={null} />
+            </div>
           </div>
         </section>
 
         <TutorialReceita />
+        <BarraReceita />
 
         <section className="section unit-faq-section" aria-labelledby="recipe-faq">
           <div className="section-inner">

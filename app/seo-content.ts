@@ -63,24 +63,16 @@ export const RECIPE_FAQS: FaqItem[] = [
     a: "Receita impressa, em foto ou em PDF, como as do Memed. Letra de mão pode não ser lida. Se acontecer, mande a receita no WhatsApp da loja.",
   },
   {
-    q: "A leitura pode errar nome ou dose?",
-    a: "Pode. Compare cada item com a receita e desmarque o que estiver diferente. A dose da receita precisa ser a mesma da embalagem.",
+    q: "A leitura pode errar ou faltar remédio?",
+    a: "Pode. Compare cada item com a receita e desmarque o que estiver diferente: a dose precisa ser a mesma da embalagem. O site mostra só o que está no catálogo. O que não aparecer, pergunte ao farmacêutico no WhatsApp.",
   },
   {
     q: "A foto da receita fica guardada?",
     a: "O site não guarda a imagem. Sempre que dá, a leitura acontece no seu aparelho e nada sai dele. Se o aparelho não conseguir ler, um leitor automático (inteligência artificial) lê só os nomes dos remédios na hora.",
   },
   {
-    q: "E se o remédio não aparecer na lista?",
-    a: "O site mostra só o que está no catálogo. Pergunte ao farmacêutico no WhatsApp se a loja tem.",
-  },
-  {
     q: "Ler a receita garante a compra?",
-    a: "Não. A leitura só mostra os produtos. Remédio com receita só sai depois que o farmacêutico confere a receita original, e ele pode pedir identificação.",
-  },
-  {
-    q: "Antibiótico e controlado saem na entrega?",
-    a: "Em regra, não. Só saem na loja, com a receita original, que a farmácia retém. Tire a dúvida no WhatsApp antes de ir.",
+    a: "Não. A leitura só mostra os produtos. Remédio com receita só sai depois que o farmacêutico confere a receita original, e ele pode pedir identificação. Antibiótico e controlado não saem na entrega: só na loja, com a receita original, que a farmácia retém.",
   },
 ];
 

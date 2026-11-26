@@ -268,3 +268,12 @@ test("texto de receita: remédio com dose que a loja não tem aparece como falta
   assert.deepEqual(achados.map((m) => m.nome), ["Amoxicilina"]);
   assert.deepEqual(remediosForaDoCatalogo(texto, cat, achados).map((m) => [m.nome, m.dosagem]), [["Xarelto", "20 mg"], ["Rivotril", "2 mg"], ["Ondansetrona", "8 mg"]]);
 });
+
+test("texto de receita: sal depois do nome não vira remédio faltando", async () => {
+  const { medicamentosDoTexto, remediosForaDoCatalogo } = await textoModulo();
+  const { prepararCatalogo } = await casar();
+  const cat = prepararCatalogo([], [{ nome: "Losartana 50mg", tipo: "receita", precoCentavos: 2000, busca: "losartana", proprio: 11, q: "losartana", apresentacao: null, tarja: "vermelha", retencao: true, controlado: false, ativo: "losartana" }]);
+  const texto = "1) Losartana potassica 50 mg pela manha 2) Cloridrato de Sertralina 50 mg";
+  const achados = medicamentosDoTexto(texto, cat);
+  assert.deepEqual(remediosForaDoCatalogo(texto, cat, achados).map((m) => m.nome), ["Sertralina"]);
+});

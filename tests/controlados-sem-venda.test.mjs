@@ -59,9 +59,9 @@ test("Portaria 344: sem botão de cesta, sem pedido pelo WhatsApp e com aviso na
   assert.match(pagina, /controlado = achado\.semVenda/);
   assert.match(pagina, /item\.esgotado \|\| controlado \? null : <ProdutoBarra/);
   assert.match(pagina, /não é vendido pelo site e não tem preço aqui/);
-  // Sem "Vendido e entregue", sem entrega no bairro e sem pagamento na página de um controle especial.
-  assert.match(pagina, /\{controlado \? null : <p className="pdp-vendido">/);
-  assert.match(pagina, /\{controlado \? null : <ul className="pdp-receber"/);
+  // Sem entrega no bairro e sem pagamento na página de um controle especial. A linha "Vendido e entregue por" saiu da página de produto.
+  assert.doesNotMatch(pagina, /pdp-vendido|Vendido e entregue/);
+  assert.doesNotMatch(pagina, /pdp-receber/);
   assert.match(gerador, /classificarSemVenda\(\{ controlado, lista: base\.lista, nome: base\.nome, retencao \}\)/);
   assert.match(meta, /não são vendidos pelo site e aparecem sem preço/);
 });
