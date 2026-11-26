@@ -55,6 +55,9 @@
 }
 
 @media (max-width: 860px) {
+  .open-now-strip {
+    display: none !important;
+  }
 
   .whatsapp-fab:not(.whatsapp-fab-unit) {
     display: none !important;
