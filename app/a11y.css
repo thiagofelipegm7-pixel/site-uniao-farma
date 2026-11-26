@@ -605,3 +605,39 @@ textarea::placeholder {
   transform: none !important;
   contain: layout style paint;
 }
+
+/* =====================================================================
+   AAA FINAL — força absoluta de contraste 7:1
+   ===================================================================== */
+html body .dm-menu,
+html body .dm-menu a,
+html body .dm-menu a:link,
+html body .dm-menu a:visited,
+html body .dm-links a,
+html body .depto-painel a,
+html body .depto-lista a,
+html body .depto-lista button {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background-color: transparent !important;
+}
+
+html body .dm-menu,
+html body .depto-painel,
+html body .dm-slot {
+  background-color: #042c29 !important;
+}
+
+html body .cookie-banner .cookie-reject,
+html body button.cookie-reject {
+  color: #001a17 !important;
+  background-color: #f0faf8 !important;
+  border: 2px solid #001a17 !important;
+}
+
+html body .cookie-banner .cookie-accept,
+html body button.cookie-accept {
+  color: #ffffff !important;
+  background-color: #001a17 !important;
+  border: 2px solid #001a17 !important;
+}
