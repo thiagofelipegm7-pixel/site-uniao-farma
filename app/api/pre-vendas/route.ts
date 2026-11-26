@@ -7,6 +7,7 @@ import {
   type BancoLimite,
 } from "../../limite-visitante";
 import { marcarCestaConvertida } from "../../cesta-esquecida";
+import { gravarConsentimentoAvaliacao, validarConsentimentoAvaliacao } from "../../avaliacao-google";
 import { gravarConsentimento, validarLembrete } from "../../recompra";
 import { garantirColunasRetirada, telefoneDoAviso } from "../../retirada";
 
@@ -25,6 +26,8 @@ type Entrada = {
   itens?: unknown;
   /** Só vem quando o cliente marcou a caixa de lembrete (desmarcada por padrão): { consentimento: true, nome, telefone }. */
   lembrete?: unknown;
+  /** Só vem quando o cliente marcou a caixa de avaliação no Google (desmarcada por padrão): { consentimento: true, nome, telefone }. */
+  avaliacao?: unknown;
   /** Só em retirada e só se o cliente preencheu (opcional): WhatsApp para o aviso de "pedido pronto". */
   avisoTelefone?: unknown;
   /** A cesta tem item com receita: o aviso de pronto lembra de trazer a receita. */
@@ -107,13 +110,17 @@ export async function POST(request: Request) {
     await db.prepare("INSERT OR IGNORE INTO pre_venda (id, request_id, codigo, unidade, modo, itens_json, total_centavos, status, criado_em, atualizado_em, aviso_telefone, com_receita) VALUES (?, ?, ?, ?, ?, ?, ?, 'nova', ?, ?, ?, ?)")
       .bind(id, requestId, codigo, unidade, modo, JSON.stringify(itens), total, agora, agora, avisoTelefone, comReceita).run();
     const lembrete = validarLembrete(entrada.lembrete);
-    if (lembrete) {
+    const avaliacao = validarConsentimentoAvaliacao(entrada.avaliacao);
+    if (lembrete || avaliacao) {
       // O beacon pode chegar duas vezes: o consentimento fica com a cesta que foi gravada primeiro.
       const gravada = await (db as unknown as BancoCompleto).prepare("SELECT id FROM pre_venda WHERE request_id = ?").bind(requestId).first<{ id: string }>();
-      if (gravada?.id) await gravarConsentimento(db as unknown as BancoCompleto, gravada.id, lembrete, new Date(agora));
+      if (gravada?.id) {
+        if (lembrete) await gravarConsentimento(db as unknown as BancoCompleto, gravada.id, lembrete, new Date(agora));
+        if (avaliacao) await gravarConsentimentoAvaliacao(db as unknown as BancoCompleto, gravada.id, avaliacao, new Date(agora));
+      }
     }
     // Pedido fechado: a cesta esquecida desta visita (ou do mesmo celular) sai da lista da equipe.
-    await marcarCestaConvertida(db as unknown as BancoCompleto, { requestId, telefone: lembrete?.telefone ?? avisoTelefone }, new Date(agora));
+    await marcarCestaConvertida(db as unknown as BancoCompleto, { requestId, telefone: lembrete?.telefone ?? avaliacao?.telefone ?? avisoTelefone }, new Date(agora));
   } catch {
     return Response.json({ ok: false, erro: "falha_ao_gravar" }, { status: 503, headers: SEM_CACHE });
   }

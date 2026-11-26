@@ -65,6 +65,15 @@ export default function PrivacyPage() {
               apenas para a equipe avisar que o pedido está pronto. A mensagem é enviada por uma pessoa da equipe, nunca automaticamente.
               O número é apagado quando o pedido é retirado ou cancelado e, de qualquer forma, em até 90 dias.
             </li>
+            <li>
+              Pedido de avaliação no Google, só se você marcar a caixa &quot;Depois da retirada ou da entrega, a loja pode me chamar no
+              WhatsApp pedindo uma avaliação no Google&quot; (ela vem desmarcada): guardamos seu nome, seu celular, o texto que você
+              aceitou e a data, ligados ao pedido. Um dia depois de a venda ser marcada como concluída (retirada ou entrega), alguém da
+              equipe pode mandar uma mensagem pelo WhatsApp com o link para avaliar a loja certa no Google. A mensagem fala só de
+              atendimento, retirada e entrega: nunca cita produto, remédio ou saúde, e não oferece desconto ou vantagem em troca da
+              avaliação. Nada é enviado automaticamente. O conteúdo dessa mensagem não é guardado. Para parar, responda SAIR. Esses
+              dados são apagados em até 7 dias, ou antes se a equipe descartar o aviso.
+            </li>
           </ul>
           <p>
             A busca por voz, quando você toca no microfone, usa o reconhecimento de fala do seu navegador: o áudio é tratado pelo serviço do
@@ -82,6 +91,7 @@ export default function PrivacyPage() {
             <li>Direcionar você para a unidade escolhida.</li>
             <li>Responder consultas sobre preço, estoque, entrega e serviços.</li>
             <li>Lembrar você de repor produtos que não são medicamento, só quando você pede (consentimento, que pode ser retirado a qualquer momento respondendo SAIR).</li>
+            <li>Pedir uma avaliação no Google sobre o atendimento, a retirada ou a entrega, só quando você pede (consentimento, que pode ser retirado a qualquer momento respondendo SAIR).</li>
             <li>Medir o desempenho do site e das campanhas, quando houver consentimento.</li>
             <li>Melhorar a navegação e a experiência de atendimento. Quando uma busca no site não encontra produto, guardamos só o texto da busca (sem acento), o dia e uma contagem, de forma anônima: sem IP, sem cookie e sem identificar quem digitou, e sem termos de saúde sensível. Usamos para saber quais produtos e palavras faltam, e apagamos depois de 90 dias.</li>
           </ul>

@@ -5,23 +5,25 @@ import PreVendasPainel from "./PreVendasPainel";
 import PainelPedidos from "./PainelPedidos";
 import PainelRecompra from "./PainelRecompra";
 import PainelCestasEsquecidas from "./PainelCestasEsquecidas";
+import PainelAvaliacoesGoogle from "./PainelAvaliacoesGoogle";
 import "./vendas-direcao.css";
 
-type Aba = "pre-vendas" | "pedidos" | "recompra" | "cestas";
+type Aba = "pre-vendas" | "pedidos" | "recompra" | "cestas" | "avaliacoes";
 
 const ABAS: { id: Aba; rotulo: string }[] = [
   { id: "pre-vendas", rotulo: "Pré-vendas" },
   { id: "pedidos", rotulo: "Pedidos" },
   { id: "recompra", rotulo: "Recompra" },
   { id: "cestas", rotulo: "Cestas esquecidas" },
+  { id: "avaliacoes", rotulo: "Avaliações" },
 ];
 
 function abaDaUrl(): Aba {
   const a = new URLSearchParams(window.location.search).get("aba");
-  return a === "pedidos" || a === "recompra" || a === "cestas" ? a : "pre-vendas";
+  return a === "pedidos" || a === "recompra" || a === "cestas" || a === "avaliacoes" ? a : "pre-vendas";
 }
 
-/** Tudo de venda numa página só: pré-vendas, pedidos, recompra e cestas esquecidas. A aba fica na URL (?aba=pedidos, ?aba=recompra ou ?aba=cestas). */
+/** Tudo de venda numa página só: pré-vendas, pedidos, recompra, cestas esquecidas e pedidos de avaliação. A aba fica na URL (?aba=pedidos, ?aba=recompra, ?aba=cestas ou ?aba=avaliacoes). */
 export default function VendasAbas() {
   const [aba, setAba] = useState<Aba>("pre-vendas");
 
@@ -62,7 +64,7 @@ export default function VendasAbas() {
         </div>
       </header>
       <div role="tabpanel" id={`painel-${aba}`} aria-labelledby={`aba-${aba}`}>
-        {aba === "pre-vendas" ? <PreVendasPainel nivel={2} /> : aba === "pedidos" ? <PainelPedidos nivel={2} /> : aba === "recompra" ? <PainelRecompra nivel={2} /> : <PainelCestasEsquecidas nivel={2} />}
+        {aba === "pre-vendas" ? <PreVendasPainel nivel={2} /> : aba === "pedidos" ? <PainelPedidos nivel={2} /> : aba === "recompra" ? <PainelRecompra nivel={2} /> : aba === "cestas" ? <PainelCestasEsquecidas nivel={2} /> : <PainelAvaliacoesGoogle nivel={2} />}
       </div>
     </div>
   );
