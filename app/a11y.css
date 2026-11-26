@@ -593,3 +593,15 @@ textarea::placeholder {
   outline: 3px solid #00241f !important;
   outline-offset: 2px !important;
 }
+
+/* Banner de cookies — posição fixa segura (sem CLS) */
+.cookie-banner {
+  position: fixed !important;
+  bottom: max(8px, env(safe-area-inset-bottom)) !important;
+  left: 8px !important;
+  right: 8px !important;
+  z-index: 2200 !important;
+  margin: 0 !important;
+  transform: none !important;
+  contain: layout style paint;
+}
