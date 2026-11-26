@@ -1,4 +1,4 @@
-import ReconhecimentoVisual from "../../shop/ReconhecimentoVisual";
+import ReconhecimentoVisual from "../shop/ReconhecimentoVisual";
 
 export const metadata = {
   title: "Reconhecimento visual | União Farma",

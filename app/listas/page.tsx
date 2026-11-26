@@ -1,4 +1,4 @@
-import ListasCompras from "../../shop/ListasCompras";
+import ListasCompras from "../shop/ListasCompras";
 
 export const metadata = {
   title: "Minhas listas | União Farma",
