@@ -326,7 +326,7 @@ export default function ReservaFluxo() {
       </a>
     )
   ) : (
-    <button type="button" className={classe} disabled><IconWhats size={24} /> Escolha o pagamento</button>
+    <button type="button" className={classe} onClick={() => document.querySelector('[role="radiogroup"][aria-label="Forma de pagamento"]')?.scrollIntoView({ behavior: "smooth", block: "center" })}>Escolha o pagamento</button>
   );
 
   const statusLoja = agora ? getUnitOpenStatus(unidade, agora) : null;
@@ -382,7 +382,7 @@ export default function ReservaFluxo() {
                 />
                 <span>Todos os produtos</span>
               </label>
-              <p>{total} {total === 1 ? "item" : "itens"} na cesta</p>
+              <p>{total} {total === 1 ? "item" : "itens"} na cesta · {marcados === estado.itens.length ? "todos selecionados" : `${marcados} selecionado${marcados === 1 ? "" : "s"} para o pedido`}</p>
             </div>
             {faltaram.length > 0 ? <p className="fluxo-faltaram" role="status">Não achamos hoje: {faltaram.join(", ")}. Procure na loja ou pelo WhatsApp.</p> : null}
             <div className="fluxo-tabela">
@@ -410,7 +410,7 @@ export default function ReservaFluxo() {
                       </div>
                       <div className="cel-qtd">
                         <div className="reservar-contador fluxo-contador" role="group" aria-label={`Quantidade de ${item.nome}`}>
-                          {item.qtd > 1 ? <button type="button" aria-label={`Diminuir ${item.nome}`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, item.qtd - 1))}><IconMenos size={18} /></button> : null}
+                          <button type="button" className={item.qtd > 1 ? undefined : "fluxo-menos-remove"} aria-label={item.qtd > 1 ? `Diminuir ${item.nome}` : `Remover ${nomePedidoItem(item)} da cesta`} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, item.qtd - 1))}>{item.qtd > 1 ? <IconMenos size={18} /> : <IconLixeira size={18} />}</button>
                           <output aria-live="polite">{item.qtd}</output>
                           <button type="button" aria-label={`Aumentar ${item.nome}`} disabled={item.qtd >= tetoDoItem(item)} title={item.max && item.qtd >= item.max ? `Só restam ${item.max}` : undefined} onClick={() => atualizarReserva((s) => definirQtd(s, item.id, item.qtd + 1))}><IconMais size={18} /></button>
                         </div>
