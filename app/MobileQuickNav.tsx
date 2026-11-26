@@ -6,6 +6,8 @@ import { buildWhatsAppUrl, getUnitBySlug, UNITS, type Unit } from "./site-config
 import { WHATSAPP_MESSAGES } from "./whatsapp-messages";
 import { IconCasa, IconCategorias, IconLoja, IconCesta } from "./reserva/ReservaIcons";
 import { useReserva } from "./reserva/useReserva";
+import { animarContador } from "./shop/animacoes";
+import { useEffect, useRef } from "react";
 import { totalItens } from "./reserva/reserva-store";
 
 type Slot = {
@@ -88,6 +90,12 @@ export default function MobileQuickNav() {
   const slots = slotsFor(pathname);
   const estado = useReserva();
   const totalCesta = totalItens(estado);
+  const contadorRef = useRef<HTMLSpanElement>(null);
+  const anterior = useRef(totalCesta);
+  useEffect(() => {
+    if (totalCesta > anterior.current) animarContador(contadorRef.current);
+    anterior.current = totalCesta;
+  }, [totalCesta]);
 
   return (
     <nav className="mobile-quick-nav" aria-label="Ações rápidas">
@@ -104,7 +112,7 @@ export default function MobileQuickNav() {
             <span className="mqn-icon" style={{ position: "relative" }}>
               <Icon name={slot.icon} />
               {slot.key === "reserva" && totalCesta > 0 ? (
-                <span
+                <span ref={contadorRef}
                   style={{
                     position: "absolute",
                     top: -4,
