@@ -43,7 +43,6 @@ export default function OfertasSemana() {
       <div className="shop-destaques-topo">
         <div>
           <h2 id="descontos-titulo">Descontos e ofertas</h2>
-          <p className="shop-ofertas-nota">Preço atual em destaque; o preço anterior aparece quando foi informado na oferta.</p>
         </div>
         <SetasRolagem alvo={lista} rotulo="Descontos e ofertas" />
       </div>

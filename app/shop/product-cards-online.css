@@ -123,7 +123,6 @@ html body .shop-destaques-lista > .pv-card--v .pv-preco-oferta { margin-top: aut
 html body .shop-destaques-lista > .pv-card--v .pv-cesta { top: calc(1rem + 100cqw - 2 * var(--pv-corpo-pad-x) - var(--pv-add-size)); }
 html body .shop-destaques--ofertas { margin-top: 1.75rem; padding: 1rem 1.125rem 1.25rem; border-radius: 20px; background: #f6f9f8; }
 html body .shop-destaques--ofertas .shop-destaques-topo { margin-bottom: 0.625rem; }
-html body .shop-destaques--ofertas .shop-ofertas-nota { margin-top: 0.25rem; }
 
 @media (max-width: 767px) {
   html body .shop-destaques { width: calc(100% - 1.5rem); margin-top: 1.25rem; }
