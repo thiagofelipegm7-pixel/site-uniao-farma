@@ -431,3 +431,16 @@
     transition: none !important;
   }
 }
+
+/* Chip de Entrega hoje (preparado) */
+.chip-entrega-hoje {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  background: #e8f7f5;
+  color: #0e7370;
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
