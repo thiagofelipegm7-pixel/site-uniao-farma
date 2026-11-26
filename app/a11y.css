@@ -371,18 +371,75 @@
   }
 }
 
-/* Animação de saída da cesta */
-@keyframes fade-slide-down {
-  from { opacity: 1; transform: translateY(0); }
-  to { opacity: 0; transform: translateY(16px); }
+/* =====================================================================
+   Microinterações nos botões
+   ===================================================================== */
+
+/* Press effect (scale down) */
+.fluxo-botao,
+.cm-botao,
+.pv-adicionar,
+.reservar-mais,
+.pv-cesta-botao,
+.shop-busca button,
+.painel-seta,
+.mobile-quick-nav a,
+button[type="button"],
+button[type="submit"] {
+  transition: transform 0.12s ease, background-color 0.15s ease, box-shadow 0.15s ease;
 }
 
-.cm-card.is-fechando {
-  animation: fade-slide-down 0.28s ease both !important;
+.fluxo-botao:active,
+.cm-botao:active,
+.pv-adicionar:active,
+.reservar-mais:active,
+.pv-cesta-botao:active,
+.shop-busca button:active,
+.painel-seta:active,
+button[type="button"]:active,
+button[type="submit"]:active {
+  transform: scale(0.96);
 }
 
+/* Subtle lift on hover (only fine pointer) */
+@media (hover: hover) and (pointer: fine) {
+  .fluxo-botao:hover,
+  .cm-botao:hover,
+  .pv-adicionar:hover,
+  .reservar-mais:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(14, 115, 112, 0.18);
+  }
+}
+
+/* WhatsApp buttons */
+.whatsapp-fab,
+.unit-store-wa,
+.header-cta {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.whatsapp-fab:active,
+.unit-store-wa:active {
+  transform: scale(0.94);
+}
+
+/* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .cm-card.is-fechando {
-    animation: none !important;
+  .fluxo-botao,
+  .cm-botao,
+  .pv-adicionar,
+  .reservar-mais,
+  .pv-cesta-botao,
+  .whatsapp-fab,
+  button[type="button"],
+  button[type="submit"] {
+    transition: none !important;
+  }
+  .fluxo-botao:active,
+  .cm-botao:active,
+  .pv-adicionar:active,
+  .whatsapp-fab:active {
+    transform: none !important;
   }
 }
