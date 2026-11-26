@@ -3423,4 +3423,36 @@ html body .shop-header .shop-acoes .shop-receita:focus-visible {
     display: inline !important;
   }
 }
+
+/* Home no celular: banner de ponta a ponta (maior) e cards de produto menores (dois por tela, com o seguinte espiando). */
+@media (max-width: 767px) {
+  html body:has(#vitrine-higiene) .painel {
+    padding: 0 !important;
+    margin-top: 0.5rem !important;
+  }
+  html body:has(#vitrine-higiene) .painel .painel-faixa,
+  html body:has(#vitrine-higiene) .painel .painel-slide,
+  html body:has(#vitrine-higiene) .painel .painel-arte {
+    border-radius: 0 !important;
+  }
+  html body:has(#vitrine-higiene) .shop-destaques-lista {
+    gap: 0.625rem !important;
+  }
+  html body:has(#vitrine-higiene) .shop-destaques-lista > .pv-card--v {
+    flex-basis: min(44vw, 172px) !important;
+    width: min(44vw, 172px) !important;
+    min-width: min(44vw, 172px) !important;
+    aspect-ratio: auto !important;
+    min-height: 0 !important;
+    border-radius: 14px !important;
+  }
+  html body:has(#vitrine-higiene) .shop-destaques-lista > .pv-card--v .pv-nome {
+    min-height: 2.25rem !important;
+    font-size: 0.8125rem !important;
+    line-height: 1.125rem !important;
+  }
+  html body:has(#vitrine-higiene) .shop-destaques-lista > .pv-card--v .pv-atrib-linha {
+    font-size: 0.75rem !important;
+  }
+}
 }
