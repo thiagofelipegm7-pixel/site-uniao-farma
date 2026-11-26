@@ -10,6 +10,7 @@ import { abrirReserva } from "./abrir-reserva";
 import { adicionar, atualizarReserva, definirQtd, idDoItem, qtdDoItem, tetoDoItem } from "./reserva-store";
 import { useReserva } from "./useReserva";
 import VisualizacaoRapida from "./VisualizacaoRapida";
+import { mostrarToast } from "../shop/ToastAdicionado";
 import type { RegraPromocaoQuantidade } from "../promocao-quantidade-tipos";
 import type { ApresentacaoPublica } from "../apresentacao-produto-tipos";
 
@@ -64,6 +65,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
     if (!(precoEscolhido > 0)) return;
     atualizarReserva((s) => adicionar(s, { unitId, nome, precoCentavos: precoEscolhido, deCentavos, foto: escolha?.foto ?? foto, ...(promoEfetiva ? { promocao: promoEfetiva } : {}), ...(escolha ? { variante: { id: escolha.id, nome: escolha.nome } } : {}), ...(receita ? { receita } : {}), ...(max !== undefined ? { max } : {}), ...(slug ? { slug } : {}) }, quantidade));
     trackEvent("reserva_add", { unit: unitId, source });
+    mostrarToast(`${nome} adicionado à cesta`);
     registrarEtapa("add");
     if (opcoes?.abrirCesta) abrirReserva(opcoes.gatilho);
   };
