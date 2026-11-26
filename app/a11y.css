@@ -432,15 +432,60 @@
   }
 }
 
-/* Chip de Entrega hoje (preparado) */
-.chip-entrega-hoje {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  padding: 0.35rem 0.75rem;
-  background: #e8f7f5;
-  color: #0e7370;
-  border-radius: 999px;
-  font-size: 0.8125rem;
-  font-weight: 700;
+/* =====================================================================
+   Otimizações de experiência mobile
+   ===================================================================== */
+
+@media (max-width: 767px) {
+  /* Mais espaço para o polegar */
+  .mobile-quick-nav {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+
+  /* Botões principais mais confortáveis */
+  .fluxo-botao,
+  .cm-botao,
+  .shop-busca button {
+    min-height: 48px;
+    font-size: 1rem;
+  }
+
+  /* Cards de produto com melhor toque */
+  .pv-card,
+  .shop-card {
+    border-radius: 12px;
+  }
+
+  /* Espaçamento mais generoso entre seções */
+  .shop-destaques,
+  .shop-categorias,
+  .painel {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Texto de ajuda mais legível */
+  .fluxo-ajuda,
+  .faixa-entrega-nota {
+    font-size: 0.9rem;
+    line-height: 1.45;
+  }
+
+  /* Input de busca maior */
+  .shop-busca {
+    height: 3rem;
+    margin-bottom: 0.5rem;
+  }
+  .shop-busca input {
+    font-size: 1rem;
+  }
+}
+
+/* Telas muito pequenas */
+@media (max-width: 380px) {
+  .mobile-quick-nav .mqn-label {
+    font-size: 0.7rem;
+  }
+  .cm-nome {
+    font-size: 0.85rem;
+  }
 }
