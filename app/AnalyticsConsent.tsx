@@ -112,6 +112,25 @@ export default function AnalyticsConsent() {
     };
   }, [showBanner]);
 
+  // Força contraste AAA via setProperty (vence !important do CSS)
+  useEffect(() => {
+    if (!showBanner) return;
+    const reject = document.querySelector<HTMLButtonElement>(".cookie-reject");
+    const accept = document.querySelector<HTMLButtonElement>(".cookie-accept");
+    if (reject) {
+      reject.style.setProperty("color", "#001a17", "important");
+      reject.style.setProperty("background-color", "#f0faf8", "important");
+      reject.style.setProperty("border", "2px solid #001a17", "important");
+      reject.style.setProperty("-webkit-text-fill-color", "#001a17", "important");
+    }
+    if (accept) {
+      accept.style.setProperty("color", "#ffffff", "important");
+      accept.style.setProperty("background-color", "#001a17", "important");
+      accept.style.setProperty("border", "2px solid #001a17", "important");
+      accept.style.setProperty("-webkit-text-fill-color", "#ffffff", "important");
+    }
+  }, [showBanner]);
+
   useEffect(() => {
     const openPreferences = () => setShowPreferences(true);
     window.addEventListener(OPEN_COOKIE_PREFERENCES_EVENT, openPreferences);
@@ -154,7 +173,6 @@ export default function AnalyticsConsent() {
               type="button"
               className="cookie-reject"
               onClick={() => saveConsent("rejected")}
-              style={{ color: "#001a17", backgroundColor: "#f0faf8", border: "2px solid #001a17" }}
             >
               Só os necessários
             </button>
@@ -162,7 +180,6 @@ export default function AnalyticsConsent() {
               type="button"
               className="cookie-accept"
               onClick={() => saveConsent("accepted")}
-              style={{ color: "#ffffff", backgroundColor: "#001a17", border: "2px solid #001a17" }}
             >
               Aceitar e continuar
             </button>
