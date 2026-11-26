@@ -53,12 +53,11 @@ test("mensagem do WhatsApp lista itens, loja, forma, nome, pagamento e subtotal,
   const { ESTADO_VAZIO, adicionar, mensagemReserva } = await mod();
   const s = adicionar(ESTADO_VAZIO, nivea, 2);
   const retirar = mensagemReserva("Nações Unidas", s.itens, { modo: "retirar", nome: "  Maria  Souza " });
-  assert.doesNotMatch(retirar, /Quero pedir/, "a mensagem começa direto pelo pedido, sem saudação");
+  assert.match(retirar, /^Olá, União Farma Nações Unidas! Quero pedir:/);
   assert.match(retirar, /\u2022 2x Loção Nivea Soft Milk 200ml/);
   assert.doesNotMatch(retirar, /Loja: /, "a loja já está na saudação");
   assert.match(retirar, /\u2022 2x Loção Nivea Soft Milk 200ml \u2014 R\$ 39,80/, "cada item traz o valor da linha");
-  assert.match(retirar, /^\*Itens\*\n/, "a mensagem começa pelos itens, sem linha em branco no topo");
-  assert.match(retirar, /\n\n\*Retirada\*\n/, "blocos separados por linha em branco");
+  assert.match(retirar, /\n\n\*Itens\*\n/, "blocos separados por linha em branco");
   assert.match(retirar, /Se faltar algum item, podem sugerir outro parecido\?/);
   assert.doesNotMatch(retirar, /Produtos: /, "sem taxa não repete o subtotal");
   assert.match(retirar, /Forma: Retirar na loja/);
@@ -74,7 +73,7 @@ test("mensagem do WhatsApp lista itens, loja, forma, nome, pagamento e subtotal,
   assert.match(casa, /Pagamento: a escolher/);
   const comPix = mensagemReserva("Nações Unidas", s.itens, { modo: "casa", nome: "Maria", bairro: "Nações Unidas", rua: "Rua Inglaterra, 100", pagamento: "Pix" });
   assert.match(comPix, /Pagamento: Pix \(pelo WhatsApp\)/);
-  assert.match(mensagemReserva("Nações Unidas", s.itens, { modo: "retirar", nome: "Maria", pagamento: "Cartão de crédito/débito" }), /Pagamento: Cartão de crédito\/débito \(no balcão\)/);
+  assert.match(mensagemReserva("Nações Unidas", s.itens, { modo: "retirar", nome: "Maria", pagamento: "Cartão de débito" }), /Pagamento: Cartão de débito \(no balcão\)/);
   assert.match(casa, /Produtos: R\$ 39,80/);
   assert.match(casa, /Taxa de entrega: R\$ 1,00/);
   assert.match(casa, /Total estimado: R\$ 40,80/);
@@ -384,7 +383,7 @@ test("número do pedido: 4 caracteres legíveis, sem dado do cliente, e aparece 
   for (let i = 0; i < 50; i += 1) assert.match(gerarCodigoPedido(), /^[A-HJ-NP-Z2-9]{4}$/);
   const itens = [{ id: "n:x", unitId: "nacoes", nome: "X", precoCentavos: 1000, qtd: 1 }];
   const msg = mensagemReserva("Nações Unidas", itens, { modo: "retirar", nome: "Ana", codigo: "K7P3" });
-  assert.match(msg, /^Pedido: #K7P3\n/);
+  assert.match(msg, /\nPedido: #K7P3\n/);
   assert.doesNotMatch(mensagemReserva("Nações Unidas", itens, { modo: "retirar", nome: "Ana" }), /Pedido: #/);
 });
 

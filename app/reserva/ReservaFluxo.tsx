@@ -22,10 +22,8 @@ import { useDisponibilidade } from "./useDisponibilidade";
 import { avisosDaCesta } from "../disponibilidade";
 import { podeCompartilhar, prepararReceita, type ReceitaPronta } from "./preparar-receita";
 import { normalizarTelefone, TEXTO_CONSENTIMENTO } from "./lembrete-recompra";
-import { TEXTO_AVISO_RETIRADA } from "../retirada";
+import { AJUDA_AVISO_RETIRADA, TEXTO_AVISO_RETIRADA } from "../retirada";
 import { faixaAplicavel, proximaFaixa } from "../promocao-quantidade-tipos";
-import { chavePixConfigurada, codigoPixCopiaECola } from "./pix";
-import { qrMatriz } from "./qr-codigo";
 import { eanDaFoto } from "../nacoes-unidas/produtos/imagens";
 
 type Passo = 1 | 2 | 3;
@@ -35,22 +33,6 @@ const BAIRROS = listarBairros(PUBLIC_UNITS);
  * Reserva em 3 passos, igual ao protótipo: 1 Itens, 2 Loja e forma de receber (retirar ou receber em casa),
  * 3 Revisar e enviar pelo WhatsApp. Nome e endereço ficam só na mensagem e nunca no analytics.
  */
-/** Botão de copiar com a troca animada para "Copiado" (mesmo efeito do widget de QR). */
-function CopiarPix({ codigo, onCopiar }: { codigo: string; onCopiar?: () => void }) {
-  const [ok, setOk] = useState(false);
-  useEffect(() => {
-    if (!ok) return;
-    const t = window.setTimeout(() => setOk(false), 2200);
-    return () => window.clearTimeout(t);
-  }, [ok]);
-  return (
-    <button type="button" className={ok ? "fluxo-pix-cp is-ok" : "fluxo-pix-cp"} onClick={() => { void navigator.clipboard?.writeText(codigo).catch(() => {}); setOk(false); requestAnimationFrame(() => setOk(true)); onCopiar?.(); }}>
-      <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4.2 4.2 0 0 0 6 0l3-3a4.2 4.2 0 0 0-6-6l-1 1"/><path d="M14 10a4.2 4.2 0 0 0-6 0l-3 3a4.2 4.2 0 0 0 6 6l1-1"/></svg>Copiar código Pix</span>
-      <span aria-hidden="true"><svg className="ck" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Copiado</span>
-    </button>
-  );
-}
-
 export default function ReservaFluxo() {
   const estado = useReserva();
   // Disponibilidade ao vivo: o catálogo publicado pode estar alguns minutos atrás do estoque da loja.
@@ -106,29 +88,6 @@ export default function ReservaFluxo() {
   const [receita, setReceita] = useState<ReceitaPronta | null>(null);
   const [levoReceita, setLevoReceita] = useState(false);
   const [erroReceita, setErroReceita] = useState("");
-  // Comprovante do Pix (depois do envio): foto fica no aparelho até o cliente compartilhar pelo WhatsApp.
-  const [comprovante, setComprovante] = useState<ReceitaPronta | null>(null);
-  const [erroComprovante, setErroComprovante] = useState("");
-  // Página do card Pix: 1 = QR code, 2 = envio do comprovante.
-  const [pixPagina, setPixPagina] = useState<1 | 2>(1);
-  async function escolherComprovante(arquivo: File | undefined) {
-    if (!arquivo) return;
-    setErroComprovante("");
-    try {
-      setComprovante(await prepararReceita(arquivo));
-    } catch {
-      setErroComprovante("Não consegui abrir essa imagem. Escolha outra (JPG ou PNG).");
-    }
-  }
-  function enviarComprovante() {
-    if (!comprovante) return;
-    const texto = `Comprovante do Pix — Pedido #${codigoPedido}`;
-    if (podeCompartilhar(comprovante.arquivo)) {
-      void navigator.share({ files: [comprovante.arquivo], text: texto, title: "Comprovante Pix" }).catch(() => undefined);
-      return;
-    }
-    window.open(buildWhatsAppUrl(unidade, `${texto}. Vou anexar a foto do comprovante na próxima mensagem.`, { campaign: "reserva", content: `comprovante_${unidade.id}` }), "_blank");
-  }
   async function escolherReceita(arquivo: File | undefined) {
     if (!arquivo) return;
     setErroReceita("");
@@ -499,10 +458,46 @@ export default function ReservaFluxo() {
       {passo === 2 ? (
         <div className="fluxo-conteudo fluxo-conteudo-cesta fluxo-entrega">
           <div className="fluxo-coluna-itens">
+            <section className="entrega-endereco" aria-label="Dados da entrega">
+              {mostrarForm ? (
+                <div className="entrega-form">
+                  <label className="fluxo-campo">
+                    <span>Seu nome</span>
+                    <input value={nome} onChange={(e) => setNome(e.target.value)} placeholder={retirar ? "Nome para a retirada" : "Nome completo"} autoComplete="name" autoCapitalize="words" enterKeyHint="done" aria-invalid={tentou && !nomeOk} />
+                  </label>
+                  {!retirar ? (
+                    <>
+                      <label className="fluxo-campo">
+                        <span>Bairro</span>
+                        <select value={bairro} onChange={(e) => { setBairro(e.target.value); trackEvent("delivery_check", { source: "reserva", covered: lojaDoBairro(PUBLIC_UNITS, e.target.value) !== null }); }} aria-invalid={tentou && !unidadeEntrega}>
+                          <option value="">Selecione</option>
+                          {BAIRROS.map((b) => <option key={b.bairro} value={b.bairro}>{b.bairro} · {formatarCentavos(taxaDoBairro(b.bairro) ?? 0)}</option>)}
+                        </select>
+                      </label>
+                      <label className="fluxo-campo">
+                        <span>Rua e número</span>
+                        <input value={rua} onChange={(e) => setRua(e.target.value)} placeholder="Ex.: Rua Inglaterra, 100" autoComplete="street-address" autoCapitalize="words" enterKeyHint="done" aria-invalid={tentou && rua.trim().length < 3} />
+                      </label>
+                    </>
+                  ) : null}
+                  {tentou && !valido ? <p className="fluxo-erro" role="alert">{retirar ? "Informe o nome de quem vai retirar." : "Preencha o nome, escolha o bairro da lista e informe a rua com número."}</p> : null}
+                  <button type="button" className="entrega-btn" onClick={salvar}>{retirar ? "Confirmar nome" : "Confirmar endereço"}</button>
+                </div>
+              ) : (
+                <div className="entrega-end">
+                  <div className="entrega-end-texto">
+                    <strong>{nome.trim()}</strong>
+                    {!retirar ? <span>{rua.trim()}</span> : null}
+                    <span>{retirar ? `Retirada na União Farma ${unidade.shortName}` : `${bairro}, Sabará - MG`}</span>
+                  </div>
+                  <button type="button" className="entrega-btn entrega-btn-alterar" onClick={() => setEditando(true)}>Alterar</button>
+                </div>
+              )}
+            </section>
 
             <p className="entrega-titulo" role="heading" aria-level={2}>Retire ou receba sua compra</p>
             <div className="entrega-pacote">
-              <p className="entrega-topbar"><IconSacola size={30} /><span>Vendido e entregue por <strong>União Farma</strong></span></p>
+              <p className="entrega-topbar"><IconSacola size={20} /><span>Vendido e entregue por <strong>União Farma</strong></span></p>
               <div className="entrega-miolo">
                 {tabelaItens}
 
@@ -542,52 +537,16 @@ export default function ReservaFluxo() {
                           aria-describedby="aviso-pronto-ajuda"
                           onChange={(e) => setCelularAviso(e.target.value)}
                         />
-                        {avisoInvalido ? <small id="aviso-pronto-ajuda">Confira o número: DDD + celular, por exemplo (31) 9 0000-0000. Ou deixe em branco.</small> : null}
+                        <small id="aviso-pronto-ajuda">{avisoInvalido ? "Confira o número: DDD + celular, por exemplo (31) 9 0000-0000. Ou deixe em branco." : AJUDA_AVISO_RETIRADA}</small>
                       </label>
                   ) : null}
                   <label className={retirar ? "entrega-opcao" : "entrega-opcao is-on"}>
                     <input type="radio" name="forma" checked={!retirar} onChange={() => atualizarReserva((s) => ({ ...s, modo: "casa" }))} />
-                    <span className="entrega-tipo">Entrega</span>
+                    <span className="entrega-tipo">Entrega no seu bairro</span>
                     <span className="entrega-preco">{taxaDoLocal !== null ? formatarCentavos(taxaDoLocal) : `a partir de ${formatarCentavos(TAXA_ENTREGA_CENTAVOS)}`}</span>
                   </label>
                 </div>
               </div>
-            <section className="entrega-endereco" aria-label="Dados da entrega">
-              {mostrarForm ? (
-                <div className="entrega-form">
-                  <label className="fluxo-campo">
-                    <span>Seu nome</span>
-                    <input value={nome} onChange={(e) => setNome(e.target.value)} placeholder={retirar ? "Nome para a retirada" : "Nome completo"} autoComplete="name" autoCapitalize="words" enterKeyHint="done" aria-invalid={tentou && !nomeOk} />
-                  </label>
-                  {!retirar ? (
-                    <>
-                      <label className="fluxo-campo">
-                        <span>Bairro</span>
-                        <select value={bairro} onChange={(e) => { setBairro(e.target.value); trackEvent("delivery_check", { source: "reserva", covered: lojaDoBairro(PUBLIC_UNITS, e.target.value) !== null }); }} aria-invalid={tentou && !unidadeEntrega}>
-                          <option value="">Selecione</option>
-                          {BAIRROS.map((b) => <option key={b.bairro} value={b.bairro}>{b.bairro} · {formatarCentavos(taxaDoBairro(b.bairro) ?? 0)}</option>)}
-                        </select>
-                      </label>
-                      <label className="fluxo-campo">
-                        <span>Rua e número</span>
-                        <input value={rua} onChange={(e) => setRua(e.target.value)} placeholder="Ex.: Rua Inglaterra, 100" autoComplete="street-address" autoCapitalize="words" enterKeyHint="done" aria-invalid={tentou && rua.trim().length < 3} />
-                      </label>
-                    </>
-                  ) : null}
-                  {tentou && !valido ? <p className="fluxo-erro" role="alert">{retirar ? "Informe o nome de quem vai retirar." : "Preencha o nome, escolha o bairro da lista e informe a rua com número."}</p> : null}
-                  <button type="button" className="entrega-btn" onClick={salvar}>{retirar ? "Confirmar nome" : "Confirmar endereço"}</button>
-                </div>
-              ) : (
-                <div className="entrega-end">
-                  <div className="entrega-end-texto">
-                    <strong>{nome.trim()}</strong>
-                    {!retirar ? <span>{rua.trim()}</span> : null}
-                    <span>{retirar ? `Retirada na União Farma ${unidade.shortName}` : `${bairro}, Sabará - MG`}</span>
-                  </div>
-                  <button type="button" className="entrega-btn entrega-btn-alterar" onClick={() => setEditando(true)}>Alterar</button>
-                </div>
-              )}
-            </section>
             </div>
           </div>
 
@@ -606,8 +565,6 @@ export default function ReservaFluxo() {
             <p className="fluxo-barra-total"><span>Total estimado</span><strong>{totalComTaxa}</strong></p>
             <button type="button" className="fluxo-botao" onClick={revisar}>Revisar pedido</button>
           </div>
-
-          <div className="fluxo-vitrine"><DestaquesSemana titulo="Aproveite também" verTodas={false} source="reserva_vitrine" /></div>
         </div>
       ) : null}
 
@@ -645,7 +602,7 @@ export default function ReservaFluxo() {
 
             <p className="entrega-titulo" role="heading" aria-level={2}>Revise seu pedido</p>
             <div className="entrega-pacote">
-              <p className="entrega-topbar"><IconSacola size={30} /><span>Vendido e entregue por <strong>União Farma</strong></span></p>
+              <p className="entrega-topbar"><IconSacola size={20} /><span>Vendido e entregue por <strong>União Farma</strong></span></p>
               <div className="entrega-miolo">
                 {tabelaItens}
 
@@ -653,57 +610,11 @@ export default function ReservaFluxo() {
                 <div role="radiogroup" aria-label="Forma de pagamento">
                   {FORMAS_PAGAMENTO.map((forma) => (
                     <label key={forma} className={pagamento === forma ? "entrega-opcao entrega-opcao-simples is-on" : "entrega-opcao entrega-opcao-simples"}>
-                      <input type="radio" name="pagamento" checked={pagamento === forma} onChange={(e) => { const opcao = e.currentTarget.closest("label"); setPagamento(forma); setTimeout(() => { if (forma === "Pix") document.querySelector(".fluxo-pix")?.scrollIntoView({ behavior: "smooth", block: "center" }); else document.querySelector(".fluxo-rodape")?.scrollIntoView({ behavior: "smooth", block: "end" }); }, 80); }} />
+                      <input type="radio" name="pagamento" checked={pagamento === forma} onChange={() => setPagamento(forma)} />
                       <span className="entrega-tipo">{forma}</span>
                     </label>
                   ))}
                 </div>
-                {pagamento === "Pix" ? (() => {
-                  const chavePix = chavePixConfigurada();
-                  const codigoPix = chavePix ? codigoPixCopiaECola(chavePix, import.meta.env.VITE_PIX_NOME ?? "UNIAO FARMA", import.meta.env.VITE_PIX_CIDADE ?? "SABARA", totalCentavos, codigoPedido) : null;
-                  const matriz = codigoPix ? qrMatriz(codigoPix) : null;
-                  const caminhoQr = matriz ? matriz.flatMap((linha, y) => linha.flatMap((preto, x) => (preto ? [`M${x + 3} ${y + 3}h1v1h-1z`] : []))).join("") : "";
-                  return (
-                    <section className="fluxo-pix is-in" aria-label="Pagamento por Pix">
-                      {codigoPix && pixPagina === 2 ? (
-                        <>
-                          <p className="fluxo-pix-titulo">Aguardando comprovante</p>
-                          <p className="fluxo-pix-aviso">Depois do pagamento, nos envie o comprovante por aqui 😊</p>
-                          <label className="fluxo-pix-foto">
-                            {comprovante ? (
-                              <img className="fluxo-pix-previa" src={comprovante.previa} alt="Prévia do comprovante" />
-                            ) : (
-                              <span className="fluxo-pix-foto-vazia">
-                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z" /><circle cx="12" cy="13" r="3.5" /></svg>
-                                Toque para escolher a foto ou o print
-                              </span>
-                            )}
-                            <input type="file" accept="image/*" aria-label="Foto do comprovante" onChange={(e) => { void escolherComprovante(e.currentTarget.files?.[0]); }} />
-                          </label>
-                          {erroComprovante ? <p className="fluxo-erro" role="alert">{erroComprovante}</p> : null}
-                          <button type="button" className="fluxo-pix-escolher" disabled={!comprovante} onClick={enviarComprovante}>Enviar comprovante</button>
-                          <button type="button" className="fluxo-pix-voltar" onClick={() => setPixPagina(1)}>Voltar ao QR code</button>
-                        </>
-                      ) : (
-                        <>
-                          <p className="fluxo-pix-titulo">Pagamento por Pix</p>
-                          <div className="fluxo-pix-moldura" aria-hidden="true">{matriz ? <svg className="fluxo-pix-svg" viewBox={`0 0 ${matriz.length + 6} ${matriz.length + 6}`} role="img" aria-label="QR code do Pix"><path fill="#000000" d={caminhoQr} /></svg> : <span>QR Pix</span>}</div>
-                          {codigoPix ? (
-                            <>
-                              <p className="fluxo-pix-aviso">Copie o código e cole no app do banco (Pix copia e cola). Confira o valor antes de pagar.</p>
-                              <CopiarPix codigo={codigoPix} onCopiar={() => window.setTimeout(() => setPixPagina(2), 700)} />
-                            </>
-                          ) : (
-                            <>
-                              <p className="fluxo-pix-aviso">Chave Pix ainda não configurada. O código aparece aqui quando a loja cadastrar a chave.</p>
-                              <button type="button" className="fluxo-pix-cp" disabled><span>Copiar código Pix</span></button>
-                            </>
-                          )}
-                        </>
-                      )}
-                    </section>
-                  );
-                })() : null}
                 {perguntaTroco ? (
                   <fieldset className="fluxo-troco">
                     <legend>Precisa de troco?</legend>
@@ -765,6 +676,7 @@ export default function ReservaFluxo() {
             <p className="entrega-titulo" role="heading" aria-level={2}>Prévia da mensagem</p>
             <div className="entrega-pacote">
               <div className="entrega-miolo">
+                <p className="fluxo-destino">Vai para o WhatsApp da União Farma {unidade.shortName}: <strong>{unidade.whatsapp}</strong></p>
                 <div className="fluxo-bolha">
                   <pre>{mensagem.split("\n").map((linha, i) => (<Fragment key={i}>{i > 0 ? "\n" : null}{linha.split(/(\*[^*]+\*)/).map((parte, j) => (/^\*[^*]+\*$/.test(parte) ? <strong key={j}>{parte.slice(1, -1)}</strong> : parte))}</Fragment>))}</pre>
                   <time>agora</time>

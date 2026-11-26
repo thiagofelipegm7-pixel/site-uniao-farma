@@ -886,8 +886,8 @@ html body main#conteudo .fluxo-reserva .fluxo-pix .fluxo-pix-voltar.fluxo-pix-vo
 /* Trilha do blog: a regra global de .section-inner (camada anterior) põe a trilha em coluna; esta regra fica na mesma camada para vencer. */
 .blog-pagina .blog-migalhas.section-inner { flex-direction: row !important; flex-wrap: wrap; align-items: center; width: auto !important; max-width: 75rem; }
 .blog-pagina .blog-migalhas.section-inner > * { display: inline !important; width: auto !important; min-height: 0 !important; min-width: 0 !important; line-height: 1.4; }
-/* Página de receita (direção atual). Dentro da camada base-direcao para vencer as regras !important das camadas seguintes. */
-Escopo: só quando a página tem .recipe-page. As variáveis de cor são trocadas aqui, então as regras globais já existentes
+/* Página de receita (direção atual). Dentro da camada base-direcao para vencer as regras !important das camadas seguintes.
+Escopo: só quando a página tem .recipe-page. As variáveis de cor são trocadas aqui, então as regras globais já existentes */
 html body:has(.recipe-page) {
   --color-teal-50: #ffffff;
   --color-teal-600: #000000;

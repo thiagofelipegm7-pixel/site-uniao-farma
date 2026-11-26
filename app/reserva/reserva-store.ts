@@ -7,7 +7,7 @@ import { faixaAplicavel, proximaFaixa, type RegraPromocaoQuantidade } from "../p
  * Guardada só no navegador (localStorage), sem conta e sem enviar nada para servidor.
  */
 /** Formas de pagamento oferecidas ao cliente. O pagamento é combinado e feito pelo WhatsApp com a loja. */
-export const FORMAS_PAGAMENTO = ["Pix", "Dinheiro", "Cartão de crédito/débito"] as const;
+export const FORMAS_PAGAMENTO = ["Pix", "Dinheiro", "Cartão de débito", "Cartão de crédito"] as const;
 
 export type ModoReserva = "retirar" | "casa";
 
@@ -262,7 +262,9 @@ export function mensagemReserva(unitNome: string, itens: ReservaItem[], dados: D
   const pag = escolhido ? `${escolhido} (${quandoForma})${troco}` : "a escolher";
   // Linhas em branco separam os blocos (itens, entrega, pagamento); só null/false são descartados.
   return [
-    ...(dados.codigo ? [`Pedido: #${dados.codigo}`, ""] : []),
+    `Olá, União Farma ${unitNome}! Quero pedir:`,
+    ...(dados.codigo ? [`Pedido: #${dados.codigo}`] : []),
+    "",
     "*Itens*",
     ...linhas,
     "",
