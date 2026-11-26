@@ -463,3 +463,28 @@
 .shop-header.is-stuck {
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
+
+/* Selo Entrega hoje */
+.selo-entrega-hoje {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.5rem;
+  background: #e8f7f5;
+  color: #0e7370;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+/* Estoque baixo / acabou no card */
+.selo-acabou {
+  background: #fee6e6;
+  color: #c62828;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
