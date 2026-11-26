@@ -1,10 +1,10 @@
-import BuscaPorFoto from "../../shop/BuscaPorFoto";
+import ReconhecimentoVisual from "../../shop/ReconhecimentoVisual";
 
 export const metadata = {
-  title: "Buscar por foto | União Farma",
-  description: "Tire uma foto do produto ou da receita para encontrar mais rápido.",
+  title: "Reconhecimento visual | União Farma",
+  description: "Tire uma foto da embalagem para identificar o produto.",
 };
 
 export default function Page() {
-  return <BuscaPorFoto />;
+  return <ReconhecimentoVisual />;
 }
