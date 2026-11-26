@@ -161,8 +161,8 @@ export default function ReservaSacola() {
             <div className="reserva-vazia cm-vazia">
               <IconCestaArte size={96} className="cm-vazia-icone" />
               <strong>Sua cesta está vazia.</strong>
-              <p>Adicione produtos para ver a taxa de entrega e enviar o pedido pelo WhatsApp.</p>
-              <a className="cm-botao cm-botao-cheio" href="/nacoes-unidas/produtos" onClick={fechar}>Ver produtos e ofertas</a>
+              <p>Escolha seus produtos e pague só quando retirar.</p>
+              <a className="cm-botao cm-botao-cheio" href="/nacoes-unidas/produtos" onClick={fechar}>Ver produtos</a>
             </div>
           ) : (
             <>
@@ -227,8 +227,8 @@ export default function ReservaSacola() {
               <strong>{formatarCentavos(subtotalCentavos(estado.itens.filter((i) => i.precoCentavos > 0)))}</strong>
             </p>
             <AvaliacoesCesta variante="gaveta" />
-            <a className="cm-botao cm-botao-cheio" href="/reserva" onClick={fechar}>Revisar e enviar pedido</a>
-            <button type="button" className="cm-botao cm-botao-vazado" onClick={fechar}>Continuar comprando</button>
+            <a className="cm-botao cm-botao-cheio" href="/reserva" onClick={fechar}>Revisar cesta e enviar</a>
+            <button type="button" className="cm-botao cm-botao-vazado" onClick={fechar}>Continuar escolhendo produtos</button>
           </div>
         ) : null}
       </div>
