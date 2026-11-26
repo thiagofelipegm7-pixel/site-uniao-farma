@@ -488,3 +488,62 @@
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
 }
+
+/* =====================================================================
+   Reforços AAA (contraste 7:1 e legibilidade)
+   ===================================================================== */
+
+/* Textos principais mais escuros para AAA */
+body,
+p,
+li,
+span,
+.hero-lead,
+.unit-store-addr,
+.unit-store-hours,
+.offer-consult-body p,
+.recipe-lead,
+.offers-hero-lead,
+.rodape p,
+.rodape-legal {
+  color: #0a1f1c !important;
+}
+
+/* Links com contraste AAA */
+a,
+.menu-links a,
+.content-nav a {
+  color: #004d45 !important;
+}
+
+a:visited {
+  color: #00332e !important;
+}
+
+/* Placeholders mais escuros (AAA) */
+input::placeholder,
+textarea::placeholder {
+  color: #2d403d !important;
+  opacity: 1 !important;
+}
+
+/* Textos pequenos e secundários */
+small,
+.brand small,
+.section-kicker,
+.eyebrow,
+.rodape-titulo {
+  color: #1a2e2b !important;
+}
+
+/* Status com texto + cor já existente, reforço de contraste */
+.open-status.is-closed {
+  background: #fde8e4;
+  color: #7a1f1c !important;
+}
+
+/* Foco mais visível (AAA) */
+:focus-visible {
+  outline: 3px solid #005a4f !important;
+  outline-offset: 2px !important;
+}
