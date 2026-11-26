@@ -28,6 +28,7 @@ import { TEXTO_CONSENTIMENTO_AVALIACAO } from "../avaliacao-google";
 import { buscarCestaParaRetomar, enviarCestaEsquecida } from "./salvar-cesta-esquecida";
 import { AJUDA_AVISO_RETIRADA, TEXTO_AVISO_RETIRADA } from "../retirada";
 import { faixaAplicavel, proximaFaixa } from "../promocao-quantidade-tipos";
+import { comViewTransition } from "../shop/animacoes";
 import { eanDaFoto } from "../nacoes-unidas/produtos/imagens";
 
 type Passo = 1 | 2 | 3;
@@ -224,7 +225,7 @@ export default function ReservaFluxo() {
   function ir(proximo: Passo) {
     if (proximo === 2) registrarEtapa("entrega");
     if (proximo === 3) registrarEtapa("finalizar");
-    setPasso(proximo);
+    comViewTransition(() => setPasso(proximo));
     setTentou(false);
     if (typeof window !== "undefined") window.scrollTo({ top: 0 });
   }
