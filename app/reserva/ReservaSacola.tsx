@@ -13,6 +13,7 @@ import { useReserva } from "./useReserva";
 import { useDisponibilidade } from "./useDisponibilidade";
 import { avisosDaCesta } from "../disponibilidade";
 import CestaSugestoes from "./CestaSugestoes";
+import AvaliacoesCesta from "./AvaliacoesCesta";
 import { ligarArrastarParaFechar } from "./arrastar-para-fechar";
 import { faixaAplicavel, proximaFaixa } from "../promocao-quantidade-tipos";
 import LerReceita from "../receita-foto/LerReceita";
@@ -220,6 +221,7 @@ export default function ReservaSacola() {
               <span>Subtotal{semPreco ? " (sem os itens a consultar)" : ""}</span>
               <strong>{formatarCentavos(subtotalCentavos(estado.itens.filter((i) => i.precoCentavos > 0)))}</strong>
             </p>
+            <AvaliacoesCesta variante="gaveta" />
             <a className="cm-botao cm-botao-cheio" href="/reserva" onClick={fechar}>Ir para a cesta</a>
             <button type="button" className="cm-botao cm-botao-vazado" onClick={fechar}>Continuar comprando</button>
           </div>
