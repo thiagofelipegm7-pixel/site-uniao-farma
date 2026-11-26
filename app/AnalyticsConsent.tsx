@@ -7,6 +7,7 @@ import { captureCampaignAttribution } from "./campaign-attribution";
 import { OPEN_COOKIE_PREFERENCES_EVENT } from "./cookie-preferences";
 
 import { CONSENT_STORAGE_KEY as CONSENT_KEY, GTAG_SCRIPT_ID, GTAG_SCRIPT_URL } from "./ga-bootstrap";
+import { agendarClarity } from "./clarity";
 
 // GA4 (gtag.js) só é carregado depois do aceite: aqui, quando a pessoa aceita, ou pelo trecho do <head> (ga-bootstrap.ts)
 // quando ela já tinha aceitado numa visita anterior. Antes disso nenhum pedido sai para o Google nem para a Meta.
@@ -79,6 +80,8 @@ function startAnalytics(): void {
   appendScript("uniao-farma-meta-pixel", "https://connect.facebook.net/pt_BR/fbevents.js");
   trackingWindow.fbq?.("init", META_PIXEL_ID);
   trackingWindow.fbq?.("track", "PageView");
+  // Clarity só depois do mesmo aceite, e adiado para não competir com o LCP do banner.
+  agendarClarity({ aceito: true, pathname: window.location.pathname });
 }
 
 function readStoredConsent(): ConsentValue | null {

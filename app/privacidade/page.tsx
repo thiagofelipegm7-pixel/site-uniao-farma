@@ -100,8 +100,10 @@ export default function PrivacyPage() {
         <section>
           <h2>4. Cookies e ferramentas de análise</h2>
           <p>
-            Google Analytics e Meta Pixel são opcionais e somente são carregados após sua
-            autorização no banner de cookies. Você pode rejeitar esses cookies e continuar usando o
+            Google Analytics, Meta Pixel e Microsoft Clarity (mapa de calor e gravação da visita) são
+            opcionais e somente são carregados após sua autorização no banner de cookies. No Clarity,
+            a busca, o nome, o telefone, o endereço e as telas de pedido ficam mascarados; o painel
+            interno da equipe não é medido. Você pode rejeitar esses cookies e continuar usando o
             site normalmente.
           </p>
           <p>
@@ -114,7 +116,7 @@ export default function PrivacyPage() {
           <h2>5. Compartilhamento</h2>
           <p>
             Os dados podem ser tratados por fornecedores necessários ao funcionamento do site e do
-            atendimento, como hospedagem, Google, Meta e WhatsApp, respeitando as finalidades
+            atendimento, como hospedagem, Google, Meta, Microsoft Clarity e WhatsApp, respeitando as finalidades
             informadas e as configurações escolhidas pelo usuário.
           </p>
         </section>

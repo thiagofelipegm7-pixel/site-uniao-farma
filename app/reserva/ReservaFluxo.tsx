@@ -311,7 +311,7 @@ export default function ReservaFluxo() {
 
   if (estado.itens.length === 0) {
     return (
-      <div className="fluxo-reserva">
+      <div className="fluxo-reserva" data-clarity-mask="true">
         <header className="fluxo-topo">
           <a className="fluxo-voltar" href="/nacoes-unidas/produtos" aria-label="Voltar para os produtos"><IconVoltar size={26} /></a>
           <h1>Minha cesta</h1>
@@ -400,7 +400,7 @@ export default function ReservaFluxo() {
   const href = buildWhatsAppUrl(unidade, mensagem, { campaign: "reserva", content: `reserva_${unidade.id}` });
 
   return (
-    <div className="fluxo-reserva">
+    <div className="fluxo-reserva" data-clarity-mask="true">
       <div className="cesta-faixa">
         <a className="cesta-logo" href="/" aria-label="União Farma Drogaria e Perfumaria: página inicial"><MarcaUniao /></a>
         <ol className="cesta-passos" role="img" aria-label={`Passo ${passo} de 3`}>
