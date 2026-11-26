@@ -135,20 +135,31 @@ test("connects offers with every public section and route", async () => {
 });
 
 test("keeps every public page connected to the complete site directory", async () => {
-  // Links que o cabeçalho e o rodapé do protótipo levam em toda página. /novidades e /institucional seguem publicadas e no sitemap.
-  const siteDirectory = ["/", "/ofertas", "/perguntas", "/privacidade", "/termos"];
+  // O site está sem rodapé (pedido do dono). /privacidade e /termos continuam no ar e precisam abrir,
+  // mas não precisam mais aparecer como link em toda página. O cabeçalho ainda liga início, ofertas e perguntas.
+  const headerDirectory = ["/", "/ofertas", "/perguntas"];
+  const legalPages = ["/privacidade", "/termos"];
   // /receita segue publicada, mas sem link no site (a opção de enviar receita foi retirada).
-  const pages = [...siteDirectory, "/receita", "/novidades", "/institucional", "/novidades/bem-vindo-area-novidades", "/nao-existe"];
+  const pages = ["/", "/ofertas", "/perguntas", ...legalPages, "/receita", "/novidades", "/institucional", "/novidades/bem-vindo-area-novidades", "/nao-existe"];
 
   for (const pathname of pages) {
     const response = await render(pathname);
     const html = await response.text();
 
-    assert.ok([200, 404].includes(response.status), pathname);
-    for (const destination of siteDirectory) {
+    if (pathname === "/nao-existe") {
+      assert.equal(response.status, 404, pathname);
+      continue;
+    }
+    assert.equal(response.status, 200, pathname);
+    for (const destination of headerDirectory) {
       assert.ok(html.includes(`href="${destination}"`), `${pathname} → ${destination}`);
     }
   }
+
+  const privacidade = await (await render("/privacidade")).text();
+  assert.match(privacidade, /<h1[^>]*>Política de Privacidade<\/h1>/);
+  const termos = await (await render("/termos")).text();
+  assert.match(termos, /<h1[^>]*>Termos de Uso<\/h1>/);
 });
 
 test("renders the news index and the approved article with complete SEO", async () => {
@@ -354,12 +365,17 @@ test("cookie banner is mounted (not dynamic ssr:false) and CSP lets GA4 send con
   }
 });
 
-test("rodapé de todas as páginas traz o Alvará Sanitário e a AFE da Anvisa", async () => {
-  for (const pathname of ["/", "/ofertas", "/perguntas", "/nacoes-unidas/produtos"]) {
-    const html = await (await render(pathname)).text();
-    assert.match(html, /Alvará Sanitário nº 207\/2026/, pathname);
-    assert.match(html, /AFE Anvisa nº 7\.61823-1/, pathname);
-  }
+test("o Alvará Sanitário e a AFE da Anvisa continuam no cadastro da loja", async () => {
+  // O site está sem rodapé (pedido do dono), então esses registros não aparecem no HTML público.
+  // Eles ficam no cadastro da empresa e no componente do rodapé, para não se perderem.
+  const [company, footer] = await Promise.all([
+    readFile(new URL("../app/company.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/SiteFooter.tsx", import.meta.url), "utf8"),
+  ]);
+  assert.match(company, /Alvará Sanitário nº 207\/2026/);
+  assert.match(company, /AFE Anvisa nº 7\.61823-1/);
+  assert.match(footer, /COMPANY\.alvara/);
+  assert.match(footer, /COMPANY\.afe/);
 });
 
 test("Fátima e Itacolomi voltam aos buscadores, com canonical e schema da própria loja", async () => {
