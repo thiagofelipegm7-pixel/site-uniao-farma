@@ -178,6 +178,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="pt-BR" data-theme="light" className={`${inter.className} ${inter.variable} ${poppins.variable}`}>
       <head>
+        <link rel="preconnect" href="https://xn--uniofarmasabar-8gbu.com.br" />
+        <link rel="dns-prefetch" href="https://xn--uniofarmasabar-8gbu.com.br" />
         <link
           rel="preload"
           href="/uniao-farma-perfumaria-480.webp?v=27"
