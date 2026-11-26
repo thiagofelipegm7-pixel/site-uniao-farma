@@ -445,25 +445,21 @@
   }
 }
 
-/* Finalizar fixo reforçado */
+/* Performance do sticky header */
+.shop-header {
+  contain: layout style;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Evita repaint desnecessário no scroll */
 @media (max-width: 767px) {
-  .fluxo-resumo,
-  .cm-rodape,
-  .fluxo-botao-principal {
-    position: sticky;
-    bottom: 0;
-    z-index: 20;
-    background: #fff;
-    box-shadow: 0 -6px 16px rgba(0,0,0,0.1);
+  .shop-header {
+    will-change: transform;
   }
 }
 
-/* Você quis dizer mais forte */
-.busca-voce-quis-dizer,
-.shop-sugestoes .voce-quis {
-  background: #fff8e1;
-  border: 1px solid #ffe082;
-  padding: 0.5rem 0.75rem;
-  border-radius: 8px;
-  font-weight: 600;
+/* Reduz custo quando o header está sticky */
+.shop-header.is-stuck {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
 }
