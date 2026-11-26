@@ -67,10 +67,10 @@ export default function EntregarEm({ cabecalho = false }: { cabecalho?: boolean 
           </div>
           <label className="faixa-entrega-campo">
             <span>Digite o seu CEP</span>
-            <input type="text" inputMode="numeric" autoComplete="postal-code" placeholder="00000-000" value={cep} onChange={(e) => setCep(formatarCep(e.target.value))} maxLength={9} aria-describedby="faixa-entrega-nota" />
+            <input type="text" inputMode="numeric" autoComplete="postal-code" placeholder="Ex.: 34505-000" value={cep} onChange={(e) => setCep(formatarCep(e.target.value))} maxLength={9} aria-describedby="faixa-entrega-nota" />
           </label>
           <div className="faixa-entrega-resultado" role="status" aria-live="polite">
-            {area.status === "incompleto" ? <p>Digite os 8 números do CEP.</p> : null}
+            {area.status === "incompleto" ? <p>Digite os 8 números do CEP para ver a taxa de entrega.</p> : null}
             {area.status === "fora" ? <p>Este CEP fica fora da nossa área de entrega. Você pode retirar na loja, sem taxa.</p> : null}
             {area.status === "confirmar" ? (
               <p>
