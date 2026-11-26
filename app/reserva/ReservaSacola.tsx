@@ -213,7 +213,7 @@ export default function ReservaSacola() {
                   </div>
                 </div>
               ) : (
-                <button type="button" className="cm-limpar" onClick={() => setConfirmando(true)}>Limpar cesta</button>
+                <button type="button" className="cm-limpar" style={{opacity:0.6,fontSize:"0.8rem"}} onClick={() => setConfirmando(true)}>Limpar cesta</button>
               )}
               <CestaSugestoes itens={estado.itens} max={3} variante="gaveta" />
             </>
