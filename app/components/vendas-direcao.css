@@ -45,3 +45,13 @@
   border: 0; border-radius: 12px; background: #ffffff; color: #000000;
   box-shadow: none;
 }
+
+/* Edição de itens do pedido: mesmos botões brancos em inset; "Tirar" e a confirmação ficam com texto vermelho escuro. */
+.vendas-abas [role="tabpanel"] button.pedit-remover,
+.vendas-abas [role="tabpanel"] button.pedit-perigo { color: #9e2824; }
+.vendas-abas [role="tabpanel"] button.pedit-perigo { box-shadow: inset 4px 4px 8px #e3b8b6, inset -4px -4px 8px #ffffff; }
+.vendas-abas [role="tabpanel"] .pedit-qtd button { border-radius: 999px; box-shadow: none; }
+.vendas-abas a.pvenda-resumo {
+  background: #ffffff; color: #176748; border-radius: 14px;
+  box-shadow: inset 4px 4px 8px #c4c8cd, inset -4px -4px 8px #ffffff;
+}

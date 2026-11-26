@@ -4,6 +4,7 @@ import { slugify, type CatalogoItem } from "./catalogo";
 import { descricaoPublica } from "./descricoes";
 import { eanDaFoto, fotoDoProduto } from "./imagens";
 import { CATEGORIA_GOOGLE, gtinValido, itensElegiveisGoogle } from "./google-shopping";
+import { XML_ENTREGA_FEED } from "../../politicas-merchant";
 
 /**
  * Feed de produtos do Google Merchant Center (listagens gratuitas), RSS 2.0 com o namespace g:.
@@ -106,7 +107,7 @@ export function xmlDoFeed(linhas: readonly ItemFeed[] = itensDoFeed()): string {
         const valor = escaparXml(String(linha[k]));
         return k === "title" || k === "description" || k === "link" ? `      <${k}>${valor}</${k}>` : `      <g:${k}>${valor}</g:${k}>`;
       });
-      return `    <item>\n${campos.join("\n")}\n    </item>`;
+      return `    <item>\n${campos.join("\n")}\n${XML_ENTREGA_FEED}\n    </item>`;
     })
     .join("\n");
   return [

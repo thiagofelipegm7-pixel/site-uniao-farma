@@ -27,7 +27,7 @@ export function FarmaceuticoCard() {
     <aside className="farmaceutico-card">
       <IconKit size={32} />
       <div>
-        <strong>João, farmacêutico responsável</strong>
+        <strong>João Victor dos Santos, farmacêutico responsável</strong>
         <p>CRF/MG 31958 · responsável técnico da loja. Dúvida sobre um produto? Pergunte pelo WhatsApp.</p>
       </div>
     </aside>

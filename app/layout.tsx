@@ -26,6 +26,7 @@ import "./home-direcao.css";
 import { INSTAGRAM_URL, PAYMENT_ACCEPTED, SITE_URL, PUBLIC_UNITS } from "./site-config";
 import { COMPANY } from "./company";
 import { getPostalAddress } from "./structured-data";
+import { politicaDevolucao, servicoEntregaOrganizacao } from "./politicas-merchant";
 
 import { getGtagBootstrapScript } from "./ga-bootstrap";
 // Importado direto (componente "use client"): com dynamic({ssr:false}) o vinext não montava o banner,
@@ -156,6 +157,8 @@ const organizationSchema = {
     availableLanguage: ["Portuguese"],
     areaServed: "Sabará",
   })),
+  hasMerchantReturnPolicy: politicaDevolucao,
+  hasShippingService: servicoEntregaOrganizacao,
 };
 
 const websiteSchema = {

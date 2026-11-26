@@ -10,6 +10,7 @@ const { carregarCatalogoCompleto, slugify } = await import("../app/nacoes-unidas
 const { carregarRestritos } = await import("../app/nacoes-unidas/produtos/receita.ts");
 const { fotoDoProduto } = await import("../app/nacoes-unidas/produtos/imagens.ts");
 const { jsonLdProduto, NOTA_PRECO, NOTA_PRECO_FIRME } = await import("../app/nacoes-unidas/produtos/produto.ts");
+const { detalhesEntregaOferta, politicaDevolucao, servicoEntregaOrganizacao, TAXA_ENTREGA_BRL, PRAZO_DEVOLUCAO_DIAS, XML_ENTREGA_FEED } = await import("../app/politicas-merchant.ts");
 
 const catalogo = carregarCatalogoCompleto().itens;
 const elegiveis = itensElegiveisGoogle();
@@ -72,6 +73,13 @@ test("feed: XML RSS 2.0 com namespace g:, campos obrigatórios e só itens eleg�
   const xml = xmlDoFeed(linhas);
   assert.match(xml, /^<\?xml version="1\.0" encoding="UTF-8"\?>\n<rss version="2\.0" xmlns:g="http:\/\/base\.google\.com\/ns\/1\.0">/);
   assert.equal((xml.match(/<item>/g) ?? []).length, linhas.length);
+  assert.equal((xml.match(/<g:shipping>/g) ?? []).length, linhas.length);
+  assert.match(xml, /<g:country>BR<\/g:country>/);
+  assert.match(xml, /<g:region>MG<\/g:region>/);
+  assert.match(xml, /<g:price>5\.00 BRL<\/g:price>/);
+  assert.match(xml, /<g:min_handling_time>0<\/g:min_handling_time>/);
+  assert.match(xml, /<g:max_transit_time>0<\/g:max_transit_time>/);
+  assert.ok(xml.includes(XML_ENTREGA_FEED));
   assert.doesNotMatch(xml, /&(?!amp;|lt;|gt;|quot;|apos;)/, "& sem escape");
   assert.equal(escaparXml(`a & <b> "c" 'd'`), "a &amp; &lt;b&gt; &quot;c&quot; &apos;d&apos;");
   assert.equal(idDoFeed("a".repeat(80)).length <= 50, true);
@@ -101,8 +109,23 @@ test("rota do feed, sitemap, rodapé e JSON-LD usam a mesma fonte de elegibilida
     itemCondition: "https://schema.org/NewCondition",
     url: "https://exemplo/p",
     seller: { "@type": "Organization", name: "União Farma Nações Unidas" },
+    shippingDetails: detalhesEntregaOferta,
+    hasMerchantReturnPolicy: politicaDevolucao,
   });
   assert.equal(comOferta.gtin, "7891010009618");
+  assert.equal(comOferta.offers.shippingDetails.shippingRate.value, TAXA_ENTREGA_BRL);
+  assert.equal(comOferta.offers.shippingDetails.shippingRate.currency, "BRL");
+  assert.equal(comOferta.offers.shippingDetails.shippingDestination.addressCountry, "BR");
+  assert.equal(comOferta.offers.shippingDetails.shippingDestination.addressRegion, "MG");
+  assert.equal(comOferta.offers.shippingDetails.deliveryTime.handlingTime.minValue, 0);
+  assert.equal(comOferta.offers.shippingDetails.deliveryTime.handlingTime.maxValue, 0);
+  assert.equal(comOferta.offers.shippingDetails.deliveryTime.transitTime.minValue, 0);
+  assert.equal(comOferta.offers.shippingDetails.deliveryTime.transitTime.maxValue, 0);
+  assert.equal(comOferta.offers.hasMerchantReturnPolicy.applicableCountry, "BR");
+  assert.equal(comOferta.offers.hasMerchantReturnPolicy.returnPolicyCategory, "https://schema.org/MerchantReturnFiniteReturnWindow");
+  assert.equal(comOferta.offers.hasMerchantReturnPolicy.merchantReturnDays, PRAZO_DEVOLUCAO_DIAS);
+  assert.equal(comOferta.offers.hasMerchantReturnPolicy.returnMethod, "https://schema.org/ReturnInStore");
+  assert.equal("returnFees" in comOferta.offers.hasMerchantReturnPolicy, false);
   assert.match(NOTA_PRECO_FIRME, /preço do site vale/);
   assert.match(NOTA_PRECO, /confirma preço e estoque/);
 });
@@ -138,4 +161,23 @@ test("feed: XML em cache por 1 hora não remonta a cada chamada, e a rota pede m
   const rota = await read("app/feeds/google-shopping.xml/route.ts");
   assert.match(rota, /xmlDoFeedEmCache/);
   assert.match(rota, /max-age=3600, s-maxage=3600, stale-while-revalidate=86400/);
+});
+
+test("Organization declara a mesma política de troca e o mesmo serviço de entrega das ofertas", async () => {
+  const layout = await read("app/layout.tsx");
+  assert.match(layout, /hasMerchantReturnPolicy: politicaDevolucao/);
+  assert.match(layout, /hasShippingService: servicoEntregaOrganizacao/);
+  assert.equal(politicaDevolucao.merchantReturnDays, 7);
+  assert.equal(politicaDevolucao.returnMethod, "https://schema.org/ReturnInStore");
+  assert.equal(politicaDevolucao.itemCondition, "https://schema.org/NewCondition");
+  assert.match(politicaDevolucao.merchantReturnLink, /\/trocas-e-devolucoes$/);
+  assert.equal("returnFees" in politicaDevolucao, false);
+  assert.equal(servicoEntregaOrganizacao.shippingConditions.shippingRate.value, "5.00");
+  assert.equal(servicoEntregaOrganizacao.shippingConditions.shippingDestination.addressCountry, "BR");
+  assert.equal(servicoEntregaOrganizacao.shippingConditions.shippingDestination.addressRegion, "MG");
+  assert.equal(servicoEntregaOrganizacao.handlingTime.duration.maxValue, 0);
+  assert.equal(servicoEntregaOrganizacao.shippingConditions.transitTime.duration.maxValue, 0);
+  const semOferta = jsonLdProduto({ nome: "DIPIRONA 500MG", lab: "Gen", categoria: "Medicamentos", url: "https://exemplo/remedio" });
+  assert.equal(semOferta.offers, undefined);
+  assert.doesNotMatch(JSON.stringify(semOferta), /shippingDetails|hasMerchantReturnPolicy|OfferShippingDetails/);
 });
