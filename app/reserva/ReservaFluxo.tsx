@@ -27,6 +27,7 @@ import { TEXTO_CONSENTIMENTO_CESTA } from "../cesta-esquecida";
 import { TEXTO_CONSENTIMENTO_AVALIACAO } from "../avaliacao-google";
 import { buscarCestaParaRetomar, enviarCestaEsquecida } from "./salvar-cesta-esquecida";
 import { AJUDA_AVISO_RETIRADA, TEXTO_AVISO_RETIRADA } from "../retirada";
+import LinhasConfianca from "../shop/LinhasConfianca";
 import { faixaAplicavel, proximaFaixa } from "../promocao-quantidade-tipos";
 import { comViewTransition } from "../shop/animacoes";
 import { eanDaFoto } from "../nacoes-unidas/produtos/imagens";
@@ -773,13 +774,19 @@ export default function ReservaFluxo() {
               <p><span>{retirar ? "Retirada na loja" : "Taxa de entrega"}</span><span>{formatarCentavos(taxaEntrega)}</span></p>
               <p className="fluxo-resumo-total"><strong>Total estimado</strong><strong>{totalComTaxa}</strong></p>
               <AvaliacoesCesta variante="resumo" />
-              {enviarWhats("fluxo-botao fluxo-botao-resumo")}
+              <div className="fluxo-envio">
+                {enviarWhats("fluxo-botao fluxo-botao-resumo")}
+                <LinhasConfianca variante="ticks" />
+              </div>
             </section>
           </aside>
 
-          <div className="fluxo-rodape fluxo-rodape-total">
+          <div className="fluxo-rodape fluxo-rodape-total fluxo-rodape-confianca">
             <p className="fluxo-barra-total"><span>Total estimado</span><strong>{totalComTaxa}</strong></p>
-            {enviarWhats("fluxo-botao")}
+            <div className="fluxo-envio">
+              {enviarWhats("fluxo-botao")}
+              <LinhasConfianca variante="ticks" />
+            </div>
           </div>
         </div>
       ) : null}

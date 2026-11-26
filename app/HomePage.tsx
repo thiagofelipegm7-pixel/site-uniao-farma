@@ -14,6 +14,7 @@ import { CategoriasLinha } from "./shop/ShopSections";
 import { MarcasLinha } from "./shop/MarcasLinha";
 import CestaRetomada from "./shop/CestaRetomada";
 import VistoRecentemente from "./shop/VistoRecentemente";
+import MaisPedidosChips from "./shop/MaisPedidosChips";
 
 /**
  * Home na estrutura da home da Panvel: cabeçalho e submenu, banner (único h1), cartões de benefícios,
@@ -35,6 +36,7 @@ export default function HomePage() {
         <FaixaInfo />
       </CabecalhoInteligente>
       <PainelBanners titulo="Drogaria em Sabará: União Farma Nações Unidas" />
+      <MaisPedidosChips />
       <CestaRetomada />
       <OfertasSemana />
       <VistoRecentemente />
