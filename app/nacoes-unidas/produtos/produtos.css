@@ -195,6 +195,9 @@
   background: var(--aqua-pale);
 }
 
+.catalogo-nacoes .catalogo-busca-vazia { margin-top: 1.25rem; }
+.catalogo-nacoes .catalogo-busca-vazia .catalogo-similares-nota { margin: 0 0 0.75rem; }
+
 /* Ação por item (equivalente ao botão "Comprar" das farmácias online, aqui confirmando pelo WhatsApp). */
 .catalogo-nacoes .catalogo-acao {
   display: flex;
