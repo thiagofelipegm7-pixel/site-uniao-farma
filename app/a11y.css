@@ -286,3 +286,36 @@
     grid-template-columns: minmax(0, 1fr) !important;
   }
 }
+/* Polish responsivo extra — telas pequenas e tablets */
+
+@media (max-width: 380px) {
+  .shop-categorias { --cat-tile: 5.25rem; }
+  .shop-destaques-lista li,
+  html body .shop-destaques-lista > .pv-card--v {
+    flex-basis: min(82vw, 260px) !important;
+    width: min(82vw, 260px) !important;
+    min-width: min(82vw, 260px) !important;
+  }
+  .shop-hero { margin-inline: 0.75rem; padding: 0.875rem; }
+  .shop-passos { padding-inline: 1rem; }
+}
+
+@media (max-width: 480px) {
+  .catalogo-loja .catalogo-grupo > h3 { font-size: 1.05rem; }
+  .fluxo-topo h1 { font-size: 1.25rem !important; }
+  .cm-nome { font-size: 0.9rem; }
+}
+
+/* Melhor espaçamento entre seções no mobile */
+@media (max-width: 767px) {
+  .shop-destaques { padding-left: 0.75rem; }
+  .shop-categorias { margin-top: 1rem; }
+  .shop-hero { margin-top: 0.75rem; }
+}
+
+/* Tablet: categorias um pouco maiores */
+@media (min-width: 481px) and (max-width: 767px) {
+  .shop-categorias { --cat-tile: 6.5rem; }
+}
+
+/* End responsive polish */
