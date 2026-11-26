@@ -61,14 +61,14 @@ html body:has(#vitrine-higiene) .cookie-banner {
 }
 html body:has(#vitrine-higiene) .cookie-actions .cookie-reject {
   background: #ffffff !important;
-  color: #000000 !important;
-  border: 0 !important;
+  color: #086f66 !important;
+  border: 1.5px solid #086f66 !important;
   box-shadow: none !important;
 }
 html body:has(#vitrine-higiene) .cookie-actions button:not(.cookie-reject) {
-  background: #000000 !important;
+  background: #086f66 !important;
   color: #ffffff !important;
-  border: 0 !important;
+  border: 1.5px solid #086f66 !important;
 }
 
 /* Rodapé: verde-água, texto preto */

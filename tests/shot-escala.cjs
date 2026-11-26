@@ -14,7 +14,7 @@ const escala = Number(escalaTxt || 1);
     window.addEventListener("load", window.__e);
   }, escala);
   await p.goto(url); await p.waitForTimeout(1500);
-  const a = p.getByText("Aceitar", { exact: true }); if (await a.count()) await a.first().click().catch(() => {});
+  const a = p.getByRole("button", { name: /aceitar/i }); if (await a.count()) await a.first().click().catch(() => {});
   if (busca) { await p.locator("header input").first().click(); await p.keyboard.type(busca); await p.waitForTimeout(1200); }
   await p.evaluate(() => window.__e && window.__e()); await p.waitForTimeout(300);
   if (seletor) { await p.locator(seletor).first().scrollIntoViewIfNeeded().catch(() => {}); await p.evaluate(() => window.scrollBy(0, -120)); await p.waitForTimeout(300); }

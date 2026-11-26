@@ -2,7 +2,7 @@
  * GA4 direto (gtag.js) com Google Consent Mode v2.
  * Nada é carregado do Google antes do aceite no banner: este trecho só prepara a fila (dataLayer) e, se o visitante
  * já aceitou numa visita anterior, libera o consentimento e carrega o gtag.js. Quem aceita agora tem o gtag.js
- * carregado pelo AnalyticsConsent. É o que o banner ("Analytics só com autorização") e a /privacidade prometem.
+ * carregado pelo AnalyticsConsent. É o que o banner e a /privacidade prometem: análise só com autorização.
  */
 export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || "G-1N8E5G39KF";
 export const CONSENT_STORAGE_KEY = "uniao_farma_cookie_consent_v1";

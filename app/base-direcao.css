@@ -1942,18 +1942,18 @@ html body .cookie-banner {
   box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.14) !important;
 }
 html body .cookie-banner .cookie-accept {
-  border: 0 !important;
+  border: 1.5px solid #086f66 !important;
   border-radius: 999px !important;
-  background: #000000 !important;
+  background: #086f66 !important;
   color: #ffffff !important;
   box-shadow: none !important;
 }
 html body .cookie-banner .cookie-reject {
-  border: 0 !important;
+  border: 1.5px solid #086f66 !important;
   border-radius: 999px !important;
   background: #ffffff !important;
-  color: #000000 !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14), 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+  color: #086f66 !important;
+  box-shadow: none !important;
 }
 html body:has(.catalogo-nacoes) .catalogo-nacoes .shop-marcas-trilho {
   padding: 8px 0 22px !important;

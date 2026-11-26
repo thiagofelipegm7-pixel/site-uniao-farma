@@ -155,15 +155,15 @@ export default function AnalyticsConsent() {
       {showBanner && (
         <section className="cookie-banner" aria-label="Preferências de cookies" role="region">
           <p className="cookie-copy">
-            <strong>Cookies opcionais.</strong> Analytics só com autorização.{" "}
+            <strong>Podemos usar cookies?</strong> Eles nos ajudam a melhorar o site. Você escolhe.{" "}
             <a href="/privacidade">Privacidade</a>
           </p>
           <div className="cookie-actions">
             <button type="button" className="cookie-reject" onClick={() => saveConsent("rejected")}>
-              Recusar
+              Só os necessários
             </button>
             <button type="button" className="cookie-accept" onClick={() => saveConsent("accepted")}>
-              Aceitar
+              Aceitar e continuar
             </button>
           </div>
         </section>

@@ -173,7 +173,7 @@ function auditar() {
 }
 
 async function aceitar(p) {
-  const a = p.getByText("Aceitar", { exact: true });
+  const a = p.getByRole("button", { name: /aceitar/i });
   if (await a.count()) await a.first().click().catch(() => {});
 }
 
