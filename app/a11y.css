@@ -488,3 +488,179 @@
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
 }
+
+/* =====================================================================
+   AAA — Contraste 7:1 forçado em textos, links e botões
+   ===================================================================== */
+
+/* Textos principais */
+body,
+p,
+li,
+span,
+small,
+h1, h2, h3, h4, h5, h6,
+.hero-lead,
+.unit-store-addr,
+.unit-store-hours,
+.offer-consult-body p,
+.recipe-lead,
+.offers-hero-lead,
+.rodape p,
+.rodape-legal,
+.section-kicker,
+.eyebrow,
+.brand small {
+  color: #0a1f1c !important;
+}
+
+/* Links e navegação — força AAA (7:1) */
+a,
+a:link,
+a:visited,
+a:hover,
+a:active,
+.menu-links a,
+.content-nav a,
+.shop-categorias a,
+.nav a,
+.menu-button,
+button,
+.menu-button span,
+.shop-categorias a span,
+.categoria-link,
+.department-link,
+.nav-link {
+  color: #00241f !important;
+}
+
+/* Botões de cookie — AAA */
+.cookie-reject,
+.cookie-banner .cookie-reject {
+  color: #001a17 !important;
+  background-color: #e8f5f3 !important;
+  border: 1px solid #001a17 !important;
+}
+
+.cookie-accept,
+.cookie-banner .cookie-accept {
+  color: #ffffff !important;
+  background-color: #00332e !important;
+}
+
+/* Botões com fundo escuro mantêm texto branco */
+.header-cta,
+.content-header-cta,
+.whatsapp-fab,
+.unit-store-wa,
+.offer-consult-choose,
+.direct-unit-actions a,
+.modal-unit-action,
+button.primary {
+  color: #ffffff !important;
+  background-color: #004d45 !important;
+}
+
+/* Menu de departamentos — fundo mais escuro + texto branco para AAA */
+.dm-menu,
+.dm-menu *,
+.dm-menu a,
+.dm-links a,
+.dm-cabeca,
+.depto-painel,
+.depto-painel a,
+.depto-lista a,
+.depto-lista button {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+.dm-menu,
+.depto-painel,
+.dm-slot {
+  background-color: #063a36 !important;
+}
+
+/* Placeholders */
+input::placeholder,
+textarea::placeholder {
+  color: #1f3330 !important;
+  opacity: 1 !important;
+}
+
+/* Foco mais forte */
+:focus-visible {
+  outline: 3px solid #00241f !important;
+  outline-offset: 2px !important;
+}
+
+/* Banner de cookies — posição fixa segura (sem CLS) */
+.cookie-banner {
+  position: fixed !important;
+  bottom: max(8px, env(safe-area-inset-bottom)) !important;
+  left: 8px !important;
+  right: 8px !important;
+  z-index: 2200 !important;
+  margin: 0 !important;
+  transform: none !important;
+  contain: layout style paint;
+}
+
+/* =====================================================================
+   AAA FINAL — força absoluta de contraste 7:1
+   ===================================================================== */
+html body .dm-menu,
+html body .dm-menu a,
+html body .dm-menu a:link,
+html body .dm-menu a:visited,
+html body .dm-links a,
+html body .depto-painel a,
+html body .depto-lista a,
+html body .depto-lista button {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background-color: transparent !important;
+}
+
+html body .dm-menu,
+html body .depto-painel,
+html body .dm-slot {
+  background-color: #042c29 !important;
+}
+
+html body .cookie-banner .cookie-reject,
+html body button.cookie-reject {
+  color: #001a17 !important;
+  background-color: #f0faf8 !important;
+  border: 2px solid #001a17 !important;
+}
+
+html body .cookie-banner .cookie-accept,
+html body button.cookie-accept {
+  color: #ffffff !important;
+  background-color: #001a17 !important;
+  border: 2px solid #001a17 !important;
+}
+
+/* Especificidade máxima — vence qualquer regra anterior */
+html body .cookie-banner button.cookie-reject,
+html body .cookie-banner button.cookie-reject:not([disabled]) {
+  color: #001a17 !important;
+  background-color: #f0faf8 !important;
+  border: 2px solid #001a17 !important;
+  -webkit-text-fill-color: #001a17 !important;
+}
+
+html body .cookie-banner button.cookie-accept,
+html body .cookie-banner button.cookie-accept:not([disabled]) {
+  color: #ffffff !important;
+  background-color: #001a17 !important;
+  border: 2px solid #001a17 !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+html body .dm-menu button.dm-cabeca,
+html body .dm-menu a {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}

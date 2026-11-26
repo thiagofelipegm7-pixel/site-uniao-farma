@@ -44,7 +44,7 @@ O projeto utiliza **Tailwind CSS 4** com organização explícita através de di
 | **Tipografia** | `app/typography.css` | `@layer typography` — hierarquia de títulos, kerning, ajustes de entrelinha e animações de texto. |
 | **Layout** | `app/layout-system.css` | `@layer layout` — grids responsivos, containers, ajustes para telas móveis e Core Web Vitals (LCP/INP). |
 | **Componentes** | `app/components.css` | `@layer components` — estilos globais de componentes reutilizáveis (cards, rodapé, navegação rápida, etc.). |
-| **Tema** | `app/theme.css` | `@layer theme` — paleta de cores ativas, skins e contraste acessível (WCAG AA). |
+| **Tema** | `app/theme.css` | `@layer theme` — paleta de cores ativas, skins e contraste acessível (meta WCAG AAA). |
 | **Acessibilidade** | `app/a11y.css` | Regras invioláveis de foco visível (`:focus-visible`), skip-link e áreas mínimas de toque (`>= 48px`). |
 | **Overrides** | `app/overrides.css` | `@layer overrides` — refinamentos de compatibilidade final e estados excepcionais. |
 
@@ -69,9 +69,18 @@ O catálogo de ofertas em `app/offers.ts` possui regras regulatórias estritas:
 
 ---
 
-## 5. Acessibilidade (WCAG 2.1 AA)
+## 5. Acessibilidade — Perseguir WCAG AAA
 
-- Todos os elementos interativos (botões, links, selects) devem ter altura/largura mínima de toque de **48px** (`min-height: 48px`).
-- Todo botão que alterna visibilidade de menu deve conter atributos `aria-expanded` e `aria-controls`.
-- O skip link (`<SkipLink />`) deve ser sempre o primeiro elemento navegável via teclado no `<body>`.
-- Não remova ou desative o indicador de foco `:focus-visible`.
+Este projeto **persegue o nível AAA** das WCAG 2.2. Veja o arquivo [`ACCESSIBILITY.md`](./ACCESSIBILITY.md) para o compromisso completo.
+
+Regras práticas obrigatórias em todo PR que altere interface:
+
+- Contraste de texto: meta AAA (7:1 para texto normal).
+- Textos alternativos descritivos em imagens informativas (`alt=""` apenas em decorativas).
+- Elementos interativos com área mínima de toque de **48px**.
+- Skip link sempre presente e funcional como primeiro elemento focável.
+- Foco visível (`:focus-visible`) nunca removido ou desativado.
+- Botões e links nativos; uso de ARIA apenas quando o HTML nativo não for suficiente.
+- Testes de acessibilidade existentes devem continuar passando.
+
+Quando AAA não for viável em um ponto específico, garanta no mínimo AA e documente a exceção no PR.

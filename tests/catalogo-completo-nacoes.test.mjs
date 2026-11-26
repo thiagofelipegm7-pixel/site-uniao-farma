@@ -196,7 +196,9 @@ test("departamentos: cada categoria do catálogo tem a sua página e o menu apon
   // A faixa da home (PR #492) mostra temas de saúde, não o carrossel de todos os departamentos.
   assert.match(tiles, /Navegue por categoria/);
   assert.match(tiles, /Cuidados com diabetes/);
-  assert.match(tiles, /\/categorias\/diabetes"/); // sem extensão: o <picture> escolhe .webp ou .jpg
+  assert.match(tiles, /iconeSrc: "\/categorias\/diabetes"/);
+  assert.match(tiles, /\$\{item\.iconeSrc\}\.webp/);
+  assert.match(tiles, /src=\{\`\$\{item\.iconeSrc\}\.jpg\`\}/);
   assert.doesNotMatch(tiles, /\/departamentos\/medicamentos/);
   const provisorios = DEPARTAMENTOS.filter((x) => x.provisorio);
   assert.ok(provisorios.some((d) => d.slug === "categoria-a-conferir"));

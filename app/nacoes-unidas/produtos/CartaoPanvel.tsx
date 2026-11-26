@@ -100,7 +100,7 @@ export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medi
         {foto ? (
           <img
             src={foto}
-            alt=""
+            alt={nome}
             width="160"
             height="160"
             sizes="(max-width: 720px) 45vw, 160px"

@@ -9,10 +9,6 @@ import { OPEN_COOKIE_PREFERENCES_EVENT } from "./cookie-preferences";
 import { CONSENT_STORAGE_KEY as CONSENT_KEY, GTAG_SCRIPT_ID, GTAG_SCRIPT_URL } from "./ga-bootstrap";
 import { agendarClarity } from "./clarity";
 
-// GA4 (gtag.js) só é carregado depois do aceite: aqui, quando a pessoa aceita, ou pelo trecho do <head> (ga-bootstrap.ts)
-// quando ela já tinha aceitado numa visita anterior. Antes disso nenhum pedido sai para o Google nem para a Meta.
-// O GTM só carrega se NEXT_PUBLIC_GTM_CONTAINER_ID for definido de propósito
-// (e o contêiner NÃO deve ter tag GA4, para não contar page_view em dobro).
 const GTM_CONTAINER_ID = process.env.NEXT_PUBLIC_GTM_CONTAINER_ID ?? "";
 const META_PIXEL_ID = "1566333861510486";
 
@@ -80,7 +76,6 @@ function startAnalytics(): void {
   appendScript("uniao-farma-meta-pixel", "https://connect.facebook.net/pt_BR/fbevents.js");
   trackingWindow.fbq?.("init", META_PIXEL_ID);
   trackingWindow.fbq?.("track", "PageView");
-  // Clarity só depois do mesmo aceite, e adiado para não competir com o LCP do banner.
   agendarClarity({ aceito: true, pathname: window.location.pathname });
 }
 
@@ -92,7 +87,6 @@ function readStoredConsent(): ConsentValue | null {
 export default function AnalyticsConsent() {
   const [consent, setConsent] = useState<ConsentValue | null>(null);
   const [showPreferences, setShowPreferences] = useState(false);
-  // Telas internas da equipe não pedem consentimento de cookies (o aviso é para os clientes).
   const interno = (usePathname() || "").startsWith("/interno");
   const hydrated = useSyncExternalStore(
     () => () => {},
@@ -101,8 +95,6 @@ export default function AnalyticsConsent() {
   );
 
   useEffect(() => {
-    // The consent value lives in browser storage and is intentionally hydrated after mount.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
     setConsent(readStoredConsent());
     if (!window.location.pathname.startsWith("/interno")) captureCampaignAttribution();
   }, []);
@@ -120,6 +112,25 @@ export default function AnalyticsConsent() {
     };
   }, [showBanner]);
 
+  // Força contraste AAA via setProperty (vence !important do CSS)
+  useEffect(() => {
+    if (!showBanner) return;
+    const reject = document.querySelector<HTMLButtonElement>(".cookie-reject");
+    const accept = document.querySelector<HTMLButtonElement>(".cookie-accept");
+    if (reject) {
+      reject.style.setProperty("color", "#001a17", "important");
+      reject.style.setProperty("background-color", "#f0faf8", "important");
+      reject.style.setProperty("border", "2px solid #001a17", "important");
+      reject.style.setProperty("-webkit-text-fill-color", "#001a17", "important");
+    }
+    if (accept) {
+      accept.style.setProperty("color", "#ffffff", "important");
+      accept.style.setProperty("background-color", "#001a17", "important");
+      accept.style.setProperty("border", "2px solid #001a17", "important");
+      accept.style.setProperty("-webkit-text-fill-color", "#ffffff", "important");
+    }
+  }, [showBanner]);
+
   useEffect(() => {
     const openPreferences = () => setShowPreferences(true);
     window.addEventListener(OPEN_COOKIE_PREFERENCES_EVENT, openPreferences);
@@ -127,8 +138,7 @@ export default function AnalyticsConsent() {
   }, []);
 
   useEffect(() => {
-    // Os cliques passam por trackEvent, que só registra depois do aceite no banner.
-    if (interno) return; // equipe: nenhum clique é medido
+    if (interno) return;
     const onTrackedClick = (event: MouseEvent) => {
       const target = event.target as Element | null;
       const params = getClickTrackingParams(target);
@@ -159,10 +169,18 @@ export default function AnalyticsConsent() {
             <a href="/privacidade">Privacidade</a>
           </p>
           <div className="cookie-actions">
-            <button type="button" className="cookie-reject" onClick={() => saveConsent("rejected")}>
+            <button
+              type="button"
+              className="cookie-reject"
+              onClick={() => saveConsent("rejected")}
+            >
               Só os necessários
             </button>
-            <button type="button" className="cookie-accept" onClick={() => saveConsent("accepted")}>
+            <button
+              type="button"
+              className="cookie-accept"
+              onClick={() => saveConsent("accepted")}
+            >
               Aceitar e continuar
             </button>
           </div>

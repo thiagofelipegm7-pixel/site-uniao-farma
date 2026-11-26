@@ -197,7 +197,7 @@ test("componente OfertasSemana: vitrine da home com preço anterior só quando i
   assert.match(home, /import OfertasSemana from "\.\/shop\/OfertasSemana"/);
   assert.match(home, /<OfertasSemana \/>/);
   assert.match(painel, /Descontos e ofertas/);
-  // A nota "o preço anterior aparece quando foi informado" foi removida da vitrine (e8171c43); a regra do "De" continua nos testes abaixo.
+  assert.match(painel, /precoAnteriorFmt=\{item\.precoAnteriorCentavos \? formatarCentavos\(item\.precoAnteriorCentavos\) : null\}/);
   assert.match(painel, /ReservarBotao/);
   assert.match(painel, /source="home_ofertas"/);
   assert.match(painel, /precoAnteriorCentavos/);

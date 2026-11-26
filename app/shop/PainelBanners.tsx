@@ -14,7 +14,7 @@ function Arte({ banner, priority = false }: { banner: BannerPainel; priority?: b
       {banner.imagemCelular ? <source media="(max-width: 767px)" srcSet={banner.imagemCelular} /> : null}
       <img
         src={banner.imagem}
-        alt={banner.alt}
+        alt={banner.alt || banner.rotulo || "Oferta da União Farma"}
         decoding="async"
         draggable={false}
         loading={priority ? "eager" : "lazy"}
@@ -58,7 +58,7 @@ export default function PainelBanners({ titulo, fonte, aoEnviar }: { titulo?: st
           .map((b) => {
             // Clicar no banner leva para a busca do produto dele (ou para o produto escolhido no painel).
             const destino = destinoBanner(b);
-            return { id: b.id, imagem: b.url, alt: "Oferta da União Farma", href: destino.href, rotulo: destino.rotulo };
+            return { id: b.id, imagem: b.url, alt: destino.rotulo || "Oferta da União Farma", href: destino.href, rotulo: destino.rotulo };
           });
         if (lista.length) setCustom(lista);
         try {
