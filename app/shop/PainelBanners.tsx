@@ -5,14 +5,21 @@ import { IconSetaDireita, IconVoltar } from "../reserva/ReservaIcons";
 import { destinoBanner, type BannerPainel } from "./painel-banners";
 import "./painel-banners.css";
 
-function Arte({ banner }: { banner: BannerPainel }) {
+function Arte({ banner, priority = false }: { banner: BannerPainel; priority?: boolean }) {
   if (!banner.imagem) return <span className="painel-vazio" role="img" aria-label={banner.alt} />;
   const webp = banner.imagem.replace(/\.jpe?g$/i, ".webp");
   return (
     <picture>
       {webp !== banner.imagem ? <source type="image/webp" srcSet={webp} /> : null}
       {banner.imagemCelular ? <source media="(max-width: 767px)" srcSet={banner.imagemCelular} /> : null}
-      <img src={banner.imagem} alt={banner.alt} decoding="async" draggable={false} />
+      <img
+        src={banner.imagem}
+        alt={banner.alt}
+        decoding="async"
+        draggable={false}
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : "low"}
+      />
     </picture>
   );
 }
@@ -197,11 +204,11 @@ export default function PainelBanners({ titulo, fonte, aoEnviar }: { titulo?: st
                   onPointerDown={aoApertar}
                   onClick={aoClicar}
                 >
-                  <Arte banner={banner} />
+                  <Arte banner={banner} priority={i === 0} />
                 </a>
               ) : (
                 <div className={`painel-arte${banner.imagem ? " painel-arte--img" : ""}`}>
-                  <Arte banner={banner} />
+                  <Arte banner={banner} priority={i === 0} />
                   {aoEnviar ? (
                     <label className={`painel-editar${banner.imagem ? "" : " painel-editar--vazio"}`}>
                       <input type="file" accept="image/*" aria-label={`${banner.imagem ? "Trocar" : "Enviar"} a arte do banner ${i + 1} de ${n}`} onChange={(e) => { const f = e.target.files?.[0]; if (f) aoEnviar(banner, f); e.target.value = ""; }} />
