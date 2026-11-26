@@ -161,8 +161,8 @@ export default function ReservaSacola() {
             <div className="reserva-vazia cm-vazia">
               <IconCestaArte size={96} className="cm-vazia-icone" />
               <strong>Sua cesta está vazia.</strong>
-              <p>Escolha seus produtos e pague só quando retirar.</p>
-              <a className="cm-botao cm-botao-cheio" href="/nacoes-unidas/produtos" onClick={fechar}>Ver produtos</a>
+              <p>Adicione produtos para ver a taxa de entrega e enviar o pedido pelo WhatsApp.</p>
+              <a className="cm-botao cm-botao-cheio" href="/nacoes-unidas/produtos" onClick={fechar}>Ver produtos e ofertas</a>
             </div>
           ) : (
             <>
