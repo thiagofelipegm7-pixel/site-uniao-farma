@@ -2,17 +2,18 @@
 
 import "./novos-componentes.css";
 
+/** Só termos de higiene, bebê e cuidado diário — nenhum princípio ativo. */
 const kits = [
-  { nome: "Kit Resfriado", itens: "dipirona,vitamina c,spray", emoji: "🤧" },
-  { nome: "Kit Bebê", itens: "fralda,lenço,pomada", emoji: "👶" },
-  { nome: "Kit Higiene", itens: "sabonete,shampoo,creme", emoji: "🧴" },
-  { nome: "Kit Primeiros Socorros", itens: "band-aid,álcool,gaze", emoji: "🩹" },
+  { nome: "Kit Bebê", itens: "fralda,lenço umedecido", emoji: "👶" },
+  { nome: "Kit Higiene", itens: "sabonete,shampoo,creme dental", emoji: "🧴" },
+  { nome: "Kit Cuidado diário", itens: "desodorante,protetor solar", emoji: "☀️" },
+  { nome: "Kit Casa", itens: "papel higiênico,álcool em gel", emoji: "🏠" },
 ];
 
 export default function SugestaoKit() {
   return (
-    <section className="uf-card">
-      <h2 className="uf-card-titulo">Kits prontos</h2>
+    <section className="uf-card" aria-labelledby="uf-kits-titulo">
+      <h2 className="uf-card-titulo" id="uf-kits-titulo">Kits prontos</h2>
       <div className="uf-grid-2">
         {kits.map((k) => (
           <a
@@ -27,7 +28,7 @@ export default function SugestaoKit() {
               textAlign: "center",
             }}
           >
-            <span style={{ fontSize: "1.5rem" }}>{k.emoji}</span>
+            <span style={{ fontSize: "1.5rem" }} aria-hidden="true">{k.emoji}</span>
             <strong style={{ display: "block", fontSize: "0.85rem", marginTop: "0.25rem" }}>{k.nome}</strong>
           </a>
         ))}

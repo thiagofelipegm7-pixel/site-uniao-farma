@@ -1,24 +1,30 @@
 "use client";
 
+import { urlCatalogoSemMedicamentos } from "./catalogo-sem-medicamentos";
+
 const faixas = [
-  { label: "Até R$ 20", ate: 2000 },
-  { label: "Até R$ 50", ate: 5000 },
-  { label: "Até R$ 100", ate: 10000 },
+  { label: "Até R$ 20", precoMaxReais: 20 },
+  { label: "Até R$ 50", precoMaxReais: 50 },
+  { label: "Até R$ 100", precoMaxReais: 100 },
 ];
 
 export default function FiltroPreco() {
   return (
-    <div style={{
-      display: "flex",
-      gap: "0.5rem",
-      overflowX: "auto",
-      padding: "0.5rem 1rem",
-      scrollbarWidth: "none",
-    }}>
+    <div
+      className="uf-filtro-preco"
+      style={{
+        display: "flex",
+        gap: "0.5rem",
+        overflowX: "auto",
+        padding: "0.5rem 1rem",
+        scrollbarWidth: "none",
+      }}
+      aria-label="Filtrar por preço, sem medicamentos"
+    >
       {faixas.map((f) => (
         <a
-          key={f.ate}
-          href={`/nacoes-unidas/produtos?ate=${f.ate}`}
+          key={f.precoMaxReais}
+          href={urlCatalogoSemMedicamentos({ precoMaxReais: f.precoMaxReais })}
           style={{
             flex: "none",
             padding: "0.4rem 0.85rem",

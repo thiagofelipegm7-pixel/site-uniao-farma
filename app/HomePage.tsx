@@ -15,6 +15,11 @@ import { MarcasLinha } from "./shop/MarcasLinha";
 import CestaRetomada from "./shop/CestaRetomada";
 import VistoRecentemente from "./shop/VistoRecentemente";
 import MaisPedidosChips from "./shop/MaisPedidosChips";
+import CheckoutRapido from "./shop/CheckoutRapido";
+import FiltroPreco from "./shop/FiltroPreco";
+import RecomendacoesReais from "./shop/RecomendacoesReais";
+import ModoEconomia from "./shop/ModoEconomia";
+import SugestaoKit from "./shop/SugestaoKit";
 
 /**
  * Home na estrutura da home da Panvel: cabeçalho e submenu, banner (único h1), cartões de benefícios,
@@ -36,10 +41,15 @@ export default function HomePage() {
         <FaixaInfo />
       </CabecalhoInteligente>
       <PainelBanners titulo="Drogaria em Sabará: União Farma Nações Unidas" />
+      <CheckoutRapido />
       <MaisPedidosChips />
+      <FiltroPreco />
       <CestaRetomada />
+      <RecomendacoesReais />
       <OfertasSemana />
       <VistoRecentemente />
+      <ModoEconomia />
+      <SugestaoKit />
       <DestaquesSemana posicao={0} id="vitrine-mais-pedidos" titulo="Mais pedidos" ordem="conversao" minimo={4} n={12} verTodas={false} source="home_mais_pedidos" />
       <DestaquesSemana posicao={1} id="vitrine-higiene" titulo="Cuidado Diário" grupo="cuidado-diario" n={12} verTodas={false} source="home_higiene" />
       <DestaquesSemana posicao={2} id="vitrine-farmax" titulo="Farmax" lab="FARMAX" n={12} verTodas={false} source="home_farmax" />

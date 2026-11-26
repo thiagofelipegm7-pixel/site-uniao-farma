@@ -344,9 +344,13 @@ test("cookie banner is mounted (not dynamic ssr:false) and CSP lets GA4 send con
       "https://*.g.doubleclick.net",
       "https://www.facebook.com",
       "https://connect.facebook.net",
+      "https://*.clarity.ms",
+      "https://c.bing.com",
     ]) {
       assert.ok(connect.includes(host), `connect-src deve liberar ${host}`);
     }
+    assert.match(source, /script-src[^"]*https:\/\/www\.clarity\.ms/);
+    assert.match(source, /script-src[^"]*https:\/\/scripts\.clarity\.ms/);
   }
 });
 
