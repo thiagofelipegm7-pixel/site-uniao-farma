@@ -17,7 +17,7 @@ export default function ToastAdicionado() {
     mostrar = (texto) => {
       const id = Date.now();
       setToasts((t) => [...t, { id, texto }]);
-      setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 3500);
+      setTimeout(() => setToasts((t) => t.filter((x) => x.id !== id)), 2800);
     };
     return () => { mostrar = null; };
   }, []);
@@ -28,8 +28,8 @@ export default function ToastAdicionado() {
     <>
       <style>{`
         @keyframes toast-in {
-          from { opacity: 0; transform: translate(-50%, 12px); }
-          to { opacity: 1; transform: translate(-50%, 0); }
+          from { opacity: 0; transform: translate3d(-50%, 12px, 0); }
+          to { opacity: 1; transform: translate3d(-50%, 0, 0); }
         }
         @media (prefers-reduced-motion: reduce) {
           .toast-adicionado { animation: none !important; }
@@ -41,12 +41,14 @@ export default function ToastAdicionado() {
           position: "fixed",
           bottom: "5.5rem",
           left: "50%",
-          transform: "translateX(-50%)",
+          transform: "translateX(-50%) translateZ(0)",
           zIndex: 9999,
           display: "flex",
           flexDirection: "column",
           gap: "0.5rem",
           pointerEvents: "none",
+          contain: "layout style",
+          willChange: "transform, opacity",
         }}
         role="status"
         aria-live="polite"
@@ -62,20 +64,11 @@ export default function ToastAdicionado() {
               fontSize: "0.9rem",
               fontWeight: 600,
               boxShadow: "0 4px 16px rgba(0,0,0,0.18)",
-              display: "flex",
-              alignItems: "center",
-              gap: "0.75rem",
-              pointerEvents: "auto",
+              whiteSpace: "nowrap",
               animation: "toast-in 0.28s ease",
             }}
           >
-            <span>{t.texto}</span>
-            <a
-              href="/nacoes-unidas/produtos"
-              style={{ color: "#fff", textDecoration: "underline", fontWeight: 700, fontSize: "0.85rem" }}
-            >
-              Continuar
-            </a>
+            {t.texto}
           </div>
         ))}
       </div>
