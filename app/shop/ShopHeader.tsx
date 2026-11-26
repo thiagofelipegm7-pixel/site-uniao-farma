@@ -12,6 +12,7 @@ import { analisarConsulta, casaConsulta, contarCasos, criarVocabulario } from ".
 import { buildWhatsAppUrl, UNITS } from "../site-config";
 import { formatarCentavos } from "../reserva/reserva-store";
 import SemFoto from "../nacoes-unidas/produtos/SemFoto";
+import SalvarNaLista from "./SalvarNaLista";
 import MarcaUniao from "./MarcaUniao";
 import BotaoReceita from "../receita-foto/BotaoReceita";
 import ReservaSacola from "../reserva/ReservaSacola";
@@ -447,7 +448,10 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                           <strong aria-hidden="true">{ORDINAIS[i]}</strong>
                           <span>{valor}</span>
                         </a>
-                      </li>
+                          <div style={{position:"absolute",right:"0.5rem",top:"50%",transform:"translateY(-50%)"}}>
+                            <SalvarNaLista nome={item.nome} slug={item.slug} />
+                          </div>
+                        </li>
                     ))}
                   </ul>
                 </>
@@ -460,13 +464,16 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                   ) : null}
                   <ul aria-label="Produtos sugeridos">
                     {resultados.map((item) => (
-                      <li key={item.slug}>
+                      <li key={item.slug} style={{position:"relative"}}>
                         <a href={`/nacoes-unidas/produtos/${item.slug}`}>
                           {item.foto ? <img src={item.foto} alt="" width="44" height="44" /> : <SemFoto className="shop-sug-sem-foto" />}
                           <span><NomeDestacado nome={item.nome} termos={termosDestaque} /></span>
                           <strong>{formatarCentavos(item.precoCentavos)}</strong>
                         </a>
-                      </li>
+                          <div style={{position:"absolute",right:"0.5rem",top:"50%",transform:"translateY(-50%)"}}>
+                            <SalvarNaLista nome={item.nome} slug={item.slug} />
+                          </div>
+                        </li>
                     ))}
                     {resultadosRestritos.map((item) => (
                       <li key={`${item.tipo}-${item.nome}`}>
@@ -477,7 +484,10 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                           </span>
                           <strong>{item.precoCentavos === null ? (item.semVenda ? <small className="shop-sug-consulte">Consulte o farmacêutico</small> : "") : formatarCentavos(item.precoCentavos)}</strong>
                         </a>
-                      </li>
+                          <div style={{position:"absolute",right:"0.5rem",top:"50%",transform:"translateY(-50%)"}}>
+                            <SalvarNaLista nome={item.nome} slug={item.slug} />
+                          </div>
+                        </li>
                     ))}
                     {resultadosEsgotados.map((item) => (
                       <li key={`esgotado-${item.slug}`} className="shop-sug-esgotado">
@@ -486,7 +496,10 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                           <span><NomeDestacado nome={item.nome} termos={termosDestaque} /></span>
                           <em>Esgotado</em>
                         </a>
-                      </li>
+                          <div style={{position:"absolute",right:"0.5rem",top:"50%",transform:"translateY(-50%)"}}>
+                            <SalvarNaLista nome={item.nome} slug={item.slug} />
+                          </div>
+                        </li>
                     ))}
                   </ul>
                   <a className="shop-sugestoes-todos" href={`/nacoes-unidas/produtos?q=${encodeURIComponent(termo.trim())}`}>
