@@ -51,6 +51,7 @@ type Props = {
  */
 export default function DestaquesSemana({ posicao, titulo = "Destaques da semana", grupo, lab, ate, ordem, minimo = 1, n = 8, verTodasHref = "/nacoes-unidas/produtos", verTodas = true, source = "destaques_home", slugs, acaoExtra, id = "destaques" }: Props = {}) {
   const [itens, setItens] = useState<Destaque[]>([]);
+  const [carregando, setCarregando] = useState(true);
   const [lista, setLista] = useState<HTMLUListElement | null>(null);
 
   useEffect(() => {
@@ -67,6 +68,7 @@ export default function DestaquesSemana({ posicao, titulo = "Destaques da semana
     const minha = Promise.all([anterior, busca]).then(([usados, dados]) => {
       const livres = (dados?.itens ?? []).filter((item) => !usados.has(item.slug)).slice(0, n);
       if (ativo && livres.length >= minimo) setItens(livres);
+      if (ativo) setCarregando(false);
       return livres.length >= minimo ? new Set([...usados, ...livres.map((item) => item.slug)]) : usados;
     });
     if (posicao !== undefined) cadeia[posicao] = minha;
@@ -75,6 +77,22 @@ export default function DestaquesSemana({ posicao, titulo = "Destaques da semana
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps -- `slugs` entra pelo texto (chave), para a lista nova não repetir a busca à toa
   }, [grupo, lab, ate, ordem, minimo, n, posicao, slugs?.join(",")]);
+
+  
+  if (carregando) {
+    return (
+      <section className="shop-destaques" aria-hidden="true">
+        <div className="shop-destaques-topo"><h2 style={{opacity:0.4}}>Carregando...</h2></div>
+        <div className="shop-vitrine">
+          <ul className="shop-destaques-lista" style={{display:"flex",gap:"1rem",overflow:"hidden"}}>
+            {Array.from({length: 4}).map((_, i) => (
+              <li key={i} style={{flex:"0 0 160px",height:"220px",background:"#f0f4f3",borderRadius:"12px"}} />
+            ))}
+          </ul>
+        </div>
+      </section>
+    );
+  }
 
   if (itens.length === 0) return null;
 
