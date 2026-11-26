@@ -35,6 +35,7 @@ import AnalyticsConsent from "./AnalyticsConsent";
 import RegistroDeErros from "./shop/RegistroDeErros";
 import PwaRegister from "./PwaRegister";
 import OfferAlerts from "./OfferAlerts";
+import ToastAdicionado from "./shop/ToastAdicionado";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -208,6 +209,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           {children}
         </main>
         {/* rodapé removido a pedido */}
+        <ToastAdicionado />
         <WhatsAppFab />
       </body>
     </html>
