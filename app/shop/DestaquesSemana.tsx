@@ -5,7 +5,6 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { SetasRolagem } from "./SetasRolagem";
 import ReservarBotao from "../reserva/ReservarBotao";
-import SalvarNaLista from "./SalvarNaLista";
 import CartaoPanvel from "../nacoes-unidas/produtos/CartaoPanvel";
 import { quantidadeDoNome } from "../nacoes-unidas/produtos/quantidade";
 import { formatarCentavos } from "../reserva/reserva-store";
@@ -123,10 +122,7 @@ export default function DestaquesSemana({ posicao, titulo = "Destaques da semana
               apresentacao={quantidadeDoNome(item.nome)}
               precoFmt={formatarCentavos(item.precoCentavos)}
               cesta={
-                <div style={{display:"flex",flexDirection:"column",alignItems:"flex-end",gap:"0.25rem"}}>
-                  <ReservarBotao unitId="nacoes" nome={item.nome} precoCentavos={item.precoCentavos} foto={item.foto} source={source} variante="cartao" slug={item.slug} />
-                  <SalvarNaLista nome={item.nome} slug={item.slug} />
-                </div>
+                <ReservarBotao unitId="nacoes" nome={item.nome} precoCentavos={item.precoCentavos} foto={item.foto} source={source} variante="cartao" slug={item.slug} />
               }
             />
           ))}
