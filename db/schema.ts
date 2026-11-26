@@ -28,3 +28,11 @@ export const banners = sqliteTable("banners", {
   url: text("url").notNull(),
   atualizado: text("atualizado").notNull(),
 });
+
+export const aviseMe = sqliteTable("avise_me", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  produto: text("produto").notNull(),
+  email: text("email").notNull(),
+  criadoEm: text("criado_em").notNull(),
+  notificado: integer("notificado").default(0),
+});
