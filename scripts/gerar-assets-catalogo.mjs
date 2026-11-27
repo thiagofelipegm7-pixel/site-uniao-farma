@@ -4,6 +4,7 @@
  * Roda no build (ou manualmente) para que o Worker só leia fatias, sem localeCompare/toLocaleString/regex por item.
  * Saída: public/dados/nacoes/...
  */
+import { createHash } from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -525,6 +526,36 @@ writeJson("busca-index.json", {
   grupos: buscaGrupos,
   restritos: [...receitaFmt, ...controladosFmt].map(itemRestritoCompacto),
 });
+
+// ---- Data real de alteração de cada produto (S-08) ----
+// O catálogo é exportado de novo várias vezes por dia; usar a data da exportação faria todo produto parecer alterado.
+// Guarda, por produto, uma assinatura do que a página mostra (nome, preço, esgotado, categoria, marca, foto, descrição)
+// e a data em que ela mudou pela última vez. O sitemap usa essa data. Produto que saiu do catálogo sai do arquivo.
+{
+  const ARQ_DATAS = path.join(DADOS, "datas-produtos.json");
+  const lerOuVazio = (arq) => { try { return JSON.parse(fs.readFileSync(arq, "utf8")); } catch { return {}; } };
+  const anteriores = lerOuVazio(ARQ_DATAS);
+  const descIa = lerOuVazio(path.join(DADOS, "descricoes-ia.json"));
+  const descPesquisa = lerOuVazio(path.join(DADOS, "descricoes-pesquisa.json"));
+  const descPainel = lerOuVazio(path.join(DADOS, "descricoes-painel.json"));
+  const hoje = /^(\d{4}-\d{2}-\d{2})/.exec(cat.geradoEm ?? "")?.[1] ?? new Date().toISOString().slice(0, 10);
+  const datas = {};
+  for (const item of itens) {
+    const slug = slugify(item.nome);
+    const assinatura = createHash("sha1")
+      .update(JSON.stringify([
+        nomeDeExibicao(item.nome), item.preco, item.esgotado === true, item.categoria, item.lab, fotoDoProduto(item.nome),
+        descPainel[chaveDoNome(item.nome)]?.t ?? null, descPesquisa[slug]?.t ?? null, descIa[slug]?.t ?? null,
+      ]))
+      .digest("hex")
+      .slice(0, 12);
+    const antes = anteriores[slug];
+    datas[slug] = antes && antes[0] === assinatura ? antes : [assinatura, hoje];
+  }
+  // Um produto por linha: o diff do commit automático mostra só os produtos que mudaram.
+  const linhas = Object.keys(datas).sort().map((k) => `  ${JSON.stringify(k)}: ${JSON.stringify(datas[k])}`);
+  fs.writeFileSync(ARQ_DATAS, `{\n${linhas.join(",\n")}\n}\n`);
+}
 
 console.log("Assets gerados com sucesso.");
 console.log("Contagens: catálogo", itens.length, "receita", receitaFmt.length, "controlados", controladosFmt.length, "consulte", consulteFmt.length);

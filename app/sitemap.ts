@@ -6,6 +6,10 @@ import { departamentosPublicos } from "./nacoes-unidas/produtos/departamentos";
 import { getUnitPublicPath } from "./structured-data";
 import { carregarCatalogoCompleto, slugify } from "./nacoes-unidas/produtos/catalogo";
 import { itensElegiveisGoogle } from "./nacoes-unidas/produtos/google-shopping";
+import datasProdutos from "./nacoes-unidas/produtos/dados/datas-produtos.json";
+
+/** Data real da última alteração de cada produto (S-08), gerada por scripts/gerar-assets-catalogo.mjs. */
+const DATAS_PRODUTOS = datasProdutos as Record<string, [string, string]>;
 
 /** Data do catálogo publicado (export do sistema da loja); sem data, a do departamento. */
 function dataDoCatalogo(): Date {
@@ -133,7 +137,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // Páginas de produto: só as de elegivelGoogle (não medicamento, em estoque, com foto). Medicamento fica fora (noindex).
     ...itensElegiveisGoogle().map((item) => ({
       url: `${SITE_URL}/nacoes-unidas/produtos/${slugify(item.nome)}`,
-      lastModified: catalogoData,
+      lastModified: DATAS_PRODUTOS[slugify(item.nome)] ? sitemapDate(DATAS_PRODUTOS[slugify(item.nome)][1]) : catalogoData,
       changeFrequency: "weekly" as const,
       priority: 0.5,
     })),
