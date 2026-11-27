@@ -25,6 +25,9 @@ import "./zoom.css";
 import "./destaque-cesta.css";
 import "./base-direcao.css";
 import "./home-direcao.css";
+import "./tema-black-friday.css";
+import FaixaBlackFriday from "./FaixaBlackFriday";
+import { SCRIPT_TEMA_PREVIA, temaAtual } from "./tema-sazonal";
 import { INSTAGRAM_URL, PAYMENT_ACCEPTED, SITE_URL, PUBLIC_UNITS } from "./site-config";
 import { COMPANY } from "./company";
 import { getPostalAddress } from "./structured-data";
@@ -179,7 +182,7 @@ const websiteSchema = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="pt-BR" data-theme="light" className={`${inter.className} ${inter.variable} ${poppins.variable}`}>
+    <html lang="pt-BR" data-theme="light" data-tema={temaAtual() ?? undefined} suppressHydrationWarning className={`${inter.className} ${inter.variable} ${poppins.variable}`}>
       <head>
         <link rel="preconnect" href="https://xn--uniofarmasabar-8gbu.com.br" />
         <link rel="dns-prefetch" href="https://xn--uniofarmasabar-8gbu.com.br" />
@@ -192,6 +195,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           imageSizes="(max-width: 720px) 88vw, 360px"
           fetchPriority="high"
         />
+        {/* Prévia do tema sazonal por ?tema=black-friday (antes de pintar, sem piscar). */}
+        <script dangerouslySetInnerHTML={{ __html: SCRIPT_TEMA_PREVIA }} />
         <script dangerouslySetInnerHTML={{ __html: getGtagBootstrapScript() }} />
         {/* Sem <script src> nem preconnect para Google/Meta aqui: nada sai para terceiros antes do aceite no banner (ver ga-bootstrap.ts). */}
       </head>
@@ -207,6 +212,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             __html: JSON.stringify([organizationSchema, websiteSchema]),
           }}
         />
+        <FaixaBlackFriday />
         <main id="conteudo" tabIndex={-1}>
           {children}
         </main>
