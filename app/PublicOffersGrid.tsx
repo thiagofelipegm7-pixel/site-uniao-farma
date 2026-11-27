@@ -5,6 +5,7 @@ import WebImage from "./WebImage";
 import { responsiveSrcSet } from "./responsive-images";
 import "./encarte.css";
 import {
+  formatOfferDate,
   formatOfferPrice,
   getPublicOffers,
   isMedicationOffer,
@@ -56,7 +57,11 @@ function OfferConsultCard({ offer }: { offer: Offer }) {
         ) : (
           <p className="offer-consult-price offer-consult-price-ask">Preço sob consulta</p>
         )}
-        <p className="offer-consult-cond">Enquanto durar o estoque</p>
+        <p className="offer-consult-cond">
+          {offer.validityType === "date" && offer.validUntil
+            ? `Válida até ${formatOfferDate(offer.validUntil)}. Enquanto durar o estoque.`
+            : "Enquanto durar o estoque"}
+        </p>
         {isMedicationOffer(offer) ? <p className="offer-legal">{MEDICATION_WARNING}</p> : null}
         <a
           className="offer-consult-choose"

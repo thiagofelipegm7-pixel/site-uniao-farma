@@ -5,7 +5,7 @@ import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import DirectUnitLinks from "../DirectUnitLinks";
 import OfferAlerts from "../OfferAlerts";
 import PublicOffersGrid from "../PublicOffersGrid";
-import { formatOfferDate, getOffersKicker, getOffersReviewDate } from "../offers";
+import { formatOfferDate, getOffersKicker, getOffersReviewDate, getPublicOffers } from "../offers";
 import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 import "../offers-polish.css";
 import "../offer-alerts.css";
@@ -19,6 +19,11 @@ export default function OffersPageClient({
   showReviewPanel: boolean;
 }) {
   const reviewDate = getOffersReviewDate();
+  const validade = getPublicOffers()
+    .map((offer) => offer.validUntil)
+    .filter((value): value is string => Boolean(value))
+    .sort()
+    .at(-1);
   return (
     <>
       <ContentSiteHeader activePath="/ofertas" />
@@ -34,7 +39,9 @@ export default function OffersPageClient({
               </p>
               <p className="offers-freshness">
                 {reviewDate ? `Encarte conferido em ${formatOfferDate(reviewDate)}. ` : ""}
-                Vale enquanto durar o estoque em cada loja.
+                {validade
+                  ? `Ofertas válidas até ${formatOfferDate(validade)}, enquanto durar o estoque em cada loja.`
+                  : "Vale enquanto durar o estoque em cada loja."}
               </p>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import catalogoEstatico from "./dados/catalogo-nacoes.json" with { type: "json" };
 import { marcaDoItem } from "./marca";
+import { precoPorOfertaVigente } from "../../shop/ofertas-config";
 
 /**
  * Catálogo público da loja Nações Unidas. Fonte: JSON do repositório (export do DMaster, gerado por ops/catalogo-nacoes/gerar.py,
@@ -97,8 +98,22 @@ export function acharPorSlug(itens: readonly CatalogoItem[], slug: string): Cata
 let catalogoCompletoPronto: Catalogo | null = null;
 let catalogoNacoesPronto: Catalogo | null = null;
 
+/** Aplica o "por" do encarte vigente sem alterar o JSON em cache. Fora da validade, o preço publicado permanece. */
+function catalogoComOfertas(base: Catalogo, now = new Date()): Catalogo {
+  let mudou = false;
+  const itens = base.itens.map((item) => {
+    const porCentavos = precoPorOfertaVigente(item.nome, now);
+    if (porCentavos == null) return item;
+    const preco = Math.min(item.preco, porCentavos / 100);
+    if (preco >= item.preco) return item;
+    mudou = true;
+    return { ...item, preco };
+  });
+  return mudou ? { ...base, itens } : base;
+}
+
 /** O JSON é estático (muda só com um novo deploy): monta uma vez por processo. Quem usa não deve alterar a lista. */
-export function carregarCatalogoCompleto(): Catalogo {
+function carregarCatalogoCompletoBruto(): Catalogo {
   if (catalogoCompletoPronto) return catalogoCompletoPronto;
   const bruto = catalogoEstatico as unknown as Partial<Catalogo>;
   const itens = (Array.isArray(bruto.itens) ? bruto.itens : [])
@@ -120,13 +135,18 @@ export function carregarCatalogoCompleto(): Catalogo {
   return catalogoCompletoPronto;
 }
 
+export function carregarCatalogoCompleto(): Catalogo {
+  return catalogoComOfertas(carregarCatalogoCompletoBruto());
+}
+
 /** Catálogo das listas, da busca e das vitrines: sem os esgotados. */
 export function carregarCatalogoNacoes(): Catalogo {
-  if (catalogoNacoesPronto) return catalogoNacoesPronto;
-  const completo = carregarCatalogoCompleto();
-  const itens = completo.itens.filter((i) => i.esgotado !== true);
-  catalogoNacoesPronto = { ...completo, total: itens.length, itens };
-  return catalogoNacoesPronto;
+  if (!catalogoNacoesPronto) {
+    const completo = carregarCatalogoCompletoBruto();
+    const itens = completo.itens.filter((i) => i.esgotado !== true);
+    catalogoNacoesPronto = { ...completo, total: itens.length, itens };
+  }
+  return catalogoComOfertas(catalogoNacoesPronto);
 }
 
 /** "2026-10-31T20:00:04" → "31/10/2026 às 20:00". */

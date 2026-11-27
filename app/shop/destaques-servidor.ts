@@ -15,7 +15,7 @@ import { banco } from "../estoque-fonte";
 import { carregarPedidosDaSemana, carregarSinais, elegivelMaisPedidosSemana, faixaSeSuficiente, MIN_ITENS, ordenarPorConversao, ordenarPorPedidosDaSemana, pareceMedicamento, SINAIS_VAZIOS } from "../nacoes-unidas/produtos/mais-pedidos";
 import { elegivelParaPares } from "../nacoes-unidas/produtos/relacionados";
 import mudancasJson from "../nacoes-unidas/produtos/dados/mudancas-recentes.json" with { type: "json" };
-import { OFERTAS_HOME } from "./ofertas-config";
+import { OFERTAS_HOME, periodoOfertaAberto } from "./ofertas-config";
 import { urlDaImagemDoBanner } from "../banner-imagem";
 import { destinoBanner, type BannerPainel } from "./painel-banners";
 import { VITRINES_HOME } from "./home-vitrines";
@@ -186,18 +186,22 @@ export async function chipsDaHome(): Promise<ItemChip[]> {
   return lista.length >= MIN_ITENS ? lista : [];
 }
 
-/** Ofertas fixas da home com o preço do dia (do catálogo). */
-export function ofertasDaHome(): ItemOferta[] {
+/** Ofertas fixas da home com o preço do dia (do catálogo, já com o "por" do encarte vigente). */
+export function ofertasDaHome(now = new Date()): ItemOferta[] {
   const catalogo = carregarCatalogoNacoes();
   const porNome = new Map((catalogo?.itens ?? []).map((item) => [chaveDeNome(item.nome), item]));
   return OFERTAS_HOME.flatMap((oferta) => {
+    if (!periodoOfertaAberto(oferta.validoDe, oferta.validoAte, now)) return [];
     const item = porNome.get(chaveDeNome(oferta.nomeCatalogo));
     if (!item || item.esgotado) return [];
 
     const foto = fotoDoProduto(item.nome);
     if (!foto) return [];
 
-    const precoCentavos = Math.round(item.preco * 100);
+    const precoCatalogoCentavos = Math.round(item.preco * 100);
+    const precoCentavos = typeof oferta.precoPorCentavos === "number"
+      ? Math.min(precoCatalogoCentavos, oferta.precoPorCentavos)
+      : precoCatalogoCentavos;
     const precoAnteriorCentavos = "precoAnteriorCentavos" in oferta && precoCentavos < oferta.precoAnteriorCentavos
       ? oferta.precoAnteriorCentavos
       : undefined;

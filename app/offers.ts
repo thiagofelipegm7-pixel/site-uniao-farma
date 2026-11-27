@@ -71,7 +71,8 @@ export type PublicationDecision = {
     | "promotion_not_confirmed"
     | "units_missing"
     | "regulatory_approval_missing"
-    | "expired";
+    | "expired"
+    | "not_yet_valid";
 };
 
 export const OFFER_CATEGORY_LABELS: Record<OfferCategory, string> = {
@@ -108,7 +109,54 @@ const createOffer = (
 });
 
 export const OFFERS: Offer[] = [
-  // Ofertas da semana das artes da loja (02/11/2026; a do Adeforte foi retirada a pedido da loja). "De" e "Por" confirmados pelo dono; valem enquanto durar o estoque em cada loja.
+  // Encarte de Black Friday (27/11/2026). Preços do folheto (Elseve "de" 49,90 do DMaster).
+  // Expiram sozinhas depois de 27/11/2026 às 23:59:59 (Brasília). Medicamentos com receita ficaram de fora.
+  ...([
+    { id: "bf-strepsils-16-laranja", slug: "strepsils-8-75mg-cx-16-past-laranja", name: "Strepsils caixa 16 pastilhas laranja", brand: "Strepsils", category: "medicamentos" as const, currentPrice: 19.9, previousPrice: 34.9, image: "/produtos/7891035010972.webp", regulatoryClass: "otc_review" as const, adsEligible: false, manualRegulatoryApproval: true },
+    { id: "bf-corega-max-70g", slug: "corega-max-creme-70g-und", name: "Corega Max 70g (embalagem avulsa)", brand: "Corega", category: "cuidados_pessoais" as const, currentPrice: 65, previousPrice: 79.9, image: "/produtos/7896015525804.webp", regulatoryClass: "non_regulated" as const, adsEligible: true },
+    { id: "bf-bioextratus-banho-1kg", slug: "banho-de-creme-bioextratus-pos-quimica-1kg", name: "Banho de creme Bioextratus 1kg", brand: "Bioextratus", category: "higiene_beleza" as const, currentPrice: 59.9, previousPrice: 69.9, image: "/produtos/7898126407918.webp", regulatoryClass: "non_regulated" as const, adsEligible: true },
+    { id: "bf-seda-pentear-300ml", slug: "cr-pent-seda-luminous-uv-300ml", name: "Creme de pentear Seda 300ml", brand: "Seda", category: "cuidados_pessoais" as const, currentPrice: 9.9, previousPrice: 13.9, image: "/produtos/7891150099852.webp", regulatoryClass: "non_regulated" as const, adsEligible: true },
+    { id: "bf-neosaldina-20", slug: "neosaldina-cx-20-drageas", name: "Neosaldina caixa 20 comprimidos", brand: "Neosaldina", category: "medicamentos" as const, currentPrice: 21.9, previousPrice: 35.99, image: "/produtos/7896094921979.webp", regulatoryClass: "otc_review" as const, adsEligible: false, manualRegulatoryApproval: true },
+    { id: "bf-cimegripe-20", slug: "cimegripe-cx-c-20-caps", name: "Cimegripe antigripal 20 cápsulas", brand: "Cimegripe", category: "medicamentos" as const, currentPrice: 9.9, previousPrice: 16, image: "/produtos/7896523200576.webp", regulatoryClass: "otc_review" as const, adsEligible: false, manualRegulatoryApproval: true },
+    { id: "bf-bepantriz-30g", slug: "bepantriz-50mg-pomada-30g", name: "Bepantriz pomada 30g", brand: "Bepantriz", category: "medicamentos" as const, currentPrice: 7.9, previousPrice: 12, image: "/produtos/7896523210797.webp", regulatoryClass: "otc_review" as const, adsEligible: false, manualRegulatoryApproval: true },
+    { id: "bf-lavitan-60", slug: "lavitan-hair-com-60-capsula", name: "Lavitan Cabelos e Unhas 60 cápsulas", brand: "Lavitan", category: "suplementos" as const, currentPrice: 18.9, previousPrice: 35, image: "/produtos/7897947612891.webp", regulatoryClass: "supplement_review" as const, adsEligible: false, manualRegulatoryApproval: true },
+    { id: "bf-maca-100g", slug: "maca-peruana-em-po-sem-sabor-100g-qualyn", name: "Maca peruana 100g pó QualyNutri", brand: "QualyNutri", category: "suplementos" as const, currentPrice: 49.9, previousPrice: 56.9, image: "/produtos/7898767762827.webp", regulatoryClass: "supplement_review" as const, adsEligible: false, manualRegulatoryApproval: true },
+    { id: "bf-lavitan-30", slug: "lavitan-hair-c-30cp", name: "Lavitan Cabelos e Unhas 30 cápsulas", brand: "Lavitan", category: "suplementos" as const, currentPrice: 9.9, previousPrice: 19.9, image: "/produtos/7897947607996.webp", regulatoryClass: "supplement_review" as const, adsEligible: false, manualRegulatoryApproval: true },
+    { id: "bf-dermafemme-kit", slug: "kit-dermafeme-c-2", name: "Kit Dermafemme 2 unidades 200ml", brand: "Dermafemme", category: "cuidados_pessoais" as const, currentPrice: 17.9, previousPrice: 25, image: "/produtos/7897947604384.webp", regulatoryClass: "non_regulated" as const, adsEligible: true },
+    { id: "bf-hystin-120ml", slug: "hystin-xpe-120-ml", name: "Hystin xarope 120ml", brand: "Hystin", category: "medicamentos" as const, currentPrice: 9.9, previousPrice: 15, image: "/produtos/7899095201415.webp", regulatoryClass: "otc_review" as const, adsEligible: false, manualRegulatoryApproval: true },
+    { id: "bf-nivea-facial-100g", slug: "cr-nivea-fac-antissinais-100g", name: "Creme Nivea Facial 100g", brand: "Nivea", category: "cuidados_pessoais" as const, currentPrice: 25.9, previousPrice: 35, image: "/produtos/0000042360414.webp", regulatoryClass: "non_regulated" as const, adsEligible: true },
+    { id: "bf-listerine-500ml", slug: "listerine-cool-mint-zero-alcool-500ml", name: "Enxaguante bucal Listerine 500ml", brand: "Listerine", category: "cuidados_pessoais" as const, currentPrice: 19.9, previousPrice: 24.9, image: "/produtos/7891010974312.webp", regulatoryClass: "non_regulated" as const, adsEligible: true },
+    { id: "bf-lola-oleo-50ml", slug: "oleo-lola-argan-50ml", name: "Óleo Lola Argan ou Danos Vorazes 50ml", brand: "Lola", category: "higiene_beleza" as const, currentPrice: 19.9, previousPrice: 29.9, image: "/produtos/7899572810383.webp", regulatoryClass: "non_regulated" as const, adsEligible: true },
+    { id: "bf-decongex-12", slug: "decongex-plus-comp-c-12", name: "Decongex Plus 12 comprimidos", brand: "Decongex", category: "medicamentos" as const, currentPrice: 19.9, previousPrice: 33.9, image: "/produtos/7896658001901.webp", regulatoryClass: "otc_review" as const, adsEligible: false, manualRegulatoryApproval: true },
+    { id: "bf-oleo-abobora-60", slug: "oleo-de-abobora-vit-e-1000mg-c-60-caps", name: "Óleo de Abóbora + Vitamina E 1000mg 60 cápsulas QualyNutri", brand: "QualyNutri", category: "suplementos" as const, currentPrice: 49.9, previousPrice: 69.9, image: "/produtos/7898767760564.webp", regulatoryClass: "supplement_review" as const, adsEligible: false, manualRegulatoryApproval: true },
+    { id: "bf-licopeno-60", slug: "licopeno-vit-e-500mg-c-60-caps-qualynu", name: "Licopeno + Vitamina E 500mg 60 cápsulas QualyNutri", brand: "QualyNutri", category: "suplementos" as const, currentPrice: 49.9, previousPrice: 69.9, image: "/produtos/7898767760472.webp", regulatoryClass: "supplement_review" as const, adsEligible: false, manualRegulatoryApproval: true },
+    { id: "bf-artriflex-60", slug: "artriflex-ultra-80mg-c-60-caps-qualynutr", name: "Artriflex Ultra 80mg 60 cápsulas QualyNutri", brand: "QualyNutri", category: "suplementos" as const, currentPrice: 59.9, previousPrice: 79.9, image: "/produtos/7898767760021.webp", regulatoryClass: "supplement_review" as const, adsEligible: false, manualRegulatoryApproval: true },
+    { id: "bf-elseve-100ml", slug: "oleo-elseve-extraordinario-100ml", name: "Óleo Elseve Extraordinário 100ml", brand: "Elseve", category: "higiene_beleza" as const, currentPrice: 29.9, previousPrice: 49.9, image: "/produtos/7899026478909.webp", regulatoryClass: "non_regulated" as const, adsEligible: true },
+    { id: "bf-dove-aerosol-150ml", slug: "desodorante-dove-spray-aerosol-original-150ml", name: "Desodorante Dove Original aerosol 150ml", brand: "Dove", category: "cuidados_pessoais" as const, currentPrice: 15.9, previousPrice: 19.9, image: "/produtos/7506306241183.webp", regulatoryClass: "non_regulated" as const, adsEligible: true },
+    { id: "bf-nistatina-60g", slug: "nistatina-oxido-de-zinco-60g-neo-quimica", name: "Nistatina + Óxido de zinco 60g Neo Química", brand: "Neo Química", category: "medicamentos" as const, currentPrice: 9.9, previousPrice: 16.9, image: "/produtos/7896714224688.webp", regulatoryClass: "otc_review" as const, adsEligible: false, manualRegulatoryApproval: true },
+    { id: "bf-loratamed-12", slug: "loratamed-c-12-comp", name: "Loratamed Loratadina 10mg caixa 12 comprimidos", brand: "Loratamed", category: "medicamentos" as const, currentPrice: 4.9, previousPrice: 7.9, image: "/produtos/7896523202822.webp", regulatoryClass: "otc_review" as const, adsEligible: false, manualRegulatoryApproval: true },
+    { id: "bf-dipirona-1g-10", slug: "dipirona-1g-cx-10cpr-prati-donaduzzi", name: "Dipirona 1g Prati-Donaduzzi 10 comprimidos", brand: "Prati-Donaduzzi", category: "medicamentos" as const, currentPrice: 9.9, previousPrice: 12.9, image: "/produtos/7899547500356.webp", regulatoryClass: "otc_review" as const, adsEligible: false, manualRegulatoryApproval: true },
+    { id: "bf-tossexpec-120ml", slug: "tossexpec-xp-5mg-ml-xpe-120ml", name: "Tossexpec xarope 120ml", brand: "Tossexpec", category: "medicamentos" as const, currentPrice: 19.9, previousPrice: 29.9, image: "/produtos/7896094931534.webp", regulatoryClass: "otc_review" as const, adsEligible: false, manualRegulatoryApproval: true },
+    { id: "bf-carmed-10g", slug: "carmed-cereja-10-g", name: "Carmed 10g protetor labial", brand: "Carmed", category: "cuidados_pessoais" as const, currentPrice: 14.9, previousPrice: 29.9, image: "/produtos/7897947614734.webp", regulatoryClass: "non_regulated" as const, adsEligible: true },
+    { id: "bf-xo-inseto-200ml", slug: "rep-xo-inseto-200ml-spray", name: "Repelente Xô Inseto 200ml spray ou loção", brand: "Xô Inseto", category: "cuidados_pessoais" as const, currentPrice: 16.9, previousPrice: 25.9, image: "/produtos/7897947612907.webp", regulatoryClass: "non_regulated" as const, adsEligible: true },
+    { id: "bf-neolefrin-noite-20", slug: "neolefrin-400-20-400-4mg-cx-20", name: "Neolefrin Noite 20 comprimidos", brand: "Neolefrin", category: "medicamentos" as const, currentPrice: 9.9, previousPrice: 16, image: "/produtos/7896714265933.webp", regulatoryClass: "otc_review" as const, adsEligible: false, manualRegulatoryApproval: true },
+  ] as const).map((item) =>
+    createOffer({
+      ...item,
+      previousPriceConfirmed: true,
+      placeholderLabel: "Oferta aprovada",
+      imageApproved: true,
+      priceConfirmed: true,
+      validityConfirmed: true,
+      validityType: "date",
+      validFrom: "2026-11-27",
+      validUntil: "2026-11-27",
+      promotionConfirmed: true,
+      publicationStatus: "approved",
+      updatedAt: "2026-11-27",
+    }),
+  ),
+  // Ofertas anteriores (já encerradas). Ofertas da semana das artes da loja (02/11/2026; a do Adeforte foi retirada a pedido da loja). "De" e "Por" confirmados pelo dono; valem enquanto durar o estoque em cada loja.
   createOffer({
     id: "cerave-creme-hidratante-85g",
     slug: "cerave-pote-creme-hidratante-sem-perfume-85g",
@@ -126,8 +174,8 @@ export const OFFERS: Offer[] = [
     validityType: "while_stock_lasts",
     promotionConfirmed: true,
     regulatoryClass: "non_regulated",
-    publicationStatus: "approved",
-    adsEligible: true,
+    publicationStatus: "expired",
+    adsEligible: false,
     updatedAt: "2026-11-02",
   }),
   createOffer({
@@ -147,8 +195,8 @@ export const OFFERS: Offer[] = [
     validityType: "while_stock_lasts",
     promotionConfirmed: true,
     regulatoryClass: "non_regulated",
-    publicationStatus: "approved",
-    adsEligible: true,
+    publicationStatus: "expired",
+    adsEligible: false,
     updatedAt: "2026-11-02",
   }),
   createOffer({
@@ -166,8 +214,8 @@ export const OFFERS: Offer[] = [
     validityType: "while_stock_lasts",
     promotionConfirmed: true,
     regulatoryClass: "non_regulated",
-    publicationStatus: "approved",
-    adsEligible: true,
+    publicationStatus: "expired",
+    adsEligible: false,
     updatedAt: "2026-08-17",
   }),
   createOffer({
@@ -185,8 +233,8 @@ export const OFFERS: Offer[] = [
     validityType: "while_stock_lasts",
     promotionConfirmed: true,
     regulatoryClass: "non_regulated",
-    publicationStatus: "approved",
-    adsEligible: true,
+    publicationStatus: "expired",
+    adsEligible: false,
     updatedAt: "2026-08-17",
   }),
   createOffer({
@@ -204,8 +252,8 @@ export const OFFERS: Offer[] = [
     validityType: "while_stock_lasts",
     promotionConfirmed: true,
     regulatoryClass: "non_regulated",
-    publicationStatus: "approved",
-    adsEligible: true,
+    publicationStatus: "expired",
+    adsEligible: false,
     updatedAt: "2026-08-17",
   }),
   createOffer({
@@ -223,8 +271,8 @@ export const OFFERS: Offer[] = [
     validityType: "while_stock_lasts",
     promotionConfirmed: true,
     regulatoryClass: "non_regulated",
-    publicationStatus: "approved",
-    adsEligible: true,
+    publicationStatus: "expired",
+    adsEligible: false,
     updatedAt: "2026-08-17",
   }),
   createOffer({
@@ -242,8 +290,8 @@ export const OFFERS: Offer[] = [
     validityType: "while_stock_lasts",
     promotionConfirmed: true,
     regulatoryClass: "non_regulated",
-    publicationStatus: "approved",
-    adsEligible: true,
+    publicationStatus: "expired",
+    adsEligible: false,
     updatedAt: "2026-08-17",
   }),
   createOffer({
@@ -261,8 +309,8 @@ export const OFFERS: Offer[] = [
     validityType: "while_stock_lasts",
     promotionConfirmed: true,
     regulatoryClass: "non_regulated",
-    publicationStatus: "approved",
-    adsEligible: true,
+    publicationStatus: "expired",
+    adsEligible: false,
     updatedAt: "2026-08-17",
   }),
   createOffer({
@@ -280,8 +328,8 @@ export const OFFERS: Offer[] = [
     validityType: "while_stock_lasts",
     promotionConfirmed: true,
     regulatoryClass: "non_regulated",
-    publicationStatus: "approved",
-    adsEligible: true,
+    publicationStatus: "expired",
+    adsEligible: false,
     updatedAt: "2026-08-17",
   }),
   createOffer({
@@ -299,8 +347,8 @@ export const OFFERS: Offer[] = [
     validityType: "while_stock_lasts",
     promotionConfirmed: true,
     regulatoryClass: "non_regulated",
-    publicationStatus: "approved",
-    adsEligible: true,
+    publicationStatus: "expired",
+    adsEligible: false,
     updatedAt: "2026-08-17",
   }),
   createOffer({
@@ -318,8 +366,8 @@ export const OFFERS: Offer[] = [
     validityType: "while_stock_lasts",
     promotionConfirmed: true,
     regulatoryClass: "non_regulated",
-    publicationStatus: "approved",
-    adsEligible: true,
+    publicationStatus: "expired",
+    adsEligible: false,
     updatedAt: "2026-08-17",
   }),
   ...([
@@ -497,6 +545,12 @@ export function canPublishOffer(offer: Offer, now = new Date()): PublicationDeci
           ? "Produto exige revisão antes da publicação."
           : "Oferta ainda não foi aprovada para publicação.",
     };
+  }
+  if (offer.validityType === "date" && offer.validFrom) {
+    const inicio = new Date(`${offer.validFrom}T00:00:00-03:00`);
+    if (!Number.isNaN(inicio.getTime()) && now.getTime() < inicio.getTime()) {
+      return { publishable: false, code: "not_yet_valid", reason: "Oferta ainda não começou." };
+    }
   }
   if (isOfferExpired(offer, now)) {
     return { publishable: false, code: "expired", reason: "Oferta encerrada." };
