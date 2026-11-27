@@ -93,6 +93,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
             setVisualizacaoAberta(true);
           }}
         ><IconMaisFino size={28} strokeWidth={2} /></button>
+        {visualizacaoAberta ? (
         <VisualizacaoRapida
           open={visualizacaoAberta}
           nome={nome}
@@ -108,6 +109,7 @@ export default function ReservarBotao({ unitId, nome, precoCentavos, deCentavos,
           onAdicionar={(quantidade, escolha) => acrescentar(undefined, quantidade, escolha)}
           onAbrirCesta={() => abrirReserva(maisRef.current)}
         />
+        ) : null}
       </>
     );
   }

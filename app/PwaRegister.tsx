@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 // Mesma versão do CACHE_NAME em public/sw.js (tests/sw-offline.test.mjs confere): mudou um, muda o outro.
-const CACHE_BUST = "uf-static-v29";
+const CACHE_BUST = "uf-static-v30";
 
 export default function PwaRegister() {
   useEffect(() => {
