@@ -11,10 +11,11 @@ type Chip = { nome: string; slug: string; foto: string };
  * Faixa de chips logo abaixo do banner: só produtos com pedido real nos últimos 7 dias,
  * em estoque e que não são medicamento. Sem 4 itens a faixa some; nada é inventado.
  */
-export default function MaisPedidosChips() {
-  const [itens, setItens] = useState<Chip[] | null>(null);
+export default function MaisPedidosChips({ inicial }: { /** Chips já montados no servidor (HTML pronto e sem "pulo" de layout); lista vazia = faixa fora. */ inicial?: Chip[] } = {}) {
+  const [itens, setItens] = useState<Chip[] | null>(inicial ?? null);
 
   useEffect(() => {
+    if (inicial !== undefined) return; // o servidor já mandou os chips no HTML
     let ativo = true;
     fetch("/api/destaques?ordem=pedidos-semana&n=12&fotos=1", { headers: { accept: "application/json" } })
       .then((resposta) => (resposta.ok ? resposta.json() : null))

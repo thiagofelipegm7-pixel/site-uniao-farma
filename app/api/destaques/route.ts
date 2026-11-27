@@ -1,26 +1,6 @@
-import { nomeDeExibicao } from "../../nome-exibicao";
-import { carregarCatalogoNacoes, slugify } from "../../nacoes-unidas/produtos/catalogo";
-import { fotoDoProduto } from "../../nacoes-unidas/produtos/imagens";
-import { ehNbcal } from "../../nacoes-unidas/produtos/produto";
-import { descricaoDoProduto } from "../../nacoes-unidas/produtos/descricoes";
-import { escolherAtrativos } from "../../nacoes-unidas/produtos/atrativos";
-import { chaveDeNome } from "../../fotos-painel";
-import { banco } from "../../estoque-fonte";
-import { carregarPedidosDaSemana, carregarSinais, elegivelMaisPedidosSemana, faixaSeSuficiente, ordenarPorConversao, ordenarPorPedidosDaSemana, pareceMedicamento, SINAIS_VAZIOS } from "../../nacoes-unidas/produtos/mais-pedidos";
-import { elegivelParaPares } from "../../nacoes-unidas/produtos/relacionados";
-import mudancasJson from "../../nacoes-unidas/produtos/dados/mudancas-recentes.json" with { type: "json" };
+import { selecionarDestaques } from "../../shop/destaques-servidor";
 
 export const dynamic = "force-dynamic";
-
-type EventoCatalogo = { q?: string; t?: string; n?: string };
-
-function nomesNovosRecentes(agora = Date.now()): Set<string> {
-  const eventos = (mudancasJson as { eventos?: EventoCatalogo[] }).eventos ?? [];
-  const desde = agora - 7 * 24 * 60 * 60 * 1000;
-  return new Set(eventos
-    .filter((evento) => evento.t === "novo" && typeof evento.n === "string" && Date.parse(evento.q ?? "") >= desde)
-    .map((evento) => chaveDeNome(evento.n!)));
-}
 
 /**
  * Vitrines da home e da cesta: itens do catálogo da Nações, preferindo os que têm foto.
@@ -39,67 +19,14 @@ function nomesNovosRecentes(agora = Date.now()): Set<string> {
  */
 export async function GET(request: Request) {
   const params = new URL(request.url).searchParams;
-  const grupo = (params.get("grupo") ?? "").slice(0, 80);
-  const lab = (params.get("lab") ?? "").slice(0, 80).trim().toLowerCase();
-  const ate = Math.floor(Number(params.get("ate"))) || 0;
-  const soComFoto = params.get("fotos") === "1";
-  const n = Math.min(36, Math.max(1, Math.floor(Number(params.get("n"))) || 6));
-  const novos = nomesNovosRecentes();
-  const catalogo = carregarCatalogoNacoes();
-  const pedidos = (params.get("slugs") ?? "").split(",").map((x) => x.trim()).filter((x) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(x) && x.length <= 120).slice(0, 10);
-  if (pedidos.length > 0) {
-    const porSlug = new Map((catalogo?.itens ?? []).map((item) => [slugify(item.nome), item]));
-    const itensPedidos = pedidos.flatMap((slug) => {
-      const item = porSlug.get(slug);
-      if (!item || ehNbcal(item.nome) || item.isMIP || item.categoria === "Medicamentos") return [];
-      const foto = fotoDoProduto(item.nome);
-      if (!foto) return [];
-      return [{ nome: nomeDeExibicao(item.nome), slug, lab: item.lab, precoCentavos: Math.round(item.preco * 100), foto }];
-    });
-    return Response.json({ itens: itensPedidos }, { headers: { "cache-control": "no-store" } });
-  }
-  const dia = new Date().toISOString().slice(0, 10);
-  const filtrados = (catalogo?.itens ?? [])
-    .filter((item) => !ehNbcal(item.nome)) // NBCAL: sem vitrine nem destaque
-    .filter((item) => !grupo || slugify(item.categoria) === grupo)
-    .filter((item) => !lab || item.lab.replace(/\s+/g, " ").trim().toLowerCase() === lab)
-    .filter((item) => !ate || Math.round(item.preco * 100) <= ate)
-    .map((item) => {
-      const slug = slugify(item.nome);
-      const descricao = descricaoDoProduto(slug);
-      return {
-        nome: nomeDeExibicao(item.nome),
-        nomeOriginal: item.nome,
-        slug,
-        lab: item.lab,
-        precoCentavos: Math.round(item.preco * 100),
-        foto: fotoDoProduto(item.nome),
-        ...(typeof item.restam === "number" && item.restam > 0 ? { restam: item.restam } : {}),
-        isMIP: item.isMIP,
-        categoria: item.categoria,
-        esgotado: item.esgotado === true,
-        novo: novos.has(chaveDeNome(item.nome)),
-        descricaoReal: descricao !== null && descricao.origem !== "modelo",
-      };
-    })
-    .filter((item) => !soComFoto || item.foto !== null);
-  if (params.get("ordem") === "conversao") {
-    const db = banco();
-    const sinais = db ? await carregarSinais(db, dia) : SINAIS_VAZIOS;
-    const vendaveis = filtrados.filter((item) => item.foto !== null && !item.esgotado && !pareceMedicamento(item.nomeOriginal) && elegivelParaPares({ nome: item.nomeOriginal, categoria: item.categoria, isMIP: item.isMIP }));
-    const top = ordenarPorConversao(vendaveis, sinais, n).map(({ nome, slug, lab: marca, precoCentavos, foto }) => ({ nome, slug, lab: marca, precoCentavos, foto }));
-    return Response.json({ itens: top }, { headers: { "cache-control": "public, max-age=300" } });
-  }
-  if (params.get("ordem") === "pedidos-semana") {
-    const db = banco();
-    const pedidos = db ? await carregarPedidosDaSemana(db, dia) : new Map<string, number>();
-    const vendaveis = filtrados.filter((item) => item.foto !== null && elegivelMaisPedidosSemana({ nome: item.nome, nomeOriginal: item.nomeOriginal, categoria: item.categoria, isMIP: item.isMIP, esgotado: item.esgotado }));
-    const top = faixaSeSuficiente(ordenarPorPedidosDaSemana(vendaveis, pedidos, n)).map(({ nome, slug, lab: marca, precoCentavos, foto }) => ({ nome, slug, lab: marca, precoCentavos, foto }));
-    return Response.json({ itens: top }, { headers: { "cache-control": "public, max-age=300" } });
-  }
-  const ordenados = params.get("ordem") === "catalogo"
-    ? [...filtrados].sort((a, b) => Number(b.foto !== null) - Number(a.foto !== null)).slice(0, n)
-    : escolherAtrativos(filtrados, n, dia, grupo === "medicamentos");
-  const itens = ordenados.map(({ nome, slug, lab: marca, precoCentavos, foto, isMIP, novo }) => ({ nome, slug, lab: marca, precoCentavos, foto, ...(isMIP ? { isMIP: true } : {}), ...(novo ? { novo: true } : {}) }));
-  return Response.json({ itens }, { headers: { "cache-control": "public, max-age=300" } });
+  const { itens, semCache } = await selecionarDestaques({
+    grupo: params.get("grupo") ?? undefined,
+    lab: params.get("lab") ?? undefined,
+    ate: Number(params.get("ate")) || undefined,
+    n: Number(params.get("n")) || undefined,
+    fotos: params.get("fotos") === "1",
+    ordem: params.get("ordem") ?? undefined,
+    slugs: (params.get("slugs") ?? "").split(","),
+  });
+  return Response.json({ itens }, { headers: { "cache-control": semCache ? "no-store" : "public, max-age=300" } });
 }

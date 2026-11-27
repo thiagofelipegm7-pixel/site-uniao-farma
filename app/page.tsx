@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import HomePage from "./HomePage";
+import { dadosDaHome } from "./shop/destaques-servidor";
 import { SITE_URL } from "./site-config";
 
 const HOME_TITLE = "Drogaria e Farmácia em Sabará com entrega | União Farma";
@@ -25,6 +26,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
-  return <HomePage />;
+// Produtos, ofertas, banners e chips são escolhidos aqui, no servidor, para irem no HTML (robôs de IA e buscadores sem JavaScript veem tudo)
+// e para a página não mudar de altura quando eles chegam. Falha em uma parte: o componente busca no navegador, como antes.
+export default async function Page() {
+  const dados = await dadosDaHome();
+  return <HomePage dados={dados} />;
 }

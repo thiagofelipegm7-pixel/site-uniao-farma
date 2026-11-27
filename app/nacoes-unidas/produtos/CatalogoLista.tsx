@@ -24,6 +24,7 @@ import {
   termosDaConsulta,
   textoDeBusca,
   type GrupoBusca,
+  type ItemBusca,
   type OrdemCatalogo,
 } from "./busca";
 import { termoParaRegistro, type MapaCliques } from "../../busca-cliques";
@@ -64,6 +65,8 @@ type Props = {
   consultaInicial?: string;
   /** Página pedida no endereço (?pagina=), lida no servidor para o HTML já vir com a fatia certa. */
   paginaInicial?: number;
+  /** Primeira página de produtos escolhida no servidor: aparece no lugar do esqueleto enquanto a lista completa carrega (HTML útil sem JavaScript e sem "pulo"). */
+  semente?: ItemBusca[];
   grupos: GrupoBusca[];
   /** Slug de um departamento (ex.: "beleza"): a página mostra só essa categoria. Sem ele, mostra todas. */
   departamento?: string;
@@ -84,7 +87,7 @@ function alternar(lista: readonly string[] | undefined, valor: string): string[]
  * Ordenação, filtro e grade de produtos. A busca fica no cabeçalho (?q=), como no protótipo.
  * O HTML do servidor já traz a lista inteira, então sem JavaScript ela continua completa.
  */
-export default function CatalogoLista({ grupos: gruposProps, departamento, whatsappHref, unitId, consultaInicial = "", paginaInicial = 1 }: Props) {
+export default function CatalogoLista({ grupos: gruposProps, departamento, whatsappHref, unitId, consultaInicial = "", paginaInicial = 1, semente }: Props) {
   const [grupos, setGrupos] = useState(gruposProps);
   const [promocoesQuantidade, setPromocoesQuantidade] = useState<Record<string, PromocaoQuantidade>>({});
   const [apresentacoesPorEan, setApresentacoesPorEan] = useState<Record<string, ApresentacaoPublica[]>>({});
@@ -645,7 +648,9 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
         </section>
       ) : null}
 
-      {esperando ? (
+      {esperando && estado === "carregando" && !buscando && semente && semente.length > 0 ? (
+        <ul className="catalogo-lista pv-grade" aria-busy="true">{semente.map((item) => renderCartao(item as (typeof itensDaPagina)[number]))}</ul>
+      ) : esperando ? (
         <EsqueletoGrade />
       ) : total === 0 ? (
         <>

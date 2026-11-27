@@ -72,12 +72,13 @@ test("faixa da semana: remédio, MIP, categoria Medicamentos e esgotado ficam de
 });
 
 test("API dos chips usa pedidos da semana, cache curto e some abaixo do mínimo", async () => {
-  const rota = await ler("app/api/destaques/route.ts");
-  assert.match(rota, /ordem"\) === "pedidos-semana"/);
+  const rota = await ler("app/shop/destaques-servidor.ts");
+  const rotaHttp = await ler("app/api/destaques/route.ts");
+  assert.match(rota, /ordem === "pedidos-semana"/);
   assert.match(rota, /carregarPedidosDaSemana/);
   assert.match(rota, /elegivelMaisPedidosSemana/);
   assert.match(rota, /faixaSeSuficiente/);
-  assert.match(rota, /cache-control": "public, max-age=300"/);
+  assert.match(rotaHttp, /public, max-age=300/);
   const home = await ler("app/HomePage.tsx");
   assert.match(home, /MaisPedidosChips/);
   const chips = await ler("app/shop/MaisPedidosChips.tsx");

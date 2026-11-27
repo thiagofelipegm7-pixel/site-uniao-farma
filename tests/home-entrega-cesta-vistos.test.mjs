@@ -31,7 +31,7 @@ test("entrega escolhida: só vale bairro que a loja atende; o CEP digitado resol
 
 test("home: a faixa promete só o que a loja confirma (sem prazo, sem frete grátis), com entrega por CEP/bairro e acesso por teclado", async () => {
   const [blocos, entregar, home, rota, produto, fluxo] = await Promise.all([
-    ler("app/shop/HomeBlocos.tsx"), ler("app/shop/EntregarEm.tsx"), ler("app/HomePage.tsx"), ler("app/api/destaques/route.ts"),
+    ler("app/shop/HomeBlocos.tsx"), ler("app/shop/EntregarEm.tsx"), ler("app/HomePage.tsx"), ler("app/shop/destaques-servidor.ts"),
     ler("app/nacoes-unidas/produtos/[slug]/page.tsx"), ler("app/reserva/ReservaFluxo.tsx"),
   ]);
   const faixa = blocos.slice(blocos.indexOf("export function FaixaInfo"), blocos.indexOf("/** Cartões de benefícios"));
@@ -48,5 +48,5 @@ test("home: a faixa promete só o que a loja confirma (sem prazo, sem frete grá
   // Remédio nunca entra no "Visto recentemente": nem na gravação, nem na resposta da API
   assert.match(produto, /\{precoFirme \? <RegistrarVisto slug=\{slugItem\} \/> : null\}/);
   assert.match(rota, /item\.isMIP \|\| item\.categoria === "Medicamentos"/);
-  assert.match(rota, /"cache-control": "no-store"/);
+  assert.match(rota, /semCache: true/); // a lista da pessoa ("Visto recentemente") nunca é guardada em cache (a rota devolve no-store)
 });

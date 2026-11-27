@@ -21,11 +21,12 @@ type Oferta = {
   restam?: number;
 };
 
-export default function OfertasSemana() {
-  const [itens, setItens] = useState<Oferta[]>([]);
+export default function OfertasSemana({ inicial }: { /** Ofertas já montadas no servidor (HTML pronto e sem "pulo" de layout). */ inicial?: Oferta[] } = {}) {
+  const [itens, setItens] = useState<Oferta[]>(inicial ?? []);
   const [lista, setLista] = useState<HTMLUListElement | null>(null);
 
   useEffect(() => {
+    if (inicial !== undefined) return; // o servidor já mandou as ofertas no HTML
     let ativo = true;
     fetch("/api/ofertas-vitrine", { headers: { accept: "application/json" } })
       .then((resposta) => (resposta.ok ? resposta.json() : null))

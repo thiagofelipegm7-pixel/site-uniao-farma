@@ -33,16 +33,16 @@ const INTERVALO_MS = 5000;
  * (clones dos primeiros banners fecham a volta) e o ponto ativo vira uma pílula. Sem movimento automático para quem pede menos movimento.
  * `titulo` cria o h1 da página (só a home usa). Funciona com toque, mouse, teclado e leitor de tela.
  */
-export default function PainelBanners({ titulo, fonte, aoEnviar }: { titulo?: string; /** Lista pronta (prévia no painel interno): usada no lugar da busca dos banners publicados. */ fonte?: BannerPainel[]; /** Modo de edição do painel interno: tocar no banner escolhe um arquivo para enviar ou trocar a arte dele. */ aoEnviar?: (banner: BannerPainel, arquivo: File) => void }) {
+export default function PainelBanners({ titulo, fonte, aoEnviar, inicial }: { titulo?: string; /** Banners já montados no servidor (a arte vai no HTML, a página não "pula" e o primeiro banner carrega mais rápido). */ inicial?: BannerPainel[]; /** Lista pronta (prévia no painel interno): usada no lugar da busca dos banners publicados. */ fonte?: BannerPainel[]; /** Modo de edição do painel interno: tocar no banner escolhe um arquivo para enviar ou trocar a arte dele. */ aoEnviar?: (banner: BannerPainel, arquivo: File) => void }) {
   const faixa = useRef<HTMLUListElement>(null);
   const [atual, setAtual] = useState(0);
-  const [custom, setCustom] = useState<BannerPainel[] | null>(null);
+  const [custom, setCustom] = useState<BannerPainel[] | null>(inicial && inicial.length ? inicial : null);
   // No site, o carrossel só existe quando há arte enviada: sem arte não aparece nenhum espaço em branco.
-  const [carregado, setCarregado] = useState(false);
+  const [carregado, setCarregado] = useState(inicial !== undefined);
   // Se da última vez havia banners, reserva o espaço enquanto busca (a página não "pula" quando a arte chega).
   const [reservar, setReservar] = useState(false);
   useEffect(() => {
-    if (fonte) return;
+    if (fonte || inicial !== undefined) return; // com `inicial` o servidor já mandou a arte
     try {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- lê a preferência guardada neste aparelho (só existe no navegador)
       setReservar(window.localStorage.getItem("uf_banners") === "1");

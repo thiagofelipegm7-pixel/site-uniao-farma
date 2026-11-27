@@ -15,6 +15,7 @@ import { getPageStructuredData, getUnitPublicPath } from "../../structured-data"
 import CatalogoLista from "./CatalogoLista";
 import { carregarCatalogoNacoes, formatDataDosDados, formatGeradoEm } from "./catalogo";
 import { URL_BUSCA_INDEX } from "./busca-index";
+import { amostraDaLoja, bannersDoServidor } from "../../shop/destaques-servidor";
 
 import "./produtos.css";
 
@@ -60,6 +61,9 @@ export default async function ProdutosNacoesPage() {
   // A lista lê o catálogo inteiro de um arquivo só: o navegador começa a baixar junto com o HTML, antes do JavaScript.
   preload(URL_BUSCA_INDEX, { as: "fetch", crossOrigin: "anonymous" });
   const consultaInicial = "";
+  // Amostra de produtos no HTML (S-24): a lista completa continua vindo do navegador; falha aqui só deixa o esqueleto de antes.
+  const semente = await amostraDaLoja().catch(() => []);
+  const banners = await bannersDoServidor();
   const atualizadoEm = null;
   const dataDosDados = formatGeradoEm(geradoEmDosDados);
   const whatsappHref = buildWhatsAppUrl(nacoes, "Oi, União Farma Nações Unidas! Vi a lista de produtos no site e quero confirmar preço e disponibilidade.", {
@@ -82,7 +86,7 @@ export default async function ProdutosNacoesPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <ShopTopo consultaInicial={consultaInicial} />
-      <PainelBanners />
+      <PainelBanners inicial={banners} />
       <div className="unit-page landing-page catalogo-nacoes catalogo-loja">
         <nav className="catalogo-caminho section-inner" aria-label="Breadcrumb">
           <a href="/">União Farma</a>
@@ -97,6 +101,7 @@ export default async function ProdutosNacoesPage() {
         <div className="section-inner" id="lista">
           <CatalogoLista
               consultaInicial={consultaInicial}
+              semente={semente}
               grupos={[]}
               whatsappHref={whatsappHref}
               unitId={nacoes.id}

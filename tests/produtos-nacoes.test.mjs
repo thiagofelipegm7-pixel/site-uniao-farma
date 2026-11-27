@@ -336,7 +336,7 @@ test("NBCAL: chupeta, bico e mamadeira levam o aviso do Ministério da Saúde e 
     assert.equal(ehNbcal(nome), false, nome);
   }
   assert.match(AVISO_NBCAL, /^O Ministério da Saúde adverte: a criança que mama no peito não necessita de mamadeira, bico ou chupeta\./);
-  const rota = await readFile(new URL("../app/api/destaques/route.ts", import.meta.url), "utf8");
+  const rota = await readFile(new URL("../app/shop/destaques-servidor.ts", import.meta.url), "utf8");
   assert.match(rota, /ehNbcal\(item\.nome\)/);
 });
 

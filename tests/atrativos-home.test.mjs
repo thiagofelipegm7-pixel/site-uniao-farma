@@ -41,7 +41,8 @@ test("vitrines da home: a variação é do dia (estável durante o dia e diferen
   assert.deepEqual(hoje, slugs.map((s) => A.variacaoDoDia(s, DIA)));
   assert.notDeepEqual(hoje, slugs.map((s) => A.variacaoDoDia(s, "2026-11-13")));
   for (const v of hoje) assert.ok(v >= 0 && v <= 7);
-  const rota = await ler("app/api/destaques/route.ts");
+  // A escolha mora em destaques-servidor.ts (a rota e a página da home usam a mesma função).
+  const rota = await ler("app/shop/destaques-servidor.ts");
   assert.match(rota, /escolherAtrativos\(filtrados, n, dia, grupo === "medicamentos"\)/);
-  assert.match(rota, /ordem"\) === "catalogo"/);
+  assert.match(rota, /ordem === "catalogo"/);
 });

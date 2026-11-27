@@ -42,6 +42,8 @@ type Props = {
   slugs?: readonly string[];
   /** Botão ou link extra ao lado de "Ver tudo" (ex.: limpar o histórico). */
   acaoExtra?: ReactNode;
+  /** Produtos já escolhidos no servidor (HTML pronto para quem não roda JavaScript e sem "pulo" de layout). Com ele, não há busca no navegador; lista vazia = vitrine fora. */
+  inicial?: Destaque[];
 };
 
 /**
@@ -49,12 +51,13 @@ type Props = {
  * Busca no navegador em /api/destaques (cache de 5 min) para a home continuar estática e o preço nunca ficar congelado.
  * Só entram produtos com foto (cartão com o espaço da imagem vazio parece site quebrado). Se a busca falhar ou não houver nenhum, a seção some.
  */
-export default function DestaquesSemana({ posicao, titulo = "Destaques da semana", grupo, lab, ate, ordem, minimo = 1, n = 8, verTodasHref = "/nacoes-unidas/produtos", verTodas = true, source = "destaques_home", slugs, acaoExtra, id = "destaques" }: Props = {}) {
-  const [itens, setItens] = useState<Destaque[]>([]);
-  const [carregando, setCarregando] = useState(true);
+export default function DestaquesSemana({ posicao, titulo = "Destaques da semana", grupo, lab, ate, ordem, minimo = 1, n = 8, verTodasHref = "/nacoes-unidas/produtos", verTodas = true, source = "destaques_home", slugs, acaoExtra, inicial, id = "destaques" }: Props = {}) {
+  const [itens, setItens] = useState<Destaque[]>(inicial ?? []);
+  const [carregando, setCarregando] = useState(inicial === undefined);
   const [lista, setLista] = useState<HTMLUListElement | null>(null);
 
   useEffect(() => {
+    if (inicial !== undefined) return; // o servidor já mandou os produtos no HTML
     let ativo = true;
     // Pede mais itens que o necessário para sobrar o bastante depois de tirar os que já apareceram em outra vitrine.
     const pedir = posicao === undefined ? n : Math.min(36, n * 3);
