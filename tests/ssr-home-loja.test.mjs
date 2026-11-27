@@ -56,6 +56,7 @@ test("S-25: banner (arte data URL de mais de 1 MB) nunca vai no HTML; o painel r
   assert.match(servidor, /export async function bannersPublicos/); // a rota /api/banners-publico continua
   assert.match(painel, /useState\(inicial === undefined && !fonte\)/); // reserva o espaço por padrão (sem "pulo")
   assert.match(painel, /getItem\("uf_banners"\) !== "0"/);
+  assert.match(painel, /preload\("\/api\/banners-publico", \{ as: "fetch"/); // a lista de banners começa a baixar já no HTML (LCP)
 });
 
 test("catálogo e base das vitrines são montados uma vez por processo (cada página remontava ≈2.400 itens várias vezes)", async () => {

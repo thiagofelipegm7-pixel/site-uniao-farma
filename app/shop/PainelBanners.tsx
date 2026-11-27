@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type MouseEvent as EventoMouse, type PointerEvent as EventoPonteiro } from "react";
+import { preload } from "react-dom";
 import { IconSetaDireita, IconVoltar } from "../reserva/ReservaIcons";
 import { destinoBanner, type BannerPainel } from "./painel-banners";
 import "./painel-banners.css";
@@ -35,6 +36,8 @@ const INTERVALO_MS = 5000;
  */
 export default function PainelBanners({ titulo, fonte, aoEnviar, inicial }: { titulo?: string; /** Banners já montados no servidor (a arte vai no HTML, a página não "pula" e o primeiro banner carrega mais rápido). */ inicial?: BannerPainel[]; /** Lista pronta (prévia no painel interno): usada no lugar da busca dos banners publicados. */ fonte?: BannerPainel[]; /** Modo de edição do painel interno: tocar no banner escolhe um arquivo para enviar ou trocar a arte dele. */ aoEnviar?: (banner: BannerPainel, arquivo: File) => void }) {
   const faixa = useRef<HTMLUListElement>(null);
+  // O banner é o maior elemento da home (LCP): começa a baixar a lista de banners já no HTML, sem esperar o JavaScript subir.
+  if (!fonte && inicial === undefined) preload("/api/banners-publico", { as: "fetch", crossOrigin: "anonymous" });
   const [atual, setAtual] = useState(0);
   const [custom, setCustom] = useState<BannerPainel[] | null>(inicial && inicial.length ? inicial : null);
   // No site, o carrossel só existe quando há arte enviada: sem arte não aparece nenhum espaço em branco.
@@ -49,7 +52,8 @@ export default function PainelBanners({ titulo, fonte, aoEnviar, inicial }: { ti
     } catch {
       // sem armazenamento: só não reserva o espaço
     }
-    fetch("/api/banners-publico", { cache: "no-store" })
+    // Sem `cache: "no-store"`: a rota já manda `max-age=60` e assim usa a lista que o preload do HTML já baixou.
+    fetch("/api/banners-publico")
       .then((r) => r.json())
       .then((d: { banners?: { id: string; url: string; slug?: string | null; busca?: string | null }[] }) => {
         const lista = (d.banners ?? [])
