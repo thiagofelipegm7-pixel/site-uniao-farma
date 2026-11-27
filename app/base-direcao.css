@@ -4278,4 +4278,73 @@ html body .pergunta-origem-obrigado {
   font-size: 0.9375rem !important;
   line-height: 1.6 !important;
 }
+/* ===== Cores restantes (27/11/2026): páginas de bairro, legais, novidades, entrega e domingo =====
+ * Mesmo tratamento já usado na página de receita, agora para o site todo: fundo branco, texto preto,
+ * cartões sem contorno com sombra preta suave, botões em pílula preta. O campo de seleção mantém contorno
+ * preto, porque a borda de campo precisa de 3:1 (A-02 vence "sem linha"). */
+html body :is(.news-page, .news-hero, .news-visual-image, .news-card-image, .news-article-page, .legal-page, .unit-final-cta, .landing-benefit-grid li, .news-contact-units a, .direct-unit-link .open-status, .hours-table th, .pv-img .sem-foto) {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+html body :is(.eyebrow, .section-kicker, .direct-unit-neighborhood, .open-status strong, .news-card-meta time, .news-article-page time, .unit-faq-item summary, .hours-table caption, .news-page strong, .news-article-page strong) {
+  color: #000000 !important;
+}
+html body :is(.direct-unit-link, .landing-unit-card, .landing-benefit-grid li, .unit-faq-item, .news-visual-card, .news-card, .news-contact, .news-contact-units a, .legal-container, .legal-container > section, .legal-site-map, .hours-table, .hours-table tr, .hours-table th, .hours-table td, .news-page .section-inner > a, .news-article-page a) {
+  border-color: transparent !important;
+}
+html body :is(.direct-unit-link, .landing-unit-card, .landing-benefit-grid li, .unit-faq-item, .news-visual-card, .news-card, .news-contact-units a) {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12) !important;
+}
+html body :is(.unit-page, .legal-page, .news-page, .news-article-page) a.button.button {
+  border-color: #000000 !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+html body :is(.offers-group-inline, .landing-unit-actions, .legal-actions, .direct-unit-actions) a,
+html body :is(.offers-group-inline, .landing-unit-actions, .legal-actions, .direct-unit-actions) a * {
+  border-color: #000000 !important;
+  background-color: #000000 !important;
+  color: #ffffff !important;
+}
+html body :is(.unit-page, .legal-page, .news-page, .news-article-page) a.button.button * {
+  color: #ffffff !important;
+}
+html body .unit-page .section-inner > select,
+html body .unit-page select.delivery-select {
+  border-color: #000000 !important;
+}
+/* Botões dos cartões de loja: o WhatsApp tinha regra própria em verde-escuro; agora pílula preta como os demais. */
+html body .direct-unit-link .direct-unit-actions a[aria-label*="WhatsApp"],
+html body .direct-unit-link .direct-unit-actions a {
+  border-color: #000000 !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+html body .direct-unit-link .open-status.is-open,
+html body .direct-unit-link .open-status.is-open strong {
+  color: #000000 !important;
+}
+/* Página /ofertas: texto preto, cartões e perguntas sem contorno, botões em pílula preta. */
+html body .offers-page :is(.hero-lead, .offers-freshness, .section-inner > p, .offer-consult-brand, .offer-consult-cond, .offer-consult-price s, .offers-faq-item summary) {
+  color: #000000 !important;
+}
+html body .offers-page :is(section.section, .offer-consult-image, .offer-consult-image img) {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+html body .offers-page :is(.offer-consult-card, .section-inner, .offers-faq-item) {
+  border-color: transparent !important;
+}
+html body .offers-page :is(.offer-consult-card, .offers-faq-item) {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12) !important;
+}
+html body .offers-page :is(a.offer-consult-choose, a.button, .offer-alerts-button),
+html body .offer-alerts .offer-alerts-button {
+  border-color: #000000 !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+html body .offers-page :is(a.offer-consult-choose, a.button, .offer-alerts-button) * {
+  color: #ffffff !important;
+}
 }
