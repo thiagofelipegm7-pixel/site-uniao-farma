@@ -23,6 +23,8 @@ export type ProdutoRestrito = {
   controlado: boolean;
   generico?: boolean;
   ativo?: string | null;
+  /** Controlado (Portaria 344) ou antimicrobiano com retenção: sem preço e sem cesta no site (R-07, ver sem-venda.ts). */
+  semVenda?: boolean;
 };
 
 export type ItemCasado =
@@ -31,8 +33,11 @@ export type ItemCasado =
 
 export type ResultadoMedicamento = {
   lido: MedicamentoLido;
-  /** achado: tem produto para pôr na cesta. dose: o nome existe, mas não na dosagem da receita. nao: não está no catálogo. */
-  status: "achado" | "dose" | "nao";
+  /**
+   * achado: tem produto para pôr na cesta. dose: o nome existe, mas não na dosagem da receita.
+   * loja: a loja tem, mas é controlado ou antibiótico e só sai no balcão, com a receita retida (R-07). nao: não está no catálogo.
+   */
+  status: "achado" | "dose" | "loja" | "nao";
   /** Como a loja entendeu o nome quando foi preciso corrigir a escrita (para a pessoa conferir). */
   entendidoComo: string | null;
   itens: ItemCasado[];
@@ -179,6 +184,11 @@ export function casarMedicamento(catalogo: CatalogoReceita, lido: MedicamentoLid
       }
     }
   }
+  if (lista.length === 0) {
+    // Controlado ou antibiótico: existe na loja, mas não vai para a cesta. Dizer "não encontrado" seria falso.
+    const naLoja = soNoBalcao(catalogo, original);
+    if (naLoja.length > 0) return { ...base, status: "loja", outrasDoses: naLoja.slice(0, 3).map((p) => p.nome) };
+  }
   const sugestoes = similaresPorAtivo(catalogo, original, dosesReceita, lista, entendidoComo !== null);
   if (lista.length === 0) {
     return sugestoes ? { ...base, similares: sugestoes.itens, principioAtivoSimilar: sugestoes.ativo } : base;
@@ -191,6 +201,13 @@ export function casarMedicamento(catalogo: CatalogoReceita, lido: MedicamentoLid
     return { ...base, status: "dose", entendidoComo, similares: sugestoes?.itens ?? [], principioAtivoSimilar: sugestoes?.ativo ?? null, outrasDoses: ordenar(lista, palavras[0]).slice(0, 3).map((i) => i.nome) };
   }
   return { ...base, status: "achado", entendidoComo, itens: ordenar(sim, palavras[0]).slice(0, MAX_ITENS_POR_MEDICAMENTO), similares: sugestoes?.itens ?? [], principioAtivoSimilar: sugestoes?.ativo ?? null };
+}
+
+/** Itens sem venda no site que casam com o nome lido (inteiro ou só a primeira palavra). */
+function soNoBalcao(catalogo: CatalogoReceita, palavras: readonly string[]): ProdutoRestrito[] {
+  const casa = (ps: readonly string[]) => catalogo.restritos.filter((p) => p.semVenda === true && casaTodas(textoProprio(p), ps));
+  const inteiro = casa(palavras);
+  return inteiro.length > 0 || palavras.length < 2 ? inteiro : casa([palavras[0]]);
 }
 
 function formaDe(p: ProdutoRestrito): "injetavel" | "oral" | "topico" | "oftalmico" | "nasal" | null {

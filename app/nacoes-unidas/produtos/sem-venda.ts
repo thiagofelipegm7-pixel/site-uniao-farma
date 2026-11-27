@@ -25,10 +25,12 @@ export function ehPortaria344(controlado: boolean, lista: string | undefined | n
 }
 
 /**
- * Chave da regra (R-07 — Portaria SVS/MS 344/98 e RDC 812/2023). Ligada: controlados (listas A1 a A3, B1, B2 e C1 a C5)
- * e antimicrobianos ficam sem preço, sem botão de cesta e fora da venda online; a dispensação é só na loja, com retenção da receita.
+ * Chave da regra. Desligada por decisão do Thiago (27/11/2026, ver R-07 em CONFORMIDADE.md): controlados (Portaria 344) e
+ * antimicrobianos têm preço e cesta no site, com retirada no balcão e receita retida. Não ligue sem pedido dele.
+ * Para esconder de novo, mude para true e rode o gerador de arquivos (scripts/gerar-assets-catalogo.mjs).
+ * A classificação continua valendo para informar, mas com a chave desligada nada fica sem venda.
  */
-export const SEM_VENDA_NO_SITE = true;
+export const SEM_VENDA_NO_SITE = false;
 
 export type SemVenda = { portaria344: boolean; antimicrobiano: boolean; semVenda: boolean };
 

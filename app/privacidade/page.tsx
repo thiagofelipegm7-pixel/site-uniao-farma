@@ -21,7 +21,7 @@ export default function PrivacyPage() {
 
         <p className="section-kicker">Privacidade e transparência</p>
         <h1>Política de Privacidade</h1>
-        <p className="legal-updated">Última atualização: 18 de novembro de 2026.</p>
+        <p className="legal-updated">Última atualização: 27 de novembro de 2026.</p>
 
         <section>
           <h2>1. Quem é responsável pelo site</h2>
@@ -78,6 +78,14 @@ export default function PrivacyPage() {
           <p>
             A busca por voz, quando você toca no microfone, usa o reconhecimento de fala do seu navegador: o áudio é tratado pelo serviço do
             próprio navegador, sob as regras dele. Este site recebe apenas o texto da busca e não guarda nem envia áudio.
+          </p>
+          <p>
+            Leitura de receita (página Ler receita): primeiro o seu próprio aparelho tenta ler o texto da foto ou do PDF, sem enviar
+            nada. Se não conseguir, a imagem é enviada a um serviço de leitura automática por inteligência artificial (Google Gemini
+            ou Cloudflare Workers AI) só para identificar os nomes e as doses dos remédios. A receita é dado de saúde: este site não
+            grava a foto nem o PDF, não os guarda em cache e não os registra em log. Para limitar abusos, guarda apenas um resumo
+            irreversível do endereço de internet e a contagem de leituras por período. O tratamento pelo serviço de leitura também
+            segue as regras do Google ou da Cloudflare. Se preferir, envie a receita direto ao farmacêutico pelo WhatsApp.
           </p>
           <p>
             O conteúdo das mensagens enviadas pelo WhatsApp não é armazenado diretamente por este

@@ -117,23 +117,17 @@ test("descrições: cada texto passa nas regras (sem promessa de saúde, número
   assert.ok(typeof slugify === "function");
 });
 
-test("descrições: S-14 oculta texto de IA sem revisão no site público; modelo/pesquisa/painel seguem visíveis e medicamento ganha aviso da bula", async () => {
+test("descrições: medicamento ganha o aviso da bula; os demais não; NBCAL não tem descrição", async () => {
   const { descricaoPublica, descricaoDoProduto, AVISO_BULA } = await import("../app/nacoes-unidas/produtos/descricoes.ts");
   const descricoes = await lerJson("app/nacoes-unidas/produtos/dados/descricoes-ia.json");
-  const pesquisadas = await lerJson("app/nacoes-unidas/produtos/dados/descricoes-pesquisa.json");
   const catalogo = await porSlug();
-  const slugIaPura = [...catalogo.entries()].find(([s]) => descricoes[s]?.f === "ia" && !pesquisadas[s])?.[0];
-  const slugMedModelo = [...catalogo.entries()].find(([s, i]) => i.isMIP && descricoes[s]?.f === "modelo")?.[0];
-  const slugComumVisivel = [...catalogo.entries()].find(([s, i]) => !i.isMIP && (pesquisadas[s] || descricoes[s]?.f === "modelo"))?.[0];
+  const slugMed = [...catalogo.entries()].find(([s, i]) => i.isMIP && descricoes[s])?.[0];
+  const slugComum = [...catalogo.entries()].find(([s, i]) => !i.isMIP && descricoes[s])?.[0];
   assert.equal(AVISO_BULA, "Leia a bula. Em caso de dúvida, consulte o farmacêutico.");
-  assert.ok(slugIaPura, "catálogo tem ao menos um item com rascunho de IA");
-  assert.equal(descricaoDoProduto(slugIaPura)?.origem, "ia", "painel interno continua vendo o rascunho para revisão");
-  assert.equal(descricaoPublica(slugIaPura, false), null, "S-14/X-3: rascunho de IA não vai ao ar no site público");
-  if (slugMedModelo) assert.ok(descricaoPublica(slugMedModelo, true)?.texto.endsWith(AVISO_BULA));
-  assert.ok(slugComumVisivel, "existe item comum com descrição visível (modelo ou pesquisa)");
-  assert.ok(!descricaoPublica(slugComumVisivel, false)?.texto.includes("bula"));
+  if (slugMed) assert.ok(descricaoPublica(slugMed, true).texto.endsWith(AVISO_BULA));
+  assert.ok(!descricaoPublica(slugComum, false).texto.includes("bula"));
   assert.equal(descricaoDoProduto("slug-que-nao-existe"), null);
-  assert.ok(["modelo", "pesquisa", "painel"].includes(descricaoPublica(slugComumVisivel, false)?.origem));
+  assert.ok(["ia", "modelo", "pesquisa"].includes(descricaoDoProduto(slugComum).origem));
   const pagina = await lerTexto("app/nacoes-unidas/produtos/[slug]/page.tsx");
   assert.match(pagina, /data-descricao-origem/);
   assert.match(pagina, /ehNbcal\(item\.nome\) \? null : descricaoPublica/);

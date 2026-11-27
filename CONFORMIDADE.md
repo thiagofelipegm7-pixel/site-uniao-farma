@@ -30,6 +30,9 @@ Ordem geral do projeto: 1) `ACCESSIBILITY.md`, 2) `CONVERSAO.md`, 3) direção a
 - **R-05 Receita:** aviso claro de que medicamento sob prescrição (não controlado) **só é dispensado depois que o farmacêutico avalia a receita** (envio por upload, e-mail etc.).
 - **R-06 Medicamento de prescrição não se promove:** **nenhuma imagem, propaganda ou promoção** de medicamento sob prescrição em qualquer parte do site. Divulgar o **preço** é permitido. Vale para vitrines, destaques, "mais pedidos", banners, e-mail, push e redes.
 - **R-07 Controlados (Portaria 344/98):** fora da venda online. A exceção da pandemia (RDC 683/2022) terminou em 21/05/2023.
+  - **Decisão do Thiago (27/11/2026):** controlados (Portaria 344) e antibióticos **seguem com preço e cesta no site**, com retirada só no balcão e receita retida. A chave é `SEM_VENDA_NO_SITE = false` em `app/nacoes-unidas/produtos/sem-venda.ts` (e a cópia em `scripts/gerar-assets-catalogo.mjs`).
+  - **Risco registrado:** essa decisão contraria o texto desta regra. Fica sob responsabilidade da empresa, a validar com o farmacêutico RT, o jurídico e a vigilância sanitária (R-15).
+  - **Para quem trabalha no site:** não religue a chave sem pedido do Thiago. Também não use esta regra para tirar esses itens da venda por conta própria.
 - **R-08 Canal direto com o farmacêutico:** comunicação imediata (WhatsApp, telefone ou chat) sempre visível.
 - **R-09 Entrega:** cartão impresso com nome do farmacêutico, telefone e endereço, e orientação para dúvidas (processo da loja; o site não pode contrariar).
 - **R-10 Publicidade (RDC 96/2008):** só **medicamento isento de prescrição (MIP)** pode ser divulgado ao público em geral. Peça de MIP traz as advertências exigidas, com texto legível e contrastante. Mesmas regras para banner, e-mail, push e post.
@@ -113,7 +116,7 @@ Ordem geral do projeto: 1) `ACCESSIBILITY.md`, 2) `CONVERSAO.md`, 3) direção a
 ## Lista final (responder sim a todas)
 
 - Nenhuma imagem, promoção ou destaque de medicamento de prescrição (R-06, R-10)?
-- Controlado fora da venda online (R-07)?
+- Controlado e antibiótico com retirada só no balcão e receita retida (R-07, ver a decisão de 27/11/2026)?
 - Dados do estabelecimento, RT, Alvará e AFE visíveis (R-02 a R-04)?
 - Canal com o farmacêutico visível (R-08) e aviso de receita (R-05)?
 - Dado pessoal e de saúde tratado como sensível, com cookies recusáveis (R-11)?

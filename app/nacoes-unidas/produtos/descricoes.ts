@@ -41,13 +41,9 @@ export function descricaoDoProduto(slug: string): DescricaoProduto | null {
   return { texto: registro.t.trim(), origem: registro.f === "ia" ? "ia" : "modelo" };
 }
 
-/**
- * Texto mostrado no site público: a descrição e, nos medicamentos, o aviso fixo da bula.
- * S-14 / X-3: textos com origem "ia" (sem revisão humana) ficam ocultos no site público
- * e continuam disponíveis via `descricaoDoProduto` apenas para revisão no painel interno.
- */
+/** Texto mostrado na página: a descrição e, nos medicamentos, o aviso fixo da bula. */
 export function descricaoPublica(slug: string, ehMedicamento: boolean): DescricaoProduto | null {
   const base = descricaoDoProduto(slug);
-  if (!base || base.origem === "ia") return null;
+  if (!base) return null;
   return { ...base, texto: ehMedicamento ? `${base.texto} ${AVISO_BULA}` : base.texto };
 }

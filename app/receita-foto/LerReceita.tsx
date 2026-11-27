@@ -145,6 +145,12 @@ function CartaoMedicamento({ r }: { r: ResultadoMedicamento }) {
           Temos este nome, mas não achei a dosagem da receita. Não vou colocar na cesta para não errar. Fale com o farmacêutico.
           {r.outrasDoses.length > 0 ? <span className="receita-outras">Outras apresentações na loja: {r.outrasDoses.join("; ")}.</span> : null}
         </p>
+      ) : r.status === "loja" ? (
+        <p className="receita-faltou">
+          Este remédio é controlado ou antibiótico e não é vendido pelo site: a receita original fica retida na loja. Leve a receita ao
+          balcão da loja Nações Unidas ou tire a dúvida com o farmacêutico no WhatsApp.
+          {r.outrasDoses.length > 0 ? <span className="receita-outras">Na loja: {r.outrasDoses.join("; ")}.</span> : null}
+        </p>
       ) : (
         <p className="receita-faltou">{r.similares.length > 0 ? "Não encontrei esse nome exato." : "Não encontrado no site."} Fale com o farmacêutico.</p>
       )}
