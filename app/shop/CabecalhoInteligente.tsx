@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, type ReactNode } from "react";
+import FaixaBlackFriday from "../FaixaBlackFriday";
 
 /**
  * Cabeçalho do desktop que encolhe e expande: a faixa principal (logo, busca, cesta) e a faixa de informações
@@ -35,6 +36,8 @@ export default function CabecalhoInteligente({ children }: { children: ReactNode
   return (
     <div className="cab-espaco">
       <div className="cab-fixo">{children}</div>
+      {/* Faixa do tema sazonal logo abaixo do cabeçalho fixo (no topo, o cabeçalho fixo a cobriria). */}
+      <FaixaBlackFriday />
     </div>
   );
 }

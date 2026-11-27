@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ContentSiteFooter } from "../../../ContentSiteChrome";
 import PainelBanners from "../../../shop/PainelBanners";
+import NotasGoogle from "../../../shop/NotasGoogle";
+import RespostasCompra from "../../../shop/RespostasCompra";
 import { bannersDoServidor } from "../../../shop/destaques-servidor";
 import MarcasTrabalhamos from "../../../shop/MarcasTrabalhamos";
 import VoceTambemInteressado, { termosRelacionados } from "../VoceTambemInteressado";
@@ -176,6 +178,8 @@ export default async function ProdutoNacoesPage({ params }: Props) {
               </p>
             )}
             {item.esgotado || controlado ? null : <ProdutoBarra bloco unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} max={item.restam} slug={slugify(item.nome)} apresentacoes={apresentacoes} />}
+            {item.esgotado || controlado ? null : <RespostasCompra />}
+            {item.esgotado || controlado || ehMedicamentoOuDuvida(item) ? null : <NotasGoogle />}
             {item.esgotado || controlado ? null : <CompletaKit itens={completaKit} />}
           </aside>
           </div>

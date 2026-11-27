@@ -28,6 +28,7 @@ import { TEXTO_CONSENTIMENTO_AVALIACAO } from "../avaliacao-google";
 import { buscarCestaParaRetomar, enviarCestaEsquecida } from "./salvar-cesta-esquecida";
 import { AJUDA_AVISO_RETIRADA, TEXTO_AVISO_RETIRADA } from "../retirada";
 import LinhasConfianca from "../shop/LinhasConfianca";
+import PosCliqueWhats from "./PosCliqueWhats";
 import { faixaAplicavel, proximaFaixa } from "../promocao-quantidade-tipos";
 import { comViewTransition } from "../shop/animacoes";
 import { eanDaFoto } from "../nacoes-unidas/produtos/imagens";
@@ -777,7 +778,9 @@ export default function ReservaFluxo() {
               <p className="fluxo-resumo-total"><strong>Total estimado</strong><strong>{totalComTaxa}</strong></p>
               <AvaliacoesCesta variante="resumo" />
               <div className="fluxo-envio">
+                {/* Fica só no resumo (rola com a página). Na barra fixa do celular ocuparia um terço da tela. */}
                 {enviarWhats("fluxo-botao fluxo-botao-resumo")}
+                <PosCliqueWhats />
                 <LinhasConfianca variante="ticks" />
               </div>
             </section>

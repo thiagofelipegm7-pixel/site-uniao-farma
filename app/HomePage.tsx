@@ -9,6 +9,7 @@ import ShopHeader from "./shop/ShopHeader";
 import DestaquesSemana from "./shop/DestaquesSemana";
 import OfertasSemana from "./shop/OfertasSemana";
 import PainelBanners from "./shop/PainelBanners";
+import NotasGoogle from "./shop/NotasGoogle";
 import { FaixaInfo } from "./shop/HomeBlocos";
 import { CategoriasLinha } from "./shop/ShopSections";
 import { MarcasLinha } from "./shop/MarcasLinha";
@@ -48,6 +49,7 @@ export default function HomePage({ dados = {} }: { dados?: Partial<DadosDaHome> 
         <FaixaInfo />
       </CabecalhoInteligente>
       <PainelBanners titulo="Drogaria em Sabará: União Farma Nações Unidas" inicial={dados.banners} />
+      <NotasGoogle className="notas-google--home" />
       <CheckoutRapido />
       <MaisPedidosChips inicial={dados.chips} />
       <FiltroPreco />

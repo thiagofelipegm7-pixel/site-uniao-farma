@@ -3672,4 +3672,93 @@ html body footer.rodape.rodape .rodape-legal a:focus-visible {
   outline: 3px solid #000000 !important;
   outline-offset: 2px !important;
 }
+
+/* Prova real e respostas junto do botão (C-05, C-08, C-13, C-14, C-16). Preto e branco, sem linha, alvos de 48 px. */
+html body .notas-google {
+  margin: 1rem auto !important;
+  padding: 1rem 1.25rem !important;
+  max-width: 72rem !important;
+  border: 0 !important;
+  border-radius: 1rem !important;
+  background: #ffffff !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+  color: #000000 !important;
+}
+html body .notas-google--home {
+  width: calc(100% - 2rem) !important;
+}
+html body .notas-google-titulo {
+  margin: 0 0 0.25rem !important;
+  font-size: 0.9375rem !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  color: #000000 !important;
+}
+html body .notas-google-estrela {
+  color: #000000 !important;
+}
+html body .notas-google-lista {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 0.5rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+html body .notas-google-lista a {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 0 !important;
+  min-height: 48px !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  color: #000000 !important;
+  text-decoration: underline !important;
+}
+html body .notas-google-lista strong {
+  font-size: 1.25rem !important;
+  line-height: 1.2 !important;
+  font-weight: 500 !important;
+}
+html body .notas-google-lista a:focus-visible {
+  outline: 3px solid #000000 !important;
+  outline-offset: 2px !important;
+}
+html body .pdp-compra .notas-google {
+  margin: 1rem 0 0 !important;
+  padding: 0 !important;
+  max-width: none !important;
+  width: auto !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+html body .respostas-compra {
+  margin-top: 1rem !important;
+}
+html body .respostas-compra .ticks-confianca {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+  font-size: 0.875rem !important;
+  line-height: 1.6 !important;
+  color: #000000 !important;
+}
+html body .respostas-compra .ticks-confianca a {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 48px !important;
+  color: #000000 !important;
+  text-decoration: underline !important;
+}
+html body .respostas-compra-texto,
+html body .pos-clique-whats {
+  margin: 0.5rem 0 0 !important;
+  font-size: 0.875rem !important;
+  line-height: 1.6 !important;
+  color: #000000 !important;
+  max-width: 40rem !important;
+  text-wrap: pretty !important;
+}
 }

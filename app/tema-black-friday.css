@@ -1,0 +1,140 @@
+/*
+ * Tema Black Friday. Só vale com html[data-tema="black-friday"] (ver app/tema-sazonal.ts).
+ * Fica na mesma camada da direção (base-direcao) e é importado depois dela, então vence sem truques.
+ * Paleta: preto #000000, branco #FFFFFF e dourado #FFC400 como destaque (exceção de paleta pedida pelo Thiago em 27/11/2026:
+ *   o amarelo de aviso e o vermelho dos selos foram recusados no tema). Sem vermelho no tema.
+ *   Contraste: dourado sobre preto 12,9:1; preto sobre dourado 12,9:1; branco sobre preto 21:1 (A-01, AAA).
+ * Exceção sazonal da direção: o verde-água do cabeçalho e dos botões de adicionar vira preto e dourado enquanto o tema estiver ligado.
+ * Sem borda, sem degradê, sem sombra colorida. Só cor: nenhum tamanho ou posição muda (sem CLS, A-16).
+ */
+@layer base-direcao {
+  /* Faixa: escondida fora do tema. */
+  html body .faixa-black-friday {
+    display: none !important;
+  }
+  html[data-tema="black-friday"] body .faixa-black-friday {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.75rem !important;
+    margin: 0 !important;
+    padding: 0.375rem max(1rem, env(safe-area-inset-right, 0px)) 0.375rem max(1rem, env(safe-area-inset-left, 0px)) !important;
+    background: #000000 !important;
+    color: #ffffff !important;
+  }
+  /* Com o cabeçalho fixo (home), vale só a faixa de dentro dele; a do topo ficaria coberta. */
+  html[data-tema="black-friday"] body:has(.cab-espaco) > .faixa-black-friday {
+    display: none !important;
+  }
+  html[data-tema="black-friday"] body .faixa-black-friday p {
+    display: grid !important;
+    gap: 0 !important;
+    min-width: 0 !important;
+    margin: 0 !important;
+    font-size: 0.8125rem !important;
+    line-height: 1.35 !important;
+    text-align: left !important;
+  }
+  html[data-tema="black-friday"] body .faixa-black-friday p span {
+    color: #ffffff !important;
+  }
+  html[data-tema="black-friday"] body .faixa-black-friday strong {
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    color: #ffc400 !important;
+    letter-spacing: 0.02em !important;
+    text-transform: uppercase !important;
+  }
+  html[data-tema="black-friday"] body .faixa-black-friday a {
+    display: inline-flex !important;
+    align-items: center !important;
+    min-height: 48px !important;
+    padding: 0 1.25rem !important;
+    border-radius: 999px !important;
+    background: #ffc400 !important;
+    color: #000000 !important;
+    flex: none !important;
+    font-size: 0.8125rem !important;
+    font-weight: 500 !important;
+    white-space: nowrap !important;
+    text-decoration: none !important;
+  }
+  html[data-tema="black-friday"] body .faixa-black-friday a:focus-visible {
+    outline: 3px solid #ffffff !important;
+    outline-offset: 3px !important;
+  }
+
+  /* Cabeçalho: preto, textos e ícones claros. A busca segue branca (campo é sempre branco). */
+  html[data-tema="black-friday"] body header.shop-header,
+  html[data-tema="black-friday"] body header.shop-header.shop-header,
+  html[data-tema="black-friday"] body .cabecalho-inteligente,
+  html[data-tema="black-friday"] body header.shop-header :is(.shop-header-inner, .shop-topo, .shop-linha) {
+    background: #000000 !important;
+    background-color: #000000 !important;
+  }
+  html[data-tema="black-friday"] body header.shop-header :is(.shop-marca, .shop-marca *:not(.marca-uf-pe), .shop-logo-texto, .shop-departamentos, .shop-departamentos *, .shop-nav a, .shop-local, .shop-local *) {
+    color: #ffffff !important;
+  }
+  /* Textos soltos do cabeçalho (entrega, links da barra) ficam brancos; o que está em pílula branca segue preto. */
+  html[data-tema="black-friday"] body header.shop-header :is(a, span, p, li, strong, small, button):not(.marca-uf-pe) {
+    color: #ffffff !important;
+  }
+  html[data-tema="black-friday"] body header.shop-header :is(.shop-receita, .shop-receita *, .shop-icone, .shop-icone *, .shop-busca, .shop-busca *):not(.marca-uf-pe) {
+    color: #000000 !important;
+  }
+  html[data-tema="black-friday"] body header.shop-header .reserva-contador-bolha.reserva-contador-bolha {
+    color: #ffffff !important;
+  }
+  /* "Pedir no WhatsApp" era pílula preta: no cabeçalho preto vira pílula branca com texto preto. */
+  html[data-tema="black-friday"] body header.shop-header .shop-whats {
+    background: #ffffff !important;
+  }
+  html[data-tema="black-friday"] body header.shop-header :is(.shop-whats, .shop-whats span):not(.marca-uf-pe) {
+    color: #000000 !important;
+  }
+  html[data-tema="black-friday"] body header.shop-header :focus-visible {
+    outline: 3px solid #ffc400 !important;
+    outline-offset: 2px !important;
+  }
+
+  html[data-tema="black-friday"] body header.shop-header .marca-uf-pe {
+    color: #000000 !important;
+  }
+  /* Faixa de informações (aberto agora, retirada, entrega): preta com texto branco. */
+  html[data-tema="black-friday"] body .shop-faixa-info,
+  html[data-tema="black-friday"] body .shop-faixa-info * {
+    background-color: #000000 !important;
+    color: #ffffff !important;
+  }
+
+  /* Botões de adicionar à cesta: dourado com texto preto no lugar do verde-água. */
+  html[data-tema="black-friday"] body :is(.pv-adicionar, .pv-card .pv-adicionar, .fluxo-vitrine .pv-card .pv-adicionar),
+  html[data-tema="black-friday"] body:has(.catalogo-nacoes) .catalogo-nacoes :is(.pdp-compra, .produto-barra) .bc-pilula,
+  html[data-tema="black-friday"] body main#conteudo .fluxo-reserva .cesta-sugestoes .cesta-sugestao-add.cesta-sugestao-add {
+    background: #ffc400 !important;
+    color: #000000 !important;
+  }
+
+  /* Seção de ofertas da home: cartão preto com título dourado. */
+  html[data-tema="black-friday"] body .shop-destaques--ofertas {
+    background: #000000 !important;
+  }
+  html[data-tema="black-friday"] body .shop-destaques--ofertas :is(h2, .shop-destaques-ver, .shop-destaques-ver *) {
+    color: #ffc400 !important;
+  }
+
+  /* Desktop (cabeçalho fixo): o espaço reservado cresce com a faixa, que fica logo abaixo do cabeçalho. */
+  @media (min-width: 992px) {
+    html[data-tema="black-friday"] body .cab-espaco {
+      height: auto !important;
+      padding-top: calc(var(--cab-banda) + var(--cab-faixa) + var(--cab-sub)) !important;
+    }
+  }
+
+  /* Selo de desconto ("29% OFF"): sem vermelho no tema; fundo preto com texto dourado. */
+  html[data-tema="black-friday"] body .pv-economia.pv-economia,
+  html[data-tema="black-friday"] body .pv-economia.pv-economia * {
+    background: #000000 !important;
+    color: #ffc400 !important;
+  }
+}
