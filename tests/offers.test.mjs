@@ -60,6 +60,10 @@ test("publishes only a complete, approved and current offer", () => {
       { ...baseOffer, regulatoryClass: "supplement_review", manualRegulatoryApproval: false },
       "regulatory_approval_missing",
     ],
+    [
+      { ...baseOffer, regulatoryClass: "prescription_listed", manualRegulatoryApproval: false },
+      "regulatory_approval_missing",
+    ],
   ];
 
   for (const [offer, code] of blockers) {
@@ -93,44 +97,47 @@ test("keeps site publication separate from Google Ads eligibility", () => {
 });
 
 test("publishes confirmed promotions while keeping incomplete and blocked items out", () => {
-  assert.equal(OFFERS.length, 21);
-  assert.equal(getPublicOffers(new Date("2026-08-16T12:00:00-03:00")).length, 11);
-  assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "approved").length, 11);
+  assert.equal(OFFERS.length, 55);
+  assert.equal(getPublicOffers(new Date("2026-08-16T12:00:00-03:00")).length, 0);
+  assert.equal(getPublicOffers(new Date("2026-11-27T12:00:00-03:00")).length, 34);
+  assert.equal(getPublicOffers(new Date("2026-11-26T23:59:00-03:00")).length, 0);
+  assert.equal(getPublicOffers(new Date("2026-11-28T00:00:00-03:00")).length, 0);
+  assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "approved").length, 34);
   assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "draft").length, 0);
   assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "review").length, 6);
   assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "blocked").length, 4);
+  assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "expired").length, 11);
   assert.equal(OFFERS.find((offer) => offer.id === "tandrilax")?.regulatoryClass, "prescription_blocked");
   const commercialOffers = OFFERS.filter((offer) => offer.publicationStatus === "approved");
-  assert.equal(commercialOffers.length, 11);
-  assert.deepEqual(
-    commercialOffers.map((offer) => offer.name),
-    [
-      "Cerave pote creme hidratante sem perfume 85g",
-      "Kit protetor solar Sunless FPS50 toque seco 200g + 120g",
-      "Creme Seda para pentear 300 ml",
-      "Loção hidratante Nivea 400 ml",
-      "Creme Seda Boom 1 kg",
-      "Protetor solar Sundown 200 ml",
-      "Fralda Hipopó pacote hiper",
-      "Lenço umedecido Natural Baby",
-      "Roupa íntima geriátrica Comfort Master",
-      "Fralda geriátrica Salute",
-      "Fralda IsaBaby",
-    ],
-  );
+  assert.equal(commercialOffers.length, 34);
+  assert.equal(commercialOffers[0].name, "Strepsils caixa 16 pastilhas laranja");
+  assert.equal(commercialOffers.find((offer) => offer.id === "bf-elseve-100ml")?.previousPrice, 49.9);
+  assert.equal(commercialOffers.find((offer) => offer.id === "bf-elseve-100ml")?.currentPrice, 29.9);
+  assert.equal(commercialOffers.find((offer) => offer.id === "bf-flexalgin-30")?.currentPrice, 9.9);
+  assert.equal(commercialOffers.find((offer) => offer.id === "bf-nimesulida-12")?.condicao, "Leve 3 por R$ 9,99");
+  assert.equal(commercialOffers.find((offer) => offer.id === "bf-losartana-teuto-30")?.condicao, "Leve 3 por R$ 9,99");
+  assert.equal(commercialOffers.find((offer) => offer.id === "bf-nevralgex-10")?.condicao, "Leve 3 por R$ 8,94");
+  assert.equal(commercialOffers.find((offer) => offer.id === "bf-narix-30ml")?.condicao, "Leve 3 por R$ 9,99");
+  assert.ok(commercialOffers.some((offer) => offer.id === "bf-strepsils-16-mel-limao"));
+  assert.equal(commercialOffers.some((offer) => /neo qu[ií]mica/i.test(offer.name) && /losartana/i.test(offer.name)), false);
+  assert.ok(commercialOffers.filter((offer) => offer.regulatoryClass === "prescription_listed").every((offer) => offer.manualRegulatoryApproval === true && offer.adsEligible === false));
   assert.ok(commercialOffers.every((offer) => offer.priceConfirmed));
   assert.ok(commercialOffers.every((offer) => offer.image));
   assert.ok(commercialOffers.every((offer) => offer.validityConfirmed));
-  assert.ok(commercialOffers.every((offer) => offer.validityType === "while_stock_lasts"));
-  assert.ok(commercialOffers.every((offer) => offer.validUntil === undefined));
-  // Suplemento fica de fora dos anúncios pagos até a revisão do responsável técnico; as demais podem anunciar.
-  const anunciaveis = commercialOffers.filter((offer) => offer.regulatoryClass !== "supplement_review");
+  assert.ok(commercialOffers.every((offer) => offer.validityType === "date"));
+  assert.ok(commercialOffers.every((offer) => offer.validFrom === "2026-11-27"));
+  assert.ok(commercialOffers.every((offer) => offer.validUntil === "2026-11-27"));
+  const noDia = new Date("2026-11-27T12:00:00-03:00");
+  const anunciaveis = commercialOffers.filter((offer) => offer.regulatoryClass === "non_regulated");
+  assert.ok(anunciaveis.length >= 1);
   assert.ok(anunciaveis.every((offer) => offer.adsEligible));
-  assert.ok(anunciaveis.every((offer) => canUseInAds(offer).eligible));
+  assert.ok(anunciaveis.every((offer) => canUseInAds(offer, noDia).eligible));
+  assert.ok(commercialOffers.filter((offer) => offer.regulatoryClass !== "non_regulated").every((offer) => !offer.adsEligible));
   assert.ok(OFFERS.filter((offer) => offer.publicationStatus !== "approved").every((offer) => !offer.adsEligible));
-  assert.equal(OFFERS.filter((offer) => offer.imageApproved).length, 11);
+  assert.ok(commercialOffers.every((offer) => offer.imageApproved));
   assert.ok(OFFERS.some((offer) => offer.currentPrice !== null));
-  assert.equal(getPublicOffers().some((offer) => offer.id === "tandrilax"), false);
+  assert.equal(getPublicOffers(noDia).some((offer) => offer.id === "tandrilax"), false);
+  assert.equal(canPublishOffer(commercialOffers[0], new Date("2026-11-26T23:59:00-03:00")).code, "not_yet_valid");
 });
 
 test("offers kicker and review date come from the catalog data", () => {
@@ -158,14 +165,13 @@ test("offers kicker and review date come from the catalog data", () => {
 });
 
 test("painel da semana: no máximo 3 ofertas, sem receita, e De só com preço anterior confirmado", () => {
-  const publicas = getPublicOffers(new Date("2026-08-17T12:00:00-03:00"));
+  const publicas = getPublicOffers(new Date("2026-11-27T12:00:00-03:00"));
   const semana = selecionarOfertasSemana(publicas);
   assert.ok(semana.length >= 1);
   assert.ok(semana.length <= 3);
   assert.equal(semana.length, 3);
   assert.ok(semana.every((offer) => offer.regulatoryClass !== "prescription_blocked"));
-  // As 2 primeiras vêm das artes da loja, com De/Por confirmados pelo dono; a terceira não tem "De" confirmado e não mostra riscado.
-  assert.deepEqual(semana.map((offer) => precoAnteriorConfirmado(offer)), [59.9, 79.9, null]);
+  assert.deepEqual(semana.map((offer) => precoAnteriorConfirmado(offer)), [34.9, 34.9, 79.9]);
   assert.ok(semana.every((offer) => precoAnteriorConfirmado(offer) === null || offer.currentPrice < precoAnteriorConfirmado(offer)));
   assert.deepEqual(semana.map((offer) => offer.name), publicas.slice(0, 3).map((offer) => offer.name));
 
@@ -204,8 +210,8 @@ test("componente OfertasSemana: vitrine da home com preço anterior só quando i
   assert.match(painel, /variante="cartao"/);
   assert.doesNotMatch(painel, /De R\$ \d/);
   assert.match(ofertas, /previousPrice \(número maior que currentPrice\)/);
-  // Nenhum "De" sem confirmação: todo previousPrice numérico tem previousPriceConfirmed: true.
-  assert.equal((ofertas.match(/^\s+previousPrice: \d/gm) ?? []).length, (ofertas.match(/^\s+previousPriceConfirmed: true,/gm) ?? []).length);
+  // Nenhum "De" sem confirmação: se há previousPrice numérico, ele foi confirmado.
+  assert.ok(OFFERS.every((offer) => offer.previousPrice == null || offer.previousPriceConfirmed === true));
 });
 
 test("reserva da oferta vai para a loja preferida do cliente quando a oferta vale nela", () => {

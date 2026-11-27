@@ -3,6 +3,7 @@ import { carregarCatalogoNacoes, slugify } from "./nacoes-unidas/produtos/catalo
 import { carregarRestritos } from "./nacoes-unidas/produtos/receita";
 
 import { faixasDaPromocao, type FaixaPromocaoQuantidade, type PromocaoQuantidade } from "./promocao-quantidade-tipos";
+import { promocoesQuantidadeEncarteVigentes } from "./promocao-quantidade-encarte";
 export type { FaixaPromocaoQuantidade, PromocaoQuantidade } from "./promocao-quantidade-tipos";
 type BancoPromocao = { exec(sql: string): Promise<unknown>; prepare(sql: string): { bind(...values: unknown[]): { all<T>(): Promise<{ results: T[] }>; run(): Promise<unknown> } }; batch(statements: unknown[]): Promise<unknown> };
 
@@ -39,6 +40,16 @@ export async function listarPromocoesQuantidade(): Promise<PromocaoQuantidade[]>
     const faixas = porProduto.get(row.slug) ?? [];
     faixas.push({ quantidade: row.quantidade, precoUnitarioCentavos: row.preco_unitario_centavos });
     porProduto.set(row.slug, faixas);
+  }
+  for (const encarte of promocoesQuantidadeEncarteVigentes()) {
+    const item = catalogo.get(encarte.slug);
+    if (!item) continue;
+    const validas: FaixaPromocaoQuantidade[] = [];
+    for (const faixa of encarte.faixas) {
+      if (faixa.quantidade < 1 || faixa.quantidade > 20 || (typeof item.restam === "number" && item.restam < faixa.quantidade) || faixa.precoUnitarioCentavos < 1 || faixa.precoUnitarioCentavos >= Math.round(item.preco * 100)) continue;
+      validas.push(faixa);
+    }
+    if (validas.length) porProduto.set(encarte.slug, validas);
   }
   return [...porProduto].flatMap(([slug, faixas]) => {
     const item = catalogo.get(slug);

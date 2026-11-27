@@ -19,6 +19,10 @@ type Oferta = {
   foto: string;
   isMIP?: boolean;
   restam?: number;
+  condicao?: string;
+  medicamento?: boolean;
+  receita?: "receita";
+  promocao?: { faixas: { quantidade: number; precoUnitarioCentavos: number }[] };
 };
 
 export default function OfertasSemana({ inicial }: { /** Ofertas já montadas no servidor (HTML pronto e sem "pulo" de layout). */ inicial?: Oferta[] } = {}) {
@@ -57,13 +61,19 @@ export default function OfertasSemana({ inicial }: { /** Ofertas já montadas no
               nome={item.nome}
               foto={item.foto}
               marca={item.lab}
-              medicamento={item.isMIP}
-              oferta
-              descontoPct={item.descontoPct}
+              medicamento={item.medicamento || item.isMIP}
+              oferta={!item.condicao}
+              descontoPct={item.receita ? null : item.descontoPct}
               precoAnteriorFmt={item.precoAnteriorCentavos ? formatarCentavos(item.precoAnteriorCentavos) : null}
               apresentacao={quantidadeDoNome(item.nome)}
               precoFmt={formatarCentavos(item.precoCentavos)}
-              cesta={<ReservarBotao unitId="nacoes" nome={item.nome} precoCentavos={item.precoCentavos} deCentavos={item.precoAnteriorCentavos} foto={item.foto} source="home_ofertas" variante="cartao" max={item.restam} slug={item.slug} />}
+              avisos={(item.condicao || item.receita) ? (
+                <>
+                  {item.condicao ? <span>{item.condicao}</span> : null}
+                  {item.receita ? <span>Venda sob prescrição médica</span> : null}
+                </>
+              ) : undefined}
+              cesta={<ReservarBotao unitId="nacoes" nome={item.nome} precoCentavos={item.precoCentavos} deCentavos={item.precoAnteriorCentavos} foto={item.foto} source="home_ofertas" variante="cartao" max={item.restam} slug={item.slug} receita={item.receita} promocao={item.promocao} />}
             />
           ))}
         </ul>

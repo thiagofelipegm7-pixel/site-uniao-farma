@@ -170,6 +170,7 @@ export const FOTOS_NACOES: Readonly<Record<string, string>> = {
   "CREATINA MONOHIDRATADA 300G QUALYNUTRI": "7895143226973",
   "CREME DE PENTEAR SKALINHA CAMO": "7897042017867",
   "CREME NIVEA FACIAL NUTRITIVO 100 GR": "42360407",
+  "CR NIVEA FAC NUTRITIVO 100G": "42360407",
   "Cetaphil Creme Hidratante Corporal 453g": "7897930777798",
   "Cetaphil locao Hidratante Corporal 453g": "7897930777743",
   "Creme Dental Condor 050g Gel Kids+ Vingadores": "7891055394878",

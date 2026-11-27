@@ -4,6 +4,7 @@ import { classificarSemVenda, ehPortaria344 } from "./sem-venda";
 export { ehPortaria344 };
 import receitaEstatica from "./dados/receita-nacoes.json" with { type: "json" };
 import { normalizarBusca } from "./busca";
+import { precoPorOfertaVigente } from "../../shop/ofertas-config";
 
 /**
  * Medicamentos com receita, controlados e itens "consulte o farmacêutico": lista de preços. Ofertas por quantidade podem ser cadastradas
@@ -33,7 +34,7 @@ export const ROTULO_TARJA: Record<Tarja, string> = {
   "vermelha-retencao": "Tarja vermelha, com retenção da receita",
 };
 
-type BaseJson = { nome: string; lab: string; preco: number | null; ativo?: string; rms?: string; tarja?: Tarja; generico?: boolean };
+type BaseJson = { nome: string; lab: string; preco: number | null; ativo?: string; rms?: string; tarja?: Tarja; generico?: boolean; restam?: number; esgotado?: boolean };
 export type ItemReceita = BaseJson & { retencao: boolean };
 export type ItemControlado = BaseJson & { lista: string };
 export type ItemConsulte = BaseJson;
@@ -109,7 +110,9 @@ function paraRestrito(base: BaseJson & { retencao?: boolean; lista?: string }, t
     nome: base.nome,
     lab,
     // Controle especial (Portaria 344/98) e antimicrobianos não têm preço no site (ver sem-venda.ts). Fica só a informação.
-    preco: !semVenda && typeof base.preco === "number" && base.preco > 0 ? base.preco : null,
+    preco: !semVenda && typeof base.preco === "number" && base.preco > 0
+      ? Math.min(base.preco, (precoPorOfertaVigente(base.nome) ?? Math.round(base.preco * 100)) / 100)
+      : null,
     tipo,
     ativo: base.ativo ? base.ativo.trim() || null : null,
     rms: base.rms ?? null,
@@ -122,6 +125,8 @@ function paraRestrito(base: BaseJson & { retencao?: boolean; lista?: string }, t
     portaria344,
     antimicrobiano,
     semVenda,
+    ...(typeof base.restam === "number" && base.restam > 0 ? { restam: base.restam } : {}),
+    ...(base.esgotado === true ? { esgotado: true } : {}),
   };
 }
 
