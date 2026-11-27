@@ -100,12 +100,11 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
             <h2>Entrega</h2>
             <p>A loja de {label} entrega {unit.deliveryScope}.</p>
             <a href={buildWhatsAppUrl(unit, delivery, { campaign: "bairro", content: `${unit.id}_entrega` })} target="_blank" rel="noreferrer">Pedir entrega</a>
-            {unit.ifoodUrl ? <a href="/ifood">Pedir pelo iFood</a> : null}
           </article>
         )}
       </section>
 
-      {institucional ? null : <DeliverySlot unitName={label} href={buildWhatsAppUrl(unit, delivery, { campaign: "bairro", content: `${unit.id}_entrega_faixa` })} external ifood={Boolean(unit.ifoodUrl)} />}
+      {institucional ? null : <DeliverySlot unitName={label} href={buildWhatsAppUrl(unit, delivery, { campaign: "bairro", content: `${unit.id}_entrega_faixa` })} external />}
 
       <section className="section-inner store-about">
         <h2>Sobre a loja de {label}</h2>

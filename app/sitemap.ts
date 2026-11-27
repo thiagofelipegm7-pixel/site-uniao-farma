@@ -101,12 +101,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${SITE_URL}/ifood`,
-      lastModified: sitemapDate(PAGE_LAST_UPDATED.ifood),
-      changeFrequency: "monthly",
-      priority: 0.7,
-    },
-    {
       url: `${SITE_URL}/perfumaria-em-sabara`,
       lastModified: sitemapDate(PAGE_LAST_UPDATED.perfumaria),
       changeFrequency: "monthly",

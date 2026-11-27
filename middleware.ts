@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { STAFF_COOKIE, verifyStaffSession } from "./app/staff-auth";
+import { classificarBotIa, origemReferenciaIa } from "./app/seo-ia/telemetria-ia";
 
 const CANONICAL_HOST = "xn--uniofarmasabar-8gbu.com.br";
 const WWW_CANONICAL_HOST = `www.${CANONICAL_HOST}`;
@@ -17,12 +18,24 @@ const SECURITY_HEADERS = {
 
 const CACHE_HTML_PUBLICO = "public, s-maxage=60, stale-while-revalidate=300";
 
-function withSecurityHeaders(response: NextResponse, cache: "no-store" | "html-publico" | "deixar" = "deixar") {
+function withSecurityHeaders(
+  response: NextResponse,
+  cache: "no-store" | "html-publico" | "deixar" = "deixar",
+  request?: NextRequest,
+) {
   for (const [key, value] of Object.entries(SECURITY_HEADERS)) {
     response.headers.set(key, value);
   }
   if (cache === "no-store") response.headers.set("Cache-Control", "no-store");
   else if (cache === "html-publico") response.headers.set("Cache-Control", CACHE_HTML_PUBLICO);
+  if (request) {
+    // S-30: separa bots de treinamento de bots de citação nos logs sem PII.
+    const bot = classificarBotIa(request.headers.get("user-agent"));
+    if (bot) response.headers.set("X-UF-AI-Bot", `${bot.tipo}:${bot.bot}`);
+    // S-28 / S-29: marca origem de assistente de IA nos logs para auditar 404s e páginas citadas.
+    const refIa = origemReferenciaIa(request.headers.get("referer"));
+    if (refIa) response.headers.set("X-UF-AI-Ref", refIa);
+  }
   return response;
 }
 
@@ -90,7 +103,7 @@ export async function middleware(request: NextRequest) {
     pathname.startsWith("/reserva") ||
     pathname === "/api/pre-vendas";
   const staffPath = apiInterna || pathname.startsWith("/interno") || pathname === "/api/metricas" || pathname === "/api/interno/catalogo" || pathname === "/api/interno/estoque" || pathname === "/api/interno/funil" || pathname === "/api/interno/fotos" || pathname === "/api/interno/fotos/enviar" || pathname === "/api/interno/fotos/baixar" || pathname === "/api/interno/fotos/remover" || pathname === "/api/interno/revisao" || pathname === "/api/interno/revisao/aprovar" || pathname === "/api/interno/revisao/desfazer" || pathname === "/api/interno/produto/nome" || pathname === "/api/interno/produto/nome/desfazer" || pathname === "/api/interno/produto/controlado" || pathname === "/api/interno/produto/categoria" || pathname === "/api/interno/produto/categoria/lote" || pathname === "/api/interno/produto/marca" || pathname === "/api/interno/produto/descricao" || pathname === "/api/interno/produto/excluir" || pathname === "/api/interno/erros";
-  if (!staffPath) return withSecurityHeaders(NextResponse.next(), cacheDaRota(request, noStore));
+  if (!staffPath) return withSecurityHeaders(NextResponse.next(), cacheDaRota(request, noStore), request);
   if (pathname === "/interno/entrar" || pathname === "/interno/sair") {
     return withSecurityHeaders(NextResponse.next(), "no-store");
   }

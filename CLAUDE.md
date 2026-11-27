@@ -81,7 +81,7 @@ Sem sombra em cabeçalho, campo de busca, sacola e ícones. Quando houver profun
 
 ## Pendências conhecidas
 
-- Resquícios de verde em `app/receita-polish.css` (regras de `.direct-unit-*`, sem uso na página de receita) e no gatilho `.receita-gatilho` de outras páginas. A janela "Ler receita" já está em preto e branco (bloco no fim de `app/base-direcao.css`).
+- Resquícios de verde e borda em `.receita-gatilho` (`app/receita-foto/receita-foto.css`) removidos em 27/11/2026 (`app/receita-polish.css` já não existe). Painel interno aguarda conferência visual autenticada.
 
 ## Conteúdo de saúde
 

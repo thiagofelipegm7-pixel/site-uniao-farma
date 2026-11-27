@@ -5,6 +5,7 @@ import { useEffect, useState, useSyncExternalStore } from "react";
 import { getClickTrackingParams, trackEvent } from "./analytics";
 import { captureCampaignAttribution } from "./campaign-attribution";
 import { OPEN_COOKIE_PREFERENCES_EVENT } from "./cookie-preferences";
+import { origemReferenciaIa } from "./seo-ia/telemetria-ia";
 
 import { CONSENT_STORAGE_KEY as CONSENT_KEY, GTAG_SCRIPT_ID, GTAG_SCRIPT_URL } from "./ga-bootstrap";
 import { agendarClarity } from "./clarity";
@@ -77,6 +78,16 @@ function startAnalytics(): void {
   trackingWindow.fbq?.("init", META_PIXEL_ID);
   trackingWindow.fbq?.("track", "PageView");
   agendarClarity({ aceito: true, pathname: window.location.pathname });
+  // S-29: registra tráfego de referência de assistentes de IA (só após consentimento, R-11/X-4).
+  const origemIa = origemReferenciaIa(document.referrer);
+  if (origemIa) {
+    try {
+      if (!window.sessionStorage.getItem("uf-ai-ref-sent")) {
+        window.sessionStorage.setItem("uf-ai-ref-sent", origemIa);
+        trackEvent("ai_referral_visit", { ai_source: origemIa, page_path: window.location.pathname });
+      }
+    } catch {}
+  }
 }
 
 function readStoredConsent(): ConsentValue | null {

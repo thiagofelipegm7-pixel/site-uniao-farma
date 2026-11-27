@@ -9,7 +9,7 @@ import { carregarCatalogoNacoes, slugify } from "../nacoes-unidas/produtos/catal
 import { carregarRestritos } from "../nacoes-unidas/produtos/receita";
 import { fotoDoProduto } from "../nacoes-unidas/produtos/imagens";
 import { ehNbcal } from "../nacoes-unidas/produtos/produto";
-import { descricaoDoProduto } from "../nacoes-unidas/produtos/descricoes";
+import { descricaoPublica } from "../nacoes-unidas/produtos/descricoes";
 import { escolherAtrativos } from "../nacoes-unidas/produtos/atrativos";
 import { chaveDeNome } from "../fotos-painel";
 import { banco } from "../estoque-fonte";
@@ -82,7 +82,7 @@ function baseDoCatalogo(catalogo: { itens: ReadonlyArray<{ nome: string; lab: st
   if (baseMemo && baseMemo.fonte === catalogo.itens) return baseMemo.itens;
   const itens = catalogo.itens.map((item) => {
     const slug = slugify(item.nome);
-    const descricao = descricaoDoProduto(slug);
+    const descricao = descricaoPublica(slug, false);
     return {
       nome: nomeDeExibicao(item.nome),
       nomeOriginal: item.nome,

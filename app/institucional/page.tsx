@@ -25,17 +25,46 @@ export default function InstitutionalPage() {
 
           <section>
             <h2>Unidades</h2>
-            {Object.values(UNIT_LEGAL).map((unit) => (
-              <article key={unit.label}>
-                <h3>{unit.label}</h3>
-                <p>
-                  {unit.street} — {unit.neighborhood}, Sabará/MG — CEP {unit.cep}
-                </p>
-                <p>WhatsApp: {unit.whatsapp}</p>
-                <p>Horário: {unit.hours}</p>
-                <p>Responsável técnico, CRF, AFE e alvará: confira no balcão desta loja.</p>
-              </article>
-            ))}
+            {(Object.entries(UNIT_LEGAL) as Array<[keyof typeof UNIT_LEGAL, (typeof UNIT_LEGAL)["nacoes"]]>).map(
+              ([unitId, unit]) => (
+                <article key={unit.label}>
+                  <h3>{unit.label}</h3>
+                  <p>
+                    {unit.street} — {unit.neighborhood}, Sabará/MG — CEP {unit.cep}
+                  </p>
+                  <p>WhatsApp: {unit.whatsapp}</p>
+                  <p>Horário: {unit.hours}</p>
+                  {unitId === "nacoes" ? (
+                    <>
+                      <p>Farmacêutico responsável: {COMPANY.pharmacist.name}</p>
+                      <p>
+                        <a
+                          href={COMPANY.pharmacist.lookupUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${COMPANY.pharmacist.crf} — consultar registro no CRF/MG (abre em nova aba)`}
+                        >
+                          {COMPANY.pharmacist.crf}
+                        </a>
+                      </p>
+                      <p>{COMPANY.alvara}</p>
+                      <p>
+                        <a
+                          href={COMPANY.afeLookupUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`${COMPANY.afe} — consultar empresa no portal oficial da Anvisa (abre em nova aba)`}
+                        >
+                          {COMPANY.afe}
+                        </a>
+                      </p>
+                    </>
+                  ) : (
+                    <p>Responsável técnico, CRF, AFE e alvará: confira no balcão desta loja.</p>
+                  )}
+                </article>
+              ),
+            )}
           </section>
 
           <section>

@@ -6,6 +6,8 @@ import { IconSetaDireita } from "../../reserva/ReservaIcons";
 import BarraReserva from "../../shop/BarraReserva";
 import { MarcasLinha } from "../../shop/MarcasLinha";
 import LinhasConfianca from "../../shop/LinhasConfianca";
+import NotasGoogle from "../../shop/NotasGoogle";
+import PlanoBOfertas from "../../shop/PlanoBOfertas";
 import PainelBanners from "../../shop/PainelBanners";
 import ShopTopo from "../../shop/ShopTopo";
 import { COMPANY } from "../../company";
@@ -106,6 +108,10 @@ export default async function ProdutosNacoesPage() {
               whatsappHref={whatsappHref}
               unitId={nacoes.id}
             />
+        </div>
+        <div className="section-inner">
+          <NotasGoogle />
+          <PlanoBOfertas />
         </div>
       </div>
       <ContentSiteFooter />

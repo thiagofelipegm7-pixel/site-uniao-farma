@@ -51,7 +51,6 @@ test("renders every landing page and unit page as an indexable route", async () 
   const paths = [
     "/farmacia-em-sabara",
     "/entrega-de-medicamentos-em-sabara",
-    "/ifood",
     "/jardim-vitoria",
     "/perfumaria-em-sabara",
     "/fatima",
@@ -300,7 +299,7 @@ test("keeps local contact data, dataLayer events, SEO files and accessibility ho
   assert.match(analytics, /consent", "update"/);
   assert.match(layout, /chgP6OWdJAiM-yv_oPbit7Rf91vAsI7xDUWEuNQG1xk/);
   assert.match(sitemap, /entrega-de-medicamentos-em-sabara/);
-  assert.match(sitemap, /\/ifood/);
+  assert.doesNotMatch(sitemap, /\/ifood/);
   assert.match(sitemap, /\/jardim-vitoria/);
   assert.match(sitemap, /\/ofertas/);
   assert.match(sitemap, /\/novidades/);

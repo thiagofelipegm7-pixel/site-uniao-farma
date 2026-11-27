@@ -3,9 +3,15 @@ import { UNITS } from "./site-config";
 export const COMPANY = {
   legalName: "Drogaria e Perfumaria União Farma Ltda",
   cnpj: "28.455.556/0001-91",
-  /** Registros sanitários exibidos no rodapé (plano de finalização, item 10). */
+  /** Registros sanitários exibidos no rodapé (R-03, R-04, V-01). */
   alvara: "Alvará Sanitário nº 207/2026 (Prefeitura de Sabará)",
   afe: "AFE Anvisa nº 7.61823-1 (ativa desde 06/03/2019)",
+  afeLookupUrl: "https://consultas.anvisa.gov.br/#/empresas/nasf/",
+  pharmacist: {
+    name: "João Victor dos Santos",
+    crf: "CRF/MG 31958",
+    lookupUrl: "https://www.crfmg.org.br",
+  },
   city: "Sabará",
   state: "MG",
   pharmacistNote:

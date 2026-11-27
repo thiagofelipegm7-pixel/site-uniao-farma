@@ -6,6 +6,8 @@ import { IconSetaDireita } from "../../reserva/ReservaIcons";
 import BarraReserva from "../../shop/BarraReserva";
 import { MarcasLinha } from "../../shop/MarcasLinha";
 import LinhasConfianca from "../../shop/LinhasConfianca";
+import NotasGoogle from "../../shop/NotasGoogle";
+import PlanoBOfertas from "../../shop/PlanoBOfertas";
 import { MARCAS_POR_DEPARTAMENTO } from "../../shop/marcas";
 import PainelBanners from "../../shop/PainelBanners";
 import { bannersDoServidor } from "../../shop/destaques-servidor";
@@ -103,6 +105,12 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
             <CatalogoLista paginaInicial={paginaPedida} grupos={grupos} departamento={dep.slug} whatsappHref={whatsappHref} unitId={nacoes.id} />
           )}
         </div>
+        {dep.slug === "medicamentos" ? null : (
+          <div className="section-inner">
+            <NotasGoogle />
+            <PlanoBOfertas />
+          </div>
+        )}
       </div>
       <ContentSiteFooter />
       <BarraReserva />

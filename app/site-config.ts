@@ -134,8 +134,6 @@ export const UNITS: Unit[] = [
       "Valparaíso": 300,
       "Vila São José": 200,
     },
-    ifoodUrl:
-      "https://www.ifood.com.br/delivery/sabara-mg/drogaria-uniao-farma-nacoes-unidas/97697e48-2712-4a41-9e59-29eca10d912a",
     deliveryScope: "nos bairros Nações Unidas, General Carneiro, Vila Rica, Itacolomi, Coqueiros, Ipê Amarelo, Valparaíso e Vila São José",
     deliveryExclusive: true,
     map: "https://maps.app.goo.gl/V3S7ZFeZKwRQ2sm47",
@@ -200,9 +198,12 @@ export const PUBLIC_UNITS: Unit[] = UNITS.filter((unit) => LOJAS_PUBLICAS.includ
 export const GOOGLE_REVIEWS_URL =
   "https://www.google.com/maps/place/Drogaria+e+Perfumaria+Uni%C3%A3o+Farma/@-19.8794223,-43.8668895,17z/data=!4m8!3m7!1s0xa69c9e248f1981:0xee9db0cbc26a5edc!8m2!3d-19.8794223!4d-43.8668895!9m1!1b1!16s%2Fg%2F11h7d3ybd9";
 
+/** Prazo real de 1ª resposta no WhatsApp confirmado pela loja em 27/11/2026 (C-14, P-20, L-1). */
+export const WHATSAPP_SLA = "em até 5 minutos no horário de funcionamento";
+
 export const SITE_OPTIONS = {
   responseMessage:
-    "Atendimento durante o horário de funcionamento. O tempo de resposta pode variar conforme a fila.",
+    "Respondemos pelo WhatsApp em até 5 minutos no horário de funcionamento.",
   promoToast: {
     enabled: false,
     text: "Consulte a disponibilidade de entrega diretamente com a unidade escolhida.",

@@ -42,10 +42,28 @@ export default function SiteFooter() {
 
           <div className="rodape-bloco">
             <p className="rodape-titulo" role="heading" aria-level={2}>Responsabilidade técnica</p>
-            <p>Farmacêutico responsável: João Victor dos Santos</p>
-            <p>CRF/MG 31958</p>
+            <p>Farmacêutico responsável: {COMPANY.pharmacist.name}</p>
+            <p>
+              <a
+                href={COMPANY.pharmacist.lookupUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${COMPANY.pharmacist.crf} — consultar registro no CRF/MG (abre em nova aba)`}
+              >
+                {COMPANY.pharmacist.crf}
+              </a>
+            </p>
             <p>{COMPANY.alvara}</p>
-            <p>{COMPANY.afe}</p>
+            <p>
+              <a
+                href={COMPANY.afeLookupUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${COMPANY.afe} — consultar empresa no portal oficial da Anvisa (abre em nova aba)`}
+              >
+                {COMPANY.afe}
+              </a>
+            </p>
           </div>
 
           <nav className="rodape-bloco" aria-label="Links do rodapé">

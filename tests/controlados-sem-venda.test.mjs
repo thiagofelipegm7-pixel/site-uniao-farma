@@ -14,20 +14,20 @@ test("Sem venda no site: Portaria 344 (A1 a A3, B1, B2, C1 a C5) e antimicrobian
   // Uso tópico e outros remédios com receita ficam de fora.
   for (const nome of ["Mupirocina creme 15g", "Gentamicina colírio", "Losartana 50mg Cx 30 comprimidos", "Dipirona 1g"]) assert.equal(ehAntimicrobiano(nome), false, nome);
   assert.deepEqual(classificarSemVenda({ controlado: false, lista: undefined, nome: "Dipirona 1g", retencao: false }), { portaria344: false, antimicrobiano: false, semVenda: false });
-  // Regra desligada (SEM_VENDA_NO_SITE = false, decisão da equipe): a classificação informa, mas nada fica sem venda.
-  assert.equal(SEM_VENDA_NO_SITE, false);
-  assert.deepEqual(classificarSemVenda({ controlado: false, lista: undefined, nome: "Ceftriaxona 1g", retencao: true }), { portaria344: false, antimicrobiano: true, semVenda: false });
+  // R-07 ligada (SEM_VENDA_NO_SITE = true): Portaria 344 e antimicrobianos com retenção ficam sem venda no site.
+  assert.equal(SEM_VENDA_NO_SITE, true);
+  assert.deepEqual(classificarSemVenda({ controlado: false, lista: undefined, nome: "Ceftriaxona 1g", retencao: true }), { portaria344: false, antimicrobiano: true, semVenda: true });
   assert.deepEqual(classificarSemVenda({ controlado: false, lista: undefined, nome: "Ceftriaxona 1g", retencao: false }).semVenda, false);
-  assert.deepEqual(classificarSemVenda({ controlado: true, lista: "B1", nome: "Alprazolam", retencao: true }), { portaria344: true, antimicrobiano: false, semVenda: false });
+  assert.deepEqual(classificarSemVenda({ controlado: true, lista: "B1", nome: "Alprazolam", retencao: true }), { portaria344: true, antimicrobiano: false, semVenda: true });
   assert.equal(ehPortaria344(false, "C1"), false, "só vale dentro da lista de controlados");
   const { controlados } = carregarRestritos();
   const especiais = controlados.filter((i) => i.portaria344);
   assert.ok(especiais.length > 100, "a maior parte da lista de controlados é de controle especial");
-  for (const i of especiais) assert.ok(i.preco > 0, `${i.nome} tem preço no site`);
+  for (const i of especiais) assert.equal(i.semVenda, true, `${i.nome} sem venda no site (R-07)`);
   const antimicrobianos = controlados.filter((i) => i.antimicrobiano);
   assert.ok(antimicrobianos.length > 50);
-  for (const i of antimicrobianos) assert.ok(i.preco > 0, `${i.nome} tem preço no site`);
-  assert.ok(controlados.every((i) => !i.semVenda), "nenhum controlado fica sem venda");
+  for (const i of antimicrobianos) assert.equal(i.semVenda, true, `${i.nome} sem venda no site`);
+  assert.ok(controlados.every((i) => i.semVenda), "todo item de controlados/antimicrobianos fica sem venda");
 });
 
 test("Portaria 344: os arquivos públicos (listas e busca do cabeçalho) não levam o preço desses itens", async () => {
@@ -37,13 +37,19 @@ test("Portaria 344: os arquivos públicos (listas e busca do cabeçalho) não le
   for (let p = 1; p <= paginas; p += 1) {
     const dados = await lerJson(`public/dados/nacoes/restritos/controlados/p${p}.json`);
     const itens = Array.isArray(dados) ? dados : dados.itens;
-    for (const i of itens) assert.ok(!i.semVenda, `${i.nome} (p${p}) não está sem venda`);
+    for (const i of itens) {
+      assert.equal(i.semVenda, true, `${i.nome} (p${p}) está sem venda`);
+      assert.ok(!i.precoFmt && !i.precoCentavos, `${i.nome} (p${p}) não expõe preço público`);
+    }
   }
   const busca = await lerJson("public/dados/nacoes/restritos-busca.json");
   const especiais = busca.filter((i) => i.portaria344);
   assert.ok(especiais.length > 30, "a busca do cabeçalho acha esses itens");
-  for (const i of especiais) assert.ok(i.precoCentavos > 0, i.nome);
-  assert.equal(busca.filter((i) => i.semVenda).length, 0, "nenhum item da busca sem venda");
+  for (const i of especiais) {
+    assert.equal(i.semVenda, true, i.nome);
+    assert.equal(i.precoCentavos, null, `${i.nome} sem preço na busca`);
+  }
+  assert.ok(busca.filter((i) => i.semVenda).length > 100, "controlados e antimicrobianos marcados sem venda na busca");
 });
 
 test("Portaria 344: sem botão de cesta, sem pedido pelo WhatsApp e com aviso na lista, na busca e na página do produto", async () => {
@@ -79,6 +85,6 @@ test("Sem venda no site: a cesta guardada no navegador perde o controlado e o an
   const { lerEstado } = await import("../app/reserva/reserva-store.ts");
   const item = (id, nome, receita) => ({ id, unitId: "nacoes", nome, precoCentavos: 1000, qtd: 1, ...(receita ? { receita } : {}) });
   const estado = lerEstado(JSON.stringify({ modo: "retirar", itens: [item("a", "Creme dental Colgate"), item("b", "Alprazolam 0,5mg", "controlado"), item("c", "Amoxicilina 500mg Cx 21", "receita"), item("d", "Losartana 50mg", "receita")] }));
-  // Regra desligada: controlado e antimicrobiano continuam na cesta guardada.
-  assert.deepEqual(estado.itens.map((i) => i.id), ["a", "b", "c", "d"]);
+  // R-07 ligada: controlado e antimicrobiano saem automaticamente da cesta guardada.
+  assert.deepEqual(estado.itens.map((i) => i.id), ["a", "d"]);
 });

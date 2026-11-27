@@ -83,12 +83,15 @@ Em conflito, vale a regra de cima e a resposta diz qual regra venceu.
 
 ## Estado do site na conferência de 26/11/2026 (reconferir antes de confiar)
 
-- `robots.txt` público: `User-Agent: *` com `Allow: /`; bloqueia só `/api/`, `/interno` e `/interno/`; aponta o sitemap. **Nenhum bot de IA está bloqueado** (S-22 ok).
+- `robots.txt` público: `User-Agent: *` com `Allow: /`; bloqueia só `/api/`, `/interno` e `/interno/`; aponta o sitemap. **Nenhum bot de IA está bloqueado** (S-22 ok). Testado com GPTBot, OAI-SearchBot, ChatGPT-User, ClaudeBot, PerplexityBot e Googlebot: todos recebem a página (200).
 - `llms.txt`: não existe (404). Opcional (S-23).
-- `sitemap.xml` responde 200.
-- **Página de produto:** HTML completo no servidor, com título e schema `Product` (S-24 e S-27 ok).
-- **Página inicial, sem JavaScript:** o HTML traz os títulos das vitrines, mas **zero cartões de produto**, porque os produtos das vitrines são buscados no navegador depois que a página abre. Rastreador sem JavaScript (como o do ChatGPT) não vê esses produtos na home. É o ponto mais importante a corrigir em S-24, respeitando R-06 (nada de promover medicamento de prescrição).
-- Dados estruturados na home e no produto: 2 blocos `application/ld+json` em cada.
+- `sitemap.xml` responde 200, mas 940 dos 943 endereços têm a data do dia (`lastmod` do build, não da alteração real): contraria S-08.
+- **S-24 (HTML sem JavaScript), corrigido em 26/11/2026:** a home traz as vitrines, as ofertas e os chips no HTML (106 links de produto), a loja traz a primeira página de 24 produtos, e o departamento e o produto já traziam. O servidor escolhe os produtos (`app/shop/destaques-servidor.ts`) e os componentes recebem `inicial`.
+- **Banners:** a arte enviada pelo painel está no banco como data URL, e a API `/api/banners-publico` passava de 1 MB (isso deixou as páginas com ~3 MB por algumas horas em 26/11/2026, erro já corrigido). Agora a lista sai com 1,6 KB e a imagem sai como arquivo em `/api/banner-imagem?v=<id da linha>` (cache de um ano; o id muda a cada arte nova). O banner volta ao HTML (só se todas as artes forem endereços curtos; qualquer data URL faz o painel buscar no navegador). **Pendência:** duas artes enviadas pelo painel são JPEG de 540 KB e 405 KB (deviam ter ~40 KB em WebP); o painel aceita até 1,3 MB sem comprimir.
+- **S-25 (velocidade, celular, medido no site público):** CLS da home 0,88 → 0,004 e da loja 0,16 → 0,004. LCP da home ~2,0 a 2,2 s (era 2,07 s antes das vitrines no servidor), loja ~1,3 s, produto ~1,2 s. Tempo de resposta da home ~0,7 s (era ~0,13 s).
+- **S-14 (texto de IA), corrigido em 27/11/2026:** descrições com origem `"ia"` (sem revisão humana) foram ocultadas no site público (`descricaoPublica` em `app/nacoes-unidas/produtos/descricoes.ts`), mantendo visíveis apenas `"painel"`, `"pesquisa"` e `"modelo"`. Os rascunhos seguem acessíveis no painel interno (`descricaoDoProduto`) para revisão da equipe/farmacêutico.
+- Dados estruturados: Pharmacy/LocalBusiness e Organization na home e nas lojas, Product/Offer na página de produto, FAQPage em perguntas, lojas e entrega, BreadcrumbList, política de devolução e frete (S-27 ok).
+- **Medição e governança de IA (S-28 a S-33), implementado em 27/11/2026:** `middleware.ts` marca os headers `X-UF-AI-Bot` (`citacao:*` vs. `treinamento:*`, `S-30`) e `X-UF-AI-Ref` (`S-28`/`S-29`); `AnalyticsConsent.tsx` envia `ai_referral_visit` no GA4 somente após aceite de cookies (`S-29`, `R-11`, `X-4`); `PerguntaOrigem.tsx` exibe *"Como você nos conheceu? (opcional)"* fora do checkout em `/perguntas` (`S-31`, `P-10`); rotina semanal/mensal/trimestral e mapa de entidades documentados em `docs/governanca-seo-ia.md` (`S-02`, `S-32`, `S-33`).
 
 ## Lista final (responder sim a todas)
 

@@ -41,6 +41,8 @@ const nextConfig: NextConfig = {
     { source: "/farmacia/sabara", destination: "/farmacia-em-sabara", permanent: true },
     // Página removida em 24/10
     { source: "/canetas-emagrecedoras", destination: "/", permanent: true },
+    // R-14: marketplace/app de entrega removido até regulamentação da Lei 15.357/2026
+    { source: "/ifood", destination: "/entrega-de-medicamentos-em-sabara", permanent: true },
   ],
   headers: async () => [
     {

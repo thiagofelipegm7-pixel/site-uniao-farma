@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import TutorialReceita from "./TutorialReceita";
+import ConfiancaReceita from "./ConfiancaReceita";
 import BarraReceita from "./BarraReceita";
 import BotaoReceita from "../receita-foto/BotaoReceita";
 import { IconClipe } from "../reserva/ReservaIcons";
@@ -71,6 +72,7 @@ export default function ReceitaPage() {
           </div>
         </section>
 
+        <ConfiancaReceita />
         <TutorialReceita />
         <BarraReceita />
 

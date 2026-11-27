@@ -13,6 +13,7 @@ import NotasGoogle from "./shop/NotasGoogle";
 import { FaixaInfo } from "./shop/HomeBlocos";
 import { CategoriasLinha } from "./shop/ShopSections";
 import { MarcasLinha } from "./shop/MarcasLinha";
+import PlanoBOfertas from "./shop/PlanoBOfertas";
 import CestaRetomada from "./shop/CestaRetomada";
 import VistoRecentemente from "./shop/VistoRecentemente";
 import MaisPedidosChips from "./shop/MaisPedidosChips";
@@ -69,6 +70,7 @@ export default function HomePage({ dados = {} }: { dados?: Partial<DadosDaHome> 
       {vitrine("vitrine-dove")}
       {vitrine("vitrine-ate-10")}
       <MarcasLinha />
+      <PlanoBOfertas />
       {/* Invisível: mantém a página de novidades ligada à home sem mudar o visual. */}
       <a className="sr-only" href="/novidades">Novidades da União Farma</a>
     </>

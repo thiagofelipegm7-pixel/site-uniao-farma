@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import DirectUnitLinks from "../DirectUnitLinks";
+import PerguntaOrigem from "../shop/PerguntaOrigem";
 import { SITE_URL } from "../site-config";
 import { getPageStructuredData } from "../structured-data";
 import { CUSTOMER_QUESTIONS } from "../seo-content";
@@ -48,6 +49,7 @@ export default function QuestionsPage() {
             heading="Ainda tem dúvida?"
             description="Escolha a loja e pergunte no WhatsApp."
           />
+          <PerguntaOrigem />
         </section>
       </div>
       <ContentSiteFooter />

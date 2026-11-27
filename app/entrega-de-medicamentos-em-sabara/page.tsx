@@ -2,6 +2,8 @@
 import type { Metadata } from "next";
 import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import EntregaBairro from "./EntregaBairro";
+import ProvaEntrega from "./ProvaEntrega";
+import PlanoBOfertas from "../shop/PlanoBOfertas";
 import { buildWhatsAppUrl, SITE_URL, UNITS } from "../site-config";
 import type { FaqItem } from "../seo-content";
 import { getPageStructuredData, getUnitPublicPath } from "../structured-data";
@@ -25,7 +27,6 @@ const faqs: FaqItem[] = [
     q: `Quais bairros a loja ${unit.legalLabel} atende?`,
     a: `A loja ${unit.legalLabel} entrega ${unit.deliveryScope}. WhatsApp: ${unit.whatsapp}.`,
   })),
-  { q: "A União Farma está no iFood?", a: "Só a loja Nações Unidas está no iFood. As lojas Fátima e Itacolomi atendem pelo WhatsApp." },
   { q: "Meu bairro não está na lista. E agora?", a: "Hoje a entrega é feita só nos bairros da tabela. Se o seu bairro não está nela, fale com a loja mais perto pelo WhatsApp e retire o pedido no balcão." },
 ];
 
@@ -70,6 +71,7 @@ export default function EntregaDeMedicamentosEmSabaraPage() {
         </section>
 
         <EntregaBairro />
+        <ProvaEntrega />
 
         <section className="section" aria-labelledby="bairros">
           <div className="section-inner">
@@ -122,16 +124,6 @@ export default function EntregaDeMedicamentosEmSabaraPage() {
           </div>
         </section>
 
-        <section className="section" aria-labelledby="ifood">
-          <div className="section-inner">
-            <h2 id="ifood">Loja Nações Unidas também no iFood</h2>
-            <p>
-              Além do WhatsApp, a loja Nações Unidas está no iFood.{" "}
-              <a href="/ifood">Veja como pedir pelo iFood</a>.
-            </p>
-          </div>
-        </section>
-
         <section className="section" aria-labelledby="fora-da-lista">
           <div className="section-inner">
             <h2 id="fora-da-lista">Meu bairro não está na lista?</h2>
@@ -159,6 +151,9 @@ export default function EntregaDeMedicamentosEmSabaraPage() {
             </div>
           </div>
         </section>
+        <div className="section-inner">
+          <PlanoBOfertas />
+        </div>
       </div>
       <ContentSiteFooter />
     </>
