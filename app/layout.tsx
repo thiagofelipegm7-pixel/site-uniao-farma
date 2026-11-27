@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
+import SiteFooter from "./SiteFooter";
 import SkipLink from "./SkipLink";
 import WhatsAppFab from "./WhatsAppFab";
 
@@ -209,7 +210,8 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main id="conteudo" tabIndex={-1}>
           {children}
         </main>
-        {/* rodapé removido a pedido */}
+        {/* Rodapé legal (CNPJ, farmacêutico RT, Alvará, AFE, endereço): obrigatório pela RDC 44/2009 (R-02 a R-04 de CONFORMIDADE.md). Não remover. */}
+        <SiteFooter />
         <ToastAdicionado />
         <WhatsAppFab />
         <style>{`

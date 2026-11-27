@@ -3629,4 +3629,47 @@ html body .cesta-sugestao-add.cesta-sugestao-add {
   height: 48px !important;
   min-width: 48px !important;
 }
+
+/* Rodapé legal (R-02 a R-04): cartão branco com sombra preta suave, sem borda e sem fundo colorido; texto preto (contraste máximo); links e botões com 48 px. */
+html body footer.rodape.rodape {
+  margin-top: 3rem !important;
+  border: 0 !important;
+  background: #ffffff !important;
+  box-shadow: 0 -12px 32px rgba(0, 0, 0, 0.1) !important;
+  color: #000000 !important;
+}
+html body footer.rodape.rodape p,
+html body footer.rodape.rodape li,
+html body footer.rodape.rodape a,
+html body footer.rodape.rodape button,
+html body footer.rodape.rodape .rodape-legal,
+html body footer.rodape.rodape .rodape-anvisa {
+  color: #000000 !important;
+}
+html body footer.rodape.rodape .rodape-avisos {
+  margin-top: 2rem !important;
+  padding-top: 0 !important;
+  border: 0 !important;
+}
+html body footer.rodape.rodape .rodape-legal,
+html body footer.rodape.rodape .rodape-anvisa {
+  font-size: 0.875rem !important;
+  line-height: 1.6 !important;
+}
+html body footer.rodape.rodape .rodape-links a,
+html body footer.rodape.rodape .rodape-links button,
+html body footer.rodape.rodape .rodape-logo,
+html body footer.rodape.rodape .rodape-bloco a {
+  min-height: 48px !important;
+}
+html body footer.rodape.rodape .rodape-bloco a:not(.rodape-logo) {
+  display: inline-flex !important;
+  align-items: center !important;
+}
+html body footer.rodape.rodape .rodape-bloco a:focus-visible,
+html body footer.rodape.rodape .rodape-links button:focus-visible,
+html body footer.rodape.rodape .rodape-legal a:focus-visible {
+  outline: 3px solid #000000 !important;
+  outline-offset: 2px !important;
+}
 }

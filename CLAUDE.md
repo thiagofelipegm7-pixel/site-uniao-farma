@@ -8,6 +8,15 @@ Estas regras devem ser **severamente seguidas**. Quando duas entrarem em conflit
 2. **Conversão** — [`CONVERSAO.md`](./CONVERSAO.md), as 23 Leis Definitivas de Conversão.
 3. **Direção artística** — o resto deste arquivo. Vale sempre que não contrariar as duas primeiras.
 
+Acima das três, como **limite legal**: as regras R-xx de `CONFORMIDADE.md` (RDC 44 e 96, LGPD, consumidor). Nenhuma das três regras pode violá-las. As regras V-xx e P-xx do mesmo arquivo, e as regras S-xx de `SEO-IA.md` (33 leis de SEO para IA), valem no nível logo abaixo da conversão e acima da direção artística.
+
+Leia e aplique integralmente os quatro documentos abaixo em toda mudança de interface, texto, formulário, dado, oferta, conteúdo ou código de página. Cada regra tem um ID (A-xx, C-xx, R-xx, V-xx, P-xx, S-xx) para citar na resposta e no Pull Request.
+
+@ACCESSIBILITY.md
+@CONVERSAO.md
+@CONFORMIDADE.md
+@SEO-IA.md
+
 # União Farma — direção artística
 
 Resumo da taxonomia de design do site. Vale para todas as páginas. Em caso de dúvida, siga estas regras (respeitando a ordem de prioridade acima).
