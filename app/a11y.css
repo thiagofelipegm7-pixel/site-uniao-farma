@@ -511,7 +511,7 @@ h1, h2, h3, h4, h5, h6,
 .section-kicker,
 .eyebrow,
 .brand small {
-  color: #0a1f1c !important;
+  color: #000000 !important;
 }
 
 /* Links e navegação — força AAA (7:1) */
@@ -531,7 +531,7 @@ button,
 .categoria-link,
 .department-link,
 .nav-link {
-  color: #00241f !important;
+  color: #000000 !important;
 }
 
 /* Botões de cookie — AAA */
@@ -590,7 +590,7 @@ textarea::placeholder {
 
 /* Foco mais forte */
 :focus-visible {
-  outline: 3px solid #00241f !important;
+  outline: 3px solid #000000 !important;
   outline-offset: 2px !important;
 }
 

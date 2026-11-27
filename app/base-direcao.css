@@ -3761,4 +3761,169 @@ html body .pos-clique-whats {
   max-width: 40rem !important;
   text-wrap: pretty !important;
 }
+/* ===== Paleta: sobras de cor fora da paleta (conferência de 27/11/2026) =====
+ * Só #000000, #FFFFFF, #9FE3D6 (cabeçalho e adicionar), #B3261E (erro) e #FFE600 (aviso).
+ * Texto preto puro sobe o contraste de ~17:1 para 21:1 (A-01). Nada muda de tamanho nem de posição.
+ * Fica de fora o banner de cookies (#086f66): cor da farmácia travada por tests/cookies-banner.test.mjs. */
+html body .skip-link {
+  border: 0 !important;
+}
+html body .reserva-contador-bolha.reserva-contador-bolha {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+html body .shop-faixa-ponto.shop-faixa-ponto,
+html body .shop-linha2-status .shop-faixa-ponto,
+html body .shop-linha2-status.is-aberta .shop-faixa-ponto {
+  background: #000000 !important;
+}
+/* Traço animado em volta da busca: girava sem parar e sem pausa (A-11) e era linha verde (sem linha). */
+html body .shop-header .shop-busca .shop-busca-orbita {
+  display: none !important;
+}
+html body :is(.painel-arte, .shop-faixa-info, .shop-destaques--ofertas, .shop-categorias .shop-cat-foto, .faixa-confianca, .cesta-avaliacoes) {
+  background: #ffffff !important;
+}
+html body .uf-filtro-preco a,
+html body .uf-grid-2 a {
+  border: 0 !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12) !important;
+}
+html body .uf-grid-2 a :is(strong, span) {
+  color: #000000 !important;
+}
+html body .uf-card,
+html body .whatsapp-fab {
+  border: 0 !important;
+}
+html body .pv-preco-anterior {
+  color: #000000 !important;
+}
+/* Selo de desconto fora do tema: preto com texto branco (o vermelho #b71c1c não está na paleta). */
+html body .pv-economia.pv-economia,
+html body .pv-economia.pv-economia * {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+html body .barra-reserva a {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+html body .barra-reserva a * {
+  color: #ffffff !important;
+}
+/* Faixa da cesta no desktop: branca com texto preto; passos em círculo branco com sombra suave. */
+html body .cesta-faixa {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+html body .cesta-faixa .cesta-logo {
+  color: #000000 !important;
+}
+html body .cesta-faixa .cesta-passos li span {
+  border-color: transparent !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16) !important;
+}
+html body .cesta-faixa .cesta-passos li + li::before {
+  background: #000000 !important;
+}
+/* Página de cada loja (bairro): texto preto, cartões brancos sem contorno, botões em pílula preta. */
+html body .neighborhood-page :is(p, p strong, li, caption, .eyebrow, .section-kicker, .open-status strong, .unit-map-details h2, a.text-link) {
+  color: #000000 !important;
+}
+html body .neighborhood-page :is(.open-status, .delivery-slot, .neighborhood-photo, .unit-map-placeholder, .unit-map-frame iframe, .hours-table th) {
+  background: #ffffff !important;
+}
+html body .neighborhood-page :is(article, .unit-map, .unit-map-details, .unit-map-placeholder, .hours-table, .hours-table tr, .hours-table th, .hours-table td, li, section > div) {
+  border-color: transparent !important;
+}
+html body .neighborhood-page :is(a.button, button.button) {
+  border-color: #000000 !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+html body .neighborhood-page :is(a.button, button.button) * {
+  color: #ffffff !important;
+}
+html body .unit-map-pins button {
+  border-color: transparent !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12) !important;
+}
+html body .unit-map-pins button span {
+  color: #000000 !important;
+}
+html body .unit-map-pins button.is-active,
+html body .unit-map-pins button.is-active :is(strong, span) {
+  background: #000000 !important;
+  color: #ffffff !important;
+}
+/* Salvar na lista (produto e busca): alvo de 48 px (A-10), preto e branco, sem contorno. */
+html body .salvar-lista-botao,
+html body .salvar-lista-opcao {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-width: 48px !important;
+  min-height: 48px !important;
+  padding: 0 1rem !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  font-size: 0.8125rem !important;
+  cursor: pointer !important;
+}
+html body .salvar-lista-botao {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12) !important;
+}
+html body .salvar-lista-opcao {
+  width: 100% !important;
+  text-align: left !important;
+}
+html body .salvar-lista-painel {
+  position: absolute !important;
+  z-index: 100 !important;
+  min-width: 12rem !important;
+  padding: 0.5rem !important;
+  border: 0 !important;
+  border-radius: 16px !important;
+  background: #ffffff !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16) !important;
+}
+html body .salvar-lista-vazia {
+  margin: 0 !important;
+}
+html body .salvar-lista-vazia a {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 48px !important;
+  padding: 0 1rem !important;
+  color: #000000 !important;
+  text-decoration: underline !important;
+}
+html body .salvar-lista-ok {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 48px !important;
+  color: #000000 !important;
+  font-size: 0.8125rem !important;
+}
+/* Menu Departamentos (gaveta): o a11y.css pintava o painel de verde-escuro e o texto de branco,
+ * e a lista branca por dentro deixava os nomes invisíveis (A-01). Agora: painel branco, texto preto. */
+html body :is(.depto-painel, .dm-menu, .dm-slot) {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+}
+html body :is(.depto-painel, .dm-menu) :is(*, a, button, span, h2, h3, p, strong) {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+html body .depto-fundo {
+  background: rgba(0, 0, 0, 0.55) !important;
+}
 }

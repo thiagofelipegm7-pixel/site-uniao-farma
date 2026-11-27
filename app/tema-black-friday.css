@@ -107,6 +107,11 @@
     color: #ffffff !important;
   }
 
+  /* Ponto de "aberto agora" na faixa preta: dourado para não sumir. */
+  html[data-tema="black-friday"] body .shop-faixa-ponto.shop-faixa-ponto.shop-faixa-ponto {
+    background-color: #ffc400 !important;
+  }
+
   /* Botões de adicionar à cesta: dourado com texto preto no lugar do verde-água. */
   html[data-tema="black-friday"] body :is(.pv-adicionar, .pv-card .pv-adicionar, .fluxo-vitrine .pv-card .pv-adicionar),
   html[data-tema="black-friday"] body:has(.catalogo-nacoes) .catalogo-nacoes :is(.pdp-compra, .produto-barra) .bc-pilula,
