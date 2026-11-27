@@ -60,6 +60,10 @@ test("publishes only a complete, approved and current offer", () => {
       { ...baseOffer, regulatoryClass: "supplement_review", manualRegulatoryApproval: false },
       "regulatory_approval_missing",
     ],
+    [
+      { ...baseOffer, regulatoryClass: "prescription_listed", manualRegulatoryApproval: false },
+      "regulatory_approval_missing",
+    ],
   ];
 
   for (const [offer, code] of blockers) {
@@ -93,22 +97,30 @@ test("keeps site publication separate from Google Ads eligibility", () => {
 });
 
 test("publishes confirmed promotions while keeping incomplete and blocked items out", () => {
-  assert.equal(OFFERS.length, 49);
+  assert.equal(OFFERS.length, 55);
   assert.equal(getPublicOffers(new Date("2026-08-16T12:00:00-03:00")).length, 0);
-  assert.equal(getPublicOffers(new Date("2026-11-27T12:00:00-03:00")).length, 28);
+  assert.equal(getPublicOffers(new Date("2026-11-27T12:00:00-03:00")).length, 34);
   assert.equal(getPublicOffers(new Date("2026-11-26T23:59:00-03:00")).length, 0);
   assert.equal(getPublicOffers(new Date("2026-11-28T00:00:00-03:00")).length, 0);
-  assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "approved").length, 28);
+  assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "approved").length, 34);
   assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "draft").length, 0);
   assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "review").length, 6);
   assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "blocked").length, 4);
   assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "expired").length, 11);
   assert.equal(OFFERS.find((offer) => offer.id === "tandrilax")?.regulatoryClass, "prescription_blocked");
   const commercialOffers = OFFERS.filter((offer) => offer.publicationStatus === "approved");
-  assert.equal(commercialOffers.length, 28);
+  assert.equal(commercialOffers.length, 34);
   assert.equal(commercialOffers[0].name, "Strepsils caixa 16 pastilhas laranja");
   assert.equal(commercialOffers.find((offer) => offer.id === "bf-elseve-100ml")?.previousPrice, 49.9);
   assert.equal(commercialOffers.find((offer) => offer.id === "bf-elseve-100ml")?.currentPrice, 29.9);
+  assert.equal(commercialOffers.find((offer) => offer.id === "bf-flexalgin-30")?.currentPrice, 9.9);
+  assert.equal(commercialOffers.find((offer) => offer.id === "bf-nimesulida-12")?.condicao, "Leve 3 por R$ 9,99");
+  assert.equal(commercialOffers.find((offer) => offer.id === "bf-losartana-teuto-30")?.condicao, "Leve 3 por R$ 9,99");
+  assert.equal(commercialOffers.find((offer) => offer.id === "bf-nevralgex-10")?.condicao, "Leve 3 por R$ 8,94");
+  assert.equal(commercialOffers.find((offer) => offer.id === "bf-narix-30ml")?.condicao, "Leve 3 por R$ 9,99");
+  assert.ok(commercialOffers.some((offer) => offer.id === "bf-strepsils-16-mel-limao"));
+  assert.equal(commercialOffers.some((offer) => /neo qu[ií]mica/i.test(offer.name) && /losartana/i.test(offer.name)), false);
+  assert.ok(commercialOffers.filter((offer) => offer.regulatoryClass === "prescription_listed").every((offer) => offer.manualRegulatoryApproval === true && offer.adsEligible === false));
   assert.ok(commercialOffers.every((offer) => offer.priceConfirmed));
   assert.ok(commercialOffers.every((offer) => offer.image));
   assert.ok(commercialOffers.every((offer) => offer.validityConfirmed));
@@ -159,7 +171,7 @@ test("painel da semana: no máximo 3 ofertas, sem receita, e De só com preço a
   assert.ok(semana.length <= 3);
   assert.equal(semana.length, 3);
   assert.ok(semana.every((offer) => offer.regulatoryClass !== "prescription_blocked"));
-  assert.deepEqual(semana.map((offer) => precoAnteriorConfirmado(offer)), [34.9, 79.9, 69.9]);
+  assert.deepEqual(semana.map((offer) => precoAnteriorConfirmado(offer)), [34.9, 34.9, 79.9]);
   assert.ok(semana.every((offer) => precoAnteriorConfirmado(offer) === null || offer.currentPrice < precoAnteriorConfirmado(offer)));
   assert.deepEqual(semana.map((offer) => offer.name), publicas.slice(0, 3).map((offer) => offer.name));
 

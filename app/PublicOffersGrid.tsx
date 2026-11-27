@@ -37,9 +37,11 @@ function OfferConsultCard({ offer }: { offer: Offer }) {
         )}
       </div>
       <div className="offer-consult-body">
-        <div className="selos-linha">
-          <EtiquetaOferta />
-        </div>
+        {offer.regulatoryClass !== "prescription_listed" ? (
+          <div className="selos-linha">
+            <EtiquetaOferta />
+          </div>
+        ) : null}
         <p className="offer-consult-brand">
           {offer.brand || OFFER_CATEGORY_LABELS[offer.category]}
         </p>
@@ -47,7 +49,7 @@ function OfferConsultCard({ offer }: { offer: Offer }) {
         {offer.currentPrice !== null ? (
           <p className="offer-consult-price">
             <Preco precoFmt={formatOfferPrice(offer.currentPrice)} />
-            {offer.previousPrice && offer.previousPriceConfirmed ? (
+            {!offer.condicao && offer.previousPrice && offer.previousPriceConfirmed ? (
               <s>
                 <span className="sr-only">De </span>
                 {formatOfferPrice(offer.previousPrice)}
@@ -57,11 +59,13 @@ function OfferConsultCard({ offer }: { offer: Offer }) {
         ) : (
           <p className="offer-consult-price offer-consult-price-ask">Preço sob consulta</p>
         )}
+        {offer.condicao ? <p className="offer-consult-cond">{offer.condicao}</p> : null}
         <p className="offer-consult-cond">
           {offer.validityType === "date" && offer.validUntil
             ? `Válida até ${formatOfferDate(offer.validUntil)}. Enquanto durar o estoque.`
             : "Enquanto durar o estoque"}
         </p>
+        {offer.regulatoryClass === "prescription_listed" ? <p className="offer-legal">Venda sob prescrição médica.</p> : null}
         {isMedicationOffer(offer) ? <p className="offer-legal">{MEDICATION_WARNING}</p> : null}
         <a
           className="offer-consult-choose"

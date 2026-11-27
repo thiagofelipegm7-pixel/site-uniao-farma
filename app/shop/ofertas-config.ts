@@ -5,10 +5,13 @@
  */
 export type OfertaHome = {
   nomeCatalogo: string;
-  /** Preço "de" do encarte, em centavos. */
+  /** Preço "de" do encarte, em centavos. Na oferta "leve 3", é o preço da unidade no encarte. */
   precoAnteriorCentavos: number;
-  /** Preço "por" do encarte, em centavos. Se o catálogo já estiver mais baixo, vale o menor. */
-  precoPorCentavos: number;
+  /** Preço "por" unitário do encarte, em centavos. Se o catálogo já estiver mais baixo, vale o menor. Ausente nas ofertas "leve 3". */
+  precoPorCentavos?: number;
+  /** Oferta "leve N por X": quantidade e preço total do conjunto, em centavos. */
+  leveQuantidade?: number;
+  levePrecoCentavos?: number;
   validoDe?: string;
   validoAte?: string;
 };
@@ -44,14 +47,28 @@ function oferta(nomeCatalogo: string, precoAnteriorCentavos: number, precoPorCen
   return { nomeCatalogo, precoAnteriorCentavos, precoPorCentavos, ...BF };
 }
 
+function ofertaLeve(nomeCatalogo: string, precoUnidadeCentavos: number, leveQuantidade: number, levePrecoCentavos: number): OfertaHome {
+  return { nomeCatalogo, precoAnteriorCentavos: precoUnidadeCentavos, leveQuantidade, levePrecoCentavos, ...BF };
+}
+
+/** Texto sóbrio da condição "leve 3", no formato do encarte. */
+export function textoLevePor(quantidade: number, precoCentavos: number): string {
+  const reais = Math.floor(precoCentavos / 100);
+  const centavos = String(precoCentavos % 100).padStart(2, "0");
+  return `Leve ${quantidade} por R$ ${reais},${centavos}`;
+}
+
 /**
- * Itens do encarte de Black Friday com correspondência no catálogo público.
- * Fora daqui, de propósito: medicamentos com tarja/receita (Flexalgin, Nimesulida, Losartana,
- * Nevralgex e Narix), Strepsils mel e limão (está só no catálogo de receita) e itens esgotados.
+ * Itens do encarte de Black Friday. Inclui medicamentos com receita do encarte, a pedido da loja,
+ * só com nome, preço e a condição "leve 3". Losartana Neo Química ficou de fora (estoque insuficiente para o leve 3).
  */
 export const OFERTAS_HOME: readonly OfertaHome[] = [
   oferta("STREPSILS 8.75mg cx 16 past LARANJA", 3490, 1990),
+  oferta("STREPSILS 875MG CX 16 PAST MEL LIMAO", 3490, 1990),
   oferta("COREGA MAX CREME 70G UND", 7990, 6500),
+  oferta("FLEXALGIN CX 30CPR", 1500, 990),
+  ofertaLeve("NIMESULIDA 100mg cx 12cpr GLOBO PHARMA", 600, 3, 999),
+  ofertaLeve("LOSARTANA 50mg cx 30cpr TEUTO", 600, 3, 999),
   oferta("BANHO DE CREME BIOEXTRATUS POS QUIMICA 1KG", 6990, 5990),
   oferta("BANHO DE CREME BIOEXTRATUS OLEO DE COCO 1KG", 6990, 5990),
   oferta("BANHO DE CREME BIOEXTRATUS MEL 1KG", 6990, 5990),
@@ -67,6 +84,7 @@ export const OFERTAS_HOME: readonly OfertaHome[] = [
   oferta("CIMEGRIPE CX C/20 CAPS", 1600, 990),
   oferta("BEPANTRIZ 50MG POMADA 30G", 1200, 790),
   oferta("LAVITAN HAIR COM 60 CAPSULA", 3500, 1890),
+  ofertaLeve("NEVRALGEX CARTELA 10 CP", 500, 3, 894),
   oferta("MACA PERUANA EM PO SEM SABOR 100G QUALYN", 5690, 4990),
   oferta("LAVITAN HAIR C/ 30CP", 1990, 990),
   oferta("KIT DERMAFEME C/2", 2500, 1790),
@@ -102,6 +120,7 @@ export const OFERTAS_HOME: readonly OfertaHome[] = [
   oferta("REP XO INSETO 200ML SPRAY", 2590, 1690),
   oferta("REPELENTE XO INSETO 200ML LOCAO", 2590, 1690),
   oferta("NEOLEFRIN 400+20+400+4mg cx 20", 1600, 990),
+  ofertaLeve("NARIX 0.5mg fr 30ML ADULTO", 500, 3, 999),
 ];
 
 const ofertasPorChave = new Map(OFERTAS_HOME.map((item) => [chaveDeNome(item.nomeCatalogo), item]));
@@ -114,5 +133,6 @@ export function ofertaHomeVigente(nomeCatalogo: string, now = new Date()): Ofert
 
 /** Preço "por" vigente, em centavos, ou null fora da validade. */
 export function precoPorOfertaVigente(nomeCatalogo: string, now = new Date()): number | null {
-  return ofertaHomeVigente(nomeCatalogo, now)?.precoPorCentavos ?? null;
+  const oferta = ofertaHomeVigente(nomeCatalogo, now);
+  return oferta?.precoPorCentavos ?? null;
 }

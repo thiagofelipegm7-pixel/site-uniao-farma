@@ -7,6 +7,7 @@ import {
   ofertaHomeVigente,
   periodoOfertaAberto,
   precoPorOfertaVigente,
+  textoLevePor,
 } from "../app/shop/ofertas-config.ts";
 import { promocoesQuantidadeEncarteVigentes } from "../app/promocao-quantidade-encarte.ts";
 
@@ -38,4 +39,24 @@ test("o leve 3 do encarte também some depois do dia 27/11", () => {
   assert.equal(promocoesQuantidadeEncarteVigentes(depois).length, 0);
   assert.ok(promocoesQuantidadeEncarteVigentes(noDia).some((item) => item.slug === "narix-0-5mg-fr-30ml-adulto"));
   assert.ok(promocoesQuantidadeEncarteVigentes(noDia).every((item) => item.faixas[0].quantidade === 3));
+});
+
+test("os medicamentos com receita do encarte entram na vitrine, com o leve 3 sóbrio e sem a Losartana Neo Química", () => {
+  const flexalgin = OFERTAS_HOME.find((item) => item.nomeCatalogo === "FLEXALGIN CX 30CPR");
+  const nimesulida = OFERTAS_HOME.find((item) => item.nomeCatalogo === "NIMESULIDA 100mg cx 12cpr GLOBO PHARMA");
+  const losartanaTeuto = OFERTAS_HOME.find((item) => item.nomeCatalogo === "LOSARTANA 50mg cx 30cpr TEUTO");
+  const strepsilsMel = OFERTAS_HOME.find((item) => item.nomeCatalogo === "STREPSILS 875MG CX 16 PAST MEL LIMAO");
+  const nevralgex = OFERTAS_HOME.find((item) => item.nomeCatalogo === "NEVRALGEX CARTELA 10 CP");
+  const narix = OFERTAS_HOME.find((item) => item.nomeCatalogo === "NARIX 0.5mg fr 30ML ADULTO");
+  assert.ok(flexalgin && nimesulida && losartanaTeuto && strepsilsMel && nevralgex && narix);
+  assert.equal(flexalgin.precoPorCentavos, 990);
+  assert.equal(strepsilsMel.precoPorCentavos, 1990);
+  assert.equal(nimesulida.precoPorCentavos, undefined);
+  assert.equal(nimesulida.leveQuantidade, 3);
+  assert.equal(nimesulida.levePrecoCentavos, 999);
+  assert.equal(precoPorOfertaVigente(nimesulida.nomeCatalogo, noDia), null);
+  assert.equal(textoLevePor(3, 999), "Leve 3 por R$ 9,99");
+  assert.equal(textoLevePor(3, 894), "Leve 3 por R$ 8,94");
+  assert.equal(OFERTAS_HOME.some((item) => /LOSARTANA/i.test(item.nomeCatalogo) && /NEO QUIMICA/i.test(item.nomeCatalogo)), false);
+
 });
