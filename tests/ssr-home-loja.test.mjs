@@ -48,3 +48,12 @@ test("as rotas /api usam a mesma escolha do servidor (uma regra só)", async () 
     assert.match(await ler(arquivo), new RegExp(funcao), arquivo);
   }
 });
+
+test("S-25: banner com arte embutida (data URL, megabytes) nunca vai no HTML; só arquivo de endereço curto", async () => {
+  const servidor = await ler("app/shop/destaques-servidor.ts");
+  assert.match(servidor, /export function bannersLeves/);
+  assert.match(servidor, /startsWith\("data:"\)/);
+  assert.match(servidor, /LIMITE_URL_BANNER = 2048/);
+  // As duas entradas de banners (home e demais páginas) passam pelo filtro.
+  assert.equal((servidor.match(/bannersLeves\(/g) ?? []).length >= 3, true);
+});

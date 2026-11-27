@@ -245,10 +245,23 @@ export async function amostraDaLoja(n = 24): Promise<ItemAmostraLoja[]> {
   }));
 }
 
-/** Banners prontos para o painel, ou `undefined` se falhar (o painel então busca no navegador, como antes). */
+/** Acima disto (caracteres) a "imagem" é arte embutida (data URL): não vai no HTML. */
+const LIMITE_URL_BANNER = 2048;
+
+/**
+ * Só vai no HTML banner cuja arte é um arquivo (endereço curto). A arte enviada pelo painel chega como data URL (centenas de KB cada;
+ * 14 vagas passam de 1 MB): dentro do HTML ela pesaria megabytes em TODAS as páginas (duas vezes, com o payload do React) e pioraria
+ * LCP e TTFB. Se qualquer banner for pesado, devolve `undefined` e o painel busca no navegador, como antes.
+ */
+export function bannersLeves(lista: BannerPainel[]): BannerPainel[] | undefined {
+  const pesado = lista.some((b) => !!b.imagem && (b.imagem.startsWith("data:") || b.imagem.length > LIMITE_URL_BANNER));
+  return pesado ? undefined : lista;
+}
+
+/** Banners prontos para o painel, ou `undefined` se falhar ou forem pesados (o painel então busca no navegador, como antes). */
 export async function bannersDoServidor(): Promise<BannerPainel[] | undefined> {
   try {
-    return bannersParaPainel(await bannersPublicos());
+    return bannersLeves(bannersParaPainel(await bannersPublicos()));
   } catch {
     return undefined;
   }
@@ -269,7 +282,7 @@ export async function dadosDaHome(): Promise<Partial<DadosDaHome>> {
   const [vitrines, chips, banners] = await Promise.all([
     vitrinesDaHome().catch(() => undefined),
     chipsDaHome().catch(() => undefined),
-    bannersPublicos().then(bannersParaPainel).catch(() => undefined),
+    bannersPublicos().then((l) => bannersLeves(bannersParaPainel(l))).catch(() => undefined),
   ]);
   let ofertas: ItemOferta[] | undefined;
   try {
