@@ -54,6 +54,8 @@ test("S-25: banner com arte embutida (data URL, megabytes) nunca vai no HTML; s�
   assert.match(servidor, /export function bannersLeves/);
   assert.match(servidor, /startsWith\("data:"\)/);
   assert.match(servidor, /LIMITE_URL_BANNER = 2048/);
-  // As duas entradas de banners (home e demais páginas) passam pelo filtro.
-  assert.equal((servidor.match(/bannersLeves\(/g) ?? []).length >= 3, true);
+  // Home e demais páginas usam a mesma função de banners (com o filtro).
+  assert.equal((servidor.match(/bannersLeves\(/g) ?? []).length >= 2, true);
+  // O banco avisa se há arte pesada ANTES de trazê-la (sem ler 1 MB em cada página).
+  assert.match(servidor, /length\(source\) > \?/);
 });

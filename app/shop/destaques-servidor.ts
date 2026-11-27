@@ -261,6 +261,11 @@ export function bannersLeves(lista: BannerPainel[]): BannerPainel[] | undefined 
 /** Banners prontos para o painel, ou `undefined` se falhar ou forem pesados (o painel então busca no navegador, como antes). */
 export async function bannersDoServidor(): Promise<BannerPainel[] | undefined> {
   try {
+    // Antes de trazer a arte, o banco conta quantas passam do limite (sem transferir as imagens): se houver, nem lê (cada página ficaria 1 MB mais lenta).
+    const db = banco() as Consulta | null;
+    if (!db) return undefined;
+    const pesados = await db.prepare("SELECT COUNT(*) AS n FROM metric_hits WHERE stage = ? AND length(source) > ?").bind("banner", LIMITE_URL_BANNER).all<{ n: number }>();
+    if ((pesados.results?.[0]?.n ?? 0) > 0) return undefined;
     return bannersLeves(bannersParaPainel(await bannersPublicos()));
   } catch {
     return undefined;
@@ -282,7 +287,7 @@ export async function dadosDaHome(): Promise<Partial<DadosDaHome>> {
   const [vitrines, chips, banners] = await Promise.all([
     vitrinesDaHome().catch(() => undefined),
     chipsDaHome().catch(() => undefined),
-    bannersPublicos().then((l) => bannersLeves(bannersParaPainel(l))).catch(() => undefined),
+    bannersDoServidor(),
   ]);
   let ofertas: ItemOferta[] | undefined;
   try {
