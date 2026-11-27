@@ -6,6 +6,7 @@
  */
 import { nomeDeExibicao } from "../nome-exibicao";
 import { carregarCatalogoNacoes, slugify } from "../nacoes-unidas/produtos/catalogo";
+import { carregarRestritos } from "../nacoes-unidas/produtos/receita";
 import { fotoDoProduto } from "../nacoes-unidas/produtos/imagens";
 import { ehNbcal } from "../nacoes-unidas/produtos/produto";
 import { descricaoDoProduto } from "../nacoes-unidas/produtos/descricoes";
@@ -15,7 +16,7 @@ import { banco } from "../estoque-fonte";
 import { carregarPedidosDaSemana, carregarSinais, elegivelMaisPedidosSemana, faixaSeSuficiente, MIN_ITENS, ordenarPorConversao, ordenarPorPedidosDaSemana, pareceMedicamento, SINAIS_VAZIOS } from "../nacoes-unidas/produtos/mais-pedidos";
 import { elegivelParaPares } from "../nacoes-unidas/produtos/relacionados";
 import mudancasJson from "../nacoes-unidas/produtos/dados/mudancas-recentes.json" with { type: "json" };
-import { OFERTAS_HOME } from "./ofertas-config";
+import { OFERTAS_HOME, periodoOfertaAberto, textoLevePor } from "./ofertas-config";
 import { urlDaImagemDoBanner } from "../banner-imagem";
 import { destinoBanner, type BannerPainel } from "./painel-banners";
 import { VITRINES_HOME } from "./home-vitrines";
@@ -32,6 +33,11 @@ export type ItemOferta = {
   foto: string;
   isMIP?: boolean;
   restam?: number;
+  /** Condição sóbria da oferta (ex.: "Leve 3 por R$ 9,99"). */
+  condicao?: string;
+  medicamento?: boolean;
+  receita?: "receita";
+  promocao?: { faixas: { quantidade: number; precoUnitarioCentavos: number }[] };
 };
 
 export type ConsultaDestaques = {
@@ -186,23 +192,50 @@ export async function chipsDaHome(): Promise<ItemChip[]> {
   return lista.length >= MIN_ITENS ? lista : [];
 }
 
-/** Ofertas fixas da home com o preço do dia (do catálogo). */
-export function ofertasDaHome(): ItemOferta[] {
+/** Ofertas fixas da home com o preço do dia (do catálogo ou da lista de receita, já com o "por" do encarte vigente). */
+export function ofertasDaHome(now = new Date()): ItemOferta[] {
   const catalogo = carregarCatalogoNacoes();
-  const porNome = new Map((catalogo?.itens ?? []).map((item) => [chaveDeNome(item.nome), item]));
+  const porNome = new Map((catalogo?.itens ?? []).map((item) => [chaveDeNome(item.nome), { ...item, receita: false as const }]));
+  for (const item of carregarRestritos().receita) {
+    const chave = chaveDeNome(item.nome);
+    if (porNome.has(chave)) continue;
+    if (item.semVenda || item.esgotado || item.preco == null || item.preco <= 0) continue;
+    porNome.set(chave, {
+      nome: item.nome,
+      lab: item.lab,
+      preco: item.preco,
+      isMIP: false,
+      esgotado: item.esgotado,
+      restam: item.restam,
+      receita: true,
+    });
+  }
   return OFERTAS_HOME.flatMap((oferta) => {
+    if (!periodoOfertaAberto(oferta.validoDe, oferta.validoAte, now)) return [];
     const item = porNome.get(chaveDeNome(oferta.nomeCatalogo));
     if (!item || item.esgotado) return [];
 
     const foto = fotoDoProduto(item.nome);
     if (!foto) return [];
 
-    const precoCentavos = Math.round(item.preco * 100);
-    const precoAnteriorCentavos = "precoAnteriorCentavos" in oferta && precoCentavos < oferta.precoAnteriorCentavos
+    if (typeof oferta.leveQuantidade === "number" && typeof item.restam === "number" && item.restam < oferta.leveQuantidade) {
+      return [];
+    }
+
+    const precoCatalogoCentavos = Math.round(item.preco * 100);
+    const precoCentavos = typeof oferta.precoPorCentavos === "number"
+      ? Math.min(precoCatalogoCentavos, oferta.precoPorCentavos)
+      : precoCatalogoCentavos;
+    const ehLeve = typeof oferta.leveQuantidade === "number" && typeof oferta.levePrecoCentavos === "number";
+    const precoAnteriorCentavos = !ehLeve && "precoAnteriorCentavos" in oferta && precoCentavos < oferta.precoAnteriorCentavos
       ? oferta.precoAnteriorCentavos
       : undefined;
     const descontoPct = precoAnteriorCentavos
       ? Math.round((1 - precoCentavos / precoAnteriorCentavos) * 100)
+      : undefined;
+    const condicao = ehLeve ? textoLevePor(oferta.leveQuantidade, oferta.levePrecoCentavos) : undefined;
+    const promocao = ehLeve
+      ? { faixas: [{ quantidade: oferta.leveQuantidade, precoUnitarioCentavos: Math.round(oferta.levePrecoCentavos / oferta.leveQuantidade) }] }
       : undefined;
 
     return [{
@@ -214,6 +247,10 @@ export function ofertasDaHome(): ItemOferta[] {
       isMIP: item.isMIP,
       ...(typeof item.restam === "number" && item.restam > 0 ? { restam: item.restam } : {}),
       ...(precoAnteriorCentavos ? { precoAnteriorCentavos, descontoPct } : {}),
+      ...(condicao ? { condicao } : {}),
+      ...(item.receita || item.isMIP ? { medicamento: true } : {}),
+      ...(item.receita ? { receita: "receita" as const } : {}),
+      ...(promocao ? { promocao } : {}),
     }];
   });
 }

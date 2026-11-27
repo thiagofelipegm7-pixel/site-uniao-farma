@@ -157,7 +157,14 @@ export default function PainelBanners({ titulo, fonte, aoEnviar, inicial }: { ti
 
   if (n === 0) {
     // Sem arte no site: nada de faixa vazia. O título da página (só a home) continua para leitores de tela.
-    if (publico && !carregado && reservar) return <section className="painel" aria-hidden="true"><div className="painel-arte painel-arte--reserva" /><div style={{ height: "3rem" }} /></section>;
+    if (publico && !carregado && reservar) {
+      return (
+        <>
+          {titulo ? <h1 className="sr-only">{titulo}</h1> : null}
+          <section className="painel" aria-hidden="true"><div className="painel-arte painel-arte--reserva" /><div style={{ height: "3rem" }} /></section>
+        </>
+      );
+    }
     return titulo ? <h1 className="sr-only">{titulo}</h1> : null;
   }
 

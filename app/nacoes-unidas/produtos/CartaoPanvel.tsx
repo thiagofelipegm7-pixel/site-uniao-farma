@@ -139,7 +139,7 @@ export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medi
           {precoAnteriorFmt ? (
             <span className="pv-preco-antigo-linha">
               <span className="pv-preco-antigo-texto">De <del className="pv-preco-anterior">{precoAnteriorFmt}</del></span>
-              <span className="pv-economia">{descontoPct ? `${descontoPct}% OFF` : "OFERTA"}</span>
+              <span className="pv-economia">{typeof descontoPct === "number" && descontoPct > 0 ? `${descontoPct}% OFF` : descontoPct === null ? null : "OFERTA"}</span>
             </span>
           ) : <span className="pv-economia">OFERTA</span>}
           <span className="pv-preco-atual-linha">
