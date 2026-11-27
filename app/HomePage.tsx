@@ -47,7 +47,7 @@ export default function HomePage({ dados = {} }: { dados?: Partial<DadosDaHome> 
         <ShopHeader />
         <FaixaInfo />
       </CabecalhoInteligente>
-      <PainelBanners titulo="Drogaria em Sabará: União Farma Nações Unidas" />
+      <PainelBanners titulo="Drogaria em Sabará: União Farma Nações Unidas" inicial={dados.banners} />
       <CheckoutRapido />
       <MaisPedidosChips inicial={dados.chips} />
       <FiltroPreco />

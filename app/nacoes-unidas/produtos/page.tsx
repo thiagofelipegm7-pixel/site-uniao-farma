@@ -15,7 +15,7 @@ import { getPageStructuredData, getUnitPublicPath } from "../../structured-data"
 import CatalogoLista from "./CatalogoLista";
 import { carregarCatalogoNacoes, formatDataDosDados, formatGeradoEm } from "./catalogo";
 import { URL_BUSCA_INDEX } from "./busca-index";
-import { amostraDaLoja } from "../../shop/destaques-servidor";
+import { amostraDaLoja, bannersDoServidor } from "../../shop/destaques-servidor";
 
 import "./produtos.css";
 
@@ -63,6 +63,7 @@ export default async function ProdutosNacoesPage() {
   const consultaInicial = "";
   // Amostra de produtos no HTML (S-24): a lista completa continua vindo do navegador; falha aqui só deixa o esqueleto de antes.
   const semente = await amostraDaLoja().catch(() => []);
+  const banners = await bannersDoServidor(); // arte (arquivo leve) já no HTML: sem "pulo" e com carregamento antecipado (LCP)
   const atualizadoEm = null;
   const dataDosDados = formatGeradoEm(geradoEmDosDados);
   const whatsappHref = buildWhatsAppUrl(nacoes, "Oi, União Farma Nações Unidas! Vi a lista de produtos no site e quero confirmar preço e disponibilidade.", {
@@ -85,7 +86,7 @@ export default async function ProdutosNacoesPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <ShopTopo consultaInicial={consultaInicial} />
-      <PainelBanners />
+      <PainelBanners inicial={banners} />
       <div className="unit-page landing-page catalogo-nacoes catalogo-loja">
         <nav className="catalogo-caminho section-inner" aria-label="Breadcrumb">
           <a href="/">União Farma</a>

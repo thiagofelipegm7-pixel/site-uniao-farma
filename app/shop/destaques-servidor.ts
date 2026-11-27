@@ -16,6 +16,8 @@ import { carregarPedidosDaSemana, carregarSinais, elegivelMaisPedidosSemana, fai
 import { elegivelParaPares } from "../nacoes-unidas/produtos/relacionados";
 import mudancasJson from "../nacoes-unidas/produtos/dados/mudancas-recentes.json" with { type: "json" };
 import { OFERTAS_HOME } from "./ofertas-config";
+import { urlDaImagemDoBanner } from "../banner-imagem";
+import { destinoBanner, type BannerPainel } from "./painel-banners";
 import { VITRINES_HOME } from "./home-vitrines";
 
 export type ItemDestaque = { nome: string; slug: string; lab?: string; precoCentavos: number; foto: string | null; isMIP?: boolean; novo?: boolean };
@@ -219,12 +221,19 @@ export function ofertasDaHome(): ItemOferta[] {
 type Consulta = { prepare: (sql: string) => { bind: (...v: unknown[]) => { all: <T>() => Promise<{ results: T[] }> } } };
 export type BannerPublico = { id: string; url: string; slug: string | null; busca: string | null };
 
-/** Arte de cada vaga + destino (o mais recente de cada vaga): termo de busca e/ou slug do produto. Falha vira lista vazia. */
+/**
+ * Arte de cada vaga + destino (o mais recente de cada vaga): termo de busca e/ou slug do produto. Falha vira lista vazia.
+ * A arte enviada pelo painel é data URL (texto de ~100 KB cada); aqui ela NÃO sai no JSON: o banco só diz se a linha é embutida e a lista
+ * aponta para `/api/banner-imagem?v=<id da linha>`, que entrega o arquivo com cache de um ano. Arte que já é endereço sai como está.
+ */
 export async function bannersPublicos(): Promise<BannerPublico[]> {
   const db = banco() as Consulta | null;
   if (!db) return [];
   try {
-    const artes = await db.prepare("SELECT intent as id, source as url FROM metric_hits WHERE stage = ?").bind("banner").all<{ id: string; url: string }>();
+    const artes = await db
+      .prepare("SELECT id AS linha, intent AS id, CASE WHEN substr(source, 1, 5) = 'data:' THEN NULL ELSE source END AS url, (substr(source, 1, 5) = 'data:') AS embutida FROM metric_hits WHERE stage = ?")
+      .bind("banner")
+      .all<{ linha: number; id: string; url: string | null; embutida: number }>();
     const destinos = await db.prepare("SELECT intent as id, source as slug FROM metric_hits WHERE stage = ? ORDER BY id").bind("banner-link").all<{ id: string; slug: string }>();
     const slugPorVaga = new Map<string, string>();
     for (const d of destinos.results ?? []) slugPorVaga.set(d.id, d.slug);
@@ -236,16 +245,43 @@ export async function bannersPublicos(): Promise<BannerPublico[]> {
     } catch {
       // sem termo
     }
-    return (artes.results ?? []).map((b) => ({ id: b.id, url: b.url, slug: slugPorVaga.get(b.id) ?? null, busca: buscaPorVaga.get(b.id) ?? null }));
+    return (artes.results ?? [])
+      .map((b) => ({ id: b.id, url: b.embutida ? urlDaImagemDoBanner(b.linha) : (b.url ?? ""), slug: slugPorVaga.get(b.id) ?? null, busca: buscaPorVaga.get(b.id) ?? null }))
+      .filter((b) => b.url !== "");
   } catch {
     return [];
   }
 }
 
-/*
- * Banners NÃO vão no HTML: a arte enviada pelo painel é data URL (a API passa de 1 MB). Colocar isso em todas as páginas deixaria cada uma
- * megabytes mais pesada e consultar o banco a cada visita a deixaria mais lenta. O painel busca no navegador e reserva o espaço (sem "pulo").
- */
+/** Banners prontos para o painel (só as vagas "hero-N", em ordem), com o destino de cada clique. */
+export function bannersParaPainel(lista: ReadonlyArray<{ id: string; url: string; slug?: string | null; busca?: string | null }>): BannerPainel[] {
+  return lista
+    .filter((b) => b.id.startsWith("hero-"))
+    .sort((a, b) => (Number(a.id.replace("hero-", "")) || 0) - (Number(b.id.replace("hero-", "")) || 0))
+    .map((b) => {
+      const destino = destinoBanner(b);
+      return { id: b.id, imagem: b.url, alt: destino.rotulo || "Oferta da União Farma", href: destino.href, rotulo: destino.rotulo };
+    });
+}
+
+/** Acima disto (caracteres) a "imagem" ainda é arte embutida (data URL): não vai no HTML (pesaria megabytes em toda página). */
+const LIMITE_URL_BANNER = 2048;
+
+/** Só vai no HTML banner cuja arte é um endereço curto. Qualquer arte embutida: `undefined` e o painel busca no navegador, como antes. */
+export function bannersLeves(lista: BannerPainel[]): BannerPainel[] | undefined {
+  const pesado = lista.some((b) => !!b.imagem && (b.imagem.startsWith("data:") || b.imagem.length > LIMITE_URL_BANNER));
+  return pesado ? undefined : lista;
+}
+
+/** Banners prontos para o painel e leves, ou `undefined` se falhar (o painel então busca no navegador, como antes). */
+export async function bannersDoServidor(): Promise<BannerPainel[] | undefined> {
+  try {
+    const lista = bannersLeves(bannersParaPainel(await bannersPublicos()));
+    return lista && lista.length > 0 ? lista : undefined;
+  } catch {
+    return undefined;
+  }
+}
 
 /** Item no formato da lista da loja (`ItemBusca`), para a amostra que vai no HTML. */
 export type ItemAmostraLoja = { nome: string; lab: string; precoFmt: string; preco: number; isMIP: boolean; foto: string | null; id: string; slug: string };
@@ -270,6 +306,7 @@ export async function amostraDaLoja(n = 24): Promise<ItemAmostraLoja[]> {
 }
 
 export type DadosDaHome = {
+  banners: BannerPainel[];
   vitrines: Record<string, ItemDestaque[]>;
   chips: ItemChip[];
   ofertas: ItemOferta[];
@@ -280,9 +317,10 @@ export type DadosDaHome = {
  * comportamento antigo: buscar no navegador); a página nunca quebra por causa disso.
  */
 export async function dadosDaHome(): Promise<Partial<DadosDaHome>> {
-  const [vitrines, chips] = await Promise.all([
+  const [vitrines, chips, banners] = await Promise.all([
     vitrinesDaHome().catch(() => undefined),
     chipsDaHome().catch(() => undefined),
+    bannersDoServidor(),
   ]);
   let ofertas: ItemOferta[] | undefined;
   try {
@@ -290,5 +328,5 @@ export async function dadosDaHome(): Promise<Partial<DadosDaHome>> {
   } catch {
     ofertas = undefined;
   }
-  return { vitrines, chips, ofertas };
+  return { vitrines, chips, ofertas, banners };
 }

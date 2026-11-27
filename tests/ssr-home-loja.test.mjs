@@ -18,7 +18,7 @@ test("S-24: a página da home escolhe os produtos no servidor e a HomePage os en
   assert.match(pagina, /export default async function Page/);
   assert.match(pagina, /await dadosDaHome\(\)/);
   assert.match(pagina, /<HomePage dados=\{dados\} \/>/);
-  for (const trecho of ["inicial={dados.chips}", "inicial={dados.ofertas}", "inicial={dados.vitrines?.[v.id]}"]) assert.ok(home.includes(trecho), trecho);
+  for (const trecho of ["inicial={dados.banners}", "inicial={dados.chips}", "inicial={dados.ofertas}", "inicial={dados.vitrines?.[v.id]}"]) assert.ok(home.includes(trecho), trecho);
   for (const id of VITRINES_HOME.map((v) => v.id)) assert.ok(home.includes(`vitrine("${id}")`), id);
   // Falha em uma parte não derruba a página: cada parte cai para o comportamento antigo (buscar no navegador).
   assert.match(servidor, /\.catch\(\(\) => undefined\)/);
@@ -49,14 +49,14 @@ test("as rotas /api usam a mesma escolha do servidor (uma regra só)", async () 
   }
 });
 
-test("S-25: banner (arte data URL de mais de 1 MB) nunca vai no HTML; o painel reserva o espaço e busca no navegador", async () => {
+test("S-25: banner no HTML só se a arte for arquivo leve; arte embutida nunca vai no HTML e o painel reserva o espaço", async () => {
   const [servidor, home, painel] = await Promise.all([ler("app/shop/destaques-servidor.ts"), ler("app/HomePage.tsx"), ler("app/shop/PainelBanners.tsx")]);
-  assert.doesNotMatch(servidor, /bannersDoServidor|bannersLeves|bannersParaPainel/);
-  assert.doesNotMatch(home, /dados\.banners/);
-  assert.match(servidor, /export async function bannersPublicos/); // a rota /api/banners-publico continua
-  assert.match(painel, /useState\(inicial === undefined && !fonte\)/); // reserva o espaço por padrão (sem "pulo")
+  assert.match(servidor, /export function bannersLeves/);
+  assert.match(servidor, /startsWith\("data:"\)/); // se ainda houver data URL, volta ao comportamento de buscar no navegador
+  assert.match(home, /inicial=\{dados\.banners\}/);
+  assert.match(painel, /useState\(inicial === undefined && !fonte\)/); // sem `inicial`, reserva o espaço por padrão (sem "pulo")
   assert.match(painel, /getItem\("uf_banners"\) !== "0"/);
-  assert.match(painel, /preload\("\/api\/banners-publico", \{ as: "fetch"/); // a lista de banners começa a baixar já no HTML (LCP)
+  assert.match(painel, /preload\("\/api\/banners-publico", \{ as: "fetch"/); // sem `inicial`, a lista começa a baixar já no HTML (LCP)
 });
 
 test("catálogo e base das vitrines são montados uma vez por processo (cada página remontava ≈2.400 itens várias vezes)", async () => {
