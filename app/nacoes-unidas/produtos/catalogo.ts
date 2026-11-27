@@ -94,7 +94,12 @@ export function acharPorSlug(itens: readonly CatalogoItem[], slug: string): Cata
 }
 
 /** Catálogo estático completo (inclui esgotados, que mantêm a página aberta): só itens com nome e preço válidos. Sem rede, sem token. */
+let catalogoCompletoPronto: Catalogo | null = null;
+let catalogoNacoesPronto: Catalogo | null = null;
+
+/** O JSON é estático (muda só com um novo deploy): monta uma vez por processo. Quem usa não deve alterar a lista. */
 export function carregarCatalogoCompleto(): Catalogo {
+  if (catalogoCompletoPronto) return catalogoCompletoPronto;
   const bruto = catalogoEstatico as unknown as Partial<Catalogo>;
   const itens = (Array.isArray(bruto.itens) ? bruto.itens : [])
     .filter(isItem)
@@ -111,14 +116,17 @@ export function carregarCatalogoCompleto(): Catalogo {
         ...(typeof extra.ean === "string" && /^\d{8,14}$/.test(extra.ean) ? { ean: extra.ean } : {}),
       };
     });
-  return { loja: "nacoes", geradoEm: typeof bruto.geradoEm === "string" ? bruto.geradoEm : undefined, total: itens.length, itens };
+  catalogoCompletoPronto = { loja: "nacoes", geradoEm: typeof bruto.geradoEm === "string" ? bruto.geradoEm : undefined, total: itens.length, itens };
+  return catalogoCompletoPronto;
 }
 
 /** Catálogo das listas, da busca e das vitrines: sem os esgotados. */
 export function carregarCatalogoNacoes(): Catalogo {
+  if (catalogoNacoesPronto) return catalogoNacoesPronto;
   const completo = carregarCatalogoCompleto();
   const itens = completo.itens.filter((i) => i.esgotado !== true);
-  return { ...completo, total: itens.length, itens };
+  catalogoNacoesPronto = { ...completo, total: itens.length, itens };
+  return catalogoNacoesPronto;
 }
 
 /** "2026-10-31T20:00:04" → "31/10/2026 às 20:00". */

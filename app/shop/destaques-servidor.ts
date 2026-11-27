@@ -16,7 +16,6 @@ import { carregarPedidosDaSemana, carregarSinais, elegivelMaisPedidosSemana, fai
 import { elegivelParaPares } from "../nacoes-unidas/produtos/relacionados";
 import mudancasJson from "../nacoes-unidas/produtos/dados/mudancas-recentes.json" with { type: "json" };
 import { OFERTAS_HOME } from "./ofertas-config";
-import { destinoBanner, type BannerPainel } from "./painel-banners";
 import { VITRINES_HOME } from "./home-vitrines";
 
 export type ItemDestaque = { nome: string; slug: string; lab?: string; precoCentavos: number; foto: string | null; isMIP?: boolean; novo?: boolean };
@@ -49,6 +48,54 @@ export type ConsultaDestaques = {
 };
 
 type EventoCatalogo = { q?: string; t?: string; n?: string };
+
+type ItemBase = {
+  nome: string;
+  nomeOriginal: string;
+  slug: string;
+  lab: string;
+  labNorm: string;
+  precoCentavos: number;
+  foto: string | null;
+  restam?: number;
+  isMIP: boolean;
+  categoria: string;
+  categoriaSlug: string;
+  esgotado: boolean;
+  chave: string;
+  descricaoReal: boolean;
+  nbcal: boolean;
+};
+
+let baseMemo: { fonte: unknown; itens: ItemBase[] } | null = null;
+
+/** Todos os itens já com nome de exibição, slug, foto e descrição: caro de montar (≈2.400 itens), então só uma vez por processo. */
+function baseDoCatalogo(catalogo: { itens: ReadonlyArray<{ nome: string; lab: string; categoria: string; preco: number; isMIP: boolean; esgotado?: boolean; restam?: number }> }): ItemBase[] {
+  if (baseMemo && baseMemo.fonte === catalogo.itens) return baseMemo.itens;
+  const itens = catalogo.itens.map((item) => {
+    const slug = slugify(item.nome);
+    const descricao = descricaoDoProduto(slug);
+    return {
+      nome: nomeDeExibicao(item.nome),
+      nomeOriginal: item.nome,
+      slug,
+      lab: item.lab,
+      labNorm: item.lab.replace(/\s+/g, " ").trim().toLowerCase(),
+      precoCentavos: Math.round(item.preco * 100),
+      foto: fotoDoProduto(item.nome),
+      ...(typeof item.restam === "number" && item.restam > 0 ? { restam: item.restam } : {}),
+      isMIP: item.isMIP,
+      categoria: item.categoria,
+      categoriaSlug: slugify(item.categoria),
+      esgotado: item.esgotado === true,
+      chave: chaveDeNome(item.nome),
+      descricaoReal: descricao !== null && descricao.origem !== "modelo",
+      nbcal: ehNbcal(item.nome),
+    };
+  });
+  baseMemo = { fonte: catalogo.itens, itens };
+  return itens;
+}
 
 function nomesNovosRecentes(agora = Date.now()): Set<string> {
   const eventos = (mudancasJson as { eventos?: EventoCatalogo[] }).eventos ?? [];
@@ -85,30 +132,13 @@ export async function selecionarDestaques(q: ConsultaDestaques): Promise<{ itens
     return { itens: itensPedidos, semCache: true };
   }
   const dia = new Date().toISOString().slice(0, 10);
-  const filtrados = (catalogo?.itens ?? [])
-    .filter((item) => !ehNbcal(item.nome)) // NBCAL: sem vitrine nem destaque
-    .filter((item) => !grupo || slugify(item.categoria) === grupo)
-    .filter((item) => !lab || item.lab.replace(/\s+/g, " ").trim().toLowerCase() === lab)
-    .filter((item) => !ate || Math.round(item.preco * 100) <= ate)
-    .map((item) => {
-      const slug = slugify(item.nome);
-      const descricao = descricaoDoProduto(slug);
-      return {
-        nome: nomeDeExibicao(item.nome),
-        nomeOriginal: item.nome,
-        slug,
-        lab: item.lab,
-        precoCentavos: Math.round(item.preco * 100),
-        foto: fotoDoProduto(item.nome),
-        ...(typeof item.restam === "number" && item.restam > 0 ? { restam: item.restam } : {}),
-        isMIP: item.isMIP,
-        categoria: item.categoria,
-        esgotado: item.esgotado === true,
-        novo: novos.has(chaveDeNome(item.nome)),
-        descricaoReal: descricao !== null && descricao.origem !== "modelo",
-      };
-    })
-    .filter((item) => !soComFoto || item.foto !== null);
+  const filtrados = baseDoCatalogo(catalogo)
+    .filter((item) => !item.nbcal) // NBCAL: sem vitrine nem destaque
+    .filter((item) => !grupo || item.categoriaSlug === grupo)
+    .filter((item) => !lab || item.labNorm === lab)
+    .filter((item) => !ate || item.precoCentavos <= ate)
+    .filter((item) => !soComFoto || item.foto !== null)
+    .map((item) => ({ ...item, novo: novos.has(item.chave) }));
   if (q.ordem === "conversao") {
     const db = banco();
     const sinais = db ? await carregarSinais(db, dia) : SINAIS_VAZIOS;
@@ -212,16 +242,10 @@ export async function bannersPublicos(): Promise<BannerPublico[]> {
   }
 }
 
-/** Banners prontos para o painel (só as vagas "hero-N", em ordem), com o destino de cada clique. */
-export function bannersParaPainel(lista: ReadonlyArray<{ id: string; url: string; slug?: string | null; busca?: string | null }>): BannerPainel[] {
-  return lista
-    .filter((b) => b.id.startsWith("hero-"))
-    .sort((a, b) => (Number(a.id.replace("hero-", "")) || 0) - (Number(b.id.replace("hero-", "")) || 0))
-    .map((b) => {
-      const destino = destinoBanner(b);
-      return { id: b.id, imagem: b.url, alt: destino.rotulo || "Oferta da União Farma", href: destino.href, rotulo: destino.rotulo };
-    });
-}
+/*
+ * Banners NÃO vão no HTML: a arte enviada pelo painel é data URL (a API passa de 1 MB). Colocar isso em todas as páginas deixaria cada uma
+ * megabytes mais pesada e consultar o banco a cada visita a deixaria mais lenta. O painel busca no navegador e reserva o espaço (sem "pulo").
+ */
 
 /** Item no formato da lista da loja (`ItemBusca`), para a amostra que vai no HTML. */
 export type ItemAmostraLoja = { nome: string; lab: string; precoFmt: string; preco: number; isMIP: boolean; foto: string | null; id: string; slug: string };
@@ -245,38 +269,10 @@ export async function amostraDaLoja(n = 24): Promise<ItemAmostraLoja[]> {
   }));
 }
 
-/** Acima disto (caracteres) a "imagem" é arte embutida (data URL): não vai no HTML. */
-const LIMITE_URL_BANNER = 2048;
-
-/**
- * Só vai no HTML banner cuja arte é um arquivo (endereço curto). A arte enviada pelo painel chega como data URL (centenas de KB cada;
- * 14 vagas passam de 1 MB): dentro do HTML ela pesaria megabytes em TODAS as páginas (duas vezes, com o payload do React) e pioraria
- * LCP e TTFB. Se qualquer banner for pesado, devolve `undefined` e o painel busca no navegador, como antes.
- */
-export function bannersLeves(lista: BannerPainel[]): BannerPainel[] | undefined {
-  const pesado = lista.some((b) => !!b.imagem && (b.imagem.startsWith("data:") || b.imagem.length > LIMITE_URL_BANNER));
-  return pesado ? undefined : lista;
-}
-
-/** Banners prontos para o painel, ou `undefined` se falhar ou forem pesados (o painel então busca no navegador, como antes). */
-export async function bannersDoServidor(): Promise<BannerPainel[] | undefined> {
-  try {
-    // Antes de trazer a arte, o banco conta quantas passam do limite (sem transferir as imagens): se houver, nem lê (cada página ficaria 1 MB mais lenta).
-    const db = banco() as Consulta | null;
-    if (!db) return undefined;
-    const pesados = await db.prepare("SELECT COUNT(*) AS n FROM metric_hits WHERE stage = ? AND length(source) > ?").bind("banner", LIMITE_URL_BANNER).all<{ n: number }>();
-    if ((pesados.results?.[0]?.n ?? 0) > 0) return undefined;
-    return bannersLeves(bannersParaPainel(await bannersPublicos()));
-  } catch {
-    return undefined;
-  }
-}
-
 export type DadosDaHome = {
   vitrines: Record<string, ItemDestaque[]>;
   chips: ItemChip[];
   ofertas: ItemOferta[];
-  banners: BannerPainel[];
 };
 
 /**
@@ -284,10 +280,9 @@ export type DadosDaHome = {
  * comportamento antigo: buscar no navegador); a página nunca quebra por causa disso.
  */
 export async function dadosDaHome(): Promise<Partial<DadosDaHome>> {
-  const [vitrines, chips, banners] = await Promise.all([
+  const [vitrines, chips] = await Promise.all([
     vitrinesDaHome().catch(() => undefined),
     chipsDaHome().catch(() => undefined),
-    bannersDoServidor(),
   ]);
   let ofertas: ItemOferta[] | undefined;
   try {
@@ -295,5 +290,5 @@ export async function dadosDaHome(): Promise<Partial<DadosDaHome>> {
   } catch {
     ofertas = undefined;
   }
-  return { vitrines, chips, ofertas, banners };
+  return { vitrines, chips, ofertas };
 }

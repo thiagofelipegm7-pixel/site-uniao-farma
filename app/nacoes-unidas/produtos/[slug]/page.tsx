@@ -3,7 +3,6 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ContentSiteFooter } from "../../../ContentSiteChrome";
 import PainelBanners from "../../../shop/PainelBanners";
-import { bannersDoServidor } from "../../../shop/destaques-servidor";
 import MarcasTrabalhamos from "../../../shop/MarcasTrabalhamos";
 import VoceTambemInteressado, { termosRelacionados } from "../VoceTambemInteressado";
 import DestaquesDepartamento, { gruposDoDepartamento } from "../DestaquesDepartamento";
@@ -58,7 +57,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProdutoNacoesPage({ params }: Props) {
   const { slug } = await params;
-  const bannersProduto = await bannersDoServidor(); // arte no HTML: a página não "pula" quando o banner chega (S-25)
   const catalogo = carregarCatalogoCompleto();
   let item = catalogo ? acharPorSlug(catalogo.itens, slug) : null;
   // Busca mais flexível se não achou (slug pode vir de nome de exibição).
@@ -291,7 +289,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
         ) : null}
 
         {controlado ? null : <MeiosPagamento />}
-        <div className="pdp-banners"><PainelBanners inicial={bannersProduto} /></div>
+        <div className="pdp-banners"><PainelBanners /></div>
 
         <section className="pdp-perguntas section-inner" aria-labelledby="perguntas-titulo">
           <h2 id="perguntas-titulo">Perguntas</h2>

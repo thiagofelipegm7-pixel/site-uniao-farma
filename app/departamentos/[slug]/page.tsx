@@ -8,7 +8,6 @@ import { MarcasLinha } from "../../shop/MarcasLinha";
 import LinhasConfianca from "../../shop/LinhasConfianca";
 import { MARCAS_POR_DEPARTAMENTO } from "../../shop/marcas";
 import PainelBanners from "../../shop/PainelBanners";
-import { bannersDoServidor } from "../../shop/destaques-servidor";
 import ShopTopo from "../../shop/ShopTopo";
 import { nomeDeExibicao } from "../../nome-exibicao";
 import { buildWhatsAppUrl, SITE_URL, PUBLIC_UNITS } from "../../site-config";
@@ -49,7 +48,6 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
   const paginaPedida = Math.max(1, Math.floor(Number(Array.isArray(bruto) ? bruto[0] : bruto)) || 1);
   const dep = acharDepartamento(slug);
   if (!dep || dep.provisorio) notFound(); // categoria interna (ex.: a conferir) não tem página pública
-  const banners = await bannersDoServidor(); // arte no HTML: a página não "pula" quando o banner chega (S-25)
 
   const whatsappHref = buildWhatsAppUrl(nacoes, `Oi, União Farma Nações Unidas! Vi o departamento ${dep.nome} no site e quero confirmar preço e disponibilidade.`, {
     campaign: "departamento",
@@ -79,7 +77,7 @@ export default async function DepartamentoPage({ params, searchParams }: Props) 
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       <ShopTopo />
-      <PainelBanners inicial={banners} />
+      <PainelBanners />
       <div className="unit-page landing-page catalogo-nacoes catalogo-loja">
         <nav className="catalogo-caminho section-inner" aria-label="Breadcrumb">
           <a href="/">União Farma</a>

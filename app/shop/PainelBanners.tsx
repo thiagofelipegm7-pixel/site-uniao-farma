@@ -40,12 +40,12 @@ export default function PainelBanners({ titulo, fonte, aoEnviar, inicial }: { ti
   // No site, o carrossel só existe quando há arte enviada: sem arte não aparece nenhum espaço em branco.
   const [carregado, setCarregado] = useState(inicial !== undefined);
   // Se da última vez havia banners, reserva o espaço enquanto busca (a página não "pula" quando a arte chega).
-  const [reservar, setReservar] = useState(false);
+  const [reservar, setReservar] = useState(inicial === undefined && !fonte);
   useEffect(() => {
     if (fonte || inicial !== undefined) return; // com `inicial` o servidor já mandou a arte
     try {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- lê a preferência guardada neste aparelho (só existe no navegador)
-      setReservar(window.localStorage.getItem("uf_banners") === "1");
+      setReservar(window.localStorage.getItem("uf_banners") !== "0");
     } catch {
       // sem armazenamento: só não reserva o espaço
     }
@@ -153,7 +153,7 @@ export default function PainelBanners({ titulo, fonte, aoEnviar, inicial }: { ti
 
   if (n === 0) {
     // Sem arte no site: nada de faixa vazia. O título da página (só a home) continua para leitores de tela.
-    if (publico && !carregado && reservar) return <section className="painel" aria-hidden="true"><div className="painel-arte painel-arte--reserva" /></section>;
+    if (publico && !carregado && reservar) return <section className="painel" aria-hidden="true"><div className="painel-arte painel-arte--reserva" /><div style={{ height: "3rem" }} /></section>;
     return titulo ? <h1 className="sr-only">{titulo}</h1> : null;
   }
 
