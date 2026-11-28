@@ -8,7 +8,7 @@ const config: LocalLandingPageConfig = {
   description: "Três drogarias da União Farma em Sabará: Fátima, Nações Unidas e Itacolomi. Consulte remédio, preço e entrega no WhatsApp da loja do seu bairro.",
   eyebrow: "Drogaria de bairro em Sabará",
   heading: "Drogaria e farmácia em Sabará, pertinho de casa",
-  lead: "Não é um site de compra. É a loja do bairro respondendo no WhatsApp: se tem, quanto custa e se dá para entregar hoje.",
+  lead: "A loja do bairro responde no WhatsApp: se tem, quanto custa e se dá para entregar hoje. A loja Nações Unidas também tem catálogo com preços no site.",
   bullets: [
     "Três endereços com horário, telefone e rota no Maps.",
     "Genérico, similar, referência, higiene e perfumaria — estoque do dia.",

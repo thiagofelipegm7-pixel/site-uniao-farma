@@ -1,6 +1,8 @@
 /** Cloudflare Worker entry point — União Farma (Vinext + Cloudflare Workers). */
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
+import { classificarBotIa, origemReferenciaIa } from "../app/seo-ia/telemetria-ia";
+import { CACHE_CONTROL_HTML_PUBLICO, decidirCacheBorda, respostaPodeSerGuardada } from "../app/seo-ia/cache-borda";
 
 interface Env {
   ASSETS: Fetcher;
@@ -26,6 +28,57 @@ interface ExecutionContext {
 // dangerouslyAllowSVG: true in next.config.js and uncomment below:
 // const imageConfig: ImageConfig = { dangerouslyAllowSVG: true };
 
+type CacheDaBorda = { default: { match(chave: Request): Promise<Response | undefined>; put(chave: Request, resposta: Response): Promise<void> } };
+
+/**
+ * Páginas pesadas de catálogo (hub, produto, departamento) para visitas anônimas: acerto sai pronto, erro monta e guarda.
+ * Qualquer falha do cache cai no caminho normal, então o pior caso é o comportamento de antes.
+ */
+async function comCacheDeBorda(request: Request, env: Env, ctx: ExecutionContext, decisao: { chave: string; ttl: number }): Promise<Response> {
+  const cache = (globalThis as unknown as { caches?: CacheDaBorda }).caches?.default;
+  if (!cache) return handler.fetch(request, env, ctx);
+  const chave = new Request(decisao.chave, { method: "GET" });
+  try {
+    const guardada = await cache.match(chave);
+    if (guardada) {
+      const resposta = new Response(guardada.body, guardada);
+      resposta.headers.set("Cache-Control", CACHE_CONTROL_HTML_PUBLICO);
+      const vary = resposta.headers.get("x-uf-vary");
+      resposta.headers.delete("x-uf-vary");
+      if (vary) resposta.headers.set("Vary", vary);
+      resposta.headers.set("X-UF-Cache", "hit");
+      // Telemetria por requisição: a cópia guardada não pode carregar a marca de quem a gerou.
+      resposta.headers.delete("X-UF-AI-Bot");
+      resposta.headers.delete("X-UF-AI-Ref");
+      const bot = classificarBotIa(request.headers.get("user-agent"));
+      if (bot) resposta.headers.set("X-UF-AI-Bot", `${bot.tipo}:${bot.bot}`);
+      const refIa = origemReferenciaIa(request.headers.get("referer"));
+      if (refIa) resposta.headers.set("X-UF-AI-Ref", refIa);
+      return resposta;
+    }
+  } catch {
+    return handler.fetch(request, env, ctx);
+  }
+  const original = await handler.fetch(request, env, ctx);
+  if (!respostaPodeSerGuardada(original)) return original;
+  try {
+    const paraGuardar = new Response(original.clone().body, original);
+    // O Cache API usa o Cache-Control da resposta para a validade e ignora Vary de forma irregular: guarda o Vary à parte.
+    const vary = paraGuardar.headers.get("Vary");
+    paraGuardar.headers.delete("Vary");
+    if (vary) paraGuardar.headers.set("x-uf-vary", vary);
+    paraGuardar.headers.delete("X-UF-AI-Bot");
+    paraGuardar.headers.delete("X-UF-AI-Ref");
+    paraGuardar.headers.set("Cache-Control", `public, max-age=${decisao.ttl}`);
+    ctx.waitUntil(cache.put(chave, paraGuardar).catch(() => undefined));
+  } catch {
+    return original;
+  }
+  const resposta = new Response(original.body, original);
+  resposta.headers.set("X-UF-Cache", "miss");
+  return resposta;
+}
+
 const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
@@ -41,7 +94,9 @@ const worker = {
       }, allowedWidths);
     }
 
-    return handler.fetch(request, env, ctx);
+    const decisao = decidirCacheBorda(request);
+    if (!decisao) return handler.fetch(request, env, ctx);
+    return comCacheDeBorda(request, env, ctx, decisao);
   },
 
   /**

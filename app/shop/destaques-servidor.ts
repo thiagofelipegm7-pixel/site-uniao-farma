@@ -329,6 +329,19 @@ export type ItemAmostraLoja = { nome: string; lab: string; precoFmt: string; pre
  * roda JavaScript (robôs de IA) vê produtos de verdade e a página não pula na troca (altura igual à de uma página de 24).
  */
 export async function amostraDaLoja(n = 24): Promise<ItemAmostraLoja[]> {
+  // Robôs chegam em rajada: a mesma amostra serve todos por alguns minutos, sem remontar o catálogo a cada visita.
+  const agora = Date.now();
+  const guardada = amostraMemo.get(n);
+  if (guardada && agora - guardada.em < AMOSTRA_TTL_MS) return guardada.itens;
+  const itens = await montarAmostraDaLoja(n);
+  if (itens.length > 0) amostraMemo.set(n, { em: agora, itens });
+  return itens;
+}
+
+const AMOSTRA_TTL_MS = 5 * 60 * 1000;
+const amostraMemo = new Map<number, { em: number; itens: ItemAmostraLoja[] }>();
+
+async function montarAmostraDaLoja(n: number): Promise<ItemAmostraLoja[]> {
   const { itens } = await selecionarDestaques({ n, fotos: true });
   return itens.map((item) => ({
     nome: item.nome,
