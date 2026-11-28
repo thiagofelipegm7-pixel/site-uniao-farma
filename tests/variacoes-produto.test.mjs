@@ -135,3 +135,24 @@ test("variações no site: seletor no HTML do servidor, acessível, preto e bran
   assert.ok(layout.indexOf("./base-direcao.css") < layout.indexOf("./variacoes.css"), "entra depois da direção");
   assert.match(api, /produtoPorCodigo/); // só produtos que existem no catálogo entram no grupo
 });
+
+test("variações: título do cartão é opcional, a listagem traz todos os grupos e uma tabela antiga ganha a coluna nova", async () => {
+  const { salvarGrupo, grupoDoProduto, listarGrupos } = await lib();
+  const db = bancoDeTeste();
+  assert.deepEqual(await listarGrupos(db), [], "sem tabela, sem grupos");
+  const a = await salvarGrupo(db, E(1), "Tamanho", itens([1, "P"], [2, "M"]), "  Fralda   Teste ");
+  assert.equal(a.ok, true);
+  assert.equal(a.grupo.nome, "Fralda Teste");
+  await salvarGrupo(db, E(3), "Cor", itens([3, "Azul"], [4, "Rosa"]));
+  assert.equal((await grupoDoProduto(db, E(3))).nome, null, "sem título vale o nome do produto");
+  const todos = await listarGrupos(db);
+  assert.equal(todos.length, 2);
+  assert.deepEqual(todos.map((g) => g.itens.map((i) => i.rotulo)).sort(), [["Azul", "Rosa"], ["P", "M"]]);
+  assert.equal((await salvarGrupo(db, E(5), "Tamanho", itens([5, "P"], [6, "M"]), "x".repeat(61))).erro, "nome_invalido");
+  // Tabela criada antes do título existir: o primeiro salvar acrescenta a coluna e tudo segue funcionando.
+  const antigo = bancoDeTeste();
+  await antigo.exec("CREATE TABLE variacao_produto (ean TEXT PRIMARY KEY, grupo TEXT NOT NULL, eixo TEXT NOT NULL, rotulo TEXT NOT NULL, ordem INTEGER NOT NULL, atualizado_em TEXT NOT NULL)");
+  const b = await salvarGrupo(antigo, E(1), "Tamanho", itens([1, "G"], [2, "XG"]), "Título novo");
+  assert.equal(b.ok, true);
+  assert.equal((await grupoDoProduto(antigo, E(2))).nome, "Título novo");
+});

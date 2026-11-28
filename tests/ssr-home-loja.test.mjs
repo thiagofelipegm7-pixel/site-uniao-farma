@@ -39,7 +39,8 @@ test("S-24: a loja põe uma primeira página de produtos no HTML, no lugar do es
   assert.match(pagina, /amostraDaLoja\(\)/);
   assert.match(pagina, /semente=\{semente\}/);
   assert.match(lista, /semente\?: ItemBusca\[\]/);
-  assert.match(lista, /semente\.map\(/);
+  // A amostra do HTML também vem com os tamanhos juntos num cartão só (variações), e continua sendo desenhada com .map().
+  assert.match(lista, /agruparNasListas\(semente, gruposVariacoes\)\.map\(/);
   assert.match(servidor, /export async function amostraDaLoja\(n = 24\)/); // 24 = POR_PAGINA da lista (mesma altura, sem pulo)
 });
 

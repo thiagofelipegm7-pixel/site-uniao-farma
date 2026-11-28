@@ -10,7 +10,7 @@ export function codigoDoItem(item: Pick<ItemCatalogo, "nome"> & { ean?: unknown 
 }
 
 export type FichaVariacao = { ean: string; rotulo: string; nome: string; slug: string; precoCentavos: number; esgotado: boolean };
-export type VariacoesResolvidas = { eixo: string; fichas: FichaVariacao[] };
+export type VariacoesResolvidas = { grupo: string; eixo: string; nome: string | null; fichas: FichaVariacao[] };
 
 function montarMapa(itens: readonly ItemCatalogo[]): Map<string, ItemCatalogo> {
   const mapa = new Map<string, ItemCatalogo>();
@@ -39,7 +39,7 @@ export function resolverGrupo(grupo: GrupoVariacao, itens?: readonly ItemCatalog
     if (!item) continue;
     fichas.push({ ean: membro.ean, rotulo: membro.rotulo, nome: item.nome, slug: slugify(item.nome), precoCentavos: Math.round(item.preco * 100), esgotado: item.esgotado === true });
   }
-  return { eixo: grupo.eixo, fichas };
+  return { grupo: grupo.grupo, eixo: grupo.eixo, nome: grupo.nome ?? null, fichas };
 }
 
 /** Dados de um produto para o painel (nome, preço) a partir do código de barras. */

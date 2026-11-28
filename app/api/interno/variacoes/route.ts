@@ -13,6 +13,7 @@ async function grupoParaPainel(db: Banco, ean: string) {
   if (!grupo) return null;
   return {
     eixo: grupo.eixo,
+    nome: grupo.nome,
     itens: grupo.itens.map((i) => {
       const p = produtoPorCodigo(i.ean);
       return { ean: i.ean, rotulo: i.rotulo, nome: p?.nome ?? "Produto fora do catálogo", precoCentavos: p?.precoCentavos ?? 0, esgotado: p?.esgotado ?? false };
@@ -22,7 +23,7 @@ async function grupoParaPainel(db: Banco, ean: string) {
 
 /**
  * GET ?ean=... → variações cadastradas para esse produto (grupo com tamanhos, cores etc.), ou null.
- * POST { acao: "salvar", ean, eixo, itens: [{ ean, rotulo }] } | { acao: "remover", ean }
+ * POST { acao: "salvar", ean, eixo, nome?, itens: [{ ean, rotulo }] } | { acao: "remover", ean }
  * (A senha da equipe é pedida pelo middleware de /api/interno.)
  */
 export async function GET(request: Request) {
@@ -36,7 +37,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   const db = banco() as Banco | null;
   if (!db) return Response.json({ ok: false, erro: "sem_banco" }, { status: 503, headers: SEM_CACHE });
-  let corpo: { acao?: string; ean?: string; eixo?: unknown; itens?: unknown };
+  let corpo: { acao?: string; ean?: string; eixo?: unknown; itens?: unknown; nome?: unknown };
   try {
     corpo = await request.json();
   } catch {
@@ -54,7 +55,7 @@ export async function POST(request: Request) {
     if (Array.isArray(corpo.itens) && corpo.itens.some((i) => !i || typeof i !== "object" || !produtoPorCodigo(String((i as { ean?: unknown }).ean ?? "")))) {
       return Response.json({ ok: false, erro: "produto_inexistente" }, { status: 422, headers: SEM_CACHE });
     }
-    const r = await salvarGrupo(db, ean, corpo.eixo, corpo.itens);
+    const r = await salvarGrupo(db, ean, corpo.eixo, corpo.itens, corpo.nome);
     if (!r.ok) return Response.json(r, { status: 422, headers: SEM_CACHE });
     return Response.json({ ok: true, grupo: await grupoParaPainel(db, ean) }, { headers: SEM_CACHE });
   }

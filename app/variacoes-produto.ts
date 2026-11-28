@@ -4,7 +4,8 @@
  * as páginas entre si e dá o rótulo de cada ficha ("G", "Azul"). Configurado no painel interno, lido pela página do produto.
  */
 export type VariacaoMembro = { ean: string; rotulo: string };
-export type GrupoVariacao = { grupo: string; eixo: string; itens: VariacaoMembro[] };
+/** `nome` é o título do cartão único nas listas (ex.: "Fralda Babysec Premium Shortinho"); sem ele vale o nome do produto mostrado. */
+export type GrupoVariacao = { grupo: string; eixo: string; nome: string | null; itens: VariacaoMembro[] };
 
 type BancoVariacoes = {
   exec(sql: string): Promise<unknown>;
@@ -21,10 +22,12 @@ export const MIN_MEMBROS = 2;
 export const MAX_MEMBROS = 12;
 export const EIXOS_SUGERIDOS = ["Tamanho", "Cor", "Sabor", "Voltagem", "Fragrância"] as const;
 
-type Linha = { ean: string; grupo: string; eixo: string; rotulo: string };
+type Linha = { ean: string; grupo: string; eixo: string; nome: string | null; rotulo: string };
 
 async function criarTabela(db: BancoVariacoes): Promise<void> {
-  await db.exec("CREATE TABLE IF NOT EXISTS variacao_produto (ean TEXT PRIMARY KEY, grupo TEXT NOT NULL, eixo TEXT NOT NULL, rotulo TEXT NOT NULL, ordem INTEGER NOT NULL, atualizado_em TEXT NOT NULL)");
+  await db.exec("CREATE TABLE IF NOT EXISTS variacao_produto (ean TEXT PRIMARY KEY, grupo TEXT NOT NULL, eixo TEXT NOT NULL, rotulo TEXT NOT NULL, ordem INTEGER NOT NULL, atualizado_em TEXT NOT NULL, nome TEXT)");
+  // Tabela criada antes do nome do cartão existir: acrescenta a coluna (erro "já existe" é ignorado).
+  try { await db.exec("ALTER TABLE variacao_produto ADD COLUMN nome TEXT"); } catch { /* coluna já existe */ }
 }
 
 const limpar = (valor: unknown): string => (typeof valor === "string" ? valor.replace(/\s+/g, " ").trim() : "");
@@ -36,7 +39,7 @@ export async function grupoDoProduto(db: BancoVariacoes, ean: string): Promise<G
   let linhas: Linha[] = [];
   try {
     const { results } = await db
-      .prepare("SELECT ean, grupo, eixo, rotulo FROM variacao_produto WHERE grupo = (SELECT grupo FROM variacao_produto WHERE ean = ?) ORDER BY ordem, ean")
+      .prepare("SELECT ean, grupo, eixo, nome, rotulo FROM variacao_produto WHERE grupo = (SELECT grupo FROM variacao_produto WHERE ean = ?) ORDER BY ordem, ean")
       .bind(ean)
       .all<Linha>();
     linhas = results ?? [];
@@ -44,7 +47,25 @@ export async function grupoDoProduto(db: BancoVariacoes, ean: string): Promise<G
     return null; // tabela ainda não existe: ninguém configurou variações
   }
   if (linhas.length < MIN_MEMBROS) return null;
-  return { grupo: linhas[0].grupo, eixo: linhas[0].eixo, itens: linhas.map((l) => ({ ean: l.ean, rotulo: l.rotulo })) };
+  return { grupo: linhas[0].grupo, eixo: linhas[0].eixo, nome: linhas[0].nome ?? null, itens: linhas.map((l) => ({ ean: l.ean, rotulo: l.rotulo })) };
+}
+
+/** Todos os grupos (para as listas juntarem os tamanhos num cartão só). Uma consulta; sem a tabela, devolve vazio. */
+export async function listarGrupos(db: BancoVariacoes): Promise<GrupoVariacao[]> {
+  let linhas: Linha[] = [];
+  try {
+    const { results } = await db.prepare("SELECT ean, grupo, eixo, nome, rotulo FROM variacao_produto ORDER BY grupo, ordem, ean").bind().all<Linha>();
+    linhas = results ?? [];
+  } catch {
+    return [];
+  }
+  const porGrupo = new Map<string, GrupoVariacao>();
+  for (const l of linhas) {
+    const g = porGrupo.get(l.grupo) ?? { grupo: l.grupo, eixo: l.eixo, nome: l.nome ?? null, itens: [] };
+    g.itens.push({ ean: l.ean, rotulo: l.rotulo });
+    porGrupo.set(l.grupo, g);
+  }
+  return [...porGrupo.values()].filter((g) => g.itens.length >= MIN_MEMBROS);
 }
 
 export type ResultadoSalvar = { ok: true; grupo: GrupoVariacao } | { ok: false; erro: string };
@@ -53,10 +74,12 @@ export type ResultadoSalvar = { ok: true; grupo: GrupoVariacao } | { ok: false; 
  * Salva o grupo do produto `ean`. `itens` é a lista completa na ordem de exibição e inclui o próprio produto.
  * Um produto só pode estar em um grupo: quem já estava em outro sai de lá, e grupo que fica com menos de 2 produtos é apagado.
  */
-export async function salvarGrupo(db: BancoVariacoes, ean: string, eixoEntrada: unknown, itensEntrada: unknown): Promise<ResultadoSalvar> {
+export async function salvarGrupo(db: BancoVariacoes, ean: string, eixoEntrada: unknown, itensEntrada: unknown, nomeEntrada: unknown = null): Promise<ResultadoSalvar> {
   if (!/^\d{8,14}$/.test(ean)) return { ok: false, erro: "ean_invalido" };
   const eixo = limpar(eixoEntrada) || "Tamanho";
   if (eixo.length > 24) return { ok: false, erro: "eixo_invalido" };
+  const nome = limpar(nomeEntrada) || null;
+  if (nome && nome.length > 60) return { ok: false, erro: "nome_invalido" };
   if (!Array.isArray(itensEntrada) || itensEntrada.length < MIN_MEMBROS || itensEntrada.length > MAX_MEMBROS) return { ok: false, erro: "variacoes_invalidas" };
 
   const itens: VariacaoMembro[] = [];
@@ -80,10 +103,10 @@ export async function salvarGrupo(db: BancoVariacoes, ean: string, eixoEntrada: 
   const statements: unknown[] = [];
   if (atual) statements.push(db.prepare("DELETE FROM variacao_produto WHERE grupo = ?").bind(grupo));
   for (const i of itens) statements.push(db.prepare("DELETE FROM variacao_produto WHERE ean = ?").bind(i.ean));
-  itens.forEach((i, ordem) => statements.push(db.prepare("INSERT INTO variacao_produto (ean, grupo, eixo, rotulo, ordem, atualizado_em) VALUES (?, ?, ?, ?, ?, ?)").bind(i.ean, grupo, eixo, i.rotulo, ordem, agora)));
+  itens.forEach((i, ordem) => statements.push(db.prepare("INSERT INTO variacao_produto (ean, grupo, eixo, rotulo, ordem, atualizado_em, nome) VALUES (?, ?, ?, ?, ?, ?, ?)").bind(i.ean, grupo, eixo, i.rotulo, ordem, agora, nome)));
   statements.push(db.prepare("DELETE FROM variacao_produto WHERE grupo IN (SELECT grupo FROM variacao_produto GROUP BY grupo HAVING COUNT(*) < ?)").bind(MIN_MEMBROS));
   await db.batch(statements);
-  return { ok: true, grupo: { grupo, eixo, itens } };
+  return { ok: true, grupo: { grupo, eixo, nome, itens } };
 }
 
 /** Desfaz o grupo inteiro do produto (as páginas voltam a ser independentes). */

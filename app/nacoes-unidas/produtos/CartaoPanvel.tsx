@@ -71,6 +71,8 @@ type Props = {
   avisos?: ReactNode;
   /** Conteúdo extra abaixo do cartão (detalhes, WhatsApp). */
   extra?: ReactNode;
+  /** Cartão único de um grupo de tamanhos ou cores: o preço mostrado é o menor entre as opções ("a partir de"). */
+  aPartirDe?: boolean;
   /** Cartão vertical em qualquer largura (vitrines em carrossel). */
   vertical?: boolean;
   /** Produto que entrou recentemente no catálogo: exibe o selo NOVO em formato de explosão. */
@@ -87,7 +89,7 @@ type Props = {
  * preço e botão largo "Adicionar" no pé. Abaixo do nome, até três linhas com ícone (quantidade, "Med. Genérico" e "Lab. Cimed"), como nas farmácias grandes. Sem selo de programa, sem "De/Por" e sem % OFF quando
  * o catálogo não tem preço de antes: o que a União não tem fica em branco.
  */
-export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medicamento = false, classificacao = null, apresentacao, precoFmt, precoAnteriorFmt, descontoPct, oferta = false, cesta, esgotado = false, avisos, extra, vertical = false, novo = false, classe = "", tipo, levePague, apresentacoes }: Props) {
+export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medicamento = false, classificacao = null, apresentacao, precoFmt, precoAnteriorFmt, descontoPct, oferta = false, cesta, esgotado = false, aPartirDe = false, avisos, extra, vertical = false, novo = false, classe = "", tipo, levePague, apresentacoes }: Props) {
   const apresentacaoLegivel = formatarQuantidade(apresentacao);
   // Medicamento: "Lab. Cimed". Produto comum: "Marca Dove" se o nome cita a marca; senão o fabricante do cadastro ("Fab. Procter").
   const marcaDoNome = medicamento ? "" : marcaDeProduto(nome);
@@ -127,7 +129,9 @@ export default function CartaoPanvel({ href, nome, foto, marca, precoVazio, medi
       </span>
       {apresentacoes && apresentacoes.length > 1 ? <span className="pv-leve-pague pv-apresentacoes"><strong>Escolha a apresentação · preço por unidade</strong><span>{apresentacoes.map((a) => `${a.nome}: ${formatarCentavos(a.precoCentavos)}`).join(" · ")}</span></span> : null}
       {levePague ? <span className="pv-leve-pague"><strong>Leve + pague menos</strong><span>{faixasDaPromocao(levePague).map((faixa) => `${faixa.quantidade} un. ${formatarCentavos(faixa.precoUnitarioCentavos)}/un.`).join(" · ")}</span></span> : null}
-      {apresentacoes && apresentacoes.length > 1 ? (
+      {aPartirDe ? (
+        <span className="pv-preco-opcoes"><small>A partir de</small><Preco precoFmt={precoFmt} vazio={precoVazio} /></span>
+      ) : apresentacoes && apresentacoes.length > 1 ? (
         <span className="pv-preco-opcoes"><small>Preço por unidade · a partir de</small><Preco precoFmt={formatarCentavos(Math.min(...apresentacoes.map((a) => a.precoCentavos)))} /></span>
       ) : faixaUmaUnidade && precoFmt ? (
         <span className="pv-preco-oferta">

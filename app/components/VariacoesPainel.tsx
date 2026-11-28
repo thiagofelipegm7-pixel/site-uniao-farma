@@ -4,7 +4,7 @@ import { useEffect, useId, useState } from "react";
 
 type Produto = { nome: string; ean: string; categoria: string; precoCentavos: number };
 type Linha = { ean: string; nome: string; rotulo: string };
-type Grupo = { eixo: string; itens: Array<Linha & { precoCentavos: number; esgotado: boolean }> };
+type Grupo = { eixo: string; nome?: string | null; itens: Array<Linha & { precoCentavos: number; esgotado: boolean }> };
 
 const MAX = 12;
 const EIXOS = ["Tamanho", "Cor", "Sabor", "Voltagem", "Fragrância"];
@@ -17,6 +17,7 @@ const ERROS: Record<string, string> = {
   produto_inexistente: "Um dos produtos não está mais no catálogo.",
   produto_fora_do_grupo: "O produto aberto precisa fazer parte do grupo.",
   eixo_invalido: "O tipo da variação deve ter até 24 letras.",
+  nome_invalido: "O título do cartão deve ter até 60 letras.",
   sem_banco: "O banco de dados não está disponível agora. Tente em instantes.",
 };
 const reais = (centavos: number) => `R$ ${(centavos / 100).toFixed(2).replace(".", ",")}`;
@@ -30,6 +31,7 @@ export default function VariacoesPainel({ ean, nome }: { ean: string; nome: stri
   const [carregado, setCarregado] = useState(false);
   const [ativo, setAtivo] = useState(false);
   const [eixo, setEixo] = useState("Tamanho");
+  const [tituloCartao, setTituloCartao] = useState("");
   const [linhas, setLinhas] = useState<Linha[]>([]);
   const [busca, setBusca] = useState("");
   const [achados, setAchados] = useState<Produto[]>([]);
@@ -50,8 +52,10 @@ export default function VariacoesPainel({ ean, nome }: { ean: string; nome: stri
         if (d.grupo) {
           setAtivo(true);
           setEixo(d.grupo.eixo);
+          setTituloCartao(d.grupo.nome ?? "");
           setLinhas(d.grupo.itens.map((i) => ({ ean: i.ean, nome: i.nome, rotulo: i.rotulo })));
         } else {
+          setTituloCartao("");
           setLinhas([{ ean, nome, rotulo: "" }]);
         }
         setCarregado(true);
@@ -96,6 +100,7 @@ export default function VariacoesPainel({ ean, nome }: { ean: string; nome: stri
       }
       if (d.grupo) {
         setEixo(d.grupo.eixo);
+        setTituloCartao(d.grupo.nome ?? "");
         setLinhas(d.grupo.itens.map((i) => ({ ean: i.ean, nome: i.nome, rotulo: i.rotulo })));
         setAtivo(true);
       } else {
@@ -126,6 +131,11 @@ export default function VariacoesPainel({ ean, nome }: { ean: string; nome: stri
             <input type="text" list={`${id}-eixos`} maxLength={24} value={eixo} onChange={(e) => setEixo(e.target.value)} />
             <datalist id={`${id}-eixos`}>{EIXOS.map((e) => <option key={e} value={e} />)}</datalist>
           </label>
+
+          <label>Título do cartão nas listas (opcional)
+            <input type="text" maxLength={60} value={tituloCartao} onChange={(e) => setTituloCartao(e.target.value)} placeholder="Ex.: Fralda Babysec Premium Shortinho" />
+          </label>
+          <p className="colecoes-nota">Nas listas e na busca, os produtos do grupo aparecem num cartão só, com uma ficha para cada opção. Sem título, o cartão usa o nome de um dos produtos.</p>
 
           <ol className="variacoes-lista">
             {linhas.map((l, indice) => (
@@ -164,7 +174,7 @@ export default function VariacoesPainel({ ean, nome }: { ean: string; nome: stri
           ) : <p className="colecoes-nota">Grupo completo ({MAX} produtos).</p>}
 
           <div className="colecoes-apresentacoes-acoes">
-            <button type="button" disabled={ocupado || !pronto} onClick={() => enviar({ acao: "salvar", eixo, itens: linhas.map((l) => ({ ean: l.ean, rotulo: l.rotulo })) }, "Variações salvas. Já aparecem na página de cada produto do grupo.")}>{ocupado ? "Salvando…" : "Salvar variações"}</button>
+            <button type="button" disabled={ocupado || !pronto} onClick={() => enviar({ acao: "salvar", eixo, nome: tituloCartao, itens: linhas.map((l) => ({ ean: l.ean, rotulo: l.rotulo })) }, "Variações salvas. Já aparecem na página de cada produto do grupo.")}>{ocupado ? "Salvando…" : "Salvar variações"}</button>
             {ativo && linhas.length >= 2 ? <button type="button" className="colecoes-apresentacao-remover" disabled={ocupado} onClick={() => enviar({ acao: "remover" }, "Variações desativadas. Cada produto voltou a ter a página independente.")}>Desativar variações</button> : null}
           </div>
           {!pronto ? <p className="colecoes-nota">Para salvar: pelo menos 2 produtos, cada um com o nome da opção preenchido.</p> : null}

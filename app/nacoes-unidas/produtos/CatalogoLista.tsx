@@ -59,6 +59,8 @@ import { FaixaLista, LateralTopo } from "./ListaDrogasil";
 import type { PromocaoQuantidade } from "../../promocao-quantidade-tipos";
 import type { ApresentacaoPublica } from "../../apresentacao-produto-tipos";
 import { eanDaFoto } from "./imagens";
+import { agruparNasListas, type GrupoLista } from "./variacoes-agrupar";
+import ChipsVariacoesCartao from "./ChipsVariacoesCartao";
 
 type Props = {
   /** Texto vindo do campo de busca do cabeçalho (?q=). */
@@ -108,6 +110,15 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
       for (const a of dados.apresentacoes) (porEan[a.ean] ??= []).push(a);
       setApresentacoesPorEan(porEan);
     }).catch(() => undefined).finally(() => { if (!cancel) setApresentacoesCarregadas(true); });
+    return () => { cancel = true; };
+  }, []);
+  // Grupos de variações (tamanhos, cores): os produtos do mesmo grupo viram um cartão só na lista.
+  const [gruposVariacoes, setGruposVariacoes] = useState<GrupoLista[]>([]);
+  useEffect(() => {
+    let cancel = false;
+    fetch("/api/variacoes-produto", { cache: "no-store" }).then((r) => r.ok ? r.json() : null).then((dados: { grupos?: GrupoLista[] } | null) => {
+      if (!cancel && dados?.grupos) setGruposVariacoes(dados.grupos);
+    }).catch(() => undefined);
     return () => { cancel = true; };
   }, []);
   // Falso até o catálogo inteiro estar na tela: a correção de digitação só vale com a lista completa.
@@ -273,12 +284,14 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
   }, [termoDeCliques, cliques]);
   const cliquesDoTermo = termoDeCliques ? cliques?.[termoDeCliques] : undefined;
   const visiveis = ordem === "recomendados" && termosRelevancia.length > 0 ? ordenarPorRelevancia(visiveisBase, termosRelevancia, cliquesDoTermo, (item) => item.slug ?? slugify(item.nome)) : visiveisBase;
-  const total = contarItens(visiveis);
+  // Tamanhos e cores do mesmo grupo viram um cartão só: a contagem e as páginas valem para os cartões.
+  const itensVisiveis = agruparNasListas(visiveis.flatMap((g) => g.itens), gruposVariacoes);
+  const total = gruposVariacoes.length > 0 ? itensVisiveis.length : contarItens(visiveis);
   const [pagina, setPagina] = useState(paginaInicial);
   const [porPagina, setPorPagina] = useState<number>(POR_PAGINA);
   const totalPaginas = Math.max(1, Math.ceil(total / porPagina));
   const paginaAtual = Math.min(pagina, totalPaginas);
-  const itensDaPagina = visiveis.flatMap((g) => g.itens).slice((paginaAtual - 1) * porPagina, paginaAtual * porPagina);
+  const itensDaPagina = itensVisiveis.slice((paginaAtual - 1) * porPagina, paginaAtual * porPagina);
   const primeiraBusca = useRef(true);
   // Mudou a busca, o filtro ou a ordem: volta para a página 1 (menos na primeira carga, que respeita o endereço).
   useEffect(() => {
@@ -388,9 +401,12 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
         precoFmt={item.precoFmt}
         restam={item.restam}
         esgotado={item.esgotado}
-        levePague={promocaoProduto}
-        apresentacoes={apresentacoes}
-        cesta={centavos && !item.esgotado ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cartao" max={item.restam} slug={item.slug} promocao={promocaoProduto} apresentacoes={apresentacoes} aguardandoApresentacoes={!apresentacoesCarregadas} /> : null}
+        aPartirDe={item.aPartirDe}
+        classe={item.variacoes ? "pv-card--variacoes" : undefined}
+        levePague={item.variacoes ? undefined : promocaoProduto}
+        apresentacoes={item.variacoes ? undefined : apresentacoes}
+        extra={item.variacoes ? <ChipsVariacoesCartao variacoes={item.variacoes} nome={nome} /> : undefined}
+        cesta={centavos && !item.esgotado && !item.variacoes ? <ReservarBotao unitId={unitId} nome={nome} precoCentavos={centavos} foto={item.foto} variante="cartao" max={item.restam} slug={item.slug} promocao={promocaoProduto} apresentacoes={apresentacoes} aguardandoApresentacoes={!apresentacoesCarregadas} /> : null}
       />
     );
   };
@@ -649,7 +665,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
       ) : null}
 
       {esperando && estado === "carregando" && !buscando && semente && semente.length > 0 ? (
-        <ul className="catalogo-lista pv-grade" aria-busy="true">{semente.map((item) => renderCartao(item as (typeof itensDaPagina)[number]))}</ul>
+        <ul className="catalogo-lista pv-grade" aria-busy="true">{agruparNasListas(semente, gruposVariacoes).map((item) => renderCartao(item as (typeof itensDaPagina)[number]))}</ul>
       ) : esperando ? (
         <EsqueletoGrade />
       ) : total === 0 ? (

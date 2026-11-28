@@ -23,6 +23,10 @@ export type ItemBusca = {
   palavras?: string;
   /** Medicamento com receita ou controlado: o cartão usa a ficha restrita (receita, retenção, cesta só para retirada). */
   restrito?: ItemRestrito;
+  /** Cartão único de um grupo de variações (tamanhos, cores): as opções e qual delas é o produto do cartão. Montado em variacoes-agrupar.ts. */
+  variacoes?: { eixo: string; fichas: Array<{ ean: string; rotulo: string; nome: string; slug: string; precoCentavos: number; esgotado: boolean }>; atual: string };
+  /** O preço do cartão único é o menor entre as opções ("a partir de"). */
+  aPartirDe?: boolean;
 };
 export type GrupoBusca = { categoria: string; id: string; itens: ItemBusca[] };
 
