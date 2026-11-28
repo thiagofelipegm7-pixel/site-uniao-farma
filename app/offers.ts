@@ -112,8 +112,8 @@ const createOffer = (
 });
 
 export const OFFERS: Offer[] = [
-  // Encarte de Black Friday (27/11/2026). Preços do folheto (Elseve "de" 49,90 do DMaster).
-  // Expiram sozinhas depois de 27/11/2026 às 23:59:59 (Brasília). Inclui medicamentos com receita do encarte, a pedido da loja, só com nome, preço e a condição "leve 3".
+  // Encarte de Black Friday. Preços do folheto (Elseve "de" 49,90 do DMaster).
+  // Sem data de fim por enquanto: valem enquanto durar o estoque. Inclui medicamentos com receita do encarte, a pedido da loja, só com nome, preço e a condição "leve 3".
   ...([
     { id: "bf-strepsils-16-laranja", slug: "strepsils-8-75mg-cx-16-past-laranja", name: "Strepsils caixa 16 pastilhas laranja", brand: "Strepsils", category: "medicamentos" as const, currentPrice: 19.9, previousPrice: 34.9, image: "/produtos/7891035010972.webp", regulatoryClass: "otc_review" as const, adsEligible: false, manualRegulatoryApproval: true },
     { id: "bf-strepsils-16-mel-limao", slug: "strepsils-875mg-cx-16-past-mel-limao", name: "Strepsils caixa 16 pastilhas mel e limão", brand: "Strepsils", category: "medicamentos" as const, currentPrice: 19.9, previousPrice: 34.9, image: "/produtos/7891035010866.webp", regulatoryClass: "prescription_listed" as const, adsEligible: false, manualRegulatoryApproval: true },
@@ -157,9 +157,8 @@ export const OFFERS: Offer[] = [
       imageApproved: true,
       priceConfirmed: true,
       validityConfirmed: true,
-      validityType: "date",
+      validityType: "while_stock_lasts",
       validFrom: "2026-11-27",
-      validUntil: "2026-11-27",
       promotionConfirmed: true,
       publicationStatus: "approved",
       updatedAt: "2026-11-27",
@@ -555,7 +554,7 @@ export function canPublishOffer(offer: Offer, now = new Date()): PublicationDeci
           : "Oferta ainda não foi aprovada para publicação.",
     };
   }
-  if (offer.validityType === "date" && offer.validFrom) {
+  if (offer.validFrom) {
     const inicio = new Date(`${offer.validFrom}T00:00:00-03:00`);
     if (!Number.isNaN(inicio.getTime()) && now.getTime() < inicio.getTime()) {
       return { publishable: false, code: "not_yet_valid", reason: "Oferta ainda não começou." };
@@ -624,6 +623,7 @@ export function isOffersCatalogFresh(now = new Date(), offers: Offer[] = getPubl
 }
 
 export function getOffersKicker(now = new Date(), offers: Offer[] = getPublicOffers(now)): string {
+  if (offers.some((offer) => offer.id.startsWith("bf-"))) return "Black Friday União Farma";
   return isOffersCatalogFresh(now, offers) ? "Ofertas da semana" : "Ofertas";
 }
 
