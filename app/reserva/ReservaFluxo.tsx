@@ -281,7 +281,7 @@ export default function ReservaFluxo() {
   }
 
   const titulo = passo === 1 ? "Revisar itens" : passo === 2 ? "Como receber" : "Enviar pedido";
-  const ajuda = passo === 1 ? "Confira os produtos e quantidades antes de continuar." : passo === 2 ? "Escolha retirar na loja ou receber em casa. A taxa aparece na hora." : "Revise tudo e envie pelo WhatsApp. A loja confirma estoque e prazo.";
+  const ajuda = passo === 1 ? "Confira os produtos e quantidades antes de continuar." : passo === 2 ? "Escolha retirar na loja ou receber em casa. A taxa aparece na hora." : "Revise tudo e envie pelo WhatsApp. A loja responde em até 5 minutos no horário de funcionamento para confirmar estoque e prazo.";
 
   async function repetir() {
     setRepetindo(true);
@@ -329,7 +329,7 @@ export default function ReservaFluxo() {
           ) : (
             <>
               <strong>Sua cesta está vazia.</strong>
-              <p>Escolha seus produtos e pague só quando retirar.</p>
+              <p>Escolha seus produtos sem pagar nada aqui — você só paga na retirada na loja ou na entrega em casa.</p>
             </>
           )}
           {ultimo.length > 0 ? (
@@ -353,7 +353,7 @@ export default function ReservaFluxo() {
               <div className="entrega-item-prod">
                 <span className="fluxo-item-foto">{item.foto ? <img src={item.foto} alt="" width="52" height="52" /> : null}<b className="fluxo-item-qtd" aria-hidden="true">{item.qtd}</b></span>
                 <strong className="fluxo-item-nome">{nomePedidoItem(item)}{item.receita ? <span className="fluxo-item-receita">{item.receita === "controlado" ? "Controlado · receita retida" : "Exige receita"}</span> : null}{faixaAplicavel(item.promocao, item.qtd) ? <span className="fluxo-item-receita">Faixa de {faixaAplicavel(item.promocao, item.qtd)?.quantidade} unidades aplicada</span> : proximaFaixa(item.promocao, item.qtd) ? <span className="fluxo-item-receita">Leve {proximaFaixa(item.promocao, item.qtd)?.quantidade}, pague {formatarCentavos(proximaFaixa(item.promocao, item.qtd)?.precoUnitarioCentavos ?? 0)} cada</span> : null}</strong>
-                {avisoDe(item.id)?.tipo === "acabou" ? <span className="fluxo-aviso-estoque" role="alert">Acabou na loja agora. Volte e tire este item da cesta.</span> : null}
+                {avisoDe(item.id)?.tipo === "acabou" ? <span className="fluxo-aviso-estoque" role="alert">Acabou na loja agora. Toque em &ldquo;Editar minha cesta&rdquo; abaixo para tirar este item e continuar.</span> : null}
               </div>
               <span className="entrega-item-preco">{formatarCentavos(precoUnitarioReserva(item))}</span>
               <span className="entrega-item-qtd">{item.qtd} {item.qtd === 1 ? "unidade" : "unidades"}</span>
@@ -561,7 +561,7 @@ export default function ReservaFluxo() {
                   <div className="entrega-end-texto">
                     <strong>{nome.trim()}</strong>
                     {!retirar ? <span>{rua.trim()}</span> : null}
-                    <span>{retirar ? `Retirada na União Farma ${unidade.shortName}` : `${bairro}, Sabará - MG`}</span>
+                    <span>{retirar ? `Retirada grátis na União Farma ${unidade.shortName} (${unidade.street})` : `${bairro}, Sabará - MG`}</span>
                   </div>
                   <button type="button" className="entrega-btn entrega-btn-alterar" onClick={() => setEditando(true)}>Alterar</button>
                 </div>
@@ -667,7 +667,7 @@ export default function ReservaFluxo() {
                 <div className="entrega-end-texto">
                   <strong>{nome.trim()}</strong>
                   {!retirar ? <span>{rua.trim()}</span> : null}
-                  <span>{retirar ? `Retirada na União Farma ${unidade.shortName}` : `${bairro}, Sabará - MG`}</span>
+                  <span>{retirar ? `Retirada grátis na União Farma ${unidade.shortName} (${unidade.street})` : `${bairro}, Sabará - MG`}</span>
                 </div>
                 <button type="button" className="entrega-btn entrega-btn-alterar" onClick={() => { setEditando(true); ir(2); }}>Alterar</button>
               </div>

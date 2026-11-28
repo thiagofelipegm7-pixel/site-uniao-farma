@@ -410,11 +410,11 @@ export default function LerReceita() {
               {fase.tipo === "naoReceita" ? (
                 <p className="receita-erro" role="alert">Não consegui ler medicamentos nesta foto. Tente de novo com a receita inteira, em foco e sem sombra, ou fale com o farmacêutico.</p>
               ) : null}
-              {fase.tipo === "inicio" ? <p className="receita-dica">Fotografe a receita inteira, com boa luz e o texto em foco. Se tiver o PDF do Memed, escolha o arquivo.</p> : null}
+              {fase.tipo === "inicio" ? <p className="receita-dica">Fotografe a receita inteira, com boa luz e o texto em foco, ou escolha o PDF do Memed. Envie só a receita (não precisa mandar outros documentos) — o site não guarda a imagem.</p> : null}
               {escolher}
               {whatsapp ? (
                 <a className="receita-mao" href={whatsapp} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="receita_foto_mao">
-                  Receita escrita à mão? Fale com o farmacêutico
+                  Receita escrita à mão? Fale com o farmacêutico (resposta em 5 min)
                 </a>
               ) : null}
             </>
@@ -444,7 +444,7 @@ export default function LerReceita() {
               </div>
               {faltam.length > 0 && whatsapp ? (
                 <a className="reserva-botao reserva-botao-vazado receita-whats" href={whatsapp} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="receita_foto">
-                  <IconWhats size={22} oficial /> <span>Falar com o farmacêutico sobre o que faltou</span>
+                  <IconWhats size={22} oficial /> <span>Falar com o farmacêutico sobre o que faltou (resposta em 5 min)</span>
                 </a>
               ) : null}
             </>

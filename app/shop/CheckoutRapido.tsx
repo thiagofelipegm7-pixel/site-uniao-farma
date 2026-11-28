@@ -24,10 +24,10 @@ export default function CheckoutRapido() {
     <div className="uf-destaque" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.75rem" }}>
       <div>
         <strong style={{ display: "block", fontSize: "1rem" }}>Olá, {nome}!</strong>
-        <small style={{ opacity: 0.9 }}>Seus dados estão salvos.</small>
+        <small style={{ opacity: 0.9 }}>Dados do último pedido salvos · pague só na entrega ou retirada.</small>
       </div>
       <a href="/reserva" className="uf-botao" style={{ background: "#fff", color: "var(--color-teal-700, #006058)" }}>
-        Pedir agora
+        Repetir pedido
       </a>
     </div>
   );

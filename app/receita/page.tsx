@@ -63,6 +63,7 @@ export default function ReceitaPage() {
             <div className="hero-copy recipe-copy">
               <p className="eyebrow">Receita</p>
               <h1 id="recipe-title">Encontre os remédios da sua receita</h1>
+              <p className="recipe-prereq">Funciona com foto nítida da receita inteira ou PDF do Memed. Grátis e sem salvar sua imagem.</p>
             </div>
 
             <div className="recipe-acoes">

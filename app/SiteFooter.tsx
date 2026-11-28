@@ -69,6 +69,7 @@ export default function SiteFooter() {
           <nav className="rodape-bloco" aria-label="Links do rodapé">
             <p className="rodape-titulo" role="heading" aria-level={2}>Institucional</p>
             <ul className="rodape-links">
+              <li><a href="/institucional">Dados institucionais</a></li>
               <li><a href="/privacidade">Privacidade</a></li>
               <li><a href="/termos">Termos</a></li>
               <li><a href="/trocas-e-devolucoes">Trocas e devoluções</a></li>

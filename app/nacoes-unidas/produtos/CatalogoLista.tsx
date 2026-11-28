@@ -659,7 +659,7 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
           <ul className="catalogo-lista pv-grade">{similares.map(renderCartao)}</ul>
           <p className="catalogo-similares-nota">
             Quer exatamente o que procurou?{" "}
-            <a href={whatsappEsgotado} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unitId} data-track-source="produtos_nacoes_esgotado">Pergunte quando chega</a>
+            <a href={whatsappEsgotado} target="_blank" rel="noopener noreferrer" data-track-event="whatsapp_click" data-track-unit={unitId} data-track-source="produtos_nacoes_esgotado">Pergunte quando chega</a>
           </p>
         </section>
       ) : null}
@@ -680,8 +680,13 @@ export default function CatalogoLista({ grupos: gruposProps, departamento, whats
               ? `Não encontramos “${consulta.trim()}”. Confira a digitação, use termos mais amplos ou navegue pelas categorias.`
               : "Não encontramos produtos com esses filtros. Limpe os filtros ou navegue pelas categorias."}
           </p>
-          <a className="catalogo-perguntar" href={whatsappBusca} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit={unitId} data-track-source="produtos_nacoes_busca_vazia">
-            Perguntar à loja pelo WhatsApp
+          {ativos > 0 ? (
+            <button type="button" className="catalogo-limpar-vazio" onClick={limparFiltros}>
+              Limpar filtros
+            </button>
+          ) : null}
+          <a className="catalogo-perguntar" href={whatsappBusca} target="_blank" rel="noopener noreferrer" data-track-event="whatsapp_click" data-track-unit={unitId} data-track-source="produtos_nacoes_busca_vazia">
+            Confirmar no WhatsApp (resposta em 5 min)
           </a>
         </div>
         {sugestoesVazia.length > 0 ? (

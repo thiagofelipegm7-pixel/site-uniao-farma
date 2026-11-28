@@ -67,7 +67,7 @@ export default function OfferAlerts({ showButton = false }: { showButton?: boole
 
   async function toggle() {
     if (!("Notification" in window)) {
-      setNote("Este aparelho não mostra aviso de oferta.");
+      setNote("Este navegador não permite avisos automáticos. Você pode receber as promoções pelo Grupo de Ofertas no WhatsApp acima.");
       return;
     }
     setBusy(true);
@@ -80,7 +80,7 @@ export default function OfferAlerts({ showButton = false }: { showButton?: boole
       }
       const permission = await Notification.requestPermission();
       if (permission !== "granted") {
-        setNote("Permita o aviso nas configurações do celular.");
+        setNote("Os avisos estão bloqueados neste aparelho. Libere nas configurações do navegador ou entre no Grupo de Ofertas no WhatsApp acima.");
         return;
       }
       const feed = await readFeed();

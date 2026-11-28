@@ -5,17 +5,20 @@
 Estas regras devem ser **severamente seguidas**. Quando duas entrarem em conflito, vale a de cima, e quem trabalhar no site deve dizer qual regra venceu:
 
 1. **Acessibilidade AAA** — [`ACCESSIBILITY.md`](./ACCESSIBILITY.md). Regra número 1: nunca cede.
-2. **Conversão** — [`CONVERSAO.md`](./CONVERSAO.md), as 23 Leis Definitivas de Conversão.
+2. **Conversão e Conversion Copywriting** — [`CONVERSAO.md`](./CONVERSAO.md) (23 Leis Definitivas de Conversão) e [`COPYWRITING.md`](./COPYWRITING.md) (34 Leis do Conversion Copywriting).
 3. **Direção artística** — o resto deste arquivo. Vale sempre que não contrariar as duas primeiras.
 
 Acima das três, como **limite legal**: as regras R-xx de `CONFORMIDADE.md` (RDC 44 e 96, LGPD, consumidor). Nenhuma das três regras pode violá-las. As regras V-xx e P-xx do mesmo arquivo, e as regras S-xx de `SEO-IA.md` (33 leis de SEO para IA), valem no nível logo abaixo da conversão e acima da direção artística.
 
-Leia e aplique integralmente os quatro documentos abaixo em toda mudança de interface, texto, formulário, dado, oferta, conteúdo ou código de página. Cada regra tem um ID (A-xx, C-xx, R-xx, V-xx, P-xx, S-xx) para citar na resposta e no Pull Request.
+Leia e aplique integralmente os cinco documentos abaixo em toda mudança de interface, texto, formulário, dado, oferta, conteúdo ou código de página. Cada regra tem um ID (A-xx, C-xx, W-xx, R-xx, V-xx, P-xx, S-xx) para citar na resposta e no Pull Request.
 
 @ACCESSIBILITY.md
 @CONVERSAO.md
+@COPYWRITING.md
 @CONFORMIDADE.md
 @SEO-IA.md
+
+> **Glossário de referência sob demanda:** [`LEIS-DE-COPY.md`](./LEIS-DE-COPY.md) (10.346 técnicas de UX writing e copywriting em 19 categorias — consultar por categoria conforme índice em `COPYWRITING.md`, sem carregar as 10.500 linhas inteiras de uma vez).
 
 # União Farma — direção artística
 

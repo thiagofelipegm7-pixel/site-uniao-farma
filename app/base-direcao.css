@@ -4278,6 +4278,114 @@ html body .pergunta-origem-obrigado {
   font-size: 0.9375rem !important;
   line-height: 1.6 !important;
 }
+/* W-13: Landing page dedicada para tráfego pago (/pedir-agora) — branco/preto, sem menu de fuga, alvos >= 48 px, foco 3 px. */
+html body:has(.lp-paga) .lp-paga {
+  max-width: 48rem !important;
+  margin: 0 auto !important;
+  padding: 1.5rem 1.25rem 3rem !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+html body:has(.lp-paga) .lp-topo {
+  display: flex !important;
+  justify-content: center !important;
+  margin-bottom: 1.5rem !important;
+}
+html body:has(.lp-paga) .lp-topo a {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 48px !important;
+  min-width: 48px !important;
+}
+html body:has(.lp-paga) .lp-hero,
+html body:has(.lp-paga) .lp-bloco {
+  margin: 0 0 1.5rem !important;
+  padding: 1.5rem !important;
+  border: 0 !important;
+  border-radius: 1rem !important;
+  background: #ffffff !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1) !important;
+  color: #000000 !important;
+}
+html body:has(.lp-paga) .lp-etiqueta {
+  margin: 0 0 0.5rem !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  color: #000000 !important;
+}
+html body:has(.lp-paga) .lp-hero h1 {
+  margin: 0 0 0.75rem !important;
+  font-size: 1.75rem !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  text-wrap: balance !important;
+  color: #000000 !important;
+}
+html body:has(.lp-paga) .lp-bloco h2 {
+  margin: 0 0 0.75rem !important;
+  font-size: 1.25rem !important;
+  font-weight: 500 !important;
+  line-height: 1.3 !important;
+  text-wrap: balance !important;
+  color: #000000 !important;
+}
+html body:has(.lp-paga) .lp-paga p,
+html body:has(.lp-paga) .lp-paga li,
+html body:has(.lp-paga) .lp-paga blockquote {
+  color: #000000 !important;
+  font-size: 1rem !important;
+  line-height: 1.6 !important;
+  max-width: 65ch !important;
+}
+html body:has(.lp-paga) .lp-cta {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 48px !important;
+  min-width: 48px !important;
+  margin-top: 1rem !important;
+  padding: 0.75rem 1.5rem !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  background: #000000 !important;
+  color: #ffffff !important;
+  font-size: 0.9375rem !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+}
+html body:has(.lp-paga) .lp-pos-clique {
+  margin: 0.75rem 0 0 !important;
+  font-size: 0.875rem !important;
+}
+html body:has(.lp-paga) .lp-lista,
+html body:has(.lp-paga) .lp-depoimentos {
+  display: grid !important;
+  gap: 0.75rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+html body:has(.lp-paga) .lp-depoimentos blockquote {
+  margin: 0 0 0.25rem !important;
+  font-style: normal !important;
+}
+html body:has(.lp-paga) .lp-paga a:not(.lp-cta) {
+  display: inline-flex !important;
+  align-items: center !important;
+  min-height: 48px !important;
+  color: #000000 !important;
+  text-decoration: underline !important;
+  text-underline-offset: 3px !important;
+}
+html body:has(.lp-paga) .lp-paga a:focus-visible {
+  outline: 3px solid #000000 !important;
+  outline-offset: 2px !important;
+}
+html body:has(.lp-paga) .notas-google--lp {
+  margin: 1rem 0 0 !important;
+  padding: 1rem 0 0 !important;
+  box-shadow: none !important;
+}
 /* ===== Cores restantes (27/11/2026): páginas de bairro, legais, novidades, entrega e domingo =====
  * Mesmo tratamento já usado na página de receita, agora para o site todo: fundo branco, texto preto,
  * cartões sem contorno com sombra preta suave, botões em pílula preta. O campo de seleção mantém contorno
@@ -4346,5 +4454,26 @@ html body .offer-alerts .offer-alerts-button {
 }
 html body .offers-page :is(a.offer-consult-choose, a.button, .offer-alerts-button) * {
   color: #ffffff !important;
+}
+/* Fluxo 3 (Busca/Filtros sem resultado): botão Limpar filtros acessível (A-01, A-08, A-10). */
+html body .catalogo-limpar-vazio {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 48px !important;
+  min-width: 48px !important;
+  margin: 0 0.75rem 0.75rem 0 !important;
+  padding: 0 1.25rem !important;
+  border: 2px solid #000000 !important;
+  border-radius: 999px !important;
+  background: #ffffff !important;
+  color: #000000 !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+}
+html body .catalogo-limpar-vazio:focus-visible {
+  outline: 3px solid #000000 !important;
+  outline-offset: 2px !important;
 }
 }

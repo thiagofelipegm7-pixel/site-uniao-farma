@@ -16,9 +16,9 @@ export default function ProvaEntrega() {
         <div className="prova-entrega">
           <h2 id="prova-entrega-titulo">Como funciona depois que você chama no WhatsApp</h2>
           <p className="prova-entrega-pos">
-            Ao tocar no WhatsApp da sua loja, você já abre a conversa pronta. A equipe responde {WHATSAPP_SLA},
-            confirma o que tem em estoque, informa a taxa exata do seu bairro e combina a entrega ou retirada — nada é
-            cobrado no site e você pode desistir antes de confirmar.
+            Você sabe quanto vai pagar antes de pedir porque a tabela já mostra a taxa confirmada do seu bairro e, ao
+            tocar no WhatsApp da loja, a equipe responde {WHATSAPP_SLA} para confirmar o estoque e combinar entrega ou
+            retirada — nada é cobrado no site e você pode desistir antes de confirmar.
           </p>
 
           <ul className="prova-entrega-medos">

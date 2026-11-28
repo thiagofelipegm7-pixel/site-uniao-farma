@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { trackEvent } from "../analytics";
 import { eventoEntrega, listarBairros, lojaDoBairro, mensagemEntrega } from "../entrega-bairro";
-import { buildWhatsAppUrl, UNITS } from "../site-config";
+import { buildWhatsAppUrl, UNITS, WHATSAPP_SLA } from "../site-config";
 import { formatarCentavos } from "../reserva/reserva-store";
 import "./entrega.css";
 
@@ -42,7 +42,7 @@ export default function EntregaBairro() {
           {unit ? (
             <>
               <p>
-                <strong>Sim, entregamos em {escolha}.</strong> A entrega sai da loja {unit.legalLabel}. Taxa de entrega: {unit.deliveryFees?.[escolha] !== undefined ? formatarCentavos(unit.deliveryFees[escolha]) : "a combinar"}. O prazo é confirmado no WhatsApp da loja antes de fechar o pedido.
+                <strong>Sim, entregamos em {escolha}.</strong> A entrega sai da loja {unit.legalLabel}. Taxa confirmada: {unit.deliveryFees?.[escolha] !== undefined ? formatarCentavos(unit.deliveryFees[escolha]) : "a combinar"}. A equipe responde {WHATSAPP_SLA} para confirmar o prazo — nada é cobrado no site e você só paga na entrega.
               </p>
               <a
                 className="button button-whatsapp"
@@ -59,7 +59,7 @@ export default function EntregaBairro() {
           ) : null}
           {escolha === OUTRO ? (
             <p>
-              Hoje a entrega é feita só nos bairros da lista. Fale com a loja mais perto pelo WhatsApp e retire o pedido no balcão. <a href="#fora-da-lista">Ver as lojas</a>.
+              Hoje entregamos apenas nos bairros da lista acima. Você ainda pode pedir pelo WhatsApp da loja mais próxima e retirar grátis no balcão. <a href="#fora-da-lista">Ver as lojas</a>.
             </p>
           ) : null}
         </div>

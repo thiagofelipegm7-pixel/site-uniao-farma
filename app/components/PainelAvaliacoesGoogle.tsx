@@ -55,7 +55,7 @@ export default function PainelAvaliacoesGoogle({ nivel = 1 }: { nivel?: 1 | 2 } 
       setAviso(acao === "enviado" ? "Marcado como enviado." : "Aviso descartado.");
       await carregar();
     } catch {
-      setErro("Não foi possível salvar. Tente de novo.");
+      setErro("Não foi possível salvar agora. Confira a internet e tente novamente — nenhum dado foi perdido.");
     } finally {
       setSalvando(null);
     }
@@ -72,7 +72,7 @@ export default function PainelAvaliacoesGoogle({ nivel = 1 }: { nivel?: 1 | 2 } 
         <button className="pvendas-atualizar" type="button" onClick={() => void carregar()} disabled={carregando}>Atualizar</button>
       </header>
 
-      <p className="pvendas-nota">Toque em <strong>Abrir WhatsApp</strong>, confira a mensagem e envie você mesmo. Cada pedido recebe um aviso só: depois marque <strong>Enviado</strong>. Se não for o caso, use <strong>Descartar</strong>.</p>
+      <p className="pvendas-nota">Toque em <strong>Abrir WhatsApp</strong>, confira a mensagem e envie você mesmo. Cada pedido recebe um aviso só: depois toque em <strong>Marcar enviado</strong>. Se não for o caso, use <strong>Descartar</strong>.</p>
       {erro ? <p className="pvendas-erro" role="alert">{erro}</p> : null}
       {aviso ? <p className="pvendas-aviso" role="status">{aviso}</p> : null}
 

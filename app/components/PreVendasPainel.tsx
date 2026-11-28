@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import PedidoEditor from "./PedidoEditor";
+import { WHATSAPP_SLA } from "../site-config";
 import "./pre-vendas.css";
 import "./pedido-editor.css";
 
@@ -115,7 +116,7 @@ export default function PreVendasPainel({ nivel = 1 }: { /** 1 = h1 (página pr�
       setAviso("Andamento atualizado.");
       await carregar();
     } catch {
-      setErro("Não foi possível atualizar o andamento. Tente novamente.");
+      setErro("Não foi possível atualizar o andamento agora. Confira a internet e tente novamente — o status anterior foi mantido.");
     } finally {
       setSalvando(null);
     }
@@ -127,7 +128,7 @@ export default function PreVendasPainel({ nivel = 1 }: { /** 1 = h1 (página pr�
         <div>
           <p className="pvendas-eyebrow">Área da equipe</p>
           {nivel === 2 ? <h2>Pré-vendas do site</h2> : <h1>Pré-vendas do site</h1>}
-          <p className="pvendas-lead">Acompanhe as cestas que chegaram até a abertura do WhatsApp e atualize o andamento da conversa.</p>
+          <p className="pvendas-lead">Acompanhe as cestas que chegaram até a abertura do WhatsApp (meta: responder {WHATSAPP_SLA}) e atualize o andamento da conversa.</p>
         </div>
         <button className="pvendas-atualizar" type="button" onClick={() => void carregar()} disabled={carregando}>Atualizar</button>
       </header>

@@ -5,6 +5,8 @@ import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import DirectUnitLinks from "../DirectUnitLinks";
 import OfferAlerts from "../OfferAlerts";
 import PublicOffersGrid from "../PublicOffersGrid";
+import NotasGoogle from "../shop/NotasGoogle";
+import { WHATSAPP_SLA } from "../site-config";
 import { formatOfferDate, getOffersKicker, getOffersReviewDate, getPublicOffers } from "../offers";
 import { WHATSAPP_MESSAGES } from "../whatsapp-messages";
 import "../offers-polish.css";
@@ -33,9 +35,10 @@ export default function OffersPageClient({
           <div className="hero-inner">
             <div className="hero-copy">
               <p className="eyebrow">{getOffersKicker()}</p>
-              <h1 id="offers-title">Ofertas em Sabará</h1>
+              <h1 id="offers-title">Ofertas da semana em Sabará</h1>
               <p className="hero-lead">
-                Escolha o produto e depois a loja. A equipe confirma se tem hoje.
+                Economize nas compras do dia a dia porque você confere o encarte aqui e a equipe confirma o estoque no
+                WhatsApp {WHATSAPP_SLA} — sem fila e sem pagar antes.
               </p>
               <p className="offers-freshness">
                 {reviewDate ? `Encarte conferido em ${formatOfferDate(reviewDate)}. ` : ""}
@@ -65,13 +68,14 @@ export default function OffersPageClient({
               intent="offer"
               source="ofertas_page"
             />
+            <NotasGoogle className="notas-google--ofertas" />
           </div>
         </section>
 
         <section className="section offers-group-band" aria-labelledby="offers-group-band-title">
           <div className="section-inner">
             <h2 id="offers-group-band-title">Receba as próximas ofertas</h2>
-            <p>As ofertas da semana da loja Nações Unidas no seu celular.</p>
+            <p>Promoções da semana de higiene, perfumaria e cuidado diário da loja Nações Unidas no seu celular — grátis e você sai quando quiser.</p>
             <p>
               <OffersGroupCta placement="ofertas_top" />
             </p>

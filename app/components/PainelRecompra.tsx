@@ -55,7 +55,7 @@ export default function PainelRecompra({ nivel = 1 }: { /** 1 = h1 (página pró
       setAviso(acao === "enviado" ? "Marcado como enviado." : "Pronto: esse cliente não recebe mais lembretes e os dados dele foram apagados.");
       await carregar();
     } catch {
-      setErro("Não foi possível salvar. Tente de novo.");
+      setErro("Não foi possível salvar agora. Confira a internet e tente novamente — nenhum dado foi perdido.");
     } finally {
       setSalvando(null);
     }
@@ -72,7 +72,7 @@ export default function PainelRecompra({ nivel = 1 }: { /** 1 = h1 (página pró
         <button className="pvendas-atualizar" type="button" onClick={() => void carregar()} disabled={carregando}>Atualizar</button>
       </header>
 
-      <p className="pvendas-nota">Toque em <strong>Abrir WhatsApp</strong>, confira a mensagem e envie você mesmo. Depois marque <strong>Enviado</strong>. Se o cliente responder SAIR, marque <strong>Não quer mais</strong>: o nome e o telefone são apagados e o número não aparece mais.</p>
+      <p className="pvendas-nota">Toque em <strong>Abrir WhatsApp</strong>, confira a mensagem e envie você mesmo. Depois toque em <strong>Marcar enviado</strong>. Se o cliente responder SAIR, marque <strong>Não quer mais</strong>: o nome e o telefone são apagados e o número não aparece mais.</p>
       {erro ? <p className="pvendas-erro" role="alert">{erro}</p> : null}
       {aviso ? <p className="pvendas-aviso" role="status">{aviso}</p> : null}
 

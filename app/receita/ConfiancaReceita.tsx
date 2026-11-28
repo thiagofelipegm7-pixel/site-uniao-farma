@@ -13,10 +13,11 @@ export default function ConfiancaReceita() {
       <h2 id="recipe-confianca-titulo">O que acontece depois que você anexa a receita</h2>
 
       <p className="recipe-pos-clique">
-        Ao enviar a foto ou o PDF, os nomes dos remédios são lidos na hora e o site mostra o que tem na loja Nações Unidas.
-        Você confere a lista antes de colocar na cesta ou falar no WhatsApp — a equipe responde {WHATSAPP_SLA}, nada é
-        cobrado aqui e você pode desistir a qualquer momento. Medicamento sob prescrição só é dispensado após avaliação
-        do farmacêutico.
+        Você não perde viagem porque, ao enviar a foto ou o PDF, os nomes dos remédios são lidos na hora e o site mostra
+        o que já tem na loja Nações Unidas. Você confere a lista antes de colocar na cesta ou falar no WhatsApp — a
+        equipe responde {WHATSAPP_SLA}, nada é cobrado aqui e você pode desistir a qualquer momento. Medicamento sob
+        prescrição só é dispensado após avaliação do farmacêutico; controlados (Portaria 344/98) e antimicrobianos são
+        vendidos apenas na loja, com retenção da receita.
       </p>
 
       <ul className="recipe-medos">
@@ -26,7 +27,7 @@ export default function ConfiancaReceita() {
         <li>
           <strong>Minha receita fica salva no site?</strong> Não. Primeiro o seu próprio aparelho tenta ler a receita. Se não
           conseguir, a imagem é enviada a um serviço de leitura automática por inteligência artificial (Google Gemini ou Cloudflare)
-          só para ler os nomes dos remédios. O site não guarda a foto nem o PDF.
+          só para ler os nomes dos remédios. O site não guarda a foto nem o PDF (veja a <a href="/privacidade">política de privacidade</a>).
         </li>
         <li>
           <strong>E se faltar um remédio ou vier um nome errado?</strong> É só desmarcar na lista e tirar a dúvida direto com o farmacêutico no WhatsApp.

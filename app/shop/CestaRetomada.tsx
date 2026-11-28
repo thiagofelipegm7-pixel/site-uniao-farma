@@ -20,6 +20,7 @@ export default function CestaRetomada() {
       <p>
         <strong>Você deixou {unidades} {unidades === 1 ? "item" : "itens"} na cesta</strong>
         {subtotal > 0 ? <span> · {formatarCentavos(subtotal)}</span> : null}
+        <span> · pague só na entrega ou retirada</span>
       </p>
       <a className="cesta-retomada-botao" href="/reserva" data-track-event="cta_click" data-track-source="home_cesta_retomada">Concluir pedido</a>
     </section>

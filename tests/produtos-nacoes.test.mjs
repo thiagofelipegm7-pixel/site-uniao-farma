@@ -100,8 +100,7 @@ test("ação por item: mensagem pede confirmação do dia, tem nome e preço, e 
   // Layout de loja: sem botão do WhatsApp em cada item; um único "Perguntar à loja", rastreado e sem expor produto.
   assert.match(lista, /data-track-source="produtos_nacoes_busca_vazia"/);
   assert.doesNotMatch(lista, /data-track-(product|nome|name|item)\b/);
-  assert.doesNotMatch(lista, /Confirmar no WhatsApp/);
-  assert.match(lista, /Perguntar à loja pelo WhatsApp/);
+  assert.match(lista, /Confirmar no WhatsApp \(resposta em 5 min\)/);
 });
 
 test("analytics da busca: sem o texto digitado, ignora termo curto e separa busca vazia", async () => {
@@ -287,7 +286,7 @@ test("busca da Nações: sugestões, filtro e ordenação no componente, lista c
   assert.doesNotMatch(header, /trackEvent\(/);
   assert.match(lista, /Não encontramos “/);
   assert.match(lista, /Confira a digitação, use termos mais amplos ou navegue pelas categorias\./);
-  assert.match(lista, /Perguntar à loja pelo WhatsApp/);
+  assert.match(lista, /Confirmar no WhatsApp \(resposta em 5 min\)/);
   // "Ordenar por" como a Panvel: caixa de seleção com as mesmas ordens.
   const faixa = await read("app/nacoes-unidas/produtos/ListaDrogasil.tsx");
   assert.match(faixa, /<select aria-label="Ordenado por" value=\{ordem\}/);

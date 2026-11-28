@@ -19,7 +19,7 @@ export default async function StaffLoginPage({
     <div className="staff-login-page">
       <div className="staff-login-card">
         <h1>Entrar</h1>
-        {params.erro ? <p className="metrics-error">Usuário ou senha não conferem.</p> : null}
+        {params.erro ? <p className="metrics-error" role="alert">Usuário ou senha não conferem. Confira se o Caps Lock está desligado e tente novamente.</p> : null}
         <form action="/api/interno/login" method="post">
           <input type="hidden" name="next" value={nextPath} />
           <label>

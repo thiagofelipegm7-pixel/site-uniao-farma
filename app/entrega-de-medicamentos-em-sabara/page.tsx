@@ -4,7 +4,7 @@ import { ContentSiteFooter, ContentSiteHeader } from "../ContentSiteChrome";
 import EntregaBairro from "./EntregaBairro";
 import ProvaEntrega from "./ProvaEntrega";
 import PlanoBOfertas from "../shop/PlanoBOfertas";
-import { buildWhatsAppUrl, SITE_URL, UNITS } from "../site-config";
+import { buildWhatsAppUrl, SITE_URL, UNITS, WHATSAPP_SLA } from "../site-config";
 import type { FaqItem } from "../seo-content";
 import { getPageStructuredData, getUnitPublicPath } from "../structured-data";
 import { formatarCentavos } from "../reserva/reserva-store";
@@ -113,13 +113,13 @@ export default function EntregaDeMedicamentosEmSabaraPage() {
           <div className="section-inner">
             <h2 id="como-pedir">Como pedir pelo WhatsApp</h2>
             <ol>
-              <li>Veja na tabela qual loja atende o seu bairro.</li>
-              <li>Chame essa loja no WhatsApp e mande a lista de produtos e o seu endereço.</li>
-              <li>A loja confirma o pedido com você pelo WhatsApp.</li>
+              <li>Escolha seu bairro em &ldquo;Entregamos no seu bairro?&rdquo; ou consulte a tabela &ldquo;Bairros atendidos por loja&rdquo;.</li>
+              <li>Toque no WhatsApp da loja que atende seu bairro e envie os produtos e o endereço.</li>
+              <li>A equipe responde {WHATSAPP_SLA} para confirmar estoque, taxa e prazo — você só paga na entrega ou na retirada.</li>
             </ol>
             <p>
               Os pedidos são feitos dentro do horário de cada loja. <a href="/farmacia-aberta-domingo-sabara">Veja os horários das lojas</a>.
-              Medicamentos com receita seguem as regras da Anvisa.
+              Medicamentos sob prescrição exigem avaliação do farmacêutico; controlados (Portaria 344/98) e antimicrobianos são vendidos apenas na loja, com retenção da receita.
             </p>
           </div>
         </section>

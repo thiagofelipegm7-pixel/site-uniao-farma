@@ -11,7 +11,7 @@ import VoceTambemInteressado, { termosRelacionados } from "../VoceTambemInteress
 import DestaquesDepartamento, { gruposDoDepartamento } from "../DestaquesDepartamento";
 import ShopTopo from "../../../shop/ShopTopo";
 import RegistrarVisto from "../../../shop/RegistrarVisto";
-import { buildWhatsAppUrl, SITE_URL, UNITS } from "../../../site-config";
+import { buildWhatsAppUrl, SITE_URL, UNITS, WHATSAPP_SLA } from "../../../site-config";
 import { IconSetaDireita } from "../../../reserva/ReservaIcons";
 import Preco from "../Preco";
 import SemFoto from "../SemFoto";
@@ -183,12 +183,20 @@ export default async function ProdutoNacoesPage({ params }: Props) {
             ) : (
               <p className="produto-preco"><Preco precoFmt={formatBRL(apresentacoes.length > 1 ? Math.min(...apresentacoes.map((a) => a.precoCentavos)) / 100 : item.preco)} variante="grande" />{apresentacoes.length > 1 ? <small>Preço por unidade. Escolha a apresentação antes de adicionar.</small> : null}</p>
             )}
-            {item.esgotado ? <p className="produto-esgotado" role="status">Indisponível no momento. Fale com a loja pelo WhatsApp para saber quando chega.</p> : null}
+            {item.esgotado ? (
+              <p className="produto-esgotado" role="status">
+                Indisponível no momento.{" "}
+                <a href={duvidaHref} target="_blank" rel="noopener noreferrer" data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="produto_esgotado">
+                  Perguntar quando chega no WhatsApp
+                </a>{" "}
+                (respondemos {WHATSAPP_SLA}).
+              </p>
+            ) : null}
             {controlado || precoFirme ? null : <p className="produto-nota">{NOTA_PRECO}</p>}
             {item.esgotado || controlado ? null : (
               <p className="pdp-entrega">
-                <strong>Retire na loja ou receba em casa</strong>
-                <a href="/entrega-de-medicamentos-em-sabara">Mais detalhes e formas de entrega</a>
+                <strong>Retire grátis na loja ou receba em casa em Sabará</strong>
+                <a href="/entrega-de-medicamentos-em-sabara">Ver bairros e taxa de entrega</a>
               </p>
             )}
             {item.esgotado || controlado ? null : <ProdutoBarra bloco unitId={nacoes.id} nome={nomeExibido} precoCentavos={Math.round(item.preco * 100)} foto={foto} max={item.restam} slug={slugify(item.nome)} apresentacoes={apresentacoes} />}
@@ -313,10 +321,10 @@ export default async function ProdutoNacoesPage({ params }: Props) {
 
         <section className="pdp-perguntas section-inner" aria-labelledby="perguntas-titulo">
           <h2 id="perguntas-titulo">Perguntas</h2>
-          <p className="pdp-perguntas-nota">Tire sua dúvida com a farmacêutica da loja pelo WhatsApp.</p>
-          <a className="pdp-perguntar" href={duvidaHref} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="produto_perguntar">
+          <p className="pdp-perguntas-nota">Fale direto com a equipe farmacêutica da loja pelo WhatsApp — respondemos {WHATSAPP_SLA}.</p>
+          <a className="pdp-perguntar" href={duvidaHref} target="_blank" rel="noopener noreferrer" data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="produto_perguntar">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M10 3l1.6 4.4L16 9l-4.4 1.6L10 15l-1.6-4.4L4 9l4.4-1.6L10 3zM18 13l.9 2.1L21 16l-2.1.9L18 19l-.9-2.1L15 16l2.1-.9L18 13zM18 3l.7 1.8L20.5 5.5l-1.8.7L18 8l-.7-1.8L15.5 5.5l1.8-.7L18 3z" /></svg>
-            <span className="pdp-perguntar-rotulo">Perguntar</span>
+            <span className="pdp-perguntar-rotulo">Tirar dúvida com a farmacêutica</span>
           </a>
           <details className="pdp-perguntas-todas" id="faq-produto">
             <summary>

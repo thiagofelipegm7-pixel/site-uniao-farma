@@ -42,12 +42,13 @@ const localBindingConfig = {
     : [],
 };
 
-export default defineConfig(async () => {
+export default defineConfig(async ({ command, mode }) => {
   process.env.WRANGLER_WRITE_LOGS ??= "false";
   process.env.WRANGLER_LOG_PATH ??= ".wrangler/logs";
   process.env.MINIFLARE_REGISTRY_PATH ??= ".wrangler/registry";
 
   const { cloudflare } = await import("@cloudflare/vite-plugin");
+  const crmLocal = command === "serve" && mode === "crm-local";
 
   return {
     server: {
@@ -64,6 +65,7 @@ export default defineConfig(async () => {
       cloudflare({
         viteEnvironment: { name: "rsc", childEnvironments: ["ssr"] },
         config: localBindingConfig,
+        ...(crmLocal ? { remoteBindings: false, persistState: { path: ".wrangler/crm-local" } } : {}),
       }),
     ],
   };

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { WHATSAPP_SLA } from "../site-config";
 import "../metrics-polish.css";
 import "./painel-inicio.css";
 
@@ -78,7 +79,7 @@ export default function PainelInicio() {
 
         <article className="pi-cartao" aria-labelledby="pi-atender">
           <h2 id="pi-atender">Atender um pedido</h2>
-          <p>O pedido chega pronto, escrito, na conversa do WhatsApp da loja. Confirme preço e estoque com o cliente e separe o item na hora.</p>
+          <p>O pedido chega pronto na conversa do WhatsApp da loja. Responda {WHATSAPP_SLA}, confirme preço e estoque com o cliente e separe o item na hora.</p>
           <a className="pi-acao" href="https://web.whatsapp.com/" target="_blank" rel="noreferrer">Abrir o WhatsApp Web</a>
         </article>
 

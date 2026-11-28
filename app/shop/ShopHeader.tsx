@@ -518,8 +518,8 @@ export default function ShopHeader({ consultaInicial = "" }: { consultaInicial?:
                     <p>Confira a digitação, use termos mais amplos ou navegue pelas categorias.</p>
                   )}
                   {nacoes ? (
-                    <a href={buildWhatsAppUrl(nacoes, "Oi, União Farma Nações Unidas! Não achei um produto no site. Pode me ajudar?", { campaign: "busca_vazia", content: "cabecalho" })} target="_blank" rel="noreferrer" data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="busca_vazia_cabecalho">
-                      Perguntar à loja pelo WhatsApp
+                    <a href={buildWhatsAppUrl(nacoes, `Oi, União Farma Nações Unidas! Procurei “${termo.trim().slice(0, 80)}” no site e não encontrei. Vocês têm na loja?`, { campaign: "busca_vazia", content: "cabecalho" })} target="_blank" rel="noopener noreferrer" data-track-event="whatsapp_click" data-track-unit="nacoes" data-track-source="busca_vazia_cabecalho">
+                      Confirmar no WhatsApp (resposta em 5 min)
                     </a>
                   ) : null}
                 </div>

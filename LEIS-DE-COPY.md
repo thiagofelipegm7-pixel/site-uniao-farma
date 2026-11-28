@@ -1,0 +1,10525 @@
+# Glossário de técnicas de texto. UX writing e copywriting
+
+10.346 termos organizados em 19 categorias, em expansão rumo à meta de 10.000. Os termos são agrupados pelo tema predominante.
+
+## UX writing e microcopy de interface
+
+- Neutralização de Objeção de Pedido Mínimo
+- Níveis de Consciência do Comprador (Stages of Awareness)
+- Alinhamento de Ritmo Mobile (Thumb-Zone Scannability)
+- Divulgação de estado vazio (Empty State Microcopy)
+- Máscara e exemplo de preenchimento (Input Format Masking & Placeholder)
+- Texto de autocompletar e sugestão de busca (Autocomplete & Query Suggestion Copy)
+- Microcopy de resumo de pedido compartilhável (Shareable Order Summary Copy)
+- Microcopy de primeiro uso e ambientação (First-Time Onboarding Copy)
+- Microcopy de expiração de sessão e carrinho (Session & Cart Expiration Copy)
+- Rotulagem de limite de unidades por pedido (Order Quantity Limit Labeling)
+- Microcopy de histórico e recompra rápida (Purchase History & Reorder Microcopy)
+- Microcopy de alerta de retorno ao estoque (Back-in-Stock Notification Microcopy)
+- Microcopy de confirmação de envio de formulário (Form Submission Confirmation Copy)
+- Rotulagem de status de pedido em etapas (Order Fulfillment Milestone Labeling)
+- Modelo actancial de Greimas (Greimas Actantial Model)
+- Teoria da recepção e horizonte de expectativas (Reception Theory & Horizon of Expectations)
+- Fluxo de consciência (Stream of Consciousness)
+- Teoria do fluxo de informação de Chafe (Chafe’s Information Flow Theory)
+- Ajuste da densidade de informação por seção ou tela (Information Density Calibration)
+- Formulário de Avaliação de Informação ao Consumidor — CIRF (Consumer Information Rating Form)
+- Cápsula de resposta direta para busca sem clique (Zero-Click Answer Capsule)
+- Pseudolocalização de textos de interface (Pseudo-Localization)
+- Pré-visualização de strings no contexto da interface (In-Context String Preview)
+- Validação de dados estruturados de produto e Schema.org (Structured Product Data Validation)
+- Busca facetada e navegação guiada (Faceted Search and Guided Navigation)
+- Teste de expectativa pré-clique (Expectation Testing)
+- Rótulo de recuperação com ação específica (Specific-Recovery CTA Labeling)
+- Bloco prévio de pré-requisitos e insumos (Prerequisite Gatekeeping)
+- Espelhamento literal de rótulos da interface nas instruções (Consistent UI-Label Echoing)
+- Princípio da Transparência Operacional
+- Fricção Positiva Estratégica (Positive Friction)
+- Desambiguação de Intenção por Microrrótulos
+- Desambiguação de Escopo Temporal
+- Validação de Fechamento (Micro-Feedback Loops)
+- Amortecimento da Dor do Pagamento (Pain-of-Paying Buffering)
+- Sinalização de Continuidade de Contexto (Context-Carryover Cueing)
+- Fechamento por Alternativa Positiva (Double-Bind Choice)
+- Neutralização de Ansiedade de Estoque (Stock-Out Reassurance)
+- Assinatura de Encerramento Operacional (Closing Loop Anchor)
+- Utilidade Preventiva (Pre-emptive Micro-Utility)
+- Desambiguação de Canal Direto (Human-Channel Signaling)
+- Princípio da Economia de Troca de Contexto (Context-Switch Minimization)
+- Sinalização de Atendimento Assíncrono
+- Desambiguação de apresentação e embalagem (Package & Strength Disambiguation)
+- Mensagens de erro construtivas (Constructive Error Messaging)
+- Consentimento antes de substituições (Substitution Consent Messaging)
+- Horário contextualizado (Contextualized Hours)
+- Identidade local contextual (Local Identity Signaling)
+- Sinalização de vigência e estoque (Validity & Stock Timestamp Labeling)
+- Rotulagem de ordenação e filtros (Sorting & Filter Facet Labeling)
+- Rotulagem de canais alternativos de atendimento (Fallback Contact Channel Labeling)
+- Rotulagem de disponibilidade por canal (Channel-Specific Availability Labeling)
+- Rotulagem de limite de área de cobertura (Service Area Boundary Labeling)
+- Rotulagem de lacre e integridade da embalagem (Package Integrity & Seal Labeling)
+- Metadiscurso interacional (Interactional Metadiscourse)
+- Pistas de contextualização de Gumperz e sociolinguística interacional (Gumperz’s Contextualization Cues and Interactional Sociolinguistics)
+- Enunciação fingida e estatuto lógico do discurso ficcional de Searle (Searle’s Logical Status of Fictional Discourse)
+- Escrita orientada a tarefas (Task-Oriented Writing)
+- Texto âncora descritivo (Descriptive Anchor Text)
+- Testes de cloze e compreensibilidade textual (Cloze Testing)
+- Card sorting e rotulagem de navegação (Card Sorting and Navigation Labeling)
+- Estratégia omnichannel e reutilização modular de conteúdo (Omnichannel Content Strategy)
+- Sinalização de cuidados. restrições e precauções operacionais (Safety Callouts and Operational Cautions)
+- Revisão de consistência terminológica e padronização de rótulos (Terminology Consistency Review)
+- Teste de paráfrase e compreensão (Paraphrase and Comprehension Testing)
+- Cartões de reação para voz e tom (Microsoft Desirability Toolkit Reaction Cards)
+- Teste de compreensão terminológica baseado em cartões (Card-Based Terminology Comprehension Test)
+- Alinhamento estrutural micro-macro (Micro-Macro Structural Alignment)
+- Garantia de qualidade linguística em contexto (Linguistic Quality Assurance)
+- Auditoria de truncamento de strings e estouro de texto (String Truncation and Overflow Audit)
+- Tradução densa com anotação contextual (Thick Translation)
+- Desambiguação de princípio ativo. concentração e apresentação (Dosage and Active-Ingredient Disambiguation Pass)
+- Contratos de truncamento e renderização por canal (Channel-Specific Truncation and Rendering Contracts)
+- Design da informação à prova de erros — Poka-Yoke (Poka-Yoke Information Design)
+- Lei de Hick-Hyman na estruturação de menus e opções (Hick-Hyman Law)
+- Interrogação elaborativa em textos explicativos (Elaborative Interrogation)
+- Sinalização textual e pistas estruturais (Textual Signaling and Cueing)
+- Analogias-ponte e concepções-âncora (Bridging Analogies)
+- Teste de compreensão baseado em cenários (Scenario-Based Comprehension Testing)
+- Arquitetura cronológica de linha do tempo interativa (Timeline Scrollytelling)
+- Arquitetura de tabela de informação nutricional (Nutrition Facts Label Architecture)
+- Rotulagem nutricional frontal — FOPNL (Front-of-Package Nutrition Labeling)
+- Tradução de códigos técnicos em estados compreensíveis (Jargon-Free Status Translation)
+- Fluxo linear com alternativas separadas (Branch-Free Linear Pathing)
+- Declaração de proveniência e conflito de interesses (Provenance and Conflict-of-Interest Disclosure)
+- Auditoria de Integridade Científica e Triagem de Similaridade Textual (Research Integrity and Text Similarity Screening)
+- Neutralização de Ambivalência de Uso (Dual-Use Disambiguation)
+- Sistemas de gêneros de Bazerman (Bazerman’s Genre Systems)
+- Auditoria e inventário de conteúdo (Content Audit and Inventory)
+- Localização e transcriação cultural (Localization and Cultural Transcreation)
+- Guia de estilo de conteúdo e governança editorial (Content Style Guide and Editorial Governance)
+- Especificação de medidas. capacidade e gramatura (Dimensions. Capacity and Net Weight Specification)
+- Sistema de design de conteúdo e padrões de componentes (Content Design System)
+- Neutralização de expressões idiomáticas e tabus culturais (Cultural Idiom and Taboo Neutralization)
+- Localização contínua (Continuous Localization)
+- Normas tradutórias da teoria dos polissistemas (Polysystem Theory Translation Norms)
+- Teste funcional de localização (Functional Localization Testing)
+- Reconciliação de preço unitário e vigência promocional (Pricing and Promotional Validity Reconciliation)
+- Especificação ITS 2.0 de etiquetas de internacionalização da W3C (W3C Internationalization Tag Set 2.0)
+- Co-design baseado na experiência — EBCD (Experience-Based Co-Design)
+
+- Microcopy de confirmação antes de ação destrutiva (destructive action confirmation microcopy)
+- Microcopy de desfazer ação concluída (undo action microcopy)
+- Microcopy de salvamento automático e estado salvo (autosave and saved-state microcopy)
+- Microcopy de conflito entre versões de conteúdo (content version conflict microcopy)
+- Microcopy de recuperação de rascunho não salvo (unsaved draft recovery microcopy)
+- Microcopy de permissão negada com rota de solução (permission denied resolution microcopy)
+- Microcopy de autenticação expirada e retomada segura (expired authentication and secure resumption microcopy)
+- Microcopy de verificação de identidade em etapas (step-up identity verification microcopy)
+- Microcopy de ausência de resultados com expansão de consulta (no-results query expansion microcopy)
+- Microcopy de filtros ativos e remoção individual (active filter and individual removal microcopy)
+- Microcopy de ordenação e critério aplicado (sorting and applied criterion microcopy)
+- Microcopy de comparação entre produtos ou opções (product or option comparison microcopy)
+- Microcopy de indisponibilidade parcial de serviço (partial service outage microcopy)
+- Microcopy de manutenção programada com impacto e horário (scheduled maintenance impact and timing microcopy)
+- Microcopy de fila de espera com posição estimada (estimated queue position microcopy)
+- Microcopy de convite e indicação com regras claras (referral invitation with clear terms microcopy)
+- Microcopy de cancelamento de assinatura com consequências (subscription cancellation consequence microcopy)
+- Microcopy de renovação automática com data e valor (automatic renewal date and price microcopy)
+- Microcopy de cobrança recorrente e ciclo de faturamento (recurring charge and billing cycle microcopy)
+- Microcopy de reembolso com prazo e forma de devolução (refund timing and method microcopy)
+- Microcopy de consentimento granular revogável (revocable granular consent microcopy)
+- Microcopy de edição e revogação de preferências (preference editing and revocation microcopy)
+- Microcopy de comparação de planos com limites (plan comparison with limits microcopy)
+- Microcopy de limite de uso e data de renovação (usage limit and reset date microcopy)
+- Microcopy de cota esgotada com opções (quota exhausted options microcopy)
+- Microcopy de erro de validação por campo (field-level validation error microcopy)
+- Microcopy de correção de erro sem apagar entradas válidas (error correction without clearing valid input microcopy)
+- Microcopy de progresso indeterminado sem falsa precisão (indeterminate progress without false precision microcopy)
+- Microcopy de conteúdo indisponível por região (region-based content unavailability microcopy)
+- Microcopy de idioma não suportado com escolha alternativa (unsupported language and alternative choice microcopy)
+- Microcopy para explicar por que um dado é solicitado (reason-for-data-request microcopy)
+- Microcopy de confirmação de alteração de dados pessoais (personal data change confirmation microcopy)
+- Microcopy de cópia e exportação concluídas (copy and export completion microcopy)
+- Microcopy de importação com mapeamento de campos (import and field mapping microcopy)
+- Microcopy de sincronização em segundo plano (background synchronization microcopy)
+- Microcopy de conteúdo salvo para acesso offline (offline availability microcopy)
+- Microcopy de atualização necessária para continuar (required update to continue microcopy)
+- Microcopy de versão incompatível e migração (incompatible version and migration microcopy)
+- Microcopy de denúncia recebida e próximos passos (report received and next steps microcopy)
+- Microcopy de bloqueio e contestação de conta (account restriction and appeal microcopy)
+
+- Microcopy de sessão encerrada por inatividade (inactive session ended microcopy)
+- Microcopy para preservar trabalho antes do encerramento de sessão (preserve work before session timeout microcopy)
+- Microcopy de salvamento pendente sem conexão (offline pending save microcopy)
+- Microcopy de conflito de edição colaborativa (collaborative editing conflict microcopy)
+- Microcopy de alteração feita por outro colaborador (change made by another collaborator microcopy)
+- Microcopy de autoria e horário de última atualização (last updated by and timestamp microcopy)
+- Microcopy de atividade recente em conteúdo compartilhado (shared content recent activity microcopy)
+- Microcopy de acesso somente para leitura (read-only access microcopy)
+- Microcopy de pedido de acesso a documento (document access request microcopy)
+- Microcopy de convite expirado e reenvio (expired invitation and resend microcopy)
+- Microcopy de link compartilhado com controle de acesso (shared link access control microcopy)
+- Microcopy de mudança de proprietário de arquivo (file ownership change microcopy)
+- Microcopy de exclusão permanente e prazo de recuperação (permanent deletion and recovery window microcopy)
+- Microcopy de arquivo na lixeira e restauração (trashed file and restore microcopy)
+- Microcopy de exportação com formato e escopo selecionáveis (export with selectable format and scope microcopy)
+- Microcopy de importação parcial com linhas rejeitadas (partial import with rejected rows microcopy)
+- Microcopy de confirmação de alterações em lote (bulk change confirmation microcopy)
+- Microcopy de desfazer alteração em lote (undo bulk change microcopy)
+- Microcopy de resultado parcial de processamento (partial processing result microcopy)
+- Microcopy de processamento concluído com itens ignorados (completed processing with skipped items microcopy)
+- Microcopy de filtro sem resultados e opção de limpar (empty filter result and clear option microcopy)
+- Microcopy de busca por aproximação ortográfica (approximate spelling search microcopy)
+- Microcopy de busca com consulta corrigida automaticamente (automatically corrected query microcopy)
+- Microcopy de preferência de busca salva (saved search preference microcopy)
+- Microcopy de indicação do filtro que limitou resultados (filter responsible for limited results microcopy)
+- Microcopy de comparação de versões de um documento (document version comparison microcopy)
+- Microcopy de restauração de versão anterior com data (restore previous version with date microcopy)
+- Microcopy de confirmação de saída com alterações não salvas (unsaved changes exit confirmation microcopy)
+- Microcopy de erro de conexão com ação de tentar novamente (connection error retry action microcopy)
+- Microcopy de estado de conexão intermitente (intermittent connection state microcopy)
+- Microcopy de sincronização pausada e retomada manual (paused sync and manual resume microcopy)
+- Microcopy de limite de anexos com tipos aceitos (attachment limit and accepted types microcopy)
+- Microcopy de arquivo incompatível com motivo e alternativa (unsupported file with reason and alternative microcopy)
+- Microcopy de arquivo grande com limite e compressão (large file limit and compression microcopy)
+- Microcopy de confirmação de remoção de colaborador (remove collaborator confirmation microcopy)
+- Microcopy de mudança de permissão com consequência visível (permission change with visible consequence microcopy)
+- Microcopy de explicação de autenticação multifator (multi-factor authentication explanation microcopy)
+- Microcopy de código de verificação expirado (expired verification code microcopy)
+- Microcopy de recuperação segura de conta (secure account recovery microcopy)
+- Microcopy de alteração de endereço de e-mail com verificação (email address change with verification microcopy)
+- Microcopy de confirmação de identidade antes de exportar dados (identity confirmation before data export microcopy)
+- Microcopy de instrução de acessibilidade para atalho de teclado (keyboard shortcut accessibility instruction microcopy)
+- Microcopy de estado de atualização em segundo plano (background update state microcopy)
+- Microcopy de instalação em andamento e requisitos (installation progress and requirements microcopy)
+- Microcopy de permissão do navegador com motivo contextual (contextual browser permission rationale microcopy)
+- Microcopy para negar permissão mantendo alternativa funcional (permission denial with functional alternative microcopy)
+- Microcopy de erro de pagamento com opção segura (payment error with safe option microcopy)
+- Microcopy de pagamento pendente sem duplicar cobrança (pending payment without duplicate charge microcopy)
+- Microcopy de reembolso em processamento e prazo estimado (refund processing and estimated timing microcopy)
+- Microcopy de preço atualizado antes de confirmar compra (updated price before purchase confirmation microcopy)
+
+- Microcopy de escolha entre manter e substituir conteúdo existente (keep-or-replace existing content microcopy)
+- Microcopy de conflito de nome de arquivo na exportação (export filename conflict microcopy)
+- Microcopy de permissão temporária com data de expiração (temporary permission with expiry date microcopy)
+- Microcopy de sessão compartilhada e responsabilidade de acesso (shared session and access responsibility microcopy)
+- Microcopy de mudança de plano com efeito imediato ou futuro (plan change with immediate or future effect microcopy)
+- Microcopy de downgrade com recursos que serão removidos (downgrade and removed features microcopy)
+- Microcopy de limite de armazenamento com categorias que ocupam espaço (storage limit and space usage categories microcopy)
+- Microcopy de recomendação de ação com motivo contextual (recommended action with contextual reason microcopy)
+- Microcopy de sugestão automatizada com explicação de critério (automated suggestion with criterion explanation microcopy)
+- Microcopy de conteúdo gerado automaticamente e possibilidade de edição (automatically generated content and editing option microcopy)
+- Microcopy de confirmação de sugestão antes de aplicar em lote (suggestion confirmation before bulk application microcopy)
+- Microcopy de alteração automática com opção de reverter (automatic change with revert option microcopy)
+- Microcopy de configuração padrão e efeito da personalização (default setting and personalization effect microcopy)
+- Microcopy de preferência salva no dispositivo versus conta (preference saved on device versus account microcopy)
+- Microcopy de sincronização entre dispositivos com conflito resolvível (cross-device sync with resolvable conflict microcopy)
+- Microcopy de transferência de sessão entre dispositivos (session transfer across devices microcopy)
+- Microcopy de vínculo de conta com serviço externo (account linking to external service microcopy)
+- Microcopy de dados compartilhados com serviço conectado (data shared with connected service microcopy)
+- Microcopy de cancelamento de integração externa (external integration cancellation microcopy)
+- Microcopy de indisponibilidade de provedor externo (external provider outage microcopy)
+- Microcopy de autenticação externa sem revelar segredo (external authentication without secret disclosure microcopy)
+- Microcopy de verificação pendente sem confirmação de envio (pending verification without delivery confirmation microcopy)
+- Microcopy de confirmação de e-mail com link expirado (email confirmation with expired link microcopy)
+- Microcopy de envio de código com canal alternativo (code delivery with alternative channel microcopy)
+- Microcopy de tempo restante para completar verificação (time remaining to complete verification microcopy)
+- Microcopy de limite de tentativas com momento de nova tentativa (attempt limit and retry timing microcopy)
+- Microcopy de bloqueio temporário de conta com recuperação (temporary account lock and recovery microcopy)
+- Microcopy de solicitação de exclusão com etapa de verificação (deletion request with verification step microcopy)
+- Microcopy de confirmação de exclusão por categoria de dado (deletion confirmation by data category microcopy)
+- Microcopy de exportação de dados pessoais e formato disponível (personal data export and available format microcopy)
+- Microcopy de transferência de dados para outro serviço (data transfer to another service microcopy)
+- Microcopy de alteração de preferência de comunicação por canal (communication preference change by channel microcopy)
+- Microcopy de opt-out com confirmação e retorno opcional (opt-out confirmation and optional rejoin microcopy)
+- Microcopy de produto fora de estoque com alternativas comparáveis (out-of-stock product with comparable alternatives microcopy)
+- Microcopy de substituição de item indisponível em pedido (unavailable order item substitution microcopy)
+- Microcopy de alteração de endereço após confirmação de compra (address change after purchase confirmation microcopy)
+- Microcopy de endereço de entrega incompleto com correção sugerida (incomplete delivery address with suggested correction microcopy)
+- Microcopy de prazo de entrega como estimativa e não garantia (delivery date as estimate, not guarantee microcopy)
+- Microcopy de pedido atrasado com atualização e opções (delayed order update and options microcopy)
+- Microcopy de pedido dividido em múltiplos envios (order split into multiple shipments microcopy)
+- Microcopy de cobrança contestada com próximos passos (disputed charge and next steps microcopy)
+- Microcopy de método de pagamento expirado com substituição (expired payment method and replacement microcopy)
+- Microcopy de pagamento recusado sem atribuir culpa ao usuário (declined payment without blaming user microcopy)
+- Microcopy de cartão salvo com controle claro de remoção (saved card with clear removal control microcopy)
+- Microcopy de taxa adicional antes da etapa final de compra (additional fee before final checkout step microcopy)
+- Microcopy de consentimento de cookies por finalidade e duração (cookie consent by purpose and duration microcopy)
+- Microcopy de preferência de privacidade salva e aplicada (privacy preference saved and applied microcopy)
+- Microcopy de explicação de recomendação personalizada e controle (personalized recommendation explanation and control microcopy)
+- Microcopy de ordenação patrocinada versus orgânica (sponsored versus organic ranking microcopy)
+- Microcopy de rótulo de conteúdo promovido em feed (promoted content label in feed microcopy)
+
+- Microcopy de consentimento com opções equivalentes e granulares (consent microcopy with equivalent granular options)
+- Microcopy de revogação de consentimento sem perda indevida de conta (consent withdrawal without undue account loss microcopy)
+- Microcopy de explicação antes de compartilhar localização em segundo plano (before-sharing background location explanation microcopy)
+- Microcopy de indicador de captura de tela ou gravação (screenshot or recording indicator microcopy)
+- Microcopy de bloqueio de tela por política de segurança (security policy screen lock microcopy)
+- Microcopy de confirmação antes de apagar conversa inteira (confirmation before deleting entire conversation microcopy)
+- Microcopy de exclusão de mensagem para todos ou só para mim (delete message for everyone or just me microcopy)
+- Microcopy de remoção de reação sem excluir a mensagem (remove reaction without deleting message microcopy)
+- Microcopy de edição de mensagem com indicação de alteração (edited message indicator microcopy)
+- Microcopy de mensagem não entregue e opções de reenvio (undelivered message and resend options microcopy)
+- Microcopy de falha de envio sem duplicar conteúdo (send failure without duplicate content microcopy)
+- Microcopy de anexo enviado parcialmente (partially uploaded attachment microcopy)
+- Microcopy de prévia de arquivo antes de abrir (file preview before opening microcopy)
+- Microcopy de arquivo sinalizado por verificação de segurança (file flagged by security scan microcopy)
+- Microcopy de aviso de domínio externo em link (external domain link warning microcopy)
+- Microcopy de nome de remetente não verificado (unverified sender name microcopy)
+- Microcopy de confirmação de ação de administrador (administrator action confirmation microcopy)
+- Microcopy de contexto de ação irreversível em painel administrativo (irreversible action context in admin panel microcopy)
+- Microcopy de justificativa requerida em alteração de permissão (required rationale for permission change microcopy)
+- Microcopy de atualização de status de solicitação de suporte (support request status update microcopy)
+- Microcopy de previsão de resposta do suporte com intervalo realista (realistic support response time range microcopy)
+- Microcopy de coleta de diagnóstico com escopo e consentimento (diagnostic data collection scope and consent microcopy)
+- Microcopy de envio de relatório técnico sem dados sensíveis (technical report submission without sensitive data microcopy)
+- Microcopy de aviso sobre dados pessoais em captura anexada (personal data in attached screenshot notice microcopy)
+- Microcopy de revisão de captura antes do envio (review screenshot before submission microcopy)
+- Microcopy de confirmação de reembolso parcial e cálculo (partial refund and calculation confirmation microcopy)
+- Microcopy de explicação de estorno por prazo da instituição (refund timing by institution explanation microcopy)
+- Microcopy de mudança de tarifa antes de renovar (price change before renewal microcopy)
+- Microcopy de comparação do plano atual e novo (current and new plan comparison microcopy)
+- Microcopy de aplicação de cupom com validade e restrições (coupon application with validity and restrictions microcopy)
+- Microcopy de cupom não aplicável com critério explicativo (inapplicable coupon with explanatory criterion microcopy)
+- Microcopy de compra duplicada detectada e opção de revisar (duplicate purchase detected and review option microcopy)
+- Microcopy de confirmação de endereço de faturamento (billing address confirmation microcopy)
+- Microcopy de validação de documento com formato e exemplo (document validation with format and example microcopy)
+- Microcopy de validação de identidade por foto e privacidade (photo identity validation and privacy microcopy)
+- Microcopy de captura de documento com orientação de enquadramento (document capture framing instruction microcopy)
+- Microcopy de acessibilidade de código visual ou QR (visual or QR code accessibility microcopy)
+- Microcopy de alternativa quando câmera não está disponível (alternative when camera is unavailable microcopy)
+- Microcopy de envio de formulário incompleto com dados preservados (incomplete form submission with preserved data microcopy)
+- Microcopy de abandono de formulário com possibilidade de retomar (form abandonment with resume option microcopy)
+- Microcopy de formulário salvo e retomada por link seguro (form saved and secure link resumption microcopy)
+- Microcopy de confirmação de consentimento por finalidade (purpose-specific consent confirmation microcopy)
+- Microcopy de atualização de preferências sem salvar automaticamente (preference updates without auto-save microcopy)
+- Microcopy de configuração não aplicada por falta de permissão (setting not applied due to missing permission microcopy)
+- Microcopy de explicação de alteração de padrão recomendada (recommended default change explanation microcopy)
+- Microcopy de sugestão de pesquisa com justificativa de relevância (search suggestion with relevance rationale microcopy)
+- Microcopy de resultado pessoal versus resultado patrocinado (personalized and sponsored result microcopy)
+- Microcopy de explicação de ordenação personalizada (personalized ranking explanation microcopy)
+- Microcopy de escolha entre feed cronológico e recomendado (chronological and recommended feed choice microcopy)
+- Microcopy de controle de frequência de recomendação (recommendation frequency control microcopy)
+
+- Heurística de prevenção de erros na escrita de interface (error prevention heuristic in interface writing)
+- Heurística de reconhecimento em vez de memorização no microcopy (recognition over recall heuristic in microcopy)
+- Heurística de correspondência entre sistema e mundo real no texto (match between system and real world in interface text)
+- Heurística de consistência terminológica em interface (consistency and standards heuristic for interface terms)
+- Heurística de controle e liberdade do usuário por opção de saída (user control and freedom through exit option)
+- Heurística de visibilidade do estado do sistema por mensagem (system status visibility through messaging)
+- Heurística de ajuda para reconhecer e recuperar de erro (help users recognize and recover from errors heuristic)
+- Heurística de ajuda e documentação contextual (contextual help and documentation heuristic)
+- Análise de prevenção de erro por restrição e orientação textual (error prevention through constraints and textual guidance analysis)
+- Análise de distinção entre aviso, erro e confirmação (warning, error, and confirmation distinction analysis)
+- Análise de prioridade de mensagem por urgência e consequência (message priority by urgency and consequence analysis)
+- Escrita de confirmação positiva com descrição do que foi salvo (positive confirmation describing what was saved writing)
+- Escrita de mensagem de erro com campo, problema e correção (error message with field, problem, and correction writing)
+- Análise de correspondência entre código de erro e linguagem de usuário (error code and user language correspondence analysis)
+- Análise de especificidade de erro sem jargão técnico (error specificity without technical jargon analysis)
+- Escrita de erro com opção de ajuda e caminho de retorno (error with help option and return path writing)
+- Análise de escalonamento de ajuda do automático ao humano (help escalation from automated to human support analysis)
+- Escrita de mensagem de suporte com expectativa de prazo (support message with response time expectation writing)
+- Análise de texto de confirmação para ação reversível (confirmation text for reversible action analysis)
+- Análise de interrupção indevida por diálogo de confirmação (unnecessary interruption from confirmation dialog analysis)
+- Análise de aviso contextual antes de perda irreversível (contextual warning before irreversible loss analysis)
+- Escrita de mensagem de carregamento com progresso real (loading message with actual progress writing)
+- Análise de instrução para espera sem estimativa falsa (waiting instruction without false estimate analysis)
+- Escrita de estado de processamento concluído e ação seguinte (completed processing state and next action writing)
+- Análise de feedback de sistema por proximidade temporal da ação (system feedback by temporal proximity to action analysis)
+- Análise de feedback de sistema por visibilidade e especificidade (system feedback by visibility and specificity analysis)
+- Escrita de rótulo de botão por resultado esperado (button label by expected outcome writing)
+- Análise de verbo de ação em botão de risco elevado (action verb in high-risk button analysis)
+- Análise de consistência entre rótulo de botão e título de diálogo (button label and dialog title consistency analysis)
+- Análise de pergunta de confirmação com ação claramente nomeada (confirmation question with clearly named action analysis)
+- Escrita de botão destrutivo com objeto explícito (destructive button with explicit object writing)
+- Análise de ambiguidade de “continuar”, “avançar” e “concluir” (ambiguity of continue, proceed, and finish analysis)
+- Análise de microcopy de navegação por etapa e progresso (step navigation and progress microcopy analysis)
+- Escrita de indicador de etapa com total e nome da tarefa (step indicator with total and task name writing)
+- Análise de texto de progresso em fluxo com ramificações (progress text in branching flow analysis)
+- Análise de expectativa de tempo restante em tarefa longa (remaining time expectation in long task analysis)
+- Escrita de mensagem de progresso com etapa concluída e pendente (progress message with completed and pending steps writing)
+- Análise de consistência de linguagem entre desktop e aplicativo (language consistency across desktop and app analysis)
+- Análise de truncamento de CTA em layout adaptativo (CTA truncation in adaptive layout analysis)
+- Escrita de rótulo curto com expansão acessível do contexto (short label with accessible context expansion writing)
+- Análise de ambiguidade de ícone com rótulo textual (icon ambiguity with text label analysis)
+- Escrita de microcopy para navegação por ícone (microcopy for icon navigation writing)
+- Análise de texto auxiliar por relevância e proximidade do campo (helper text by relevance and field proximity analysis)
+- Escrita de dica de campo com exemplo sem valor fictício enganoso (field hint with nonmisleading example writing)
+- Análise de placeholder como exemplo versus rótulo permanente (placeholder as example versus persistent label analysis)
+- Escrita de rótulo que permanece visível após entrada de dado (label remaining visible after data entry writing)
+- Análise de redundância entre rótulo, placeholder e ajuda (label, placeholder, and helper text redundancy analysis)
+- Análise de consistência de instrução de teclado entre campos (keyboard instruction consistency across fields analysis)
+- Escrita de mensagem para usuário sem permissão com solicitação de acesso (no-permission message with access request writing)
+- Análise de linguagem de autorização e consentimento em permissões (authorization and consent language in permissions analysis)
+
+- Microcopy de comparação de duas opções com consequências claras (two-option comparison with clear consequences microcopy)
+- Microcopy de confirmação de exclusão com nome do item (deletion confirmation with item name microcopy)
+- Microcopy de confirmação de limpeza de histórico e escopo (history clearing confirmation and scope microcopy)
+- Microcopy de desconexão de dispositivo e efeito na conta (device disconnection and account impact microcopy)
+- Microcopy de gerenciamento de sessões ativas (active session management microcopy)
+- Microcopy de aviso sobre sessão ativa em outro dispositivo (active session on another device notice microcopy)
+- Microcopy de encerramento remoto de sessão (remote session sign-out microcopy)
+- Microcopy de alerta de acesso recente a dados (recent data access alert microcopy)
+- Microcopy de atualização de política com resumo de mudanças (policy update with change summary microcopy)
+- Microcopy de atualização de termos com escolha de consentimento (terms update with consent choice microcopy)
+- Microcopy de consentimento obrigatório versus opcional (required and optional consent microcopy)
+- Microcopy de preferência salva para uso futuro (preference saved for future use microcopy)
+- Microcopy de expiração de link compartilhado (shared link expiry microcopy)
+- Microcopy de duração selecionável de link público (selectable public link duration microcopy)
+- Microcopy de acesso temporário com contagem de dias (temporary access with day count microcopy)
+- Microcopy de revogação de link compartilhado (shared link revocation microcopy)
+- Microcopy de remoção de acesso sem remoção de conteúdo (remove access without deleting content microcopy)
+- Microcopy de transferência de propriedade com efeito e confirmação (ownership transfer impact and confirmation microcopy)
+- Microcopy de versão em conflito por pessoa e horário (conflicting version by person and time microcopy)
+- Microcopy de restauração de backup com data e abrangência (backup restore date and scope microcopy)
+- Microcopy de importação de contatos com origem e campos usados (contact import source and fields used microcopy)
+- Microcopy de sincronização de contatos e opção de desconectar (contact sync and disconnect option microcopy)
+- Microcopy de deduplicação de contato com critério de escolha (contact deduplication with choice criterion microcopy)
+- Microcopy de alteração de fuso horário em agendamento (timezone change in scheduling microcopy)
+- Microcopy de evento recorrente com exceções individuais (recurring event with individual exceptions microcopy)
+- Microcopy de confirmação de convite por fuso local (invitation confirmation by local timezone microcopy)
+- Microcopy de horário estimado versus horário confirmado (estimated versus confirmed time microcopy)
+- Microcopy de cancelamento de reserva com reembolso (reservation cancellation and refund microcopy)
+- Microcopy de taxa de cancelamento antes de confirmar (cancellation fee before confirmation microcopy)
+- Microcopy de alteração de reserva com diferença de preço (reservation change with price difference microcopy)
+- Microcopy de indisponibilidade de horário e alternativa próxima (unavailable time slot and nearest alternative microcopy)
+- Microcopy de lista de espera com critérios de prioridade (waitlist with priority criteria microcopy)
+- Microcopy de fila virtual com atualização de posição (virtual queue position update microcopy)
+- Microcopy de transferência para atendente em fila virtual (handoff to agent in virtual queue microcopy)
+- Microcopy de gravação de atendimento com aviso e finalidade (support call recording notice and purpose microcopy)
+- Microcopy de pesquisa pós-atendimento com tempo estimado (post-support survey with estimated time microcopy)
+- Microcopy de pedido de avaliação sem bloquear a tarefa (review request without blocking the task microcopy)
+- Microcopy de avaliação por estrelas com rótulos acessíveis (star rating with accessible labels microcopy)
+- Microcopy de recomendação sem presumir intenção de compra (recommendation without assuming purchase intent microcopy)
+- Microcopy de aviso de estoque baixo com quantidade confirmada (low stock notice with confirmed quantity microcopy)
+- Microcopy de mudança de disponibilidade durante checkout (availability change during checkout microcopy)
+- Microcopy de pedido parcialmente disponível com escolha (partially available order with choice microcopy)
+- Microcopy de alteração de substituto antes do envio (substitute change before shipping microcopy)
+- Microcopy de confirmação de retirada em loja com endereço (store pickup confirmation with address microcopy)
+- Microcopy de instrução para retirada com identificação exigida (pickup instruction with required identification microcopy)
+- Microcopy de pedido entregue em local alternativo (delivery to alternate location microcopy)
+- Microcopy de tentativa de entrega sem sucesso e reagendamento (failed delivery attempt and rescheduling microcopy)
+- Microcopy de comprovante de entrega e contestação (delivery proof and dispute microcopy)
+- Microcopy de endereço não atendido com opção de busca (unserved address and search option microcopy)
+- Microcopy de aplicação de benefício por elegibilidade verificada (benefit application after eligibility verification microcopy)
+
+- Microcopy para ação de compartilhamento com audiência explícita (sharing action with explicit audience microcopy)
+- Microcopy de permissão por escopo, duração e finalidade (permission by scope, duration, and purpose microcopy)
+- Microcopy de acesso ao microfone durante uso e gravação (microphone access during use and recording microcopy)
+- Microcopy de câmera ativa e indicador de privacidade (camera active and privacy indicator microcopy)
+- Microcopy de localização aproximada versus precisa (approximate and precise location microcopy)
+- Microcopy de acesso a fotos selecionadas versus biblioteca inteira (selected photos versus entire library access microcopy)
+- Microcopy de acesso a contatos por seleção de pessoas (contact access through person selection microcopy)
+- Microcopy de permissão negada com instrução de configuração do sistema (permission denied with system settings instruction microcopy)
+- Microcopy de configuração do sistema alterada e efeito no aplicativo (system setting changed and app impact microcopy)
+- Microcopy de notificação desativada e caminho para reativar (notifications disabled and re-enable path microcopy)
+- Microcopy de aviso por permissão temporária do navegador (browser temporary permission notice microcopy)
+- Microcopy de conexão segura e certificado inválido (secure connection and invalid certificate microcopy)
+- Microcopy de alerta para sair de domínio confiável (leaving trusted domain warning microcopy)
+- Microcopy de confirmação de arquivo compartilhado fora da organização (file shared outside organization confirmation microcopy)
+- Microcopy de destinatário externo em campo de envio (external recipient in send field microcopy)
+- Microcopy de envio adiado para revisar anexos (delayed sending to review attachments microcopy)
+- Microcopy de remoção de metadados pessoais do arquivo (removal of personal file metadata microcopy)
+- Microcopy de documento protegido por senha com requisitos (password-protected document requirements microcopy)
+- Microcopy de bloqueio de download por política e alternativa (download blocked by policy and alternative microcopy)
+- Microcopy de conteúdo copiado para área de transferência (content copied to clipboard microcopy)
+- Microcopy de falha ao copiar e alternativa manual (copy failed and manual alternative microcopy)
+- Microcopy de colagem de conteúdo não confiável (pasting untrusted content microcopy)
+- Microcopy de conteúdo externo com formatação removida (external content with formatting removed microcopy)
+- Microcopy de edição simultânea e cursor de colaborador (simultaneous editing and collaborator cursor microcopy)
+- Microcopy de comentário atribuído e prazo de resposta (assigned comment and response deadline microcopy)
+- Microcopy de tarefa concluída por outro colaborador (task completed by another collaborator microcopy)
+- Microcopy de estado de aprovação pendente (pending approval state microcopy)
+- Microcopy de aprovação parcial com itens restantes (partial approval with remaining items microcopy)
+- Microcopy de revisão solicitada com motivo e prazo (review request with reason and deadline microcopy)
+- Microcopy de publicação bloqueada por campo obrigatório (publishing blocked by required field microcopy)
+- Microcopy de alteração pendente de aprovação (change pending approval microcopy)
+- Microcopy de estado de publicação por fuso horário do público (publication state by audience timezone microcopy)
+- Microcopy de conteúdo expirado com opção de renovação (expired content with renewal option microcopy)
+- Microcopy de expiração de oferta por data e horário local (offer expiry by local date and time microcopy)
+- Microcopy de opção esgotada e critério de disponibilidade (option sold out and availability criterion microcopy)
+- Microcopy de mudança de preço entre seleção e pagamento (price changed between selection and payment microcopy)
+- Microcopy de confirmação de quantidade e subtotal antes de pagar (quantity and subtotal confirmation before payment microcopy)
+- Microcopy de endereço de cobrança diferente do endereço de entrega (billing address differs from shipping address microcopy)
+- Microcopy de escolha de retirada, entrega ou ponto de coleta (pickup, delivery, or collection point choice microcopy)
+- Microcopy de custo de retirada versus entrega (pickup versus delivery cost microcopy)
+- Microcopy de pedido com itens de vendedores diferentes (order with items from different sellers microcopy)
+- Microcopy de prazo de entrega por item separado (delivery timing by individual item microcopy)
+- Microcopy de item pré-venda com data estimada (preorder item with estimated date microcopy)
+- Microcopy de atraso de transportadora com rastreamento (carrier delay with tracking microcopy)
+- Microcopy de devolução por item e condição do produto (return by item and product condition microcopy)
+- Microcopy de etiqueta de devolução e ponto de postagem (return label and drop-off point microcopy)
+- Microcopy de item não elegível para devolução com razão (item ineligible for return with reason microcopy)
+- Microcopy de reembolso por método original e saldo (refund to original method and account credit microcopy)
+- Microcopy de crédito promocional com validade e restrições (promotional credit with expiry and restrictions microcopy)
+- Microcopy de solicitação de contestação por transação específica (dispute request for specific transaction microcopy)
+
+- Microcopy de estado de verificação de identidade pendente (identity verification pending state microcopy)
+- Microcopy de documento de identidade rejeitado com motivo e alternativa (rejected identity document with reason and alternative microcopy)
+- Microcopy de prazo de revisão manual de identidade (manual identity review timeframe microcopy)
+- Microcopy de falha de leitura automática de documento (automated document reading failure microcopy)
+- Microcopy de confirmação de titularidade de conta com canal seguro (account ownership confirmation through secure channel microcopy)
+- Microcopy de bloqueio de transação por verificação adicional (transaction blocked for additional verification microcopy)
+- Microcopy de tentativa de pagamento não reconhecida (unrecognized payment attempt microcopy)
+- Microcopy de notificação de alteração de senha e opção de contestar (password change alert and dispute option microcopy)
+- Microcopy de alerta de e-mail de recuperação alterado (recovery email changed alert microcopy)
+- Microcopy de recuperação de conta com espera de segurança (account recovery with security waiting period microcopy)
+- Microcopy de espera de segurança antes de alteração crítica (security waiting period before critical change microcopy)
+- Microcopy de contato de recuperação desatualizado (outdated recovery contact microcopy)
+- Microcopy de sessão revogada após redefinição de senha (session revoked after password reset microcopy)
+- Microcopy de método de autenticação removido e alternativa necessária (authentication method removed and alternative required microcopy)
+- Microcopy de código de recuperação usado e quantidade restante (recovery code used and remaining count microcopy)
+- Microcopy de chave de acesso configurada com dispositivo atual (passkey configured on current device microcopy)
+- Microcopy de passkey indisponível com alternativa de login (passkey unavailable with alternative sign-in microcopy)
+- Microcopy de chave de segurança conectada (security key connected microcopy)
+- Microcopy de autenticação por dispositivo confiável (trusted device authentication microcopy)
+- Microcopy de dispositivo novo reconhecido e confirmado (new device recognized and confirmed microcopy)
+- Microcopy de atividade suspeita com ação segura recomendada (suspicious activity with recommended safe action microcopy)
+- Microcopy de localização aproximada de login com ressalva (approximate sign-in location with qualification microcopy)
+- Microcopy de alerta de login sem expor dado sensível (sign-in alert without exposing sensitive data microcopy)
+- Microcopy de fraude suspeita com opção de bloquear cartão (suspected fraud with card freeze option microcopy)
+- Microcopy de cartão congelado e transações afetadas (frozen card and affected transactions microcopy)
+- Microcopy de desbloqueio de cartão por verificação (card unfreeze through verification microcopy)
+- Microcopy de contestação de transação com próximos passos (transaction dispute with next steps microcopy)
+- Microcopy de confirmação de contestação e prazo de resposta (dispute confirmation and response timeframe microcopy)
+- Microcopy de evidência necessária para contestação (evidence required for dispute microcopy)
+- Microcopy de alteração de dados financeiros com validação extra (financial data change with extra validation microcopy)
+- Microcopy de informação bancária parcialmente mascarada (partially masked bank information microcopy)
+- Microcopy de alteração de chave de pagamento com verificação (payment key change with verification microcopy)
+- Microcopy de transferência pendente por validação de destinatário (transfer pending recipient validation microcopy)
+- Microcopy de confirmação de destinatário por nome e instituição (recipient confirmation by name and institution microcopy)
+- Microcopy de transferência irreversível com valor e destinatário (irreversible transfer with amount and recipient microcopy)
+- Microcopy de limite de transferência e momento de redefinição (transfer limit and reset time microcopy)
+- Microcopy de valor disponível diferente do saldo total (available amount differs from total balance microcopy)
+- Microcopy de taxa de câmbio estimada e margem aplicada (estimated exchange rate and applied margin microcopy)
+- Microcopy de cotação de moeda com validade temporal (currency quote with time validity microcopy)
+- Microcopy de imposto e taxa antes da confirmação financeira (tax and fee before financial confirmation microcopy)
+- Microcopy de pagamento internacional com moeda de débito (international payment with debit currency microcopy)
+- Microcopy de assinatura cancelada mas acesso mantido até data (subscription canceled with access until date microcopy)
+- Microcopy de renovação desativada sem cancelar período ativo (renewal disabled without canceling active period microcopy)
+- Microcopy de cobrança falhada com prazo de atualização de pagamento (failed billing with payment update deadline microcopy)
+- Microcopy de tentativa automática futura de cobrança (future automatic billing retry microcopy)
+- Microcopy de acesso limitado por falha de renovação (limited access after renewal failure microcopy)
+- Microcopy de plano pausado e data de retomada (paused plan and resumption date microcopy)
+- Microcopy de pausa de assinatura com limite de duração (subscription pause with duration limit microcopy)
+- Microcopy de crédito remanescente após downgrade (remaining credit after downgrade microcopy)
+- Microcopy de transferência de plano para outra conta (plan transfer to another account microcopy)
+- Microcopy de consentimento granular
+- Texto de reautenticação
+- Mensagem de sessão expirada
+- Aviso de dispositivo não reconhecido
+- Confirmação de troca de e-mail
+- Fluxo de recuperação sem senha
+- Explicação de chave de acesso
+- Texto de código de backup
+- Instrução de validação biométrica
+- Aviso de tentativa bloqueada
+- Mensagem de análise de pagamento
+- Explicação de retenção temporária
+- Confirmação de estorno parcial
+- Aviso de cobrança proporcional
+- Texto de pausa de assinatura
+- Opção de plano anual
+- Confirmação de cancelamento agendado
+- Mensagem de renovação automática
+- Explicação de período de carência
+- Aviso de alteração de preço
+- Texto de limite diário
+- Confirmação de destinatário salvo
+- Aviso de transferência programada
+- Descrição de tarifa variável
+- Mensagem de comprovante indisponível
+- Texto de contestação de compra
+- Aviso de saldo reservado
+- Microcopy de permissões do aplicativo
+- Pedido contextual de localização
+- Explicação de acesso à agenda
+- Aviso de sincronização interrompida
+- Texto de preferência de notificações
+- Mensagem de importação incompleta
+- Confirmação de exclusão em lote
+- Aviso de item arquivado
+- Texto de recuperação de rascunho
+- Mensagem de conflito de edição
+- Explicação de salvamento automático
+- Aviso de limite de anexos
+- Microcopy de campo somente leitura
+- Instrução de preenchimento progressivo
+- Confirmação de alteração de idioma
+- Aviso de formato regional
+- Texto de perfil incompleto
+- Mensagem de sessão em outro dispositivo
+- Explicação de encerramento remoto
+- Aviso de exportação preparada
+- Texto de link compartilhado expirado
+- Confirmação de remoção de acesso
+- Instrução de convite pendente
+- Aviso de domínio não permitido
+- Mensagem de conta em revisão
+- Explicação de verificação adicional
+- Texto de recurso de acessibilidade
+- Aviso de leitor de tela
+- Microcopy de modo de alto contraste
+- Instrução para reduzir movimento
+- Confirmação de preferência persistente
+- Mensagem de atualização obrigatória
+- Texto de compatibilidade do navegador
+- Aviso de armazenamento local cheio
+- Confirmação de limpeza de cache
+- Microcopy de sincronização seletiva
+- Aviso de operação offline
+- Mensagem de fila de envio
+- Texto de reenvio automático
+- Explicação de dado desatualizado
+- Aviso de resultado parcial
+- Confirmação de ação irreversível
+- Mensagem de desfazer disponível
+- Texto de restauração de versão
+- Instrução de comparação de alterações
+- Aviso de permissão insuficiente
+- Mensagem de solicitação encaminhada
+- Texto de prazo de análise
+- Confirmação de protocolo criado
+- Aviso de atendimento fora do horário
+- Microcopy de encaminhamento humano
+- Instrução de anexar evidência
+- Texto de protocolo encerrado
+- Mensagem de pesquisa pós-atendimento
+- Aviso de resposta automática
+- Explicação de prioridade de suporte
+- Texto de canal alternativo
+- Confirmação de preferência de contato
+- Mensagem de retorno programado
+- Microcopy de consentimento revogável
+- Aviso de uso secundário de dados
+- Explicação de personalização desativada
+- Texto de recomendação patrocinada
+- Mensagem de conteúdo ocultado
+- Aviso de filtro aplicado
+- Instrução de redefinir filtros
+- Confirmação de ordenação salva
+- Microcopy de busca sem resultados
+- Mensagem de consulta ampla
+- Texto de correção ortográfica sugerida
+- Aviso de resultados aproximados
+- Instrução de pesquisa por frase exata
+- Mensagem de item duplicado detectado
+- Confirmação de mesclagem de registros
+- Aviso de conflito de cadastro
+- Texto de campo validado pelo sistema
+- Microcopy de dado estimado
+- Explicação de precisão de localização
+- Mensagem de atualização de endereço
+- Aviso de entrega em área remota
+- Confirmação de retirada em loja
+- Texto de janela de entrega
+- Instrução de alterar ponto de retirada
+- Mensagem de tentativa de entrega
+- Aviso de endereço incompleto
+- Confirmação de recebimento por terceiro
+- Texto de instrução ao entregador
+- Microcopy de produto indisponível
+- Mensagem de reposição prevista
+- Aviso de substituição equivalente
+- Confirmação de lista de espera
+- Texto de variação de estoque
+- Instrução de comparar versões de produto
+- Mensagem de garantia expirada
+- Aviso de cobertura limitada
+- Explicação de elegibilidade para troca
+- Texto de devolução em análise
+- Confirmação de etiqueta de postagem
+- Mensagem de reembolso em processamento
+- Aviso de crédito na carteira
+- Instrução de acompanhar pedido
+- Texto de compra recorrente
+- Explicação de intervalo de reposição
+- Mensagem de alteração de quantidade recorrente
+- Aviso de próxima cobrança
+- Aviso de assinatura em renovação
+- Opção de cobrança por uso
+- Explicação de consumo medido
+- Alerta de limite próximo
+- Mensagem de limite atingido
+- Aviso de alteração de franquia
+- Texto de cobrança excedente
+- Confirmação de mudança de plano
+- Explicação de plano legado
+- Mensagem de falha de pagamento recorrente
+- Aviso de método de pagamento vencido
+- Instrução de atualizar cartão
+- Confirmação de cartão removido
+- Aviso de cartão padrão alterado
+- Texto de autenticação bancária
+- Explicação de pagamento em análise
+- Mensagem de pagamento duplicado
+- Instrução para evitar nova tentativa
+- Aviso de liquidação pendente
+- Confirmação de transferência recebida
+- Mensagem de transferência devolvida
+- Explicação de horário bancário
+- Aviso de processamento em dias úteis
+- Texto de chave pix inválida
+- Confirmação de chave cadastrada
+- Aviso de chave em portabilidade
+- Mensagem de limite de saque
+- Explicação de saldo disponível
+- Aviso de saldo contábil
+- Texto de bloqueio preventivo
+- Instrução de desbloqueio de cartão
+- Confirmação de cartão virtual
+- Aviso de compra internacional
+- Explicação de conversão cambial
+- Mensagem de tarifa de conversão
+- Aviso de compra recorrente detectada
+- Instrução de bloquear comerciante
+- Confirmação de contestação recebida
+- Aviso de prazo para contestar
+- Mensagem de disputa concluída
+- Explicação de evidência necessária
+- Texto de reembolso parcial aprovado
+- Aviso de reembolso negado
+- Instrução de acompanhar disputa
+- Confirmação de identidade documental
+- Aviso de documento ilegível
+- Instrução de reenviar documento
+- Mensagem de validação facial inconclusiva
+- Explicação de prova de vida
+- Aviso de análise manual
+- Texto de prazo de verificação
+- Confirmação de conta verificada
+- Mensagem de verificação pendente
+- Instrução de recuperar conta comprometida
+- Aviso de alteração sensível
+- Confirmação de troca de telefone
+- Texto de código expirado
+- Mensagem de muitas tentativas
+- Aviso de bloqueio temporário
+- Instrução de aguardar desbloqueio
+- Confirmação de encerramento de sessão
+- Mensagem de dispositivo removido
+- Aviso de login suspeito
+- Texto de localização aproximada do acesso
+- Confirmação de atividade reconhecida
+- Instrução de marcar acesso desconhecido
+- Aviso de chave de segurança adicionada
+- Mensagem de método de recuperação ausente
+- Explicação de contato de confiança
+- Texto de código de recuperação usado
+- Aviso de código de recuperação restante
+- Confirmação de cópia de segurança criada
+- Mensagem de backup desatualizado
+- Instrução de restaurar backup
+- Aviso de sincronização criptografada
+- Explicação de dispositivo confiável
+- Texto de permissão temporária
+- Mensagem de acesso expirado
+- Aviso de compartilhamento público
+- Confirmação de link privado
+- Instrução de restringir download
+- Aviso de arquivo com acesso externo
+- Texto de remoção de colaborador
+- Confirmação de transferência de propriedade
+- Mensagem de convite aceito
+- Aviso de convite expirado
+- Instrução de reenviar convite
+- Texto de função de colaborador
+- Explicação de acesso somente comentário
+- Mensagem de permissão herdada
+- Aviso de mudança de visibilidade
+- Confirmação de documento publicado
+- Texto de retirada de publicação
+- Instrução de revisar antes de publicar
+- Mensagem de conteúdo em aprovação
+- Aviso de aprovação parcial
+- Confirmação de revisão solicitada
+- Texto de comentário resolvido
+- Instrução de reabrir discussão
+- Mensagem de menção não entregue
+- Aviso de notificação silenciada
+- Confirmação de resumo semanal
+- Texto de frequência de alertas
+- Mensagem de canal indisponível
+- Instrução de escolher canal alternativo
+- Aviso de interrupção de notificações
+- Confirmação de preferência de horário
+- Texto de modo não perturbe
+- Aviso de tarefa vencida
+- Mensagem de prazo alterado
+- Confirmação de lembrete adiado
+- Texto de recorrência personalizada
+- Instrução de concluir etapa obrigatória
+- Mensagem de etapa pulável
+- Aviso de progresso salvo
+- Texto de retomada de fluxo
+- Confirmação de etapa ignorada
+- Mensagem de formulário parcialmente enviado
+- Aviso de resposta obrigatória faltante
+- Instrução de corrigir campo inválido
+- Texto de formato de data esperado
+- Mensagem de fuso horário detectado
+- Aviso de conversão de unidade
+- Confirmação de preferência regional
+- Texto de endereço normalizado
+- Aviso de número de telefone incompleto
+- Instrução de código postal
+- Mensagem de região não atendida
+- Confirmação de endereço principal
+- Texto de endereço de cobrança diferente
+- Aviso de nome divergente no pagamento
+- Mensagem de campo incompatível com documento
+- Explicação de nome social no cadastro
+- Instrução de alterar dados pessoais
+- Aviso de alteração sujeita a análise
+- Confirmação de dados atualizados
+- Texto de histórico de alterações cadastrais
+- Mensagem de dado bloqueado por política
+- Explicação de campo calculado
+- Aviso de valor arredondado
+- Instrução de informar unidade
+- Texto de faixa válida
+- Mensagem de valor mínimo
+- Aviso de valor máximo permitido
+- Confirmação de cálculo estimado
+- Explicação de estimativa não vinculante
+- Texto de comparação de alternativas
+- Aviso de recomendação personalizada
+- Confirmação de preferência de recomendação
+- Instrução de ocultar sugestão
+- Mensagem de recomendação indisponível
+- Aviso de preço sujeito a alteração
+- Explicação de imposto incluído
+- Texto de preço por unidade
+- Mensagem de desconto condicionado
+- Instrução de aplicar cupom
+- Aviso de cupom expirado
+- Confirmação de desconto aplicado
+- Texto de elegibilidade não atendida
+- Mensagem de promoção cumulativa
+- Aviso de benefício utilizado
+- Confirmação de pontos creditados
+- Texto de pontos a expirar
+- Instrução de resgatar benefício
+- Mensagem de resgate indisponível
+- Aviso de estoque reservado
+- Explicação de reserva temporária
+- Texto de carrinho restaurado
+- Mensagem de carrinho expirado
+- Instrução de salvar para depois
+- Aviso de alteração de disponibilidade
+- Confirmação de pedido dividido
+- Texto de envio separado
+- Mensagem de item atrasado
+- Aviso de entrega antecipada
+- Instrução de reagendar recebimento
+- Confirmação de janela escolhida
+- Texto de instrução de portaria
+- Mensagem de pacote em ponto parceiro
+- Aviso de retirada próxima do vencimento
+- Confirmação de retirada concluída
+- Texto de devolução sem embalagem original
+- Explicação de produto não retornável
+- Mensagem de solicitação fora do prazo
+
+## Acessibilidade, inclusão e linguagem simples
+
+- Linguagem Simples (Plain Language)
+- Sinalização de Exceção Inclusiva
+- Texto alternativo descritivo (Descriptive Alt Text)
+- Rotulagem de compatibilidade de acessórios e refis (Refill & Accessory Compatibility Labeling)
+- Competência genérica e multiletramentos (Genre Competence and Multiliteracies)
+- Legibilidade e compreensão de consentimento informado (Informed Consent Readability and Comprehension)
+- ISO 24495-1: Linguagem simples (ISO 24495-1 Plain Language)
+- Gráfico de legibilidade de Fry (Fry Readability Graph)
+- Instrumento de Avaliação de Legibilidade — RAIN (Readability Assessment Instrument)
+- Estimativa de legibilidade Raygor (Raygor Readability Estimate)
+- Equivalência funcional de texto alternativo (Alternative Text Functional Equivalence)
+- Consistência entre rótulo visível e nome acessível (Label in Name)
+- Checklist federal PLAIN de linguagem clara (PLAIN Federal Plain Language Checklist)
+- Percurso auditivo com leitor de tela para rótulos e instruções (Screen-Reader Auditory Walkthrough)
+- Matriz de legibilidade e usabilidade (Readability-Usability Matrix)
+- Critérios WCAG 3.2.4 e 2.4.6 para identificação consistente e clareza de rótulos (Consistent Identification and Headings and Labels)
+- Diretrizes de Leitura Fácil (Easy-to-Read Guidelines. IFLA and Inclusion Europe)
+- Linguagem Simples segundo a Norma ISO 24495-1 (Plain Language Standard)
+- Design Universal para Aprendizagem: Múltiplas Formas de Representação Textual (Universal Design for Learning)
+- Tipografia Amigável à Dislexia e Mitigação de Aglomeração Visual (Dyslexia-Friendly Typography and Crowding)
+- Precauções universais de letramento em saúde (Health Literacy Universal Precautions)
+
+- Princípio da linguagem clara em camadas (layered plain language)
+- Expansão de siglas na primeira ocorrência (first-use acronym expansion)
+- Explicação de jargão no ponto de uso (in-place jargon explanation)
+- Leitura fácil com apoio de imagens (easy-read text with image support)
+- Escrita para leitores com baixa proficiência leitora (low-literacy audience writing)
+- Escrita para leitores multilíngues (multilingual audience writing)
+- Análise de carga de memória de trabalho em instruções (working-memory load analysis for instructions)
+- Redução de dependência de pronomes em instruções críticas (pronoun dependency reduction in critical instructions)
+- Desambiguação de instruções com sujeito explícito (explicit-subject instruction design)
+- Escrita de mensagens de erro acessíveis a leitores de tela (screen-reader-accessible error messages)
+- Análise de ordem de leitura por tecnologia assistiva (assistive-technology reading order analysis)
+- Explicitação textual de informação transmitida apenas por cor (text alternatives to color-only information)
+- Identificação textual de campos obrigatórios (textual identification of required fields)
+- Rotulagem acessível de grupos de campos (accessible fieldset labeling)
+- Instruções de formulário associadas ao campo (field-associated form instructions)
+- Análise de consistência entre rótulo visível e nome acessível (visible label and accessible name consistency)
+- Escrita de alternativa textual concisa para imagem funcional (concise alt text for functional images)
+- Escrita de alternativa textual detalhada para gráfico complexo (long description for complex charts)
+- Análise de redundância entre texto alternativo e legenda (alt text and caption redundancy analysis)
+- Descrição textual de estados e mudanças dinâmicas (text description of dynamic state changes)
+- Análise de clareza de notificações anunciadas por leitor de tela (screen-reader announcement clarity analysis)
+- Prevenção de instruções dependentes de orientação espacial (orientation-dependent instruction prevention)
+- Escrita de conteúdo compreensível sem metáforas visuais (content comprehension without visual metaphors)
+- Análise de linguagem capacitista em conteúdo funcional (ableist language audit in functional content)
+- Análise de pressupostos culturais em linguagem de interface (cultural assumption audit in interface language)
+- Escrita de alternativas inclusivas para tratamento nominal (inclusive forms of address)
+- Análise de gênero gramatical em rótulos e instruções (grammatical gender analysis in labels and instructions)
+- Adaptação de leitura para dislexia sem infantilização (dyslexia-friendly reading adaptation without infantilization)
+- Análise de escaneabilidade para leitores com atenção variável (scannability for readers with variable attention)
+- Ritmo de leitura com pausas em instruções extensas (reading rhythm and pauses in long instructions)
+- Análise de sobrecarga de escolhas em formulários (choice overload analysis in forms)
+- Escrita de instruções com uma ação principal por etapa (one-primary-action-per-step instruction writing)
+- Quebra de instrução em unidades cognitivamente manejáveis (cognitively manageable instruction chunking)
+- Análise de diferença entre legibilidade e compreensibilidade (readability and comprehensibility distinction analysis)
+- Explicitação de consequências antes de ações irreversíveis (consequence disclosure before irreversible actions)
+- Análise de compreensão de rótulos por leitores iniciantes (novice-reader label comprehension analysis)
+
+- Análise de compreensão literal de instruções acessíveis (literal comprehension of accessible instructions analysis)
+- Análise de compreensão inferencial de avisos acessíveis (inferential comprehension of accessible notices analysis)
+- Análise de interpretação de rótulos por leitores com deficiência cognitiva (label interpretation by readers with cognitive disabilities analysis)
+- Análise de compreensão de instruções por pessoas idosas (instruction comprehension by older adults analysis)
+- Análise de linguagem respeitosa em conteúdo sobre deficiência (respectful language in disability content analysis)
+- Análise de terminologia preferida por comunidade de pessoas com deficiência (preferred terminology by disability community analysis)
+- Análise de informação essencial versus suplementar em leitura fácil (essential and supplementary information in easy read analysis)
+- Análise de adaptação de texto para comunicação aumentativa (text adaptation for augmentative communication analysis)
+- Escrita de instruções compatíveis com leitor de tela e ampliação (instructions compatible with screen readers and magnification)
+- Análise de descrições textuais para mapas e diagramas (text description analysis for maps and diagrams)
+- Escrita de resumo textual para conteúdo visual complexo (text summary writing for complex visual content)
+- Análise de instruções com linguagem concreta e literal (concrete and literal language in instructions analysis)
+- Análise de fraseologia idiomática em texto de serviço (idiomatic phrasing in service text analysis)
+- Análise de ambiguidade pragmática em mensagens acessíveis (pragmatic ambiguity in accessible messages analysis)
+- Escrita de conteúdo com alternativas para metáforas figuradas (content writing with alternatives to figurative metaphors)
+- Análise de previsibilidade e consistência de vocabulário acessível (predictability and consistency of accessible vocabulary analysis)
+- Análise de consistência terminológica em conteúdo acessível (terminology consistency in accessible content analysis)
+- Análise de explicação de conceito abstrato por exemplo concreto (abstract concept explanation through concrete example analysis)
+- Análise de sequência de instruções com checkpoints de confirmação (instruction sequence with confirmation checkpoints analysis)
+- Escrita de instrução acessível com orientação de recuperação (accessible instruction with recovery guidance writing)
+- Análise de barreiras linguísticas em jornada de atendimento (linguistic barriers in service journey analysis)
+- Análise de compreensão de instruções em contexto de estresse (instruction comprehension under stress analysis)
+- Análise de sobrecarga de informação em notificação acessível (information overload in accessible notification analysis)
+- Análise de uso de símbolos acompanhados de texto equivalente (symbols with equivalent text analysis)
+- Análise de consistência entre instrução oral e instrução escrita (oral and written instruction consistency analysis)
+- Análise de leitura em voz alta por síntese de fala (text-to-speech read-aloud analysis)
+- Análise de pronúncia de siglas, números e abreviações por TTS (TTS pronunciation of acronyms, numbers, and abbreviations)
+- Análise de pausas e pontuação para síntese de fala (pauses and punctuation for speech synthesis analysis)
+- Análise de navegação por títulos em documento acessível (heading navigation in accessible document analysis)
+- Análise de nomes acessíveis de links fora de contexto (accessible link names out of context analysis)
+- Análise de distinção entre link e botão por texto funcional (link and button distinction through functional text analysis)
+- Análise de foco instrucional em conteúdo acessível por teclado (instructional focus in keyboard-accessible content analysis)
+- Escrita de mensagem acessível de estado de processamento (accessible processing state message writing)
+- Análise de alternativas de erro que não dependem de cor ou posição (error alternatives independent of color or position analysis)
+- Análise de clareza de confirmação de ação para usuários de tecnologia assistiva (action confirmation clarity for assistive technology users)
+- Análise de experiência de leitura em linguagem simples por tarefa (plain language reading experience by task analysis)
+- Análise de manutenção de significado após simplificação textual (meaning preservation after text simplification analysis)
+- Análise de simplificação sem omissão de condição importante (simplification without omitting important conditions analysis)
+- Análise de simplificação de texto legal para leitor leigo (legal text simplification for lay readers analysis)
+- Análise de compreensão de aviso de privacidade em linguagem simples (plain-language privacy notice comprehension analysis)
+- Análise de entendimento de instruções por paráfrase do usuário (user paraphrase comprehension check analysis)
+- Análise de legibilidade em contexto de baixa visão (readability in low vision context analysis)
+- Análise de hierarquia textual com zoom elevado (text hierarchy under high zoom analysis)
+- Análise de conteúdo responsivo a preferências de movimento reduzido (content for reduced motion preferences analysis)
+- Análise de explicitação de tempo limite e extensão de sessão (timeout and session extension explanation analysis)
+- Análise de texto acessível para CAPTCHA e alternativa de verificação (accessible CAPTCHA text and verification alternative analysis)
+- Análise de escrita inclusiva de erro sem atribuição de culpa (inclusive blame-free error writing analysis)
+- Análise de uso de linguagem neutra sem perda de clareza (gender-neutral language without clarity loss analysis)
+- Análise de orientação inclusiva em formulários de identidade (inclusive identity form guidance analysis)
+- Análise de linguagem de apoio sem infantilização do usuário (supportive language without user infantilization analysis)
+
+- Análise de leitor de tela em conteúdo com tabelas aninhadas (screen reader use with nested table content analysis)
+- Escrita de resumo linear para tabela complexa (linear summary writing for complex table)
+- Análise de cabeçalho de linha e coluna em tabela de dados (row and column header analysis in data tables)
+- Análise de descrição de gráfico com tendência, valores e ressalvas (chart description by trend, values, and caveats analysis)
+- Escrita de alternativa textual para infográfico sequencial (alt text for sequential infographic writing)
+- Análise de ordem significativa em listas numeradas (meaningful order in numbered lists analysis)
+- Análise de agrupamento semântico em listas de opções (semantic grouping in option lists analysis)
+- Escrita de instrução de navegação por teclado (keyboard navigation instruction writing)
+- Análise de clareza de instrução para foco e seleção (focus and selection instruction clarity analysis)
+- Análise de conteúdo acessível em acordeão e conteúdo recolhido (accessible content in accordion and collapsed state analysis)
+- Escrita de título informativo para região e landmark (informative heading for region and landmark writing)
+- Análise de relação entre título acessível e conteúdo de região (accessible region name and content relationship analysis)
+- Análise de coerência entre sequência visual e sequência programática (visual and programmatic sequence coherence analysis)
+- Análise de comportamento textual com ampliação de fonte (text behavior under font enlargement analysis)
+- Análise de legibilidade em modo de alto contraste (readability in high contrast mode analysis)
+- Escrita de texto robusto para quebra de layout e reflow (robust text for layout break and reflow writing)
+- Análise de leitura de caracteres especiais por tecnologia assistiva (assistive technology reading of special characters analysis)
+- Análise de verbalização de símbolos matemáticos em leitor de tela (screen reader verbalization of mathematical symbols analysis)
+- Escrita de expressão matemática acompanhada de explicação verbal (mathematical expression with verbal explanation writing)
+- Análise de explicitação de abreviaturas em conteúdo técnico acessível (abbreviation expansion in accessible technical content analysis)
+- Análise de instruções de preenchimento em formulário extenso (completion instructions in long forms analysis)
+- Escrita de resumo de erros antes dos campos e erro no campo (error summary and inline error writing)
+- Análise de associação textual entre erro e campo inválido (textual association between error and invalid field analysis)
+- Análise de aviso de erro anunciado automaticamente (automatically announced error message analysis)
+- Escrita de conteúdo acessível para passo opcional (accessible content for optional step writing)
+- Análise de compreensão de confirmação e cancelamento por rótulo (confirmation and cancellation label comprehension analysis)
+- Análise de consistência verbal entre ação de controle e resposta do sistema (control action and system response verb consistency analysis)
+- Escrita de mensagem de status sem depender de animação (status message without reliance on animation writing)
+- Análise de texto acessível para conteúdo que se atualiza ao vivo (accessible text for live-updating content analysis)
+- Escrita de descrição de progresso que nomeia etapa atual (progress description naming current step writing)
+- Análise de indicação textual de seção atual em navegação (text indication of current navigation section analysis)
+- Análise de nomes de controles com ação e objeto explícitos (control names with explicit action and object analysis)
+- Escrita de aviso compatível com tradução e leitura por voz (notice compatible with translation and speech reading writing)
+- Análise de conteúdo simples para leitor com baixa familiaridade digital (simple content for readers with low digital familiarity analysis)
+- Análise de instrução para usuário com pouca experiência em formulário (instruction for inexperienced form user analysis)
+- Escrita de orientação inclusiva para pedir ajuda humana (inclusive guidance for requesting human help writing)
+- Análise de barreira linguística em comunicação automatizada de serviço (language barrier in automated service communication analysis)
+- Escrita de mensagem acessível para autenticação por desafio (accessible challenge-based authentication message writing)
+- Análise de clareza textual de método alternativo de autenticação (text clarity of alternative authentication method analysis)
+- Análise de legibilidade de instruções com várias condições (readability of instructions with multiple conditions analysis)
+- Análise de segmentação de instrução por condição e ação (instruction segmentation by condition and action analysis)
+- Escrita de instrução com exemplos de entrada válida e inválida (instruction with valid and invalid input examples writing)
+- Análise de concretude de linguagem em explicação de configuração (language concreteness in settings explanation analysis)
+- Análise de compatibilidade de linguagem clara com precisão regulatória (plain language and regulatory precision compatibility analysis)
+- Escrita de explicação em linguagem simples com termo técnico entre parênteses (plain explanation with parenthetical technical term writing)
+- Análise de ordem entre explicação simples e termo especializado (plain explanation and specialist term ordering analysis)
+- Análise de compreensão por teste de tarefa sem assistência (unassisted task comprehension test analysis)
+- Análise de confiança do usuário após leitura de instrução acessível (user confidence after accessible instruction reading analysis)
+- Análise de esforço de busca por informação em documento acessível (information search effort in accessible document analysis)
+- Análise de consistência de linguagem inclusiva em conjunto de telas (inclusive language consistency across screens analysis)
+
+- Análise de leitura por etapas em instrução de múltiplas condições (staged reading of multi-condition instructions analysis)
+- Escrita de orientação com resumo inicial e detalhes opcionais (guidance with initial summary and optional details writing)
+- Análise de linguagem concreta em instrução sobre processo abstrato (concrete language in abstract process instruction analysis)
+- Análise de referência pronominal em parágrafo de linguagem simples (pronoun reference in plain-language paragraph analysis)
+- Análise de frase com dupla negação em conteúdo de serviço (double negation in service content analysis)
+- Análise de voz passiva e omissão de agente em orientação ao público (passive voice and agent omission in public guidance analysis)
+- Análise de nominalização em aviso de ação obrigatória (nominalization in mandatory action notice analysis)
+- Escrita de alternativa verbal para nominalização administrativa (verbal alternative to administrative nominalization writing)
+- Análise de densidade de informação em aviso curto (information density in short notice analysis)
+- Análise de hierarquia entre ação imediata e informação contextual (immediate action and contextual information hierarchy analysis)
+- Escrita de instrução de emergência com sequência temporal explícita (emergency instruction with explicit temporal sequence writing)
+- Análise de ambiguidade de intervalo e prazo em orientação pública (interval and deadline ambiguity in public guidance analysis)
+- Escrita de prazo com data, horário e fuso explícitos (deadline with explicit date, time, and timezone writing)
+- Análise de compreensão de período de carência e espera (grace period and waiting period comprehension analysis)
+- Análise de clareza de condição e exceção em regulamento simplificado (condition and exception clarity in simplified regulation analysis)
+- Escrita de regra seguida de exceção claramente delimitada (rule followed by clearly delimited exception writing)
+- Análise de vocabulário concreto em formulário de cadastro (concrete vocabulary in registration form analysis)
+- Escrita de pergunta de formulário com um conceito por campo (form question with one concept per field writing)
+- Análise de pergunta dupla em pesquisa ou cadastro (double-barreled question in survey or registration analysis)
+- Escrita de rótulo de campo com categoria e exemplo (field label with category and example writing)
+- Análise de exemplo de preenchimento sem induzir resposta (form example without leading response analysis)
+- Escrita de instrução de formulário antes do campo relacionado (form instruction before related field writing)
+- Análise de consistência entre instrução, rótulo e mensagem de erro (instruction, label, and error message consistency analysis)
+- Análise de confiança de leitor ao executar instrução passo a passo (reader confidence when following step-by-step instruction analysis)
+- Escrita de passagem de orientação com repetição controlada de substantivo-chave (guidance passage with controlled key noun repetition writing)
+- Análise de substituição lexical que prejudica rastreamento de referente (lexical substitution impairing referent tracking analysis)
+- Análise de termos abstratos sem definição operacional (abstract terms without operational definition analysis)
+- Escrita de termo técnico com analogia e limite da analogia (technical term with analogy and analogy limit writing)
+- Análise de metáfora de interface por risco de interpretação literal (interface metaphor risk of literal interpretation analysis)
+- Escrita de aviso acessível sem idiomatismo regional (accessible notice without regional idiom writing)
+- Análise de tradução simples com preservação de obrigação e permissão (plain translation preserving obligation and permission analysis)
+- Escrita de instrução com verbos uniformes por etapa (instruction with consistent verbs by step writing)
+- Análise de escolha entre “deve”, “pode” e “precisa” em instrução (choice among must, may, and need in instruction analysis)
+- Análise de ambiguidade de sujeito em instrução impessoal (subject ambiguity in impersonal instruction analysis)
+- Escrita de responsável explícito por ação em comunicação pública (explicit action owner in public communication writing)
+- Análise de comunicação de negativa com razão e alternativa acessível (denial communication with reason and accessible alternative analysis)
+- Escrita de comunicação de direito com elegibilidade e como solicitar (rights communication with eligibility and application steps writing)
+- Análise de leitura de formulário por pessoa com baixo letramento numérico (form reading by low numeracy user analysis)
+- Escrita de valor monetário com moeda, período e condição (monetary value with currency, period, and condition writing)
+- Análise de compreensão de porcentagem em instrução de serviço (percentage comprehension in service instruction analysis)
+- Escrita de proporção por numerador, denominador e grupo (proportion by numerator, denominator, and group writing)
+- Análise de interpretação de probabilidade verbal como “raro” e “comum” (interpretation of verbal probability terms analysis)
+- Escrita de probabilidade com frequência natural para público geral (probability using natural frequencies for general audience writing)
+- Análise de compreensão de escala ordinal em formulário (ordinal scale comprehension in form analysis)
+- Escrita de opções de resposta sem sobreposição (nonoverlapping response options writing)
+- Análise de opção “não sei” e “não se aplica” (don’t know and not applicable response option analysis)
+- Análise de compreensão de pergunta negativa em escala (negative question comprehension in scale analysis)
+- Escrita de instrução em leitura fácil com validação por usuário (easy-read instruction validated by users writing)
+- Análise de consistência de símbolo e palavra em orientação visual (symbol and word consistency in visual guidance analysis)
+- Análise de compreensão de pictograma sem apoio textual (pictogram comprehension without text support analysis)
+
+- WCAG: compreensão, operabilidade, percepção e robustez em texto (WCAG principles applied to text)
+- Análise de conformidade textual com critério WCAG de títulos (textual WCAG heading criterion analysis)
+- Análise de conformidade textual com critério WCAG de rótulos (textual WCAG label criterion analysis)
+- Análise de conformidade textual com critério WCAG de instruções (textual WCAG instruction criterion analysis)
+- Análise de conformidade textual com critério WCAG de identificação de erros (textual WCAG error identification criterion analysis)
+- Análise de conformidade textual com critério WCAG de sugestão de correção (textual WCAG error suggestion criterion analysis)
+- Análise de conformidade textual com critério WCAG de idioma da página (textual WCAG page language criterion analysis)
+- Análise de conformidade textual com critério WCAG de idioma de trecho (textual WCAG language of parts criterion analysis)
+- Análise de consistência de ajuda contextual em páginas equivalentes (consistent contextual help across equivalent pages analysis)
+- Análise de consistência de identificação de componentes com mesma função (consistent identification of same-function components analysis)
+- Análise de prevenção de erros em formulários por instrução textual (form error prevention through textual instruction analysis)
+- Análise de prevenção de erro legal, financeiro e de dados (prevention of legal, financial, and data errors analysis)
+- Escrita de confirmação reversível para submissão de dados (reversible confirmation for data submission writing)
+- Escrita de revisão final antes de confirmar transação (final review before transaction confirmation writing)
+- Análise de possibilidade de corrigir, reverter e confirmar ação (ability to correct, reverse, and confirm action analysis)
+- Análise de identificação textual de nome, função e valor de controle (textual identification of control name, role, and value analysis)
+- Análise de mensagem de status com papel semântico anunciado (status message with programmatically conveyed semantic role analysis)
+- Análise de conteúdo dinâmico anunciado sem mover o foco (dynamic content announced without moving focus analysis)
+- Escrita de indicação textual de progresso sem depender de cor (textual progress indication without color dependence writing)
+- Análise de instrução que não depende apenas de forma, posição ou som (instruction not relying only on shape, position, or sound analysis)
+- Análise de consistência entre nome acessível e rótulo visual (accessible name and visible label consistency analysis)
+- Análise de abreviação em nome acessível e pronúncia por voz (abbreviation in accessible name and speech pronunciation analysis)
+- Análise de contexto para link repetido com mesmo texto (context for repeated links with same text analysis)
+- Escrita de rótulo de link distinguível de links vizinhos (link label distinguishable from neighboring links writing)
+- Análise de link para arquivo por tipo, idioma e tamanho (file link by type, language, and size analysis)
+- Escrita de instrução para documento anexado acessível (instruction for accessible attached document writing)
+- Análise de acessibilidade linguística de CAPTCHA alternativo (linguistic accessibility of CAPTCHA alternative analysis)
+- Análise de clareza de instrução de autenticação sem depender de imagem (authentication instruction clarity without image dependence analysis)
+- Escrita de descrição de controle acessível para interação por voz (accessible control description for voice interaction writing)
+- Análise de entendimento de comando por voz em linguagem natural (natural language voice command comprehension analysis)
+- Análise de ambiguidade de resposta em interface de voz (response ambiguity in voice interface analysis)
+- Escrita de prompt falado com uma pergunta por turno (spoken prompt with one question per turn writing)
+- Análise de instrução de voz com oportunidade de repetição (voice instruction with repeat option analysis)
+- Escrita de confirmação de entrada por voz com correção (voice input confirmation with correction writing)
+- Análise de tratamento de homófonos em reconhecimento de fala (homophone handling in speech recognition analysis)
+- Escrita de alternativa textual para áudio sem transcrição disponível (text alternative for audio without transcript writing)
+- Análise de equivalência informacional entre texto e áudio (information equivalence between text and audio analysis)
+- Análise de qualidade de legenda ao vivo em conteúdo interativo (live captions quality in interactive content analysis)
+- Escrita de nota sobre limitações de reconhecimento automático de fala (limitations of automatic speech recognition notice writing)
+- Análise de clareza de transcrição automática com falante incerto (automated transcript clarity with uncertain speaker analysis)
+- Análise de revisão humana de legenda automática por risco de sentido (human review of automated captions by meaning risk analysis)
+- Análise de legibilidade de texto em dispositivo assistivo com largura reduzida (text readability on assistive device with reduced width analysis)
+- Análise de consistência de conteúdo ao alternar modo de leitura (content consistency when switching reading modes analysis)
+- Escrita de mensagem de ativação de modo de alto contraste (high contrast mode activation message writing)
+- Análise de clareza de preferência de movimento reduzido e conteúdo animado (reduced motion preference and animated content clarity analysis)
+- Análise de equivalência textual em conteúdo com movimento automático (textual equivalence in auto-moving content analysis)
+- Escrita de controle textual de pausa para conteúdo animado (textual pause control for animated content writing)
+- Análise de aviso de tempo limite com tempo suficiente para agir (timeout warning with sufficient action time analysis)
+- Escrita de instrução de extensão de tempo em sessão autenticada (session time extension instruction writing)
+- Análise de comunicação de expiração sem perda inesperada de dados (expiry communication without unexpected data loss analysis)
+
+- Análise de linguagem clara segundo princípios federais de plain language (plain language principles for public communication analysis)
+- Aplicação do padrão Easy Read para informação pública (Easy Read standard for public information)
+- Análise de validação de material easy read com leitores-alvo (easy-read material validation with target readers analysis)
+- Escrita de informação acessível por sentença curta e ideia concreta (accessible information using short sentences and concrete ideas)
+- Análise de equivalência entre versão simplificada e versão integral (simplified and full version equivalence analysis)
+- Escrita de resumo em linguagem simples antes do texto técnico (plain-language summary before technical text writing)
+- Análise de conteúdo em camadas para leitor leigo e especialista (layered content for lay and expert readers analysis)
+- Análise de comprimento de frase por cláusula e dependência (sentence length by clause and dependency analysis)
+- Análise de voz ativa e identificação de agente em linguagem clara (active voice and agent identification in plain language analysis)
+- Análise de vocabulário de alta frequência em instrução essencial (high-frequency vocabulary in essential instruction analysis)
+- Análise de nominalização desnecessária em texto de serviço público (unnecessary nominalization in public service text analysis)
+- Análise de metáfora e expressão figurada em leitura fácil (metaphor and figurative phrase in easy-read text analysis)
+- Análise de consistência de palavras usadas para a mesma ação (consistent wording for same action analysis)
+- Análise de glossário e definição imediata de termo difícil (glossary and immediate definition of difficult term analysis)
+- Escrita de definição acessível por categoria e exemplo cotidiano (accessible definition by category and everyday example writing)
+- Análise de leitura fácil por presença de exemplo concreto (easy-read text by concrete example presence analysis)
+- Escrita de instrução acessível com uma informação por sentença (accessible instruction with one information unit per sentence)
+- Análise de oração subordinada encaixada em conteúdo de saúde (embedded subordinate clause in health content analysis)
+- Análise de frase condicional complexa para leitores com baixa proficiência (complex conditional sentence for low-proficiency readers analysis)
+- Escrita de condição e exceção em blocos separados (condition and exception in separate blocks writing)
+- Análise de texto acessível por leitura e teste de compreensão (accessible text through reading and comprehension testing)
+- Análise de compreensão por método teach-back em material escrito (comprehension through teach-back for written material analysis)
+- Escrita de orientação que convida o leitor a explicar o próximo passo (guidance inviting reader to explain next step writing)
+- Análise de conteúdo em linguagem simples por público e tarefa (plain language content by audience and task analysis)
+- Análise de legibilidade por nível de escolaridade sem depender só de fórmula (readability by education level beyond formula analysis)
+- Análise de adequação de fórmula de legibilidade a língua portuguesa (readability formula suitability for Portuguese analysis)
+- Análise de coesão local em texto simplificado (local cohesion in simplified text analysis)
+- Análise de perda de ressalva durante simplificação (loss of qualification during simplification analysis)
+- Análise de retenção de informação crítica após simplificação (retention of critical information after simplification analysis)
+- Análise de clareza de relação temporal em instrução acessível (temporal relation clarity in accessible instruction analysis)
+- Escrita de prazo acessível por data completa e evento de referência (accessible deadline by full date and reference event writing)
+- Análise de consistência de unidades e medidas em material acessível (units and measures consistency in accessible material analysis)
+- Escrita de instrução numérica com exemplo e faixa válida (numeric instruction with example and valid range writing)
+- Análise de representação de número decimal para leitor com baixa numeracia (decimal number representation for low-numeracy reader analysis)
+- Escrita de risco com frequência natural e grupo de referência (risk with natural frequency and reference group writing)
+- Análise de clareza de probabilidade por frequência natural (probability clarity through natural frequency analysis)
+- Análise de compreensão de proporções por pictograma e texto (proportion comprehension through pictogram and text analysis)
+- Escrita de descrição de gráfico com tendência e mensagem principal primeiro (chart description with trend and main message first writing)
+- Análise de ordem informacional em descrição de gráfico acessível (information order in accessible chart description analysis)
+- Escrita de alternativa textual concisa e descrição longa complementar (concise alt text and complementary long description writing)
+- Análise de fronteira entre alt text e descrição longa (boundary between alt text and long description analysis)
+- Análise de redundância de descrição longa com legenda e contexto (long description redundancy with caption and context analysis)
+- Escrita de alternativa textual para gráfico de linha multissérie (alt text for multi-series line chart writing)
+- Escrita de alternativa textual para mapa temático (alt text for thematic map writing)
+- Escrita de alternativa textual para fluxograma de processo (alt text for process flowchart writing)
+- Análise de leitura linear de fluxograma por leitor de tela (linear reading of flowchart by screen reader analysis)
+- Análise de descrição textual de infográfico por sequência e relação (text description of infographic by sequence and relation analysis)
+- Análise de equivalência de conteúdo em diagrama e descrição (content equivalence between diagram and description analysis)
+- Análise de linguagem não discriminatória em política e orientação (nondiscriminatory language in policy and guidance analysis)
+- Análise de acessibilidade cognitiva em conteúdo de direito e elegibilidade (cognitive accessibility in rights and eligibility content analysis)
+- Linguagem centrada na pessoa
+- Linguagem de identidade afirmativa
+- Linguagem respeitosa da deficiência
+- Linguagem respeitosa da neurodiversidade
+- Linguagem de gênero inclusiva
+- Linguagem interculturalmente cuidadosa
+- Localização inclusiva
+- Revisão de viés capacitista
+- Revisão de viés etário
+- Revisão de viés racial
+- Revisão de viés de gênero
+- Revisão de viés socioeconômico
+- Auditoria de pressupostos demográficos
+- Forma de tratamento escolhível
+- Campo de nome social
+- Campo de pronome opcional
+- Coleta mínima de atributo sensível
+- Consentimento para dado identitário
+- Opção de não informar
+- Alternativa textual a instrução oral
+- Instrução multimodal redundante
+- Linguagem direta para baixa alfabetização
+- Linguagem simples em situação de estresse
+- Linguagem simples para direitos
+- Linguagem simples para elegibilidade
+- Vocabulário de uso comum
+- Definição contextual de termo técnico
+- Expansão de sigla na primeira ocorrência
+- Frase com uma ação principal
+- Ordem direta em instrução
+- Verbo concreto em instrução
+- Instrução com agente explícito
+- Instrução com resultado esperado
+- Instrução com condição explícita
+- Instrução com exceção visível
+- Passos atômicos
+- Um verbo por passo
+- Um objetivo por parágrafo
+- Título que antecipa resposta
+- Resposta primeiro
+- Definição antes da exceção
+- Exceção próxima da regra
+- Aviso próximo da ação
+- Consequência próxima da escolha
+- Informação crítica no início
+- Repetição estratégica de instrução
+- Data escrita sem ambiguidade
+- Horário com fuso explícito
+- Prazo com marco inicial
+- Número acompanhado de unidade
+- Comparação com referência familiar
+- Intervalo explicado com exemplo
+- Negacão reescrita afirmativamente
+- Dupla negação removida
+- Nominalização convertida em verbo
+- Voz passiva convertida em agente
+- Abstração convertida em exemplo
+- Ironia evitada em instrução
+- Expressão idiomática substituída
+- Palavra polissêmica desambiguada
+- Pronome com referente repetido
+- Referência distante aproximada
+- Conector causal explícito
+- Conector temporal explícito
+- Conector de contraste explícito
+- Condição no início da frase
+- Consequência em frase separada
+- Parêntese convertido em explicação
+- Nota de rodapé incorporada
+- Ressalva em posição saliente
+- Descrição de pessoa sem reduzi-la à deficiência
+- Descrição de imagem por função
+- Instrução compatível com leitor de tela
+- Teste de leitura por voz
+- Revisão participativa remunerada
+- Teste com diversidade de letramento
+- Teste com leitor multilíngue
+- Teste com tecnologia assistiva
+- Teste sob carga cognitiva
+- Verificação de compreensão por paráfrase
+- Checagem de entendimento sem culpabilização
+- Instrução para pedir ajuda
+- Canal de suporte acessível
+- Alternativa de atendimento humano
+- Comunicação de erro sem atribuir culpa
+- Orientação para corrigir erro
+- Opção de recomeçar tarefa
+- Opção de salvar e continuar
+- Recuperação de progresso após falha
+- Confirmação de ação irreversível com efeito descrito
+- Desfazer ação acessível
+- Tempo de resposta ajustável
+- Pausa de atividade temporizada
+- Perfil de acessibilidade configurável
+- Ajuda contextual sob demanda
+- Explicação de opção padrão
+- Opção padrão inclusiva
+- Escolha reversível de preferência
+- Rótulo sem culpa
+- Mensagem sem infantilização
+- Comunicação não paternalista
+- Limite descrito sem julgamento
+- Comunicação de incerteza acessível
+- Probabilidade traduzida em frequência
+- Risco explicado por cenário
+- Comparação equilibrada de opções
+- Alternativa para quem não pode cumprir
+- Acomodação descrita concretamente
+- Procedimento de solicitação de adaptação
+- Explicação de direito de recurso
+- Instrução de contestação acessível
+- Exemplo com diversidade de nomes
+- Exemplo sem estereótipo
+- Termo local validado com usuários
+- Glossário de variantes regionais
+- Registro de termos desaconselhados
+- Justificativa para escolha terminológica
+- Consulta terminológica comunitária
+- Revisão periódica de linguagem
+- Auditoria de impacto comunicacional
+- Métrica de compreensão por grupo
+- Avaliação de desigualdade textual
+- Correção de barreira linguística
+- Inventário de conteúdo inacessível
+- Mapa de esforço linguístico
+- Análise de pré-requisito de letramento
+- Rota alternativa de explicação
+- Resumo em linguagem direta
+- Detalhe técnico progressivo
+- Navegação por nível de complexidade
+- Distinção entre orientação e obrigação
+- Distinção entre recomendação e requisito
+- Distinção entre possibilidade e garantia
+- Distinção entre direito e benefício
+- Distinção entre confidencialidade e anonimato
+- Explicação de retenção em linguagem clara
+- Explicação de finalidade em linguagem clara
+- Explicação de revogação em linguagem clara
+- Legenda sem jargão
+- Texto alternativo sem inferência
+- Informação sensorial equilibrada
+- Ordem de leitura previsível
+- Descrição de gráfico com conclusão textual
+- Instrução que não depende apenas de cor
+- Ação indicada por texto e ícone
+- Campo com rótulo persistente
+- Exemplo de formato junto ao campo
+- Erro específico associado ao campo
+- Mensagem de sucesso anunciada
+- Estado de carregamento descrito
+- Alternativa a CAPTCHA visual
+- Opção de autenticação acessível
+- Conteúdo sem limite de tempo evitável
+- Extensão de prazo sem penalidade
+- Mecanismo para pausar leitura
+- Controle de animação
+- Suporte a zoom textual
+- Prevenção de rolagem bidimensional
+- Texto compatível com reflow
+- Botão com nome acessível
+- Link com propósito autodescritivo
+- Aviso de link externo
+- Identificação de idioma da página
+- Mudança de idioma anunciada
+- Transcrição sincronizada
+- Legenda identificando falantes
+- Audiodescrição de informação essencial
+- Descrição longa para imagem complexa
+- Resumo textual de visualização
+- Tabela equivalente ao gráfico
+- Instrução não baseada só em posição
+- Alternativa ao gesto de arrastar
+- Operação por teclado equivalente
+- Foco visível e previsível
+- Ordem de tabulação lógica
+- Região de navegação nomeada
+- Cabeçalho semântico
+- Hierarquia de títulos coerente
+- Atalho para pular navegação
+- Indicação de página atual
+- Resumo de filtro ativo
+- Quantidade de resultados anunciada
+- Confirmação antes de expiração
+- Tempo de sessão renovável
+- Aviso de perda de progresso
+- Salvamento automático informado
+- Explicação de dado estimado
+- Texto sobre decisão automatizada
+- Explicação de critério de elegibilidade
+- Aviso de consequência material
+- Opção de revisão antes do envio
+- Confirmação em linguagem simples
+- Caminho de correção sem reiniciar
+- Instrução com exemplo concluído
+- Exemplo positivo e negativo
+- Passo opcional identificado
+- Passo obrigatório identificado
+- Requisito separado de recomendação
+- Instrução adaptada a baixa visão
+- Instrução adaptada a baixa audição
+- Conteúdo em linguagem concreta
+- Redução de nominalizações abstratas
+- Remoção de metáfora ambígua
+- Explicação literal de metáfora necessária
+- Frase com referente explícito
+- Separação de instrução e justificativa
+- Aviso com ação recomendada
+- Resumo de risco antes do detalhe
+- Detalhe de risco sob demanda
+- Distinção entre risco possível e provável
+- Frequência natural em vez de percentual isolado
+- Explicação de denominador
+- Comparação com grupo de referência
+- Ressalva próxima da afirmação
+- Limite da evidência em linguagem simples
+- Dado e interpretação separados
+- Fonte identificada de modo compreensível
+- Data da fonte visível
+- Instrução de procurar ajuda urgente
+- Canal de emergência descrito
+- Informação crítica em formato acessível
+- Alternativa offline para tarefa essencial
+- Atendimento assíncrono alternativo
+- Compatibilidade com leitor de tela testada
+- Validação com usuário com deficiência
+- Validação comunitária de terminologia
+- Revisão de conteúdo por especialista
+- Política editorial inclusiva
+- Mapa de jornada de leitura
+- Teste de compreensão por tarefa
+- Classificação de esforço de leitura
+- Auditoria de linguagem discriminatória
+- Lista de verificação de linguagem simples
+- Checklist de comunicação acessível
+- Plano de remediação textual
+- Prioridade de correção por risco
+- Consistência de nome de função
+- Consistência de instrução em canais
+- Texto de ajuda contextual curto
+- Instrução de recuperação após erro
+- Orientação de contato sem barreiras
+
+## Psicolinguística, cognição e compreensão leitora
+
+- Psicolinguística e Ciência Cognitiva
+- Escaneabilidade e Padrão de Leitura (Padrão F e Z)
+- Efeito Zeigarnik (Incompletude Cognitiva)
+- Fluência de Processamento (Processing Fluency)
+- Efeito de Posição Serial (Primazia e Recência)
+- Redução de Carga Cognitiva Extrínseca
+- Reconhecimento em vez de Recordação (Recognition over Recall)
+- Rotulagem de modo de visualização de catálogo (Catalog View-Mode Switcher Labeling)
+- Pacto de leitura (Reading Pact)
+- Efeito de primazia e recência na estruturação (Primacy and Recency Effect in Structuring)
+- Esquemas de imagem na linguística cognitiva (Image Schemas in Cognitive Linguistics)
+- Modelos mentais na compreensão textual (Mental Models in Discourse Comprehension)
+- Esquemas cognitivos e scripts de Schank e Abelson (Cognitive Schemas and Scripts)
+- Modelo cognitivo de escrita de Flower e Hayes: planejamento. tradução e revisão (Flower and Hayes’ Cognitive Process Theory of Writing)
+- Dinâmica de forças e janelamento da atenção de Talmy (Talmy’s Force Dynamics and Windowing of Attention)
+- Poética cognitiva de Reuven Tsur (Reuven Tsur’s Cognitive Poetics)
+- Teoria da estrutura do discurso de Grosz e Sidner: estrutura intencional e estado atencional (Grosz and Sidner’s Discourse Structure Theory)
+- Teoria da carga cognitiva aplicada à redação técnica (Cognitive Load Theory in Technical Writing)
+- Modelo construção-integração de Kintsch (Construction-Integration Model)
+- Teoria sociocognitiva do processo de escrita de Flower (Flower’s Sociocognitive Theory of Writing)
+- Modelo de memória de trabalho na composição de Kellogg (Kellogg’s Working Memory Model of Writing)
+- Modelos mentais de compreensão textual de Johnson-Laird (Johnson-Laird’s Mental Models of Text Comprehension)
+- Alinhamento trajetor-marco e domínios cognitivos de Langacker (Trajector-Landmark Alignment and Cognitive Domains)
+- Índice de Facilidade de Leitura de Flesch e nível escolar Flesch-Kincaid (Flesch Reading Ease and Flesch-Kincaid Grade Level)
+- Protocolo pensar em voz alta em tarefas de leitura (Think-Aloud Protocol)
+- Passe de leitura fria para continuidade textual (Cold-Read Continuity Pass)
+- Teste de leitura apenas por subtítulos (Subhead-Only Skim Test)
+- Uso de memória de tradução e correspondência parcial (Translation Memory and Fuzzy Matching)
+- Debriefing cognitivo em validação linguística (Cognitive Debriefing)
+- Princípios de contiguidade espacial e temporal da aprendizagem multimídia de Mayer (Mayer Cognitive Theory of Multimedia Learning)
+- Teoria dos esquemas na compreensão leitora (Schema Theory in Reading Comprehension)
+- Efeito da atenção dividida na apresentação de conteúdo (Split-Attention Effect)
+- Teoria da fluência de processamento (Processing Fluency Theory)
+- Modelo de situação e indexação de eventos (Situation Model and Event-Indexing Model)
+- Modelo da Paisagem na compreensão leitora (Landscape Model of Reading Comprehension)
+- Visão Simples da Leitura (Simple View of Reading)
+- Modelo interativo-compensatório da leitura (Interactive-Compensatory Model of Reading)
+- Modelo heurístico RAND de compreensão leitora (RAND Heuristic Model of Reading Comprehension)
+- Teoria da eficiência verbal na leitura (Verbal Efficiency Theory)
+- Teste Maze de compreensão leitora (Maze Reading Comprehension Assessment)
+- Inventário Qualitativo de Leitura — QRI (Qualitative Reading Inventory)
+- Tarefa de amplitude de leitura e memória de trabalho (Reading Span Task)
+- Entrevista cognitiva para validação de textos e formulários (Cognitive Interviewing)
+- Percurso cognitivo orientado a tarefas para microcopy (Task-Based Cognitive Walkthrough)
+- Modelo de Ativação Interativa no Reconhecimento de Palavras (Interactive Activation Model)
+- Teoria do Tamanho do Grão Psicolinguístico na Leitura (Grain Size Theory)
+- Posição Ótima de Visualização e Local Preferencial de Fixação (Optimal Viewing Position and Preferred Viewing Location)
+- Movimentos Oculares Regressivos e Efeito de Transbordamento (Regressive Eye Movements and Spillover Effect)
+- Leitura Biônica e Pontos Artificiais de Fixação (Bionic Reading)
+- Gramática Cognitiva: Figura-Fundo. Trajetor-Marco e Operações de Conceptualização (Cognitive Grammar)
+- Modelo de Construção-Integração da Compreensão Textual (Construction-Integration Model)
+- Modelo de Paisagem da Leitura: Ativação de Coorte e Padrões de Coerência (Landscape Model)
+- Modelo de Ressonância no Processamento Textual Baseado na Memória (Resonance Model)
+- Hipótese Minimalista e Teoria Construcionista da Geração de Inferências (Minimalist Hypothesis and Constructionist Theory)
+- Inferências de Ponte e Inferências Elaborativas (Bridging and Elaborative Inferences)
+- Atualização Incremental do Modelo Situacional (Situation Model Updating)
+- Critério de Nível de Leitura das WCAG (WCAG Reading Level Criterion)
+- Regra do Pico-Fim (Peak-End Rule)
+- Efeito Von Restorff (Efeito de Isolamento)
+- Faro de Informação (Information Scent)
+- Teoria da Codificação Dupla (Dual-Coding)
+- Desconto Hiperbólico (Hyperbolic Discounting)
+- Efeito de Concretude (Concreteness Effect)
+- Reciprocidade Informacional
+- Ilusão de Controle (Illusion of Control)
+- Previsão Afetiva (Affective Forecasting)
+- Efeito de Geração (Generation Effect)
+- Efeito de Rima e Fluência Fonológica (Rhyme-as-Reason Effect)
+- Efeito de Especificidade (Specificity Effect)
+- Efeito do Gradiente de Objetivo (Goal-Gradient Effect)
+- Teoria da Relevância (Sperber & Wilson)
+- Teoria da Inoculação (Inoculation Theory)
+- Categorização Orientada a Objetivos (Goal-Derived Categories)
+- Saliência Direcional (Attentional Cueing)
+- Contabilidade Mental (Mental Accounting)
+- Efeito de Certeza (Certainty Effect)
+- Teoria da Lacuna de Informação (Information Gap)
+- Efeito de Simulação Mental (Mental Simulation)
+- Validação Empática Pré-Regra (Affective Priming)
+- Efeito de Rastreamento Visual por Âncoras Numéricas
+- Efeito de Proximidade Epistêmica (Epistemic Certainty Cueing)
+- Sequência motivada de Monroe (Monroe’s Motivated Sequence)
+- Teoria da relevância (Relevance Theory)
+- Teoria da inoculação (Inoculation Theory)
+- Teoria da acomodação comunicativa (Communication Accommodation Theory)
+- Efeito de distanciamento (Verfremdungseffekt / Alienation Effect)
+- Gêneros primários e secundários de Bakhtin (Bakhtin’s Primary and Secondary Genres)
+- Teoria da Representação do Discurso — DRT (Discourse Representation Theory)
+- Teoria da otimidade de Prince e Smolensky (Optimality Theory)
+- Teoria da Representação Discursiva Segmentada — SDRT (Segmented Discourse Representation Theory)
+- Efeito de posição serial na ordenação de listas (Serial Position Effect)
+- Teoria da codificação dupla verbal e visual (Dual-Coding Theory)
+- Teoria dos níveis de processamento (Levels of Processing Theory)
+- Efeito da reversão pela experiência no design de conteúdo (Expertise Reversal Effect)
+- Recursos visuais para comunicar incerteza e intervalos de confiança (Visual Aids for Uncertainty)
+- Teoria da elaboração de Reigeluth (Elaboration Theory)
+- Efeito da autoexplicação e pausas estruturadas no texto (Self-Explanation Effect)
+- Teoria da Inoculação e Mensagens Refutativas Bilaterais (Inoculation Theory)
+- Aprendizagem orientada por dados com corpora (Data-Driven Learning)
+- Competência comunicativa de Canale e Swain (Communicative Competence)
+- Hipótese da percepção consciente de Schmidt (Noticing Hypothesis)
+- Hipótese do output compreensível de Swain (Comprehensible Output Hypothesis)
+- Visão Não Tão Simples da Escrita de Berninger e Winn (Not-So-Simple View of Writing)
+- Modelo de Efeitos Diretos e Indiretos da Escrita — DIEW (Direct and Indirect Effects Model of Writing)
+- Teoria da Capacidade na Escrita de McCutchen (Capacity Theory of Writing)
+- Modelo de constituição do conhecimento de Galbraith (Galbraith’s Knowledge-Constituting Model of Writing)
+- Modelo de dupla rota da produção ortográfica (Dual-Route Model of Spelling)
+- Buffer grafêmico na produção ortográfica (Graphemic Buffer)
+- Modelo psicomotor da escrita manual de Van Galen (Van Galen’s Psychomotor Model of Handwriting)
+- Teoria de dois laços da digitação hábil de Logan e Crump (Two-Loop Theory of Skilled Typing)
+- Hipótese da autonomia ortográfica na produção escrita (Orthographic Autonomy Hypothesis)
+- Ativação em cascata na produção escrita (Cascading Activation in Written Production)
+- Efeito de fronteira silábica e morfológica na escrita manual (Syllable and Morpheme Boundary Effect in Handwriting)
+- Efeito de concordância por atração na escrita (Agreement Attraction Effect in Writing)
+- Priming sintático na produção escrita (Syntactic Priming in Written Production)
+- Modelo multicomponente da memória de trabalho de Baddeley e Hitch (Baddeley and Hitch’s Multicomponent Working Memory Model)
+- Memória de trabalho de longo prazo de Ericsson e Kintsch (Long-Term Working Memory)
+- Modelo de compartilhamento de recursos baseado no tempo — TBRS (Time-Based Resource-Sharing Model)
+- Paradigma de tarefa dupla na medição do esforço cognitivo da escrita (Dual-Task Paradigm in Writing Research)
+- Efeito da supressão articulatória na composição escrita (Articulatory Suppression Effect in Writing)
+- Representação visuoespacial do texto na memória do escritor (Visuospatial Representation of Text in Writing)
+- Coordenação paralela e serial dos processos de escrita (Parallel and Serial Coordination of Writing Processes)
+- Pré-texto na formulação mental de Witte (Witte’s Pre-Text Construct)
+- Alcance do planejamento antecipado na produção linguística (Scope of Advance Planning in Language Production)
+- Modelo MD-TRACE de escrita a partir de múltiplos documentos (MD-TRACE Model of Multiple-Document Writing)
+- Funções de codificação e armazenamento externo na tomada de notas (Encoding and External Storage Functions of Note-Taking)
+- Interação com o texto produzido até o momento — TPSF (Text-Produced-So-Far Interaction)
+- Efeito de fronteira linguística na duração das pausas na escrita (Linguistic Boundary Effect on Writing Pauses)
+- Autoeficácia na escrita (Writing Self-Efficacy)
+- Modelo metacognitivo da revisão textual de Hacker (Hacker’s Metacognitive Model of Revision)
+- Ilusão do revisor na detecção de erros (Proofreader’s Illusion)
+- Efeito da letra faltante na revisão textual (Missing-Letter Effect)
+- Teoria do ciclo perceptual no automonitoramento da produção de Levelt (Perceptual Loop Theory of Self-Monitoring)
+- Teoria da surprisal no processamento e análise de corpus (Surprisal Theory)
+- Modelos de esforço na interpretação de Daniel Gile (Gile’s Effort Models of Interpreting)
+- Modelo de previsão probabilística na interpretação simultânea de Chernov (Chernov’s Probability Prediction Model)
+- Modelo cognitivo-pragmático da interpretação simultânea de Setton (Setton’s Cognitive-Pragmatic Model of Simultaneous Interpreting)
+- Intervalo ouvido-voz na interpretação simultânea (Ear-Voice Span / Décalage)
+- Teoria do traço difuso (Fuzzy-Trace Theory)
+- Teoria da flexibilidade cognitiva de Spiro e Jehng (Cognitive Flexibility Theory)
+- Desorientação e sobrecarga cognitiva em hipertexto de Conklin (Hypertext Disorientation and Cognitive Overhead)
+- Modelo CoLiDeS de navegação textual de Kitajima. Blackmon e Polson (Comprehension-Based Linked Model of Deliberate Search)
+- Modelo de Documentos de Perfetti. Rouet e Britt (Documents Model Framework)
+- Perfis de navegação hipertextual de Lawless e Kulikowich (Hypertext Navigation Profiles)
+- Modelo de compreensão leitora online de Coiro e Dobler (Online Reading Comprehension Framework)
+- Modelo integrado de compreensão de texto e imagem de Schnotz (Integrated Model of Text and Picture Comprehension)
+- Taxonomia de funções das ilustrações em textos de Levin (Taxonomy of Text Illustration Functions)
+
+- Princípio de dado antes de novo na organização da frase (given-before-new information order)
+- Empacotamento sintático de informação conhecida e nova (given-new syntactic packaging)
+- Análise de custo de integração sintática (syntactic integration cost analysis)
+- Análise de dependência de longa distância (long-distance dependency analysis)
+- Análise de ambiguidade de anexação sintática (syntactic attachment ambiguity analysis)
+- Análise de ambiguidade de escopo de quantificador (quantifier scope ambiguity analysis)
+- Análise de ambiguidade de negação (negation scope ambiguity analysis)
+- Princípio de minimizar dependências não locais (dependency locality principle)
+- Análise de distância entre referente e expressão anafórica (antecedent-anaphor distance analysis)
+- Análise de competição entre referentes candidatos (referential competition analysis)
+- Análise de saliência discursiva de referentes (discourse referent salience analysis)
+- Análise de resolução de anáfora por concordância morfológica (morphological agreement in anaphora resolution)
+- Análise de acessibilidade cognitiva de referentes (cognitive accessibility of discourse referents)
+- Princípio de continuidade tópica e escolha pronominal (topic continuity and pronoun choice)
+- Análise de custo inferencial em implicaturas (inferential cost analysis for implicatures)
+- Análise de expectativa lexical e surpresa contextual (lexical expectation and contextual surprisal)
+- Análise de previsibilidade lexical em contexto (contextual lexical predictability analysis)
+- Análise de entropia de escolha lexical (lexical choice entropy analysis)
+- Análise de surprisal sintático (syntactic surprisal analysis)
+- Análise de efeito de frequência lexical em leitura (lexical frequency effect in reading)
+- Análise de efeito de vizinhança ortográfica (orthographic neighborhood effect analysis)
+- Análise de efeito de concretude lexical (lexical concreteness effect analysis)
+- Análise de familiaridade e imaginabilidade das palavras (word familiarity and imageability analysis)
+- Análise de comprimento de palavra e custo de decodificação (word length and decoding cost analysis)
+- Análise de ambiguidade lexical em contexto (contextual lexical ambiguity analysis)
+- Análise de homonímia e competição de sentidos durante leitura (homonymy and sense competition in reading)
+- Análise de priming semântico entre segmentos (semantic priming across text segments)
+- Análise de priming por repetição lexical (lexical repetition priming analysis)
+- Análise de facilitação por paralelismo sintático (syntactic parallelism facilitation analysis)
+- Análise de efeito de voz ativa na identificação do agente (active voice and agent identification analysis)
+- Análise de custo cognitivo de nominalizações (cognitive cost analysis of nominalizations)
+- Análise de causalidade explícita e inferida durante leitura (explicit and inferred causality in reading)
+- Análise de coerência local e global na compreensão (local and global coherence in comprehension)
+- Análise de modelo situacional construído pelo leitor (reader situation model analysis)
+- Análise de atualização do modelo mental após informação contraditória (mental model updating after conflicting information)
+- Análise de inferências preditivas versus retrospectivas (predictive and retrospective inference analysis)
+- Análise de integração de conhecimento prévio em texto (prior knowledge integration analysis)
+- Análise de efeito de títulos na ativação de esquemas (title effects on schema activation)
+- Análise de expectativa de gênero textual na compreensão (genre expectation in comprehension)
+- Análise de monitoramento metacognitivo durante leitura (metacognitive monitoring during reading)
+- Análise de calibração entre confiança e compreensão percebida (confidence and perceived comprehension calibration)
+- Análise de releitura estratégica por dificuldade (strategic rereading in response to difficulty)
+- Análise de segmentação por unidades de sentido (meaning-based segmentation analysis)
+- Análise de agrupamento prosódico e interpretação sintática (prosodic phrasing and syntactic interpretation)
+- Análise de tempo de fixação ocular em palavras críticas (critical-word gaze duration analysis)
+- Análise de regressões oculares em leitura de frases ambíguas (eye regression analysis in ambiguous sentence reading)
+- Análise de leitura automonitorada (self-paced reading analysis)
+- Análise de efeito de posição serial em listas textuais (serial position effect in text lists)
+- Análise de recordação livre e reconhecimento de conteúdo (free recall and recognition analysis for text content)
+- Análise de interferência entre proposições semelhantes (interference between similar propositions analysis)
+- Análise de efeito de repetição espaçada em retenção textual (spaced repetition effect on text retention)
+- Análise de aprendizagem por exemplos e explicação verbal (example-based and verbal explanation learning analysis)
+- Análise de carga intrínseca, extrínseca e germânica (intrinsic, extraneous, and germane load analysis)
+
+- Análise de efeito de modalidade de apresentação na compreensão (modality of presentation effect on comprehension analysis)
+- Análise de interferência de tarefa dual durante leitura (dual-task interference during reading analysis)
+- Análise de leitura sob pressão de tempo (time-pressure reading analysis)
+- Análise de releitura regressiva em trecho de alta dificuldade (regressive rereading in high-difficulty passage analysis)
+- Análise de leitura seletiva por localização de informação (selective reading for information location analysis)
+- Análise de busca visual de palavra-chave em documento (visual keyword search in document analysis)
+- Análise de custo de alternância entre tarefas de leitura (task-switching cost in reading analysis)
+- Análise de efeito de interrupção e retomada na compreensão (interruption and resumption effect on comprehension analysis)
+- Análise de retomada de foco após distração textual (attention recovery after textual distraction analysis)
+- Análise de fadiga cognitiva em leitura prolongada (cognitive fatigue during prolonged reading analysis)
+- Análise de compreensão em leitura fragmentada por notificações (comprehension in notification-interrupted reading analysis)
+- Análise de retenção de instrução em sequência extensa (instruction retention in long sequence analysis)
+- Análise de esquecimento prospectivo após leitura de instrução (prospective memory after instruction reading analysis)
+- Análise de intenção de implementação em orientação textual (implementation intention in written guidance analysis)
+- Análise de efeito de plano se-então na execução de instrução (if-then plan effect on instruction execution analysis)
+- Análise de transferência de instrução para novo contexto (instruction transfer to novel context analysis)
+- Análise de generalização de aprendizagem após explicação textual (learning generalization after text explanation analysis)
+- Análise de compreensão de exemplo trabalhado (worked example comprehension analysis)
+- Análise de efeito de exemplo resolvido versus problema aberto (solved example and open problem effect analysis)
+- Análise de exemplo positivo e exemplo-limite na aprendizagem (positive and boundary example learning analysis)
+- Análise de exemplo contrastivo para discriminar conceitos (contrasting example for concept discrimination analysis)
+- Análise de sequência de exemplos do simples ao complexo (simple-to-complex example sequencing analysis)
+- Análise de exemplo mínimo versus explicação extensa (minimal example and extended explanation comparison)
+- Análise de efeito de pergunta orientadora antes da leitura (pre-reading guiding question effect analysis)
+- Análise de objetivo de leitura explícito e seleção de informação (explicit reading goal and information selection analysis)
+- Análise de expectativa de resposta sobre compreensão (comprehension answer expectation analysis)
+- Análise de pergunta literal, inferencial e crítica em avaliação (literal, inferential, and critical question analysis)
+- Análise de dependência entre pergunta e trecho evidencial (question and evidence passage dependency analysis)
+- Análise de inferência causal necessária versus elaborativa (necessary and elaborative causal inference analysis)
+- Análise de inferência ponte entre sentenças (bridging inference across sentences analysis)
+- Análise de inferência elaborativa baseada em conhecimento prévio (elaborative inference based on prior knowledge analysis)
+- Análise de inferência temporal em sequência de eventos (temporal inference in event sequence analysis)
+- Análise de inferência espacial em descrição de cena (spatial inference in scene description analysis)
+- Análise de inferência de intenção em discurso indireto (intention inference in indirect discourse analysis)
+- Análise de inferência de causa em narrativa sem conector explícito (causal inference in narrative without explicit connector analysis)
+- Análise de resolução de ambiguidade por contexto global (ambiguity resolution through global context analysis)
+- Análise de escolha lexical com vizinhos semânticos competitivos (lexical choice with competing semantic neighbors analysis)
+- Análise de ativação semântica por contexto de frase (semantic activation by sentence context analysis)
+- Análise de efeito de cloze em previsibilidade de palavra (cloze probability and word predictability analysis)
+- Análise de completamento de frase como medida de expectativa (sentence completion as expectation measure analysis)
+- Análise de surpresa contextual por improbabilidade de sequência (contextual surprise through sequence improbability analysis)
+- Análise de disfluência desejável em material explicativo (desirable difficulty in explanatory material analysis)
+- Análise de sinalização de estrutura como apoio à memória (structural signaling as memory support analysis)
+- Análise de efeito de destaque tipográfico sobre recordação (typographic highlighting effect on recall analysis)
+- Análise de segmentação por sinalização visual e conceitual (visual and conceptual signaling segmentation analysis)
+- Análise de redundância entre imagem, fala e texto explicativo (image, speech, and explanatory text redundancy analysis)
+- Análise de princípio de contiguidade espacial e temporal multimídia (spatial and temporal contiguity principle analysis)
+- Análise de modalidade textual e carga cognitiva multimídia (text modality and multimedia cognitive load analysis)
+- Análise de princípio de coerência em material instrucional multimídia (coherence principle in multimedia instruction analysis)
+- Análise de segmentação controlada pelo aprendiz (learner-controlled segmentation analysis)
+
+- Análise de teoria da carga cognitiva aplicada à escrita (cognitive load theory applied to writing analysis)
+- Princípio de segmentação em aprendizagem multimídia (multimedia learning segmentation principle)
+- Princípio de coerência em aprendizagem multimídia de Mayer (Mayer coherence principle in multimedia learning)
+- Princípio de sinalização em aprendizagem multimídia (multimedia learning signaling principle)
+- Princípio de contiguidade temporal em aprendizagem multimídia (temporal contiguity principle in multimedia learning)
+- Princípio de contiguidade espacial em aprendizagem multimídia (spatial contiguity principle in multimedia learning)
+- Princípio de modalidade em apresentação multimídia (modality principle in multimedia presentation)
+- Princípio de redundância em aprendizagem multimídia (redundancy principle in multimedia learning)
+- Princípio de personalização em explicação multimídia (personalization principle in multimedia explanation)
+- Princípio de voz em aprendizagem multimídia (voice principle in multimedia learning)
+- Princípio de imagem em aprendizagem multimídia (image principle in multimedia learning)
+- Princípio de pré-treinamento de conceitos em material multimídia (pretraining principle in multimedia material)
+- Princípio de segmentação controlada em apresentação multimídia (learner-paced segmentation principle in multimedia presentation)
+- Análise de efeito de sinalização de estrutura em texto expositivo (structural signaling effect in expository text analysis)
+- Análise de organizadores prévios em texto explicativo (advance organizers in explanatory text analysis)
+- Análise de organizador prévio expositivo e comparativo (expository and comparative advance organizer analysis)
+- Análise de ativação de esquema antes da leitura (schema activation before reading analysis)
+- Análise de pergunta prévia para ativar conhecimento de domínio (pre-question to activate domain knowledge analysis)
+- Análise de conhecimento prévio facilitador e enganoso (facilitative and misleading prior knowledge analysis)
+- Análise de concepção equivocada ativada por texto (misconception activated by text analysis)
+- Análise de mudança conceitual por conflito cognitivo (conceptual change through cognitive conflict analysis)
+- Análise de refutação textual de concepção equivocada (textual refutation of misconception analysis)
+- Análise de texto refutacional por crença, negação e explicação científica (refutational text by belief, negation, and scientific explanation analysis)
+- Análise de efeito de exemplo concreto em conceito abstrato (concrete example effect on abstract concept analysis)
+- Análise de exemplo múltiplo para transferência de conceito (multiple examples for concept transfer analysis)
+- Análise de analogia instrucional por mapeamento de relações (instructional analogy through relation mapping analysis)
+- Análise de correspondência e falha de correspondência em analogia (analogy mapping and misalignment analysis)
+- Análise de explicação por comparação e contraste (explanation through comparison and contrast analysis)
+- Análise de contraste entre casos para discriminação conceitual (case contrast for conceptual discrimination analysis)
+- Análise de exemplo resolvido por expertise do leitor (worked example by reader expertise analysis)
+- Análise de efeito de exemplo parcialmente resolvido (partially worked example effect analysis)
+- Análise de fading de apoio em sequência de exemplos (guidance fading across example sequence analysis)
+- Análise de transferência próxima e distante após leitura (near and far transfer after reading analysis)
+- Análise de transferência de princípio para problema novo (principle transfer to novel problem analysis)
+- Análise de recuperação ativa de conteúdo textual (active retrieval of textual content analysis)
+- Análise de prática de recuperação em perguntas de leitura (retrieval practice in reading questions analysis)
+- Análise de efeito de teste em retenção de texto (testing effect on text retention analysis)
+- Análise de repetição espaçada de vocabulário (spaced repetition of vocabulary analysis)
+- Análise de interleaving de exemplos em aprendizagem de conceito textual (interleaved examples in text concept learning analysis)
+- Análise de prática intercalada versus prática em bloco para vocabulário (interleaved and blocked vocabulary practice comparison)
+- Análise de efeito de autoexplicação em leitura de texto técnico (self-explanation effect in technical text reading analysis)
+- Análise de elaboração por pergunta “por que isso é assim?” (elaboration through why-question analysis)
+- Análise de geração de inferência durante leitura explicativa (inference generation during explanatory reading analysis)
+- Análise de anotação ativa e anotação passiva de texto (active and passive text annotation analysis)
+- Análise de paráfrase produzida pelo leitor como monitoramento (reader-generated paraphrase as monitoring analysis)
+- Análise de resumo gerado pelo leitor como consolidação (reader-generated summary as consolidation analysis)
+- Análise de efeito de diagrama de conceitos em retenção (concept diagram effect on retention analysis)
+- Análise de mapa conceitual por relações rotuladas (concept map with labeled relations analysis)
+- Análise de mapa mental versus mapa conceitual na leitura (mind map and concept map in reading analysis)
+- Análise de autoavaliação de compreensão por confiança e acerto (comprehension self-assessment by confidence and accuracy analysis)
+
+- Análise de leitura por princípio de localidade de dependência (dependency locality in reading analysis)
+- Análise de efeito de frequência de estrutura sintática (syntactic structure frequency effect analysis)
+- Análise de preferência de aposição inicial em ambiguidade sintática (early closure preference in syntactic ambiguity analysis)
+- Análise de princípio de late closure em processamento de frase (late closure principle in sentence processing analysis)
+- Análise de estratégia de minimal attachment em parsing (minimal attachment parsing strategy analysis)
+- Análise de reanálise garden-path durante leitura (garden-path reanalysis during reading analysis)
+- Análise de ambiguidade temporária e desambiguação tardia (temporary ambiguity and late disambiguation analysis)
+- Análise de expectativa de categoria sintática por contexto verbal (syntactic category expectation from verbal context analysis)
+- Análise de previsão lexical e pré-ativação semântica (lexical prediction and semantic preactivation analysis)
+- Análise de surpresa lexical por probabilidade contextual (lexical surprisal by contextual probability analysis)
+- Análise de informação surprisal por token (token-level information surprisal analysis)
+- Análise de custo de reanálise após palavra desambiguadora (reanalysis cost after disambiguating word analysis)
+- Análise de dependência entre memória de trabalho e complexidade sintática (working memory and syntactic complexity dependency analysis)
+- Análise de efeito de distância entre sujeito e verbo na leitura (subject-verb distance effect in reading analysis)
+- Análise de efeito de cláusula relativa encaixada (embedded relative clause effect analysis)
+- Análise de memória de trabalho verbal em compreensão de frase (verbal working memory in sentence comprehension analysis)
+- Análise de interferência de referente em memória discursiva (referent interference in discourse memory analysis)
+- Análise de memória de eventos na compreensão narrativa (event memory in narrative comprehension analysis)
+- Análise de modelo de situação por tempo, espaço, causalidade e agente (situation model by time, space, causality, and agent analysis)
+- Análise de atualização de modelo situacional por mudança de cenário (situation model updating after setting change analysis)
+- Análise de coerência causal e manutenção de modelo mental (causal coherence and mental model maintenance analysis)
+- Análise de inferência causal por lacuna entre eventos (causal inference across event gap analysis)
+- Análise de inferência de objetivo em sequência narrativa (goal inference in narrative sequence analysis)
+- Análise de inferência de estado emocional durante leitura (emotional state inference during reading analysis)
+- Análise de inferência de intenção baseada em ação textual (intention inference from textual action analysis)
+- Análise de efeito de causalidade explícita na recordação (explicit causality effect on recall analysis)
+- Análise de efeito de conectivo causal em texto expositivo (causal connective effect in expository text analysis)
+- Análise de coerência por conectivo temporal versus inferência temporal (temporal connective and temporal inference coherence analysis)
+- Análise de efeito de lacuna causal em compreensão (causal gap effect on comprehension analysis)
+- Análise de consistência de personagem em modelo narrativo do leitor (character consistency in reader narrative model analysis)
+- Análise de atualização de crença do leitor por revelação (reader belief updating through revelation analysis)
+- Análise de reinterpretação retroativa após desfecho (retrospective reinterpretation after ending analysis)
+- Análise de integração de informação em texto e legenda (information integration across text and caption analysis)
+- Análise de integração de informação verbal e visual (verbal and visual information integration analysis)
+- Análise de correspondência entre afirmação textual e diagrama (textual claim and diagram correspondence analysis)
+- Análise de efeito de legenda explicativa sobre leitura de gráfico (explanatory caption effect on graph reading analysis)
+- Análise de atenuação de carga cognitiva por exemplo anotado (cognitive load reduction through annotated example analysis)
+- Análise de efeito de exemplo trabalhado em principiante e especialista (worked example effect in novice and expert analysis)
+- Análise de expertise reversa em material instrucional (expertise reversal effect in instructional material analysis)
+- Análise de efeito de expertise do aprendiz em sinalização textual (learner expertise effect on textual signaling analysis)
+- Análise de fading de sinalização com aumento de conhecimento (signaling fading as knowledge increases analysis)
+- Análise de efeito de pré-treinamento de termos antes do procedimento (pretraining of terms before procedure analysis)
+- Análise de ordem de explicação por conceito, princípio e aplicação (explanation order by concept, principle, and application analysis)
+- Análise de transferência de princípio por tarefa de resolução (principle transfer through problem-solving task analysis)
+- Análise de teste de compreensão atrasado versus imediato (delayed and immediate comprehension testing analysis)
+- Análise de esquecimento por interferência de conteúdo similar (forgetting through similar-content interference analysis)
+- Análise de recuperação de informação em contexto de documento longo (information retrieval in long-document context analysis)
+- Análise de busca de referência por nome, função e contexto (reference search by name, function, and context analysis)
+- Análise de esforço de navegação e compreensão em hipertexto (navigation effort and comprehension in hypertext analysis)
+- Análise de custo de alternância entre hipertexto e leitura linear (switching cost between hypertext and linear reading analysis)
+
+## Persuasão, economia comportamental e decisão
+
+- Economia Comportamental (Nudges e Ancoragem)
+- Gatilhos de Urgência e Disponibilidade Real
+- Microcompromissos e Redução de Fricção
+- Prova Social Local
+- Enquadramento de Perda vs. Ganho (Framing)
+- Efeito Dotação (Endowment Effect)
+- Arquitetura de Escolha e Simplificação de Opções
+- Conformidade Persuasiva (Copy Regulatória Positiva)
+- Ancoragem Temporal e de Esforço
+- Viés do Padrão (Default Bias)
+- Aversão à Ambiguidade (Ambiguity Aversion)
+- Heurística de Disponibilidade (Availability Heuristic)
+- Polaridade Afirmativa (Positive Polarity Framing)
+- Viés de Pertencimento Local (In-Group Bias)
+- Ancoragem de Contraste Semântico
+- Alívio de Carga Decisória (Decision Fatigue Relief)
+- Ancoragem de Unidade e Rendimento
+- Sinalização de Baixo Compromisso Cognitivo
+- Ancoragem de Tempo de Resposta Real (Latency Expectation Setting)
+- Redução de Atrito de Decisão em Itens Recorrentes
+- Compressão de Passos Percebidos (Step-Compression Framing)
+- Ancoragem de Economia Relativa em Kitting
+- Aversão ao Arrependimento (Regret Aversion Framing)
+- Neutralização do Viés de Omissão (Omission Bias)
+- Viés de Proporção e Numerosidade (Ratio Bias)
+- Reenquadramento de Custo de Oportunidade
+- Redução da Dissonância Pré-Decisão (Pre-Decision Dissonance Relief)
+- Gatilho de Continuidade de Cuidado (Care-Continuity Framing)
+- Ancoragem de Simplicidade Pós-Clique
+- Sinalização de Fechamento sem Atrito (Zero-Obligation Exit Framing)
+- Ancoragem de Estoque de Proximidade (Zero-Wait Local Framing)
+- Enquadramento de Papel de Cuidador (Caregiver Role Framing)
+- Entimema persuasivo (Persuasive Enthymeme)
+- Ancoragem e revezamento de Barthes (Barthes’s Anchorage and Relay)
+- Teoria do posicionamento discursivo de Davies e Harré (Positioning Theory)
+- Heurísticas neogriceanas Q. I e M de Levinson (Neo-Gricean Heuristics)
+- Modelo COM-B de mudança de comportamento (COM-B Behavior Change Model)
+- Avaliação heurística de conteúdo (Content Heuristics Evaluation)
+- Padrões Internacionais para Ferramentas de Apoio à Decisão — IPDAS (International Patient Decision Aid Standards)
+- Enquadramento por frequências naturais (Natural Frequencies Framing)
+- Apresentação equilibrada de redução absoluta e relativa de risco (Balanced ARR and RRR Framing)
+- Enquadramento simétrico de ganhos e perdas (Balanced Gain-and-Loss Framing)
+- Organizadores prévios comparativos e expositivos (Advance Organizers)
+- Guia interativo em árvore de decisão (Decision-Tree Interactive Guide)
+- Enquadramento imperativo positivo em instruções (Positive-Imperative Framing)
+- Modelo Heurístico-Sistemático de Processamento da Informação (Heuristic-Systematic Model)
+- Teoria do Nível de Construal e Enquadramento de Distância Psicológica (Construal Level Theory)
+- Teoria do Foco Regulatório: Enquadramento de Promoção e Prevenção (Regulatory Focus Theory)
+- Design de Mensagens com Enquadramento de Ganho e Perda (Gain-Framed vs. Loss-Framed Messaging)
+- Heurísticas de Corroboração. Contextualização e Origem (Corroboration. Contextualization. Sourcing)
+- Análise de Pressuposições. Implícitos e Enquadramento Ideológico (Presupposition. Implicature. Ideological Framing)
+- Modelo de Ruído Mental na Percepção de Risco (Mental Noise Model)
+- Folksonomia controlada e etiquetagem colaborativa (Controlled Folksonomy and Social Tagging)
+- Heurística do afeto na percepção de risco (Affect Heuristic)
+- Hipótese do risco como sentimentos (Risk-as-Feelings Hypothesis)
+- Modelo das Três Conversas de decisão compartilhada de Elwyn (Three-Talk Model of Shared Decision Making)
+- Modelo de decisão compartilhada de Charles. Gafni e Whelan (Charles. Gafni. and Whelan Shared Decision-Making Model)
+- Escala de Conflito Decisório (Decisional Conflict Scale)
+- Escala de Arrependimento Decisório (Decision Regret Scale)
+- Escala de Preferências de Controle — CPS (Control Preferences Scale)
+- Métodos de clarificação de valores (Values Clarification Methods)
+- Captologia e tecnologia persuasiva de Fogg (Captology and Persuasive Technology)
+
+- Princípio de compromisso e consistência em sequência de pedidos (commitment and consistency across sequential requests)
+- Princípio de prova social por semelhança do grupo de referência (similarity-based social proof)
+- Princípio de autoridade por competência relevante à decisão (decision-relevant authority cue)
+- Princípio de reciprocidade com benefício previamente oferecido (reciprocity after prior benefit)
+- Princípio de escassez com justificativa verificável (verifiable scarcity framing)
+- Princípio de aversão à perda em enquadramento de escolha (loss aversion in choice framing)
+- Enquadramento de ganho e enquadramento de perda (gain and loss framing)
+- Enquadramento de atributo e enquadramento de objetivo (attribute and goal framing)
+- Análise de efeito de padrão pré-selecionado em decisão (default option effect analysis)
+- Análise de efeito de opção isca (decoy effect analysis)
+- Análise de efeito de compromisso intermediário (compromise effect analysis)
+- Análise de efeito de dominância assimétrica (asymmetric dominance effect analysis)
+- Análise de efeito de ancoragem numérica em oferta (numerical anchoring effect in offers)
+- Análise de apresentação de preço por unidade (unit price presentation analysis)
+- Análise de preço de referência e preço promocional (reference and promotional price analysis)
+- Análise de efeito de preço fracionado (charm pricing effect analysis)
+- Análise de opção de não escolher em arquitetura de decisão (no-choice option in choice architecture analysis)
+- Análise de fricção e custo de ação em jornada de conversão (action friction and conversion journey cost analysis)
+- Análise de esforço percebido e valor da recompensa (perceived effort and reward value analysis)
+- Análise de sequência de benefícios antes da chamada à ação (benefit sequence before call to action)
+- Análise de saliência de risco versus benefício em oferta (risk and benefit salience in offer analysis)
+- Análise de assimetria informacional entre fornecedor e consumidor (supplier-consumer information asymmetry analysis)
+- Análise de transparência de custo total antes da decisão (total cost transparency before decision)
+- Análise de custo de cancelamento e desenho persuasivo (cancellation cost and persuasive design analysis)
+- Análise de padrões obscuros em escolha e consentimento (dark patterns in choice and consent analysis)
+- Análise de falsa urgência e contagem regressiva (false urgency and countdown timer analysis)
+- Análise de escassez artificial versus limitação real (artificial and genuine scarcity distinction analysis)
+- Análise de prova social quantificada e contexto da amostra (quantified social proof and sample context analysis)
+- Análise de depoimento por relevância, especificidade e autenticidade (testimonial relevance, specificity, and authenticity analysis)
+- Análise de sinalização de confiança e evidência verificável (trust cue and verifiable evidence analysis)
+- Análise de credibilidade por competência, caráter e boa vontade (competence, character, and goodwill credibility analysis)
+- Análise de risco percebido e eficácia da resposta recomendada (perceived risk and response efficacy analysis)
+- Análise de autoeficácia como componente de mensagem persuasiva (self-efficacy in persuasive message analysis)
+- Análise de ameaça e eficácia em comunicação de risco (threat and efficacy in risk communication analysis)
+- Análise de reatância psicológica provocada por linguagem controladora (psychological reactance from controlling language)
+- Análise de autonomia percebida em chamada à ação (perceived autonomy in call-to-action analysis)
+- Análise de escolha ativa versus passiva em consentimento (active and passive choice in consent analysis)
+- Análise de custo de oportunidade explicitado na mensagem (explicit opportunity cost in message analysis)
+- Análise de enquadramento de benefício por comparação relevante (benefit framing by relevant comparison)
+- Análise de adequação entre argumento persuasivo e estágio de decisão (persuasive argument and decision stage fit)
+- Análise de segmentação de mensagem por motivação e barreira (message segmentation by motivation and barrier)
+- Análise de correspondência entre benefício anunciado e tarefa desejada (advertised benefit and desired task fit)
+- Análise de evidência quantitativa em mensagem promocional (quantitative evidence in promotional message analysis)
+- Análise de qualificação de alegação comparativa (comparative claim qualification analysis)
+- Análise de chamada à ação específica, viável e temporal (specific, feasible, and time-bound call to action)
+- Análise de sequência de microcompromissos (microcommitment sequence analysis)
+- Análise de comprometimento gradual e possibilidade de saída (gradual commitment and exit option analysis)
+- Análise de apelo emocional com sustentação factual (emotional appeal with factual support analysis)
+- Análise de equilíbrio entre ethos, logos e pathos na mensagem (ethos, logos, and pathos balance analysis)
+- Análise de intenção persuasiva explícita e confiança do leitor (explicit persuasive intent and reader trust analysis)
+
+- Análise de efeito de enquadramento por atributo positivo e negativo (positive and negative attribute framing effect analysis)
+- Análise de enquadramento de objetivo de prevenção e promoção (prevention and promotion goal framing analysis)
+- Análise de foco regulatório de prevenção versus promoção (prevention and promotion regulatory focus analysis)
+- Análise de congruência entre foco regulatório e mensagem (regulatory focus and message fit analysis)
+- Análise de efeito de fluência de processamento na persuasão (processing fluency effect on persuasion analysis)
+- Análise de fluência perceptual e familiaridade textual (perceptual fluency and textual familiarity analysis)
+- Análise de familiaridade por repetição e efeito de verdade ilusória (repetition-based familiarity and illusory truth effect analysis)
+- Análise de repetição persuasiva e desgaste de mensagem (persuasive repetition and message wearout analysis)
+- Análise de efeito de mera exposição em conteúdo de marca (mere exposure effect in brand content analysis)
+- Análise de congruência entre mensagem e estado afetivo do leitor (message and reader affect congruence analysis)
+- Análise de apelo emocional por valência e ativação (emotional appeal by valence and arousal analysis)
+- Análise de apelo à esperança e eficácia da ação (hope appeal and action efficacy analysis)
+- Análise de apelo ao medo com eficácia percebida (fear appeal and perceived efficacy analysis)
+- Análise de apelo à culpa e possibilidade de reparação (guilt appeal and repair opportunity analysis)
+- Análise de apelo à empatia por perspectiva de beneficiário (empathy appeal through beneficiary perspective analysis)
+- Análise de linguagem de identidade e pertencimento em persuasão (identity and belonging language in persuasion analysis)
+- Análise de mensagem baseada em norma injuntiva (injunctive norm message analysis)
+- Análise de mensagem baseada em norma descritiva (descriptive norm message analysis)
+- Análise de discrepância entre norma percebida e real (perceived and actual norm discrepancy analysis)
+- Análise de efeito de norma dinâmica e tendência de mudança (dynamic norm and change trend effect analysis)
+- Análise de feedback normativo por comparação com grupo de pares (normative feedback through peer comparison analysis)
+- Análise de apelo à identidade de grupo em comunicação persuasiva (group identity appeal in persuasive communication analysis)
+- Análise de efeito de similaridade entre mensageiro e público (messenger-audience similarity effect analysis)
+- Análise de efeito de mensageiro confiável e fonte especializada (trusted messenger and expert source effect analysis)
+- Análise de credibilidade da fonte por consistência e transparência (source credibility through consistency and transparency analysis)
+- Análise de credibilidade de testemunho por semelhança de experiência (testimonial credibility through experiential similarity analysis)
+- Análise de endosso por celebridade versus especialista (celebrity and expert endorsement analysis)
+- Análise de efeito de argumento unilateral e bilateral (one-sided and two-sided argument effect analysis)
+- Análise de argumento bilateral refutacional (refutational two-sided message analysis)
+- Análise de efeito de inoculação contra contra-argumentos (inoculation effect against counterarguments analysis)
+- Análise de pré-exposição a argumento fraco como inoculação (weak argument pre-exposure as inoculation analysis)
+- Análise de resistência persuasiva por contra-argumentação interna (persuasion resistance through internal counterarguing analysis)
+- Análise de alerta de intenção persuasiva antes da mensagem (persuasive intent forewarning analysis)
+- Análise de resistência por reatância a ameaça de liberdade (resistance through freedom-threat reactance analysis)
+- Análise de linguagem de escolha e autonomia em recomendação (choice and autonomy language in recommendation analysis)
+- Análise de efeito de pergunta autogerada em mudança de atitude (self-generated question effect on attitude change analysis)
+- Análise de persuasão por autorreflexão guiada (persuasion through guided self-reflection analysis)
+- Análise de pergunta evocadora de motivação (motivation-evoking question analysis)
+- Análise de entrevista motivacional por perguntas abertas e reflexões (motivational interviewing through open questions and reflections analysis)
+- Análise de validação, reflexão e resumo em texto de apoio (validation, reflection, and summary in supportive text analysis)
+- Análise de mensagem de compromisso público e consistência futura (public commitment and future consistency message analysis)
+- Análise de compromisso escrito e intenção de ação (written commitment and action intention analysis)
+- Análise de plano de ação específico em mensagem de mudança (specific action plan in behavior change message analysis)
+- Análise de pista de implementação e lembrança contextual (implementation cue and contextual reminder analysis)
+- Análise de mensagem de norma com feedback individualizado (norm message with personalized feedback analysis)
+- Análise de mensagem por benefício imediato e consequência futura (immediate benefit and future consequence message analysis)
+- Análise de desconto temporal em apelo persuasivo (temporal discounting in persuasive appeal analysis)
+- Análise de efeito de framing temporal em benefício (temporal framing effect on benefit analysis)
+- Análise de apelo de perda evitada e ganho obtido (avoided loss and gained benefit appeal analysis)
+- Análise de persuasão com lembrete prospectivo no momento de escolha (persuasion with prospective reminder at choice point analysis)
+
+- Análise de efeito de priming semântico antes da escolha (semantic priming before choice analysis)
+- Análise de priming por identidade social em mensagem (social identity priming in message analysis)
+- Análise de efeito de ancoragem por exemplo inicial (anchoring effect from initial example analysis)
+- Análise de âncora numérica e ajuste insuficiente (numeric anchor and insufficient adjustment analysis)
+- Análise de efeito de enquadramento por ponto de referência (reference point framing effect analysis)
+- Análise de aversão à ambiguidade em recomendação (ambiguity aversion in recommendation analysis)
+- Análise de aversão à incerteza em decisão de serviço (uncertainty aversion in service decision analysis)
+- Análise de efeito de dotação em descrição de propriedade (endowment effect in ownership description analysis)
+- Análise de efeito de posse por linguagem de personalização (ownership effect through personalization language analysis)
+- Análise de aversão ao arrependimento em arquitetura de escolha (regret aversion in choice architecture analysis)
+- Análise de antecipação de arrependimento em mensagem de decisão (anticipated regret in decision message analysis)
+- Análise de efeito de custo afundado em retenção de usuário (sunk cost effect in user retention analysis)
+- Análise de efeito de progresso dotado em programa de fidelidade (endowed progress effect in loyalty program analysis)
+- Análise de meta gradiente por proximidade do objetivo (goal gradient by proximity to target analysis)
+- Análise de motivação por progresso visível e marco parcial (motivation through visible progress and partial milestone analysis)
+- Análise de viés do presente em escolha de benefício (present bias in benefit choice analysis)
+- Análise de desconto hiperbólico em apelo de longo prazo (hyperbolic discounting in long-term appeal analysis)
+- Análise de compromisso prévio para reduzir procrastinação (precommitment to reduce procrastination analysis)
+- Análise de lembrete no momento de ação com intenção formada (action-time reminder with formed intention analysis)
+- Análise de planejamento por intenção de implementação (implementation intention planning analysis)
+- Análise de arquitetura de escolha por padrão, saliência e feedback (choice architecture by default, salience, and feedback analysis)
+- Análise de empurrão comportamental por simplificação de decisão (behavioral nudge through decision simplification analysis)
+- Análise de empurrão por norma social e comparação contextual (nudge through social norm and contextual comparison analysis)
+- Análise de empurrão por lembrete oportuno (nudge through timely reminder analysis)
+- Análise de empurrão por estruturação de opções (nudge through option structuring analysis)
+- Análise de custo de atenção em arquitetura de escolha (attention cost in choice architecture analysis)
+- Análise de saliência de atributo por posição e contraste (attribute salience through position and contrast analysis)
+- Análise de escolha por ordem de apresentação de alternativas (choice by alternative presentation order analysis)
+- Análise de viés de posição em lista de recomendações (position bias in recommendation list analysis)
+- Análise de efeito de opção padrão em consentimento digital (default option effect in digital consent analysis)
+- Análise de padrão de adesão automática e escolha ativa (automatic opt-in and active choice pattern analysis)
+- Análise de arquitetura de saída simples versus saída onerosa (easy and costly exit architecture analysis)
+- Análise de fricção assimétrica entre adesão e cancelamento (asymmetric friction between signup and cancellation analysis)
+- Análise de escolha de enquadramento em renovação de assinatura (framing choice in subscription renewal analysis)
+- Análise de mensagem de retenção com liberdade de decisão explícita (retention message with explicit choice freedom analysis)
+- Análise de influência social informativa e normativa (informational and normative social influence analysis)
+- Análise de conformidade pública e aceitação privada (public compliance and private acceptance analysis)
+- Análise de conformidade por prova social contextualizada (compliance through contextualized social proof analysis)
+- Análise de difusão de inovação por adotantes iniciais e maioria (innovation diffusion by early adopters and majority analysis)
+- Análise de mensagem de inovação por vantagem, compatibilidade e complexidade (innovation message by advantage, compatibility, and complexity analysis)
+- Análise de comunicação persuasiva por modelo de probabilidade de elaboração (elaboration likelihood model in persuasive communication analysis)
+- Análise de rota central e periférica de persuasão (central and peripheral route persuasion analysis)
+- Análise de capacidade e motivação para elaboração de mensagem (ability and motivation to elaborate a message analysis)
+- Análise de argumento forte e fraco sob alta elaboração (strong and weak argument under high elaboration analysis)
+- Análise de pista periférica por atratividade e familiaridade (peripheral cue through attractiveness and familiarity analysis)
+- Análise de modelo heurístico-sistemático de persuasão (heuristic-systematic model of persuasion analysis)
+- Análise de uso de heurística de autoridade em comunicação (authority heuristic in communication analysis)
+- Análise de heurística de disponibilidade em exemplo persuasivo (availability heuristic in persuasive example analysis)
+- Análise de heurística de representatividade em mensagem de produto (representativeness heuristic in product message analysis)
+- Análise de efeito de fluência de fonte em julgamento (source fluency effect in judgment analysis)
+- Análise de metacognição de confiança como pista persuasiva (metacognitive confidence as persuasive cue analysis)
+
+- Análise de influência da ordem de argumentos (argument order influence analysis)
+- Análise de efeito de primeiro e último argumento (primacy and recency effects in argument analysis)
+- Análise de efeito de primazia e recência em lista de benefícios (primacy and recency in benefit list analysis)
+- Análise de enquadramento por ganho certo e ganho probabilístico (certain and probabilistic gain framing analysis)
+- Análise de enquadramento por perda certa e perda probabilística (certain and probabilistic loss framing analysis)
+- Análise de efeito de aversão ao risco em domínio de ganhos (risk aversion in gain domain analysis)
+- Análise de busca por risco em domínio de perdas (risk seeking in loss domain analysis)
+- Análise de efeito de enquadramento em decisão de saúde (framing effect in health decision analysis)
+- Análise de enquadramento de resultado composto e separado (combined and segregated outcome framing analysis)
+- Análise de contabilidade mental em oferta de produto (mental accounting in product offer analysis)
+- Análise de agrupamento de custos e separação de benefícios (cost bundling and benefit segregation analysis)
+- Análise de apresentação de custo recorrente por dia, mês e ano (recurring cost presentation per day, month, and year analysis)
+- Análise de efeito de desconto por pagamento antecipado (prepayment discount effect analysis)
+- Análise de efeito de taxa de envio como custo separado (separately presented shipping fee effect analysis)
+- Análise de enquadramento de custo como investimento ou despesa (cost framing as investment or expense analysis)
+- Análise de comparabilidade de preço e referência escolhida (price comparability and reference point analysis)
+- Análise de valor percebido por atributo e contexto de uso (perceived value by feature and use context analysis)
+- Análise de expectativa de qualidade por sinal de preço (quality expectation from price cue analysis)
+- Análise de efeito de desconto percentual e desconto nominal (percentage and nominal discount effect analysis)
+- Análise de escolha sob efeito de cupons e preço de referência (choice under coupon and reference price effects analysis)
+- Análise de ancoragem por plano premium em tabela de preços (anchoring by premium plan in pricing table analysis)
+- Análise de ordenação de planos por recomendação e popularidade (plan ordering by recommendation and popularity analysis)
+- Análise de rótulo de opção recomendada e justificativa (recommended option label and rationale analysis)
+- Análise de efeito de opção padrão com possibilidade de reversão (reversible default option effect analysis)
+- Análise de escolha ativa em consentimento informado digital (active choice in digital informed consent analysis)
+- Análise de arquitetura de escolha com opção de nenhum (choice architecture including none option analysis)
+- Análise de complexidade de escolha por número de atributos (choice complexity by number of attributes analysis)
+- Análise de efeito de excesso de alternativas em decisão (choice overload effect analysis)
+- Análise de decomposição de escolha complexa em etapas (complex choice decomposition into stages analysis)
+- Análise de filtragem progressiva de opções (progressive option filtering analysis)
+- Análise de comparador de produtos por atributo equivalente (product comparator by equivalent attribute analysis)
+- Análise de recomendação personalizada por preferência declarada (personalized recommendation by stated preference analysis)
+- Análise de transparência de recomendação patrocinada (sponsored recommendation transparency analysis)
+- Análise de explicabilidade de recomendação comercial (commercial recommendation explainability analysis)
+- Análise de confiança calibrada em recomendação algorítmica (calibrated trust in algorithmic recommendation analysis)
+- Análise de suscetibilidade a prova social em decisão ambígua (social proof susceptibility in ambiguous choice analysis)
+- Análise de prova social por comportamento descritivo de pares (social proof through peer descriptive behavior analysis)
+- Análise de prova social por avaliação agregada versus comentário (aggregate rating and review text social proof analysis)
+- Análise de efeito de número de avaliações sobre confiança (review count effect on trust analysis)
+- Análise de recência e distribuição de avaliações (review recency and distribution analysis)
+- Análise de influência de crítica negativa isolada (influence of a single negative review analysis)
+- Análise de resposta pública a avaliação negativa (public response to negative review analysis)
+- Análise de credibilidade de alegação de especialista identificável (credibility of identifiable expert claim analysis)
+- Análise de conflito entre autoridade e evidência explícita (conflict between authority and explicit evidence analysis)
+- Análise de confiança por transparência de limitações (trust through limitation transparency analysis)
+- Análise de mensagem persuasiva com ressalva que aumenta credibilidade (persuasive message with credibility-enhancing qualification analysis)
+- Análise de bilateralidade de mensagem com público cético (two-sided message for skeptical audience analysis)
+- Análise de efeito de refutação preventiva de objeção (preemptive objection refutation effect analysis)
+- Análise de argumentos inoculantes e contra-argumentos debilitados (inoculating arguments and weakened counterarguments analysis)
+- Análise de resistência à persuasão por advertência de manipulação (persuasion resistance through manipulation warning analysis)
+
+- Modelo COM-B de capacidade, oportunidade e motivação (COM-B model of capability, opportunity, and motivation)
+- Roda de mudança de comportamento de Michie (Michie Behaviour Change Wheel)
+- Taxonomia de técnicas de mudança de comportamento BCTTv1 (BCTTv1 behavior change technique taxonomy)
+- Princípio EAST: fácil, atraente, social e oportuno (EAST: easy, attractive, social, and timely)
+- Framework MINDSPACE para influências comportamentais (MINDSPACE framework for behavioral influences)
+- Modelo Fogg de comportamento por motivação, habilidade e gatilho (Fogg Behavior Model: motivation, ability, and prompt)
+- Análise de prompt por gatilho facilitador e sinal (prompt analysis by facilitator and signal)
+- Análise de capacidade e oportunidade em chamada à ação (capability and opportunity in call-to-action analysis)
+- Análise de barreira comportamental por COM-B (behavioral barrier analysis using COM-B)
+- Análise de técnica de mudança por função da Behavior Change Wheel (behavior change technique by Behavior Change Wheel function analysis)
+- Análise de intenção de implementação em mensagem de saúde (implementation intention in health message analysis)
+- Análise de planejamento de ação e planejamento de enfrentamento (action planning and coping planning analysis)
+- Análise de autorregulação por monitoramento e feedback (self-regulation through monitoring and feedback analysis)
+- Análise de definição de meta específica e proximal (specific and proximal goal setting analysis)
+- Análise de compromisso e revisão de meta comportamental (behavioral goal commitment and review analysis)
+- Análise de feedback sobre comportamento versus resultado (behavior and outcome feedback distinction analysis)
+- Análise de feedback comparativo com grupo de referência (comparative feedback with reference group analysis)
+- Análise de feedback individual personalizado por norma (personalized normative feedback analysis)
+- Análise de efeito de lembrete em comportamento repetido (reminder effect on repeated behavior analysis)
+- Análise de pista ambiental para hábito (environmental cue for habit analysis)
+- Análise de formação de hábito por repetição em contexto estável (habit formation through repetition in stable context analysis)
+- Análise de arquitetura de escolha por simplificação de processo (choice architecture through process simplification analysis)
+- Análise de padrão padrão por facilidade e consequência (default by ease and consequence analysis)
+- Análise de efeito de compromisso prévio em poupança (precommitment effect in saving behavior analysis)
+- Análise de dispositivo de compromisso em jornada digital (commitment device in digital journey analysis)
+- Análise de prova social normativa e informativa (normative and informational social proof analysis)
+- Análise de comunicação de norma social com correção de percepção errada (social norm message correcting misperception analysis)
+- Análise de mensagem de norma com referência a maioria local (norm message with local majority reference analysis)
+- Análise de risco de efeito bumerangue em norma social (boomerang effect risk in social norm analysis)
+- Análise de efeito bumerangue em mensagem de medo (boomerang effect in fear message analysis)
+- Análise de reatância psicológica por linguagem controladora (psychological reactance from controlling language analysis)
+- Análise de reatância por ameaça à autonomia percebida (reactance through perceived autonomy threat analysis)
+- Análise de autonomia apoiada por linguagem de escolha (autonomy support through choice language analysis)
+- Análise de motivação intrínseca e extrínseca na mensagem (intrinsic and extrinsic motivation in message analysis)
+- Análise de teoria da autodeterminação em comunicação persuasiva (self-determination theory in persuasive communication analysis)
+- Análise de competência, autonomia e vínculo em texto motivacional (competence, autonomy, and relatedness in motivational text analysis)
+- Análise de entrevista motivacional por OARS (motivational interviewing through OARS)
+- Técnica OARS: perguntas abertas, afirmações, escuta reflexiva e resumo (OARS: open questions, affirmations, reflective listening, and summaries)
+- Análise de linguagem de mudança e linguagem de manutenção (change talk and sustain talk analysis)
+- Análise de evocação de razões próprias para mudar (eliciting self-generated reasons for change analysis)
+- Análise de escala de importância e confiança em entrevista motivacional (importance and confidence rulers in motivational interviewing analysis)
+- Análise de ambivalência em mensagem de mudança de comportamento (ambivalence in behavior change message analysis)
+- Análise de balanço decisório de prós e contras (decisional balance pros-and-cons analysis)
+- Análise de mensagem por estágio de mudança de Prochaska e DiClemente (Prochaska and DiClemente stages of change message analysis)
+- Análise de adequação de mensagem a pré-contemplação e contemplação (message fit to precontemplation and contemplation analysis)
+- Análise de adequação de mensagem a preparação, ação e manutenção (message fit to preparation, action, and maintenance analysis)
+- Análise de prevenção de recaída por plano e autoeficácia (relapse prevention through planning and self-efficacy analysis)
+- Análise de autoeficácia em mensagem de saúde pela teoria social cognitiva (health message self-efficacy through social cognitive theory analysis)
+- Análise de aprendizagem observacional e modelagem em texto (observational learning and modeling in text analysis)
+- Análise de expectativa de resultado em comunicação de mudança (outcome expectation in change communication analysis)
+
+## Copywriting, fórmulas e marketing
+
+- Preposições de Movimento e Destino
+- Microcopy de prevenção de erros (Error-Prevention Microcopy)
+- Microcopy de estado do sistema (System Status Microcopy)
+- Rótulos acessíveis e semânticos (Accessible Microcopy)
+- Microcopy orientada à tarefa (Task-Oriented Microcopy)
+- Microcopy de consentimento e privacidade (Consent & Privacy Microcopy)
+- Confirmação de ação irreversível (Destructive Action Confirmation Copy)
+- Texto de ajuda contextual (Inline Tooltip Copy)
+- Microcopy de desfazer ação (Undo Action Microcopy)
+- Microcopy de paginação e contagem de resultados (Pagination & Result Count Microcopy)
+- Detalhamento da composição do preço (Price Breakdown Microcopy)
+- Texto de links de âncora interna (In-Page Jump-Link Copy)
+- Microcopy de confirmação de cópia para a área de transferência (Clipboard Copy Feedback Microcopy)
+- Microcopy de rascunho e persistência de dados (Autosave & Draft Persistence Copy)
+- Microcopy de janela de alteração e cancelamento (Order Modification & Cancellation Window Copy)
+- Microcopy de limites de entrada e anexos (Input & Attachment Constraint Microcopy)
+- Microcopy de redirecionamento externo (External Handoff Microcopy)
+- Microcopy de resumo de filtros ativos e limpeza (Active Filter Summary & Reset Copy)
+- Rotulagem de correção ortográfica na busca (Did-You-Mean & Query Correction Copy)
+- Texto de controle de leitura e tamanho de fonte (Text-Resize & Readability Control Copy)
+- Microcopy de alternância de idioma e localização (Language & Locale Switcher Copy)
+- Texto de aviso de conteúdo patrocinado e publicidade (Sponsored Content & Ad Disclosure Copy)
+- Microcopy de limite de tentativas e bloqueio temporário (Rate-Limit & Lockout Microcopy)
+- Microcopy de recuperação de acesso e verificação (Account Recovery & Verification Microcopy)
+- Microcopy de carregamento sob demanda (Load-More & Infinite Scroll Microcopy)
+- Microcopy de aviso de alterações não salvas (Unsaved Changes Warning Microcopy)
+- Copywriting de razão-porquê (Reason-Why Copy)
+- Tradução de características em benefícios (Feature-to-Benefit Translation)
+- Fórmula BAB — Antes. Depois e Ponte (Before-After-Bridge Framework)
+- Mecanismo único (Unique Mechanism)
+- Fórmula 4Ps — Promessa. Imagem. Prova e Empurrão (4Ps Copywriting Framework)
+- Fórmula QUEST — Qualificar. Compreender. Educar. Estimular e Transicionar (QUEST Copywriting Formula)
+- Fórmula PASTOR — Problema. Amplificação. História. Transformação. Oferta e Resposta (PASTOR Copywriting Framework)
+- Fórmula 4Us — Útil. Urgente. Único e Ultraespecífico (4Us Copywriting Formula)
+- Fórmula ACCA — Consciência. Compreensão. Convicção e Ação (ACCA Copywriting Formula)
+- Fórmula Estrela. História e Solução (Star-Story-Solution Framework)
+- Fórmula 4Cs — Claro. Conciso. Convincente e Crível (4Cs Copywriting Framework)
+- Círculo dourado — Por quê. Como e O quê (Golden Circle Framework)
+- Fórmula AICPBSAWN (AICPBSAWN Copywriting Formula)
+- A Grande Ideia (The Big Idea Framework)
+- Fórmula SLAP — Parar. Olhar. Agir e Comprar (SLAP Copywriting Formula)
+- Sistema de avaliatividade (Appraisal Framework)
+- Enquadramento participativo e footing (Goffman’s Participation Framework & Footing)
+- Arquitetura de landing page e hierarquia de objeções (Landing Page Architecture and Objection Hierarchy)
+- Aviso regulatório e orientação de uso responsável (Responsible Use Guidance Copy)
+- Verificação de alinhamento entre título. subtítulo e corpo (Headline and Body Alignment Check)
+- Fórmula Linsear Write (Linsear Write Formula)
+- Modelo SUCCESs de ideias aderentes (SUCCESs Framework)
+- Hierarquia chapéu. título e linha-fina (Kicker-Headline-Deck Hierarchy)
+- Estrutura Dinâmica de Qualidade DQF (Dynamic Quality Framework)
+- Estrutura GILT: globalização. internacionalização. localização e tradução (GILT Framework)
+- Tradução intralingual ou reformulação no mesmo idioma (Intralingual Translation)
+- Estrutura de Apoio à Decisão de Ottawa — ODSF (Ottawa Decision Support Framework)
+- Convenção de denominador constante para comunicar probabilidades (Constant Denominator Convention)
+- Estrutura PIAAC de avaliação de letramento de adultos (PIAAC Literacy Assessment Framework)
+- Roteiro de linha de frente em blueprint de serviço (Service Blueprint Frontstage Copy)
+- Formulação neutra de erro sem culpabilização (Blame-Free Neutral Phrasing)
+- Framework RADAR de avaliação crítica de fontes (Rationale. Authority. Date. Accuracy. Relevance)
+- Práticas de formulação e síntese em fala institucional (Formulation and Gist-Formulating Practices)
+- Modelo de Probabilidade de Elaboração: Rotas Central e Periférica (Elaboration Likelihood Model)
+
+- Headline orientada a benefício específico e comprovável (specific and supportable benefit headline)
+- Headline baseada em problema e reconhecimento do leitor (problem-recognition headline)
+- Headline por contraste entre situação atual e desejada (current-versus-desired state headline)
+- Headline por curiosidade com entrega explícita da promessa (curiosity headline with explicit promise delivery)
+- Headline de objeção respondida (objection-answer headline)
+- Headline por mecanismo único de solução (unique mechanism headline)
+- Headline por prova concreta e resultado delimitado (concrete proof and bounded result headline)
+- Lead de identificação do problema (problem identification lead)
+- Lead de cena específica do cotidiano (specific everyday scene lead)
+- Lead por pergunta diagnóstica (diagnostic question lead)
+- Lead por dado contextualizado (contextualized data lead)
+- Lead por contraste antes e depois sem alegação absoluta (qualified before-and-after lead)
+- Lead por história curta com tensão e resolução (short story lead with tension and resolution)
+- Lead por objeção central do público (central audience objection lead)
+- Construção de promessa com público, resultado e condição (promise by audience, result, and condition)
+- Construção de benefício com mecanismo explicativo (benefit and explanatory mechanism construction)
+- Construção de argumento por demonstração de uso (use demonstration argument construction)
+- Construção de proposta de valor por problema, solução e diferença (value proposition by problem, solution, and difference)
+- Construção de oferta por pacote, preço e justificativa (offer construction by bundle, price, and rationale)
+- Construção de bônus complementar à tarefa principal (task-complementary bonus construction)
+- Construção de garantia com escopo e condições claros (guarantee with clear scope and conditions)
+- Construção de prova por dado, fonte e contexto (proof by data, source, and context)
+- Construção de caso de cliente com contexto e limitações (customer case with context and limitations)
+- Construção de depoimento com experiência verificável (testimonial with verifiable experience)
+- Análise de especificidade da promessa sem exagero (promise specificity without exaggeration analysis)
+- Análise de coerência entre anúncio, página e produto (ad, landing page, and product consistency analysis)
+- Análise de continuidade de argumento do anúncio à conversão (argument continuity from ad to conversion)
+- Análise de fricção entre chamada e destino do link (call-to-action and link destination friction analysis)
+- Análise de adequação do CTA à consciência do público (CTA fit with audience awareness stage)
+- Análise de CTA por verbo, resultado e contexto (CTA by verb, outcome, and context)
+- Escrita de anúncio com uma alegação principal (single-primary-claim ad writing)
+- Escrita de anúncio com hierarquia de alegação e prova (claim and proof hierarchy in ad writing)
+- Escrita de anúncio de resposta direta com próximo passo claro (direct response ad with clear next step)
+- Escrita de copy de produto por tarefa, benefício e limite (product copy by task, benefit, and limit)
+- Escrita de descrição de produto com atributos verificáveis (product description with verifiable attributes)
+- Escrita de comparação de produto com critérios equivalentes (product comparison using equivalent criteria)
+- Escrita de página de vendas com seção de adequação e não adequação (sales page fit and non-fit section)
+- Escrita de página de vendas com objeções priorizadas (sales page with prioritized objections)
+- Escrita de FAQ comercial a partir de barreiras de decisão (commercial FAQ from decision barriers)
+- Escrita de sequência de e-mail com progressão de argumento (email sequence with argument progression)
+- Escrita de assunto de e-mail por relevância e promessa (email subject by relevance and promise)
+- Escrita de pré-cabeçalho que complementa o assunto (subject-complementary email preheader)
+- Escrita de texto promocional com prazo e condições transparentes (promotion copy with transparent deadline and conditions)
+- Escrita de chamada promocional com economia calculável (promotion call with calculable savings)
+- Análise de equilíbrio entre urgência e pressão indevida (urgency and undue pressure balance analysis)
+- Análise de escaneabilidade de anúncio em canal móvel (mobile channel ad scannability analysis)
+- Análise de consistência de alegação entre variantes de anúncio (claim consistency across ad variants analysis)
+- Análise de tom de marca sem sacrificar clareza funcional (brand tone without sacrificing functional clarity)
+- Análise de adequação de copy a canal e intenção de uso (copy fit to channel and use intent)
+- Análise de prova e ressalva em alegação de desempenho (performance claim proof and qualification analysis)
+
+- Fórmula de headline 4U: útil, urgente, único e ultraespecífico (4U headline formula)
+- Fórmula de headline por benefício, curiosidade e prova (benefit, curiosity, and proof headline formula)
+- Fórmula de anúncio PAS: problema, agitação e solução (PAS: problem, agitation, solution)
+- Fórmula de anúncio BAB: antes, depois e ponte (BAB: before, after, bridge)
+- Fórmula de anúncio FAB: característica, vantagem e benefício (FAB: feature, advantage, benefit)
+- Fórmula de anúncio ACCA: consciência, compreensão, convicção e ação (ACCA: awareness, comprehension, conviction, action)
+- Fórmula de anúncio QUEST: qualificar, compreender, educar, estimular e transicionar (QUEST copywriting formula)
+- Fórmula de anúncio 4Ps: promessa, imagem, prova e impulso (4Ps: promise, picture, proof, push)
+- Fórmula de anúncio PASTOR: problema, amplificação, história, transformação, oferta e resposta (PASTOR copywriting formula)
+- Fórmula de anúncio Star-Story-Solution (Star-Story-Solution copywriting formula)
+- Fórmula de anúncio Before-After-Bridge (Before-After-Bridge copywriting formula)
+- Fórmula de anúncio Feature-Advantage-Benefit (Feature-Advantage-Benefit copywriting formula)
+- Fórmula de anúncio Problem-Promise-Proof-Proposal (Problem-Promise-Proof-Proposal formula)
+- Análise de adequação da fórmula AIDA a estágio de decisão (AIDA fit to decision stage analysis)
+- Análise de sequência de atenção, interesse, desejo e ação (attention-interest-desire-action sequence analysis)
+- Análise de promessa principal e promessa secundária (primary and secondary promise analysis)
+- Análise de proposição única de valor (unique value proposition analysis)
+- Análise de mecanismo único e mecanismo de problema (unique mechanism and problem mechanism analysis)
+- Análise de benefício funcional, emocional e social (functional, emotional, and social benefit analysis)
+- Análise de benefício primário versus atributo técnico (primary benefit and technical attribute distinction analysis)
+- Análise de especificidade de benefício em copy (benefit specificity in copy analysis)
+- Análise de reivindicação absoluta e qualificável em anúncio (absolute and qualifiable claim in advertising analysis)
+- Análise de substanciação de alegações publicitárias (advertising claim substantiation analysis)
+- Análise de hierarquia de provas em texto promocional (proof hierarchy in promotional copy analysis)
+- Análise de evidência demonstrativa versus testemunhal em copy (demonstrative and testimonial evidence in copy analysis)
+- Análise de comparação de desempenho com critério equivalente (performance comparison with equivalent criteria analysis)
+- Análise de transparência de preço por ciclo e quantidade (price transparency by cycle and quantity analysis)
+- Análise de ancoragem de preço com referência contextualizada (price anchoring with contextualized reference analysis)
+- Análise de apresentação de desconto por valor e percentual (discount presentation by amount and percentage analysis)
+- Escrita de oferta com comparação de custo por uso (offer copy with cost-per-use comparison)
+- Análise de garantia com redução de risco percebido (guarantee and perceived risk reduction analysis)
+- Análise de garantia condicional e garantia incondicional (conditional and unconditional guarantee analysis)
+- Escrita de CTA para teste sem obrigação de compra (CTA for trial without purchase obligation writing)
+- Escrita de CTA com custo, tempo e requisito explícitos (CTA with explicit cost, time, and requirement writing)
+- Análise de microconversão versus conversão principal em copy (microconversion and primary conversion copy analysis)
+- Análise de percurso de decisão em página de vendas (decision path in sales page analysis)
+- Análise de ordem de prova antes e depois da oferta (proof ordering before and after offer analysis)
+- Escrita de seção de para quem é e para quem não é (who it is and is not for section writing)
+- Análise de objeção por falta de tempo, orçamento e confiança (time, budget, and trust objection analysis)
+- Escrita de resposta a objeção com validação, evidência e opção (objection response with validation, evidence, and option writing)
+- Análise de urgência legítima por prazo operacional (legitimate urgency from operational deadline analysis)
+- Análise de pressão indevida em copy de contagem regressiva (undue pressure in countdown copy analysis)
+- Escrita de e-mail promocional com benefício no primeiro parágrafo (promotional email with benefit in first paragraph writing)
+- Análise de escaneabilidade de e-mail por blocos de conteúdo (email scannability by content blocks analysis)
+- Análise de CTA primário e secundário em e-mail comercial (primary and secondary CTAs in commercial email analysis)
+- Escrita de sequência de boas-vindas com progressão de valor (welcome sequence with value progression writing)
+- Escrita de e-mail de abandono com contexto e retorno simples (abandonment email with context and easy return writing)
+- Análise de recuperação de carrinho sem culpa ou pressão (cart recovery without blame or pressure analysis)
+- Escrita de e-mail de reativação com motivo relevante (reactivation email with relevant reason writing)
+- Análise de coerência de promessa entre anúncio e checkout (ad and checkout promise consistency analysis)
+- Análise de desistência entre proposta de valor e formulário (drop-off between value proposition and form analysis)
+
+- Escrita de carta de vendas por argumento acumulativo (sales letter through cumulative argument writing)
+- Análise de sequência de carta de vendas por blocos de prova (sales letter sequence by proof blocks analysis)
+- Escrita de lead de carta por problema reconhecível e promessa (sales letter lead by recognizable problem and promise writing)
+- Análise de transição entre lead e mecanismo de solução (lead-to-solution mechanism transition analysis)
+- Escrita de seção de mecanismo por causa, funcionamento e benefício (mechanism section by cause, operation, and benefit writing)
+- Análise de clareza de mecanismo único em oferta (unique mechanism clarity in offer analysis)
+- Escrita de seção de prova por demonstração passo a passo (proof section through step-by-step demonstration writing)
+- Análise de prova por antes e depois com condições transparentes (before-and-after proof with transparent conditions analysis)
+- Escrita de estudo de caso comercial com baseline e resultado (commercial case study with baseline and result writing)
+- Análise de estudo de caso por atribuição e fatores concorrentes (case study attribution and competing factors analysis)
+- Escrita de depoimento de cliente sem edição que altere sentido (customer testimonial without meaning-altering edits writing)
+- Análise de autenticidade e permissão em depoimento promocional (authenticity and permission in promotional testimonial analysis)
+- Escrita de seção de garantia por processo de solicitação (guarantee section by claim process writing)
+- Análise de clareza de exceções em garantia comercial (exception clarity in commercial guarantee analysis)
+- Escrita de oferta com descrição de escassez verificável (offer with verifiable scarcity description writing)
+- Análise de correspondência entre limite de estoque e mensagem urgente (inventory limit and urgency message consistency analysis)
+- Análise de validade de contagem regressiva em campanha (countdown validity in campaign analysis)
+- Escrita de promoção por condição, período e público elegível (promotion by condition, period, and eligible audience writing)
+- Análise de transparência de preço promocional e preço anterior (promotional and prior price transparency analysis)
+- Escrita de copy com desconto condicionado claramente descrito (copy with clearly described conditional discount writing)
+- Análise de custo total em mensagem de assinatura (total cost in subscription message analysis)
+- Escrita de copy de plano recorrente com frequência de cobrança (recurring plan copy with billing frequency writing)
+- Análise de comparativo de plano com unidade e período equivalentes (plan comparison using equivalent unit and period analysis)
+- Escrita de CTA para iniciar demonstração sem compromisso (CTA to start a no-obligation demo writing)
+- Análise de expectativa após clique em CTA comercial (expectation after commercial CTA click analysis)
+- Escrita de página de captura com explicação de uso dos dados (lead capture page with data use explanation writing)
+- Análise de campo mínimo necessário em formulário de geração de leads (minimum necessary field in lead generation form analysis)
+- Escrita de microcopy de formulário para expectativa de contato posterior (form microcopy setting expectations for follow-up)
+- Análise de confiança em formulário de compra por transparência e segurança (purchase form trust through transparency and security analysis)
+- Escrita de mensagem de checkout sobre custo de envio antes do pagamento (checkout shipping cost before payment writing)
+- Análise de objeção de frete em copy de produto (shipping objection in product copy analysis)
+- Escrita de resposta de copy para dúvida sobre compatibilidade (copy response to compatibility question writing)
+- Análise de adequação de promessa de produto à evidência disponível (product promise fit to available evidence analysis)
+- Análise de risco de alegação implícita em imagem e texto publicitário (implied claim risk in image and ad text analysis)
+- Análise de coerência entre ressalva e destaque promocional (qualification and promotional emphasis coherence analysis)
+- Escrita de ressalva visível e próxima da alegação (visible qualification near the claim writing)
+- Análise de legibilidade de ressalva em mídia pequena (qualification readability in small media analysis)
+- Escrita de anúncio responsivo com variantes equivalentes de mensagem (responsive ad with equivalent message variants writing)
+- Análise de consistência de oferta entre anúncio, e-mail e página (offer consistency across ad, email, and page analysis)
+- Análise de adequação entre promessa de assunto de e-mail e conteúdo (email subject promise and body alignment analysis)
+- Escrita de CTA de e-mail para ação reversível e de baixo risco (email CTA for reversible low-risk action writing)
+- Análise de chamada à ação por clareza de custo e compromisso (call to action by cost and commitment clarity analysis)
+- Escrita de anúncio de comparação por critérios justos e verificáveis (comparison ad by fair and verifiable criteria writing)
+- Análise de alegação de superioridade por escopo de comparação (superiority claim by comparison scope analysis)
+- Escrita de resposta comercial que reconhece limite de adequação (sales response acknowledging fit limitation writing)
+- Análise de copy de upsell por relevância contextual (upsell copy by contextual relevance analysis)
+- Análise de copy de cross-sell por complementaridade de tarefa (cross-sell copy by task complementarity analysis)
+- Escrita de recomendação de produto com motivo explícito (product recommendation with explicit rationale writing)
+- Análise de linguagem persuasiva em programa de fidelidade (persuasive language in loyalty program analysis)
+- Escrita de comunicação de pontos e recompensa com regra transparente (points and rewards communication with transparent rules writing)
+
+- Análise de apelo de marca por arquétipo narrativo (brand appeal through narrative archetype analysis)
+- Escrita de narrativa de marca por origem, propósito e prova (brand story by origin, purpose, and proof writing)
+- Análise de história de fundador sem deslocar foco do cliente (founder story without displacing customer focus analysis)
+- Escrita de caso de uso por cenário cotidiano e resultado (use case by everyday scenario and outcome writing)
+- Análise de benefício por tarefa funcional e alívio emocional (benefit through functional task and emotional relief analysis)
+- Escrita de mensagem de produto por trabalho a realizar (product message by job to be done writing)
+- Análise de job story: situação, motivação e resultado esperado (job story by situation, motivation, and expected outcome analysis)
+- Escrita de copy por momento de necessidade e alternativa atual (copy by moment of need and current alternative writing)
+- Análise de posicionamento por categoria, público e diferença (positioning by category, audience, and difference analysis)
+- Escrita de declaração de posicionamento interno (internal positioning statement writing)
+- Análise de proposta de valor por relevância, diferenciação e prova (value proposition by relevance, differentiation, and proof analysis)
+- Escrita de mensagem de produto por problema, resultado e razão para crer (product message by problem, outcome, and reason to believe writing)
+- Análise de razão para crer em promessa de marketing (reason-to-believe in marketing promise analysis)
+- Escrita de copy por mecanismo, demonstração e consequência (copy by mechanism, demonstration, and consequence writing)
+- Análise de feature-to-benefit ladder em descrição de produto (feature-to-benefit ladder in product description analysis)
+- Escrita de benefício em cadeia de atributo, vantagem e impacto (benefit through attribute, advantage, and impact chain writing)
+- Análise de mensagem por problema latente e sintoma percebido (message by latent problem and perceived symptom analysis)
+- Escrita de copy para problema conhecido e solução desconhecida (copy for known problem and unknown solution writing)
+- Análise de copy por sofisticação de mercado (copy by market sophistication analysis)
+- Escrita de promessa ajustada ao nível de consciência do público (promise matched to audience awareness level writing)
+- Análise de objeção explícita, implícita e não verbalizada (explicit, implicit, and unspoken objection analysis)
+- Escrita de resposta a objeção por prova e redução de risco (objection response through proof and risk reduction writing)
+- Análise de objeção de inércia e custo de mudança (inertia and switching cost objection analysis)
+- Escrita de copy que reduz risco percebido de primeira compra (copy reducing perceived first-purchase risk writing)
+- Análise de mecanismo de garantia e fricção de solicitação (guarantee mechanism and claim friction analysis)
+- Escrita de CTA em primeira pessoa e ação do usuário (first-person CTA and user action writing)
+- Análise de chamada à ação por verbo de baixa fricção (call to action by low-friction verb analysis)
+- Escrita de microcompromisso anterior à conversão principal (microcommitment before primary conversion writing)
+- Análise de sequenciamento de CTA por prontidão do público (CTA sequencing by audience readiness analysis)
+- Escrita de chamada à ação contextual para conteúdo educacional (contextual call to action for educational content writing)
+- Análise de transição de conteúdo editorial para oferta comercial (editorial content to commercial offer transition analysis)
+- Escrita de oferta com caminho de compra e caminho de dúvida (offer with purchase and question paths writing)
+- Análise de opção de contato humano em funil automatizado (human contact option in automated funnel analysis)
+- Escrita de copy para produto complexo por etapas de decisão (copy for complex product by decision stages writing)
+- Análise de resumo executivo de oferta B2B (B2B offer executive summary analysis)
+- Escrita de copy B2B por impacto operacional e financeiro (B2B copy by operational and financial impact writing)
+- Análise de alegação de economia de tempo por cenário-base (time-saving claim by baseline scenario analysis)
+- Escrita de comparação de custo total de propriedade (total cost of ownership comparison writing)
+- Análise de custo de oportunidade em comunicação de serviço (opportunity cost in service communication analysis)
+- Escrita de copy de caso de sucesso com limite de generalização (success story copy with generalization limit writing)
+- Análise de prova social por recência, relevância e representatividade (social proof by recency, relevance, and representativeness analysis)
+- Escrita de prova social com grupo de referência explícito (social proof with explicit reference group writing)
+- Análise de número de clientes e período de referência (customer count and reference period analysis)
+- Escrita de avaliação de cliente com contexto de uso (customer review with usage context writing)
+- Análise de curadoria de avaliações por diversidade de cenário (review curation by scenario diversity analysis)
+- Escrita de copy de indicação com benefício bilateral transparente (referral copy with transparent two-sided benefit writing)
+- Análise de oferta de fidelidade por condição e expiração de ponto (loyalty offer by condition and point expiry analysis)
+- Escrita de comunicação de preço recorrente com custo anual visível (recurring price communication with visible annual cost writing)
+- Análise de cancelamento de serviço por clareza e simetria de opções (service cancellation by clarity and option symmetry analysis)
+- Escrita de mensagem de retenção com opção real de saída (retention message with genuine exit option writing)
+
+- Análise de escada de benefícios do atributo ao valor pessoal (benefit ladder from feature to personal value analysis)
+- Análise de cadeia problema, consequência e custo de inação (problem, consequence, and inaction cost chain analysis)
+- Escrita de benefício por resultado funcional mensurável (benefit by measurable functional outcome writing)
+- Escrita de benefício emocional sem promessa clínica indevida (emotional benefit without improper clinical promise writing)
+- Análise de promessa de resultado e fatores de controle do usuário (outcome promise and user-controlled factors analysis)
+- Análise de copy por resultado, prazo e condição de obtenção (copy by outcome, timing, and fulfillment condition analysis)
+- Escrita de headline por custo de não agir (headline by cost of inaction writing)
+- Escrita de headline por objeção principal do leitor (headline by reader’s primary objection writing)
+- Escrita de headline por mecanismo proprietário explicado (headline by explained proprietary mechanism writing)
+- Análise de headline de curiosidade e lacuna informacional (curiosity headline and information gap analysis)
+- Análise de headline por relevância pessoal versus sensacionalismo (personal relevance and sensationalism in headline analysis)
+- Escrita de lead por situação-problema e implicação (lead by problem situation and implication writing)
+- Escrita de lead por contradição de crença comum (lead by contradiction of common belief writing)
+- Escrita de lead por demonstração observável do mecanismo (lead by observable mechanism demonstration writing)
+- Escrita de lead por história de cliente com contexto (lead by contextualized customer story writing)
+- Análise de continuidade entre lead, argumento e oferta (lead, argument, and offer continuity analysis)
+- Escrita de transição por pergunta que o leitor já tem (transition by question the reader already has writing)
+- Escrita de copy por objeção em formato pergunta-resposta (copy by objection in question-answer format writing)
+- Análise de sequência de objeções por prioridade decisória (objection sequence by decision priority analysis)
+- Análise de correspondência entre prova e alegação específica (proof and specific claim correspondence analysis)
+- Escrita de prova técnica em linguagem de benefício (technical proof in benefit language writing)
+- Análise de demonstração de produto em copy por evidência direta (product demonstration in copy by direct evidence analysis)
+- Escrita de caso de cliente por desafio, intervenção e resultado (customer case by challenge, intervention, and outcome writing)
+- Análise de caso de cliente por resultado atribuível versus contexto (customer case by attributable result and context analysis)
+- Escrita de depoimento com declaração de experiência individual (testimonial with individual experience disclosure writing)
+- Análise de representatividade de depoimento e expectativa do comprador (testimonial representativeness and buyer expectation analysis)
+- Escrita de seção de comparação “adequado para” e “não adequado para” (fit and non-fit comparison section writing)
+- Análise de promessa de economia versus custo total do produto (savings claim versus total product cost analysis)
+- Escrita de ancoragem de preço com comparação verificável (price anchoring with verifiable comparison writing)
+- Análise de desconto por preço final e preço de referência válido (discount by final and valid reference price analysis)
+- Escrita de oferta por pacote e economia incremental (offer by bundle and incremental savings writing)
+- Análise de bônus por relevância funcional ao produto principal (bonus relevance to core product function analysis)
+- Escrita de garantia com processo, prazo e exceções (guarantee with process, timing, and exceptions writing)
+- Análise de fricção de garantia por quantidade de etapas (guarantee friction by number of steps analysis)
+- Análise de cancelamento de garantia como barreira de conversão (guarantee cancellation as conversion barrier analysis)
+- Escrita de CTA com ação, objeto e resultado esperado (CTA with action, object, and expected outcome writing)
+- Análise de clareza de CTA por expectativa após clique (CTA clarity through post-click expectation analysis)
+- Análise de CTA de avaliação versus CTA de compra (evaluation CTA and purchase CTA distinction analysis)
+- Escrita de CTA intermediário para leitor em pesquisa (intermediate CTA for researching reader writing)
+- Análise de fluxo de copy por etapa de funil sem pressupor linearidade (copy flow by funnel stage without assuming linearity analysis)
+- Análise de mensagem de remarketing por contexto de visita (remarketing message by visit context analysis)
+- Escrita de copy de remarketing com frequência e opção de controle (remarketing copy with frequency and control option writing)
+- Análise de consistência entre anúncio de busca e termo pesquisado (search ad and query consistency analysis)
+- Escrita de anúncio de busca por intenção informacional e comercial (search ad by informational and commercial intent writing)
+- Análise de adequação entre copy de anúncio e página pós-clique (ad copy and post-click page fit analysis)
+- Escrita de copy para landing page por uma conversão primária (landing page copy with one primary conversion writing)
+- Análise de distração de CTA secundário em landing page (secondary CTA distraction on landing page analysis)
+- Escrita de formulário comercial com justificativa de cada campo (commercial form with rationale for each field writing)
+- Análise de comprimento de formulário versus qualificação necessária (form length and necessary qualification analysis)
+- Escrita de confirmação comercial com resumo do compromisso assumido (commercial confirmation with commitment summary writing)
+- Análise de copy de onboarding por expectativa realista de produto (onboarding copy by realistic product expectation analysis)
+
+- Framework de mensagem por tensão, promessa e prova (tension, promise, and proof message framework)
+- Framework de posicionamento April Dunford para contexto competitivo (April Dunford positioning framework for competitive context)
+- Análise de categoria competitiva e alternativa do cliente (competitive category and customer alternative analysis)
+- Análise de diferenciação por atributo valorizado pelo comprador (differentiation by buyer-valued attribute analysis)
+- Análise de posicionamento por concorrente direto e substituto (positioning by direct competitor and substitute analysis)
+- Escrita de proposta de valor por segmento e caso de uso (value proposition by segment and use case writing)
+- Análise de proposta de valor por segmento, necessidade e benefício (value proposition by segment, need, and benefit analysis)
+- Escrita de promessa por tarefa do cliente e resultado desejado (promise by customer job and desired outcome writing)
+- Análise de linguagem do cliente por entrevista e chamada de suporte (customer language through interview and support call analysis)
+- Extração de frase de cliente para mensagem por voz do consumidor (customer phrase mining for voice-of-customer messaging)
+- Análise de linguagem de avaliação de produto por benefício e frustração (product review language by benefit and frustration analysis)
+- Escrita de copy por voz do consumidor sem citação descontextualizada (voice-of-customer copy without decontextualized quotation writing)
+- Análise de mensagem por segmentação comportamental e necessidade (message by behavioral segment and need analysis)
+- Escrita de copy por problema, alternativa atual e resultado (copy by problem, current alternative, and outcome writing)
+- Análise de copy por custo de inação e custo de mudança (copy by cost of inaction and switching cost analysis)
+- Escrita de argumento por alternativa ao produto (argument through alternative to product writing)
+- Análise de posicionamento por categoria nova versus categoria existente (new versus existing category positioning analysis)
+- Escrita de copy para categoria inovadora por explicação comparativa (copy for innovative category through comparative explanation writing)
+- Análise de fricção de entendimento em produto inovador (comprehension friction in innovative product analysis)
+- Escrita de copy por contraste entre método antigo e método novo (copy through old-method and new-method contrast writing)
+- Análise de precisão de promessa por condição de uso (promise precision by usage condition analysis)
+- Escrita de benefício com limite e condição explícitos (benefit with explicit boundary and condition writing)
+- Análise de risco de promessa de desempenho sem base comparativa (performance promise without comparative basis risk analysis)
+- Escrita de alegação comparativa com parâmetro e fonte (comparative claim with benchmark and source writing)
+- Análise de mensagem de produto por prova demonstrável (product message by demonstrable proof analysis)
+- Escrita de demonstração por entrada, transformação e saída visível (demonstration by input, transformation, and visible output writing)
+- Análise de prova de produto por evidência de mecanismo (product proof through mechanism evidence analysis)
+- Escrita de seção “como funciona” em etapas causais (how-it-works section in causal steps writing)
+- Análise de diagrama de mecanismo como suporte à copy (mechanism diagram as copy support analysis)
+- Escrita de explicação de processo que reduz incerteza de compra (process explanation reducing purchase uncertainty writing)
+- Análise de risco percebido por desempenho, financeiro e social (perceived performance, financial, and social risk analysis)
+- Escrita de copy que reduz risco de implementação (copy reducing implementation risk writing)
+- Análise de caso de sucesso por adequação de contexto (success case by contextual fit analysis)
+- Escrita de depoimento por transformação específica e delimitada (testimonial by specific and bounded transformation writing)
+- Análise de prova social por resultado distribuído, não só extremo (social proof by distributed rather than extreme outcomes analysis)
+- Escrita de seção de resultados típicos com variação transparente (typical outcomes section with transparent variation writing)
+- Análise de efeito de resultado excepcional em expectativa média (exceptional outcome effect on average expectation analysis)
+- Escrita de copy de garantia por redução concreta de risco (guarantee copy through concrete risk reduction writing)
+- Análise de garantia por custo de devolução e processo (guarantee by return cost and process analysis)
+- Escrita de oferta com política de devolução em linguagem simples (offer with plain-language return policy writing)
+- Análise de fricção entre promessa promocional e condição de elegibilidade (friction between promotional promise and eligibility condition analysis)
+- Escrita de condição promocional ao lado do benefício anunciado (promotional condition next to advertised benefit writing)
+- Análise de custo total de oferta com cobrança posterior (total offer cost with later charge analysis)
+- Escrita de copy de teste grátis com data de cobrança futura explícita (free trial copy with explicit future billing date writing)
+- Análise de clareza de renovação automática em página de oferta (automatic renewal clarity on offer page analysis)
+- Escrita de comparação de plano por limite, suporte e adequação (plan comparison by limit, support, and fit writing)
+- Análise de opção recomendada por critério transparente (recommended option by transparent criterion analysis)
+- Escrita de recomendação que permite comparar e rejeitar (recommendation enabling comparison and rejection writing)
+- Análise de benefício por urgência real da necessidade (benefit by real urgency of need analysis)
+- Escrita de follow-up comercial com resumo da necessidade declarada (sales follow-up with summary of stated need writing)
+- Análise de consistência de copy entre etapa de descoberta e decisão (copy consistency across discovery and decision stage analysis)
+
+- Análise de copy por estrutura de alegação, razão e prova (copy by claim, reason, and proof structure analysis)
+- Escrita de anúncio com motivo para acreditar verificável (ad writing with verifiable reason to believe)
+- Análise de promessa de marketing por especificidade e credibilidade (marketing promise by specificity and credibility analysis)
+- Escrita de headline com qualificador de resultado e público (headline with result and audience qualifier writing)
+- Análise de headline por relevância sem clickbait (headline relevance without clickbait analysis)
+- Escrita de lead de resposta direta por tensão, promessa e mecanismo (direct-response lead by tension, promise, and mechanism writing)
+- Análise de lead por rapidez de orientação e força de curiosidade (lead by orientation speed and curiosity strength analysis)
+- Escrita de copy em PAS com agitação proporcional e solução demonstrável (PAS copy with proportionate agitation and demonstrable solution writing)
+- Análise de sequência PAS por validade de problema e prova (PAS sequence by problem validity and proof analysis)
+- Escrita de copy BAB com ponte acionável (BAB copy with actionable bridge writing)
+- Análise de ponte em BAB por mudança viável e específica (BAB bridge by feasible and specific change analysis)
+- Escrita de copy FAB com benefício apoiado pelo atributo (FAB copy with feature-supported benefit writing)
+- Análise de distância entre atributo e benefício alegado (distance between feature and claimed benefit analysis)
+- Escrita de argumento por característica, vantagem, benefício e evidência (feature, advantage, benefit, and evidence argument writing)
+- Análise de estrutura 4P por promessa, imagem, prova e ação (4P structure by promise, picture, proof, and push analysis)
+- Análise de estrutura AIDA por transição entre estágios (AIDA structure by stage transition analysis)
+- Análise de estágio de desejo em mensagem de resposta direta (desire stage in direct-response message analysis)
+- Análise de sequência de consciência de problema para consciência de produto (problem-to-product awareness progression analysis)
+- Escrita de copy por mecanismo único de solução (copywriting through unique mechanism of solution)
+- Análise de mecanismo único por explicação causal e prova (unique mechanism through causal explanation and proof analysis)
+- Escrita de seção de objeções por prioridade e evidência (objection section by priority and evidence writing)
+- Análise de resposta a objeção por reconhecimento e informação (objection response by acknowledgment and information analysis)
+- Escrita de página de vendas por fluxo de argumento e decisão (sales page by argument and decision flow writing)
+- Análise de ordem de seção de vendas por incerteza do comprador (sales section order by buyer uncertainty analysis)
+- Escrita de seção de comparação com critérios consistentes (comparison section using consistent criteria writing)
+- Análise de comparação competitiva por escopo e contexto (competitive comparison by scope and context analysis)
+- Escrita de quadro comparativo com dados simétricos (comparison chart with symmetric data writing)
+- Análise de alegação de “melhor” por critério verificável (best-in-class claim by verifiable criterion analysis)
+- Escrita de argumento de valor por economia total e custo operacional (value argument by total savings and operating cost writing)
+- Análise de retorno sobre investimento por premissas declaradas (return on investment by stated assumptions analysis)
+- Escrita de caso de sucesso B2B com cenário, intervenção e impacto (B2B case study by context, intervention, and impact writing)
+- Análise de case study por atribuição, amostra e limite de inferência (case study by attribution, sample, and inference limit analysis)
+- Escrita de prova social com fonte identificável e permissão (social proof with identifiable source and permission writing)
+- Análise de depoimento por resultado verificável e ressalva (testimonial by verifiable outcome and qualification analysis)
+- Escrita de avaliação de usuário com contexto e período de uso (user review with context and usage period writing)
+- Análise de autenticidade de avaliação por padrão de linguagem (review authenticity by language pattern analysis)
+- Escrita de oferta por item, preço, condição e próxima ação (offer by item, price, condition, and next action writing)
+- Análise de oferta por valor percebido e custo explícito (offer by perceived value and explicit cost analysis)
+- Escrita de oferta limitada por condição real e prazo real (limited offer with genuine condition and deadline writing)
+- Análise de falsa escassez em mensagem promocional (false scarcity in promotional message analysis)
+- Escrita de urgência por prazo operacional verificável (urgency through verifiable operational deadline writing)
+- Análise de consistência entre contagem regressiva e validade da oferta (countdown and offer validity consistency analysis)
+- Escrita de chamada à ação sem ambiguidade de cobrança (CTA without billing ambiguity writing)
+- Análise de rótulo de CTA por custo, reversibilidade e compromisso (CTA label by cost, reversibility, and commitment analysis)
+- Escrita de email comercial por assunto, preheader e primeiro bloco (commercial email by subject, preheader, and first block writing)
+- Análise de coerência entre assunto de email e benefício no corpo (email subject and body benefit coherence analysis)
+- Escrita de sequência de email por interesse, prova e decisão (email sequence by interest, proof, and decision writing)
+- Análise de fadiga de email por frequência e redundância (email fatigue by frequency and redundancy analysis)
+- Escrita de follow-up que adiciona informação nova (follow-up that adds new information writing)
+- Análise de follow-up por contexto de abertura e ação anterior (follow-up by open context and prior action analysis)
+
+## Retórica, estilo e figuras de linguagem
+
+- Retórica e Psicologia da Persuasão
+- Apelos retóricos aristotélicos — Ethos. Pathos e Logos (Aristotelian Rhetorical Appeals)
+- Regra de três retórica (Tricolon / Rule of Three)
+- Pergunta retórica direcionada (Directed Rhetorical Question)
+- Prolepse ou concessão retórica (Prolepsis / Rhetorical Concession)
+- Anáfora retórica (Rhetorical Anaphora)
+- Antítese estrutural (Rhetorical Antithesis)
+- Quismo retórico (Chiasmus)
+- Clímax retórico ou gradação (Rhetorical Climax / Gradatio)
+- Hipotipose ou descrição vívida (Hypotyposis)
+- Paradiástole ou reenquadramento valorativo (Paradiastole)
+- Epístrofe retórica (Rhetorical Epistrophe)
+- Assíndeto (Asyndeton)
+- Litotes ou atenuação retórica (Litotes)
+- Aporia retórica (Rhetorical Aporia)
+- Preterição ou paralipse (Paralipsis)
+- Epanortose ou autocorreção retórica (Epanorthosis)
+- Paradoxo retórico e oxímoro (Rhetorical Paradox & Oxymoron)
+- Eufemismo estratégico (Strategic Euphemism)
+- Dialética de tese. antítese e síntese (Thesis-Antithesis-Synthesis Structure)
+- Polissíndeto (Polysyndeton)
+- Apóstrofe retórica (Rhetorical Apostrophe)
+- Zeugma (Zeugma)
+- Indução retórica ou argumento por exemplo (Rhetorical Induction / Argument by Example)
+- Captação de benevolência (Captatio Benevolentiae)
+- Kairós retórico (Rhetorical Kairos)
+- Tópicos retóricos ou lugares-comuns (Rhetorical Topoi / Commonplaces)
+- Amplificação retórica (Rhetorical Amplification)
+- Prosopopeia ou personificação retórica (Prosopopoeia)
+- Alusão retórica (Rhetorical Allusion)
+- Hipérbole retórica (Rhetorical Hyperbole)
+- Ironia verbal (Verbal Irony)
+- Epigrama e aforismo (Rhetorical Epigram & Aphorism)
+- Perífrase (Periphrasis)
+- Catacrese (Catachresis)
+- Isócolon (Isocolon)
+- Etopeia (Ethopoeia)
+- Paronomásia (Paronomasia)
+- Epizeuxe (Epizeuxis)
+- Teoria da Estrutura Retórica (Rhetorical Structure Theory — RST)
+- Auditório universal e Nova Retórica de Perelman (Perelman’s Universal Audience & New Rhetoric)
+- Anticlímax ou batos (Anticlimax / Bathos)
+- Anacefaléose ou recapitulação retórica (Anacephalaeosis)
+- Comoração retórica (Commoratio)
+- Metábasis retórica (Rhetorical Metabasis)
+- Cânones da retórica: inventio. dispositio e elocutio (Canons of Rhetoric)
+- Epítrope retórica (Rhetorical Epitrope)
+- Tautologia retórica (Rhetorical Tautology)
+- Topografia retórica (Rhetorical Topographia)
+- Excurso ou digressão retórica (Rhetorical Excursus / Digression)
+- Progymnasmata (Classical Progymnasmata)
+- Etiologia retórica (Rhetorical Aetiologia)
+- Horismos ou definição retórica (Horismos / Rhetorical Definition)
+- Homeoteleuto (Homoeoteleuton)
+- Parêntese retórico (Rhetorical Parenthesis)
+- Retórica contrastiva e intercultural (Contrastive and Intercultural Rhetoric)
+- Retórica apodíctica e dialética (Apodictic and Dialectical Rhetoric)
+- Meiose retórica (Rhetorical Meiosis)
+- Zeugma simples e complexo (Simple and Complex Zeugma)
+- Mimese I. II e III de Paul Ricoeur: prefiguração. configuração e refiguração (Ricoeur’s Threefold Mimesis)
+- Memória e ação nos cinco cânones da retórica (Memory and Delivery in the Five Canons of Rhetoric)
+- Retórica da ficção de Wayne Booth (Wayne Booth’s Rhetoric of Fiction)
+- Retórica computacional e mineração de argumentos (Computational Rhetoric and Argument Mining)
+- Teoria da menção-eco da ironia de Sperber e Wilson (Echoic Mention Theory of Irony)
+- Abordagem sociorretórica de comunidades discursivas de Swales (Swales’ Discourse Community and Genre Approach)
+- Figuras de pensamento e pathos retórico (Figures of Thought and Rhetorical Pathos)
+- Gradação ascendente e descendente — clímax e anticlímax (Climax and Anticlimax)
+- Retórica generativa do parágrafo de Christensen (Christensen Generative Rhetoric of the Paragraph)
+- Isócolo. Párisis e Homeoteleuto (Isocolon. Parison. Homoeoteleuton)
+- Enárgia e Hipotipose (Enargia and Hypotyposis)
+- Antimetábole e Quiasmo (Antimetabole and Chiasmus)
+- Gradação e Clímax por Anadiplose (Gradatio and Climax)
+- Trícolo Crescente e Lei dos Membros Crescentes (Tricolon Crescens and Behaghel Law)
+- Lítotes e Meiose (Litotes and Meiosis)
+- Retórica Hipertextual: Estruturas Axiais. Arborescentes e em Rede (Hypertextual Rhetoric)
+- Progymnasmata — Exercícios Retóricos Preparatórios (Progymnasmata)
+- Anadiplose (Anadiplosis)
+- Hipófora (Hypophora)
+- Sinestesia descritiva (Descriptive Synesthesia)
+- Poliptoto (Polyptoton)
+- Diácope (Diacope)
+- Hendíadis (Hendiadys)
+- Apósiopese (Aposiopesis)
+- Parrésia (Parrhesia)
+- Écfrase (Ekphrasis)
+- Síncrise (Syncrisis)
+- Antanáclase (Antanaclasis)
+- Enálage (Enallage)
+- Epanalepse (Epanalepsis)
+- Tapinose (Tapinosis)
+- Frase periódica ou estilo periódico (Periodic Sentence)
+- Anacoluto (Anacoluthon)
+- Simploce (Symploce)
+- Aliteração e assonância (Alliteration & Assonance)
+- Epíteto (Epithet)
+- Cacofonia e eufonia (Cacophony & Euphony)
+- Onomatopeia (Onomatopoeia)
+- Braquilogia (Brachylogy)
+- Antífrase (Antiphrasis)
+- Silepse (Syllepsis)
+- Mesodiplose (Mesodiplosis)
+- Hápax legómenon (Hapax Legomenon)
+- Tmese (Tmesis)
+- Hipálage (Hypallage)
+- Sinatroísmo (Synathroesmus)
+- Sínquise (Synchysis)
+- Hipocorismo (Hypocorism)
+- Prosopografia (Prosopographia)
+- Cronografia (Chronographia)
+- Hysteron proteron ou inversão temporal (Hysteron Proteron)
+- Epifonema (Epiphonema)
+- Epexegese (Epexegesis)
+- Palinódia (Palinode)
+- Sermocinatio (Sermocinatio)
+- Anacenose (Anacoenosis)
+- Diasirmo (Diasyrmus)
+- Antiméria (Anthimeria)
+- Patopeia (Pathopoeia)
+- Antiprosopopeia (Antiprosopopoeia)
+- Razão de Hapax Legomena (Hapax Legomena Ratio)
+- Sinédoque representativa (Representative Synecdoche)
+- Apodíxis (Apodioxis)
+- Exófora e endófora (Exophora and Endophora)
+- Encômio e vitupério (Encomium and Vituperation)
+- Epímone (Epimone)
+- Metagoge (Metagoge)
+- Aporisma (Aporisma)
+- Gêneros retóricos: deliberativo. judicial e epidíctico (Deliberative. Judicial. and Epideictic Genres)
+- Metaplasmos estilísticos: aférese. síncope e apócope (Stylistic Metaplasms)
+- Simbolismo fonético (Phonetic / Sound Symbolism)
+- Arcaísmo e neologismo estilístico (Stylistic Archaism and Neologism)
+- Asteísmo (Asteismus)
+- Problematologia de Michel Meyer (Michel Meyer’s Problematology)
+- Período bimembre e trimembre (Bimember and Trimember Period)
+- Enantiose (Enantiosis)
+- Epítase e prótase dramática (Dramatic Protasis and Epitasis)
+- Anapódoto (Anapodoton)
+- Sinédoque particularizante e generalizante (Particularizing and Generalizing Synecdoche)
+- Atos locucionários de Austin: fonético. fático e rético (Austin’s Locutionary Acts)
+- Decoro retórico ou aptum (Rhetorical Decorum / Prepon)
+- Três gêneros de estilo: ínfimo. médio e sublime (Three Levels of Style / Genera Dicendi)
+- Quatro virtudes da elocução de Teofrasto (Four Virtues of Style / Virtutes Elocutionis)
+- Provas artísticas e não artísticas de Aristóteles (Artistic and Inartistic Proofs / Pisteis Entechnoi and Atechnoi)
+- Três deveres do orador de Cícero: ensinar. deleitar e comover (Cicero’s Three Duties of the Orator)
+- Aticismo e asianismo na estilística clássica (Atticism and Asianism)
+- Dissoi logoi ou argumentos duplos sofísticos (Dissoi Logoi)
+- Imitatio e aemulatio na formação retórica clássica (Rhetorical Imitatio and Aemulatio)
+- Abundância estilística ou copia de Erasmo (Erasmian Copia Verborum et Rerum)
+- Sublime retórico de Longino (Longinian Sublime / Peri Hypsous)
+- Sete ideias de estilo de Hermógenes (Hermogenes’s Ideas of Style)
+- Quadro de circunstâncias retóricas de Hermágoras (Hermagoras’s Circumstances / Peristasis)
+- Quadripartita ratio de Quintiliano: adição. supressão. transposição e substituição (Quintilian’s Quadripartita Ratio)
+- Velocidade retórica de Ridolfo e DeVoss (Rhetorical Velocity)
+- Ecologias retóricas de Jenny Edbauer (Rhetorical Ecologies)
+- Lingua fracta de Collin Brooke (Lingua Fracta)
+- Retórica da entrega digital de James Porter (Digital Delivery Rhetoric)
+- Retórica em rede de Damien Pfister (Networked Rhetoric)
+- Retórica visual de Sonja Foss (Visual Rhetoric)
+
+- Quiasmo (chiasmus)
+- Epanadiplose (epanalepsis)
+- Epanáfora ou anáfora retórica (epanaphora)
+- Epístrofe ou epífora (epistrophe)
+- Zeugma semântico (semantic zeugma)
+- Encomio e vitupério (encomium and invective)
+- Praeteritio ou paralipse retórica (praeteritio)
+- Prolepse argumentativa (rhetorical prolepsis)
+- Concessio ou concessão retórica (concessio)
+- Correctio ou autocorreção retórica (correctio)
+- Antimetábole (antimetabole)
+- Isócolo (isocolon)
+- Paralelismo sintático (syntactic parallelism)
+- Parataxe (parataxis)
+- Hipotaxe (hypotaxis)
+- Homeoteleuto (homeoteleuton)
+- Calembur (pun)
+- Metonímia de autor pela obra (author-for-work metonymy)
+- Ironia antiphrástica (antiphrastic irony)
+- Litotes (litotes)
+- Adínato ou impossibilidade hiperbólica (adynaton)
+- Prosopopeia ou personificação (prosopopoeia)
+- Enálage de pessoa ou tempo verbal (person or tense enallage)
+- Enumeração caótica (chaotic enumeration)
+- Clímax ascendente e descendente (ascending and descending climax)
+- Análise de cadência prosódica da prosa (prose prosodic cadence analysis)
+- Análise de ritmo por extensão de frase (sentence-length rhythm analysis)
+- Análise de densidade figurativa (figurative-density analysis)
+- Análise de paralelismo retórico (rhetorical parallelism analysis)
+- Análise de recorrência lexical expressiva (expressive lexical recurrence analysis)
+
+- Análise de ethos discursivo prévio, discursivo e mostrado (prior, constructed, and displayed ethos analysis)
+- Análise de ethos institucional e ethos individual (institutional and individual ethos analysis)
+- Análise de pathos por representação de afetos (pathos through affect representation analysis)
+- Análise de logos por encadeamento de premissas (logos through premise linkage analysis)
+- Análise de argumento entimemático e premissa elidida (enthymematic argument and elided premise analysis)
+- Análise de apelo ao auditório universal e particular (universal and particular audience appeal analysis)
+- Análise de adaptação retórica ao auditório (rhetorical audience adaptation analysis)
+- Análise de disposição clássica do discurso: exórdio, narração e prova (classical discourse arrangement: exordium, narration, and proof)
+- Análise de função retórica da refutação e peroração (rhetorical function of refutation and peroration analysis)
+- Análise de exórdio por captatio benevolentiae (exordium through captatio benevolentiae analysis)
+- Análise de narração retórica dos fatos (rhetorical narration of facts analysis)
+- Análise de proposição e partição em discurso (proposition and division in discourse analysis)
+- Análise de confirmação de tese e refutação na disposição do discurso (confirmation and refutation in discourse arrangement)
+- Análise de peroração por recapitulação e apelo afetivo (peroration through recap and emotional appeal analysis)
+- Análise de inventio, dispositio, elocutio, memoria e actio (inventio, dispositio, elocutio, memoria, and actio analysis)
+- Análise de seleção de tópicos retóricos na inventio (rhetorical topic selection in inventio analysis)
+- Análise de figura de pensamento e figura de palavra (figure of thought and figure of speech analysis)
+- Análise de figura por adição, supressão, permutação e substituição (figures by addition, omission, permutation, and substitution analysis)
+- Análise de metaplasmo por adição ou supressão fonológica (phonological addition or omission figure analysis)
+- Análise de anástrofe e hipérbato (anastrophe and hyperbaton analysis)
+- Análise de sínquise e inversão sintática complexa (synchysis and complex syntactic inversion analysis)
+- Análise de hendíadis e coordenação enfática (hendiadys and emphatic coordination analysis)
+- Análise de perífrase e circunlóquio (periphrasis and circumlocution analysis)
+- Análise de epíteto constante e epíteto ornamental (fixed and ornamental epithet analysis)
+- Análise de hendíadis verbal em prosa literária (verbal hendiadys in literary prose analysis)
+- Análise de gradação por enumeração e escala (gradation through enumeration and scale analysis)
+- Análise de correção retórica com reformulação imediata (rhetorical correction through immediate reformulation analysis)
+- Análise de pergunta retórica como afirmação implícita (rhetorical question as implicit assertion analysis)
+- Análise de pergunta retórica como transição argumentativa (rhetorical question as argumentative transition analysis)
+- Análise de ironia por discrepância entre enunciado e contexto (irony through utterance-context discrepancy analysis)
+- Análise de sarcasmo por avaliação depreciativa implícita (sarcasm through implicit derogatory evaluation analysis)
+- Análise de antiphrasis e inversão avaliativa (antiphrasis and evaluative reversal analysis)
+- Análise de paródia como imitação crítica de estilo (parody as critical style imitation analysis)
+- Análise de pastiche como imitação estilística (pastiche as stylistic imitation analysis)
+- Análise de alegoria continuada (extended allegory analysis)
+- Análise de símbolo recorrente e rede simbólica (recurring symbol and symbolic network analysis)
+- Análise de sinestesia retórica (rhetorical synesthesia analysis)
+- Análise de oxímoro local e paradoxo discursivo (local oxymoron and discourse paradox analysis)
+- Análise de antítese binária e antítese em série (binary and serial antithesis analysis)
+- Análise de gradação antitética (antithetical gradation analysis)
+- Análise de paralelismo antitético (antithetical parallelism analysis)
+- Análise de quiasmo semântico e sintático (semantic and syntactic chiasmus analysis)
+- Análise de repetição anafórica em abertura de períodos (anaphoric repetition at sentence openings analysis)
+- Análise de epífora em encerramento de segmentos (epistrophe at segment endings analysis)
+- Análise de anadiplose como encadeamento argumentativo (anadiplosis as argumentative linkage analysis)
+- Análise de enumeração com membro culminante (enumeratio with climactic member analysis)
+- Análise de enumeração com membro inesperado (enumeration with unexpected member analysis)
+- Análise de apódose e prótase em paralelismo condicional (apodosis and protasis in conditional parallelism analysis)
+- Análise de esquema pergunta-resposta como organização retórica (question-answer schema as rhetorical organization analysis)
+- Análise de exortação e convocação à ação em discurso (exhortation and call to action in discourse analysis)
+- Análise de anticlímax por quebra de escala (anticlimax through scale break analysis)
+
+- Análise de prosopografia em discurso político (prosopopoeia in political discourse analysis)
+- Análise de hipérbole numérica e seus limites factuais (numerical hyperbole and factual limits analysis)
+- Análise de eufemismo institucional em comunicação pública (institutional euphemism in public communication analysis)
+- Análise de anáfora lexical e anáfora gramatical (lexical and grammatical anaphora analysis)
+- Análise de polissíndeto para acumulação e ritmo (polysyndeton for accumulation and rhythm analysis)
+- Análise de assíndeto para aceleração de ritmo (asyndeton for pace acceleration analysis)
+- Análise de elipse retórica em slogan (rhetorical ellipsis in slogan analysis)
+- Análise de zeugma por recuperação de elemento omitido (zeugma through recovery of omitted element analysis)
+- Análise de silepse de gênero, número ou pessoa (syllepsis of gender, number, or person analysis)
+- Análise de antítese por paralelismo sintático (antithesis through syntactic parallelism analysis)
+- Análise de paralelismo por variação lexical controlada (parallelism through controlled lexical variation analysis)
+- Análise de anacoluto como representação de fala ou ruptura (anacoluthon as speech representation or rupture analysis)
+- Análise de aposiopese e suspensão de enunciado (aposiopesis and utterance suspension analysis)
+- Análise de reticência com inferência orientada ao leitor (ellipsis with reader-oriented inference analysis)
+- Análise de apofase como estratégia de menção e negação (apophasis as mention-and-denial strategy analysis)
+- Análise de preterição para introduzir informação salientada (preterition to introduce salient information analysis)
+- Análise de dubitatio como encenação de incerteza (dubitatio as staged uncertainty analysis)
+- Análise de sermocinatio e fala atribuída a personagem (sermocinatio and speech attributed to a character analysis)
+- Análise de dialogismo retórico por vozes simuladas (rhetorical dialogism through simulated voices analysis)
+- Análise de sermão, discurso e prosopopeia de entidade abstrata (sermonic address and personification of abstract entity analysis)
+- Análise de entimema em publicidade (enthymeme in advertising analysis)
+- Análise de exemplum narrativo como prova retórica (narrative exemplum as rhetorical proof analysis)
+- Análise de parábola como argumento indireto (parable as indirect argument analysis)
+- Análise de analogia ilustrativa e analogia probatória (illustrative and evidential analogy analysis)
+- Análise de exemplificação por caso típico e caso-limite (typical and boundary case exemplification analysis)
+- Análise de concessão aparente e reversão argumentativa (apparent concession and argumentative reversal analysis)
+- Análise de antanagoge: concessão seguida de compensação (antanagoge: concession followed by compensation analysis)
+- Análise de refutação por distinção de escopo (refutation through scope distinction analysis)
+- Análise de apelo à prudência e juízo prático (appeal to prudence and practical judgment analysis)
+- Análise de amplificação por recapitulação e reformulação (amplification through recapitulation and reformulation analysis)
+- Análise de amplificação por gradação avaliativa (amplification through evaluative gradation analysis)
+- Análise de diminuição retórica por litotes (rhetorical understatement through litotes analysis)
+- Análise de hipérbole por excesso e impossibilidade (hyperbole through excess and impossibility analysis)
+- Análise de antífrase em contexto irônico (antiphrasis in ironic context analysis)
+- Análise de paradoxo aparente e resolução interpretativa (apparent paradox and interpretive resolution analysis)
+- Análise de oxímoro como condensação de conflito semântico (oxymoron as semantic conflict compression analysis)
+- Análise de catacrese e preenchimento de lacuna lexical (catachresis and lexical gap filling analysis)
+- Análise de metonímia de causa pelo efeito e efeito pela causa (cause-for-effect and effect-for-cause metonymy analysis)
+- Análise de sinédoque de matéria por objeto (material-for-object synecdoche analysis)
+- Análise de sinédoque de singular por plural genérico (singular-for-generic-plural synecdoche analysis)
+- Análise de epíteto avaliativo e epíteto classificatório (evaluative and classificatory epithet analysis)
+- Análise de antítese entre imagem concreta e conceito abstrato (antithesis between concrete image and abstract concept analysis)
+- Análise de metáfora in praesentia e in absentia (in praesentia and in absentia metaphor analysis)
+- Análise de metáfora nominal, verbal e adjetival (nominal, verbal, and adjectival metaphor analysis)
+- Análise de símile desenvolvido e comparação abreviada (extended simile and compressed comparison analysis)
+- Análise de alegoria por correspondência sustentada (allegory through sustained correspondence analysis)
+- Análise de símbolo público e símbolo privado no texto (public and private symbol in text analysis)
+- Análise de ironia de situação e ironia verbal (situational and verbal irony analysis)
+- Análise de ironia estável e instável (stable and unstable irony analysis)
+- Análise de paródia por deslocamento de registro (parody through register shift analysis)
+
+- Análise de argumento por exemplo paradigmático (argument by paradigmatic example analysis)
+- Análise de argumento por analogia e desanalogia (argument by analogy and disanalogy analysis)
+- Análise de argumentação por entimema (enthymematic argumentation analysis)
+- Análise de inferência por entimema reconstruído (reconstructed enthymeme inference analysis)
+- Análise de argumento baseado em topoi de pessoa e ato (argument from person and act topoi analysis)
+- Análise de topos de quantidade e qualidade (quantity and quality topos analysis)
+- Análise de topos do existente e do possível (topos of the existent and the possible analysis)
+- Análise de hierarquia do anterior e posterior (hierarchy of prior and subsequent analysis)
+- Análise de presença e comunhão no auditório (presence and communion in audience analysis)
+- Análise de dissociação por par filosófico (philosophical pair dissociation analysis)
+- Análise de distinção entre termo e conceito na argumentação (term and concept distinction in argumentation analysis)
+- Análise de definição retórica pelo caso paradigmático (rhetorical definition through paradigmatic case analysis)
+- Análise de definição por consequência e valor (definition by consequence and value analysis)
+- Análise de argumento por hierarquia de valores (argument from hierarchy of values analysis)
+- Análise de preferência entre valores abstratos e concretos (preference for abstract and concrete values analysis)
+- Análise de argumento de justiça formal (formal justice argument analysis)
+- Análise de argumento por reciprocidade e regra de justiça (reciprocity and rule of justice argument analysis)
+- Análise de argumento por sacrifício e custo aceito (argument from sacrifice and accepted cost analysis)
+- Análise de raciocínio por incompatibilidade prática (practical incompatibility reasoning analysis)
+- Análise de consequência incompatível com compromisso assumido (consequence inconsistent with commitment analysis)
+- Análise de estratégia de concessão e refutação em debate (concession and refutation strategy in debate analysis)
+- Análise de concessão local com preservação da tese central (local concession while preserving central claim analysis)
+- Análise de antecipação de objeção como prolepse argumentativa (objection anticipation as argumentative prolepsis analysis)
+- Análise de resposta a objeção por distinção, mitigação ou reversão (objection response by distinction, mitigation, or reversal analysis)
+- Análise de refutação ponto a ponto versus refutação global (point-by-point and global rebuttal analysis)
+- Análise de refutação por questionamento da premissa (rebuttal by challenging the premise analysis)
+- Análise de refutação por insuficiência de evidência (rebuttal through insufficient evidence analysis)
+- Análise de refutação por causa alternativa (rebuttal through alternative cause analysis)
+- Análise de refutação por contraexemplo crítico (rebuttal through critical counterexample analysis)
+- Análise de refutação por mudança de escopo (rebuttal through scope shift analysis)
+- Análise de pergunta crítica em esquema de autoridade (critical question in authority scheme analysis)
+- Análise de pergunta crítica em argumento de analogia (critical question in analogy argument analysis)
+- Análise de pergunta crítica em argumento de causa (critical question in causal argument analysis)
+- Análise de pergunta crítica em argumento de consequência (critical question in consequence argument analysis)
+- Análise de pergunta crítica em argumento de exemplo (critical question in example argument analysis)
+- Análise de pergunta crítica em argumento de compromisso (critical question in commitment argument analysis)
+- Análise de objeção, resposta e réplica em controvérsia (objection, response, and rejoinder in controversy analysis)
+- Análise de encadeamento de argumentos em debate público (argument chaining in public debate analysis)
+- Análise de argumento subordinado de apoio e evidência (supporting and evidential subargument analysis)
+- Análise de estrutura de argumento convergente e ligado (convergent and linked argument structure analysis)
+- Análise de diagrama de argumento serial e ramificado (serial and branching argument diagram analysis)
+- Análise de argumento baseado em testemunho especializado (expert testimony-based argument analysis)
+- Análise de argumento de autoridade com fonte indireta (authority argument using indirect source analysis)
+- Análise de pertinência da expertise à alegação (relevance of expertise to claim analysis)
+- Análise de consenso como evidência e não substituto de evidência (consensus as evidence, not evidence substitute analysis)
+- Análise de força de evidência anedótica e evidência sistemática (anecdotal and systematic evidence strength analysis)
+- Análise de evidência de caso único e generalização (single-case evidence and generalization analysis)
+- Análise de contrafactual como teste de explicação causal (counterfactual as causal explanation test analysis)
+- Análise de argumento por mecanismo causal explícito (argument through explicit causal mechanism analysis)
+- Análise de argumentação deliberativa por opções e critérios (deliberative argumentation by options and criteria analysis)
+
+## Argumentação e escrita acadêmica
+
+- Microcopy de solicitação de avaliação pós-atendimento (Post-Service Feedback Prompt Copy)
+- Modelo de argumentação de Toulmin (Toulmin Model of Argumentation)
+- Argumentação rogeriana (Rogerian Argument)
+- Método PREP — Ponto. Razão. Exemplo e Ponto (PREP Argumentation Framework)
+- Redução ao absurdo (Reductio ad Absurdum)
+- Silogismo dedutivo (Deductive Syllogism)
+- Teoria da estase (Stasis Theory)
+- Argumento a fortiori (A Fortiori Argument)
+- Silogismo disjuntivo ou argumento por eliminação (Disjunctive Syllogism)
+- Raciocínio abdutivo (Abductive Reasoning)
+- Estrutura IMRaD (IMRaD Genre Structure)
+- Escalas argumentativas (Argumentative Scales)
+- Operadores argumentativos (Argumentative Operators)
+- Argumento de autoridade (Argument from Authority)
+- Dilema retórico (Rhetorical Dilemma)
+- Antiparástase (Antiparastasis)
+- Evidencialidade discursiva (Discursive Evidentiality)
+- Teoria da argumentação na língua (Argumentation Within Language Theory)
+- Dissociação de noções na argumentação (Argumentative Dissociation of Notions)
+- Esquemas argumentativos de Walton (Walton’s Argumentation Schemes)
+- Silogismo hipotético: modus ponens e modus tollens (Hypothetical Syllogism)
+- Argumento a contrario (Argument a Contrario)
+- Falácia patética (Pathetic Fallacy)
+- Regra de justiça e argumento pelo precedente (Perelman’s Rule of Justice and Argument from Precedent)
+- Argumentos ad hominem e tu quoque (Ad Hominem and Tu Quoque Arguments)
+- Falácia do espantalho (Straw Man Fallacy)
+- Argumento ad populum (Argumentum ad Populum)
+- Falácia post hoc ergo propter hoc (Post Hoc Ergo Propter Hoc Fallacy)
+- Argumento ad ignorantiam (Argumentum ad Ignorantiam)
+- Estrutura argumental e papéis temáticos (Argument Structure and Thematic Roles)
+- Catástase dramática (Dramatic Catastasis)
+- Análise de fechamento discursivo e coda argumentativa (Discursive Closure and Argumentative Coda)
+- Universais tradutórios: explicitação. simplificação e normalização (Translation Universals)
+- Triagem de alegações terapêuticas não autorizadas (Prohibited Therapeutic Claim Screening)
+- Estrutura Winton para comunicação de evidências equilibradas (Winton Centre Evidence Communication Framework)
+- Padrão TIQA para integração de evidências textuais (TIQA Paragraph Pattern)
+- Framework CER de argumentação baseada em evidências (Claim. Evidence. Reasoning)
+- Estrutura de questões-padrão para argumentação de políticas (Stock Issues Framework)
+- Protocolo CRAAP de avaliação da credibilidade de fontes (Currency. Relevance. Authority. Accuracy. Purpose)
+- Método SIFT de verificação lateral de evidências (Stop. Investigate. Find Better Coverage. Trace Claims)
+- Princípio da caridade e steelmanning do contra-argumento (Principle of Charity / Steelmanning)
+- Integração sintática de citações e prevenção de citação solta (Quotation Drop-In Prevention)
+- Modelo IMVAIN de avaliação de evidências jornalísticas (Independent. Multiple. Verify. Authoritative. Informed. Named)
+- Rastreamento até a fonte original para evitar citação circular (Original-Source Tracing)
+- Auditoria linha a linha de notas e afirmações (Footnote-to-Claim Audit)
+- Explicitação de premissas ocultas e pressupostos (Assumption Surfacing)
+- Destaque de evidências refutadoras e falseabilidade (Disconfirming Evidence Highlighting)
+- Modelo CARS de Introdução Acadêmica (Create a Research Space)
+- Modelo de Argumentação de Toulmin (Claim. Grounds. Warrant. Backing. Qualifier. Rebuttal)
+- Argumentação Rogeriana e Construção de Terreno Comum (Rogerian Argumentation)
+- Modelo Pragmadialético da Discussão Crítica (Pragma-Dialectical Model)
+- Esquemas Argumentativos e Perguntas Críticas de Walton (Walton Argumentation Schemes)
+- Teoria dos Estados da Causa — Stasis Theory (Conjecture. Definition. Quality. Policy)
+- Análise de Falácias Informais e Vieses Argumentativos (Informal Fallacy Analysis)
+- Diretrizes de Relato da Rede EQUATOR: CONSORT. PRISMA. STROBE e CARE (EQUATOR Reporting Guidelines)
+- Questio Infinita — Tese e Questio Finita — Hipótese (Infinite and Finite Questions)
+- Estrutura Clássica da Controvérsia: Problema. Solução e Refutação Antecipada (Controversia Structure)
+- Dilema Retórico e Divisão Exaustiva (Rhetorical Dilemma and Exhaustive Division)
+- Gêneros oclusos de Swales (Occluded Genres)
+- Gêneros antecedentes na produção textual (Antecedent Genres)
+- Modelo dos letramentos acadêmicos de Lea e Street (Academic Literacies Model)
+- Patchwriting na apropriação textual (Patchwriting)
+- Citações integrais e não integrais de Swales (Integral and Non-Integral Citations)
+- Posicionamento e engajamento autoral de Hyland (Hyland’s Stance and Engagement Model)
+- Resumo em linguagem leiga na comunicação científica (Plain Language Summary / Lay Summary)
+- Tese por compilação de artigos (Thesis by Publication)
+- Bibliografia anotada (Annotated Bibliography)
+- Artigo de dados científicos (Data Paper)
+- Proposta de financiamento à pesquisa (Research Grant Proposal)
+- Nota de política pública (Policy Brief)
+- Memorando jurídico e estrutura IRAC (Legal Memorandum and IRAC Structure)
+
+- Topos do argumento por definição (definition topos)
+- Topos do argumento por causa (causal topos)
+- Topos do argumento por consequência (consequence topos)
+- Topos do argumento por comparação (comparison topos)
+- Topos do argumento por exemplo (example topos)
+- Topos do argumento por autoridade (authority topos)
+- Topos do argumento por circunstância (circumstantial topos)
+- Argumento de precedentes (precedent argument)
+- Argumento de analogia proporcional (proportional analogy argument)
+- Argumento de sinal ou indício (sign argument)
+- Argumento de incompatibilidade (incompatibility argument)
+- Argumento de divisão (division argument)
+- Argumento de transitividade (transitivity argument)
+- Argumento de direção ou declive escorregadio (slippery-slope argument)
+- Argumento de sacrifício (sacrifice argument)
+- Argumento de desperdício (waste argument)
+- Argumento de autoridade especializada (expertise-based authority argument)
+- Argumento pragmático pelas consequências (pragmatic argument from consequences)
+- Argumento de dupla hierarquia (double-hierarchy argument)
+- Argumento de dissociação conceitual (conceptual dissociation argument)
+- Argumento de quase definição (quasi-definition argument)
+- Argumento por ridículo (argument by ridicule)
+- Argumento pelo absurdo (argumentum ad absurdum)
+- Concessão seguida de refutação (concession-refutation structure)
+- Refutação por contraexemplo (counterexample refutation)
+- Refutação por redução ao absurdo (reductio ad absurdum refutation)
+- Qualificação de tese por condições de validade (claim qualification by scope conditions)
+- Mapeamento de alegação. evidência e garantia (claim-evidence-warrant mapping)
+- Análise de apoio e respaldo de garantia (warrant and backing analysis)
+- Análise de modalizadores epistêmicos em argumento (epistemic modality analysis in argument)
+- Análise de estrutura de argumento de Toulmin (Toulmin argument structure analysis)
+- Diagramação de argumentos por premissas e conclusão (premise-conclusion argument mapping)
+- Análise de argumento serial e convergente (serial and convergent argument analysis)
+- Análise de argumentos subordinados e coordenados (linked and convergent subargument analysis)
+- Avaliação de relevância. suficiência e aceitabilidade das premissas (relevance. sufficiency. and acceptability evaluation)
+- Análise de carga da prova (burden-of-proof analysis)
+- Análise de ônus argumentativo por turno (turn-by-turn burden of proof analysis)
+- Análise de dilema construtivo e destrutivo (constructive and destructive dilemma analysis)
+- Análise de falácias de ambiguidade (ambiguity fallacy analysis)
+- Análise de falácias de relevância (relevance fallacy analysis)
+- Análise de falácias de presunção (presumption fallacy analysis)
+- Análise de falácias de generalização indutiva (inductive generalization fallacy analysis)
+- Análise de argumentação baseada em valores (value-based argumentation analysis)
+- Análise de esquema argumentativo e perguntas críticas (argumentation scheme and critical questions analysis)
+- Análise de argumentação prática e opções de ação (practical reasoning and action options analysis)
+- Análise de dissenso. controvérsia e pontos de vista (dissent. controversy. and standpoint analysis)
+- Análise da progressão tese-razão-evidência (claim-reason-evidence progression analysis)
+- Análise de enquadramento problema-solução em pesquisa (research problem-solution framing analysis)
+- Análise de justificativa metodológica (methodological rationale analysis)
+- Análise de lacuna de pesquisa e contribuição original (research gap and original contribution analysis)
+- Análise de limites inferenciais de resultados (inferential limits of findings analysis)
+- Análise de generalização e transferibilidade de resultados (generalizability and transferability analysis)
+- Análise de alinhamento entre pergunta. método e conclusão (research question-method-conclusion alignment analysis)
+- Análise de coerência entre hipótese e operacionalização (hypothesis-operationalization coherence analysis)
+- Análise de implicações e recomendações proporcionais às evidências (evidence-proportionate implications and recommendations analysis)
+- Análise de relato transparente de incerteza (transparent uncertainty reporting analysis)
+- Análise de replicabilidade e rastreabilidade argumentativa (argument traceability and replicability analysis)
+- Análise de limitações e explicações alternativas (limitations and alternative explanations analysis)
+
+- Nova retórica de Perelman e Olbrechts-Tyteca (Perelman and Olbrechts-Tyteca new rhetoric)
+- Pragma-dialética da argumentação (pragma-dialectical argumentation)
+- Análise crítica de discussão argumentativa (critical discussion analysis)
+- Quatro estágios de resolução de diferenças de opinião (four stages of resolving a difference of opinion)
+- Análise de movimentos estratégicos na argumentação (strategic maneuvering analysis in argumentation)
+- Análise de esquema argumentativo de Walton (Walton argumentation scheme analysis)
+- Perguntas críticas para avaliação de esquema argumentativo (critical questions for argumentation schemes)
+- Análise de argumento prático de Walton (Walton practical argument analysis)
+- Análise de argumento de opinião especializada (expert opinion argument analysis)
+- Análise de argumento de correlação para causa (correlation-to-cause argument analysis)
+- Análise de argumento de causa para efeito (cause-to-effect argument analysis)
+- Análise de argumento de consequência positiva e negativa (positive and negative consequence argument analysis)
+- Análise de argumento de exemplo e contraexemplo (example and counterexample argument analysis)
+- Análise de argumento por classificação e categoria (classification and category argument analysis)
+- Análise de argumento por comparação de casos (case comparison argument analysis)
+- Análise de argumento de compromisso consistente (commitment consistency argument analysis)
+- Análise de argumento de posição inicial e posição final (initial and final position argument analysis)
+- Análise de contra-argumento acomodativo e confrontativo (accommodating and confrontational counterargument analysis)
+- Análise de refutação interna e externa (internal and external rebuttal analysis)
+- Análise de diálogo argumentativo deliberativo (deliberative argumentative dialogue analysis)
+- Análise de diálogo argumentativo investigativo (inquiry argumentative dialogue analysis)
+- Análise de diálogo argumentativo de persuasão (persuasion dialogue argument analysis)
+- Análise de diálogo argumentativo de negociação (negotiation dialogue argument analysis)
+- Análise de diálogo argumentativo de busca de informação (information-seeking dialogue argument analysis)
+- Análise de carga da prova em afirmações existenciais (burden of proof for existential claims analysis)
+- Análise de carga da prova em alegações universais (burden of proof for universal claims analysis)
+- Análise de progressão de argumento em cadeia (serial argument progression analysis)
+- Análise de integração de evidências convergentes (convergent evidence integration analysis)
+- Análise de premissa tácita e entimema (implicit premise and enthymeme analysis)
+- Análise de argumento por analogia estrutural (structural analogy argument analysis)
+- Análise de escopo e exceção em regra argumentativa (scope and exception in argumentative rule analysis)
+- Análise de condição necessária e suficiente em tese (necessary and sufficient condition analysis in a claim)
+- Análise de modalidade de possibilidade e necessidade em argumento (possibility and necessity modality in argument)
+- Análise de força probatória de evidência anedótica (probative strength of anecdotal evidence analysis)
+- Análise de base rate e taxa de referência em argumento (base rate argument analysis)
+- Análise de risco de falácia da taxa-base (base rate fallacy risk analysis)
+- Análise de argumento com evidência estatística (statistical evidence argument analysis)
+- Análise de extrapolação além dos dados apresentados (extrapolation beyond presented data analysis)
+- Análise de comparação entre grupos não equivalentes (comparison of non-equivalent groups analysis)
+- Análise de argumento de autoridade com conflito de interesse (authority argument and conflict of interest analysis)
+- Análise de uso de consenso científico em argumentação (scientific consensus use in argumentation analysis)
+- Análise de incerteza e força de conclusão acadêmica (uncertainty and academic conclusion strength analysis)
+- Análise de argumento por princípio e caso específico (principle and specific case argument analysis)
+- Análise de coerência entre tese, escopo e evidência (claim, scope, and evidence coherence analysis)
+- Análise de arquitetura argumentativa em ensaio (argument architecture analysis in essay)
+- Análise de ordem de argumentos por força e dependência (argument ordering by strength and dependency)
+- Análise de contra-argumento por objeção mais forte (strongest-objection counterargument analysis)
+- Análise de mapa de controvérsia e posições concorrentes (controversy map and competing positions analysis)
+- Análise de mudança de posição ao longo do texto argumentativo (stance shift across argumentative text analysis)
+- Análise de diálogo entre fontes acadêmicas (academic source dialogue analysis)
+
+- Análise de retórica deliberativa, forense e epidíctica (deliberative, forensic, and epideictic rhetoric analysis)
+- Análise de discurso epidíctico por louvor e censura (epideictic discourse through praise and blame analysis)
+- Análise de enquadramento do caso em disputa argumentativa (case framing in argumentative dispute analysis)
+- Análise de ponto de partida explícito e implícito em debate (explicit and implicit starting points in debate analysis)
+- Análise de regras de discussão crítica em debate escrito (critical discussion rules in written debate analysis)
+- Análise de manobra estratégica por potencial de tópico (strategic maneuvering through topical potential analysis)
+- Análise de manobra estratégica por demanda do auditório (strategic maneuvering through audience demand analysis)
+- Análise de manobra estratégica por apresentação e estilo (strategic maneuvering through presentation and style analysis)
+- Análise de argumento de causa por mecanismo explicativo (causal argument through explanatory mechanism analysis)
+- Análise de causa necessária, suficiente e contribuinte (necessary, sufficient, and contributing cause analysis)
+- Análise de causalidade múltipla em argumento público (multiple causation in public argument analysis)
+- Análise de argumento por cadeia causal (causal chain argument analysis)
+- Análise de argumento de consequência por efeito colateral (consequence argument through side effect analysis)
+- Análise de argumento de analogia por semelhança relevante (analogy argument by relevant similarity analysis)
+- Análise de argumento de analogia por disanalogia relevante (analogy argument by relevant disanalogy analysis)
+- Análise de argumento de classificação com critério explícito (classification argument with explicit criterion analysis)
+- Análise de generalização baseada em amostra representativa (generalization from representative sample analysis)
+- Análise de generalização por amostra enviesada (generalization from biased sample analysis)
+- Análise de argumento de exceção e contraexemplo (exception and counterexample argument analysis)
+- Análise de precedente favorável e precedente distinguível (supporting and distinguishable precedent analysis)
+- Análise de regra e exceção em raciocínio prático (rule and exception in practical reasoning analysis)
+- Análise de argumento de autoridade por domínio de competência (authority argument by expertise domain analysis)
+- Análise de argumento de testemunho por acesso e confiabilidade (testimonial argument by access and reliability analysis)
+- Análise de argumento de consenso e dissenso especializado (expert consensus and dissent argument analysis)
+- Análise de evidência negativa e argumento por ausência (negative evidence and argument from absence analysis)
+- Análise de argumento por silêncio documental (argument from documentary silence analysis)
+- Análise de inferência abdutiva em explicação de evidência (abductive inference in evidence explanation analysis)
+- Análise de comparação de hipóteses por poder explicativo (hypothesis comparison by explanatory power analysis)
+- Análise de argumento pela melhor explicação (inference to the best explanation analysis)
+- Análise de explicação alternativa em avaliação de alegação (alternative explanation in claim evaluation analysis)
+- Análise de argumento de custo-benefício com critérios declarados (cost-benefit argument with stated criteria analysis)
+- Análise de argumento por princípio de precaução (precautionary principle argument analysis)
+- Análise de argumento de proporcionalidade entre meio e fim (means-ends proportionality argument analysis)
+- Análise de argumento de equidade e distribuição de ônus (fairness and burden distribution argument analysis)
+- Análise de argumento por direitos, deveres e consequências (rights, duties, and consequences argument analysis)
+- Análise de compatibilidade entre valores invocados (compatibility of invoked values analysis)
+- Análise de hierarquia entre valores em conflito (hierarchy of conflicting values analysis)
+- Análise de argumento de definição persuasiva (persuasive definition argument analysis)
+- Análise de redefinição de termos em controvérsia (term redefinition in controversy analysis)
+- Análise de dissociação entre aparência e realidade (appearance-reality dissociation analysis)
+- Análise de dissociação entre pessoa e ato (person-act dissociation analysis)
+- Análise de pressuposto controverso em pergunta retórica (controversial presupposition in rhetorical question analysis)
+- Análise de falso dilema por omissão de alternativas (false dilemma through omitted alternatives analysis)
+- Análise de espantalho por simplificação da posição oposta (straw man through simplification of opposing view analysis)
+- Análise de mudança de ônus da prova (burden shifting analysis)
+- Análise de petição de princípio em cadeia de premissas (begging the question in premise chain analysis)
+- Análise de ambiguidade de termo como fonte de equivocação (equivocation from term ambiguity analysis)
+- Análise de generalização apressada em relato anedótico (hasty generalization from anecdotal report analysis)
+- Análise de causalidade espúria por variável de confusão (spurious causality through confounding variable analysis)
+- Análise de falácia ecológica em argumento estatístico (ecological fallacy in statistical argument analysis)
+- Análise de seleção tendenciosa de evidência (cherry-picking evidence analysis)
+
+- Esquema argumentativo de posição e oposição (position and opposition argument scheme)
+- Esquema argumentativo de classificação (classification argument scheme)
+- Esquema argumentativo de causa para efeito (cause-to-effect argument scheme)
+- Esquema argumentativo de efeito para causa (effect-to-cause argument scheme)
+- Esquema argumentativo de consequência (consequence argument scheme)
+- Esquema argumentativo de analogia (analogy argument scheme)
+- Esquema argumentativo de correlação para causa (correlation-to-cause argument scheme)
+- Esquema argumentativo de sinal (sign argument scheme)
+- Esquema argumentativo de compromisso (commitment argument scheme)
+- Esquema argumentativo de opinião especializada (expert opinion argument scheme)
+- Esquema argumentativo de testemunho (argument from testimony scheme)
+- Esquema argumentativo de prática estabelecida (argument from established practice scheme)
+- Esquema argumentativo de precedente (argument from precedent scheme)
+- Esquema argumentativo de regras para casos (argument from rules to cases scheme)
+- Esquema argumentativo de posição de conhecimento (argument from position to know scheme)
+- Esquema argumentativo de ignorância (argument from ignorance scheme)
+- Esquema argumentativo de compromisso inconsistente (argument from inconsistent commitment scheme)
+- Esquema argumentativo de valores (argument from values scheme)
+- Esquema argumentativo de princípio (argument from principle scheme)
+- Esquema argumentativo de consequências práticas (argument from practical consequences scheme)
+- Esquema argumentativo de custos e benefícios (argument from costs and benefits scheme)
+- Esquema argumentativo de desperdício (argument from waste scheme)
+- Esquema argumentativo de sacrifício (argument from sacrifice scheme)
+- Esquema argumentativo de direção (argument from gradualism or slippery slope scheme)
+- Esquema argumentativo de alternativa rejeitada (argument from rejected alternative scheme)
+- Esquema argumentativo de oposição entre alternativas (argument from alternatives scheme)
+- Esquema argumentativo de incompatibilidade (argument from incompatibility scheme)
+- Esquema argumentativo de exceção (argument from exception scheme)
+- Esquema argumentativo de divisão do todo em partes (argument from division scheme)
+- Esquema argumentativo de composição das partes ao todo (argument from composition scheme)
+- Esquema argumentativo de generalização estatística (statistical generalization argument scheme)
+- Esquema argumentativo de amostra para população (sample-to-population argument scheme)
+- Esquema argumentativo de extrapolação para caso semelhante (argument from analogy to a similar case scheme)
+- Esquema argumentativo de modelo (argument from model scheme)
+- Esquema argumentativo de exemplo e contraexemplo (argument from example and counterexample scheme)
+- Esquema argumentativo de definição (argument from definition scheme)
+- Esquema argumentativo de classificação e critério (argument from classification and criterion scheme)
+- Esquema argumentativo de causa complexa (argument from complex cause scheme)
+- Esquema argumentativo de causa comum (argument from common cause scheme)
+- Esquema argumentativo de causa concorrente (argument from competing causes scheme)
+- Esquema argumentativo de efeito colateral (argument from side effect scheme)
+- Esquema argumentativo de previsão e evidência atual (argument from prediction and current evidence scheme)
+- Esquema argumentativo de tendência observada (argument from observed trend scheme)
+- Esquema argumentativo de explicação científica (scientific explanation argument scheme)
+- Esquema argumentativo de melhor explicação disponível (argument to the best available explanation scheme)
+- Esquema argumentativo de abdutivo e hipótese explicativa (abductive argument and explanatory hypothesis scheme)
+- Esquema argumentativo de inferência causal contrafactual (counterfactual causal inference argument scheme)
+- Esquema argumentativo de raciocínio prático meio-fim (means-end practical reasoning scheme)
+- Esquema argumentativo de raciocínio por objetivo e ação (goal-and-action practical reasoning scheme)
+- Esquema argumentativo de dilema prático (practical dilemma argument scheme)
+
+- Análise de argumento por analogia jurídica (argument from legal analogy analysis)
+- Análise de precedente por distinção de fatos relevantes (precedent analysis by distinguishing material facts)
+- Análise de argumento por princípio de proporcionalidade (proportionality principle argument analysis)
+- Análise de teste de adequação, necessidade e proporcionalidade estrita (suitability, necessity, and proportionality stricto sensu test analysis)
+- Análise de ponderação de princípios em colisão (balancing of conflicting principles analysis)
+- Análise de argumento por padrão de prova (argument by standard of proof analysis)
+- Análise de argumento por presunção e ônus de refutação (argument from presumption and rebuttal burden analysis)
+- Análise de evidência corroborativa versus evidência independente (corroborating and independent evidence distinction analysis)
+- Análise de testemunho por competência, acesso e consistência (testimony by expertise, access, and consistency analysis)
+- Análise de contradição entre testemunhos (contradiction between testimonies analysis)
+- Análise de argumento baseado em consenso especializado (expert consensus argument analysis)
+- Análise de argumento por ausência de evidência esperada (argument from absence of expected evidence analysis)
+- Análise de argumento baseado em sinal negativo (argument from negative sign analysis)
+- Análise de inferência para melhor explicação causal (inference to the best causal explanation analysis)
+- Análise de hipótese concorrente por previsões discriminantes (competing hypothesis by discriminating predictions analysis)
+- Análise de causalidade por mecanismo e sequência temporal (causality by mechanism and temporal sequence analysis)
+- Análise de inferência causal por contrafactual explícito (causal inference through explicit counterfactual analysis)
+- Análise de argumento por diferença e semelhança entre casos (argument by case difference and similarity analysis)
+- Análise de argumento por caso paradigmático e caso difícil (argument by paradigm and hard case analysis)
+- Análise de argumento por classificação e exceção (argument by classification and exception analysis)
+- Análise de argumento por regra geral e caso particular (argument by general rule and particular case analysis)
+- Análise de argumento por analogia proporcional entre domínios (argument by proportional analogy across domains analysis)
+- Análise de argumento por escala e gradação (argument by scale and gradation analysis)
+- Análise de argumento por comparação de magnitude (argument by magnitude comparison analysis)
+- Análise de argumento por custo de oportunidade (argument from opportunity cost analysis)
+- Análise de argumento por trade-off e critério de prioridade (argument by trade-off and priority criterion analysis)
+- Análise de dilema de valores com terceiro caminho (value dilemma and third-option analysis)
+- Análise de falso dilema por pressuposto binário (false dilemma through binary presupposition analysis)
+- Análise de falácia de composição por extrapolação parte-todo (composition fallacy through part-whole extrapolation analysis)
+- Análise de falácia de divisão por transferência todo-parte (division fallacy through whole-part transfer analysis)
+- Análise de falácia de causa única (single-cause fallacy analysis)
+- Análise de falácia post hoc em sequência temporal (post hoc fallacy in temporal sequence analysis)
+- Análise de falácia de regressão à média em argumento (regression-to-the-mean fallacy in argument analysis)
+- Análise de argumento por seleção de período favorável (argument through cherry-picked time period analysis)
+- Análise de argumento por seleção de denominador (argument through denominator selection analysis)
+- Análise de apresentação de risco por denominador variável (risk presentation through varying denominator analysis)
+- Análise de falácia ecológica em inferência individual (ecological fallacy in individual inference analysis)
+- Análise de falácia atomística em inferência coletiva (atomistic fallacy in group inference analysis)
+- Análise de generalização por amostra de conveniência (generalization from convenience sample analysis)
+- Análise de argumento de autoridade com fonte desatualizada (authority argument with outdated source analysis)
+- Análise de citação fora de contexto como falácia de autoridade (out-of-context quotation as authority fallacy analysis)
+- Análise de uso de consenso sem delimitação de escopo (consensus use without scope delimitation analysis)
+- Análise de definição persuasiva por conotação avaliativa (persuasive definition through evaluative connotation analysis)
+- Análise de enquadramento lexical como premissa implícita (lexical framing as implicit premise analysis)
+- Análise de pressuposto embutido em rótulo de categoria (presupposition embedded in category label analysis)
+- Análise de apelo à natureza em argumento público (appeal to nature in public argument analysis)
+- Análise de apelo à tradição por antiguidade e continuidade (appeal to tradition through age and continuity analysis)
+- Análise de apelo à novidade por ruptura e inovação (appeal to novelty through disruption and innovation analysis)
+- Análise de apelo à maioria sem base representativa (appeal to popularity without representative basis analysis)
+- Análise de argumento por compromisso e consistência biográfica (argument from commitment and biographical consistency analysis)
+- Argumento por consequência
+- Argumento por implicação
+- Argumento por causalidade
+- Argumento por correlação qualificada
+- Argumento por mecanismo
+- Argumento por analogia estrutural
+- Argumento por caso paradigmático
+- Argumento por caso limítrofe
+- Argumento por contraexemplo
+- Argumento por redução ao absurdo
+- Argumento por dilema
+- Argumento por concessão
+- Argumento por comparação controlada
+- Argumento por tendência temporal
+- Argumento por convergência de evidências
+- Argumento por triangulação metodológica
+- Argumento por consistência interna
+- Argumento por coerência explicativa
+- Argumento por poder preditivo
+- Argumento por parcimônia teórica
+- Argumento por alcance explicativo
+- Argumento por robustez
+- Argumento por replicação
+- Argumento por generalização cautelosa
+- Argumento por transferência analítica
+- Argumento por plausibilidade causal
+- Argumento por precedência temporal
+- Argumento por dose-resposta
+- Argumento por mecanismo intermediário
+- Argumento por eliminação de alternativas
+- Argumento por evidência negativa
+- Argumento por ausência informativa
+- Argumento por exceção relevante
+- Argumento por distribuição de casos
+- Argumento por representatividade
+- Argumento por saturação teórica
+- Argumento por contraste de grupos
+- Argumento por caso desviante
+- Argumento por assimetria de evidência
+- Argumento por ônus da prova
+- Argumento por critério operacional
+- Argumento por definição estipulativa
+- Argumento por distinção conceitual
+- Argumento por decomposição do problema
+- Argumento por cadeia inferencial
+- Argumento por premissa compartilhada
+- Argumento por consequência indesejada
+- Argumento por custo de oportunidade
+- Argumento por restrição de recursos
+- Argumento por viabilidade prática
+- Argumento por proporcionalidade
+- Argumento por princípio de precaução
+- Argumento por reversibilidade da decisão
+- Argumento por risco residual
+- Argumento por cenário contrafactual
+- Argumento por comparação com linha de base
+- Argumento por explicação rival
+- Argumento por modelo nulo
+- Argumento por compatibilidade de dados
+- Argumento por convergência independente
+- Argumento por discrepância entre medidas
+- Argumento por estabilidade entre especificações
+- Argumento por sensibilidade analítica
+- Argumento por teste de falsificação
+- Argumento por crítica imanente
+- Argumento por reconstrução caridosa
+- Argumento por steelmanning
+- Argumento por delimitação de tese
+- Argumento por qualificação de escopo
+- Argumento por ressalva epistemológica
+- Argumento por distinção entre fato e valor
+- Argumento por distinção entre correlação e causa
+- Argumento por distinção entre validade e confiabilidade
+- Argumento por distinção entre significância e relevância
+- Argumento por distinção entre descrição e explicação
+- Argumento por distinção entre previsão e intervenção
+- Argumento por distinção entre efeito médio e heterogêneo
+- Argumento por distinção entre evidência direta e indireta
+- Argumento por distinção entre hipótese e resultado
+- Argumento por distinção entre dado e interpretação
+- Argumento por distinção entre ausência de evidência e evidência de ausência
+- Argumento por delimitação de população
+- Argumento por delimitação temporal
+- Argumento por delimitação contextual
+- Argumento por definição de unidade de análise
+- Argumento por operacionalização explícita
+- Argumento por exposição de pressupostos
+- Argumento por identificação de variável omitida
+- Argumento por análise de confundimento
+- Argumento por avaliação de viés de seleção
+- Argumento por análise de sensibilidade
+- Argumento por ponderação de explicações
+- Argumento por cadeia de evidências
+- Argumento por qualidade da fonte
+- Argumento por independência da fonte
+- Argumento por atualidade da fonte
+- Argumento por adequação da citação
+- Argumento por síntese de literatura
+- Argumento por lacuna de pesquisa
+- Argumento por contribuição incremental
+- Argumento por contribuição metodológica
+- Argumento por contribuição conceitual
+- Argumento por contribuição empírica
+- Argumento por relevância social
+- Argumento por relevância teórica
+- Argumento por implicação prática
+- Argumento por limitação reconhecida
+- Argumento por agenda futura
+- Argumento por coerência entre pergunta e método
+- Argumento por alinhamento entre evidência e conclusão
+- Argumento por modéstia inferencial
+- Argumento por conclusão graduada
+- Argumento por conclusão condicional
+- Argumento por generalização restrita
+- Argumento por revisão da tese
+- Argumento por resposta direta à objeção
+- Argumento por separação de objeções
+- Argumento por hierarquização de respostas
+- Argumento por evidência mais discriminante
+- Argumento por custo explicativo
+- Argumento por poder de distinção
+- Argumento por teste crucial
+- Argumento por comparação de modelos
+- Argumento por análise de cenário
+- Argumento por consequência distributiva
+- Argumento por justiça procedimental
+- Argumento por equidade de impacto
+- Argumento por trade-off explícito
+- Argumento por limite de inferência
+- Argumento por transparência de incerteza
+- Argumento por intervalo plausível
+- Argumento por cenário de pior caso
+- Argumento por cenário de melhor caso
+- Argumento por decisão sob incerteza
+- Argumento por valor esperado
+- Argumento por robustez a preferências
+- Argumento por reversibilidade institucional
+- Argumento por legitimidade do procedimento
+- Argumento por proporcionalidade entre meio e fim
+- Argumento por compatibilidade normativa
+- Argumento por consistência com precedentes
+- Argumento por distinção de precedente
+- Argumento por exceção justificada
+- Argumento por interpretação sistemática
+- Argumento por interpretação contextual
+- Argumento por leitura literal qualificada
+- Argumento por finalidade declarada
+- Argumento por princípio subjacente
+- Argumento por coerência entre níveis
+- Argumento por consequência institucional
+- Argumento por incentivo criado
+- Argumento por efeito de segunda ordem
+- Argumento por externalidade
+- Argumento por risco moral
+- Argumento por seleção adversa
+- Argumento por assimetria informacional
+- Argumento por dependência de trajetória
+- Argumento por custo de coordenação
+- Argumento por problema de ação coletiva
+- Argumento por escala de implementação
+- Argumento por capacidade administrativa
+- Argumento por monitorabilidade
+- Argumento por auditabilidade
+- Argumento por accountability
+- Argumento por mecanismo de correção
+- Argumento por possibilidade de recurso
+- Argumento por proteção de minoria
+- Argumento por impacto diferencial
+- Argumento por acessibilidade procedimental
+- Argumento por consistência terminológica
+- Argumento por precisão definicional
+- Argumento por economia de premissas
+- Argumento por clareza da inferência
+- Argumento por suficiência probatória
+- Argumento por corroborabilidade
+- Argumento por rastreabilidade da fonte
+- Argumento por replicabilidade do procedimento
+- Argumento por abertura de dados
+- Argumento por transparência analítica
+- Argumento por triangulação teórica
+- Argumento por integração de níveis explicativos
+- Argumento por explicação multinível
+- Argumento por mecanismo contextual
+- Argumento por heterogeneidade de efeito
+- Argumento por interação entre variáveis
+- Argumento por mediação
+- Argumento por moderação
+- Argumento por sequência causal
+- Argumento por causalidade recíproca
+- Argumento por endogeneidade
+- Argumento por identificação parcial
+- Argumento por limite superior e inferior
+- Argumento por teste placebo
+- Argumento por controle negativo
+- Argumento por variável instrumental
+- Argumento por experimento natural
+- Argumento por descontinuidade
+- Argumento por diferença em diferenças
+- Argumento por pareamento
+- Argumento por séries temporais interrompidas
+- Argumento por estudo de evento
+- Argumento por contrafactual sintético
+- Argumento por análise bayesiana
+- Argumento por atualização de crença
+- Argumento por probabilidade prévia
+- Argumento por razão de verossimilhança
+- Argumento por evidência diagnóstica
+- Argumento por calibração de confiança
+- Argumento por convergência de métodos
+- Argumento por mecanismo causal
+- Argumento por implicação lógica
+- Argumento por robustez analítica
+- Argumento por replicação independente
+- Argumento por representatividade da amostra
+- Argumento pelo princípio da precaução
+- Argumento por reversibilidade decisória
+- Argumento por linha de base comparável
+- Argumento por hipótese rival
+- Argumento por delimitação da tese
+- Argumento por qualificação do escopo
+- Argumento por distinção entre correlação e causalidade
+- Argumento por ausência de evidência versus evidência de ausência
+- Argumento por delimitação da população
+- Argumento por definição da unidade de análise
+- Argumento por controle de confundimento
+- Argumento por avaliação do viés de seleção
+- Argumento por síntese da literatura
+- Argumento por alinhamento de evidência e conclusão
+- Argumento por revisão da tese à luz dos dados
+- Argumento por análise de cenários
+- Argumento por transparência da incerteza
+- Argumento por legitimidade procedimental
+- Argumento por proporcionalidade entre meios e fins
+- Argumento por coerência entre níveis de análise
+- Argumento por incentivos criados
+- Argumento por ação coletiva
+- Argumento por proteção de minorias
+- Argumento por clareza inferencial
+- Argumento por rastreabilidade de fontes
+- Argumento por mediação causal
+- Argumento por limites superior e inferior
+- Argumento por desenho de descontinuidade
+- Argumento por diferenças em diferenças
+- Argumento por série temporal interrompida
+- Argumento por controle sintético
+- Argumento por atualização bayesiana
+- Argumento por calibração da confiança
+- Argumento por convergência entre métodos
+- Argumento por análise de mecanismo
+- Argumento por explicação de processo
+- Argumento por rastreamento de processo
+- Argumento por sequência de evidências
+- Argumento por teste de hoop
+- Argumento por teste smoking gun
+- Argumento por evidência straw-in-the-wind
+- Argumento por teste doubly decisive
+- Argumento por necessidade causal
+- Argumento por suficiência causal
+- Argumento por causa INUS
+- Argumento por condição necessária
+- Argumento por condição suficiente
+- Argumento por condição contributiva
+- Argumento por equifinalidade
+- Argumento por multifinalidade
+- Argumento por causalidade configuracional
+- Argumento por causalidade probabilística
+- Argumento por causalidade estrutural
+- Argumento por causalidade próxima
+- Argumento por causalidade distal
+- Argumento por mecanismo gerador
+- Argumento por mecanismo de seleção
+- Argumento por mecanismo de reprodução
+- Argumento por mecanismo de transformação
+- Argumento por mecanismo de agregação
+- Argumento por mecanismo de coordenação
+- Argumento por mecanismo de difusão
+- Argumento por mecanismo de aprendizagem
+- Argumento por mecanismo de sinalização
+- Argumento por mecanismo de legitimação
+- Argumento por mecanismo de sanção
+- Argumento por mecanismo de incentivo
+- Argumento por mecanismo de dissuasão
+- Argumento por mecanismo de dependência
+- Argumento por mecanismo de feedback
+- Argumento por mecanismo de retroalimentação positiva
+- Argumento por mecanismo de retroalimentação negativa
+- Argumento por limiar causal
+- Argumento por efeito de rede
+- Argumento por externalidade de rede
+- Argumento por massa crítica
+- Argumento por cascata informacional
+- Argumento por cascata de preferência
+- Argumento por contágio social
+- Argumento por difusão em rede
+- Argumento por centralidade de atores
+- Argumento por ponte estrutural
+- Argumento por buraco estrutural
+- Argumento por homofilia
+- Argumento por exposição diferencial
+- Argumento por seleção de pares
+- Argumento por interferência entre unidades
+- Argumento por violação de SUTVA
+- Argumento por efeito indireto
+- Argumento por efeito total
+- Argumento por efeito direto
+- Argumento por efeito controlado
+- Argumento por efeito natural
+- Argumento por estimando causal
+- Argumento por população-alvo
+- Argumento por transportabilidade
+- Argumento por validade externa
+- Argumento por validade interna
+- Argumento por validade de construto
+- Argumento por validade ecológica
+- Argumento por validade de conclusão estatística
+- Argumento por triangulação de validade
+- Argumento por ameaça de história
+- Argumento por ameaça de maturação
+- Argumento por regressão à média
+- Argumento por efeito de teste
+- Argumento por efeito de instrumentação
+- Argumento por ameaça de atrito amostral
+- Argumento por contaminação de tratamento
+- Argumento por não conformidade
+- Argumento por adesão diferencial
+- Argumento por viés de mensuração
+- Argumento por erro de classificação
+- Argumento por erro de lembrança
+- Argumento por viés de desejabilidade social
+- Argumento por viés do entrevistador
+- Argumento por reatividade à observação
+- Argumento por viés de sobrevivência
+- Argumento por viés de colisor
+- Argumento por viés de variável omitida
+- Argumento por confundimento residual
+- Argumento por causalidade reversa
+- Argumento por simultaneidade
+- Argumento por erro de especificação
+- Argumento por extrapolação indevida
+- Argumento por falácia ecológica
+- Argumento por falácia atomística
+- Argumento por falácia do jogador
+- Argumento por falácia de composição
+- Argumento por falácia de divisão
+- Argumento por falácia naturalista
+- Argumento por falácia moralista
+- Argumento por regressão espúria
+- Argumento por correlação induzida
+- Argumento por condicionamento em colisor
+- Argumento por seleção em variável pós-tratamento
+- Argumento por ajuste excessivo
+- Argumento por controle de mediador
+- Argumento por estratificação indevida
+- Argumento por paradoxo de Berkson
+- Argumento por paradoxo de Simpson
+- Argumento por paradoxo de Lord
+- Argumento por reversão de sinal
+- Argumento por não colapsabilidade
+- Argumento por paradoxo de agregação
+- Argumento por sensibilidade a confundidor não observado
+- Argumento por limite de Rosenbaum
+- Argumento por valor E
+- Argumento por análise de tipping point
+- Argumento por intervalo de robustez
+- Argumento por especificação multiverso
+- Argumento por curva p
+- Argumento por análise de fragilidade
+- Argumento por replicação conceitual
+- Argumento por replicação direta
+- Argumento por replicação de população
+- Argumento por replicação de contexto
+- Argumento por generalização analítica
+- Argumento por generalização estatística
+- Argumento por validade de transporte
+- Argumento por inferência para população finita
+- Argumento por inferência para superpopulação
+- Argumento por estimativa pontual
+- Argumento por intervalo de incerteza
+- Argumento por distribuição posterior
+- Argumento por previsão fora da amostra
+- Argumento por validação temporal
+- Argumento por validação geográfica
+- Argumento por validação por grupo
+- Argumento por teste de invariância
+- Argumento por análise de subgrupo pré-especificada
+- Argumento por análise exploratória rotulada
+- Argumento por pré-registro
+- Argumento por plano de análise
+- Argumento por transparência de desvios
+- Argumento por relatório de resultados nulos
+- Argumento por publicação de protocolo
+- Argumento por reprodutibilidade computacional
+- Argumento por reprodutibilidade de dados
+- Argumento por rastreabilidade de transformação
+- Argumento por versionamento de análise
+- Argumento por ambiente computacional registrado
+- Argumento por código executável
+- Argumento por auditoria de código
+- Argumento por reanálise independente
+- Argumento por dados sintéticos de reprodução
+- Argumento por acesso controlado a dados
+- Argumento por replicação multi-equipe
+- Argumento por síntese cumulativa
+- Argumento por atualização de evidência
+- Argumento por certeza graduada
+- Argumento por peso da evidência
+- Argumento por balanço entre benefícios e danos
+- Argumento por força da recomendação
+- Argumento por preferência informada
+- Argumento por decisão compartilhada
+- Argumento por aceitabilidade
+- Argumento por viabilidade
+- Argumento por equidade
+- Argumento por recursos requeridos
+- Argumento por custo-efetividade
+- Argumento por impacto orçamentário
+- Argumento por sustentabilidade
+- Argumento por implementação
+- Argumento por adaptação contextual
+- Argumento por fidelidade de implementação
+- Argumento por alcance
+- Argumento por adoção
+- Argumento por manutenção
+- Argumento por escalabilidade
+- Argumento por difusão da inovação
+- Argumento por compatibilidade organizacional
+- Argumento por vantagem relativa
+- Argumento por complexidade de adoção
+- Argumento por testabilidade
+- Argumento por observabilidade
+- Argumento por prontidão de implementação
+- Argumento por barreira contextual
+- Argumento por facilitador organizacional
+- Argumento por mecanismo de implementação
+- Argumento por resultado de implementação
+- Argumento por resultado de serviço
+- Argumento por resultado clínico
+- Argumento por resultado centrado na pessoa
+- Argumento por impacto de longo prazo
+- Argumento por efeito distributivo
+- Argumento por efeito não intencional
+- Argumento por dano potencial
+- Argumento por salvaguarda
+- Argumento por princípio de não maleficência
+- Argumento por princípio de beneficência
+- Argumento por princípio de autonomia
+- Argumento por princípio de justiça
+- Argumento por consentimento válido
+- Argumento por capacidade decisória
+- Argumento por vulnerabilidade contextual
+- Argumento por proporcionalidade ética
+- Argumento por minimização de dano
+- Argumento por prestação de contas
+- Argumento por transparência de conflito de interesse
+- Argumento por independência analítica
+- Argumento por financiamento e influência
+- Argumento por autoria responsável
+- Argumento por contribuição CRediT
+- Argumento por declaração de disponibilidade
+- Argumento por declaração de conflito
+- Argumento por declaração de limitação
+- Argumento por ética da citação
+- Argumento por atribuição justa
+- Argumento por crítica sem caricatura
+- Argumento por representação fiel da posição rival
+- Argumento por steelman
+- Argumento por resposta à versão mais forte
+- Argumento por distinção entre discordância e erro
+- Argumento por crítica metodológica específica
+- Argumento por crítica conceitual específica
+- Argumento por crítica empírica específica
+- Argumento por crítica normativa específica
+- Argumento por síntese não aditiva
+- Argumento por integração de achados
+- Argumento por explicação de heterogeneidade
+- Argumento por comparação de pressupostos
+- Argumento por mapa de controvérsia
+- Argumento por genealogia conceitual
+- Argumento por reconstrução histórica
+- Argumento por periodização justificada
+- Argumento por delimitação de corpus
+- Argumento por critério de inclusão
+- Argumento por critério de exclusão
+- Argumento por justificativa de recorte
+- Argumento por explicitação da busca
+- Argumento por justificativa de bases consultadas
+- Argumento por justificativa de idioma
+- Argumento por avaliação de qualidade
+- Argumento por síntese de evidência
+- Argumento por atualização de revisão
+- Argumento por diferença entre revisão narrativa e sistemática
+- Argumento por protocolo de revisão
+- Argumento por estratégia de busca
+- Argumento por triagem independente
+- Argumento por resolução de conflito de seleção
+- Argumento por extração padronizada
+- Argumento por avaliação de risco de viés
+- Argumento por certeza da evidência
+- Argumento por síntese qualitativa
+- Argumento por síntese quantitativa
+- Argumento por metanálise
+- Argumento por metassíntese
+- Argumento por revisão de escopo
+- Argumento por revisão rápida
+- Argumento por revisão realista
+- Argumento por revisão integrativa
+- Argumento por revisão crítica
+- Argumento por mapa de evidências
+- Argumento por bibliometria
+- Argumento por análise de citação
+- Argumento por cocitação
+- Argumento por acoplamento bibliográfico
+- Argumento por coocorrência de termos
+- Argumento por análise de redes de conhecimento
+- Argumento por prospecção de lacunas
+- Argumento por evolução temática
+- Argumento por saturação de busca
+- Argumento por atualização de corpus
+- Argumento por uso de literatura cinzenta
+- Argumento por inclusão de preprints
+- Argumento por avaliação de preprint
+- Argumento por estado de publicação
+- Argumento por retratação identificada
+- Argumento por correção pós-publicação
+- Argumento por comentário acadêmico
+- Argumento por carta ao editor
+- Argumento por resposta a parecerista
+- Argumento por revisão por pares aberta
+- Argumento por avaliação de reprodutibilidade
+- Argumento por registro de protocolo
+- Argumento por protocolo vivo
+- Argumento por emenda protocolar
+- Argumento por justificativa de desvio
+- Argumento por cronograma de análise
+- Argumento por regra de parada
+- Argumento por cálculo amostral
+- Argumento por análise de poder
+- Argumento por precisão desejada
+- Argumento por margem de equivalência
+- Argumento por margem de não inferioridade
+- Argumento por teste de superioridade
+- Argumento por teste de equivalência
+- Argumento por hipótese de não inferioridade
+- Argumento por contraste primário
+- Argumento por desfecho primário
+- Argumento por desfecho secundário
+- Argumento por desfecho exploratório
+- Argumento por multiplicidade de desfechos
+- Argumento por hierarquia de hipóteses
+- Argumento por estratégia de controle de erro
+- Argumento por controle familiar de erro
+- Argumento por taxa de descoberta falsa
+- Argumento por poder bayesiano
+- Argumento por fator de Bayes
+- Argumento por análise sequencial
+- Argumento por monitoramento de dados
+- Argumento por regra de interrupção
+- Argumento por grupo de monitoramento independente
+- Argumento por adaptação de desenho
+- Argumento por desenho adaptativo
+- Argumento por inferência após seleção
+- Argumento por estimativa pós-seleção
+- Argumento por regularização de inferência
+- Argumento por shrinkage
+- Argumento por prior informativa
+- Argumento por prior fracamente informativa
+- Argumento por análise de robustez de prior
+- Argumento por sensibilidade a prior
+- Argumento por modelo hierárquico
+- Argumento por pooling parcial
+- Argumento por pooling completo
+- Argumento por ausência de pooling
+- Argumento por heterogeneidade entre estudos
+- Argumento por meta-regressão
+- Argumento por viés de pequenos estudos
+- Argumento por efeito de estudos pequenos
+- Argumento por gráfico de funil
+- Argumento por assimetria de funil
+- Argumento por trim-and-fill
+- Argumento por seleção de publicação
+- Argumento por viés de idioma
+- Argumento por viés de citação
+- Argumento por viés de disponibilidade
+- Argumento por avaliação GRADE
+- Argumento por certeza muito baixa
+- Argumento por rebaixamento de evidência
+- Argumento por aumento de certeza
+- Argumento por magnitude de efeito grande
+- Argumento por gradiente dose-resposta
+- Argumento por confundimento plausível que reduz efeito
+- Argumento por recomendação condicional
+- Argumento por recomendação forte
+- Argumento por valor e preferência
+- Argumento por custo de oportunidade clínico
+- Argumento por aceitabilidade para stakeholders
+- Argumento por viabilidade no sistema
+- Argumento por equidade populacional
+- Argumento por implicação para pesquisa
+- Argumento por implicação para prática
+- Argumento por implicação para política
+
+## Narrativa, narratologia e estudos literários
+
+- Pré-preenchimento Contextual (Continuidade Narrativa)
+- Efeito de Proximidade Espacial-Temporal (Construal Level Theory)
+- Arco narrativo em três atos (Three-Act Narrative Structure)
+- Abertura in media res (In Media Res Opening)
+- Jornada do Herói ou monomito (Hero’s Journey / Monomyth)
+- Prenúncio narrativo (Narrative Foreshadowing)
+- Narrativa de origem (Origin Story Framework)
+- Estrutura narrativa Kishōtenketsu (Kishōtenketsu Four-Act Structure)
+- Espinha dorsal narrativa da Pixar (Pixar Story Spine)
+- Princípio da arma de Tchekhov (Chekhov’s Gun Narrative Principle)
+- Narrativa moldura (Frame Narrative)
+- Pista falsa narrativa (Red Herring Narrative Device)
+- Pirâmide de Freytag (Freytag’s Pyramid)
+- Alegoria narrativa (Narrative Allegory)
+- Estrutura em ampulheta (Hourglass Narrative Structure)
+- Narrativa circular (Circular Narrative Structure)
+- Polifonia enunciativa (Enunciative Polyphony)
+- Dialogismo discursivo (Discursive Dialogism)
+- Metalepse narrativa (Narrative Metalepsis)
+- Focalização narrativa (Narrative Focalization)
+- Discurso indireto livre (Free Indirect Discourse)
+- Peripécia narrativa (Narrative Peripeteia)
+- Anagnórise narrativa (Narrative Anagnorisis)
+- MacGuffin narrativo (Narrative MacGuffin)
+- Narrador não confiável (Unreliable Narrator)
+- Analepse narrativa (Narrative Analepsis)
+- Diegese e mimese (Diegesis and Mimesis)
+- Velocidade narrativa: cena e sumário (Narrative Speed: Scene and Summary)
+- Entrelaçamento narrativo (Narrative Entrelacement)
+- Mise en abyme ou narrativa em abismo (Mise en Abyme)
+- Cronotopo narrativo (Bakhtinian Chronotope)
+- Catarse narrativa (Narrative Catharsis)
+- Verossimilhança narrativa (Narrative Verisimilitude)
+- Narrador autodiegético e homodiegético (Autodiegetic and Homodiegetic Narrator)
+- Estrutura narrativa de Labov (Labov’s Narrative Structure)
+- Elipse temporal narrativa (Narrative Temporal Ellipsis)
+- Subtexto narrativo (Narrative Subtext)
+- Narrador heterodiegético (Heterodiegetic Narrator)
+- Autor implícito e narratário (Implied Author and Narratee)
+- Frequência narrativa: singulativo. repetitivo e iterativo (Narrative Frequency)
+- Leitmotiv narrativo (Narrative Leitmotif)
+- Níveis narrativos: extradiegético e intradiegético (Narrative Levels)
+- Paralepse narrativa (Narrative Paralepsis)
+- Acronia narrativa (Narrative Achrony)
+- Narrativa episódica (Episodic Narrative Structure)
+- Modos de representação da fala: narrativizado. transposto e restituído (Genette’s Speech Representation Modes)
+- Primeiro plano estilístico e desvio (Foregrounding and Stylistic Deviation)
+- Personagem de contraste ou foil narrativo (Character Foil)
+- Sequência narrativa elementar de Bremond (Bremond’s Elementary Narrative Sequence)
+- Personagem plano e personagem redondo (Flat and Round Characters)
+- Desfecho narrativo ou dénouement (Narrative Dénouement)
+- Espaços mentais de Fauconnier (Fauconnier’s Mental Spaces)
+- Mundos possíveis na narrativa (Possible Worlds Theory in Narrative)
+- Narrativa não linear e hiperficção (Non-Linear Narrative and Hyperfiction)
+- Anamorfose narrativa (Narrative Anamorphosis)
+- Focalização interna fixa. variável e múltipla (Fixed. Variable. and Multiple Internal Focalization)
+- Esquema de Propp: funções narrativas e esferas de ação (Propp’s Narrative Functions and Spheres of Action)
+- Polifonia enunciativa de Ducrot: locutor e enunciador (Ducrot’s Enunciative Polyphony)
+- Nível hipodiegético de Genette (Hypodiegetic Narrative Level)
+- Esquema quinário de Larivaille (Larivaille’s Quinary Narrative Schema)
+- Teoria dos mundos do texto de Werth e Gavins (Werth and Gavins’ Text World Theory)
+- Tipologia narrativa de Stanzel: autoral. em primeira pessoa e figural (Stanzel’s Narrative Situations)
+- Narratologia pós-clássica e narrativas não naturais (Postclassical and Unnatural Narratology)
+- Equilíbrio. desequilíbrio e novo equilíbrio de Todorov (Todorov’s Narrative Equilibrium Theory)
+- Cinco códigos narrativos de Roland Barthes (Barthes’ Five Narrative Codes)
+- Narratologia cognitiva de David Herman: storyworlds e scripts narrativos (Cognitive Narratology and Storyworlds)
+- Gráficos de Cates para benefício e dano em coortes (Cates Plots)
+- Gráficos de pontos quantílicos para resultados probabilísticos (Quantile Dotplots)
+- Gráficos de resultados hipotéticos — HOPs (Hypothetical Outcome Plots)
+- Estrutura taça de martini para narrativa jornalística interativa (Martini Glass Structure)
+- Estrutura de ensaio trançado com fios narrativos intercalados (Thematic Braid / Braided Essay)
+- Teoria dos Espaços Mentais e Mesclagem Conceptual (Mental Spaces Theory and Conceptual Blending)
+- Teoria dos Mundos Textuais (Text World Theory)
+- Teoria do Deslocamento Dêitico na Compreensão Narrativa (Deictic Shift Theory)
+- Teoria dos Enquadres Contextuais na Compreensão Narrativa (Contextual Frame Theory)
+- Teoria do Primeiro Plano. Desfamiliarização e Desvio (Foregrounding Theory)
+- Teoria do Transporte Narrativo e Mudança de Atitude (Narrative Transportation Theory)
+- Modelo de Indexação de Eventos na Compreensão Narrativa (Event-Indexing Model)
+- Focalização Zero. Interna e Externa (Zero. Internal. External Focalization)
+- Polifonia e Dialogismo Discursivo (Polyphony and Dialogism)
+- Diegese. Extradiegese. Intradiegese e Metadiegese (Diegesis)
+- Narrador Autodiegético. Homodiegético e Heterodiegético (Narrator Types)
+- Polifonia Enunciativa: Locutor e Enunciador (Enunciative Polyphony)
+- Transmidialidade e Narrativa Transmídia (Transmedia Storytelling)
+- Deus ex machina (Deus Ex Machina)
+- Metaficção (Metafiction)
+- Círculo da história de Dan Harmon (Dan Harmon’s Story Circle)
+- Incidente incitante (Inciting Incident)
+- Monólogo interior (Interior Monologue)
+- In ultimas res (In Ultimas Res)
+- Correlativo objetivo (Objective Correlative)
+- Deslocamento dêitico (Deictic Shift Theory)
+- Leitor implícito de Wolfgang Iser e estética da recepção (Iser’s Implied Reader and Reception Aesthetics)
+- Dramatismo e pentade dramática de Kenneth Burke (Kenneth Burke’s Dramatism and Pentad)
+- Leitura distante de Franco Moretti (Franco Moretti’s Distant Reading)
+- Artrologia e espaço-topia de Thierry Groensteen (Arthrology and Spatio-Topia)
+
+- Anacronia narrativa (narrative anachrony)
+- Analepse ou flashback (analepsis)
+- Prolepse ou antecipação narrativa (prolepsis)
+- Anacronia externa. interna e mista (external. internal. and mixed anachrony)
+- Anacronia homodiegética e heterodiegética (homodiegetic and heterodiegetic anachrony)
+- Isocronia entre história e discurso (isochrony)
+- Elipse temporal narrativa (temporal narrative ellipsis)
+- Cena dialogada e isocronia (scene and isochrony)
+- Iteração narrativa (iterative narration)
+- Frequência singulativa. repetitiva e iterativa (singulative. repetitive. and iterative frequency)
+- Focalização zero ou narrativa não focalizada (zero focalization)
+- Focalização externa (external focalization)
+- Paralipse e paralepse (paralipsis and paralepse)
+- Voz autodiegética (autodiegetic voice)
+- Voz homodiegética e heterodiegética (homodiegetic and heterodiegetic voice)
+- Narrador intradiegético e extradiegético (intradiegetic and extradiegetic narrator)
+- Narratário intradiegético e extradiegético (intradiegetic and extradiegetic narratee)
+- metalepses narrativa (narrative metalepsis)
+- Enquadramento narrativo e narrativa emoldurada (frame narrative)
+- Construção de mundo ficcional (world-building)
+- Cronotopo narrativo (narrative chronotope)
+- Polifonia narrativa (narrative polyphony)
+- Dialogismo intertextual (intertextual dialogism)
+- Monólogo interior direto e indireto (direct and indirect interior monologue)
+- Cena retrospectiva e cena prospectiva (retrospective and prospective scene)
+- Ponto de vista espacial. temporal. cognitivo e ideológico (spatial. temporal. cognitive. and ideological point of view)
+- Confiabilidade do narrador (narrator reliability)
+- Leitor implícito (implied reader)
+- Autor implícito (implied author)
+- Intriga e trama (plot and story)
+- Intriga episódica e intriga contínua (episodic and continuous plot)
+- Análise da curva dramática (dramatic arc analysis)
+- Análise de ritmo narrativo (narrative pacing analysis)
+- Fio narrativo A e fio narrativo B (A-plot and B-plot)
+- Foreshadowing por imagem. diálogo ou objeto (image. dialogue. or object foreshadowing)
+- Ironia dramática (dramatic irony)
+- Anagnórise ou reconhecimento narrativo (anagnorisis)
+- Peripécia ou reversão dramática (peripeteia)
+- Clímax. anticlímax e desfecho (climax. anticlimax. and resolution)
+- Final aberto e fechamento narrativo (open ending and narrative closure)
+- Motif narrativo recorrente (recurring narrative motif)
+- Leitmotiv textual (textual leitmotif)
+- Funções narrativas de Propp (Proppian narrative functions)
+- Esferas de ação dos personagens de Propp (Proppian character spheres)
+- Modelo de sequência narrativa de Adam (Adam’s narrative sequence model)
+- Esquema quinário da sequência narrativa (five-part narrative sequence)
+- Morfologia da narrativa folclórica (morphology of the folktale)
+- Percurso gerativo de sentido de Greimas (Greimas’ generative trajectory of meaning)
+- Quadrado semiótico narrativo (narrative semiotic square)
+- Programa narrativo de base e de uso (base and use narrative programs)
+- Contrato narrativo e manipulação actancial (narrative contract and actantial manipulation)
+- Esquema narrativo canônico de Greimas (Greimas’ canonical narrative schema)
+- Modelo de possíveis narrativos de Bremond (Bremond’s logic of narrative possibilities)
+- Matriz de funções do conto de Propp (Propp’s folktale function matrix)
+- Análise de motivos narrativos (narrative motif analysis)
+- Análise de isotopias em narrativas (narrative isotopy analysis)
+- Relação entre ordem. duração e frequência narrativas (narrative order. duration. and frequency)
+- Análise de voz. modo e tempo narrativos (narrative voice. mood. and tense analysis)
+- Cartografia de personagens e relações (character and relationship mapping)
+- Análise de arco de personagem (character arc analysis)
+- Progressão de objetivos. obstáculos e consequências (goal. obstacle. and consequence progression)
+- Análise de suspense. curiosidade e surpresa (suspense. curiosity. and surprise analysis)
+- Análise de focalização por cena (scene-level focalization analysis)
+- Análise de transições entre níveis diegéticos (diegetic-level transition analysis)
+- Análise de narrativa em moldura (frame narrative analysis)
+- Análise de narrador e narratário (narrator and narratee analysis)
+- Análise de discurso citado na narrativa (quoted speech analysis in narrative)
+- Análise de alternância entre cena e sumário (scene-summary alternation analysis)
+- Análise de lacunas e indeterminação narrativa (narrative gap and indeterminacy analysis)
+- Análise de temporalidade não linear (nonlinear temporality analysis)
+- Análise de narrativas paralelas (parallel narrative analysis)
+- Análise de narrativa em mosaico (mosaic narrative analysis)
+- Análise de narrativa epistolar (epistolary narrative analysis)
+- Análise de narrativa transmídia (transmedia narrative analysis)
+- Análise de narrativa ramificada (branching narrative analysis)
+- Análise de escolhas e consequências em ficção interativa (choice-and-consequence analysis in interactive fiction)
+- Análise de narratividade em textos não ficcionais (narrativity analysis in nonfiction)
+- Análise de enquadramento e perspectiva testemunhal (frame and testimonial perspective analysis)
+- Análise de narrativas de memória e flashback (memory narrative and flashback analysis)
+- Análise de narrativa autobiográfica e pacto autobiográfico (autobiographical narrative and pact analysis)
+- Análise de polifonia e heteroglossia narrativa (narrative polyphony and heteroglossia analysis)
+- Análise de cronotopo em textos narrativos (chronotope analysis in narrative texts)
+- Análise de construção de mundo e consistência ficcional (world-building and fictional consistency analysis)
+
+- Análise de sequência narrativa mínima de Labov (Labovian minimal narrative sequence analysis)
+- Análise de orientação, complicação e avaliação em narrativa (orientation, complicating action, and evaluation analysis)
+- Análise de resolução e coda narrativa (narrative resolution and coda analysis)
+- Análise de narrativa oral de experiência pessoal (personal experience oral narrative analysis)
+- Análise de narrativa habitual e episódio singular (habitual narrative and single episode analysis)
+- Análise de avaliação narrativa por intensificadores (narrative evaluation through intensifiers analysis)
+- Análise de avaliação narrativa por suspensão e suspense (narrative evaluation through suspension and suspense)
+- Análise de narrativa mínima e evento reportável (minimal narrative and tellable event analysis)
+- Análise de performatividade em narrativa oral (performativity in oral narrative analysis)
+- Análise de co-narração e construção conjunta de relato (co-narration and collaborative storytelling analysis)
+- Análise de narrativa conversacional e sequenciamento de eventos (conversational narrative and event sequencing analysis)
+- Análise de posição de narrador em narrativa testemunhal (narrator position in testimonial narrative analysis)
+- Análise de narrativa de vida por episódios e pontos de virada (life narrative through episodes and turning points analysis)
+- Análise de ponto de virada autobiográfico (autobiographical turning point analysis)
+- Análise de narrativa de identidade e posicionamento do eu (identity narrative and self-positioning analysis)
+- Análise de posicionamento de personagens em narrativa (character positioning in narrative analysis)
+- Análise de alinhamento e desalinhamento entre narrador e personagem (narrator-character alignment and misalignment analysis)
+- Análise de empatia narrativa e acesso à consciência (narrative empathy and access to consciousness analysis)
+- Análise de distância psíquica entre narrador e personagem (psychic distance between narrator and character analysis)
+- Análise de cena por gesto, fala e pensamento (scene analysis through gesture, speech, and thought)
+- Análise de discurso representado por modos de fala e pensamento (represented speech and thought mode analysis)
+- Análise de discurso direto, indireto e narrativizado (direct, indirect, and narrated discourse analysis)
+- Análise de representação de consciência em narrativa (consciousness representation in narrative analysis)
+- Análise de narração simultânea, anterior e posterior aos eventos (simultaneous, prior, and subsequent narration analysis)
+- Análise de narrativa retrospectiva e perspectiva do eu narrado (retrospective narrative and narrated-self perspective analysis)
+- Análise de diferença entre eu narrante e eu narrado (narrating self and narrated self distinction analysis)
+- Análise de narrador-testemunha periférico (peripheral witness narrator analysis)
+- Análise de focalização coletiva e consciência de grupo (collective focalization and group consciousness analysis)
+- Análise de mudança de focalização entre personagens (focalization shift between characters analysis)
+- Análise de focalização interna e restrição de informação (internal focalization and information restriction analysis)
+- Análise de discrepância entre saber do narrador e saber do leitor (narrator-reader knowledge discrepancy analysis)
+- Análise de suspense por distribuição assimétrica de informação (suspense through asymmetric information distribution)
+- Análise de curiosidade por lacuna retrospectiva (curiosity through retrospective gap analysis)
+- Análise de surpresa por reinterpretação de pistas (surprise through clue reinterpretation analysis)
+- Análise de foreshadowing retrospectivo e pista justa (retrospective foreshadowing and fair clue analysis)
+- Análise de pista falsa e desvio de expectativa (red herring and expectation misdirection analysis)
+- Análise de promessa narrativa e cumprimento de expectativa (narrative promise and expectation fulfillment analysis)
+- Análise de fechamento de arco e resolução de subtrama (arc closure and subplot resolution analysis)
+- Análise de suspense serial por adiamento de resolução (serial suspense through delayed resolution analysis)
+- Análise de gancho episódico e cliffhanger (episodic hook and cliffhanger analysis)
+- Análise de estrutura em moldura recursiva (recursive frame structure analysis)
+- Análise de narrativa encaixada e mudança de autoridade narrativa (embedded narrative and narrative authority shift analysis)
+- Análise de metalepse ontológica e discursiva (ontological and rhetorical metalepsis analysis)
+- Análise de mise en abyme e espelhamento narrativo (mise en abyme and narrative mirroring analysis)
+- Análise de narrativa em abismo e regressão de níveis (narrative mise en abyme and level regression analysis)
+- Análise de narrador-personagem com credibilidade variável (character narrator with variable credibility analysis)
+- Análise de silenciamento narrativo e informação omitida (narrative silencing and omitted information analysis)
+- Análise de não dito narrativo e inferência do leitor (narrative unsaid and reader inference analysis)
+- Análise de ritmo por proporção entre cena e resumo (pacing through scene-summary proportion analysis)
+- Análise de pausa reflexiva e interrupção da ação (reflective pause and action interruption analysis)
+- Análise de repetição de evento por múltiplas versões (event repetition through multiple versions analysis)
+
+- Análise de narrativa por sequência de estados e eventos (narrative analysis by state and event sequence)
+- Análise de situação inicial, perturbação, transformação e situação final (initial state, disruption, transformation, and final state analysis)
+- Análise de narrativa por equilíbrio, desequilíbrio e reequilíbrio (narrative balance, imbalance, and rebalancing analysis)
+- Análise de ação principal e ações auxiliares (main and auxiliary actions analysis)
+- Análise de programa narrativo de aquisição e privação (acquisition and deprivation narrative program analysis)
+- Análise de competência, performance e sanção narrativa (narrative competence, performance, and sanction analysis)
+- Análise de contrato fiduciário entre destinador e destinatário (fiduciary contract between sender and receiver analysis)
+- Análise de transformação conjuntiva e disjuntiva (conjunctive and disjunctive transformation analysis)
+- Análise de manipulação por tentação, intimidação, sedução e provocação (manipulation through temptation, intimidation, seduction, and provocation analysis)
+- Análise de modalidades do querer, dever, saber e poder (wanting, obligation, knowing, and being able modalities analysis)
+- Análise de percurso de sanção cognitiva e pragmática (cognitive and pragmatic sanction trajectory analysis)
+- Análise de papel actancial de destinador e destinatário (sender and receiver actant role analysis)
+- Análise de sujeito de estado e sujeito de fazer (subject of state and subject of doing analysis)
+- Análise de objeto-valor e objeto modal (value object and modal object analysis)
+- Análise de antissujeito e conflito de programas narrativos (opponent subject and conflicting narrative programs analysis)
+- Análise de sequência de provas qualificante, decisiva e glorificante (qualifying, decisive, and glorifying tests sequence analysis)
+- Análise de isotopia temática e isotopia figurativa (thematic and figurative isotopy analysis)
+- Análise de isotopia por recorrência de semas (isotopy through recurring semes analysis)
+- Análise de ruptura isotópica e efeito de surpresa (isotopic rupture and surprise effect analysis)
+- Análise de percurso temático e percurso figurativo (thematic and figurative trajectory analysis)
+- Análise de tematização e figurativização narrativa (narrative thematization and figurativization analysis)
+- Análise de oposição semântica fundadora de conflito (foundational semantic opposition in conflict analysis)
+- Análise de estrutura profunda e manifestação discursiva (deep structure and discursive manifestation analysis)
+- Análise de nível fundamental, narrativo e discursivo (fundamental, narrative, and discursive level analysis)
+- Análise de debreagem enunciativa e enunciva (enunciative and enuncive disengagement analysis)
+- Análise de embreagem actancial, temporal e espacial (actantial, temporal, and spatial engagement analysis)
+- Análise de pessoa, tempo e espaço da enunciação narrativa (person, time, and space of narrative enunciation analysis)
+- Análise de efeitos de realidade por ancoragem temporal e espacial (reality effects through temporal and spatial anchoring analysis)
+- Análise de efeitos de ficção por ruptura referencial (fiction effects through referential rupture analysis)
+- Análise de narrador explícito e instância enunciativa implícita (explicit narrator and implicit enunciative instance analysis)
+- Análise de voz narrativa e atribuição de discurso (narrative voice and speech attribution analysis)
+- Análise de nível extradiegético, intradiegético e metadiegético (extradiegetic, intradiegetic, and metadiegetic level analysis)
+- Análise de personagem plana e personagem esférica (flat and round character analysis)
+- Análise de personagem tipo e personagem individualizada (type and individualized character analysis)
+- Análise de caracterização direta e indireta (direct and indirect characterization analysis)
+- Análise de caracterização por ação, fala e descrição (characterization through action, speech, and description)
+- Análise de transformação de personagem por decisão irreversível (character transformation through irreversible decision analysis)
+- Análise de desejo consciente e necessidade inconsciente do personagem (character conscious desire and unconscious need analysis)
+- Análise de conflito interno, interpessoal e social em narrativa (internal, interpersonal, and social conflict analysis in narrative)
+- Análise de protagonista, antagonista e força antagonística (protagonist, antagonist, and antagonistic force analysis)
+- Análise de personagem catalisadora e personagem confidente (catalyst and confidant character analysis)
+- Análise de personagem focal e personagem refletora (focal character and reflector character analysis)
+- Análise de rede de personagens por centralidade e relação (character network by centrality and relation analysis)
+- Análise de paralelismo entre arco de protagonista e subtrama (protagonist arc and subplot parallelism analysis)
+- Análise de cena de exposição por conflito e objetivo (exposition scene through conflict and goal analysis)
+- Análise de cena de transição e função causal (transition scene and causal function analysis)
+- Análise de sequência de cenas por objetivo, obstáculo e resultado (scene sequence by goal, obstacle, and outcome analysis)
+- Análise de cena de virada que altera o curso da ação (turning point scene that changes action trajectory analysis)
+- Análise de escalada de conflito entre cenas (conflict escalation across scenes analysis)
+- Análise de promessa de gênero narrativo e entrega estrutural (narrative genre promise and structural payoff analysis)
+
+- Análise de enredo por causalidade e cronologia (plot by causality and chronology analysis)
+- Análise de fábula e trama na narratologia formalista (fabula and syuzhet in formalist narratology analysis)
+- Análise de ordenação de eventos por anacronia (event ordering through anachrony analysis)
+- Análise de duração narrativa por sumário, cena, pausa e elipse (narrative duration through summary, scene, pause, and ellipsis)
+- Análise de frequência narrativa singulativa e iterativa (singulative and iterative narrative frequency analysis)
+- Análise de frequência repetitiva por múltiplas narrações do evento (repetitive frequency through multiple event narrations analysis)
+- Análise de relato singulativo de eventos repetidos (singulative account of repeated events analysis)
+- Análise de narrador autodiegético e sua limitação de saber (autodiegetic narrator and knowledge limitation analysis)
+- Análise de narrador homodiegético testemunhal (homodiegetic witness narrator analysis)
+- Análise de narrador heterodiegético com focalização interna (heterodiegetic narrator with internal focalization analysis)
+- Análise de narrador extradiegético e narratário explícito (extradiegetic narrator and explicit narratee analysis)
+- Análise de narrador intradiegético que conta narrativa encaixada (intradiegetic narrator of an embedded narrative analysis)
+- Análise de narrador em primeira pessoa plural (first-person plural narrator analysis)
+- Análise de narrador coletivo e memória partilhada (collective narrator and shared memory analysis)
+- Análise de focalização por personagem secundária (focalization through secondary character analysis)
+- Análise de focalização variável entre cenas (variable focalization across scenes analysis)
+- Análise de focalização múltipla de um mesmo acontecimento (multiple focalization of a single event analysis)
+- Análise de restrição de informação e suspense (information restriction and suspense analysis)
+- Análise de excesso de informação narrativa e ironia (narrative information surplus and irony analysis)
+- Análise de paralipse por omissão de dado conhecido pelo narrador (paralipsis through omission of narrator-known information analysis)
+- Análise de paralepse por acesso a informação fora da focalização (paralepse through information beyond focalization analysis)
+- Análise de discurso indireto livre por marcas de avaliação (free indirect discourse through evaluative markers analysis)
+- Análise de discurso indireto livre por dêixis e tempo verbal (free indirect discourse through deixis and tense analysis)
+- Análise de discurso narrativizado e compressão da fala (narrativized discourse and speech compression analysis)
+- Análise de discurso direto livre sem enquadramento introdutório (free direct discourse without introductory frame analysis)
+- Análise de monólogo narrativizado e consciência representada (narrated monologue and represented consciousness analysis)
+- Análise de psicorrelato e relato de percepção (psycho-narration and perception report analysis)
+- Análise de percepção narrada por verbo de consciência (narrated perception through consciousness verb analysis)
+- Análise de fluxo de consciência por associação e fragmentação (stream of consciousness through association and fragmentation analysis)
+- Análise de monólogo interior por sintaxe e pontuação (interior monologue through syntax and punctuation analysis)
+- Análise de estilo indireto livre em mudança de perspectiva (free indirect style in perspective shift analysis)
+- Análise de discurso citado e responsabilidade enunciativa (quoted discourse and enunciative responsibility analysis)
+- Análise de autoridade narrativa em relato de segunda mão (narrative authority in second-hand account analysis)
+- Análise de voz narrativa por distância e confiabilidade (narrative voice by distance and reliability analysis)
+- Análise de inconsistência deliberada de narrador não confiável (deliberate inconsistency in unreliable narrator analysis)
+- Análise de pistas retrospectivas da não confiabilidade (retrospective clues to unreliability analysis)
+- Análise de narrador ingênuo e ironia dramática (naive narrator and dramatic irony analysis)
+- Análise de narrador intrusivo e comentário autoral (intrusive narrator and authorial comment analysis)
+- Análise de silêncio do narrador em ponto decisivo (narrator silence at decisive point analysis)
+- Análise de narrador autoconsciente e quebra da ilusão ficcional (self-conscious narrator and breaking fictional illusion analysis)
+- Análise de apóstrofe narrativa ao leitor implícito (narrative apostrophe to implied reader analysis)
+- Análise de pacto ficcional e sinais de ficcionalidade (fictional pact and fictionality signals analysis)
+- Análise de pacto autobiográfico e ambiguidade referencial (autobiographical pact and referential ambiguity analysis)
+- Análise de identidade entre autor, narrador e protagonista (author-narrator-protagonist identity analysis)
+- Análise de autoficção por oscilação entre factual e ficcional (autofiction through factual-fictional oscillation analysis)
+- Análise de narrativa testemunhal por evidência e memória (testimonial narrative through evidence and memory analysis)
+- Análise de narrativa histórica por ancoragem documental (historical narrative through documentary anchoring analysis)
+- Análise de narrativa de viagem por observação e alteridade (travel narrative through observation and alterity analysis)
+- Análise de narrativa de formação e transformação identitária (bildungsroman and identity transformation analysis)
+- Análise de narrativa policial por distribuição de pistas (detective narrative through clue distribution analysis)
+
+- Jornada do herói de Campbell (Campbell’s hero’s journey)
+- Monomito e etapas da aventura do herói (monomyth and hero’s adventure stages)
+- Jornada do escritor de Vogler (Vogler’s Writer’s Journey)
+- Estrutura de três atos (three-act structure)
+- Estrutura de cinco atos de Freytag (Freytag’s five-act structure)
+- Pirâmide dramática de Freytag (Freytag’s dramatic pyramid)
+- Estrutura em oito sequências de Frank Daniel (Frank Daniel’s eight-sequence structure)
+- Beat sheet de Blake Snyder (Blake Snyder’s beat sheet)
+- Estrutura de Story Circle de Dan Harmon (Dan Harmon’s Story Circle)
+- Jornada da heroína de Maureen Murdock (Maureen Murdock’s Heroine’s Journey)
+- Estrutura kishōtenketsu (kishōtenketsu structure)
+- Estrutura narrativa em cinco partes de Gustav Freytag (Gustav Freytag’s five-part narrative structure)
+- In medias res como abertura narrativa (in medias res narrative opening)
+- Análise de prólogo como contrato de expectativa narrativa (prologue as narrative expectation contract analysis)
+- Análise de epílogo como fechamento retrospectivo (epilogue as retrospective closure analysis)
+- Análise de moldura circular por repetição da cena inicial (circular frame through opening scene reprise analysis)
+- Análise de final em anel e retorno de motivo inicial (ring ending and return of opening motif analysis)
+- Análise de estrutura em espiral com retorno transformado (spiral structure with transformed return analysis)
+- Análise de estrutura paralela entre abertura e encerramento (parallel structure between opening and ending analysis)
+- Análise de sequência narrativa por cinco movimentos dramáticos (narrative sequence through five dramatic movements analysis)
+- Análise de sequência de viradas narrativas (narrative turning point sequence analysis)
+- Análise de ponto médio como inversão de objetivo (midpoint as goal reversal analysis)
+- Análise de crise narrativa como escolha entre valores incompatíveis (narrative crisis as choice between incompatible values analysis)
+- Análise de clímax como ação decisiva do protagonista (climax as protagonist’s decisive action analysis)
+- Análise de resolução por consequência da escolha climática (resolution through consequence of climactic choice analysis)
+- Análise de cena-sequela: reação, dilema e decisão (sequel scene: reaction, dilemma, and decision analysis)
+- Análise de cena por objetivo, conflito e desastre (scene by goal, conflict, and disaster analysis)
+- Análise de unidades de cena e sequência em roteiro (scene and sequence units in screenplay analysis)
+- Análise de escaleta por cena e função dramática (beat outline by scene and dramatic function analysis)
+- Análise de outline narrativo por causalidade e tensão (narrative outline by causality and tension analysis)
+- Análise de arco de transformação em estrutura de três atos (transformation arc in three-act structure analysis)
+- Análise de conflito externo e necessidade interna (external conflict and internal need analysis)
+- Análise de desejo, necessidade e mentira do personagem (character want, need, and lie analysis)
+- Análise de ferida, crença e mecanismo de defesa do personagem (character wound, belief, and defense mechanism analysis)
+- Análise de agência do protagonista em viradas da trama (protagonist agency at plot turns analysis)
+- Análise de decisão irreversível como motor de arco (irreversible decision as arc driver analysis)
+- Análise de arco positivo, negativo e estático de personagem (positive, negative, and flat character arc analysis)
+- Análise de arco de redenção e queda (redemption and fall character arc analysis)
+- Análise de arco de desilusão e reconhecimento (disillusionment and recognition arc analysis)
+- Análise de elenco por função dramática e contraponto (cast by dramatic function and foil analysis)
+- Análise de personagem-contraponto (foil character analysis)
+- Análise de personagem espelho e inversão temática (mirror character and thematic inversion analysis)
+- Análise de personagem catalisadora da decisão do protagonista (catalyst character in protagonist decision analysis)
+- Análise de antagonista ideológico e antagonista situacional (ideological and situational antagonist analysis)
+- Análise de força antagonística não personificada (non-personified antagonistic force analysis)
+- Análise de conflito homem versus natureza em narrativa (human-versus-nature conflict analysis)
+- Análise de conflito indivíduo versus instituição (individual-versus-institution conflict analysis)
+- Análise de conflito interno por lealdades incompatíveis (internal conflict through incompatible loyalties analysis)
+- Análise de escalada de stakes pessoais, relacionais e coletivos (escalation of personal, relational, and collective stakes analysis)
+- Análise de relógio dramático e prazo narrativo (dramatic clock and narrative deadline analysis)
+
+- In medias res (in medias res)
+- Ab ovo (ab ovo narrative opening)
+- Análise de exposição retardada (delayed exposition analysis)
+- Análise de exposição dramática por conflito imediato (dramatic exposition through immediate conflict analysis)
+- Análise de prenúncio por objeto, gesto e fala (foreshadowing through object, gesture, and dialogue analysis)
+- Análise de pista narrativa justa (fair-play clue analysis)
+- Análise de pista plantada e payoff (setup and payoff analysis)
+- Análise de promessa e recompensa narrativa (narrative promise and payoff analysis)
+- Análise de motivo recorrente transformado ao longo do enredo (recurring motif transformed across plot analysis)
+- Análise de símbolo em evolução narrativa (symbol evolution across narrative analysis)
+- Análise de leitmotiv por recorrência temática (leitmotif through thematic recurrence analysis)
+- Análise de moldura narrativa com prólogo e epílogo convergentes (convergent prologue and epilogue frame analysis)
+- Análise de abertura em moldura e fechamento em moldura (framed opening and closing analysis)
+- Análise de narrativa em camadas temporais (layered temporal narrative analysis)
+- Análise de linha temporal fragmentada (fragmented timeline analysis)
+- Análise de montagem alternada entre linhas de ação (crosscutting between plotlines analysis)
+- Análise de montagem paralela por contraste temático (parallel montage through thematic contrast analysis)
+- Análise de narrativa em flashbacks encadeados (chained flashback narrative analysis)
+- Análise de flashforward como antecipação parcial (flashforward as partial anticipation analysis)
+- Análise de cena de abertura por pergunta dramática (opening scene through dramatic question analysis)
+- Análise de incidente incitante e compromisso de enredo (inciting incident and plot commitment analysis)
+- Análise de primeiro ponto de virada por irreversibilidade (first plot point through irreversibility analysis)
+- Análise de segundo ponto de virada por convergência de conflito (second plot point through conflict convergence analysis)
+- Análise de crise como escolha entre perdas (crisis as a choice between losses analysis)
+- Análise de clímax por ação, obstáculo e consequência (climax through action, obstacle, and consequence analysis)
+- Análise de anticlímax e quebra de expectativa genérica (anticlimax and genre expectation break analysis)
+- Análise de resolução por imagem final (resolution through final image analysis)
+- Análise de imagem de abertura e imagem de encerramento (opening and closing image analysis)
+- Análise de narrativa de círculo fechado (closed-circle narrative analysis)
+- Análise de retorno ao lugar inicial com transformação (return to initial setting with transformation analysis)
+- Análise de cena de revelação e reinterpretação retrospectiva (revelation scene and retrospective reinterpretation analysis)
+- Análise de reconhecimento do personagem e reconhecimento do leitor (character and reader recognition analysis)
+- Análise de peripécia e anagnórise combinadas (combined peripeteia and anagnorisis analysis)
+- Análise de coincidência preparada e coincidência arbitrária (prepared and arbitrary coincidence analysis)
+- Análise de causalidade retrospectiva em mistério (retrospective causality in mystery analysis)
+- Análise de distribuição de pista em narrativa de enigma (clue distribution in puzzle narrative analysis)
+- Análise de revelação por evidência acumulada (revelation through accumulated evidence analysis)
+- Análise de resolução de mistério por cadeia de inferências (mystery resolution through inference chain analysis)
+- Análise de suspense por ameaça visível ao leitor (suspense through reader-visible threat analysis)
+- Análise de tensão dramática por informação desigual (dramatic tension through unequal information analysis)
+- Análise de expectativa frustrada e surpresa justificada (frustrated expectation and earned surprise analysis)
+- Análise de cliffhanger por ameaça, pergunta ou decisão (cliffhanger by threat, question, or decision analysis)
+- Análise de serialização por arcos episódicos e contínuos (serialization through episodic and continuous arcs analysis)
+- Análise de arco episódico e arco de temporada (episode and season arc analysis)
+- Análise de trama A, trama B e trama C (A, B, and C plot analysis)
+- Análise de subtrama como contraste ou reforço temático (subplot as thematic contrast or reinforcement analysis)
+- Análise de cena de respiro entre sequências de tensão (breather scene between tension sequences analysis)
+- Análise de mudança de ritmo por alternância de cenas curtas e longas (pacing change through short and long scene alternation analysis)
+- Análise de montagem de resumo e cena em narrativa audiovisual (summary and scene montage in audiovisual narrative analysis)
+
+- Análise de estrutura de oito sequências em roteiro (eight-sequence structure in screenplay analysis)
+- Análise de beat sheet por ponto de virada e função (beat sheet by turning point and function analysis)
+- Análise de Story Circle por necessidade, busca e retorno (Story Circle by need, search, and return analysis)
+- Análise de kishōtenketsu por introdução, desenvolvimento, virada e conclusão (kishōtenketsu by introduction, development, twist, and conclusion analysis)
+- Análise de estrutura em sete pontos (seven-point story structure analysis)
+- Análise de sequência de Save the Cat (Save the Cat beat sequence analysis)
+- Análise de jornada da heroína por separação, iniciação e retorno (heroine journey through separation, initiation, and return analysis)
+- Análise de ciclo de transformação de personagem (character transformation cycle analysis)
+- Análise de mudança de crença central do personagem (character core belief change analysis)
+- Análise de crença equivocada, desejo e necessidade dramática (misbelief, want, and dramatic need analysis)
+- Análise de necessidade psicológica versus objetivo externo (psychological need and external goal analysis)
+- Análise de arco de personagem por dilema moral (character arc through moral dilemma analysis)
+- Análise de arco de corrupção e queda moral (corruption and moral downfall arc analysis)
+- Análise de arco de redenção por reparação e custo (redemption arc through repair and cost analysis)
+- Análise de arco estático por influência sobre o mundo (static arc through influence on the world analysis)
+- Análise de arco de personagem em contraponto ao arco temático (character arc as counterpoint to thematic arc analysis)
+- Análise de protagonista ativo e protagonista reativo (active and reactive protagonist analysis)
+- Análise de agência narrativa por escolhas com consequência (narrative agency through consequential choices analysis)
+- Análise de motivação de antagonista por objetivo e justificativa (antagonist motivation by goal and rationale analysis)
+- Análise de antagonista como espelho de valor do protagonista (antagonist as protagonist value mirror analysis)
+- Análise de antagonista institucional e sistema de oposição (institutional antagonist and opposition system analysis)
+- Análise de força antagonística por ambiente e regra do mundo (antagonistic force through setting and world rule analysis)
+- Análise de obstáculo interno, interpessoal e ambiental (internal, interpersonal, and environmental obstacle analysis)
+- Análise de obstáculo por conflito de valores (obstacle through value conflict analysis)
+- Análise de stakes pessoais, profissionais e sociais (personal, professional, and social stakes analysis)
+- Análise de escalada de stakes por custo irreversível (stakes escalation through irreversible cost analysis)
+- Análise de cena por valor em jogo e mudança de valor (scene by value at stake and value shift analysis)
+- Análise de virada de cena por mudança de poder (scene turn through power shift analysis)
+- Análise de microvirada e mudança de tática em cena (micro-turn and tactic shift in scene analysis)
+- Análise de tática de personagem em diálogo (character tactic in dialogue analysis)
+- Análise de subtexto por objetivo e fala superficial (subtext by objective and surface dialogue analysis)
+- Análise de diálogo por ação verbal (dialogue through verbal action analysis)
+- Análise de diálogo expositivo versus diálogo conflitivo (expository and conflict-driven dialogue analysis)
+- Análise de voz de personagem por sintaxe e léxico recorrente (character voice by recurring syntax and lexis analysis)
+- Análise de idioleto e socioleto de personagem (character idiolect and sociolect analysis)
+- Análise de dialeto de personagem sem estereotipização (character dialect without stereotyping analysis)
+- Análise de caracterização indireta por escolha sob pressão (indirect characterization through choice under pressure analysis)
+- Análise de caracterização por objeto, espaço e rotina (characterization through object, space, and routine analysis)
+- Análise de protagonista por contradição entre fala e ação (protagonist through contradiction between speech and action analysis)
+- Análise de personagem por hábito, desejo e medo (character through habit, desire, and fear analysis)
+- Análise de rede de relações por aliança, rivalidade e dependência (relationship network by alliance, rivalry, and dependence analysis)
+- Análise de química entre personagens por complementaridade e conflito (character chemistry through complementarity and conflict analysis)
+- Análise de grupo de personagens por função complementar (ensemble cast by complementary function analysis)
+- Análise de personagem secundário como agente de virada (secondary character as turning-point agent analysis)
+- Análise de personagem-confidente como dispositivo expositivo (confidant character as expository device analysis)
+- Análise de revelação por testemunho pouco confiável (revelation through unreliable testimony analysis)
+- Análise de retrospectiva que altera sentido de evento anterior (retrospective that changes the meaning of earlier event analysis)
+- Análise de prenúncio por repetição com variação (foreshadowing through repetition with variation analysis)
+- Análise de payoff por retomada de objeto e motivo (payoff through return of object and motif analysis)
+- Análise de final por resolução emocional e questão em aberto (ending by emotional resolution and open question analysis)
+
+- Análise de estrutura de jornada de herói por limiar e retorno (hero’s journey by threshold and return analysis)
+- Análise de recusa do chamado e custo da recusa (refusal of the call and refusal cost analysis)
+- Análise de mentor como função de transferência de saber (mentor as knowledge-transfer function analysis)
+- Análise de guardião do limiar e teste de competência (threshold guardian and competence test analysis)
+- Análise de travessia do primeiro limiar (crossing the first threshold analysis)
+- Análise de prova, aliados e inimigos em jornada narrativa (tests, allies, and enemies in narrative journey analysis)
+- Análise de aproximação da caverna oculta e crise narrativa (approach to the inmost cave and narrative crisis analysis)
+- Análise de recompensa e retorno com elixir (reward and return with the elixir analysis)
+- Análise de arco de iniciação, transformação e integração (initiation, transformation, and integration arc analysis)
+- Análise de jornadas narrativas por limiares de identidade (narrative journeys through identity thresholds analysis)
+- Análise de estrutura de comédia romântica por encontro e separação (romantic comedy structure through meeting and separation analysis)
+- Análise de arco romântico por aproximação, ruptura e reconciliação (romance arc through approach, rupture, and reconciliation analysis)
+- Análise de trama de vingança por ofensa, plano e consequência (revenge plot by offense, plan, and consequence analysis)
+- Análise de trama de busca por objeto, prova e transformação (quest plot by object, test, and transformation analysis)
+- Análise de trama de fuga por restrição e rota (escape plot by constraint and route analysis)
+- Análise de trama de perseguição por distância e reversão (pursuit plot by distance and reversal analysis)
+- Análise de trama de resgate por risco e cooperação (rescue plot by risk and cooperation analysis)
+- Análise de trama de ascensão e queda social (rise-and-fall plot analysis)
+- Análise de intriga de mistério por pergunta central e subperguntas (mystery plot by central question and subquestions analysis)
+- Análise de narrativa de tribunal por evidência e testemunho (courtroom narrative by evidence and testimony analysis)
+- Análise de revelação em thriller por escalonamento de informação (thriller revelation through information escalation analysis)
+- Análise de sequência de ação por geografia e objetivo (action sequence by geography and objective analysis)
+- Análise de cena de perseguição por orientação espacial (chase scene through spatial orientation analysis)
+- Análise de cena de combate por legibilidade de ação (fight scene through action legibility analysis)
+- Análise de elipse em ação e reconstrução causal do leitor (action ellipsis and reader causal reconstruction analysis)
+- Análise de pausa descritiva após evento traumático (descriptive pause after traumatic event analysis)
+- Análise de tempo subjetivo e duração objetiva em cena (subjective time and objective duration in scene analysis)
+- Análise de cena simultânea em espaços diferentes (simultaneous scene in different locations analysis)
+- Análise de alternância de focalização com suspense paralelo (focalization alternation with parallel suspense analysis)
+- Análise de suspense por prazo e contagem regressiva diegética (suspense by deadline and diegetic countdown analysis)
+- Análise de expectativa serial por encerramento provisório (serial expectation through provisional closure analysis)
+- Análise de repetição com diferença em episódio narrativo (repetition with difference in narrative episode analysis)
+- Análise de reprise de cena por ponto de vista alternativo (scene reprise through alternate viewpoint analysis)
+- Análise de evento narrado por versões incompatíveis (event narrated through incompatible versions analysis)
+- Análise de quebra de cronologia como estratégia de revelação (chronology break as revelation strategy analysis)
+- Análise de capítulo por microarco e gancho de saída (chapter through micro-arc and exit hook analysis)
+- Análise de capítulo serial por promessa e continuação (serial chapter through promise and continuation analysis)
+- Análise de vinheta como unidade de atmosfera e tema (vignette as atmosphere and theme unit analysis)
+- Análise de cena de abertura como pergunta dramática (opening scene as dramatic question analysis)
+- Análise de sequência de montagem narrativa (narrative montage sequence analysis)
+- Análise de montagem por associação temática (montage through thematic association analysis)
+- Análise de narrativa em mosaico por fragmento e recomposição (mosaic narrative through fragment and recomposition analysis)
+- Análise de narrativa epistolar por lacuna entre documentos (epistolary narrative through gaps between documents analysis)
+- Análise de narrativa documental por verificação de fonte interna (documentary narrative through internal source verification analysis)
+- Análise de narrativa multimídia por distribuição de informação entre modos (multimedia narrative by information distribution across modes analysis)
+- Análise de narrativa interativa por estados, escolhas e consequências (interactive narrative by states, choices, and consequences analysis)
+- Análise de agência narrativa por escolha significativa (narrative agency through meaningful choice analysis)
+- Análise de escolha cosmética versus escolha estrutural em ficção interativa (cosmetic and structural choice distinction in interactive fiction)
+- Análise de consequência persistente em narrativa ramificada (persistent consequence in branching narrative analysis)
+- Análise de convergência de caminhos sem apagar escolhas (path convergence without erasing choices analysis)
+- Análise de narrativa ambiental por espaço e objeto (environmental storytelling through space and object analysis)
+- Narrador autodiegético
+- Narrador homodiegético
+- Narrador heterodiegético
+- Narrador extradiegético
+- Narrador intradiegético
+- Narrador autodiegético retrospectivo
+- Narrador autodiegético simultâneo
+- Narrador observador
+- Narrador testemunha
+- Narrador protagonista
+- Narrador secundário
+- Narrador coletivo
+- Narrador em primeira pessoa
+- Narrador em segunda pessoa
+- Narrador em terceira pessoa
+- Narrador não confiável
+- Narrador confiável
+- Narrador limitado
+- Narrador onisciente
+- Narrador seletivo
+- Narrador editorial
+- Narrador dramático
+- Narrador oculto
+- Narrador explícito
+- Narrador-personagem
+- Narrador-câmera
+- Narrador comentarista
+- Narrador ingênuo
+- Narrador infantil
+- Narrador póstumo
+- Narrador múltiplo
+- Narrador alternado
+- Narrador encaixado
+- Narrador epistolar
+- Narrador documental
+- Narrador de moldura
+- Narrador em fluxo de consciência
+- Narrador retrospectivo
+- Narrador prospectivo
+- Focalização zero
+- Focalização interna fixa
+- Focalização interna variável
+- Focalização interna múltipla
+- Focalização externa
+- Focalização seletiva
+- Focalização coletiva
+- Focalização alternada
+- Focalização restrita
+- Focalização ampla
+- Focalização perceptiva
+- Focalização cognitiva
+- Focalização ideológica
+- Focalização espacial
+- Focalização temporal
+- Focalização por personagem
+- Desfocalização
+- Paralipse
+- Paralepse
+- Metalepse narrativa
+- Metalepses ontológicas
+- Metalepses retóricas
+- Intrusão autoral
+- Comentário narratorial
+- Discurso indireto livre
+- Discurso direto livre
+- Discurso narrativizado
+- Discurso indireto
+- Discurso direto
+- Discurso citado
+- Discurso relatado
+- Monólogo interior
+- Monólogo narrado
+- Fluxo de consciência
+- Solilóquio
+- Aparte
+- Diálogo dramático
+- Diálogo socrático
+- Diálogo expositivo
+- Diálogo de confronto
+- Diálogo de reconhecimento
+- Diálogo de sedução
+- Diálogo de negociação
+- Diálogo de evasão
+- Diálogo elíptico
+- Diálogo sobreposto
+- Diálogo interrompido
+- Diálogo polifônico
+- Diálogo interno
+- Diálogo telefônico
+- Diálogo epistolar
+- Diálogo mediado
+- Diálogo sem resposta
+- Silêncio dialogal
+- Turno de fala narrativo
+- Marcação de interlocutor
+- Tag de diálogo
+- Verbo dicendi
+- Verbo de elocução neutro
+- Verbo de elocução avaliativo
+- Verbo dicendi perceptivo
+- Verbo dicendi volitivo
+- Verbo dicendi declarativo
+- Pontuação de diálogo
+- Rubrica cênica
+- Didascália
+- Rubrica de ação
+- Rubrica de tom
+- Rubrica de pausa
+- Rubrica de cenário
+- Rubrica de entrada
+- Rubrica de saída
+- Rubrica de gesto
+- Rubrica de iluminação
+- Rubrica de som
+- Rubrica de transição
+- Estrutura em três atos
+- Estrutura em cinco atos
+- Estrutura em quatro partes
+- Estrutura episódica
+- Estrutura em anel
+- Estrutura em moldura
+- Estrutura de narrativa encaixada
+- Estrutura de busca
+- Estrutura de retorno
+- Estrutura de ascensão e queda
+- Estrutura de queda e redenção
+- Estrutura de mistério
+- Estrutura de investigação
+- Estrutura de tribunal
+- Estrutura de jornada
+- Estrutura de peregrinação
+- Estrutura de fuga
+- Estrutura de cerco
+- Estrutura de sobrevivência
+- Estrutura de iniciação
+- Estrutura de formação
+- Estrutura de romance de aprendizagem
+- Estrutura picaresca
+- Estrutura de folhetim
+- Estrutura de novela
+- Estrutura de conto
+- Estrutura de romance coral
+- Estrutura de saga familiar
+- Estrutura de crônica
+- Estrutura de diário
+- Estrutura epistolar
+- Estrutura de testemunho
+- Estrutura de autoficção
+- Estrutura de autofabulação
+- Estrutura de falso documentário
+- Estrutura de arquivo ficcional
+- Estrutura de manuscrito encontrado
+- Estrutura de história dentro da história
+- Estrutura de prólogo enquadrador
+- Estrutura de epílogo circular
+- Estrutura de capítulos paralelos
+- Estrutura de capítulos alternados
+- Estrutura de fragmentos
+- Estrutura mosaico
+- Estrutura não linear
+- Estrutura ramificada
+- Estrutura interativa
+- Estrutura de múltiplos percursos
+- Estrutura de finais alternativos
+- Estrutura de narrativa modular
+- Estrutura de vinhetas
+- Estrutura de episódios autônomos
+- Estrutura de arco contínuo
+- Estrutura de arco episódico
+- Estrutura de arco de personagem
+- Estrutura de arco temático
+- Estrutura de arco relacional
+- Estrutura de arco moral
+- Estrutura de arco de mudança
+- Estrutura de arco de estabilidade
+- Estrutura de transformação
+- Estrutura de desintegração
+- Estrutura de revelação gradual
+- Estrutura de investigação retrospectiva
+- Estrutura de antecipação
+- Estrutura de repetição com variação
+- Estrutura de retorno transformado
+- Estrutura de simetria narrativa
+- Estrutura de paralelismo de tramas
+- Estrutura de convergência de tramas
+- Estrutura de divergência de tramas
+- Estrutura de linha A e linha B
+- Estrutura de trama principal e subtrama
+- Estrutura de trama em espelho
+- Estrutura de contraponto
+- Estrutura de alternância de tensão
+- Estrutura de escalada
+- Estrutura de suspensão
+- Estrutura de resolução diferida
+- Estrutura de clímax antecipado
+- Estrutura de falso clímax
+- Estrutura de anticlímax
+- Estrutura de desfecho aberto
+- Estrutura de desfecho fechado
+- Estrutura de desfecho ambíguo
+- Estrutura de final em gancho
+- Estrutura de final circular
+- Estrutura de final surpresa
+- Estrutura de final inevitável
+- Estrutura de final contingente
+- Estrutura de final feliz
+- Estrutura de final trágico
+- Estrutura de final agridoce
+- Estrutura de final restaurativo
+- Estrutura de final de ruptura
+- Estrutura de final de reconhecimento
+- Estrutura de final de sacrifício
+- Estrutura de final de retorno
+- Estrutura de final de exílio
+- Estrutura de final suspenso
+- Estrutura de final epifânico
+- Estrutura de final retrospectivo
+- Estrutura de final prospectivo
+- Estrutura de conclusão temática
+- Estrutura de fechamento por imagem
+- Estrutura de fechamento por objeto
+- Estrutura de fechamento por frase
+- Estrutura de fechamento por gesto
+- Estrutura de fechamento por silêncio
+- Estrutura de fechamento por pergunta
+- Estrutura de fechamento por reversão
+- Estrutura de fechamento por repetição
+- Estrutura de fechamento por contraste
+- Estrutura de fechamento por revelação
+- Estrutura de fechamento por perda
+- Estrutura de fechamento por reencontro
+- Estrutura de fechamento por partida
+- Estrutura de fechamento por continuidade
+- Estrutura de fechamento por interrupção
+- Estrutura de fechamento por circularidade
+- Estrutura de fechamento por elipse
+- Estrutura de fechamento por ambiguidade
+- Estrutura de fechamento por ressonância
+- Estrutura de fechamento por eco verbal
+- Estrutura de fechamento por consequência
+- Estrutura de fechamento por escolha
+- Estrutura de fechamento por transformação
+- Estrutura de fechamento por recusa
+- Estrutura de fechamento por aceitação
+- Estrutura de fechamento por reconhecimento
+- Estrutura de fechamento por retorno ao motivo inicial
+- Estrutura de fechamento por mudança de perspectiva
+- Estrutura de fechamento por quebra de expectativa
+- Estrutura de fechamento por suspensão de julgamento
+- Estrutura de fechamento por confirmação temática
+- Estrutura de fechamento por dissonância
+- Estrutura de fechamento por imagem recorrente
+- Estrutura de fechamento por objeto simbólico
+- Estrutura de fechamento por detalhe concreto
+- Estrutura de fechamento por paisagem
+- Estrutura de fechamento por voz
+- Estrutura de fechamento por troca de narrador
+- Estrutura de fechamento por troca de focalização
+- Estrutura de fechamento por salto temporal
+- Estrutura de fechamento por revelação de identidade
+- Estrutura de fechamento por revelação de motivo
+- Estrutura de fechamento por reinterpretação
+- Estrutura de fechamento por perda irreparável
+- Estrutura de fechamento por reparação parcial
+- Estrutura de fechamento por reconciliação
+- Estrutura de fechamento por separação definitiva
+- Estrutura de fechamento por promessa
+- Estrutura de fechamento por ameaça
+- Estrutura de fechamento por retorno de personagem
+- Estrutura de fechamento por desaparecimento
+- Estrutura de fechamento por morte fora de cena
+- Estrutura de fechamento por sobrevivência
+- Estrutura de fechamento por nascimento
+- Estrutura de fechamento por legado
+- Estrutura de fechamento por transmissão
+- Estrutura de fechamento por aprendizagem
+- Estrutura de fechamento por fracasso
+- Estrutura de fechamento por vitória custosa
+- Estrutura de fechamento por vitória ambígua
+- Estrutura de fechamento por empate
+- Estrutura de fechamento por inversão de poder
+- Estrutura de fechamento por renúncia
+- Estrutura de fechamento por decisão adiada
+- Estrutura de fechamento por decisão irrevogável
+- Estrutura de fechamento por nova pergunta
+- Estrutura de fechamento por abertura de ciclo
+- Estrutura de fechamento por interrupção do ciclo
+- Estrutura de fechamento por começo recontextualizado
+- Estrutura de fechamento por fragmento final
+- Estrutura de fechamento por documento final
+- Estrutura de fechamento por citação final
+- Estrutura de fechamento por nota final
+- Estrutura de fechamento por posfácio ficcional
+- Estrutura de fechamento por epílogo documental
+- Estrutura de fechamento por retorno à moldura
+- Estrutura de fechamento por quebra da moldura
+- Estrutura de fechamento por comentário metanarrativo
+- Estrutura de fechamento por apelo ao leitor
+- Estrutura de fechamento por apagamento do narrador
+- Estrutura de fechamento por exposição do narrador
+- Estrutura de fechamento por revelação de narrador não confiável
+- Estrutura de fechamento por testemunho contraditório
+- Estrutura de fechamento por versões concorrentes
+- Estrutura de fechamento por lacuna deliberada
+- Estrutura de fechamento por evidência incompleta
+- Estrutura de fechamento por dúvida factual
+- Estrutura de fechamento por dúvida moral
+- Estrutura de fechamento por suspensão ontológica
+- Estrutura de fechamento por ambivalência afetiva
+- Estrutura de fechamento por inconclusão causal
+- Estrutura de fechamento por irresolução política
+- Estrutura de fechamento por conflito persistente
+- Estrutura de fechamento por paz provisória
+- Estrutura de fechamento por cessar-fogo
+- Estrutura de fechamento por exílio voluntário
+- Estrutura de fechamento por exílio forçado
+- Estrutura de fechamento por reintegração
+- Estrutura de fechamento por exclusão
+- Estrutura de fechamento por pertencimento
+- Estrutura de fechamento por ruptura familiar
+- Estrutura de fechamento por continuidade geracional
+- Estrutura de fechamento por troca de herança
+- Estrutura de fechamento por perda de memória
+- Estrutura de fechamento por recuperação de memória
+- Estrutura de fechamento por arquivo recuperado
+- Estrutura de fechamento por arquivo destruído
+- Estrutura de fechamento por mensagem entregue
+- Estrutura de fechamento por mensagem perdida
+- Estrutura de fechamento por carta não enviada
+- Estrutura de fechamento por chamada não atendida
+- Estrutura de fechamento por encontro falhado
+- Estrutura de fechamento por encontro improvável
+- Estrutura de fechamento por despedida
+- Estrutura de fechamento por reencontro tardio
+- Estrutura de fechamento por promessa cumprida
+- Estrutura de fechamento por promessa quebrada
+- Estrutura de fechamento por segredo revelado
+- Estrutura de fechamento por segredo mantido
+- Estrutura de fechamento por identidade assumida
+- Estrutura de fechamento por identidade recusada
+- Estrutura de fechamento por máscara removida
+- Estrutura de fechamento por máscara preservada
+- Estrutura de fechamento por papel social invertido
+- Estrutura de fechamento por hierarquia restaurada
+- Estrutura de fechamento por hierarquia contestada
+- Estrutura de fechamento por regra abolida
+- Estrutura de fechamento por regra reafirmada
+- Estrutura de fechamento por instituição reformada
+- Estrutura de fechamento por instituição colapsada
+- Estrutura de fechamento por comunidade reconstruída
+- Estrutura de fechamento por comunidade dispersa
+- Estrutura de fechamento por território recuperado
+- Estrutura de fechamento por território perdido
+- Estrutura de fechamento por fronteira atravessada
+- Estrutura de fechamento por fronteira fechada
+- Estrutura de fechamento por viagem iniciada
+- Estrutura de fechamento por viagem concluída
+- Estrutura de fechamento por travessia interrompida
+- Estrutura de fechamento por rota desviada
+- Estrutura de fechamento por caminho sem volta
+- Estrutura de fechamento por retorno impossível
+- Estrutura de fechamento por casa abandonada
+- Estrutura de fechamento por casa recuperada
+- Estrutura de fechamento por cidade transformada
+- Estrutura de fechamento por paisagem alterada
+- Estrutura de fechamento por estação mudada
+- Estrutura de fechamento por ciclo natural
+- Estrutura de fechamento por catástrofe
+- Estrutura de fechamento por reconstrução
+- Estrutura de fechamento por ritual
+- Estrutura de fechamento por cerimônia
+- Estrutura de fechamento por julgamento
+- Estrutura de fechamento por absolvição
+- Estrutura de fechamento por condenação
+- Estrutura de fechamento por anistia
+- Estrutura de fechamento por vingança consumada
+- Estrutura de fechamento por vingança recusada
+- Estrutura de fechamento por justiça incompleta
+- Estrutura de fechamento por reparação simbólica
+- Estrutura de fechamento por restituição material
+- Estrutura de fechamento por confissão
+- Estrutura de fechamento por recantação
+- Estrutura de fechamento por perdão concedido
+- Estrutura de fechamento por perdão recusado
+- Estrutura de fechamento por culpa aceita
+- Estrutura de fechamento por culpa deslocada
+- Estrutura de fechamento por responsabilidade coletiva
+- Estrutura de fechamento por responsabilidade individual
+- Estrutura de fechamento por escolha ética
+- Estrutura de fechamento por dilema sem solução
+- Estrutura de fechamento por sacrifício evitado
+- Estrutura de fechamento por sacrifício realizado
+- Estrutura de fechamento por resgate
+- Estrutura de fechamento por abandono
+- Estrutura de fechamento por sobrevivência coletiva
+- Estrutura de fechamento por sobrevivência individual
+- Estrutura de fechamento por pacto
+- Estrutura de fechamento por traição
+- Estrutura de fechamento por aliança
+- Estrutura de fechamento por dissolução de aliança
+- Estrutura de fechamento por pacto renovado
+- Estrutura de fechamento por juramento quebrado
+- Estrutura de fechamento por palavra cumprida
+- Estrutura de fechamento por palavra retirada
+- Estrutura de fechamento por nome revelado
+- Estrutura de fechamento por nome esquecido
+- Estrutura de fechamento por título perdido
+- Estrutura de fechamento por título conquistado
+- Estrutura de fechamento por objeto devolvido
+- Estrutura de fechamento por objeto herdado
+- Estrutura de fechamento por objeto destruído
+- Estrutura de fechamento por objeto transmitido
+- Estrutura de fechamento por objeto abandonado
+- Estrutura de fechamento por objeto reencontrado
+- Estrutura de fechamento por troca de objeto
+- Estrutura de fechamento por objeto falso
+- Estrutura de fechamento por prova material
+- Estrutura de fechamento por pista final
+- Estrutura de fechamento por pista contraditória
+- Estrutura de fechamento por solução parcial
+- Estrutura de fechamento por mistério preservado
+- Estrutura de fechamento por explicação natural
+- Estrutura de fechamento por explicação sobrenatural
+- Estrutura de fechamento por explicação ambígua
+- Estrutura de fechamento por revelação do culpado
+- Estrutura de fechamento por culpado não identificado
+- Estrutura de fechamento por inocência provada
+- Estrutura de fechamento por culpa compartilhada
+- Estrutura de fechamento por investigação reaberta
+- Estrutura de fechamento por caso arquivado
+- Estrutura de fechamento por testemunha ausente
+- Estrutura de fechamento por testemunho desacreditado
+- Estrutura de fechamento por testemunho validado
+- Estrutura de fechamento por documento falsificado
+- Estrutura de fechamento por documento autêntico
+- Estrutura de fechamento por prova destruída
+- Estrutura de fechamento por prova preservada
+- Estrutura de fechamento por cadeia de pistas
+- Estrutura de fechamento por pista enganosa
+- Estrutura de fechamento por pista retrospectiva
+- Estrutura de fechamento por pista plantada
+- Estrutura de fechamento por falsa confissão
+- Estrutura de fechamento por confissão tardia
+- Estrutura de fechamento por silêncio culpado
+- Estrutura de fechamento por silêncio protetivo
+- Estrutura de fechamento por pergunta respondida
+- Estrutura de fechamento por pergunta reformulada
+- Estrutura de fechamento por pergunta sem resposta
+- Estrutura de fechamento por resposta que abre outra questão
+- Estrutura de fechamento por frase interrompida
+- Estrutura de fechamento por frase retomada
+- Estrutura de fechamento por eco da primeira frase
+- Estrutura de fechamento por citação deslocada
+- Estrutura de fechamento por verso recorrente
+- Estrutura de fechamento por refrão alterado
+- Estrutura de fechamento por motivo musical
+- Estrutura de fechamento por som diegético
+- Estrutura de fechamento por silêncio sonoro
+- Estrutura de fechamento por imagem em movimento
+- Estrutura de fechamento por quadro congelado
+- Estrutura de fechamento por fade-out
+- Estrutura de fechamento por corte abrupto
+- Estrutura de fechamento por montagem paralela
+- Estrutura de fechamento por plano-sequência
+- Estrutura de fechamento por voz em off
+- Estrutura de fechamento por tela preta
+- Estrutura de fechamento por crédito narrativo
+- Estrutura de fechamento por pós-crédito
+- Estrutura de fechamento por moldura visual
+- Estrutura de fechamento por objeto em primeiro plano
+- Estrutura de fechamento por paisagem em plano geral
+- Estrutura de fechamento por detalhe ampliado
+- Estrutura de fechamento por mudança de iluminação
+- Estrutura de fechamento por mudança de cor
+- Estrutura de fechamento por repetição de composição
+- Estrutura de fechamento por inversão de composição
+- Estrutura de fechamento por retorno de trilha sonora
+- Estrutura de fechamento por interrupção musical
+- Estrutura de fechamento por gesto repetido
+- Estrutura de fechamento por gesto invertido
+- Estrutura de fechamento por olhar para a câmera
+- Estrutura de fechamento por quebra da quarta parede
+- Estrutura de fechamento por silêncio do personagem
+- Estrutura de fechamento por última fala
+- Estrutura de fechamento por fala sobreposta
+- Estrutura de fechamento por fala inaudível
+- Estrutura de fechamento por narração posterior
+- Estrutura de fechamento por narração contemporânea
+- Estrutura de fechamento por narração contraditória
+- Estrutura de fechamento por alternância de narradores
+- Estrutura de fechamento por coro final
+- Estrutura de fechamento por voz coletiva
+- Estrutura de fechamento por voz anônima
+- Estrutura de fechamento por voz recuperada
+- Estrutura de fechamento por voz silenciada
+- Estrutura de fechamento por voz que muda de registro
+- Estrutura de fechamento por mudança de pessoa gramatical
+- Estrutura de fechamento por mudança de tempo verbal
+- Estrutura de fechamento por mudança de modo
+- Estrutura de fechamento por mudança de gênero textual
+- Estrutura de fechamento por mudança de suporte
+- Estrutura de fechamento por documento dentro da ficção
+- Estrutura de fechamento por comentário do editor fictício
+- Estrutura de fechamento por nota do tradutor ficcional
+- Estrutura de fechamento por nota editorial ficcional
+- Estrutura de fechamento por cronologia impossível
+- Estrutura de fechamento por anacronismo revelador
+- Estrutura de fechamento por anacronia resolvida
+- Estrutura de fechamento por anacronia persistente
+- Estrutura de fechamento por flashback final
+- Estrutura de fechamento por flashforward final
+- Estrutura de fechamento por cena simultânea
+- Estrutura de fechamento por repetição de cena
+- Estrutura de fechamento por cena omitida
+- Estrutura de fechamento por intervalo em branco
+- Estrutura de fechamento por salto de capítulo
+- Estrutura de fechamento por página ausente
+- Estrutura de fechamento por fragmento encontrado
+- Estrutura de fechamento por arquivo incompleto
+- Estrutura de fechamento por versão censurada
+- Estrutura de fechamento por rasura
+- Estrutura de fechamento por texto ilegível
+- Estrutura de fechamento por lacuna material
+- Estrutura de fechamento por documento sem assinatura
+- Estrutura de fechamento por assinatura reconhecida
+- Estrutura de fechamento por autoria contestada
+- Estrutura de fechamento por autoria coletiva
+- Estrutura de fechamento por autoria revelada
+- Estrutura de fechamento por autoria ocultada
+- Estrutura de fechamento por leitor implicado
+- Estrutura de fechamento por leitura contestada
+- Estrutura de fechamento por interpretação plural
+- Estrutura de fechamento por ambiguidade produtiva
+- Estrutura de fechamento por indeterminação referencial
+- Estrutura de fechamento por referente revelado
+- Estrutura de fechamento por referente deslocado
+- Estrutura de fechamento por símbolo recontextualizado
+- Estrutura de fechamento por metáfora literalizada
+- Estrutura de fechamento por imagem desconstruída
+- Estrutura de fechamento por alegoria interrompida
+- Estrutura de fechamento por paródia revelada
+- Estrutura de fechamento por ironia invertida
+- Estrutura de fechamento por sátira sem alvo explícito
+- Estrutura de fechamento por fábula moral ambígua
+- Estrutura de fechamento por moral recusada
+- Estrutura de fechamento por moral deslocada
+- Estrutura de fechamento por lição reinterpretada
+- Estrutura de fechamento por provérbio quebrado
+- Estrutura de fechamento por mito reescrito
+- Estrutura de fechamento por motivo folclórico deslocado
+- Estrutura de fechamento por intertexto final
+- Estrutura de fechamento por citação apócrifa
+- Estrutura de fechamento por referência obscura
+- Estrutura de fechamento por alusão reconhecida
+- Estrutura de fechamento por alusão não resolvida
+- Estrutura de fechamento por palimpsesto revelado
+- Estrutura de fechamento por texto dentro de texto
+- Estrutura de fechamento por mise en abyme
+- Estrutura de fechamento por espelho narrativo
+- Estrutura de fechamento por duplicação de personagem
+- Estrutura de fechamento por sósia
+- Estrutura de fechamento por doppelgänger
+- Estrutura de fechamento por duplo simbólico
+- Estrutura de fechamento por sombra do protagonista
+- Estrutura de fechamento por antagonista espelhado
+- Estrutura de fechamento por personagem substituto
+- Estrutura de fechamento por identidade intercambiável
+- Estrutura de fechamento por personagem que retorna
+- Estrutura de fechamento por personagem que desaparece
+- Estrutura de fechamento por personagem fora de cena
+- Estrutura de fechamento por personagem não nomeado
+- Estrutura de fechamento por personagem coletivo
+- Estrutura de fechamento por personagem sem fala
+- Estrutura de fechamento por personagem narrador
+- Estrutura de fechamento por personagem leitor
+- Estrutura de fechamento por personagem autor
+- Estrutura de fechamento por personagem editor
+- Estrutura de fechamento por personagem testemunha
+- Estrutura de fechamento por personagem suspeito
+- Estrutura de fechamento por personagem redentor
+- Estrutura de fechamento por personagem catalisador
+- Estrutura de fechamento por personagem foil
+- Estrutura de fechamento por personagem confidente
+- Estrutura de fechamento por personagem mensageiro
+- Estrutura de fechamento por personagem liminar
+- Estrutura de fechamento por personagem mediador
+- Estrutura de fechamento por personagem trickster
+- Estrutura de fechamento por protagonista relutante
+- Estrutura de fechamento por protagonista coletivo
+- Estrutura de fechamento por anti-herói
+- Estrutura de fechamento por herói falho
+- Estrutura de fechamento por heroína ambivalente
+- Estrutura de fechamento por antagonista simpático
+- Estrutura de fechamento por antagonista sistêmico
+- Estrutura de fechamento por antagonista ausente
+- Estrutura de fechamento por conflito interno
+- Estrutura de fechamento por conflito relacional
+- Estrutura de fechamento por conflito social
+- Estrutura de fechamento por conflito institucional
+- Estrutura de fechamento por conflito ambiental
+- Estrutura de fechamento por conflito tecnológico
+- Estrutura de fechamento por conflito de valores
+- Estrutura de fechamento por conflito de lealdade
+- Estrutura de fechamento por conflito de identidade
+- Estrutura de fechamento por conflito de memória
+- Estrutura de fechamento por conflito de linguagem
+- Estrutura de fechamento por conflito de interpretação
+- Estrutura de fechamento por conflito de escala
+- Estrutura de fechamento por conflito de tempo
+- Estrutura de fechamento por conflito de espaço
+- Estrutura de fechamento por conflito de recursos
+- Estrutura de fechamento por conflito de informação
+- Estrutura de fechamento por conflito de autoridade
+- Estrutura de fechamento por conflito de gerações
+- Estrutura de fechamento por conflito de comunidade
+- Estrutura de fechamento por conflito de pertencimento
+- Estrutura de fechamento por conflito entre dever e desejo
+- Estrutura de fechamento por conflito entre verdade e proteção
+- Estrutura de fechamento por conflito entre justiça e misericórdia
+- Estrutura de fechamento por conflito entre memória e esquecimento
+- Estrutura de fechamento por conflito entre liberdade e segurança
+- Estrutura de fechamento por conflito entre indivíduo e coletivo
+- Estrutura de fechamento por conflito entre tradição e mudança
+- Estrutura de fechamento por conflito entre centro e periferia
+- Estrutura de fechamento por conflito entre aparência e realidade
+- Estrutura de fechamento por conflito entre palavra e ação
+- Estrutura de fechamento por conflito entre promessa e consequência
+- Estrutura de fechamento por conflito entre destino e escolha
+- Estrutura de fechamento por conflito entre acaso e intenção
+- Estrutura de fechamento por conflito entre desejo e limite
+- Estrutura de fechamento por conflito entre conhecimento e ignorância
+- Estrutura de fechamento por conflito entre crença e evidência
+- Estrutura de fechamento por conflito entre ordem e caos
+- Estrutura de fechamento por conflito entre controle e vulnerabilidade
+- Estrutura de fechamento por conflito entre presença e ausência
+- Estrutura de fechamento por conflito entre voz e silêncio
+- Estrutura de fechamento por conflito entre público e privado
+- Estrutura de fechamento por conflito entre ficção e documento
+- Estrutura de fechamento por conflito entre autor e personagem
+- Estrutura de fechamento por conflito entre narrador e leitor
+- Estrutura de fechamento por conflito entre relato e prova
+- Estrutura de fechamento por conflito entre lembrança e registro
+- Estrutura de fechamento por conflito entre fato e versão
+- Estrutura de fechamento por conflito entre origem e destino
+- Estrutura de fechamento por conflito entre casa e mundo
+- Estrutura de fechamento por conflito entre partida e retorno
+- Estrutura de fechamento por conflito entre pertencimento e autonomia
+- Estrutura de fechamento por conflito entre cuidado e controle
+- Estrutura de fechamento por conflito entre ajuda e dependência
+- Estrutura de fechamento por conflito entre reparação e punição
+- Estrutura de fechamento por conflito entre sobrevivência e dignidade
+- Estrutura de fechamento por conflito entre sacrifício e egoísmo
+- Estrutura de fechamento por conflito entre lealdade e verdade
+- Estrutura de fechamento por conflito entre perdão e memória
+- Estrutura de fechamento por conflito entre reconciliação e justiça
+- Estrutura de fechamento por conflito entre mudança pessoal e estrutura social
+- Estrutura de fechamento por conflito entre experiência e discurso
+- Estrutura de fechamento por conflito entre linguagem oficial e fala cotidiana
+- Estrutura de fechamento por conflito entre nomeação e apagamento
+- Estrutura de fechamento por conflito entre centro narrativo e margem
+- Estrutura de fechamento por conflito entre protagonista e coro
+- Estrutura de fechamento por conflito entre tempo vivido e tempo histórico
+- Estrutura de fechamento por conflito entre continuidade e ruptura
+- Estrutura de fechamento por conflito entre indivíduo e arquivo
+- Estrutura de fechamento por conflito entre testemunho e instituição
+- Estrutura de fechamento por conflito entre segredo e publicidade
+- Estrutura de fechamento por conflito entre evidência e interpretação
+- Estrutura de fechamento por conflito entre explicação e mistério
+- Estrutura de fechamento por conflito entre causa e coincidência
+- Estrutura de fechamento por conflito entre intenção e efeito
+- Estrutura de fechamento por conflito entre identidade atribuída e identidade escolhida
+- Estrutura de fechamento por conflito entre destino herdado e projeto próprio
+- Estrutura de fechamento por conflito entre memória individual e memória coletiva
+- Estrutura de fechamento por conflito entre voz autorizada e voz marginal
+- Estrutura de fechamento por conflito entre leitura dominante e leitura alternativa
+- Estrutura de fechamento por conflito entre promessa narrativa e entrega
+- Estrutura de fechamento por conflito entre expectativa de gênero e inovação
+- Estrutura de fechamento por conflito entre forma e conteúdo
+- Estrutura de fechamento por conflito entre ritmo e reflexão
+- Estrutura de fechamento por conflito entre detalhe e panorama
+- Estrutura de fechamento por conflito entre exposição e dramatização
+- Estrutura de fechamento por conflito entre mostrar e contar
+- Estrutura de fechamento por conflito entre literalidade e figuração
+- Estrutura de fechamento por conflito entre ordem cronológica e ordem discursiva
+- Estrutura de fechamento por conflito entre linearidade e fragmentação
+- Estrutura de fechamento por conflito entre fechamento e abertura
+- Estrutura de fechamento por conflito entre resolução e persistência
+
+## Linguística textual, coesão e referenciação
+
+- Efeito de Autorreferência (Self-Referencing Effect)
+- Paralelismo Sintático e Ritmo Fonético
+- Ancoragem de Proximidade Física (Spatial Grounding)
+- Coerência de Voz entre Tela e Atendimento
+- Efeito de Primazia de Ação (Action-First Syntax)
+- Deixis Espacial e Temporal (Spatial & Temporal Deixis)
+- Inversão de Hierarquia de Benefício (Outcome-First Syntax)
+- Coesão Anafórica entre Título e Botão
+- Desambiguação de Equivalência (Referência vs. Genérico)
+- Texto de preferências de notificação e frequência (Notification Preference & Frequency Copy)
+- Superestrutura textual (Textual Superstructure)
+- Marcadores discursivos ou conectores pragmáticos (Discourse Markers)
+- Intertextualidade e hibridismo de gênero (Intertextuality & Genre Hybridity)
+- Coesão lexical e colocação (Lexical Cohesion & Collocation)
+- Paratextualidade (Paratextuality)
+- Coesão por substituição (Substitution Cohesion)
+- Recategorização referencial (Referential Recategorization)
+- Encapsulamento anafórico (Anaphoric Encapsulation)
+- Anáfora associativa ou ponte referencial (Associative / Bridging Anaphora)
+- Critérios de textualidade de Beaugrande e Dressler (Beaugrande & Dressler’s Standards of Textuality)
+- Catáfora textual (Textual Cataphora)
+- Coesão conjuntiva (Conjunctive Cohesion)
+- Cadeia referencial e correferência (Referential Chain & Coreference)
+- Coerência local e coerência global (Local and Global Coherence)
+- Coesão fonológica e rima interna (Phonological Cohesion and Internal Rhyme)
+- Arquitetextualidade de Genette (Genette’s Architextuality)
+- Operações de textualização de Bronckart: conexão e coesão nominal (Bronckart’s Textualization Operations)
+- Teoria da acessibilidade referencial de Mira Ariel (Accessibility Theory)
+- Coesão temporal e aspectual na narrativa (Temporal and Aspectual Cohesion in Narrative)
+- Clareza referencial e desambiguação estrutural (Referential Clarity and Structural Disambiguation)
+- Coesão lexical por antonímia e campos associativos (Lexical Cohesion via Antonyms and Associative Fields)
+- Anáfora zero e elipse verbal (Zero Anaphora and Verbal Ellipsis)
+- Coesão referencial por sintagmas nominais definidos e indefinidos (Definite and Indefinite Noun Phrase Reference Cohesion)
+- Coesão lexical por famílias de palavras e derivação morfológica (Lexical Cohesion via Word Families and Morphological Derivation)
+- Verificação de fatos. números e referências (Fact-Checking and Source Auditing)
+- Princípio da informação essencial em primeiro lugar (Essential Information First)
+- Teste de primeiro clique para navegação de conteúdo (First-Click Testing)
+- Índices Coh-Metrix de coesão referencial e profunda (Coh-Metrix Cohesion Indices)
+- Métricas de cadeias de correferência (Coreference Chain Metrics)
+- Métricas de coerência textual baseadas em grafos (Graph-Based Text Coherence Metrics)
+- ReaderBench: framework automatizado de coesão e complexidade textual (ReaderBench)
+- Revisão de clareza de antecedentes e referência pronominal (Antecedent Clarity and Pronoun Reference Pass)
+- Auditoria de referências cruzadas e links internos (Cross-Reference and Internal Link Integrity Audit)
+- Verificação de destaque de alérgenos. excipientes e advertências (Safety-First Hierarchy Audit)
+- Hipótese da avaliabilidade e contextualização por classe de referência (Evaluability Hypothesis)
+- Engenharia de coesão causal e inferências-ponte (Bridging Inferences and Causal Cohesion)
+- Estrutura dos padrões de coerência no processamento textual (Standards of Coherence Framework)
+- Teste orientado primeiro à compreensão — CFT (Comprehension-First Testing)
+- Formulação de aviso com consequência primeiro (Consequence-First Hazard Phrasing)
+- Cabeçalho orientado ao objetivo do usuário (Goal-First Header Framing)
+- Estrutura da Questão em Discussão — QUD (Question Under Discussion)
+- Sete Padrões de Textualidade (Seven Standards of Textuality)
+- Isotopia Discursiva e Recorrência Sêmica (Isotopy)
+- Encapsulamento Anafórico e Rótulos Retrospectivos (Anaphoric Encapsulation)
+- Sinalização Catafórica e Substantivos-Concha Prospectivos (Cataphoric Signaling and Prospective Shell Nouns)
+- Contrato Dado-Novo na Integração da Informação (Given-New Contract)
+- Cadeia Conhecido-Novo e Expectativa do Leitor (Known-New Chain)
+- Macroestruturas Textuais e Macrorregras de Supressão. Generalização e Construção (Macrostructures and Macrorules)
+- Anáfora Associativa ou Indireta (Associative or Indirect Anaphora)
+- Dêixis Discursiva. Textual e Memorial (Discourse. Text. and Memorial Deixis)
+- Recategorização Referencial Metafórica e Metonímica (Referential Recategorization)
+- Anáfora Conceitual e Rótulos Prospectivos e Retrospectivos (Conceptual Anaphora and Labels)
+- Coesão Lexical por Colocação e Reiteração (Lexical Cohesion by Collocation and Reiteration)
+- Correferência de Identidade Parcial (Sloppy Identity Coreference)
+- Exófora. Endófora e Homófora na Referenciação (Exophora. Endophora. Homophora)
+- Introdução Referencial Ancorada e Não Ancorada (Anchored vs. Unanchored Referential Introduction)
+- Semiótica e Tipografia Funcional
+- Modalização discursiva (Discursive Modality)
+- Sequências textuais de Adam (Adam’s Textual Sequences)
+- Padrão discursivo hipotético-real (Hypothetical-Real Discourse Pattern)
+- Teoria do registro — Campo. Relações e Modo (Register Theory: Field. Tenor. Mode)
+- Formação discursiva (Discursive Formation)
+- Cenografia discursiva (Discursive Scenography)
+- Contrato de comunicação (Communication Contract)
+- Pré-construído discursivo (Discursive Preconstructed)
+- Elipse coesiva (Cohesive Ellipsis)
+- Hipotaxe e parataxe (Hypotaxis & Parataxis)
+- Interdiscursividade (Interdiscursivity)
+- Heterogeneidade enunciativa (Enunciative Heterogeneity)
+- Silenciamento discursivo (Discursive Silencing)
+- Paráfrase discursiva (Discursive Paraphrase)
+- Tema e rema (Theme and Rheme)
+- Plano da história e plano do discurso (Histoire vs. Discours)
+- Mesclagem conceptual (Conceptual Blending Theory)
+- Interpelação ideológica (Ideological Interpellation)
+- Estrutura do discurso clássico: exórdio. narração. confirmação e peroração (Classical Oration Structure)
+- Pragma-dialética (Pragma-Dialectics)
+- Alternância de código (Code-Switching)
+- Modelo SPEAKING de Hymes (Hymes’ SPEAKING Model)
+- Pastiche e paródia discursiva (Discursive Pastiche & Parody)
+- Tempo da história e tempo do discurso (Story Time and Discourse Time)
+- Quadrado semiótico de Greimas (Greimas’s Semiotic Square)
+- Ilhas textuais de Authier-Revuz (Authier-Revuz’s Textual Islands)
+- Comunidade discursiva (Discourse Community)
+- Condições de produção do discurso (Conditions of Discourse Production)
+- Ethos discursivo e ethos pré-discursivo (Discursive and Pre-Discursive Ethos)
+- Discurso relatado e verbos dicendi (Reported Speech and Verba Dicendi)
+- Semiótica tensiva de Zilberberg (Zilberberg’s Tensive Semiotics)
+- Foco informacional e pressuposição focal (Information Focus and Focal Presupposition)
+- Semiótica das paixões de Greimas e Fontanille (Greimas and Fontanille’s Semiotics of Passions)
+- Metafunções da linguagem de Halliday: ideacional. interpessoal e textual (Halliday’s Metafunctions of Language)
+- Desconstrução textual e différance de Derrida (Derrida’s Textual Deconstruction and Différance)
+- Círculo filológico de Spitzer (Spitzer’s Philological Circle)
+- Abordagem histórico-discursiva de Wodak (Discourse-Historical Approach)
+- Modelo de revisão textual de Hayes: avaliação. diagnóstico e estratégias de correção (Hayes’ Text Revision Model)
+- Estemática de Lachmann e crítica textual (Lachmannian Stemmatics and Textual Criticism)
+- Estratégias de legitimação no discurso de van Leeuwen (van Leeuwen’s Legitimation in Discourse)
+- Mudança de registro (Register Shift)
+- Tradução de terminologia clínica para linguagem leiga (Clinical-to-Lay Translation)
+- Teste do marca-texto (Highlighter Test)
+- Teste de completar sentenças para clareza de texto (Sentence Completion Testing)
+- Métricas NILC-Metrix de complexidade textual em português (NILC-Metrix)
+- Incidência e proporção de conectivos discursivos (Discourse Connective Incidence and Ratio)
+- Poda de metadiscurso desnecessário (Metadiscourse Pruning)
+- Margem de expansão e contração textual (Text Expansion and Contraction Allowance)
+- Tratamento de texto bidirecional — BiDi (Bidirectional Text Handling)
+- Formatação textual específica por localidade (Locale-Specific Formatting)
+- Verificação de equivalência por retrotradução (Back-Translation Verification)
+- Reconciliação por painel duplo em tradução (Dual-Panel Reconciliation)
+- Descentramento cultural na tradução (Cultural Decentering)
+- Tipologia de textos para tradução (Text-Type Typology in Translation)
+- Modelo de filtro cultural na tradução (Cultural Filter Model)
+- Tradução indicativa ou por síntese (Gisting / Indicative Translation)
+- Tradução indireta por língua-pivô (Relay / Pivot Translation)
+- Legendagem colaborativa e tradução coletiva (Fansubbing and Crowdsourced Translation)
+- Respeaking para legendagem ao vivo (Respeaking)
+- Aprovação linguística final independente — LSO (Third-Party Linguistic Sign-Off)
+- Princípios da Gestalt para organização visual de texto (Gestalt Principles of Visual Grouping)
+- Estratégia ACE de resposta analítica baseada em texto (Answer. Cite. Explain)
+- Disposição clássica do discurso em seis partes (Classical Oration Six-Part Arrangement)
+- Parataxe e Hipotaxe (Parataxis and Hypotaxis)
+- Dinâmica de Forças na Linguagem e no Discurso (Force Dynamics)
+- Tradução à Vista e Pós-Edição de Tradução Automática (Sight Translation and MTPE)
+- Transadaptação e Adaptação Cultural de Textos (Transadaptation and Cultural Text Adaptation)
+- Articulação Tópico-Comentário e Foco-Pressuposição (Topic-Comment and Focus-Presupposition)
+- Variáveis do Registro: Campo. Relações e Modo (Field. Tenor. Mode)
+- Atenuação Epistêmica e Reforço Discursivo: Hedges e Boosters (Epistemic Hedging and Boosting)
+- Relatórios Registrados e Pré-Registro de Protocolos de Pesquisa (Registered Reports and Preregistration)
+- Foco Contrastivo e Foco Informacional: In Situ e Ex Situ (Contrastive and Information Focus)
+- Tradução Intralinguística e Adaptação Textual para Línguas de Sinais (Intralingual Translation and Sign Language Adaptation)
+- Escopo de Negação Limitado (Narrow Negation Scope)
+- Cotação de listas com vários itens (Multi-Item Quote Facilitation)
+- Pressuposição linguística (Linguistic Presupposition)
+- Continuidade tópica (Topic Continuity)
+- Funções da linguagem de Jakobson (Jakobson’s Functions of Language)
+- Idioleto e socioletos estilísticos (Idiolect and Stylistic Sociolects)
+- Variação diafásica. diastrática e diatópica (Diaphasic. Diastratic. and Diatopic Variation)
+- Dinamismo comunicativo de Firbas e perspectiva funcional da sentença (Firbas’ Communicative Dynamism and Functional Sentence Perspective)
+- Papéis temáticos e hierarquia temática de Jackendoff (Jackendoff’s Thematic Roles and Thematic Hierarchy)
+- Função poética de Jakobson e projeção do eixo paradigmático sobre o sintagmático (Jakobson’s Poetic Function)
+- Pressuposições fativas e existenciais de Karttunen (Karttunen’s Factive and Existential Presuppositions)
+- Modalidade dinâmica e bulética (Dynamic and Bouletic Modality)
+- Autoria baseada em tópicos (Topic-Based Authoring)
+- Dinamismo Comunicativo e Perspectiva Funcional da Sentença (Communicative Dynamism and FSP)
+- Hierarquia de dadidade na referenciação (Givenness Hierarchy)
+- Aglutinação lexical e redes de sentenças de Hoey (Hoey’s Lexical Bonding)
+- Abordagem cognitiva das relações de coerência (Cognitive Approach to Coherence Relations)
+- Modelo modular de organização do discurso de Genebra (Geneva Model of Discourse Organization)
+- Potencial de estrutura genérica de Hasan (Generic Structure Potential)
+- Teoria da estrutura do texto e estrutura do mundo — TeSWeST (Text Structure–World Structure Theory)
+- Gravidade e densidade semânticas na teoria dos códigos de legitimação (Semantic Gravity and Semantic Density)
+- Recontextualização discursiva de Bernstein (Bernstein’s Discursive Recontextualization)
+- Relações lógico-semânticas de expansão e projeção (Logico-Semantic Relations of Expansion and Projection)
+- Hipótese da densidade uniforme de informação (Uniform Information Density Hypothesis)
+- Macrogêneros na linguística sistêmico-funcional (Macrogenres)
+- Cline de instanciação na linguística sistêmico-funcional (Cline of Instantiation)
+- Estratificação semiótica e metarredundância (Stratification and Metaredundancy)
+- Periodicidade discursiva: hiper-tema e macro-tema (Discourse Periodicity: Hyper-Theme and Macro-Theme)
+- Análise positiva do discurso de Martin (Positive Discourse Analysis)
+- Semogênese: filogênese. ontogênese e logogênese (Semogenesis)
+- Individuação e afiliação na linguística sistêmico-funcional (Individuation and Affiliation)
+- Contexto de cultura e contexto de situação (Context of Culture and Context of Situation)
+- Rede de representação de atores sociais de van Leeuwen (Social Actor Network)
+- Retextualização de Marcuschi (Retextualization)
+- Contínuo de imediatez e distância comunicativa de Koch e Oesterreicher (Communicative Immediacy and Distance Continuum)
+- Relações interclausais de Winter (Winter’s Clause Relations)
+- Mundos discursivos de Bronckart (Bronckart’s Discursive Worlds)
+- Tipologia textual funcional de Werlich (Werlich’s Text Typology)
+- Entextualização de Bauman e Briggs (Entextualization)
+- Trajetórias textuais (Text Trajectories)
+- Estudos sociocognitivos do discurso de van Dijk (Sociocognitive Discourse Studies)
+- Teoria da linguagem visual de Neil Cohn (Visual Language Theory)
+
+- Progressão temática linear, com tema constante e com temas derivados (linear, constant-theme, and derived-theme progression)
+- Análise de tema e rema por oração (clause-level theme-rheme analysis)
+- Análise de tema não marcado e marcado (unmarked and marked theme analysis)
+- Análise de tema textual, interpessoal e ideacional (textual, interpersonal, and ideational theme analysis)
+- Análise de hiper-tema e hiper-novo em parágrafos (paragraph hypertheme and hypernew analysis)
+- Análise de macrotema e macronovo em texto (text macrotheme and macronew analysis)
+- Análise de cadeia lexical e campo de coesão (lexical chain and cohesion field analysis)
+- Análise de cadeias de colocação como coesão lexical (collocational chain cohesion analysis)
+- Análise de repetição lexical versus variação referencial (lexical repetition and referential variation analysis)
+- Análise de coesão por substituição nominal (nominal substitution cohesion analysis)
+- Análise de coesão por substituição verbal (verbal substitution cohesion analysis)
+- Análise de coesão por substituição oracional (clausal substitution cohesion analysis)
+- Análise de elipse nominal, verbal e oracional (nominal, verbal, and clausal ellipsis analysis)
+- Análise de elipse recuperável por contexto (contextually recoverable ellipsis analysis)
+- Análise de referência exofórica e endofórica (exophoric and endophoric reference analysis)
+- Análise de referência anafórica, catafórica e dêitica (anaphoric, cataphoric, and deictic reference analysis)
+- Análise de coesão lexical por sinonímia e hiperonímia (synonymy and hypernymy lexical cohesion analysis)
+- Análise de coesão lexical por repetição e colocação (repetition and collocation lexical cohesion analysis)
+- Análise de relações conjuntivas aditivas e adversativas (additive and adversative conjunctive relation analysis)
+- Análise de relações conjuntivas causais e temporais (causal and temporal conjunctive relation analysis)
+- Análise de conjunção interna e externa no discurso (internal and external conjunction analysis)
+- Análise de conectores entre sentenças e entre etapas retóricas (sentence and rhetorical-stage connector analysis)
+- Análise de conexão implícita entre proposições (implicit interpropositional connection analysis)
+- Análise de coerência por causa, condição e concessão (causal, conditional, and concessive coherence analysis)
+- Análise de coerência por problema e solução (problem-solution coherence analysis)
+- Análise de coerência por comparação e contraste (comparison-contrast coherence analysis)
+- Análise de coerência por generalização e especificação (generalization-specification coherence analysis)
+- Análise de enquadramento de tópico e retomada temática (topic framing and thematic resumption analysis)
+- Análise de mudança de tópico e sinalização textual (topic shift and textual signaling analysis)
+- Análise de tópico suspenso e retomada posterior (suspended topic and later resumption analysis)
+- Análise de continuidade referencial entre parágrafos (cross-paragraph referential continuity analysis)
+- Análise de descontinuidade temática por digressão (thematic discontinuity through digression analysis)
+- Análise de segmentação de texto por tópico discursivo (text segmentation by discourse topic analysis)
+- Análise de unidade temática do parágrafo (paragraph thematic unity analysis)
+- Análise de frase-tópico e suporte proposicional (topic sentence and propositional support analysis)
+- Análise de coerência global por macroestrutura semântica (global coherence through semantic macrostructure analysis)
+- Análise de macroproposições e redução de informação (macroproposition and information reduction analysis)
+- Aplicação de regras de apagamento, generalização e construção textual (deletion, generalization, and construction macro-rules)
+- Análise de relação retórica de elaboração (elaboration rhetorical relation analysis)
+- Análise de relação retórica de evidência e justificativa (evidence and justification rhetorical relation analysis)
+- Análise de relação retórica de concessão e antítese (concession and antithesis rhetorical relation analysis)
+- Análise de relações retóricas núcleo-satélite (nucleus-satellite rhetorical relation analysis)
+- Análise de estrutura retórica multinuclear (multinuclear rhetorical structure analysis)
+- Análise de segmentação discursiva elementar (elementary discourse unit segmentation analysis)
+- Análise de coerência local entre enunciados adjacentes (local coherence between adjacent utterances analysis)
+- Análise de coerência global por rede de entidades (global coherence through entity grid analysis)
+- Análise de transição entre parágrafos por continuidade de entidade (entity continuity across paragraph transitions)
+- Análise de densidade de referentes por segmento textual (referent density by text segment analysis)
+- Análise de distância entre menções correferentes (distance between coreferential mentions analysis)
+- Análise de ambiguidade de correferência em texto longo (coreference ambiguity in long text analysis)
+
+## Pragmática e análise da interação
+
+- Redação de Proximidade e Conversacional
+- Pragmática Linguística (Máximas de Grice)
+- Fechamento Aberto de Continuidade (Zeigarnik Conversacional)
+- Implicatura Conversacional (Economia Pragmática)
+- Atos de Fala Comissivos (Speech Act Theory)
+- Teoria da polidez e preservação de face (Politeness Theory & Face-Saving)
+- Metacomunicação e quebra da quarta parede (Metacommunication & Fourth-Wall Break)
+- Argumento pragmático (Pragmatic Argument)
+- Máximas conversacionais de Grice (Grice’s Conversational Maxims)
+- Pares adjacentes (Adjacency Pairs)
+- Macroato de fala (Macro-Speech Act)
+- Tomada de turno na análise da conversação (Turn-Taking in Conversation Analysis)
+- Hedging e boosting pragmático (Pragmatic Hedging and Boosting)
+- Reparo conversacional (Conversational Repair)
+- Condições de felicidade dos atos de fala (Speech Act Felicity Conditions)
+- Organização de preferência na análise da conversação (Preference Organization in Conversation Analysis)
+- Atos de fala indiretos (Indirect Speech Acts)
+- Força perlocucionária e ilocucionária (Perlocutionary and Illocutionary Force)
+- Coerência pragmática e inferência-ponte (Pragmatic Coherence and Bridging Inference)
+- Organização sequencial na análise da conversação (Sequential Organization in Conversation Analysis)
+- Frases garden-path e inversão de expectativa pragmática (Garden-Path Sentences and Pragmatic Expectation Reversal)
+- Pressuposição pragmática e terreno comum de Stalnaker (Stalnaker’s Pragmatic Presupposition and Common Ground)
+- Implicaturas escalares de Horn e Levinson (Horn and Levinson’s Scalar Implicatures)
+- Pragmática lexical: estreitamento e alargamento de sentido (Lexical Pragmatics: Narrowing and Broadening)
+- Atos de fala declarativos e comissivos de Searle (Searle’s Declarative and Commissive Speech Acts)
+- Design de conversa e fluxos conversacionais (Conversation Design)
+- Estratégias pragmáticas de tradução de Chesterman (Chesterman Pragmatic Translation Strategies)
+- Mineração de conversas de suporte e buscas internas (Conversation Mining)
+- Método PURE de avaliação pragmática da usabilidade (Pragmatic Usability Rating by Experts)
+- Dispositivos indicadores de força ilocucionária — IFIDs (Illocutionary Force Indicating Devices)
+- Hipótese performativa e verbos performativos explícitos (Performative Hypothesis)
+- Design da mensagem para o destinatário (Recipient Design)
+- Ancoragem do terreno comum na comunicação (Grounding in Communication)
+- Máximas de polidez de Leech (Leech Politeness Maxims)
+- Mitigação e reforço ilocucionário (Illocutionary Mitigation and Reinforcement)
+- Pragmática da Teoria dos Jogos e modelo RSA (Rational Speech Act Model)
+- Metapragmática e Gestão da Relação na Interação (Metapragmatics and Rapport Management)
+- Captação de gênero de Freadman (Genre Uptake)
+- Translinguagem (Translanguaging)
+- Competência interacional (Interactional Competence)
+- Hipótese da interação e negociação de sentido (Interaction Hypothesis and Negotiation of Meaning)
+- Interpretação dialógica e coordenação interacional de Wadensjö (Wadensjö’s Dialogic Interpreting and Interaction Coordination)
+- Esquema demanda-controle na interpretação de Dean e Pollard (Dean and Pollard’s Demand-Control Schema)
+- Guia Calgary-Cambridge para a entrevista clínica (Calgary-Cambridge Guide to the Medical Interview)
+- Protocolo NURSE de resposta empática a emoções (NURSE Empathic Communication Statements)
+- Sistema de Análise de Interação de Roter — RIAS (Roter Interaction Analysis System)
+- Modelo dos Quatro Hábitos de comunicação clínica (Four Habits Model)
+- Entrevista motivacional (Motivational Interviewing)
+- Técnica Perguntar-Contar-Perguntar (Ask-Tell-Ask Technique)
+- Sistema de codificação emocional VR-CoDES (Verona Coding Definitions of Emotional Sequences)
+- Lista de perguntas orientadoras para consulta — QPL (Question Prompt List)
+
+- Análise de ato de fala locucionário, ilocucionário e perlocucionário (locutionary, illocutionary, and perlocutionary act analysis)
+- Análise de diretivos, compromissivos e expressivos (directive, commissive, and expressive speech act analysis)
+- Análise de condições de felicidade de atos de fala (speech act felicity conditions analysis)
+- Análise de força ilocucionária em formas interrogativas (illocutionary force in interrogatives analysis)
+- Análise de mitigação de atos diretivos (directive act mitigation analysis)
+- Análise de polidez positiva e negativa (positive and negative politeness analysis)
+- Análise de face positiva e face negativa (positive and negative face analysis)
+- Análise de trabalho de face em interação institucional (facework in institutional interaction analysis)
+- Análise de estratégias de cortesia e descortesia (politeness and impoliteness strategy analysis)
+- Análise de pressuposição projetiva (projective presupposition analysis)
+- Análise de gatilhos pressuposicionais (presupposition trigger analysis)
+- Análise de cancelabilidade de implicatura (implicature cancellability analysis)
+- Análise de implicatura generalizada e particularizada (generalized and particularized implicature analysis)
+- Análise de implicatura escalar (scalar implicature analysis)
+- Análise de implicatura convencional (conventional implicature analysis)
+- Análise de violação e exploração de máxima conversacional (conversational maxim violation and exploitation analysis)
+- Análise de relevância contextual em enunciados (contextual relevance analysis of utterances)
+- Análise de subespecificação pragmática (pragmatic underspecification analysis)
+- Análise de enriquecimento pragmático livre (free pragmatic enrichment analysis)
+- Análise de referência dêitica pessoal, espacial e temporal (person, spatial, and temporal deixis analysis)
+- Análise de dêixis social em formas de tratamento (social deixis in forms of address analysis)
+- Análise de centro dêitico e deslocamento dêitico (deictic center and deictic shift analysis)
+- Análise de evidencialidade e fonte de informação (evidentiality and information source analysis)
+- Análise de modalidade epistêmica, deôntica e dinâmica (epistemic, deontic, and dynamic modality analysis)
+- Análise de pressuposto comum e terreno comum (common ground analysis)
+- Análise de acomodação de pressuposições (presupposition accommodation analysis)
+- Análise de alinhamento e desalinhamento conversacional (conversational alignment and misalignment analysis)
+- Análise de reparo iniciado pelo falante e pelo interlocutor (self- and other-initiated repair analysis)
+- Análise de sequência de preferência e despreferência (preference and dispreference organization analysis)
+- Análise de pares adjacentes e expansão de sequência (adjacency pair and sequence expansion analysis)
+- Análise de tomada de turno e ponto de relevância transicional (turn-taking and transition relevance place analysis)
+- Análise de sobreposição, interrupção e competição de fala (overlap, interruption, and floor competition analysis)
+- Análise de marcadores discursivos na gestão de turno (discourse markers in turn management analysis)
+- Análise de resposta mínima e sinal de escuta (minimal response and backchannel analysis)
+- Análise de perguntas de confirmação e verificação de entendimento (confirmation and comprehension check analysis)
+- Análise de reformulação como estratégia de reparo (reformulation as repair strategy analysis)
+- Análise de reformulação como estratégia de alinhamento (reformulation as alignment strategy analysis)
+- Análise de marcador de posição argumentativa em interação (stance markers in interaction analysis)
+- Análise de categorias de pertencimento em conversa (membership categorization analysis)
+- Análise de enquadre interacional e mudança de footing (interactional frame and footing shift analysis)
+- Análise de comunicação ostensivo-inferencial (ostensive-inferential communication analysis)
+- Análise de relevância ótima na interpretação (optimal relevance in interpretation analysis)
+- Análise de metapragmática e comentário sobre o dizer (metapragmatic commentary analysis)
+- Análise de força de pedido segundo custo e benefício (request imposition and benefit analysis)
+- Análise de justificativa e prestação de contas conversacional (accounts and accountability analysis)
+- Análise de recusa direta, mitigada e adiada (direct, mitigated, and delayed refusal analysis)
+- Análise de atos indiretos convencionais e não convencionais (conventional and nonconventional indirect speech acts analysis)
+- Análise de pressuposição acomodada em texto institucional (accommodated presupposition in institutional text analysis)
+- Análise de implicaturas em instruções e avisos (implicatures in instructions and notices analysis)
+- Análise de interpretação pragmática de mensagens de erro (pragmatic interpretation of error messages analysis)
+
+- Análise de implicatura conversacional por violação ostensiva de máxima (conversational implicature through overt maxim flouting analysis)
+- Análise de implicatura por exploração silenciosa de máxima (implicature through quiet maxim exploitation analysis)
+- Análise de pressuposição em descrições definidas (presupposition in definite descriptions analysis)
+- Análise de pressuposição existencial em sintagmas nominais (existential presupposition in noun phrases analysis)
+- Análise de pressuposição factiva em verbos de atitude (factive presupposition in attitude verbs analysis)
+- Análise de pressuposição lexical por mudança de estado (lexical presupposition through change-of-state verbs analysis)
+- Análise de pressuposição estrutural em interrogativas (structural presupposition in interrogatives analysis)
+- Análise de projeção de pressuposição sob negação (presupposition projection under negation analysis)
+- Análise de projeção de pressuposição em pergunta (presupposition projection in questions analysis)
+- Análise de cancelamento e suspensão de pressuposição (presupposition cancellation and suspension analysis)
+- Análise de acomodação global e local de pressuposição (global and local presupposition accommodation analysis)
+- Análise de implicatura escalar com quantificadores (scalar implicature with quantifiers analysis)
+- Análise de implicatura de alguns versus todos (some-versus-all scalar implicature analysis)
+- Análise de enriquecimento pragmático de numerais (pragmatic enrichment of numerals analysis)
+- Análise de interpretação exaustiva de respostas (exhaustive interpretation of answers analysis)
+- Análise de resposta parcial e implicatura de completude (partial answer and completeness implicature analysis)
+- Análise de relevância de informação nova no contexto (relevance of new information in context analysis)
+- Análise de efeito cognitivo e esforço de processamento em relevância (cognitive effect and processing effort in relevance analysis)
+- Análise de contexto acessível versus contexto inferido (accessible and inferred context distinction analysis)
+- Análise de pressupostos enciclopédicos e conhecimento compartilhado (encyclopedic assumptions and shared knowledge analysis)
+- Análise de referente discursivo introduzido e retomado (introduced and retrieved discourse referent analysis)
+- Análise de dêixis discursiva por isto, isso e aquilo (discourse deixis through demonstratives analysis)
+- Análise de dêixis de pessoa em discurso institucional (person deixis in institutional discourse analysis)
+- Análise de dêixis temporal em aviso com prazo (temporal deixis in deadline notice analysis)
+- Análise de dêixis espacial em instrução de interface (spatial deixis in interface instruction analysis)
+- Análise de demonstrativo proximal e distal por perspectiva discursiva (proximal and distal demonstratives by discourse perspective analysis)
+- Análise de escolha de tratamento por distância e hierarquia (address form choice by distance and hierarchy analysis)
+- Análise de mitigação por condicional e pergunta indireta (mitigation through conditional and indirect question analysis)
+- Análise de mitigação por modalizador de possibilidade (mitigation through possibility modal analysis)
+- Análise de mitigação por expressão de dúvida epistêmica (mitigation through epistemic uncertainty expression analysis)
+- Análise de intensificação de pedido por imperativo e advérbio (request intensification through imperative and adverb analysis)
+- Análise de pedido indireto convencional em contexto de serviço (conventional indirect request in service context analysis)
+- Análise de pedido indireto não convencional por pista contextual (nonconventional indirect request through contextual cue analysis)
+- Análise de justificativa prévia e justificativa posterior ao pedido (pre-request and post-request account analysis)
+- Análise de pré-sequência que prepara uma solicitação (pre-sequence preparing a request analysis)
+- Análise de resposta preferida e resposta despreferida a convite (preferred and dispreferred response to invitation analysis)
+- Análise de atraso, hesitação e mitigação em recusa (delay, hesitation, and mitigation in refusal analysis)
+- Análise de recusa com alternativa e preservação de face (refusal with alternative and face preservation analysis)
+- Análise de desculpa como reparo de relação interpessoal (apology as interpersonal relationship repair analysis)
+- Análise de agradecimento e reconhecimento de benefício (gratitude and benefit acknowledgment analysis)
+- Análise de elogio, aceitação e rejeição em interação (compliment, acceptance, and rejection in interaction analysis)
+- Análise de desacordo mitigado e desacordo explícito (mitigated and explicit disagreement analysis)
+- Análise de preâmbulo e qualificação antes de discordar (preface and qualification before disagreement analysis)
+- Análise de marcador de alinhamento e afiliação conversacional (conversational alignment and affiliation marker analysis)
+- Análise de reparo por repetição parcial e substituição lexical (repair through partial repetition and lexical replacement analysis)
+- Análise de reformulação confirmatória e corretiva (confirmatory and corrective reformulation analysis)
+- Análise de pergunta de checagem e confirmação de entendimento (check question and understanding confirmation analysis)
+- Análise de resposta mínima como continuação ou encerramento (minimal response as continuation or closure analysis)
+- Análise de marcador discursivo na abertura e no fechamento (discourse marker in opening and closing analysis)
+- Análise de mudança de tópico com pré-anúncio (topic shift with pre-announcement analysis)
+- Análise de conclusão de tópico e fechamento sequencial (topic completion and sequence closing analysis)
+
+- Análise de máxima de quantidade por subinformação (quantity maxim through underinformativeness analysis)
+- Análise de máxima de qualidade por evidência apresentada (quality maxim through presented evidence analysis)
+- Análise de máxima de relação em mudança de tópico (relation maxim in topic shift analysis)
+- Análise de máxima de modo por clareza e ordem (manner maxim through clarity and order analysis)
+- Análise de flouting de máxima como ironia conversacional (maxim flouting as conversational irony analysis)
+- Análise de implicatura por relevância ostensiva de detalhe (implicature through ostensibly relevant detail analysis)
+- Análise de implicatura de quantidade por alternativa salientada (quantity implicature through salient alternative analysis)
+- Análise de pressuposição em expressão iterativa (presupposition in iterative expression analysis)
+- Análise de pressuposição em construção clivada (presupposition in cleft construction analysis)
+- Análise de pressuposição em oração temporal (presupposition in temporal clause analysis)
+- Análise de pressuposição em pergunta “por que” (presupposition in why-question analysis)
+- Análise de acomodação de pressuposição controversa (accommodation of controversial presupposition analysis)
+- Análise de projeção de pressuposição em condicional (presupposition projection in conditional analysis)
+- Análise de pressuposição local em discurso relatado (local presupposition in reported speech analysis)
+- Análise de uso estratégico de pressuposição em texto político (strategic presupposition in political text analysis)
+- Análise de interpretação referencial de descrição definida (referential interpretation of definite description analysis)
+- Análise de acomodação de referente não introduzido (accommodation of unintroduced referent analysis)
+- Análise de referente específico versus não específico (specific and nonspecific referent distinction analysis)
+- Análise de dêixis textual para orientar seção seguinte (textual deixis guiding next section analysis)
+- Análise de “acima”, “abaixo” e “a seguir” em documento digital (above, below, and next in digital document analysis)
+- Análise de deixis social em título profissional e tratamento (social deixis in professional title and address analysis)
+- Análise de mudança de footing em comunicação institucional (footing shift in institutional communication analysis)
+- Análise de voz animadora, autora e responsável pelo enunciado (animator, author, and principal voice analysis)
+- Análise de participação ratificada e não ratificada (ratified and unratified participant analysis)
+- Análise de alinhamento com destinatário projetado em texto (alignment with projected addressee in text analysis)
+- Análise de destinatário genérico versus destinatário específico (generic and specific addressee distinction analysis)
+- Análise de cortesia por escolha de pessoa e modalidade (politeness through person and modality choice analysis)
+- Análise de cortesia por justificativa e reconhecimento de custo (politeness through rationale and imposition acknowledgment analysis)
+- Análise de descortesia por insulto, crítica e exclusão (impoliteness through insult, criticism, and exclusion analysis)
+- Análise de descortesia relacional e instrumental (relational and instrumental impoliteness analysis)
+- Análise de ameaça à face por ordem direta (face threat through direct command analysis)
+- Análise de mitigação de ameaça à face por opção (face threat mitigation through option analysis)
+- Análise de pedido com pré-sequência e condição de disponibilidade (request with pre-sequence and availability condition analysis)
+- Análise de pedido de favor em mensagem assíncrona (favor request in asynchronous message analysis)
+- Análise de convite com alternativa de recusa (invitation with refusal option analysis)
+- Análise de recusa indireta por adiamento (indirect refusal through postponement analysis)
+- Análise de recusa por justificativa impessoal (refusal through impersonal account analysis)
+- Análise de desculpa preventiva em pedido de alto custo (pre-emptive apology in high-imposition request analysis)
+- Análise de agradecimento que fecha ou amplia sequência (thanks closing or expanding a sequence analysis)
+- Análise de reparo de entendimento em instrução escrita (understanding repair in written instruction analysis)
+- Análise de reparo por confirmação, correção e especificação (repair through confirmation, correction, and specification analysis)
+- Análise de marcador de evidência “aparentemente” e “segundo” (evidential marker analysis for apparently and according to)
+- Análise de fonte de informação atribuída e não atribuída (attributed and unattributed information source analysis)
+- Análise de modalidade de obrigação por “deve” e “tem que” (obligation modality through must and have to analysis)
+- Análise de modalidade epistêmica por “provável” e “possível” (epistemic modality through probable and possible analysis)
+- Análise de força diretiva em recomendação sem imperativo (directive force in non-imperative recommendation analysis)
+- Análise de ato de fala de aviso, conselho e instrução (warning, advice, and instruction speech act analysis)
+- Análise de ato declarativo em anúncio institucional (declarative speech act in institutional announcement analysis)
+- Análise de compromisso performativo em promessa pública (performative commitment in public promise analysis)
+- Análise de condição de sinceridade em promessa textual (sincerity condition in textual promise analysis)
+- Análise de implicatura de continuidade em “ainda” e “já” (continuity implicature in still and already analysis)
+
+## Semântica lexical, metáfora e significado
+
+- Paradoxo da Escolha e Poda Semântica
+- Consistência Lexical e Efeito de Mera Exposição
+- Desambiguação Semântica de Disponibilidade
+- Efeito de Familiaridade Lexical (Lexical Frequency Effect)
+- Efeito de Proximidade de Categoria (Semantic Priming)
+- Metáfora conceitual (Conceptual Metaphor)
+- Metonímia persuasiva (Persuasive Metonymy)
+- Antonomásia (Antonomasia)
+- Isotopia semântica (Semantic Isotopy)
+- Macroestrutura semântica (Semantic Macrostructure)
+- Semântica de frames (Frame Semantics)
+- Prosódia semântica (Semantic Prosody)
+- Campo semântico e campo lexical (Semantic Field and Lexical Field)
+- Macrorregras semânticas de van Dijk (Van Dijk’s Semantic Macrorules)
+- Relexicalização e sobrelexicalização (Relexicalization and Overlexicalization)
+- Teoria dos protótipos na escolha lexical (Prototype Theory in Lexical Choice)
+- Semântica de eventos e aspecto lexical — Aktionsart (Event Semantics and Lexical Aspect)
+- Efeito de priming semântico e discursivo (Semantic and Discursive Priming)
+- Semântica composicional e ambiguidade de escopo (Compositional Semantics and Scope Ambiguity)
+- Modalidade epistêmica e deôntica (Epistemic and Deontic Modality)
+- Léxico gerativo e estrutura qualia de Pustejovsky (Pustejovsky’s Generative Lexicon and Qualia Structure)
+- Semântica bidimensional de Chalmers e Stalnaker (Two-Dimensional Semantics)
+- Semântica formal de Montague: gramática categorial e composicionalidade (Montague Semantics)
+- Semântica distribucional e hipótese distribucional (Distributional Semantics)
+- Semântica conceitual de Jackendoff (Jackendoff’s Conceptual Semantics)
+- Coesão lexical por meronímia e hiponímia (Lexical Cohesion via Meronymy and Hyponymy)
+- Similaridade semântica por embeddings de sentenças (Sentence Embedding Semantic Similarity)
+- SynLex: analisador de complexidade sintática e lexical (SynLex)
+- Tradução comunicativa e semântica de Newmark (Newmark Communicative and Semantic Translation)
+- Estratégias de não equivalência lexical de Mona Baker (Baker Non-Equivalence Strategies)
+- Marcação semântica estruturada DocBook (DocBook XML Semantic Markup)
+- Grafo de conhecimento semântico e modelagem EAV (Semantic Knowledge Graph and EAV Modeling)
+- Padronização de léxico verbal de probabilidade (Verbal Probability Lexicon Standardization)
+- Hipótese da qualidade lexical (Lexical Quality Hypothesis)
+- Implicatura convencional acionada por gatilhos lexicais (Conventional Implicature)
+- Semântica de atualização de contexto e mudança de arquivo (Context-Change Potential and File Change Semantics)
+- Semântica multidimensional de conteúdo em questão e fora de questão (At-Issue and Non-At-Issue Semantics)
+- Semântica de atualização e modalidade epistêmica (Update Semantics)
+- Semântica de alternativas e projeção de foco (Alternative Semantics and Focus Projection)
+- Modelo Logogen de Reconhecimento Lexical (Logogen Model of Word Recognition)
+- Decomposição Morfológica Obrigatória no Acesso Lexical (Obligatory Affix Stripping)
+- Teoria da Metáfora Conceptual: Domínio-Fonte e Domínio-Alvo (Conceptual Metaphor Theory)
+- Metáforas Primárias e Correlação Experiencial (Primary Metaphors)
+- Teoria da Metáfora Deliberada (Deliberate Metaphor Theory)
+- Metonímia Conceptual e Modelos Cognitivos Idealizados (Conceptual Metonymy and ICMs)
+- Teoria do Desequilíbrio de Saliência na Metáfora (Salience Imbalance Theory)
+- Teoria da Inclusão de Classe e Categorização Ad Hoc na Metáfora (Class-Inclusion Theory)
+- Hiperonímia. Hiponímia e Co-hiponímia (Hypernymy. Hyponymy. Co-Hyponymy)
+- Meronímia e Holonímia: Relações Parte-Todo (Meronymy and Holonymy)
+- Antônimos Graduáveis. Complementares. Conversos e Reversos (Antonym Types)
+- Polissemia Sistemática e Homonímia (Systematic Polysemy and Homonymy)
+- Léxico Gerativo e Estrutura Qualia (Generative Lexicon and Qualia Structure)
+- Semântica de Frames e Elementos de Frame (Frame Semantics and FrameNet)
+- Restrições Selecionais e Coerção de Tipo Semântico (Selectional Restrictions and Type Coercion)
+- Análise Componencial e Traços Semânticos Distintivos (Componential Analysis)
+- Analogia estendida (Extended Analogy)
+- Metalinguagem e autonímia (Metalanguage and Autonymy)
+- Negação metalinguística de Horn (Horn’s Metalinguistic Negation)
+- Hipótese da Invariância na Projeção Metafórica (Invariance Hypothesis)
+- Comparação Implícita de Paridade
+- Estranhamento ou ostranenie (Defamiliarization / Ostranenie)
+- Lugares de quantidade e de qualidade (Perelman’s Loci of Quantity and Quality)
+- Onomasiologia e semasiologia (Onomasiology and Semasiology)
+- Preferência semântica (Semantic Preference)
+- Princípio idiomático e princípio da escolha aberta (Idiom Principle and Open-Choice Principle)
+- Teoria do priming lexical de Hoey (Hoey’s Lexical Priming Theory)
+- Teoria sociocognitiva da terminologia de Temmerman (Temmerman’s Sociocognitive Terminology Theory)
+- Terminologia baseada em frames de Faber (Frame-Based Terminology)
+- Teoria da metáfora multimodal de Charles Forceville (Multimodal Metaphor Theory)
+
+- Análise de polissemia regular e irregular (regular and irregular polysemy analysis)
+- Análise de homonímia homógrafa e homófona (homographic and homophonic homonymy analysis)
+- Análise de paronímia lexical (lexical paronymy analysis)
+- Análise de hiperonímia e hiponímia lexical (lexical hypernymy and hyponymy analysis)
+- Análise de meronímia e holonímia (meronymy and holonymy analysis)
+- Análise de sinonímia absoluta e contextual (absolute and contextual synonymy analysis)
+- Análise de antonímia gradual, complementar e conversiva (gradable, complementary, and converse antonymy analysis)
+- Análise de incompatibilidade lexical e co-hiponímia (lexical incompatibility and co-hyponymy analysis)
+- Análise de colocação lexical restrita (restricted lexical collocation analysis)
+- Análise de preferência semântica de colocados (semantic preference analysis of collocates)
+- Análise de prosódia semântica lexical (lexical semantic prosody analysis)
+- Análise de restrições selecionais de predicado (predicate selectional restriction analysis)
+- Análise de papéis temáticos de predicado (predicate thematic role analysis)
+- Análise de agentividade e causatividade lexical (lexical agentivity and causativity analysis)
+- Análise de alternância causativa-incoativa (causative-inchoative alternation analysis)
+- Análise de aspecto lexical télico e atélico (telic and atelic lexical aspect analysis)
+- Análise de verbos de atividade, estado e realização (activity, state, and accomplishment verb analysis)
+- Análise de metáfora conceptual orientacional (orientational conceptual metaphor analysis)
+- Análise de metáfora conceptual ontológica (ontological conceptual metaphor analysis)
+- Análise de metáfora conceptual estrutural (structural conceptual metaphor analysis)
+- Análise de metáfora convencional e inovadora (conventional and novel metaphor analysis)
+- Análise de metonímia conceptual (conceptual metonymy analysis)
+- Análise de integração conceptual ou blending (conceptual integration or blending analysis)
+- Análise de espaços mentais em discurso figurado (mental spaces in figurative discourse analysis)
+- Análise de metáfora multimodal verbal-visual (verbo-visual multimodal metaphor analysis)
+- Análise de metáfora orientadora de argumento (argument-framing metaphor analysis)
+- Análise de metáfora morta e metáfora lexicalizada (dead and lexicalized metaphor analysis)
+- Análise de ambiguidade entre leitura literal e figurada (literal-figurative ambiguity analysis)
+- Análise de campos semânticos e domínios lexicais (semantic field and lexical domain analysis)
+- Análise de mudança semântica por extensão e restrição (semantic broadening and narrowing analysis)
+- Análise de pejorização e amelioração lexical (pejoration and amelioration analysis)
+- Análise de eufemismo e disfemismo lexical (lexical euphemism and dysphemism analysis)
+- Análise de conotação afetiva em escolhas lexicais (affective connotation in lexical choice analysis)
+- Análise de avaliação semântica em adjetivos (semantic evaluation in adjectives analysis)
+- Análise de vaguidade lexical e precisão contextual (lexical vagueness and contextual precision analysis)
+- Análise de termos graduáveis e escalas lexicais (gradable terms and lexical scales analysis)
+- Análise de antônimos polares e escalas graduais (polar antonyms and gradual scales analysis)
+- Análise de denotação, extensão e intensão lexical (lexical denotation, extension, and intension analysis)
+- Análise de prototipicidade em categorias lexicais (prototypicality in lexical categories analysis)
+- Análise de fronteiras fuzzy entre categorias semânticas (fuzzy boundaries between semantic categories analysis)
+- Análise de significado composicional em expressões idiomáticas (compositional meaning in idioms analysis)
+- Análise de transparência e opacidade fraseológica (phraseological transparency and opacity analysis)
+
+- Análise de acarretamento lexical e acarretamento contextual (lexical and contextual entailment analysis)
+- Análise de pressuposição semântica versus pragmática (semantic and pragmatic presupposition distinction analysis)
+- Análise de contradição lógica e incompatibilidade lexical (logical contradiction and lexical incompatibility analysis)
+- Análise de tautologia textual e função discursiva (textual tautology and discourse function analysis)
+- Análise de contradição aparente e leitura concessiva (apparent contradiction and concessive reading analysis)
+- Análise de vagueza comparativa em adjetivos graduáveis (comparative vagueness in gradable adjectives analysis)
+- Análise de modificador de grau e escala semântica (degree modifier and semantic scale analysis)
+- Análise de intensificador e atenuador lexical (lexical intensifier and downtoner analysis)
+- Análise de adjetivo intersectivo, subsectivo e privativo (intersective, subsective, and privative adjective analysis)
+- Análise de predicado individual-level e stage-level (individual-level and stage-level predicate analysis)
+- Análise de verbo de realização e culminação (accomplishment and achievement verb analysis)
+- Análise de duração, limite e culminação em evento (event duration, boundary, and culmination analysis)
+- Análise de aspecto gramatical perfectivo e imperfectivo (perfective and imperfective grammatical aspect analysis)
+- Análise de aspecto habitual, iterativo e progressivo (habitual, iterative, and progressive aspect analysis)
+- Análise de operador temporal e ordenação de eventos (temporal operator and event ordering analysis)
+- Análise de anterioridade, simultaneidade e posterioridade (anteriority, simultaneity, and posteriority analysis)
+- Análise de estrutura de evento e papéis de participante (event structure and participant roles analysis)
+- Análise de papel semântico de experienciador e estímulo (experiencer and stimulus semantic role analysis)
+- Análise de papel semântico de tema, paciente e resultado (theme, patient, and result role analysis)
+- Análise de papel semântico de instrumento, meio e causa (instrument, means, and cause role analysis)
+- Análise de alternância de dativo e estrutura de transferência (dative alternation and transfer structure analysis)
+- Análise de construção resultativa e estado resultante (resultative construction and resulting state analysis)
+- Análise de verbos de movimento e trajetória semântica (motion verbs and semantic path analysis)
+- Análise de percurso, fonte e meta em expressões espaciais (path, source, and goal in spatial expressions analysis)
+- Análise de frame semântico e papéis de quadro (semantic frame and frame element analysis)
+- Análise de frame evocador por unidade lexical (frame evocation by lexical unit analysis)
+- Análise de alternância de perspectiva em frame semântico (perspective alternation in semantic frame analysis)
+- Análise de domínio-fonte e domínio-alvo em metáfora (source and target domains in metaphor analysis)
+- Análise de mapeamento metafórico parcial (partial metaphorical mapping analysis)
+- Análise de metáfora conceptual por expressões linguísticas (conceptual metaphor through linguistic expressions analysis)
+- Análise de metáfora primária e metáfora composta (primary and compound metaphor analysis)
+- Análise de metonímia parte pelo todo e todo pela parte (part-for-whole and whole-for-part metonymy analysis)
+- Análise de metonímia de recipiente e conteúdo (container-content metonymy analysis)
+- Análise de metonímia de lugar e instituição (place-institution metonymy analysis)
+- Análise de personificação como metáfora ontológica (personification as ontological metaphor analysis)
+- Análise de metáfora de orientação espacial em argumento (spatial orientation metaphor in argument analysis)
+- Análise de mesclagem conceptual com múltiplos espaços de entrada (conceptual blending with multiple input spaces analysis)
+- Análise de espaço genérico e espaço mescla (generic and blended space analysis)
+- Análise de compressão de relação vital em mesclagem (vital relation compression in blending analysis)
+- Análise de ambiguidade de metáfora gramatical (grammatical metaphor ambiguity analysis)
+- Análise de metáfora ideacional em nominalização (ideational metaphor in nominalization analysis)
+- Análise de metáfora interpessoal em modalidade (interpersonal metaphor in modality analysis)
+- Análise de metonímia em cadeia referencial (metonymy in referential chain analysis)
+- Análise de eufemismo por metáfora e perífrase (euphemism through metaphor and periphrasis analysis)
+- Análise de disfemismo por rotulação lexical (dysphemism through lexical labeling analysis)
+- Análise de ambiguidade lexical deliberada em título (deliberate lexical ambiguity in headline analysis)
+- Análise de polissemia explorada em slogan (exploited polysemy in slogan analysis)
+- Análise de duplo sentido e resolução contextual (double meaning and contextual resolution analysis)
+- Análise de inferência semântica por conhecimento enciclopédico (semantic inference through encyclopedic knowledge analysis)
+- Análise de significado de palavra e significado de expressão (word meaning and phrase meaning analysis)
+
+- Análise de significado lexical em construção gramatical (lexical meaning in grammatical construction analysis)
+- Análise de semântica de frames em construção de uso (frame semantics in usage construction analysis)
+- Análise de construção argumental e alternância de estrutura (argument structure construction and alternation analysis)
+- Análise de construção resultativa em português (resultative construction in Portuguese analysis)
+- Análise de construção ditransitiva e transferência (ditransitive construction and transfer analysis)
+- Análise de construção de movimento causado (caused motion construction analysis)
+- Análise de construção comparativa correlativa (correlative comparative construction analysis)
+- Análise de construção de foco clivado (cleft focus construction analysis)
+- Análise de significado convencionalizado por construção (constructionalized meaning analysis)
+- Análise de pareamento entre forma e função em construção (form-function pairing in construction analysis)
+- Análise de polissemia de construção gramatical (grammatical construction polysemy analysis)
+- Análise de rede construcional por herança e extensão (constructional network by inheritance and extension analysis)
+- Análise de protótipo e membro periférico em categoria lexical (prototype and peripheral member in lexical category analysis)
+- Análise de efeito de prototipicidade na escolha lexical (prototypicality effect on lexical choice analysis)
+- Análise de categoria radial e extensão metafórica (radial category and metaphorical extension analysis)
+- Análise de polissemia sistemática em família lexical (systematic polysemy in lexical family analysis)
+- Análise de coerção semântica por contexto (semantic coercion by context analysis)
+- Análise de coerção de tipo em predicado (type coercion in predicate analysis)
+- Análise de incompatibilidade semântica e leitura figurada (semantic incompatibility and figurative reading analysis)
+- Análise de seleção de sentido por restrição contextual (sense selection through contextual constraint analysis)
+- Análise de desambiguação lexical por frequência de sentido (lexical disambiguation by sense frequency analysis)
+- Análise de desambiguação lexical por colocação (lexical disambiguation through collocation analysis)
+- Análise de desambiguação lexical por seleção argumental (lexical disambiguation through argument selection analysis)
+- Análise de extensão metonímica de verbo (metonymic verb extension analysis)
+- Análise de metáfora verbal convencional em registro técnico (conventional verbal metaphor in technical register analysis)
+- Análise de verbo leve e conteúdo semântico do nome (light verb and noun semantic content analysis)
+- Análise de verbo suporte em colocação especializada (support verb in specialized collocation analysis)
+- Análise de unidade lexical multipalavra (multiword lexical unit analysis)
+- Análise de expressão idiomática parcialmente composicional (partially compositional idiom analysis)
+- Análise de expressão fixa e variação fraseológica (fixed expression and phraseological variation analysis)
+- Análise de colocação por atração lexical (lexical attraction in collocation analysis)
+- Análise de colocação por restrição colocacional (collocational restriction analysis)
+- Análise de preferência colocacional de adjetivo (adjective collocational preference analysis)
+- Análise de colocação verbo-nominal em texto especializado (verb-noun collocation in specialized text analysis)
+- Análise de colocação adverbial e orientação avaliativa (adverbial collocation and evaluative orientation analysis)
+- Análise de equivalência semântica em paráfrases lexicais (semantic equivalence in lexical paraphrases analysis)
+- Análise de paráfrase definicional por traços semânticos (definitional paraphrase by semantic features analysis)
+- Análise componencial de traços distintivos (componential analysis of distinctive features)
+- Análise de sema genérico e sema específico (generic and specific seme analysis)
+- Análise de campo lexical por oposição e inclusão (lexical field by opposition and inclusion analysis)
+- Análise de campo semântico por protótipos e fronteiras (semantic field by prototypes and boundaries analysis)
+- Análise de incompatibilidade entre co-hipônimos (incompatibility among co-hyponyms analysis)
+- Análise de gradação semântica por escala de intensidade (semantic gradation by intensity scale analysis)
+- Análise de escala lexical de certeza e probabilidade (lexical scale of certainty and probability analysis)
+- Análise de verbo factivo e projeção de conteúdo pressuposto (factive verb and presupposed content projection analysis)
+- Análise de verbo implicativo e inferência de sucesso ou falha (implicative verb and success or failure inference analysis)
+- Análise de verbo de criação e existência resultante (creation verb and resulting existence analysis)
+- Análise de verbo de movimento e mudança de estado (motion verb and state change analysis)
+- Análise de significado lexical versus significado enciclopédico (lexical and encyclopedic meaning distinction analysis)
+- Análise de conhecimento lexical gradiente e profundidade de vocabulário (graded lexical knowledge and vocabulary depth analysis)
+
+- Análise de semântica formal de quantificadores generalizados (formal semantics of generalized quantifiers analysis)
+- Análise de escopo de quantificador sob negação (quantifier scope under negation analysis)
+- Análise de leitura de dicto e de re em expressão modal (de dicto and de re readings in modal expression analysis)
+- Análise de ambiguidade de escopo entre modalidade e quantificação (scope ambiguity between modality and quantification analysis)
+- Análise de pressuposição em descrições definidas plurais (presupposition in plural definite descriptions analysis)
+- Análise de dependência de pressuposição em discurso anafórico (presupposition dependence in anaphoric discourse analysis)
+- Análise de pressuposição acomodada por pronome demonstrativo (presupposition accommodated by demonstrative pronoun analysis)
+- Análise de referencialidade de sintagma nominal indefinido (referentiality of indefinite noun phrase analysis)
+- Análise de leitura específica e inespecífica sob negação (specific and nonspecific readings under negation analysis)
+- Análise de interpretação de escopo em pergunta múltipla (scope interpretation in multiple question analysis)
+- Análise de interpretação de pergunta parcial e total (partial and polar question interpretation analysis)
+- Análise de resposta exaustiva e resposta parcial em semântica de pergunta (exhaustive and partial answer semantics analysis)
+- Análise de semântica de alternativas focais (semantics of focus alternatives analysis)
+- Análise de foco contrastivo e foco de informação nova (contrastive focus and new information focus analysis)
+- Análise de foco estreito e foco amplo (narrow and broad focus analysis)
+- Análise de pressuposição associada a foco contrastivo (presupposition associated with contrastive focus analysis)
+- Análise de operador exaustivo “somente” e alternativas (only operator and alternatives analysis)
+- Análise de operador “até” e ordenação escalar (even operator and scalar ordering analysis)
+- Análise de quantificador “quase” e aproximação de limite (almost quantifier and boundary approximation analysis)
+- Análise de modificação de grau por “muito”, “bastante” e “pouco” (degree modification by very, quite, and little analysis)
+- Análise de adjetivo absoluto e adjetivo relativo (absolute and relative adjective analysis)
+- Análise de adjetivo avaliativo dependente de padrão contextual (evaluative adjective by contextual standard analysis)
+- Análise de semântica de adjetivo subsectivo (subsective adjective semantics analysis)
+- Análise de adjetivo privativo e categoria nominal (privative adjective and noun category analysis)
+- Análise de predicado episódico e predicado permanente (episodic and permanent predicate analysis)
+- Análise de aspecto lexical por classes de Vendler (Vendler lexical aspect classes analysis)
+- Análise de mudança aspectual por adverbial temporal (aspectual shift through temporal adverbial analysis)
+- Análise de coerção aspectual em verbo estativo (aspectual coercion in stative verb analysis)
+- Análise de interpretação habitual por contexto iterativo (habitual interpretation through iterative context analysis)
+- Análise de aspecto progressivo com predicado pontual (progressive aspect with punctual predicate analysis)
+- Análise de estado resultante e perfeito resultativo (resulting state and resultative perfect analysis)
+- Análise de semântica de verbo de mudança de estado (semantics of change-of-state verb analysis)
+- Análise de alternância de estrutura argumental (argument structure alternation analysis)
+- Análise de alternância causativa e incoativa em verbo de mudança (causative-inchoative alternation in change verb analysis)
+- Análise de alternância locativa em construção verbal (locative alternation in verbal construction analysis)
+- Análise de alternância dativa em verbos de transferência (dative alternation in transfer verbs analysis)
+- Análise de estrutura eventiva por causa, processo e resultado (event structure by cause, process, and result analysis)
+- Análise de estrutura eventiva por subeventos (event structure by subevents analysis)
+- Análise de papéis temáticos por hierarquia semântica (thematic roles by semantic hierarchy analysis)
+- Análise de papel semântico de beneficiário e recipiente (beneficiary and recipient semantic role analysis)
+- Análise de papel semântico de fonte, percurso e meta (source, path, and goal semantic role analysis)
+- Análise de relação parte-todo em descrição espacial (part-whole relation in spatial description analysis)
+- Análise de relação meronímica em texto técnico (meronymic relation in technical text analysis)
+- Análise de relação lexical causa-resultado (lexical cause-result relation analysis)
+- Análise de sinonímia por acarretamento bidirecional (synonymy by bidirectional entailment analysis)
+- Análise de acarretamento unilateral entre expressões (one-way entailment between expressions analysis)
+- Análise de acarretamento lexical e acarretamento por mundo típico (lexical and stereotypical entailment analysis)
+- Análise de contradição entre predicados graduáveis (contradiction between gradable predicates analysis)
+- Análise de compatibilidade de predicados em contexto (predicate compatibility in context analysis)
+- Análise de metáfora conceptual em verbo de movimento abstrato (conceptual metaphor in abstract motion verb analysis)
+
+## Gramática, sintaxe e edição estilística
+
+- Verbalização Dinâmica (Substituição de Nominalizações)
+- Prosódia de Pontuação e Subvocalização
+- Pleonasmo enfático (Emphatic Pleonasm)
+- Densidade lexical (Lexical Density)
+- Metáfora gramatical (Grammatical Metaphor)
+- Iconicidade sintática (Syntactic Iconicity)
+- Ritmo prosaico e clausulae (Prose Rhythm & Clausulae)
+- Clivagem sintática e foco contrastivo (Syntactic Clefting & Contrastive Focus)
+- Topicalização e deslocamento à esquerda (Topicalization and Left-Dislocation)
+- Apagamento de agente e passivização discursiva (Agent Deletion and Discursive Passivization)
+- Voz narrativa e pessoa gramatical (Narrative Voice and Grammatical Person)
+- Iconicidade diagramática e sequencial na sintaxe (Diagrammatic and Sequential Iconicity in Syntax)
+- Gramática de construções de Goldberg (Goldberg’s Construction Grammar)
+- Metáfora gramatical ideacional e interpessoal de Halliday (Halliday’s Ideational and Interpersonal Grammatical Metaphor)
+- Perfil e base na gramática cognitiva de Langacker (Langacker’s Profile and Base)
+- Complexidade sintática por T-units (T-Unit Syntactic Complexity)
+- Teoria da valência e gramática de dependências de Tesnière (Valency Theory and Dependency Grammar)
+- Gramaticalização e unidirecionalidade de Hopper e Traugott (Grammaticalization and Unidirectionality)
+- Gramática de Papéis e Referência de Van Valin — RRG (Role and Reference Grammar)
+- Gramática emergente de Paul Hopper (Paul Hopper’s Emergent Grammar)
+- Linguística de corpus: colocações. concordâncias e padrões lexicogramaticais (Corpus Linguistics)
+- Cadência e ritmo prosódico na prosa (Cadence and Prosodic Rhythm in Prose)
+- Economia verbal e concisão sintática (Verbal Economy and Syntactic Conciseness)
+- Hierarquia de orações e encaixamento na gramática da escrita (Clause Hierarchy and Embedding)
+- Pontuação de compreensibilidade e acionabilidade (Understandability and Actionability Scores)
+- Auditoria de nominalizações (Nominalization Audit)
+- Revisão de voz passiva para voz ativa (Passive-to-Active Voice Sweep)
+- Revisão de modificadores deslocados ou pendentes (Dangling and Misplaced Modifier Sweep)
+- Otimização de peso final e posição de ênfase (End-Weight and Stress Position Optimization)
+- Regras de pluralização e concordância de gênero — CLDR (CLDR Plural Rules)
+- Efeito da redundância na apresentação textual e multimídia (Redundancy Effect)
+- Sintaxe de passo ação. objeto e condição — AOC (Action-Object-Condition Step Syntax)
+- Paralelismo Sintático e Acoplamento Estrutural como Mecanismo Coesivo (Parallelism and Structural Coupling)
+- Cláusula e Ritmo da Prosa — Cursus Ciceronianus (Ciceronian Cursus)
+- Poda de Pleonasmos. Tautologias e Redundâncias (Redundancy Pruning)
+- Resolução de Modificadores Deslocados e Pendentes (Dangling and Misplaced Modifier Resolution)
+- Prevenção de Ambiguidade pela Vírgula Serial (Serial Comma Ambiguity Prevention)
+- Hifenização de Modificadores Compostos (Hyphenation of Compound Modifiers)
+- Simplificação Lexical e Sintática de Textos (Lexical and Syntactic Text Simplification)
+- Nominalização e Desnominalização: Estilo Nominal e Verbal (Nominalization and Denominalization)
+- Apassivação e Supressão do Agente (Passivization and Agent Deletion)
+- Frenteamento Sintático e Topiquização (Syntactic Fronting and Topicalization)
+- Princípio do Peso Final (End-Weight Principle)
+- Densidade Lexical e Complexidade Gramatical (Lexical Density and Grammatical Intricacy)
+- Deslocamento à Esquerda e à Direita (Left- and Right-Dislocation)
+- Construções Clivadas. Pseudoclivadas e Clivadas Invertidas (Cleft and Pseudo-Cleft Constructions)
+- Inversão Locativa e Inversão Direcional (Locative and Directional Inversion)
+- Extraposição Sentencial e de Sintagma Nominal (Sentential and NP Extraposition)
+- Deslocamento de Sintagma Nominal Pesado (Heavy NP Shift)
+- Scrambling de Constituintes e Ordem de Palavras Configurada pelo Discurso (Constituent Scrambling)
+- Subordinação Sintática de Condições
+- Construções impessoais e voz média (Impersonal Constructions and Middle Voice)
+- Estilística da condensação nominal (Nominal Condensation Stylistics)
+- Equivalência Funcional e Teoria do Escopo (Functional Equivalence and Skopos Theory)
+- Coligação gramatical (Colligation)
+- Gramática de padrões de Hunston e Francis (Pattern Grammar)
+- Gramáticas locais baseadas em corpus (Local Grammars)
+- Sistema de Modo e Resíduo na gramática sistêmico-funcional (Mood and Residue System)
+- Escala de ordem e deslocamento de nível gramatical (Rank Scale and Rankshift)
+- Modalização e modulação na gramática sistêmico-funcional (Modalization and Modulation)
+- Estruturas multivariadas e univariadas na LSF (Multivariate and Univariate Structures)
+- Complexidade do sintagma nominal e compressão gramatical (Noun Phrase Complexity and Grammatical Compression)
+- Quociente de ação de Busemann (Busemann’s Action Quotient)
+- Distância média de dependência — MDD (Mean Dependency Distance)
+
+- Análise de voz ativa, passiva analítica e passiva sintética (active, analytic passive, and synthetic passive analysis)
+- Análise de agente da passiva expresso e omitido (expressed and omitted passive agent analysis)
+- Análise de construção impessoal e sujeito indeterminado (impersonal construction and indeterminate subject analysis)
+- Análise de concordância verbal com sujeito posposto (subject-verb agreement with postverbal subject analysis)
+- Análise de concordância nominal em estruturas complexas (nominal agreement in complex structures analysis)
+- Análise de regência e seleção preposicional (government and preposition selection analysis)
+- Análise de colocação pronominal em contexto formal (clitic placement in formal context analysis)
+- Análise de ênclise, próclise e mesóclise em revisão (enclisis, proclisis, and mesoclisis review analysis)
+- Análise de paralelismo entre termos coordenados (parallelism among coordinated elements analysis)
+- Análise de paralelismo em enumerações e listas (parallelism in enumerations and lists analysis)
+- Análise de concordância em enumeração com núcleos heterogêneos (agreement in heterogeneous coordination analysis)
+- Análise de escopo de advérbios e adjuntos (adverb and adjunct scope analysis)
+- Análise de ambiguidade de modificadores (modifier ambiguity analysis)
+- Análise de posicionamento de adjuntos para reduzir ambiguidade (adjunct placement to reduce ambiguity)
+- Análise de oração relativa restritiva e explicativa (restrictive and nonrestrictive relative clause analysis)
+- Análise de oração subordinada reduzida e desenvolvida (reduced and finite subordinate clause analysis)
+- Análise de encaixamento de orações subordinadas (subordinate clause embedding analysis)
+- Análise de profundidade de encaixamento sintático (syntactic embedding depth analysis)
+- Análise de coordenação e subordinação em períodos longos (coordination and subordination in long sentences analysis)
+- Análise de período por hierarquia de orações (sentence clause hierarchy analysis)
+- Análise de correlação entre extensão da frase e legibilidade (sentence length and readability correlation analysis)
+- Análise de fragmento frasal intencional e acidental (intentional and accidental sentence fragment analysis)
+- Análise de frase nominal densa em prosa técnica (dense noun phrase analysis in technical prose)
+- Análise de nominalização e recuperação do agente (nominalization and agent recovery analysis)
+- Análise de substantivos abstratos e concretização verbal (abstract nouns and verbalization analysis)
+- Análise de verbos-suporte e nominalizações (light verbs and nominalizations analysis)
+- Análise de particípio ambíguo e referente (ambiguous participle and referent analysis)
+- Análise de gerúndio com sujeito implícito (gerund with implicit subject analysis)
+- Análise de gerúndio ambíguo em instruções (ambiguous gerund in instructions analysis)
+- Análise de infinitivo flexionado e não flexionado (inflected and uninflected infinitive analysis)
+- Análise de sequência temporal e consecutio temporum (tense sequence and consecutio temporum analysis)
+- Análise de alternância entre pretérito perfeito e imperfeito (preterite and imperfect alternation analysis)
+- Análise de presente histórico em narrativa (historical present in narrative analysis)
+- Análise de modalidade verbal em instruções e políticas (verbal modality in instructions and policies analysis)
+- Análise de subjuntivo em recomendações e hipóteses (subjunctive in recommendations and hypotheses analysis)
+- Análise de condicional real, potencial e contrafactual (real, potential, and counterfactual conditional analysis)
+- Análise de correlação entre tempo verbal e perspectiva discursiva (tense and discourse perspective analysis)
+- Análise de dêixis temporal em texto procedimental (temporal deixis in procedural text analysis)
+- Análise de consistência de pessoa gramatical em documentos (grammatical person consistency across documents)
+- Análise de alternância entre primeira e segunda pessoa (first- and second-person alternation analysis)
+- Análise de voz autoral e impessoalidade sintática (authorial voice and syntactic impersonality analysis)
+- Análise de ambiguidade de escopo de oração reduzida (reduced clause scope ambiguity analysis)
+- Análise de simetria sintática de títulos e subtítulos (syntactic symmetry of headings and subheadings analysis)
+- Análise de comprimento de parágrafo e unidade sintática (paragraph length and syntactic unit analysis)
+- Análise de segmentação de frase por limite de processamento (sentence segmentation by processing boundary)
+- Análise de frase com múltiplos centros de atenção (multiple-focus sentence analysis)
+- Análise de inversão sintática para foco e contraste (syntactic inversion for focus and contrast analysis)
+- Análise de ordem de constituintes para estrutura informacional (constituent order and information structure analysis)
+- Análise de tópico deslocado e pronome resumptivo (dislocated topic and resumptive pronoun analysis)
+- Análise de ambiguidade de antecedente em oração relativa (relative clause antecedent ambiguity analysis)
+
+- Análise de concordância verbal com expressão partitiva (subject-verb agreement with partitive expression analysis)
+- Análise de concordância com porcentagem e expressão numérica (agreement with percentages and numerical expressions analysis)
+- Análise de concordância com coletivo e núcleo semântico (agreement with collective nouns and semantic head analysis)
+- Análise de concordância em sujeito composto posposto (agreement with postposed compound subject analysis)
+- Análise de paralelismo entre infinitivo e oração finita (parallelism between infinitive and finite clause analysis)
+- Análise de coordenação de estruturas sintaticamente incompatíveis (coordination of syntactically incompatible structures analysis)
+- Análise de anacoluto e ruptura sintática deliberada (anacoluthon and deliberate syntactic break analysis)
+- Análise de frase parentética e pontuação de isolamento (parenthetical phrase and delimiting punctuation analysis)
+- Análise de inciso explicativo e pontuação correspondente (explanatory insertion and corresponding punctuation analysis)
+- Análise de vírgula entre sujeito e predicado (comma between subject and predicate analysis)
+- Análise de vírgula entre verbo e complemento (comma between verb and complement analysis)
+- Análise de pontuação de oração adverbial anteposta (punctuation of fronted adverbial clause analysis)
+- Análise de pontuação em oração relativa explicativa (punctuation in nonrestrictive relative clause analysis)
+- Análise de pontuação em enumeração complexa (punctuation in complex enumeration analysis)
+- Análise de ponto e vírgula em itens com vírgulas internas (semicolon use in list items with internal commas)
+- Análise de dois-pontos em apresentação de explicação ou lista (colon use before explanation or list analysis)
+- Análise de travessão como marcador de fala e inciso (em dash as speech and parenthetical marker analysis)
+- Análise de aspas em citação, ironia e uso metalinguístico (quotation marks in citation, irony, and metalinguistic use)
+- Análise de consistência de aspas simples e duplas (single and double quotation mark consistency analysis)
+- Análise de reticências por omissão e suspensão (ellipsis for omission and suspension analysis)
+- Análise de hífen, meia-risca e travessão tipográfico (hyphen, en dash, and em dash distinction analysis)
+- Análise de pontuação em siglas e abreviações (punctuation in acronyms and abbreviations analysis)
+- Análise de numeral por extenso e em algarismos (spelled-out and numeric numeral analysis)
+- Análise de consistência de separador decimal e milhar (decimal and thousands separator consistency analysis)
+- Análise de abreviação de unidade de medida sem plural (abbreviated measurement unit without plural analysis)
+- Análise de colocação de símbolo de porcentagem e espaço (percent sign placement and spacing analysis)
+- Análise de capitalização em títulos segundo convenção editorial (title capitalization by editorial convention analysis)
+- Análise de inicial maiúscula em nomes institucionais (capitalization in institutional names analysis)
+- Análise de sigla na primeira ocorrência e retomada posterior (acronym first mention and later reuse analysis)
+- Análise de consistência entre sigla e denominação expandida (acronym and expanded name consistency analysis)
+- Análise de pronome relativo com antecedente distante (relative pronoun with distant antecedent analysis)
+- Análise de uso de cujo com relação de posse (whose relative construction analysis)
+- Análise de que relativo e que integrante (relative and complementizer que distinction analysis)
+- Análise de onde locativo e emprego abstrato (locative and abstract use of onde analysis)
+- Análise de ambiguidade entre oração adjetiva e substantiva (relative and nominal clause ambiguity analysis)
+- Análise de sujeito nulo e recuperação discursiva (null subject and discourse recovery analysis)
+- Análise de antecedente ambíguo de pronome demonstrativo (ambiguous antecedent of demonstrative pronoun analysis)
+- Análise de emprego referencial e exofórico de este, esse e aquele (referential and exophoric use of demonstratives analysis)
+- Análise de referência de pronome neutro em texto inclusivo (neutral pronoun reference in inclusive text analysis)
+- Análise de ambiguidade de particípio em oração reduzida (participle ambiguity in reduced clause analysis)
+- Análise de locução verbal e perífrase aspectual (verbal locution and aspectual periphrasis analysis)
+- Análise de verbo auxiliar e verbo principal em frase longa (auxiliary and main verb in long sentence analysis)
+- Análise de voz passiva sintética e concordância do verbo (synthetic passive and verb agreement analysis)
+- Análise de se apassivador e se indeterminador (passive and impersonal se distinction analysis)
+- Análise de infinitivo em oração completiva nominal (infinitive in nominal complement clause analysis)
+- Análise de regência de verbo com mais de um sentido (verb government by sense analysis)
+- Análise de regência de nome e complemento preposicionado (noun government and prepositional complement analysis)
+- Análise de ambiguidade de complemento preposicional (prepositional complement ambiguity analysis)
+- Análise de crase em locuções adverbiais e prepositivas (crasis in adverbial and prepositional phrases analysis)
+- Análise de colocação de pronome átono em oração subordinada (clitic placement in subordinate clause analysis)
+- Análise de consistência entre pontuação e estrutura sintática (punctuation and syntactic structure consistency analysis)
+
+- Análise de regência de assistir, visar e implicar por acepção (government of assistir, visar, and implicar by sense analysis)
+- Análise de regência de informar, avisar e comunicar (government of informar, avisar, and comunicar analysis)
+- Análise de complemento verbal direto e indireto (direct and indirect verb complement analysis)
+- Análise de objeto direto preposicionado (prepositional direct object analysis)
+- Análise de objeto pleonástico e retomada pronominal (pleonastic object and pronominal resumption analysis)
+- Análise de predicativo do sujeito e do objeto (subject and object predicative analysis)
+- Análise de complemento nominal versus adjunto adnominal (nominal complement and adnominal adjunct distinction analysis)
+- Análise de adjunto adverbial deslocado e pontuação (displaced adverbial adjunct and punctuation analysis)
+- Análise de aposto especificativo e explicativo (restrictive and explanatory apposition analysis)
+- Análise de vocativo e separação por vírgulas (vocative and comma delimitation analysis)
+- Análise de oração subordinada substantiva subjetiva e objetiva (subject and object nominal subordinate clause analysis)
+- Análise de oração subordinada substantiva completiva nominal (nominal-complement subordinate clause analysis)
+- Análise de oração subordinada adjetiva com antecedente implícito (relative clause with implicit antecedent analysis)
+- Análise de oração subordinada adverbial causal e explicativa (causal and explanatory subordinate clause analysis)
+- Análise de oração subordinada adverbial final e consecutiva (final and consecutive subordinate clause analysis)
+- Análise de oração subordinada adverbial concessiva e adversativa (concessive and adversative subordinate clause analysis)
+- Análise de oração coordenada sindética e assindética (syndetic and asyndetic coordinated clause analysis)
+- Análise de coordenação correlativa (correlative coordination analysis)
+- Análise de coordenação entre frases com escopo assimétrico (coordination with asymmetric scope analysis)
+- Análise de subordinação substantiva reduzida de infinitivo (reduced infinitival nominal clause analysis)
+- Análise de oração reduzida de gerúndio com valor causal (reduced gerund clause with causal meaning analysis)
+- Análise de oração reduzida de particípio e relação temporal (reduced participial clause and temporal relation analysis)
+- Análise de correlação verbal em sequência hipotética (tense correlation in hypothetical sequence analysis)
+- Análise de futuro do subjuntivo em condição eventual (future subjunctive in open condition analysis)
+- Análise de presente do subjuntivo em recomendação (present subjunctive in recommendation analysis)
+- Análise de modo verbal em oração concessiva (verbal mood in concessive clause analysis)
+- Análise de condicional contrafactual com tempos correlatos (counterfactual conditional with correlated tenses analysis)
+- Análise de modo imperativo e mitigação pragmática (imperative mood and pragmatic mitigation analysis)
+- Análise de forma verbal de tratamento e concordância (verb agreement with address forms analysis)
+- Análise de particípio regular e irregular em locução (regular and irregular participle in verbal phrase analysis)
+- Análise de particípio duplo em tempos compostos e passiva (double participle in perfect and passive constructions analysis)
+- Análise de flexão de infinitivo em sujeito próprio (infinitive inflection with its own subject analysis)
+- Análise de concordância de verbo impessoal haver e fazer (agreement with impersonal haver and fazer analysis)
+- Análise de concordância de existir e ocorrer com sujeito posposto (agreement of existir and ocorrer with postverbal subject analysis)
+- Análise de concordância em expressão de quantidade e medida (agreement in quantity and measurement expressions analysis)
+- Análise de concordância por atração e silepse semântica (attraction agreement and semantic syllepsis analysis)
+- Análise de flexão de gênero em adjetivo composto (gender inflection in compound adjective analysis)
+- Análise de plural de substantivo composto por núcleo (compound noun plural by head analysis)
+- Análise de flexão de adjetivo em composto com hífen (adjective inflection in hyphenated compounds analysis)
+- Análise de hífen em prefixos e composição lexical (hyphen use in prefixes and lexical compounds analysis)
+- Análise de prefixo terminado em vogal diante de mesma vogal (vowel-final prefix before same vowel analysis)
+- Análise de prefixo diante de h e consoante (prefix before h and consonant analysis)
+- Análise de acentuação em paroxítonas e hiatos (stress marking in paroxytones and hiatus analysis)
+- Análise de acento diferencial e homografia (diacritical accent and homography analysis)
+- Análise de emprego de por que, porque, por quê e porquê (Portuguese por que forms usage analysis)
+- Análise de emprego de onde e aonde por movimento (onde and aonde by motion distinction analysis)
+- Análise de emprego de há e a em referência temporal (há and a in time reference analysis)
+- Análise de emprego de mal e mau em contexto (mal and mau in context analysis)
+- Análise de emprego de senão e se não (senão and se não distinction analysis)
+- Análise de emprego de ao encontro de e de encontro a (ao encontro de and de encontro a distinction analysis)
+
+- Análise de colocação de advérbio de foco “só” e “apenas” (focus adverb placement analysis for only and just)
+- Análise de escopo de “inclusive”, “até” e “mesmo” (scope of inclusive, even, and also analysis)
+- Análise de posição de “não” e foco da negação (not placement and negation focus analysis)
+- Análise de negação expletiva e concordância negativa (negative concord and expletive negation analysis)
+- Análise de dupla negação lógica versus concordância negativa (logical double negation and negative concord distinction analysis)
+- Análise de quantificador “todo” com nome singular e plural (quantifier todo with singular and plural nouns analysis)
+- Análise de escopo de quantificadores em oração coordenada (quantifier scope in coordinated clauses analysis)
+- Análise de distributividade de cada e todos (distributivity of each and all analysis)
+- Análise de referência de “ambos” em conjuntos de elementos (reference of both in sets of elements analysis)
+- Análise de indefinido “algum” em contexto negativo (indefinite some in negative context analysis)
+- Análise de uso de “qualquer” em afirmação e negação (any in affirmative and negative context analysis)
+- Análise de artigo definido e interpretação genérica (definite article and generic interpretation analysis)
+- Análise de artigo indefinido com introdução de referente (indefinite article introducing a referent analysis)
+- Análise de ausência de artigo em nomes próprios e títulos (article omission with proper names and titles analysis)
+- Análise de concordância de pronome relativo com antecedente (relative pronoun agreement with antecedent analysis)
+- Análise de concordância de particípio em construção passiva (participle agreement in passive construction analysis)
+- Análise de concordância de adjetivo predicativo com sujeito composto (predicative adjective agreement with compound subject analysis)
+- Análise de concordância por sentido em sujeito coletivo (notional agreement with collective subject analysis)
+- Análise de concordância em sujeito formado por infinitivo (agreement with infinitive subject analysis)
+- Análise de sujeito oracional e predicação no singular (clausal subject and singular predication analysis)
+- Análise de locução prepositiva e regência normativa (prepositional phrase and standard government analysis)
+- Análise de preposição final em oração relativa (preposition stranding in relative clause analysis)
+- Análise de regência de pronome relativo preposicionado (prepositional relative pronoun government analysis)
+- Análise de contração de preposição e artigo em nome próprio (preposition-article contraction with proper name analysis)
+- Análise de crase diante de pronome demonstrativo (crasis before demonstrative pronoun analysis)
+- Análise de crase diante de nome feminino determinado (crasis before determined feminine noun analysis)
+- Análise de crase proibida antes de verbo e palavra masculina (crasis prohibition before verb and masculine noun analysis)
+- Análise de pontuação de oração intercalada extensa (punctuation of lengthy parenthetical clause analysis)
+- Análise de vírgula em adjunto adverbial curto e longo (comma with short and long adverbial adjunct analysis)
+- Análise de vírgula opcional por ritmo e clareza (optional comma by rhythm and clarity analysis)
+- Análise de ponto final em lista de itens frasais (period use in sentence-fragment list items analysis)
+- Análise de dois-pontos após verbo de elocução (colon after verb of saying analysis)
+- Análise de pontuação de citação integrada e destacada (punctuation of integrated and block quotation analysis)
+- Análise de fechamento de aspas e pontuação no português (quotation mark closure and punctuation in Portuguese analysis)
+- Análise de uso de parênteses, colchetes e travessões em inciso (parentheses, brackets, and dashes in parenthetical insertion analysis)
+- Análise de pontuação em abreviações “etc.” e “por exemplo” (punctuation with etc. and for example analysis)
+- Análise de acento em formas verbais com pronome enclítico (stress marking in verbs with enclitic pronouns analysis)
+- Análise de acentuação de hiato em vogal tônica (stress marking of tonic vowel hiatus analysis)
+- Análise de grafia de palavras compostas com prefixo (spelling of prefix compounds analysis)
+- Análise de hifenização de locuções substantivas (hyphenation of nominal compounds analysis)
+- Análise de grafia de estrangeirismo incorporado e não incorporado (spelling of integrated and nonintegrated loanwords analysis)
+- Análise de itálico, aspas e romanização em estrangeirismos (italics, quotation marks, and romanization in loanwords analysis)
+- Análise de concordância de nome de marca como núcleo (agreement with brand name as head analysis)
+- Análise de plural de sigla e marcação editorial (acronym plural and editorial marking analysis)
+- Análise de abreviação de ordinal e gênero (ordinal abbreviation and gender agreement analysis)
+- Análise de numeral ordinal e cardinal em instruções (ordinal and cardinal numerals in instructions analysis)
+- Análise de escrita de número em início de frase (number spelling at sentence beginning analysis)
+- Análise de consistência de números por faixa e ordem de grandeza (number consistency by range and magnitude analysis)
+- Análise de símbolo e unidade em valor numérico (symbol and unit in numerical value analysis)
+- Análise de plural de unidade escrita por extenso (plural of spelled-out measurement unit analysis)
+
+- Análise de construção clivada com “é que” (cleft construction with é que analysis)
+- Análise de construção pseudoclivada em português (pseudocleft construction in Portuguese analysis)
+- Análise de topicalização e deslocamento à esquerda (topicalization and left dislocation analysis)
+- Análise de deslocamento à direita com pronome resumptivo (right dislocation with resumptive pronoun analysis)
+- Análise de ordem verbo-sujeito por foco informacional (verb-subject order by information focus analysis)
+- Análise de inversão locativa em português (locative inversion in Portuguese analysis)
+- Análise de sujeito nulo em sequência discursiva (null subject in discourse sequence analysis)
+- Análise de expressão de tópico por pronome resumptivo (topic expression through resumptive pronoun analysis)
+- Análise de pronome demonstrativo como anáfora encapsuladora (demonstrative pronoun as encapsulating anaphor analysis)
+- Análise de anáfora encapsuladora em parágrafo argumentativo (encapsulating anaphora in argumentative paragraph analysis)
+- Análise de encapsulamento de proposição por nome abstrato (proposition encapsulation by abstract noun analysis)
+- Análise de nominalização anafórica e retomada de oração (anaphoric nominalization and clause reference analysis)
+- Análise de referência de pronome neutro a antecedente coordenado (neuter pronoun reference to coordinated antecedent analysis)
+- Análise de correferência em construção com elipse (coreference in elliptical construction analysis)
+- Análise de antecedente catafórico em texto expositivo (cataphoric antecedent in expository text analysis)
+- Análise de referenciação por descrição definida recategorizadora (referencing through recategorizing definite description analysis)
+- Análise de recategorização referencial com mudança avaliativa (referential recategorization with evaluative shift analysis)
+- Análise de cadeia referencial em texto jurídico (referential chain in legal text analysis)
+- Análise de ambiguidade de “seu” e “sua” por antecedente (ambiguity of seu and sua by antecedent analysis)
+- Análise de referência de “mesmo” como pronome e intensificador (mesmo as pronoun and intensifier analysis)
+- Análise de quantificador flutuante em frase longa (floating quantifier in long sentence analysis)
+- Análise de predicativo deslocado e escopo de adjetivo (displaced predicative and adjective scope analysis)
+- Análise de adjunto adnominal e escopo sobre nomes coordenados (adnominal adjunct scope over coordinated nouns analysis)
+- Análise de complemento de nome por oração infinitiva (noun complement by infinitival clause analysis)
+- Análise de complementação verbal e alternância entre oração e sintagma nominal (verbal complementation and clause-NP alternation analysis)
+- Análise de oração completiva introduzida por “que” (que-complement clause analysis)
+- Análise de oração completiva sem complementizador (complementizer omission in complement clause analysis)
+- Análise de infinitivo pessoal em oração adverbial (personal infinitive in adverbial clause analysis)
+- Análise de gerúndio adjunto e gerúndio predicativo (adjunct and predicative gerund analysis)
+- Análise de particípio absoluto em construção reduzida (absolute participle in reduced construction analysis)
+- Análise de valor temporal e causal de oração reduzida (temporal and causal value of reduced clause analysis)
+- Análise de ambiguidade de escopo de adjunto preposicional (prepositional adjunct scope ambiguity analysis)
+- Análise de coordenação de predicados com argumentos distintos (coordination of predicates with distinct arguments analysis)
+- Análise de zeugma em coordenação de verbos (zeugma in verb coordination analysis)
+- Análise de elipse de verbo auxiliar em coordenação (auxiliary verb ellipsis in coordination analysis)
+- Análise de paralelismo em coordenação de orações subordinadas (parallelism in coordinated subordinate clauses analysis)
+- Análise de elipse de complemento compartilhado (shared complement ellipsis analysis)
+- Análise de concordância em expressão “a maioria de” (agreement in a maioria de expression analysis)
+- Análise de concordância em expressão “parte de” (agreement in parte de expression analysis)
+- Análise de concordância com porcentagem seguida de complemento (agreement with percentage followed by complement analysis)
+- Análise de concordância de verbo com sujeito coletivo especificado (verb agreement with specified collective subject analysis)
+- Análise de colocação de advérbio entre auxiliar e particípio (adverb placement between auxiliary and participle analysis)
+- Análise de adjunto adverbial longo entre sujeito e verbo (long adverbial adjunct between subject and verb analysis)
+- Análise de pontuação de oração coordenada adversativa extensa (punctuation of long adversative coordinated clause analysis)
+- Análise de vírgula em coordenação com sujeito compartilhado (comma in coordination with shared subject analysis)
+- Análise de pontuação em oração intercalada parentética (punctuation in parenthetical insertion analysis)
+- Análise de dois-pontos em enumeração explicativa (colon in explanatory enumeration analysis)
+- Análise de ponto e vírgula entre orações relacionadas (semicolon between related clauses analysis)
+- Análise de travessão para marcar mudança de interlocutor (em dash to mark speaker change analysis)
+- Análise de aspas de distanciamento e responsabilidade enunciativa (scare quotes and enunciative responsibility analysis)
+- Análise de pontuação como marca de escopo sintático (punctuation as syntactic scope marker analysis)
+- Anacoluto
+- Hipérbato
+- Sínquise
+- Elipse nominal
+- Elipse verbal
+- Zeugma
+- Silepse de gênero
+- Silepse de número
+- Silepse de pessoa
+- Concordância por atração
+- Concordância ideológica
+- Sujeito posposto
+- Sujeito oracional
+- Sujeito indeterminado
+- Oração sem sujeito
+- Predicativo deslocado
+- Objeto direto preposicionado
+- Objeto indireto pleonástico
+- Complemento nominal
+- Adjunto adnominal
+- Adjunto adverbial deslocado
+- Aposto especificativo
+- Aposto recapitulativo
+- Vocativo intercalado
+- Orações correlativas
+- Coordenação sindética
+- Coordenação assindética
+- Subordinação substantiva
+- Subordinação adjetiva restritiva
+- Subordinação adjetiva explicativa
+- Subordinação adverbial concessiva
+- Subordinação adverbial consecutiva
+- Subordinação adverbial proporcional
+- Subordinação adverbial conformativa
+- Subordinação adverbial final
+- Subordinação adverbial temporal
+- Oração reduzida de infinitivo
+- Oração reduzida de gerúndio
+- Oração reduzida de particípio
+- Infinitivo flexionado
+- Infinitivo não flexionado
+- Regência nominal
+- Regência verbal
+- Crase facultativa
+- Crase proibida
+- Vírgula entre sujeito e predicado
+- Vírgula em oração intercalada
+- Vírgula em adjunto adverbial
+- Vírgula com conjunção adversativa
+- Vírgula em enumeração complexa
+- Ponto e vírgula em itens longos
+- Dois-pontos explicativos
+- Travessão parentético
+- Parêntese editorial
+- Aspas de distanciamento
+- Itálico metalinguístico
+- Hífen em prefixação
+- Acordo ortográfico e variantes
+- Colocação pronominal em locução
+- Próclise por palavra atrativa
+- Ênclise em início de oração
+- Mesóclise formal
+- Paralelismo de regência
+- Paralelismo de tempos verbais
+- Paralelismo em enumeração
+- Ambiguidade de escopo
+- Ambiguidade de adjunção
+- Ambiguidade de coordenação
+- Ambiguidade de correferência
+- Dangling modifier
+- Modificador flutuante
+- Falso paralelismo
+- Infinitivo substantivado
+- Particípio irregular
+- Voz passiva sintética
+- Voz passiva analítica
+- Índice de indeterminação do sujeito
+- Pronome apassivador
+- Relativo cujo
+- Relativo onde
+- Relativo que preposicionado
+- Demonstrativo anafórico
+- Demonstrativo catafórico
+- Artigo definido genérico
+- Artigo definido anafórico
+- Numeral distributivo
+- Quantificador flutuante
+- Advérbio focalizador
+- Advérbio modalizador
+- Conjunção integrante
+- Conjunção subordinativa
+- Locução conjuntiva
+- Conector conclusivo
+- Conector adversativo
+- Conector explicativo
+- Conector condicional
+- Conector concessivo
+- Marcador de reformulação
+- Marcador de exemplificação
+- Marcador de correção
+- Marcador de ressalva
+- Marcador de digressão
+- Marcador de enquadramento
+- Frase clivada
+- Construção apresentativa
+- Construção existencial
+- Construção impessoal
+- Construção de tópico
+- Deslocamento à esquerda
+- Deslocamento à direita
+- Reduplicação enfática
+- Negação metalinguística
+- Negação expletiva
+- Concordância com porcentagem
+- Concordância com coletivo
+- Concordância com expressão partitiva
+- Concordância com pronome de tratamento
+- Concordância de adjetivo composto
+- Concordância em predicativo
+- Regência de assistir
+- Regência de implicar
+- Regência de visar
+- Regência de preferir
+- Regência de informar
+- Regência de obedecer
+- Uso de haver impessoal
+- Uso de fazer temporal
+- Uso de existir pessoal
+- Correlação entre tempos
+- Futuro do pretérito de polidez
+- Imperfeito de cortesia
+- Subjuntivo em oração concessiva
+- Subjuntivo em oração condicional
+- Indicativo em evidencialidade
+- Modo verbal em instruções
+- Aspecto iterativo
+- Aspecto pontual
+- Aspecto habitual
+- Perífrase aspectual
+- Voz média
+- Passiva pronominal
+- Infinitivo de finalidade
+- Gerúndio de consequência
+- Gerúndio de simultaneidade
+- Particípio com valor adjetival
+- Adjetivo relacional
+- Adjetivo avaliativo
+- Ordem de adjetivos
+- Posição do advérbio
+- Ordem dos constituintes
+- Inversão sujeito-verbo
+- Foco contrastivo
+- Foco informativo
+- Tópico contrastivo
+- Tópico retomado
+- Tema não marcado
+- Tema marcado
+- Frase nominal
+- Frase verbal
+- Frase fragmentária
+- Período simples
+- Período composto
+- Período hipotático
+- Período paratático
+- Período misto
+- Encaixamento recursivo
+- Profundidade de subordinação
+- Peso sintático
+- Empacotamento sintático
+- Desempacotamento de período
+- Desambiguação por pontuação
+- Revisão de referentes pronominais
+- Revisão de escopo de negação
+- Revisão de cadeia anafórica
+- Revisão de conectores
+- Revisão de concordância distante
+- Revisão de regência em série
+- Revisão de infinitivos coordenados
+- Revisão de enumeração paralela
+- Revisão de orações reduzidas
+- Revisão de modificadores ambíguos
+
+## Organização da informação e arquitetura de conteúdo
+
+- Arquitetura da Informação e Taxonomia
+- Semântica e Linguística Aplicada ao SEO Local
+- Agrupamento Cognitivo (Chunking)
+- Cognição Corporificada (Embodied Cognition)
+- Marcadores de Evidencialidade (Evidentiality Markers)
+- Efeito de Agrupamento por Contraste de Urgência
+- Focalização Informacional (Information Structure - Topic & Focus)
+- Rastreabilidade de Origem e Procedência
+- Vocabulário controlado e mapeamento de sinônimos (Controlled Vocabulary & Alias Mapping)
+- Microcopy de agrupamento e divisão de entrega (Split-Shipment & Delivery Grouping Copy)
+- Estrutura SCQA — Situação. Complicação. Pergunta e Resposta (SCQA Framework)
+- Progressão temática (Thematic Progression)
+- Modelo CARS — Criar um Espaço de Pesquisa (Swales’ CARS Model)
+- Padrão problema-solução de Hoey (Hoey’s Problem-Solution Pattern)
+- Progressão geral-particular (General-to-Specific Progression)
+- Estrutura de parágrafo PEEL (PEEL Paragraph Structure)
+- Sorites ou silogismo em cadeia (Sorites / Chain Syllogism)
+- Gênero como ação social tipificada de Carolyn Miller (Carolyn Miller’s Genre as Social Action)
+- Taxonomia de marcadores discursivos de Fraser (Fraser’s Discourse Markers Taxonomy)
+- Estrutura de informação de Lambrecht: estrutura tópica e focal (Lambrecht’s Information Structure Theory)
+- Transições interparágrafos e pontes temáticas (Inter-Paragraph Transitions and Thematic Bridges)
+- Mapeamento de jornada de conteúdo (Content Journey Mapping)
+- Densidade e extensão de cadeias lexicais (Lexical Chain Density and Span)
+- Princípio MECE: mutuamente exclusivo e coletivamente exaustivo (MECE Principle)
+- Auditoria de frases iniciais e finais de parágrafo (First-Line and Last-Line Paragraph Audit)
+- Redução de cadeias preposicionais (Prepositional Phrase Chain Reduction)
+- Regra de uma ideia por parágrafo (One-Idea-Per-Paragraph Rule)
+- Alinhamento na escada do concreto ao abstrato (Concrete-to-Abstract Ladder Alignment)
+- Tronco sintático paralelo em listas com marcadores (Parallel Bullet-Point Stemming)
+- Resolução de cadeia de fallback de localidade (Locale Fallback Chain Resolution)
+- Mapeamento de registro e formas de tratamento (Register and Honorifics Mapping)
+- Estratégias de tradução de trocadilhos e jogos de palavras (Wordplay and Pun Translation Strategies)
+- Mapeamento de alegações comerciais e comprovação documental (Claim-to-Substantiation Mapping)
+- Rastreabilidade de origem e trilha de auditoria de conteúdo (Content Provenance and Audit Trail)
+- Auditoria de desvio de taxonomia e metadados (Taxonomy and Metadata Drift Audit)
+- Aprovação editorial baseada em papéis e matriz RACI (Role-Based Editorial Approval Gate)
+- Mapeamento de entidades de domínio na modelagem de conteúdo (Content Modeling Domain-Entity Mapping)
+- Matriz de inventário e mapeamento de conteúdo omnichannel (Omnichannel Content Inventory and Mapping Matrix)
+- Método de escrita estruturada Information Mapping (Information Mapping)
+- Framework LATCH de arquitetura da informação (Location. Alphabet. Time. Category. Hierarchy)
+- Mapeamento cruzado de esquemas de metadados (Metadata Schema Crosswalk)
+- Mapeamento de modelos mentais de usuários (Mental Model Mapping)
+- Mapeamento de conteúdo orientado a objetos — OOUX (Object-Oriented UX)
+- Lei de Fitts aplicada a links e alvos interativos (Fitts Law)
+- Efeito Zeigarnik em indicadores de progresso e textos em etapas (Zeigarnik Effect)
+- Estrutura textual de refutação de concepções equivocadas (Refutation Text Structure)
+- Mapeamento analógico e teoria do mapeamento estrutural (Analogical Mapping and Structure-Mapping Theory)
+- Desvanecimento da concretude: progressão ativa. icônica e simbólica (Concreteness Fading)
+- Taxonomia de relações pergunta-resposta — QAR (Question-Answer Relationships)
+- Prototipação guiada por conteúdo (Content-First Wireframing)
+- Arquitetura de conteúdo mordida. lanche e refeição (Bite. Snack. Meal Content Architecture)
+- Estrutura de parágrafo-noz jornalístico (Nut Graf Structure)
+- Ancoragem por limiares quantificados (Quantified Threshold Anchoring)
+- Padrão de parágrafo TRIAC: tópico. restrição. ilustração. análise e fechamento (TRIAC Paragraph Pattern)
+- Modelo de parágrafo AXES: afirmação. exemplo. explicação e significância (AXES Paragraph Model)
+- Estrutura de parágrafo TEEL: tópico. explicação. evidência e ligação (TEEL Paragraph Structure)
+- Modelo de parágrafo SEXI: afirmação. explicação. exemplo e importância (SEXI Paragraph Model)
+- Modelo de parágrafo Schaffer (Schaffer Paragraph Model)
+- Estrutura de parágrafo PIER (Point. Information. Explanation. Relevance)
+- Padrão de parágrafo IDEA (Identify. Define. Explain. Analyze)
+- Arquitetura de parágrafo de síntese entre múltiplas fontes (Weave / Synthesis Paragraph)
+- Taxonomia da Coesão Gramatical (Grammatical Cohesion Taxonomy)
+- Cadeias de Progressão Referencial (Referential Progression Chains)
+- Eliminação de Viúvas. Órfãs e Rios na Diagramação (Widow. Orphan. and River Elimination)
+- Matriz de Síntese de Revisão de Literatura e Mapeamento de Lacunas (Literature Review Synthesis Matrix)
+- Taxonomia da Progressão Temática: Tema Constante. Linear. Derivado e Rema Dividido (Thematic Progression Taxonomy)
+- Arquitetura de Parágrafo MEAL (Main Idea. Evidence. Analysis. Link)
+- Padrão de Parágrafo TRIAC (Topic. Restriction. Illustration. Analysis. Closure)
+- Estrutura de Construção: Lançamento de Base. Mapeamento e Mudança (Structure Building Framework)
+- Método Information Mapping de Estruturação de Conteúdo (Information Mapping Method)
+- Teoria do Mapeamento Estrutural da Analogia (Structure-Mapping Theory)
+- Taxonomia CRediT de Papéis de Contribuição de Autoria (Contributor Roles Taxonomy)
+- Princípios de Transparência e Boas Práticas na Publicação Acadêmica (COPE Principles)
+- Princípio da Pirâmide de Minto e Estrutura SCQA (Minto Pyramid Principle)
+- Mapeamento Argumentativo e Diagramas de Wigmore e Araucaria (Argument Mapping)
+- Árvores de Questões e Princípio MECE (Issue Trees and MECE)
+- Mapeamento Conceitual de Novak e Gowin (Concept Mapping)
+- Tabelas de Decisão e Matrizes de Rastreabilidade (Decision Tables and Traceability Matrices)
+- Esquema Alfanumérico e Decimal Hierárquico (Hierarchical Outlining)
+- Diagrama de Afinidades — Método KJ (Affinity Diagramming)
+- Storyboarding Textual e Wireframing de Conteúdo (Text Storyboarding and Content Wireframing)
+- Quebra de Padrão Estratégica (Strategic Disfluency)
+- Regra da Primeira Palavra (Front-Loading)
+- Princípio da Mínima Surpresa (Principle of Least Astonishment)
+- Padronização de números e unidades (Numeric & Unit Formatting Consistency)
+- Teste do “E daí?” (The “So What?” Test)
+- Proposta única de valor — USP (Unique Selling Proposition)
+- Petição de princípio (Petitio Principii)
+- Sequência lateral e sequência inserida (Side Sequence and Insertion Sequence)
+- Anfibologia e ambiguidade estrutural (Amphiboly and Structural Ambiguity)
+- Acomodação de pressuposições (Presupposition Accommodation)
+- Performatividade linguística de Butler e Austin (Linguistic Performativity)
+- Modelo de Bereiter e Scardamalia: dizer o conhecimento e transformar o conhecimento (Knowledge-Telling vs. Knowledge-Transforming)
+- Leitor-modelo e obra aberta de Umberto Eco (Umberto Eco’s Model Reader and Open Work)
+- Crítica genética e avant-texte de Bellemin-Noël (Genetic Criticism and Avant-Texte)
+- Teoria do vínculo e regência de Chomsky: princípios A. B e C (Binding Theory)
+- Carregamento frontal de informação (Front-Loading Information)
+- Curadoria de conteúdo e síntese editorial (Content Curation and Editorial Synthesis)
+- Detalhamento de princípio ativo e excipientes relevantes (Active Ingredient and Excipient Breakdown)
+- Escrita orientada a dados e métricas editoriais (Data-Informed Writing)
+- Informação em camadas (Layered Information)
+- Teste dos cinco segundos para clareza de conteúdo (Five-Second Test)
+- Teste de árvore da estrutura de conteúdo (Tree Testing)
+- Ferramenta EQIP para qualidade de informação ao paciente (Ensuring Quality Information for Patients)
+- Avaliação BALD de design de folhetos informativos (Baker Able Leaflet Design)
+- Modelo de Grade de Entidades (Entity Grid Model)
+- Rascunho zero ou escrita de descoberta (Zero-Drafting / Discovery Drafting)
+- Reestruturação de frases periódicas e cumulativas (Periodic and Cumulative Sentence Restructuring)
+- Estrutura de frase com ramificação à direita (Right-Branching Sentence Structure)
+- Regra de escaneabilidade de quatro palavras e três segundos (Four-Word. Three-Second Scannability Rule)
+- Externalização de strings com ICU MessageFormat (Internationalization String Externalization)
+- Estratégias de domesticação e estrangeirização (Domestication and Foreignization)
+- Equivalência dinâmica e equivalência formal (Dynamic and Formal Equivalence)
+- Estratégias de compensação tradutória por equivalência ou deslocamento (Translation Compensation Strategies)
+- Regra de precedência entre manual de redação e dicionário (House Style and Dictionary Precedence Rule)
+- Arquitetura headless com conteúdo desacoplado da apresentação (Headless Content Decoupling)
+- Arquitetura de conteúdo hub-and-spoke (Hub-and-Spoke Content Architecture)
+- Classificação facetada da informação (Faceted Classification)
+- Pirâmide DIKW: dados. informação. conhecimento e sabedoria (DIKW Pyramid)
+- Princípios de escrita de notas perenes (Evergreen Notes)
+- Construção de tesauros controlados conforme ANSI/NISO Z39.19 e ISO 25964 (Controlled Thesaurus Construction)
+- Sistemas de organização do conhecimento — KOS (Knowledge Organization Systems)
+- Modelo Berrypicking de recuperação da informação (Berrypicking Information Retrieval Model)
+- Modelo SECI de criação e codificação do conhecimento (SECI Knowledge Conversion Model)
+- Arquitetura de conteúdo em silos temáticos (Topical Silo Architecture)
+- Estrutura OAR: resultado. ação e justificativa (Outcome. Action. Rationale)
+- Estrutura árvore de Natal em jornalismo multimídia (Christmas Tree Structure)
+- Formato de guia definitivo e página pilar (Ultimate Guide / Pillar Page)
+- Regra de verificação por duas fontes independentes (Two-Source Verification Rule)
+- Hipótese da Profundidade Ortográfica (Orthographic Depth Hypothesis)
+- Padrão ISO 24617-2 de Anotação de Atos de Diálogo (DIT++)
+- Modelo Estendido de Processo Paralelo: Calibração de Ameaça e Eficácia (EPPM)
+- Construções Existenciais e Apresentacionais (Existential and Presentational Constructions)
+- Hierarquia graduada de alertas por severidade (Severity-Tiered Alert Hierarchy)
+- Ciclo de vida do conteúdo e governança de atualização (Content Lifecycle Governance)
+- Esboço reverso (Reverse Outlining)
+- Governança de conteúdo em fonte única de verdade (Single-Source-of-Truth Content Governance)
+- Federação de conteúdo e sindicação entre repositórios (Content Federation and Cross-Repository Syndication)
+- Reutilização de conteúdo por transclusão (Content Transclusion)
+- Engenharia de conteúdo adaptativo (Adaptive Content Engineering)
+- Coreografia de conteúdo responsiva (Content Choreography)
+- Sumarização progressiva (Progressive Summarization)
+- Conjunto de elementos de metadados Dublin Core (Dublin Core Metadata Element Set)
+- Pilha modular de cartões explicativos (Explainer Card Stack)
+- Conjuntos e cadeias de gêneros (Genre Sets and Genre Chains)
+- Ecologias de gêneros (Genre Ecologies)
+- Metagêneros reguladores de Giltrow (Metagenres)
+- Padrão TBX de intercâmbio de bases terminológicas ISO 30042 (TermBase eXchange)
+- Sistemas conceituais e definições terminológicas ISO 704 (ISO 704 Concept Systems and Terminological Definitions)
+- Orientação conceitual e autonomia de termos em bases terminológicas (Concept Orientation and Term Autonomy)
+- Harmonização conceitual e terminológica ISO 860 (Terminology Harmonization)
+- Matriz de opções clínicas Option Grid (Option Grid Encounter Decision Aid)
+- Modelo de referência de hipertexto Dexter (Dexter Hypertext Reference Model)
+- Sistemas de hipermídia aberta e bases de enlaces (Open Hypermedia Systems and Linkbases)
+- Trilhas associativas e Memex de Vannevar Bush (Memex and Associative Trails)
+- Estruturas de acesso textual de Robert Waller (Textual Access Structures)
+- Wayfinding informacional (Information Wayfinding)
+- Modelo de busca exploratória de Gary Marchionini (Exploratory Search Model)
+- Processo de busca de informação de Carol Kuhlthau — ISP (Information Search Process Model)
+- Modelo comportamental de busca de informação de David Ellis (Behavioral Model of Information Seeking)
+- Visão olho de peixe e foco mais contexto de Furnas (Fisheye Views and Focus+Context)
+
+- Card sorting aberto. fechado e híbrido (open. closed. and hybrid card sorting)
+- Teste de árvore de navegação (tree testing)
+- Análise de rotulagem por tarefas do usuário (user-task-based labeling analysis)
+- Análise de expectativa informacional de rótulos (label information scent analysis)
+- Inventário e auditoria de conteúdo (content inventory and audit)
+- Matriz de conteúdo por público e tarefa (audience-task content matrix)
+- Modelagem de conteúdo por entidade e atributo (entity-attribute content modeling)
+- Modelagem de conteúdo por componentes reutilizáveis (structured content component modeling)
+- Arquitetura de informação facetada (faceted information architecture)
+- Análise de caminhos críticos de conteúdo (critical content path analysis)
+- Análise de profundidade e amplitude de navegação (navigation depth and breadth analysis)
+- Análise de ambiguidade de rótulos de navegação (navigation label ambiguity analysis)
+- Análise de consistência de taxonomia (taxonomy consistency analysis)
+- Análise de cobertura de sinônimos em vocabulário controlado (controlled vocabulary synonym coverage)
+- Análise de lacunas e sobreposições taxonômicas (taxonomy gap and overlap analysis)
+- Análise de facetas mutuamente exclusivas e coletivamente exaustivas (MECE facet analysis)
+- Análise de metadados descritivos e administrativos (descriptive and administrative metadata analysis)
+- Análise de rótulos de categoria por modelo mental do usuário (user mental model category labeling)
+- Análise de consistência entre título. sumário e conteúdo (title-summary-content consistency analysis)
+- Análise de encontrabilidade por busca interna (internal search findability analysis)
+- Análise de consultas sem resultado e vocabulário do usuário (zero-result query and user vocabulary analysis)
+- Análise de navegação por trilhas e contexto (path-based and contextual navigation analysis)
+- Análise de redundância entre navegação global e local (global-local navigation redundancy analysis)
+- Análise de ordem de leitura em páginas longas (long-page reading order analysis)
+- Análise de agrupamento por tarefa. não por organograma (task-based content grouping)
+- Análise de desambiguação de termos polissêmicos em navegação (polysemous term disambiguation in navigation)
+- Análise de vocabulário de busca versus vocabulário editorial (search and editorial vocabulary gap analysis)
+- Análise de regras de inclusão e exclusão em categorias (category inclusion and exclusion rule analysis)
+- Análise de relacionamentos entre conteúdo relacionado (related-content relationship analysis)
+- Análise de decomposição de página por intenção de consulta (page decomposition by query intent)
+
+- Entrevista de elicitação de vocabulário do usuário (user vocabulary elicitation interview)
+- Análise de linguagem natural de consulta e intenção (natural-language query and intent analysis)
+- Pesquisa de vocabulário por entrevista contextual (contextual vocabulary interview)
+- Análise de busca interna por tarefa do usuário (internal search by user task analysis)
+- Análise de logs de consulta e refinamento de busca (query log and search refinement analysis)
+- Análise de consultas abandonadas e reformuladas (abandoned and reformulated query analysis)
+- Análise de sinonímia entre linguagem do usuário e taxonomia (user language and taxonomy synonymy analysis)
+- Análise de ambiguidade de categorias em card sorting (category ambiguity in card sorting analysis)
+- Análise de estabilidade de agrupamentos em card sorting (cluster stability in card sorting analysis)
+- Análise de consistência de árvore de navegação por segmento (navigation tree consistency by segment analysis)
+- Análise de sucesso direto e indireto em teste de árvore (direct and indirect tree test success analysis)
+- Análise de tempo e caminho em teste de árvore (time and path in tree testing analysis)
+- Análise de erro de navegação por rótulo de categoria (navigation error by category label analysis)
+- Análise de categoria-pai e categoria-filha por modelo mental (parent-child category mental model analysis)
+- Análise de categorias mutuamente exclusivas e sobrepostas (mutually exclusive and overlapping categories analysis)
+- Análise de escalabilidade de taxonomia (taxonomy scalability analysis)
+- Análise de governança de vocabulário controlado (controlled vocabulary governance analysis)
+- Análise de política de criação de novos termos taxonômicos (new taxonomy term creation policy analysis)
+- Análise de ciclo de vida de rótulo e categoria (label and category lifecycle analysis)
+- Análise de descontinuação e redirecionamento de categoria (category deprecation and redirect analysis)
+- Análise de faceta obrigatória, opcional e mutuamente dependente (required, optional, and dependent facet analysis)
+- Análise de cardinalidade de filtros e opções (filter and option cardinality analysis)
+- Análise de comportamento de filtro cumulativo e exclusivo (cumulative and exclusive filter behavior analysis)
+- Análise de filtros persistentes entre sessões (persistent filters across sessions analysis)
+- Análise de resultado de busca sem correspondência exata (no exact-match search result analysis)
+- Análise de recuperação por tolerância a erro ortográfico (spelling-tolerant retrieval analysis)
+- Análise de expansão de consulta por sinônimo e variante (query expansion by synonym and variant analysis)
+- Análise de apresentação de resultado por relevância e tarefa (search result presentation by relevance and task)
+- Análise de fragmento de conteúdo para resposta em busca (content passage for search answer analysis)
+- Análise de conteúdo canônico e duplicação por filtro (canonical content and filter duplication analysis)
+- Análise de mapa de conteúdo por necessidade e etapa (content map by need and stage analysis)
+- Análise de cobertura de tarefa por página e componente (task coverage by page and component analysis)
+- Análise de dependência entre páginas e sequência de leitura (page dependency and reading sequence analysis)
+- Análise de conteúdo órfão sem entrada de navegação (orphan content without navigation entry analysis)
+- Análise de conteúdo sem saída ou próxima ação (content without exit or next action analysis)
+- Análise de redundância de conteúdo por intenção de usuário (content redundancy by user intent analysis)
+- Análise de conflito entre páginas sobre o mesmo conceito (conflict between pages about the same concept analysis)
+- Análise de granularidade de conteúdo para reutilização (content granularity for reuse analysis)
+- Análise de componente de conteúdo por contexto de apresentação (content component by presentation context analysis)
+- Análise de separação entre conteúdo e apresentação (content-presentation separation analysis)
+- Análise de regras de relacionamento entre tipos de conteúdo (content type relationship rules analysis)
+- Análise de integridade de metadados em inventário de conteúdo (metadata integrity in content inventory analysis)
+- Análise de metadados de audiência, tarefa e validade (audience, task, and validity metadata analysis)
+- Análise de revisão de conteúdo por data de validade (content review by expiry date analysis)
+- Análise de conteúdo desatualizado por link, dado ou norma (stale content by link, data, or policy analysis)
+- Análise de experiência de descoberta por navegação e busca (discovery experience through navigation and search analysis)
+- Análise de ponto de entrada externo e contexto de chegada (external entry point and arrival context analysis)
+- Análise de continuidade entre resultado de busca e página de destino (search result and landing page continuity analysis)
+- Análise de arquitetura de ajuda por tarefa, conceito e referência (help architecture by task, concept, and reference analysis)
+- Análise de organização de FAQ por intenção, não por departamento (FAQ organization by intent rather than department)
+
+- Análise de estrutura de navegação global, local e contextual (global, local, and contextual navigation structure analysis)
+- Análise de arquitetura de conteúdo por modelo entidade-relacionamento (content architecture through entity-relationship model analysis)
+- Análise de modelagem de conteúdo por tipo, campo e validação (content modeling by type, field, and validation analysis)
+- Análise de taxonomia facetada com facetas ortogonais (faceted taxonomy with orthogonal facets analysis)
+- Análise de vocabulário controlado por termo preferido e variante (controlled vocabulary by preferred term and variant analysis)
+- Análise de remissiva “ver” e “ver também” em taxonomia (see and see-also references in taxonomy analysis)
+- Análise de desambiguação por qualificador entre parênteses (disambiguation through parenthetical qualifier analysis)
+- Análise de política de singular e plural em rótulos taxonômicos (singular and plural policy in taxonomy labels analysis)
+- Análise de consistência de nível de abstração em categorias irmãs (abstraction level consistency among sibling categories analysis)
+- Análise de equilíbrio entre quantidade de itens por categoria (item count balance across categories analysis)
+- Análise de categoria residual e prevenção de “outros” excessivo (residual category and excessive “other” prevention analysis)
+- Análise de utilidade de categoria por tarefa recuperável (category utility by retrievable task analysis)
+- Análise de organização de conteúdo por ciclo de vida do usuário (content organization by user lifecycle analysis)
+- Análise de organização por cenário, objetivo e pré-requisito (organization by scenario, goal, and prerequisite analysis)
+- Análise de estrutura de página por pergunta do usuário (page structure by user question analysis)
+- Análise de padrões de navegação baseados em tarefa (task-based navigation pattern analysis)
+- Análise de relação entre categoria de conteúdo e destino de navegação (content category and navigation destination relationship analysis)
+- Análise de rótulo de navegação por função e resultado (navigation label by function and outcome analysis)
+- Análise de previsibilidade de localização de conteúdo (content location predictability analysis)
+- Análise de consistência entre navegação, busca e classificação (navigation, search, and classification consistency analysis)
+- Análise de entrada no conteúdo por busca externa e contexto (content entry through external search and context analysis)
+- Análise de estratégia de navegação para conteúdo de suporte (navigation strategy for support content analysis)
+- Análise de relação entre taxonomia editorial e facetas de produto (editorial taxonomy and product facet relationship analysis)
+- Análise de manutenção de sinônimos após mudança de nome de categoria (synonym maintenance after category renaming analysis)
+- Análise de mapeamento de rótulos antigos para novos (legacy-to-new label mapping analysis)
+- Análise de regra de redirecionamento para conteúdo renomeado (redirect rule for renamed content analysis)
+- Análise de ligação entre conteúdo pai, filho e relacionado (parent, child, and related content linkage analysis)
+- Análise de paginação versus carregamento contínuo por tarefa (pagination and continuous loading by task analysis)
+- Análise de ordem de resultado por relevância, atualidade e popularidade (result ordering by relevance, recency, and popularity analysis)
+- Análise de explicação de ordenação de resultados (search result ranking explanation analysis)
+- Análise de persistência de filtro na navegação de retorno (filter persistence on return navigation analysis)
+- Análise de rótulo de filtro por vocabulário do público (filter label by audience vocabulary analysis)
+- Análise de agrupamento de filtros por dimensão conceitual (filter grouping by conceptual dimension analysis)
+- Análise de apresentação de contagem junto ao filtro (count display alongside filter analysis)
+- Análise de filtro selecionado com resumo acessível (selected filter with accessible summary analysis)
+- Análise de remoção de filtro sem perda do contexto de busca (filter removal without losing search context analysis)
+- Análise de busca exploratória versus busca conhecida (exploratory and known-item search analysis)
+- Análise de suporte a consulta ampla e consulta específica (broad and specific query support analysis)
+- Análise de página de categoria com contexto e opções (category page with context and options analysis)
+- Análise de sobreposição entre página de categoria e landing page (category page and landing page overlap analysis)
+- Análise de páginas de entrada para públicos distintos (entry pages for distinct audiences analysis)
+- Análise de reaproveitamento de conteúdo sem duplicação editorial (content reuse without editorial duplication analysis)
+- Análise de propriedade e responsabilidade editorial por conteúdo (content editorial ownership and accountability analysis)
+- Análise de fluxo de aprovação e publicação de conteúdo (content approval and publication workflow analysis)
+- Análise de metadados para revisão, expiração e arquivamento (metadata for review, expiry, and archiving analysis)
+- Análise de arquivamento de conteúdo com preservação de referência (content archiving with reference preservation analysis)
+- Análise de retirada de conteúdo e mensagem de substituição (content removal and replacement message analysis)
+- Análise de consistência de taxonomia entre produtos digitais (taxonomy consistency across digital products analysis)
+- Análise de inventário por conteúdo estratégico e operacional (inventory by strategic and operational content analysis)
+- Análise de qualidade de conteúdo por encontrabilidade e atualidade (content quality by findability and currency analysis)
+
+- Análise de arquitetura de página por pirâmide invertida (page architecture through inverted pyramid analysis)
+- Análise de organização por prioridade do leitor em vez de processo interno (reader-priority rather than internal-process organization analysis)
+- Análise de escopo da página por intenção dominante (page scope by dominant intent analysis)
+- Análise de fronteira entre página de visão geral e instrução detalhada (overview and detailed instruction page boundary analysis)
+- Análise de resumo executivo como camada de entrada do documento (executive summary as document entry layer analysis)
+- Análise de arquitetura de conteúdo por níveis de detalhe (content architecture by levels of detail analysis)
+- Análise de conteúdo progressivo em estrutura resumida e expandida (progressive content in summary and expanded structure analysis)
+- Análise de navegação por tarefas primárias e secundárias (navigation by primary and secondary tasks analysis)
+- Análise de priorização de tarefa frequente versus tarefa crítica (frequent and critical task prioritization analysis)
+- Análise de estrutura de página por pergunta, resposta e próxima ação (page structure by question, answer, and next action analysis)
+- Análise de concentração de informação decisória acima da dobra (decision information concentration above the fold analysis)
+- Análise de repetição de chamada à ação em páginas longas (call-to-action repetition on long pages analysis)
+- Análise de interrupção de fluxo por conteúdo promocional (flow interruption by promotional content analysis)
+- Análise de seção relacionada por proximidade semântica e tarefa (related section by semantic and task proximity analysis)
+- Análise de recomendação de conteúdo relacionado por etapa da jornada (related content recommendation by journey stage analysis)
+- Análise de sequência de documentação por pré-requisito conceitual (documentation sequence by conceptual prerequisite analysis)
+- Análise de dependência de leitura entre páginas de ajuda (reading dependency across help pages analysis)
+- Análise de caminho de recuperação da visão geral à resolução (recovery path from overview to resolution analysis)
+- Análise de página órfã e ausência de links de entrada (orphan page and missing inbound links analysis)
+- Análise de visibilidade de página por link contextual (page visibility through contextual links analysis)
+- Análise de consistência de informação entre página canônica e espelho (information consistency between canonical and mirrored pages analysis)
+- Análise de conteúdo duplicado por versão impressa e digital (duplicate content across print and digital versions analysis)
+- Análise de correspondência entre navegação e vocabulário do domínio (navigation and domain vocabulary correspondence analysis)
+- Análise de arquitetura de informação por persona e cenário (information architecture by persona and scenario analysis)
+- Análise de agrupamento de conteúdo por jornada e não por canal (content grouping by journey rather than channel analysis)
+- Análise de conflito de propriedade editorial entre equipes (editorial ownership conflict across teams analysis)
+- Análise de governança de conteúdo por responsável e prazo de revisão (content governance by owner and review deadline analysis)
+- Análise de ciclo de aprovação por risco e sensibilidade do conteúdo (approval cycle by content risk and sensitivity analysis)
+- Análise de conteúdo com data de revisão vencida (content past review date analysis)
+- Análise de regra de arquivamento baseada em uso e validade (archiving rule based on use and validity analysis)
+- Análise de despublicação com impacto em links e busca (unpublishing impact on links and search analysis)
+- Análise de redirecionamento temporário e permanente de conteúdo (temporary and permanent content redirect analysis)
+- Análise de retificação de conteúdo sem apagar histórico (content correction without erasing history analysis)
+- Análise de versão de política com vigência e público aplicável (policy version with effective date and applicable audience analysis)
+- Análise de relação entre categoria de suporte e fila responsável (support category and responsible queue relationship analysis)
+- Análise de rotulagem de conteúdo por gravidade e urgência (content labeling by severity and urgency analysis)
+- Análise de organização de alertas por ação requerida (alert organization by required action analysis)
+- Análise de ordenação de opções por frequência, risco e padrão (option ordering by frequency, risk, and default analysis)
+- Análise de agrupamento de configurações por objetivo do usuário (settings grouping by user goal analysis)
+- Análise de separação entre preferências e controles de conta (preferences and account controls separation analysis)
+- Análise de conteúdo localizável por busca sem conhecer nome oficial (content findability without official term knowledge analysis)
+- Análise de sinônimos de consulta em mecanismo de busca interno (query synonyms in internal search analysis)
+- Análise de consulta por intenção com zero resultado (zero-result query by intent analysis)
+- Análise de substituição de filtro de taxonomia por linguagem natural (taxonomy filter replacement with natural language analysis)
+- Análise de página de resultado vazia com rotas alternativas (empty result page with alternative paths analysis)
+- Análise de mensagem de escopo de busca e coleção pesquisada (search scope and collection searched message analysis)
+- Análise de estrutura de resultado agrupado por tipo de conteúdo (search results grouped by content type analysis)
+- Análise de apresentação de data, versão e estado em resultado de busca (date, version, and status in search result analysis)
+- Análise de indicador de conteúdo oficial ou verificado na arquitetura (official or verified content indicator in architecture analysis)
+- Análise de navegação por glossário e relação entre conceitos (glossary navigation and concept relationship analysis)
+
+- Card sorting remoto moderado (moderated remote card sorting)
+- Card sorting remoto não moderado (unmoderated remote card sorting)
+- Análise de card sorting por dendrograma de agrupamentos (card sorting cluster dendrogram analysis)
+- Análise de card sorting por matriz de similaridade (card sorting similarity matrix analysis)
+- Análise de consistência de agrupamento por participante (participant-level grouping consistency analysis)
+- Análise de árvore reversa em navegação (reverse tree testing in navigation)
+- Teste de árvore com primeira escolha e caminho completo (tree test first click and full path analysis)
+- Análise de sucesso direto e indireto em tarefa de navegação (direct and indirect navigation task success analysis)
+- Análise de taxa de sucesso por rótulo e posição (success rate by label and position analysis)
+- Análise de confiança do usuário em localização de conteúdo (user confidence in content location analysis)
+- Análise de expectativa de destino por rótulo de navegação (destination expectation by navigation label analysis)
+- Análise de encontrabilidade por busca versus navegação (findability through search versus navigation analysis)
+- Análise de navegação por conteúdo e navegação por função (content-based and function-based navigation analysis)
+- Análise de arquitetura de informação por objetos, atributos e ações (information architecture by objects, attributes, and actions analysis)
+- Análise de modelo conceitual de conteúdo do usuário (user content conceptual model analysis)
+- Análise de mapa de ecossistema de conteúdo e canais (content and channel ecosystem map analysis)
+- Análise de inventário por tipo, público e validade (inventory by type, audience, and validity analysis)
+- Análise de conteúdo duplicado e conteúdo canônico (duplicate and canonical content analysis)
+- Análise de página única versus conjunto de páginas por tarefa (single-page and multi-page task structure analysis)
+- Análise de fragmentação de conteúdo por etapa de usuário (content fragmentation by user stage analysis)
+- Análise de arquitetura de FAQ por pergunta e intenção (FAQ architecture by question and intent analysis)
+- Análise de rótulo de taxonomia por vocabulário natural do usuário (taxonomy label by natural user vocabulary analysis)
+- Análise de vocabulário controlado com termos preferidos e remissivas (controlled vocabulary with preferred terms and cross-references)
+- Análise de polissemia em rótulos de categoria (polysemy in category labels analysis)
+- Análise de conflito entre significado popular e significado técnico do rótulo (popular and technical meaning conflict in labels analysis)
+- Análise de rótulos de categorias no teste de compreensão (category label comprehension testing analysis)
+- Análise de previsibilidade de categoria em tarefa de busca (category predictability in search task analysis)
+- Análise de hierarquia de informação por frequência, risco e consequência (information hierarchy by frequency, risk, and consequence analysis)
+- Análise de arquitetura para conteúdo de baixa frequência e alto impacto (architecture for low-frequency high-impact content analysis)
+- Análise de acesso rápido a conteúdo crítico por múltiplas rotas (rapid access to critical content through multiple routes analysis)
+- Análise de profundidade de navegação por complexidade da tarefa (navigation depth by task complexity analysis)
+- Análise de amplitude de menu por capacidade de discriminação (menu breadth by discriminability analysis)
+- Análise de menu global por cobertura de tarefa (global menu by task coverage analysis)
+- Análise de navegação contextual por relação com a página atual (contextual navigation by relation to current page analysis)
+- Análise de trilha de navegação por tarefa e ponto de entrada (navigation path by task and entry point analysis)
+- Análise de ambiguidade de breadcrumbs em conteúdo com múltiplas taxonomias (breadcrumb ambiguity in multi-taxonomy content analysis)
+- Análise de caminhos cruzados e categorias múltiplas (cross-path navigation and multiple categories analysis)
+- Análise de classificação multidimensional por facetas independentes (multidimensional classification by independent facets analysis)
+- Análise de taxonomia por princípio de exclusividade mútua (taxonomy by mutual exclusivity principle analysis)
+- Análise de facetas com dependência entre valores (facets with dependent values analysis)
+- Análise de navegação facetada por combinação inválida de filtro (faceted navigation by invalid filter combination analysis)
+- Análise de apresentação de filtro ativo e caminho de remoção (active filter display and removal path analysis)
+- Análise de persistência de consulta ao voltar de uma página (query persistence when returning from a page analysis)
+- Análise de ordenação de resultados por tarefa e intenção (search result ranking by task and intent analysis)
+- Análise de agrupamento de resultado por coleção e tipo de informação (result grouping by collection and information type analysis)
+- Análise de resumo de resultado por trecho mais relevante (result summary by most relevant passage analysis)
+- Análise de estratégia de busca semântica para sinônimos de domínio (semantic search strategy for domain synonyms analysis)
+- Análise de vocabulário de consulta por região e grupo de usuário (query vocabulary by region and user group analysis)
+- Análise de rota alternativa após busca sem resultados (alternative route after zero-result search analysis)
+- Análise de conteúdo órfão e lacuna de arquitetura (orphan content and architecture gap analysis)
+
+## Teoria da composição e pedagogia da escrita
+
+- Situação retórica de Bitzer (Bitzer’s Rhetorical Situation)
+- Retórica atual-tradicional (Current-Traditional Rhetoric)
+- Teoria expressivista da composição (Expressivist Composition Theory)
+- Teoria pós-processo da escrita (Post-Process Writing Theory)
+- Funções da escrita de Britton: expressiva. transacional e poética (Britton’s Functions of Writing)
+- Audiência dirigida e audiência evocada de Ede e Lunsford (Audience Addressed vs. Audience Invoked)
+- Conceitos limiares dos estudos da escrita (Threshold Concepts of Writing Studies)
+- Transferência de aprendizagem na escrita (Writing Transfer)
+- Zonas de contato na composição de Pratt (Contact Zones in Composition)
+- Teoria da atividade histórico-cultural aplicada à escrita (Cultural-Historical Activity Theory in Writing)
+- Teoria dos objetivos do discurso de Kinneavy (Kinneavy’s Theory of Discourse Aims)
+- Retórica tagmêmica de Young. Becker e Pike (Tagmemic Rhetoric)
+- Identidade autoral de Ivanič (Ivanič’s Writer Identity Framework)
+- Escrita através do currículo — WAC (Writing Across the Curriculum)
+- Escrita nas disciplinas — WID (Writing in the Disciplines)
+- Escrita para aprender — WTL (Writing to Learn)
+- Pedagogia do processo de escrita (Process Writing Pedagogy)
+- Escrita sobre a escrita — WAW (Writing About Writing Pedagogy)
+- Sequência didática de gêneros de Dolz. Noverraz e Schneuwly (Geneva School Didactic Sequence of Genres)
+- Desenvolvimento de estratégias autorreguladas — SRSD (Self-Regulated Strategy Development)
+- Pedagogia de centros de escrita e tutoria não diretiva (Writing Center Pedagogy and Nondirective Tutoring)
+- Modelagem por textos-mentores (Mentor Text Modeling)
+- Oficina de escrita e resposta formativa entre pares (Writing Workshop and Peer Response)
+- Modelo do Escritor na Comunidade de Graham (Writer(s)-Within-Community Model)
+- Síntese discursiva na escrita a partir de fontes (Discourse Synthesis in Source-Based Writing)
+- Planejamento pré-tarefa versus planejamento em linha na escrita (Pre-Task vs. Online Planning in Writing)
+- Ciclo de engajamento e reflexão na composição de Sharples (Sharples’ Engagement-Reflection Cycle)
+- Estruturação retrospectiva e senso sentido na composição de Perl (Perl’s Retrospective Structuring and Felt Sense)
+- Facilitação procedimental na composição escrita de Scardamalia e Bereiter (Procedural Facilitation in Writing)
+- Autorregulação triádica da escrita de Zimmerman e Risemberg (Zimmerman and Risemberg’s Self-Regulation of Writing)
+- Prosa baseada no escritor versus prosa baseada no leitor de Flower (Writer-Based vs. Reader-Based Prose)
+- Bloqueio do escritor e regras rígidas de composição de Mike Rose (Writer’s Block and Rigid Composing Rules)
+- Apreensão da escrita de Daly e Miller (Writing Apprehension)
+
+- Escrita exploratória e escrita para descoberta (exploratory writing and writing to discover)
+- Escrita heurística por perguntas de investigação (question-driven heuristic writing)
+- Pré-escrita por listagem livre (freewriting prewriting)
+- Pré-escrita por escrita contínua cronometrada (timed nonstop prewriting)
+- Pré-escrita por agrupamento de ideias (clustering prewriting)
+- Pré-escrita por mapeamento conceitual (concept mapping prewriting)
+- Planejamento retórico por audiência, propósito e contexto (rhetorical planning by audience, purpose, and context)
+- Planejamento reverso a partir do produto final (backward planning from final deliverable)
+- Escrita em ciclos recursivos de planejar, compor e revisar (recursive planning, composing, and reviewing)
+- Análise de transição entre conhecimento-telling e knowledge-transforming (knowledge-telling and knowledge-transforming analysis)
+- Revisão global antes da revisão local (global-before-local revision)
+- Revisão orientada por problema retórico (rhetorical problem-driven revision)
+- Revisão por leitura em voz alta (read-aloud revision)
+- Revisão por leitura inversa de frases (sentence-level reverse-order proofreading)
+- Revisão por foco alternado em conteúdo, organização e estilo (alternating content, organization, and style review)
+- Revisão por checklist de propósito e público (purpose and audience checklist revision)
+- Revisão por comentário de leitor e pergunta orientadora (reader feedback and guiding question revision)
+- Revisão por protocolo de resposta do leitor (reader response protocol revision)
+- Oficina de escrita com resposta em pares (peer response writing workshop)
+- Conferência individual de escrita baseada em perguntas (question-based writing conference)
+- Análise de resposta de pares centrada no leitor (reader-centered peer response analysis)
+- Ensino de revisão como tomada de decisão retórica (teaching revision as rhetorical decision-making)
+- Ensino de edição separado de revisão substantiva (teaching editing separately from substantive revision)
+- Ensino de estratégia de escrita por modelagem explícita (explicit modeling of writing strategies)
+- Escrita com exemplo comentado e explicitação de escolhas (annotated model text and decision explanation)
+- Análise contrastiva de modelos fortes e fracos (strong and weak model text comparison)
+- Escrita por imitação de movimentos retóricos (rhetorical move imitation writing)
+- Ensino de gênero por análise de exemplares autênticos (genre teaching through authentic exemplar analysis)
+- Escrita baseada em projeto com audiência real (project-based writing for authentic audience)
+- Escrita colaborativa com papéis de coautoria definidos (collaborative writing with defined coauthor roles)
+- Planejamento de coesão entre contribuições de múltiplos autores (cohesion planning across multiple authors)
+- Análise de autoria, voz e responsabilidade em texto coletivo (authorship, voice, and responsibility in collaborative text)
+- Portfólio de escrita com reflexão sobre processo (process-reflection writing portfolio)
+- Autoavaliação de escrita com rubrica analítica (analytic rubric self-assessment for writing)
+- Avaliação formativa por comentário específico e acionável (specific and actionable formative feedback)
+- Feedback que prioriza um próximo passo revisável (feedback prioritizing one revisable next step)
+- Análise de comentário de feedback por foco e tom (feedback comment focus and tone analysis)
+- Análise de transferência de aprendizagem entre gêneros (learning transfer across genres analysis)
+- Ensino de escrita com consciência retórica (rhetorical awareness writing instruction)
+- Análise de repertório linguístico do escritor bilíngue (bilingual writer linguistic repertoire analysis)
+- Pedagogia translíngue em processo de composição (translanguaging pedagogy in composing process)
+- Escrita situada em comunidade discursiva (writing situated in discourse community)
+- Análise de identidade autoral e agência do estudante (student authorial identity and agency analysis)
+- Planejamento de intervenção pedagógica por diagnóstico de escrita (writing diagnostic-based instructional intervention)
+- Análise de revisão espontânea versus revisão solicitada (spontaneous and prompted revision analysis)
+- Análise de pausas e fluência em processo de composição (pauses and fluency in composing process analysis)
+- Escrita multimodal com planejamento de recursos semióticos (multimodal writing and semiotic resource planning)
+- Análise de acessibilidade em tarefa e avaliação de escrita (accessibility in writing task and assessment analysis)
+- Escrita reflexiva sobre decisões de composição (reflective writing about composing decisions)
+- Análise de alinhamento entre objetivo de aprendizagem e rubrica (learning objective and rubric alignment analysis)
+
+- Escrita por descoberta através de diários de pesquisa (discovery writing through research journals)
+- Escrita de fluxo de consciência como pré-escrita exploratória (stream-of-consciousness writing as exploratory prewriting)
+- Escrita automática como exercício de desbloqueio (automatic writing as a generative exercise)
+- Exercício de escrita por restrição formal (formal constraint writing exercise)
+- Escrita lipogramática como exploração de escolha lexical (lipogrammatic writing for lexical choice exploration)
+- Escrita por imitação sintática de modelo (syntactic imitation of a model text)
+- Exercício de transformação de voz e pessoa gramatical (voice and grammatical person transformation exercise)
+- Exercício de transformação de tempo verbal e perspectiva (tense and perspective transformation exercise)
+- Exercício de reescrita por mudança de gênero textual (rewriting through genre shift exercise)
+- Exercício de reescrita para público especializado e leigo (rewriting for expert and lay audiences exercise)
+- Exercício de reescrita com limite de palavras (word-limit rewriting exercise)
+- Exercício de expansão de parágrafo por evidências (paragraph expansion through evidence exercise)
+- Exercício de compressão de argumento sem perda de premissas (argument compression without premise loss exercise)
+- Exercício de resumo em uma frase, um parágrafo e uma página (one-sentence, one-paragraph, and one-page summary exercise)
+- Exercício de síntese de múltiplas fontes por tema (multi-source thematic synthesis exercise)
+- Exercício de paráfrase com preservação de relações lógicas (paraphrase with logical relation preservation exercise)
+- Exercício de paráfrase por mudança de estrutura sintática (paraphrase through syntactic restructuring exercise)
+- Exercício de paráfrase com atribuição explícita de fonte (paraphrase with explicit source attribution exercise)
+- Exercício de citação integrada ao fluxo argumentativo (integrating quotation into argumentative flow exercise)
+- Exercício de distinção entre citação, paráfrase e síntese (quotation, paraphrase, and synthesis distinction exercise)
+- Exercício de reconstrução de argumento a partir de fontes (argument reconstruction from sources exercise)
+- Exercício de mapa de evidências para planejar seção (evidence map for section planning exercise)
+- Exercício de esboço reverso de texto concluído (reverse outlining of a completed text exercise)
+- Exercício de esboço tópico e esboço de frases completas (topic and sentence outline exercise)
+- Exercício de estruturação de parágrafo por alegação e evidência (claim-and-evidence paragraph structuring exercise)
+- Exercício de parágrafo PEEL: ponto, evidência, explicação e ligação (PEEL paragraph exercise)
+- Exercício de parágrafo MEAL: ideia central, evidência, análise e ligação (MEAL paragraph exercise)
+- Exercício de progressão de afirmação a implicação (claim-to-implication progression exercise)
+- Exercício de transição entre parágrafos por relação lógica (logical relation transitions between paragraphs exercise)
+- Exercício de revisão de tópico frasal e escopo do parágrafo (topic sentence and paragraph scope revision exercise)
+- Exercício de redistribuição de informação entre parágrafos (redistributing information across paragraphs exercise)
+- Exercício de revisão de redundância entre parágrafos (interparagraph redundancy revision exercise)
+- Exercício de revisão de unidade e foco do parágrafo (paragraph unity and focus revision exercise)
+- Exercício de leitura com propósito de mapa estrutural (structural map reading exercise)
+- Exercício de anotação de movimentos retóricos em artigo (rhetorical move annotation in an article exercise)
+- Exercício de anotação de argumento e contra-argumento (argument and counterargument annotation exercise)
+- Exercício de classificação de evidência por tipo e força (evidence classification by type and strength exercise)
+- Exercício de revisão por pergunta “o que o leitor precisa saber agora?” (reader-need-at-this-point revision exercise)
+- Exercício de revisão focada em lacunas de explicação (revision focused on explanatory gaps exercise)
+- Exercício de revisão focada em transições inferenciais (revision focused on inferential transitions exercise)
+- Exercício de autoexplicação de escolhas retóricas do autor (self-explanation of authorial rhetorical choices exercise)
+- Exercício de revisão em camadas: argumento, organização e frase (layered revision: argument, organization, and sentence exercise)
+- Exercício de revisão com leitura de trás para frente por seção (section-by-section backward review exercise)
+- Exercício de reescrita de parágrafo com fonte preservada (paragraph rewriting with source preservation exercise)
+- Exercício de alteração de ordem para testar ênfase (reordering to test emphasis exercise)
+- Exercício de contraste entre versão inicial e versão revisada (draft and revision comparison exercise)
+- Exercício de reflexão metacognitiva pós-escrita (post-writing metacognitive reflection exercise)
+- Exercício de registro de decisões e problemas de composição (composing decision and problem log exercise)
+- Exercício de avaliação por rubrica com justificativa de pontuação (rubric assessment with score justification exercise)
+- Exercício de leitura de par como usuário real do texto (peer reading as an actual text user exercise)
+
+- Ensino de escrita por modelagem de processo em voz alta (think-aloud modeling of the writing process)
+- Ensino de planejamento por demonstração de mapa e esboço (planning through map and outline demonstration)
+- Ensino de revisão por comparação de rascunho e modelo (revision teaching through draft-model comparison)
+- Ensino de revisão com códigos de comentário compartilhados (revision teaching with shared comment codes)
+- Ensino de edição por leitura focal de uma categoria de erro (editing through focused error-category passes)
+- Ensino de estratégias de autorregulação na escrita (self-regulated writing strategy instruction)
+- Ensino de definição de metas de processo para escrita (process goal setting for writing instruction)
+- Ensino de monitoramento de progresso por checklist (progress monitoring with checklist instruction)
+- Ensino de revisão por leitura como audiência não especialista (revision through nonexpert audience reading instruction)
+- Ensino de revisão com pergunta de foco por parágrafo (revision with a focus question per paragraph instruction)
+- Ensino de paráfrase com matriz de fonte e ideia (paraphrasing with source-idea matrix instruction)
+- Ensino de síntese integrando fontes em torno de alegação (synthesis instruction integrating sources around a claim)
+- Ensino de citação com função retórica definida (citation instruction by rhetorical function)
+- Ensino de uso ético de fontes por rastreamento de afirmação (ethical source use through claim tracing instruction)
+- Ensino de distinção entre resumo, paráfrase e comentário crítico (summary, paraphrase, and critical commentary instruction)
+- Ensino de construção de argumento por evidência e garantia (argument construction through evidence and warrant instruction)
+- Ensino de contra-argumentação por objeção plausível (counterargument instruction using plausible objection)
+- Ensino de qualificação de tese por escopo e condição (claim qualification by scope and condition instruction)
+- Ensino de escrita de introdução por problema, lacuna e objetivo (introduction writing by problem, gap, and aim instruction)
+- Ensino de escrita de conclusão por síntese, contribuição e limite (conclusion writing by synthesis, contribution, and limitation instruction)
+- Ensino de resumo acadêmico por objetivo, método, resultado e implicação (academic abstract writing by aim, method, result, and implication)
+- Ensino de escrita de método por reprodutibilidade (methods writing for reproducibility instruction)
+- Ensino de revisão de literatura por agrupamento temático (literature review writing through thematic grouping instruction)
+- Ensino de escrita de transição por relação lógica explícita (transition writing through explicit logical relation instruction)
+- Ensino de coesão referencial na redação de parágrafos (referential cohesion in paragraph writing instruction)
+- Ensino de progressão temática com tema e rema (thematic progression through theme and rheme instruction)
+- Ensino de escrita de tópico frasal com escopo controlado (topic sentence writing with controlled scope instruction)
+- Ensino de parágrafo analítico por afirmação, evidência e inferência (analytical paragraph by claim, evidence, and inference instruction)
+- Ensino de escrita disciplinar por análise de gênero (disciplinary writing through genre analysis instruction)
+- Ensino de transferência entre gêneros acadêmicos (transfer across academic genres instruction)
+- Ensino de reflexão sobre escolhas linguísticas situadas (reflection on situated linguistic choices instruction)
+- Ensino de consciência de audiência em redação multimodal (audience awareness in multimodal writing instruction)
+- Ensino de planejamento de texto multimodal por modo e função (multimodal text planning by mode and function instruction)
+- Ensino de escrita colaborativa com revisão de autoria (collaborative writing with authorship review instruction)
+- Ensino de coesão editorial em documento de múltiplos autores (editorial cohesion in multi-author document instruction)
+- Ensino de comentário entre pares com observação e pergunta (peer feedback through observation and question instruction)
+- Ensino de comentário entre pares por prioridade de revisão (peer feedback prioritized by revision instruction)
+- Ensino de resposta a feedback por decisão fundamentada (responding to feedback through reasoned decision instruction)
+- Ensino de revisão seletiva sem aceitar toda sugestão (selective revision without accepting every suggestion instruction)
+- Ensino de escrita para publicação por ciclos editoriais (writing for publication through editorial cycles instruction)
+- Ensino de escrita de proposta por necessidade, solução e viabilidade (proposal writing by need, solution, and feasibility instruction)
+- Ensino de escrita profissional por cenário e destinatário (professional writing by scenario and recipient instruction)
+- Ensino de escrita reflexiva por evento, interpretação e aprendizagem (reflective writing by event, interpretation, and learning instruction)
+- Ensino de diário de aprendizagem com evidência de progresso (learning journal with progress evidence instruction)
+- Ensino de avaliação de escrita por critérios observáveis (writing assessment through observable criteria instruction)
+- Ensino de rubrica analítica com descritores progressivos (analytic rubric with progressive descriptors instruction)
+- Ensino de avaliação formativa com ciclo de feedback e reescrita (formative assessment through feedback and rewriting cycle instruction)
+- Ensino de portfólio com seleção e justificativa de versões (portfolio with selection and version rationale instruction)
+- Ensino de revisão de acessibilidade como parte da composição (accessibility revision as part of composing instruction)
+- Ensino de revisão linguística sem apagar variedade do estudante (language revision without erasing student variety instruction)
+
+- Exercício de escrita por perspectiva alternativa do mesmo evento (writing from an alternate perspective on the same event exercise)
+- Exercício de reescrita de narrativa em primeira e terceira pessoa (first- and third-person narrative rewriting exercise)
+- Exercício de mudança de distância narrativa em uma cena (narrative distance shift in one scene exercise)
+- Exercício de reescrita com narrador confiável e não confiável (reliable and unreliable narrator rewriting exercise)
+- Exercício de escrita de diálogo com subtexto explícito e implícito (dialogue writing with explicit and implicit subtext exercise)
+- Exercício de revisão de diálogo por voz individual de personagem (dialogue revision by character-specific voice exercise)
+- Exercício de cena por objetivo, conflito e mudança (scene by goal, conflict, and change exercise)
+- Exercício de escrita de cena sem exposição direta (scene writing without direct exposition exercise)
+- Exercício de exposição por ação e detalhe concreto (exposition through action and concrete detail exercise)
+- Exercício de descrição sensorial seletiva por ponto de vista (selective sensory description by viewpoint exercise)
+- Exercício de descrição de ambiente por função narrativa (setting description by narrative function exercise)
+- Exercício de corte de explicação redundante após evidência narrativa (cutting redundant explanation after narrative evidence exercise)
+- Exercício de foreshadowing com pista justa e não óbvia (foreshadowing with fair and non-obvious clue exercise)
+- Exercício de revisão de pista falsa e preparação narrativa (red herring and narrative setup revision exercise)
+- Exercício de reordenação cronológica de eventos narrativos (chronological reordering of narrative events exercise)
+- Exercício de narrativa com analepse e marco temporal claro (narrative with analepsis and clear temporal marker exercise)
+- Exercício de narrativa com prolepse sem revelar resolução (narrative with prolepsis without revealing resolution exercise)
+- Exercício de resumo e expansão de uma mesma sequência narrativa (summary and expansion of the same narrative sequence exercise)
+- Exercício de variação de ritmo por extensão de cena (pacing variation through scene length exercise)
+- Exercício de montagem de cenas paralelas por contraste (parallel scene arrangement through contrast exercise)
+- Exercício de narrativa em cenas com elipse temporal (scene-based narrative with temporal ellipsis exercise)
+- Exercício de escrita de final aberto com questão temática definida (open ending with defined thematic question exercise)
+- Exercício de revisão de desfecho por preparação e consequência (ending revision by setup and consequence exercise)
+- Exercício de arco de personagem por decisão e custo (character arc through decision and cost exercise)
+- Exercício de planejamento de subtrama por função temática (subplot planning by thematic function exercise)
+- Exercício de escalada de obstáculos em três tentativas (obstacle escalation across three attempts exercise)
+- Exercício de sequência de causa e efeito entre cenas (cause-and-effect sequence across scenes exercise)
+- Exercício de revisão de coincidência por causalidade preparada (coincidence revision through prepared causality exercise)
+- Exercício de construção de mundo por detalhe funcional (worldbuilding through functional detail exercise)
+- Exercício de exposição de regras do mundo por consequência (world rule exposition through consequence exercise)
+- Exercício de revisão de consistência de cronologia ficcional (fictional timeline consistency revision exercise)
+- Exercício de escrita de narrativa por documento encontrado (found document narrative writing exercise)
+- Exercício de narrativa epistolar por mudança de voz entre cartas (epistolary narrative through voice shifts exercise)
+- Exercício de narrativa por múltiplas testemunhas (multiple witness narrative writing exercise)
+- Exercício de reescrita de evento por versões conflitantes (event rewriting through conflicting accounts exercise)
+- Exercício de escrita de diálogo como desacordo pragmático (dialogue writing as pragmatic disagreement exercise)
+- Exercício de análise de cena por turno, objetivo e reparo (scene analysis by turn, goal, and repair exercise)
+- Exercício de narrativa oral com avaliação e coda (oral narrative with evaluation and coda exercise)
+- Exercício de escrita de microficção com mudança de estado (flash fiction with state change exercise)
+- Exercício de microconto por omissão de etapa causal (microfiction through omission of causal step exercise)
+- Exercício de narrativa curta com objeto recorrente (short narrative with recurring object exercise)
+- Exercício de narrativa em segunda pessoa com foco controlado (second-person narrative with controlled focus exercise)
+- Exercício de texto híbrido entre ensaio e narrativa (hybrid essay and narrative writing exercise)
+- Exercício de reescrita de relato factual em forma narrativa (factual account rewritten in narrative form exercise)
+- Exercício de narrativa documental com fonte e limite explícitos (documentary narrative with explicit source and limit exercise)
+- Exercício de escrita de vinheta por observação e interpretação (vignette writing through observation and interpretation exercise)
+- Exercício de revisão de voz para consistência de registro (voice revision for register consistency exercise)
+- Exercício de leitura em voz alta para testar naturalidade de diálogo (read-aloud test for dialogue naturalness exercise)
+- Exercício de edição de diálogo por subtexto e concisão (dialogue editing for subtext and concision exercise)
+- Exercício de revisão de descrição por relevância para ação (description revision by relevance to action exercise)
+
+- Exercício de revisão da introdução por contexto, problema e propósito (introduction revision by context, problem, and purpose exercise)
+- Exercício de tese por posição, razão e escopo (thesis by position, reason, and scope exercise)
+- Exercício de qualificação da tese por exceção e condição (thesis qualification by exception and condition exercise)
+- Exercício de revisão do parágrafo por alegação e suporte (paragraph revision by claim and support exercise)
+- Exercício de integração de evidência com contexto e análise (evidence integration through context and analysis exercise)
+- Exercício de comentário analítico após citação (analytical commentary after quotation exercise)
+- Exercício de análise do papel de cada fonte no argumento (analysis of each source role in argument exercise)
+- Exercício de comparação de fontes por convergência e tensão (source comparison by convergence and tension exercise)
+- Exercício de escrita de síntese por tema sem resumo fonte a fonte (thematic synthesis without source-by-source summary exercise)
+- Exercício de construção de parágrafo de síntese entre disciplinas (cross-disciplinary synthesis paragraph exercise)
+- Exercício de revisão de transição entre evidência e alegação (revision of evidence-to-claim transition exercise)
+- Exercício de revisão de inferência implícita em argumento (revision of implicit inference in argument exercise)
+- Exercício de revisão de explicação do “porquê” após dado (revision of why explanation after data exercise)
+- Exercício de redução de citação decorativa (decorative quotation reduction exercise)
+- Exercício de substituição de citação longa por paráfrase analítica (long quotation replacement with analytical paraphrase exercise)
+- Exercício de revisão de evidência sem fonte identificável (revision of evidence without identifiable source exercise)
+- Exercício de checagem de atribuição de alegação a autor (claim-to-author attribution check exercise)
+- Exercício de verificação de contexto de citação (citation context verification exercise)
+- Exercício de paráfrase com preservação de nuance e ressalva (paraphrase preserving nuance and qualification exercise)
+- Exercício de reescrita de parágrafo para reduzir plágio involuntário (paragraph rewriting to reduce inadvertent plagiarism exercise)
+- Exercício de rastreamento de notas de leitura até referências (reading note to reference tracing exercise)
+- Exercício de organização de referências por função argumentativa (reference organization by argumentative function exercise)
+- Exercício de mapeamento de disputa entre autores (mapping disagreement among authors exercise)
+- Exercício de revisão de verbos de reporte por postura autoral (reporting verb revision by author stance exercise)
+- Exercício de comparação de verbos de reporte neutros e avaliativos (neutral and evaluative reporting verb comparison exercise)
+- Exercício de revisão de hedging em afirmação de resultado (hedging revision in result claim exercise)
+- Exercício de revisão de certeza excessiva em conclusão (overcertainty revision in conclusion exercise)
+- Exercício de alinhamento entre objetivo, achado e implicação (aim, finding, and implication alignment exercise)
+- Exercício de resumo de achado sem extrapolar amostra (finding summary without sample overgeneralization exercise)
+- Exercício de escrita de limitação com impacto interpretativo (limitation writing with interpretive impact exercise)
+- Exercício de distinção entre limitação, ressalva e recomendação futura (limitation, qualification, and future recommendation distinction exercise)
+- Exercício de revisão de recomendação proporcional à evidência (recommendation proportional to evidence revision exercise)
+- Exercício de conclusão por síntese sem repetição literal da introdução (conclusion synthesis without verbatim introduction repetition exercise)
+- Exercício de elaboração de resumo por retirada progressiva de detalhe (abstract drafting through progressive detail removal exercise)
+- Exercício de escrita de resumo informativo e indicativo (informative and indicative abstract writing exercise)
+- Exercício de revisão de resumo por leitor que não conhece estudo (abstract revision by a reader unfamiliar with study exercise)
+- Exercício de título por questão, método e achado central (title by question, method, and main finding exercise)
+- Exercício de revisão de título para reduzir promessa excessiva (title revision to reduce overclaiming exercise)
+- Exercício de elaboração de subtítulos paralelos por função (parallel subheading drafting by function exercise)
+- Exercício de criação de mapa de argumento por seção (section-level argument map exercise)
+- Exercício de revisão reversa por função retórica de parágrafo (reverse revision by paragraph rhetorical function exercise)
+- Exercício de reorganização por informação necessária ao leitor (reorganization by reader-needed information exercise)
+- Exercício de edição de prosa para reduzir ambiguidade sintática (prose editing to reduce syntactic ambiguity exercise)
+- Exercício de edição de frase com foco em agente explícito (sentence editing for explicit agent exercise)
+- Exercício de revisão de densidade nominal em texto acadêmico (nominal density revision in academic text exercise)
+- Exercício de reescrita de nominalizações em verbos específicos (rewriting nominalizations as specific verbs exercise)
+- Exercício de leitura crítica por afirmação, evidência e pressuposto (critical reading by claim, evidence, and assumption exercise)
+- Exercício de anotação marginal de dúvidas do leitor (marginal annotation of reader questions exercise)
+- Exercício de leitura por pausa após cada seção (section-by-section pause reading exercise)
+- Exercício de revisão por escolha de um problema prioritário (revision by selecting one priority problem exercise)
+
+- Escrita como processo de Flower e Hayes (Flower and Hayes writing process model)
+- Modelo cognitivo de planejamento, tradução e revisão na escrita (cognitive planning, translating, and reviewing model of writing)
+- Análise de planejamento e formulação em modelo de escrita cognitiva (planning and formulation in cognitive writing model analysis)
+- Análise de monitoramento e controle no processo de escrita (monitoring and control in writing process analysis)
+- Modelo de escrita knowledge-telling de Bereiter e Scardamalia (Bereiter and Scardamalia knowledge-telling model)
+- Modelo de escrita knowledge-transforming (knowledge-transforming writing model)
+- Análise de transformação de conhecimento por problema retórico (knowledge transformation through rhetorical problem analysis)
+- Análise de expertise em escrita por conhecimento de conteúdo e gênero (writing expertise by content and genre knowledge analysis)
+- Escrita recursiva por ciclos de planejamento e revisão (recursive writing through planning and revision cycles)
+- Análise de recursividade do processo de composição (recursivity in composing process analysis)
+- Escrita exploratória de Elbow (Elbow exploratory writing)
+- Exercício de freewriting de Peter Elbow (Peter Elbow freewriting exercise)
+- Exercício de looping de escrita de Elbow (Elbow looping writing exercise)
+- Exercício de escrita em fluxo contínuo cronometrado (timed nonstop writing exercise)
+- Exercício de escrita sem avaliação inicial (low-stakes exploratory writing exercise)
+- Escrita heurística por descoberta de pergunta (heuristic writing through question discovery)
+- Análise de processo por protocolo think-aloud de escritor (writer think-aloud protocol analysis)
+- Análise de rascunho por versões e histórico de revisão (draft analysis by versions and revision history)
+- Análise de revisão por alteração de propósito retórico (revision by rhetorical purpose change analysis)
+- Análise de revisão local e revisão global do texto (local and global text revision analysis)
+- Revisão global de tese, audiência e organização (global revision of thesis, audience, and organization)
+- Revisão local de frase, gramática e pontuação (local revision of sentence, grammar, and punctuation)
+- Análise de reescrita por substituição, adição, supressão e deslocamento (rewriting by substitution, addition, deletion, and relocation analysis)
+- Revisão por recorte, junção e reordenação de parágrafos (revision through cutting, merging, and reordering paragraphs)
+- Análise de revisão por tipos de operação textual (revision by textual operation type analysis)
+- Escrita por outline reverso (reverse outlining as a writing method)
+- Análise de outline reverso por função de cada parágrafo (reverse outline by paragraph function analysis)
+- Escrita por outline de tópico frasal (topic sentence outline writing)
+- Análise de arquitetura de argumento antes da redação (argument architecture before drafting analysis)
+- Mapeamento de argumento com tese, razões e evidências (argument mapping with claim, reasons, and evidence)
+- Planejamento de ensaio por pergunta central e subperguntas (essay planning by central question and subquestions)
+- Planejamento de revisão bibliográfica por matriz de síntese (literature review planning by synthesis matrix)
+- Composição de síntese por matriz de autor, método e achado (synthesis composition through author, method, and finding matrix)
+- Escrita por movimentos retóricos de introdução e conclusão (writing through rhetorical moves of introductions and conclusions)
+- Análise de gênero como ação social na composição (genre as social action in composing analysis)
+- Pedagogia de escrita baseada em gênero textual (genre-based writing pedagogy)
+- Escrita de gênero por modelagem e desconstrução de exemplar (genre writing through model analysis and deconstruction)
+- Ciclo pedagógico de aprendizagem de gênero (teaching-learning cycle for genre pedagogy)
+- Escrita por abordagem de processo e abordagem de produto (process-based and product-based writing approaches)
+- Abordagem de processo para ensino de redação (process approach to writing instruction)
+- Abordagem de produto para ensino de redação (product approach to writing instruction)
+- Abordagem process-genre para ensino de escrita (process-genre approach to writing instruction)
+- Escrita colaborativa por co-planejamento e co-revisão (collaborative writing through co-planning and co-revision)
+- Escrita assistida por pares com revisão por etapas (peer-assisted writing through staged revision)
+- Análise de feedback escrito por foco, clareza e acionabilidade (written feedback by focus, clarity, and actionability analysis)
+- Feedback avaliativo e feedback orientado à revisão (evaluative and revision-oriented feedback distinction)
+- Feedback por conferência individual de escrita (individual writing conference feedback)
+- Análise de rubrica de escrita por validade e transparência (writing rubric by validity and transparency analysis)
+- Portfólio de processo com artefatos de planejamento e revisão (process portfolio with planning and revision artifacts)
+- Reflexão metacognitiva sobre escolhas de composição (metacognitive reflection on composing choices)
+
+- Planejamento de escrita por mapa de audiência e propósito (writing plan by audience and purpose map)
+- Planejamento de ensaio com tese provisória e perguntas abertas (essay planning with provisional thesis and open questions)
+- Planejamento de argumento por reivindicação, razões e evidências (argument planning by claims, reasons, and evidence)
+- Planejamento de projeto de texto por entregável e critério de sucesso (text project planning by deliverable and success criterion)
+- Análise de tarefa de escrita por restrição, recurso e prazo (writing task by constraint, resource, and deadline analysis)
+- Escrita em sprint com meta de processo (sprint writing with process goal)
+- Escrita em sessões curtas intercaladas com revisão (short writing sessions interleaved with review)
+- Técnica Pomodoro aplicada à escrita (Pomodoro technique for writing)
+- Análise de rotina de escrita por pista, comportamento e recompensa (writing routine by cue, behavior, and reward analysis)
+- Planejamento de sessão por próxima ação concreta (session planning by concrete next action)
+- Análise de procrastinação de escrita por dificuldade percebida (writing procrastination by perceived difficulty analysis)
+- Escrita livre focada em pergunta de pesquisa (question-focused freewriting)
+- Escrita exploratória por lista de perguntas sem resposta (exploratory writing through unanswered question list)
+- Escrita de descoberta por diálogo escrito consigo mesmo (discovery writing through written self-dialogue)
+- Escrita dialogada por pergunta e resposta argumentativa (dialogic writing through question and argumentative answer)
+- Escrita por diário de ideias e conexões entre leituras (idea journal connecting readings)
+- Escrita por fichamento analítico de fonte (analytical source note writing)
+- Fichamento bibliográfico com resumo, citação e comentário (bibliographic note with summary, quotation, and comment)
+- Análise de nota de pesquisa por separação entre fonte e inferência (research note separating source and inference analysis)
+- Escrita de matriz de evidências antes da síntese (evidence matrix before synthesis writing)
+- Planejamento de parágrafo por alegação e pergunta do leitor (paragraph planning by claim and reader question)
+- Planejamento de seção por argumento, evidência e transição (section planning by argument, evidence, and transition)
+- Escrita de tópico frasal por relação com tese global (topic sentence tied to global thesis writing)
+- Análise de progressão de tópico entre parágrafos (topic progression across paragraphs analysis)
+- Análise de sequência informação conhecida e informação nova na composição (given-new information sequencing in composition analysis)
+- Revisão de sequência tema-rema em parágrafo (theme-rheme sequence revision in paragraph)
+- Revisão de parágrafo por foco temático e unidade informacional (paragraph revision by thematic focus and information unity)
+- Revisão de parágrafo por ordem cronológica, causal ou espacial (paragraph revision by chronological, causal, or spatial order)
+- Escrita de parágrafo de definição com limite e exemplo (definition paragraph with boundary and example writing)
+- Escrita de parágrafo de comparação por critério paralelo (comparison paragraph by parallel criterion writing)
+- Escrita de parágrafo de causa e consequência com escopo definido (cause-effect paragraph with defined scope writing)
+- Escrita de parágrafo problema-solução com viabilidade explícita (problem-solution paragraph with explicit feasibility writing)
+- Escrita de parágrafo de concessão e resposta (concession and response paragraph writing)
+- Escrita de parágrafo de síntese por relação entre fontes (synthesis paragraph by relation among sources writing)
+- Revisão de parágrafo para explicitar inferência após evidência (paragraph revision to state inference after evidence)
+- Revisão de introdução por promessa de escopo realista (introduction revision for realistic scope promise)
+- Revisão de conclusão por fechamento sem alegação nova (conclusion revision for closure without new claim)
+- Revisão de capítulo por linha de argumento e dependência entre seções (chapter review by argument line and section dependency)
+- Revisão estrutural por rearranjo de seção antes da edição frasal (structural revision by section rearrangement before sentence editing)
+- Análise de lacuna lógica entre seções adjacentes (logical gap between adjacent sections analysis)
+- Análise de continuidade de argumento em documento longo (argument continuity in long document analysis)
+- Escrita de transição por retomada de conceito e avanço de raciocínio (transition by concept recall and reasoning advance writing)
+- Revisão de conectores para eliminar relação lógica falsa (connector revision to remove false logical relation)
+- Análise de repetição lexical por função coesiva (lexical repetition by cohesive function analysis)
+- Análise de revisão substantiva versus edição de superfície (substantive revision and surface editing distinction analysis)
+- Revisão de frase por clareza de agente e ação (sentence revision for agent and action clarity)
+- Revisão de frase por redução de encaixamento (sentence revision by reducing embedding)
+- Revisão de frase por deslocamento de informação importante para posição final (sentence revision moving important information to end position)
+- Revisão de frase por paralelismo de formas gramaticais (sentence revision through grammatical parallelism)
+- Revisão de texto por teste de leitura em voz alta (text revision through read-aloud test)
+
+- Abordagem de escrita de processo por planejamento, rascunho e revisão (process writing approach through planning, drafting, and revision)
+- Abordagem de escrita por gênero e comunidade discursiva (genre-based writing by discourse community approach)
+- Pedagogia de gênero da Escola de Sydney (Sydney School genre pedagogy)
+- Ciclo de ensino-aprendizagem de gênero da Escola de Sydney (Sydney School teaching-learning cycle)
+- Desconstrução conjunta de texto-modelo na pedagogia de gênero (joint deconstruction of model text in genre pedagogy)
+- Construção conjunta de texto na pedagogia de gênero (joint construction of text in genre pedagogy)
+- Construção independente de texto após modelagem (independent text construction after modeling)
+- Análise de gênero por propósito social e etapas esquemáticas (genre analysis by social purpose and schematic stages)
+- Análise de gênero por propósito comunicativo e comunidade (genre by communicative purpose and community analysis)
+- Ensino de escrita por movimentos e passos retóricos (writing instruction through rhetorical moves and steps)
+- Análise CARS para estruturar introdução de pesquisa (CARS analysis for structuring research introduction)
+- Prática de escrita de introdução pelo modelo CARS (introduction writing practice using CARS model)
+- Análise de moves em resumo acadêmico por disciplina (moves in academic abstract by discipline analysis)
+- Ensino de resumo acadêmico por movimentos retóricos (academic abstract instruction through rhetorical moves)
+- Análise de gênero por exemplares autênticos e variação (genre through authentic exemplars and variation analysis)
+- Escrita por imitação de movimentos de gênero com transferência (writing by imitating genre moves with transfer)
+- Abordagem process-genre para composição acadêmica (process-genre approach to academic composing)
+- Análise de processo de escrita por descoberta versus transmissão de conhecimento (writing process as knowledge discovery and transmission analysis)
+- Ensino de escrita por aprendizagem situada em comunidade (writing instruction through situated community learning)
+- Escrita acadêmica por participação em comunidade discursiva (academic writing through discourse community participation)
+- Análise de identidade autoral na escrita disciplinar (authorial identity in disciplinary writing analysis)
+- Escrita por negociação entre voz própria e fontes (writing through negotiation between own voice and sources)
+- Ensino de voz autoral por análise de citação e comentário (authorial voice through citation and commentary instruction)
+- Escrita de revisão de literatura por síntese e posicionamento (literature review through synthesis and positioning writing)
+- Análise de citação como diálogo entre autores (citation as dialogue among authors analysis)
+- Ensino de integração de fontes por paráfrase e síntese (source integration through paraphrase and synthesis instruction)
+- Escrita argumentativa por alegação, razão, evidência e garantia (argumentative writing through claim, reason, evidence, and warrant)
+- Ensino de refutação por concessão e resposta (refutation through concession and response instruction)
+- Análise de estrutura de argumento em redação estudantil (argument structure in student writing analysis)
+- Ensino de contra-argumento por representação justa da posição oposta (counterargument through fair representation of opposing position instruction)
+- Escrita de ensaio por mapa de tese e subargumentos (essay writing through thesis and subargument map)
+- Escrita em disciplinas por análise de gêneros disciplinares (writing across disciplines through disciplinary genre analysis)
+- Análise de escrita de laboratório por relato de procedimento e dado (laboratory writing by procedure and data reporting analysis)
+- Ensino de escrita de método por reprodutibilidade e concisão (methods writing for reproducibility and concision instruction)
+- Ensino de escrita de resultados por dado e interpretação separáveis (results writing separating data and interpretation instruction)
+- Ensino de discussão científica por achado, literatura e implicação (scientific discussion by finding, literature, and implication instruction)
+- Análise de progressão de argumento em projeto de pesquisa (argument progression in research proposal analysis)
+- Escrita de proposta de pesquisa por problema, método e contribuição (research proposal by problem, method, and contribution writing)
+- Análise de justificativa de projeto por relevância e viabilidade (project rationale by relevance and feasibility analysis)
+- Ensino de revisão por diagnóstico de problemas globais e locais (revision instruction through global and local problem diagnosis)
+- Análise de feedback por foco na tarefa, processo e autorregulação (feedback by task, process, and self-regulation focus analysis)
+- Feedback de escrita por feed up, feedback e feed forward (writing feedback through feed up, feedback, and feed forward)
+- Análise de feedback por especificidade e próximo passo (feedback by specificity and next step analysis)
+- Ensino de revisão por uso seletivo de feedback (revision instruction through selective feedback use)
+- Análise de revisão por estratégias observadas em protocolo verbal (revision strategies observed through verbal protocol analysis)
+- Ensino de revisão por checklist de coerência e evidência (revision through coherence and evidence checklist instruction)
+- Análise de avaliação de pares por confiança e reciprocidade (peer assessment by trust and reciprocity analysis)
+- Ensino de avaliação por pares com critérios e modelo de comentário (peer assessment with criteria and comment model instruction)
+- Escrita por portfólio com reflexão e comparação de versões (portfolio writing with reflection and version comparison)
+- Análise de aprendizagem de escrita por transferência próxima e distante (writing learning by near and far transfer analysis)
+- Ensino de autoavaliação por rubrica e justificativa de decisão (self-assessment using rubric and decision rationale instruction)
+
+## Escrita técnica, instrucional e documentação
+
+- Técnica do Pé-na-Porta Verbal (Foot-in-the-Door)
+- Divulgação progressiva (Progressive Disclosure)
+- Texto de cabeçalho de tabela e ficha técnica (Data Table & Spec Header Copy)
+- Técnica “Mostre. Não Apenas Diga” (Show. Don’t Tell)
+- Técnica do pé na porta (Foot-in-the-Door Technique)
+- Heteroglossia bakhtiniana (Bakhtinian Heteroglossia)
+- Procedimentos técnicos de tradução de Vinay e Darbelnet (Vinay and Darbelnet’s Translation Procedures)
+- Revelação progressiva (Progressive Disclosure)
+- Resumo de características essenciais e diferenciais técnicos (Key Features and Technical Differentiators Summary)
+- Glossário de termos técnicos e siglas de produto (Product Glossary of Technical Terms and Acronyms)
+- Leitura facilitada (Easy Read)
+- Teste de usabilidade de conteúdo baseado em tarefas (Task-Based Content Usability Testing)
+- Jogo de acreditar e duvidar na revisão de argumentos (Believing and Doubting Game)
+- Gestão terminológica e aplicação de glossário (Terminology Management and Glossary Enforcement)
+- Redação em linguagem controlada ASD-STE100 (Simplified Technical English)
+- Tradução documental e instrumental (Documentary and Instrumental Translation)
+- Técnicas de tradução de Molina e Hurtado Albir (Molina and Hurtado Albir Translation Techniques)
+- Autoria estruturada DITA (Darwin Information Typing Architecture)
+- Fluxo de documentação como código (Docs-as-Code Workflow)
+- Estrutura Diátaxis de documentação (Diátaxis Documentation Framework)
+- Princípio “Cada Página é a Página Um” para conteúdo modular (Every Page Is Page One)
+- Efeito do exemplo resolvido na redação instrucional (Worked-Example Effect)
+- Técnica de Feynman para simplificação iterativa e identificação de lacunas (Feynman Technique)
+- Modelo 4C/ID de design instrucional (Four-Component Instructional Design)
+- Técnica Questionando o Autor — QtA (Questioning the Author)
+- Formato de playbook ou procedimento operacional padrão — SOP (Standard Operating Procedure)
+- Tutorial ilustrado passo a passo (Step-by-Step Illustrated Tutorial)
+- Instruções de uso de dispositivos médicos projetadas para usabilidade (Medical Device Instructions for Use)
+- Posicionamento da condição antes do passo instrucional (Pre-Step Conditional Placement)
+- Tripleto procedural pré-condição. ação e resultado — PAR (Precondition-Action-Result)
+- Técnica do sanduíche para integração de citações (Sandwich Technique for Quotation Integration)
+- Andaimagem na Escrita e Ciclo de Ensino-Aprendizagem Baseado em Gêneros (Writing Scaffolding and Genre-Based Cycle)
+- Heteroglossia e Plurilinguismo Social (Heteroglossia)
+- Arquitetura DITA: Tipos Conceito. Tarefa e Referência (Darwin Information Typing Architecture)
+- Escrita Minimalista para Comunicação Técnica (Minimalist Instruction)
+- Divulgação Progressiva da Informação (Progressive Disclosure)
+- Norma ASD-STE100 de Inglês Técnico Simplificado (Simplified Technical English)
+- Teste de Usabilidade de Documentos e Protocolo de Pensamento em Voz Alta (Document Usability Testing and Think-Aloud)
+- Framework Diátaxis de Documentação (Tutorial. Guia. Explicação e Referência)
+- Elaboração Textual e Glosamento em Linha para Leitores L2 (Textual Elaboration and In-Line Glossing)
+- Guia de diagnóstico problema. causa. solução e verificação — PCSV (Problem-Cause-Solution-Verification)
+- Isolamento de uma ação por passo (Single-Action-Per-Step Isolation)
+- Pistas sensoriais de verificação de execução (Sensory Verification Cues)
+- Abertura de instrução por verbo no imperativo (Imperative Verb Lead-In)
+- Redação de resumos informativos e indicativos ISO 214 (Informative and Indicative Abstracting)
+- Especificação de requisitos de software — SRS (Software Requirements Specification)
+- Registro de decisão de arquitetura — ADR (Architecture Decision Record)
+- Documento de pedido de comentários técnico — RFC (Request for Comments)
+- Relatório pós-incidente sem culpabilização (Blameless Postmortem)
+- Terminografia sistemática e terminografia pontual (Systematic and Ad-Hoc Terminography)
+- Dinâmica entre texto e gráficos de Karen Schriver (Text-Graphics Dynamics)
+
+- Arquitetura de informação em documentação técnica (technical documentation information architecture)
+- Escrita de procedimento orientada a tarefa (task-oriented procedure writing)
+- Escrita de instrução sequencial numerada (numbered sequential instruction writing)
+- Escrita de instrução condicional (conditional instruction writing)
+- Escrita de aviso antes do passo crítico (pre-step warning placement)
+- Escrita de nota, dica, cuidado e advertência (note, tip, caution, and warning writing)
+- Análise de risco da instrução por severidade e probabilidade (instruction risk analysis by severity and likelihood)
+- Escrita de procedimento de reversão e recuperação (rollback and recovery procedure writing)
+- Escrita de pré-condições e pós-condições de procedimento (procedure precondition and postcondition writing)
+- Escrita de critérios de conclusão verificáveis (verifiable completion criteria writing)
+- Análise de completude de pré-requisitos em instruções (instruction prerequisite completeness analysis)
+- Análise de consistência entre passo e resultado esperado (step and expected result consistency analysis)
+- Escrita de instrução com ação, objeto e resultado (action-object-result instruction writing)
+- Análise de verbos de ação em procedimento técnico (action verb analysis in technical procedure)
+- Escrita de mensagens de diagnóstico acionáveis (actionable diagnostic message writing)
+- Escrita de documentação baseada em cenários de uso (scenario-based documentation writing)
+- Escrita de tutorial orientado a resultado (outcome-oriented tutorial writing)
+- Escrita de tutorial guiado por projeto (project-based tutorial writing)
+- Escrita de referência técnica por tarefa e componente (task- and component-based reference writing)
+- Escrita de conceito por definição, contexto e exemplo (concept explanation by definition, context, and example)
+- Análise de dependência entre conceitos em documentação (concept dependency analysis in documentation)
+- Análise de pré-requisitos conceituais por perfil de leitor (reader-profile conceptual prerequisite analysis)
+- Escrita de changelog orientado a impacto (impact-oriented changelog writing)
+- Escrita de notas de versão por perfil de usuário (release notes by user profile)
+- Escrita de política de descontinuação de recurso (feature deprecation policy writing)
+- Escrita de mensagens de migração entre versões (version migration message writing)
+- Análise de compatibilidade terminológica em conjunto documental (terminology consistency across documentation set)
+- Análise de consistência de nomes de comandos e controles (command and control name consistency analysis)
+- Análise de precisão de unidades, valores e intervalos técnicos (technical unit, value, and range accuracy analysis)
+- Escrita de aviso sobre comportamento padrão (default behavior notice writing)
+- Escrita de nota de segurança contextualizada à tarefa (task-contextualized safety note writing)
+- Análise de instrução para estado inicial e estado final (initial and final state instruction analysis)
+- Escrita de conteúdo para operação em modo de falha (failure-mode operation content writing)
+- Análise de cobertura de exceções em documentação de API (API documentation exception coverage analysis)
+- Escrita de exemplos mínimos reprodutíveis em documentação (minimal reproducible example writing)
+- Escrita de exemplos negativos para delimitar comportamento (negative examples to delimit behavior)
+- Análise de consistência entre exemplo e especificação técnica (example and technical specification consistency analysis)
+- Escrita de documentação de troubleshooting por sintoma (symptom-based troubleshooting documentation)
+- Análise de tabela de decisão em procedimento técnico (decision table analysis in technical procedure)
+- Análise de fluxo de decisão e pontos de bifurcação (decision flow and branching point analysis)
+- Escrita de conteúdo de fallback e indisponibilidade (fallback and unavailability content writing)
+- Análise de rastreabilidade de requisito a instrução (requirement-to-instruction traceability analysis)
+- Análise de versionamento e validade temporal de instruções (instruction versioning and temporal validity analysis)
+
+- Análise de tópico obrigatório em referência de API (required topic analysis in API reference)
+- Escrita de parâmetro por tipo, formato, limite e padrão (parameter writing by type, format, limit, and default)
+- Escrita de valor de retorno com estrutura e semântica (return value writing by structure and semantics)
+- Escrita de exemplo de requisição e resposta em API (API request and response example writing)
+- Análise de correspondência entre exemplo e versão atual da API (example and current API version consistency analysis)
+- Escrita de fluxo de autenticação com escopo e credenciais (authentication flow writing with scopes and credentials)
+- Análise de descrição de códigos HTTP por condição e ação (HTTP status code description by condition and action analysis)
+- Escrita de mensagens de erro de API com causa provável e recuperação (API error message writing with likely cause and recovery)
+- Análise de cobertura de paginação em documentação de endpoint (pagination coverage in endpoint documentation analysis)
+- Análise de explicação de limite de taxa e cabeçalho de resposta (rate limit and response header explanation analysis)
+- Escrita de exemplo de paginação com cursor e offset (cursor and offset pagination example writing)
+- Análise de documentação de operações idempotentes (idempotent operation documentation analysis)
+- Escrita de instrução de retry com backoff e limite (retry instruction with backoff and limit writing)
+- Análise de comportamento de timeout em documentação técnica (timeout behavior in technical documentation analysis)
+- Escrita de procedimento de troubleshooting por camada do sistema (troubleshooting by system layer procedure writing)
+- Análise de diagnóstico diferencial de falha técnica (technical failure differential diagnosis analysis)
+- Escrita de árvore de decisão para resolução de erro (decision tree writing for error resolution)
+- Análise de procedimento de recuperação com preservação de dados (recovery procedure with data preservation analysis)
+- Escrita de procedimento de backup, restauração e validação (backup, restore, and validation procedure writing)
+- Análise de pré-condição de segurança antes de comando destrutivo (safety precondition before destructive command analysis)
+- Escrita de comando com explicação de efeito e reversibilidade (command writing with effect and reversibility explanation)
+- Análise de blocos de código por linguagem, contexto e resultado (code block by language, context, and result analysis)
+- Escrita de comentário de código orientado a decisão não óbvia (code comment explaining non-obvious decision writing)
+- Análise de divergência entre comentário e comportamento do código (comment and code behavior divergence analysis)
+- Escrita de documentação de variável de ambiente e valor padrão (environment variable and default value documentation)
+- Análise de consistência entre configuração documentada e exemplo (documented configuration and example consistency analysis)
+- Escrita de tutorial com estado inicial, passos e resultado final (tutorial writing with initial state, steps, and final result)
+- Análise de pré-requisitos ambientais em tutorial (environmental prerequisites in tutorial analysis)
+- Escrita de exemplo executável sem dependência implícita (executable example without implicit dependency writing)
+- Análise de reprodutibilidade de exemplo de documentação (documentation example reproducibility analysis)
+- Escrita de instrução que separa comando de saída esperada (instruction separating command from expected output)
+- Análise de alerta antes de etapa irreversível em tutorial (warning before irreversible tutorial step analysis)
+- Escrita de seção de solução de problemas por sintoma observável (troubleshooting section by observable symptom writing)
+- Análise de distinção entre comportamento esperado e observado (expected and observed behavior distinction analysis)
+- Escrita de procedimento de escalonamento com dados necessários (escalation procedure with required data writing)
+- Análise de informação necessária para reproduzir defeito (information required to reproduce defect analysis)
+- Escrita de runbook por gatilho, ação e critério de encerramento (runbook writing by trigger, action, and closure criterion)
+- Análise de legibilidade de alerta operacional durante incidente (operational alert readability during incident analysis)
+- Escrita de cronologia técnica pós-incidente (technical post-incident timeline writing)
+- Análise de separação entre fato, hipótese e ação em relatório técnico (fact, hypothesis, and action separation in technical report)
+- Escrita de resumo técnico executivo para decisão (executive technical summary for decision writing)
+- Análise de consistência entre diagrama, prosa e exemplo (diagram, prose, and example consistency analysis)
+- Escrita de legenda de diagrama com relação e direção explícitas (diagram caption with explicit relationship and direction writing)
+- Análise de conteúdo de tabela técnica por unidade e ressalva (technical table content by unit and caveat analysis)
+- Análise de acessibilidade de tabela de dados em documentação (data table accessibility in documentation analysis)
+- Escrita de glossário técnico por conceito, sinônimo e exemplo (technical glossary by concept, synonym, and example writing)
+- Análise de diferença entre definição, descrição e procedimento técnico (definition, description, and technical procedure distinction analysis)
+- Escrita de especificação funcional por entrada, processo e saída (functional specification by input, process, and output)
+- Análise de requisito técnico por condição de aceitação verificável (technical requirement by verifiable acceptance condition analysis)
+- Escrita de restrição técnica e comportamento fora de escopo (technical constraint and out-of-scope behavior writing)
+- Análise de consistência temporal em documentação de versão (temporal consistency in versioned documentation analysis)
+
+- Análise de esquema de URI e parâmetro em referência técnica (URI scheme and parameter in technical reference analysis)
+- Escrita de exemplo de autenticação por token com escopo mínimo (token authentication example with least privilege writing)
+- Escrita de nota sobre expiração e renovação de credencial (credential expiry and renewal note writing)
+- Análise de consistência de nomenclatura de endpoint (endpoint naming consistency analysis)
+- Análise de convenção de nomes de campos em esquema de dados (data schema field naming convention analysis)
+- Escrita de campo obrigatório, opcional e condicional em esquema (required, optional, and conditional schema field writing)
+- Análise de distinção entre campo omitido, nulo e vazio (omitted, null, and empty field distinction analysis)
+- Escrita de contrato de API por pré-condições e pós-condições (API contract by preconditions and postconditions writing)
+- Análise de serialização e desserialização em exemplo de API (serialization and deserialization in API example analysis)
+- Escrita de exemplo de erro de validação por campo (field-level validation error example writing)
+- Análise de contrato de compatibilidade retroativa (backward compatibility contract analysis)
+- Escrita de nota de mudança incompatível com ação de migração (breaking change note with migration action writing)
+- Análise de política de suporte de versões (version support policy analysis)
+- Escrita de guia de migração por mudança e verificação (migration guide by change and verification writing)
+- Análise de diferença entre versão principal, secundária e corretiva (major, minor, and patch version distinction analysis)
+- Escrita de changelog por categoria de impacto (changelog writing by impact category)
+- Análise de aviso de segurança com período de correção (security notice with remediation window analysis)
+- Escrita de procedimento de instalação por ambiente operacional (installation procedure by operating environment writing)
+- Análise de instrução de atualização com pré-requisito e rollback (update instruction with prerequisite and rollback analysis)
+- Escrita de configuração mínima funcional (minimum viable configuration writing)
+- Análise de valor padrão e efeito operacional em configuração (default value and operational effect analysis)
+- Escrita de configuração segura por princípio de menor privilégio (secure configuration using least privilege writing)
+- Análise de aviso sobre segredo em arquivo de configuração (secret exposure warning in configuration file analysis)
+- Escrita de instrução de rotação de chave e credencial (key and credential rotation instruction writing)
+- Análise de procedimento técnico sob permissões distintas (technical procedure under different permissions analysis)
+- Escrita de pré-requisito de sistema e dependência de software (system prerequisite and software dependency writing)
+- Análise de dependência obrigatória e opcional em tutorial (required and optional dependency in tutorial analysis)
+- Escrita de instrução multiplataforma com diferenças explícitas (cross-platform instruction with explicit differences writing)
+- Análise de comando equivalente em PowerShell, Bash e shell POSIX (equivalent command analysis across PowerShell, Bash, and POSIX shell)
+- Escrita de saída de terminal ilustrativa sem confundi-la com comando (illustrative terminal output distinct from command writing)
+- Análise de instrução interativa versus não interativa (interactive and noninteractive instruction distinction analysis)
+- Escrita de etapa de validação pós-instalação (post-installation validation step writing)
+- Análise de mensagem de sucesso verificável em procedimento (verifiable success message in procedure analysis)
+- Escrita de relatório de defeito por ambiente, passos e evidência (bug report by environment, steps, and evidence writing)
+- Análise de descrição de defeito por comportamento esperado e atual (expected and actual behavior in bug description analysis)
+- Escrita de especificação de reprodução de falha intermitente (intermittent failure reproduction specification writing)
+- Análise de distinção entre causa raiz e sintoma em pós-incidente (root cause and symptom distinction in post-incident analysis)
+- Escrita de resumo de incidente para público técnico e executivo (incident summary for technical and executive audiences)
+- Análise de relatório pós-incidente sem culpabilização individual (blameless post-incident report analysis)
+- Escrita de seção de escopo e não objetivos em especificação (scope and non-goals section in specification writing)
+- Análise de requisito funcional versus requisito não funcional (functional and nonfunctional requirement distinction analysis)
+- Escrita de critério de aceitação com condição observável (acceptance criterion with observable condition writing)
+- Análise de ambiguidade modal em requisito técnico (modal ambiguity in technical requirements analysis)
+- Escrita de requisito atômico com um comportamento testável (atomic requirement with one testable behavior writing)
+- Análise de rastreabilidade bidirecional entre requisito e teste (bidirectional requirement-test traceability analysis)
+- Escrita de especificação de comportamento em casos-limite (edge case behavior specification writing)
+- Análise de tratamento de entrada inválida em especificação (invalid input handling in specification analysis)
+- Escrita de diagrama de sequência com legenda textual equivalente (sequence diagram with equivalent text caption writing)
+- Análise de consistência entre esquema JSON e descrição em prosa (JSON schema and prose description consistency analysis)
+- Escrita de documentação de webhook por evento e reentrega (webhook documentation by event and redelivery writing)
+
+- Análise de conteúdo de documento de arquitetura por decisão registrada (architecture document content by recorded decision analysis)
+- Escrita de registro de decisão arquitetural com contexto e consequência (architectural decision record with context and consequence writing)
+- Análise de requisito por ator, gatilho, resposta e exceção (requirement by actor, trigger, response, and exception analysis)
+- Escrita de requisito não funcional por métrica e limiar (nonfunctional requirement by metric and threshold writing)
+- Análise de requisito de desempenho com carga e condição de teste (performance requirement with load and test condition analysis)
+- Escrita de requisito de disponibilidade com janela e porcentagem (availability requirement with window and percentage writing)
+- Análise de requisito de segurança por ameaça e mitigação (security requirement by threat and mitigation analysis)
+- Escrita de requisito de privacidade por finalidade e retenção (privacy requirement by purpose and retention writing)
+- Análise de requisito de acessibilidade por critério verificável (accessibility requirement by verifiable criterion analysis)
+- Escrita de especificação orientada a comportamento observável (specification writing oriented to observable behavior)
+- Análise de requisito ambíguo por quantificador ou modal (ambiguous requirement by quantifier or modal analysis)
+- Análise de especificação por caso positivo, negativo e limite (specification by positive, negative, and boundary case analysis)
+- Escrita de caso de uso por ator, objetivo e fluxo alternativo (use case by actor, goal, and alternate flow writing)
+- Análise de cenário de uso por pré-condição e pós-condição (use scenario by precondition and postcondition analysis)
+- Escrita de história de usuário com critério de aceitação (user story with acceptance criteria writing)
+- Análise de história de usuário por independência e testabilidade (user story by independence and testability analysis)
+- Escrita de documentação de arquitetura por contexto, contêiner e componente (architecture documentation by context, container, and component writing)
+- Análise de diagrama C4 e sua narrativa explicativa (C4 diagram and explanatory narrative analysis)
+- Escrita de legenda técnica que explicita fluxo e direção (technical caption explaining flow and direction writing)
+- Análise de sequência em diagrama por mensagem, condição e retorno (sequence diagram by message, condition, and return analysis)
+- Escrita de contrato de evento por produtor, consumidor e esquema (event contract by producer, consumer, and schema writing)
+- Análise de documentação de evento assíncrono e garantia de entrega (asynchronous event and delivery guarantee documentation analysis)
+- Escrita de política de repetição segura de operação (safe operation retry policy writing)
+- Análise de idempotência em procedimento de suporte (idempotency in support procedure analysis)
+- Escrita de procedimento de rotação de segredo sem interrupção (secret rotation procedure without downtime writing)
+- Análise de mensagem de log para correlação de incidente (log message for incident correlation analysis)
+- Escrita de instrução de observabilidade por métrica, log e traço (observability instruction by metric, log, and trace writing)
+- Análise de painel operacional por pergunta e decisão (operational dashboard by question and decision analysis)
+- Escrita de alerta por condição, impacto e resposta esperada (alert by condition, impact, and expected response writing)
+- Análise de limiar de alerta e risco de falso positivo (alert threshold and false positive risk analysis)
+- Escrita de runbook para alerta acionado automaticamente (runbook for automatically triggered alert writing)
+- Análise de critério de encerramento de incidente técnico (technical incident closure criterion analysis)
+- Escrita de orientação de mitigação temporária e correção definitiva (temporary mitigation and permanent fix guidance writing)
+- Análise de procedimento de manutenção com janela e impacto (maintenance procedure by window and impact analysis)
+- Escrita de comunicação de manutenção por serviço afetado e alternativa (maintenance communication by affected service and alternative writing)
+- Análise de procedimento de migração com verificação pré e pós (migration procedure with pre- and post-check analysis)
+- Escrita de checklist de validação de implantação (deployment validation checklist writing)
+- Análise de documentação de rollback por gatilho e consequência (rollback documentation by trigger and consequence analysis)
+- Escrita de procedimento de restauração por ponto de recuperação (restore procedure by recovery point writing)
+- Análise de instrução de recuperação de desastre por prioridade de serviço (disaster recovery instruction by service priority analysis)
+- Escrita de manual de operação por estado normal e degradado (operations manual by normal and degraded state writing)
+- Análise de diferença entre erro recuperável e falha crítica em manual (recoverable error and critical failure distinction in manual analysis)
+- Escrita de árvore de suporte por sintoma, causa provável e teste (support tree by symptom, likely cause, and test writing)
+- Análise de artigo de conhecimento por causa, resolução e prevenção (knowledge article by cause, resolution, and prevention analysis)
+- Escrita de solução temporária com risco e validade (temporary workaround with risk and validity writing)
+- Análise de qualidade de resposta técnica por diagnóstico e evidência (technical response quality by diagnosis and evidence analysis)
+- Escrita de resposta técnica por confirmação, hipótese e próximo teste (technical response by confirmation, hypothesis, and next test writing)
+- Análise de consistência de instrução entre central de ajuda e produto (help center and product instruction consistency analysis)
+- Escrita de instrução de API com exemplo em múltiplas linguagens (API instruction with examples in multiple languages writing)
+- Análise de aderência de exemplo de API à versão atual (API example adherence to current version analysis)
+- Escrita de documentação de limite de concorrência e fila (concurrency limit and queue documentation writing)
+
+- Autoria estruturada por tópicos (topic-based authoring)
+- Arquitetura de conteúdo Darwin Information Typing Architecture (DITA)
+- Modelagem de conteúdo com DITA topics (DITA topic content modeling)
+- Conteúdo reutilizável por mapas DITA (DITA map-based content reuse)
+- Autoria em XML estruturado (structured XML authoring)
+- Autoria baseada em componentes (component-based authoring)
+- Autoria modular e reutilização controlada (modular authoring and controlled reuse)
+- Escrita técnica minimalista orientada à tarefa (task-oriented minimalism in technical writing)
+- Documentação baseada em cenários (scenario-based documentation)
+- Documentação por caso de uso (use-case-based documentation)
+- Escrita de documentação por tópico e tarefa (topic- and task-oriented documentation writing)
+- Arquitetura da informação para documentação técnica (information architecture for technical documentation)
+- Análise de público por nível de conhecimento e tarefa (audience analysis by expertise and task)
+- Perfil de usuário e cenário de uso em documentação (user profile and usage scenario in documentation)
+- Análise de tarefa para escrita de procedimento (task analysis for procedure writing)
+- Análise hierárquica de tarefa em documentação (hierarchical task analysis in documentation)
+- Modelagem de tarefa e fluxo de trabalho (task and workflow modeling)
+- Análise de trabalho cognitivo para informação instrucional (cognitive work analysis for instructional information)
+- Análise de affordances e restrições em instruções de uso (affordances and constraints in use instructions analysis)
+- Análise de modelo mental em documentação de produto (mental model analysis in product documentation)
+- Escrita de procedimento em estilo de lista de verificação (checklist-style procedure writing)
+- Escrita de procedimento por condição-ação-resultado (condition-action-result procedure writing)
+- Escrita de procedimento por pré-requisito, passo e verificação (prerequisite-step-verification procedure writing)
+- Procedimento de operação padrão (standard operating procedure, SOP)
+- Análise de procedimento operacional por tarefa crítica (critical-task operating procedure analysis)
+- Análise de procedimento por pontos de decisão e ramificação (procedure analysis by decision points and branching)
+- Escrita de procedimento de contingência (contingency procedure writing)
+- Escrita de procedimento de escalonamento operacional (operational escalation procedure writing)
+- Escrita de runbook orientado a sintomas (symptom-oriented runbook writing)
+- Análise de runbook por acionabilidade (runbook actionability analysis)
+- Análise de recuperação de erro em procedimento passo a passo (error recovery in step-by-step procedure analysis)
+- Escrita de documentação de solução de problemas por árvore de decisão (troubleshooting documentation using decision trees)
+- Árvore de falhas para organizar diagnóstico técnico (fault tree for technical diagnosis)
+- Análise de modos e efeitos de falha aplicada a instruções (failure mode and effects analysis applied to instructions)
+- Escrita de instruções de segurança com hierarquia de controle (safety instructions using hierarchy of controls)
+- Análise de avisos por sinalização de perigo e consequência (hazard warning signal word and consequence analysis)
+- Análise de gravidade, probabilidade e exposição em aviso (severity, probability, and exposure in warning analysis)
+- Análise de risco de uso previsível incorreto (foreseeable misuse risk analysis)
+- Escrita de instrução para uso seguro previsível (safe foreseeable use instruction writing)
+- Escrita de orientação por padrão de design de conteúdo (content design pattern guidance writing)
+- Análise de consistência por guia de estilo técnico (technical style guide consistency analysis)
+- Controle de terminologia por lista de termos permitidos e proibidos (controlled terminology with allowed and disallowed terms)
+- Escrita em linguagem controlada para documentação técnica (controlled language writing for technical documentation)
+- Análise de complexidade sintática em linguagem controlada (syntactic complexity in controlled language analysis)
+- Simplificação de texto por regras de linguagem controlada (text simplification through controlled language rules)
+- Análise de verificabilidade de exemplo de código (code example verifiability analysis)
+- Documentação de API por especificação OpenAPI (API documentation with OpenAPI specification)
+- Geração de referência de API a partir de especificação (API reference generation from specification)
+- Documentação de esquema de dados por JSON Schema (data schema documentation with JSON Schema)
+- Análise de contrato técnico por exemplo e esquema (technical contract by example and schema analysis)
+
+- Escrita de procedimento por lista de verificação verificável (procedure writing as a verifiable checklist)
+- Escrita de procedimento por árvore de decisão (procedure writing as a decision tree)
+- Escrita de procedimento por fluxograma de processo (procedure writing as a process flowchart)
+- Análise de procedimento por método de análise hierárquica de tarefa (hierarchical task analysis for procedures)
+- Análise de tarefa cognitiva para conteúdo instrucional (cognitive task analysis for instructional content)
+- Escrita de conteúdo instrucional por cenário de uso (instructional content by use scenario writing)
+- Escrita de tutorial com demonstração gradual (tutorial with progressive demonstration writing)
+- Escrita de tutorial por exemplo trabalhado (tutorial through worked example writing)
+- Escrita de documentação com abordagem do simples ao complexo (simple-to-complex documentation writing)
+- Escrita de explicação técnica por analogia controlada (technical explanation through controlled analogy writing)
+- Análise de analogia técnica por correspondência e limite (technical analogy by mapping and limit analysis)
+- Escrita de conteúdo técnico por conceito, exemplo e não exemplo (technical content by concept, example, and nonexample writing)
+- Análise de definição operacional em manual técnico (operational definition in technical manual analysis)
+- Escrita de referência técnica por consulta rápida (quick-reference technical writing)
+- Escrita de folha de consulta rápida por tarefa crítica (quick reference sheet for critical task writing)
+- Análise de checklist por ordem de execução e confirmação (checklist by execution order and confirmation analysis)
+- Escrita de checklist de segurança pré-operação (pre-operation safety checklist writing)
+- Análise de redundância de verificação em checklist crítico (verification redundancy in critical checklist analysis)
+- Escrita de cartão de ação para resposta a incidente (incident response action card writing)
+- Análise de cartão de ação por clareza sob pressão (action card clarity under pressure analysis)
+- Escrita de quick start guide por primeiros resultados (quick start guide by first outcomes writing)
+- Análise de guia de início rápido por pré-requisitos e escopo (quick start guide by prerequisites and scope analysis)
+- Escrita de guia de instalação por plataforma e pré-condição (installation guide by platform and precondition writing)
+- Análise de instrução técnica por risco de interpretação (technical instruction by interpretation risk analysis)
+- Escrita de aviso em três partes: sinal, perigo e prevenção (three-part warning: signal, hazard, and avoidance writing)
+- Análise de posicionamento de aviso antes, durante ou depois da ação (warning placement before, during, or after action analysis)
+- Análise de frase de aviso por palavra-sinal e consequência (warning statement by signal word and consequence analysis)
+- Escrita de troubleshooting por sintoma, causa e solução (troubleshooting by symptom, cause, and solution writing)
+- Análise de sequência de diagnóstico por teste discriminativo (diagnostic sequence through discriminating test analysis)
+- Escrita de pergunta diagnóstica que separa causas prováveis (diagnostic question distinguishing likely causes writing)
+- Análise de instrução de recuperação por preservação do estado (recovery instruction through state preservation analysis)
+- Escrita de procedimento de recuperação por backup, restauração e validação (recovery procedure by backup, restore, and verification writing)
+- Análise de runbook por gatilho, ação e condição de parada (runbook by trigger, action, and stop condition analysis)
+- Escrita de runbook com alternativa se etapa falhar (runbook with fallback if a step fails writing)
+- Análise de operação crítica por confirmação independente (critical operation through independent confirmation analysis)
+- Escrita de instrução de sistema com comando idempotente (system instruction with idempotent command writing)
+- Análise de segurança de comando por efeito colateral e reversibilidade (command safety by side effect and reversibility analysis)
+- Escrita de exemplo de terminal com entrada e saída separadas (terminal example with separate input and output writing)
+- Análise de exemplo técnico por reprodutibilidade e versão (technical example by reproducibility and version analysis)
+- Escrita de README por propósito, instalação e uso mínimo (README by purpose, installation, and minimal use writing)
+- Análise de README por tarefa primária e público (README by primary task and audience analysis)
+- Escrita de arquivo de configuração por opção e valor padrão (configuration file by option and default writing)
+- Análise de documentação de parâmetro por unidade e domínio válido (parameter documentation by unit and valid domain analysis)
+- Escrita de documentação de limite numérico e comportamento de fronteira (numeric limit and boundary behavior documentation writing)
+- Análise de consistência entre interface, CLI e documentação (interface, CLI, and documentation consistency analysis)
+- Escrita de documentação de CLI por comando, opção e exemplo (CLI documentation by command, option, and example writing)
+- Análise de mensagem de CLI por ação sugerida e formato corrigido (CLI message by suggested action and corrected format analysis)
+- Escrita de documento de migração com antes, depois e validação (migration document with before, after, and validation writing)
+- Análise de procedimento de atualização com janela de reversão (update procedure with rollback window analysis)
+- Escrita de nota de versão por problema resolvido e impacto do usuário (release note by fixed issue and user impact writing)
+
+- Escrita de documentação por princípios de informação minimalista de Carroll (Carroll minimalism in technical documentation)
+- Análise de documentação minimalista por ação, contexto e feedback (minimalist documentation by action, context, and feedback analysis)
+- Análise de documentação de sistema por teoria da atividade (activity theory in system documentation analysis)
+- Análise de conteúdo de ajuda por princípio de suporte à performance (performance support principle in help content analysis)
+- Documentação just-in-time por tarefa e momento de necessidade (just-in-time documentation by task and moment of need)
+- Escrita de ajuda contextual por tarefa em andamento (context-sensitive help for task in progress)
+- Análise de conteúdo de ajuda embedded no fluxo de trabalho (embedded help content in workflow analysis)
+- Escrita de documentação por arquitetura de informação centrada no usuário (user-centered information architecture for documentation writing)
+- Análise de audiência de documentação por tarefa, experiência e contexto (documentation audience by task, expertise, and context analysis)
+- Análise de contexto de uso por ambiente, ferramenta e restrição (use context by environment, tool, and constraint analysis)
+- Escrita de instrução de procedimento por ciclo de trabalho (procedure instruction by work cycle writing)
+- Análise de procedimento por tarefa de rotina e tarefa infrequente (routine and infrequent task procedure analysis)
+- Escrita de procedimento de tarefa crítica por verificação cruzada (critical task procedure using cross-check writing)
+- Análise de ponto de verificação em procedimento com risco (checkpoint analysis in risk-bearing procedure)
+- Escrita de job aid por sequência, imagem e texto breve (job aid by sequence, image, and concise text writing)
+- Análise de ajuda de trabalho por proximidade de execução (job aid by execution proximity analysis)
+- Escrita de checklist cognitivo por agrupamento de itens (cognitive checklist through item grouping writing)
+- Análise de checklist por regra de parada e condição de retomada (checklist by stop rule and resumption condition analysis)
+- Escrita de checklist de dupla verificação (double-check checklist writing)
+- Análise de checklist por uso de call-and-response (call-and-response checklist analysis)
+- Escrita de checklist por categorias de confirmação e ação (checklist by confirmation and action categories writing)
+- Análise de risco de omissão em lista longa de verificação (omission risk in long checklist analysis)
+- Escrita de procedimento técnico com estado antes e depois (technical procedure with before and after state writing)
+- Análise de pré-condição, invariante e pós-condição em procedimento (precondition, invariant, and postcondition in procedure analysis)
+- Escrita de sequência de operação com intertravamento de segurança (operation sequence with safety interlock writing)
+- Análise de dependência entre etapas e barreira de avanço (step dependency and progression gate analysis)
+- Escrita de procedimento ramificado por condição observável (branching procedure by observable condition writing)
+- Análise de ramo de decisão por completude de casos (decision branch completeness analysis)
+- Escrita de instrução por verbo controlado e objeto específico (instruction by controlled verb and specific object writing)
+- Análise de verbo de instrução por observabilidade de ação (instruction verb by action observability analysis)
+- Escrita de procedimento por unidade de ação por etapa (one-action-per-step procedure writing)
+- Análise de agrupamento de microtarefas em procedimento (microtask grouping in procedure analysis)
+- Escrita de procedimento para operação interrompida (procedure writing for interrupted operation)
+- Análise de retomada após interrupção em procedimento técnico (resumption after interruption in technical procedure analysis)
+- Escrita de orientação para estado incerto do sistema (guidance for uncertain system state writing)
+- Análise de procedimento de falha segura (fail-safe procedure analysis)
+- Escrita de alerta por perigo, consequência e mitigação (warning by hazard, consequence, and mitigation writing)
+- Análise de consistência de avisos por família de produtos (warning consistency across product family analysis)
+- Escrita de nota de cautela integrada ao passo crítico (caution integrated into critical step writing)
+- Análise de sequência de aviso e instrução para reduzir erro (warning-instruction sequence to reduce error analysis)
+- Escrita de documentação de mudança de interface por tarefa afetada (interface change documentation by affected task writing)
+- Análise de impacto de atualização de produto em documentação existente (product update impact on existing documentation analysis)
+- Escrita de documentação de compatibilidade por ambiente e versão (compatibility documentation by environment and version writing)
+- Análise de matriz de compatibilidade em referência técnica (compatibility matrix in technical reference analysis)
+- Escrita de requisito verificável segundo padrão ISO/IEC/IEEE 29148 (verifiable requirement writing under ISO/IEC/IEEE 29148)
+- Análise de característica de requisito bom: necessário, inequívoco e verificável (necessary, unambiguous, and verifiable requirement analysis)
+- Escrita de caso de teste de aceitação com dado e resultado esperado (acceptance test case with input and expected result writing)
+- Análise de cobertura de requisito por cenário de teste (requirement coverage by test scenario analysis)
+- Escrita de tutorial técnico por objetivo observável e resultado reproduzível (technical tutorial by observable goal and reproducible result writing)
+- Análise de fidelidade de tutorial a ambiente limpo (tutorial fidelity in a clean environment analysis)
+
+- Escrita de documentação por modelo Diátaxis (Diátaxis documentation framework)
+- Classificação de conteúdo de documentação em tutorial, guia, referência e explicação (Diátaxis tutorial, how-to, reference, and explanation classification)
+- Análise de documentação por orientação de aprendizagem ou tarefa (documentation by learning or task orientation analysis)
+- Escrita de tutorial Diátaxis centrada no aprendizado guiado (Diátaxis tutorial centered on guided learning)
+- Escrita de how-to guide por problema e sequência de ação (how-to guide by problem and action sequence writing)
+- Escrita de referência técnica por descrição factual e completa (technical reference by factual and complete description writing)
+- Escrita de explicação técnica por contexto, conceito e relação (technical explanation by context, concept, and relation writing)
+- Análise de confusão entre tutorial e referência técnica (confusion between tutorial and technical reference analysis)
+- Análise de conteúdo de ajuda por quadrante Diátaxis (help content by Diátaxis quadrant analysis)
+- Escrita de documentação de API por endpoint, parâmetro e resposta (API documentation by endpoint, parameter, and response writing)
+- Análise de documentação de API por tarefa do desenvolvedor (API documentation by developer task analysis)
+- Escrita de tutorial de API por objetivo mínimo executável (API tutorial by minimal executable goal writing)
+- Escrita de guia de migração por ruptura, impacto e mitigação (migration guide by breaking change, impact, and mitigation writing)
+- Análise de changelog por categoria Keep a Changelog (Keep a Changelog category analysis)
+- Escrita de notas de versão seguindo Keep a Changelog (release notes following Keep a Changelog)
+- Análise de versão semântica e comunicação de compatibilidade (semantic versioning and compatibility communication analysis)
+- Escrita de política de depreciação com aviso, prazo e substituto (deprecation policy with notice, timeline, and replacement writing)
+- Análise de ciclo de vida de API na documentação (API lifecycle in documentation analysis)
+- Escrita de exemplo de código com contexto, execução e saída (code example with context, execution, and output writing)
+- Análise de exemplo de código por cobertura de caso limite (code example by edge case coverage analysis)
+- Análise de documentação de erro por causa, detecção e remediação (error documentation by cause, detection, and remediation analysis)
+- Escrita de referência de código de saída com ação recomendada (exit code reference with recommended action writing)
+- Análise de instrução de troubleshooting por ordem de baixo risco (troubleshooting instruction by low-risk order analysis)
+- Escrita de procedimento de diagnóstico por teste menos invasivo primeiro (diagnostic procedure starting with least invasive test)
+- Análise de documentação de configuração por efeito do padrão (configuration documentation by default effect analysis)
+- Escrita de guia de configuração com exemplo seguro e exemplo inválido (configuration guide with safe and invalid example writing)
+- Análise de documentação de configuração de segredo e credencial (secret and credential configuration documentation analysis)
+- Escrita de guia de segurança por ameaça, impacto e controle (security guide by threat, impact, and control writing)
+- Análise de documentação de privacidade por finalidade e fluxo de dados (privacy documentation by purpose and data flow analysis)
+- Escrita de manual de usuário por tarefas e papéis (user manual by tasks and roles writing)
+- Análise de separação de conteúdo por usuário iniciante e administrador (content separation for novice user and administrator analysis)
+- Escrita de runbook com comando de diagnóstico e critério de encerramento (runbook with diagnostic command and closure criterion writing)
+- Análise de legibilidade de procedimento durante operação crítica (procedure readability during critical operation analysis)
+- Escrita de instrução de manutenção por equipamento, estado e risco (maintenance instruction by equipment, state, and risk writing)
+- Análise de sincronização entre legenda de figura e referência no texto (figure caption and in-text reference synchronization analysis)
+- Escrita de tabela técnica por variável, unidade e condição (technical table by variable, unit, and condition writing)
+- Análise de nota de rodapé técnica por necessidade e impacto na execução (technical footnote by necessity and execution impact analysis)
+- Escrita de glossário para documento técnico por termo e remissiva (technical document glossary by term and cross-reference writing)
+- Análise de referência cruzada por destino válido e rótulo descritivo (cross-reference by valid destination and descriptive label analysis)
+- Análise de manutenção de documentação por teste automatizado de links (documentation maintenance through automated link testing analysis)
+- Escrita de critério de aceite documental para release (documentation acceptance criteria for release writing)
+- Análise de documentação como parte da definição de pronto (documentation as part of definition of done analysis)
+- Escrita de documentação de arquitetura por ADR numerado (architecture documentation through numbered ADR writing)
+- Análise de qualidade de ADR por contexto, decisão e consequência (ADR quality by context, decision, and consequence analysis)
+- Escrita de decisão técnica com alternativas consideradas (technical decision with considered alternatives writing)
+- Análise de rastreabilidade de requisito até ADR e implementação (requirement-to-ADR-to-implementation traceability analysis)
+- Análise de terminologia de software por contexto de interface e domínio (software terminology by interface and domain context analysis)
+- Escrita de mensagem técnica para público operador e desenvolvedor (technical message for operator and developer audiences writing)
+- Análise de suporte técnico por artigo de conhecimento e escalonamento (technical support by knowledge article and escalation analysis)
+- Escrita de artigo de suporte com sintomas observáveis e diagnóstico (support article with observable symptoms and diagnosis writing)
+- Documentação de migração de dados
+- Guia de atualização de versão
+- Procedimento de rollback
+- Plano de recuperação de desastre
+- Manual de contingência
+- Procedimento operacional padrão
+- Instrução de trabalho
+- Especificação de interface
+- Contrato de API
+- Catálogo de endpoints
+- Esquema de payload
+- Exemplo de requisição idempotente
+- Guia de paginação de API
+- Guia de autenticação por token
+- Guia de rotação de credenciais
+- Guia de limites de requisição
+- Política de retentativa
+- Política de timeout
+- Descrição de código de erro
+- Matriz de compatibilidade
+- Matriz de permissões
+- Tabela de estados de recurso
+- Diagrama de sequência textual
+- Registro de decisão arquitetural
+- Histórico de alterações
+- Guia de contribuição
+- Guia de instalação reproduzível
+- Procedimento de configuração inicial
+- Guia de variáveis de ambiente
+- Manual de implantação gradual
+- Guia de feature flag
+- Procedimento de canário
+- Critério de aceite técnico
+- Requisito não funcional
+- Requisito de observabilidade
+- Requisito de disponibilidade
+- Requisito de recuperação
+- Objetivo de nível de serviço
+- Indicador de nível de serviço
+- Orçamento de erro
+- Guia de instrumentação
+- Convenção de logs
+- Taxonomia de eventos
+- Dicionário de dados
+- Catálogo de métricas
+- Guia de rastreamento distribuído
+- Runbook de latência
+- Runbook de saturação
+- Runbook de falha de dependência
+- Procedimento de escalonamento técnico
+- Árvore de diagnóstico
+- Matriz de sintomas e causas
+- Fluxo de triagem
+- Instrução de coleta de evidências
+- Checklist de pré-implantação
+- Checklist de pós-implantação
+- Checklist de encerramento de incidente
+- Relatório de análise retrospectiva
+- Modelo de post-mortem sem culpa
+- Linha do tempo do incidente
+- Registro de impacto
+- Resumo de causa raiz
+- Ação corretiva verificável
+- Ação preventiva mensurável
+- Critério de encerramento de alerta
+- Guia de manutenção programada
+- Aviso de janela de manutenção
+- Plano de comunicação de indisponibilidade
+- Nota técnica de vulnerabilidade
+- Comunicado de incidente de segurança
+- Guia de divulgação responsável
+- Procedimento de revogação de chave
+- Política de retenção de logs
+- Procedimento de anonimização
+- Guia de exportação de dados
+- Guia de exclusão de conta
+- Matriz de classificação da informação
+- Modelo de ameaça
+- Limite de confiança
+- Fronteira de segurança
+- Guia de atualização de dependências
+- Política de suporte de versões
+- Matriz de ciclo de vida
+- Guia de descontinuação de endpoint
+- Aviso de recurso obsoleto
+- Plano de transição de versão
+- Guia de compatibilidade retroativa
+- Procedimento de validação de esquema
+- Regra de evolução de contrato
+- Guia de testes de contrato
+- Descrição de sandbox
+- Procedimento de credencial de teste
+- Cenário de falha reproduzível
+- Caso de uso de integração
+- Receita de automação
+- Exemplo executável mínimo
+- Guia de solução de problemas por logs
+- Guia de interpretação de stack trace
+- Manual de códigos de saída
+- Referência de argumentos de linha de comando
+- Guia de configuração declarativa
+- Modelo de arquivo de configuração
+- Guia de permissões de arquivo
+- Procedimento de backup verificado
+- Teste de restauração de backup
+- Guia de integridade de dados
+- Procedimento de reconciliação
+- Documento de arquitetura contextual
+- Visão lógica do sistema
+- Visão de implantação
+- Visão de componentes
+- Guia de onboarding técnico
+- Mapa de dependências
+- Catálogo de serviços
+- Ficha de serviço
+- Acordo de interface entre equipes
+- Guia de propriedade de código
+- Rota de escalonamento
+- Critério de severidade
+- Matriz de impacto e urgência
+- Manual de plantão
+- Guia de comunicação em incidente
+- Registro de risco operacional
+- Análise de modo de falha
+- Plano de mitigação técnica
+- Guia de capacidade
+- Modelo de previsão de carga
+- Limite de concorrência
+- Plano de teste de estresse
+- Guia de benchmark
+- Procedimento de comparação de desempenho
+- Critério de regressão aceitável
+- Guia de rollout reversível
+- Plano de retirada gradual
+- Nota de versão orientada a operador
+- Nota de versão orientada a usuário
+- Guia de leitura de changelog
+- Esquema de versionamento
+- Convenção de branches de release
+- Procedimento de assinatura de artefato
+- Verificação de proveniência
+- Inventário de componentes
+- Lista de materiais de software
+- Guia de reprodução de build
+- Política de artefato imutável
+- Instrução de instalação offline
+- Guia de configuração em contêiner
+- Procedimento de atualização de certificado
+- Guia de monitoramento sintético
+- Runbook de fila acumulada
+- Runbook de falha de autenticação
+- Runbook de esgotamento de conexão
+- Runbook de inconsistência de replicação
+- Manual de recuperação de fila
+- Guia de DLQ
+- Procedimento de reprocessamento seguro
+- Guia de deduplicação de eventos
+- Contrato de esquema de evento
+- Taxonomia de severidade de logs
+- Procedimento de rotação de logs
+- Guia de gestão de segredos
+- Modelo de matriz RACI técnica
+- Registro de decisão operacional
+- Critério de prontidão operacional
+- Revisão de prontidão de produção
+- Lista de verificação de handoff
+- Guia de desativação segura
+- Procedimento de arquivamento de sistema
+- Registro de dependência externa
+- Plano de continuidade de fornecedor
+
+## Conteúdo digital, hipertexto e multimodalidade
+
+- Clareza de Formato de Receita (Digital e Física)
+- Microcopy de pré-visualização de link e compartilhamento (Link Preview & Open Graph Microcopy)
+- Intermidialidade e transmidialidade (Intermediality and Transmediality)
+- Hipertextualidade de Genette: hipotexto e hipertexto (Genette’s Hypertextuality)
+- Semiótica social e multimodalidade de Kress e van Leeuwen (Kress and van Leeuwen’s Social Semiotics and Multimodality)
+- Narratologia transmidiática de Ryan e Thon (Transmedial Narratology)
+- Conteúdo evergreen e mitigação de content decay (Content Decay Remediation)
+- Limpeza de ambiguidades sintáticas e anacolutos (Syntactic Ambiguity Remediation)
+- Tradução intersemiótica ou transmutação (Intersemiotic Translation)
+- Verificação de paridade entre rótulo físico e descrição digital (Packaging-to-Digital Copy Parity Check)
+- Estrutura diamante para reportagem digital (Diamond Structure)
+- Complementaridade Intersemiótica e Relações Imagem-Texto (Intersemiotic Complementarity)
+- Arquitetura de Percursos de Leitura e Saliência em Hipertexto (Reading Path Architecture)
+- Teoria das Affordances Comunicativas em Gêneros Digitais (Communicative Affordances)
+- Colapso de Contexto e Design de Audiência Imaginada no Discurso Digital (Context Collapse and Imagined Audience Design)
+- Ergodicidade e Literatura Ergódica (Ergodic Literature)
+- Hiperleitura e Padrões F e Z de Varredura Visual (Hyperreading and F/Z Patterns)
+- Transletramento e Letramentos Multimodais Digitais (Transliteracy)
+- Curadoria Digital e Agregação Intertextual (Digital Curation)
+- Anotação Social e Leitura Colaborativa em Margens Digitais (Social Annotation)
+- Microconteúdo e Chunking Hipertextual (Microcontent and Hypertextual Chunking)
+- Remediação e Hipermediação (Remediation and Hypermediacy)
+- Proporção tinta-dados e eliminação de ruído visual (Data-Ink Ratio and Chartjunk Elimination)
+- Modelo GeM de análise de gêneros multimodais (Genre and Multimodality Framework)
+- Migração genérica e cibergêneros (Genre Migration and Cybergenres)
+- Tradução audiovisual por voice-over (Audiovisual Voice-Over Translation)
+- Modelo Lírio de letramento em e-saúde (Lily Model of eHealth Literacy)
+- Retórica procedimental de Ian Bogost (Procedural Rhetoric)
+- Retórica algorítmica (Algorithmic Rhetoric)
+- Estudos retóricos de código de Kevin Brock (Rhetorical Code Studies)
+- Retórica da interface (Interface Rhetoric)
+- Eletracia de Gregory Ulmer (Electracy)
+- Lexia hipertextual de Barthes e Landow (Hypertextual Lexia)
+- Padrões estruturais de hipertexto de Mark Bernstein (Patterns of Hypertext)
+- Escrita topográfica de Jay David Bolter (Topographic Writing)
+- Hipertexto exploratório e construtivo de Michael Joyce (Exploratory and Constructive Hypertext)
+- Taxonomia de enlaces hipertextuais de Trigg e DeRose (Hypertext Link Taxonomy)
+- Hipertexto espacial de Marshall e Shipman (Spatial Hypertext)
+- Hipermídia adaptativa de Peter Brusilovsky (Adaptive Hypermedia)
+- Navegação social de Dourish e Chalmers (Social Navigation)
+- Taxonomia de relações imagem-texto de Martinec e Salway (Image-Text Relations Taxonomy)
+- Multiplicação de significados de Jay Lemke (Meaning Multiplication)
+- Combinações palavra-imagem de Scott McCloud (Word-Picture Combinations)
+- Semiótica visual do Grupo µ: signo plástico e icônico (Groupe µ’s Visual Semiotics)
+- Teoria do imagetexto de W. J. T. Mitchell (Imagetext Theory)
+
+- Análise de hiperligações informativas e autossuficientes (descriptive and self-sufficient hyperlink analysis)
+- Escrita de texto de link por destino e ação (link text by destination and action)
+- Análise de contexto adjacente de hiperlink (hyperlink surrounding context analysis)
+- Análise de coerência entre âncora e página de destino (anchor and landing page coherence analysis)
+- Escrita de conteúdo progressivamente revelado (progressive disclosure content writing)
+- Análise de arquitetura de informação em interfaces conversacionais (conversational interface information architecture)
+- Escrita de prompts de sistema orientados a tarefa (task-oriented system prompt writing)
+- Análise de clareza de instruções para agente conversacional (conversational agent instruction clarity analysis)
+- Escrita de respostas de fallback para assistentes virtuais (virtual assistant fallback response writing)
+- Análise de consistência de persona em fluxos conversacionais (conversational flow persona consistency analysis)
+- Análise de reparo de intenção após falha de reconhecimento (intent repair after recognition failure analysis)
+- Escrita de confirmação explícita antes de ação de alto impacto (explicit confirmation copy before high-impact action)
+- Análise de desambiguação de intenção por pergunta de esclarecimento (intent disambiguation by clarification question)
+- Análise de transparência sobre limites de sistema automatizado (automated system limitation transparency analysis)
+- Escrita de mensagens de espera e processamento (waiting and processing message writing)
+- Escrita de atualização de progresso com estimativa honesta (honest progress update writing)
+- Análise de consistência de conteúdo em estados de carregamento (loading state content consistency analysis)
+- Análise de mensagens de falha recuperável e irrecuperável (recoverable and unrecoverable failure messaging analysis)
+- Escrita de notificação de sincronização pendente (pending synchronization notification writing)
+- Escrita de aviso sobre perda ou conflito de dados (data loss and conflict warning writing)
+- Análise de comunicação de atualização em tempo real (real-time update communication analysis)
+- Análise de legibilidade em conteúdo de rolagem infinita (infinite scroll content readability analysis)
+- Análise de continuidade de contexto em navegação entre páginas (context continuity across page navigation analysis)
+- Escrita de resumo persistente em interfaces com interrupções (persistent summary writing for interrupted interfaces)
+- Análise de estado vazio com orientação para próxima ação (empty state next-action guidance analysis)
+- Análise de hierarquia de informação em notificação push (push notification information hierarchy analysis)
+- Escrita de notificação acionável com contexto suficiente (actionable notification with sufficient context writing)
+- Análise de truncamento de texto em notificações (notification text truncation analysis)
+- Análise de compatibilidade de mensagem entre web, app e e-mail (cross-channel message consistency analysis)
+- Escrita de conteúdo transacional para múltiplos canais (multichannel transactional content writing)
+- Análise de consistência de conteúdo entre frontend e backend (frontend and backend content consistency analysis)
+- Análise de indexabilidade e conteúdo renderizado para busca (search indexability and rendered content analysis)
+- Escrita de snippet informativo para resultado de busca (informative search result snippet writing)
+- Análise de intenção de busca e resposta de conteúdo (search intent and content answer analysis)
+- Análise de conteúdo duplicado por rota ou filtro (duplicate content across routes or filters analysis)
+- Análise de sequência de foco e leitura em modal (modal focus and reading sequence analysis)
+- Escrita de avisos de consentimento granular (granular consent notice writing)
+- Análise de compreensão de consentimento por finalidade (purpose-specific consent comprehension analysis)
+- Escrita de resumo de privacidade em camadas (layered privacy summary writing)
+- Análise de clareza de explicação de uso de dados (data use explanation clarity analysis)
+- Escrita de microtexto para configuração de preferências (preference setting microcopy writing)
+
+- Análise de arquitetura de hipertexto axial e reticular (axial and network hypertext architecture analysis)
+- Análise de estrutura de hipertexto hierárquica e associativa (hierarchical and associative hypertext structure analysis)
+- Análise de link interno contextual e navegacional (contextual and navigational internal link analysis)
+- Análise de desorientação em navegação hipertextual (disorientation in hypertext navigation analysis)
+- Análise de carga de decisão por excesso de links (decision load from excessive links analysis)
+- Análise de profundidade de navegação e custo de retorno (navigation depth and return cost analysis)
+- Análise de leitura não linear e construção de percurso (nonlinear reading and path construction analysis)
+- Análise de narrativa distribuída por nós e ligações (node-link distributed narrative analysis)
+- Análise de função narrativa de link em ficção hipertextual (narrative function of links in hypertext fiction)
+- Análise de ponto de entrada múltiplo em narrativa digital (multiple entry point in digital narrative analysis)
+- Análise de persistência de estado em narrativa interativa (state persistence in interactive narrative analysis)
+- Análise de consequência visível de escolha em ficção interativa (visible choice consequence in interactive fiction analysis)
+- Análise de agência do usuário em narrativa ramificada (user agency in branching narrative analysis)
+- Análise de convergência e divergência de caminhos narrativos (narrative path convergence and divergence analysis)
+- Análise de sincronização entre texto, áudio e imagem (text, audio, and image synchronization analysis)
+- Análise de complementaridade entre legenda e imagem (caption and image complementarity analysis)
+- Análise de redundância entre fala, legenda e texto alternativo (speech, caption, and alt text redundancy analysis)
+- Análise de função semântica da tipografia em texto digital (semantic function of typography in digital text analysis)
+- Análise de hierarquia visual de conteúdo textual (visual hierarchy of textual content analysis)
+- Análise de leitura por blocos em página responsiva (block-based reading in responsive page analysis)
+- Análise de consistência de conteúdo em design responsivo (content consistency in responsive design analysis)
+- Análise de truncamento responsivo de títulos e rótulos (responsive truncation of headings and labels analysis)
+- Análise de adaptabilidade de texto a ampliação e reflow (text adaptation to zoom and reflow analysis)
+- Análise de affordances textuais em interface tátil (textual affordances in touch interface analysis)
+- Análise de chamada à ação em conteúdo incorporado (call to action in embedded content analysis)
+- Análise de dependência de contexto em conteúdo incorporado (context dependency in embedded content analysis)
+- Análise de metadados de título, descrição e autoria (title, description, and author metadata analysis)
+- Análise de texto alternativo em mídia social (alt text in social media analysis)
+- Escrita de legenda social com contexto autossuficiente (self-contained social media caption writing)
+- Escrita de carrossel com progressão textual entre cartões (carousel copy with progression across cards)
+- Análise de consistência entre texto do carrossel e descrição acessível (carousel text and accessible description consistency)
+- Análise de camada textual sobre vídeo curto (text overlay in short video analysis)
+- Análise de sincronização de texto cinético com narrativa (kinetic text and narrative synchronization analysis)
+- Escrita de transcrição descritiva para conteúdo audiovisual (descriptive transcript writing for audiovisual content)
+- Análise de completude de transcrição para conteúdo multimodal (transcript completeness for multimodal content analysis)
+- Análise de fluxo de conteúdo entre página canônica e distribuição social (canonical page and social distribution content flow analysis)
+- Análise de consistência entre snippet, metadescrição e página (snippet, meta description, and page consistency analysis)
+- Análise de conteúdo gerado pelo usuário e moderação textual (user-generated content and textual moderation analysis)
+- Escrita de aviso de moderação com regra e opção de recurso (moderation notice with rule and appeal option writing)
+- Análise de contexto e atribuição em citação social compartilhada (context and attribution in shared social quote analysis)
+- Análise de compressão textual para limite de caracteres (text compression under character limits analysis)
+
+- Análise de padrão de leitura em F e em Z em página informativa (F and Z reading pattern analysis on informational pages)
+- Análise de hierarquia de títulos por escaneamento visual (heading hierarchy through visual scanning analysis)
+- Escrita de título de página com tópico e benefício informativo (page title with topic and informational benefit writing)
+- Análise de título de página por distinção entre páginas semelhantes (page title differentiation across similar pages analysis)
+- Escrita de subtítulo que antecipa estrutura do conteúdo (subheading previewing content structure writing)
+- Análise de índice de página longa por tarefa e seção (long-page table of contents by task and section analysis)
+- Análise de link de salto e destino de seção (skip link and section destination analysis)
+- Escrita de âncora de navegação com destino inequívoco (navigation anchor with unambiguous destination writing)
+- Análise de link externo com expectativa de abertura e contexto (external link opening expectation and context analysis)
+- Escrita de aviso de abertura de arquivo ou janela nova (new window or file opening notice writing)
+- Análise de persistência de contexto em navegação por abas (context persistence across tab navigation analysis)
+- Análise de conteúdo de página em viewport estreito (page content on narrow viewport analysis)
+- Análise de quebra de linha em texto responsivo e rótulos (line wrapping in responsive text and labels analysis)
+- Análise de truncamento de nome próprio e conteúdo essencial (proper name truncation and essential content analysis)
+- Escrita de resumo para pré-visualização de compartilhamento (sharing preview summary writing)
+- Análise de metadados Open Graph e pré-visualização social (Open Graph metadata and social preview analysis)
+- Análise de discrepância entre título social e título da página (social and page title discrepancy analysis)
+- Escrita de descrição para cartão de conteúdo relacionado (related content card description writing)
+- Análise de rótulo de botão em cartão clicável inteiro (button label in fully clickable card analysis)
+- Análise de destino de link em navegação contextual (link destination in contextual navigation analysis)
+- Análise de uso de breadcrumb por hierarquia e localização (breadcrumb use by hierarchy and location analysis)
+- Escrita de breadcrumb com nomes de seção reconhecíveis (breadcrumb with recognizable section names writing)
+- Análise de navegação local em conteúdo aninhado (local navigation in nested content analysis)
+- Análise de consistência de menu entre seções relacionadas (menu consistency across related sections analysis)
+- Análise de conteúdo de página em experiência de busca semântica (page content in semantic search experience analysis)
+- Escrita de trecho de resposta extraível sem perder contexto (extractable answer passage without context loss writing)
+- Análise de parágrafo inicial para resposta direta e contexto (opening paragraph for direct answer and context analysis)
+- Análise de conteúdo para pesquisa por voz e resposta falada (content for voice search and spoken response analysis)
+- Escrita de resposta falada com unidades curtas e pronúncia clara (spoken response with short units and clear pronunciation writing)
+- Análise de resultado de busca local por intenção e localização (local search result by intent and location analysis)
+- Análise de conteúdo por intenção informacional, navegacional e transacional (content by informational, navigational, and transactional intent analysis)
+- Escrita de CTA contextual no encerramento de artigo (contextual CTA at article conclusion writing)
+- Análise de CTA concorrentes em uma mesma tela (competing CTAs on a single screen analysis)
+- Análise de hierarquia entre conteúdo primário e promocional (primary and promotional content hierarchy analysis)
+- Análise de interrupção por intersticial e retomada de leitura (interstitial interruption and reading resumption analysis)
+- Escrita de aviso de conteúdo patrocinado e identificação de anunciante (sponsored content and advertiser disclosure writing)
+- Análise de distinção entre conteúdo editorial, anúncio e afiliado (editorial, advertising, and affiliate content distinction analysis)
+- Análise de legibilidade de aviso de afiliado em contexto (affiliate disclosure readability in context analysis)
+- Análise de estrutura de FAQ para snippet e navegação assistida (FAQ structure for snippets and assistive navigation analysis)
+- Escrita de pergunta frequente na formulação do usuário (FAQ question in user wording writing)
+- Análise de resposta de FAQ por completude e escopo (FAQ answer completeness and scope analysis)
+- Análise de conteúdo de notificação dentro da interface e fora dela (in-app and out-of-app notification content analysis)
+- Escrita de notificação por evento, relevância e ação (notification by event, relevance, and action writing)
+- Análise de frequência de notificação e fadiga de alerta (notification frequency and alert fatigue analysis)
+- Análise de conteúdo de mensagem de erro persistente (persistent error message content analysis)
+- Escrita de mensagem de erro contextual próxima ao componente (contextual error message near component writing)
+- Análise de preservação de dados após validação falha (data preservation after failed validation analysis)
+- Análise de conteúdo de onboarding progressivo por nível de experiência (progressive onboarding content by experience level analysis)
+- Escrita de dica contextual acionada por necessidade (need-triggered contextual tip writing)
+- Análise de redundância de onboarding para usuário recorrente (onboarding redundancy for returning user analysis)
+
+- Análise de hierarquia semântica de HTML em conteúdo editorial (HTML semantic hierarchy in editorial content analysis)
+- Análise de texto de título em estrutura semântica de documento (heading text in semantic document structure analysis)
+- Análise de organização de conteúdo para leitura linear e navegação por região (content organization for linear reading and landmark navigation analysis)
+- Análise de experiência de navegação com teclado em artigo longo (keyboard navigation in long article experience analysis)
+- Análise de tabela de conteúdo em documento responsivo (table of contents in responsive document analysis)
+- Análise de âncoras de seção em mudança de idioma (section anchors across language changes analysis)
+- Escrita de URL legível e descritiva para página de conteúdo (readable descriptive content URL writing)
+- Análise de slug por clareza, estabilidade e manutenção (slug clarity, stability, and maintenance analysis)
+- Análise de redirecionamento de URL sem perda de contexto (URL redirect without context loss analysis)
+- Análise de indexação de versão canônica e tradução (canonical and translated version indexing analysis)
+- Escrita de hreflang e indicação textual de idioma alternativo (hreflang and textual alternate language indication writing)
+- Análise de idioma declarado e idioma real do conteúdo (declared and actual content language analysis)
+- Análise de mudança de idioma parcial em página multilíngue (partial language change in multilingual page analysis)
+- Análise de link para documento por formato e tamanho (document link by format and size analysis)
+- Escrita de aviso sobre PDF, download e abertura em nova aba (PDF, download, and new tab notice writing)
+- Análise de documento para leitura móvel e navegação por sumário (document mobile reading and outline navigation analysis)
+- Análise de fragmentação de conteúdo para leitura em aplicativo (content chunking for in-app reading analysis)
+- Análise de continuidade de leitura entre web e aplicativo (reading continuity across web and app analysis)
+- Análise de anotação e marcação de texto em leitor digital (annotation and text highlighting in digital reader analysis)
+- Análise de sincronização de posição de leitura entre dispositivos (reading position sync across devices analysis)
+- Escrita de aviso de conteúdo atualizado desde a última visita (content updated since last visit notice writing)
+- Análise de indicação de atualização substancial versus correção menor (substantive update and minor correction distinction analysis)
+- Escrita de histórico de alterações com data e resumo legível (change history with date and readable summary writing)
+- Análise de atribuição de autoria em conteúdo atualizado (author attribution in updated content analysis)
+- Análise de conteúdo arquivado e sinalização de validade (archived content and validity signaling analysis)
+- Escrita de aviso de política substituída com link para versão atual (superseded policy notice with current version link writing)
+- Análise de discrepância entre data publicada e data revisada (published and reviewed date discrepancy analysis)
+- Análise de aviso de conteúdo sintético ou automatizado (synthetic or automated content disclosure analysis)
+- Escrita de indicação de revisão humana em texto automatizado (human review disclosure for automated text writing)
+- Análise de citação e atribuição em conteúdo assistido por IA (citation and attribution in AI-assisted content analysis)
+- Análise de consistência de fatos em páginas derivadas de fonte comum (fact consistency across pages derived from a common source)
+- Análise de sincronização de atualização entre CMS e canal de distribuição (CMS and distribution channel update synchronization analysis)
+- Análise de versão obsoleta em cache e interface digital (stale cached version in digital interface analysis)
+- Escrita de mensagem de conteúdo temporariamente indisponível com alternativa (temporarily unavailable content with alternative writing)
+- Análise de conteúdo indisponível por autenticação versus remoção (authentication-gated and removed content distinction analysis)
+- Análise de conteúdo bloqueado por região e transparência de motivo (region-blocked content and reason transparency analysis)
+- Análise de reprodução automática e aviso textual de mídia (autoplay and textual media notice analysis)
+- Escrita de transcrição interativa com marcação de falantes (interactive transcript with speaker labels writing)
+- Análise de texto de legenda por sincronização e identificação de falante (caption text by synchronization and speaker identification analysis)
+- Análise de legendas para sons não verbais relevantes (captions for relevant non-speech sounds analysis)
+- Análise de transcrição descritiva versus transcrição literal (descriptive and verbatim transcript distinction analysis)
+- Análise de texto em sobreposição que compete com legenda (overlay text competing with captions analysis)
+- Escrita de descrição de áudio para transição de cena (audio description writing for scene transition)
+- Análise de redundância entre audiodescrição e diálogo (audio description and dialogue redundancy analysis)
+- Análise de linguagem textual em player multimídia acessível (text language in accessible media player analysis)
+- Análise de clareza de controle de velocidade de reprodução (playback speed control clarity analysis)
+- Escrita de instrução para baixar transcrição e legenda (transcript and caption download instruction writing)
+- Análise de estrutura de comentário em thread digital (comment structure in digital thread analysis)
+- Análise de contexto de resposta em conversa assíncrona (reply context in asynchronous conversation analysis)
+- Escrita de resumo de thread longa com decisões e pendências (long thread summary with decisions and open items writing)
+- Análise de conteúdo fixado e ordenação cronológica em conversa (pinned content and chronological ordering in conversation analysis)
+
+- Análise de consistência de título social e metadado da página (social title and page metadata consistency analysis)
+- Escrita de imagem de compartilhamento com contraste textual (share image with textual contrast writing)
+- Análise de miniatura por legibilidade do texto em escala reduzida (thumbnail text readability at reduced scale analysis)
+- Escrita de cartão de compartilhamento que informa destino (sharing card that communicates destination writing)
+- Análise de metadescrição por resumo e intenção (meta description by summary and intent analysis)
+- Análise de trecho de busca por correspondência com pergunta (search snippet by question match analysis)
+- Escrita de bloco de resposta direta com ressalva contextual (direct answer block with contextual caveat writing)
+- Análise de consistência entre resposta destacada e corpo completo (featured answer and full content consistency analysis)
+- Análise de conteúdo de página para busca por entidade (page content for entity search analysis)
+- Escrita de explicação de entidade com atributos distintivos (entity explanation with distinguishing attributes writing)
+- Análise de ambiguidade de entidade em título e snippet (entity ambiguity in title and snippet analysis)
+- Análise de navegação em busca com resultados ricos e filtros (search navigation with rich results and filters analysis)
+- Análise de conteúdo em resultado com perguntas relacionadas (content in related questions search result analysis)
+- Escrita de respostas relacionadas com cobertura sem redundância (related answers with nonredundant coverage writing)
+- Análise de agrupamento de perguntas frequentes por intenção (FAQ grouping by intent analysis)
+- Análise de rolagem e fixação de índice em página extensa (scrolling and sticky contents navigation in long page analysis)
+- Análise de posição de sumário para leitura não linear (table of contents placement for nonlinear reading analysis)
+- Escrita de link de salto para conteúdo principal e regiões (skip links to main content and regions writing)
+- Análise de rótulo de seção que funciona fora do contexto visual (section label functioning outside visual context analysis)
+- Análise de coerência entre breadcrumb, título e caminho canônico (breadcrumb, title, and canonical path coherence analysis)
+- Análise de legibilidade de navegação em dispositivo móvel (navigation readability on mobile device analysis)
+- Escrita de menu móvel com nomes de categoria orientados a tarefa (mobile menu with task-oriented category names writing)
+- Análise de diferença entre menu expandido e menu recolhido (expanded and collapsed menu distinction analysis)
+- Escrita de aviso de navegação fora de plataforma segura (navigation outside secure platform notice writing)
+- Análise de conteúdo de banner persistente e interferência na leitura (persistent banner content and reading interference analysis)
+- Análise de política de conteúdo de banner e frequência de exposição (banner content policy and exposure frequency analysis)
+- Escrita de mensagem de atualização de página sem perda de contexto (page update message without context loss writing)
+- Análise de preservação de estado após recarregamento de conteúdo (state preservation after content reload analysis)
+- Análise de integridade de conteúdo carregado sob demanda (integrity of lazy-loaded content analysis)
+- Escrita de indicação de conteúdo adicional carregado (additional loaded content indication writing)
+- Análise de anúncio de mudança de conteúdo em região dinâmica (content change announcement in dynamic region analysis)
+- Análise de ordem de anúncio de validação em formulário dinâmico (validation announcement order in dynamic form analysis)
+- Escrita de resumo de atividade em interface colaborativa (activity summary in collaborative interface writing)
+- Análise de contexto suficiente em notificação de menção (sufficient context in mention notification analysis)
+- Escrita de notificação de comentário com trecho e localização (comment notification with excerpt and location writing)
+- Análise de thread de comentários por ancoragem no conteúdo (comment thread anchored to content analysis)
+- Análise de resposta citada em interface de conversa (quoted reply in conversation interface analysis)
+- Escrita de estado de comentário resolvido e reaberto (resolved and reopened comment state writing)
+- Análise de moderação de comentário por regra e consistência (comment moderation by rule and consistency analysis)
+- Escrita de explicação de remoção de conteúdo com critério e recurso (content removal explanation with criterion and appeal writing)
+- Análise de rótulo de conteúdo sensível e escolha de exibição (sensitive content label and display choice analysis)
+- Análise de aviso de conteúdo potencialmente perturbador (potentially distressing content notice analysis)
+- Escrita de descrição de áudio para conteúdo educacional digital (audio description for digital educational content writing)
+- Análise de transcrição sincronizada por segmento e falante (synchronized transcript by segment and speaker analysis)
+- Análise de nome de falante em legenda por clareza e consistência (speaker label in captions by clarity and consistency analysis)
+- Escrita de indicação textual de som não verbal em legenda (textual indication of non-speech sound in captions writing)
+- Análise de tradução e sincronização de legenda em tela móvel (caption translation and synchronization on mobile screen analysis)
+- Análise de comprimento de linha e velocidade de legenda (caption line length and reading speed analysis)
+- Análise de divisão de legenda por unidade sintática (caption segmentation by syntactic unit analysis)
+- Escrita de legenda de vídeo curto com informação sem áudio (short video caption with no-audio information writing)
+- Análise de consistência de legenda automática revisada (reviewed automatic caption consistency analysis)
+
+- Análise de acesso a conteúdo com autenticação federada (access to content through federated authentication analysis)
+- Escrita de mensagem de consentimento granular por categoria de dado (granular consent message by data category writing)
+- Análise de comunicação de uso secundário de dados (secondary data use communication analysis)
+- Escrita de explicação de retenção e eliminação de dados (data retention and deletion explanation writing)
+- Análise de transparência de rastreamento por cookies e tecnologias similares (tracking transparency for cookies and similar technologies analysis)
+- Escrita de aviso de rastreamento com opção equivalente (tracking notice with equivalent option writing)
+- Análise de linguagem de consentimento para compartilhamento de localização (consent language for location sharing analysis)
+- Escrita de solicitação de permissão contextual para câmera e microfone (contextual camera and microphone permission request writing)
+- Análise de aviso de gravação e armazenamento de áudio (audio recording and storage notice analysis)
+- Escrita de indicação de conteúdo gerado por usuário (user-generated content disclosure writing)
+- Análise de rótulo de verificação e proveniência de conteúdo (content verification and provenance label analysis)
+- Escrita de legenda com atribuição, data e contexto de imagem (caption with image attribution, date, and context writing)
+- Análise de descrição de imagem em conteúdo jornalístico (image description in news content analysis)
+- Escrita de contexto para fotografia histórica e arquivo digital (context writing for historical photo and digital archive)
+- Análise de distinção entre imagem ilustrativa e evidencial (illustrative and evidential image distinction analysis)
+- Análise de aviso de imagem sintética e edição digital (synthetic image and digital editing disclosure analysis)
+- Escrita de texto de correção e atualização em matéria digital (correction and update note in digital news writing)
+- Análise de rastreabilidade de correção editorial em página (editorial correction traceability on page analysis)
+- Escrita de linha do tempo de atualização de reportagem (news report update timeline writing)
+- Análise de cobertura de evento ao vivo por atualização contínua (live event coverage through continuous updates analysis)
+- Escrita de resumo de transmissão ao vivo para leitura posterior (live stream summary for later reading writing)
+- Análise de ordem de atualização em feed cronológico e relevância (update ordering by chronology and relevance analysis)
+- Análise de preservação de contexto em postagem republicada (context preservation in reposted content analysis)
+- Escrita de aviso de conteúdo republicado fora do contexto original (notice for content reposted outside original context)
+- Análise de encadeamento de fonte primária em publicação social (primary source chain in social post analysis)
+- Escrita de cartão de citação com atribuição e link à fonte (quote card with attribution and source link writing)
+- Análise de correção de informação viral com contexto e evidência (viral misinformation correction with context and evidence analysis)
+- Escrita de resposta corretiva sem amplificar alegação falsa (corrective response without amplifying false claim writing)
+- Análise de prebunking por explicação de técnica manipulativa (prebunking through explanation of manipulative technique analysis)
+- Escrita de aviso preventivo sobre tática de desinformação (preemptive notice about disinformation tactic writing)
+- Análise de leitura lateral e verificação de fonte em conteúdo digital (lateral reading and source verification in digital content analysis)
+- Escrita de trilha de fontes para afirmação verificável (source trail for verifiable claim writing)
+- Análise de contexto de citação em resultado de busca (quotation context in search result analysis)
+- Escrita de explicação de limite de moderação automatizada (automated moderation limitation explanation writing)
+- Análise de contexto de decisão de moderação em interface (moderation decision context in interface analysis)
+- Escrita de aviso de conteúdo removido com trecho da regra aplicável (removed content notice with relevant rule excerpt writing)
+- Análise de transparência de recurso e prazo em decisão de moderação (appeal transparency and deadline in moderation decision analysis)
+- Análise de inconsistência de moderação entre formatos de conteúdo (moderation inconsistency across content formats analysis)
+- Escrita de mensagem de erro em upload de conteúdo com correção sugerida (content upload error with suggested correction writing)
+- Análise de acessibilidade de editor de texto rico (rich text editor accessibility analysis)
+- Escrita de instrução de formatação que não depende de cor (formatting instruction independent of color writing)
+- Análise de semântica de estilos de título em editor digital (heading style semantics in digital editor analysis)
+- Análise de conteúdo colado com formatação inconsistente (pasted content with inconsistent formatting analysis)
+- Escrita de aviso sobre formatação removida ao colar texto (notice about formatting removed on paste writing)
+- Análise de conteúdo em campos com limite de caracteres em tempo real (content in real-time character-limited fields analysis)
+- Escrita de contador de caracteres com critério de contagem explícito (character counter with explicit counting rule writing)
+- Análise de comportamento de contador com emoji e caracteres compostos (counter behavior with emoji and combined characters analysis)
+- Escrita de resumo de alterações com diferença semântica relevante (change summary with meaningful semantic difference writing)
+- Análise de diff de texto por adição, remoção e substituição (text diff by addition, deletion, and replacement analysis)
+- Análise de comparação visual de versões de conteúdo (visual comparison of content versions analysis)
+
+- Escrita de descrição curta de página para navegação interna (short page description for internal navigation writing)
+- Análise de consistência de título em navegação por histórico (title consistency in history navigation analysis)
+- Análise de página de erro 404 por orientação para destino útil (404 page guidance to useful destination analysis)
+- Escrita de página de erro 404 com busca e links prioritários (404 page with search and priority links writing)
+- Análise de mensagem de erro 403 por permissão e autenticação (403 error message by permission and authentication analysis)
+- Escrita de página de erro 500 com estado do serviço e retomada (500 error page with service state and recovery writing)
+- Análise de conteúdo em tela de indisponibilidade programada (content on scheduled downtime screen analysis)
+- Escrita de mensagem de manutenção com impacto, duração e alternativa (maintenance message with impact, duration, and alternative writing)
+- Análise de conteúdo de estado degradado e funcionalidade parcial (degraded state and partial functionality content analysis)
+- Escrita de instrução alternativa durante indisponibilidade de serviço (alternative instruction during service outage writing)
+- Análise de atualização de estado de incidente em página de status (incident status update on status page analysis)
+- Escrita de atualização de incidente por impacto atual e próxima revisão (incident update by current impact and next review writing)
+- Análise de precisão de estimativa de recuperação em status digital (recovery estimate precision in digital status analysis)
+- Escrita de aviso de resolução sem declarar causa não confirmada (resolution notice without unconfirmed cause writing)
+- Análise de atualização de problema resolvido e monitoramento contínuo (resolved issue and ongoing monitoring update analysis)
+- Escrita de relatório pós-incidente acessível ao público (public-facing accessible post-incident report writing)
+- Análise de transparência de indisponibilidade por região ou serviço (outage transparency by region or service analysis)
+- Análise de mensagem de sincronização entre dispositivos em atraso (delayed cross-device sync message analysis)
+- Escrita de estado de sincronização por última atualização e pendência (sync state by last update and pending item writing)
+- Análise de divergência entre conteúdo local e conteúdo em nuvem (local and cloud content divergence analysis)
+- Escrita de resolução de conflito por versão, autor e data (conflict resolution by version, author, and date writing)
+- Análise de seleção padrão em diálogo de conflito de arquivos (default selection in file conflict dialog analysis)
+- Análise de segurança textual em link de compartilhamento público (textual security in public sharing link analysis)
+- Escrita de aviso de acesso público com audiência visível (public access notice with visible audience writing)
+- Análise de escopo de compartilhamento por pessoa, grupo e link (sharing scope by person, group, and link analysis)
+- Escrita de alerta de link acessível por qualquer pessoa (anyone-accessible link warning writing)
+- Análise de rótulo de permissão para visualizar, comentar e editar (view, comment, and edit permission labeling analysis)
+- Escrita de descrição de permissão herdada de pasta (inherited folder permission description writing)
+- Análise de consistência de permissão apresentada antes da ação (permission consistency before action analysis)
+- Análise de texto de confirmação para publicação pública (confirmation text for public publication analysis)
+- Escrita de resumo de audiência antes de publicar conteúdo (audience summary before publishing content writing)
+- Análise de texto de publicação agendada com fuso horário explícito (scheduled publication text with explicit timezone analysis)
+- Escrita de notificação de publicação concluída com URL canônica (publication success notice with canonical URL writing)
+- Análise de aviso de publicação parcial em canais múltiplos (partial publication notice across channels analysis)
+- Escrita de indicação de canal sem publicação e motivo (unpublished channel and reason indication writing)
+- Análise de atualização simultânea de cópia localizada (simultaneous localized copy update analysis)
+- Escrita de aviso de tradução pendente e idioma de origem (pending translation notice and source language writing)
+- Análise de revisão obrigatória antes da publicação de tradução (mandatory translation review before publication analysis)
+- Escrita de estado de conteúdo em rascunho, revisão e publicado (draft, review, and published content state writing)
+- Análise de visibilidade do autor, revisor e aprovador no CMS (author, reviewer, and approver visibility in CMS analysis)
+- Escrita de comentário editorial com localização de trecho e ação requerida (editorial comment with passage location and required action writing)
+- Análise de texto de comentário que distingue sugestão e bloqueio (comment text distinguishing suggestion and blocker analysis)
+- Escrita de aviso de alteração concorrente no CMS (concurrent edit notice in CMS writing)
+- Análise de rótulo de versão de conteúdo por data e estado (content version label by date and state analysis)
+- Escrita de comparação de versão por mudança substantiva (version comparison by substantive change writing)
+- Análise de arquivamento de página com destino alternativo (page archiving with alternative destination analysis)
+- Escrita de página de substituição de conteúdo descontinuado (replacement page for deprecated content writing)
+- Análise de preservação de referência externa após despublicação (external reference preservation after unpublishing analysis)
+- Escrita de mensagem de redirecionamento com contexto de mudança (redirect message with change context writing)
+- Análise de comunicação de mudança de URL em conteúdo compartilhado (URL change communication in shared content analysis)
+- Escrita de aviso de link quebrado com rota de reporte (broken link notice with reporting path writing)
+
+- Escrita estruturada em Markdown semântico (semantic Markdown authoring)
+- Análise de hierarquia de títulos em documento Markdown (heading hierarchy in Markdown document analysis)
+- Análise de acessibilidade de tabela em Markdown (accessibility of Markdown table analysis)
+- Escrita de link descritivo em conteúdo digital (descriptive hyperlink writing in digital content)
+- Análise de link com texto genérico “clique aqui” (generic click-here link text analysis)
+- Análise de links duplicados com destinos diferentes (duplicate links with different destinations analysis)
+- Análise de link quebrado em conteúdo de longa duração (broken link analysis in long-lived content)
+- Análise de link externo por confiança, contexto e estabilidade (external link by trust, context, and stability analysis)
+- Escrita de indicação de fonte primária junto à afirmação (primary source link beside claim writing)
+- Análise de proveniência de conteúdo por URL e data (content provenance by URL and date analysis)
+- Análise de atribuição de conteúdo em repostagem social (content attribution in social repost analysis)
+- Escrita de aviso de correção com versão anterior e atual (correction notice with prior and current version writing)
+- Análise de remoção silenciosa e transparência de revisão digital (silent removal and digital revision transparency analysis)
+- Escrita de nota editorial sobre edição de título digital (editorial note about digital headline change writing)
+- Análise de atualização de conteúdo por relevância e expiração (content update by relevance and expiry analysis)
+- Análise de URL canônica em conteúdo sindicado (canonical URL in syndicated content analysis)
+- Análise de duplicação de texto por distribuição multicanal (text duplication through multichannel distribution analysis)
+- Escrita de versão curta e versão completa com ligação recíproca (short and full versions with reciprocal linking writing)
+- Análise de fragmento citável em conteúdo longo (quotable passage in long-form content analysis)
+- Escrita de resumo reutilizável em canais diferentes (reusable summary across channels writing)
+- Análise de conteúdo modular para distribuição omnicanal (modular content for omnichannel distribution analysis)
+- Análise de consistência de afirmação entre páginas e campanhas (claim consistency across pages and campaigns analysis)
+- Escrita de notificação editorial de atualização importante (editorial notification for significant update writing)
+- Análise de página de status por frequência e granularidade de atualização (status page update frequency and granularity analysis)
+- Escrita de resumo de incidente com linguagem leiga e técnica (incident summary in lay and technical language writing)
+- Análise de consistência de informação entre página de status e suporte (status page and support information consistency analysis)
+- Análise de resposta padrão em canal social de atendimento (standard reply in social support channel analysis)
+- Escrita de resposta social com limite de caracteres e contexto preservado (social response within character limit and preserved context writing)
+- Análise de fragmentação de instrução em sequência de posts (instruction fragmentation across post sequence analysis)
+- Escrita de fio social com tese, evidência e conclusão (social thread with claim, evidence, and conclusion writing)
+- Análise de coerência entre cartões de carrossel individual e sequência (individual carousel card and sequence coherence analysis)
+- Escrita de título por cartão com contexto cumulativo (card heading with cumulative context writing)
+- Análise de conteúdo de carrossel para leitura fora de ordem (carousel content for out-of-order reading analysis)
+- Análise de transcrição de vídeo curto por completude de fala e texto visual (short video transcript by speech and visual text completeness analysis)
+- Escrita de legenda de vídeo com informação relevante fora do áudio (video caption including relevant non-audio information writing)
+- Análise de contraste entre texto na tela e legenda fechada (on-screen text and closed captions contrast analysis)
+- Análise de transcrição de podcast com marcação de capítulos (podcast transcript with chapter markers analysis)
+- Escrita de descrição de episódio por tema, participantes e tópicos (episode description by topic, participants, and sections writing)
+- Análise de marcador temporal em transcrição navegável (timestamp marker in navigable transcript analysis)
+- Escrita de resumo de webinar com links para segmentos (webinar summary with segment links writing)
+- Análise de atribuição de fala em transcrição de reunião (speaker attribution in meeting transcript analysis)
+- Escrita de ata digital por decisões, responsáveis e prazos (digital meeting minutes by decisions, owners, and deadlines writing)
+- Análise de resumo automático de reunião e validação de precisão (automated meeting summary and accuracy validation analysis)
+- Análise de edição colaborativa por conflito e resolução de comentário (collaborative editing by conflict and comment resolution analysis)
+- Escrita de log de alterações compreensível por leitor não técnico (change log for nontechnical reader writing)
+- Análise de anúncio de recurso por disponibilidade e elegibilidade (feature announcement by availability and eligibility analysis)
+- Escrita de comunicação de lançamento gradual de funcionalidade (gradual feature rollout communication writing)
+- Análise de alerta de recurso experimental e limitações (experimental feature notice and limitations analysis)
+- Escrita de mensagem de consentimento contextual em aplicativo (contextual consent message in application writing)
+- Análise de conteúdo de atualização de privacidade por impacto prático (privacy update content by practical impact analysis)
+
+- Análise de hierarquia de informação em página inicial (information hierarchy on homepage analysis)
+- Escrita de proposta de valor em primeira dobra (above-the-fold value proposition writing)
+- Análise de primeiro viewport por tarefa primária (first viewport by primary task analysis)
+- Análise de ordem de blocos em landing page por decisão (landing page block order by decision analysis)
+- Escrita de página de categoria por introdução, filtros e resultados (category page by introduction, filters, and results writing)
+- Análise de bloco de confiança próximo à ação principal (trust block near primary action analysis)
+- Análise de prova social próxima à alegação correspondente (social proof near corresponding claim analysis)
+- Escrita de FAQ contextual após alegação complexa (contextual FAQ after complex claim writing)
+- Análise de conteúdo expansível por informação essencial e complementar (expandable content by essential and supplementary information analysis)
+- Análise de disclosure por rótulo, posição e estado expandido (disclosure by label, position, and expanded state analysis)
+- Escrita de texto de acordeão com resumo informativo (accordion text with informative summary writing)
+- Análise de conteúdo de tooltip por relevância e alternativa móvel (tooltip content by relevance and mobile alternative analysis)
+- Escrita de ajuda contextual persistente versus temporária (persistent and transient contextual help writing)
+- Análise de dependência de hover em conteúdo explicativo (hover dependency in explanatory content analysis)
+- Análise de conteúdo em tooltip de teclado e leitor de tela (tooltip content for keyboard and screen reader analysis)
+- Escrita de descrição de campo em formulário digital (digital form field description writing)
+- Análise de conteúdo de validação inline em formulário (inline validation content in form analysis)
+- Escrita de resumo de erros de formulário por campo e ação (form error summary by field and action writing)
+- Análise de foco após erro de validação (focus management after validation error analysis)
+- Escrita de confirmação de submissão com próximo prazo (submission confirmation with next deadline writing)
+- Análise de resultado de formulário por envio parcial e retomada (form outcome by partial submission and resumption analysis)
+- Escrita de conteúdo de onboarding por momento de necessidade (onboarding content by moment of need writing)
+- Análise de onboarding contextual sem bloqueio da tarefa (contextual onboarding without blocking task analysis)
+- Análise de tutorial sobreposto versus guiado por tarefa (overlay tutorial and task-guided tutorial comparison analysis)
+- Escrita de onboarding por progressão de autonomia (onboarding by autonomy progression writing)
+- Análise de dica contextual por frequência de uso e erro (contextual tip by usage frequency and error analysis)
+- Análise de conteúdo de empty state por ação inicial (empty-state content by initial action analysis)
+- Escrita de empty state para usuário sem permissão (empty state for user without permission writing)
+- Escrita de empty state para busca sem resultado (empty state for zero-result search writing)
+- Análise de estado vazio por ausência de conteúdo versus falha de carregamento (empty state for no content versus load failure analysis)
+- Análise de feedback de ação otimista e confirmação posterior (optimistic action feedback and later confirmation analysis)
+- Escrita de mensagem de ação concluída com reversão temporária (completed action message with temporary undo writing)
+- Análise de aviso de salvamento automático e persistência real (autosave notice and actual persistence analysis)
+- Análise de texto de botão em modal crítico e modal informativo (button text in critical and informational modals analysis)
+- Escrita de diálogo de confirmação com ação primária não destrutiva (confirmation dialog with nondestructive primary action writing)
+- Análise de hierarquia de CTA em tela de pagamento (CTA hierarchy on payment screen analysis)
+- Escrita de aviso de pagamento com preço total e periodicidade (payment notice with total price and billing frequency writing)
+- Análise de conteúdo de erro de cobrança por causa e próximo passo (billing error content by cause and next step analysis)
+- Análise de aviso de cobrança recorrente antes da confirmação (recurring charge notice before confirmation analysis)
+- Escrita de consentimento de compra por resumo de compromisso (purchase consent through commitment summary writing)
+- Análise de conteúdo de tela de cancelamento por opções simétricas (cancellation screen content through symmetric options analysis)
+- Análise de percurso de cancelamento por fricção e transparência (cancellation flow by friction and transparency analysis)
+- Escrita de confirmação de cancelamento com data efetiva (cancellation confirmation with effective date writing)
+- Análise de clareza de acesso ao suporte dentro do fluxo digital (clarity of support access within digital flow analysis)
+- Escrita de link para suporte com tempo de resposta esperado (support link with expected response time writing)
+- Análise de mensagem de suporte automatizado e opção humana (automated support message and human option analysis)
+- Análise de continuidade de contexto ao transferir de chatbot a agente (context continuity from chatbot to agent analysis)
+- Escrita de resumo de conversa para transferência ao atendimento humano (conversation summary for human support handoff writing)
+- Análise de transparência de bot e limites de capacidade (bot transparency and capability limits analysis)
+- Escrita de alternativa de navegação sem interação conversacional (alternative navigation without conversational interaction writing)
+
+- Análise de narrativa visual por enquadramento, sequência e legenda (visual narrative through framing, sequence, and caption analysis)
+- Escrita de legenda para explicar relevância de imagem (caption writing to explain image relevance)
+- Análise de ordem de imagem e texto em sequência editorial (image and text order in editorial sequence analysis)
+- Análise de significado produzido por justaposição de imagem e texto (meaning through image-text juxtaposition analysis)
+- Análise de ancoragem e revezamento entre texto e imagem (anchorage and relay between text and image analysis)
+- Análise de redundância, complementaridade e contradição multimodal (multimodal redundancy, complementarity, and contradiction analysis)
+- Análise de função do texto em relação à imagem: ancoragem ou revezamento (text function relative to image: anchorage or relay analysis)
+- Análise de tipografia como modo semiótico no conteúdo digital (typography as semiotic mode in digital content analysis)
+- Análise de cor como recurso semiótico acompanhado de código textual (color as semiotic resource with textual coding analysis)
+- Análise de composição multimodal por valor informacional, saliência e enquadramento (multimodal composition by information value, salience, and framing analysis)
+- Análise de valor informacional esquerda-direita em layout (left-right information value in layout analysis)
+- Análise de valor informacional topo-base em composição visual (top-bottom information value in visual composition analysis)
+- Análise de centro e margem em composição multimodal (center and margin in multimodal composition analysis)
+- Análise de saliência visual por contraste, escala e posição (visual salience by contrast, scale, and position analysis)
+- Análise de enquadramento por proximidade e separação visual (framing through visual proximity and separation analysis)
+- Análise de vetor visual como direção de leitura (visual vector as reading direction analysis)
+- Análise de hierarquia multimodal entre título, imagem e chamada (multimodal hierarchy among heading, image, and call to action analysis)
+- Análise de sequência de leitura em infográfico (reading sequence in infographic analysis)
+- Escrita de texto alternativo por propósito da imagem (alt text by image purpose writing)
+- Análise de decisão entre alt text vazio e descrição textual (empty alt text and text description decision analysis)
+- Escrita de descrição de imagem por contexto editorial (image description by editorial context writing)
+- Análise de equivalência de sentido entre audiodescrição e visual (meaning equivalence between audio description and visual content analysis)
+- Análise de audiodescrição por intervalo de silêncio disponível (audio description by available silence interval analysis)
+- Escrita de audiodescrição por ação, personagem e mudança visual (audio description by action, character, and visual change writing)
+- Análise de posicionamento de audiodescrição sem sobrepor fala essencial (audio description placement without covering essential speech analysis)
+- Análise de descrição de gráfico por pergunta que o gráfico responde (chart description by question answered analysis)
+- Escrita de descrição longa de gráfico por tendência, máximo e exceção (long chart description by trend, maximum, and exception writing)
+- Análise de visualização de dados por escala, unidade e população (data visualization by scale, unit, and population analysis)
+- Análise de legenda de gráfico por variáveis e relação demonstrada (chart caption by variables and demonstrated relation analysis)
+- Análise de correspondência entre título de gráfico e conclusão textual (chart title and textual conclusion correspondence analysis)
+- Análise de vídeo por modo de imagem, fala, som e texto sobreposto (video analysis by image, speech, sound, and overlay text)
+- Análise de legibilidade de texto sobreposto por contraste e duração (overlay text readability by contrast and duration analysis)
+- Escrita de texto cinético por sincronismo com fala (kinetic text timed to speech writing)
+- Análise de animação textual por carga cognitiva e preferência de movimento (text animation by cognitive load and motion preference analysis)
+- Análise de sincronização entre fala, legenda aberta e legenda fechada (speech, open captions, and closed captions synchronization analysis)
+- Escrita de transcrição multimodal com marcação de evento sonoro (multimodal transcript with sound event annotation writing)
+- Análise de transcrição verbatim, limpa e editada (verbatim, clean, and edited transcript analysis)
+- Análise de transcrição por identificação de falante e tempo (transcript by speaker identification and timing analysis)
+- Análise de conteúdo de podcast por abertura, segmento e encerramento (podcast content by opening, segment, and closing analysis)
+- Escrita de show notes por tópico, tempo e referência (show notes by topic, timestamp, and reference writing)
+- Análise de capítulo de vídeo por rótulo descritivo e tempo (video chapter by descriptive label and timestamp analysis)
+- Escrita de descrição de vídeo com conteúdo, público e acessibilidade (video description by content, audience, and accessibility writing)
+- Análise de narrativa de marca por imagem, som e texto (brand narrative through image, sound, and text analysis)
+- Análise de consistência de voz em conteúdo multimodal (voice consistency in multimodal content analysis)
+- Análise de chamada para ação em imagem versus legenda (call to action in image versus caption analysis)
+- Escrita de legenda social por contexto, informação e engajamento (social caption by context, information, and engagement writing)
+- Análise de texto de meme por imagem, legenda e intertexto (meme text through image, caption, and intertext analysis)
+- Análise de compreensão de meme fora do repertório cultural (meme comprehension outside cultural repertoire analysis)
+- Análise de humor multimodal por incongruência visual-verbal (multimodal humor through visual-verbal incongruity analysis)
+- Análise de acessibilidade de emoji em texto digital (emoji accessibility in digital text analysis)
+
+- Análise de semântica social em conteúdo multimodal (social semiotics in multimodal content analysis)
+- Análise multimodal por modo, meio e affordance (multimodal analysis by mode, medium, and affordance)
+- Análise de multimodalidade por texto, imagem, espaço e gesto (multimodality through text, image, space, and gesture analysis)
+- Análise de alinhamento intermodal de sentido (intermodal meaning alignment analysis)
+- Análise de complementaridade intermodal versus redundância (intermodal complementarity and redundancy analysis)
+- Análise de transdução semiótica entre texto e imagem (semiotic transduction between text and image analysis)
+- Análise de transdução de fala para infográfico (transduction from speech to infographic analysis)
+- Análise de recontextualização de conteúdo entre canais (content recontextualization across channels analysis)
+- Análise de adaptação de conteúdo por affordance do canal (content adaptation by channel affordance analysis)
+- Planejamento de conteúdo omnicanal por mensagem invariável e adaptação local (omnichannel content by invariant message and local adaptation planning)
+- Análise de consistência semântica entre site, aplicativo e mensagem (semantic consistency across site, app, and message analysis)
+- Análise de transmedia storytelling por expansão de mundo narrativo (transmedia storytelling through storyworld expansion analysis)
+- Análise de narrativa transmídia por contribuição específica de cada plataforma (transmedia narrative by platform-specific contribution analysis)
+- Análise de continuidade narrativa entre mídias (narrative continuity across media analysis)
+- Análise de participação do público em narrativa transmídia (audience participation in transmedia narrative analysis)
+- Análise de conteúdo expansível em rede de plataformas (expandable content across platform network analysis)
+- Análise de narrativa crossmedia versus narrativa transmídia (crossmedia and transmedia narrative distinction analysis)
+- Análise de adaptação de narrativa linear para interface interativa (linear narrative adaptation to interactive interface analysis)
+- Análise de mapa de navegação em ficção hipertextual (navigation map in hypertext fiction analysis)
+- Análise de link narrativo por função de mundo e função de trama (narrative link by world and plot function analysis)
+- Análise de affordance de escolha em narrativa digital (choice affordance in digital narrative analysis)
+- Análise de legibilidade de interface de ficção interativa (interactive fiction interface readability analysis)
+- Análise de texto de ajuda em narrativa de jogo (help text in game narrative analysis)
+- Escrita de tutorial de jogo integrado à ficção (diegetic game tutorial writing)
+- Análise de tutorial diegético e tutorial externo (diegetic and extradiegetic tutorial analysis)
+- Análise de exposição narrativa em ambiente de jogo (narrative exposition in game environment analysis)
+- Escrita de narrativa ambiental por sinalização e objeto (environmental narrative through signage and object writing)
+- Análise de narrativa ambiental e descoberta de informação (environmental narrative and information discovery analysis)
+- Análise de audiodescrição em jogo por ação e estado (game audio description by action and state analysis)
+- Análise de legenda de jogo por fala, som e evento (game captions by speech, sound, and event analysis)
+- Escrita de rótulo de acessibilidade em catálogo de jogo (accessibility label in game catalog writing)
+- Análise de texto de configuração de acessibilidade em jogo (accessibility settings text in game analysis)
+- Análise de indicação de conteúdo sensível antes de reprodução (sensitive content notice before playback analysis)
+- Escrita de transcrição descritiva para reunião em vídeo (descriptive transcript for video meeting writing)
+- Análise de conteúdo multimodal de reunião por decisão e fala (multimodal meeting content by decision and speech analysis)
+- Escrita de resumo de conversa com identificação de fonte e citação (conversation summary with source and quotation attribution writing)
+- Análise de sincronização entre resumo automático e registro original (automated summary and original record synchronization analysis)
+- Análise de correção humana de texto gerado automaticamente (human correction of automatically generated text analysis)
+- Escrita de aviso de resumo automatizado com limitações (automated summary notice with limitations writing)
+- Análise de transparência de proveniência de texto sintético (synthetic text provenance transparency analysis)
+- Análise de indicação de citação gerada versus citação verificada (generated and verified citation distinction analysis)
+- Análise de checagem de referência automatizada (automated reference verification analysis)
+- Escrita de conteúdo gerado com fontes anexadas e ressalva (generated content with attached sources and qualification writing)
+- Análise de risco de atribuição falsa em resposta digital (false attribution risk in digital response analysis)
+- Análise de marcadores de conteúdo automatizado em fluxo de informação (automated content labels in information flow analysis)
+- Análise de disclosure sintético por clareza e proximidade (synthetic content disclosure by clarity and proximity analysis)
+- Análise de contexto de conteúdo gerado por usuário em busca interna (user-generated content context in internal search analysis)
+- Escrita de aviso de conteúdo não revisado por moderador (content not reviewed by moderator notice writing)
+- Análise de estrutura de feed por origem, horário e promoção (feed structure by source, time, and promotion analysis)
+- Análise de legibilidade de rótulo de anúncio nativo (native advertising label readability analysis)
+- Texto alternativo funcional
+- Texto alternativo decorativo
+- Descrição longa de gráfico
+- Legenda descritiva de imagem
+- Transcrição de conteúdo audiovisual
+- Transcrição com identificação de falantes
+- Transcrição com indicação de sons
+- Audiodescrição integrada
+- Audiodescrição estendida
+- Legenda aberta
+- Legenda fechada
+- Legenda para surdos e ensurdecidos
+- Sincronização de legendas
+- Segmentação de legendas
+- Quebra de linha em legenda
+- Identificação de falante em legenda
+- Descrição de sons relevantes
+- Texto de apoio para vídeo
+- Roteiro de audiodescrição
+- Texto de narração sobreposta
+- Hierarquia de títulos semântica
+- Ordem de leitura do conteúdo
+- Ordem de foco em interface
+- Região navegável por landmarks
+- Link com contexto suficiente
+- Link de salto para conteúdo
+- Rótulo acessível de controle
+- Nome acessível de botão
+- Mensagem de status anunciável
+- Atualização dinâmica anunciada
+- Texto de erro associado a campo
+- Instrução de formulário programaticamente vinculada
+- Explicação de CAPTCHA acessível
+- Alternativa textual para mapa
+- Alternativa tabular para visualização
+- Tabela responsiva com cabeçalhos
+- Cabeçalho de tabela associado
+- Resumo de tabela complexa
+- Descrição de infográfico
+- Texto equivalente de gráfico
+- Indicação textual de tendência
+- Codificação redundante de cor
+- Padrão visual além da cor
+- Rótulo persistente de campo
+- Placeholder não substitutivo
+- Texto de foco visível
+- Indicação de estado selecionado
+- Indicação de estado expandido
+- Descrição de acordeão
+- Nome de grupo de controles
+- Instrução de navegação por teclado
+- Aviso de abertura em nova janela
+- Identificação de formato de arquivo
+- Tamanho de arquivo em link
+- Aviso de download automático
+- Descrição de mídia incorporada
+- Controle de reprodução acessível
+- Texto para pausa de animação
+- Aviso de conteúdo piscante
+- Resumo de carrossel
+- Rótulo de slide atual
+- Instrução de navegação em carrossel
+- Aviso de atualização automática
+- Controle para interromper rotação
+- Descrição de conteúdo em camadas
+- Rótulo de conteúdo expansível
+- Resumo de seção expansível
+- Âncora textual descritiva
+- Índice navegável
+- Mapa de site textual
+- Breadcrumb acessível
+- Rótulo de paginação
+- Identificação de página atual
+- Descrição de filtro ativo
+- Resumo de resultados filtrados
+- Anúncio de quantidade de resultados
+- Texto de estado vazio acessível
+- Indicação textual de ordenação
+- Rótulo de ordenação crescente
+- Rótulo de ordenação decrescente
+- Descrição de mudança de contexto
+- Aviso antes de limite de tempo
+- Extensão de tempo acessível
+- Texto de confirmação antes de expirar
+- Alternativa a gesto complexo
+- Instrução de gesto em texto
+- Equivalente de arrastar e soltar
+- Alternativa a interação por movimento
+- Rótulo de área clicável
+- Descrição de elemento interativo
+- Texto de instrução multimodal
+- Equivalente verbal de instrução visual
+- Referência textual a posição espacial
+- Descrição de cor com nome e função
+- Indicação de direção além de seta
+- Texto para estado de carregamento
+- Texto para progresso indeterminado
+- Descrição de progresso percentual
+- Aviso de conteúdo atualizado
+- Resumo de atualização incremental
+- Texto de fallback de mídia
+- Mensagem para formato não suportado
+- Link para formato alternativo
+- Descrição de componente incorporado
+- Rótulo para região de anúncio
+- Indicação de conteúdo patrocinado
+- Identificação de conteúdo gerado por usuário
+- Identificação de conteúdo sintético
+- Sinalização de edição em imagem
+- Legenda contextual de fotografia
+- Crédito de autoria acessível
+- Atribuição vinculada à imagem
+- Relação entre imagem e texto
+- Coerência de texto e ícone
+- Redundância informativa controlada
+- Complementaridade entre texto e visual
+- Contraste semântico multimodal
+- Densidade informacional visual
+- Sequência de leitura em infográfico
+- Ancoragem verbal de dado visual
+- Narrativa visual sequencial
+- Ritmo de revelação de informação
+- Progressão multimodal
+- Sincronização entre fala e tela
+- Consistência de terminologia em legenda
+- Tradução de texto em imagem
+- Localização de elemento gráfico
+- Direção de leitura em interface localizada
+- Adaptação de texto expansível
+- Resiliência a quebra de linha
+- Tolerância a zoom textual
+- Adaptação a orientação de tela
+- Conteúdo fluido para janela estreita
+- Reordenação responsiva de conteúdo
+- Priorização de informação móvel
+- Conteúdo essencial sem script
+- Fallback sem JavaScript
+- Texto para falha de carregamento
+- Mensagem para conexão lenta
+- Conteúdo disponível em baixa largura de banda
+- Sincronização de conteúdo offline
+- Aviso de dado armazenado localmente
+- Texto para conflito de sincronização
+- Indicação de versão desatualizada
+- Marcador de conteúdo revisado
+- Link profundo estável
+- URL legível e significativa
+- Identificador persistente de recurso
+- Rótulo de link compartilhável
+- Prévia textual de link
+- Metadado de descrição social
+- Título de página descritivo
+- Resumo para mecanismo de busca
+- Descrição de imagem para compartilhamento
+- Cartão de prévia acessível
+- Open Graph textual
+- Texto de snippet
+- Metadescrição informativa
+- Canonicalização de título
+- Navegação por facetas
+- Link contextual em hipertexto
+- Relação entre conteúdo relacionado
+- Anotação marginal digital
+- Nota de rodapé navegável
+- Referência cruzada clicável
+- Citação com link persistente
+- Referência bibliográfica em formato legível por máquina
+- Texto âncora contextual
+- Prevenção de link quebrado
+- Aviso de destino indisponível
+- Redirecionamento explicado
+- Indicador de link externo
+- Indicação de autenticação necessária
+- Prévia de conteúdo restrito
+- Rótulo de paywall
+- Resumo antes de acesso restrito
+- Link de retorno ao ponto de origem
+- Navegação preservando contexto
+- Busca interna com consulta sugerida
+- Sugestão de consulta relacionada
+- Consulta de busca corrigida
+- Destaque de termo encontrado
+- Resumo de correspondências
+- Navegação por resultado de busca
+- Texto de filtro combinável
+- Contagem facetada de resultados
+- Breadcrumb de busca
+- Histórico de consulta controlável
+- Texto de recomendação explicável
+- Relação semântica de conteúdo recomendado
+- Indicação de conteúdo semelhante
+- Aviso de personalização da busca
+- Controle de recomendação
+- Explicação de critério de ordenação
+- Rótulo de conteúdo atualizado recentemente
+- Data de publicação acessível
+- Data de atualização visível
+- Identificação de conteúdo arquivado
+- Aviso de versão substituída
+- Link para versão vigente
+- Histórico de revisão navegável
+- Comparação textual de versões
+- Marcação de alteração
+- Diff semântico de conteúdo
+- Anotação colaborativa contextual
+- Comentário vinculado a trecho
+- Navegação por comentários
+- Identificação de revisão pendente
+- Estado de edição compartilhada
+- Indicação de cursor colaborativo
+- Mensagem de conflito de autoria
+- Atribuição de trecho colaborativo
+- Permissão de leitura em voz alta
+- Controle de velocidade de leitura
+- Destaque sincronizado com narração
+- Modo de leitura simplificada
+- Personalização de espaçamento textual
+- Ajuste de fonte pelo usuário
+- Preferência de largura de coluna
+- Conteúdo compatível com reflow
+- Prevenção de rolagem em duas dimensões
+- Navegação sequencial de conteúdo
+- Ponto de referência em texto longo
+- Indicador de posição no documento
+- Sumário progressivo
+- Link para voltar ao topo
+- Link para continuar leitura
+- Restauração de posição de leitura
+- Divisão de conteúdo em capítulos
+- Marcador de leitura
+- Trecho destacado recuperável
+- Nota pessoal associada ao conteúdo
+- Exportação acessível de conteúdo
+- Impressão sem elementos decorativos
+- Versão para impressão legível
+- Texto preservado ao copiar
+- Ordem semântica na área de transferência
+
+## Pesquisa, corpus e avaliação de textos
+
+- Atribuição de Agência (Agency Attribution)
+- Prova Social de Escala Comunitária
+- Clareza de formas e momento de pagamento (Payment-Method Clarity)
+- Hierarquia de atributos de comparação (Comparison Attribute Hierarchy)
+- Microcopy de elegibilidade de cupom e promoção (Promo Code & Discount Eligibility Copy)
+- Método socrático ou maiêutica (Socratic Questioning / Elenchus)
+- Modelo tridimensional da Análise Crítica do Discurso (Three-Dimensional Critical Discourse Analysis Model)
+- Análise de transitividade (Transitivity Analysis)
+- Indexicalidade discursiva (Discursive Indexicality)
+- Leiturabilidade e métricas de legibilidade (Text Readability and Legibility Metrics)
+- Análise multidimensional de registro de Biber (Biber’s Multi-Dimensional Register Analysis)
+- Estilística de corpus e palavras-chave (Corpus Stylistics and Keyness)
+- Análise de ergatividade de Halliday (Halliday’s Ergativity Analysis)
+- Análise crítica de metáforas (Critical Metaphor Analysis)
+- Gramática sistêmico-funcional: escala de delicadeza e eixo paradigmático (Systemic Functional Grammar: Scale of Delicacy and Paradigmatic Axis)
+- Hipótese de transitividade escalar de Hopper e Thompson (Hopper and Thompson’s Scalar Transitivity Hypothesis)
+- Análise crítica de gêneros de Bhatia: espaço sociorretórico e integridade genérica (Bhatia’s Critical Genre Analysis)
+- Análise de discurso mediada de Scollon (Scollon’s Mediated Discourse Analysis)
+- Análise da interação multimodal de Norris (Norris’ Multimodal Interaction Analysis)
+- Cotejo de originais e conferência de provas (Copy-Editing Proofreading and Original Collation)
+- Revisão de coerência cronológica. espacial e de personagens (Continuity Editing)
+- Revisão de fluxos multietapa e continuidade entre telas (Cross-Screen Continuity Editing)
+- CDC Clear Communication Index para clareza de conteúdo (CDC Clear Communication Index)
+- PEMAT: ferramenta de avaliação de materiais educativos para pacientes (Patient Education Materials Assessment Tool)
+- Fórmula de legibilidade SMOG (SMOG Readability Formula)
+- Índice de legibilidade Gunning Fog (Gunning Fog Index)
+- Índice de legibilidade Coleman-Liau (Coleman-Liau Index)
+- Índice de Legibilidade Automatizado — ARI (Automated Readability Index)
+- Fórmula de legibilidade Dale-Chall (Dale-Chall Readability Formula)
+- Fórmula de legibilidade Spache (Spache Readability Formula)
+- Fórmula de legibilidade FORCAST (FORCAST Readability Formula)
+- Índice de legibilidade LIX (LIX Readability Formula)
+- Análise de padrões de leitura por rastreamento ocular (Eye-Tracking Reading Pattern Analysis)
+- Escala Lexile de leitura (Lexile Framework for Reading)
+- Índice de legibilidade RIX (RIX Readability Index)
+- Escala de diferencial semântico para tom de voz (Semantic Differential Scale)
+- Escala de usabilidade do sistema adaptada para conteúdo (SUS Adapted for Content)
+- Rubrica de legibilidade e clareza de conteúdo (Content Readability and Plainness Rubric)
+- Avaliador Coh-Metrix de facilidade textual (Coh-Metrix Text Easability Assessor)
+- Métricas Coh-Metrix-Port de legibilidade do português (Coh-Metrix-Port)
+- Fórmula de legibilidade de Tuckman (Tuckman Readability Formula)
+- Índice de legibilidade de Bormuth (Bormuth Readability Index)
+- Fórmula de legibilidade Powers-Sumner-Kearl (Powers-Sumner-Kearl Readability Formula)
+- Índice de Legibilidade de Flesch adaptado ao português — ILF (Portuguese Flesch Readability Index)
+- Índice de Gunning Fog adaptado ao português — IGF-PT (Portuguese Gunning Fog Index)
+- Índice de Gulpease adaptado ao português (Portuguese Gulpease Index)
+- Índice Brunet de diversidade lexical — W (Brunet Index)
+- Medida de Diversidade Lexical Textual — MTLD (Measure of Textual Lexical Diversity)
+- Índice de densidade proposicional — ID-Prop (Propositional Density Index)
+- Coeficiente de legibilidade Fernández Huerta — IFH (Fernández Huerta Readability Index)
+- Análise Semântica Latente — LSA (Latent Semantic Analysis)
+- Razão tipo-ocorrência — TTR (Type-Token Ratio)
+- Razão tipo-ocorrência por média móvel — MATTR (Moving-Average Type-Token Ratio)
+- Métricas de transição de entidades da Teoria da Centralização (Centering Theory Entity Transition Metrics)
+- Índices de sobreposição de argumentos e radicais (Argument and Stem Overlap Indices)
+- Índices de complexidade sintática L2SCA (L2 Syntactic Complexity Analyzer)
+- Escala de desenvolvimento sintático D-Level (D-Level Scale)
+- Métricas de profundidade sintática de Yngve e Frazier (Yngve and Frazier Depth Metrics)
+- TAACO: ferramenta de análise automática da coesão (Tool for the Automatic Analysis of Cohesion)
+- TAALES: ferramenta de análise automática da sofisticação lexical (Tool for the Automatic Analysis of Lexical Sophistication)
+- TAASSC: ferramenta de análise automática da complexidade sintática (Tool for the Automatic Analysis of Syntactic Sophistication and Complexity)
+- GAMET: ferramenta de análise de gramática e mecânica textual (Grammar and Mechanics Error Tool)
+- SEANCE: mecanismo de análise de sentimento e cognição social (Sentiment Analysis and Social Cognition Engine)
+- Análise linguística por categorias LIWC (Linguistic Inquiry and Word Count)
+- Análise de corpus e concordâncias com AntConc (AntConc Corpus Analysis Toolkit)
+- Análise morfossintática do português com PALAVRAS (PALAVRAS Constraint Grammar Parser)
+- Análise de corpus com Sketch Engine (Sketch Engine Corpus Analysis)
+- Método paramédico de revisão (Paramedic Method)
+- Protocolo de revisão por leitura em voz alta (Reading-Aloud Editing Protocol)
+- Método RADAR de revisão: substituir. adicionar. excluir e reordenar (RADAR Revision Method)
+- Revisão por leitura de trás para frente (Backward-Reading Proofreading)
+- Regra do corte de 10% e edição por compressão (10% Cut Rule / Compression Editing)
+- Checklist CUPS: maiúsculas. uso. pontuação e ortografia (CUPS Editing Checklist)
+- Métricas Multidimensionais de Qualidade — MQM (Multidimensional Quality Metrics)
+- Pós-edição de tradução automática — MTPE (Machine Translation Post-Editing)
+- Fluxo TEP de serviços de tradução: traduzir. editar e revisar (Translation-Editing-Proofreading Workflow)
+- Transedição: tradução combinada com edição jornalística (Transediting)
+- Métrica SAE J2450 de qualidade de tradução (SAE J2450 Translation Quality Metric)
+- Rubrica de avaliação de tradução da ATA (ATA Certification Grading Framework)
+- Auditoria de sincronização com fonte primária de dados (Golden-Source Data Synchronization Audit)
+- Auditoria de herança de atributos entre produto-pai e variações (Variant-to-Parent Attribute Inheritance Audit)
+- Modelo COPE: criar uma vez e publicar em todos os lugares (Create Once. Publish Everywhere)
+- Método STOP de organização temática sequencial (Sequential Thematic Organization of Publications)
+- Método Zettelkasten de notas atômicas interligadas (Zettelkasten Slip-Box Method)
+- Método PARA de organização: projetos. áreas. recursos e arquivos (PARA Method)
+- Sistema de indexação hierárquica Johnny.Decimal (Johnny.Decimal System)
+- Indexação por palavra-chave em contexto — KWIC (Keyword in Context Indexing)
+- Método de explicação contrastiva entre fato e contraste (Contrastive Explanation Method)
+- Diagnóstico de abandono por campo em formulários (Form Field Dropout Analysis)
+- Métrica UMUX-LITE de usabilidade e clareza funcional (Usability Metric for User Experience)
+- Formato de checagem de fatos e desconstrução de mitos (Myth-Buster / Fact-Check Format)
+- Análise comentada de documento primário (Annotated Source Walkthrough)
+- Especificação de rota de escalonamento e condição de parada (Escalation and Fallback Pathway)
+- Plano MEAL: ideia principal. evidência. análise e ligação (MEAL Plan)
+- Método SEE-I: afirmar. elaborar. exemplificar e ilustrar (SEE-I Method)
+- Método ICE para integrar e analisar fontes (Introduce. Cite. Explain)
+- Calibração de verbos de atribuição e frases-sinal (Signal Phrase Attribution Calibration)
+- Classificação retórica de uso de fontes BEAM (Background. Exhibit. Argument. Method)
+- Matriz de análise de hipóteses concorrentes — ACH (Analysis of Competing Hypotheses)
+- Transparência metodológica antes das conclusões (Methodology-Before-Findings Transparency)
+- Análise de categorização de pertença — MCA (Membership Categorization Analysis)
+- Processamento Linguístico Suficientemente Bom e Análise Superficial (Good-Enough Language Processing and Shallow Parsing)
+- Índice de Harmonia Coesiva (Cohesive Harmony Index)
+- Razão Tipo-Ocorrência e Medida de Diversidade Lexical (TTR and MTLD)
+- Índices Coh-Metrix de Simplicidade Sintática e Coesão Referencial (Coh-Metrix Indices)
+- Hipótese da Simulação Incorporada na Compreensão Linguística (Embodied Simulation Hypothesis)
+- Análise Multidimensional da Variação de Registro (Multi-Dimensional Analysis of Register Variation)
+- Análise de Palavras-Chave e Razão de Verossimilhança Logarítmica (Keyness and Log-Likelihood Ratio)
+- Informação Mútua. Escore T e Log-Dice para Extração de Colocações (MI. T-Score. Log-Dice)
+- Anotação da Teoria da Estrutura Retórica em Árvore Discursiva (RST Treebank Annotation)
+- Anotação de Relações Discursivas Explícitas e Implícitas do PDTB (Penn Discourse Treebank)
+- Métricas de Concordância Entre Anotadores: Kappa e Alfa de Krippendorff (Inter-Annotator Agreement)
+- Normas de Prevalência Lexical. Idade de Aquisição e Concretude (Word Prevalence. AoA. Concreteness Norms)
+- Estrutura IMRaD de Artigos Científicos (Introduction. Methods. Results. Discussion)
+- Análise de Gêneros Textuais e Comunidades Discursivas (Genre Analysis and Discourse Communities)
+- Avaliação Analítica e Holística da Escrita por Rubricas (Analytic and Holistic Rubric-Based Writing Assessment)
+- Análise de Erros e Interlíngua na Produção Escrita (Error Analysis and Interlanguage)
+- Análise do Discurso Multimodal e Gramática do Design Visual (Multimodal Discourse Analysis)
+- Análise do Discurso Mediada por Computador: Esquema Facetado (Computer-Mediated Discourse Analysis)
+- Leitura Lateral para Avaliação de Fontes (Lateral Reading)
+- Método SIFT de Verificação de Alegações (Stop. Investigate. Find. Trace)
+- Teste CRAAP para Avaliação de Fontes (Currency. Relevance. Authority. Accuracy. Purpose)
+- Hierarquia de Evidências Científicas e Avaliação GRADE (GRADE Framework)
+- Rastreamento de Citações e Verificação de Fontes Primárias e Secundárias (Citation Tracing)
+- Método STOP de Organização Sequencial Temática de Propostas (Sequential Thematic Organization of Proposals)
+- Revisão por Pares Duplo-Cega. Simples-Cega e Aberta (Double-Blind. Single-Blind. Open Peer Review)
+- Edição Substantiva. Copyediting e Revisão de Provas (Substantive Editing. Copyediting. Proofreading)
+- Revisão por Pares Pós-Publicação e Revisão Transferível (Post-Publication and Portable Peer Review)
+- Nivelamento Textual por Lexile e Escalas CEFR (Text Leveling)
+- Teste de recordação e reconhecimento (Recall and Recognition Testing)
+- Frequência de termo inversa da frequência em documentos — TF-IDF (Term Frequency–Inverse Document Frequency)
+- Alocação Latente de Dirichlet — LDA (Latent Dirichlet Allocation)
+- Teste diagnóstico de Belcher (Belcher Diagnostic Test)
+- Validação por especialista no assunto (Subject-Matter Expert Validation)
+- Avaliação de adequação de materiais — SAM (Suitability Assessment of Materials)
+- Estudo de caso por engenharia reversa (Teardown Case Study)
+- Triangulação entre fontes primárias. secundárias e terciárias (Source-Type Triangulation)
+- Declaração de limitações e condições de contorno (Limitations and Boundary Conditions Disclosure)
+- Etiquetagem do grau de confiança analítica (Confidence-Level Tagging)
+- Análise de feixes lexicais (Lexical Bundles Analysis)
+- Modelo de compreensibilidade textual de Hamburgo (Hamburg Comprehensibility Model)
+- Tríade de avaliação textual CAF: complexidade. acurácia e fluência (Complexity. Accuracy. and Fluency Framework)
+- Julgamento comparativo adaptativo na avaliação da escrita (Adaptive Comparative Judgment)
+- Perfil de frequência lexical de Laufer e Nation (Lexical Frequency Profile)
+- Estimativa automática de qualidade de tradução (Machine Translation Quality Estimation)
+- Métricas automáticas de avaliação de tradução BLEU. chrF e COMET (BLEU. chrF. and COMET Metrics)
+- Norma ISO 5060 de avaliação da qualidade de produtos de tradução (ISO 5060 Evaluation of Translation Output)
+- Métrica ROUGE de avaliação de sumarização textual (ROUGE Summarization Metric)
+- Registro de digitação e análise de pausas na produção textual (Keystroke Logging and Pause Analysis)
+- Estrutura de qualidade da informação de Wang e Strong (Wang and Strong’s Information Quality Framework)
+- Análise colostrutural (Collostructional Analysis)
+- Estudos do discurso assistidos por corpus (Corpus-Assisted Discourse Studies)
+- Medidas de dispersão lexical em corpus (Lexical Dispersion Measures)
+- Abordagens baseada em corpus e guiada por corpus (Corpus-Based and Corpus-Driven Approaches)
+- Concgramas e coocorrência fraseológica não contígua (Concgrams)
+- Análise de padrões de corpus de Hanks (Corpus Pattern Analysis)
+- Representatividade e desenho amostral de corpus (Corpus Representativeness and Sampling Design)
+- Perfil comportamental baseado em corpus (Behavioral Profile Approach)
+- Análise de movimentos e passos retóricos (Move-Step Analysis)
+- Colônias de gêneros de Bhatia (Genre Colonies)
+- Pesquisa com corpora de aprendizes (Learner Corpus Research)
+- Efeito retroativo na avaliação linguística (Assessment Washback Effect)
+- Análise de conteúdo sistemática (Systematic Content Analysis)
+- Segmentação linear de tópicos por TextTiling (TextTiling Text Segmentation)
+- Avaliação por portfólio de escrita (Writing Portfolio Assessment)
+- Avaliação contratual baseada no trabalho (Labor-Based Grading Contracts)
+- Rajadas de produção textual: P-bursts e R-bursts (Writing Bursts: P-Bursts and R-Bursts)
+- Distribuição temporal dinâmica dos processos de escrita de van den Bergh e Rijlaarsdam (Temporal Distribution of Writing Processes)
+- Análise de progressão e gráficos de progressão na escrita (Progression Analysis and Progression Graphs)
+- Notação S para análise de revisões em tempo real (S-Notation for Text Production Analysis)
+- Razão produto-processo na fluência de produção textual (Product-to-Process Ratio in Text Production)
+- Rastreamento ocular simultâneo à escrita: paradigma Eye-and-Pen (Simultaneous Eye-Tracking and Writing)
+- Protocolo de recordação estimulada na análise da produção textual (Stimulated Recall Protocol in Writing Research)
+- Delta de Burrows (Burrows’s Delta)
+- Zeta de Burrows e Craig (Burrows’s and Craig’s Zeta)
+- Distância intertextual de Labbé (Labbé’s Intertextual Distance)
+- Método dos impostores de Koppel e Winter (Koppel and Winter’s Impostors Method)
+- Desmascaramento autoral de Koppel e Schler (Authorship Unmasking)
+- Perfis de n-gramas comuns de caracteres — CNG (Common N-Grams Method)
+- Estilometria rolante para textos colaborativos (Rolling Stylometry)
+- Árvores de consenso bootstrap em estilometria (Bootstrap Consensus Trees in Stylometry)
+- Análise bayesiana de palavras funcionais de Mosteller e Wallace (Mosteller and Wallace’s Function-Word Analysis)
+- Curva característica de composição de Mendenhall (Mendenhall’s Characteristic Curve of Composition)
+- Estilometria de n-gramas sintáticos — sn-grams (Syntactic N-Grams Stylometry)
+- Distorção textual para estilometria independente de tópico (Text Distortion for Topic-Independent Stylometry)
+- Estilocronometria (Stylochronometry)
+- Perfilagem autoral computacional (Computational Author Profiling)
+- Identificação da língua nativa — NLI (Native Language Identification)
+- Estilometria adversária e ofuscação autoral (Adversarial Stylometry and Authorship Obfuscation)
+- Detecção de plágio intrínseco e mudança de estilo (Intrinsic Plagiarism and Style Change Detection)
+- Distância de compressão normalizada — NCD (Normalized Compression Distance)
+- Lei de Zipf (Zipf’s Law)
+- Lei de Heaps ou lei de Herdan (Heaps’s Law / Herdan’s Law)
+- Lei de Menzerath-Altmann (Menzerath-Altmann Law)
+- Lei de Piotrowski-Altmann de mudança linguística (Piotrowski-Altmann Law)
+- Linguística sinergética de Köhler (Köhler’s Synergetic Linguistics)
+- Modelos LNRE de distribuição de frequências lexicais (Large Number of Rare Events Models)
+- Ponto h de Popescu em linguística quantitativa (Popescu’s h-Point)
+- Diversidade lexical probabilística vocd-D e HD-D (vocd-D and Hypergeometric Distribution Diversity)
+- Medida de produtividade morfológica P de Baayen (Baayen’s Morphological Productivity Measure P)
+- Entropia de Shannon aplicada a textos (Shannon Entropy in Quantitative Text Analysis)
+- Análise de rajadas lexicais ou burstiness (Lexical Burstiness Analysis)
+- Expoente de Hurst e correlações de longo alcance em textos (Hurst Exponent and Long-Range Text Correlations)
+- Medida de associação direcional Delta P (Delta P Directional Association Measure)
+- Análise de quadros fraseológicos — p-frames (Phrase-Frames Analysis)
+- Análise de redes de colocações — GraphColl (Collocation Networks Analysis)
+- Agrupamento de vizinhos baseado em variabilidade — VNC (Variability-Based Neighbor Clustering)
+- Palavras-trava em linguística de corpus (Lockwords in Corpus Linguistics)
+- Extração terminológica por valor C e NC (C-Value / NC-Value Term Extraction)
+- Distância qui-quadrado de Kilgarriff para comparação de corpora (Kilgarriff’s Chi-Square Corpus Similarity Measure)
+- Índice de especificidade lexical de Lafon (Lafon’s Lexical Specificity Index)
+- Análise fatorial de correspondências em textometria (Correspondence Analysis in Textometry)
+- Classificação hierárquica descendente de Reinert — ALCESTE (Reinert’s Descending Hierarchical Classification)
+- Etiquetagem semântica de corpus USAS e domínios semânticos-chave (USAS Semantic Tagging and Key Semantic Domains)
+- Algoritmo Fightin’ Words de Monroe. Colaresi e Quinn (Monroe’s Fightin’ Words Method)
+- Modelagem de tópicos estrutural — STM (Structural Topic Modeling)
+- Escalonamento textual Wordfish de Slapin e Proksch (Wordfish Text Scaling)
+- Detecção de reuso textual por shingling e winnowing (Shingling and Winnowing Text Reuse Detection)
+- Modelo de avaliação da qualidade de tradução de House: tradução manifesta e encoberta (House’s Translation Quality Assessment Model: Overt and Covert Translation)
+- Avaliação de tradução centrada na argumentação de Williams (Williams’s Argumentation-Centered Translation Quality Assessment)
+- Modelo comparativo-descritivo de mudanças tradutórias de Leuven-Zwart (Leuven-Zwart’s Comparative-Descriptive Shift Model)
+- Parâmetros de revisão tradutória de Mossop (Mossop’s Translation Revision Parameters)
+- Modelo FAR de avaliação da qualidade de legendagem de Pedersen (Pedersen’s FAR Model for Subtitling Quality)
+- Modelo NER de avaliação da qualidade de legendagem ao vivo de Romero-Fresco (NER Model for Live Subtitling Quality)
+- Avaliação direta na avaliação humana de tradução automática (Direct Assessment in Machine Translation Evaluation)
+- Avaliação de adequação e fluência na tradução (Adequacy and Fluency Evaluation)
+- Taxa de edição humana direcionada na avaliação de tradução — HTER (Human-Targeted Translation Edit Rate)
+- Critérios de qualidade da interpretação de Bühler e Kurz (Bühler and Kurz’s Interpreting Quality Criteria)
+- Teste de Letramento Funcional em Saúde para Adultos — TOFHLA (Test of Functional Health Literacy in Adults)
+- Estimativa Rápida de Letramento de Adultos em Medicina — REALM (Rapid Estimate of Adult Literacy in Medicine)
+- Instrumento Newest Vital Sign — NVS (Newest Vital Sign)
+- Questionário de Letramento em Saúde — HLQ (Health Literacy Questionnaire)
+- Escala de Letramento Gráfico (Graph Literacy Scale)
+- Fórmula PMOSE/IKIRSCH de legibilidade de documentos estruturados (PMOSE/IKIRSCH Document Readability Formula)
+- Teste de compreensibilidade de símbolos gráficos ISO 9186 (ISO 9186 Graphical Symbols Comprehensibility Testing)
+- Instrumento LIDA de avaliação de informação de saúde online (LIDA Instrument)
+- Ferramenta de Avaliação de Adequação Cultural — CSAT (Cultural Sensitivity Assessment Tool)
+- Ferramenta de avaliação do ambiente de letramento em saúde — HLE2 (Health Literacy Environment of Hospitals and Health Centers)
+- Ferramenta TEMPtEd de avaliação de materiais educativos para pacientes (Tool to Evaluate Materials Used in Patient Education)
+- Escala OPTION de observação do envolvimento do paciente (OPTION Scale)
+- Questionário de Decisão Compartilhada de Nove Itens — SDM-Q-9 (9-Item Shared Decision Making Questionnaire)
+- Rastreamento iconográfico de Laurie Gries (Iconographic Tracking)
+- Métricas estruturais de hipertexto: compacidade e estrato (Hypertext Compactness and Stratum Metrics)
+- Análise fásica e transcrição multimodal de Baldry e Thibault (Multimodal Transcription and Phasal Analysis)
+
+- Análise de concordâncias (concordance analysis)
+- Lista de palavras-chave por especificidade (keyness analysis)
+- Razão log-likelihood em análise de corpus (log-likelihood keyness)
+- Análise de colocados por janela de coocorrência (collocate window analysis)
+- Análise de n-gramas e sequências recorrentes (n-gram analysis)
+- Análise de dispersão lexical no corpus (lexical dispersion analysis)
+- Normalização de frequência por tamanho de corpus (frequency normalization)
+- Análise de hapax legomena (hapax legomena analysis)
+- Análise de diversidade lexical por MTLD (MTLD lexical diversity analysis)
+- Análise de diversidade lexical por HD-D (HD-D lexical diversity analysis)
+- Análise de densidade lexical (lexical density analysis)
+- Análise de complexidade sintática por unidade-T (T-unit syntactic complexity analysis)
+- Análise de legibilidade por coorte de leitor (reader-cohort readability analysis)
+- Análise de variabilidade intraindividual de escrita (within-writer variation analysis)
+- Análise de variação entre registros (register variation analysis)
+- Análise multidimensional de registros de Biber (Biber multidimensional analysis)
+- Análise de características distintivas de gênero textual (genre feature analysis)
+- Anotação de atos retóricos em movimentos (rhetorical move annotation)
+- Análise de estrutura de movimentos retóricos (rhetorical move structure analysis)
+- Análise de marcadores metadiscursivos de Hyland (Hyland metadiscourse analysis)
+- Análise de marcadores de posicionamento e engajamento (stance and engagement marker analysis)
+- Análise de hedges e boosters em corpus (hedge and booster analysis)
+- Análise de cadeias referenciais em corpus (corpus-based referential chain analysis)
+- Análise de redes lexicais semânticas (semantic lexical network analysis)
+- Análise de tópicos latentes em coleção textual (latent topic analysis)
+- Análise de sentimentos baseada em aspecto (aspect-based sentiment analysis)
+- Análise de concordância entre anotadores (inter-annotator agreement analysis)
+- Coeficiente kappa de Cohen para anotação textual (Cohen’s kappa for text annotation)
+- Alfa de Krippendorff para confiabilidade de anotação (Krippendorff’s alpha for annotation reliability)
+- Análise de validade de construto em rubricas (construct validity analysis for rubrics)
+- Análise de validade convergente e discriminante de medida textual (convergent and discriminant validity analysis)
+- Análise de sensibilidade de métricas textuais (text metric sensitivity analysis)
+- Análise de erro por categoria de anotação (annotation category error analysis)
+- Análise de erro por subgrupo de leitores (reader subgroup error analysis)
+- Análise de precisão e revocação em classificação textual (precision and recall analysis for text classification)
+- Curva ROC para avaliação de classificador textual (ROC curve for text classifier evaluation)
+- Validação cruzada estratificada em tarefa textual (stratified cross-validation for text tasks)
+- Análise de ablação de características textuais (text feature ablation analysis)
+- Análise de importância de características em classificação textual (feature importance analysis for text classification)
+- Análise de deriva temporal de vocabulário (temporal vocabulary drift analysis)
+- Análise de representatividade de amostra de corpus (corpus sample representativeness analysis)
+- Análise de saturação temática em corpus qualitativo (thematic saturation analysis in qualitative corpus)
+- Análise comparativa de corpora por subgênero (subgenre corpus comparison)
+- Análise de metadados e proveniência de corpus (corpus metadata and provenance analysis)
+- Análise de viés de seleção em corpus (corpus selection bias analysis)
+- Análise de balanceamento de corpus por gênero e período (corpus balancing by genre and period)
+- Análise de robustez de anotação sob critérios alternativos (annotation robustness analysis under alternative criteria)
+- Análise de desempenho de leitura por tarefa e formato (reading performance by task and format analysis)
+- Análise de resposta a teste de compreensão literal e inferencial (literal and inferential comprehension assessment analysis)
+- Análise de tempo de leitura por segmento (segment-level reading time analysis)
+- Análise de regressão de medidas de compreensão textual (text comprehension measure regression analysis)
+- Análise de validade ecológica de tarefa de leitura (ecological validity analysis for reading tasks)
+- Análise de efeito de ordem em experimento de leitura (order effect analysis in reading experiment)
+- Análise de consistência interna de escala de compreensão (internal consistency analysis for comprehension scale)
+- Análise de dificuldade de itens em avaliação textual (item difficulty analysis in text assessment)
+- Análise de funcionamento diferencial de item em leitura (differential item functioning in reading)
+- Análise de sensibilidade a alterações de prompt em avaliação textual (prompt perturbation sensitivity in text evaluation)
+- Análise de correspondência entre avaliadores humanos e métricas automáticas (human and automated evaluator agreement analysis)
+- Análise de erro de avaliação automática por gênero textual (automated evaluation error by text genre)
+- Análise de explicabilidade de classificadores de gênero textual (genre classifier explainability analysis)
+
+- Modelo CARS de movimentos retóricos na introdução (CARS model of rhetorical moves in introductions)
+- Análise de movimentos retóricos de Swales (Swales rhetorical move analysis)
+- Análise de passos retóricos dentro de movimentos (rhetorical step analysis within moves)
+- Análise de estrutura IMRaD e suas variantes (IMRaD structure and variant analysis)
+- Análise de função retórica de seção de métodos (rhetorical function analysis of methods section)
+- Análise de função retórica de seção de resultados (rhetorical function analysis of results section)
+- Análise de função retórica de discussão acadêmica (rhetorical function analysis of academic discussion)
+- Análise de função retórica de resumo estruturado (rhetorical function analysis of structured abstract)
+- Análise de citações integrais e não integrais (integral and non-integral citation analysis)
+- Análise de função discursiva de citação acadêmica (discourse function analysis of academic citations)
+- Análise de citação de apoio, contraste e atribuição (supporting, contrasting, and attribution citation analysis)
+- Análise de densidade de citações por seção (citation density by section analysis)
+- Análise de cadeias de atribuição de conhecimento (knowledge attribution chain analysis)
+- Análise de verbos de reporte em revisão de literatura (reporting verbs in literature review analysis)
+- Análise de postura do autor diante de fonte citada (author stance toward cited source analysis)
+- Análise de síntese temática em revisão de literatura (thematic synthesis in literature review analysis)
+- Análise de revisão de literatura por matriz de evidências (evidence matrix literature review analysis)
+- Análise de revisão narrativa versus revisão sistemática (narrative and systematic review distinction analysis)
+- Análise de rastreabilidade de afirmação até fonte primária (claim-to-primary-source traceability analysis)
+- Análise de citação secundária e cadeia de referência (secondary citation and reference chain analysis)
+- Análise de consistência entre chamada de citação e bibliografia (in-text citation and reference list consistency analysis)
+- Análise de atribuição de autoria em afirmação acadêmica (authorship attribution in academic claim analysis)
+- Análise de movimento de lacuna em introdução de pesquisa (research gap move in introduction analysis)
+- Análise de centralidade e novidade de contribuição científica (centrality and novelty of scientific contribution analysis)
+- Análise de posicionamento do estudo em nicho de pesquisa (study positioning in research niche analysis)
+- Análise de justificativa de relevância e contribuição (relevance and contribution rationale analysis)
+- Análise de declaração de objetivo e pergunta de pesquisa (research objective and question statement analysis)
+- Análise de correspondência entre pergunta e desenho de pesquisa (research question and design correspondence analysis)
+- Análise de relato de amostragem e recrutamento (sampling and recruitment reporting analysis)
+- Análise de operacionalização de variável em texto metodológico (variable operationalization in methods text analysis)
+- Análise de descrição de instrumento de pesquisa (research instrument description analysis)
+- Análise de transparência de critérios de inclusão e exclusão (inclusion and exclusion criteria transparency analysis)
+- Análise de relato de análise qualitativa por etapas (staged qualitative analysis reporting)
+- Análise de reflexividade do pesquisador em relato metodológico (researcher reflexivity in methods reporting analysis)
+- Análise de trilha de auditoria em pesquisa qualitativa (audit trail in qualitative research analysis)
+- Análise de triangulação metodológica explicitada (explicit methodological triangulation analysis)
+- Análise de relato de dados ausentes (missing data reporting analysis)
+- Análise de distinção entre resultado primário e secundário (primary and secondary outcome distinction analysis)
+- Análise de relato de tamanho de efeito e intervalo de confiança (effect size and confidence interval reporting analysis)
+- Análise de interpretação de significância estatística (statistical significance interpretation analysis)
+- Análise de conclusão compatível com desenho observacional (conclusion alignment with observational design)
+- Análise de causalidade reivindicada em estudo correlacional (causal claim in correlational study analysis)
+- Análise de limitação relacionada à validade interna (internal validity limitation analysis)
+- Análise de limitação relacionada à validade externa (external validity limitation analysis)
+- Análise de validade ecológica em estudo de linguagem (ecological validity in language study analysis)
+- Análise de relato de desfecho exploratório versus confirmatório (exploratory and confirmatory outcome reporting analysis)
+- Análise de declaração de protocolo e pré-registro (protocol and preregistration statement analysis)
+- Análise de disponibilidade de dados e materiais (data and materials availability statement analysis)
+- Análise de transparência de uso de ferramentas automatizadas (automated tool use transparency analysis)
+- Análise de resumo científico por problema, método, achado e implicação (scientific abstract by problem, method, finding, and implication)
+
+- Análise de validade de conteúdo em instrumento textual (content validity in text instrument analysis)
+- Análise de evidência de validade baseada em processo de resposta (validity evidence based on response process analysis)
+- Análise de confiabilidade teste-reteste de medida de leitura (test-retest reliability of reading measure analysis)
+- Análise de confiabilidade entre formas paralelas de teste textual (parallel-form reliability in text test analysis)
+- Análise de erro padrão de medida em escore de compreensão (standard error of measurement in comprehension score analysis)
+- Análise de efeito teto e efeito piso em avaliação de escrita (ceiling and floor effects in writing assessment analysis)
+- Análise de validade preditiva de medida de legibilidade (predictive validity of readability measure analysis)
+- Análise de validade de critério em rubrica de escrita (criterion validity in writing rubric analysis)
+- Análise de alinhamento de item avaliativo a habilidade de leitura (assessment item alignment with reading skill analysis)
+- Análise de dificuldade e discriminação de item em compreensão (item difficulty and discrimination in comprehension analysis)
+- Análise de funcionamento diferencial por faixa etária (differential item functioning by age group analysis)
+- Análise de invariância de medida entre grupos de leitores (measurement invariance across reader groups analysis)
+- Análise de equivalência de formas de avaliação em idioma diferente (assessment form equivalence across languages analysis)
+- Análise de adaptação transcultural de instrumento de escrita (cross-cultural adaptation of writing instrument analysis)
+- Análise de interpretação de escore em contexto de uso (score interpretation in use context analysis)
+- Análise de amostragem de textos para avaliação de gênero (text sampling for genre evaluation analysis)
+- Análise de distribuição de gênero, extensão e dificuldade no corpus (genre, length, and difficulty distribution in corpus analysis)
+- Análise de critérios de inclusão de documento em corpus (document inclusion criteria in corpus analysis)
+- Análise de deduplicação de textos em conjunto documental (text deduplication in document collection analysis)
+- Análise de metadados ausentes em corpus (missing metadata in corpus analysis)
+- Análise de balanceamento entre autores em corpus comparativo (author balance in comparative corpus analysis)
+- Análise de representatividade de corpus por região linguística (corpus representativeness by linguistic region analysis)
+- Análise de comparabilidade entre corpora de períodos distintos (comparability between diachronic corpora analysis)
+- Análise de efeito de tamanho de corpus em frequência lexical (corpus size effect on lexical frequency analysis)
+- Análise de estabilidade de palavras-chave entre subcorpora (keyness stability across subcorpora analysis)
+- Análise de sazonalidade lexical em corpus temporal (lexical seasonality in temporal corpus analysis)
+- Análise de frequência normalizada e intervalo de confiança (normalized frequency and confidence interval analysis)
+- Análise de significância de associação lexical (lexical association significance analysis)
+- Análise de dispersão documental de termo-chave (document dispersion of key term analysis)
+- Análise de vocabulário distintivo por gênero textual (distinctive vocabulary by text genre analysis)
+- Análise de marcadores discursivos por posição textual (discourse markers by text position analysis)
+- Análise de progressão de movimentos em introduções acadêmicas (move progression in academic introductions analysis)
+- Análise de sequência de movimentos retóricos em resumo (rhetorical move sequence in abstracts analysis)
+- Análise de metadiscurso interativo e interacional (interactive and interactional metadiscourse analysis)
+- Análise de recursos de engajamento de leitor em prosa acadêmica (reader engagement resources in academic prose analysis)
+- Análise de mitigação e intensificação em conclusão científica (hedging and boosting in scientific conclusion analysis)
+- Análise de posicionamento autoral em revisão de literatura (author stance in literature review analysis)
+- Análise de abstração e especificidade em escrita científica (abstraction and specificity in scientific writing analysis)
+- Análise de nominalização por seção de artigo científico (nominalization by scientific article section analysis)
+- Análise de voz passiva por movimento retórico (passive voice by rhetorical move analysis)
+- Análise de legibilidade comparativa entre versões de documento (comparative readability across document versions analysis)
+- Análise de mudança de complexidade após revisão editorial (complexity change after editorial revision analysis)
+- Análise de concordância entre rubrica humana e métrica automática (human rubric and automated metric agreement analysis)
+- Análise de validade de métrica automática por gênero (automated metric validity by genre analysis)
+- Análise de robustez de escore de legibilidade a pré-processamento (readability score robustness to preprocessing analysis)
+- Análise de viés de métrica de texto por variedade linguística (text metric bias by language variety analysis)
+- Análise de erro de segmentação em avaliação automática de texto (segmentation error in automated text evaluation analysis)
+- Análise de efeito de tradução na métrica de legibilidade (translation effect on readability metric analysis)
+- Análise de comparação pareada de versões textuais (paired comparison of text versions analysis)
+- Análise de experimento A/B por métrica de compreensão (A/B experiment using comprehension metric analysis)
+- Análise de tamanho amostral para teste de compreensão textual (sample size for text comprehension test analysis)
+- Análise de intervalo de confiança em diferença de legibilidade (confidence interval for readability difference analysis)
+
+- Análise de valência de palavra em corpus por norma lexical (corpus word valence using lexical norms analysis)
+- Análise de arousal e dominância em vocabulário afetivo (arousal and dominance in affective vocabulary analysis)
+- Análise de emoção discreta em segmento textual (discrete emotion in text segment analysis)
+- Análise de polaridade por escopo de negação (polarity by negation scope analysis)
+- Análise de polaridade por intensificador e atenuador (polarity by intensifier and downtoner analysis)
+- Análise de sentimento por alvo e titularidade de opinião (sentiment by target and opinion holder analysis)
+- Análise de subjetividade e objetividade em corpus (subjectivity and objectivity in corpus analysis)
+- Análise de opinião citada versus opinião do autor (quoted and author opinion distinction analysis)
+- Análise de argumento em redes sociais por unidade de postagem (social media argument by post unit analysis)
+- Análise de sequência de resposta e encadeamento conversacional digital (reply sequence and digital conversational chaining analysis)
+- Análise de difusão de alegação entre documentos (claim diffusion across documents analysis)
+- Análise de enquadramento lexical em cobertura jornalística (lexical framing in news coverage analysis)
+- Análise de metáforas dominantes em corpus midiático (dominant metaphors in media corpus analysis)
+- Análise de colocação lexical em discurso político (lexical collocation in political discourse analysis)
+- Análise de palavras-chave por grupo de atores discursivos (keyness by discourse actor group analysis)
+- Análise de mudança de vocabulário em discurso institucional (vocabulary change in institutional discourse analysis)
+- Análise de diversidade lexical por subcorpus e período (lexical diversity by subcorpus and period analysis)
+- Análise de complexidade lexical por nível educacional do leitor (lexical complexity by reader education level analysis)
+- Análise de cobertura de vocabulário acadêmico em texto didático (academic vocabulary coverage in instructional text analysis)
+- Análise de vocabulário acadêmico geral e específico de disciplina (general and discipline-specific academic vocabulary analysis)
+- Análise de colocação acadêmica por disciplina (academic collocation by discipline analysis)
+- Análise de fraseologia acadêmica por função retórica (academic phraseology by rhetorical function analysis)
+- Análise de sequência formulaica em escrita acadêmica (formulaic sequence in academic writing analysis)
+- Análise de lexical bundles em seção de artigo científico (lexical bundles by scientific article section analysis)
+- Análise de unidade fraseológica e variação entre autores (phraseological unit and author variation analysis)
+- Análise de densidade de metadiscurso por gênero textual (metadiscourse density by text genre analysis)
+- Análise de nominalização e abstração em registro acadêmico (nominalization and abstraction in academic register analysis)
+- Análise de voz autoral em artigo por escolhas de pessoa (authorial voice by person choices in article analysis)
+- Análise de presença de primeira pessoa em seção metodológica (first-person use in methods section analysis)
+- Análise de verbo de reporte por polaridade avaliativa (reporting verb by evaluative polarity analysis)
+- Análise de posicionamento de citação em relação ao texto (citation positioning relative to text analysis)
+- Análise de cadeia de referência de conceitos-chave (reference chain of key concepts analysis)
+- Análise de coesão entre resumo e corpo de artigo (cohesion between abstract and article body analysis)
+- Análise de alinhamento entre título, resumo e palavras-chave (title, abstract, and keyword alignment analysis)
+- Análise de cobertura de conceito entre título e resultados (concept coverage between title and results analysis)
+- Análise de consistência de terminologia em resumo científico (terminology consistency in scientific abstract analysis)
+- Análise de reivindicação de novidade em resumo (novelty claim in abstract analysis)
+- Análise de força de verbo de achado em resumo (finding verb strength in abstract analysis)
+- Análise de presença de limitação em resumo (limitation statement in abstract analysis)
+- Análise de resumo visual e correspondência com resultado textual (graphical abstract and textual result correspondence analysis)
+- Análise de legendas de figuras por autonomia informativa (figure caption informational independence analysis)
+- Análise de legenda de tabela por população, medida e período (table caption by population, measure, and period analysis)
+- Análise de correspondência entre texto, figura e tabela (text, figure, and table consistency analysis)
+- Análise de redundância entre resultado no texto e em tabela (text and table result redundancy analysis)
+- Análise de números citados no texto contra tabela fonte (text-reported numbers against source table analysis)
+- Análise de ressalva estatística e interpretação verbal (statistical caveat and verbal interpretation analysis)
+- Análise de qualificadores de incerteza em relatório científico (uncertainty qualifiers in scientific report analysis)
+- Análise de recomendação por força e certeza da evidência (recommendation strength and evidence certainty analysis)
+- Análise de registro de protocolo e aderência do relato (protocol registration and reporting adherence analysis)
+- Análise de correspondência entre checklist de relato e manuscrito (reporting checklist and manuscript correspondence analysis)
+- Análise de completude de fluxo de participantes em relato (participant flow completeness in report analysis)
+
+- Análise de perfil retórico de metadiscurso em introduções (metadiscourse rhetorical profile in introductions analysis)
+- Análise de marcador de atitude em prosa acadêmica (attitude marker in academic prose analysis)
+- Análise de marcador de automenção em artigo científico (self-mention marker in scientific article analysis)
+- Análise de marcador de transição em revisão de literatura (transition marker in literature review analysis)
+- Análise de marcador de enquadramento em conclusão acadêmica (frame marker in academic conclusion analysis)
+- Análise de marcador de endoforismo em documento técnico (endophoric marker in technical document analysis)
+- Análise de metadiscurso interacional por gênero disciplinar (interactional metadiscourse by disciplinary genre analysis)
+- Análise de pronome autorreferencial em escrita acadêmica (self-referential pronoun in academic writing analysis)
+- Análise de tempo verbal por seção e movimento retórico (tense by section and rhetorical move analysis)
+- Análise de voz passiva por disciplina acadêmica (passive voice by academic discipline analysis)
+- Análise de construções existenciais em introduções científicas (existential constructions in scientific introductions analysis)
+- Análise de hedging por advérbios, verbos e adjetivos (hedging through adverbs, verbs, and adjectives analysis)
+- Análise de booster por verbo modal e quantificador (boosting through modal verb and quantifier analysis)
+- Análise de atenuação de alegação causal em artigo (causal claim mitigation in article analysis)
+- Análise de precisão epistêmica em resumo científico (epistemic precision in scientific abstract analysis)
+- Análise de verbo de reporte por neutralidade ou avaliação (reporting verb by neutrality or evaluation analysis)
+- Análise de estrutura citacional por integração sintática (citation structure by syntactic integration analysis)
+- Análise de citação não integrada com autor em destaque (non-integral citation with prominent author analysis)
+- Análise de citação integrada com foco no conteúdo (integral citation emphasizing content analysis)
+- Análise de uso de citação direta por função argumentativa (direct quotation by argumentative function analysis)
+- Análise de paráfrase citada e fidelidade à fonte (cited paraphrase and source fidelity analysis)
+- Análise de proporção de fonte primária e secundária (primary and secondary source proportion analysis)
+- Análise de cobertura de fontes em revisão narrativa (source coverage in narrative review analysis)
+- Análise de síntese de literatura por convergência e divergência (literature synthesis through convergence and divergence analysis)
+- Análise de lacuna de pesquisa por ausência, contradição ou extensão (research gap through absence, contradiction, or extension analysis)
+- Análise de reivindicação de contribuição incremental ou transformadora (incremental and transformative contribution claim analysis)
+- Análise de posição disciplinar e comunidade discursiva (disciplinary positioning and discourse community analysis)
+- Análise de convenção retórica por periódico e disciplina (rhetorical convention by journal and discipline analysis)
+- Análise de título acadêmico por nominalização e especificidade (academic title by nominalization and specificity analysis)
+- Análise de título declarativo, interrogativo e descritivo (declarative, interrogative, and descriptive title analysis)
+- Análise de subtítulo em título acadêmico (subtitle in academic title analysis)
+- Análise de palavra-chave por especificidade e encontrabilidade (keyword specificity and findability analysis)
+- Análise de resumo por densidade de informação (abstract information density analysis)
+- Análise de resumo por presença de lacuna, método e resultado (abstract gap, method, and result coverage analysis)
+- Análise de resumo não estruturado e resumo estruturado (unstructured and structured abstract analysis)
+- Análise de resumo para leitor especialista e leitor interdisciplinar (abstract for expert and interdisciplinary reader analysis)
+- Análise de consistência entre objetivo declarado e resultado relatado (stated objective and reported result consistency analysis)
+- Análise de seção de discussão por interpretação, limite e implicação (discussion section by interpretation, limitation, and implication analysis)
+- Análise de conclusão acadêmica por força de generalização (academic conclusion by generalization strength analysis)
+- Análise de sobreinterpretação de resultado em conclusão (result overinterpretation in conclusion analysis)
+- Análise de resumo leigo de artigo científico (lay summary of scientific article analysis)
+- Análise de comunicação de incerteza em resumo para público geral (uncertainty communication in public-facing summary analysis)
+- Análise de linguagem avaliativa em parecer acadêmico (evaluative language in peer review analysis)
+- Análise de justificativa de rejeição ou revisão em parecer (rationale for rejection or revision in peer review analysis)
+- Análise de resposta a parecer por comentário e alteração (response to peer review by comment and revision analysis)
+- Análise de carta-resposta com rastreabilidade de mudanças (response letter with change traceability analysis)
+- Análise de tom colaborativo em resposta a avaliador crítico (collaborative tone in response to critical reviewer analysis)
+- Análise de consistência entre resposta ao parecer e manuscrito revisado (review response and revised manuscript consistency analysis)
+- Análise de transparência de contribuição de coautores (coauthor contribution transparency analysis)
+- Análise de declaração de uso de inteligência artificial em pesquisa (AI use disclosure in research analysis)
+
+- Análise de abstração interativa em codificação qualitativa (interactive abstraction in qualitative coding analysis)
+- Análise de codificação aberta, axial e seletiva (open, axial, and selective coding analysis)
+- Análise de codificação inicial e focalizada em teoria fundamentada (initial and focused coding in grounded theory analysis)
+- Análise de codificação indutiva e dedutiva em análise temática (inductive and deductive coding in thematic analysis)
+- Análise de codificação semântica e latente de temas (semantic and latent theme coding analysis)
+- Análise de tema como padrão de significado compartilhado (theme as shared meaning pattern analysis)
+- Análise temática reflexiva de Braun e Clarke (Braun and Clarke reflexive thematic analysis)
+- Análise de unidade de significado em entrevista (meaning unit in interview analysis)
+- Análise de condensação de significado de Kvale (Kvale meaning condensation analysis)
+- Análise de narrativa temática e estrutural (thematic and structural narrative analysis)
+- Análise narrativa holística e categorial (holistic and categorical narrative analysis)
+- Análise de conteúdo manifesto e latente (manifest and latent content analysis)
+- Análise de conteúdo dirigida, convencional e sumativa (directed, conventional, and summative content analysis)
+- Análise de conteúdo por unidade de registro e contexto (content analysis by recording and context unit)
+- Análise de frequência de categorias com contexto qualitativo (category frequency with qualitative context analysis)
+- Análise de matriz de casos e temas (case-by-theme matrix analysis)
+- Análise de quadro temático por pergunta de pesquisa (thematic framework by research question analysis)
+- Análise de framework de Ritchie e Spencer (Ritchie and Spencer framework analysis)
+- Análise de caso negativo em interpretação qualitativa (negative case analysis in qualitative interpretation)
+- Análise de caso discrepante para refinar categoria (deviant case analysis to refine category)
+- Análise de triangulação de investigador em codificação (investigator triangulation in coding analysis)
+- Análise de saturação teórica em amostragem (theoretical saturation in sampling analysis)
+- Análise de saturação de código e saturação de significado (code and meaning saturation analysis)
+- Análise de comparação constante em teoria fundamentada (constant comparison in grounded theory analysis)
+- Análise de memos analíticos na formação de teoria (analytic memos in theory development analysis)
+- Análise de reflexividade posicional em pesquisa textual (positional reflexivity in textual research analysis)
+- Análise de trilha decisória na categorização textual (decision trail in text categorization analysis)
+- Análise de matriz de coocorrência de códigos (code co-occurrence matrix analysis)
+- Análise de coocorrência entre tema e participante (theme-participant co-occurrence analysis)
+- Análise de discrepância entre codificadores e discussão consensual (coder discrepancy and consensus discussion analysis)
+- Análise de confiabilidade da codificação antes de consenso (coding reliability before consensus analysis)
+- Análise de manual de código por definição, inclusão e exclusão (codebook by definition, inclusion, and exclusion analysis)
+- Análise de unidade de codificação por frase, parágrafo e documento (coding unit by sentence, paragraph, and document analysis)
+- Análise de contexto de código e trecho suficiente (code context and sufficient excerpt analysis)
+- Análise de anotação de negação e modalidade em corpus (negation and modality annotation in corpus analysis)
+- Análise de anotação de entidade, evento e relação (entity, event, and relation annotation analysis)
+- Análise de anotação de correferência em documento longo (coreference annotation in long document analysis)
+- Análise de anotação de argumento por alegação e evidência (argument annotation by claim and evidence analysis)
+- Análise de anotação de movimento retórico em artigo (rhetorical move annotation in article analysis)
+- Análise de anotação de função discursiva de conector (discourse function annotation of connector analysis)
+- Análise de validação de esquema de anotação por piloto (annotation scheme validation through pilot analysis)
+- Análise de revisão de anotação após mudança de diretriz (annotation review after guideline change analysis)
+- Análise de prevenção de vazamento de dados entre treino e teste (data leakage prevention between training and test analysis)
+- Análise de divisão de corpus por autor para validação (corpus split by author for validation analysis)
+- Análise de divisão de corpus por tempo para avaliação (corpus split by time for evaluation analysis)
+- Análise de validade externa de classificador por gênero textual (classifier external validity by text genre analysis)
+- Análise de deriva de conceito em classificação de textos (concept drift in text classification analysis)
+- Análise de robustez de classificador a paráfrase e perturbação lexical (classifier robustness to paraphrase and lexical perturbation analysis)
+- Análise de erro de modelo de linguagem por tipo de instrução (language model error by instruction type analysis)
+- Análise de concordância de avaliadores humanos em comparação pareada (human evaluator agreement in pairwise comparison analysis)
+
+- Análise de estabilidade temporal de classificação textual (temporal stability of text classification analysis)
+- Análise de generalização de modelo entre domínios textuais (cross-domain generalization of text models analysis)
+- Análise de transferência de classificador entre gêneros (classifier transfer across genres analysis)
+- Análise de calibração de confiança em classificador de texto (confidence calibration in text classifier analysis)
+- Análise de matriz de confusão por classe textual (confusion matrix by text class analysis)
+- Análise de limiar decisório em classificação multiclasse (decision threshold in multiclass classification analysis)
+- Análise de desempenho macro e micro em classificação textual (macro and micro performance in text classification analysis)
+- Análise de desempenho por classe rara em corpus (performance on rare classes in corpus analysis)
+- Análise de desbalanceamento de classes em conjunto textual (class imbalance in text dataset analysis)
+- Análise de estratégia de reamostragem para classe minoritária textual (resampling strategy for minority text class analysis)
+- Análise de viés lexical em classificação de gênero textual (lexical bias in text genre classification analysis)
+- Análise de atalho espúrio em modelo de classificação (spurious shortcut in classification model analysis)
+- Análise de explicação local de predição textual (local explanation of text prediction analysis)
+- Análise de explicação global de modelo de linguagem (global explanation of language model analysis)
+- Análise de estabilidade de explicação sob paráfrase (explanation stability under paraphrase analysis)
+- Análise de interpretabilidade de tópico por palavras representativas (topic interpretability through representative words analysis)
+- Análise de coerência de tópico em modelo probabilístico (topic coherence in probabilistic model analysis)
+- Análise de diversidade semântica de tópicos extraídos (semantic diversity of extracted topics analysis)
+- Análise de número de tópicos por coerência e utilidade (topic count by coherence and utility analysis)
+- Análise de interpretação humana de tópico automatizado (human interpretation of automated topic analysis)
+- Análise de segmentação temática por mudança de vocabulário (topic segmentation by vocabulary shift analysis)
+- Análise de mudança de tópico por janela deslizante (topic shift through sliding window analysis)
+- Análise de detecção de ponto de mudança em fluxo textual (change point detection in text stream analysis)
+- Análise de evolução de enquadramento em série temporal (framing evolution in time series analysis)
+- Análise de coocorrência temporal de conceitos (temporal concept co-occurrence analysis)
+- Análise de correlação entre mudança de tema e evento externo (topic change and external event correlation analysis)
+- Análise de comparabilidade de amostras antes e depois de intervenção textual (sample comparability before and after text intervention analysis)
+- Análise de efeito de intervenção editorial em ensaio controlado (editorial intervention effect in controlled trial analysis)
+- Análise de experimento de leitura com condição controle (reading experiment with control condition analysis)
+- Análise de desenho intrassujeitos em avaliação de texto (within-subject design in text evaluation analysis)
+- Análise de desenho entre grupos em teste de legibilidade (between-group design in readability testing analysis)
+- Análise de contrabalanceamento de ordem em comparação de textos (order counterbalancing in text comparison analysis)
+- Análise de cegamento do avaliador em julgamento de texto (assessor blinding in text judgment analysis)
+- Análise de pré-registro de hipótese em experimento de escrita (hypothesis preregistration in writing experiment analysis)
+- Análise de poder estatístico em teste de compreensão (statistical power in comprehension test analysis)
+- Análise de tamanho de efeito em intervenção de linguagem clara (effect size in plain-language intervention analysis)
+- Análise de significância prática de melhoria textual (practical significance of text improvement analysis)
+- Análise de intervalo de confiança para diferença de compreensão (confidence interval for comprehension difference analysis)
+- Análise de correção por múltiplas comparações em experimento de leitura (multiple comparison correction in reading experiment analysis)
+- Análise de dados ausentes em avaliação de conteúdo (missing data in content evaluation analysis)
+- Análise de abandono diferencial em teste de compreensão (differential dropout in comprehension testing analysis)
+- Análise de resposta extrema em escala de avaliação textual (extreme response in text rating scale analysis)
+- Análise de efeito de aquiescência em pesquisa de texto (acquiescence effect in text survey analysis)
+- Análise de viés de ordem em lista de termos (order bias in term list analysis)
+- Análise de efeito de formulação de pergunta na avaliação (question wording effect in evaluation analysis)
+- Análise de validade ecológica de teste remoto de leitura (ecological validity of remote reading test analysis)
+- Análise de observação de tarefa de escrita em ambiente natural (writing task observation in natural setting analysis)
+- Análise de protocolo verbal concomitante em leitura (concurrent verbal protocol in reading analysis)
+- Análise de protocolo retrospectivo de recordação de leitura (retrospective verbal report in reading analysis)
+- Análise de convergência entre eye-tracking e teste de compreensão (eye-tracking and comprehension test convergence analysis)
+
+- Análise de corpus comparável e corpus paralelo (comparable and parallel corpus analysis)
+- Análise de corpus monitor e corpus de referência (monitor and reference corpus analysis)
+- Análise de corpus especializado e corpus geral (specialized and general corpus analysis)
+- Análise de corpus sincrônico e diacrônico (synchronic and diachronic corpus analysis)
+- Análise de desenho de corpus por amostragem estratificada (corpus design by stratified sampling analysis)
+- Análise de adequação do tamanho de amostra textual ao construto (text sample size adequacy to construct analysis)
+- Análise de representatividade de corpus por variedade e registro (corpus representativeness by variety and register analysis)
+- Análise de composição de corpus por tópico e gênero (corpus composition by topic and genre analysis)
+- Análise de balanceamento de corpus por autor e fonte (corpus balancing by author and source analysis)
+- Análise de diversidade de fonte em corpus de mídia (source diversity in media corpus analysis)
+- Análise de metadados de corpus para reprodução de estudo (corpus metadata for study reproduction analysis)
+- Análise de documentação de corpus por critérios de coleta (corpus documentation by collection criteria analysis)
+- Análise de licenciamento e proveniência de corpus textual (text corpus licensing and provenance analysis)
+- Análise de anonimização de dados textuais de participantes (anonymization of participant text data analysis)
+- Análise de desidentificação de texto clínico (clinical text de-identification analysis)
+- Análise de informação identificável em corpus de mensagens (identifiable information in message corpus analysis)
+- Análise de remoção de duplicatas quase idênticas em corpus (near-duplicate removal in corpus analysis)
+- Análise de deduplicação por similaridade de sequência (sequence similarity deduplication analysis)
+- Análise de limpeza de OCR e preservação de evidência gráfica (OCR cleaning and visual evidence preservation analysis)
+- Análise de normalização ortográfica sem apagar variante (spelling normalization without erasing variation analysis)
+- Análise de tokenização de contrações e formas clíticas (tokenization of contractions and clitic forms analysis)
+- Análise de segmentação de sentença em abreviações e siglas (sentence segmentation around abbreviations and acronyms analysis)
+- Análise de lematização versus stemming para língua flexionada (lemmatization and stemming in an inflected language analysis)
+- Análise de impacto de lematização em frequência lexical (lemmatization impact on lexical frequency analysis)
+- Análise de anotação morfossintática de corpus (corpus part-of-speech tagging analysis)
+- Análise de anotação de dependência sintática (syntactic dependency annotation analysis)
+- Análise de anotação de constituintes em árvore sintática (constituency tree annotation analysis)
+- Análise de anotação semântica de papéis (semantic role annotation analysis)
+- Análise de anotação de sentimento com alvos múltiplos (multi-target sentiment annotation analysis)
+- Análise de anotação de entidade nomeada em domínio especializado (named entity annotation in specialized domain analysis)
+- Análise de resolução de correferência entre documentos (cross-document coreference resolution analysis)
+- Análise de alinhamento de parágrafos em corpus paralelo (paragraph alignment in parallel corpus analysis)
+- Análise de alinhamento de palavra por correspondência probabilística (word alignment through probabilistic correspondence analysis)
+- Análise de extração de termos por frequência e especificidade (term extraction by frequency and specificity analysis)
+- Análise de extração terminológica por padrões sintáticos (terminology extraction through syntactic patterns analysis)
+- Análise de termos-chave por razão de verossimilhança (key terms by log-likelihood analysis)
+- Análise de associação lexical por informação mútua (lexical association by mutual information analysis)
+- Análise de associação lexical por t-score (lexical association by t-score analysis)
+- Análise de associação lexical por logDice (lexical association by logDice analysis)
+- Análise de colocação por janela simétrica e assimétrica (collocation by symmetric and asymmetric window analysis)
+- Análise de linhas de concordância por padrão gramatical (concordance lines by grammatical pattern analysis)
+- Análise de prosódia semântica de colocados à esquerda e direita (semantic prosody of left and right collocates analysis)
+- Análise de dispersão de colocação entre subcorpora (collocation dispersion across subcorpora analysis)
+- Análise de estabilidade de colocação em diferentes períodos (collocation stability across periods analysis)
+- Análise de pacote lexical por extensão de n-grama (lexical bundle by n-gram length analysis)
+- Análise de pacote lexical por posição e função retórica (lexical bundle by position and rhetorical function analysis)
+- Análise de sequências fraseológicas com padrão de colocação (phraseological sequences with collocational pattern analysis)
+- Análise de cobertura lexical em texto por lista de frequência (text lexical coverage by frequency list analysis)
+- Análise de vocabulário acadêmico por famílias de palavra (academic vocabulary by word families analysis)
+- Análise de cobertura de palavras fora da lista de alta frequência (coverage of words outside high-frequency list analysis)
+- Análise de dificuldade lexical por raridade e polissemia (lexical difficulty by rarity and polysemy analysis)
+
+- Análise de movimentos retóricos em resumo de pesquisa (rhetorical moves in research abstract analysis)
+- Análise de movimento de território em introdução científica (territory move in scientific introduction analysis)
+- Análise de movimento de nicho de pesquisa (research niche move analysis)
+- Análise de ocupação do nicho por propósito e contribuição (niche occupation by purpose and contribution analysis)
+- Análise de promoção de centralidade do tema (promoting topic centrality analysis)
+- Análise de avaliação de pesquisa anterior em introdução (evaluation of previous research in introduction analysis)
+- Análise de anúncio de pesquisa presente (present research announcement analysis)
+- Análise de indicação de lacuna por oposição ou extensão (research gap indication by opposition or extension analysis)
+- Análise de referência a pesquisa anterior por agrupamento (previous research reference by grouping analysis)
+- Análise de síntese de fontes por escolas de pensamento (source synthesis by schools of thought analysis)
+- Análise de síntese de literatura por cronologia (literature synthesis by chronology analysis)
+- Análise de síntese de literatura por método (literature synthesis by method analysis)
+- Análise de síntese de literatura por controvérsia (literature synthesis by controversy analysis)
+- Análise de síntese de literatura por achado e limite (literature synthesis by finding and limitation analysis)
+- Análise de organização de revisão de literatura por debate (literature review organized by debate analysis)
+- Análise de seção de revisão por tradição teórica e evidência (review section by theoretical tradition and evidence analysis)
+- Análise de escopo em revisão integrativa (scope analysis in integrative review)
+- Análise de pergunta de revisão sistemática por PICO (systematic review question by PICO analysis)
+- Análise de pergunta qualitativa por SPIDER (qualitative review question by SPIDER analysis)
+- Análise de busca bibliográfica por bloco conceitual (bibliographic search by concept block analysis)
+- Análise de estratégia de busca por sinônimos e descritores controlados (search strategy by synonyms and controlled descriptors analysis)
+- Análise de critérios de elegibilidade em revisão de literatura (eligibility criteria in literature review analysis)
+- Análise de fluxograma PRISMA em relato de revisão (PRISMA flow diagram in review report analysis)
+- Análise de síntese narrativa em revisão sistemática (narrative synthesis in systematic review analysis)
+- Análise de síntese sem metanálise (synthesis without meta-analysis analysis)
+- Análise de certeza de evidência por GRADE (certainty of evidence using GRADE analysis)
+- Análise de quadro Summary of Findings para leitor clínico (Summary of Findings table for clinical reader analysis)
+- Análise de certeza e força de recomendação em guideline (certainty and recommendation strength in guideline analysis)
+- Análise de transparência de declaração de conflito de interesses (conflict of interest disclosure transparency analysis)
+- Análise de declaração de financiamento e influência metodológica (funding statement and methodological influence analysis)
+- Análise de registro de protocolo de revisão sistemática (systematic review protocol registration analysis)
+- Análise de desvios de protocolo relatados no artigo (reported protocol deviations in article analysis)
+- Análise de consistência entre desfecho pré-especificado e publicado (prespecified and published outcome consistency analysis)
+- Análise de relato seletivo de resultados (selective outcome reporting analysis)
+- Análise de reporte de tamanho de efeito padronizado (standardized effect size reporting analysis)
+- Análise de interpretação de intervalo de confiança em prosa (confidence interval interpretation in prose analysis)
+- Análise de linguagem de significância estatística e relevância clínica (statistical significance and clinical relevance language analysis)
+- Análise de relato de valores de p sem falsa dicotomia (p-value reporting without false dichotomy analysis)
+- Análise de multiplicidade de desfechos e interpretação (multiple outcomes and interpretation analysis)
+- Análise de precisão da estimativa em conclusão (estimate precision in conclusion analysis)
+- Análise de correspondência entre gráfico e descrição textual (graph and textual description correspondence analysis)
+- Análise de transparência de denominador em tabela de resultados (denominator transparency in results table analysis)
+- Análise de completude de dados demográficos em relato (demographic data completeness in report analysis)
+- Análise de definição operacional em estudo observacional (operational definition in observational study analysis)
+- Análise de classificação de variável como exposição, desfecho e confundidor (variable classification as exposure, outcome, and confounder analysis)
+- Análise de diagrama causal dirigido acíclico no relato de pesquisa (directed acyclic graph in research report analysis)
+- Análise de confundimento residual em estudo observacional (residual confounding in observational study analysis)
+- Análise de viés de seleção em amostragem de participantes (selection bias in participant sampling analysis)
+- Análise de viés de informação na mensuração de variáveis (information bias in variable measurement analysis)
+- Análise de transparência de limitações metodológicas (methodological limitation transparency analysis)
+
+- Análise de resumo de pesquisa por problema, abordagem e contribuição (research abstract by problem, approach, and contribution analysis)
+- Análise de declaração de objetivo em introdução científica (research aim statement in scientific introduction analysis)
+- Análise de pergunta de pesquisa por clareza e investigabilidade (research question clarity and investigability analysis)
+- Análise de hipótese por direção, população e variável (hypothesis by direction, population, and variable analysis)
+- Análise de hipótese nula e hipótese alternativa em prosa (null and alternative hypothesis in prose analysis)
+- Análise de justificativa de desenho metodológico no manuscrito (methodological design rationale in manuscript analysis)
+- Análise de descrição de amostra por recrutamento e elegibilidade (sample description by recruitment and eligibility analysis)
+- Análise de definição de desfecho primário em artigo (primary outcome definition in article analysis)
+- Análise de correspondência entre desfecho e instrumento de medida (outcome and measurement instrument correspondence analysis)
+- Análise de definição de exposição em estudo observacional (exposure definition in observational study analysis)
+- Análise de distinção entre variável confundidora e mediadora (confounder and mediator distinction analysis)
+- Análise de declaração de plano estatístico em métodos (statistical analysis plan statement in methods analysis)
+- Análise de relato de ajuste por covariáveis (covariate adjustment reporting analysis)
+- Análise de interpretação de associação ajustada (adjusted association interpretation analysis)
+- Análise de relato de análise de sensibilidade (sensitivity analysis reporting analysis)
+- Análise de relato de análise de subgrupo (subgroup analysis reporting analysis)
+- Análise de interpretação de interação estatística (statistical interaction interpretation analysis)
+- Análise de relato de análise exploratória (exploratory analysis reporting analysis)
+- Análise de transparência na distinção entre análise planejada e exploratória (planned and exploratory analysis transparency analysis)
+- Análise de reporte de exclusões pós-coleta (post-collection exclusion reporting analysis)
+- Análise de fluxo de dados entre coleta, limpeza e análise (data flow from collection to cleaning and analysis)
+- Análise de reprodutibilidade de transformação de dados descrita (reproducibility of described data transformation analysis)
+- Análise de rastreabilidade de tabela a conjunto de dados (table-to-dataset traceability analysis)
+- Análise de rastreabilidade de gráfico a estimativa estatística (chart-to-statistical-estimate traceability analysis)
+- Análise de consistência entre resultado numérico, texto e resumo (numerical result, text, and abstract consistency analysis)
+- Análise de resumo com denominadores consistentes (abstract with consistent denominators analysis)
+- Análise de relato de intervalo de confiança com interpretação (confidence interval reporting with interpretation analysis)
+- Análise de linguagem causal em estudo transversal (causal language in cross-sectional study analysis)
+- Análise de linguagem causal em estudo de coorte (causal language in cohort study analysis)
+- Análise de relato de risco absoluto em resultado clínico (absolute risk reporting in clinical result analysis)
+- Análise de apresentação de incidência e prevalência (incidence and prevalence presentation analysis)
+- Análise de prevalência versus proporção de casos em amostra (prevalence and sample case proportion distinction analysis)
+- Análise de apresentação de denominador variável entre grupos (varying denominators across groups presentation analysis)
+- Análise de relato de perda de seguimento em coorte (loss to follow-up reporting in cohort analysis)
+- Análise de transparência de dados censurados em sobrevivência (censored data transparency in survival analysis)
+- Análise de interpretação de hazard ratio em linguagem comum (hazard ratio interpretation in plain language analysis)
+- Análise de apresentação de curva de Kaplan-Meier em texto (Kaplan-Meier curve presentation in prose analysis)
+- Análise de consistência de resumo com resultado de metanálise (abstract consistency with meta-analysis result analysis)
+- Análise de heterogeneidade estatística em revisão sistemática (statistical heterogeneity in systematic review analysis)
+- Análise de interpretação de I-quadrado em metanálise (I-squared interpretation in meta-analysis analysis)
+- Análise de efeito de modelo fixo e aleatório em síntese (fixed and random effects model in synthesis analysis)
+- Análise de viés de publicação em revisão sistemática (publication bias in systematic review analysis)
+- Análise de gráfico de funil e sua limitação (funnel plot and its limitations analysis)
+- Análise de certeza de evidência por domínio GRADE (GRADE certainty by domain analysis)
+- Análise de linguagem de recomendação por certeza e balanço de efeitos (recommendation language by certainty and effects balance analysis)
+- Análise de força de recomendação em guideline clínico (recommendation strength in clinical guideline analysis)
+- Análise de relato transparente de financiamento (transparent funding reporting analysis)
+- Análise de registro de estudo e identificador em artigo (study registration and identifier in article analysis)
+- Análise de compartilhamento de dados e limites éticos (data sharing and ethical limits analysis)
+- Análise de disponibilidade de código e script analítico (code and analytic script availability analysis)
+
+- Análise de integridade de citação por correspondência textual e bibliográfica (citation integrity by text-reference matching analysis)
+- Análise de citações órfãs sem entrada bibliográfica (orphan in-text citations without reference entry analysis)
+- Análise de referências não citadas no corpo do texto (uncited references in bibliography analysis)
+- Análise de precisão de citação direta por cotejo de fonte (direct quotation accuracy by source comparison analysis)
+- Análise de fidelidade de paráfrase por comparação com original (paraphrase fidelity by source comparison analysis)
+- Análise de atribuição incorreta em citação secundária (misattribution in secondary citation analysis)
+- Análise de cadeia de citação até a fonte primária (citation chain to primary source analysis)
+- Análise de retratação e correção da fonte citada (retraction and correction status of cited source analysis)
+- Análise de atualização de evidência por data de busca bibliográfica (evidence currency by literature search date analysis)
+- Análise de obsolescência de referência em domínio de rápida mudança (reference obsolescence in fast-moving domain analysis)
+- Análise de cobertura de estudos recentes e estudos seminais (coverage of recent and seminal studies analysis)
+- Análise de concentração de referências por escola ou grupo de autores (reference concentration by school or author group analysis)
+- Análise de diversidade geográfica e linguística das referências (geographic and linguistic diversity of references analysis)
+- Análise de viés de idioma em revisão de literatura (language bias in literature review analysis)
+- Análise de viés de publicação em conjunto de estudos citados (publication bias in cited study set analysis)
+- Análise de seleção de estudos por resultado positivo (study selection by positive result analysis)
+- Análise de equilíbrio de evidência favorável e desfavorável (balance of supporting and opposing evidence analysis)
+- Análise de presença de estudos nulos e não significativos (presence of null and nonsignificant studies analysis)
+- Análise de síntese por direção, magnitude e certeza de efeito (synthesis by effect direction, magnitude, and certainty analysis)
+- Análise de comparação de resultados por população e contexto (result comparison by population and context analysis)
+- Análise de consistência entre estudos por método e desfecho (cross-study consistency by method and outcome analysis)
+- Análise de heterogeneidade metodológica em revisão narrativa (methodological heterogeneity in narrative review analysis)
+- Análise de comparabilidade de escalas de desfecho entre estudos (outcome scale comparability across studies analysis)
+- Análise de harmonização de definições em síntese de literatura (definition harmonization in literature synthesis analysis)
+- Análise de uso de metanálise versus síntese narrativa (meta-analysis and narrative synthesis choice analysis)
+- Análise de elegibilidade para combinação quantitativa de estudos (eligibility for quantitative pooling of studies analysis)
+- Análise de extração de dados por formulário padronizado (data extraction with standardized form analysis)
+- Análise de dupla extração independente de dados (independent duplicate data extraction analysis)
+- Análise de resolução de discordância entre revisores de literatura (disagreement resolution between literature reviewers analysis)
+- Análise de classificação de desenho de estudo em síntese (study design classification in evidence synthesis analysis)
+- Análise de risco de viés por domínio em estudo primário (risk of bias by domain in primary study analysis)
+- Análise de aplicação de RoB 2 em ensaio randomizado (RoB 2 application in randomized trial analysis)
+- Análise de aplicação de ROBINS-I em estudo não randomizado (ROBINS-I application in nonrandomized study analysis)
+- Análise de qualidade de relato com checklist STROBE (STROBE reporting checklist analysis)
+- Análise de relato de ensaio clínico com CONSORT (CONSORT clinical trial reporting analysis)
+- Análise de relato de revisão sistemática com PRISMA 2020 (PRISMA 2020 systematic review reporting analysis)
+- Análise de relato de estudo diagnóstico com STARD (STARD diagnostic accuracy reporting analysis)
+- Análise de relato de estudo qualitativo com COREQ (COREQ qualitative study reporting analysis)
+- Análise de relato de pesquisa qualitativa com SRQR (SRQR qualitative research reporting analysis)
+- Análise de relato de estudo observacional com STROBE (STROBE observational study reporting analysis)
+- Análise de relato de avaliação econômica com CHEERS (CHEERS health economic evaluation reporting analysis)
+- Análise de relato de protocolo de ensaio com SPIRIT (SPIRIT trial protocol reporting analysis)
+- Análise de transparência de emenda a protocolo registrado (transparency of registered protocol amendment analysis)
+- Análise de reprodutibilidade de método por detalhe operacional (method reproducibility through operational detail analysis)
+- Análise de transparência de ferramenta de geração de texto usada em pesquisa (transparency of text generation tool use in research analysis)
+- Análise de método de validação de anotação de corpus (corpus annotation validation method analysis)
+- Análise de concordância de anotação por categoria e classe (annotation agreement by category and class analysis)
+- Análise de auditoria de processo de codificação qualitativa (audit of qualitative coding process analysis)
+- Análise de documentação de decisão analítica em pesquisa textual (documentation of analytic decisions in textual research analysis)
+- Análise de triangulação de método, fonte e investigador (method, source, and investigator triangulation analysis)
+
+- Análise de confiabilidade interavaliadores por kappa ponderado (inter-rater reliability by weighted kappa analysis)
+- Análise de concordância de avaliadores por coeficiente de correlação intraclasse (inter-rater agreement by intraclass correlation coefficient)
+- Análise de confiabilidade de escala por ômega de McDonald (scale reliability by McDonald’s omega analysis)
+- Análise de consistência interna por alfa de Cronbach (internal consistency by Cronbach’s alpha analysis)
+- Análise de estrutura dimensional por análise fatorial exploratória (dimensional structure by exploratory factor analysis)
+- Análise confirmatória de construto por análise fatorial (construct confirmation by factor analysis)
+- Análise de ajuste de modelo de medida em escala textual (measurement model fit in text scale analysis)
+- Análise de invariância configural, métrica e escalar (configural, metric, and scalar invariance analysis)
+- Análise de validade convergente por variância média extraída (convergent validity by average variance extracted analysis)
+- Análise de validade discriminante entre construtos de escrita (discriminant validity among writing constructs analysis)
+- Análise de validade concorrente com medida estabelecida (concurrent validity against established measure analysis)
+- Análise de validade preditiva de rubrica de escrita (predictive validity of writing rubric analysis)
+- Análise de validade incremental de métrica textual (incremental validity of text metric analysis)
+- Análise de sensibilidade e especificidade de instrumento de triagem textual (sensitivity and specificity of text screening instrument analysis)
+- Análise de curva ROC e área sob a curva em classificador textual (ROC curve and area under the curve for text classifier analysis)
+- Análise de calibração de escala de legibilidade (readability scale calibration analysis)
+- Análise de equidade de rubrica de escrita entre grupos (writing rubric fairness across groups analysis)
+- Análise de viés de avaliador por ordem de textos (rater bias by text order analysis)
+- Análise de efeito halo em avaliação de escrita (halo effect in writing assessment analysis)
+- Análise de severidade e leniência de avaliador (rater severity and leniency analysis)
+- Análise de deriva de avaliador ao longo de sessão (rater drift across session analysis)
+- Análise de efeito de ancoragem em nota de redação (anchoring effect in essay grading analysis)
+- Análise de treinamento e calibração de avaliadores de texto (text assessor training and calibration analysis)
+- Análise de adjudicação de divergência entre avaliadores (adjudication of rater disagreement analysis)
+- Análise de validade de protocolo de leitura em voz alta (validity of read-aloud protocol analysis)
+- Análise de validade de pergunta de compreensão por tipo inferencial (comprehension question validity by inference type analysis)
+- Análise de dificuldade de item com modelo de Rasch (item difficulty with Rasch model analysis)
+- Análise de discriminação de item em teste de compreensão (item discrimination in comprehension test analysis)
+- Análise de escala de proficiência leitora por teoria de resposta ao item (reading proficiency scale by item response theory analysis)
+- Análise de funcionamento diferencial de item por língua materna (differential item functioning by first language analysis)
+- Análise de equivalência de avaliação textual entre idiomas (equivalence of text assessment across languages analysis)
+- Análise de adaptação linguística de instrumento de legibilidade (linguistic adaptation of readability instrument analysis)
+- Análise de validade de tradução de questionário de experiência de leitura (translation validity of reading experience questionnaire analysis)
+- Análise de viés de método comum em autoavaliação de leitura (common method bias in self-reported reading analysis)
+- Análise de efeito de desejabilidade social em questionário de escrita (social desirability effect in writing questionnaire analysis)
+- Análise de validade ecológica de julgamento de clareza textual (ecological validity of text clarity judgment analysis)
+- Análise de comportamento diferencial de métrica textual por registro (differential text metric behavior by register analysis)
+- Análise de robustez de índice de complexidade a tokenização (robustness of complexity index to tokenization analysis)
+- Análise de concordância de métricas automáticas com leitura humana (automated metric agreement with human reading analysis)
+- Análise de validade de métrica automática por tarefa de leitor (automated metric validity by reader task analysis)
+- Análise de validade externa de instrumento em ambiente real (external validity of instrument in real environment analysis)
+- Análise de transferência de resultado experimental para contexto cotidiano (transfer of experimental result to everyday context analysis)
+- Análise de triangulação entre tarefa, questionário e comportamento (triangulation of task, questionnaire, and behavior analysis)
+- Análise de evidência de processo de resposta em teste textual (response process evidence in text test analysis)
+- Análise de entrevista cognitiva para testar item de questionário (cognitive interview to test questionnaire item analysis)
+- Análise de protocolo verbal retrospectivo por estímulo de texto (retrospective verbal protocol using text stimulus analysis)
+- Análise de pré-teste de pergunta por interpretação do respondente (question pretest through respondent interpretation analysis)
+- Análise de método Delphi para validar taxonomia textual (Delphi method for validating text taxonomy)
+- Análise de grupo nominal para gerar categorias de conteúdo (nominal group technique for generating content categories)
+- Análise de painel de especialistas por rodada e consenso (expert panel by round and consensus analysis)
+
+- Análise de protocolo de leitura por rastreamento ocular (reading protocol through eye tracking analysis)
+- Análise de fixação, sacada e regressão ocular durante leitura (fixation, saccade, and regression during reading analysis)
+- Análise de first fixation duration em palavra crítica (first fixation duration on critical word analysis)
+- Análise de gaze duration em região textual (gaze duration in text region analysis)
+- Análise de go-past time em região sintaticamente ambígua (go-past time in syntactically ambiguous region analysis)
+- Análise de regressões para antecedente durante resolução de anáfora (regressions to antecedent during anaphora resolution analysis)
+- Análise de movimento ocular em leitura de hipertexto (eye movement in hypertext reading analysis)
+- Análise de leitura em tela versus papel por tarefa (screen and paper reading by task analysis)
+- Análise de compreensão em leitura digital por navegação (digital reading comprehension by navigation analysis)
+- Análise de pesquisa de informação em documento por eye tracking (information search in document through eye tracking analysis)
+- Análise de padrão de fixação em tabela e visualização de dados (fixation pattern in table and data visualization analysis)
+- Análise de atenção visual em hierarquia de página (visual attention in page hierarchy analysis)
+- Análise de trajetória de leitura em layout multimodal (reading path in multimodal layout analysis)
+- Análise de área de interesse em estudo de leitura (area of interest in reading study analysis)
+- Análise de alinhamento entre área de interesse e unidade linguística (area of interest and linguistic unit alignment analysis)
+- Análise de pupillometria como índice de esforço de processamento (pupillometry as processing effort indicator analysis)
+- Análise de tempo de leitura automonitorada por região (self-paced reading time by region analysis)
+- Análise de tarefa de decisão lexical em pesquisa textual (lexical decision task in text research analysis)
+- Análise de priming lexical em paradigma de decisão (lexical priming in decision paradigm analysis)
+- Análise de rastreamento de palavra em leitura serial visual (serial visual word recognition analysis)
+- Análise de potencial evocado relacionado a evento em leitura (event-related potential in reading analysis)
+- Análise de N400 em integração semântica durante leitura (N400 in semantic integration during reading analysis)
+- Análise de P600 em reanálise sintática (P600 in syntactic reanalysis analysis)
+- Análise de resposta neurofisiológica a incongruência semântica (neurophysiological response to semantic incongruity analysis)
+- Análise de protocolo de pensar em voz alta por episódio de dificuldade (think-aloud protocol by difficulty episode analysis)
+- Análise de pausa de leitura como indicador de planejamento (reading pause as planning indicator analysis)
+- Análise de revisão durante composição por log de teclado (revision during composing through keystroke log analysis)
+- Análise de latência de digitação em produção textual (typing latency in text production analysis)
+- Análise de sequência de edição por unidade e tempo (editing sequence by unit and time analysis)
+- Análise de trajetória de rascunho com captura de tela (draft trajectory using screen capture analysis)
+- Análise de pausa de escrita por tamanho e posição textual (writing pause by length and textual position analysis)
+- Análise de fluência de transcrição e fluência de composição (transcription and composing fluency analysis)
+- Análise de revisão global a partir de histórico de versões (global revision from version history analysis)
+- Análise de métricas de revisão por taxa e magnitude de mudança (revision metrics by rate and magnitude of change analysis)
+- Análise de mudança lexical entre rascunho e versão final (lexical change between draft and final version analysis)
+- Análise de mudança de estrutura entre versões de texto (structural change across text versions analysis)
+- Análise de edição com teclado versus edição por voz (keyboard and voice editing comparison analysis)
+- Análise de composição assistida por ditado (dictation-assisted composition analysis)
+- Análise de efeito de predição de texto na fluência e revisão (text prediction effect on fluency and revision analysis)
+- Análise de sugestão automatizada e taxa de aceitação em escrita (automated suggestion and acceptance rate in writing analysis)
+- Análise de sugestão rejeitada por tipo de intervenção (rejected suggestion by intervention type analysis)
+- Análise de interação escritor-modelo de linguagem por sequência de prompt (writer-language model interaction by prompt sequence analysis)
+- Análise de edição humana após geração automática (human editing after automated generation analysis)
+- Análise de proveniência de trecho gerado e trecho revisado (provenance of generated and revised passage analysis)
+- Análise de qualidade de texto por avaliadores cegos à autoria (text quality by authorship-blind raters analysis)
+- Análise de percepção de autoria em texto humano e automatizado (authorship perception in human and automated text analysis)
+- Análise de detecção de texto automatizado por avaliadores humanos (human detection of automated text analysis)
+- Análise de efeito de divulgação de autoria automatizada na avaliação (disclosure of automated authorship effect on evaluation)
+- Análise de estabilidade de avaliador sob informação de autoria (rater stability under authorship information analysis)
+- Análise de experiência de leitor ao interagir com texto gerado (reader experience with generated text analysis)
+
+- Análise de transparência de amostragem em estudo de corpus (sampling transparency in corpus study analysis)
+- Análise de representatividade de corpus por registro e domínio (corpus representativeness by register and domain analysis)
+- Análise de cobertura de variação regional em corpus textual (regional variation coverage in text corpus analysis)
+- Análise de cobertura de grupos demográficos em corpus (demographic group coverage in corpus analysis)
+- Análise de viés de coleta em corpus digital (collection bias in digital corpus analysis)
+- Análise de viés de sobrevivência em arquivo textual (survivorship bias in text archive analysis)
+- Análise de efeito de plataforma na composição de corpus (platform effect on corpus composition analysis)
+- Análise de política de remoção de conteúdo em estudo de mídia social (content removal policy in social media study analysis)
+- Análise de temporalidade de coleta em corpus de plataforma (collection timing in platform corpus analysis)
+- Análise de sub-representação de conteúdo excluído por moderação (underrepresentation of moderated content analysis)
+- Análise de documentação de versão de corpus e data de extração (corpus version and extraction date documentation analysis)
+- Análise de reprodutibilidade de consulta a API textual (reproducibility of text API query analysis)
+- Análise de replicabilidade de filtro e pré-processamento de corpus (replicability of corpus filtering and preprocessing analysis)
+- Análise de sensibilidade de resultado a critério de limpeza (result sensitivity to cleaning criterion analysis)
+- Análise de sensibilidade a tokenização, lematização e stopwords (sensitivity to tokenization, lemmatization, and stopwords analysis)
+- Análise de robustez entre ferramentas de anotação morfossintática (robustness across POS tagging tools analysis)
+- Análise de comparação de anotadores automáticos em português (comparison of automated annotators in Portuguese analysis)
+- Análise de anotação de variedade não padrão e fala espontânea (annotation of nonstandard varieties and spontaneous speech analysis)
+- Análise de erro de reconhecimento automático de fala por sotaque (automatic speech recognition error by accent analysis)
+- Análise de viés de reconhecimento de fala em grupo demográfico (speech recognition bias across demographic groups analysis)
+- Análise de qualidade de OCR por layout e idioma (OCR quality by layout and language analysis)
+- Análise de erro de OCR em tabela e nota de rodapé (OCR error in table and footnote analysis)
+- Análise de reconstrução de ordem de leitura em PDF (reading order reconstruction in PDF analysis)
+- Análise de segmentação de parágrafo em documento escaneado (paragraph segmentation in scanned document analysis)
+- Análise de preservação de hifenização e quebras de linha em OCR (hyphenation and line break preservation in OCR analysis)
+- Análise de anonimização de citação direta em corpus qualitativo (direct quotation anonymization in qualitative corpus analysis)
+- Análise de risco de reidentificação em trecho textual (reidentification risk in text excerpt analysis)
+- Análise de consentimento e finalidade em corpus de mensagens (consent and purpose in message corpus analysis)
+- Análise de base legal e governança de dados textuais (legal basis and governance of text data analysis)
+- Análise de ética de coleta de postagens públicas (ethics of collecting public posts analysis)
+- Análise de expectativas de privacidade em dados publicamente acessíveis (privacy expectations in publicly accessible data analysis)
+- Análise de citação responsável de conteúdo de usuário (responsible citation of user-generated content analysis)
+- Análise de contexto de publicação em pesquisa qualitativa digital (publication context in digital qualitative research analysis)
+- Análise de impacto de exclusão de usuário na validade longitudinal (user deletion impact on longitudinal validity analysis)
+- Análise de distribuição de dados ausentes por participante (missing data distribution by participant analysis)
+- Análise de imputação de dado ausente em métrica de leitura (missing data imputation in reading metric analysis)
+- Análise de variável de confusão em estudo de legibilidade (confounding variable in readability study analysis)
+- Análise de mediação entre clareza textual e execução de tarefa (mediation between text clarity and task completion analysis)
+- Análise de moderação por proficiência leitora (moderation by reading proficiency analysis)
+- Análise de interação entre familiaridade de domínio e clareza (interaction between domain familiarity and clarity analysis)
+- Análise de heterogeneidade de efeito por grupo de leitor (effect heterogeneity by reader group analysis)
+- Análise de efeito de teto em escala de compreensão (ceiling effect in comprehension scale analysis)
+- Análise de sensibilidade a ponto de corte de legibilidade (sensitivity to readability cutoff analysis)
+- Análise de validação externa de classificador de gênero textual (external validation of text genre classifier analysis)
+- Análise de validação temporal de modelo de análise textual (temporal validation of text analysis model)
+- Análise de estabilidade de tópicos por inicialização aleatória (topic stability across random initialization analysis)
+- Análise de consistência de anotação por rodada e classe (annotation consistency by round and class analysis)
+- Análise de drift de anotador ao longo de corpus extenso (annotator drift across large corpus analysis)
+- Análise de efeito de treinamento em concordância de anotação (training effect on annotation agreement analysis)
+- Análise de validade de categoria emergente por caso negativo (emergent category validity through negative case analysis)
+
+- Análise de anotação de enquadramento por problema, causa e solução (problem, cause, and solution framing annotation analysis)
+- Análise de unidade retórica em postagem curta (rhetorical unit in short post analysis)
+- Análise de discurso por enquadramento episódico e temático (episodic and thematic framing in discourse analysis)
+- Análise de presença de voz de fonte em notícia (source voice in news analysis)
+- Análise de atribuição de fala em notícia por verbo de elocução (speech attribution in news by reporting verb analysis)
+- Análise de metadiscurso em divulgação científica (metadiscourse in science communication analysis)
+- Análise de explicação de incerteza em notícia científica (uncertainty explanation in science news analysis)
+- Análise de lexicalização de controvérsia em cobertura jornalística (lexicalization of controversy in news coverage analysis)
+- Análise de assimetria de citação de atores em texto jornalístico (asymmetry of actor quotation in news text analysis)
+- Análise de enquadramento de agente e responsabilidade em notícia (agent and responsibility framing in news analysis)
+- Análise de apagamento de agente por nominalização em discurso público (agent deletion through nominalization in public discourse analysis)
+- Análise de modalidade de certeza em relatório de mídia (certainty modality in media report analysis)
+- Análise de seleção lexical avaliativa em cobertura política (evaluative lexical choice in political coverage analysis)
+- Análise de metáfora de conflito em discurso institucional (conflict metaphor in institutional discourse analysis)
+- Análise de linguagem de risco em comunicado de crise (risk language in crisis statement analysis)
+- Análise de autoria e posicionamento em texto de opinião (authorship and stance in opinion text analysis)
+- Análise de argumento por editorial e coluna de opinião (argument in editorial and opinion column analysis)
+- Análise de esquema argumentativo em carta ao editor (argumentation scheme in letter to editor analysis)
+- Análise de discurso de comentário por ato de fala e posição (comment discourse by speech act and stance analysis)
+- Análise de toxicidade e alvo de ataque em texto online (toxicity and target of attack in online text analysis)
+- Análise de civilidade em discussão digital por estratégia discursiva (civility in digital discussion by discourse strategy analysis)
+- Análise de discurso de ódio por alvo, estereótipo e chamada à ação (hate speech by target, stereotype, and call to action analysis)
+- Análise de contra-discurso e estratégia de refutação em rede social (counter-speech and rebuttal strategy in social media analysis)
+- Análise de rumor por fonte, transmissão e transformação textual (rumor by source, transmission, and textual transformation analysis)
+- Análise de propagação de alegação em cadeia de compartilhamentos (claim propagation across sharing chain analysis)
+- Análise de correção de desinformação por posição e evidência (misinformation correction by position and evidence analysis)
+- Análise de efeito de correção antes ou depois da exposição (correction before and after exposure effect analysis)
+- Análise de persistência de crença após desmentido (belief persistence after debunking analysis)
+- Análise de prebunking por reconhecimento de técnica (prebunking through technique recognition analysis)
+- Análise de alfabetização midiática por leitura lateral (media literacy through lateral reading analysis)
+- Análise de verificação de citação viral por fonte original (viral quote verification through original source analysis)
+- Análise de contexto de imagem por data, local e proveniência (image context by date, location, and provenance analysis)
+- Análise de correspondência entre legenda viral e imagem original (viral caption and original image correspondence analysis)
+- Análise de frase política por slogan, argumento e pressuposto (political phrase by slogan, argument, and presupposition analysis)
+- Análise de manifesto por problema, diagnóstico e programa (manifesto by problem, diagnosis, and program analysis)
+- Análise de discurso de campanha por promessa e atribuição de mérito (campaign discourse by promise and credit attribution analysis)
+- Análise de linguagem inclusiva em comunicação institucional (inclusive language in institutional communication analysis)
+- Análise de representação de grupos em corpus jornalístico (group representation in news corpus analysis)
+- Análise de estereótipo lexical em descrição de grupo (lexical stereotype in group description analysis)
+- Análise de agência gramatical em relato de violência (grammatical agency in violence reporting analysis)
+- Análise de voz passiva e atribuição de responsabilidade em notícia (passive voice and responsibility attribution in news analysis)
+- Análise de comparação entre versões de cobertura de mesmo evento (comparison of coverage versions of same event analysis)
+- Análise de enquadramento de fonte primária e fonte secundária (primary and secondary source framing analysis)
+- Análise de transparência de correção em arquivo jornalístico (correction transparency in news archive analysis)
+- Análise de sequência de atualização em cobertura ao vivo (update sequence in live coverage analysis)
+- Análise de densidade de atualização por evento e período (update density by event and period analysis)
+- Análise de resposta pública institucional por tipo de justificativa (institutional public response by justification type analysis)
+- Análise de pedido público de desculpas por responsabilidade e reparação (public apology by responsibility and repair analysis)
+- Análise de comunicado de crise por reconhecimento, explicação e ação (crisis statement by acknowledgment, explanation, and action analysis)
+- Análise de atribuição causal em comunicação organizacional de crise (causal attribution in organizational crisis communication analysis)
+- Corpus de solicitações de suporte
+- Corpus de mensagens transacionais
+- Corpus de textos de consentimento
+- Corpus de instruções de segurança
+- Corpus de conteúdo de saúde
+- Corpus de avisos financeiros
+- Corpus de políticas de privacidade
+- Corpus de notícias locais
+- Corpus de comunicados institucionais
+- Corpus de campanhas públicas
+- Corpus de comentários de usuários
+- Corpus de avaliações de produto
+- Corpus de perguntas frequentes
+- Corpus de conversas de atendimento
+- Corpus de manuais técnicos
+- Corpus de textos legislativos
+- Corpus de decisões administrativas
+- Corpus de materiais didáticos
+- Corpus de interfaces multilíngues
+- Corpus de tradução paralela
+- Corpus longitudinal de versões
+- Corpus comparável por gênero
+- Corpus comparável por canal
+- Corpus especializado por domínio
+- Corpus de referência geral
+- Amostragem estratificada por intenção
+- Amostragem por jornada
+- Amostragem por gravidade
+- Amostragem por canal de acesso
+- Amostragem por etapa de leitura
+- Amostragem por perfil de letramento
+- Amostragem temporal por versão
+- Amostragem de casos extremos
+- Amostragem de erros críticos
+- Amostragem de tarefas concluídas
+- Amostragem de tarefas abandonadas
+- Unidade de análise textual
+- Unidade de anotação
+- Janela contextual de anotação
+- Protocolo de segmentação
+- Convenção de transcrição
+- Guia de anotação semântica
+- Guia de anotação pragmática
+- Guia de anotação de intenção
+- Guia de anotação de risco
+- Guia de anotação de acessibilidade
+- Esquema de rótulos mutuamente exclusivos
+- Esquema de rótulos multilabel
+- Anotação de evidência textual
+- Anotação de inferência necessária
+- Anotação de pressuposto
+- Anotação de implicatura
+- Anotação de ato de fala
+- Anotação de entidade nomeada
+- Anotação de cadeia referencial
+- Anotação de estrutura retórica
+- Anotação de estratégia de reparo
+- Anotação de linguagem estigmatizante
+- Anotação de ambiguidade acionável
+- Anotação de carga de memória
+- Anotação de requisito implícito
+- Anotação de consequência potencial
+- Manual de adjudicação
+- Rodada piloto de anotação
+- Calibração de anotadores
+- Medida de concordância entre avaliadores
+- Kappa de Cohen
+- Alfa de Krippendorff
+- Concordância percentual
+- Matriz de confusão de rótulos
+- Análise de desacordo
+- Registro de caso limítrofe
+- Resolução de divergência
+- Auditoria de rótulos
+- Revisão cega de anotação
+- Anotação em dupla passagem
+- Cegamento de hipótese
+- Protocolo de pré-registro
+- Plano de análise
+- Pergunta de pesquisa operacionalizada
+- Hipótese falsificável
+- Variável dependente textual
+- Variável independente editorial
+- Variável de controle de canal
+- Grupo de comparação de versões
+- Teste de compreensão com paráfrase
+- Teste de recuperação de informação
+- Teste de localização de instrução
+- Teste de decisão simulada
+- Teste de interpretação de aviso
+- Medida de tempo até a compreensão
+- Medida de erro de tarefa
+- Medida de confiança calibrada
+- Medida de recordação imediata
+- Medida de recordação tardia
+- Escala de esforço percebido
+- Escala de clareza autorrelatada
+- Protocolo de leitura em voz alta
+- Entrevista de explicitação
+- Entrevista cognitiva
+- Técnica de sondagem retrospectiva
+- Observação de tarefa moderada
+- Observação não moderada
+- Diário de uso textual
+- Amostragem de experiência
+- Teste de usabilidade textual
+- Teste de preferência pareada
+- Julgamento de adequação contextual
+- Avaliação por especialista de domínio
+- Revisão por usuário final
+- Revisão por leitor de tela
+- Avaliação de linguagem simples
+- Auditoria de conteúdo
+- Auditoria de consistência terminológica
+- Auditoria de links e referências
+- Auditoria de acessibilidade linguística
+- Auditoria de vieses de representação
+- Avaliação de cobertura de cenários
+- Avaliação de robustez a leitura parcial
+- Avaliação de compreensão sob distração
+- Avaliação de texto em baixa conectividade
+- Estudo de efeito de formulação
+- Estudo de ordem de apresentação
+- Estudo de posição de aviso
+- Estudo de enquadramento de risco
+- Estudo de carga informacional
+- Estudo de efeito de exemplo
+- Estudo de efeito de rótulo
+- Estudo de equivalência semântica
+- Estudo de invariância por grupo
+- Estudo de invariância por dispositivo
+- Estudo de variação regional
+- Estudo de transferência entre canais
+- Estudo de generalização de corpus
+- Análise de sensibilidade da métrica
+- Intervalo de confiança da diferença
+- Tamanho de efeito textual
+- Correção para testes múltiplos
+- Controle de comparações exploratórias
+- Critério de relevância prática
+- Critério de parada de pesquisa
+- Triangulação de métodos
+- Triangulação de avaliadores
+- Triangulação de fontes
+- Diário de decisões analíticas
+- Rastreabilidade de evidências
+- Proveniência de corpus
+- Metadado de versão textual
+- Metadado de contexto de uso
+- Metadado de público-alvo
+- Metadado de canal
+- Metadado de região
+- Metadado de tarefa
+- Metadado de risco
+- Política de anonimização de corpus
+- Política de consentimento de participantes
+- Retenção ética de dados
+- Exclusão de dado identificável
+- Separação de dado bruto e derivado
+- Controle de acesso ao corpus
+- Caderno de pesquisa auditável
+- Relatório de limitações amostrais
+- Relatório de validade ecológica
+- Relatório de validade de construto
+- Relatório de confiabilidade
+- Relatório de transferência
+- Registro de resultados nulos
+- Reprodutibilidade de análise textual
+- Replicação de avaliação
+- Validação externa de métrica
+- Benchmark de compreensão
+- Conjunto de desafio adversarial
+- Conjunto de exemplos mínimos
+- Conjunto de itens difíceis
+- Conjunto de validação temporal
+- Conjunto de teste retido
+- Prevenção de vazamento entre partições
+- Deduplicação de documentos no corpus
+- Controle de contaminação de versões
+- Comparação de distância lexical
+- Comparação de estrutura discursiva
+- Comparação de atos de fala
+- Comparação de densidade informacional
+- Comparação de leitura por tarefa
+- Análise qualitativa de erros
+- Taxonomia de falhas de compreensão
+- Análise de caminho de leitura
+- Análise de consulta e resposta
+- Análise de abandono de leitura
+- Análise de retomada de instrução
+- Análise de busca por palavra-chave
+- Análise de interpretação concorrente
+- Análise de resposta inesperada
+- Codificação temática de feedback
+- Análise de sentimento contextual
+- Análise de posicionamento enunciativo
+- Análise de enquadramento midiático
+- Análise de fonte citada
+- Análise de atribuição de responsabilidade
+- Análise de correção de desinformação
+- Análise de rumor emergente
+- Análise de desambiguação em contexto
+- Análise de eufemismo institucional
+- Análise de nominalização em políticas
+- Análise de modalidade epistêmica
+- Análise de modalidade deôntica
+- Análise de certeza percebida
+- Análise de legibilidade por segmento
+- Análise de diversidade lexical
+- Análise de repetição funcional
+- Análise de cobertura terminológica
+- Análise de estabilidade de rótulo
+- Análise de mudança editorial
+- Análise de deriva semântica
+- Análise de consistência entre canais
+- Análise de paridade de compreensão
+- Avaliação de lacuna de informação
+- Avaliação de recuperabilidade de conteúdo
+- Avaliação de findability
+- Avaliação de precisão de busca interna
+- Avaliação de utilidade percebida
+- Avaliação de confiança institucional
+- Avaliação de compreensão de incerteza
+
+## Saúde, segurança e comunicação de risco
+
+- Inversão de Risco Explícita
+- Descompressão de Risco Social e Discrição (Social Risk De-escalation)
+- Desambiguação de Autoridade Farmacêutica
+- Rotulagem de condições de conservação e transporte (Storage & Cold-Chain Labeling)
+- Rotulagem de documentação oficial e bula (Official Leaflet & Regulatory Document Labeling)
+- Rotulagem de preço por unidade de medida (Unit-Price Comparison Labeling)
+- Rotulagem de prazo de validade e lote (Expiration Date & Batch Labeling)
+- Texto de identificação legal e responsabilidade técnica (Legal Imprint & Regulatory Footer Copy)
+- Fábula e trama (Fabula and Syuzhet)
+- Prótase e apódose (Protasis and Apodosis)
+- Pausa descritiva (Descriptive Pause)
+- Prosapódose (Prosapodosis)
+- Ficha técnica de dose. concentração e apresentação (Dosage and Pack Format Specification)
+- Descrição acessível de embalagem e forma farmacêutica (Accessible Packaging and Dosage Form Description)
+- Guia de leitura de rótulo. bula e posologia (Label and Posology Reading Guide)
+- Comunicação de risco e literacia em saúde (Health Risk Communication and Health Literacy)
+- Ensino-devolução na comunicação em saúde (Teach-Back Method)
+- Modelo de crenças em saúde (Health Belief Model)
+- Letramento numérico em comunicação em saúde (Numeracy in Health Communication)
+- CDC Health Literacy Online Principles (Princípios de Literacia em Saúde Online do CDC)
+- Técnica Chunk and Check em comunicação de saúde (Chunk and Check)
+- Diretrizes de linguagem para equidade em saúde (Health Equity Language Guidelines)
+- Instrumento DISCERN para qualidade de informação de saúde ao consumidor (DISCERN Instrument)
+- Critérios JAMA para qualidade de informação em saúde (JAMA Benchmarks)
+- Princípios HONcode para informação de saúde online (HONcode Principles)
+- Escala Quest de avaliação da qualidade de informação de saúde online (Quest Quality Evaluation Scale)
+- Índice Honoré de riqueza vocabular — R (Honoré Index)
+- Característica K de Yule para repetição vocabular (Yule K Characteristic)
+- Modelo LISA de garantia de qualidade linguística (LISA QA Model)
+- Auditoria de conformidade com guia de estilo local (Style Guide Compliance Audit)
+- Auditoria de posicionamento de avisos legais obrigatórios (Mandatory Regulatory Disclosure Placement Audit)
+- Sinalização de faixa etária. prescrição e restrições de uso (Age. Prescription. and Contraindication Flagging)
+- Controle de versão e validade regulatória de conteúdo (Regulatory Content Version and Expiration Tagging)
+- Fluxo de revisão médica. jurídica e regulatória — MLR (Medical-Legal-Regulatory Review)
+- Gatilho de controle de mudanças regulatórias pós-publicação (Post-Publication Regulatory Change Control)
+- Quarentena de conteúdo acionada por alerta regulatório (Regulatory Alert-Driven Content Quarantine)
+- Framework BRAN: benefícios. riscos. alternativas e nada fazer (Benefits. Risks. Alternatives. Nothing)
+- Matrizes de ícones para visualização de risco absoluto (Icon Arrays for Absolute Risk)
+- Caixa de fatos sobre medicamentos (Drug Facts Box)
+- Modelos mentais aplicados à comunicação de risco (Mental Models Approach to Risk Communication)
+- Escala de perspectiva de Paling para comparação de riscos (Paling Perspective Scale)
+- Formato tabular Know Your Chances para risco de base (Know Your Chances Tabular Format)
+- Escalas em escada para comparação de riscos (Risk Ladders)
+- Curvas de risco acumulado e sobrevida (Cumulative Risk Curves)
+- Diretrizes GALES para comunicação de riscos à saúde (GALES Risk Communication Guidance)
+- Modelo de bula para paciente testado com usuários (Patient Information Leaflet User-Tested Template)
+- Painel padronizado de fatos para medicamentos isentos de prescrição (OTC Drug Facts Panel)
+- Carregamento frontal de contraindicações (Contraindication Front-Loading)
+- Busca reversa de imagens e análise de metadados EXIF (Reverse Image Search and Metadata Forensics)
+- Modelo de Crenças em Saúde: Suscetibilidade. Severidade. Benefícios e Barreiras (Health Belief Model)
+- Comunicação de Risco em Crise e Emergência (CERC)
+- Teoria da Motivação para Proteção: Avaliação de Ameaça e Enfrentamento (Protection Motivation Theory)
+- Modelo de Determinação de Confiança na Comunicação de Risco (Trust Determination Model)
+- Modelo de Dominância Negativa na Comunicação de Risco (Negative Dominance Model)
+- Técnica de Mapeamento de Mensagens para Comunicação de Risco (Message Mapping)
+- Abordagem dos Modelos Mentais na Comunicação de Risco (Mental Models Approach)
+- Calibração de tom para situações críticas e de alta ansiedade (High-Anxiety Tone Calibration)
+- Ask Me 3 para comunicação entre paciente e profissional (Ask Me 3)
+- Pareamento de número necessário para tratar e número necessário para prejudicar (NNT and NNH Pairing)
+- Resumo pós-consulta centrado no paciente (After-Visit Summary)
+- Aviso de privacidade em camadas: resumo. versão concisa e política completa (Layered Privacy Notice)
+- Esquema Universal de Medicação — UMS (Universal Medication Schedule)
+- Modelo dos três níveis de letramento em saúde de Nutbeam (Nutbeam’s Three-Level Health Literacy Model)
+- Modelo integrado de letramento em saúde de Sørensen (Sørensen’s Integrated Model of Health Literacy)
+- Organização letrada em saúde (Health Literate Health Care Organization)
+- Protocolo SPIKES de comunicação de más notícias (SPIKES Protocol)
+- Método clínico centrado na pessoa (Patient-Centered Clinical Method)
+- Protocolo SBAR de comunicação clínica estruturada (SBAR Communication Framework)
+- Estrutura de amplificação social do risco — SARF (Social Amplification of Risk Framework)
+- Paradigma psicométrico da percepção de risco (Psychometric Paradigm of Risk Perception)
+- Modelo de Busca e Processamento de Informação sobre Risco — RISP (Risk Information Seeking and Processing Model)
+- Modelo de Perigo e Indignação de Sandman (Sandman’s Hazard-Outrage Model)
+- Teoria cultural do risco de Douglas e Wildavsky (Cultural Theory of Risk)
+- Estrutura de Percepção de Risco e Atitude — RPA (Risk Perception Attitude Framework)
+- Modelo CAUSE de comunicação de risco (CAUSE Model of Risk Communication)
+- Modelo de Processamento de Informação Comunicação-Humano — C-HIP (Communication-Human Information Processing Model)
+- Mapeamento de intervenções em saúde de Bartholomew (Intervention Mapping)
+- Modelo de Decisão Compartilhada Interprofissional — IP-SDM (Interprofessional Shared Decision-Making Model)
+
+- Análise de clareza de risco absoluto e risco relativo (absolute and relative risk clarity analysis)
+- Análise de frequência natural para comunicar probabilidade (natural frequency framing for probability communication)
+- Análise de denominador comum em apresentação de risco (common denominator analysis in risk presentation)
+- Análise de benefício absoluto e benefício relativo (absolute and relative benefit analysis)
+- Análise de número necessário para tratar em comunicação ao paciente (number needed to treat communication analysis)
+- Análise de número necessário para causar dano (number needed to harm analysis)
+- Análise de incerteza intervalar em estimativas de saúde (interval uncertainty in health estimates analysis)
+- Análise de comunicação de risco por faixa etária (age-stratified risk communication analysis)
+- Análise de comunicação de risco por condição prévia (pre-existing condition risk communication analysis)
+- Escrita de aviso de segurança com perigo, consequência e ação (hazard, consequence, and action safety warning writing)
+- Análise de hierarquia de controles em instruções de segurança (hierarchy of controls in safety instructions analysis)
+- Escrita de comunicação de quase acidente (near-miss communication writing)
+- Escrita de boletim de segurança pós-incidente (post-incident safety bulletin writing)
+- Análise de linguagem não culpabilizante em evento adverso (non-blaming language in adverse event analysis)
+- Escrita de explicação de causa e prevenção de recorrência (cause and recurrence prevention explanation writing)
+- Análise de comunicação de contraindicação absoluta e relativa (absolute and relative contraindication communication analysis)
+- Escrita de orientação de dose por unidade e intervalo (dose-by-unit-and-interval instruction writing)
+- Análise de ambiguidade em dose, frequência e duração (dose, frequency, and duration ambiguity analysis)
+- Escrita de advertência sobre dose esquecida (missed-dose warning writing)
+- Escrita de orientação sobre dose duplicada acidental (accidental double-dose instruction writing)
+- Análise de legibilidade de instrução de preparo de medicamento (medication preparation instruction readability analysis)
+- Análise de clareza de instrução de armazenamento e descarte (storage and disposal instruction clarity analysis)
+- Escrita de alerta de interação entre medicamento e alimento (medicine-food interaction warning writing)
+- Escrita de comunicação de interação medicamentosa potencial (potential drug interaction communication writing)
+- Análise de consistência de nomes genéricos e comerciais (generic and brand name consistency analysis)
+- Análise de risco de confusão entre nomes de medicamentos semelhantes (look-alike medicine name confusion risk analysis)
+- Análise de risco de confusão por apresentação e concentração (medicine form and strength confusion risk analysis)
+- Escrita de instrução sobre uso de dispositivo de administração (administration device use instruction writing)
+- Escrita de orientação pré e pós-procedimento (pre- and post-procedure instruction writing)
+- Análise de clareza de sinais de alerta e limiar de ação (warning signs and action threshold clarity analysis)
+- Escrita de orientação para procurar atendimento urgente (urgent care seeking instruction writing)
+- Escrita de orientação para acompanhamento não urgente (non-urgent follow-up instruction writing)
+- Análise de distinção entre efeito adverso comum e sinal de urgência (common adverse effect and emergency sign distinction analysis)
+- Análise de apresentação de benefício com risco e limitação (benefit, risk, and limitation presentation analysis)
+- Escrita de resumo leigo de bula por pergunta do paciente (patient-question-based plain-language medicine summary)
+- Análise de compreensão de consentimento informado por etapa (staged informed consent comprehension analysis)
+- Escrita de explicação de incerteza diagnóstica sem falsa certeza (diagnostic uncertainty explanation without false certainty)
+- Análise de comunicação de resultado inconclusivo (inconclusive result communication analysis)
+- Escrita de orientação de coleta de amostra biológica (biological sample collection instruction writing)
+- Análise de clareza de instruções de jejum pré-exame (pre-test fasting instruction clarity analysis)
+- Análise de comunicação de resultado laboratorial fora da faixa (out-of-range laboratory result communication analysis)
+- Escrita de resultado negativo com explicação de limites do teste (negative test result with test limitations writing)
+- Escrita de resultado positivo com próximos passos claros (positive test result with clear next steps writing)
+- Análise de comunicação de sensibilidade, especificidade e valor preditivo (sensitivity, specificity, and predictive value communication analysis)
+- Análise de confundimento entre associação e causalidade em saúde (association-causation confusion analysis in health)
+- Escrita de mensagem de saúde pública com ação viável (public health message with feasible action writing)
+- Análise de confiança e transparência em comunicação de crise sanitária (trust and transparency in health crisis communication analysis)
+- Escrita de comunicação de mudança de recomendação clínica (clinical recommendation change communication writing)
+- Análise de consistência temporal entre versões de orientação de saúde (temporal consistency across health guidance versions)
+- Escrita de aviso sobre limites de ferramenta de triagem digital (digital triage tool limitation notice writing)
+- Análise de comunicação de risco sem estigma (stigma-free risk communication analysis)
+
+- Comunicação de risco em camadas: resumo, detalhe e fonte (layered risk communication: summary, detail, and source)
+- Enquadramento de risco em frequência natural por grupo (natural frequency risk framing by group)
+- Matriz de risco por probabilidade e gravidade explicada em linguagem simples (plain-language likelihood-severity risk matrix)
+- Análise de risco residual após aplicação de controle (residual risk communication after control measures)
+- Comunicação de risco comparativo com linha de base explícita (comparative risk communication with explicit baseline)
+- Explicação de incerteza aleatória e epistêmica (aleatory and epistemic uncertainty explanation)
+- Explicação de intervalo de previsão versus intervalo de confiança (prediction interval and confidence interval explanation)
+- Comunicação de risco por faixa e não por ponto estimado (range-based rather than point-estimate risk communication)
+- Explicação de evidência preliminar e grau de confiança (preliminary evidence and confidence level explanation)
+- Comunicação de mudança de recomendação com motivo e data (recommendation change communication with reason and date)
+- Análise de consistência entre alerta, orientação e canal de atualização (alert, guidance, and update channel consistency analysis)
+- Escrita de mensagem de prevenção com ação prioritária (prevention message with priority action writing)
+- Escrita de instrução de mitigação com gatilho e prazo (mitigation instruction with trigger and deadline writing)
+- Comunicação de risco com alternativa disponível para ação recomendada (risk communication with available action alternative)
+- Análise de viabilidade da ação recomendada em comunicação de risco (feasibility of recommended action in risk communication)
+- Comunicação de risco com reconhecimento de incerteza sem alarmismo (uncertainty acknowledgment without alarmism in risk communication)
+- Análise de tom de alerta versus tom de orientação (warning and guidance tone analysis)
+- Escrita de alerta graduado por severidade e urgência (warning graded by severity and urgency writing)
+- Análise de risco por horizonte temporal imediato e cumulativo (immediate and cumulative time horizon risk analysis)
+- Comunicação de risco acumulado ao longo da vida (lifetime cumulative risk communication)
+- Explicação de risco de evento raro por frequência absoluta (rare event risk explanation by absolute frequency)
+- Análise de efeito de denominador em risco relativo (denominator effect in relative risk analysis)
+- Comunicação de efeito colateral com taxa de ocorrência (side effect communication with occurrence rate)
+- Comparação de benefício clínico e dano potencial por mesmo denominador (clinical benefit and potential harm comparison using same denominator)
+- Explicação de risco basal antes de apresentar redução relativa (baseline risk before relative reduction explanation)
+- Análise de visualização verbal de parte e total (verbal part-to-whole visualization analysis)
+- Escrita de orientação de triagem com sintomas, urgência e ação (triage guidance by symptom, urgency, and action writing)
+- Análise de limiar de ação em escala de sintomas (action threshold in symptom scale analysis)
+- Comunicação de sinais de emergência em ordem de prioridade (emergency sign communication by priority order)
+- Análise de consistência entre instrução pré-hospitalar e atendimento (prehospital instruction and care consistency analysis)
+- Escrita de orientação para exposição acidental a substância (accidental substance exposure guidance writing)
+- Escrita de instrução para interromper exposição e buscar ajuda (exposure cessation and help-seeking instruction writing)
+- Análise de clareza de orientação em situação de pânico (guidance clarity in panic situation analysis)
+- Escrita de orientação de segurança em linguagem direta e sequencial (direct sequential safety guidance writing)
+- Análise de ambiguidade em instrução de primeiros socorros (first aid instruction ambiguity analysis)
+- Escrita de instrução de primeiros socorros com limites de atuação (first aid instruction with scope limits writing)
+- Análise de comunicação de risco ocupacional por tarefa (occupational risk communication by task analysis)
+- Escrita de instrução de equipamento de proteção com verificação de ajuste (protective equipment instruction with fit check writing)
+- Análise de rótulo de perigo por pictograma, palavra-sinal e frase (hazard label pictogram, signal word, and statement analysis)
+- Análise de consistência entre ficha de segurança e rótulo de produto (safety data sheet and product label consistency analysis)
+- Escrita de aviso de risco ambiental com via de exposição (environmental risk notice with exposure pathway writing)
+- Comunicação de risco de contaminação com população e área afetada (contamination risk communication with affected population and area)
+- Análise de instrução de evacuação por rota, destino e alternativa (evacuation instruction by route, destination, and alternative analysis)
+- Escrita de alerta de interrupção de água, energia ou serviço (water, power, or service interruption alert writing)
+- Análise de prioridade em mensagem multirriscos (multi-hazard message prioritization analysis)
+- Escrita de aviso com instrução para quem não pode seguir a recomendação padrão (notice for users unable to follow standard guidance)
+- Análise de acessibilidade de comunicação de emergência (emergency communication accessibility analysis)
+- Análise de tradução e adaptação cultural de alerta sanitário (health alert translation and cultural adaptation analysis)
+- Comunicação de medida preventiva com benefício, limite e evidência (preventive measure communication with benefit, limit, and evidence)
+- Análise de confiança em mensageiro e canal de risco (risk messenger and channel trust analysis)
+
+- Análise de comunicação de sensibilidade e especificidade por cenário (sensitivity and specificity communication by scenario analysis)
+- Explicação de valor preditivo positivo e negativo por prevalência (positive and negative predictive value by prevalence explanation)
+- Análise de teste positivo falso e falso negativo para leitor leigo (false positive and false negative for lay reader analysis)
+- Escrita de resultado de teste com probabilidade pós-teste (test result with post-test probability writing)
+- Análise de apresentação de rastreamento e risco de sobrediagnóstico (screening and overdiagnosis risk presentation analysis)
+- Comunicação de benefício de rastreamento com dano potencial (screening benefit with potential harm communication)
+- Explicação de risco basal em população de baixo e alto risco (baseline risk in low- and high-risk populations explanation)
+- Análise de comunicação de efeito relativo sem número absoluto (relative effect communication without absolute number analysis)
+- Escrita de decisão compartilhada com opções viáveis (shared decision-making with feasible options writing)
+- Análise de apresentação equilibrada de opções terapêuticas (balanced presentation of treatment options analysis)
+- Escrita de quadro de decisão com benefício, dano e incerteza (decision aid with benefit, harm, and uncertainty writing)
+- Análise de preferência do paciente e resultado valorizado (patient preference and valued outcome analysis)
+- Análise de compreensão de risco em decisão compartilhada (risk comprehension in shared decision analysis)
+- Escrita de resumo de decisão clínica em linguagem do paciente (clinical decision summary in patient language writing)
+- Análise de consentimento por etapas com oportunidade de pergunta (staged consent with opportunity for questions analysis)
+- Análise de compreensão de efeito adverso por frequência e gravidade (adverse effect comprehension by frequency and severity analysis)
+- Escrita de orientação sobre interação e quando contatar profissional (interaction guidance and when to contact clinician writing)
+- Análise de clareza de sinal de alarme após procedimento (post-procedure warning sign clarity analysis)
+- Escrita de orientação pós-alta por ação, prazo e contato (discharge instruction by action, timing, and contact writing)
+- Análise de entendimento de plano de cuidado por teach-back (care plan understanding through teach-back analysis)
+- Análise de teach-back sem culpabilizar o paciente (teach-back without blaming the patient analysis)
+- Escrita de orientação de alta com prioridade e sequência (discharge guidance by priority and sequence writing)
+- Análise de conciliação de medicamentos na transição de cuidado (medication reconciliation during care transition analysis)
+- Escrita de lista de medicamentos com nome, dose e horário (medication list with name, dose, and timing writing)
+- Análise de ambiguidade de frequência “conforme necessário” (ambiguity in as-needed frequency analysis)
+- Escrita de orientação de dose máxima diária (maximum daily dose instruction writing)
+- Análise de comunicação de risco de interação em polifarmácia (interaction risk communication in polypharmacy analysis)
+- Análise de texto de bula sobre população especial (package insert text for special populations analysis)
+- Escrita de informação de saúde para cuidadores com papel explícito (health information for caregivers with explicit role writing)
+- Análise de orientação para identificar piora progressiva de sintoma (guidance to identify progressive symptom worsening analysis)
+- Escrita de orientação de autocuidado com limite de segurança (self-care guidance with safety boundary writing)
+- Análise de equilíbrio entre autonomia e recomendação profissional (autonomy and professional recommendation balance analysis)
+- Análise de compreensão de recomendação condicional (conditional recommendation comprehension analysis)
+- Escrita de informação de saúde com fonte e data de revisão (health information with source and review date writing)
+- Análise de transparência de conflito de interesse em material de saúde (conflict of interest transparency in health material analysis)
+- Análise de clareza de distinção entre evidência e opinião clínica (evidence and clinical opinion distinction clarity analysis)
+- Escrita de explicação de resultado inconclusivo com plano de seguimento (inconclusive result explanation with follow-up plan writing)
+- Análise de mensagem de resultado normal sem falsa garantia (normal result message without false reassurance analysis)
+- Análise de mensagem de resultado anormal sem alarmismo indevido (abnormal result message without undue alarm analysis)
+- Escrita de comunicação de atraso de resultado diagnóstico (diagnostic result delay communication writing)
+- Análise de comunicação de indisponibilidade temporária de serviço de saúde (temporary health service unavailability communication analysis)
+- Análise de instrução de acesso a prontuário e correção de dados (medical record access and correction instruction analysis)
+- Escrita de comunicação de privacidade em teleatendimento (telehealth privacy communication writing)
+- Análise de orientação para contato remoto e critérios de escalonamento (remote contact guidance and escalation criteria analysis)
+- Análise de compreensão de plano de segurança em saúde mental (mental health safety plan comprehension analysis)
+- Escrita de comunicação de crise com recurso imediato e rota de apoio (crisis communication with immediate resource and support route writing)
+- Análise de linguagem não estigmatizante em orientação clínica (non-stigmatizing language in clinical guidance analysis)
+- Análise de leitura de instrução de saúde em contexto de alfabetização limitada (health instruction reading under limited literacy analysis)
+- Análise de comunicação de incerteza em prognóstico (uncertainty communication in prognosis analysis)
+- Escrita de conversa sobre prognóstico com faixa temporal e limites (prognosis conversation with time range and limits writing)
+
+- Análise de compreensão de recomendação em escala de força graduada (graded recommendation strength comprehension analysis)
+- Escrita de recomendação condicional por perfil de risco (conditional recommendation by risk profile writing)
+- Análise de comunicação de evidência de baixa certeza (low-certainty evidence communication analysis)
+- Escrita de resumo de evidência por população, intervenção, comparação e desfecho (evidence summary by population, intervention, comparator, and outcome writing)
+- Análise de correspondência entre evidência clínica e linguagem de recomendação (clinical evidence and recommendation language alignment analysis)
+- Análise de atualização de orientação após nova evidência (guidance update after new evidence analysis)
+- Escrita de aviso de recomendação provisória (provisional recommendation notice writing)
+- Análise de distinção entre ausência de evidência e evidência de ausência (absence of evidence and evidence of absence distinction analysis)
+- Análise de extrapolação entre população estudada e público leitor (study population and reader population extrapolation analysis)
+- Escrita de limite de aplicabilidade de resultado clínico (clinical result applicability limit writing)
+- Análise de compreensão de risco individual versus risco populacional (individual and population risk comprehension analysis)
+- Escrita de explicação de risco personalizado e variabilidade individual (personalized risk and individual variability explanation writing)
+- Análise de variabilidade de risco por idade, condição e exposição (risk variability by age, condition, and exposure analysis)
+- Escrita de orientação de prevenção por exposição e duração (prevention guidance by exposure and duration writing)
+- Análise de consistência entre recomendação geral e exceção individual (general recommendation and individual exception consistency analysis)
+- Escrita de pergunta para identificar contraindicação relevante (question to identify relevant contraindication writing)
+- Análise de explicação de benefício em desfecho importante ao paciente (benefit explanation by patient-important outcome analysis)
+- Análise de benefício substituto versus desfecho clínico final (surrogate benefit and final clinical outcome distinction analysis)
+- Escrita de explicação de redução absoluta com população explícita (absolute reduction explanation with explicit population writing)
+- Análise de gráfico de risco por pictograma e denominador comum (risk pictograph and common denominator analysis)
+- Escrita de comunicação de incerteza por cenários plausíveis (uncertainty communication through plausible scenarios writing)
+- Análise de compreensão de faixa prognóstica e não prazo exato (prognostic range rather than exact deadline comprehension analysis)
+- Escrita de prognóstico com cenários provável, melhor e pior (prognosis with likely, best, and worst scenarios writing)
+- Análise de transparência sobre limites de teste diagnóstico (diagnostic test limitation transparency analysis)
+- Escrita de explicação de resultado falso positivo em rastreamento (false positive screening result explanation writing)
+- Análise de orientação após resultado discordante entre testes (guidance after discordant test results analysis)
+- Escrita de instrução sobre confirmação de diagnóstico (diagnosis confirmation instruction writing)
+- Análise de compreensão de monitoramento domiciliar de sintomas (home symptom monitoring comprehension analysis)
+- Escrita de plano de ação por sintoma, limiar e contato (action plan by symptom, threshold, and contact writing)
+- Análise de clareza de orientação “observar e retornar” (clarity of watchful waiting guidance analysis)
+- Escrita de recomendação para procurar atendimento se houver piora (seek care if symptoms worsen recommendation writing)
+- Análise de mensagem de resultado que distingue urgência e rotina (result message distinguishing urgent and routine follow-up analysis)
+- Escrita de chamada de acompanhamento com prazo e finalidade (follow-up call with timing and purpose writing)
+- Análise de comunicação de risco de não adesão sem culpa (nonadherence risk communication without blame analysis)
+- Escrita de orientação de adesão com barreira e solução prática (adherence guidance by barrier and practical solution writing)
+- Análise de compreensibilidade de plano de medicação para cuidador (medication plan comprehensibility for caregiver analysis)
+- Escrita de tabela de medicação com indicação e alerta (medication table with indication and warning writing)
+- Análise de risco de confusão de concentração e dose total diária (strength and total daily dose confusion risk analysis)
+- Escrita de instrução de uso de dispositivo por demonstração em passos (device use instruction through demonstration steps writing)
+- Análise de compreensão de técnica de inalação ou aplicação (inhaler or administration technique comprehension analysis)
+- Escrita de orientação de armazenamento fora do alcance de crianças (storage instruction to keep away from children writing)
+- Análise de instrução de descarte de medicamento e perfurocortante (medicine and sharps disposal instruction analysis)
+- Escrita de aviso sobre medicamento de alto risco por etapa de uso (high-alert medication notice by use step writing)
+- Análise de comunicação de evento adverso por gravidade e notificação (adverse event communication by severity and reporting analysis)
+- Escrita de instrução para notificar reação adversa suspeita (suspected adverse reaction reporting instruction writing)
+- Análise de resumo de alta para continuidade entre serviços (discharge summary for continuity across services analysis)
+- Escrita de comunicação de encaminhamento com motivo e urgência (referral communication with reason and urgency writing)
+- Análise de orientação de retorno entre diferentes níveis de cuidado (return guidance across care levels analysis)
+- Escrita de aviso de prevenção com barreira de acesso e alternativa (prevention notice with access barrier and alternative writing)
+- Análise de compreensão de recomendação em diversidade linguística (recommendation comprehension across language diversity analysis)
+
+- Análise de comunicação de risco em formato teach-back (risk communication through teach-back analysis)
+- Análise de explicação de risco por enquadramento em frequência natural (risk explanation through natural frequency framing analysis)
+- Análise de risco basal e risco residual em orientação clínica (baseline and residual risk in clinical guidance analysis)
+- Análise de risco relativo versus redução relativa de risco (relative risk and relative risk reduction distinction analysis)
+- Análise de comunicação de redução absoluta de risco (absolute risk reduction communication analysis)
+- Análise de NNT por período e população de referência (number needed to treat by time period and reference population analysis)
+- Análise de NNH por definição de dano e duração (number needed to harm by harm definition and duration analysis)
+- Análise de diferença entre risco vitalício e risco anual (lifetime and annual risk distinction analysis)
+- Análise de comunicação de risco cumulativo versus risco por evento (cumulative and per-event risk communication analysis)
+- Análise de frequência natural em comparação de duas opções de tratamento (natural frequencies in comparison of two treatment options analysis)
+- Análise de apresentação de risco por pictograma com denominador (risk pictogram with denominator analysis)
+- Escrita de quadro de fatos para decisão médica (medical decision fact box writing)
+- Análise de balanceamento de benefício e dano em fact box (benefit-harm balance in fact box analysis)
+- Análise de compreensão de fact box por leigo (lay comprehension of fact box analysis)
+- Análise de resumo de evidência por benefício, dano e incerteza (evidence summary by benefit, harm, and uncertainty analysis)
+- Análise de opção clínica por evidência e preferência do paciente (clinical option by evidence and patient preference analysis)
+- Escrita de ajuda à decisão compartilhada em saúde (shared decision aid writing in health)
+- Análise de linguagem de recomendação forte e condicional em diretriz (strong and conditional recommendation language in guideline analysis)
+- Análise de GRADE por certeza e balanço entre efeitos (GRADE by certainty and effects balance analysis)
+- Análise de entendimento de recomendação condicional (conditional recommendation understanding analysis)
+- Análise de comunicação de incerteza em diagnóstico diferencial (uncertainty communication in differential diagnosis analysis)
+- Escrita de comunicação de hipótese diagnóstica e investigação pendente (diagnostic hypothesis and pending investigation communication writing)
+- Análise de resultado de exame por limiar e contexto clínico (test result by threshold and clinical context analysis)
+- Análise de valor de referência laboratorial e faixa de decisão (laboratory reference range and decision threshold analysis)
+- Escrita de resultado laboratorial com comparação ao intervalo de referência (laboratory result with reference interval comparison writing)
+- Análise de compreensão de teste de triagem versus teste diagnóstico (screening and diagnostic test comprehension analysis)
+- Escrita de orientação sobre resultado preliminar e confirmação (preliminary result and confirmation guidance writing)
+- Análise de comunicação de falso negativo e persistência de sintomas (false negative communication and persistent symptoms analysis)
+- Análise de comunicação de falso positivo e necessidade de confirmação (false positive communication and need for confirmation analysis)
+- Escrita de orientação para resultado incidental (incidental finding guidance writing)
+- Análise de mensagem de achado incidental e próximos passos (incidental finding message and next steps analysis)
+- Análise de alerta de medicamento por contraindicação e população (medication warning by contraindication and population analysis)
+- Escrita de instrução farmacêutica por concentração, dose e dispositivo (pharmaceutical instruction by concentration, dose, and device writing)
+- Análise de ambiguidade de dose em miligrama versus mililitro (milligram and milliliter dose ambiguity analysis)
+- Análise de orientação de dose por peso e faixa etária (dose guidance by weight and age range analysis)
+- Escrita de tabela de dose pediátrica com ressalva de unidade (pediatric dose table with unit qualification writing)
+- Análise de compreensão de intervalo de dose mínima (minimum dosing interval comprehension analysis)
+- Escrita de alerta de duplicidade de princípio ativo (duplicate active ingredient warning writing)
+- Análise de comunicação de risco em interação entre medicamentos (risk communication in drug-drug interaction analysis)
+- Escrita de orientação sobre uso concomitante e consulta profissional (concomitant use guidance and clinician consultation writing)
+- Análise de comunicação de adesão por rotina e barreira prática (adherence communication by routine and practical barrier analysis)
+- Escrita de plano de medicação por horário de rotina (medication plan by daily routine writing)
+- Análise de recordação de instrução farmacêutica após consulta (recall of medication instruction after consultation analysis)
+- Análise de reconciliação de medicação por lista visual e linguagem simples (medication reconciliation through visual list and plain language analysis)
+- Escrita de orientação de alta com confirmação de compreensão (discharge instruction with comprehension confirmation writing)
+- Análise de consistência de orientação entre equipe e material impresso (staff and printed guidance consistency analysis)
+- Escrita de informação sobre vacinação por benefício, risco e calendário (vaccination information by benefit, risk, and schedule writing)
+- Análise de comunicação de elegibilidade para rastreamento (screening eligibility communication analysis)
+- Escrita de convocação para rastreamento com escolha informada (screening invitation with informed choice writing)
+- Análise de comunicação de prevenção sem estigma e culpabilização (prevention communication without stigma and blame analysis)
+
+## Edição, revisão e tradução
+
+- Estilística funcional de Bally (Bally’s Functional Stylistics)
+- Teoria do skopos de Vermeer e Reiß (Skopos Theory)
+- Teoria de gênero de Martin na linguística sistêmico-funcional (Martin’s Genre Theory in Systemic Functional Linguistics)
+- Limpeza de clichês. advérbios vazios e expressões genéricas (Filler and Cliché Pruning)
+- Variação dos iniciadores de frase (Sentence-Starter Variation)
+- Combinação de sentenças (Sentence Combining)
+- Revisão por recorte e reordenação (Cut-Up and Rearrange Revision)
+- Revisão editorial em quatro etapas (Four-Stage Editorial Pass)
+- Marcação funcional por código de cores (Color-Coded Functional Highlighting)
+- Passe de omissão de palavras desnecessárias (Omission Pass)
+- Auditoria de atenuadores e palavras evasivas (Hedging and Weasel-Word Audit)
+- Construção de folha de estilo editorial (Editorial Style Sheet Construction)
+- Varredura de construções expletivas (Expletive Construction Sweep)
+- Auditoria de proximidade entre sujeito e verbo (Subject-Verb Proximity Audit)
+- Varredura de palavras-eco e repetições involuntárias (Echo Word and Unintended Repetition Sweep)
+- Compressão de orações relativas em apostos explicativos (Appositive Compression)
+- Auditoria de tradutês e interferência da língua-fonte (Translationese and Source-Language Interference Audit)
+- Tratamento de realia e itens específicos de cultura (Culture-Specific Items)
+- Mudanças tradutórias de nível e categoria de Catford (Catford Translation Shifts)
+- Condensação espaço-temporal na legendagem (Subtitling Spatiotemporal Condensation)
+- Audiodescrição editorial e audiovisual (Audio Description)
+- Tipologia de equivalência de Kade (Kade Equivalence Typology)
+- Movimento hermenêutico de Schleiermacher (Schleiermacher Hermeneutic Movement)
+- Revisão linguística no país de destino (In-Country Review)
+- Verificação linguística de editoração eletrônica — DTP QA (Desktop Publishing Linguistic Check)
+- Varredura tipográfica de viúvas. órfãs e rios (Widows. Orphans. and Rivers Pass)
+- Passe de consistência numérica e de unidades (Numerical and Unit Consistency Pass)
+- Protocolo editorial de consultas ao autor (Author Querying Protocol)
+- Recertificação periódica de atualidade e SLA editorial (Content Freshness and SLA Recertification)
+- Teste de escolha de termos e vocabulário (Term-Choice Testing)
+- Desverbalização na teoria interpretativa da tradução (Deverbalization in the Interpretive Theory of Translation)
+- Tradução subordinada (Constrained Translation)
+- Isocronia e sincronia labial na dublagem (Isochrony and Lip Synchronization in Dubbing)
+- Legendagem para surdos e ensurdecidos (Subtitling for the Deaf and Hard of Hearing)
+- Hipótese da retradução (Retranslation Hypothesis)
+- Pré-edição de texto-fonte para tradução automática (Pre-Editing for Machine Translation)
+- Tradução inversa (Inverse Translation)
+- Tradução como reescrita e patronagem de Lefevere (Lefevere’s Rewriting and Patronage Theory)
+- Alinhamento de bitextos (Bitext Alignment)
+- Padrão XLIFF de intercâmbio de localização (XML Localization Interchange File Format)
+- Teoria comunicativa da terminologia (Communicative Theory of Terminology)
+- Teoria do texto-base de Greg-Bowers (Greg-Bowers Copy-Text Theory)
+- Teoria do texto social na crítica textual (Social Text Theory)
+- Edição diplomática e semidiplomática (Diplomatic and Semi-Diplomatic Edition)
+- Sinais convencionais de revisão tipográfica ISO 5776 (ISO 5776 Proofreading Symbols)
+- Taxonomia de operações de revisão de Faigley e Witte (Faigley and Witte’s Taxonomy of Revision)
+- Indexação remissiva editorial ISO 999 (Back-of-the-Book Indexing)
+- Leitura de sensibilidade editorial (Sensitivity Reading)
+- Feedback corretivo escrito (Written Corrective Feedback)
+- Modelo CDO de revisão textual: comparar. diagnosticar e operar (Compare-Diagnose-Operate Revision Model)
+- Revisão pré-contextual versus revisão contextual de Lindgren e Sullivan (Pre-Contextual vs. Contextual Revision)
+- Movimento hermenêutico de George Steiner (Steiner’s Hermeneutic Motion)
+- Teoria da ação tradutória de Holz-Mänttäri (Holz-Mänttäri’s Translatorial Action Theory)
+- Modelo de análise textual orientada à tradução de Nord (Nord’s Translation-Oriented Text Analysis Model)
+- Abordagem da tradução baseada na relevância de Gutt (Gutt’s Relevance-Theoretic Approach to Translation)
+- Quadro de equivalência tradutória de Koller (Koller’s Five Frameworks of Equivalence)
+- Estratégia minimax na tomada de decisão tradutória de Levý (Levý’s Minimax Strategy in Translation)
+- Analítica negativa e tendências deformadoras de Berman (Berman’s Negative Analytic and Deforming Tendencies)
+- Teoria narrativa e enquadramento tradutório de Mona Baker (Baker’s Narrative Framing in Translation)
+- Habitus do tradutor na sociologia da tradução de Simeoni (Translator’s Habitus)
+- Gestão de riscos na tradução de Anthony Pym (Pym’s Risk Management in Translation)
+- Modelo de competência tradutória do grupo PACTE (PACTE Translation Competence Model)
+- Estratégias de tradução feminista de von Flotow (Feminist Translation Strategies)
+- Tradução centrada no usuário (User-Centered Translation)
+- Método TRAPD de tradução de questionários e pesquisas (TRAPD Survey Translation Method)
+- Padrão TMX de intercâmbio de memórias de tradução (Translation Memory eXchange)
+- Padrão SRX de regras de segmentação textual (Segmentation Rules eXchange)
+- Correspondência exata em contexto em memórias de tradução (In-Context Exact Matching)
+- Tradução automática interativa e adaptativa (Interactive and Adaptive Machine Translation)
+- Adaptação de domínio em tradução automática (Domain Adaptation in Machine Translation)
+- Corredação bilíngue de textos paralelos (Bilingual Co-Drafting)
+- Teoria Geral da Terminologia de Wüster (Wüster’s General Theory of Terminology)
+- Socioterminologia de Gaudin (Socioterminology)
+- Sistema de tomada de notas em interpretação consecutiva de Rozan (Rozan’s Note-Taking System for Consecutive Interpreting)
+- Técnica do salame na interpretação simultânea (Salami Technique in Simultaneous Interpreting)
+- Interpretação simultânea-consecutiva assistida por gravação — SimConsec (Simultaneous-Consecutive Interpreting)
+
+- Análise de equivalência formal e dinâmica em tradução (formal and dynamic equivalence analysis in translation)
+- Análise de equivalência funcional em contexto (functional equivalence analysis in context)
+- Análise de procedimentos de tradução de empréstimo e decalque (borrowing and calque translation procedure analysis)
+- Análise de transposição, modulação e adaptação (transposition, modulation, and adaptation analysis)
+- Análise de explicitação e implicitação tradutória (translation explicitation and implicitation analysis)
+- Análise de domesticação e estrangeirização (domestication and foreignization analysis)
+- Análise de tradução orientada à função ou skopos (skopos-oriented translation analysis)
+- Análise de tradução orientada ao público-alvo (target-audience-oriented translation analysis)
+- Análise de registro e variação sociolinguística em tradução (register and sociolinguistic variation in translation)
+- Análise de dialeto e socioleto na tradução literária (dialect and sociolect in literary translation analysis)
+- Análise de tradução de humor e jogo de palavras (humor and wordplay translation analysis)
+- Análise de tradução de metáforas e expressões idiomáticas (metaphor and idiom translation analysis)
+- Análise de tradução de nomes próprios e referentes culturais (proper name and culture-specific reference translation analysis)
+- Análise de tradução de siglas, acrônimos e abreviações (acronym and abbreviation translation analysis)
+- Análise de tradução de unidades de medida e formatos locais (measurement unit and locale format translation analysis)
+- Análise de paralelismo entre texto-fonte e texto-alvo (source-target text parallelism analysis)
+- Análise de alinhamento de sentenças para revisão bilíngue (sentence alignment for bilingual revision)
+- Análise de falso cognato em revisão tradutória (false friend analysis in translation revision)
+- Análise de interferência sintática da língua-fonte (source-language syntactic interference analysis)
+- Análise de calque semântico em texto traduzido (semantic calque analysis in translated text)
+- Análise de consistência de equivalentes terminológicos (terminological equivalent consistency analysis)
+- Análise de ambiguidade terminológica em glossário (terminology ambiguity analysis in glossary)
+- Análise de definição por gênero próximo e diferença específica (genus-and-differentia definition analysis)
+- Análise de definição terminológica por extensão e intensão (intensional and extensional terminology definition analysis)
+- Análise de relações hierárquicas em base terminológica (hierarchical relationships in terminology database analysis)
+- Análise de relações associativas em base terminológica (associative relationships in terminology database analysis)
+- Análise de ficha terminológica multilíngue (multilingual terminology record analysis)
+- Análise de variante regional e preferência de uso em terminologia (regional variant and usage preference analysis)
+- Análise de adequação de glossário ao domínio do usuário (user-domain glossary suitability analysis)
+- Análise de consistência de voz autoral em edição (authorial voice consistency in editing analysis)
+- Análise de intervenção editorial conservadora e substantiva (light and substantive editorial intervention analysis)
+- Análise de política editorial de números e unidades (editorial style policy for numbers and units)
+- Análise de política editorial de maiúsculas e siglas (editorial style policy for capitalization and acronyms)
+- Análise de sequência de revisão por conteúdo, estrutura e superfície (content, structure, and surface editing sequence)
+- Análise de revisão monolíngue e revisão comparativa bilíngue (monolingual and bilingual comparative revision analysis)
+- Análise de revisão de consistência entre documentos (cross-document consistency revision analysis)
+- Análise de leitura de prova tipográfica (proofreading pass analysis)
+- Análise de revisão de acessibilidade editorial (editorial accessibility review analysis)
+- Análise de controle de alterações e justificativa editorial (tracked changes and editorial rationale analysis)
+- Análise de preservação de ambiguidade deliberada em tradução (preserving deliberate ambiguity in translation)
+- Análise de solução tradutória por compensação (translation compensation strategy analysis)
+- Análise de tradução de jogos de palavras por recriação (wordplay translation by recreation analysis)
+
+- Análise de adequação tradutória por finalidade e destinatário (translation adequacy by purpose and recipient analysis)
+- Análise de equivalência pragmática entre versões (pragmatic equivalence across versions analysis)
+- Análise de equivalência textual e coesiva em tradução (textual and cohesive equivalence in translation analysis)
+- Análise de equivalência intertextual e alusão (intertextual and allusive equivalence analysis)
+- Análise de tradução de marcas de oralidade (translation of orality markers analysis)
+- Análise de tradução de humor baseado em cultura (culture-based humor translation analysis)
+- Análise de tradução de trocadilho visual e verbal (visual and verbal pun translation analysis)
+- Análise de tradução de rima, métrica e ritmo (rhyme, meter, and rhythm translation analysis)
+- Análise de tradução de variação histórica da língua (historical language variation translation analysis)
+- Análise de tradução de linguagem tabu e eufemismo (taboo language and euphemism translation analysis)
+- Análise de tradução de discurso politicamente marcado (politically marked discourse translation analysis)
+- Análise de tradução de terminologia institucional (institutional terminology translation analysis)
+- Análise de tradução de nomes de produto e marca (product and brand name translation analysis)
+- Análise de tradução de topônimos e exônimos (toponym and exonym translation analysis)
+- Análise de adaptação cultural de exemplo didático (cultural adaptation of instructional example analysis)
+- Análise de localização de formatos de data, hora e número (date, time, and number format localization analysis)
+- Análise de localização de moeda, preço e separador decimal (currency, price, and decimal separator localization analysis)
+- Análise de expansão e contração textual em localização (text expansion and contraction in localization analysis)
+- Análise de restrições de espaço em localização de interface (space constraints in interface localization analysis)
+- Análise de segmentação de strings para tradução (translation string segmentation analysis)
+- Análise de contexto insuficiente em pacote de localização (insufficient context in localization package analysis)
+- Análise de pseudo-localização para detectar problemas de interface (pseudo-localization for interface issue detection)
+- Análise de teste linguístico em contexto de produto localizado (linguistic testing in localized product context)
+- Análise de consistência de placeholders entre idiomas (placeholder consistency across languages analysis)
+- Análise de ordem variável de gênero e número em tradução (variable gender and number order in translation analysis)
+- Análise de tradução de linguagem inclusiva entre sistemas gramaticais (inclusive language translation across grammatical systems analysis)
+- Análise de manutenção de voz e registro em cadeia de tradução (voice and register maintenance across translation workflow)
+- Análise de revisão bilíngue por alinhamento de segmentos (bilingual revision by segment alignment analysis)
+- Análise de revisão monolíngue para fluência e naturalidade (monolingual revision for fluency and naturalness analysis)
+- Análise de revisão comparativa para fidelidade semântica (comparative revision for semantic fidelity analysis)
+- Análise de revisão de tradução por categorias de erro (translation revision by error category analysis)
+- Análise de erros de tradução por tipologia MQM (MQM translation error typology analysis)
+- Análise de severidade de erro tradutório por impacto (translation error severity by impact analysis)
+- Análise de erro de precisão, terminologia e fluência (accuracy, terminology, and fluency error analysis)
+- Análise de erro de adequação cultural e registro (cultural appropriateness and register error analysis)
+- Análise de rastreabilidade de decisão tradutória (translation decision traceability analysis)
+- Análise de consulta terminológica e registro de decisão (terminology query and decision log analysis)
+- Análise de gestão de consultas ao cliente em tradução (client query management in translation analysis)
+- Análise de memória de tradução e consistência contextual (translation memory and contextual consistency analysis)
+- Análise de correspondência fuzzy em memória de tradução (fuzzy match analysis in translation memory)
+- Análise de revisão de saída de tradução automática por pós-edição (machine translation post-editing output review analysis)
+- Análise de pós-edição leve e pós-edição completa (light and full post-editing analysis)
+- Análise de risco de alucinação em tradução automática generativa (hallucination risk in generative machine translation analysis)
+- Análise de revisão de conteúdo gerado por modelo multilíngue (multilingual model-generated content review analysis)
+- Análise de adaptação de conteúdo transcriado por mercado (market-specific transcreation adaptation analysis)
+- Análise de briefing de transcriação por objetivo e restrição (transcreation brief by objective and constraint analysis)
+- Análise de validação cultural de metáfora em campanha localizada (cultural validation of metaphor in localized campaign analysis)
+- Análise de preservação de voz de marca em localização (brand voice preservation in localization analysis)
+- Análise de consistência entre glossário, guia de estilo e tradução (glossary, style guide, and translation consistency analysis)
+- Análise de auditoria final de integridade de arquivo localizado (final integrity audit of localized file analysis)
+
+- Análise de orientação de tradução palavra por palavra e sentido por sentido (word-for-word and sense-for-sense translation orientation analysis)
+- Análise de tradução comunicativa e semântica de Newmark (Newmark communicative and semantic translation analysis)
+- Análise de método literal, fiel, idiomático e livre (literal, faithful, idiomatic, and free translation method analysis)
+- Análise de empréstimo, tradução literal e transposição (borrowing, literal translation, and transposition analysis)
+- Análise de modulação lexical e modulação estrutural (lexical and structural modulation analysis)
+- Análise de equivalência por mudança de categoria gramatical (equivalence by grammatical category shift analysis)
+- Análise de transposição obrigatória e facultativa (obligatory and optional transposition analysis)
+- Análise de expansão explicativa e condensação tradutória (explicative expansion and translation compression analysis)
+- Análise de adaptação de referência cultural por substituição (cultural reference adaptation by substitution analysis)
+- Análise de adaptação de metáfora com imagem equivalente (metaphor adaptation using equivalent image analysis)
+- Análise de compensação por posição e compensação por categoria (compensation by position and category analysis)
+- Análise de compensação fonológica, lexical e estilística (phonological, lexical, and stylistic compensation analysis)
+- Análise de omissão tradutória deliberada e perda não intencional (deliberate translation omission and unintended loss analysis)
+- Análise de explicitação de informação implícita no original (explicitation of implicit source information analysis)
+- Análise de tradução de pressuposição cultural (cultural presupposition translation analysis)
+- Análise de tradução de informação dada e nova (given and new information translation analysis)
+- Análise de manutenção de foco temático na tradução (thematic focus maintenance in translation analysis)
+- Análise de coesão referencial entre original e tradução (referential cohesion across source and translation analysis)
+- Análise de conectores lógicos e sua equivalência funcional (logical connectors and functional equivalence analysis)
+- Análise de ordem informacional em frase traduzida (information order in translated sentence analysis)
+- Análise de revisão de tradução por leitura monolíngue (translation revision through monolingual reading analysis)
+- Análise de revisão de tradução por cotejo segmental (translation revision through segment comparison analysis)
+- Análise de revisão de completude de conteúdo traduzido (translated content completeness review analysis)
+- Análise de revisão de coerência com o texto-fonte (source-text coherence review analysis)
+- Análise de revisão de naturalidade idiomática em língua-alvo (idiomatic naturalness review in target language analysis)
+- Análise de revisão de interferência e decalque sintático (syntactic interference and calque review analysis)
+- Análise de revisão de terminologia por domínio e público (terminology review by domain and audience analysis)
+- Análise de revisão de pontuação e convenção tipográfica local (punctuation and local typographic convention review analysis)
+- Análise de revisão de números, datas e unidades localizados (localized numbers, dates, and units review analysis)
+- Análise de revisão de nomes próprios e consistência onomástica (proper names and onomastic consistency review analysis)
+- Análise de revisão de tratamento formal e informal (formal and informal address review analysis)
+- Análise de revisão de registro e nível de formalidade (register and formality level review analysis)
+- Análise de revisão de variedade regional da língua-alvo (target language regional variety review analysis)
+- Análise de revisão de marca de gênero e concordância inclusiva (gender marking and inclusive agreement review analysis)
+- Análise de validação linguística de interface localizada (linguistic validation of localized interface analysis)
+- Análise de teste de localização com strings expandidas (localization testing with expanded strings analysis)
+- Análise de verificação de truncamento em interface traduzida (truncation check in translated interface analysis)
+- Análise de revisão de placeholder e variável em string traduzida (placeholder and variable review in translated string analysis)
+- Análise de coerência entre tradução e comportamento real do produto (translation and actual product behavior coherence analysis)
+- Análise de qualidade de tradução por adequação e fluência (translation quality by adequacy and fluency analysis)
+- Análise de métrica de qualidade MQM por categoria e severidade (MQM quality metric by category and severity analysis)
+- Análise de anotação de erro com localização e justificativa (error annotation with location and rationale analysis)
+- Análise de revisão por amostragem baseada em risco (risk-based sampling review analysis)
+- Análise de avaliação de qualidade por leitor especialista do domínio (domain expert reader quality evaluation analysis)
+- Análise de avaliação de tradução por usuário final (end-user translation evaluation analysis)
+- Análise de conflito entre guia de estilo e preferência do tradutor (style guide and translator preference conflict analysis)
+- Análise de política de preservação de voz autoral em tradução (authorial voice preservation policy in translation analysis)
+- Análise de histórico de alterações em projeto de tradução (change history in translation project analysis)
+- Análise de gestão de versão de texto-fonte e texto-alvo (source and target text version management analysis)
+- Análise de revisão editorial posterior à localização (editorial review after localization analysis)
+
+- Análise de tradução de título por função informativa e efeito retórico (title translation by informational function and rhetorical effect analysis)
+- Análise de tradução de subtítulo e hierarquia argumentativa (subtitle translation and argumentative hierarchy analysis)
+- Análise de tradução de trocadilho homonímico (homonymic pun translation analysis)
+- Análise de tradução de trocadilho paronímico (paronymic pun translation analysis)
+- Análise de tradução de trocadilho por polissemia (polysemy-based pun translation analysis)
+- Análise de tradução de humor por incongruência (incongruity-based humor translation analysis)
+- Análise de tradução de ironia por marcador explícito (irony translation through explicit marker analysis)
+- Análise de tradução de sarcasmo e preservação de alvo (sarcasm translation and target preservation analysis)
+- Análise de tradução de alusão literária e reconhecimento cultural (literary allusion translation and cultural recognition analysis)
+- Análise de tradução de intertexto bíblico, clássico e popular (biblical, classical, and popular intertext translation analysis)
+- Análise de tradução de provérbio por equivalência funcional (proverb translation through functional equivalence analysis)
+- Análise de tradução de expressão idiomática por imagem equivalente (idiom translation through equivalent imagery analysis)
+- Análise de tradução de fraseologia sem equivalente direto (phraseology without direct equivalent translation analysis)
+- Análise de tradução de metáfora lexicalizada e metáfora viva (lexicalized and live metaphor translation analysis)
+- Análise de tradução de metáfora orientacional em outra cultura (orientational metaphor translation across cultures analysis)
+- Análise de tradução de eufemismo culturalmente marcado (culturally marked euphemism translation analysis)
+- Análise de tradução de insulto, tabu e intensidade pragmática (insult, taboo, and pragmatic intensity translation analysis)
+- Análise de tradução de registro honorífico e tratamento (honorific register and address translation analysis)
+- Análise de tradução de pronome de tratamento sem equivalente morfológico (address pronoun without morphological equivalent translation analysis)
+- Análise de tradução de gênero gramatical e referente humano (grammatical gender and human referent translation analysis)
+- Análise de tradução de neutralidade de gênero em línguas distintas (gender neutrality across languages translation analysis)
+- Análise de tradução de diminutivo e valor pragmático (diminutive and pragmatic value translation analysis)
+- Análise de tradução de aumentativo e intensidade avaliativa (augmentative and evaluative intensity translation analysis)
+- Análise de tradução de aspecto verbal sem equivalência direta (verbal aspect without direct equivalent translation analysis)
+- Análise de tradução de evidencialidade e fonte de informação (evidentiality and information source translation analysis)
+- Análise de tradução de modalidade de obrigação e possibilidade (obligation and possibility modality translation analysis)
+- Análise de tradução de dêixis social e hierarquia (social deixis and hierarchy translation analysis)
+- Análise de tradução de dêixis temporal e localização cultural (temporal deixis and cultural localization translation analysis)
+- Análise de tradução de pressuposição e informação compartilhada (presupposition and shared information translation analysis)
+- Análise de tradução de implicatura e conteúdo não dito (implicature and unsaid content translation analysis)
+- Análise de tradução de conjunção com relação lógica implícita (conjunction with implicit logical relation translation analysis)
+- Análise de tradução de tópico e foco em ordem sintática distinta (topic and focus in differing syntactic order translation analysis)
+- Análise de tradução de passiva com agente omitido (passive with omitted agent translation analysis)
+- Análise de tradução de nominalização e agência implícita (nominalization and implicit agency translation analysis)
+- Análise de tradução de voz autoral por pessoa gramatical (authorial voice through grammatical person translation analysis)
+- Análise de tradução de variação de registro entre falantes (register variation across speakers translation analysis)
+- Análise de tradução de dialeto social sem caricatura (social dialect translation without caricature analysis)
+- Análise de tradução de oralidade por sintaxe e léxico (orality through syntax and lexis translation analysis)
+- Análise de tradução de gíria por período e grupo social (slang by period and social group translation analysis)
+- Análise de tradução de regionalismo por equivalente ou manutenção (regionalism by equivalent or retention translation analysis)
+- Análise de tradução de topônimo com forma consagrada e forma local (toponym with established and local form translation analysis)
+- Análise de tradução de nome próprio transparente e opaco (transparent and opaque proper name translation analysis)
+- Análise de tradução de acróstico e restrição de inicial (acrostic and initial constraint translation analysis)
+- Análise de tradução de acrônimo pronunciável e não pronunciável (pronounceable and unpronounceable acronym translation analysis)
+- Análise de adaptação de citação por norma bibliográfica local (quotation adaptation by local citation convention analysis)
+- Análise de tradução de unidade de temperatura e escala (temperature unit and scale translation analysis)
+- Análise de localização de moeda com comparação de valor (currency localization with value comparison analysis)
+- Análise de tradução de formato de telefone e endereço (phone number and address format translation analysis)
+- Análise de adaptação de interface para expansão de texto (interface adaptation for text expansion analysis)
+- Análise de revisão linguística de strings sem contexto de tela (linguistic review of strings without screen context analysis)
+- Análise de revisão de tradução por severidade de risco de usuário (translation review by user risk severity analysis)
+
+- Protocolo de revisão ATA para tradução (ATA framework for translation assessment)
+- Framework MQM para anotação de erros de tradução (MQM framework for translation error annotation)
+- Métrica de qualidade de tradução baseada em erro (error-based translation quality metric)
+- Análise de adequação e fluência em avaliação de tradução (adequacy and fluency in translation evaluation)
+- Pós-edição de tradução automática conforme ISO 18587 (post-editing of machine translation under ISO 18587)
+- Análise de esforço de pós-edição de tradução automática (machine translation post-editing effort analysis)
+- Análise de adequação de tradução automática ao propósito (machine translation fitness for purpose analysis)
+- Análise de erro de tradução por adição, omissão e distorção (translation error by addition, omission, and distortion analysis)
+- Análise de erro terminológico em tradução (terminology error analysis in translation)
+- Análise de erro de registro em tradução (register error analysis in translation)
+- Análise de erro de coesão em texto traduzido (cohesion error analysis in translated text)
+- Análise de erro de consistência interna em tradução (internal consistency error analysis in translation)
+- Análise de revisão por checklist bilíngue (bilingual checklist review analysis)
+- Análise de edição comparativa por segmentos alinhados (comparative editing of aligned segments analysis)
+- Revisão de tradução por leitor especialista do domínio (translation review by domain expert reader)
+- Revisão de tradução por leitor leigo representativo (translation review by representative lay reader)
+- Análise de adequação da tradução ao gênero de chegada (translation adequacy to target genre analysis)
+- Análise de convenção discursiva na cultura de chegada (discourse convention in target culture analysis)
+- Análise de tradução por norma editorial do mercado-alvo (translation by target market editorial norm analysis)
+- Análise de localização de referências legais e regulatórias (localization of legal and regulatory references analysis)
+- Análise de transcriação por briefing, conceito e variante (transcreation by brief, concept, and variant analysis)
+- Análise de variação criativa com invariantes de marca (creative variation with brand invariants analysis)
+- Análise de glossário de marca por conceito e tom (brand glossary by concept and tone analysis)
+- Gestão terminológica por conceito, designação e contexto (terminology management by concept, designation, and context)
+- Análise de ficha terminológica com definição e fonte (terminology record with definition and source analysis)
+- Análise de validação de termo por especialista de assunto (term validation by subject matter expert analysis)
+- Análise de equivalência de termo em contexto regulado (term equivalence in regulated context analysis)
+- Análise de variante terminológica regional por preferência do usuário (regional terminology variant by user preference analysis)
+- Análise de consistência terminológica em família de produtos (terminology consistency across product family analysis)
+- Análise de decisão de tradução por justificativa registrada (translation decision through documented rationale analysis)
+- Análise de consulta tradutória por impacto, urgência e recorrência (translator query by impact, urgency, and recurrence analysis)
+- Análise de triagem de erro editorial por severidade e alcance (editorial error triage by severity and reach analysis)
+- Revisão editorial por camadas: conteúdo, estrutura e superfície (layered editorial review: content, structure, and surface)
+- Revisão substantiva por arquitetura e coerência argumentativa (substantive review by architecture and argumentative coherence)
+- Revisão de linha por clareza, ritmo e consistência de voz (line editing for clarity, rhythm, and voice consistency)
+- Preparação de texto por padronização tipográfica e editorial (copy preparation through typographic and editorial standardization)
+- Leitura de prova por cotejo com arquivo final (proofreading against final file)
+- Leitura de prova por busca dirigida de categorias de erro (proofreading through targeted error-category searches)
+- Análise de emenda editorial por necessidade e intervenção mínima (editorial emendation by necessity and minimum intervention analysis)
+- Análise de controle de qualidade em lote de conteúdo (quality control in content batches analysis)
+- Análise de revisão por segunda leitura independente (independent second-pass review analysis)
+- Análise de inconsistência entre texto, legenda e referência cruzada (inconsistency across text, caption, and cross-reference analysis)
+- Análise de integridade de links, notas e remissões editoriais (editorial link, note, and cross-reference integrity analysis)
+- Análise de alteração não autorizada em revisão de texto (unauthorized change in text revision analysis)
+- Análise de trilha editorial com autoria e justificativa de mudança (editorial audit trail by author and change rationale analysis)
+- Análise de revisão colaborativa por comentário e resolução (collaborative review by comment and resolution analysis)
+- Análise de resposta editorial a comentário de autor (editorial response to author comment analysis)
+- Análise de prioridade de revisão conforme público e risco (review priority by audience and risk analysis)
+- Análise de revisão final de conteúdo de alto impacto (final review of high-impact content analysis)
+- Análise de preservação de versão aprovada após revisão (preserving approved version after review analysis)
+
+- Leitura fria de manuscrito por leitor não envolvido (cold read by an uninvolved reader)
+- Leitura em voz alta para detectar ritmo e tropeço sintático (read-aloud review for rhythm and syntactic stumble)
+- Leitura de prova por busca de homófonos e palavras confundíveis (proofreading for homophones and confusable words)
+- Leitura de prova por busca de inconsistência de nomes próprios (proofreading for proper-name inconsistency)
+- Leitura de prova por conferência de números e unidades (proofreading for numbers and units)
+- Leitura de prova por cotejo de citações com referências (proofreading citations against references)
+- Revisão cruzada de título, sumário e corpo do documento (cross-review of title, contents, and document body)
+- Revisão de chamadas internas e referências cruzadas (review of internal links and cross-references)
+- Revisão de texto por lista de erros recorrentes do autor (revision using author-specific recurring error list)
+- Análise de padrão de erro e intervenção editorial direcionada (error pattern and targeted editorial intervention analysis)
+- Revisão de consistência de voz por amostra de trechos (voice consistency review by sampled passages)
+- Revisão de consistência de tom por cenário de uso (tone consistency review by use scenario)
+- Revisão por folha de estilo e exceções justificadas (style sheet review with justified exceptions)
+- Criação de folha de estilo editorial para obra longa (editorial style sheet for long-form work)
+- Revisão de grafia de nomes, siglas e topônimos em lote (batch review of names, acronyms, and toponyms)
+- Análise de consistência de itálico e aspas em obra (italics and quotation mark consistency in a work analysis)
+- Revisão de bibliografia por padrão e completude (bibliography review by style and completeness)
+- Análise de integridade de notas de rodapé e notas finais (footnote and endnote integrity analysis)
+- Revisão editorial de citações longas por fidelidade e formatação (long quotation review for fidelity and formatting)
+- Revisão de tradução por cotejo de nomes e números (translation review by name and number comparison)
+- Revisão de tradução por amostragem de risco (translation review through risk-based sampling)
+- Análise de decisão de amostragem em controle de qualidade linguística (sampling decision in linguistic quality control analysis)
+- Revisão de qualidade por categorias de severidade (quality review by severity categories)
+- Análise de taxa de erro por mil palavras em revisão (error rate per thousand words in review analysis)
+- Análise de tendência de erro por fase de produção (error trend by production stage analysis)
+- Revisão pós-publicação de conteúdo digital (post-publication review of digital content)
+- Revisão de atualização de conteúdo por fonte e validade temporal (content update review by source and temporal validity)
+- Análise de fluxo de aprovação editorial por risco (editorial approval workflow by risk analysis)
+- Revisão final de material regulado com checklist de conformidade (final review of regulated material with compliance checklist)
+- Análise de terminologia proibida e termo preferido em revisão (disallowed and preferred terminology in review analysis)
+- Análise de deriva terminológica em ciclo de revisão (terminology drift across revision cycle analysis)
+- Revisão de texto por busca de afirmação sem evidência (revision by searching for unsupported claims)
+- Revisão de afirmações absolutas e qualificadores ausentes (review of absolute claims and missing qualifiers)
+- Revisão de conteúdo por confirmação de fonte primária (content review through primary source confirmation)
+- Análise de consistência de afirmações repetidas em documento (consistency of repeated claims across document analysis)
+- Revisão de alterações por comparação de versão (change review by version comparison)
+- Revisão de diff textual para detectar perda de conteúdo (text diff review to detect content loss)
+- Análise de alteração editorial que muda escopo semântico (editorial change that shifts semantic scope analysis)
+- Revisão de continuidade entre edição e tradução (continuity review between editing and translation)
+- Revisão de versão localizada após atualização do original (localized version review after source update)
+- Análise de erro introduzido na etapa de diagramação (error introduced during typesetting analysis)
+- Revisão de prova tipográfica em dispositivos e formatos diferentes (proofreading across devices and formats)
+- Revisão de conteúdo de interface após implementação (interface content review after implementation)
+- Análise de truncamento, quebra e overflow em strings (string truncation, wrapping, and overflow analysis)
+- Revisão de microcopy em contexto visual e funcional (microcopy review in visual and functional context)
+- Análise de divergência entre texto aprovado e texto publicado (approved and published text discrepancy analysis)
+- Revisão de conteúdo por contexto real de uso (content review in real use context)
+- Revisão de consistência de rótulos em fluxos e telas (label consistency review across flows and screens)
+- Revisão de conteúdo por risco de ação irreversível (content review by irreversible action risk)
+- Análise de aprovação editorial por autoria, evidência e responsabilidade (editorial approval by authorship, evidence, and accountability analysis)
+
+- Tradução audiovisual por legendagem interlinguística (interlingual subtitling)
+- Tradução audiovisual por dublagem (audiovisual dubbing)
+- Tradução audiovisual por voice-over (audiovisual voice-over)
+- Tradução audiovisual por audiodescrição (audiovisual audio description)
+- Tradução audiovisual por legendagem para surdos e ensurdecidos (subtitling for the deaf and hard of hearing)
+- Adaptação de roteiro para dublagem por sincronismo labial (dubbing script adaptation for lip sync)
+- Adaptação de tradução para sincronismo isocrônico (translation adaptation for isochrony)
+- Análise de restrições de espaço e tempo em legendagem (space and time constraints in subtitling analysis)
+- Análise de segmentação de legenda por unidade sintática e velocidade (subtitle segmentation by syntactic unit and reading speed)
+- Análise de densidade de caracteres por segundo em legenda (subtitle characters per second analysis)
+- Análise de leitura de legenda por linhas e duração (subtitle line and duration analysis)
+- Análise de divisão de fala em legenda por fraseamento prosódico (subtitle speech segmentation by prosodic phrasing analysis)
+- Tradução de legenda por redução e condensação (subtitle translation through reduction and condensation)
+- Tradução de legenda por explicitação de som relevante (subtitle translation through relevant sound description)
+- Análise de tradução de diálogo por sincronismo temporal (dialogue translation by temporal synchronization analysis)
+- Análise de tradução de canção por rima e cantabilidade (song translation by rhyme and singability analysis)
+- Análise de tradução de roteiro por ritmo de fala e duração (script translation by speech rhythm and duration analysis)
+- Adaptação de jogo por localização cultural e funcional (game localization by cultural and functional adaptation)
+- Análise de localização de jogo por variáveis, tags e limite de string (game localization by variables, tags, and string limits analysis)
+- Análise de tradução de ficção interativa por ramo e estado (interactive fiction translation by branch and state analysis)
+- Análise de tradução de texto variável gerado por sistema (translation of system-generated variable text analysis)
+- Análise de tradução de mensagens com pluralização variável (translation of messages with variable pluralization analysis)
+- Localização de software por contexto de uso e restrição de interface (software localization by use context and interface constraint)
+- Teste linguístico de localização em ambiente de execução (linguistic localization testing in runtime environment)
+- Análise de teste pseudolinguístico de expansão e caracteres especiais (pseudolinguistic testing for expansion and special characters analysis)
+- Análise de localização de formato de data por ambiguidade regional (date format localization by regional ambiguity analysis)
+- Análise de localização de endereço por convenção postal (address localization by postal convention analysis)
+- Análise de localizabilidade de conteúdo antes da tradução (localizability analysis before translation)
+- Escrita de conteúdo-fonte para tradução e localização (source content writing for translation and localization)
+- Análise de linguagem-fonte por ambiguidade e dependência cultural (source language by ambiguity and cultural dependency analysis)
+- Análise de internacionalização textual por plural, gênero e variável (text internationalization by plural, gender, and variable analysis)
+- Análise de localização de texto legal com adaptação de referência jurídica (legal text localization with jurisdictional reference adaptation analysis)
+- Análise de localização de alegação promocional conforme mercado (promotional claim localization by market analysis)
+- Análise de equivalência funcional em instrução localizada (functional equivalence in localized instruction analysis)
+- Análise de edição de tradução por adequação, fluência e propósito (translation editing by adequacy, fluency, and purpose analysis)
+- Análise de revisão bilíngue por precisão e integridade de conteúdo (bilingual review by accuracy and content integrity analysis)
+- Análise de revisão monolíngue por naturalidade e convenção local (monolingual review by naturalness and local convention analysis)
+- Pós-edição de tradução automática por esforço e qualidade requerida (machine translation post-editing by effort and required quality)
+- Análise de pós-edição de tradução neural por omissão e alucinação (neural machine translation post-editing for omission and hallucination analysis)
+- Análise de erro de tradução automática por tipo linguístico (machine translation error by linguistic type analysis)
+- Análise de erro de tradução automática por impacto no usuário (machine translation error by user impact analysis)
+- Análise de qualidade de tradução automática por adequação ao risco (machine translation quality by risk suitability analysis)
+- Análise de segmentação de documento para tradução por unidade de sentido (document segmentation for translation by meaning unit analysis)
+- Análise de alinhamento de segmentos em memória de tradução (segment alignment in translation memory analysis)
+- Análise de concordância de memória de tradução por contexto local (translation memory match by local context analysis)
+- Análise de contaminação de memória de tradução por conteúdo obsoleto (translation memory contamination by obsolete content analysis)
+- Análise de governança de glossário multilíngue (multilingual glossary governance analysis)
+- Análise de equivalência terminológica por conceito e domínio (terminological equivalence by concept and domain analysis)
+- Análise de termo proibido, termo preferido e justificativa (disallowed term, preferred term, and rationale analysis)
+- Análise de consistência de nomenclatura em cadeia de localização (naming consistency across localization workflow analysis)
