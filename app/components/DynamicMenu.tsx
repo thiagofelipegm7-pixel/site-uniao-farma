@@ -34,6 +34,7 @@ export default function DynamicMenu({ itens, titulo = "Departamentos", barra = f
   const cabecaRef = useRef<HTMLButtonElement>(null);
   const linha1 = useRef<HTMLElement>(null);
   const linha2 = useRef<HTMLElement>(null);
+  const linha3 = useRef<HTMLElement>(null);
   const listaRef = useRef<HTMLUListElement>(null);
   const [aberto, setAberto] = useState(false);
   const abertoRef = useRef(false);
@@ -43,6 +44,7 @@ export default function DynamicMenu({ itens, titulo = "Departamentos", barra = f
     const cabeca = cabecaRef.current;
     const l1 = linha1.current;
     const l2 = linha2.current;
+    const l3 = linha3.current;
     const lista = listaRef.current;
     if (!menu || !cabeca || !l1 || !l2 || !lista) return;
 
@@ -107,6 +109,7 @@ export default function DynamicMenu({ itens, titulo = "Departamentos", barra = f
       const x = limitar(X.x, -0.1, 1.1);
       l1.style.transform = `translateY(${(-4 * (1 - x)).toFixed(2)}px) rotate(${(45 * x).toFixed(2)}deg)`;
       l2.style.transform = `translateY(${(4 * (1 - x)).toFixed(2)}px) rotate(${(-45 * x).toFixed(2)}deg)`;
+      if (l3) l3.style.opacity = (1 - x).toFixed(3);
       lis.forEach((l) => {
         l.el.style.opacity = limitar(l.s.x, 0, 1).toFixed(3);
         l.el.style.transform = `translateY(${((1 - l.s.x) * 18).toFixed(2)}px)`;
@@ -136,6 +139,7 @@ export default function DynamicMenu({ itens, titulo = "Departamentos", barra = f
           <span className="dm-titulo">{titulo}</span>
           <span className="dm-icone" aria-hidden="true">
             <i ref={linha1} />
+            <i ref={linha3} />
             <i ref={linha2} />
           </span>
         </button>
