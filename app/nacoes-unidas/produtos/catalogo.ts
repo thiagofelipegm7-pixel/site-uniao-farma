@@ -1,6 +1,6 @@
 import catalogoEstatico from "./dados/catalogo-nacoes.json" with { type: "json" };
 import { marcaDoItem } from "./marca";
-import { precoPorOfertaVigente } from "../../shop/ofertas-config";
+import { chaveDeOfertaVigente, precoPorOfertaVigente } from "../../shop/ofertas-config";
 
 /**
  * Catálogo público da loja Nações Unidas. Fonte: JSON do repositório (export do DMaster, gerado por ops/catalogo-nacoes/gerar.py,
@@ -99,7 +99,14 @@ let catalogoCompletoPronto: Catalogo | null = null;
 let catalogoNacoesPronto: Catalogo | null = null;
 
 /** Aplica o "por" do encarte vigente sem alterar o JSON em cache. Fora da validade, o preço publicado permanece. */
+type CatalogoComOfertaMemo = { chave: string; fonte: Catalogo; catalogo: Catalogo };
+const catalogoOfertaMemo = new WeakMap<Catalogo, CatalogoComOfertaMemo>();
+
 function catalogoComOfertas(base: Catalogo, now = new Date()): Catalogo {
+  const chave = chaveDeOfertaVigente(now);
+  const memo = catalogoOfertaMemo.get(base);
+  if (memo && memo.chave === chave && memo.fonte === base) return memo.catalogo;
+
   let mudou = false;
   const itens = base.itens.map((item) => {
     const porCentavos = precoPorOfertaVigente(item.nome, now);
@@ -109,7 +116,9 @@ function catalogoComOfertas(base: Catalogo, now = new Date()): Catalogo {
     mudou = true;
     return { ...item, preco };
   });
-  return mudou ? { ...base, itens } : base;
+  const catalogo = mudou ? { ...base, itens } : base;
+  catalogoOfertaMemo.set(base, { chave, fonte: base, catalogo });
+  return catalogo;
 }
 
 /** O JSON é estático (muda só com um novo deploy): monta uma vez por processo. Quem usa não deve alterar a lista. */

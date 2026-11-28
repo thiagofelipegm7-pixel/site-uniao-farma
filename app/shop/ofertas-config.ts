@@ -41,6 +41,13 @@ export function periodoOfertaAberto(
   return true;
 }
 
+/** Chave estável do encarte vigente: o catálogo memoiza o overlay com ela e recompõe sozinho quando a validade fecha. */
+export function chaveDeOfertaVigente(now = new Date()): string {
+  return periodoOfertaAberto(ENCARTES_VALIDO_DE, ENCARTES_VALIDO_ATE, now)
+    ? `oferta:${ENCARTES_VALIDO_DE}:${ENCARTES_VALIDO_ATE}`
+    : "sem-oferta";
+}
+
 const BF = { validoDe: ENCARTES_VALIDO_DE, validoAte: ENCARTES_VALIDO_ATE } as const;
 
 function oferta(nomeCatalogo: string, precoAnteriorCentavos: number, precoPorCentavos: number): OfertaHome {
