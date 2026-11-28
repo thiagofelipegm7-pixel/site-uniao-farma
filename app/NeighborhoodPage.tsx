@@ -3,7 +3,7 @@ import InteractiveUnitMap from "./InteractiveUnitMap";
 import OffersGroupCta from "./OffersGroupCta";
 import UnitStatusBadge from "./UnitStatusBadge";
 import WebImage from "./WebImage";
-import { buildWhatsAppUrl, getHoursSentence, getShortHoursPhrase, LOJAS_PUBLICAS, SITE_URL, PUBLIC_UNITS, type Unit } from "./site-config";
+import { buildWhatsAppUrl, getHoursSentence, getShortHoursPhrase, LOJAS_PUBLICAS, SITE_URL, UNITS, type Unit } from "./site-config";
 import { getStoreContent } from "./store-content";
 import { getPageStructuredData } from "./structured-data";
 import { UNIT_PHOTOS } from "./unit-photos";
@@ -37,7 +37,8 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
   const delivery = WHATSAPP_MESSAGES.delivery.replaceAll("{unidade}", unit.shortName);
   const pageUrl = `${SITE_URL}${PAGE_HREF[unit.id]}`;
   const content = getStoreContent(unit);
-  const otherUnits = PUBLIC_UNITS.filter((other) => other.id !== unit.id);
+  // Todas as lojas se ligam entre si (inclusive Fátima e Itacolomi), para o buscador e os robôs de IA acharem as três páginas.
+  const otherUnits = UNITS.filter((other) => other.id !== unit.id);
   const structuredData = getPageStructuredData({
     name: `Farmácia ${unit.shortName} em Sabará`,
     url: pageUrl,
@@ -95,7 +96,14 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
           </ul>
           <p>{getHoursSentence(unit)}</p>
         </article>
-        {institucional ? null : (
+        {institucional ? (
+          <article>
+            <h2>Entrega</h2>
+            <p>A loja de {label} entrega {unit.deliveryScope}. Taxa e prazo são confirmados no WhatsApp da loja, dentro do horário de funcionamento.</p>
+            {unit.deliveryAreas.includes("Jardim Vitória") ? <p><a href="/jardim-vitoria">Entrega no Jardim Vitória</a></p> : null}
+            <p><a href="/entrega-de-medicamentos-em-sabara">Tabela de entrega por bairro, loja a loja</a></p>
+          </article>
+        ) : (
           <article>
             <h2>Entrega</h2>
             <p>A loja de {label} entrega {unit.deliveryScope}.</p>
@@ -149,17 +157,16 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
         )}
       </section>
 
-      {institucional ? null : (
-        <section className="section-inner store-faq">
-          <h2>Perguntas frequentes da loja de {label}</h2>
-          {content.faqs.map((faq) => (
-            <div key={faq.q}>
-              <h3>{faq.q}</h3>
-              <p>{faq.a}</p>
-            </div>
-          ))}
-        </section>
-      )}
+      {/* O FAQ vai no schema (FAQPage) em todas as lojas, então também aparece na tela em todas. */}
+      <section className="section-inner store-faq">
+        <h2>Perguntas frequentes da loja de {label}</h2>
+        {content.faqs.map((faq) => (
+          <div key={faq.q}>
+            <h3>{faq.q}</h3>
+            <p>{faq.a}</p>
+          </div>
+        ))}
+      </section>
 
       <section className="section-inner store-others">
         <h2>Outras lojas</h2>
@@ -170,7 +177,7 @@ export default function NeighborhoodPage({ unit }: { unit: Unit }) {
             </li>
           ))}
           <li><a href="/entrega-de-medicamentos-em-sabara">Entrega de medicamentos em Sabará</a></li>
-          <li><a href="/farmacia-em-sabara">Farmácia em Sabará: a loja Nações Unidas</a></li>
+          <li><a href="/farmacia-em-sabara">Farmácia em Sabará: as lojas União Farma</a></li>
           <li><a href="/farmacia-aberta-domingo-sabara">Ver horários: farmácia aberta agora e domingo</a></li>
         </ul>
       </section>

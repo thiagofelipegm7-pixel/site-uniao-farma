@@ -97,6 +97,22 @@ export function getClickTrackingParams(target: Element | null): { event: string;
 
 const recentEvents = new Map<string, number>();
 
+/**
+ * O GA4 lê os parâmetros de evento `source`, `medium`, `campaign`, `term` e `content` como origem de tráfego.
+ * Os nossos `data-track-source="home_pele"` etc. viravam "origem" de sessões (ex.: produtos_nacoes) e escondiam
+ * o tráfego real em "Unassigned". Aqui esses nomes saem do evento e entram com prefixo `link_`, que o GA4 trata como parâmetro comum.
+ */
+const PARAMETROS_RESERVADOS_GA4 = ["source", "medium", "campaign", "campaign_id", "term", "content"] as const;
+
+export function semParametrosReservadosGa4(params: TrackingParams): TrackingParams {
+  const limpos: TrackingParams = {};
+  for (const [chave, valor] of Object.entries(params)) {
+    if ((PARAMETROS_RESERVADOS_GA4 as readonly string[]).includes(chave)) limpos[`link_${chave}`] = valor;
+    else limpos[chave] = valor;
+  }
+  return limpos;
+}
+
 export function trackEvent(event: string, params: TrackingParams = {}): void {
   if (typeof window === "undefined") return;
 
@@ -115,7 +131,7 @@ export function trackEvent(event: string, params: TrackingParams = {}): void {
 
   trackingWindow.dataLayer = trackingWindow.dataLayer || [];
   const eventParams: TrackingParams = {
-    ...params,
+    ...semParametrosReservadosGa4(params),
     ...(store ? { store } : {}),
     ...(STORE_EVENTS.has(event)
       ? { link_location: params.link_location ?? params.placement ?? params.source ?? "pagina" }
