@@ -95,27 +95,25 @@ export default async function ProdutoNacoesPage({ params }: Props) {
   const conteudo = conteudoDoNome(item.nome);
   // O arquivo da foto oficial é nomeado pelo código de barras (EAN) do produto.
   const ean = (typeof item.ean === "string" && /^\d{8,14}$/.test(item.ean) ? item.ean : null) ?? fotoReal?.match(/(\d{8,14})\.webp$/)?.[1] ?? null;
-  let apresentacoes: ApresentacaoPublica[] = [];
   const db = banco();
-  if (ean && db) {
-    try {
-      apresentacoes = (await listarApresentacoes(db as Parameters<typeof listarApresentacoes>[0], ean)).map((a) => ({ ...a, ean, foto: a.fotoOrdem ? `/api/apresentacoes-produto?ean=${ean}&ordem=${a.fotoOrdem}&imagem=1` : null }));
-    } catch {
-      apresentacoes = [];
-    }
-  }
-  // Variações (tamanho, cor...) cadastradas no painel: cada ficha leva à página do produto daquele tamanho.
   const codigoAtual = codigoDoItem(item);
-  let variacoes: VariacoesResolvidas | null = null;
-  if (codigoAtual && db) {
-    try {
-      const grupo = await grupoDoProduto(db as Parameters<typeof grupoDoProduto>[0], codigoAtual);
-      const resolvido = grupo ? resolverGrupo(grupo) : null;
-      variacoes = resolvido && resolvido.fichas.length >= 2 && resolvido.fichas.some((f) => f.ean === codigoAtual) ? resolvido : null;
-    } catch {
-      variacoes = null;
-    }
-  }
+  // As duas leituras do banco (opções do mesmo código e variações de tamanho/cor) rodam juntas: a página espera uma vez só.
+  const [apresentacoes, variacoes] = await Promise.all([
+    ean && db
+      ? listarApresentacoes(db as Parameters<typeof listarApresentacoes>[0], ean)
+          .then((lista): ApresentacaoPublica[] => lista.map((a) => ({ ...a, ean, foto: a.fotoOrdem ? `/api/apresentacoes-produto?ean=${ean}&ordem=${a.fotoOrdem}&imagem=1` : null })))
+          .catch((): ApresentacaoPublica[] => [])
+      : Promise.resolve<ApresentacaoPublica[]>([]),
+    // Variações (tamanho, cor...) cadastradas no painel: cada ficha leva à página do produto daquele tamanho.
+    codigoAtual && db
+      ? grupoDoProduto(db as Parameters<typeof grupoDoProduto>[0], codigoAtual)
+          .then((grupo): VariacoesResolvidas | null => {
+            const resolvido = grupo ? resolverGrupo(grupo) : null;
+            return resolvido && resolvido.fichas.length >= 2 && resolvido.fichas.some((f) => f.ean === codigoAtual) ? resolvido : null;
+          })
+          .catch((): VariacoesResolvidas | null => null)
+      : Promise.resolve<VariacoesResolvidas | null>(null),
+  ]);
   const descricaoIA = ehNbcal(item.nome) ? null : descricaoPublica(slugItem, item.isMIP);
   const textos = textosPublicaveis({ descricao: descricaoIA?.texto });
   const itensNacoes = carregarCatalogoNacoes().itens;

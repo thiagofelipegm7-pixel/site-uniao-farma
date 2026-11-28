@@ -40,6 +40,8 @@ test("variações: salva o grupo, cada produto enxerga o grupo todo na ordem esc
     assert.deepEqual(g.itens.map((i) => i.rotulo), ["G", "XXXG", "XG", "M"]);
   }
   assert.equal(await grupoDoProduto(db, E(9)), null, "produto fora do grupo não tem variações");
+  // Sem nenhum grupo salvo (tabela ainda não existe), a leitura devolve null e não quebra a página.
+  assert.equal(await grupoDoProduto(bancoDeTeste(), E(1)), null);
   assert.equal(await grupoDoProduto(db, "abc"), null);
 });
 
@@ -118,7 +120,8 @@ test("variações no site: seletor no HTML do servidor, acessível, preto e bran
   assert.match(seletor, /href=\{`\/nacoes-unidas\/produtos\/\$\{f\.slug\}`\}/);
   assert.doesNotMatch(seletor, /useState|onClick|reserva/); // sem JavaScript no cliente e sem mexer na cesta
   assert.match(pagina, /<SeletorVariacoes eixo=\{variacoes\.eixo\} fichas=\{variacoes\.fichas\} atual=\{codigoAtual\} \/>/);
-  assert.match(pagina, /grupoDoProduto\([\s\S]*?\} catch \{\s*variacoes = null;/); // falha do banco não derruba a página
+  assert.match(pagina, /grupoDoProduto\([\s\S]*?\.catch\(\(\): VariacoesResolvidas \| null => null\)/); // falha do banco não derruba a página
+  assert.match(pagina, /const \[apresentacoes, variacoes\] = await Promise\.all\(\[/); // as duas leituras do banco rodam juntas (sem atraso extra)
   // A página de produto força texto preto em "li a", "span" e "small": o texto da ficha tem classe própria e o estilo sobe a
   // especificidade com body:has(), senão a ficha escolhida (fundo preto) ficava com texto preto, ilegível (A-01).
   assert.match(seletor, /className="seletor-variacoes-rotulo"/);

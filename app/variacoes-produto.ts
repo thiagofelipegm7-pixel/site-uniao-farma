@@ -32,12 +32,17 @@ const limpar = (valor: unknown): string => (typeof valor === "string" ? valor.re
 /** Grupo em que o produto está (com todos os membros, na ordem escolhida), ou null se ele não tem variações. */
 export async function grupoDoProduto(db: BancoVariacoes, ean: string): Promise<GrupoVariacao | null> {
   if (!/^\d{8,14}$/.test(ean)) return null;
-  await criarTabela(db);
-  const { results } = await db
-    .prepare("SELECT ean, grupo, eixo, rotulo FROM variacao_produto WHERE grupo = (SELECT grupo FROM variacao_produto WHERE ean = ?) ORDER BY ordem, ean")
-    .bind(ean)
-    .all<Linha>();
-  const linhas = results ?? [];
+  // Leitura sem criar a tabela (a página de produto lê isto a cada visita): uma ida ao banco só. A tabela nasce no primeiro "salvar".
+  let linhas: Linha[] = [];
+  try {
+    const { results } = await db
+      .prepare("SELECT ean, grupo, eixo, rotulo FROM variacao_produto WHERE grupo = (SELECT grupo FROM variacao_produto WHERE ean = ?) ORDER BY ordem, ean")
+      .bind(ean)
+      .all<Linha>();
+    linhas = results ?? [];
+  } catch {
+    return null; // tabela ainda não existe: ninguém configurou variações
+  }
   if (linhas.length < MIN_MEMBROS) return null;
   return { grupo: linhas[0].grupo, eixo: linhas[0].eixo, itens: linhas.map((l) => ({ ean: l.ean, rotulo: l.rotulo })) };
 }
