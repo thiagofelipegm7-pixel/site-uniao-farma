@@ -964,8 +964,9 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
                   <h3 className="pf-card-nome" title={nomeAtual(l).texto}>{nomeAtual(l).texto}</h3>
                   <p className={marcaAtual(l).texto ? "pf-card-lab" : "pf-card-lab pf-card-lab-vazio"}>{marcaAtual(l).texto || "Sem marca informada"}</p>
                   <dl className="pf-card-dados">
-                    <div><dd>{categoriaEfetiva(l)}</dd></div>
-                    <div><dd className="pf-preco">{REAIS.format(l.preco)}</dd></div>
+                    <div><dt>Categoria</dt><dd>{categoriaEfetiva(l)}</dd></div>
+                    <div><dt>Código</dt><dd className="pf-mono" title={l.ean}>{l.semCodigo ? "sem código" : l.ean}</dd></div>
+                    <div><dt>Preço</dt><dd className="pf-preco">{REAIS.format(l.preco)}</dd></div>
                   </dl>
                 </article>
               );
@@ -1003,7 +1004,10 @@ export default function PainelFotos({ modo = "completo", titulo = "Produtos", de
           <div className="pf-modal-fundo" onClick={(e) => { if (e.target === e.currentTarget) setProdutoConfig(null); }}>
             <div className="pf-modal" ref={(el) => { if (el && origemConfig) { const cx = el.offsetLeft + el.offsetWidth / 2; const cy = el.offsetTop + el.offsetHeight / 2; el.style.setProperty("--ox", `${origemConfig.bx - cx}px`); el.style.setProperty("--oy", `${origemConfig.by - cy}px`); el.style.transformOrigin = `${((origemConfig.bx - el.offsetLeft) / el.offsetWidth) * 100}% ${((origemConfig.by - el.offsetTop) / el.offsetHeight) * 100}%`; } }} role="dialog" aria-modal="true" aria-label={`Configurar ${nomeAtual(l).texto}`}>
               <div className="pf-modal-topo">
-                <h2 className="pf-modal-titulo" title={nomeAtual(l).texto}>{nomeAtual(l).texto}</h2>
+                <div>
+                  <h2 className="pf-modal-titulo" title={nomeAtual(l).texto}>{nomeAtual(l).texto}</h2>
+                  <p className="pf-mono">{l.semCodigo ? "sem código de barras" : l.ean} · {REAIS.format(l.preco)} · {l.estoque} {l.estoque === 1 ? "unidade" : "unidades"}</p>
+                </div>
                 <button type="button" className="pf-modal-fechar" onClick={() => setProdutoConfig(null)} aria-label="Fechar">×</button>
               </div>
               <div className="pf-modal-corpo">
