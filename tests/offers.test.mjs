@@ -101,7 +101,7 @@ test("publishes confirmed promotions while keeping incomplete and blocked items 
   assert.equal(getPublicOffers(new Date("2026-08-16T12:00:00-03:00")).length, 0);
   assert.equal(getPublicOffers(new Date("2026-11-27T12:00:00-03:00")).length, 34);
   assert.equal(getPublicOffers(new Date("2026-11-26T23:59:00-03:00")).length, 0);
-  assert.equal(getPublicOffers(new Date("2026-11-28T00:00:00-03:00")).length, 0);
+  assert.equal(getPublicOffers(new Date("2026-11-28T00:00:00-03:00")).length, 34);
   assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "approved").length, 34);
   assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "draft").length, 0);
   assert.equal(OFFERS.filter((offer) => offer.publicationStatus === "review").length, 6);
@@ -124,9 +124,9 @@ test("publishes confirmed promotions while keeping incomplete and blocked items 
   assert.ok(commercialOffers.every((offer) => offer.priceConfirmed));
   assert.ok(commercialOffers.every((offer) => offer.image));
   assert.ok(commercialOffers.every((offer) => offer.validityConfirmed));
-  assert.ok(commercialOffers.every((offer) => offer.validityType === "date"));
+  assert.ok(commercialOffers.every((offer) => offer.validityType === "while_stock_lasts"));
   assert.ok(commercialOffers.every((offer) => offer.validFrom === "2026-11-27"));
-  assert.ok(commercialOffers.every((offer) => offer.validUntil === "2026-11-27"));
+  assert.ok(commercialOffers.every((offer) => !offer.validUntil));
   const noDia = new Date("2026-11-27T12:00:00-03:00");
   const anunciaveis = commercialOffers.filter((offer) => offer.regulatoryClass === "non_regulated");
   assert.ok(anunciaveis.length >= 1);
