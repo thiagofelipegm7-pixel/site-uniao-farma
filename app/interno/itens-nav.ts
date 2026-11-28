@@ -3,5 +3,6 @@ export const ITENS_NAV_INTERNO = [
   { href: "/interno/fotos", rotulo: "Produtos" },
   { href: "/interno/publicidade", rotulo: "Publicidade" },
   { href: "/interno/vendas", rotulo: "Vendas" },
+  { href: "/interno/crm", rotulo: "CRM WhatsApp" },
   { href: "/interno/entregas", rotulo: "Entregas" },
 ] as const;

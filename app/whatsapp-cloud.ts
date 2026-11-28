@@ -1,6 +1,6 @@
 import { SITE_URL, UNITS, type Unit } from "./site-config";
 
-const GRAPH_VERSION = "v21.0";
+const GRAPH_VERSION = "v25.0";
 
 export type InboundWhatsAppMessage = {
   id: string;
@@ -14,7 +14,16 @@ type WhatsAppChangeValue = {
     display_phone_number?: string;
     phone_number_id?: string;
   };
-  messages?: Array<{ id?: string; type?: string; from?: string }>;
+  contacts?: Array<{ wa_id?: string; profile?: { name?: string } }>;
+  messages?: Array<{
+    id?: string;
+    type?: string;
+    from?: string;
+    timestamp?: string;
+    text?: { body?: string };
+    button?: { text?: string };
+    interactive?: { button_reply?: { title?: string }; list_reply?: { title?: string } };
+  }>;
   statuses?: Array<{ id?: string; status?: string }>;
 };
 
@@ -47,35 +56,86 @@ export function resolveUnitFromWhatsApp(meta: {
   return "unknown";
 }
 
-export function extractInboundMessages(payload: unknown): InboundWhatsAppMessage[] {
-  if (!payload || typeof payload !== "object") return [];
+function* inboundValues(payload: unknown) {
+  if (!payload || typeof payload !== "object") return;
   const root = payload as {
     object?: string;
     entry?: Array<{ changes?: Array<{ field?: string; value?: WhatsAppChangeValue }> }>;
   };
-  if (root.object && root.object !== "whatsapp_business_account") return [];
-
-  const found: InboundWhatsAppMessage[] = [];
-  for (const entry of root.entry || []) {
-    for (const change of entry.changes || []) {
+  if (root.object && root.object !== "whatsapp_business_account") return;
+  for (const entry of Array.isArray(root.entry) ? root.entry : []) {
+    for (const change of Array.isArray(entry?.changes) ? entry.changes : []) {
+      if (!change) continue;
       if (change.field && change.field !== "messages") continue;
-      const value = change.value || {};
+      const value = change.value;
+      if (!Array.isArray(value?.messages)) continue;
       const unitId = resolveUnitFromWhatsApp({
         displayPhone: value.metadata?.display_phone_number,
         phoneNumberId: value.metadata?.phone_number_id,
       });
-      for (const message of value.messages || []) {
-        if (!message.id) continue;
-        found.push({
-          id: message.id,
-          type: message.type || "unknown",
-          unitId,
-          phoneNumberId: value.metadata?.phone_number_id,
-        });
+      for (const message of value.messages) {
+        if (typeof message?.id !== "string" || !message.id) continue;
+        yield { message, unitId, value };
       }
     }
   }
-  return found;
+}
+
+export function extractInboundMessages(payload: unknown): InboundWhatsAppMessage[] {
+  return Array.from(inboundValues(payload), ({ message, unitId, value }) => ({
+    id: message.id!,
+    type: message.type || "unknown",
+    unitId,
+    phoneNumberId: value.metadata?.phone_number_id,
+  }));
+}
+
+export type EntradaCrmWhatsApp = {
+  id: string;
+  unidade: Unit["id"];
+  canal: string;
+  telefone: string;
+  nome: string;
+  texto: string;
+  criadaEm: string;
+};
+
+const TIPOS_MIDIA: Record<string, string> = {
+  audio: "Áudio",
+  document: "Documento",
+  image: "Imagem",
+  location: "Localização",
+  contacts: "Contato",
+  sticker: "Figurinha",
+  video: "Vídeo",
+};
+
+export function extrairEntradasCrm(payload: unknown, agora = Date.now()): EntradaCrmWhatsApp[] {
+  const entradas: EntradaCrmWhatsApp[] = [];
+  for (const { message, unitId, value } of inboundValues(payload)) {
+    const canal = value.metadata?.phone_number_id;
+    const telefone = message.from;
+    if (unitId === "unknown" || !canal || !/^\d{5,24}$/.test(canal) ||
+        !telefone || !/^\d{8,15}$/.test(telefone) || message.type === "reaction") continue;
+    const timestamp = Number(message.timestamp) * 1000;
+    if (!Number.isFinite(timestamp) || timestamp <= 0) continue;
+    const contato = Array.isArray(value.contacts) ? value.contacts.find((item) => item?.wa_id === telefone) : undefined;
+    const nome = typeof contato?.profile?.name === "string" ? contato.profile.name.trim().slice(0, 120) : "";
+    const texto = message.text?.body || message.button?.text ||
+      message.interactive?.button_reply?.title || message.interactive?.list_reply?.title;
+    entradas.push({
+      id: message.id!,
+      unidade: unitId,
+      canal,
+      telefone,
+      nome,
+      texto: typeof texto === "string" && texto.trim()
+        ? texto.slice(0, 4096)
+        : `[${TIPOS_MIDIA[message.type ?? ""] || "Mensagem sem texto"}]`,
+      criadaEm: new Date(Math.min(timestamp, agora)).toISOString(),
+    });
+  }
+  return entradas;
 }
 
 function toHex(buffer: ArrayBuffer) {
@@ -111,6 +171,7 @@ export async function sendWhatsAppText(phoneNumberId: string, to: string, body: 
 
   const response = await fetch(`https://graph.facebook.com/${GRAPH_VERSION}/${phoneNumberId}/messages`, {
     method: "POST",
+    signal: AbortSignal.timeout(15_000),
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",

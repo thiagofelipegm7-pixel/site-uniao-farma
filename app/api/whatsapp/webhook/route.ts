@@ -4,8 +4,10 @@ import {
 } from "../../../metrics-store";
 import {
   extractInboundMessages,
+  extrairEntradasCrm,
   verifyWhatsAppSignature,
 } from "../../../whatsapp-cloud";
+import { crmWhatsAppHabilitado, registrarEntradasCrm } from "../../../whatsapp-crm-store";
 
 export async function GET(request: Request) {
   const url = new URL(request.url);
@@ -55,6 +57,19 @@ export async function POST(request: Request) {
       { ok: false, error: "invalid_json" },
       { status: 400, headers: { "Cache-Control": "no-store" } },
     );
+  }
+
+  if (crmWhatsAppHabilitado()) {
+    try {
+      await registrarEntradasCrm(extrairEntradasCrm(payload));
+    } catch {
+      // Permite que a Meta tente novamente, sem registrar conteúdo pessoal no log.
+      console.error("[whatsapp-crm] Falha ao armazenar entrada.");
+      return NextResponse.json(
+        { ok: false, error: "crm_storage_unavailable" },
+        { status: 503, headers: { "Cache-Control": "no-store" } },
+      );
+    }
   }
 
   const inbound = extractInboundMessages(payload);
