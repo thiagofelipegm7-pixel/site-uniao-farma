@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type DragEvent } from "react";
+import VariacoesPainel from "./VariacoesPainel";
 
 type Produto = { nome: string; ean: string; categoria: string; precoCentavos: number };
 type Foto = { ordem: number; mime: string; criadoEm: string };
@@ -304,6 +305,8 @@ export default function ColecoesPainel({ nivel = 1 }: { /** 1 = h1 (página pró
               </>
             ) : <p className="colecoes-nota">Sem opções cadastradas. O produto continua com o preço e a foto normais.</p>}
           </section>
+
+          <VariacoesPainel ean={escolhido.ean} nome={escolhido.nome} />
 
           {aviso ? <p className="colecoes-aviso" role="alert">{aviso}</p> : null}
           <p className="colecoes-nota">Para não dar a impressão de que o preço inclui as duas embalagens, use uma foto individual em cada apresentação e inclua “por unidade” no nome se necessário.</p>

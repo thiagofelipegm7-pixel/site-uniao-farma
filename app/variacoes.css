@@ -1,0 +1,65 @@
+/*
+ * Seletor de variações do produto (tamanho, cor...). Na camada base-direcao, importado depois de base-direcao.css.
+ * O prefixo body:has(.seletor-variacoes) sobe a especificidade: a página de produto força texto preto em "li a", "span" e "small".
+ * Preto e branco, sem borda e sem cinza: a ficha escolhida é preta com texto branco, as outras são brancas com sombra preta suave.
+ * Alvo mínimo de 48 px (A-10), foco preto de 3 px (A-08) e texto em rem (A-05).
+ */
+@layer base-direcao {
+  html body:has(.seletor-variacoes) .seletor-variacoes {
+    margin: 0 0 1rem !important;
+  }
+  html body:has(.seletor-variacoes) .seletor-variacoes .seletor-variacoes-titulo {
+    margin: 0 0 0.5rem !important;
+    font-size: 0.875rem !important;
+    line-height: 1.4 !important;
+    color: #000000 !important;
+  }
+  html body:has(.seletor-variacoes) .seletor-variacoes .seletor-variacoes-titulo strong {
+    font-weight: 500 !important;
+  }
+  html body:has(.seletor-variacoes) .seletor-variacoes .seletor-variacoes-lista {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.625rem !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+  }
+  html body:has(.seletor-variacoes) .seletor-variacoes .seletor-variacoes-ficha.seletor-variacoes-ficha {
+    display: inline-flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+    min-width: 3.5rem !important;
+    min-height: 3rem !important;
+    padding: 0 1.125rem !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16) !important;
+    font-size: 0.9375rem !important;
+    font-weight: 400 !important;
+    line-height: 1.2 !important;
+    text-decoration: none !important;
+  }
+  html body:has(.seletor-variacoes) .seletor-variacoes .seletor-variacoes-ficha.is-atual {
+    background: #000000 !important;
+    color: #ffffff !important;
+    box-shadow: none !important;
+    font-weight: 500 !important;
+  }
+  html body:has(.seletor-variacoes) .seletor-variacoes .seletor-variacoes-ficha .seletor-variacoes-rotulo {
+    color: inherit !important;
+  }
+  html body:has(.seletor-variacoes) .seletor-variacoes .seletor-variacoes-ficha .seletor-variacoes-aviso {
+    font-size: 0.6875rem !important;
+    line-height: 1.1 !important;
+    color: inherit !important;
+  }
+  html body:has(.seletor-variacoes) .seletor-variacoes .seletor-variacoes-ficha:focus-visible {
+    outline: 3px solid #000000 !important;
+    outline-offset: 3px !important;
+  }
+}

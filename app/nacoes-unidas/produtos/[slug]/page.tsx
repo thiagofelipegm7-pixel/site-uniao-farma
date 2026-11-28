@@ -33,6 +33,9 @@ import { ehMedicamentoOuDuvida, elegivelGoogle, gtinValido } from "../google-sho
 import { banco } from "../../../estoque-fonte";
 import { listarApresentacoes } from "../../../apresentacoes-produto";
 import type { ApresentacaoPublica } from "../../../apresentacao-produto-tipos";
+import { grupoDoProduto } from "../../../variacoes-produto";
+import { codigoDoItem, resolverGrupo, type VariacoesResolvidas } from "../../../variacoes-resolver";
+import SeletorVariacoes from "../SeletorVariacoes";
 import "../produtos.css";
 
 export const dynamic = "force-dynamic";
@@ -101,6 +104,18 @@ export default async function ProdutoNacoesPage({ params }: Props) {
       apresentacoes = [];
     }
   }
+  // Variações (tamanho, cor...) cadastradas no painel: cada ficha leva à página do produto daquele tamanho.
+  const codigoAtual = codigoDoItem(item);
+  let variacoes: VariacoesResolvidas | null = null;
+  if (codigoAtual && db) {
+    try {
+      const grupo = await grupoDoProduto(db as Parameters<typeof grupoDoProduto>[0], codigoAtual);
+      const resolvido = grupo ? resolverGrupo(grupo) : null;
+      variacoes = resolvido && resolvido.fichas.length >= 2 && resolvido.fichas.some((f) => f.ean === codigoAtual) ? resolvido : null;
+    } catch {
+      variacoes = null;
+    }
+  }
   const descricaoIA = ehNbcal(item.nome) ? null : descricaoPublica(slugItem, item.isMIP);
   const textos = textosPublicaveis({ descricao: descricaoIA?.texto });
   const itensNacoes = carregarCatalogoNacoes().itens;
@@ -161,6 +176,7 @@ export default async function ProdutoNacoesPage({ params }: Props) {
           </div>
 
           <aside className="pdp-compra" aria-label="Comprar">
+            {variacoes ? <SeletorVariacoes eixo={variacoes.eixo} fichas={variacoes.fichas} atual={codigoAtual} /> : null}
             {controlado ? (
               <>
                 <p className="produto-preco"><Preco precoFmt={null} vazio="Consulte o farmacêutico" variante="grande" /></p>

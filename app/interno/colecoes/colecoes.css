@@ -104,3 +104,12 @@ html body main.colecoes-painel { display: block !important; }
 
 @media (min-width: 720px) { .colecoes-fotos { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (min-width: 992px) { .colecoes-fotos { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+
+/* Variações do produto (tamanho, cor...): lista de produtos do grupo, cada um com o nome da opção. */
+.variacoes-lista { list-style: none; margin: 0.7rem 0; padding: 0; display: grid; gap: 0.6rem; }
+.variacoes-linha { display: grid; grid-template-columns: minmax(10rem, 1.6fr) minmax(7rem, 0.8fr) auto; align-items: end; gap: 0.6rem; padding: 0.7rem; border: 0; border-radius: 14px; background: #ffffff; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+.variacoes-nome { align-self: center; font-weight: 700; color: #000000; overflow-wrap: anywhere; }
+.variacoes-nome small { font-weight: 400; }
+.variacoes-botoes { display: flex; gap: 0.4rem; }
+.variacoes-painel button { min-width: 3rem; min-height: 3rem; }
+@media (max-width: 720px) { .variacoes-linha { grid-template-columns: minmax(0, 1fr); } .variacoes-botoes { justify-content: flex-start; } }

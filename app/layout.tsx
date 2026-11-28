@@ -26,6 +26,7 @@ import "./destaque-cesta.css";
 import "./base-direcao.css";
 import "./home-direcao.css";
 import "./tema-black-friday.css";
+import "./variacoes.css";
 import FaixaBlackFriday from "./FaixaBlackFriday";
 import { SCRIPT_TEMA_PREVIA, temaAtual } from "./tema-sazonal";
 import { INSTAGRAM_URL, PAYMENT_ACCEPTED, SITE_URL, PUBLIC_UNITS } from "./site-config";
