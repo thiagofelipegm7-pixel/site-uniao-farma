@@ -13,18 +13,23 @@ export type TemaSazonal = "black-friday";
 export const TEMA_PADRAO: TemaSazonal | null = "black-friday";
 
 /**
- * Fim da campanha: a faixa diz "só nesta sexta, 27/11". Depois disto o tema desliga sozinho
- * (no servidor e, para página guardada em cache, também no navegador), para a faixa nunca anunciar oferta vencida (CDC, L-1).
- * 28/11/2026 00:00 em Sabará (UTC-3).
+ * Fim do tema (ISO UTC), ou null enquanto a campanha não tiver data de encerramento.
+ * Quando houver data, o tema desliga sozinho (servidor e cache no navegador) para a faixa não anunciar oferta vencida (CDC, L-1).
  */
-export const TEMA_ATIVO_ATE = "2026-11-28T03:00:00Z";
+export const TEMA_ATIVO_ATE: string | null = null;
 
-/** Tema ligado agora para todos (null fora da validade). */
+/** Tema ligado agora para todos (null se a campanha estiver desligada ou já tiver encerrado). */
 export function temaAtual(agora: number = Date.now()): TemaSazonal | null {
-  return TEMA_PADRAO && agora < Date.parse(TEMA_ATIVO_ATE) ? TEMA_PADRAO : null;
+  if (!TEMA_PADRAO) return null;
+  if (TEMA_ATIVO_ATE && agora >= Date.parse(TEMA_ATIVO_ATE)) return null;
+  return TEMA_PADRAO;
 }
 
 export const TEMAS_VALIDOS: readonly TemaSazonal[] = ["black-friday"];
 
 /** Script curto no <head>: aplica o tema da prévia antes de pintar a página. */
-export const SCRIPT_TEMA_PREVIA = `(function(){try{if(Date.now()>=${Date.parse(TEMA_ATIVO_ATE)})document.documentElement.removeAttribute("data-tema");var q=new URLSearchParams(location.search).get("tema"),k="uf_tema_previa";if(q==="normal"){sessionStorage.removeItem(k);document.documentElement.removeAttribute("data-tema");return}if(q==="black-friday")sessionStorage.setItem(k,q);var t=sessionStorage.getItem(k);if(t==="black-friday")document.documentElement.setAttribute("data-tema",t)}catch(e){}})();`;
+const corteTema = TEMA_ATIVO_ATE
+  ? `if(Date.now()>=${Date.parse(TEMA_ATIVO_ATE)})document.documentElement.removeAttribute("data-tema");`
+  : "";
+
+export const SCRIPT_TEMA_PREVIA = `(function(){try{${corteTema}var q=new URLSearchParams(location.search).get("tema"),k="uf_tema_previa";if(q==="normal"){sessionStorage.removeItem(k);document.documentElement.removeAttribute("data-tema");return}if(q==="black-friday")sessionStorage.setItem(k,q);var t=sessionStorage.getItem(k);if(t==="black-friday")document.documentElement.setAttribute("data-tema",t)}catch(e){}})();`;

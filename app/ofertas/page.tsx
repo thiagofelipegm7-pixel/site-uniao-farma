@@ -17,19 +17,19 @@ const OFFERS_FAQS = [
   },
   {
     q: "Até quando vale?",
-    a: "Quando a oferta tiver data, ela aparece no card. Se não tiver, pergunta na loja antes de sair de casa.",
+    a: "As ofertas da Black Friday valem por tempo limitado, enquanto durar o estoque em cada loja. Confirme na loja antes de sair de casa.",
   },
 ];
 
 export const metadata: Metadata = {
-  title: { absolute: "Ofertas da farmácia em Sabará | União Farma" },
+  title: { absolute: "Black Friday União Farma: ofertas em Sabará" },
   description:
-    "Promoções da União Farma em Sabará. Confirme preço e estoque no WhatsApp da loja — Fátima, Nações Unidas ou Itacolomi.",
+    "Black Friday União Farma: ofertas por tempo limitado. Confirme preço e estoque no WhatsApp da loja — Fátima, Nações Unidas ou Itacolomi.",
   alternates: { canonical: "/ofertas" },
   openGraph: {
-    title: "Ofertas da farmácia em Sabará | União Farma",
+    title: "Black Friday União Farma: ofertas em Sabará",
     description:
-      "Veja as ofertas e confirme na loja do seu bairro se ainda tem e quanto custa hoje.",
+      "Black Friday União Farma: ofertas por tempo limitado. Confirme na loja do seu bairro se ainda tem e quanto custa.",
     url: `${SITE_URL}/ofertas`,
     type: "website",
     images: [
@@ -43,8 +43,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ofertas da farmácia em Sabará | União Farma",
-    description: "Confirme preço e estoque no WhatsApp da loja.",
+    title: "Black Friday União Farma: ofertas em Sabará",
+    description: "Ofertas por tempo limitado. Confirme preço e estoque no WhatsApp da loja.",
     images: [`${SITE_URL}/ofertas-og-optimized.jpg`],
   },
 };
@@ -56,9 +56,9 @@ const structuredData = {
       "@type": "WebPage",
       "@id": `${SITE_URL}/ofertas#webpage`,
       url: `${SITE_URL}/ofertas`,
-      name: "Ofertas da farmácia em Sabará | União Farma",
+      name: "Black Friday União Farma: ofertas em Sabará",
       description:
-        "Promoções da União Farma em Sabará. Confirme preço e estoque no WhatsApp da loja.",
+        "Black Friday União Farma: ofertas por tempo limitado. Confirme preço e estoque no WhatsApp da loja.",
       isPartOf: { "@id": `${SITE_URL}/#website` },
       inLanguage: "pt-BR",
     },
