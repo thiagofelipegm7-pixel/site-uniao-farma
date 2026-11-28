@@ -1,5 +1,5 @@
 // Mesma versão do CACHE_BUST em app/PwaRegister.tsx (tests/sw-offline.test.mjs confere): mudou um, muda o outro.
-const CACHE_NAME = "uf-static-v29";
+const CACHE_NAME = "uf-static-v30";
 const PRECACHE = ["/offline.html", "/manifest.json", "/favicon.png"];
 
 // A Cloudflare responde /offline.html com 307 para /offline. O navegador recusa (net::ERR_FAILED) uma resposta
@@ -60,7 +60,9 @@ self.addEventListener("fetch", (event) => {
   const accept = request.headers.get("accept") || "";
   if (request.mode === "navigate" || accept.includes("text/html") || url.pathname === "/" || url.pathname.endsWith(".html")) {
     event.respondWith(
-      fetch(request, { cache: "no-store" }).catch(async () => (await caches.match("/offline.html")) || Response.error()),
+      // Sem no-store: o HTML já tem s-maxage=60 no Worker. no-store fazia toda navegação (e o prefetch do SW)
+      // bater no Worker e estourar o limite de CPU (Erro 1102) em alguns aparelhos.
+      fetch(request).catch(async () => (await caches.match("/offline.html")) || Response.error()),
     );
     return;
   }

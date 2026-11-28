@@ -87,7 +87,7 @@ test("renders the confirmed offers landing page and keeps blocked products out",
   assert.doesNotMatch(html, /offers-carousel-control/);
   assert.doesNotMatch(html, /Ofertas em preparação/);
   assert.match(html, /<link rel="canonical" href="https:\/\/xn--uniofarmasabar-8gbu\.com\.br\/ofertas"/);
-  assert.match(html, /Ofertas da farmácia em Sabará \| União Farma/);
+  assert.match(html, /Black Friday União Farma: ofertas em Sabará/);
   assert.match(html, /"@type":"FAQPage"/);
   assert.match(html, /"@type":"BreadcrumbList"/);
   assert.equal((html.match(/<h1\b/gi) ?? []).length, 1);
@@ -112,7 +112,8 @@ test("renders the confirmed offers landing page and keeps blocked products out",
   assert.match(html, /Strepsils caixa 16 pastilhas laranja/);
   assert.match(html, /Strepsils caixa 16 pastilhas mel e limão/);
   assert.match(html, /Lavitan Cabelos e Unhas/);
-  assert.match(html, /Válida até 27\/11\/2026/);
+  assert.doesNotMatch(html, /Válida até 27\/11\/2026/);
+  assert.doesNotMatch(html, /só nesta sexta/);
   assert.doesNotMatch(html, /offer-image-placeholder/);
   assert.match(html, /enquanto durar o estoque/);
   assert.doesNotMatch(html, /offer-helper/);

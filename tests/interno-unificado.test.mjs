@@ -31,3 +31,9 @@ test("área interna: as telas não repetem mais as suas próprias linhas de link
   const fotos = await readFile(new URL("../app/components/PainelFotos.tsx", import.meta.url), "utf8");
   assert.match(fotos, /get\("q"\)/, "a tela inicial abre a busca de produto já preenchida");
 });
+
+test("área interna: os cards de Produtos e Publicidade mostram o código de barras", async () => {
+  const fotos = await readFile(new URL("../app/components/PainelFotos.tsx", import.meta.url), "utf8");
+  assert.match(fotos, /<dt>Código<\/dt><dd className="pf-mono" title=\{l\.ean\}>\{l\.semCodigo \? "sem código" : l\.ean\}<\/dd>/);
+  assert.match(fotos, /l\.semCodigo \? "sem código de barras" : l\.ean/);
+});
