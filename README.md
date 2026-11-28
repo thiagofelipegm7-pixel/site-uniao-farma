@@ -99,6 +99,16 @@ cp .env.example .env
 - `WHATSAPP_PHONE_ID_ITACOLOMI`: ID do número de WhatsApp da loja Itacolomi.
 - `WHATSAPP_AUTO_REPLY`: Liga/desliga auto-resposta (`on` ou `off`).
 
+### CRM de WhatsApp
+
+Abra `/interno/crm` com o login da equipe. O painel reúne as conversas de Fátima, Nações Unidas e Itacolomi, com fila, status, histórico e notas internas.
+
+Para testar localmente, rode `node scripts/crm-demo.mjs` e abra [CRM de WhatsApp](http://localhost:4177/interno/crm). Entre com usuário `demo` e senha `uniao-demo-local`. A demonstração usa um D1 local separado em `.wrangler/crm-local`, com conversas fictícias e respostas simuladas.
+
+Para ativar no Worker, configure o binding D1 `DB` com a migração existente de métricas em `drizzle/0000_vengeful_eternals.sql`, as variáveis da Meta acima e `CRM_WHATSAPP_ENABLED=on`. No aplicativo Meta, aponte o webhook para `/api/whatsapp/webhook` no domínio do site e assine o campo `messages`. O CRM recebe mensagens a partir da ativação. O painel `/interno/whatsapp` mostra quais configurações estão presentes.
+
+O painel envia texto livre até 24 horas depois da última mensagem do cliente. Os anexos recebidos aparecem pelo tipo de mídia. A fila exibe até 500 conversas recentes, e cada histórico exibe os 200 itens mais recentes. Mensagens anteriores a 90 dias e conversas sem atualização nesse período são removidas do CRM. As notas ficam visíveis à equipe no painel.
+
 ### Variáveis Públicas de Rastreamento e SEO (Cliente)
 - `NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION`: Token de verificação do Google Search Console.
 - `NEXT_PUBLIC_GTM_CONTAINER_ID`: ID do contêiner do Google Tag Manager (ex: `GTM-M8BXJCHB`).

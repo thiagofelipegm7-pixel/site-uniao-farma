@@ -15,7 +15,7 @@ export default function WhatsAppSetupPage() {
         <p className="eyebrow">Uso interno</p>
         <h1>WhatsApp Business</h1>
         <p>
-          O site já abre a conversa no número de cada loja. Esta página liga a conta da Meta para contar conversa recebida.
+          Configure a conta da Meta para receber conversas das unidades no CRM e contabilizar os atendimentos.
         </p>
 
         <h2>Estado agora</h2>
@@ -41,8 +41,11 @@ export default function WhatsAppSetupPage() {
         </ol>
 
         <p>
-          Variáveis no Cloudflare Pages: WHATSAPP_VERIFY_TOKEN, WHATSAPP_APP_SECRET, WHATSAPP_ACCESS_TOKEN,
-          WHATSAPP_PHONE_ID_FATIMA, WHATSAPP_PHONE_ID_NACOES, WHATSAPP_PHONE_ID_ITACOLOMI.
+          Configure as variáveis da Meta no Worker e defina <code>CRM_WHATSAPP_ENABLED=on</code> para receber as
+          conversas no CRM.
+        </p>
+        <p>
+          <a href="/interno/crm">Abrir CRM de WhatsApp</a>
         </p>
         <p>
           <a href="/interno/metricas">Ver contatos e vendas</a>

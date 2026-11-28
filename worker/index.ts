@@ -1,11 +1,13 @@
 /** Cloudflare Worker entry point — União Farma (Vinext + Cloudflare Workers). */
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
+import { limparCrm } from "../app/whatsapp-crm-store";
 
 interface Env {
   ASSETS: Fetcher;
   DB: D1Database;
   CATALOGO_READ_TOKEN?: string;
+  CRM_WHATSAPP_ENABLED?: string;
   IMAGES: {
     input(stream: ReadableStream): {
       transform(options: Record<string, unknown>): {
@@ -50,6 +52,9 @@ const worker = {
    *  - a cada 30 min no horário da loja: confere se o PC da loja ainda envia o estoque e avisa no celular se parar.
    */
   async scheduled(evento: { cron?: string }, env: Env, ctx: ExecutionContext): Promise<void> {
+    if (evento.cron === "30 0 * * *" && env.CRM_WHATSAPP_ENABLED === "on" && env.DB) {
+      ctx.waitUntil(limparCrm(env.DB));
+    }
     if (!env.CATALOGO_READ_TOKEN) return;
     const caminho = evento.cron === "30 0 * * *" ? "/api/estoque-snapshot" : "/api/estoque-alerta";
     const pedido = new Request(`https://xn--uniofarmasabar-8gbu.com.br${caminho}`, {

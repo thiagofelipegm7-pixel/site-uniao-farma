@@ -1,18 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Megaphone, Package, ShoppingCart, Truck, type LucideIcon } from "lucide-react";
+import { Megaphone, MessageCircle, Package, ShoppingCart, Truck, type LucideIcon } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { ITENS_NAV_INTERNO } from "../interno/itens-nav";
 import MarcaUniao from "../shop/MarcaUniao";
 import "./painel-inicio.css";
 import "./nav-direcao.css";
 
-const ICONES: Record<string, LucideIcon> = {
+const ICONES: Record<(typeof ITENS_NAV_INTERNO)[number]["href"], LucideIcon> = {
   "/interno/fotos": Package,
   "/interno/publicidade": Megaphone,
   "/interno/vendas": ShoppingCart,
   "/interno/entregas": Truck,
+  "/interno/crm": MessageCircle,
 };
 
 const CHAVE_RECOLHIDA = "nav-interna-recolhida";
