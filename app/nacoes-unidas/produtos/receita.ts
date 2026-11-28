@@ -4,7 +4,7 @@ import { classificarSemVenda, ehPortaria344 } from "./sem-venda";
 export { ehPortaria344 };
 import receitaEstatica from "./dados/receita-nacoes.json" with { type: "json" };
 import { normalizarBusca } from "./busca";
-import { precoPorOfertaVigente } from "../../shop/ofertas-config";
+import { chaveDeOfertaVigente, precoPorOfertaVigente } from "../../shop/ofertas-config";
 
 /**
  * Medicamentos com receita, controlados e itens "consulte o farmacêutico": lista de preços. Ofertas por quantidade podem ser cadastradas
@@ -132,15 +132,21 @@ function paraRestrito(base: BaseJson & { retencao?: boolean; lista?: string }, t
 
 export type CatalogoRestrito = { geradoEm: string | undefined; receita: ItemRestrito[]; controlados: ItemRestrito[]; consulte: ItemRestrito[] };
 
+let restritosMemo: { chave: string; valor: CatalogoRestrito } | null = null;
+
 export function carregarRestritos(): CatalogoRestrito {
+  const chave = chaveDeOfertaVigente();
+  if (restritosMemo?.chave === chave) return restritosMemo.valor;
   const b = receitaEstatica as unknown as { geradoEm?: string; receita?: ItemReceita[]; controlados?: ItemControlado[]; consulte?: ItemConsulte[] };
   const valido = (i: { nome?: unknown }) => typeof i?.nome === "string" && i.nome.trim().length > 0;
-  return {
+  const valor = {
     geradoEm: typeof b.geradoEm === "string" ? b.geradoEm : undefined,
     receita: (b.receita ?? []).filter(valido).map((i) => paraRestrito(i, "receita")),
     controlados: (b.controlados ?? []).filter(valido).map((i) => paraRestrito(i, "controlados")),
     consulte: (b.consulte ?? []).filter(valido).map((i) => paraRestrito(i, "consulte")),
   };
+  restritosMemo = { chave, valor };
+  return valor;
 }
 
 export function filtrarRestritos(itens: readonly ItemRestrito[], consulta: string): ItemRestrito[] {

@@ -16,15 +16,15 @@ export type OfertaHome = {
   validoAte?: string;
 };
 
-/** Black Friday 2026: o encarte e o pedido da loja valem neste dia (27/11/2026). */
+/** Black Friday 2026: começou em 27/11. Sem data de fim por enquanto (pedido da loja). */
 export const ENCARTES_VALIDO_DE = "2026-11-27";
-export const ENCARTES_VALIDO_ATE = "2026-11-27";
+export const ENCARTES_VALIDO_ATE: string | undefined = undefined;
 
 function chaveDeNome(nome: string): string {
   return nome.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/\s+/g, " ").trim().toUpperCase();
 }
 
-/** Validade no horário de Brasília, do início de validoDe até 23:59:59 de validoAte. */
+/** Validade no horário de Brasília, do início de validoDe até 23:59:59 de validoAte. Sem validoAte, a oferta fica aberta. */
 export function periodoOfertaAberto(
   validoDe: string | undefined,
   validoAte: string | undefined,
@@ -41,7 +41,14 @@ export function periodoOfertaAberto(
   return true;
 }
 
-const BF = { validoDe: ENCARTES_VALIDO_DE, validoAte: ENCARTES_VALIDO_ATE } as const;
+/** Chave estável do encarte vigente: o catálogo memoiza o overlay com ela e recompõe sozinho quando a validade fecha. */
+export function chaveDeOfertaVigente(now = new Date()): string {
+  return periodoOfertaAberto(ENCARTES_VALIDO_DE, ENCARTES_VALIDO_ATE, now)
+    ? `oferta:${ENCARTES_VALIDO_DE}:${ENCARTES_VALIDO_ATE ?? "aberto"}`
+    : "sem-oferta";
+}
+
+const BF = { validoDe: ENCARTES_VALIDO_DE } as const;
 
 function oferta(nomeCatalogo: string, precoAnteriorCentavos: number, precoPorCentavos: number): OfertaHome {
   return { nomeCatalogo, precoAnteriorCentavos, precoPorCentavos, ...BF };

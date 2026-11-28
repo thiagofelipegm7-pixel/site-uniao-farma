@@ -5,11 +5,10 @@ import { TEMA_ATIVO_ATE, temaAtual } from "../app/tema-sazonal.ts";
 
 const ler = (a) => readFile(new URL(`../${a}`, import.meta.url), "utf8");
 
-test("tema Black Friday desliga sozinho no fim da validade (faixa nunca anuncia oferta vencida)", () => {
-  const fim = Date.parse(TEMA_ATIVO_ATE);
-  assert.equal(temaAtual(fim - 1), "black-friday");
-  assert.equal(temaAtual(fim), null);
-  assert.equal(temaAtual(fim + 86_400_000), null);
+test("tema Black Friday permanece ligado enquanto a campanha não tiver data de fim", () => {
+  assert.equal(TEMA_ATIVO_ATE, null);
+  assert.equal(temaAtual(Date.parse("2026-11-27T12:00:00-03:00")), "black-friday");
+  assert.equal(temaAtual(Date.parse("2026-11-28T12:00:00-03:00")), "black-friday");
 });
 
 test("tema só troca cores com html[data-tema] e a faixa fica escondida fora do tema", async () => {
@@ -19,5 +18,7 @@ test("tema só troca cores com html[data-tema] e a faixa fica escondida fora do 
   assert.doesNotMatch(css, /#ffe600|#b71c1c/i); // sem o amarelo e o vermelho recusados
   assert.match(layout, /data-tema=\{temaAtual\(\) \?\? undefined\}/);
   assert.match(faixa, /<aside[^>]*aria-label=/); // dentro de landmark (A-12)
-  assert.match(faixa, /Ver as ofertas de hoje/); // CTA diz o que a pessoa recebe (C-10)
+  assert.match(faixa, /Ver as ofertas</); // CTA diz o que a pessoa recebe (C-10)
+  assert.match(faixa, /Ofertas por tempo limitado/);
+  assert.doesNotMatch(faixa, /27\/11|só nesta sexta/);
 });
